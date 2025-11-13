@@ -36,7 +36,7 @@ $open-anim-height-to: calc(
   --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
     var(--sbb-spacing-responsive-xs);
   --_sbb-notification-icon-authoritative-font-size: 1em;
-  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-body-text);
+  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-text);
 
   // As the notification has always a light background, we have to fix the focus outline color
   // to default color for cases where the notification is used in a negative context.

@@ -1,10 +1,13 @@
 import { assert, expect } from '@open-wc/testing';
-import { SbbBreakpointLargeMin, SbbBreakpointSmallMin } from '@sbb-esta/lyne-design-tokens';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbAccentButtonElement } from '../button.js';
-import { fixture } from '../core/testing/private.js';
+import {
+  fixture,
+  sbbBreakpointLargeMinPx,
+  sbbBreakpointSmallMinPx,
+} from '../core/testing/private.js';
 import { EventSpy, waitForCondition } from '../core/testing.js';
 
 import { SbbMapContainerElement } from './map-container.component.js';
@@ -34,7 +37,7 @@ describe(`sbb-map-container`, () => {
       </sbb-map-container>`,
     );
 
-    await setViewport({ width: SbbBreakpointSmallMin, height: 600 });
+    await setViewport({ width: sbbBreakpointSmallMinPx, height: 600 });
 
     assert.instanceOf(element, SbbMapContainerElement);
 
@@ -75,7 +78,7 @@ describe(`sbb-map-container`, () => {
       </sbb-map-container>`,
     );
 
-    await setViewport({ width: SbbBreakpointLargeMin, height: 300 });
+    await setViewport({ width: sbbBreakpointLargeMinPx, height: 300 });
 
     const scrollSpy = new EventSpy('scroll', document);
     const scrollContext = element.shadowRoot!.querySelector('.sbb-map-container__sidebar')!;

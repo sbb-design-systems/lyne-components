@@ -3,7 +3,7 @@ import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag/tag/tag.componen
 import { LitElement, html, type TemplateResult, type CSSResultGroup } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { type ScreenshotTestCase } from '../../../screenshots.js';
+import { type ScreenshotTestCase } from '../../../screenshots.ts';
 
 import style from './test-case-filter.scss?lit&inline';
 

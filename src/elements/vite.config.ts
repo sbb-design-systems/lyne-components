@@ -14,8 +14,8 @@ import {
   verifyEntryPoints,
   generateRootEntryPoint,
   resolveEntryPoints,
-} from '../../tools/vite/index.js';
-import rootConfig from '../../vite.config.js';
+} from '../../tools/vite/index.ts';
+import rootConfig from '../../vite.config.ts';
 
 const packageRoot = new URL('.', import.meta.url);
 const buildStyleExports = (fileNames: string[]): Record<string, { style: string }> =>

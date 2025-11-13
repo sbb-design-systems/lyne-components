@@ -4,19 +4,14 @@
 import fs from 'fs';
 
 import { customElementsManifestToMarkdown } from '@custom-elements-manifest/to-markdown';
-import type {
-  Attribute,
-  ClassDeclaration,
-  CustomElement,
-  Package,
-} from 'custom-elements-manifest/schema';
+import type { Attribute, ClassDeclaration, CustomElement, Package } from 'custom-elements-manifest';
 import * as glob from 'glob';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';
 import { format, resolveConfig } from 'prettier';
 
-import elementsManifestConfig from '../manifest/elements-custom-elements-manifest.config.js';
-import elementsExperimentalManifestConfig from '../manifest/elements-experimental-custom-elements-manifest.config.js';
+import elementsManifestConfig from '../manifest/elements-custom-elements-manifest.config.ts';
+import elementsExperimentalManifestConfig from '../manifest/elements-experimental-custom-elements-manifest.config.ts';
 
 const manifestFilePaths = [
   `${elementsManifestConfig.outdir}/custom-elements.json`,

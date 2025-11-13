@@ -17,13 +17,13 @@ import type { SbbMenuElement } from './menu.component.js';
 describe(`sbb-menu`, () => {
   const userNameStyle = {
     fontWeight: 'bold',
-    fontSize: 'var(--sbb-font-size-text-xs)',
+    fontSize: 'var(--sbb-text-font-size-xs)',
     marginTop: 'var(--sbb-spacing-fixed-1x)',
   };
 
   const userInfoStyle = {
     color: 'light-dark(var(--sbb-color-graphite), var(--sbb-color-granite))',
-    fontSize: 'var(--sbb-font-size-text-xxs)',
+    fontSize: 'var(--sbb-text-font-size-xxs)',
   };
 
   describeViewports({ viewports: ['zero', 'large'], viewportHeight: 400 }, () => {

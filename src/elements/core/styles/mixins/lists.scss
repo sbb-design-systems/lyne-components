@@ -64,7 +64,7 @@
           width: 1em;
           align-items: center;
           justify-content: center;
-          inset-block-start: calc(0.5 * (var(--sbb-typo-line-height-body-text) * 1em - 1em));
+          inset-block-start: calc(0.5 * (var(--sbb-typo-line-height-text) * 1em - 1em));
           inset-inline-start: calc(-1 * (0.5 * var(--sbb-list-padding-inline-start) + 0.5em));
 
           // Scale 1.3 to match Figma specs.
@@ -108,7 +108,7 @@
   --sbb-icon-list-text-to-marker-block-offset: calc(
     0.5 *
       (
-        var(--sbb-icon-list-dimensions) - var(--sbb-typo-line-height-body-text) *
+        var(--sbb-icon-list-dimensions) - var(--sbb-typo-line-height-text) *
           var(--sbb-text-font-size)
       )
   );
@@ -166,7 +166,7 @@
   --sbb-step-list-text-to-marker-block-offset: calc(
     0.5 *
       (
-        var(--sbb-step-list-dimensions) - var(--sbb-typo-line-height-body-text) *
+        var(--sbb-step-list-dimensions) - var(--sbb-typo-line-height-text) *
           var(--sbb-text-font-size)
       )
   );

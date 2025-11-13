@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * This hook resolves import paths that start with `@sbb-esta/lyne-` to redirect to the dist
  * directory. This allows our entry point verification step in our vite builds to import
@@ -7,7 +5,9 @@
  * not normally resolve and crash.
  */
 
-import { createAliasResolver } from './tsconfig-utility.js';
+import type { ResolveHook } from 'node:module';
+
+import { createAliasResolver } from './tsconfig-utility.ts';
 
 const dist = new URL('../../dist/', import.meta.url).href;
 const aliasResolver = createAliasResolver('dist');
@@ -19,7 +19,7 @@ const aliasResolver = createAliasResolver('dist');
  * @returns {Promise} - A Promise that resolves with an object containing the format, shortCircuit flag, and url of the resource,
  * or rejects with an error.
  */
-export async function resolve(specifier, context, nextResolve) {
+export const resolve: ResolveHook = async (specifier, context, nextResolve) => {
   const url = context.parentURL?.startsWith(dist) ? aliasResolver(specifier) : null;
   return url ? { format: 'module', shortCircuit: true, url } : nextResolve(specifier, context);
-}
+};

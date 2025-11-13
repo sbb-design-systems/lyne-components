@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 import { parse, stringify } from 'comment-parser';
+import type { Block } from 'comment-parser/primitives';
 
 export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
@@ -87,7 +88,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
             },
           });
         }
-        const parsedJsDoc = malformedJsDoc
+        const parsedJsDoc: Block = malformedJsDoc
           ? parse(`/**${jsDoc.value}*/`)[0]
           : parse(`/*${jsDoc.value}*/`)[0];
         if (!parsedJsDoc) {

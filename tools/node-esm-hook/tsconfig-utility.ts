@@ -11,16 +11,16 @@ export const tsconfigRaw = readFileSync(new URL('./tsconfig.json', root), 'utf8'
 const tsPaths = Object.entries(
   JSON.parse(
     tsconfigRaw.replace(/\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/)/g, (m, g) => (g ? '' : m)),
-  ).compilerOptions.paths,
+  ).compilerOptions.paths as Record<string, string[]>,
 );
 
 /**
  * Creates a resolver function, which allows resolving alias import paths.
  * The resolver function returns an url as string, if the import path was an alias, null if not.
- * @param {string | undefined} base An optional base for resolving the paths.
+ * @param {string | undefined} mode An optional base for resolving the paths.
  * @return {(specifier: string) => string | null}
  */
-export const createAliasResolver = (/** @type {'src' | 'dist'} */ mode = 'src') => {
+export const createAliasResolver = (mode: 'src' | 'dist' = 'src') => {
   const aliasPaths = tsPaths.map(([alias, paths]) => {
     let path = mode === 'dist' ? paths[0].replace('src/', `dist/`) : paths[0];
     path = new URL(path.startsWith('.') ? path : `./${path}`, root).href;
@@ -28,13 +28,13 @@ export const createAliasResolver = (/** @type {'src' | 'dist'} */ mode = 'src') 
       alias = alias.replace(/\*$/, '');
       path = path.replace(/\*$/, '');
       return {
-        match: (/** @type {string} */ specifier) => specifier.startsWith(alias),
-        resolve: (/** @type {string} */ specifier) => specifier.replace(alias, path),
+        match: (specifier: string) => specifier.startsWith(alias),
+        resolve: (specifier: string) => specifier.replace(alias, path),
       };
     } else {
       return {
-        match: (/** @type {string} */ specifier) => specifier === alias,
-        resolve: (/** @type {string} */ _specifier) => path,
+        match: (specifier: string) => specifier === alias,
+        resolve: (_specifier: string) => path,
       };
     }
   });
@@ -42,7 +42,7 @@ export const createAliasResolver = (/** @type {'src' | 'dist'} */ mode = 'src') 
     .map(([p]) => p.split('/')[0])
     .filter((v, i, a) => a.indexOf(v) === i);
 
-  return (/** @type {string} */ specifier) =>
+  return (specifier: string) =>
     aliasPrefixes.some((p) => specifier.startsWith(p))
       ? (aliasPaths.find((a) => a.match(specifier))?.resolve(specifier) ?? null)
       : null;

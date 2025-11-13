@@ -4,7 +4,7 @@ import { customElement } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved
 import { meta } from 'virtual:meta';
 
-import { screenshots } from '../../screenshots.js';
+import { screenshots } from '../../screenshots.ts';
 
 import style from './overview.scss?lit&inline';
 

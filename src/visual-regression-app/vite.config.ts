@@ -11,10 +11,10 @@ import {
   type UserConfig,
 } from 'vite';
 
-import { distDir } from '../../tools/vite/index.js';
-import rootConfig from '../../vite.config.js';
+import { distDir } from '../../tools/vite/index.ts';
+import rootConfig from '../../vite.config.ts';
 
-import type { ScreenshotFiles, Meta } from './src/interfaces.js';
+import type { ScreenshotFiles, Meta } from './src/interfaces.ts';
 
 const packageRoot = new URL('.', import.meta.url);
 const screenshotsDir = new URL(`./screenshots/`, distDir);

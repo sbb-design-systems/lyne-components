@@ -20,7 +20,7 @@ describe(`sbb-loading-indicator-circle`, () => {
             html`
               <sbb-loading-indicator-circle
                 color=${color}
-                style=${size === 'l' ? 'font-size: var(--sbb-font-size-text-xl);' : nothing}
+                style=${size === 'l' ? 'font-size: var(--sbb-text-font-size-xl);' : nothing}
               ></sbb-loading-indicator-circle>
             `,
             {

@@ -1,11 +1,15 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { SbbBreakpointLargeMin, SbbBreakpointSmallMin } from '@sbb-esta/lyne-design-tokens';
-import { emulateMedia, sendMouse, sendKeys, setViewport } from '@web/test-runner-commands';
+import { emulateMedia, sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import type { SbbButtonElement } from '../../button.js';
 import { isWebkit } from '../../core/dom.js';
-import { fixture, tabKey } from '../../core/testing/private.js';
+import {
+  fixture,
+  sbbBreakpointLargeMinPx,
+  sbbBreakpointSmallMinPx,
+  tabKey,
+} from '../../core/testing/private.js';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
 import type { SbbMenuButtonElement } from '../menu-button.js';
 
@@ -232,7 +236,7 @@ describe(`sbb-menu`, () => {
     it('is correctly positioned on desktop', async () => {
       const beforeOpenSpy = new EventSpy(SbbMenuElement.events.beforeopen, element);
       const openSpy = new EventSpy(SbbMenuElement.events.open, element);
-      await setViewport({ width: SbbBreakpointLargeMin, height: 800 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 800 });
       if (isWebkit) {
         // Needed to let media queries get applied on Webkit
         // TODO: Figure out why
@@ -271,7 +275,7 @@ describe(`sbb-menu`, () => {
       const beforeOpenSpy = new EventSpy(SbbMenuElement.events.beforeopen, element);
       const openSpy = new EventSpy(SbbMenuElement.events.open, element);
 
-      await setViewport({ width: SbbBreakpointSmallMin, height: 600 });
+      await setViewport({ width: sbbBreakpointSmallMinPx, height: 600 });
       const menu: HTMLDivElement = element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-menu')!;
 
       trigger.click();

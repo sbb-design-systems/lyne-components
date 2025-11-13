@@ -3,7 +3,6 @@
   @typescript-eslint/naming-convention,
   @typescript-eslint/naming-convention,
   @typescript-eslint/no-empty-object-type,
-  import-x/default,
   import-x/no-named-as-default-member,
 */
 /**

@@ -4,7 +4,7 @@ import { join, relative } from 'node:path';
 import * as ts from 'typescript';
 import type { PluginOption, ResolvedConfig } from 'vite';
 
-import { globExcludeInternals } from './build-meta.js';
+import { globExcludeInternals } from './build-meta.ts';
 
 export function generateRootEntryPoint(): PluginOption {
   let viteConfig: ResolvedConfig;

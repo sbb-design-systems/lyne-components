@@ -75,7 +75,7 @@
   @include sbb.ellipsis;
 
   cursor: var(--sbb-cursor-default);
-  height: calc(1em * var(--sbb-typo-line-height-body-text));
+  height: calc(1em * var(--sbb-typo-line-height-text));
 }
 
 .sbb-select__trigger--placeholder {

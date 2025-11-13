@@ -4,7 +4,7 @@ import * as ts from 'typescript';
 import type { CompilerOptions, DiagnosticMessageChain } from 'typescript';
 import type { PluginOption, Rollup } from 'vite';
 
-import { prepareCompilerOptions } from '../node-esm-hook/typescript-hook.js';
+import { prepareCompilerOptions } from '../node-esm-hook/typescript-hook.ts';
 
 export function typescriptTransform(): PluginOption {
   const cache: Map<string, CompilerOptions> = new Map();

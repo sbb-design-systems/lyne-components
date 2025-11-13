@@ -35,7 +35,7 @@
 }
 
 :host([size='m']) {
-  --sbb-toggle-check-overall-height: calc(1em * var(--sbb-typo-line-height-body-text));
+  --sbb-toggle-check-overall-height: calc(1em * var(--sbb-typo-line-height-text));
 }
 
 :host([data-checked]) {
@@ -116,7 +116,7 @@
 .sbb-toggle-check__label {
   flex-grow: 1;
   padding-block-start: calc(
-    (var(--sbb-toggle-check-circle-diameter) - (var(--sbb-typo-line-height-body-text) * 1em)) / 2
+    (var(--sbb-toggle-check-circle-diameter) - (var(--sbb-typo-line-height-text) * 1em)) / 2
   );
 
   :host(:not(:state(slotted))) & {

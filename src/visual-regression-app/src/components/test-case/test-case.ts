@@ -10,9 +10,9 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { screenshots, type ScreenshotTestCase } from '../../screenshots.js';
+import { screenshots, type ScreenshotTestCase } from '../../screenshots.ts';
 
-import type { TestCaseFilter } from './test-case-filter/test-case-filter.js';
+import type { TestCaseFilter } from './test-case-filter/test-case-filter.ts';
 import style from './test-case.scss?lit&inline';
 
 import '@sbb-esta/lyne-elements/button/secondary-button-link.js';
@@ -22,9 +22,9 @@ import '@sbb-esta/lyne-elements/header.js';
 import '@sbb-esta/lyne-elements/notification.js';
 import '@sbb-esta/lyne-elements/title.js';
 
-import './test-title-chip-list/test-title-chip-list.js';
-import './image-diff/image-diff.js';
-import './test-case-filter/test-case-filter.js';
+import './test-title-chip-list/test-title-chip-list.ts';
+import './image-diff/image-diff.ts';
+import './test-case-filter/test-case-filter.ts';
 
 interface Filter {
   viewport?: string;

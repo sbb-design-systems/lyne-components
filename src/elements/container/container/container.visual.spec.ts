@@ -1,10 +1,10 @@
-import { SbbBreakpointUltraMin } from '@sbb-esta/lyne-design-tokens';
 import { setViewport } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
 import {
   describeViewports,
   loadAssetAsBase64,
+  sbbBreakpointUltraMinPx,
   visualDiffDefault,
 } from '../../core/testing/private.js';
 import { waitForImageReady } from '../../core/testing.js';
@@ -169,7 +169,7 @@ describe(`sbb-container`, () => {
   // Test very large screens
   for (const backgroundExpanded of backgroundExpandedCases) {
     describe(`viewport=custom_background-expanded=${backgroundExpanded}`, () => {
-      const viewport = { width: SbbBreakpointUltraMin + 300, height: 600 };
+      const viewport = { width: sbbBreakpointUltraMinPx + 300, height: 600 };
       const wrapperStyles = { backgroundColor: 'var(--sbb-color-silver)', padding: '0' };
 
       it(

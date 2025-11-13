@@ -11,5 +11,6 @@
     "erasableSyntaxOnly": true,
     "rewriteRelativeImportExtensions": true
   },
-  "include": ["*.ts", "../tools/tools.d.ts"]
+  "include": ["**/*.ts"],
+  "exclude": ["generate-component"]
 }
