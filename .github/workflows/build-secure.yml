@@ -47,10 +47,9 @@ jobs:
         run: node ./scripts/clean-storybook-files.ts
 
       - name: Create size check
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
-            await import('${{ github.workspace }}/tools/node-esm-hook/register-hooks.ts');
             const { title, summary, text } = await import('${{ github.workspace }}/scripts/compare-stats.ts');
 
             await github.rest.checks.create({
