@@ -2175,10 +2175,10 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.7.tgz#50ae4353eaaddc04044279812f52c8c65857dbcb"
   integrity sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==
 
-"@types/react@19.2.2":
-  version "19.2.2"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-19.2.2.tgz#ba123a75d4c2a51158697160a4ea2ff70aa6bf36"
-  integrity sha512-6mDvHUFSjyT2B2yeNx2nUgMxh9LtOWvkhIU3uePn2I2oyNymUAX1NIsdgviM4CH+JSrp2D2hsMvJOkxY+0wNRA==
+"@types/react@19.2.4":
+  version "19.2.4"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-19.2.4.tgz#e38daaca05cf95459f5f797b1411bcf64c413dd2"
+  integrity sha512-tBFxBp9Nfyy5rsmefN+WXc1JeW/j2BpBHFdLZbEVfs9wn3E3NRFxwV0pJg8M1qQAexFpvz73hJXFofV0ZAu92A==
   dependencies:
     csstype "^3.0.2"
 
@@ -4775,10 +4775,10 @@ eslint-plugin-react@7.37.5:
     string.prototype.matchall "^4.0.12"
     string.prototype.repeat "^1.0.0"
 
-eslint-plugin-storybook@10.0.6:
-  version "10.0.6"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-storybook/-/eslint-plugin-storybook-10.0.6.tgz#5109e6f072909e7aa4c281b70456085406cacfeb"
-  integrity sha512-llPShAqO86PgjswUDXwkxq1hGBjM7NiZE+nScbTjM3NVx0XwqbSZ+FRV2p5nv6vrZeREfhhY/KJF2WuSaYkXiQ==
+eslint-plugin-storybook@10.0.7:
+  version "10.0.7"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-storybook/-/eslint-plugin-storybook-10.0.7.tgz#f1e0f72fe908f337bf67f8959543d9e6cc283526"
+  integrity sha512-qOQq9KdT1jsBgT3qsxUH2n67aj1WR8D1XCoER8Q6yuVlS5TimNwk1mZeWkXVf/o4RQQT6flT2y5cG2gPLZPvJA==
   dependencies:
     "@typescript-eslint/utils" "^8.8.1"
 
@@ -8540,10 +8540,10 @@ sass-lookup@^6.1.0:
     commander "^12.1.0"
     enhanced-resolve "^5.18.0"
 
-sass@1.93.3:
-  version "1.93.3"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.93.3.tgz#3ff0aa5879dc910d32eae10c282a2847bd63e758"
-  integrity sha512-elOcIZRTM76dvxNAjqYrucTSI0teAF/L2Lv0s6f6b7FOwcwIuA357bIE871580AjHJuSvLIRUosgV+lIWx6Rgg==
+sass@1.94.0:
+  version "1.94.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.94.0.tgz#a04198d8940358ca6ad537d2074051edbbe7c1a7"
+  integrity sha512-Dqh7SiYcaFtdv5Wvku6QgS5IGPm281L+ZtVD1U2FJa7Q0EFRlq8Z3sjYtz6gYObsYThUOz9ArwFqPZx+1azILQ==
   dependencies:
     chokidar "^4.0.0"
     immutable "^5.0.2"
