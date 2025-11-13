@@ -117,16 +117,13 @@ const withBackgroundDecorator = makeDecorator({
   },
 });
 
-const getViewportName = (key: string): string =>
-  key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase();
-
-const breakpoints = [
-  SbbBreakpointZeroMin,
-  SbbBreakpointSmallMin,
-  SbbBreakpointLargeMin,
-  SbbBreakpointUltraMin,
-]
-  .map(([key, value]) => ({ key: getViewportName(key), value: parseFloat(value) * 16 }))
+const breakpoints = Object.entries({
+  zero: SbbBreakpointZeroMin,
+  small: SbbBreakpointSmallMin,
+  large: SbbBreakpointLargeMin,
+  ultra: SbbBreakpointUltraMin,
+})
+  .map(([key, value]) => ({ key: key, value: parseFloat(value) * 16 }))
   .sort((a, b) => a.value - b.value);
 
 const breakpointNames: Record<string, number> = breakpoints.reduce(
