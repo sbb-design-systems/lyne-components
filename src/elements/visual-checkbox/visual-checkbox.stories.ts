@@ -52,7 +52,7 @@ const defaultArgs: Args = {
   indeterminate: false,
   disabled: false,
   negative: false,
-  size: size.options![0],
+  size: undefined,
 };
 
 const Template = (args: Args): TemplateResult =>

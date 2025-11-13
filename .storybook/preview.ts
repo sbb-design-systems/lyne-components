@@ -10,6 +10,7 @@ import { makeDecorator } from 'storybook/preview-api';
 
 import '../src/elements/core/styles/standard-theme.scss';
 
+import leanTheme from '../src/elements/core/styles/lean-theme.scss?inline';
 import offBrandTheme from '../src/elements/core/styles/off-brand-theme.scss?inline';
 import safetyTheme from '../src/elements/core/styles/safety-theme.scss?inline';
 
@@ -32,14 +33,19 @@ themeStyleSheet.replaceSync(standardTheme);
 document.adoptedStyleSheets.push(themeStyleSheet);
 originalStyleSheet?.ownerNode?.remove();
 
-const themeMap = { standard: standardTheme, 'off-brand': offBrandTheme, safety: safetyTheme };
+const themeMap = {
+  standard: standardTheme,
+  'off-brand': offBrandTheme,
+  safety: safetyTheme,
+  lean: leanTheme,
+};
 
 const themeDecorator = makeDecorator({
   name: 'theme',
   parameterName: 'theme',
   skipIfNoParametersOrOptions: false,
   wrapper: (getStory, context) => {
-    const selectedTheme = context.globals.theme as 'standard' | 'off-brand' | 'safety';
+    const selectedTheme = context.globals.theme as 'standard' | 'off-brand' | 'safety' | 'lean';
 
     themeStyleSheet?.replaceSync(themeMap[selectedTheme]);
 
@@ -49,6 +55,7 @@ const themeDecorator = makeDecorator({
 
 /**
  * The Lean design is applied by adding the 'sbb-lean' class to the document.
+ * @deprecated
  */
 const withLeanDecorator = makeDecorator({
   name: 'withLeanStyle',
@@ -174,6 +181,8 @@ const openCloseEventsForwarder = (event: Event): void => {
   }
 };
 
+const isDev = (): boolean => window.location.hostname === 'localhost';
+
 export default {
   decorators: [
     withBackgroundDecorator,
@@ -230,6 +239,7 @@ export default {
           { value: 'standard', title: 'standard', icon: 'photo' },
           { value: 'off-brand', title: 'off-brand', icon: 'paintbrush' },
           { value: 'safety', title: 'safety', icon: 'alert' },
+          ...(isDev() ? [{ value: 'lean', title: 'lean', icon: 'grow' }] : []),
         ],
         // Change title based on selected value
         dynamicTitle: true,
