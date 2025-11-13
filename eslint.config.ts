@@ -124,13 +124,7 @@ export default [
       'import-x/no-unresolved': [
         'error',
         {
-          ignore: [
-            '\\.md\\?raw$',
-            '\\.svg\\?raw$',
-            '\\.scss\\?lit\\&inline',
-            // Broken. Maybe due to commonjs?
-            '@storybook/addon-actions/decorator',
-          ],
+          ignore: ['\\.md\\?raw$', '\\.svg\\?raw$', '\\.scss\\?lit\\&inline'],
         },
       ],
       'import-x/no-useless-path-segments': 'error',

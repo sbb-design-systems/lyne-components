@@ -116,7 +116,7 @@
   dependencies:
     "@babel/types" "^7.28.5"
 
-"@babel/runtime@^7.10.2", "@babel/runtime@^7.17.8":
+"@babel/runtime@^7.10.2":
   version "7.28.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.28.4.tgz#a70226016fabe25c5783b2f22d3e1c9bc5ca3326"
   integrity sha512-Q/N6JNWvIvPnLDvjlE1OUBLPQHH6l3CltCEsHIujp45zQUSSh8K+gHnaEX45yAT1nyngnINhvWtzN+Nb9D8RAQ==
@@ -1713,20 +1713,6 @@
     "@storybook/global" "^5.0.0"
     axe-core "^4.2.0"
 
-"@storybook/addon-actions@9.0.8":
-  version "9.0.8"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-9.0.8.tgz#0a9a044c31dd20e5aaa22eb0cb4e36771f40def8"
-  integrity sha512-LFePu7PPnWN0Il/uoUpmA5T0J0C7d6haJIbg0pXrjxW2MQVSYXE4S4LSUz8fOImltBDV3xAl6tLPYHFj6VcrOA==
-
-"@storybook/addon-backgrounds@9.0.0-alpha.12":
-  version "9.0.0-alpha.12"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-backgrounds/-/addon-backgrounds-9.0.0-alpha.12.tgz#ad75263d15dbe19a69be35e38afa331bce1b6fd0"
-  integrity sha512-oiQL8GIs2jNhN1cfbWa6iJIdey/WC+TFlmIeoWzYsJ79EQCxpL5JgmzCMGIkZ+p7L4MUR/5S5b5fh6ApyWcUKw==
-  dependencies:
-    "@storybook/global" "^5.0.0"
-    memoizerific "^1.11.3"
-    ts-dedent "^2.0.0"
-
 "@storybook/addon-docs@10.0.7":
   version "10.0.7"
   resolved "https://registry.yarnpkg.com/@storybook/addon-docs/-/addon-docs-10.0.7.tgz#5ff988cfa23934dd0235fe5a7bb20c08d3156e8c"
@@ -1740,55 +1726,12 @@
     react-dom "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
     ts-dedent "^2.0.0"
 
-"@storybook/addon-essentials@9.0.0-alpha.12":
-  version "9.0.0-alpha.12"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-essentials/-/addon-essentials-9.0.0-alpha.12.tgz#eccae42dbcca1e1f6e8534548b969da7a4b67d15"
-  integrity sha512-wmUT9Q4rl6SvVgrIYDj97uHHkMSGba1A+/rMHypIw7OtrdUp+w1OKZRDNVrU0AfqfbaptT5dRrBsDr/eFZ9v8Q==
-  dependencies:
-    "@storybook/addon-backgrounds" "9.0.0-alpha.12"
-    "@storybook/addon-highlight" "9.0.0-alpha.12"
-    "@storybook/addon-measure" "9.0.0-alpha.12"
-    "@storybook/addon-outline" "9.0.0-alpha.12"
-    ts-dedent "^2.0.0"
-
-"@storybook/addon-highlight@9.0.0-alpha.12":
-  version "9.0.0-alpha.12"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-highlight/-/addon-highlight-9.0.0-alpha.12.tgz#e9b857e90f38f66c30ec595db6c68d9e106b7dd7"
-  integrity sha512-b8E1AjBaWFvBoWUfXXlAYfAIanuaHLZwJhmOcqJGtbx9RIC5uHfyGC8KHJgeyKMzvHhZD86vWBo5KUAFLFVUrg==
-  dependencies:
-    "@storybook/global" "^5.0.0"
-
-"@storybook/addon-interactions@9.0.0-alpha.10":
-  version "9.0.0-alpha.10"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-interactions/-/addon-interactions-9.0.0-alpha.10.tgz#564baf4feaad462e86ebbf726ee9532b933e931f"
-  integrity sha512-yM/JJUkDznulYxEt1RKDDZf/7qgmZENdEsHGFz4qbv3jWZoj0zaeV+ZF9PXs3r5mvGbJA4aZn5kWZ1B1FoySFg==
-  dependencies:
-    "@storybook/global" "^5.0.0"
-    polished "^4.2.2"
-    ts-dedent "^2.2.0"
-
 "@storybook/addon-links@10.0.7":
   version "10.0.7"
   resolved "https://registry.yarnpkg.com/@storybook/addon-links/-/addon-links-10.0.7.tgz#8a2243f83cf2a7496daf440301e09bd79d2b2fac"
   integrity sha512-fsstlcBuvxULuExqDs7RHcuf7TXxfL1PY92uPQdB9EEdZCjbf9ZzoGD/soZK1wkBH3yPe2PMPk2aggMXvJUpsQ==
   dependencies:
     "@storybook/global" "^5.0.0"
-
-"@storybook/addon-measure@9.0.0-alpha.12":
-  version "9.0.0-alpha.12"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-measure/-/addon-measure-9.0.0-alpha.12.tgz#55eafb8a31e2939bf9c2c236e4b7d35a7b89937a"
-  integrity sha512-ZtAKi/mlvVYaBMlPokvrHF94YFsyYAlz3IpKu+uz5QymN3VweSIgGsDJmAqV49lVzyVk40KWCVypi4O3L7nvdQ==
-  dependencies:
-    "@storybook/global" "^5.0.0"
-    tiny-invariant "^1.3.1"
-
-"@storybook/addon-outline@9.0.0-alpha.12":
-  version "9.0.0-alpha.12"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-outline/-/addon-outline-9.0.0-alpha.12.tgz#6ff279cdad19dac291506ea3e689c29d352d511c"
-  integrity sha512-I7opVIK8bNUYSC+P+b8AwP6sE2pFyXH5F0gz8WA0pdkRcxerQmYnhlsXrI5T0QMu79tZnjVNrQTUrqpy/Z5oqQ==
-  dependencies:
-    "@storybook/global" "^5.0.0"
-    ts-dedent "^2.0.0"
 
 "@storybook/builder-vite@10.0.7":
   version "10.0.7"
@@ -6673,11 +6616,6 @@ make-dir@^4.0.0:
   dependencies:
     semver "^7.5.3"
 
-map-or-similar@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/map-or-similar/-/map-or-similar-1.5.0.tgz#6de2653174adfb5d9edc33c69d3e92a1b76faf08"
-  integrity sha512-0aF7ZmVon1igznGI4VS30yugpduQW3y3GkcgGJOp7d8x8QrizhigUxjI/m2UojsXXto+jLAH3KSz+xOJTiORjg==
-
 markdown-table@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/markdown-table/-/markdown-table-2.0.0.tgz#194a90ced26d31fe753d8b9434430214c011865b"
@@ -6897,13 +6835,6 @@ media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==
-
-memoizerific@^1.11.3:
-  version "1.11.3"
-  resolved "https://registry.yarnpkg.com/memoizerific/-/memoizerific-1.11.3.tgz#7c87a4646444c32d75438570905f2dbd1b1a805a"
-  integrity sha512-/EuHYwAPdLtXwAwSZkh/Gutery6pD2KYd44oQLhAvQp/50mpyduZh8Q7PYHXTCJ+wuXxt7oij2LXyIJOOYFPog==
-  dependencies:
-    map-or-similar "^1.5.0"
 
 memorystream@^0.3.1:
   version "0.3.1"
@@ -7957,13 +7888,6 @@ pngjs@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-7.0.0.tgz#a8b7446020ebbc6ac739db6c5415a65d17090e26"
   integrity sha512-LKWqWJRhstyYo9pGvgor/ivk2w94eSjE3RGVuzLGlr3NmD8bf7RcYGze1mNdEHRP6TRP6rMuDHk5t44hnTRyow==
-
-polished@^4.2.2:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/polished/-/polished-4.3.1.tgz#5a00ae32715609f83d89f6f31d0f0261c6170548"
-  integrity sha512-OBatVyC/N7SCW/FaDHrSd+vn0o5cS855TOmYi4OkdWUMSJCET/xip//ch8xGUvtr3i44X9LVyWwQlRMTN3pwSA==
-  dependencies:
-    "@babel/runtime" "^7.17.8"
 
 portfinder@^1.0.32:
   version "1.0.38"
@@ -9282,7 +9206,7 @@ ts-api-utils@^2.1.0:
   resolved "https://registry.yarnpkg.com/ts-api-utils/-/ts-api-utils-2.1.0.tgz#595f7094e46eed364c13fd23e75f9513d29baf91"
   integrity sha512-CUgTZL1irw8u29bzrOD/nH85jqyc74D6SshFgujOIA7osm2Rz7dYH77agkx7H4FBNxDq7Cjf+IjaX/8zwFW+ZQ==
 
-ts-dedent@^2.0.0, ts-dedent@^2.2.0:
+ts-dedent@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/ts-dedent/-/ts-dedent-2.2.0.tgz#39e4bd297cd036292ae2394eb3412be63f563bb5"
   integrity sha512-q5W7tVM71e2xjHZTlgfTDoPF/SmqKG5hddq9SzR49CH2hayqRKJtQ4mtRlSxKaJlR/+9rEM+mnBHf7I2/BQcpQ==
