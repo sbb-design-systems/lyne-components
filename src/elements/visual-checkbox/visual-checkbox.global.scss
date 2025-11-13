@@ -22,19 +22,20 @@ $theme: 'standard' !default;
   --sbb-visual-checkbox-background-color-disabled: var(--sbb-background-color-3);
   --sbb-visual-checkbox-background-color-negative-disabled: var(--sbb-background-color-3-negative);
   --sbb-visual-checkbox-border-color: var(--sbb-border-color-5);
+  --sbb-visual-checkbox-border-color-disabled: var(--sbb-border-color-5);
   --sbb-visual-checkbox-border-style: solid;
+  --sbb-visual-checkbox-border-style-disabled: dashed;
   --sbb-visual-checkbox-border-width: var(--sbb-border-width-1x);
   --sbb-visual-checkbox-cursor: var(--sbb-cursor-pointer);
-  --sbb-visual-checkbox-outline-color: transparent;
-  --sbb-visual-checkbox-outline-color-disabled: transparent;
 }
 
 @mixin base-forced-colors() {
-  --sbb-visual-checkbox-border-width: 0;
   --sbb-visual-checkbox-selection-color: Canvas;
   --sbb-visual-checkbox-selection-color-negative: Canvas;
   --sbb-visual-checkbox-selection-color-disabled: Canvas;
   --sbb-visual-checkbox-selection-color-disabled-negative: Canvas;
-  --sbb-visual-checkbox-outline-color: ButtonBorder;
-  --sbb-visual-checkbox-outline-color-disabled: GrayText;
+  --sbb-visual-checkbox-border-color: ButtonBorder;
+  --sbb-visual-checkbox-border-color-disabled: GrayText;
+  --sbb-visual-checkbox-border-width: var(--sbb-border-width-2x);
+  --sbb-visual-checkbox-border-style-disabled: solid;
 }
