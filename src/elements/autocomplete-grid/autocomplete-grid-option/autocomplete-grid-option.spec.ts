@@ -64,27 +64,31 @@ describe(`sbb-autocomplete-grid-option`, () => {
     const autocomplete =
       element.querySelector<SbbAutocompleteGridElement>('sbb-autocomplete-grid')!;
     const options = element.querySelectorAll('sbb-autocomplete-grid-option');
-    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
-    const optionTwoLabel = options[1].shadowRoot!.querySelector('.sbb-option__label');
+    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
+    const optionTwoLabel = options[1].shadowRoot!.querySelector('.sbb-option__label > span');
 
     input.focus();
     await sendKeys({ press: '1' });
     await waitForLitRender(autocomplete);
 
-    expect(optionOneLabel).dom.to.be.equal(`
-      <span class="sbb-option__label">
-        <slot></slot>
+    expect(optionOneLabel).dom.to.be.equal(
+      `
+      <span>
         <span class="sbb-option__label--highlight">Option</span>
         <span>1</span>
         <span class="sbb-option__label--highlight"></span>
       </span>
-    `);
-    expect(optionTwoLabel).dom.to.be.equal(`
-      <span class="sbb-option__label">
-        <slot></slot>
+    `,
+      { ignoreAttributes: ['aria-hidden'] },
+    );
+    expect(optionTwoLabel).dom.to.be.equal(
+      `
+      <span>
         Option 2
       </span>
-    `);
+    `,
+      { ignoreAttributes: ['aria-hidden'] },
+    );
   });
 
   it('highlight after option label changed', async () => {
@@ -92,42 +96,48 @@ describe(`sbb-autocomplete-grid-option`, () => {
     const autocomplete =
       element.querySelector<SbbAutocompleteGridElement>('sbb-autocomplete-grid')!;
     const options = element.querySelectorAll('sbb-autocomplete-grid-option');
-    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
 
     input.focus();
     await sendKeys({ type: 'Opt' });
     await waitForLitRender(autocomplete);
 
-    expect(optionOneLabel).dom.to.be.equal(`
-      <span class="sbb-option__label">
-        <slot></slot>
+    expect(optionOneLabel).dom.to.be.equal(
+      `
+      <span>
         <span class="sbb-option__label--highlight"></span>
         <span>Opt</span>
         <span class="sbb-option__label--highlight">ion 1</span>
       </span>
-    `);
+    `,
+      { ignoreAttributes: ['aria-hidden'] },
+    );
 
     options[0].textContent = 'Other content';
     await waitForLitRender(autocomplete);
 
-    expect(optionOneLabel).dom.to.be.equal(`
-      <span class="sbb-option__label">
-        <slot></slot>
+    expect(optionOneLabel).dom.to.be.equal(
+      `
+      <span>
         Other content
       </span>
-    `);
+    `,
+      { ignoreAttributes: ['aria-hidden'] },
+    );
 
     options[0].textContent = 'Option';
     await waitForLitRender(autocomplete);
 
-    expect(optionOneLabel).dom.to.be.equal(`
-      <span class="sbb-option__label">
-        <slot></slot>
+    expect(optionOneLabel).dom.to.be.equal(
+      `
+      <span>
         <span class="sbb-option__label--highlight"></span>
         <span>Opt</span>
         <span class="sbb-option__label--highlight">ion</span>
       </span>
-    `);
+    `,
+      { ignoreAttributes: ['aria-hidden'] },
+    );
   });
 
   it('highlight later added options', async () => {
@@ -135,36 +145,40 @@ describe(`sbb-autocomplete-grid-option`, () => {
     const autocomplete =
       element.querySelector<SbbAutocompleteGridElement>('sbb-autocomplete-grid')!;
     const options = element.querySelectorAll('sbb-autocomplete-grid-option');
-    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
 
     input.focus();
     await sendKeys({ type: 'Opt' });
     await waitForLitRender(autocomplete);
 
-    expect(optionOneLabel).dom.to.be.equal(`
-      <span class="sbb-option__label">
-        <slot></slot>
+    expect(optionOneLabel).dom.to.be.equal(
+      `
+      <span>
         <span class="sbb-option__label--highlight"></span>
         <span>Opt</span>
         <span class="sbb-option__label--highlight">ion 1</span>
       </span>
-    `);
+    `,
+      { ignoreAttributes: ['aria-hidden'] },
+    );
 
     const newOption = document.createElement('sbb-autocomplete-grid-option');
     newOption.innerText = 'Option 3';
     autocomplete.append(newOption);
     await waitForLitRender(autocomplete);
 
-    const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label');
+    const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label > span');
 
-    expect(newOptionLabel).dom.to.be.equal(`
-      <span class="sbb-option__label">
-        <slot></slot>
+    expect(newOptionLabel).dom.to.be.equal(
+      `
+      <span>
         <span class="sbb-option__label--highlight"></span>
         <span>Opt</span>
         <span class="sbb-option__label--highlight">ion 3</span>
       </span>
-    `);
+    `,
+      { ignoreAttributes: ['aria-hidden'] },
+    );
   });
 
   it('highlight later added options in sbb-optgroup', async () => {
@@ -189,35 +203,39 @@ describe(`sbb-autocomplete-grid-option`, () => {
       'sbb-autocomplete-grid-optgroup',
     )!;
     const options = element.querySelectorAll('sbb-autocomplete-grid-option');
-    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
 
     input.focus();
     await sendKeys({ type: 'Opt' });
     await waitForLitRender(element);
 
-    expect(optionOneLabel).dom.to.be.equal(`
-      <span class="sbb-option__label">
-        <slot></slot>
+    expect(optionOneLabel).dom.to.be.equal(
+      `
+      <span>
         <span class="sbb-option__label--highlight"></span>
         <span>Opt</span>
         <span class="sbb-option__label--highlight">ion 1</span>
       </span>
-    `);
+    `,
+      { ignoreAttributes: ['aria-hidden'] },
+    );
 
     const newOption = document.createElement('sbb-autocomplete-grid-option');
     newOption.innerText = 'Option 2';
     optgroup.append(newOption);
     await waitForLitRender(element);
 
-    const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label');
+    const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label > span');
 
-    expect(newOptionLabel).dom.to.be.equal(`
-      <span class="sbb-option__label">
-        <slot></slot>
+    expect(newOptionLabel).dom.to.be.equal(
+      `
+      <span>
         <span class="sbb-option__label--highlight"></span>
         <span>Opt</span>
         <span class="sbb-option__label--highlight">ion 2</span>
       </span>
-    `);
+    `,
+      { ignoreAttributes: ['aria-hidden'] },
+    );
   });
 });

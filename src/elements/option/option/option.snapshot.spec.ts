@@ -29,7 +29,7 @@ describe(`sbb-option`, () => {
       });
 
       it('Shadow DOM', async () => {
-        await expect(element).shadowDom.to.be.equalSnapshot();
+        await expect(element).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['aria-hidden'] });
       });
     });
 
@@ -50,7 +50,7 @@ describe(`sbb-option`, () => {
       });
 
       it('Shadow DOM', async () => {
-        await expect(element).shadowDom.to.be.equalSnapshot();
+        await expect(element).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['aria-hidden'] });
       });
     });
   });

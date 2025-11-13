@@ -6,13 +6,14 @@ import { isSafari } from '../../core/dom.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 import { describeIf } from '../../core/testing.js';
 
+import type { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.component.js';
+
 import './autocomplete-grid-optgroup.component.js';
 import '../autocomplete-grid.js';
 import '../autocomplete-grid-row.js';
 import '../autocomplete-grid-option.js';
 import '../autocomplete-grid-cell.js';
 import '../autocomplete-grid-button.js';
-import type { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.component.js';
 
 describe('sbb-autocomplete-grid-optgroup', () => {
   const opt: TemplateResult = html`

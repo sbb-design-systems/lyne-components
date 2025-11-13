@@ -131,9 +131,10 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   }
 
   protected override renderLabel(): TemplateResult | typeof nothing {
-    return this._variant === 'autocomplete' && this.label && !this.disableLabelHighlight
-      ? this.getHighlightedLabel()
-      : nothing;
+    if (this._variant !== 'autocomplete') {
+      return nothing;
+    }
+    return super.renderLabel();
   }
 
   protected override renderTick(): TemplateResult | typeof nothing {

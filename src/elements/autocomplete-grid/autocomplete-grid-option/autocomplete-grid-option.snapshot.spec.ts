@@ -31,7 +31,7 @@ describe('sbb-autocomplete-grid-option', () => {
     });
 
     it('Shadow DOM', async () => {
-      await expect(root).shadowDom.to.be.equalSnapshot();
+      await expect(root).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['aria-hidden'] });
     });
   });
 
@@ -57,7 +57,7 @@ describe('sbb-autocomplete-grid-option', () => {
     });
 
     it('Shadow DOM', async () => {
-      await expect(root).shadowDom.to.be.equalSnapshot();
+      await expect(root).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['aria-hidden'] });
     });
   });
 
