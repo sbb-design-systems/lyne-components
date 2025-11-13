@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbMiniButtonElement } from '../../button.js';
 import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForImageReady } from '../../core/testing.js';
+import { EventSpy, waitForImageReady, waitForLitRender } from '../../core/testing.js';
 import type { SbbCompactPaginatorElement } from '../../paginator.js';
 import { type SbbCarouselItemEventDetail } from '../carousel-item/carousel-item.component.js';
 
@@ -97,6 +97,34 @@ describe('sbb-carousel', () => {
     expect(showSpy.count).to.be.equal(4);
   });
 
+  it('paginator should trigger a scroll after DOM re-connection', async () => {
+    const parent = element.parentElement!;
+
+    await setViewport({ width: 1200, height: 800 });
+
+    await beforeShowSpy.calledTimes(1);
+    await showSpy.calledTimes(1);
+
+    element.remove();
+    await waitForLitRender(element);
+    parent.appendChild(element);
+    await waitForLitRender(element);
+
+    await beforeShowSpy.calledTimes(2);
+    await showSpy.calledTimes(2);
+
+    const goToNext: SbbMiniButtonElement = paginator.shadowRoot!.querySelector(
+      '#sbb-paginator-next-page',
+    )!;
+
+    await goToNext.click();
+
+    await beforeShowSpy.calledTimes(3);
+    expect(beforeShowSpy.count).to.be.equal(3);
+    await showSpy.calledTimes(3);
+    expect(showSpy.count).to.be.equal(3);
+  });
+
   it('paginator should trigger a scroll with offset container', async () => {
     const goToNext: SbbMiniButtonElement = paginator.shadowRoot!.querySelector(
       '#sbb-paginator-next-page',
@@ -112,5 +140,58 @@ describe('sbb-carousel', () => {
     await goToNext.click();
     await showSpy.calledTimes(3);
     expect(showSpy.count).to.be.equal(3);
+  });
+
+  it('paginator should be updated after scrolling', async () => {
+    const carouselList = element.querySelector('sbb-carousel-list')!;
+
+    await setViewport({ width: 1200, height: 800 });
+
+    await beforeShowSpy.calledTimes(1);
+    await showSpy.calledTimes(1);
+
+    // scroll to second image
+    carouselList.scrollBy({ left: 320 });
+    await beforeShowSpy.calledTimes(2);
+    expect(beforeShowSpy.count).to.be.equal(2);
+    await showSpy.calledTimes(2);
+    expect(showSpy.count).to.be.equal(2);
+
+    expect(paginator.pageIndex).to.be.equal(1);
+
+    // scroll to second image
+    carouselList.scrollBy({ left: 320 });
+    await beforeShowSpy.calledTimes(3);
+    expect(beforeShowSpy.count).to.be.equal(3);
+    await showSpy.calledTimes(3);
+    expect(showSpy.count).to.be.equal(3);
+
+    expect(paginator.pageIndex).to.be.equal(2);
+  });
+
+  it('paginator should be updated after scrolling after DOM re-connection', async () => {
+    const carouselList = element.querySelector('sbb-carousel-list')!;
+    const parent = element.parentElement!;
+
+    await setViewport({ width: 1200, height: 800 });
+
+    await beforeShowSpy.calledTimes(1);
+    await showSpy.calledTimes(1);
+
+    element.remove();
+    await waitForLitRender(element);
+    parent.appendChild(element);
+    await waitForLitRender(element);
+
+    await beforeShowSpy.calledTimes(2);
+    await showSpy.calledTimes(2);
+
+    // scroll to second image
+    carouselList.scrollBy({ left: 320 });
+    await beforeShowSpy.calledTimes(3);
+    expect(beforeShowSpy.count).to.be.equal(3);
+    await showSpy.calledTimes(3);
+    expect(showSpy.count).to.be.equal(3);
+    expect(paginator.pageIndex).to.be.equal(1);
   });
 });
