@@ -64,8 +64,8 @@ describe(`sbb-autocomplete-grid-option`, () => {
     const autocomplete =
       element.querySelector<SbbAutocompleteGridElement>('sbb-autocomplete-grid')!;
     const options = element.querySelectorAll('sbb-autocomplete-grid-option');
-    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
-    const optionTwoLabel = options[1].shadowRoot!.querySelector('.sbb-option__label');
+    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
+    const optionTwoLabel = options[1].shadowRoot!.querySelector('.sbb-option__label > span');
 
     input.focus();
     await sendKeys({ press: '1' });
@@ -73,8 +73,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
 
     expect(optionOneLabel).dom.to.be.equal(
       `
-      <span class="sbb-option__label">
-        <slot></slot>
+      <span>
         <span class="sbb-option__label--highlight">Option</span>
         <span>1</span>
         <span class="sbb-option__label--highlight"></span>
@@ -84,8 +83,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
     );
     expect(optionTwoLabel).dom.to.be.equal(
       `
-      <span class="sbb-option__label">
-        <slot></slot>
+      <span>
         Option 2
       </span>
     `,
@@ -98,7 +96,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
     const autocomplete =
       element.querySelector<SbbAutocompleteGridElement>('sbb-autocomplete-grid')!;
     const options = element.querySelectorAll('sbb-autocomplete-grid-option');
-    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
 
     input.focus();
     await sendKeys({ type: 'Opt' });
@@ -106,8 +104,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
 
     expect(optionOneLabel).dom.to.be.equal(
       `
-      <span class="sbb-option__label">
-        <slot></slot>
+      <span>
         <span class="sbb-option__label--highlight"></span>
         <span>Opt</span>
         <span class="sbb-option__label--highlight">ion 1</span>
@@ -121,8 +118,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
 
     expect(optionOneLabel).dom.to.be.equal(
       `
-      <span class="sbb-option__label">
-        <slot></slot>
+      <span>
         Other content
       </span>
     `,
@@ -134,8 +130,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
 
     expect(optionOneLabel).dom.to.be.equal(
       `
-      <span class="sbb-option__label">
-        <slot></slot>
+      <span>
         <span class="sbb-option__label--highlight"></span>
         <span>Opt</span>
         <span class="sbb-option__label--highlight">ion</span>
@@ -150,7 +145,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
     const autocomplete =
       element.querySelector<SbbAutocompleteGridElement>('sbb-autocomplete-grid')!;
     const options = element.querySelectorAll('sbb-autocomplete-grid-option');
-    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
 
     input.focus();
     await sendKeys({ type: 'Opt' });
@@ -158,8 +153,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
 
     expect(optionOneLabel).dom.to.be.equal(
       `
-      <span class="sbb-option__label">
-        <slot></slot>
+      <span>
         <span class="sbb-option__label--highlight"></span>
         <span>Opt</span>
         <span class="sbb-option__label--highlight">ion 1</span>
@@ -173,12 +167,11 @@ describe(`sbb-autocomplete-grid-option`, () => {
     autocomplete.append(newOption);
     await waitForLitRender(autocomplete);
 
-    const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label');
+    const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label > span');
 
     expect(newOptionLabel).dom.to.be.equal(
       `
-      <span class="sbb-option__label">
-        <slot></slot>
+      <span>
         <span class="sbb-option__label--highlight"></span>
         <span>Opt</span>
         <span class="sbb-option__label--highlight">ion 3</span>
@@ -210,7 +203,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
       'sbb-autocomplete-grid-optgroup',
     )!;
     const options = element.querySelectorAll('sbb-autocomplete-grid-option');
-    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+    const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
 
     input.focus();
     await sendKeys({ type: 'Opt' });
@@ -218,8 +211,7 @@ describe(`sbb-autocomplete-grid-option`, () => {
 
     expect(optionOneLabel).dom.to.be.equal(
       `
-      <span class="sbb-option__label">
-        <slot></slot>
+      <span>
         <span class="sbb-option__label--highlight"></span>
         <span>Opt</span>
         <span class="sbb-option__label--highlight">ion 1</span>
@@ -233,12 +225,11 @@ describe(`sbb-autocomplete-grid-option`, () => {
     optgroup.append(newOption);
     await waitForLitRender(element);
 
-    const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label');
+    const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label > span');
 
     expect(newOptionLabel).dom.to.be.equal(
       `
-      <span class="sbb-option__label">
-        <slot></slot>
+      <span>
         <span class="sbb-option__label--highlight"></span>
         <span>Opt</span>
         <span class="sbb-option__label--highlight">ion 2</span>

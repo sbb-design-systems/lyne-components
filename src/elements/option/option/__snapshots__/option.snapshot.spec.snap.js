@@ -24,7 +24,9 @@ snapshots["sbb-option autocomplete renders selected Shadow DOM"] =
     <span class="sbb-option__label">
       <slot>
       </slot>
-      Option 1
+      <span>
+        Option 1
+      </span>
     </span>
   </div>
 </div>
@@ -55,7 +57,9 @@ snapshots["sbb-option autocomplete renders disabled Shadow DOM"] =
     <span class="sbb-option__label">
       <slot>
       </slot>
-      Option 1
+      <span>
+        Option 1
+      </span>
     </span>
   </div>
 </div>

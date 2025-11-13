@@ -51,9 +51,9 @@ describe(`sbb-option`, () => {
       const input = element.querySelector<HTMLInputElement>('input')!;
       const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
-      const optionTwoLabel = options[1].shadowRoot!.querySelector('.sbb-option__label');
-      const optionThreeLabel = options[2].shadowRoot!.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
+      const optionTwoLabel = options[1].shadowRoot!.querySelector('.sbb-option__label > span');
+      const optionThreeLabel = options[2].shadowRoot!.querySelector('.sbb-option__label > span');
 
       input.focus();
       await sendKeys({ press: '1' });
@@ -61,8 +61,7 @@ describe(`sbb-option`, () => {
 
       expect(optionOneLabel).dom.to.be.equal(
         `
-        <span class="sbb-option__label">
-          <slot></slot>
+        <span>
           <span class="sbb-option__label--highlight">Option</span>
           <span>1</span>
           <span class="sbb-option__label--highlight"></span>
@@ -72,8 +71,7 @@ describe(`sbb-option`, () => {
       );
       expect(optionTwoLabel).dom.to.be.equal(
         `
-        <span class="sbb-option__label">
-          <slot></slot>
+        <span>
           Option 2
         </span>
       `,
@@ -81,8 +79,7 @@ describe(`sbb-option`, () => {
       );
       expect(optionThreeLabel).dom.to.be.equal(
         `
-        <span class="sbb-option__label">
-          <slot></slot>
+        <span>
           Option 3
         </span>
       `,
@@ -94,7 +91,7 @@ describe(`sbb-option`, () => {
       const input = element.querySelector<HTMLInputElement>('input')!;
       const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
@@ -102,8 +99,7 @@ describe(`sbb-option`, () => {
 
       expect(optionOneLabel).dom.to.be.equal(
         `
-        <span class="sbb-option__label">
-          <slot></slot>
+        <span>
           <span class="sbb-option__label--highlight"></span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion 1</span>
@@ -117,8 +113,7 @@ describe(`sbb-option`, () => {
 
       expect(optionOneLabel).dom.to.be.equal(
         `
-        <span class="sbb-option__label">
-          <slot></slot>
+        <span>
           Other content
         </span>
       `,
@@ -130,8 +125,7 @@ describe(`sbb-option`, () => {
 
       expect(optionOneLabel).dom.to.be.equal(
         `
-        <span class="sbb-option__label">
-          <slot></slot>
+        <span>
           <span class="sbb-option__label--highlight"></span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion</span>
@@ -145,7 +139,7 @@ describe(`sbb-option`, () => {
       const input = element.querySelector<HTMLInputElement>('input')!;
       const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
@@ -153,8 +147,7 @@ describe(`sbb-option`, () => {
 
       expect(optionOneLabel).dom.to.be.equal(
         `
-        <span class="sbb-option__label">
-          <slot></slot>
+        <span>
           <span class="sbb-option__label--highlight"></span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion 1</span>
@@ -168,12 +161,11 @@ describe(`sbb-option`, () => {
       autocomplete.append(newOption);
       await waitForLitRender(autocomplete);
 
-      const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label');
+      const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label > span');
 
       expect(newOptionLabel).dom.to.be.equal(
         `
-        <span class="sbb-option__label">
-          <slot></slot>
+        <span>
           <span class="sbb-option__label--highlight"></span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion 4</span>
@@ -187,7 +179,7 @@ describe(`sbb-option`, () => {
       const input = element.querySelector<HTMLInputElement>('input')!;
       const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
@@ -195,8 +187,7 @@ describe(`sbb-option`, () => {
 
       expect(optionOneLabel).dom.to.be.equal(
         `
-        <span class="sbb-option__label">
-          <slot></slot>
+        <span>
           <span class="sbb-option__label--highlight"></span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion 1</span>
@@ -213,8 +204,7 @@ describe(`sbb-option`, () => {
 
       expect(optionOneLabel).dom.to.be.equal(
         `
-        <span class="sbb-option__label">
-          <slot></slot>
+        <span>
           <span class="sbb-option__label--highlight">Changed</span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion</span>
@@ -233,27 +223,20 @@ describe(`sbb-option`, () => {
       option4.value = 'value 4';
       autocomplete.appendChild(option4);
       await waitForLitRender(option4);
-      const option4Label = option4.shadowRoot!.querySelector('.sbb-option__label');
+      const option4Label = option4.shadowRoot!.querySelector('.sbb-option__label > span');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
       await waitForLitRender(autocomplete);
 
-      expect(option4Label).dom.to.be.equal(
-        `<span class="sbb-option__label">
-        <slot>
-        </slot>
-      </span>`,
-        { ignoreAttributes: ['aria-hidden'] },
-      );
+      expect(option4Label).dom.to.be.equal(`<span></span>`, { ignoreAttributes: ['aria-hidden'] });
 
       textNode.textContent = 'Changed Option';
       await waitForLitRender(autocomplete);
 
       expect(option4Label).dom.to.be.equal(
         `
-          <span class="sbb-option__label">
-            <slot></slot>
+          <span>
             <span class="sbb-option__label--highlight">Changed</span>
             <span>Opt</span>
             <span class="sbb-option__label--highlight">ion</span>
@@ -266,9 +249,7 @@ describe(`sbb-option`, () => {
       await waitForLitRender(autocomplete);
 
       expect(option4Label).dom.to.be.equal(
-        `<span class="sbb-option__label">
-        <slot>
-        </slot>
+        `<span>
       </span>`,
         { ignoreAttributes: ['aria-hidden'] },
       );
@@ -289,7 +270,7 @@ describe(`sbb-option`, () => {
       const input = element.querySelector<HTMLInputElement>('input')!;
       const optgroup = element.querySelector<SbbOptGroupElement>('sbb-optgroup')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
@@ -297,8 +278,7 @@ describe(`sbb-option`, () => {
 
       expect(optionOneLabel).dom.to.be.equal(
         `
-        <span class="sbb-option__label">
-          <slot></slot>
+        <span>
           <span class="sbb-option__label--highlight"></span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion 1</span>
@@ -312,12 +292,11 @@ describe(`sbb-option`, () => {
       optgroup.append(newOption);
       await waitForLitRender(element);
 
-      const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label');
+      const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label > span');
 
       expect(newOptionLabel).dom.to.be.equal(
         `
-        <span class="sbb-option__label">
-          <slot></slot>
+        <span>
           <span class="sbb-option__label--highlight"></span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion 2</span>
