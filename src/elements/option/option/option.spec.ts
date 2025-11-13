@@ -51,132 +51,150 @@ describe(`sbb-option`, () => {
       const input = element.querySelector<HTMLInputElement>('input')!;
       const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
-      const optionTwoLabel = options[1].shadowRoot!.querySelector('.sbb-option__label');
-      const optionThreeLabel = options[2].shadowRoot!.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
+      const optionTwoLabel = options[1].shadowRoot!.querySelector('.sbb-option__label > span');
+      const optionThreeLabel = options[2].shadowRoot!.querySelector('.sbb-option__label > span');
 
       input.focus();
       await sendKeys({ press: '1' });
       await waitForLitRender(autocomplete);
 
-      expect(optionOneLabel).dom.to.be.equal(`
-        <span class="sbb-option__label">
-          <slot></slot>
+      expect(optionOneLabel).dom.to.be.equal(
+        `
+        <span>
           <span class="sbb-option__label--highlight">Option</span>
           <span>1</span>
           <span class="sbb-option__label--highlight"></span>
         </span>
-      `);
-      expect(optionTwoLabel).dom.to.be.equal(`
-        <span class="sbb-option__label">
-          <slot></slot>
+      `,
+        { ignoreAttributes: ['aria-hidden'] },
+      );
+      expect(optionTwoLabel).dom.to.be.equal(
+        `
+        <span>
           Option 2
         </span>
-      `);
-      expect(optionThreeLabel).dom.to.be.equal(`
-        <span class="sbb-option__label">
-          <slot></slot>
+      `,
+        { ignoreAttributes: ['aria-hidden'] },
+      );
+      expect(optionThreeLabel).dom.to.be.equal(
+        `
+        <span>
           Option 3
         </span>
-      `);
+      `,
+        { ignoreAttributes: ['aria-hidden'] },
+      );
     });
 
     it('highlight after option label changed', async () => {
       const input = element.querySelector<HTMLInputElement>('input')!;
       const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
       await waitForLitRender(autocomplete);
 
-      expect(optionOneLabel).dom.to.be.equal(`
-        <span class="sbb-option__label">
-          <slot></slot>
+      expect(optionOneLabel).dom.to.be.equal(
+        `
+        <span>
           <span class="sbb-option__label--highlight"></span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion 1</span>
         </span>
-      `);
+      `,
+        { ignoreAttributes: ['aria-hidden'] },
+      );
 
       options[0].textContent = 'Other content';
       await waitForLitRender(autocomplete);
 
-      expect(optionOneLabel).dom.to.be.equal(`
-        <span class="sbb-option__label">
-          <slot></slot>
+      expect(optionOneLabel).dom.to.be.equal(
+        `
+        <span>
           Other content
         </span>
-      `);
+      `,
+        { ignoreAttributes: ['aria-hidden'] },
+      );
 
       options[0].textContent = 'Option';
       await waitForLitRender(autocomplete);
 
-      expect(optionOneLabel).dom.to.be.equal(`
-        <span class="sbb-option__label">
-          <slot></slot>
+      expect(optionOneLabel).dom.to.be.equal(
+        `
+        <span>
           <span class="sbb-option__label--highlight"></span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion</span>
         </span>
-      `);
+      `,
+        { ignoreAttributes: ['aria-hidden'] },
+      );
     });
 
     it('highlight later added options', async () => {
       const input = element.querySelector<HTMLInputElement>('input')!;
       const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
       await waitForLitRender(autocomplete);
 
-      expect(optionOneLabel).dom.to.be.equal(`
-        <span class="sbb-option__label">
-          <slot></slot>
+      expect(optionOneLabel).dom.to.be.equal(
+        `
+        <span>
           <span class="sbb-option__label--highlight"></span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion 1</span>
         </span>
-      `);
+      `,
+        { ignoreAttributes: ['aria-hidden'] },
+      );
 
       const newOption = document.createElement('sbb-option');
       newOption.innerText = 'Option 4';
       autocomplete.append(newOption);
       await waitForLitRender(autocomplete);
 
-      const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label');
+      const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label > span');
 
-      expect(newOptionLabel).dom.to.be.equal(`
-        <span class="sbb-option__label">
-          <slot></slot>
+      expect(newOptionLabel).dom.to.be.equal(
+        `
+        <span>
           <span class="sbb-option__label--highlight"></span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion 4</span>
         </span>
-      `);
+      `,
+        { ignoreAttributes: ['aria-hidden'] },
+      );
     });
 
     it('highlight changed text node', async () => {
       const input = element.querySelector<HTMLInputElement>('input')!;
       const autocomplete = element.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
       await waitForLitRender(autocomplete);
 
-      expect(optionOneLabel).dom.to.be.equal(`
-        <span class="sbb-option__label">
-          <slot></slot>
+      expect(optionOneLabel).dom.to.be.equal(
+        `
+        <span>
           <span class="sbb-option__label--highlight"></span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion 1</span>
         </span>
-      `);
+      `,
+        { ignoreAttributes: ['aria-hidden'] },
+      );
 
       const textNode = Array.from(element.querySelector('sbb-option')!.childNodes).find(
         (e) => e.nodeType === Node.TEXT_NODE,
@@ -184,14 +202,16 @@ describe(`sbb-option`, () => {
       textNode.textContent = 'Changed Option';
       await waitForLitRender(autocomplete);
 
-      expect(optionOneLabel).dom.to.be.equal(`
-        <span class="sbb-option__label">
-          <slot></slot>
+      expect(optionOneLabel).dom.to.be.equal(
+        `
+        <span>
           <span class="sbb-option__label--highlight">Changed</span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion</span>
         </span>
-      `);
+      `,
+        { ignoreAttributes: ['aria-hidden'] },
+      );
     });
 
     it('highlight changed text node (from empty)', async () => {
@@ -203,36 +223,36 @@ describe(`sbb-option`, () => {
       option4.value = 'value 4';
       autocomplete.appendChild(option4);
       await waitForLitRender(option4);
-      const option4Label = option4.shadowRoot!.querySelector('.sbb-option__label');
+      const option4Label = option4.shadowRoot!.querySelector('.sbb-option__label > span');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
       await waitForLitRender(autocomplete);
 
-      expect(option4Label).dom.to.be.equal(`<span class="sbb-option__label">
-        <slot>
-        </slot>
-      </span>`);
+      expect(option4Label).dom.to.be.equal(`<span></span>`, { ignoreAttributes: ['aria-hidden'] });
 
       textNode.textContent = 'Changed Option';
       await waitForLitRender(autocomplete);
 
-      expect(option4Label).dom.to.be.equal(`
-          <span class="sbb-option__label">
-            <slot></slot>
+      expect(option4Label).dom.to.be.equal(
+        `
+          <span>
             <span class="sbb-option__label--highlight">Changed</span>
             <span>Opt</span>
             <span class="sbb-option__label--highlight">ion</span>
           </span>
-        `);
+        `,
+        { ignoreAttributes: ['aria-hidden'] },
+      );
 
       textNode.textContent = '';
       await waitForLitRender(autocomplete);
 
-      expect(option4Label).dom.to.be.equal(`<span class="sbb-option__label">
-        <slot>
-        </slot>
-      </span>`);
+      expect(option4Label).dom.to.be.equal(
+        `<span>
+      </span>`,
+        { ignoreAttributes: ['aria-hidden'] },
+      );
     });
 
     it('highlight later added options in sbb-optgroup', async () => {
@@ -250,36 +270,40 @@ describe(`sbb-option`, () => {
       const input = element.querySelector<HTMLInputElement>('input')!;
       const optgroup = element.querySelector<SbbOptGroupElement>('sbb-optgroup')!;
       const options = element.querySelectorAll('sbb-option');
-      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label');
+      const optionOneLabel = options[0].shadowRoot!.querySelector('.sbb-option__label > span');
 
       input.focus();
       await sendKeys({ type: 'Opt' });
       await waitForLitRender(element);
 
-      expect(optionOneLabel).dom.to.be.equal(`
-        <span class="sbb-option__label">
-          <slot></slot>
+      expect(optionOneLabel).dom.to.be.equal(
+        `
+        <span>
           <span class="sbb-option__label--highlight"></span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion 1</span>
         </span>
-      `);
+      `,
+        { ignoreAttributes: ['aria-hidden'] },
+      );
 
       const newOption = document.createElement('sbb-option');
       newOption.innerText = 'Option 2';
       optgroup.append(newOption);
       await waitForLitRender(element);
 
-      const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label');
+      const newOptionLabel = newOption.shadowRoot!.querySelector('.sbb-option__label > span');
 
-      expect(newOptionLabel).dom.to.be.equal(`
-        <span class="sbb-option__label">
-          <slot></slot>
+      expect(newOptionLabel).dom.to.be.equal(
+        `
+        <span>
           <span class="sbb-option__label--highlight"></span>
           <span>Opt</span>
           <span class="sbb-option__label--highlight">ion 2</span>
         </span>
-      `);
+      `,
+        { ignoreAttributes: ['aria-hidden'] },
+      );
     });
   });
 });

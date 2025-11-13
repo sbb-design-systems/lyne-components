@@ -3,7 +3,7 @@ import { html, LitElement, nothing, type PropertyValues, type TemplateResult } f
 import { property, state } from 'lit/decorators.js';
 
 import { slotState } from '../../core/decorators.js';
-import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
+import { isAndroid, isBlink, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
 import {
   SbbDisabledMixin,
   SbbElementInternalsMixin,
@@ -268,7 +268,7 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   }
 
   protected renderIcon(): TemplateResult {
-    return html` <span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`;
+    return html`<span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`;
   }
 
   protected renderLabel(): TemplateResult | typeof nothing {
@@ -286,7 +286,19 @@ abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
           ${this.renderIcon()}
           <span class="sbb-option__label">
             <slot @slotchange=${this.handleHighlightState}></slot>
-            ${this.renderLabel()}
+            <span
+              aria-hidden=${
+                /**
+                 * Screen readers with Chromium read the option twice.
+                 * We therefore have to hide the option for the screen readers.
+                 * TODO: Recheck periodically if this is still necessary.
+                 * https://issues.chromium.org/issues/460165741
+                 */
+                isBlink ? 'true' : nothing
+              }
+            >
+              ${this.renderLabel()}
+            </span>
             ${this._inertAriaGroups && this.getAttribute('data-group-label')
               ? html`<sbb-screen-reader-only>
                   (${this.getAttribute('data-group-label')})</sbb-screen-reader-only

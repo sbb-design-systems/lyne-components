@@ -32,26 +32,6 @@ snapshots["sbb-autocomplete-grid-row renders Shadow DOM"] =
 `;
 /* end snapshot sbb-autocomplete-grid-row renders Shadow DOM */
 
-snapshots["sbb-autocomplete-grid-row A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": "Option 1"
-    },
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-row A11y tree Chrome */
-
 snapshots["sbb-autocomplete-grid-row A11y tree Firefox"] = 
 `<p>
   {
@@ -71,4 +51,20 @@ snapshots["sbb-autocomplete-grid-row A11y tree Firefox"] =
 </p>
 `;
 /* end snapshot sbb-autocomplete-grid-row A11y tree Firefox */
+
+snapshots["sbb-autocomplete-grid-row A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": ""
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-autocomplete-grid-row A11y tree Chrome */
 
