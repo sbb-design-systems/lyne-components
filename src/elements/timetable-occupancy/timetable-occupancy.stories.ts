@@ -221,7 +221,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/timetable/sbb-timetable-occupancy',
+  title: 'elements/sbb-timetable/sbb-timetable-occupancy',
 };
 
 export default meta;
