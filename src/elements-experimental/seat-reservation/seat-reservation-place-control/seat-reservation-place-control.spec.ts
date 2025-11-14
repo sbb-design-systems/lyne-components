@@ -66,4 +66,97 @@ describe('seat-reservation-place-control', () => {
       state: 'SELECTED',
     });
   });
+
+  it('should toggle selected seat to free, when clicking', async () => {
+    const el = await fixture<SbbSeatReservationPlaceControlElement>(
+      html`<sbb-seat-reservation-place-control
+        state="SELECTED"
+      ></sbb-seat-reservation-place-control>`,
+    );
+
+    const eventPromise = new Promise<CustomEvent>((resolve) =>
+      el.addEventListener('selectplace', (e) => resolve(e as CustomEvent)),
+    );
+
+    el.click();
+    const evt = await eventPromise;
+
+    assert.equal(el.state, 'FREE');
+    assert.deepInclude(evt.detail, {
+      state: 'FREE',
+    });
+  });
+
+  it('should not toggle or emit, when preventClick is true', async () => {
+    const el = await fixture<SbbSeatReservationPlaceControlElement>(
+      html`<sbb-seat-reservation-place-control prevent-click></sbb-seat-reservation-place-control>`,
+    );
+
+    let toggled = false;
+    el.addEventListener('selectplace', () => {
+      toggled = true;
+    });
+
+    el.click();
+
+    assert.equal(el.state, 'FREE');
+    assert.isFalse(toggled);
+  });
+
+  it('should not toggle or emit, when seat is blocked ', async () => {
+    const el = await fixture<SbbSeatReservationPlaceControlElement>(
+      html`<sbb-seat-reservation-place-control
+        state="BLOCKED"
+      ></sbb-seat-reservation-place-control>`,
+    );
+
+    let toggled = false;
+    el.addEventListener('selectplace', () => {
+      toggled = true;
+    });
+
+    el.click();
+
+    assert.equal(el.state, 'BLOCKED');
+    assert.isFalse(toggled);
+  });
+
+  it('sould call focus-function, if keyfocus is set to focus', async () => {
+    const el = await fixture<SbbSeatReservationPlaceControlElement>(
+      html`<sbb-seat-reservation-place-control></sbb-seat-reservation-place-control>`,
+    );
+
+    let focused = false;
+
+    el.focus = () => {
+      focused = true;
+    };
+
+    el.keyfocus = 'focus';
+    await el.updateComplete;
+
+    assert.isTrue(focused);
+  });
+
+  it('should update title when propertyIds are set', async () => {
+    const el = await fixture<SbbSeatReservationPlaceControlElement>(
+      html`<sbb-seat-reservation-place-control text="1A"></sbb-seat-reservation-place-control>`,
+    );
+
+    const initialTitle = el.title;
+
+    el.propertyIds = ['QUIET', 'TABLE'];
+    await el.updateComplete;
+
+    assert.notEqual(el.title, initialTitle);
+  });
+
+  it('applies disabled class when preventClick is true', async () => {
+    const el = await fixture<SbbSeatReservationPlaceControlElement>(
+      html`<sbb-seat-reservation-place-control prevent-click></sbb-seat-reservation-place-control>`,
+    );
+
+    const wrapper = el.shadowRoot!.querySelector('.sbb-sr-place-ctrl')!;
+    assert.include(wrapper.className, 'sbb-reservation-place-control--disabled');
+  });
 });
