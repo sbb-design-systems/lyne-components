@@ -1,7 +1,8 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.component.js';
+import './seat-reservation-place-control.component.js';
+import type { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.component.js';
 
 describe('seat-reservation-place-control', () => {
   let element: SbbSeatReservationPlaceControlElement;
@@ -16,11 +17,7 @@ describe('seat-reservation-place-control', () => {
     );
   });
 
-  it('renders', async () => {
-    assert.instanceOf(element, SbbSeatReservationPlaceControlElement);
-  });
-
-  it('should have correct default settings', async () => {
+  it('should have correct default settings', () => {
     assert.equal(element.state, 'FREE');
     assert.equal(element.placeType, 'SEAT');
     assert.isFalse(element.preventClick);
@@ -37,7 +34,7 @@ describe('seat-reservation-place-control', () => {
         text="A1"
         deck-index="1"
         coach-index="2"
-        type="BYCICLE"
+        type="BICYCLE"
         state="SELECTED"
       ></sbb-seat-reservation-place-control>`,
     );
@@ -45,13 +42,20 @@ describe('seat-reservation-place-control', () => {
     assert.equal(el.text, 'A1');
     assert.equal(el.deckIndex, 1);
     assert.equal(el.coachIndex, 2);
-    assert.equal(el.placeType, 'BYCICLE');
+    assert.equal(el.placeType, 'BICYCLE');
     assert.equal(el.state, 'SELECTED');
   });
 
-  it('should toggle free seat to selected, when clicking', async () => {
+  it('should emit full placeSelection detail on click', async () => {
     const el = await fixture<SbbSeatReservationPlaceControlElement>(
-      html`<sbb-seat-reservation-place-control state="FREE"></sbb-seat-reservation-place-control>`,
+      html`<sbb-seat-reservation-place-control
+        id="place-1"
+        text="1A"
+        deck-index="1"
+        coach-index="2"
+        type="SEAT"
+        state="FREE"
+      ></sbb-seat-reservation-place-control>`,
     );
 
     const eventPromise = new Promise<CustomEvent>((resolve) =>
@@ -61,10 +65,24 @@ describe('seat-reservation-place-control', () => {
     el.click();
     const evt = await eventPromise;
 
-    assert.equal(el.state, 'SELECTED');
     assert.deepInclude(evt.detail, {
+      id: 'place-1',
+      deckIndex: 1,
+      coachIndex: 2,
+      number: '1A',
+      placeType: 'SEAT',
       state: 'SELECTED',
     });
+  });
+
+  it('should toggle free seat to selected, when clicking', async () => {
+    const el = await fixture<SbbSeatReservationPlaceControlElement>(
+      html`<sbb-seat-reservation-place-control state="FREE"></sbb-seat-reservation-place-control>`,
+    );
+
+    el.click();
+
+    assert.equal(el.state, 'SELECTED');
   });
 
   it('should toggle selected seat to free, when clicking', async () => {
@@ -74,17 +92,9 @@ describe('seat-reservation-place-control', () => {
       ></sbb-seat-reservation-place-control>`,
     );
 
-    const eventPromise = new Promise<CustomEvent>((resolve) =>
-      el.addEventListener('selectplace', (e) => resolve(e as CustomEvent)),
-    );
-
     el.click();
-    const evt = await eventPromise;
 
     assert.equal(el.state, 'FREE');
-    assert.deepInclude(evt.detail, {
-      state: 'FREE',
-    });
   });
 
   it('should not toggle or emit, when preventClick is true', async () => {
@@ -121,7 +131,7 @@ describe('seat-reservation-place-control', () => {
     assert.isFalse(toggled);
   });
 
-  it('sould call focus-function, if keyfocus is set to focus', async () => {
+  it('should call focus-function, if keyfocus is set to focus', async () => {
     const el = await fixture<SbbSeatReservationPlaceControlElement>(
       html`<sbb-seat-reservation-place-control></sbb-seat-reservation-place-control>`,
     );
@@ -140,7 +150,7 @@ describe('seat-reservation-place-control', () => {
 
   it('should update title when propertyIds are set', async () => {
     const el = await fixture<SbbSeatReservationPlaceControlElement>(
-      html`<sbb-seat-reservation-place-control text="1A"></sbb-seat-reservation-place-control>`,
+      html`<sbb-seat-reservation-place-control></sbb-seat-reservation-place-control>`,
     );
 
     const initialTitle = el.title;
@@ -151,12 +161,25 @@ describe('seat-reservation-place-control', () => {
     assert.notEqual(el.title, initialTitle);
   });
 
-  it('applies disabled class when preventClick is true', async () => {
+  it('should apply disabled class when preventClick is true', async () => {
     const el = await fixture<SbbSeatReservationPlaceControlElement>(
       html`<sbb-seat-reservation-place-control prevent-click></sbb-seat-reservation-place-control>`,
     );
 
     const wrapper = el.shadowRoot!.querySelector('.sbb-sr-place-ctrl')!;
     assert.include(wrapper.className, 'sbb-reservation-place-control--disabled');
+  });
+
+  it('should render correct state- and type-classes', async () => {
+    const el = await fixture<SbbSeatReservationPlaceControlElement>(
+      html`<sbb-seat-reservation-place-control
+        type="BICYCLE"
+        state="SELECTED"
+      ></sbb-seat-reservation-place-control>`,
+    );
+
+    const wrapper = el.shadowRoot!.querySelector('.sbb-sr-place-ctrl')!;
+    assert.include(wrapper.className, 'sbb-sr-place-ctrl--type-bicycle');
+    assert.include(wrapper.className, 'sbb-sr-place-ctrl--state-selected');
   });
 });
