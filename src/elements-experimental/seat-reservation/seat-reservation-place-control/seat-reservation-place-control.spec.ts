@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import './seat-reservation-place-control.component.js';
 import type { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.component.js';
 
-describe('seat-reservation-place-control', () => {
+describe('sbb-seat-reservation-place-control', () => {
   let element: SbbSeatReservationPlaceControlElement;
 
   beforeEach(async () => {
