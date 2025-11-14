@@ -360,7 +360,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/timetable/sbb-train-formation',
+  title: 'elements/sbb-timetable/sbb-train-formation',
 };
 
 export default meta;
