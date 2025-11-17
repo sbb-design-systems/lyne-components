@@ -14,13 +14,16 @@ $theme: 'standard' !default;
 @use './mixins/scrollbar';
 @use './mixins/typo';
 
-@use '../../checkbox/common/checkbox-common.global' as checkbox-common with (
+@use '../../core/mixins/panel-common.global' as panel-common with (
   $theme: $theme
 );
 @use '../../checkbox/checkbox/checkbox.global' as checkbox with (
   $theme: $theme
 );
 @use '../../checkbox/checkbox-group/checkbox-group.global' as checkbox-group with (
+  $theme: $theme
+);
+@use '../../checkbox/common/checkbox-common.global' as checkbox-common with (
   $theme: $theme
 );
 @use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
@@ -34,9 +37,10 @@ $theme: 'standard' !default;
   // Grab CSS vars defined by `@sbb-esta/lyne-design-tokens` package
   @include sbb-css-tokens.base;
 
-  @include checkbox-common.base;
+  @include panel-common.base;
   @include checkbox.base;
   @include checkbox-group.base;
+  @include checkbox-common.base;
   @include visual-checkbox.base;
 
   @include a11y.if-forced-colors {

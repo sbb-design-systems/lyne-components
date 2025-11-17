@@ -1,37 +1,16 @@
 @use '../styles' as sbb;
 
 :host {
-  --sbb-selection-panel-background: var(
-    --sbb-selection-panel-inner-background,
-    var(--sbb-background-color-1)
-  );
-  --sbb-selection-panel-border-color: var(--sbb-border-color-4-inverted);
-
-  // We use --sbb-selection-expansion-panel-border-radius in case a user would define another border radius.
-  // The default is the same as here.
-  --sbb-selection-panel-border-radius: var(
-    --sbb-selection-expansion-panel-border-radius,
-    var(--sbb-border-radius-4x)
-  );
-  --sbb-selection-panel-border-width: var(
-    --sbb-selection-panel-inner-border-width,
-    var(--sbb-border-width-1x)
-  );
-  --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
-    var(--sbb-spacing-responsive-xxs);
-  --sbb-selection-panel-animation-duration: var(
-    --sbb-disable-animation-duration,
-    var(--sbb-animation-duration-4x)
-  );
-  --sbb-selection-panel-cursor: var(--sbb-cursor-pointer);
-  --sbb-selection-panel-suffix-color: var(--sbb-color-3);
-  --sbb-selection-panel-subtext-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
-
   display: block;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
+}
+
+:host([size='m']) {
+  --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
+    var(--sbb-spacing-responsive-xxs);
 }
 
 :host([size='s']) {
