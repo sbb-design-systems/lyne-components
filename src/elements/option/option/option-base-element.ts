@@ -1,5 +1,12 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  html,
+  LitElement,
+  nothing,
+  type PropertyDeclaration,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 import { isAndroid, isBlink, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
@@ -23,8 +30,6 @@ const inertAriaGroups = isSafari;
 
 /** Configuration for the attribute to look at if component is nested in an option group */
 const optionObserverConfig: MutationObserverInit = {
-  attributeFilter: ['data-group-disabled', 'data-negative'],
-  attributes: true,
   childList: true,
   subtree: true,
   characterData: true,
@@ -75,6 +80,8 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   /** Whether the component must be set disabled due disabled attribute on sbb-optgroup. */
   @state() protected accessor disabledFromGroup = false;
 
+  @state() protected accessor groupLabel = '';
+
   @state() protected accessor label!: string;
 
   /** Disable the highlight of the label. */
@@ -94,7 +101,11 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     this.addController(
       new MutationController(this, {
         config: optionObserverConfig,
-        callback: (mutationsList) => this.onExternalMutation(mutationsList),
+        callback: () => {
+          this.handleHighlightState();
+          /** @internal */
+          this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
+        },
       }),
     );
 
@@ -144,6 +155,21 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     }
   }
 
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+    if (name === 'disabled' || name === 'disabledFromGroup') {
+      if (this.disabled || this.disabledFromGroup) {
+        this.internals.states.add('disabled');
+      } else {
+        this.internals.states.delete('disabled');
+      }
+    }
+  }
+
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
@@ -181,11 +207,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   }
 
   protected updateAriaDisabled(): void {
-    if (this.disabled || this.disabledFromGroup) {
-      this.setAttribute('aria-disabled', 'true');
-    } else {
-      this.removeAttribute('aria-disabled');
-    }
+    this.internals.ariaDisabled = this.disabled || this.disabledFromGroup ? 'true' : null;
 
     // Listened by autocomplete
     /** @internal */
@@ -193,28 +215,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   }
 
   private _updateAriaSelected(): void {
-    this.setAttribute('aria-selected', `${this.selected}`);
-  }
-
-  /** Observe changes on data attributes + slotted content and set the appropriate values. */
-  protected onExternalMutation(mutationsList: MutationRecord[]): void {
-    let contentChanged = false;
-    for (const mutation of mutationsList) {
-      if (mutation.attributeName === 'data-group-disabled') {
-        this.disabledFromGroup = this.hasAttribute('data-group-disabled');
-        this.updateAriaDisabled();
-      } else if (mutation.attributeName === 'data-negative') {
-        this.negative = this.hasAttribute('data-negative');
-      } else {
-        contentChanged = true;
-      }
-    }
-
-    if (contentChanged) {
-      this.handleHighlightState();
-      /** @internal */
-      this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
-    }
+    this.internals.ariaSelected = `${this.selected}`;
   }
 
   protected handleHighlightState(): void {
@@ -296,10 +297,8 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
             >
               ${this.renderLabel()}
             </span>
-            ${this._inertAriaGroups && this.getAttribute('data-group-label')
-              ? html`<sbb-screen-reader-only>
-                  (${this.getAttribute('data-group-label')})</sbb-screen-reader-only
-                >`
+            ${this._inertAriaGroups && this.groupLabel
+              ? html`<sbb-screen-reader-only> (${this.groupLabel})</sbb-screen-reader-only>`
               : nothing}
           </span>
           ${this.renderTick()}

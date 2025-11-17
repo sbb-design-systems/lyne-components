@@ -1,22 +1,18 @@
-import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { miniButtonStyle } from '../../button/common.js';
 import { SbbActionBaseElement } from '../../core/base-elements.js';
+import { SbbAncestorWatcherController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { isEventPrevented } from '../../core/eventing.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
+import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup.js';
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 
 let autocompleteButtonNextId = 0;
-
-/** Configuration for the attribute to look at if component is nested in a sbb-optgroup */
-const buttonObserverConfig: MutationObserverInit = {
-  attributeFilter: ['data-group-disabled'],
-};
 
 /**
  * It displays an icon-only button that can be used in `sbb-autocomplete-grid`.
@@ -51,17 +47,11 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
     if (!isServer) {
       this.setupBaseEventHandlers();
       this.addEventListener('click', this._handleButtonClick);
-
       this.addController(
-        new MutationController(this, {
-          config: buttonObserverConfig,
-          callback: (mutationsList) => {
-            for (const mutation of mutationsList) {
-              if (mutation.attributeName === 'data-group-disabled') {
-                this._disabledFromGroup = this.hasAttribute('data-group-disabled');
-                this._updateAriaDisabled();
-              }
-            }
+        new SbbAncestorWatcherController<SbbAutocompleteGridOptgroupElement>(this, 'sbb-optgroup', {
+          disabled: (p) => {
+            this._disabledFromGroup = p.disabled;
+            this._updateAriaDisabled();
           },
         }),
       );

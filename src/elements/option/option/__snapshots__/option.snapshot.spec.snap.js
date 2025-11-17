@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-option autocomplete renders selected DOM"] = 
 `<sbb-option
-  aria-selected="true"
   data-variant="autocomplete"
   id="sbb-option-0"
   selected=""
@@ -35,8 +34,6 @@ snapshots["sbb-option autocomplete renders selected Shadow DOM"] =
 
 snapshots["sbb-option autocomplete renders disabled DOM"] = 
 `<sbb-option
-  aria-disabled="true"
-  aria-selected="false"
   data-variant="autocomplete"
   disabled=""
   id="sbb-option-2"

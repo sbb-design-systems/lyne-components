@@ -560,7 +560,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
         value="10"
       >
         <sbb-option
-          aria-selected="true"
           data-disable-highlight=""
           data-variant="select"
           id="sbb-option-3"
@@ -570,7 +569,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
           10
         </sbb-option>
         <sbb-option
-          aria-selected="false"
           data-disable-highlight=""
           data-variant="select"
           id="sbb-option-4"
@@ -579,7 +577,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
           25
         </sbb-option>
         <sbb-option
-          aria-selected="false"
           data-disable-highlight=""
           data-variant="select"
           id="sbb-option-5"
@@ -737,7 +734,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
         value="10"
       >
         <sbb-option
-          aria-selected="true"
           data-disable-highlight=""
           data-variant="select"
           id="sbb-option-3"
@@ -747,7 +743,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
           10
         </sbb-option>
         <sbb-option
-          aria-selected="false"
           data-disable-highlight=""
           data-variant="select"
           id="sbb-option-4"
@@ -756,7 +751,6 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
           25
         </sbb-option>
         <sbb-option
-          aria-selected="false"
           data-disable-highlight=""
           data-variant="select"
           id="sbb-option-5"

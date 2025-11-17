@@ -8,7 +8,6 @@ snapshots["sbb-select renders Safari DOM"] =
   size="m"
 >
   <sbb-option
-    aria-selected="false"
     data-disable-highlight=""
     data-variant="select"
     id="sbb-option-0"
@@ -17,7 +16,6 @@ snapshots["sbb-select renders Safari DOM"] =
     Option 1
   </sbb-option>
   <sbb-option
-    aria-selected="false"
     data-disable-highlight=""
     data-variant="select"
     id="sbb-option-1"
@@ -26,7 +24,6 @@ snapshots["sbb-select renders Safari DOM"] =
     Option 2
   </sbb-option>
   <sbb-option
-    aria-selected="false"
     data-disable-highlight=""
     data-variant="select"
     id="sbb-option-2"
@@ -88,7 +85,6 @@ snapshots["sbb-select renders multiple Safari DOM"] =
   size="m"
 >
   <sbb-option
-    aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
     data-variant="select"
@@ -98,7 +94,6 @@ snapshots["sbb-select renders multiple Safari DOM"] =
     Option 1
   </sbb-option>
   <sbb-option
-    aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
     data-variant="select"
@@ -108,7 +103,6 @@ snapshots["sbb-select renders multiple Safari DOM"] =
     Option 2
   </sbb-option>
   <sbb-option
-    aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
     data-variant="select"
@@ -172,7 +166,6 @@ snapshots["sbb-select renders Chrome-Firefox DOM"] =
   size="m"
 >
   <sbb-option
-    aria-selected="false"
     data-disable-highlight=""
     data-variant="select"
     id="sbb-option-0"
@@ -181,7 +174,6 @@ snapshots["sbb-select renders Chrome-Firefox DOM"] =
     Option 1
   </sbb-option>
   <sbb-option
-    aria-selected="false"
     data-disable-highlight=""
     data-variant="select"
     id="sbb-option-1"
@@ -190,7 +182,6 @@ snapshots["sbb-select renders Chrome-Firefox DOM"] =
     Option 2
   </sbb-option>
   <sbb-option
-    aria-selected="false"
     data-disable-highlight=""
     data-variant="select"
     id="sbb-option-2"
@@ -272,7 +263,6 @@ snapshots["sbb-select renders multiple Chrome-Firefox DOM"] =
   size="m"
 >
   <sbb-option
-    aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
     data-variant="select"
@@ -282,7 +272,6 @@ snapshots["sbb-select renders multiple Chrome-Firefox DOM"] =
     Option 1
   </sbb-option>
   <sbb-option
-    aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
     data-variant="select"
@@ -292,7 +281,6 @@ snapshots["sbb-select renders multiple Chrome-Firefox DOM"] =
     Option 2
   </sbb-option>
   <sbb-option
-    aria-selected="false"
     data-disable-highlight=""
     data-multiple=""
     data-variant="select"

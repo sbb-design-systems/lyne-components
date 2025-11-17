@@ -291,7 +291,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _selectableOptions(): SbbOptionElement<T>[] {
-    return this.options.filter((opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'));
+    return this.options.filter((opt) => !opt.disabled && !opt['disabledFromGroup']);
   }
 
   /** Listens to option changes. */

@@ -1,6 +1,6 @@
 @use '../../core/styles' as sbb;
 
-$disabled: '[disabled], :disabled, [disabled-interactive], [data-disabled], [data-group-disabled]';
+$disabled: '[disabled], :disabled, [disabled-interactive], [data-disabled], :state(disabled)';
 $active: ':active, [data-active]';
 
 :host {

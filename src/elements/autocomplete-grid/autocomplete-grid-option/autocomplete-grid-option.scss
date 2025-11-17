@@ -54,7 +54,7 @@
 }
 
 .sbb-option__label--highlight {
-  :host(:not(:is([disabled], [data-group-disabled]))) & {
+  :host(:not(:state(disabled))) & {
     @include sbb.text--bold;
     @include sbb.if-forced-colors {
       color: Highlight;
