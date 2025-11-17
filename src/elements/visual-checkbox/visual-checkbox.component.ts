@@ -37,7 +37,12 @@ class SbbVisualCheckboxElement extends SbbDisabledMixin(SbbNegativeMixin(LitElem
   protected override render(): TemplateResult {
     return html`
       ${this.checked || this.indeterminate
-        ? html`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        ? html`<svg
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            width="100%"
+            height="100%"
+          >
             <path
               fill="none"
               d=${this.indeterminate ? 'M9 12H15' : 'M8 12.3304L10.4615 15L16 9'}

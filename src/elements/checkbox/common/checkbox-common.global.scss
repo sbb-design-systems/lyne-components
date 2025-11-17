@@ -5,8 +5,8 @@ $theme: 'standard' !default;
 @mixin base() {
   --sbb-checkbox-font-size: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-text-font-size-text-m),
-        'lean': var(--sbb-text-font-size-text-xs),
+        'standard': var(--sbb-text-font-size-m),
+        'lean': var(--sbb-text-font-size-xs),
       ),
       $theme
     )};
