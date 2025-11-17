@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.13.2](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.1...v3.13.2) (2025-11-17)
+
+
+### Bug Fixes
+
+* **sbb-option:** avoid reading options twice with screen readers on Chrome ([#4180](https://github.com/sbb-design-systems/lyne-components/issues/4180)) ([8fca559](https://github.com/sbb-design-systems/lyne-components/commit/8fca559a43f1f7b9bff1bddae3ff9970668d4afc))
+
 ## [3.13.1](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.0...v3.13.1) (2025-11-13)
 
 
