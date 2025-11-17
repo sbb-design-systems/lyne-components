@@ -1,6 +1,7 @@
 @use 'sass:selector';
 @use '../core/functions';
 @use '../core/mediaqueries';
+@use './a11y';
 @use './typo';
 
 @mixin list-reset {
@@ -149,6 +150,10 @@
       mask-position: center;
       mask-size: 100%;
     }
+  }
+
+  @include a11y.if-forced-colors {
+    --sbb-icon-list-marker-icon-color: CanvasText;
   }
 }
 
