@@ -14,13 +14,12 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbFormErrorElement } from '../form-error.js';
+import type { SbbErrorElement } from '../form-field.js';
 import { SbbOptionElement } from '../option.js';
 
 import readme from './readme.md?raw';
 import { SbbSelectElement } from './select.component.js';
 
-import '../form-error.js';
 import '../form-field.js';
 import '../card.js';
 
@@ -346,7 +345,7 @@ const FormFieldTemplateWithError = ({
   if (args.multiple && args.value) {
     args.value = [args.value];
   }
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
+  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
   sbbFormError.textContent = 'Error';
 
   return html`

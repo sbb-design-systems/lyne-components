@@ -6,14 +6,14 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbFormErrorElement } from '../../form-error.js';
+import type { SbbErrorElement } from '../../form-field.js';
 
 import type { SbbRadioButtonGroupElement } from './radio-button-group.component.js';
 import readme from './readme.md?raw';
 import './radio-button-group.component.js';
 import '../radio-button.js';
 import '../radio-button-panel.js';
-import '../../form-error.js';
+import '../../form-field.js';
 import '../../icon.js';
 import '../../card/card-badge.js';
 
@@ -139,7 +139,7 @@ const PanelTemplate = (args: Args): TemplateResult => html`
 `;
 
 const ErrorMessageTemplate = (args: Args): TemplateResult => {
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
+  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'This is a required field.';
 

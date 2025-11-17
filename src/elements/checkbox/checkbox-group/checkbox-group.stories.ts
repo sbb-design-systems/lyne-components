@@ -13,7 +13,7 @@ import readme from './readme.md?raw';
 import './checkbox-group.component.js';
 import '../checkbox.js';
 import '../checkbox-panel.js';
-import '../../form-error.js';
+import '../../form-field/error.js';
 import '../../icon.js';
 import '../../card/card-badge.js';
 
@@ -112,9 +112,7 @@ const ErrorMessageTemplate = ({
 }: Args): TemplateResult => html`
   <sbb-checkbox-group ${sbbSpread(args)} id="sbb-checkbox-group">
     ${checkboxes(checked, disabledSingle, iconName, iconPlacement, label)}
-    ${args.required
-      ? html`<sbb-form-error slot="error">This is a required field.</sbb-form-error>`
-      : nothing}
+    ${args.required ? html`<sbb-error slot="error">This is a required field.</sbb-error>` : nothing}
   </sbb-checkbox-group>
 `;
 

@@ -5,7 +5,7 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbFormErrorElement } from '../../form-error.js';
+import type { SbbErrorElement } from '../../form-field.js';
 import { SbbStepElement, type SbbStepValidateEventDetails } from '../step.js';
 
 import readme from './readme.md?raw';
@@ -16,7 +16,6 @@ import '../../link/block-link-button.js';
 import '../../button/button.js';
 import '../../button/secondary-button.js';
 import '../../form-field.js';
-import '../../form-error.js';
 import '../../card.js';
 
 const loremIpsum = `
@@ -97,7 +96,7 @@ const addElement = (event: PointerEvent): void => {
   (event.target as HTMLButtonElement).parentElement!.querySelector('sbb-step')!.appendChild(div);
 };
 
-const firstFormElement = (sbbFormError: SbbFormErrorElement): TemplateResult => html`
+const firstFormElement = (sbbFormError: SbbErrorElement): TemplateResult => html`
   <sbb-form-field error-space="reserve" size="m">
     <label>Name</label>
     <input
@@ -170,8 +169,8 @@ const stepperContent = (disabled: boolean, longLabel: boolean): TemplateResult[]
 
 const WithSingleFormTemplate = (args: Args): TemplateResult => {
   document.querySelector('sbb-stepper')?.reset();
-  document.querySelector('sbb-form-error')?.remove();
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
+  document.querySelector('sbb-error')?.remove();
+  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'This is a required field.';
 
@@ -262,8 +261,8 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
 
 const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
   document.querySelector('sbb-stepper')?.reset();
-  document.querySelector('sbb-form-error')?.remove();
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
+  document.querySelector('sbb-error')?.remove();
+  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'This is a required field.';
 

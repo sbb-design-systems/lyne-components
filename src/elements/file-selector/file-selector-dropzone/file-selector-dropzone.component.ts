@@ -20,7 +20,7 @@ import style from './file-selector-dropzone.scss?lit&inline';
 /**
  * It allows to select one or more file from storage devices via button click or drag and drop, and display them.
  *
- * @slot error - Use this to provide a `sbb-form-error` to show an error message.
+ * @slot error - Use this to provide a `sbb-error` to show an error message.
  */
 export
 @customElement('sbb-file-selector-dropzone')

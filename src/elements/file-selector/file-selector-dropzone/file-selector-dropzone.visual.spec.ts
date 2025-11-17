@@ -8,9 +8,10 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.js';
 
-import '../../form-error.js';
-import './file-selector-dropzone.component.js';
 import type { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.js';
+
+import '../../form-field/error.js';
+import './file-selector-dropzone.component.js';
 
 describe(`sbb-file-selector-dropzone`, () => {
   function addFilesToComponentInput(elem: SbbFileSelectorDropzoneElement): void {
@@ -55,7 +56,7 @@ describe(`sbb-file-selector-dropzone`, () => {
               ?disabled=${state.disabled}
             ></sbb-file-selector-dropzone>
             ${state.error
-              ? html`<sbb-form-error slot="error">There has been an error.</sbb-form-error>`
+              ? html`<sbb-error slot="error">There has been an error.</sbb-error>`
               : nothing}
           `,
           { forcedColors: forcedColors, darkMode },

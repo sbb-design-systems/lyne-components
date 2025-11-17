@@ -2,10 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbNegativeMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
+import { SbbNegativeMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
 
-import style from './form-error.scss?lit&inline';
+import style from './error.scss?lit&inline';
 
 let nextId = 0;
 
@@ -16,13 +16,13 @@ let nextId = 0;
  * @slot icon - Use this slot to override the default error icon.
  */
 export
-@customElement('sbb-form-error')
-class SbbFormErrorElement extends SbbNegativeMixin(LitElement) {
+@customElement('sbb-error')
+class SbbErrorElement extends SbbNegativeMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.id ||= `sbb-form-error-${nextId++}`;
+    this.id ||= `sbb-error-${nextId++}`;
     const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
     if (formField) {
       this.negative = formField.hasAttribute('negative');
@@ -31,10 +31,10 @@ class SbbFormErrorElement extends SbbNegativeMixin(LitElement) {
 
   protected override render(): TemplateResult {
     return html`
-      <span class="form-error__icon">
+      <span class="error__icon">
         <slot name="icon">
           <svg
-            class="form-error__icon-svg"
+            class="error__icon-svg"
             aria-hidden="true"
             width="14"
             height="14"
@@ -48,7 +48,7 @@ class SbbFormErrorElement extends SbbNegativeMixin(LitElement) {
           </svg>
         </slot>
       </span>
-      <span class="form-error-content">
+      <span class="error-content">
         <slot></slot>
       </span>
     `;
@@ -58,6 +58,6 @@ class SbbFormErrorElement extends SbbNegativeMixin(LitElement) {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-form-error': SbbFormErrorElement;
+    'sbb-error': SbbErrorElement;
   }
 }

@@ -12,7 +12,7 @@ import './selection-expansion-panel.component.js';
 import '../card/card-badge.js';
 import '../checkbox/checkbox-panel.js';
 import '../checkbox/checkbox-group.js';
-import '../form-error.js';
+import '../form-field/error.js';
 import '../icon.js';
 import '../link/block-link-button.js';
 import '../radio-button/radio-button-panel.js';
@@ -143,9 +143,7 @@ describe(`sbb-selection-expansion-panel`, () => {
                       ${withCheckboxPanel({ checked: true, size })} ${withCheckboxPanel({ size })}
                       ${withCheckboxPanel({ size })}
                     </sbb-checkbox-group>
-                    ${error
-                      ? html`<sbb-form-error slot="error">Error message</sbb-form-error>`
-                      : nothing}
+                    ${error ? html`<sbb-error slot="error">Error message</sbb-error>` : nothing}
                   `);
                 }),
               );
@@ -171,9 +169,7 @@ describe(`sbb-selection-expansion-panel`, () => {
                       ${withRadioPanel({ value: '2', size })}
                       ${withRadioPanel({ value: '3', size })}
                     </sbb-radio-button-group>
-                    ${error
-                      ? html`<sbb-form-error slot="error">Error message</sbb-form-error>`
-                      : nothing}
+                    ${error ? html`<sbb-error slot="error">Error message</sbb-error>` : nothing}
                   `);
                 }),
               );

@@ -9,7 +9,7 @@ import './selection-action-panel.component.js';
 import '../button/secondary-button.js';
 import '../card.js';
 import '../checkbox.js';
-import '../form-error.js';
+import '../form-field/error.js';
 import '../link/block-link-button.js';
 import '../radio-button.js';
 import '../selection-expansion-panel.js';

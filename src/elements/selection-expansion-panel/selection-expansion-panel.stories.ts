@@ -7,14 +7,14 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbFormErrorElement } from '../form-error.js';
+import type { SbbErrorElement } from '../form-field.js';
 import type { SbbRadioButtonGroupElement } from '../radio-button.js';
 
 import '../button/mini-button.js';
 import '../card.js';
 import '../checkbox.js';
 import '../divider.js';
-import '../form-error.js';
+import '../form-field/error.js';
 import '../icon.js';
 import '../link/block-link-button.js';
 import '../popover.js';
@@ -376,7 +376,7 @@ const WithCheckboxesErrorMessageTemplate = ({
   size,
   ...args
 }: Args): TemplateResult => {
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
+  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'This is a required field.';
 
@@ -428,7 +428,7 @@ const WithRadiosErrorMessageTemplate = ({
   size,
   ...args
 }: Args): TemplateResult => {
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
+  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'This is a required field.';
 

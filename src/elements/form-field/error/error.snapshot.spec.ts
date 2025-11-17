@@ -1,18 +1,18 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbFormErrorElement } from './form-error.component.js';
+import type { SbbErrorElement } from './error.component.ts';
 
-import './form-error.component.js';
+import './error.component.ts';
 
-describe(`sbb-form-error`, () => {
-  let element: SbbFormErrorElement;
+describe(`sbb-error`, () => {
+  let element: SbbErrorElement;
 
   describe('renders', async () => {
     beforeEach(async () => {
-      element = await fixture(html`<sbb-form-error>Required</sbb-form-error>`);
+      element = await fixture(html`<sbb-error>Required</sbb-error>`);
     });
 
     it('DOM', async () => {

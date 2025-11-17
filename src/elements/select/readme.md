@@ -30,7 +30,7 @@ so setting a default value should be done using the `value` attribute on the `sb
 ## States
 
 It is possible to display the component in `disabled` or `readonly` state by using the self-named properties. The component
-has a `required` property, which can be useful for setting a custom `sbb-form-error` message within a `sbb-form-field`.
+has a `required` property, which can be useful for setting a custom `sbb-error` message within a `sbb-form-field`.
 
 ```html
 <sbb-form-field>
@@ -40,7 +40,7 @@ has a `required` property, which can be useful for setting a custom `sbb-form-er
     <sbb-option value="Charmander">Charmander</sbb-option>
     <sbb-option value="Squirtle">Squirtle</sbb-option>
   </sbb-select>
-  <sbb-form-error>You must pick one!</sbb-form-error>
+  <sbb-error>You must pick one!</sbb-error>
 </sbb-form-field>
 ```
 

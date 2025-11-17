@@ -88,18 +88,18 @@ describe(`sbb-form-field`, () => {
       expect(label).to.have.attribute('for', input.id);
     });
 
-    it('should reference sbb-form-error', async () => {
-      // When adding a sbb-form-error
-      const formError = document.createElement('sbb-form-error');
+    it('should reference sbb-error', async () => {
+      // When adding a sbb-error
+      const formError = document.createElement('sbb-error');
       element.append(formError);
       await waitForLitRender(element);
       await nextFrame();
 
-      // Then input should be linked and sbb-form-error configured
+      // Then input should be linked and sbb-error configured
       expect(input.ariaDescribedByElements).to.have.same.members([formError]);
       expect(formError).to.have.attribute('role', 'status');
 
-      // When removing sbb-form-error
+      // When removing sbb-error
       formError.remove();
       await waitForLitRender(element);
 
@@ -107,13 +107,13 @@ describe(`sbb-form-field`, () => {
       expect(input).not.to.have.attribute('aria-describedby');
     });
 
-    it('should reference sbb-form-error with existing reference', async () => {
+    it('should reference sbb-error with existing reference', async () => {
       const description = document.createElement('div');
       description.textContent = 'Description';
       element.append(description);
       input.ariaDescribedByElements = [description];
 
-      const formError = document.createElement('sbb-form-error');
+      const formError = document.createElement('sbb-error');
       element.append(formError);
       await waitForLitRender(element);
       await nextFrame();
@@ -215,18 +215,18 @@ describe(`sbb-form-field`, () => {
       expect(label).to.have.attribute('for', textarea.id);
     });
 
-    it('should reference sbb-form-error', async () => {
-      // When adding a sbb-form-error
-      const formError = document.createElement('sbb-form-error');
+    it('should reference sbb-error', async () => {
+      // When adding a sbb-error
+      const formError = document.createElement('sbb-error');
       element.append(formError);
       await waitForLitRender(element);
       await nextFrame();
 
-      // Then input should be linked and sbb-form-error configured
+      // Then input should be linked and sbb-error configured
       expect(textarea.ariaDescribedByElements).to.have.same.members([formError]);
       expect(formError).to.have.attribute('role', 'status');
 
-      // When removing sbb-form-error
+      // When removing sbb-error
       formError.remove();
       await waitForLitRender(element);
 

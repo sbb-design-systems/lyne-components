@@ -134,13 +134,13 @@ snapshots["sbb-form-field renders readonly input with error DOM"] =
     placeholder="This is an input"
     readonly=""
   >
-  <sbb-form-error
+  <sbb-error
     id="error"
     role="status"
     slot="error"
   >
     You can't change this value.
-  </sbb-form-error>
+  </sbb-error>
 </sbb-form-field>
 `;
 /* end snapshot sbb-form-field renders readonly input with error DOM */

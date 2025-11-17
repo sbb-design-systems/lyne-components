@@ -3,14 +3,14 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import type { SbbFormErrorElement } from '../../form-error.js';
+import type { SbbErrorElement } from '../error.js';
 
 import readme from './readme.md?raw';
 
 import './form-field.component.js';
 import '../form-field-clear.js';
 import '../../button/mini-button.js';
-import '../../form-error.js';
+import '../error.js';
 import '../../link.js';
 import '../../popover.js';
 import '../../title.js';
@@ -112,7 +112,7 @@ const TemplateInputWithSlottedSpanLabel = (args: Args): TemplateResult =>
   formField({ ...args, slottedLabel: true }, TemplateBasicInput(args));
 
 const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
+  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = args.errorText;
 
@@ -172,7 +172,7 @@ const TemplateInputWithClearButton = (args: Args): TemplateResult =>
 const TemplateSelect = (args: Args): TemplateResult => formField(args, TemplateBasicSelect(args));
 
 const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
+  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = args.errorText;
 
@@ -227,7 +227,7 @@ const TemplateTextarea = (args: Args): TemplateResult =>
   formField(args, TemplateBasicTextarea(args));
 
 const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
+  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = args.errorText;
 

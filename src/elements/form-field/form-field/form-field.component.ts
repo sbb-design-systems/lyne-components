@@ -306,9 +306,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
 
   private _assignSlots(): void {
     this.querySelectorAll('label:not([slot])').forEach((e) => e.setAttribute('slot', 'label'));
-    this.querySelectorAll('sbb-form-error:not([slot])').forEach((e) =>
-      e.setAttribute('slot', 'error'),
-    );
+    this.querySelectorAll('sbb-error:not([slot])').forEach((e) => e.setAttribute('slot', 'error'));
   }
 
   private _connectInputElement(): 'changed' | 'no-input' | 'unchanged' {
@@ -506,7 +504,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   }
 
   /**
-   * It is used internally to set the aria-describedby attribute for the slotted input referencing available <sbb-form-error> instances.
+   * It is used internally to set the aria-describedby attribute for the slotted input referencing available <sbb-error> instances.
    */
   private _onSlotErrorChange(event: Event): void {
     const errorElements = (event.target as HTMLSlotElement).assignedElements();
@@ -554,7 +552,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
 
   private _syncNegative(): void {
     this.querySelectorAll?.(
-      'sbb-form-error,sbb-mini-button,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group',
+      'sbb-error,sbb-mini-button,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group',
     ).forEach((element) => element.toggleAttribute('negative', this.negative));
   }
 

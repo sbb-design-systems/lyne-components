@@ -1,14 +1,14 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-form-error renders DOM"] = 
-`<sbb-form-error id="sbb-form-error-0">
+snapshots["sbb-error renders DOM"] = 
+`<sbb-error id="sbb-error-0">
   Required
-</sbb-form-error>
+</sbb-error>
 `;
-/* end snapshot sbb-form-error renders DOM */
+/* end snapshot sbb-error renders DOM */
 
-snapshots["sbb-form-error renders Shadow DOM"] = 
+snapshots["sbb-error renders Shadow DOM"] = 
 `<span class="form-error__icon">
   <slot name="icon">
   </slot>
@@ -18,9 +18,9 @@ snapshots["sbb-form-error renders Shadow DOM"] =
   </slot>
 </span>
 `;
-/* end snapshot sbb-form-error renders Shadow DOM */
+/* end snapshot sbb-error renders Shadow DOM */
 
-snapshots["sbb-form-error renders A11y tree Chrome"] = 
+snapshots["sbb-error renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -34,9 +34,9 @@ snapshots["sbb-form-error renders A11y tree Chrome"] =
 }
 </p>
 `;
-/* end snapshot sbb-form-error renders A11y tree Chrome */
+/* end snapshot sbb-error renders A11y tree Chrome */
 
-snapshots["sbb-form-error renders A11y tree Firefox"] = 
+snapshots["sbb-error renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -50,5 +50,5 @@ snapshots["sbb-form-error renders A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-form-error renders A11y tree Firefox */
+/* end snapshot sbb-error renders A11y tree Firefox */
 

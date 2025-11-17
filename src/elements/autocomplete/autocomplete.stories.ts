@@ -12,7 +12,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import type { SbbFormErrorElement } from '../form-error.js';
+import type { SbbErrorElement } from '../form-field.js';
 import { SbbOptionElement } from '../option.js';
 
 import { SbbAutocompleteElement } from './autocomplete.component.js';
@@ -20,7 +20,6 @@ import readme from './readme.md?raw';
 
 import '../card.js';
 import '../form-field.js';
-import '../form-error.js';
 
 const negative: InputType = {
   control: {
@@ -351,7 +350,7 @@ const MixedTemplate = (args: Args): TemplateResult => html`
 `;
 
 const RequiredTemplate = (args: Args): TemplateResult => {
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
+  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
   sbbFormError.setAttribute('slot', 'error');
   sbbFormError.textContent = 'This is a required field.';
 
