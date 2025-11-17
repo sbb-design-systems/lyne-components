@@ -17,10 +17,13 @@ $theme: 'standard' !default;
 @use '../../checkbox/common/checkbox-common.global' as checkbox-common with (
   $theme: $theme
 );
-@use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
+@use '../../checkbox/checkbox/checkbox.global' as checkbox with (
   $theme: $theme
 );
-@use '../../checkbox/checkbox/checkbox.global' as checkbox with (
+@use '../../checkbox/checkbox-group/checkbox-group.global' as checkbox-group with (
+  $theme: $theme
+);
+@use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
   $theme: $theme
 );
 
@@ -33,6 +36,7 @@ $theme: 'standard' !default;
 
   @include checkbox-common.base;
   @include checkbox.base;
+  @include checkbox-group.base;
   @include visual-checkbox.base;
 
   @include a11y.if-forced-colors {
