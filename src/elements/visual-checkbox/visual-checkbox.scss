@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   width: var(--sbb-visual-checkbox-dimension);
   height: var(--sbb-visual-checkbox-dimension);
   border-radius: var(--sbb-border-radius-2x);
