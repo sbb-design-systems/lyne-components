@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-next.2](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.0-next.1...v4.0.0-next.2) (2025-11-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** removed or renamed several CSS variables (lyne-design-tokens upstream change)
+    - Removed `--sbb-title-margin-block-start` and `--sbb-title-margin-block-end` in favor of `--sbb-title-margin-block`
+    - Removed deprecated `title` Sass mixin. Use title-rules combined with title level mixins.
+
+### Bug Fixes
+
+* **sbb-carousel:** fix usage in overlays ([#4185](https://github.com/sbb-design-systems/lyne-components/issues/4185)) ([fbd0432](https://github.com/sbb-design-systems/lyne-components/commit/fbd0432948aee0967a46c86ab13de1db9a57328c)), closes [#4182](https://github.com/sbb-design-systems/lyne-components/issues/4182)
+* **sbb-option:** avoid reading options twice with screen readers on Chrome ([#4180](https://github.com/sbb-design-systems/lyne-components/issues/4180)) ([f49e3b2](https://github.com/sbb-design-systems/lyne-components/commit/f49e3b2d58670a9bf7f4ba279f42ca1151acffa5))
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency @sbb-esta/lyne-design-tokens to v2.0.0-next.4 (main) ([#4171](https://github.com/sbb-design-systems/lyne-components/issues/4171)) ([79b6266](https://github.com/sbb-design-systems/lyne-components/commit/79b62662bced814b6489fdffc0c4e6fd2876826d))
+
 ## [3.13.1](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.0...v3.13.1) (2025-11-13)
 
 
