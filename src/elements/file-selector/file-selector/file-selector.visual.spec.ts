@@ -8,9 +8,10 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.js';
 
-import '../../form-error.js';
-import './file-selector.component.js';
 import type { SbbFileSelectorElement } from './file-selector.component.js';
+
+import '../../form-field/error.js';
+import './file-selector.component.js';
 
 describe(`sbb-file-selector`, () => {
   function addFilesToComponentInput(elem: SbbFileSelectorElement): void {
@@ -50,7 +51,7 @@ describe(`sbb-file-selector`, () => {
           html`
             <sbb-file-selector id="fs" multiple ?disabled=${state.disabled}></sbb-file-selector>
             ${state.error
-              ? html`<sbb-form-error slot="error">There has been an error.</sbb-form-error>`
+              ? html`<sbb-error slot="error">There has been an error.</sbb-error>`
               : nothing}
           `,
           { forcedColors: forcedColors, darkMode },

@@ -10,11 +10,11 @@ The component mimics the native `<input type="file"/>`; for the drag-and-drop va
 
 ## Slots
 
-The `error` named slot can be used to display an error message using the `sbb-form-error` component.
+The `error` named slot can be used to display an error message using the `sbb-error` component.
 
 ```html
 <sbb-file-selector>
-  <sbb-form-error slot="error">An error occurred during file upload.</sbb-form-error>
+  <sbb-error slot="error">An error occurred during file upload.</sbb-error>
 </sbb-file-selector>
 ```
 
@@ -117,6 +117,6 @@ It's suggested to have a different value for each variant, e.g.:
 
 ## Slots
 
-| Name    | Description                                                      |
-| ------- | ---------------------------------------------------------------- |
-| `error` | Use this to provide a `sbb-form-error` to show an error message. |
+| Name    | Description                                                 |
+| ------- | ----------------------------------------------------------- |
+| `error` | Use this to provide a `sbb-error` to show an error message. |

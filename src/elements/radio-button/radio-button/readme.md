@@ -22,7 +22,7 @@ In cases where that's not possible, you can define a group of radios using the s
 It is possible to display the component in `disabled` or `checked` state by using the self-named properties.
 
 The component has a `required` property, which can be useful
-for setting a custom [sbb-form-error](/docs/elements-sbb-form-field-sbb-form-error--docs) message
+for setting a custom [sbb-error](/docs/elements-sbb-form-field-sbb-error--docs) message
 within a [sbb-form-field](/docs/elements-sbb-form-field-sbb-form-field--docs).
 
 The `allowEmptySelection` property allows user to deselect the component.

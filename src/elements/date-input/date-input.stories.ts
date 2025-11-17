@@ -18,7 +18,6 @@ import { defaultDateAdapter } from '../core/datetime.js';
 import { SbbDateInputElement } from './date-input.component.js';
 import readme from './readme.md?raw';
 
-import '../form-error.js';
 import '../form-field.js';
 import '../title.js';
 
@@ -191,7 +190,7 @@ const Template = ({
             } else if (error) {
               error.textContent = dateInput.validationMessage;
             } else {
-              error = document.createElement('sbb-form-error');
+              error = document.createElement('sbb-error');
               error.textContent = dateInput.validationMessage;
               dateInput.after(error);
             }

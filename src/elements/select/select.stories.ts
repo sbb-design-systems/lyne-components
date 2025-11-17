@@ -14,13 +14,12 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbFormErrorElement } from '../form-error.js';
+import type { SbbErrorElement } from '../form-field.js';
 import { SbbOptionElement } from '../option.js';
 
 import readme from './readme.md?raw';
 import { SbbSelectElement } from './select.component.js';
 
-import '../form-error.js';
 import '../form-field.js';
 import '../card.js';
 
@@ -346,8 +345,8 @@ const FormFieldTemplateWithError = ({
   if (args.multiple && args.value) {
     args.value = [args.value];
   }
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
-  sbbFormError.textContent = 'Error';
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.textContent = 'Error';
 
   return html`
     <div>
@@ -365,10 +364,10 @@ const FormFieldTemplateWithError = ({
           class="sbb-invalid"
           @change=${(event: Event) => {
             if ((event.target as SbbSelectElement).value !== '') {
-              sbbFormError.remove();
+              error.remove();
               document.getElementById('sbb-select')!.classList.remove('sbb-invalid');
             } else {
-              document.getElementById('sbb-form-field')!.append(sbbFormError);
+              document.getElementById('sbb-form-field')!.append(error);
               document.getElementById('sbb-select')!.classList.add('sbb-invalid');
             }
           }}
@@ -377,7 +376,7 @@ const FormFieldTemplateWithError = ({
             ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
             : createOptions(numberOfOptions, disableOption, false, args.value)}
         </sbb-select>
-        ${sbbFormError}
+        ${error}
       </sbb-form-field>
       ${textBlock()}
     </div>

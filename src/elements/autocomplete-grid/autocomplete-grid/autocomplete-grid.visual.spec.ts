@@ -11,7 +11,6 @@ import {
 
 import '../../card.js';
 import '../../form-field.js';
-import '../../form-error.js';
 import '../../autocomplete-grid.js';
 
 describe('sbb-autocomplete-grid', () => {
@@ -137,7 +136,7 @@ describe('sbb-autocomplete-grid', () => {
           : createOptions(args.withIcon, args.disableOption)}
       </sbb-autocomplete-grid>
       ${args.required
-        ? html`<sbb-form-error slot="error">This is a required field.</sbb-form-error>`
+        ? html`<sbb-error slot="error">This is a required field.</sbb-error>`
         : nothing}
     </sbb-form-field>
     ${textBlock()}

@@ -8,7 +8,7 @@ import {
 } from '../../core/testing/private.js';
 
 import '../../card.js';
-import '../../form-error.js';
+import '../../form-field/error.js';
 import '../../icon.js';
 import '../checkbox.js';
 import '../checkbox-panel.js';
@@ -61,9 +61,7 @@ describe('sbb-checkbox-group', () => {
           </sbb-checkbox>
         `,
       )}
-      ${required
-        ? html`<sbb-form-error slot="error">This is a required field.</sbb-form-error>`
-        : nothing}
+      ${required ? html`<sbb-error slot="error">This is a required field.</sbb-error>` : nothing}
     </sbb-checkbox-group>
   `;
 

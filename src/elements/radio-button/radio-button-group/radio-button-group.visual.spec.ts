@@ -8,7 +8,7 @@ import {
 } from '../../core/testing/private.js';
 
 import '../../card/card-badge.js';
-import '../../form-error.js';
+import '../../form-field/error.js';
 import '../../icon.js';
 import '../../radio-button.js';
 
@@ -106,7 +106,7 @@ describe(`sbb-radio-button-group`, () => {
               await setup.withFixture(
                 html`<sbb-radio-button-group allow-empty-selection orientation=${orientation}>
                   ${variant.template}
-                  <sbb-form-error slot="error">This is a required field.</sbb-form-error>
+                  <sbb-error slot="error">This is a required field.</sbb-error>
                 </sbb-radio-button-group>`,
               );
             }),
