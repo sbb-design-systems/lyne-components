@@ -139,22 +139,22 @@ const PanelTemplate = (args: Args): TemplateResult => html`
 `;
 
 const ErrorMessageTemplate = (args: Args): TemplateResult => {
-  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = 'This is a required field.';
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = 'This is a required field.';
 
   return html`
     <sbb-radio-button-group
       ${sbbSpread(args)}
       @change=${(event: Event) => {
         if ((event.currentTarget as SbbRadioButtonGroupElement).value) {
-          sbbFormError.remove();
+          error.remove();
         } else if (args.required) {
-          (event.target as HTMLElement).closest('sbb-radio-button-group')?.append(sbbFormError);
+          (event.target as HTMLElement).closest('sbb-radio-button-group')?.append(error);
         }
       }}
     >
-      ${radioButtons()} ${args.required && sbbFormError}
+      ${radioButtons()} ${args.required && error}
     </sbb-radio-button-group>
   `;
 };

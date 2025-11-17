@@ -376,9 +376,9 @@ const WithCheckboxesErrorMessageTemplate = ({
   size,
   ...args
 }: Args): TemplateResult => {
-  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = 'This is a required field.';
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = 'This is a required field.';
 
   return html`
     <sbb-checkbox-group
@@ -391,9 +391,9 @@ const WithCheckboxesErrorMessageTemplate = ({
           (el) => el.checked,
         );
         if (hasChecked) {
-          sbbFormError.remove();
+          error.remove();
         } else {
-          checkboxGroup.append(sbbFormError);
+          checkboxGroup.append(error);
         }
       }}
     >
@@ -417,7 +417,7 @@ const WithCheckboxesErrorMessageTemplate = ({
         </sbb-checkbox-panel>
         ${innerContent()}
       </sbb-selection-expansion-panel>
-      ${sbbFormError}
+      ${error}
     </sbb-checkbox-group>
   `;
 };
@@ -428,9 +428,9 @@ const WithRadiosErrorMessageTemplate = ({
   size,
   ...args
 }: Args): TemplateResult => {
-  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = 'This is a required field.';
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = 'This is a required field.';
 
   return html`
     <sbb-radio-button-group
@@ -442,9 +442,9 @@ const WithRadiosErrorMessageTemplate = ({
       @change=${(event: Event) => {
         const group = event.currentTarget as SbbRadioButtonGroupElement;
         if (group.value) {
-          sbbFormError.remove();
+          error.remove();
         } else {
-          group.append(sbbFormError);
+          group.append(error);
         }
       }}
     >
@@ -468,7 +468,7 @@ const WithRadiosErrorMessageTemplate = ({
         </sbb-radio-button-panel>
         ${innerContent()}
       </sbb-selection-expansion-panel>
-      ${sbbFormError}
+      ${error}
     </sbb-radio-button-group>
   `;
 };

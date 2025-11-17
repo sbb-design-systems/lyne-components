@@ -15,9 +15,9 @@ export const FileSelectorTemplate = ({ tag, ...args }: Args): TemplateResult =>
   html`<${unsafeStatic(tag)} ${sbbSpread(args)}></${unsafeStatic(tag)}>`;
 
 export const FileSelectorTemplateWithError = ({ tag, ...args }: Args): TemplateResult => {
-  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = 'There has been an error.';
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = 'There has been an error.';
 
   return html`
     <${unsafeStatic(tag)}
@@ -25,11 +25,9 @@ export const FileSelectorTemplateWithError = ({ tag, ...args }: Args): TemplateR
       id="sbb-file-selector"
       @filechanged=${(event: CustomEvent<File[]>) => {
         if (event.detail && event.detail.length > 0) {
-          (event.target as SbbFileSelectorElement | SbbFileSelectorDropzoneElement)!.append(
-            sbbFormError,
-          );
+          (event.target as SbbFileSelectorElement | SbbFileSelectorDropzoneElement)!.append(error);
         } else {
-          sbbFormError.remove();
+          error.remove();
         }
       }}
     ></${unsafeStatic(tag)}>

@@ -350,9 +350,9 @@ const MixedTemplate = (args: Args): TemplateResult => html`
 `;
 
 const RequiredTemplate = (args: Args): TemplateResult => {
-  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = 'This is a required field.';
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = 'This is a required field.';
 
   return html`
     <div>
@@ -372,10 +372,10 @@ const RequiredTemplate = (args: Args): TemplateResult => {
           ?readonly=${args.readonly}
           @change=${(event: Event) => {
             if ((event.currentTarget as HTMLInputElement).value !== '') {
-              sbbFormError.remove();
+              error.remove();
               document.getElementById('sbb-autocomplete')!.classList.remove('sbb-invalid');
             } else {
-              document.getElementById('sbb-form-field')!.append(sbbFormError);
+              document.getElementById('sbb-form-field')!.append(error);
               document.getElementById('sbb-autocomplete')!.classList.add('sbb-invalid');
             }
           }}
@@ -393,7 +393,7 @@ const RequiredTemplate = (args: Args): TemplateResult => {
           </sbb-optgroup>
           <sbb-optgroup label="Group 2">${createOptionGroup2()}</sbb-optgroup>
         </sbb-autocomplete>
-        ${sbbFormError}
+        ${error}
       </sbb-form-field>
       ${textBlock()}
     </div>

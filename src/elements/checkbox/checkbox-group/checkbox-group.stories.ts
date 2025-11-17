@@ -405,13 +405,13 @@ export const verticalIconEndLongLabel: StoryObj = {
   args: { ...checkboxArgsVertical, ...iconEnd, label: longLabelText },
 };
 
-export const horizontalWithSbbFormError: StoryObj = {
+export const horizontalWitherror: StoryObj = {
   render: ErrorMessageTemplate,
   argTypes: checkboxArgTypes,
   args: { ...checkboxArgs, required: true },
 };
 
-export const verticalWithSbbFormError: StoryObj = {
+export const verticalWitherror: StoryObj = {
   render: ErrorMessageTemplate,
   argTypes: checkboxArgTypes,
   args: { ...checkboxArgsVertical, required: true },

@@ -96,17 +96,17 @@ const addElement = (event: PointerEvent): void => {
   (event.target as HTMLButtonElement).parentElement!.querySelector('sbb-step')!.appendChild(div);
 };
 
-const firstFormElement = (sbbFormError: SbbErrorElement): TemplateResult => html`
+const firstFormElement = (error: SbbErrorElement): TemplateResult => html`
   <sbb-form-field error-space="reserve" size="m">
     <label>Name</label>
     <input
       @input=${(event: KeyboardEvent) => {
         const input = event.currentTarget as HTMLInputElement;
         if (input.value !== '') {
-          sbbFormError.remove();
+          error.remove();
           input.classList.remove('sbb-invalid');
         } else {
-          input.closest('sbb-form-field')!.append(sbbFormError);
+          input.closest('sbb-form-field')!.append(error);
           input.classList.add('sbb-invalid');
         }
       }}
@@ -170,9 +170,9 @@ const stepperContent = (disabled: boolean, longLabel: boolean): TemplateResult[]
 const WithSingleFormTemplate = (args: Args): TemplateResult => {
   document.querySelector('sbb-stepper')?.reset();
   document.querySelector('sbb-error')?.remove();
-  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = 'This is a required field.';
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = 'This is a required field.';
 
   return html`
     <form
@@ -205,7 +205,7 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
           }}
         >
           <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
-            ${firstFormElement(sbbFormError)}
+            ${firstFormElement(error)}
           </div>
           <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
         </sbb-step>
@@ -262,9 +262,9 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
 const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
   document.querySelector('sbb-stepper')?.reset();
   document.querySelector('sbb-error')?.remove();
-  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = 'This is a required field.';
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = 'This is a required field.';
 
   return html`
     <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
@@ -290,7 +290,7 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
               );
             }}
           >
-            ${firstFormElement(sbbFormError)}
+            ${firstFormElement(error)}
           </form>
         </div>
         <sbb-button size="m" sbb-stepper-next>Next</sbb-button>

@@ -9,11 +9,11 @@ snapshots["sbb-error renders DOM"] =
 /* end snapshot sbb-error renders DOM */
 
 snapshots["sbb-error renders Shadow DOM"] = 
-`<span class="form-error__icon">
+`<span class="error__icon">
   <slot name="icon">
   </slot>
 </span>
-<span class="form-error-content">
+<span class="error-content">
   <slot>
   </slot>
 </span>

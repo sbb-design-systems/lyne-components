@@ -345,8 +345,8 @@ const FormFieldTemplateWithError = ({
   if (args.multiple && args.value) {
     args.value = [args.value];
   }
-  const sbbFormError: SbbErrorElement = document.createElement('sbb-error');
-  sbbFormError.textContent = 'Error';
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.textContent = 'Error';
 
   return html`
     <div>
@@ -364,10 +364,10 @@ const FormFieldTemplateWithError = ({
           class="sbb-invalid"
           @change=${(event: Event) => {
             if ((event.target as SbbSelectElement).value !== '') {
-              sbbFormError.remove();
+              error.remove();
               document.getElementById('sbb-select')!.classList.remove('sbb-invalid');
             } else {
-              document.getElementById('sbb-form-field')!.append(sbbFormError);
+              document.getElementById('sbb-form-field')!.append(error);
               document.getElementById('sbb-select')!.classList.add('sbb-invalid');
             }
           }}
@@ -376,7 +376,7 @@ const FormFieldTemplateWithError = ({
             ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
             : createOptions(numberOfOptions, disableOption, false, args.value)}
         </sbb-select>
-        ${sbbFormError}
+        ${error}
       </sbb-form-field>
       ${textBlock()}
     </div>
