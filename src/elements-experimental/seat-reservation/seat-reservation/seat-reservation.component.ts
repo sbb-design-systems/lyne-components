@@ -103,6 +103,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
                   <div
                     id="sbb-sr__wrapper-scrollarea"
                     class="sbb-sr__wrapper"
+                    tabindex="0"
                     @scroll=${() => this.coachAreaScrollend()}
                   >
                     <div id="sbb-sr__parent-area" class="sbb-sr__parent" tabindex="-1">
@@ -165,7 +166,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     } else if (
       btnDirection == 'DIRECTION_RIGHT' &&
       this.selectedCoachIndex <
-        this.seatReservations[this.currSelectedDeckIndex].coachItems.length - 1
+        this.seatReservations[this.currSelectedDeckIndex]?.coachItems.length - 1
     ) {
       btnDisabled = false;
     }

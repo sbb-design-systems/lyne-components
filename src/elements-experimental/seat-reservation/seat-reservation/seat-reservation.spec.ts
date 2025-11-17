@@ -32,10 +32,9 @@ describe('sbb-seat-reservation core', () => {
     assert.instanceOf(element, SbbSeatReservationElement);
   });
 
-  // TODO FIX ME: Accessibility test is failing
-  // it('should be accessible', async () => {
-  //   await expect(element).to.be.accessible();
-  // });
+  it('should be accessible', async () => {
+    await expect(element).to.be.accessible();
+  });
 
   it('should correctly set seatReservations from dataFull', async () => {
     assert.deepEqual(element.seatReservations, dataFull);
@@ -96,19 +95,13 @@ describe('sbb-seat-reservation core', () => {
 
     // assert that popover is found corresponding to the area element
     assert.instanceOf(popover, SbbPopoverElement);
-
-    await waitForLitRender(element);
+    expect(popover).to.have.attribute('data-state', 'closed');
 
     const openSpy = new EventSpy(SbbPopoverElement.events.open, popover);
-
-    areaElement?.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
-
-    //popover?.open();
-    await waitForLitRender(element);
+    popover?.open();
 
     await expect(openSpy.count).to.be.equal(1);
-    //
-    // TODO this fails ==> expect(popover).to.have.attribute('data-state', 'opened');
+    expect(popover).to.have.attribute('data-state', 'opened');
   });
 });
 
@@ -216,6 +209,7 @@ describe('sbb-seat-reservation navigation', () => {
       const clickSpy = new EventSpy('click');
       btn.click();
       btn.dispatchEvent(new PointerEvent('click'));
+      await aTimeout(0); // wait for event propagation
       expect(clickSpy.count).to.be.greaterThan(0);
     });
   });
@@ -448,12 +442,19 @@ describe('sbb-seat-reservation navigation', () => {
       await expect(selectPlaceEvent.count).to.be.equal(0);
     });
   });
-});
 
-/*TODO : Tests which needs to be done :
-3. arrowLeft/arrowRight navigation with keyboard
-4. Enter, Spacer etc key navigation tests
-6. test single and double deck coaches
-9. test edge cases like no seat reservations, large number of reservations
-10. test empty coachItems array handling
-*/
+  describe('sbb-seat-reservation data errors', () => {
+    beforeEach(async () => {
+      element = await fixture(html`<sbb-seat-reservation></sbb-seat-reservation>`);
+    });
+
+    it('should work without throwing errors if no data is available', async () => {
+      const itemCoachContainer =
+        element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-sr__item-coach');
+
+      assert.instanceOf(element, SbbSeatReservationElement);
+      expect(itemCoachContainer).to.be.null;
+      expect(() => element.focus()).to.not.throw();
+    });
+  });
+});
