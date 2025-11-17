@@ -12,7 +12,7 @@ import '../../button/secondary-button-static.js';
 /**
  * It allows to select one or more file from storage devices and display them.
  *
- * @slot error - Use this to provide a `sbb-form-error` to show an error message.
+ * @slot error - Use this to provide a `sbb-error` to show an error message.
  */
 export
 @customElement('sbb-file-selector')

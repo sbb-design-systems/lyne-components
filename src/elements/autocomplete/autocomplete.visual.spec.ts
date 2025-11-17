@@ -8,7 +8,6 @@ import { waitForLitRender } from '../core/testing/wait-for-render.js';
 
 import '../card.js';
 import '../form-field.js';
-import '../form-error.js';
 import '../option.js';
 import './autocomplete.component.js';
 
@@ -95,7 +94,7 @@ describe('sbb-autocomplete', () => {
           : createOptions(args.withIcon, args.disableOption)}
       </sbb-autocomplete>
       ${args.required
-        ? html`<sbb-form-error slot="error">This is a required field.</sbb-form-error>`
+        ? html`<sbb-error slot="error">This is a required field.</sbb-error>`
         : nothing}
     </sbb-form-field>
     ${textBlock()}

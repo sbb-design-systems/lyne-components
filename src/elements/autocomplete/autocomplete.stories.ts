@@ -12,7 +12,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import type { SbbFormErrorElement } from '../form-error.js';
+import type { SbbErrorElement } from '../form-field.js';
 import { SbbOptionElement } from '../option.js';
 
 import { SbbAutocompleteElement } from './autocomplete.component.js';
@@ -20,7 +20,6 @@ import readme from './readme.md?raw';
 
 import '../card.js';
 import '../form-field.js';
-import '../form-error.js';
 
 const negative: InputType = {
   control: {
@@ -351,9 +350,9 @@ const MixedTemplate = (args: Args): TemplateResult => html`
 `;
 
 const RequiredTemplate = (args: Args): TemplateResult => {
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = 'This is a required field.';
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = 'This is a required field.';
 
   return html`
     <div>
@@ -373,10 +372,10 @@ const RequiredTemplate = (args: Args): TemplateResult => {
           ?readonly=${args.readonly}
           @change=${(event: Event) => {
             if ((event.currentTarget as HTMLInputElement).value !== '') {
-              sbbFormError.remove();
+              error.remove();
               document.getElementById('sbb-autocomplete')!.classList.remove('sbb-invalid');
             } else {
-              document.getElementById('sbb-form-field')!.append(sbbFormError);
+              document.getElementById('sbb-form-field')!.append(error);
               document.getElementById('sbb-autocomplete')!.classList.add('sbb-invalid');
             }
           }}
@@ -394,7 +393,7 @@ const RequiredTemplate = (args: Args): TemplateResult => {
           </sbb-optgroup>
           <sbb-optgroup label="Group 2">${createOptionGroup2()}</sbb-optgroup>
         </sbb-autocomplete>
-        ${sbbFormError}
+        ${error}
       </sbb-form-field>
       ${textBlock()}
     </div>

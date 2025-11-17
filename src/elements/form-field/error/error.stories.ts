@@ -3,11 +3,11 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import '../icon.js';
-import './form-error.component.js';
+import '../../icon.ts';
+import './error.component.ts';
 
 const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -17,14 +17,14 @@ metus. Donec pharetra odio at turpis bibendum, vel commodo dui vulputate. Aenean
 Praesent sit amet lorem augue. Suspendisse ornare a justo sagittis fermentum.`;
 
 const TemplateError = ({ errorText, ...args }: Args): TemplateResult => html`
-  <sbb-form-error ${sbbSpread(args)}>${errorText}</sbb-form-error>
+  <sbb-error ${sbbSpread(args)}>${errorText}</sbb-error>
 `;
 
 const TemplateErrorWithIcon = ({ errorText, iconName, ...args }: Args): TemplateResult => html`
-  <sbb-form-error ${sbbSpread(args)}>
+  <sbb-error ${sbbSpread(args)}>
     <sbb-icon name=${iconName} slot="icon"></sbb-icon>
     ${errorText}
-  </sbb-form-error>
+  </sbb-error>
 `;
 
 const iconNameArg: InputType = {
@@ -89,7 +89,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-form-field/sbb-form-error',
+  title: 'elements/sbb-form-field/sbb-error',
 };
 
 export default meta;

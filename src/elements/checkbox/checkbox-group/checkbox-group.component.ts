@@ -18,7 +18,7 @@ import style from './checkbox-group.scss?lit&inline';
  * It can be used as a container for one or more `sbb-checkbox`.
  *
  * @slot - Use the unnamed slot to add `sbb-checkbox` elements to the `sbb-checkbox-group`.
- * @slot error - Slot used to render a `sbb-form-error` inside the `sbb-checkbox-group`.
+ * @slot error - Slot used to render a `sbb-error` inside the `sbb-checkbox-group`.
  */
 export
 @customElement('sbb-checkbox-group')

@@ -9,7 +9,6 @@ import {
 
 import './time-input.component.js';
 import '../form-field.js';
-import '../form-error.js';
 import '../icon.js';
 
 describe(`sbb-time-input`, () => {
@@ -49,7 +48,7 @@ describe(`sbb-time-input`, () => {
       ${!args.noIcons
         ? html`<sbb-icon slot="suffix" name="circle-information-small"></sbb-icon>`
         : nothing}
-      ${args.withError ? html`<sbb-form-error>Error message</sbb-form-error>` : nothing}
+      ${args.withError ? html`<sbb-error>Error message</sbb-error>` : nothing}
     </sbb-form-field>
   `;
 

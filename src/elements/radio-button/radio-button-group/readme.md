@@ -112,4 +112,4 @@ const values = [
 | Name    | Description                                                                              |
 | ------- | ---------------------------------------------------------------------------------------- |
 |         | Use the unnamed slot to add `sbb-radio-button` elements to the `sbb-radio-button-group`. |
-| `error` | Use this to provide a `sbb-form-error` to show an error message.                         |
+| `error` | Use this to provide a `sbb-error` to show an error message.                              |

@@ -5,12 +5,12 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../icon.js';
-import './form-error.component.js';
+import '../../icon.ts';
+import './error.component.ts';
 
-describe(`sbb-form-error`, () => {
+describe(`sbb-error`, () => {
   let root: HTMLElement;
 
   const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit,
@@ -40,10 +40,10 @@ describe(`sbb-form-error`, () => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
-            <sbb-form-error .negative=${negative}>
+            <sbb-error .negative=${negative}>
               ${iconName ? html`<sbb-icon name=${iconName} slot="icon"></sbb-icon>` : nothing}
               ${errorText === 'short' ? 'Required field.' : longText}
-            </sbb-form-error>
+            </sbb-error>
           `,
           { backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined },
         );
@@ -63,10 +63,10 @@ describe(`sbb-form-error`, () => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
-            <sbb-form-error .negative=${negative}>
+            <sbb-error .negative=${negative}>
               <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
               Required field.
-            </sbb-form-error>
+            </sbb-error>
           `,
           {
             backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,

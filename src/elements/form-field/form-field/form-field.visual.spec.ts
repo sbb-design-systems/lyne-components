@@ -11,7 +11,7 @@ import {
 
 import './form-field.component.js';
 import '../../button/mini-button.js';
-import '../../form-error.js';
+import '../error.js';
 import '../../popover.js';
 
 describe(`sbb-form-field`, () => {
@@ -47,9 +47,7 @@ describe(`sbb-form-field`, () => {
           ? html`<span slot="label">${label}</span>`
           : nothing}
       ${template}
-      ${errorText
-        ? html`<sbb-form-error slot="error">This is a required field.</sbb-form-error>`
-        : nothing}
+      ${errorText ? html`<sbb-error slot="error">This is a required field.</sbb-error>` : nothing}
     </sbb-form-field>`;
 
   const basicInput = ({

@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
 
 import './form-field.component.js';
-import '../../form-error.js';
+import '../error.js';
 import type { SbbFormFieldElement } from './form-field.component.js';
 
 describe(`sbb-form-field`, () => {
@@ -58,7 +58,7 @@ describe(`sbb-form-field`, () => {
         <sbb-form-field>
           <label>Fill input</label>
           <input class="input" readonly placeholder="This is an input" />
-          <sbb-form-error id="error"> You can't change this value. </sbb-form-error>
+          <sbb-error id="error"> You can't change this value. </sbb-error>
         </sbb-form-field>
       `);
     });

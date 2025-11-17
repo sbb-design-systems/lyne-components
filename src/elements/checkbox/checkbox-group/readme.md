@@ -27,7 +27,7 @@ or [sbb-selection-expansion-panel](/docs/elements-sbb-selection-expansion-panel-
 
 The content is projected in an unnamed slot.
 
-The component can display one or more [sbb-form-error](/docs/elements-sbb-form-field-sbb-form-error--docs) components
+The component can display one or more [sbb-error](/docs/elements-sbb-form-field-sbb-error--docs) components
 right below the `sbb-checkbox-group` using the `error` slot.
 
 ```html
@@ -35,7 +35,7 @@ right below the `sbb-checkbox-group` using the `error` slot.
   <sbb-checkbox value="checkbox-1">Label 1</sbb-checkbox>
   <sbb-checkbox value="checkbox-2">Label 2</sbb-checkbox>
   <sbb-checkbox value="checkbox-3">Label 3</sbb-checkbox>
-  <sbb-form-error slot="error">You must accept all the terms and conditions.</sbb-form-error>
+  <sbb-error slot="error">You must accept all the terms and conditions.</sbb-error>
 </sbb-checkbox-group>
 ```
 
@@ -87,4 +87,4 @@ Two values are available, `s` and `m`, which is the default
 | Name    | Description                                                                      |
 | ------- | -------------------------------------------------------------------------------- |
 |         | Use the unnamed slot to add `sbb-checkbox` elements to the `sbb-checkbox-group`. |
-| `error` | Slot used to render a `sbb-form-error` inside the `sbb-checkbox-group`.          |
+| `error` | Slot used to render a `sbb-error` inside the `sbb-checkbox-group`.               |
