@@ -7,30 +7,10 @@
   display: inline-block;
 }
 
-.sbb-checkbox__label--icon {
-  color: var(--sbb-checkbox-label-icon-color);
-
-  :host([icon-placement='end']) & {
-    margin-inline-start: auto;
-  }
-
-  :host(
-    // No icon
-    :not(:state(has-icon-name), :state(slotted-icon))) & {
-    display: none;
-  }
-
-  :host(
-    // Icon present and placement start
-    :is(:state(has-icon-name), :state(slotted-icon)):not([icon-placement='end'])) & {
-    padding-inline-end: var(--sbb-spacing-fixed-2x);
-  }
-
-  :host(
-    // Icon present and placement end
-    :is(:state(has-icon-name), :state(slotted-icon))[icon-placement='end']) & {
-    padding-inline-start: var(--sbb-spacing-fixed-2x);
-  }
+:host([icon-placement='start']) {
+  --sbb-checkbox-label-icon-flex-direction: row-reverse;
+  --sbb-checkbox-label-icon-justify-content: flex-end;
+  --sbb-checkbox-label-icon-flex-grow: 0;
 }
 
 .sbb-checkbox-wrapper {
@@ -42,13 +22,17 @@
 }
 
 .sbb-checkbox__label {
-  :host([icon-placement='start']) & {
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-  }
+  flex-direction: var(--sbb-checkbox-label-icon-flex-direction);
+  justify-content: var(--sbb-checkbox-label-icon-justify-content);
+  flex-grow: var(--sbb-checkbox-label-icon-flex-grow);
+  gap: var(--sbb-spacing-fixed-2x);
+}
 
-  :host([icon-placement='end']) & {
-    justify-content: flex-start;
-    flex-grow: 1;
-  }
+sbb-icon,
+slot[name='icon'] ::slotted(sbb-icon) {
+  display: flex;
+  align-items: center;
+
+  // Align height to text height
+  height: calc(1em * var(--sbb-typo-line-height-text));
 }

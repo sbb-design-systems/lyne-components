@@ -20,6 +20,9 @@ $theme: 'standard' !default;
 @use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
   $theme: $theme
 );
+@use '../../checkbox/checkbox/checkbox.global' as checkbox with (
+  $theme: $theme
+);
 
 @include helpers.box-sizing;
 
@@ -29,6 +32,7 @@ $theme: 'standard' !default;
   @include sbb-css-tokens.base;
 
   @include checkbox-common.base;
+  @include checkbox.base;
   @include visual-checkbox.base;
 
   @include a11y.if-forced-colors {

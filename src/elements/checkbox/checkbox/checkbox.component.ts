@@ -66,10 +66,10 @@ class SbbCheckboxElement<T = string> extends SbbIconNameMixin(
               ></sbb-visual-checkbox>
             </span>
             <span class="sbb-checkbox__label">
-              <slot></slot>
-              <span class="sbb-checkbox__label--icon sbb-checkbox__aligner"
-                >${this.renderIconSlot()}</span
-              >
+              <span class="sbb-checkbox__label--text">
+                <slot></slot>
+              </span>
+              ${this.renderIconSlot()}
             </span>
           </span>
         </span>
