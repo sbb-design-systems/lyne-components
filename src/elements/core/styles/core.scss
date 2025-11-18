@@ -26,6 +26,13 @@ $theme: 'standard' !default;
 @use '../../checkbox/common/checkbox-common.global' as checkbox-common with (
   $theme: $theme
 );
+@use '../../selection-action-panel/selection-action-panel.global' as selection-action-panel with (
+  $theme: $theme
+);
+@use '../../selection-expansion-panel/selection-expansion-panel.global' as selection-expansion-panel
+  with (
+  $theme: $theme
+);
 @use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
   $theme: $theme
 );
@@ -41,6 +48,8 @@ $theme: 'standard' !default;
   @include checkbox.base;
   @include checkbox-group.base;
   @include checkbox-common.base;
+  @include selection-action-panel.base;
+  @include selection-expansion-panel.base;
   @include visual-checkbox.base;
 
   @include a11y.if-forced-colors {

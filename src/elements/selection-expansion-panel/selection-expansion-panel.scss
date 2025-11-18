@@ -7,22 +7,16 @@ $open-anim-opacity-from: 0;
 $open-anim-opacity-to: 1;
 
 :host {
-  --sbb-selection-expansion-panel-background: var(--sbb-background-color-1);
-  --sbb-selection-expansion-panel-border-color: var(--sbb-border-color-4-inverted);
+  --sbb-selection-expansion-panel-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-4x)
+  );
 
   // Variable used to override background color of selection panels.
   --sbb-selection-panel-inner-background: transparent;
 
   // Variable used to override border width of selection panels.
   --sbb-selection-panel-inner-border-width: 0px;
-  --sbb-selection-expansion-panel-animation-duration: var(
-    --sbb-disable-animation-duration,
-    var(--sbb-animation-duration-4x)
-  );
-  --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-1x);
-  --sbb-selection-expansion-panel-content-visibility: hidden;
-  --sbb-selection-expansion-panel-content-padding-inline: var(--sbb-spacing-responsive-xxs);
-  --sbb-selection-expansion-panel-border-radius: var(--sbb-border-radius-4x);
 
   // As the selection panel has always a white/milk background, we have to fix the focus outline color
   // to default color for cases where the selection panel is used in a negative context.

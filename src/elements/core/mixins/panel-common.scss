@@ -1,6 +1,26 @@
 @use '../styles' as sbb;
 
 :host {
+  --sbb-selection-panel-background: var(
+    --sbb-selection-panel-inner-background,
+    var(--sbb-selection-panel-background-default)
+  );
+
+  // We use --sbb-selection-expansion-panel-border-radius in case a user would define another border radius.
+  // The default is the same as here.
+  --sbb-selection-panel-border-radius: var(
+    --sbb-selection-expansion-panel-border-radius,
+    var(--sbb-border-radius-4x)
+  );
+  --sbb-selection-panel-border-width: var(
+    --sbb-selection-panel-inner-border-width,
+    var(--sbb-selection-panel-border-width-default)
+  );
+  --sbb-selection-panel-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-4x)
+  );
+
   display: block;
 
   // Use !important here to not interfere with Firefox focus ring definition
@@ -21,7 +41,7 @@
 :host([color='milk']) {
   --sbb-selection-panel-background: var(
     --sbb-selection-panel-inner-background,
-    var(--sbb-background-color-3)
+    var(--sbb-selection-panel-background-milk)
   );
 }
 
@@ -33,7 +53,7 @@
   --sbb-selection-panel-border-color: var(--sbb-border-color-3);
   --sbb-selection-panel-border-width: var(
     --sbb-selection-panel-inner-border-width,
-    var(--sbb-border-width-2x)
+    var(--sbb-selection-panel-border-width-checked)
   );
 }
 
