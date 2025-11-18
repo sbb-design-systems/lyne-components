@@ -21,13 +21,13 @@
 }
 
 :host([color='milk']) {
-  --sbb-selection-action-panel-background: var(--sbb-background-color-3);
+  --sbb-selection-action-panel-background: var(--sbb-selection-panel-background-milk);
 }
 
 // :where is to align specificity
 :host(:where(:state(checked)):not(:where(:state(disabled)))) {
-  --sbb-selection-action-panel-border-color: var(--sbb-border-color-3);
-  --sbb-selection-action-panel-border-width: var(--sbb-border-width-2x);
+  --sbb-selection-action-panel-border-color: var(--sbb-selection-panel-border-color-checked);
+  --sbb-selection-action-panel-border-width: var(--sbb-selection-panel-border-width-checked);
 }
 
 // :where is to align specificity
@@ -52,7 +52,7 @@
 .sbb-selection-action-panel {
   display: flex;
   background-color: var(--sbb-selection-action-panel-background);
-  border-radius: var(--sbb-selection-action-panel-border-radius);
+  border-radius: var(--sbb-selection-panel-border-radius-default);
 
   // We use the box-shadow instead of the border to avoid the size-change flickering.
   box-shadow: inset 0 0 0 var(--sbb-selection-action-panel-border-width)
@@ -64,6 +64,6 @@
   pointer-events: none;
   position: absolute;
   inset: 0;
-  border-radius: var(--sbb-selection-action-panel-border-radius);
+  border-radius: var(--sbb-selection-panel-border-radius-default);
   overflow: hidden;
 }

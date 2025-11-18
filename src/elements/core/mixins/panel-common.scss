@@ -10,7 +10,7 @@
   // The default is the same as here.
   --sbb-selection-panel-border-radius: var(
     --sbb-selection-expansion-panel-border-radius,
-    var(--sbb-border-radius-4x)
+    var(--sbb-selection-panel-border-radius-default)
   );
   --sbb-selection-panel-border-width: var(
     --sbb-selection-panel-inner-border-width,
@@ -44,11 +44,11 @@
 }
 
 :host([borderless]:not([data-checked])) {
-  --sbb-selection-panel-border-color: transparent;
+  --sbb-selection-panel-border-color: var(--sbb-selection-panel-border-color-borderless);
 }
 
 :host(:is([data-checked]):not(:disabled, [disabled])) {
-  --sbb-selection-panel-border-color: var(--sbb-border-color-3);
+  --sbb-selection-panel-border-color: var(--sbb-selection-panel-border-color-checked);
   --sbb-selection-panel-border-width: var(
     --sbb-selection-panel-inner-border-width,
     var(--sbb-selection-panel-border-width-checked)
