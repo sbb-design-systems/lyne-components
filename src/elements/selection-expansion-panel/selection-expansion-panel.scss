@@ -61,7 +61,7 @@ $open-anim-opacity-to: 1;
   position: relative;
   width: 100%;
   background-color: var(--sbb-selection-expansion-panel-background);
-  border-radius: var(--sbb-selection-expansion-panel-border-radius);
+  border-radius: var(--sbb-selection-panel-border-radius);
 
   // To provide a smooth transition of width, we use box-shadow to imitate border.
   box-shadow: inset 0 0 0 var(--sbb-selection-expansion-panel-border-width)
@@ -83,7 +83,7 @@ $open-anim-opacity-to: 1;
       pointer-events: none;
       border: var(--sbb-selection-expansion-panel-border-width) solid
         var(--sbb-selection-expansion-panel-border-color);
-      border-radius: var(--sbb-selection-expansion-panel-border-radius);
+      border-radius: var(--sbb-selection-panel-border-radius);
     }
   }
 }

@@ -5,7 +5,7 @@ $theme: 'standard' !default;
 @mixin base() {
   --sbb-selection-panel-background-default: var(--sbb-background-color-1);
   --sbb-selection-panel-background-milk: var(--sbb-background-color-3);
-  --sbb-selection-panel-border-radius-default: var(--sbb-border-radius-4x);
+  --sbb-selection-panel-border-radius: var(--sbb-border-radius-4x);
   --sbb-selection-panel-border-color-default: var(--sbb-border-color-4-inverted);
   --sbb-selection-panel-border-color-checked: var(--sbb-border-color-3);
   --sbb-selection-panel-border-color-borderless: transparent;

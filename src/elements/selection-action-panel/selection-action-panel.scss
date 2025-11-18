@@ -46,13 +46,13 @@
 
 ::slotted([data-action]) {
   align-self: center;
-  margin-inline: var(--sbb-spacing-responsive-xxs);
+  margin-inline: var(--sbb-selection-action-panel-action-margin-inline);
 }
 
 .sbb-selection-action-panel {
   display: flex;
   background-color: var(--sbb-selection-action-panel-background);
-  border-radius: var(--sbb-selection-panel-border-radius-default);
+  border-radius: var(--sbb-selection-panel-border-radius);
 
   // We use the box-shadow instead of the border to avoid the size-change flickering.
   box-shadow: inset 0 0 0 var(--sbb-selection-action-panel-border-width)
@@ -64,6 +64,6 @@
   pointer-events: none;
   position: absolute;
   inset: 0;
-  border-radius: var(--sbb-selection-panel-border-radius-default);
+  border-radius: var(--sbb-selection-panel-border-radius);
   overflow: hidden;
 }
