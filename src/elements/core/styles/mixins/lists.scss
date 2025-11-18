@@ -149,11 +149,13 @@
       mask-repeat: no-repeat;
       mask-position: center;
       mask-size: 100%;
-    }
-  }
 
-  @include a11y.if-forced-colors {
-    --sbb-icon-list-marker-icon-color: CanvasText;
+      // If consumers override the `--sbb-icon-list-marker-icon-color` variable to set a custom color via inline style,
+      // it would have higher specificity over any rule, included the forced-colors one.
+      @include a11y.if-forced-colors {
+        background-color: CanvasText;
+      }
+    }
   }
 }
 
