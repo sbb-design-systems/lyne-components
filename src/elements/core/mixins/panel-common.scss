@@ -29,13 +29,11 @@
 }
 
 :host([size='m']) {
-  --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
-    var(--sbb-spacing-responsive-xxs);
+  --sbb-selection-panel-input-padding: var(--sbb-selection-panel-input-padding-m);
 }
 
 :host([size='s']) {
-  --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xxs)
-    var(--sbb-spacing-responsive-xxxs);
+  --sbb-selection-panel-input-padding: var(--sbb-selection-panel-input-padding-s);
 }
 
 :host([color='milk']) {

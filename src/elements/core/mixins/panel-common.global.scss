@@ -8,10 +8,14 @@ $theme: 'standard' !default;
   --sbb-selection-panel-border-color: var(--sbb-border-color-4-inverted);
   --sbb-selection-panel-border-width-default: var(--sbb-border-width-1x);
   --sbb-selection-panel-border-width-checked: var(--sbb-border-width-2x);
+  --sbb-selection-panel-input-padding-m: var(--sbb-spacing-responsive-xs)
+    var(--sbb-spacing-responsive-xxs);
+  --sbb-selection-panel-input-padding-s: var(--sbb-spacing-responsive-xxs)
+    var(--sbb-spacing-responsive-xxxs);
   --sbb-selection-panel-input-padding: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-responsive-xs) var(--sbb-spacing-responsive-xxs),
-        'lean': var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xxxs),
+        'standard': var(--sbb-selection-panel-input-padding-m),
+        'lean': var(--sbb-selection-panel-input-padding-s),
       ),
       $theme
     )};
