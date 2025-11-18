@@ -78,7 +78,7 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
   }
 
   protected setNextActiveOption(event?: KeyboardEvent): void {
-    const enabledOptions = this.options.filter((opt) => !opt.disabled && !opt['disabledFromGroup']);
+    const enabledOptions = this.options.filter((opt) => !opt.matches(':state(disabled)'));
 
     // Reset potentially active option
     this.activeOption?.setActive(false);

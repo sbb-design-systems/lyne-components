@@ -39,8 +39,9 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
     );
   }
 
-  /** Whether the component must be set disabled due disabled attribute on sbb-optgroup. */
-  private _disabledFromGroup = false;
+  public get optgroup(): SbbAutocompleteGridOptgroupElement | null {
+    return this.closest('sbb-autocomplete-grid-optgroup');
+  }
 
   public constructor() {
     super();
@@ -48,18 +49,19 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
       this.setupBaseEventHandlers();
       this.addEventListener('click', this._handleButtonClick);
       this.addController(
-        new SbbAncestorWatcherController<SbbAutocompleteGridOptgroupElement>(this, 'sbb-optgroup', {
-          disabled: (p) => {
-            this._disabledFromGroup = p.disabled;
-            this._updateAriaDisabled();
+        new SbbAncestorWatcherController(
+          this,
+          () => this.closest('sbb-autocomplete-grid-optgroup'),
+          {
+            disabled: () => this._updateInternals(),
           },
-        }),
+        ),
       );
     }
   }
 
   protected override isDisabledExternally(): boolean {
-    return this._disabledFromGroup ?? false;
+    return this.optgroup?.disabled ?? false;
   }
 
   protected override renderTemplate(): TemplateResult {
@@ -69,22 +71,23 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-autocomplete-grid-button-${++autocompleteButtonNextId}`;
-    const parentGroup = this.closest('sbb-autocomplete-grid-optgroup');
-    if (parentGroup) {
-      this._disabledFromGroup = parentGroup.disabled;
-      this._updateAriaDisabled();
-    }
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('disabled')) {
-      this._updateAriaDisabled();
+      this._updateInternals();
     }
   }
 
-  private _updateAriaDisabled(): void {
-    this.internals.ariaDisabled = this.disabled || this._disabledFromGroup ? 'true' : null;
+  private _updateInternals(): void {
+    if (this.disabled || this.optgroup?.disabled) {
+      this.internals.states.add('disabled');
+      this.internals.ariaDisabled = 'true';
+    } else {
+      this.internals.states.delete('disabled');
+      this.internals.ariaDisabled = null;
+    }
   }
 
   private _handleButtonClick = async (event: MouseEvent): Promise<void> => {

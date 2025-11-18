@@ -59,18 +59,19 @@ export class SbbAncestorWatcherController<T extends LitElement> implements React
 
   public constructor(
     private readonly _host: ReactiveControllerHost & HTMLElement,
-    private readonly _ancestorSelector: string,
+    private readonly _ancestorResolver: () => T | null,
     private readonly _handlers: Partial<Record<keyof T, PropertyWatcherHandler<T>>>,
   ) {
     this._host.addController(this);
   }
 
   public hostConnected(): void {
-    this._ancestor = this._host.closest(this._ancestorSelector);
-    if (!this._ancestor) {
+    const ancestor = this._ancestorResolver();
+    if (this._ancestor === ancestor || !ancestor) {
       return;
     }
 
+    this._ancestor = ancestor;
     let watchers = propertyWatchers.get(this._ancestor) as
       | Map<string, PropertyWatcher<T>>
       | undefined;
@@ -91,7 +92,7 @@ export class SbbAncestorWatcherController<T extends LitElement> implements React
   }
 
   public hostDisconnected(): void {
-    if (!this._isTargetAncestor()) {
+    if (this._ancestor !== this._ancestorResolver()) {
       for (const [property, handler] of Object.entries(this._handlers)) {
         const watcher = this._watchers?.get(property);
         if (watcher) {
@@ -105,16 +106,5 @@ export class SbbAncestorWatcherController<T extends LitElement> implements React
         }
       }
     }
-  }
-
-  private _isTargetAncestor(): boolean {
-    let parent = this._host.parentElement;
-    while (parent) {
-      if (parent === this._ancestor) {
-        return true;
-      }
-      parent = parent.parentElement;
-    }
-    return false;
   }
 }

@@ -39,7 +39,7 @@ class SbbChildElement extends LitElement {
   public constructor() {
     super();
     this.addController(
-      new SbbAncestorWatcherController<SbbParentElement>(this, 'parent-element', {
+      new SbbAncestorWatcherController(this, () => this.closest('parent-element'), {
         size: (p) => (this.size = p.size),
         disabled: (p) => (this._ancestorDisabled = p.disabled),
       }),

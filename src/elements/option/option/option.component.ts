@@ -4,7 +4,6 @@ import { customElement } from 'lit/decorators.js';
 
 import { SbbAncestorWatcherController } from '../../core/controllers.js';
 import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbOptGroupElement } from '../optgroup.js';
 
 import { SbbOptionBaseElement } from './option-base-element.js';
 import style from './option.scss?lit&inline';
@@ -53,7 +52,7 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public constructor() {
     super();
     this.addController(
-      new SbbAncestorWatcherController<SbbOptGroupElement>(this, 'sbb-optgroup', {
+      new SbbAncestorWatcherController(this, () => this.closest('sbb-optgroup'), {
         disabled: (p) => (this.disabledFromGroup = p.disabled),
         label: (p) => (this.groupLabel = p.label),
       }),
