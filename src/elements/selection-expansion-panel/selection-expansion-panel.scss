@@ -7,9 +7,6 @@ $open-anim-opacity-from: 0;
 $open-anim-opacity-to: 1;
 
 :host {
-  --sbb-selection-expansion-panel-background: var(--sbb-background-color-1);
-  --sbb-selection-expansion-panel-border-color: var(--sbb-border-color-4-inverted);
-
   // Variable used to override background color of selection panels.
   --sbb-selection-panel-inner-background: transparent;
 
@@ -19,10 +16,6 @@ $open-anim-opacity-to: 1;
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
   );
-  --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-1x);
-  --sbb-selection-expansion-panel-content-visibility: hidden;
-  --sbb-selection-expansion-panel-content-padding-inline: var(--sbb-spacing-responsive-xxs);
-  --sbb-selection-expansion-panel-border-radius: var(--sbb-border-radius-4x);
 
   // As the selection panel has always a white/milk background, we have to fix the focus outline color
   // to default color for cases where the selection panel is used in a negative context.
@@ -31,46 +24,14 @@ $open-anim-opacity-to: 1;
     var(--sbb-focus-outline-color-dark)
   );
 
-  display: contents;
-}
-
-:host([data-size='s']) {
-  --sbb-selection-expansion-panel-content-padding-inline: var(--sbb-spacing-responsive-xxxs);
-}
-
-:host([color='milk']) {
-  --sbb-selection-expansion-panel-background: var(--sbb-background-color-3);
-}
-
-// :where is to align specificity
-:host(:where(:state(checked)):not(:where(:state(disabled)))) {
-  --sbb-selection-expansion-panel-border-color: var(--sbb-border-color-3);
-  --sbb-selection-expansion-panel-border-width: var(--sbb-border-width-2x);
-}
-
-// :where is to align specificity
-:host(:state(slotted-content):where(:state(disabled))) {
-  --sbb-selection-expansion-panel-border-color: var(--sbb-border-color-4-inverted);
-}
-
-// :where is to align specificity
-:host([borderless]:not(:where(:state(checked)))) {
-  --sbb-selection-expansion-panel-border-color: transparent;
-}
-
-:host(:state(slotted-content):where([data-state='opening'], [data-state='opened'])) {
-  --sbb-selection-expansion-panel-content-visibility: visible;
-  --sbb-selection-expansion-panel-content-padding-block-end: var(--sbb-spacing-responsive-xs);
-}
-
-.sbb-selection-expansion-panel {
+  display: block;
   flex: auto;
   position: relative;
   width: 100%;
   background-color: var(--sbb-selection-expansion-panel-background);
-  border-radius: var(--sbb-selection-expansion-panel-border-radius);
+  border-radius: var(--sbb-selection-panel-border-radius);
 
-  // To provide a smooth transition of width, we use box-shadow to imitate border.
+  // To provide a smooth transition of width, we use box-shadow to imitate the border.
   box-shadow: inset 0 0 0 var(--sbb-selection-expansion-panel-border-width)
     var(--sbb-selection-expansion-panel-border-color);
 
@@ -90,9 +51,47 @@ $open-anim-opacity-to: 1;
       pointer-events: none;
       border: var(--sbb-selection-expansion-panel-border-width) solid
         var(--sbb-selection-expansion-panel-border-color);
-      border-radius: var(--sbb-selection-expansion-panel-border-radius);
+      border-radius: var(--sbb-selection-panel-border-radius);
     }
   }
+}
+
+:host([data-size='m']) {
+  --sbb-selection-expansion-panel-content-padding-inline: var(
+    --sbb-selection-panel-input-padding-inline-m
+  );
+}
+
+:host([data-size='s']) {
+  --sbb-selection-expansion-panel-content-padding-inline: var(
+    --sbb-selection-panel-input-padding-inline-s
+  );
+}
+
+:host([color='milk']) {
+  --sbb-selection-expansion-panel-background: var(--sbb-selection-panel-background-milk);
+}
+
+// :where is to align specificity
+:host(:where(:state(checked)):not(:where(:state(disabled)))) {
+  --sbb-selection-expansion-panel-border-color: var(--sbb-selection-panel-border-color-checked);
+  --sbb-selection-expansion-panel-border-width: var(--sbb-selection-panel-border-width-checked);
+}
+
+// :where is to align specificity
+:host(:state(slotted-content):where(:state(disabled))) {
+  --sbb-selection-expansion-panel-border-color: var(--sbb-selection-panel-border-color-default);
+}
+
+// :where is to align specificity
+:host([borderless]:not(:where(:state(checked)))) {
+  --sbb-selection-expansion-panel-border-color: transparent;
+}
+
+// When the panel is closed, we remove the padding at the bottom for a nice transition when opening.
+:host(:not(:state(slotted-content):where([data-state='opening'], [data-state='opened']))) {
+  --sbb-selection-expansion-panel-content-padding-block-end: 0px;
+  --sbb-selection-expansion-panel-content-visibility: hidden;
 }
 
 .sbb-selection-expansion-panel__content--wrapper {
@@ -134,7 +133,7 @@ $open-anim-opacity-to: 1;
 }
 
 sbb-divider {
-  margin-block-end: var(--sbb-spacing-responsive-xxs);
+  margin-block-end: var(--sbb-selection-expansion-panel-content-padding-block-start);
 }
 
 @keyframes open {

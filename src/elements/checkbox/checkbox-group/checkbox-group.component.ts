@@ -109,9 +109,7 @@ class SbbCheckboxGroupElement extends SbbDisabledMixin(SbbElementInternalsMixin(
       <div class="sbb-checkbox-group">
         <slot></slot>
       </div>
-      <div class="sbb-checkbox-group__error">
-        <slot name="error"></slot>
-      </div>
+      <slot name="error"></slot>
     `;
   }
 }

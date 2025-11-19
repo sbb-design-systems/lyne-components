@@ -36,10 +36,8 @@ snapshots["sbb-checkbox-group renders Shadow DOM"] =
   <slot>
   </slot>
 </div>
-<div class="sbb-checkbox-group__error">
-  <slot name="error">
-  </slot>
-</div>
+<slot name="error">
+</slot>
 `;
 /* end snapshot sbb-checkbox-group renders Shadow DOM */
 
@@ -132,10 +130,8 @@ snapshots["sbb-checkbox-group renders with panel Shadow DOM"] =
   <slot>
   </slot>
 </div>
-<div class="sbb-checkbox-group__error">
-  <slot name="error">
-  </slot>
-</div>
+<slot name="error">
+</slot>
 `;
 /* end snapshot sbb-checkbox-group renders with panel Shadow DOM */
 
@@ -183,10 +179,8 @@ snapshots["sbb-checkbox-group renders with selection-expansion-panel Shadow DOM"
   <slot>
   </slot>
 </div>
-<div class="sbb-checkbox-group__error">
-  <slot name="error">
-  </slot>
-</div>
+<slot name="error">
+</slot>
 `;
 /* end snapshot sbb-checkbox-group renders with selection-expansion-panel Shadow DOM */
 

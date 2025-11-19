@@ -35,21 +35,19 @@ snapshots["sbb-selection-expansion-panel renders DOM"] =
 /* end snapshot sbb-selection-expansion-panel renders DOM */
 
 snapshots["sbb-selection-expansion-panel renders Shadow DOM"] = 
-`<div class="sbb-selection-expansion-panel">
-  <div class="sbb-selection-expansion-panel__input">
-    <slot>
+`<div class="sbb-selection-expansion-panel__input">
+  <slot>
+  </slot>
+</div>
+<div
+  class="sbb-selection-expansion-panel__content--wrapper"
+  inert=""
+>
+  <div class="sbb-selection-expansion-panel__content">
+    <sbb-divider orientation="horizontal">
+    </sbb-divider>
+    <slot name="content">
     </slot>
-  </div>
-  <div
-    class="sbb-selection-expansion-panel__content--wrapper"
-    inert=""
-  >
-    <div class="sbb-selection-expansion-panel__content">
-      <sbb-divider orientation="horizontal">
-      </sbb-divider>
-      <slot name="content">
-      </slot>
-    </div>
   </div>
 </div>
 `;

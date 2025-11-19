@@ -178,19 +178,17 @@ class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-selection-expansion-panel">
-        <div class="sbb-selection-expansion-panel__input" @statechange=${this.onInputStateChange}>
-          <slot></slot>
-        </div>
-        <div
-          class="sbb-selection-expansion-panel__content--wrapper"
-          ?inert=${this._state !== 'opened'}
-          @animationend=${this._onAnimationEnd}
-        >
-          <div class="sbb-selection-expansion-panel__content">
-            <sbb-divider></sbb-divider>
-            <slot name="content"></slot>
-          </div>
+      <div class="sbb-selection-expansion-panel__input" @statechange=${this.onInputStateChange}>
+        <slot></slot>
+      </div>
+      <div
+        class="sbb-selection-expansion-panel__content--wrapper"
+        ?inert=${this._state !== 'opened'}
+        @animationend=${this._onAnimationEnd}
+      >
+        <div class="sbb-selection-expansion-panel__content">
+          <sbb-divider></sbb-divider>
+          <slot name="content"></slot>
         </div>
       </div>
     `;

@@ -1,10 +1,15 @@
 @use '../../core/styles' as sbb;
 
-:host {
-  --sbb-checkbox-dimension: var(--sbb-size-icon-ui-small);
-  --sbb-checkbox-label-color: var(--sbb-color-color-3);
-  --sbb-checkbox-label-icon-color: var(--sbb-checkbox-label-color);
-  --sbb-checkbox-cursor: var(--sbb-cursor-pointer);
+:host([size='xs']) {
+  --sbb-checkbox-font-size: var(--sbb-text-font-size-xs);
+}
+
+:host([size='s']) {
+  --sbb-checkbox-font-size: var(--sbb-text-font-size-s);
+}
+
+:host([size='m']) {
+  --sbb-checkbox-font-size: var(--sbb-text-font-size-m);
 }
 
 :host(:disabled) {
@@ -19,22 +24,14 @@
 }
 
 .sbb-checkbox {
-  @include sbb.text-m--regular;
-
+  font-size: var(--sbb-checkbox-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   position: relative;
   display: block;
   width: 100%;
   cursor: var(--sbb-checkbox-cursor);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-
-  :host([size='s']) & {
-    @include sbb.text-s--regular;
-  }
-
-  :host([size='xs']) & {
-    @include sbb.text-xs--regular;
-  }
 }
 
 .sbb-checkbox__inner {

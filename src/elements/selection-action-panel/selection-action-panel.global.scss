@@ -1,0 +1,10 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base() {
+  --sbb-selection-action-panel-background: var(--sbb-selection-panel-background-default);
+  --sbb-selection-action-panel-border-color: var(--sbb-selection-panel-border-color-default);
+  --sbb-selection-action-panel-border-width: var(--sbb-selection-panel-border-width-default);
+  --sbb-selection-action-panel-action-margin-inline: var(--sbb-spacing-responsive-xxs);
+}
