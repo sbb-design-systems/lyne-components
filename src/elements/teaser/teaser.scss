@@ -18,6 +18,9 @@
   @include sbb.if-forced-colors {
     --sbb-teaser-description-color: LinkText;
     --sbb-title-text-color-normal-override: LinkText !important;
+    --sbb-focus-outline-color: Highlight;
+    --sbb-focus-outline-style: solid;
+    --sbb-focus-outline-width: #{sbb.px-to-rem-build(2)};
   }
 }
 
@@ -64,10 +67,12 @@
   }
 
   @include sbb.if-forced-colors {
-    --sbb-focus-outline-color: Highlight;
+    @include sbb.hover-mq($hover: true) {
+      &:hover {
+        @include sbb.focus-outline;
 
-    &:hover {
-      @include sbb.focus-outline;
+        border-radius: var(--sbb-teaser-border-radius);
+      }
     }
   }
 }
