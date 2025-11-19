@@ -1,6 +1,7 @@
 /**
  * @entrypoint
  */
+export * from './controllers/ancestor-watcher-controller.js';
 export * from './controllers/escapable-overlay-controller.js';
 export * from './controllers/id-reference-controller.js';
 export * from './controllers/inert-controller.js';

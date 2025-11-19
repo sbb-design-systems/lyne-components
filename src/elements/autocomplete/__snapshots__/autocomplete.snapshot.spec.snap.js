@@ -11,7 +11,6 @@ snapshots["sbb-autocomplete renders standalone Safari DOM"] =
   trigger="trigger"
 >
   <sbb-option
-    aria-selected="false"
     data-variant="autocomplete"
     id="sbb-option-0"
     value="1"
@@ -19,7 +18,6 @@ snapshots["sbb-autocomplete renders standalone Safari DOM"] =
     1
   </sbb-option>
   <sbb-option
-    aria-selected="false"
     data-variant="autocomplete"
     id="sbb-option-1"
     value="2"
@@ -84,7 +82,6 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
     size="m"
   >
     <sbb-option
-      aria-selected="false"
       data-variant="autocomplete"
       id="sbb-option-4"
       value="1"
@@ -92,7 +89,6 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
       1
     </sbb-option>
     <sbb-option
-      aria-selected="false"
       data-variant="autocomplete"
       id="sbb-option-5"
       value="2"
@@ -149,7 +145,6 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] =
   trigger="trigger"
 >
   <sbb-option
-    aria-selected="false"
     data-variant="autocomplete"
     id="sbb-option-0"
     value="1"
@@ -157,7 +152,6 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] =
     1
   </sbb-option>
   <sbb-option
-    aria-selected="false"
     data-variant="autocomplete"
     id="sbb-option-1"
     value="2"
@@ -225,7 +219,6 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
     size="m"
   >
     <sbb-option
-      aria-selected="false"
       data-variant="autocomplete"
       id="sbb-option-4"
       value="1"
@@ -233,7 +226,6 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
       1
     </sbb-option>
     <sbb-option
-      aria-selected="false"
       data-variant="autocomplete"
       id="sbb-option-5"
       value="2"

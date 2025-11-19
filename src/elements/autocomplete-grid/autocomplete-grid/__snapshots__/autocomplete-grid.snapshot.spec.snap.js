@@ -8,10 +8,7 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
   size="m"
 >
   <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
-    <sbb-autocomplete-grid-option
-      aria-selected="false"
-      id="sbb-autocomplete-grid-option-0"
-    >
+    <sbb-autocomplete-grid-option id="sbb-autocomplete-grid-option-0">
       Option 1
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell>
@@ -25,10 +22,7 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
     </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
   <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-2">
-    <sbb-autocomplete-grid-option
-      aria-selected="false"
-      id="sbb-autocomplete-grid-option-1"
-    >
+    <sbb-autocomplete-grid-option id="sbb-autocomplete-grid-option-1">
       Option 2
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell>
@@ -89,10 +83,7 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
   size="m"
 >
   <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
-    <sbb-autocomplete-grid-option
-      aria-selected="false"
-      id="sbb-autocomplete-grid-option-0"
-    >
+    <sbb-autocomplete-grid-option id="sbb-autocomplete-grid-option-0">
       Option 1
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell>
@@ -106,10 +97,7 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
     </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
   <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-2">
-    <sbb-autocomplete-grid-option
-      aria-selected="false"
-      id="sbb-autocomplete-grid-option-1"
-    >
+    <sbb-autocomplete-grid-option id="sbb-autocomplete-grid-option-1">
       Option 2
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell>

@@ -2,10 +2,12 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbAncestorWatcherController } from '../../core/controllers.js';
 import { boxSizingStyles } from '../../core/styles.js';
 
 import { SbbOptionBaseElement } from './option-base-element.js';
 import style from './option.scss?lit&inline';
+
 import '../../visual-checkbox.js';
 
 export type SbbOptionVariant = 'autocomplete' | 'select' | null;
@@ -47,13 +49,17 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
     return !this.hydrationRequired && this.hasAttribute('data-multiple');
   }
 
-  protected setAttributeFromParent(): void {
-    const parentGroup = this.closest?.('sbb-optgroup');
-    if (parentGroup) {
-      this.disabledFromGroup = parentGroup.disabled;
-      this.updateAriaDisabled();
-    }
+  public constructor() {
+    super();
+    this.addController(
+      new SbbAncestorWatcherController(this, () => this.closest('sbb-optgroup'), {
+        disabled: (p) => (this.disabledFromGroup = p.disabled),
+        label: (p) => (this.groupLabel = p.label),
+      }),
+    );
+  }
 
+  protected setAttributeFromParent(): void {
     this.negative = !!this.closest?.(
       // :is() selector not possible due to test environment
       `sbb-autocomplete[negative],sbb-form-field[negative]`,

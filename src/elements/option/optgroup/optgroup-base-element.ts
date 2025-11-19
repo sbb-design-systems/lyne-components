@@ -73,7 +73,7 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
   public override connectedCallback(): void {
     super.connectedCallback();
     this.setAttributeFromParent();
-    this._proxyGroupLabelToOptions();
+    this._updateAriaLabel();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -83,11 +83,9 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
       if (!this._inertAriaGroups) {
         this.internals.ariaDisabled = this.disabled ? 'true' : null;
       }
-
-      this.proxyDisabledToOptions();
     }
     if (changedProperties.has('label')) {
-      this._proxyGroupLabelToOptions();
+      this._updateAriaLabel();
     }
   }
 
@@ -95,36 +93,15 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
   protected abstract getAutocompleteParent(): SbbAutocompleteBaseElement | null;
 
   private _handleSlotchange(): void {
-    this.proxyDisabledToOptions();
-    this._proxyGroupLabelToOptions();
+    this._updateAriaLabel();
     this._highlightOptions();
     // Used to notify associated components like the sbb-select to update state
     /** @internal */
     this.dispatchEvent(new Event('ɵoptgroupslotchange'));
   }
 
-  private _proxyGroupLabelToOptions(): void {
-    if (!this._inertAriaGroups) {
-      this.internals.ariaLabel = this.label;
-      return;
-    } else if (this.label) {
-      this.internals.ariaLabel = null;
-      for (const option of this.options) {
-        option.setAttribute('data-group-label', this.label);
-        option.requestUpdate?.();
-      }
-    } else {
-      for (const option of this.options) {
-        option.removeAttribute('data-group-label');
-        option.requestUpdate?.();
-      }
-    }
-  }
-
-  protected proxyDisabledToOptions(): void {
-    for (const option of this.options) {
-      option.toggleAttribute('data-group-disabled', this.disabled);
-    }
+  private _updateAriaLabel(): void {
+    this.internals.ariaLabel = !this._inertAriaGroups ? this.label : null;
   }
 
   private _highlightOptions(): void {

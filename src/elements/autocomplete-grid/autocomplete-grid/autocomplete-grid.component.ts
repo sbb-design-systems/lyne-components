@@ -108,9 +108,7 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
   }
 
   protected setNextActiveOption(event?: KeyboardEvent): void {
-    const enabledOptions = this.options.filter(
-      (opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
-    );
+    const enabledOptions = this.options.filter((opt) => !opt.matches(':state(disabled)'));
 
     // Reset potentially active option
     this.activeOption?.setActive(false);
@@ -151,7 +149,7 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
         ?.querySelectorAll<
           SbbAutocompleteGridOptionElement<T> | SbbAutocompleteGridButtonElement
         >('sbb-autocomplete-grid-option, sbb-autocomplete-grid-button') ?? [],
-    )?.filter((el) => !el.disabled && !el.hasAttribute('data-group-disabled'));
+    )?.filter((el) => !el.matches(':state(disabled)'));
 
     if (!elementsInRow.length) {
       return;

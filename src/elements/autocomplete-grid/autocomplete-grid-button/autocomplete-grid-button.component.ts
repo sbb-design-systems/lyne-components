@@ -1,22 +1,18 @@
-import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { miniButtonStyle } from '../../button/common.js';
 import { SbbActionBaseElement } from '../../core/base-elements.js';
+import { SbbAncestorWatcherController } from '../../core/controllers.js';
 import { hostAttributes } from '../../core/decorators.js';
 import { isEventPrevented } from '../../core/eventing.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import { SbbIconNameMixin } from '../../icon.js';
+import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup.js';
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 
 let autocompleteButtonNextId = 0;
-
-/** Configuration for the attribute to look at if component is nested in a sbb-optgroup */
-const buttonObserverConfig: MutationObserverInit = {
-  attributeFilter: ['data-group-disabled'],
-};
 
 /**
  * It displays an icon-only button that can be used in `sbb-autocomplete-grid`.
@@ -43,33 +39,29 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
     );
   }
 
-  /** Whether the component must be set disabled due disabled attribute on sbb-optgroup. */
-  private _disabledFromGroup = false;
+  public get optgroup(): SbbAutocompleteGridOptgroupElement | null {
+    return this.closest('sbb-autocomplete-grid-optgroup');
+  }
 
   public constructor() {
     super();
     if (!isServer) {
       this.setupBaseEventHandlers();
       this.addEventListener('click', this._handleButtonClick);
-
       this.addController(
-        new MutationController(this, {
-          config: buttonObserverConfig,
-          callback: (mutationsList) => {
-            for (const mutation of mutationsList) {
-              if (mutation.attributeName === 'data-group-disabled') {
-                this._disabledFromGroup = this.hasAttribute('data-group-disabled');
-                this._updateAriaDisabled();
-              }
-            }
+        new SbbAncestorWatcherController(
+          this,
+          () => this.closest('sbb-autocomplete-grid-optgroup'),
+          {
+            disabled: () => this._updateInternals(),
           },
-        }),
+        ),
       );
     }
   }
 
   protected override isDisabledExternally(): boolean {
-    return this._disabledFromGroup ?? false;
+    return this.optgroup?.disabled ?? false;
   }
 
   protected override renderTemplate(): TemplateResult {
@@ -79,22 +71,23 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-autocomplete-grid-button-${++autocompleteButtonNextId}`;
-    const parentGroup = this.closest('sbb-autocomplete-grid-optgroup');
-    if (parentGroup) {
-      this._disabledFromGroup = parentGroup.disabled;
-      this._updateAriaDisabled();
-    }
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('disabled')) {
-      this._updateAriaDisabled();
+      this._updateInternals();
     }
   }
 
-  private _updateAriaDisabled(): void {
-    this.internals.ariaDisabled = this.disabled || this._disabledFromGroup ? 'true' : null;
+  private _updateInternals(): void {
+    if (this.disabled || this.optgroup?.disabled) {
+      this.internals.states.add('disabled');
+      this.internals.ariaDisabled = 'true';
+    } else {
+      this.internals.states.delete('disabled');
+      this.internals.ariaDisabled = null;
+    }
   }
 
   private _handleButtonClick = async (event: MouseEvent): Promise<void> => {

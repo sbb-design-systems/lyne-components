@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-autocomplete-grid-option renders DOM"] = 
 `<sbb-autocomplete-grid-option
-  aria-selected="false"
   id="sbb-autocomplete-grid-option-0"
   value="1"
 >
@@ -33,8 +32,6 @@ snapshots["sbb-autocomplete-grid-option renders Shadow DOM"] =
 
 snapshots["sbb-autocomplete-grid-option renders disabled DOM"] = 
 `<sbb-autocomplete-grid-option
-  aria-disabled="true"
-  aria-selected="false"
   disabled=""
   id="sbb-autocomplete-grid-option-2"
   value="1"

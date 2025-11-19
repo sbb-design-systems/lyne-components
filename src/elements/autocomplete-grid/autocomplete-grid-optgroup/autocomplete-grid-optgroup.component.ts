@@ -2,7 +2,6 @@ import { customElement } from 'lit/decorators.js';
 
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
 import { SbbOptgroupBaseElement } from '../../option/optgroup.js';
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.js';
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
 
 /**
@@ -26,16 +25,6 @@ class SbbAutocompleteGridOptgroupElement extends SbbOptgroupBaseElement {
   protected setAttributeFromParent(): void {
     this.negative = !!this.closest(`:is(sbb-autocomplete-grid, sbb-form-field)[negative]`);
     this.toggleAttribute('data-negative', this.negative);
-  }
-
-  protected override proxyDisabledToOptions(): void {
-    super.proxyDisabledToOptions();
-    const buttons = Array.from(
-      this.querySelectorAll?.('sbb-autocomplete-grid-button') ?? [],
-    ) as SbbAutocompleteGridButtonElement[];
-    for (const el of buttons) {
-      el.toggleAttribute('data-group-disabled', this.disabled);
-    }
   }
 }
 

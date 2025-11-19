@@ -1,6 +1,7 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbAncestorWatcherController } from '../../core/controllers.js';
 import { boxSizingStyles } from '../../core/styles.js';
 import { SbbOptionBaseElement } from '../../option.js';
 
@@ -25,11 +26,19 @@ class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<
 
   protected optionId = autocompleteGridOptionId;
 
-  protected override onExternalMutation(mutationsList: MutationRecord[]): void {
-    super.onExternalMutation(mutationsList);
-    this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
-      'data-disabled',
-      this.disabled || this.disabledFromGroup,
+  public constructor() {
+    super();
+    this.addController(
+      new SbbAncestorWatcherController(this, () => this.closest('sbb-autocomplete-grid-optgroup'), {
+        disabled: (p) => {
+          this.disabledFromGroup = p.disabled;
+          this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
+            'data-disabled',
+            this.disabled || this.disabledFromGroup,
+          );
+        },
+        label: (p) => (this.groupLabel = p.label),
+      }),
     );
   }
 
