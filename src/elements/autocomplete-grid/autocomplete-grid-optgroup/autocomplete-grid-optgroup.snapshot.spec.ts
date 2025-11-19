@@ -40,7 +40,7 @@ describe('sbb-autocomplete-grid-optgroup', () => {
 
     describeIf(!isSafari, 'Chrome-Firefox', async () => {
       it('DOM', async () => {
-        await expect(root).dom.to.be.equalSnapshot();
+        await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
 
       it('Shadow DOM', async () => {

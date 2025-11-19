@@ -95,14 +95,12 @@ snapshots["sbb-optgroup autocomplete renders Chrome-Firefox DOM"] =
 >
   <sbb-option
     data-variant="autocomplete"
-    id="sbb-option-0"
     value="1"
   >
     1
   </sbb-option>
   <sbb-option
     data-variant="autocomplete"
-    id="sbb-option-1"
     value="2"
   >
     2
@@ -164,14 +162,12 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] =
 >
   <sbb-option
     data-variant="autocomplete"
-    id="sbb-option-6"
     value="1"
   >
     1
   </sbb-option>
   <sbb-option
     data-variant="autocomplete"
-    id="sbb-option-7"
     value="2"
   >
     2
