@@ -3,6 +3,7 @@
 $theme: 'standard' !default;
 
 @mixin base() {
+  // For consistency, a few variables are also consumed in selection-action-panel and selection-expansion-panel
   --sbb-selection-panel-background-default: var(--sbb-background-color-1);
   --sbb-selection-panel-background-milk: var(--sbb-background-color-3);
   --sbb-selection-panel-border-radius: var(--sbb-border-radius-4x);

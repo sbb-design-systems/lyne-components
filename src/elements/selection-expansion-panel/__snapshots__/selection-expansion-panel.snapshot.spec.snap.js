@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-selection-expansion-panel renders DOM"] =
+snapshots["sbb-selection-expansion-panel renders DOM"] = 
 `<sbb-selection-expansion-panel
   color="white"
   data-size="m"
@@ -34,7 +34,7 @@ snapshots["sbb-selection-expansion-panel renders DOM"] =
 `;
 /* end snapshot sbb-selection-expansion-panel renders DOM */
 
-snapshots["sbb-selection-expansion-panel renders Shadow DOM"] =
+snapshots["sbb-selection-expansion-panel renders Shadow DOM"] = 
 `<div class="sbb-selection-expansion-panel__input">
   <slot>
   </slot>
@@ -53,7 +53,7 @@ snapshots["sbb-selection-expansion-panel renders Shadow DOM"] =
 `;
 /* end snapshot sbb-selection-expansion-panel renders Shadow DOM */
 
-snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] =
+snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -70,7 +70,7 @@ snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-selection-expansion-panel renders A11y tree Chrome */
 
-snapshots["sbb-selection-expansion-panel renders A11y tree Firefox"] =
+snapshots["sbb-selection-expansion-panel renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
