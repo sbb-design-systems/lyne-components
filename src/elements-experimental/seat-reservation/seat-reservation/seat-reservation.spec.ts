@@ -140,11 +140,6 @@ describe('sbb-seat-reservation navigation', () => {
     expect(btn?.hasAttribute('disabled-interactive')).to.be.true;
   });
 
-  it('should have a first-tab-element btn with disabled-interactive attr; no selectable coach in front', async () => {
-    expect(btn).not.to.be.null;
-    expect(btn?.hasAttribute('disabled-interactive')).to.be.true;
-  });
-
   it('should have no clickable first-tab-element btn; no selectable coach in front', async () => {
     const clickSpy = new EventSpy('click');
     btn.click();
@@ -153,9 +148,6 @@ describe('sbb-seat-reservation navigation', () => {
 
   it('should stop propagating click if first-tab-element btn is not clickable', async () => {
     const clickSpy = new EventSpy('click');
-    // const btn = element.shadowRoot!.querySelector(
-    //   '#first-tab-element',
-    // ) as SbbSecondaryButtonElement;
     btn.click();
     btn.dispatchEvent(new PointerEvent('click'));
     expect(clickSpy.count).not.to.be.greaterThan(0);
