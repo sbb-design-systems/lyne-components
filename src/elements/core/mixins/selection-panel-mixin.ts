@@ -120,6 +120,7 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
           const group = this.group;
           const size = (mutation.target as HTMLElement).getAttribute('size')!;
           if (!group || group.size === size) {
+            // TODO: How to handle data-size with CSS Refactoring
             this.setAttribute('data-size', size);
           }
         }

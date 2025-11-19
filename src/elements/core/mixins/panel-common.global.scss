@@ -12,14 +12,16 @@ $theme: 'standard' !default;
   --sbb-selection-panel-border-color: var(--sbb-selection-panel-border-color-default);
   --sbb-selection-panel-border-width-default: var(--sbb-border-width-1x);
   --sbb-selection-panel-border-width-checked: var(--sbb-border-width-2x);
-  --sbb-selection-panel-input-padding-m: var(--sbb-spacing-responsive-xs)
-    var(--sbb-spacing-responsive-xxs);
-  --sbb-selection-panel-input-padding-s: var(--sbb-spacing-responsive-xxs)
-    var(--sbb-spacing-responsive-xxxs);
+  --sbb-selection-panel-input-padding-block-m: var(--sbb-spacing-responsive-xs);
+  --sbb-selection-panel-input-padding-inline-m: var(--sbb-spacing-responsive-xxs);
+  --sbb-selection-panel-input-padding-block-s: var(--sbb-spacing-responsive-xxs);
+  --sbb-selection-panel-input-padding-inline-s: var(--sbb-spacing-responsive-xxxs);
   --sbb-selection-panel-input-padding: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-selection-panel-input-padding-m),
-        'lean': var(--sbb-selection-panel-input-padding-s),
+        'standard': var(--sbb-selection-panel-input-padding-block-m)
+          var(--sbb-selection-panel-input-padding-inline-m),
+        'lean': var(--sbb-selection-panel-input-padding-block-s)
+          var(--sbb-selection-panel-input-padding-inline-s),
       ),
       $theme
     )};
