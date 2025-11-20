@@ -56,15 +56,15 @@ $open-anim-opacity-to: 1;
   }
 }
 
-:host(:state(size-m)) {
+:host(:where(:state(size-xs), :state(size-s))) {
   --sbb-selection-expansion-panel-content-padding-inline: var(
-    --sbb-selection-panel-input-padding-inline-m
+    --sbb-selection-panel-input-padding-inline-xs-s
   );
 }
 
-:host(:state(size-s)) {
+:host(:state(size-m)) {
   --sbb-selection-expansion-panel-content-padding-inline: var(
-    --sbb-selection-panel-input-padding-inline-s
+    --sbb-selection-panel-input-padding-inline-m
   );
 }
 

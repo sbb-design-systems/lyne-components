@@ -73,7 +73,7 @@ The component inherits its style from the slotted panel component (`sbb-checkbox
 
 ## Slots
 
-| Name      | Description                                                                                                       |
-| --------- | ----------------------------------------------------------------------------------------------------------------- |
-|           | Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-expansion-panel`. |
-| `content` | Use this slot to provide custom content for the panel (optional).                                                 |
+| Name      | Description                                                                                                                   |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------- |
+|           | Use the unnamed slot to add `sbb-checkbox-panel` or `sbb-radio-button-panel` elements to the `sbb-selection-expansion-panel`. |
+| `content` | Use this slot to provide custom content for the panel (optional).                                                             |

@@ -32,7 +32,7 @@ snapshots["sbb-selection-expansion-panel renders DOM"] =
 
 snapshots["sbb-selection-expansion-panel renders Shadow DOM"] = 
 `<div class="sbb-selection-expansion-panel__input">
-snapshots["sbb-selection-expansion-panel renders Shadow DOM"] = 
+  <slot>
   </slot>
 </div>
 <div
@@ -49,9 +49,9 @@ snapshots["sbb-selection-expansion-panel renders Shadow DOM"] =
 `;
 /* end snapshot sbb-selection-expansion-panel renders Shadow DOM */
 
-snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] =
-`<p>
 snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] = 
+`<p>
+  {
   "role": "WebArea",
   "name": "",
   "children": [
@@ -68,7 +68,7 @@ snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] =
 
 snapshots["sbb-selection-expansion-panel renders A11y tree Firefox"] = 
 `<p>
-snapshots["sbb-selection-expansion-panel renders A11y tree Firefox"] = 
+  {
   "role": "document",
   "name": "",
   "children": [

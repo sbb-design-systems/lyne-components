@@ -105,6 +105,7 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
                   ?checked=${this.checked}
                   ?indeterminate=${this.indeterminate}
                   ?disabled=${this.disabled || this.formDisabled}
+                  .size=${this.size}
                 ></sbb-visual-checkbox>
               </span>
               <span class="sbb-checkbox__label">

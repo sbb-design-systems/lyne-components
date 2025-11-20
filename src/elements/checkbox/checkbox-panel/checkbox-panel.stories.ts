@@ -65,7 +65,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['xs', 's', 'm'],
 };
 
 const ariaLabel: InputType = {
@@ -97,7 +97,7 @@ const defaultArgs: Args = {
   'aria-label': undefined,
   color: color.options![0],
   borderless: false,
-  size: size.options![0],
+  size: size.options![2],
 };
 
 const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
