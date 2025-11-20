@@ -2,15 +2,15 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { miniButtonStyle } from '../../button/common.js';
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { SbbLanguageController } from '../../core/controllers.js';
-import { i18nClearInput } from '../../core/i18n.js';
-import { SbbNegativeMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbFormFieldElement } from '../form-field.js';
+import { miniButtonStyle } from '../../button/common.ts';
+import { SbbButtonBaseElement } from '../../core/base-elements.ts';
+import { SbbLanguageController } from '../../core/controllers.ts';
+import { i18nClearInput } from '../../core/i18n.ts';
+import { SbbNegativeMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbFormFieldElement } from '../form-field.ts';
 
-import '../../icon.js';
+import '../../icon.ts';
 
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.

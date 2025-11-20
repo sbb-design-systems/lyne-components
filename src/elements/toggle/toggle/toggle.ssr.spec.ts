@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbToggleElement } from './toggle.component.js';
+import { SbbToggleElement } from './toggle.component.ts';
 
-import '../toggle-option.js';
+import '../toggle-option.ts';
 
 describe(`sbb-toggle ssr`, () => {
   let root: SbbToggleElement;

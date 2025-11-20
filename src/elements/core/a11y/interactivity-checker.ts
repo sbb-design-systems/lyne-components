@@ -11,7 +11,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { isServer } from 'lit';
 
-import { isFirefox, isIOS, isWebkit } from '../dom/platform.js';
+import { isFirefox, isIOS, isWebkit } from '../dom/platform.ts';
 
 /**
  * Configuration for the isFocusable method.

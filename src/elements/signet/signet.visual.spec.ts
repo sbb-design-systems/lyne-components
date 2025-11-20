@@ -1,8 +1,8 @@
 import { html } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './signet.component.js';
+import './signet.component.ts';
 
 describe(`sbb-signet`, () => {
   const cases = {

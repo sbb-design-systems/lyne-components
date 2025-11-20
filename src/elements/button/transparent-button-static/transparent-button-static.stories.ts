@@ -19,11 +19,11 @@ import {
   sizeS,
   withHiddenSlottedIcon,
   withSlottedIcon,
-} from '../common/common-stories.private.js';
+} from '../common/common-stories.private.ts';
 
 import readme from './readme.md?raw';
-import '../../loading-indicator.js';
-import './transparent-button-static.component.js';
+import '../../loading-indicator.ts';
+import './transparent-button-static.component.ts';
 
 const disabled: InputType = {
   control: {

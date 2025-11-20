@@ -2,8 +2,8 @@ import type { Args } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import '../../../elements/alert.js';
-import '../../../elements/action-group.js';
+import '../../../elements/alert.ts';
+import '../../../elements/action-group.ts';
 import {
   bikeProduct,
   dailyTicketProduct,
@@ -13,7 +13,7 @@ import {
   skiplinkList,
   teaserHero,
   timetableInput,
-} from './home.common.js';
+} from './home.common.ts';
 import './home.scss';
 
 export const homeTemplate = (args: Args): TemplateResult => html`

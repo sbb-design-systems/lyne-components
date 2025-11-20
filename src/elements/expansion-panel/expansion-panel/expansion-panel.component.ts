@@ -3,14 +3,14 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { forceType } from '../../core/decorators.js';
-import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
-import type { SbbOpenedClosedState } from '../../core/interfaces.js';
-import { SbbHydrationMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbTitleLevel } from '../../title.js';
-import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.js';
-import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
+import { forceType } from '../../core/decorators.ts';
+import { isLean, isZeroAnimationDuration } from '../../core/dom.ts';
+import type { SbbOpenedClosedState } from '../../core/interfaces.ts';
+import { SbbHydrationMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbTitleLevel } from '../../title.ts';
+import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.ts';
+import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.ts';
 
 import style from './expansion-panel.scss?lit&inline';
 

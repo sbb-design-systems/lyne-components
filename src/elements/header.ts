@@ -1,7 +1,7 @@
 /**
  * @entrypoint
  */
-export * from './header/header.js';
-export * from './header/header-button.js';
-export * from './header/header-link.js';
-export * from './header/common.js';
+export * from './header/header.ts';
+export * from './header/header-button.ts';
+export * from './header/header-link.ts';
+export * from './header/common.ts';

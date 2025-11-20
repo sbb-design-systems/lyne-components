@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, isServer, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbFormFieldElement } from '../../form-field/form-field.js';
+import { SbbFormFieldElement } from '../../form-field/form-field.ts';
 
 import style from './timetable-form-field.scss?lit&inline';
 

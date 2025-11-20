@@ -5,10 +5,10 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import '../title.js';
-import './status.component.js';
+import '../title.ts';
+import './status.component.ts';
 
 describe(`sbb-status`, () => {
   const cases = {

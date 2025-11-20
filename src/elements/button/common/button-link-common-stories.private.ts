@@ -1,7 +1,7 @@
 import type { Args, ArgTypes } from '@storybook/web-components-vite';
 import type { InputType } from 'storybook/internal/types';
 
-import { commonDefaultArgs, commonDefaultArgTypes } from './common-stories.private.js';
+import { commonDefaultArgs, commonDefaultArgTypes } from './common-stories.private.ts';
 
 const hrefs = ['https://www.sbb.ch', 'https://github.com/sbb-design-systems/lyne-components'];
 const href: InputType = {

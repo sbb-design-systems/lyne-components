@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 
-import { SbbOptionHintElement } from './option-hint.component.js';
+import { SbbOptionHintElement } from './option-hint.component.ts';
 
 describe('sbb-option-hint', () => {
   let element: SbbOptionHintElement;

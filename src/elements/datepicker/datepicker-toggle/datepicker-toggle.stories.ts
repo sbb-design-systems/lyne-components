@@ -13,10 +13,10 @@ import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
 
-import '../../date-input.js';
-import '../../form-field.js';
-import '../datepicker.js';
-import './datepicker-toggle.component.js';
+import '../../date-input.ts';
+import '../../form-field.ts';
+import '../datepicker.ts';
+import './datepicker-toggle.component.ts';
 
 const negative: InputType = {
   control: {

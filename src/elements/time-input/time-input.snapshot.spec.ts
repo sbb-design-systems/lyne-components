@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbTimeInputElement } from './time-input.component.js';
+import type { SbbTimeInputElement } from './time-input.component.ts';
 
-import './time-input.component.js';
+import './time-input.component.ts';
 
 describe(`sbb-time-input`, () => {
   describe('renders', () => {

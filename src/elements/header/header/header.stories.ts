@@ -3,17 +3,17 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
-import './header.component.js';
-import '../header-button.js';
-import '../header-link.js';
-import '../../divider.js';
-import '../../logo.js';
-import '../../menu.js';
-import '../../signet.js';
+import './header.component.ts';
+import '../header-button.ts';
+import '../header-link.ts';
+import '../../divider.ts';
+import '../../logo.ts';
+import '../../menu.ts';
+import '../../signet.ts';
 
 const LoremIpsumTemplate = (): TemplateResult => html`
   <div>

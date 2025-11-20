@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './datetime/date-helper.js';
+export * from './datetime/date-helper.ts';

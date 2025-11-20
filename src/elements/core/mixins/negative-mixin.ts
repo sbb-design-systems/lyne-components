@@ -1,9 +1,9 @@
 import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType } from '../decorators.js';
+import { forceType } from '../decorators.ts';
 
-import type { AbstractConstructor } from './constructor.js';
+import type { AbstractConstructor } from './constructor.ts';
 
 export declare class SbbNegativeMixinType {
   public accessor negative: boolean;

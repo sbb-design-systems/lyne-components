@@ -1,10 +1,10 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbLinkBaseElement } from '../../core/base-elements.js';
-import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { buttonCommonStyle, buttonAccentStyle, SbbButtonCommonElementMixin } from '../common.js';
+import { SbbLinkBaseElement } from '../../core/base-elements.ts';
+import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { buttonCommonStyle, buttonAccentStyle, SbbButtonCommonElementMixin } from '../common.ts';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'accent' variant, which will behave as a link.

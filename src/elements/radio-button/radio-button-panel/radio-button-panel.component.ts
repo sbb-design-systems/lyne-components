@@ -8,23 +8,23 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getOverride } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
+import { getOverride } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbStateChange,
-} from '../../core/interfaces.js';
+} from '../../core/interfaces.ts';
 import {
   panelCommonStyle,
   SbbPanelMixin,
   type SbbPanelSize,
   SbbUpdateSchedulerMixin,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { radioButtonCommonStyle, SbbRadioButtonCommonElementMixin } from '../common.js';
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { radioButtonCommonStyle, SbbRadioButtonCommonElementMixin } from '../common.ts';
 
-import '../../screen-reader-only.js';
+import '../../screen-reader-only.ts';
 
 export type SbbRadioButtonStateChange = Extract<
   SbbStateChange,

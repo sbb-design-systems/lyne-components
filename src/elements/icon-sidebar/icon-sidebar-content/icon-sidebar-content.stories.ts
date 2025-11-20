@@ -4,9 +4,9 @@ import { html } from 'lit';
 
 import readme from './readme.md?raw';
 
-import '../../card.js';
+import '../../card.ts';
 
-import './icon-sidebar-content.component.js';
+import './icon-sidebar-content.component.ts';
 
 const Template = (): TemplateResult => html`
   <sbb-card color="milk"> See 'sbb-icon-sidebar' examples to see it in action. </sbb-card>

@@ -9,24 +9,24 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getOverride } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
+import { getOverride } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbStateChange,
-} from '../../core/interfaces/types.js';
+} from '../../core/interfaces/types.ts';
 import {
   panelCommonStyle,
   SbbPanelMixin,
   type SbbPanelSize,
   SbbUpdateSchedulerMixin,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { checkboxCommonStyle, SbbCheckboxCommonElementMixin } from '../common.js';
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { checkboxCommonStyle, SbbCheckboxCommonElementMixin } from '../common.ts';
 
-import '../../screen-reader-only.js';
-import '../../visual-checkbox.js';
+import '../../screen-reader-only.ts';
+import '../../visual-checkbox.ts';
 
 export type SbbCheckboxPanelStateChange = Extract<
   SbbStateChange,

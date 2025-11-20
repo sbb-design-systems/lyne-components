@@ -6,8 +6,8 @@ import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.js';
 import type { SbbOptGroupElement, SbbOptionHintElement } from '@sbb-esta/lyne-elements/option.js';
 import { customElement } from 'lit/decorators.js';
 
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.js';
-import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
+import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.ts';
+import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.ts';
 
 let nextId = 0;
 

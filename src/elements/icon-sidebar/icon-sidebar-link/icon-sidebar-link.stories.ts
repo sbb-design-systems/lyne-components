@@ -2,11 +2,11 @@ import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-v
 import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
-import './icon-sidebar-link.component.js';
+import './icon-sidebar-link.component.ts';
 
 const Template = ({ currentPage, ...args }: Args): TemplateResult => {
   return html`<sbb-icon-sidebar-link

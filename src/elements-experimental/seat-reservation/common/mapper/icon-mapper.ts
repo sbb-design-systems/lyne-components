@@ -1,4 +1,4 @@
-import { svgs } from '../svgs.js';
+import { svgs } from '../svgs.ts';
 
 /**
  * Map Object from OSDM Code to SVG icon name represented in svg-icon

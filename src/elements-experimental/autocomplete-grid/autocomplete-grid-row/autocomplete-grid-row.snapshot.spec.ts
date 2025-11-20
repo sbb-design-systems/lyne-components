@@ -3,13 +3,13 @@ import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/test
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAutocompleteGridRowElement } from './autocomplete-grid-row.component.js';
+import type { SbbAutocompleteGridRowElement } from './autocomplete-grid-row.component.ts';
 
-import '../autocomplete-grid.js';
-import './autocomplete-grid-row.component.js';
-import '../autocomplete-grid-option.js';
-import '../autocomplete-grid-cell.js';
-import '../autocomplete-grid-button.js';
+import '../autocomplete-grid.ts';
+import './autocomplete-grid-row.component.ts';
+import '../autocomplete-grid-option.ts';
+import '../autocomplete-grid-cell.ts';
+import '../autocomplete-grid-button.ts';
 
 describe('sbb-autocomplete-grid-row', () => {
   const row: TemplateResult = html`

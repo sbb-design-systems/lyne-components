@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbCalendarElement } from './calendar.component.js';
+import { SbbCalendarElement } from './calendar.component.ts';
 
 describe(`sbb-calendar ssr`, () => {
   let root: SbbCalendarElement;

@@ -3,13 +3,13 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
-import './skiplink-list.component.js';
-import '../link/block-link.js';
-import '../title.js';
+import './skiplink-list.component.ts';
+import '../link/block-link.ts';
+import '../title.ts';
 
 const titleContent: InputType = {
   control: {

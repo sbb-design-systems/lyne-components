@@ -6,9 +6,9 @@ import {
   visualDiffDefault,
   visualDiffStandardStates,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './block-link.component.js';
+import './block-link.component.ts';
 
 describe(`sbb-block-link`, () => {
   const cases = {

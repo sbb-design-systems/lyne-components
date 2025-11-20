@@ -3,15 +3,15 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/controllers.js';
-import { forceType } from '../core/decorators.js';
-import { forwardEvent } from '../core/eventing.js';
-import { i18nMapContainerButtonLabel } from '../core/i18n.js';
-import { boxSizingStyles } from '../core/styles.js';
+import { SbbLanguageController } from '../core/controllers.ts';
+import { forceType } from '../core/decorators.ts';
+import { forwardEvent } from '../core/eventing.ts';
+import { i18nMapContainerButtonLabel } from '../core/i18n.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './map-container.scss?lit&inline';
 
-import '../button/accent-button.js';
+import '../button/accent-button.ts';
 
 /**
  * It can be used as a container for maps.

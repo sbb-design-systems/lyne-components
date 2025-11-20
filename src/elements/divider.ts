@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './divider/divider.component.js';
+export * from './divider/divider.component.ts';

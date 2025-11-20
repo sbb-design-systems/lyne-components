@@ -1,15 +1,15 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbMenuElement } from './menu.component.js';
+import type { SbbMenuElement } from './menu.component.ts';
 
-import './menu.component.js';
-import '../menu-button.js';
-import '../../button.js';
-import '../../divider.js';
-import '../../link.js';
+import './menu.component.ts';
+import '../menu-button.ts';
+import '../../button.ts';
+import '../../divider.ts';
+import '../../link.ts';
 
 describe(`sbb-menu`, () => {
   describe('renders', () => {

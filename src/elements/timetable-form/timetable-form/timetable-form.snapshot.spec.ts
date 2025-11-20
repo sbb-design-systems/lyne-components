@@ -1,20 +1,20 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbTimetableFormElement } from './timetable-form.component.js';
+import type { SbbTimetableFormElement } from './timetable-form.component.ts';
 
-import './timetable-form.component.js';
-import '../../button/button.js';
-import '../../divider.js';
-import '../../icon.js';
-import '../../signet.js';
-import '../../time-input.js';
-import '../../toggle.js';
-import '../timetable-form-field.js';
-import '../timetable-form-swap-button.js';
-import '../timetable-form-details.js';
+import './timetable-form.component.ts';
+import '../../button/button.ts';
+import '../../divider.ts';
+import '../../icon.ts';
+import '../../signet.ts';
+import '../../time-input.ts';
+import '../../toggle.ts';
+import '../timetable-form-field.ts';
+import '../timetable-form-swap-button.ts';
+import '../timetable-form-details.ts';
 
 describe(`sbb-timetable-form`, () => {
   describe('renders', () => {

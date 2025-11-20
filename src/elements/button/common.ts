@@ -1,7 +1,7 @@
 /**
  * @entrypoint
  */
-export * from './common/button-common.js';
+export * from './common/button-common.ts';
 
 export { default as buttonCommonStyle } from './common/button-common.scss?lit&inline';
 export { default as buttonPrimaryStyle } from './common/primary-button.scss?lit&inline';

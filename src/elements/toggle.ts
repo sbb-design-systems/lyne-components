@@ -1,5 +1,5 @@
 /**
  * @entrypoint
  */
-export * from './toggle/toggle.js';
-export * from './toggle/toggle-option.js';
+export * from './toggle/toggle.ts';
+export * from './toggle/toggle-option.ts';

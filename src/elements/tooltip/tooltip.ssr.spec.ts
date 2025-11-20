@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbTooltipElement } from './tooltip.component.js';
+import { SbbTooltipElement } from './tooltip.component.ts';
 
 describe(`sbb-tooltip ssr`, () => {
   let root: SbbTooltipElement;

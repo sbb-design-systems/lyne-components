@@ -4,9 +4,9 @@ import {
   describeViewports,
   visualDiffStandardStates,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './breadcrumb.component.js';
+import './breadcrumb.component.ts';
 
 describe('sbb-breadcrumb', () => {
   let root: HTMLElement;

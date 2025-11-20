@@ -3,19 +3,19 @@ import { type CSSResultGroup, html, isServer, LitElement, type TemplateResult } 
 import { customElement, property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 
-import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
-import { SbbLanguageController } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
-import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.js';
-import { SbbHydrationMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbFlipCardDetailsElement } from '../flip-card-details.js';
-import type { SbbFlipCardSummaryElement } from '../flip-card-summary.js';
+import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
+import { SbbLanguageController } from '../../core/controllers.ts';
+import { forceType } from '../../core/decorators.ts';
+import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.ts';
+import { SbbHydrationMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbFlipCardDetailsElement } from '../flip-card-details.ts';
+import type { SbbFlipCardSummaryElement } from '../flip-card-summary.ts';
 
 import style from './flip-card.scss?lit&inline';
 
-import '../../button/secondary-button-static.js';
-import '../../screen-reader-only.js';
+import '../../button/secondary-button-static.ts';
+import '../../screen-reader-only.ts';
 
 /**
  * Displays an informative card that reveals more information upon being clicked.

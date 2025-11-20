@@ -2,14 +2,14 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
-import { SbbFocusTrapController } from '../../core/a11y.js';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import { SbbEscapableOverlayController } from '../../core/controllers.js';
-import { forceType, handleDistinctChange } from '../../core/decorators.js';
-import { isZeroAnimationDuration } from '../../core/dom.js';
-import { SbbAnimationCompleteMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbSidebarContainerElement } from '../sidebar-container.js';
+import { SbbFocusTrapController } from '../../core/a11y.ts';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
+import { SbbEscapableOverlayController } from '../../core/controllers.ts';
+import { forceType, handleDistinctChange } from '../../core/decorators.ts';
+import { isZeroAnimationDuration } from '../../core/dom.ts';
+import { SbbAnimationCompleteMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbSidebarContainerElement } from '../sidebar-container.ts';
 
 import style from './sidebar.scss?lit&inline';
 

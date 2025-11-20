@@ -5,13 +5,13 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+} from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
-import '../train.js';
-import '../train-wagon.js';
-import '../train-blocked-passage.js';
-import './train-formation.component.js';
+import '../train.ts';
+import '../train-wagon.ts';
+import '../train-blocked-passage.ts';
+import './train-formation.component.ts';
 
 describe(`sbb-train-formation`, () => {
   const train1 = html`<sbb-train

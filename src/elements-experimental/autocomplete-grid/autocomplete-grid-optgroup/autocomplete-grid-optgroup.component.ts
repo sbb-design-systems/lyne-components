@@ -2,7 +2,7 @@ import type { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocom
 import { SbbOptgroupBaseElement } from '@sbb-esta/lyne-elements/option/optgroup.js';
 import { customElement } from 'lit/decorators.js';
 
-import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
+import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.ts';
 
 /**
  * It can be used as a container for one or more `sbb-autocomplete-grid-option`.

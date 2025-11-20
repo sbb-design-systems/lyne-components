@@ -2,14 +2,14 @@ import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-v
 import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import sampleImages from '../../core/images.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import sampleImages from '../../core/images.ts';
 
-import '../../button/secondary-button.js';
-import '../../card.js';
-import '../../image.js';
-import '../../title.js';
-import './container.component.js';
+import '../../button/secondary-button.ts';
+import '../../card.ts';
+import '../../image.ts';
+import '../../title.ts';
+import './container.component.ts';
 
 import readme from './readme.md?raw';
 

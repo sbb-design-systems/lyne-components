@@ -2,10 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { hostAttributes } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
-import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.js';
+import type { SbbActionBaseElement } from '../../core/base-elements.ts';
+import { hostAttributes } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
+import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.ts';
 
 import style from './link.scss?lit&inline';
 

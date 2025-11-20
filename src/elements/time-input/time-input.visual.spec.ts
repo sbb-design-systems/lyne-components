@@ -5,11 +5,11 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './time-input.component.js';
-import '../form-field.js';
-import '../icon.js';
+import './time-input.component.ts';
+import '../form-field.ts';
+import '../icon.ts';
 
 describe(`sbb-time-input`, () => {
   const cases = {

@@ -11,12 +11,12 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './mini-button-group.component.js';
-import '../mini-button.js';
-import '../../divider/divider.component.js';
+import './mini-button-group.component.ts';
+import '../mini-button.ts';
+import '../../divider/divider.component.ts';
 
 const size: InputType = {
   control: {

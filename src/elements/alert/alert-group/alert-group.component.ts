@@ -3,12 +3,12 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { forceType } from '../../core/decorators.js';
-import { isEventPrevented } from '../../core/eventing.js';
-import { SbbHydrationMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbTitleLevel } from '../../title.js';
-import type { SbbAlertElement } from '../alert.js';
+import { forceType } from '../../core/decorators.ts';
+import { isEventPrevented } from '../../core/eventing.ts';
+import { SbbHydrationMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbTitleLevel } from '../../title.ts';
+import type { SbbAlertElement } from '../alert.ts';
 
 import style from './alert-group.scss?lit&inline';
 

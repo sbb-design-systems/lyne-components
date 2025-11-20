@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbAlertGroupElement } from './alert-group.component.js';
+import type { SbbAlertGroupElement } from './alert-group.component.ts';
 
-import './alert-group.component.js';
-import '../alert.js';
-import '../../title.js';
+import './alert-group.component.ts';
+import '../alert.ts';
+import '../../title.ts';
 
 describe(`sbb-alert-group`, () => {
   describe('renders', () => {

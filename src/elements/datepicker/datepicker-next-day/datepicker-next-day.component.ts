@@ -1,10 +1,10 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { miniButtonStyle } from '../../button/common.js';
-import { i18nNextDay, i18nSelectNextDay } from '../../core/i18n.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { SbbDatepickerButton } from '../common.js';
+import { miniButtonStyle } from '../../button/common.ts';
+import { i18nNextDay, i18nSelectNextDay } from '../../core/i18n.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbDatepickerButton } from '../common.ts';
 
 import style from './datepicker-next-day.scss?lit&inline';
 

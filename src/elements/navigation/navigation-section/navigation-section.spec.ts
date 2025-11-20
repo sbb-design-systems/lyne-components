@@ -7,15 +7,15 @@ import {
   sbbBreakpointSmallMinPx,
   sbbBreakpointUltraMinPx,
   tabKey,
-} from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
-import type { SbbNavigationButtonElement } from '../navigation-button.js';
-import { SbbNavigationElement } from '../navigation.js';
+} from '../../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button.ts';
+import { SbbNavigationElement } from '../navigation.ts';
 
-import { SbbNavigationSectionElement } from './navigation-section.component.js';
+import { SbbNavigationSectionElement } from './navigation-section.component.ts';
 
-import '../navigation-list.js';
-import '../navigation-button.js';
+import '../navigation-list.ts';
+import '../navigation-button.ts';
 
 describe(`sbb-navigation-section`, () => {
   let element: SbbNavigationSectionElement,

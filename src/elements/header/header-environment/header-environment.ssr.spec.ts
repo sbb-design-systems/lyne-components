@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbHeaderEnvironmentElement } from './header-environment.component.js';
+import { SbbHeaderEnvironmentElement } from './header-environment.component.ts';
 
 describe(`sbb-header-environment ssr`, () => {
   let root: SbbHeaderEnvironmentElement;

@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbTabGroupElement } from './tab-group.component.js';
-import '../tab-label.js';
-import '../tab.js';
+import { SbbTabGroupElement } from './tab-group.component.ts';
+import '../tab-label.ts';
+import '../tab.ts';
 
 describe(`sbb-tab-group ssr`, () => {
   let root: SbbTabGroupElement;

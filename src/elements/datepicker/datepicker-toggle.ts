@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './datepicker-toggle/datepicker-toggle.component.js';
+export * from './datepicker-toggle/datepicker-toggle.component.ts';

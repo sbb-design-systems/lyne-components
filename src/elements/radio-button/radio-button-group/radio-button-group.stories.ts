@@ -5,17 +5,17 @@ import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbErrorElement } from '../../form-field.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import type { SbbErrorElement } from '../../form-field.ts';
 
-import type { SbbRadioButtonGroupElement } from './radio-button-group.component.js';
+import type { SbbRadioButtonGroupElement } from './radio-button-group.component.ts';
 import readme from './readme.md?raw';
-import './radio-button-group.component.js';
-import '../radio-button.js';
-import '../radio-button-panel.js';
-import '../../form-field.js';
-import '../../icon.js';
-import '../../card/card-badge.js';
+import './radio-button-group.component.ts';
+import '../radio-button.ts';
+import '../radio-button-panel.ts';
+import '../../form-field.ts';
+import '../../icon.ts';
+import '../../card/card-badge.ts';
 
 const suffixStyle: Readonly<StyleInfo> = {
   display: 'flex',

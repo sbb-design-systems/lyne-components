@@ -9,15 +9,15 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime.js';
-import type { Leg } from '../core/timetable.js';
+import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime.ts';
+import type { Leg } from '../core/timetable.ts';
 
 import style from './journey-summary.scss?lit&inline';
 
 import '@sbb-esta/lyne-elements/divider.js';
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
 import '@sbb-esta/lyne-elements/journey-header.js';
-import '../pearl-chain-time.js';
+import '../pearl-chain-time.ts';
 
 export interface InterfaceSbbJourneySummaryAttributes {
   legs: Leg[];

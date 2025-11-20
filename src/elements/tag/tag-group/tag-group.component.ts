@@ -8,15 +8,15 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType } from '../../core/decorators.js';
-import { isLean, setOrRemoveAttribute } from '../../core/dom.js';
+import { forceType } from '../../core/decorators.ts';
+import { isLean, setOrRemoveAttribute } from '../../core/dom.ts';
 import {
   SbbDisabledMixin,
   SbbNamedSlotListMixin,
   type WithListChildren,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbTagElement, SbbTagSize } from '../tag.js';
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbTagElement, SbbTagSize } from '../tag.ts';
 
 import style from './tag-group.scss?lit&inline';
 

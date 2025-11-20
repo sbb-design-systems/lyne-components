@@ -1,11 +1,11 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbLinkBaseElement } from '../../core/base-elements.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { SbbIconNameMixin } from '../../icon.js';
-import { iconSidebarButtonCommonStyle } from '../../sidebar/common.js';
-import type { SbbTooltipDefaultPositions } from '../../tooltip.js';
+import { SbbLinkBaseElement } from '../../core/base-elements.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
+import { iconSidebarButtonCommonStyle } from '../../sidebar/common.ts';
+import type { SbbTooltipDefaultPositions } from '../../tooltip.ts';
 
 /**
  * Link to be placed inside `sbb-icon-sidebar`.

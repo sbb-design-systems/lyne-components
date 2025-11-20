@@ -2,13 +2,13 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbAncestorWatcherController } from '../../core/controllers.js';
-import { boxSizingStyles } from '../../core/styles.js';
+import { SbbAncestorWatcherController } from '../../core/controllers.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
 
-import { SbbOptionBaseElement } from './option-base-element.js';
+import { SbbOptionBaseElement } from './option-base-element.ts';
 import style from './option.scss?lit&inline';
 
-import '../../visual-checkbox.js';
+import '../../visual-checkbox.ts';
 
 export type SbbOptionVariant = 'autocomplete' | 'select' | null;
 

@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbMenuLinkElement } from './menu-link.component.js';
+import type { SbbMenuLinkElement } from './menu-link.component.ts';
 
-import './menu-link.component.js';
+import './menu-link.component.ts';
 
 describe(`sbb-menu-link`, () => {
   describe('renders', () => {

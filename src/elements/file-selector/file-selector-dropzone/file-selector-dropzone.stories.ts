@@ -12,9 +12,9 @@ import {
   defaultWithError,
   fileSelectorDefaultArgs,
   fileSelectorDefaultArgTypes,
-} from '../common/file-selector-common-stories.private.js';
+} from '../common/file-selector-common-stories.private.ts';
 
-import { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.js';
+import { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.ts';
 import readme from './readme.md?raw';
 
 const titleContent: InputType = {

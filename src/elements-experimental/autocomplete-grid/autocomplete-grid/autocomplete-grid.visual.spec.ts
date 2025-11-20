@@ -10,7 +10,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import '@sbb-esta/lyne-elements/card.js';
 import '@sbb-esta/lyne-elements/form-field.js';
-import '../../autocomplete-grid.js';
+import '../../autocomplete-grid.ts';
 
 describe('sbb-autocomplete-grid', () => {
   const defaultArgs = {

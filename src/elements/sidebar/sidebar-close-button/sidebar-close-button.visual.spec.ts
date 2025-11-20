@@ -5,9 +5,9 @@ import {
   describeViewports,
   visualDiffStandardStates,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './sidebar-close-button.component.js';
+import './sidebar-close-button.component.ts';
 
 // We test only states which are expected to be used
 describe(`sbb-sidebar-close-button`, () => {

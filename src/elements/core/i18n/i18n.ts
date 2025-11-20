@@ -1,4 +1,4 @@
-import type { SbbLanguage, SbbOccupancy } from '../interfaces.js';
+import type { SbbLanguage, SbbOccupancy } from '../interfaces.ts';
 
 export const i18nDirection: Record<string, string> = {
   de: 'Richtung',

@@ -2,14 +2,14 @@ import { aTimeout } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';
 
-import type { VisualDiffSetupBuilder } from '../core/testing/private.js';
-import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.js';
-import { waitForLitRender } from '../core/testing/wait-for-render.js';
+import type { VisualDiffSetupBuilder } from '../core/testing/private.ts';
+import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
+import { waitForLitRender } from '../core/testing/wait-for-render.ts';
 
-import '../card.js';
-import '../form-field.js';
-import '../option.js';
-import './autocomplete.component.js';
+import '../card.ts';
+import '../form-field.ts';
+import '../option.ts';
+import './autocomplete.component.ts';
 
 describe('sbb-autocomplete', () => {
   const defaultArgs = {

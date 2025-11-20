@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbIconSidebarLinkElement } from './icon-sidebar-link.component.js';
+import type { SbbIconSidebarLinkElement } from './icon-sidebar-link.component.ts';
 
-import './icon-sidebar-link.component.js';
+import './icon-sidebar-link.component.ts';
 
 describe(`sbb-icon-sidebar-link`, () => {
   let element: SbbIconSidebarLinkElement;

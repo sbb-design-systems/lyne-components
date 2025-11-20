@@ -1,12 +1,12 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy } from '../../core/testing.ts';
 
-import { SbbTimetableFormSwapButtonElement } from './timetable-form-swap-button.component.js';
-import '../timetable-form.js';
-import '../timetable-form-field.js';
+import { SbbTimetableFormSwapButtonElement } from './timetable-form-swap-button.component.ts';
+import '../timetable-form.ts';
+import '../timetable-form-field.ts';
 
 describe('sbb-timetable-form-swap-button', () => {
   let element: SbbTimetableFormSwapButtonElement;

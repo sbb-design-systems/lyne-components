@@ -1,8 +1,8 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './train-blocked-passage.component.js';
+import './train-blocked-passage.component.ts';
 
 describe(`sbb-train-blocked-passage`, () => {
   describeViewports({ viewports: ['zero'] }, () => {

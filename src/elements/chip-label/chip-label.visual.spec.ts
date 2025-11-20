@@ -1,8 +1,8 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './chip-label.component.js';
+import './chip-label.component.ts';
 
 describe(`sbb-chip-label`, () => {
   const sizeCases = ['xxs', 'xs', 's'];

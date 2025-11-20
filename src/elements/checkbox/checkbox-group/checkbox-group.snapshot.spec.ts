@@ -1,14 +1,14 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbCheckboxGroupElement } from './checkbox-group.component.js';
+import type { SbbCheckboxGroupElement } from './checkbox-group.component.ts';
 
-import './checkbox-group.component.js';
-import '../checkbox.js';
-import '../checkbox-panel.js';
-import '../../selection-expansion-panel.js';
+import './checkbox-group.component.ts';
+import '../checkbox.ts';
+import '../checkbox-panel.ts';
+import '../../selection-expansion-panel.ts';
 
 describe(`sbb-checkbox-group`, () => {
   let element: SbbCheckboxGroupElement;

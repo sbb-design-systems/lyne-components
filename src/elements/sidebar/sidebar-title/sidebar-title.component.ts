@@ -1,7 +1,7 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbTitleBase, type SbbTitleLevel } from '../../title.js';
+import { SbbTitleBase, type SbbTitleLevel } from '../../title.ts';
 
 import style from './sidebar-title.scss?lit&inline';
 

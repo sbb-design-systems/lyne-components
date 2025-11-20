@@ -5,12 +5,12 @@ import { describeIf } from '@sbb-esta/lyne-elements/core/testing.js';
 import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAutocompleteGridElement } from './autocomplete-grid.component.js';
-import './autocomplete-grid.component.js';
-import '../autocomplete-grid-row.js';
-import '../autocomplete-grid-option.js';
-import '../autocomplete-grid-cell.js';
-import '../autocomplete-grid-button.js';
+import type { SbbAutocompleteGridElement } from './autocomplete-grid.component.ts';
+import './autocomplete-grid.component.ts';
+import '../autocomplete-grid-row.ts';
+import '../autocomplete-grid-option.ts';
+import '../autocomplete-grid-cell.ts';
+import '../autocomplete-grid-button.ts';
 import '@sbb-esta/lyne-elements/form-field/form-field/form-field.component.js';
 
 describe('sbb-autocomplete-grid', () => {

@@ -4,14 +4,14 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
-import { forceType } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
-import { throttle } from '../../core/eventing.js';
-import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbTabLabelElement } from '../tab-label.js';
-import type { SbbTabElement } from '../tab.js';
+import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
+import { forceType } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
+import { throttle } from '../../core/eventing.ts';
+import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbTabLabelElement } from '../tab-label.ts';
+import type { SbbTabElement } from '../tab.ts';
 
 import style from './tab-group.scss?lit&inline';
 

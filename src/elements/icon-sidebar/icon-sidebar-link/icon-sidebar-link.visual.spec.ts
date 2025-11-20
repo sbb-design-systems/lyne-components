@@ -5,10 +5,10 @@ import {
   describeViewports,
   visualDiffStandardStates,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../../icon.js';
-import './icon-sidebar-link.component.js';
+import '../../icon.ts';
+import './icon-sidebar-link.component.ts';
 
 describe(`sbb-icon-sidebar-link`, () => {
   let root: HTMLElement;

@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbTrainBlockedPassageElement } from './train-blocked-passage.component.js';
+import { SbbTrainBlockedPassageElement } from './train-blocked-passage.component.ts';
 
 describe(`sbb-train-blocked-passage ssr`, () => {
   let root: SbbTrainBlockedPassageElement;

@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbSkiplinkListElement } from './skiplink-list.component.js';
+import { SbbSkiplinkListElement } from './skiplink-list.component.ts';
 
-import '../link/block-link.js';
+import '../link/block-link.ts';
 
 describe(`sbb-skiplink-list ssr`, () => {
   let root: SbbSkiplinkListElement;

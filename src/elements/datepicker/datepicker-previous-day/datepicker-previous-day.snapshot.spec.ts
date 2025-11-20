@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.component.js';
+import type { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.component.ts';
 
-import './datepicker-previous-day.component.js';
-import '../../date-input.js';
+import './datepicker-previous-day.component.ts';
+import '../../date-input.ts';
 
 describe(`sbb-datepicker-previous-day`, () => {
   let element: SbbDatepickerPreviousDayElement;

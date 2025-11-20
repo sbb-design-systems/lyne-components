@@ -11,17 +11,17 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import sampleImages from '../../core/images.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import sampleImages from '../../core/images.ts';
 
 import readme from './readme.md?raw';
-import './teaser-product-static.component.js';
-import '../../action-group.js';
-import '../../button/button.js';
-import '../../button/secondary-button.js';
-import '../../chip-label.js';
-import '../../image.js';
-import '../../title.js';
+import './teaser-product-static.component.ts';
+import '../../action-group.ts';
+import '../../button/button.ts';
+import '../../button/secondary-button.ts';
+import '../../chip-label.ts';
+import '../../image.ts';
+import '../../title.ts';
 
 const imageAlignment: InputType = {
   control: {

@@ -4,11 +4,11 @@ import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbButtonBaseElement } from '../base-elements.js';
-import { fixture } from '../testing/private.js';
-import { waitForLitRender } from '../testing.js';
+import { SbbButtonBaseElement } from '../base-elements.ts';
+import { fixture } from '../testing/private.ts';
+import { waitForLitRender } from '../testing.ts';
 
-import { SbbDisabledMixin, SbbDisabledTabIndexActionMixin } from './disabled-mixin.js';
+import { SbbDisabledMixin, SbbDisabledTabIndexActionMixin } from './disabled-mixin.ts';
 
 /** Dummy docs */
 @customElement('sbb-disabled-test')

@@ -3,12 +3,12 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './train-wagon.component.js';
-import '../train-formation.js';
-import '../train.js';
+import './train-wagon.component.ts';
+import '../train-formation.ts';
+import '../train.ts';
 
 const trainFormationWrapper = (content: TemplateResult): TemplateResult =>
   html`<sbb-train-formation><sbb-train>${content}</sbb-train></sbb-train-formation>`;

@@ -9,15 +9,15 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { isAndroid, isBlink, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
+import { isAndroid, isBlink, isSafari, setOrRemoveAttribute } from '../../core/dom.ts';
 import {
   SbbDisabledMixin,
   SbbElementInternalsMixin,
   SbbHydrationMixin,
-} from '../../core/mixins.js';
-import { SbbIconNameMixin } from '../../icon.js';
+} from '../../core/mixins.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
 
-import '../../screen-reader-only.js';
+import '../../screen-reader-only.ts';
 
 let nextId = 0;
 

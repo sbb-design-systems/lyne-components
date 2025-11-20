@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 import {
   buttonLinkIconTestTemplate,
   buttonLinkTestTemplate,
-} from '../common/button-test-utils.private.js';
+} from '../common/button-test-utils.private.ts';
 
-import type { SbbSecondaryButtonLinkElement } from './secondary-button-link.component.js';
-import './secondary-button-link.component.js';
+import type { SbbSecondaryButtonLinkElement } from './secondary-button-link.component.ts';
+import './secondary-button-link.component.ts';
 
 describe(`sbb-secondary-button-link`, () => {
   let element: SbbSecondaryButtonLinkElement;

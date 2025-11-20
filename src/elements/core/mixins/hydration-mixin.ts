@@ -1,6 +1,6 @@
 import type { LitElement, PropertyValues } from 'lit';
 
-import type { AbstractConstructor } from './constructor.js';
+import type { AbstractConstructor } from './constructor.ts';
 
 // Define the interface for the mixin
 export declare abstract class SbbHydrationMixinType {

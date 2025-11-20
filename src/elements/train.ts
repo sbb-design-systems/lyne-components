@@ -1,7 +1,7 @@
 /**
  * @entrypoint
  */
-export * from './train/train.js';
-export * from './train/train-blocked-passage.js';
-export * from './train/train-formation.js';
-export * from './train/train-wagon.js';
+export * from './train/train.ts';
+export * from './train/train-blocked-passage.ts';
+export * from './train/train-formation.ts';
+export * from './train/train-wagon.ts';

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import '../../../elements/title.js';
+import '../../../elements/title.ts';
 
 import readme from './readme.md?raw';
 import './typo-internal.scss';

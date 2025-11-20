@@ -1,15 +1,15 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import type { SbbFormFieldElement } from '../../form-field.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
+import type { SbbFormFieldElement } from '../../form-field.ts';
 
-import type { SbbDatepickerToggleElement } from './datepicker-toggle.component.js';
+import type { SbbDatepickerToggleElement } from './datepicker-toggle.component.ts';
 
-import './datepicker-toggle.component.js';
-import '../datepicker.js';
-import '../../date-input.js';
-import '../../form-field.js';
+import './datepicker-toggle.component.ts';
+import '../datepicker.ts';
+import '../../date-input.ts';
+import '../../form-field.ts';
 
 describe(`sbb-datepicker-toggle`, () => {
   describe(`renders`, () => {

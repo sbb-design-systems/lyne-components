@@ -1,15 +1,15 @@
 import { expect } from '@open-wc/testing';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 import {
   buttonLoading,
   buttonSlottedIconTestTemplate,
   buttonTestTemplate,
-} from '../common/button-test-utils.private.js';
+} from '../common/button-test-utils.private.ts';
 
-import type { SbbButtonElement } from './button.component.js';
+import type { SbbButtonElement } from './button.component.ts';
 
-import './button.component.js';
+import './button.component.ts';
 
 describe(`sbb-button`, () => {
   let element: SbbButtonElement;

@@ -3,8 +3,8 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import '../../../elements/header.js';
-import '../../../elements/icon.js';
+import '../../../elements/header.ts';
+import '../../../elements/icon.ts';
 
 import readme from './readme.md?raw';
 

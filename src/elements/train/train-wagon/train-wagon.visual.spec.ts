@@ -1,10 +1,10 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './train-wagon.component.js';
-import '../train-formation.js';
-import '../train.js';
+import './train-wagon.component.ts';
+import '../train-formation.ts';
+import '../train.ts';
 
 describe(`sbb-train-wagon`, () => {
   const wagonTypeCases = {

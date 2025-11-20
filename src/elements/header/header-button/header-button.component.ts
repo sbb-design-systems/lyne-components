@@ -1,7 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { SbbHeaderActionCommonElementMixin } from '../common.js';
+import { SbbButtonBaseElement } from '../../core/base-elements.ts';
+import { SbbHeaderActionCommonElementMixin } from '../common.ts';
 
 /**
  * It displays a button element that can be used in the `sbb-header` component.

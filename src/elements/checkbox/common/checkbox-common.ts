@@ -1,9 +1,9 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType } from '../../core/decorators.js';
-import { type Constructor, SbbFormAssociatedCheckboxMixin } from '../../core/mixins.js';
-import type { SbbCheckboxGroupElement } from '../checkbox-group.js';
+import { forceType } from '../../core/decorators.ts';
+import { type Constructor, SbbFormAssociatedCheckboxMixin } from '../../core/mixins.ts';
+import type { SbbCheckboxGroupElement } from '../checkbox-group.ts';
 
 export type SbbCheckboxSize = 'xs' | 's' | 'm';
 

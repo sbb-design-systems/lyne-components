@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbPaginatorElement } from './paginator.component.js';
+import { SbbPaginatorElement } from './paginator.component.ts';
 
 describe(`sbb-paginator ssr`, () => {
   let root: SbbPaginatorElement;

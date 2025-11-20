@@ -11,11 +11,11 @@ import { html, nothing } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
-import '../../form-field.js';
-import '../../autocomplete.js';
-import '../../select.js';
-import '../option.js';
-import './optgroup.component.js';
+import '../../form-field.ts';
+import '../../autocomplete.ts';
+import '../../select.ts';
+import '../option.ts';
+import './optgroup.component.ts';
 
 const label: InputType = {
   control: {

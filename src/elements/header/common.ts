@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './common/header-action-common.js';
+export * from './common/header-action-common.ts';

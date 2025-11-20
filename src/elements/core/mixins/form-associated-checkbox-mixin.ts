@@ -1,20 +1,20 @@
 import { defaultConverter, type LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../controllers.js';
-import { hostAttributes } from '../decorators.js';
-import { preventScrollOnSpacebarPress } from '../eventing.js';
-import { i18nCheckboxRequired } from '../i18n.js';
+import { SbbLanguageController } from '../controllers.ts';
+import { hostAttributes } from '../decorators.ts';
+import { preventScrollOnSpacebarPress } from '../eventing.ts';
+import { i18nCheckboxRequired } from '../i18n.ts';
 
-import type { AbstractConstructor } from './constructor.js';
-import { SbbDisabledMixin } from './disabled-mixin.js';
-import { SbbElementInternalsMixin } from './element-internals-mixin.js';
+import type { AbstractConstructor } from './constructor.ts';
+import { SbbDisabledMixin } from './disabled-mixin.ts';
+import { SbbElementInternalsMixin } from './element-internals-mixin.ts';
 import {
   SbbFormAssociatedMixin,
   type FormRestoreReason,
   type FormRestoreState,
-} from './form-associated-mixin.js';
-import { SbbRequiredMixin } from './required-mixin.js';
+} from './form-associated-mixin.ts';
+import { SbbRequiredMixin } from './required-mixin.ts';
 
 type CheckedSetterValue = { value: boolean; attribute: boolean };
 

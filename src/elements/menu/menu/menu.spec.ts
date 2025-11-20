@@ -2,23 +2,23 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { emulateMedia, sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../../button.js';
-import { isWebkit } from '../../core/dom.js';
+import type { SbbButtonElement } from '../../button.ts';
+import { isWebkit } from '../../core/dom.ts';
 import {
   fixture,
   sbbBreakpointLargeMinPx,
   sbbBreakpointSmallMinPx,
   tabKey,
-} from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
-import type { SbbMenuButtonElement } from '../menu-button.js';
+} from '../../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import type { SbbMenuButtonElement } from '../menu-button.ts';
 
-import { SbbMenuElement } from './menu.component.js';
+import { SbbMenuElement } from './menu.component.ts';
 
-import '../../button/button.js';
-import '../../link.js';
-import '../../divider.js';
-import '../menu-button.js';
+import '../../button/button.ts';
+import '../../link.ts';
+import '../../divider.ts';
+import '../menu-button.ts';
 
 describe(`sbb-menu`, () => {
   let element: SbbMenuElement, trigger: SbbButtonElement;

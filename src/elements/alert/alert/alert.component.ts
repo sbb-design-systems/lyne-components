@@ -1,20 +1,20 @@
 import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import { SbbDarkModeController, SbbLanguageController } from '../../core/controllers.js';
-import { isLean, isZeroAnimationDuration } from '../../core/dom.js';
-import { i18nCloseAlert } from '../../core/i18n.js';
-import { SbbReadonlyMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { SbbIconNameMixin } from '../../icon.js';
-import type { SbbLinkElement } from '../../link.js';
-import type { SbbTitleElement } from '../../title.js';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
+import { SbbDarkModeController, SbbLanguageController } from '../../core/controllers.ts';
+import { isLean, isZeroAnimationDuration } from '../../core/dom.ts';
+import { i18nCloseAlert } from '../../core/i18n.ts';
+import { SbbReadonlyMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
+import type { SbbLinkElement } from '../../link.ts';
+import type { SbbTitleElement } from '../../title.ts';
 
 import style from './alert.scss?lit&inline';
 
-import '../../button/transparent-button.js';
-import '../../divider.js';
+import '../../button/transparent-button.ts';
+import '../../divider.ts';
 
 /**
  * It displays messages which require user's attention.

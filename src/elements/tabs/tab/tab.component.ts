@@ -3,9 +3,9 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../../core/mixins.js';
-import type { SbbTabGroupElement } from '../tab-group/tab-group.component.js';
-import type { SbbTabLabelElement } from '../tab-label.js';
+import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import type { SbbTabGroupElement } from '../tab-group/tab-group.component.ts';
+import type { SbbTabLabelElement } from '../tab-label.ts';
 
 import style from './tab.scss?lit&inline';
 

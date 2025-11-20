@@ -1,20 +1,20 @@
 import { LitElement, html, type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getOverride } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
-import type { SbbIconPlacement } from '../../core/interfaces.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { SbbIconNameMixin } from '../../icon.js';
+import { getOverride } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
+import type { SbbIconPlacement } from '../../core/interfaces.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
 import {
   SbbCheckboxCommonElementMixin,
   checkboxCommonStyle,
   type SbbCheckboxSize,
-} from '../common.js';
+} from '../common.ts';
 
 import checkboxStyle from './checkbox.scss?lit&inline';
 
-import '../../visual-checkbox.js';
+import '../../visual-checkbox.ts';
 
 /**
  * It displays a checkbox enhanced with the SBB Design.

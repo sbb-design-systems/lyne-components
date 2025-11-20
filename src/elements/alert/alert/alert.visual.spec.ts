@@ -5,11 +5,11 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../../link/link.js';
-import './alert.component.js';
-import '../../title.js';
+import '../../link/link.ts';
+import './alert.component.ts';
+import '../../title.ts';
 
 describe(`sbb-alert`, () => {
   const defaultArgs = {

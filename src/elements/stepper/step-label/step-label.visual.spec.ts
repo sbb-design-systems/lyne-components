@@ -4,9 +4,9 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffHover,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './step-label.component.js';
+import './step-label.component.ts';
 
 describe(`sbb-step-label`, () => {
   const template = (disabled?: boolean): TemplateResult =>

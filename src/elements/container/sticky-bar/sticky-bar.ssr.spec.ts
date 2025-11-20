@@ -1,12 +1,12 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
-import type { SbbContainerElement } from '../container.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
+import type { SbbContainerElement } from '../container.ts';
 
-import { SbbStickyBarElement } from './sticky-bar.component.js';
+import { SbbStickyBarElement } from './sticky-bar.component.ts';
 
-import '../container.js';
+import '../container.ts';
 
 describe(`sbb-sticky-bar ssr`, () => {
   let root: SbbContainerElement;

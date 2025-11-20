@@ -1,9 +1,9 @@
 import type { ComplexAttributeConverter, ReactiveElement } from 'lit';
 
-import { readConfig } from '../config.js';
-import { type DateAdapter, defaultDateAdapter } from '../datetime.js';
+import { readConfig } from '../config.ts';
+import { type DateAdapter, defaultDateAdapter } from '../datetime.ts';
 
-import type { Interface } from './base.js';
+import type { Interface } from './base.ts';
 
 /**
  * Will convert date object values to ISO8601 formatted strings as attributes.

@@ -2,25 +2,25 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAutocompleteElement } from '../../autocomplete.js';
-import type { SbbButtonElement } from '../../button.js';
-import { i18nDialog } from '../../core/i18n.js';
-import { sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
-import { SbbStepElement } from '../../stepper/step/step.component.js';
+import type { SbbAutocompleteElement } from '../../autocomplete.ts';
+import type { SbbButtonElement } from '../../button.ts';
+import { i18nDialog } from '../../core/i18n.ts';
+import { sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { SbbStepElement } from '../../stepper/step/step.component.ts';
 
-import { SbbDialogElement } from './dialog.component.js';
+import { SbbDialogElement } from './dialog.component.ts';
 
-import '../../autocomplete.js';
-import '../../button.js';
-import '../../form-field.js';
-import '../../icon.js';
-import '../../option.js';
-import '../../stepper.js';
-import '../dialog-title.js';
-import '../dialog-close-button.js';
-import '../dialog-content.js';
-import '../dialog-actions.js';
+import '../../autocomplete.ts';
+import '../../button.ts';
+import '../../form-field.ts';
+import '../../icon.ts';
+import '../../option.ts';
+import '../../stepper.ts';
+import '../dialog-title.ts';
+import '../dialog-close-button.ts';
+import '../dialog-content.ts';
+import '../dialog-actions.ts';
 
 async function openDialog(element: SbbDialogElement): Promise<void> {
   const beforeOpenSpy = new EventSpy(SbbDialogElement.events.beforeopen, element);

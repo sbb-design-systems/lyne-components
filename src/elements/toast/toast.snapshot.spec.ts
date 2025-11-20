@@ -2,13 +2,13 @@ import { expect } from '@open-wc/testing';
 import { emulateMedia } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
-import { waitForCondition } from '../core/testing/wait-for-condition.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
+import { waitForCondition } from '../core/testing/wait-for-condition.ts';
 
-import type { SbbToastElement } from './toast.component.js';
+import type { SbbToastElement } from './toast.component.ts';
 
-import './toast.component.js';
-import '../link/link.js';
+import './toast.component.ts';
+import '../link/link.ts';
 
 describe(`sbb-toast`, () => {
   let elem: SbbToastElement;

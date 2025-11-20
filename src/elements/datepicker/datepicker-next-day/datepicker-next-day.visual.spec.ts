@@ -5,12 +5,12 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './datepicker-next-day.component.js';
-import '../datepicker.js';
-import '../../date-input.js';
-import '../../form-field.js';
+import './datepicker-next-day.component.ts';
+import '../datepicker.ts';
+import '../../date-input.ts';
+import '../../form-field.ts';
 
 describe(`sbb-datepicker-next-day`, () => {
   const cases = {

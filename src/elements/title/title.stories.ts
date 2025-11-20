@@ -3,10 +3,10 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './title.component.js';
+import './title.component.ts';
 
 // we don't need to pass the args.text to the <sbb-title> tag, but Storybook wants all in it.
 const Template = ({ text, ...args }: Args): TemplateResult =>

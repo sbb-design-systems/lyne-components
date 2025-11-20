@@ -2,12 +2,12 @@ import { assert } from '@open-wc/testing';
 import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.component.js';
-import '../autocomplete-grid.js';
-import '../autocomplete-grid-row.js';
-import '../autocomplete-grid-cell.js';
-import '../autocomplete-grid-button.js';
-import '../autocomplete-grid-option.js';
+import { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.component.ts';
+import '../autocomplete-grid.ts';
+import '../autocomplete-grid-row.ts';
+import '../autocomplete-grid-cell.ts';
+import '../autocomplete-grid-button.ts';
+import '../autocomplete-grid-option.ts';
 
 describe(`sbb-autocomplete-grid-optgroup ssr`, () => {
   let element: SbbAutocompleteGridOptgroupElement;

@@ -1,9 +1,9 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbNegativeMixin } from '../core/mixins.js';
+import { SbbNegativeMixin } from '../core/mixins.ts';
 
-import { SbbTitleBase, type SbbTitleLevel } from './title-base.js';
+import { SbbTitleBase, type SbbTitleLevel } from './title-base.ts';
 import style from './title.scss?lit&inline';
 
 /**

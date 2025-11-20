@@ -1,5 +1,5 @@
 /**
  * @entrypoint
  */
-export * from './option/option.component.js';
-export * from './option/option-base-element.js';
+export * from './option/option.component.ts';
+export * from './option/option-base-element.ts';

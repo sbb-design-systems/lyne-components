@@ -1,16 +1,16 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbDateInputElement } from '../../date-input.js';
-import type { SbbFormFieldElement } from '../../form-field.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbDateInputElement } from '../../date-input.ts';
+import type { SbbFormFieldElement } from '../../form-field.ts';
 
-import { SbbDatepickerNextDayElement } from './datepicker-next-day.component.js';
+import { SbbDatepickerNextDayElement } from './datepicker-next-day.component.ts';
 
-import '../datepicker.js';
-import '../../date-input.js';
-import '../../form-field/form-field.js';
+import '../datepicker.ts';
+import '../../date-input.ts';
+import '../../form-field/form-field.ts';
 
 describe(`sbb-datepicker-next-day`, () => {
   describe('standalone', () => {

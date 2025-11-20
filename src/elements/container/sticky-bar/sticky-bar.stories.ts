@@ -4,14 +4,14 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
-import { SbbStickyBarElement } from './sticky-bar.component.js';
+import { SbbStickyBarElement } from './sticky-bar.component.ts';
 
-import '../../action-group.js';
-import '../../button/button.js';
-import '../../button/secondary-button.js';
-import '../../link.js';
-import '../../title.js';
-import '../container.js';
+import '../../action-group.ts';
+import '../../button/button.ts';
+import '../../button/secondary-button.ts';
+import '../../link.ts';
+import '../../title.ts';
+import '../container.ts';
 
 const containerColor: InputType = {
   name: 'color',

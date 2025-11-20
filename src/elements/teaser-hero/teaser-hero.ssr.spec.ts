@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbTeaserHeroElement } from './teaser-hero.component.js';
-import '../chip-label.js';
-import '../image.js';
+import { SbbTeaserHeroElement } from './teaser-hero.component.ts';
+import '../chip-label.ts';
+import '../image.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 

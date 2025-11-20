@@ -5,7 +5,7 @@ import { dirname, extname } from 'path';
 
 import type { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
 
-import type { Meta } from '../../src/visual-regression-app/src/interfaces.js';
+import type { Meta } from '../../src/visual-regression-app/src/interfaces.ts';
 
 const metaFileName = 'meta.json';
 const branch =

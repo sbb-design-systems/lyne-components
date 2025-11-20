@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing/wait-for-render.js';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing/wait-for-render.ts';
 
-import { SbbFlipCardDetailsElement } from './flip-card-details.component.js';
+import { SbbFlipCardDetailsElement } from './flip-card-details.component.ts';
 
 describe('sbb-flip-card-details', () => {
   let element: SbbFlipCardDetailsElement;

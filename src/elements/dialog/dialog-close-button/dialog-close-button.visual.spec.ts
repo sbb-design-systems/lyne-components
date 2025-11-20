@@ -5,9 +5,9 @@ import {
   describeViewports,
   visualDiffStandardStates,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './dialog-close-button.component.js';
+import './dialog-close-button.component.ts';
 
 // We test only states which are expected to be used
 describe(`sbb-dialog-close-button`, () => {

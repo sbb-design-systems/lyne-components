@@ -7,9 +7,9 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './chip.component.js';
+import './chip.component.ts';
 
 const cases = {
   negative: [false, true],

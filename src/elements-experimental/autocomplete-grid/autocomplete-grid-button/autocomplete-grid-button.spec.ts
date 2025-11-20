@@ -3,7 +3,7 @@ import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.component.js';
+import { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.component.ts';
 
 describe(`sbb-autocomplete-grid-button`, () => {
   let element: SbbAutocompleteGridButtonElement;

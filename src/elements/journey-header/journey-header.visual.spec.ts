@@ -5,9 +5,9 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './journey-header.component.js';
+import './journey-header.component.ts';
 
 describe(`sbb-journey-header`, () => {
   let root: HTMLElement;

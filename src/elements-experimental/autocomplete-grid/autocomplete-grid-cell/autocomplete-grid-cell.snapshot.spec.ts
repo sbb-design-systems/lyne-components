@@ -2,11 +2,11 @@ import { expect } from '@open-wc/testing';
 import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAutocompleteGridCellElement } from './autocomplete-grid-cell.component.js';
-import '../autocomplete-grid.js';
-import '../autocomplete-grid-row.js';
-import './autocomplete-grid-cell.component.js';
-import '../autocomplete-grid-button.js';
+import type { SbbAutocompleteGridCellElement } from './autocomplete-grid-cell.component.ts';
+import '../autocomplete-grid.ts';
+import '../autocomplete-grid-row.ts';
+import './autocomplete-grid-cell.component.ts';
+import '../autocomplete-grid-button.ts';
 
 describe('sbb-autocomplete-grid-cell', () => {
   describe('renders', () => {

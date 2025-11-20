@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbSidebarElement } from './sidebar.component.js';
+import type { SbbSidebarElement } from './sidebar.component.ts';
 
-import './sidebar.component.js';
+import './sidebar.component.ts';
 
 describe(`sbb-sidebar`, () => {
   describe('renders', () => {

@@ -2,10 +2,10 @@ import { expect } from '@open-wc/testing';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { fixture } from '../testing/private.js';
-import { waitForLitRender } from '../testing.js';
+import { fixture } from '../testing/private.ts';
+import { waitForLitRender } from '../testing.ts';
 
-import { idReference } from './id-reference.js';
+import { idReference } from './id-reference.ts';
 
 /**
  * Test element for the idReference decorator.

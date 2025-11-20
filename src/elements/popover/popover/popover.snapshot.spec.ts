@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbPopoverElement } from './popover.component.js';
-import './popover.component.js';
+import type { SbbPopoverElement } from './popover.component.ts';
+import './popover.component.ts';
 
 describe(`sbb-popover`, () => {
   let element: SbbPopoverElement;

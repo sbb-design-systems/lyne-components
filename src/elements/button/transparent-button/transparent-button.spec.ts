@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils.private.js';
-import './transparent-button.component.js';
+} from '../common/button-test-utils.private.ts';
+import './transparent-button.component.ts';
 
 describe(`sbb-transparent-button`, () => {
   it('should detect icon in sbb-transparent-button', async () => {

@@ -10,18 +10,18 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { defaultDateAdapter } from '../../core/datetime.js';
-import type { SbbDateInputElement } from '../../date-input.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import { defaultDateAdapter } from '../../core/datetime.ts';
+import type { SbbDateInputElement } from '../../date-input.ts';
 
 import readme from './readme.md?raw';
 
-import './datepicker.component.js';
-import '../datepicker-next-day.js';
-import '../datepicker-previous-day.js';
-import '../datepicker-toggle.js';
-import '../../date-input.js';
-import '../../form-field.js';
+import './datepicker.component.ts';
+import '../datepicker-next-day.ts';
+import '../datepicker-previous-day.ts';
+import '../datepicker-toggle.ts';
+import '../../date-input.ts';
+import '../../form-field.ts';
 
 const value: InputType = {
   control: {

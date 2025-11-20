@@ -3,13 +3,13 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { forceType, omitEmptyConverter } from '../../core/decorators.js';
-import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { SbbIconNameMixin } from '../../icon.js';
-import type { SbbTitleLevel } from '../../title.js';
-import type { SbbTabElement } from '../tab/tab.component.js';
-import type { SbbTabChangedEventDetails, SbbTabGroupElement } from '../tab-group.js';
+import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
+import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
+import type { SbbTitleLevel } from '../../title.ts';
+import type { SbbTabElement } from '../tab/tab.component.ts';
+import type { SbbTabChangedEventDetails, SbbTabGroupElement } from '../tab-group.ts';
 
 import style from './tab-label.scss?lit&inline';
 

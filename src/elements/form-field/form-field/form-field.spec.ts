@@ -3,16 +3,16 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { spy } from 'sinon';
 
-import { fixture, tabKey } from '../../core/testing/private.js';
-import { waitForCondition, waitForLitRender } from '../../core/testing.js';
-import { SbbOptionElement } from '../../option.js';
-import { SbbSelectElement } from '../../select.js';
+import { fixture, tabKey } from '../../core/testing/private.ts';
+import { waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { SbbOptionElement } from '../../option.ts';
+import { SbbSelectElement } from '../../select.ts';
 
 import {
   SbbFormFieldControlEvent,
   SbbFormFieldElement,
   type SbbFormFieldElementControl,
-} from './form-field.component.js';
+} from './form-field.component.ts';
 
 type Mutable<T> = {
   -readonly [P in keyof T]: T[P];

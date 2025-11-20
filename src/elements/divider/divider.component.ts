@@ -2,9 +2,9 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { SbbOrientation } from '../core/interfaces.js';
-import { SbbElementInternalsMixin, SbbNegativeMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
+import type { SbbOrientation } from '../core/interfaces.ts';
+import { SbbElementInternalsMixin, SbbNegativeMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './divider.scss?lit&inline';
 

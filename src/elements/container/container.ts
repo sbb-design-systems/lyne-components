@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './container/container.component.js';
+export * from './container/container.component.ts';

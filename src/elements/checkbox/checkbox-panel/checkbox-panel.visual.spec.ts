@@ -4,11 +4,11 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../../card.js';
-import '../../icon.js';
-import './checkbox-panel.component.js';
+import '../../card.ts';
+import '../../icon.ts';
+import './checkbox-panel.component.ts';
 
 describe('sbb-checkbox-panel', () => {
   const defaultArgs = {

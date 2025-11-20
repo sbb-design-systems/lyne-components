@@ -1,8 +1,8 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { sidebarContainerCommonStyle } from '../../sidebar/common.js';
-import type { SbbIconSidebarElement } from '../icon-sidebar.js';
+import { sidebarContainerCommonStyle } from '../../sidebar/common.ts';
+import type { SbbIconSidebarElement } from '../icon-sidebar.ts';
 
 import style from './icon-sidebar-container.scss?lit&inline';
 

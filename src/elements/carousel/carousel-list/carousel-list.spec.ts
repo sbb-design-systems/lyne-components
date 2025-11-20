@@ -2,20 +2,20 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForImageReady, waitForLitRender } from '../../core/testing.js';
-import type { SbbOverlayElement } from '../../overlay/overlay.component.js';
-import type { SbbCarouselElement } from '../carousel/carousel.component.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForImageReady, waitForLitRender } from '../../core/testing.ts';
+import type { SbbOverlayElement } from '../../overlay/overlay.component.ts';
+import type { SbbCarouselElement } from '../carousel/carousel.component.ts';
 import type {
   SbbCarouselItemElement,
   SbbCarouselItemEventDetail,
-} from '../carousel-item/carousel-item.component.js';
+} from '../carousel-item/carousel-item.component.ts';
 
-import { SbbCarouselListElement } from './carousel-list.component.js';
+import { SbbCarouselListElement } from './carousel-list.component.ts';
 
-import '../carousel-item/carousel-item.component.js';
-import '../carousel/carousel.component.js';
-import '../../overlay/overlay.component.js';
+import '../carousel-item/carousel-item.component.ts';
+import '../carousel/carousel.component.ts';
+import '../../overlay/overlay.component.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

@@ -2,17 +2,17 @@ import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-v
 import { html, nothing, type TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
-import '../../button/button.js';
-import '../../datepicker.js';
-import '../../divider.js';
-import '../../icon.js';
-import '../../signet.js';
-import '../../time-input.js';
-import '../../toggle.js';
-import '../timetable-form-field.js';
-import '../timetable-form-swap-button.js';
-import '../timetable-form-details.js';
-import './timetable-form.component.js';
+import '../../button/button.ts';
+import '../../datepicker.ts';
+import '../../divider.ts';
+import '../../icon.ts';
+import '../../signet.ts';
+import '../../time-input.ts';
+import '../../toggle.ts';
+import '../timetable-form-field.ts';
+import '../timetable-form-swap-button.ts';
+import '../timetable-form-details.ts';
+import './timetable-form.component.ts';
 
 const defaultArgTypes: ArgTypes = {};
 

@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbNavigationLinkElement } from './navigation-link.component.js';
+import { SbbNavigationLinkElement } from './navigation-link.component.ts';
 
 describe(`sbb-navigation-link ssr`, () => {
   let root: SbbNavigationLinkElement;

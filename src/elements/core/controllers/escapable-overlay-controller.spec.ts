@@ -1,17 +1,17 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import type { SbbAutocompleteElement } from '../../autocomplete.js';
-import type { SbbDialogElement } from '../../dialog.js';
-import type { SbbMenuElement } from '../../menu.js';
-import type { SbbOpenCloseBaseElement } from '../base-elements.js';
-import { fixture } from '../testing/private.js';
+import type { SbbAutocompleteElement } from '../../autocomplete.ts';
+import type { SbbDialogElement } from '../../dialog.ts';
+import type { SbbMenuElement } from '../../menu.ts';
+import type { SbbOpenCloseBaseElement } from '../base-elements.ts';
+import { fixture } from '../testing/private.ts';
 
-import '../../autocomplete.js';
-import '../../dialog.js';
-import '../../menu.js';
+import '../../autocomplete.ts';
+import '../../dialog.ts';
+import '../../menu.ts';
 
-import { SbbEscapableOverlayController } from './escapable-overlay-controller.js';
+import { SbbEscapableOverlayController } from './escapable-overlay-controller.ts';
 
 describe('SbbOverlayEscapeClosableController', () => {
   it('should correctly manage the stack', async () => {

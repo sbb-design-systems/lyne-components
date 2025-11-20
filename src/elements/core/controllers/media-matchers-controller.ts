@@ -5,7 +5,7 @@ import {
 } from '@sbb-esta/lyne-design-tokens';
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
-import type { SbbElementInternalsMixinType } from '../mixins.js';
+import type { SbbElementInternalsMixinType } from '../mixins.ts';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export const SbbMediaQueryForcedColors = '(forced-colors: active)';

@@ -12,14 +12,14 @@ import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
-import { SbbOptionElement } from './option.component.js';
+import { SbbOptionElement } from './option.component.ts';
 import readme from './readme.md?raw';
 
-import '../../form-field.js';
-import '../../select.js';
-import '../../autocomplete.js';
+import '../../form-field.ts';
+import '../../select.ts';
+import '../../autocomplete.ts';
 
 const preserveIconSpace: InputType = {
   control: {

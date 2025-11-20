@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbFormFieldElement } from './form-field.component.js';
+import { SbbFormFieldElement } from './form-field.component.ts';
 
 describe(`sbb-form-field ssr`, () => {
   let root: SbbFormFieldElement;

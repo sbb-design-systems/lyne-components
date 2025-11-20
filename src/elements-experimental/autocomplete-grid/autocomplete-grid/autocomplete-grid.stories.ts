@@ -12,16 +12,16 @@ import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.js';
-import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
+import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.ts';
+import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.ts';
 
-import { SbbAutocompleteGridElement } from './autocomplete-grid.component.js';
+import { SbbAutocompleteGridElement } from './autocomplete-grid.component.ts';
 import readme from './readme.md?raw';
 
-import '../autocomplete-grid-row.js';
-import '../autocomplete-grid-optgroup.js';
-import '../autocomplete-grid-cell.js';
-import '../autocomplete-grid-button.js';
+import '../autocomplete-grid-row.ts';
+import '../autocomplete-grid-optgroup.ts';
+import '../autocomplete-grid-cell.ts';
+import '../autocomplete-grid-button.ts';
 import '@sbb-esta/lyne-elements/card.js';
 import '@sbb-esta/lyne-elements/form-field.js';
 

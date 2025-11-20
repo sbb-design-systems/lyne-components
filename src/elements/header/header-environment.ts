@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './header-environment/header-environment.component.js';
+export * from './header-environment/header-environment.component.ts';

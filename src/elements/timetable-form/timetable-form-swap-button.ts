@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './timetable-form-swap-button/timetable-form-swap-button.component.js';
+export * from './timetable-form-swap-button/timetable-form-swap-button.component.ts';

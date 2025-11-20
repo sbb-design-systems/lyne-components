@@ -6,7 +6,7 @@ import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { getI18nSeatReservation } from '../common.js';
+import { getI18nSeatReservation } from '../common.ts';
 import type {
   CoachItem,
   Place,
@@ -15,18 +15,18 @@ import type {
   PlaceSelection,
   SeatReservation,
   NavigationCoachItem,
-} from '../common.js';
+} from '../common.ts';
 
-import { SeatReservationBaseElement } from './seat-reservation-base-element.js';
+import { SeatReservationBaseElement } from './seat-reservation-base-element.ts';
 import style from './seat-reservation.scss?lit&inline';
 
 import '@sbb-esta/lyne-elements/button.js';
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
-import '../seat-reservation-area.js';
-import '../seat-reservation-graphic.js';
-import '../seat-reservation-place-control.js';
-import '../seat-reservation-navigation-coach.js';
-import '../seat-reservation-scoped.js';
+import '../seat-reservation-area.ts';
+import '../seat-reservation-graphic.ts';
+import '../seat-reservation-place-control.ts';
+import '../seat-reservation-navigation-coach.ts';
+import '../seat-reservation-scoped.ts';
 import '@sbb-esta/lyne-elements/popover/popover.js';
 
 /**

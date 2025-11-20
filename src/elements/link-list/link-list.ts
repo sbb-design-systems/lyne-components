@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './link-list/link-list.component.js';
+export * from './link-list/link-list.component.ts';

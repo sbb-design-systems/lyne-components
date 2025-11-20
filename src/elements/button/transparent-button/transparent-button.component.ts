@@ -1,14 +1,14 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
+import { SbbButtonBaseElement } from '../../core/base-elements.ts';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
 import {
   buttonCommonStyle,
   buttonTransparentStyle,
   SbbButtonCommonElementMixin,
-} from '../common.js';
+} from '../common.ts';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'transparent' variant.

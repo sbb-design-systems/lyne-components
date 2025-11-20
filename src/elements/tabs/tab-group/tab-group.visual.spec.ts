@@ -5,12 +5,12 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../tab-group.js';
-import '../tab-label.js';
-import '../tab.js';
-import '../../icon.js';
+import '../tab-group.ts';
+import '../tab-label.ts';
+import '../tab.ts';
+import '../../icon.ts';
 
 const cases = {
   size: ['s', 'l', 'xl'],

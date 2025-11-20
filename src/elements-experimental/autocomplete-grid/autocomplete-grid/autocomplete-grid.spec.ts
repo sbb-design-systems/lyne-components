@@ -7,13 +7,13 @@ import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { type SinonSpy, spy } from 'sinon';
 
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.js';
-import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
+import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.ts';
+import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.ts';
 
-import { SbbAutocompleteGridElement } from './autocomplete-grid.component.js';
-import '../autocomplete-grid-row.js';
-import '../autocomplete-grid-cell.js';
-import '../autocomplete-grid-button.js';
+import { SbbAutocompleteGridElement } from './autocomplete-grid.component.ts';
+import '../autocomplete-grid-row.ts';
+import '../autocomplete-grid-cell.ts';
+import '../autocomplete-grid-button.ts';
 
 describe(`sbb-autocomplete-grid`, () => {
   let formField: SbbFormFieldElement;

@@ -11,19 +11,19 @@ import {
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbEscapableOverlayController } from '../core/controllers.js';
-import { forceType, idReference } from '../core/decorators.js';
-import { isLean, isSafari, isZeroAnimationDuration } from '../core/dom.js';
-import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
+import { SbbEscapableOverlayController } from '../core/controllers.ts';
+import { forceType, idReference } from '../core/decorators.ts';
+import { isLean, isSafari, isZeroAnimationDuration } from '../core/dom.ts';
+import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.ts';
 import {
   isEventOnElement,
   overlayGapFixCorners,
   removeAriaComboBoxAttributes,
   setOverlayPosition,
-} from '../core/overlay.js';
-import { boxSizingStyles } from '../core/styles.js';
-import type { SbbOptionBaseElement } from '../option.js';
+} from '../core/overlay.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbOptionBaseElement } from '../option.ts';
 
 import style from './autocomplete-base-element.scss?lit&inline';
 

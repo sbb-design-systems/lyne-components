@@ -1,10 +1,10 @@
 import { html, type LitElement, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType, omitEmptyConverter } from '../core/decorators.js';
-import type { AbstractConstructor, SbbElementInternalsMixinType } from '../core/mixins.js';
+import { forceType, omitEmptyConverter } from '../core/decorators.ts';
+import type { AbstractConstructor, SbbElementInternalsMixinType } from '../core/mixins.ts';
 
-import './icon.component.js';
+import './icon.component.ts';
 
 export declare class SbbIconNameMixinType {
   public accessor iconName: string;

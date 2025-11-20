@@ -5,18 +5,18 @@ import {
   visualDiffActive,
   visualDiffDefault,
   visualDiffHover,
-} from '../testing/private.js';
+} from '../testing/private.ts';
 
-import '../../button.js';
-import '../../checkbox.js';
-import '../../container.js';
-import '../../teaser-hero.js';
-import '../../link.js';
-import '../../loading-indicator.js';
-import '../../loading-indicator-circle.js';
-import '../../radio-button.js';
-import '../../slider.js';
-import '../../toggle-check.js';
+import '../../button.ts';
+import '../../checkbox.ts';
+import '../../container.ts';
+import '../../teaser-hero.ts';
+import '../../link.ts';
+import '../../loading-indicator.ts';
+import '../../loading-indicator-circle.ts';
+import '../../radio-button.ts';
+import '../../slider.ts';
+import '../../toggle-check.ts';
 
 import './off-brand-theme.scss';
 

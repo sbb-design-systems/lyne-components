@@ -12,10 +12,10 @@ import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
 
-import './autocomplete-grid-row.component.js';
-import '../autocomplete-grid-cell.js';
-import '../autocomplete-grid-option.js';
-import '../autocomplete-grid-button.js';
+import './autocomplete-grid-row.component.ts';
+import '../autocomplete-grid-cell.ts';
+import '../autocomplete-grid-option.ts';
+import '../autocomplete-grid-button.ts';
 
 const negative: InputType = {
   control: {

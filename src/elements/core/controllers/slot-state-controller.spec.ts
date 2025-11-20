@@ -1,10 +1,10 @@
 import { aTimeout, expect } from '@open-wc/testing';
 import { html, LitElement, type TemplateResult } from 'lit';
 
-import { fixture } from '../testing/private/fixture.js';
-import { EventSpy } from '../testing.js';
+import { fixture } from '../testing/private/fixture.ts';
+import { EventSpy } from '../testing.ts';
 
-import { SbbSlotStateController } from './slot-state-controller.js';
+import { SbbSlotStateController } from './slot-state-controller.ts';
 
 class SlotStateControllerElement extends LitElement {
   public constructor() {

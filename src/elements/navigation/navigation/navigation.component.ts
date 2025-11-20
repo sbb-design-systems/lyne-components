@@ -11,30 +11,30 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbFocusTrapController } from '../../core/a11y.js';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
+import { SbbFocusTrapController } from '../../core/a11y.ts';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
 import {
   SbbEscapableOverlayController,
   SbbInertController,
   SbbLanguageController,
-} from '../../core/controllers.js';
-import { forceType, idReference } from '../../core/decorators.js';
-import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
-import { i18nCloseNavigation } from '../../core/i18n.js';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
+} from '../../core/controllers.ts';
+import { forceType, idReference } from '../../core/decorators.ts';
+import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.ts';
+import { i18nCloseNavigation } from '../../core/i18n.ts';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
 import {
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbNavigationButtonElement } from '../navigation-button.js';
-import type { SbbNavigationLinkElement } from '../navigation-link.js';
-import type { SbbNavigationSectionElement } from '../navigation-section.js';
+} from '../../core/overlay.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button.ts';
+import type { SbbNavigationLinkElement } from '../navigation-link.ts';
+import type { SbbNavigationSectionElement } from '../navigation-section.ts';
 
 import style from './navigation.scss?lit&inline';
 
-import '../../button/transparent-button.js';
+import '../../button/transparent-button.ts';
 
 /** Configuration for the attribute to look at if a navigation section is displayed */
 const navigationObserverConfig: MutationObserverInit = {

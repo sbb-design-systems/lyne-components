@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbTableWrapperElement } from './table-wrapper.component.js';
-import './table-wrapper.component.js';
+import type { SbbTableWrapperElement } from './table-wrapper.component.ts';
+import './table-wrapper.component.ts';
 
 describe(`sbb-table-wrapper`, () => {
   describe('renders', () => {

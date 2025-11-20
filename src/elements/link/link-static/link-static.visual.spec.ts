@@ -6,9 +6,9 @@ import {
   visualDiffActive,
   visualDiffDefault,
   visualDiffHover,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './link-static.component.js';
+import './link-static.component.ts';
 
 describe(`sbb-link-static`, () => {
   describeViewports({ viewports: ['zero', 'large'] }, () => {

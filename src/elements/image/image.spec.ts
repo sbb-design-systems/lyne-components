@@ -2,10 +2,10 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { spy } from 'sinon';
 
-import { fixture } from '../core/testing/private.js';
-import { waitForCondition } from '../core/testing.js';
+import { fixture } from '../core/testing/private.ts';
+import { waitForCondition } from '../core/testing.ts';
 
-import './image.component.js';
+import './image.component.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 

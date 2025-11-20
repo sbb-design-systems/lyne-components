@@ -1,11 +1,11 @@
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './mini-calendar-month.component.js';
-import '../mini-calendar-day.js';
-import '../mini-calendar.js';
+import './mini-calendar-month.component.ts';
+import '../mini-calendar-day.ts';
+import '../mini-calendar.ts';
 
 describe('sbb-mini-calendar-month', () => {
   describeViewports({ viewports: ['zero', 'large'] }, () => {

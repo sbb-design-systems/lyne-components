@@ -4,10 +4,10 @@ import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './menu-link.component.js';
+import './menu-link.component.ts';
 
 const getBasicTemplate = (
   { text, badge, 'icon-name': iconName, ...args }: Args,

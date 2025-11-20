@@ -8,10 +8,10 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
-import { SbbLanguageController } from '../../core/controllers.js';
-import { isLean } from '../../core/dom.js';
-import { i18nChipGroupInputDescription, i18nSelectionRequired } from '../../core/i18n.js';
+import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
+import { SbbLanguageController } from '../../core/controllers.ts';
+import { isLean } from '../../core/dom.ts';
+import { i18nChipGroupInputDescription, i18nSelectionRequired } from '../../core/i18n.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -20,10 +20,10 @@ import {
   SbbFormAssociatedMixin,
   SbbNegativeMixin,
   SbbRequiredMixin,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbOptionBaseElement } from '../../option/option/option-base-element.js';
-import { SbbChipElement } from '../chip.js';
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbOptionBaseElement } from '../../option/option/option-base-element.ts';
+import { SbbChipElement } from '../chip.ts';
 
 import style from './chip-group.scss?lit&inline';
 

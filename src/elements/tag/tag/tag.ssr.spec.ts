@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbTagElement } from './tag.component.js';
+import { SbbTagElement } from './tag.component.ts';
 
 describe(`sbb-tag ssr`, () => {
   let root: SbbTagElement;

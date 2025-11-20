@@ -1,17 +1,17 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbFlipCardDetailsElement } from '../flip-card-details.js';
-import type { SbbFlipCardSummaryElement } from '../flip-card-summary.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbFlipCardDetailsElement } from '../flip-card-details.ts';
+import type { SbbFlipCardSummaryElement } from '../flip-card-summary.ts';
 
-import { SbbFlipCardElement } from './flip-card.component.js';
+import { SbbFlipCardElement } from './flip-card.component.ts';
 
-import '../flip-card-summary.js';
-import '../flip-card-details.js';
-import '../../title.js';
-import '../../link/link.js';
+import '../flip-card-summary.ts';
+import '../flip-card-details.ts';
+import '../../title.ts';
+import '../../link/link.ts';
 
 describe('sbb-flip-card', () => {
   let element: SbbFlipCardElement;

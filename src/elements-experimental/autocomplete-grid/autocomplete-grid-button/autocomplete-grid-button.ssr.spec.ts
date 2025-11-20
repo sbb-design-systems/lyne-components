@@ -2,7 +2,7 @@ import { assert } from '@open-wc/testing';
 import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.component.js';
+import { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.component.ts';
 
 describe(`sbb-autocomplete-grid-button ssr`, () => {
   let element: SbbAutocompleteGridButtonElement;

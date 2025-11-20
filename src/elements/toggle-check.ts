@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './toggle-check/toggle-check.component.js';
+export * from './toggle-check/toggle-check.component.ts';

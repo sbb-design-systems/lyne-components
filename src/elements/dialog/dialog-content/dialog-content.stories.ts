@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import './dialog-content.component.js';
+import './dialog-content.component.ts';
 import readme from './readme.md?raw';
 
 const Template = (): TemplateResult =>

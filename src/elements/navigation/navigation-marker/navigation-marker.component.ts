@@ -2,11 +2,11 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { isLean } from '../../core/dom.js';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbNavigationButtonElement } from '../navigation-button.js';
-import type { SbbNavigationLinkElement } from '../navigation-link.js';
+import { isLean } from '../../core/dom.ts';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button.ts';
+import type { SbbNavigationLinkElement } from '../navigation-link.ts';
 
 import style from './navigation-marker.scss?lit&inline';
 

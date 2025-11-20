@@ -3,11 +3,11 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
-import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import type { AbstractConstructor } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbCardElement } from '../card.js';
+import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
+import type { SbbActionBaseElement } from '../../core/base-elements.ts';
+import type { AbstractConstructor } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbCardElement } from '../card.ts';
 
 import style from './card-action.scss?lit&inline';
 

@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbTimetableFormSwapButtonElement } from './timetable-form-swap-button.component.js';
+import { SbbTimetableFormSwapButtonElement } from './timetable-form-swap-button.component.ts';
 
 describe(`sbb-timetable-form-swap-button ssr`, () => {
   let root: SbbTimetableFormSwapButtonElement;

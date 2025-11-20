@@ -6,23 +6,23 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbErrorElement } from '../form-field.js';
-import type { SbbRadioButtonGroupElement } from '../radio-button.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbErrorElement } from '../form-field.ts';
+import type { SbbRadioButtonGroupElement } from '../radio-button.ts';
 
-import '../button/mini-button.js';
-import '../card.js';
-import '../checkbox.js';
-import '../divider.js';
-import '../form-field/error.js';
-import '../icon.js';
-import '../link/block-link-button.js';
-import '../popover.js';
-import '../radio-button.js';
-import '../title.js';
+import '../button/mini-button.ts';
+import '../card.ts';
+import '../checkbox.ts';
+import '../divider.ts';
+import '../form-field/error.ts';
+import '../icon.ts';
+import '../link/block-link-button.ts';
+import '../popover.ts';
+import '../radio-button.ts';
+import '../title.ts';
 
 import readme from './readme.md?raw';
-import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.js';
+import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.ts';
 
 const color: InputType = {
   control: {

@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbMiniCalendarElement } from './mini-calendar.component.js';
-import '../mini-calendar-month.js';
-import '../mini-calendar-day.js';
+import { SbbMiniCalendarElement } from './mini-calendar.component.ts';
+import '../mini-calendar-month.ts';
+import '../mini-calendar-day.ts';
 
 describe(`sbb-mini-calendar ssr`, () => {
   let root: SbbMiniCalendarElement;

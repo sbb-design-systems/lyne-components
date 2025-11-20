@@ -2,7 +2,7 @@ import { assert } from '@open-wc/testing';
 import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbAutocompleteGridRowElement } from './autocomplete-grid-row.component.js';
+import { SbbAutocompleteGridRowElement } from './autocomplete-grid-row.component.ts';
 
 describe(`sbb-autocomplete-grid-row ssr`, () => {
   let element: SbbAutocompleteGridRowElement;

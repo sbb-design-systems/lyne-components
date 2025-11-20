@@ -14,30 +14,30 @@ import {
   IS_FOCUSABLE_QUERY,
   SbbFocusTrapController,
   sbbInputModalityDetector,
-} from '../../core/a11y.js';
+} from '../../core/a11y.ts';
 import {
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointLargeAndBelow,
-} from '../../core/controllers.js';
-import { forceType, idReference, omitEmptyConverter } from '../../core/decorators.js';
-import { isBreakpoint, isZeroAnimationDuration } from '../../core/dom.js';
-import { i18nGoBack } from '../../core/i18n.js';
-import type { SbbOpenedClosedState } from '../../core/interfaces.js';
-import { SbbElementInternalsMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.js';
+} from '../../core/controllers.ts';
+import { forceType, idReference, omitEmptyConverter } from '../../core/decorators.ts';
+import { isBreakpoint, isZeroAnimationDuration } from '../../core/dom.ts';
+import { i18nGoBack } from '../../core/i18n.ts';
+import type { SbbOpenedClosedState } from '../../core/interfaces.ts';
+import { SbbElementInternalsMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
 import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbNavigationButtonElement } from '../navigation-button.js';
-import type { SbbNavigationLinkElement } from '../navigation-link.js';
-import type { SbbNavigationElement } from '../navigation.js';
+} from '../../core/overlay.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button.ts';
+import type { SbbNavigationLinkElement } from '../navigation-link.ts';
+import type { SbbNavigationElement } from '../navigation.ts';
 
 import style from './navigation-section.scss?lit&inline';
 
-import '../../button/transparent-button.js';
-import '../../divider.js';
+import '../../button/transparent-button.ts';
+import '../../divider.ts';
 
 let nextId = 0;
 

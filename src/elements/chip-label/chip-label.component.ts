@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../core/styles.js';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './chip-label.scss?lit&inline';
 

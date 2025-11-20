@@ -1,21 +1,21 @@
 import { html } from 'lit';
 import { stub, type SinonStub } from 'sinon';
 
-import { defaultDateAdapter } from '../../core/datetime.js';
+import { defaultDateAdapter } from '../../core/datetime.ts';
 import {
   describeEach,
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../datepicker-previous-day.js';
-import '../datepicker-next-day.js';
-import '../datepicker-toggle.js';
-import '../../date-input.js';
-import '../../form-field.js';
-import './datepicker.component.js';
-import type { SbbDatepickerElement } from './datepicker.component.js';
+import '../datepicker-previous-day.ts';
+import '../datepicker-next-day.ts';
+import '../datepicker-toggle.ts';
+import '../../date-input.ts';
+import '../../form-field.ts';
+import './datepicker.component.ts';
+import type { SbbDatepickerElement } from './datepicker.component.ts';
 
 describe(`sbb-datepicker`, () => {
   let root: HTMLElement;

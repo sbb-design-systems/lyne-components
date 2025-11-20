@@ -1,9 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 
-import { SbbTimetableFormFieldElement } from './timetable-form-field.component.js';
+import { SbbTimetableFormFieldElement } from './timetable-form-field.component.ts';
 
 describe('sbb-timetable-form-field', () => {
   let element: SbbTimetableFormFieldElement;

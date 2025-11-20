@@ -1,10 +1,10 @@
 import { html, type LitElement, nothing, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import type { AbstractConstructor } from './constructor.js';
-import { SbbHydrationMixin, type SbbHydrationMixinType } from './hydration-mixin.js';
+import type { AbstractConstructor } from './constructor.ts';
+import { SbbHydrationMixin, type SbbHydrationMixinType } from './hydration-mixin.ts';
 
-import '../../screen-reader-only.js';
+import '../../screen-reader-only.ts';
 
 const SSR_CHILD_COUNT_ATTRIBUTE = 'data-ssr-child-count';
 const SLOTNAME_PREFIX = 'li';

@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbIconSidebarContentElement } from './icon-sidebar-content.component.js';
+import { SbbIconSidebarContentElement } from './icon-sidebar-content.component.ts';
 
 describe(`sbb-icon-sidebar-content ssr`, () => {
   let root: SbbIconSidebarContentElement;

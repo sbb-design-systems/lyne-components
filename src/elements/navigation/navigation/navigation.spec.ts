@@ -2,18 +2,18 @@ import { assert, expect, nextFrame } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../../button.js';
-import { pageScrollDisabled } from '../../core/dom.js';
-import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
-import type { SbbNavigationButtonElement } from '../navigation-button.js';
-import type { SbbNavigationSectionElement } from '../navigation-section.js';
+import type { SbbButtonElement } from '../../button.ts';
+import { pageScrollDisabled } from '../../core/dom.ts';
+import { fixture, tabKey } from '../../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button.ts';
+import type { SbbNavigationSectionElement } from '../navigation-section.ts';
 
-import { SbbNavigationElement } from './navigation.component.js';
+import { SbbNavigationElement } from './navigation.component.ts';
 
-import '../navigation-button.js';
-import '../navigation-marker.js';
-import '../navigation-section.js';
+import '../navigation-button.ts';
+import '../navigation-marker.ts';
+import '../navigation-section.ts';
 
 describe(`sbb-navigation`, () => {
   let element: SbbNavigationElement, trigger: HTMLElement;

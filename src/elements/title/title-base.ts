@@ -3,7 +3,7 @@ import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbElementInternalsMixin } from '../core/mixins.js';
+import { SbbElementInternalsMixin } from '../core/mixins.ts';
 
 import style from './title-common.scss?lit&inline';
 

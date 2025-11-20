@@ -3,13 +3,13 @@ import { resetMouse, sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import type { SbbButtonElement } from '../button/button.js';
-import { mergeConfig } from '../core/config.js';
-import { fixture, tabKey } from '../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../core/testing.js';
+import type { SbbButtonElement } from '../button/button.ts';
+import { mergeConfig } from '../core/config.ts';
+import { fixture, tabKey } from '../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../core/testing.ts';
 
-import { SbbTooltipElement } from './tooltip.component.js';
-import '../button/button.js';
+import { SbbTooltipElement } from './tooltip.component.ts';
+import '../button/button.ts';
 
 describe('sbb-tooltip', () => {
   let element: SbbTooltipElement;
