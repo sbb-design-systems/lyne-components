@@ -10,6 +10,7 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
+import type { SbbChipGroupElement } from '../../chip.js';
 import { sbbInputModalityDetector } from '../../core/a11y.js';
 import { SbbLanguageController } from '../../core/controllers.js';
 import { forceType } from '../../core/decorators.js';
@@ -476,7 +477,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   }
 
   private _isInputEmpty(): boolean {
-    const chipGroupElem = this.querySelector('sbb-chip-group');
+    const chipGroupElem: SbbChipGroupElement | null = this.querySelector('sbb-chip-group');
     if (chipGroupElem) {
       return (
         this._isInputValueEmpty() &&

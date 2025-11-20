@@ -12,7 +12,7 @@ import {
 import '../../select.js';
 import '../../form-field.js';
 import '../../autocomplete.js';
-import '../../autocomplete-grid.js';
+import '../../../elements-experimental/autocomplete-grid.ts';
 import '../optgroup.js';
 import '../option.js';
 import './option-hint.component.js';
