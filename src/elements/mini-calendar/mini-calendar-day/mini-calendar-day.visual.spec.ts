@@ -4,9 +4,9 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffStandardStates,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './mini-calendar-day.component.js';
+import './mini-calendar-day.component.ts';
 
 describe('sbb-mini-calendar-day', () => {
   describeViewports({ viewports: ['zero'] }, () => {

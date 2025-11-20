@@ -14,19 +14,19 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import images from '../../core/images.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import images from '../../core/images.ts';
 
 import readme from './readme.md?raw';
 
-import './carousel.component.js';
-import '../carousel-list/carousel-list.component.js';
-import '../carousel-item/carousel-item.component.js';
-import '../../button.js';
-import '../../chip-label.js';
-import '../../card.js';
-import '../../image.js';
-import '../../paginator.js';
+import './carousel.component.ts';
+import '../carousel-list/carousel-list.component.ts';
+import '../carousel-item/carousel-item.component.ts';
+import '../../button.ts';
+import '../../chip-label.ts';
+import '../../card.ts';
+import '../../image.ts';
+import '../../paginator.ts';
 
 const buttonCarouselStyle: Args = {
   height: '300px',

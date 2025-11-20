@@ -11,14 +11,14 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './card.component.js';
-import '../card-badge.js';
-import '../card-button.js';
-import '../card-link.js';
-import '../../title.js';
+import './card.component.ts';
+import '../card-badge.ts';
+import '../card-button.ts';
+import '../card-link.ts';
+import '../../title.ts';
 
 const styleSizeS =
   '--sbb-card-padding-block-start: var(--sbb-spacing-fixed-6x); --sbb-card-padding-block-end: var(--sbb-spacing-responsive-xxxs)';

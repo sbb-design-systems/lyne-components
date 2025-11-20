@@ -1,15 +1,15 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
+import { waitForImageReady } from '../core/testing.ts';
 
-import type { SbbMessageElement } from './message.component.js';
+import type { SbbMessageElement } from './message.component.ts';
 
-import './message.component.js';
-import '../image.js';
-import '../button/button.js';
-import '../title.js';
+import './message.component.ts';
+import '../image.ts';
+import '../button/button.ts';
+import '../title.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 

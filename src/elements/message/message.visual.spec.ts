@@ -1,13 +1,13 @@
 import { html } from 'lit/static-html.js';
 
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
+import { waitForImageReady } from '../core/testing.ts';
 
-import './message.component.js';
-import '../chip-label.js';
-import '../image.js';
-import '../button/secondary-button.js';
-import '../title.js';
+import './message.component.ts';
+import '../chip-label.ts';
+import '../image.ts';
+import '../button/secondary-button.ts';
+import '../title.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 

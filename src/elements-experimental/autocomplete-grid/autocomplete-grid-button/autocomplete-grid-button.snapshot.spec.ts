@@ -3,12 +3,12 @@ import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/test
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.component.js';
+import type { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.component.ts';
 import '@sbb-esta/lyne-elements/form-field.js';
-import '../autocomplete-grid.js';
-import '../autocomplete-grid-row.js';
-import '../autocomplete-grid-cell.js';
-import './autocomplete-grid-button.component.js';
+import '../autocomplete-grid.ts';
+import '../autocomplete-grid-row.ts';
+import '../autocomplete-grid-cell.ts';
+import './autocomplete-grid-button.component.ts';
 
 describe('sbb-autocomplete-grid-button', () => {
   describe('renders', () => {

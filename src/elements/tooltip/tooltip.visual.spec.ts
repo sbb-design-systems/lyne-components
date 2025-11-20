@@ -1,10 +1,10 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
-import { waitForLitRender } from '../core/testing.js';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
+import { waitForLitRender } from '../core/testing.ts';
 
-import './tooltip.component.js';
-import '../button/button.js';
+import './tooltip.component.ts';
+import '../button/button.ts';
 
 const physicalSupportedPositions = [
   'top',

@@ -6,9 +6,9 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './paginator.component.js';
+import './paginator.component.ts';
 
 describe('sbb-paginator', () => {
   describeViewports({ viewports: ['zero', 'large'] }, () => {

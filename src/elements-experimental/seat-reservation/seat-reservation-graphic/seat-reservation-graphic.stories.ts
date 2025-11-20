@@ -3,13 +3,13 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { mapIconToSvg } from '../common/mapper/icon-mapper.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import { mapIconToSvg } from '../common/mapper/icon-mapper.ts';
 
 import readme from './readme.md?raw';
-import { assetsTemplate } from './seat-reservation-assets.js';
+import { assetsTemplate } from './seat-reservation-assets.ts';
 
-import './seat-reservation-graphic.component.js';
+import './seat-reservation-graphic.component.ts';
 
 const name: InputType = {
   control: {

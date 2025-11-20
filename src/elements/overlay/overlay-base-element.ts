@@ -1,23 +1,23 @@
 import { isServer, type PropertyDeclaration, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbFocusTrapController } from '../core/a11y.js';
-import { type SbbButtonBaseElement, SbbOpenCloseBaseElement } from '../core/base-elements.js';
+import { SbbFocusTrapController } from '../core/a11y.ts';
+import { type SbbButtonBaseElement, SbbOpenCloseBaseElement } from '../core/base-elements.ts';
 import {
   SbbEscapableOverlayController,
   SbbInertController,
   SbbLanguageController,
-} from '../core/controllers.js';
-import { forceType, idReference } from '../core/decorators.js';
-import { SbbScrollHandler } from '../core/dom.js';
-import { i18nDialog } from '../core/i18n.js';
-import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
-import { SbbNegativeMixin } from '../core/mixins.js';
+} from '../core/controllers.ts';
+import { forceType, idReference } from '../core/decorators.ts';
+import { SbbScrollHandler } from '../core/dom.ts';
+import { i18nDialog } from '../core/i18n.ts';
+import type { SbbOverlayCloseEventDetails } from '../core/interfaces.ts';
+import { SbbNegativeMixin } from '../core/mixins.ts';
 import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../core/overlay.js';
-import type { SbbScreenReaderOnlyElement } from '../screen-reader-only.js';
+} from '../core/overlay.ts';
+import type { SbbScreenReaderOnlyElement } from '../screen-reader-only.ts';
 
 // A global collection of existing overlays.
 export const overlayRefs: SbbOverlayBaseElement[] = [];

@@ -1,8 +1,8 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { AbstractConstructor } from './constructor.js';
-import type { SbbElementInternalsMixinType } from './element-internals-mixin.js';
+import type { AbstractConstructor } from './constructor.ts';
+import type { SbbElementInternalsMixinType } from './element-internals-mixin.ts';
 
 export declare class SbbRequiredMixinType {
   public accessor required: boolean;

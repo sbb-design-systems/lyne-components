@@ -2,7 +2,7 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.component.js';
+import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.component.ts';
 
 describe('sbb-seat-reservation-navigation-coach', () => {
   let element: SbbSeatReservationNavigationCoachElement;

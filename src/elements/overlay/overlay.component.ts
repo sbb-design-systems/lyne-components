@@ -3,19 +3,19 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import { forceType } from '../core/decorators.js';
-import { isZeroAnimationDuration } from '../core/dom.js';
-import { forwardEvent } from '../core/eventing.js';
-import { i18nCloseDialog } from '../core/i18n.js';
-import { boxSizingStyles } from '../core/styles.js';
+import { forceType } from '../core/decorators.ts';
+import { isZeroAnimationDuration } from '../core/dom.ts';
+import { forwardEvent } from '../core/eventing.ts';
+import { i18nCloseDialog } from '../core/i18n.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
-import { overlayRefs, SbbOverlayBaseElement } from './overlay-base-element.js';
+import { overlayRefs, SbbOverlayBaseElement } from './overlay-base-element.ts';
 import style from './overlay.scss?lit&inline';
 
-import '../button/secondary-button.js';
-import '../button/transparent-button.js';
-import '../container.js';
-import '../screen-reader-only.js';
+import '../button/secondary-button.ts';
+import '../button/transparent-button.ts';
+import '../container.ts';
+import '../screen-reader-only.ts';
 
 let nextId = 0;
 

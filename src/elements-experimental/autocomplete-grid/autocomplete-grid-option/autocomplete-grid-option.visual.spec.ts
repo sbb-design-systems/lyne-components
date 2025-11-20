@@ -7,8 +7,8 @@ import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import '@sbb-esta/lyne-elements/form-field.js';
-import '../../autocomplete-grid.js';
-import './autocomplete-grid-option.component.js';
+import '../../autocomplete-grid.ts';
+import './autocomplete-grid-option.component.ts';
 
 describe(`sbb-autocomplete-grid-option`, () => {
   const defaultArgs = {

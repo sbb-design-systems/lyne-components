@@ -5,12 +5,12 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../../card/card-badge.js';
-import '../../form-field/error.js';
-import '../../icon.js';
-import '../../radio-button.js';
+import '../../card/card-badge.ts';
+import '../../form-field/error.ts';
+import '../../icon.ts';
+import '../../radio-button.ts';
 
 const cases = {
   disabled: [false, true],

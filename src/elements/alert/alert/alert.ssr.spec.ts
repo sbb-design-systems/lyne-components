@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbAlertElement } from './alert.component.js';
+import { SbbAlertElement } from './alert.component.ts';
 
-import '../../title.js';
+import '../../title.ts';
 
 describe(`sbb-alert ssr`, () => {
   let root: SbbAlertElement;

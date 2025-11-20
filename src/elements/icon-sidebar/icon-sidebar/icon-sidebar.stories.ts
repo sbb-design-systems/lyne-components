@@ -2,20 +2,20 @@ import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-v
 import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbSidebarElement } from '../../sidebar.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import type { SbbSidebarElement } from '../../sidebar.ts';
 
 import readme from './readme.md?raw';
 
-import '../../chip-label.js';
-import '../../header.js';
-import '../../link/block-link.js';
-import '../../link-list.js';
-import '../../logo.js';
-import '../../icon-sidebar.js';
-import '../../sidebar.js';
-import '../../title.js';
-import '../../tooltip.js';
+import '../../chip-label.ts';
+import '../../header.ts';
+import '../../link/block-link.ts';
+import '../../link-list.ts';
+import '../../logo.ts';
+import '../../icon-sidebar.ts';
+import '../../sidebar.ts';
+import '../../title.ts';
+import '../../tooltip.ts';
 
 const position: InputType = {
   control: {

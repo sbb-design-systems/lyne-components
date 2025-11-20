@@ -6,10 +6,10 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../toggle-option.js';
-import './toggle.component.js';
+import '../toggle-option.ts';
+import './toggle.component.ts';
 
 describe(`sbb-toggle`, () => {
   let root: HTMLElement;

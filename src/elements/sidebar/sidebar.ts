@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './sidebar/sidebar.component.js';
+export * from './sidebar/sidebar.component.ts';

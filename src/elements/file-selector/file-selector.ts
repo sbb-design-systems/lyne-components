@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './file-selector/file-selector.component.js';
+export * from './file-selector/file-selector.component.ts';

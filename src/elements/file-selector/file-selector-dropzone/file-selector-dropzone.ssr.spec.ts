@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.js';
+import { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.ts';
 
 describe(`sbb-file-selector-dropzone ssr`, () => {
   let root: SbbFileSelectorDropzoneElement;

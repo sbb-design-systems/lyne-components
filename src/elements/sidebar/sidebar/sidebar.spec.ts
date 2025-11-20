@@ -2,17 +2,17 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
-import type { SbbSidebarCloseButtonElement } from '../sidebar-close-button.js';
-import type { SbbSidebarContainerElement } from '../sidebar-container.js';
+import { fixture, tabKey } from '../../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import type { SbbSidebarCloseButtonElement } from '../sidebar-close-button.ts';
+import type { SbbSidebarContainerElement } from '../sidebar-container.ts';
 
-import { SbbSidebarElement } from './sidebar.component.js';
+import { SbbSidebarElement } from './sidebar.component.ts';
 
-import '../sidebar-close-button.js';
-import '../sidebar-container.js';
-import '../sidebar-content.js';
-import '../sidebar-title.js';
+import '../sidebar-close-button.ts';
+import '../sidebar-container.ts';
+import '../sidebar-content.ts';
+import '../sidebar-title.ts';
 
 describe('sbb-sidebar', () => {
   let container: SbbSidebarContainerElement,

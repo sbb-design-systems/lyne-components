@@ -3,9 +3,9 @@ import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/test
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbSeatReservationNavigationServicesElement } from './seat-reservation-navigation-services.component.js';
+import type { SbbSeatReservationNavigationServicesElement } from './seat-reservation-navigation-services.component.ts';
 
-import './seat-reservation-navigation-services.component.js';
+import './seat-reservation-navigation-services.component.ts';
 
 describe(`sbb-seat-reservation-navigation-services`, () => {
   describe('renders', () => {

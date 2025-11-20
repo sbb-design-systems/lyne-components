@@ -3,12 +3,12 @@ import { html, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import sampleImages from '../../core/images.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import sampleImages from '../../core/images.ts';
 
 import readme from './readme.md?raw';
-import './header-link.component.js';
-import '../../image.js';
+import './header-link.component.ts';
+import '../../image.ts';
 
 const TemplateSingle = ({ active, text, ...args }: Args): TemplateResult => html`
   <sbb-header-link ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>

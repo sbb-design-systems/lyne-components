@@ -9,19 +9,19 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/controllers.js';
-import { isLean, isZeroAnimationDuration } from '../core/dom.js';
-import { i18nCloseNotification } from '../core/i18n.js';
-import type { SbbOpenedClosedState } from '../core/interfaces.js';
-import { SbbElementInternalsMixin, SbbReadonlyMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
-import { SbbIconNameMixin } from '../icon.js';
-import type { SbbTitleElement } from '../title.js';
+import { SbbLanguageController } from '../core/controllers.ts';
+import { isLean, isZeroAnimationDuration } from '../core/dom.ts';
+import { i18nCloseNotification } from '../core/i18n.ts';
+import type { SbbOpenedClosedState } from '../core/interfaces.ts';
+import { SbbElementInternalsMixin, SbbReadonlyMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import { SbbIconNameMixin } from '../icon.ts';
+import type { SbbTitleElement } from '../title.ts';
 
 import style from './notification.scss?lit&inline';
 
-import '../button/secondary-button.js';
-import '../divider.js';
+import '../button/secondary-button.ts';
+import '../divider.ts';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],

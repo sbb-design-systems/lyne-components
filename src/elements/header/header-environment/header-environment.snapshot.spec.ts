@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 
-import type { SbbHeaderEnvironmentElement } from './header-environment.component.js';
-import './header-environment.component.js';
+import type { SbbHeaderEnvironmentElement } from './header-environment.component.ts';
+import './header-environment.component.ts';
 
 describe(`sbb-header-environment`, () => {
   describe('renders', () => {

@@ -2,9 +2,9 @@ import { assert } from '@open-wc/testing';
 import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit/static-html.js';
 
-import type { SeatReservation } from '../common.js';
+import type { SeatReservation } from '../common.ts';
 
-import { SbbSeatReservationElement } from './seat-reservation.component.js';
+import { SbbSeatReservationElement } from './seat-reservation.component.ts';
 
 describe('sbb-seat-reservation', () => {
   let element: SbbSeatReservationElement;

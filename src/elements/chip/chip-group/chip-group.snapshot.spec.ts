@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbChipGroupElement } from './chip-group.component.js';
-import './chip-group.component.js';
-import '../chip.js';
-import '../../form-field.js';
+import type { SbbChipGroupElement } from './chip-group.component.ts';
+import './chip-group.component.ts';
+import '../chip.ts';
+import '../../form-field.ts';
 
 describe(`sbb-chip-group`, () => {
   describe('renders', () => {

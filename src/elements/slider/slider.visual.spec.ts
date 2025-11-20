@@ -5,10 +5,10 @@ import {
   visualDiffActive,
   visualDiffDefault,
   visualDiffFocus,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import '../form-field.js';
-import './slider.component.js';
+import '../form-field.ts';
+import './slider.component.ts';
 
 describe('sbb-slider', () => {
   const defaultArgs = {

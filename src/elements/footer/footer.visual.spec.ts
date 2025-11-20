@@ -1,14 +1,14 @@
 import { html } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './footer.component.js';
-import '../button/button-link.js';
-import '../button/secondary-button-link.js';
-import '../clock.js';
-import '../divider.js';
-import '../link-list.js';
-import '../link/block-link.js';
+import './footer.component.ts';
+import '../button/button-link.ts';
+import '../button/secondary-button-link.ts';
+import '../clock.ts';
+import '../divider.ts';
+import '../link-list.ts';
+import '../link/block-link.ts';
 
 describe(`sbb-footer`, () => {
   const colorCases = {

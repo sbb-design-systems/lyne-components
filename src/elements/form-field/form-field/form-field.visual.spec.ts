@@ -1,18 +1,18 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { isChromium } from '../../core/dom.js';
+import { isChromium } from '../../core/dom.ts';
 import {
   describeEach,
   describeViewports,
   visualDiffActive,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './form-field.component.js';
-import '../../button/mini-button.js';
-import '../error.js';
-import '../../popover.js';
+import './form-field.component.ts';
+import '../../button/mini-button.ts';
+import '../error.ts';
+import '../../popover.ts';
 
 describe(`sbb-form-field`, () => {
   const formField = (

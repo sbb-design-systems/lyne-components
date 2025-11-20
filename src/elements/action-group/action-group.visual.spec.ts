@@ -5,12 +5,12 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './action-group.component.js';
-import '../button/button.js';
-import '../button/secondary-button.js';
-import '../link/block-link.js';
+import './action-group.component.ts';
+import '../button/button.ts';
+import '../button/secondary-button.ts';
+import '../link/block-link.ts';
 
 describe(`sbb-action-group`, () => {
   let root: HTMLElement;

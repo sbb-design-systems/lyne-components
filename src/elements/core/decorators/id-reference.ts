@@ -1,6 +1,6 @@
 import { isServer, type ReactiveController, type ReactiveElement } from 'lit';
 
-import type { Interface } from './base.js';
+import type { Interface } from './base.ts';
 
 interface IdReferenceController extends ReactiveController {
   host: Interface<ReactiveElement>;

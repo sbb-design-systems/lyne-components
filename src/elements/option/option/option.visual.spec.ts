@@ -2,12 +2,12 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import '../../form-field.js';
-import '../../select.js';
-import '../../autocomplete.js';
-import './option.component.js';
+import '../../form-field.ts';
+import '../../select.ts';
+import '../../autocomplete.ts';
+import './option.component.ts';
 
 describe(`sbb-option`, () => {
   const defaultArgs = {

@@ -7,19 +7,19 @@ import {
   type SbbCheckboxElement,
   type SbbCheckboxGroupElement,
   SbbCheckboxPanelElement,
-} from '../checkbox.js';
-import { fixture, tabKey } from '../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
+} from '../checkbox.ts';
+import { fixture, tabKey } from '../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 import {
   type SbbRadioButtonElement,
   type SbbRadioButtonGroupElement,
   SbbRadioButtonPanelElement,
-} from '../radio-button.js';
+} from '../radio-button.ts';
 
-import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.js';
+import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.ts';
 
-import '../link/block-link-button.js';
-import '../selection-expansion-panel.js';
+import '../link/block-link-button.ts';
+import '../selection-expansion-panel.ts';
 
 describe(`sbb-selection-expansion-panel`, () => {
   let elements: SbbSelectionExpansionPanelElement[];

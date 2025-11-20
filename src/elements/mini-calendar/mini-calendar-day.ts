@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './mini-calendar-day/mini-calendar-day.component.js';
+export * from './mini-calendar-day/mini-calendar-day.component.ts';

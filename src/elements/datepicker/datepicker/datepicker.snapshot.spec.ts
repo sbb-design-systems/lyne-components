@@ -1,15 +1,15 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import type { SbbFormFieldElement } from '../../form-field.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
+import type { SbbFormFieldElement } from '../../form-field.ts';
 
-import '../datepicker-next-day.js';
-import '../datepicker-previous-day.js';
-import '../datepicker-toggle.js';
-import '../../date-input.js';
-import '../../form-field.js';
-import './datepicker.component.js';
+import '../datepicker-next-day.ts';
+import '../datepicker-previous-day.ts';
+import '../datepicker-toggle.ts';
+import '../../date-input.ts';
+import '../../form-field.ts';
+import './datepicker.component.ts';
 
 describe(`sbb-datepicker`, () => {
   let formField: SbbFormFieldElement;

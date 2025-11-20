@@ -7,12 +7,12 @@ import {
   visualDiffFocus,
   visualDiffHover,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './expansion-panel.component.js';
-import '../expansion-panel-header.js';
-import '../expansion-panel-content.js';
-import '../../icon.js';
+import './expansion-panel.component.ts';
+import '../expansion-panel-header.ts';
+import '../expansion-panel-content.ts';
+import '../../icon.ts';
 
 describe(`sbb-expansion-panel`, () => {
   let root: HTMLElement;

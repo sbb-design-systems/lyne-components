@@ -13,21 +13,21 @@ import {
   getNextElementIndex,
   isArrowKeyPressed,
   sbbInputModalityDetector,
-} from '../../core/a11y.js';
-import { SbbLanguageController } from '../../core/controllers.js';
-import { setOrRemoveAttribute } from '../../core/dom.js';
-import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n.js';
+} from '../../core/a11y.ts';
+import { SbbLanguageController } from '../../core/controllers.ts';
+import { setOrRemoveAttribute } from '../../core/dom.ts';
+import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n.ts';
 import {
   SbbElementInternalsMixin,
   SbbNamedSlotListMixin,
   type WithListChildren,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbBreadcrumbElement } from '../breadcrumb.js';
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbBreadcrumbElement } from '../breadcrumb.ts';
 
 import style from './breadcrumb-group.scss?lit&inline';
 
-import '../../icon.js';
+import '../../icon.ts';
 
 const MIN_BREADCRUMBS_TO_COLLAPSE = 3;
 

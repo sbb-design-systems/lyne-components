@@ -3,12 +3,12 @@ import { type TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbErrorElement } from '../../form-field.js';
-import type { SbbFileSelectorDropzoneElement } from '../file-selector-dropzone.js';
-import type { SbbFileSelectorElement } from '../file-selector.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import type { SbbErrorElement } from '../../form-field.ts';
+import type { SbbFileSelectorDropzoneElement } from '../file-selector-dropzone.ts';
+import type { SbbFileSelectorElement } from '../file-selector.ts';
 
-import '../../form-field.js';
+import '../../form-field.ts';
 
 /* eslint-disable lit/binding-positions, @typescript-eslint/naming-convention */
 export const FileSelectorTemplate = ({ tag, ...args }: Args): TemplateResult =>

@@ -1,8 +1,8 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbActionGroupElement } from '../../action-group.js';
-import { isLean } from '../../core/dom/lean-context.js';
+import { SbbActionGroupElement } from '../../action-group.ts';
+import { isLean } from '../../core/dom/lean-context.ts';
 
 import style from './dialog-actions.scss?lit&inline';
 

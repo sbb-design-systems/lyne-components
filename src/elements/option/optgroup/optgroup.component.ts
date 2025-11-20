@@ -1,9 +1,9 @@
 import { customElement } from 'lit/decorators.js';
 
-import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
-import type { SbbOptionElement } from '../option.js';
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
+import type { SbbOptionElement } from '../option.ts';
 
-import { SbbOptgroupBaseElement } from './optgroup-base-element.js';
+import { SbbOptgroupBaseElement } from './optgroup-base-element.ts';
 
 /**
  * It can be used as a container for one or more `sbb-option`.

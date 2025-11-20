@@ -14,7 +14,7 @@ import {
   createMouseEvent,
   createPointerEvent,
   createTouchEvent,
-} from './event-objects.js';
+} from './event-objects.ts';
 
 /** Modifier keys that may be held while typing. */
 interface ModifierKeys {

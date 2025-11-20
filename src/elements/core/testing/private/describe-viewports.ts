@@ -2,7 +2,7 @@ import {
   sbbBreakpointLargeMinPx,
   sbbBreakpointSmallMinPx,
   sbbBreakpointUltraMinPx,
-} from './breakpoints.js';
+} from './breakpoints.ts';
 
 const viewportSizes = {
   zero: 320,

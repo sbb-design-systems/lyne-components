@@ -1,8 +1,8 @@
 import { html } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './loading-indicator.component.js';
+import './loading-indicator.component.ts';
 
 describe(`sbb-loading-indicator`, () => {
   const colorCases = {

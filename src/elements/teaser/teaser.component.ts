@@ -2,14 +2,14 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbChipLabelElement } from '../chip-label.js';
-import { SbbLinkBaseElement } from '../core/base-elements.js';
-import { boxSizingStyles } from '../core/styles.js';
-import type { SbbTitleElement } from '../title.js';
+import type { SbbChipLabelElement } from '../chip-label.ts';
+import { SbbLinkBaseElement } from '../core/base-elements.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbTitleElement } from '../title.ts';
 
 import style from './teaser.scss?lit&inline';
 
-import '../screen-reader-only.js';
+import '../screen-reader-only.ts';
 
 /**
  * It displays an interactive image with caption.

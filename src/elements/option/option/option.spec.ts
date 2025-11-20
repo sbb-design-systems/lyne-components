@@ -2,17 +2,17 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAutocompleteElement } from '../../autocomplete.js';
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbFormFieldElement } from '../../form-field.js';
-import type { SbbOptGroupElement } from '../optgroup.js';
+import type { SbbAutocompleteElement } from '../../autocomplete.ts';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbFormFieldElement } from '../../form-field.ts';
+import type { SbbOptGroupElement } from '../optgroup.ts';
 
-import { SbbOptionElement } from './option.component.js';
+import { SbbOptionElement } from './option.component.ts';
 
-import '../../autocomplete.js';
-import '../../form-field.js';
-import '../optgroup.js';
+import '../../autocomplete.ts';
+import '../../form-field.ts';
+import '../optgroup.ts';
 
 describe(`sbb-option`, () => {
   describe('autocomplete', () => {

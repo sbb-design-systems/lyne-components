@@ -5,27 +5,27 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import sampleImages from '../../core/images.js';
-import type { SbbOverlayCloseEventDetails } from '../../core/interfaces.js';
-import type { SbbTitleLevel } from '../../title.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import sampleImages from '../../core/images.ts';
+import type { SbbOverlayCloseEventDetails } from '../../core/interfaces.ts';
+import type { SbbTitleLevel } from '../../title.ts';
 
-import { SbbDialogElement } from './dialog.component.js';
+import { SbbDialogElement } from './dialog.component.ts';
 import readme from './readme.md?raw';
 
-import '../../autocomplete.js';
-import '../../option.js';
-import '../../button.js';
-import '../../card.js';
-import '../../link.js';
-import '../../form-field.js';
-import '../../image.js';
-import '../../popover.js';
-import '../../stepper.js';
-import '../dialog-actions.js';
-import '../dialog-close-button.js';
-import '../dialog-content.js';
-import '../dialog-title.js';
+import '../../autocomplete.ts';
+import '../../option.ts';
+import '../../button.ts';
+import '../../card.ts';
+import '../../link.ts';
+import '../../form-field.ts';
+import '../../image.ts';
+import '../../popover.ts';
+import '../../stepper.ts';
+import '../dialog-actions.ts';
+import '../dialog-close-button.ts';
+import '../dialog-content.ts';
+import '../dialog-title.ts';
 
 const loremIpsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis

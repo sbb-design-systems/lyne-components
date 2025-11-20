@@ -12,13 +12,13 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { removeTimezoneFromISOTimeString } from '../core/datetime.js';
-import type { Leg, PtRideLeg } from '../core/timetable.js';
-import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.js';
+import { removeTimezoneFromISOTimeString } from '../core/datetime.ts';
+import type { Leg, PtRideLeg } from '../core/timetable.ts';
+import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.ts';
 
 import style from './pearl-chain-time.scss?lit&inline';
 
-import '../pearl-chain.js';
+import '../pearl-chain.ts';
 
 /**
  * Combined with `sbb-pearl-chain`, it displays walk time information.

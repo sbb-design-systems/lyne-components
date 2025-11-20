@@ -6,9 +6,9 @@ import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
 
-import './mini-calendar-month.component.js';
-import '../mini-calendar-day/mini-calendar-day.component.js';
-import '../mini-calendar/mini-calendar.component.js';
+import './mini-calendar-month.component.ts';
+import '../mini-calendar-day/mini-calendar-day.component.ts';
+import '../mini-calendar/mini-calendar.component.ts';
 
 const orientation: InputType = {
   control: {

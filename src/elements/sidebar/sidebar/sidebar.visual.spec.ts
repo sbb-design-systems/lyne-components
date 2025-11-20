@@ -1,16 +1,16 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
-import { waitForCondition } from '../../core/testing.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import { waitForCondition } from '../../core/testing.ts';
 
-import type { SbbSidebarElement } from './sidebar.component.js';
+import type { SbbSidebarElement } from './sidebar.component.ts';
 
-import '../../header.js';
-import '../../link/block-link.js';
-import '../../link-list.js';
-import '../../logo.js';
-import '../../sidebar.js';
+import '../../header.ts';
+import '../../link/block-link.ts';
+import '../../link-list.ts';
+import '../../logo.ts';
+import '../../sidebar.ts';
 
 describe('sbb-sidebar', () => {
   const header = html`<sbb-header expanded size="s" scroll-origin="content">

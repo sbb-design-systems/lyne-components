@@ -1,13 +1,13 @@
 import { html, type TemplateResult } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './header-environment.component.js';
-import '../header.js';
-import '../header-link.js';
-import '../header-button.js';
-import '../../menu.js';
-import '../../logo.js';
+import './header-environment.component.ts';
+import '../header.ts';
+import '../header-link.ts';
+import '../header-button.ts';
+import '../../menu.ts';
+import '../../logo.ts';
 
 const template = (env: string): TemplateResult => html`
   <style>

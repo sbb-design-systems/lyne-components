@@ -3,11 +3,11 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './navigation-marker.component.js';
-import '../navigation-button.js';
+import './navigation-marker.component.ts';
+import '../navigation-button.ts';
 
 const size: InputType = {
   control: {

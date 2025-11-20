@@ -3,8 +3,8 @@ import { customElement, property } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbLanguageController } from '../../core/controllers.js';
-import { forceType, handleDistinctChange, omitEmptyConverter } from '../../core/decorators.js';
+import { SbbLanguageController } from '../../core/controllers.ts';
+import { forceType, handleDistinctChange, omitEmptyConverter } from '../../core/decorators.ts';
 import {
   i18nAdditionalWagonInformationHeading,
   i18nBlockedPassage,
@@ -17,16 +17,16 @@ import {
   i18nSleepingWagonLabel,
   i18nWagonLabel,
   i18nWagonLabelNumber,
-} from '../../core/i18n.js';
-import type { SbbOccupancy } from '../../core/interfaces.js';
-import { SbbNamedSlotListMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbIconElement } from '../../icon.js';
+} from '../../core/i18n.ts';
+import type { SbbOccupancy } from '../../core/interfaces.ts';
+import { SbbNamedSlotListMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbIconElement } from '../../icon.ts';
 
 import style from './train-wagon.scss?lit&inline';
 
-import '../../icon.js';
-import '../../timetable-occupancy-icon.js';
+import '../../icon.ts';
+import '../../timetable-occupancy-icon.ts';
 
 const typeToIconMap: Record<string, string> = {
   couchette: 'sa-cc',

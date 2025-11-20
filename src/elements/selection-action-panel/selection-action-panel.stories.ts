@@ -3,16 +3,16 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
-import './selection-action-panel.component.js';
-import '../button/secondary-button.js';
-import '../card.js';
-import '../checkbox.js';
-import '../form-field/error.js';
-import '../link/block-link-button.js';
-import '../radio-button.js';
-import '../selection-expansion-panel.js';
+import './selection-action-panel.component.ts';
+import '../button/secondary-button.ts';
+import '../card.ts';
+import '../checkbox.ts';
+import '../form-field/error.ts';
+import '../link/block-link-button.ts';
+import '../radio-button.ts';
+import '../selection-expansion-panel.ts';
 
 import readme from './readme.md?raw';
 

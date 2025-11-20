@@ -1,12 +1,12 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbHydrationMixin, SbbSelectionPanelMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
+import { SbbHydrationMixin, SbbSelectionPanelMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './selection-action-panel.scss?lit&inline';
 
-import '../divider.js';
+import '../divider.ts';
 
 /**
  * It displays a panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.

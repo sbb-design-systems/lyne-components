@@ -1,10 +1,10 @@
 import { type CSSResultGroup, type TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { type AbstractConstructor, SbbDisabledMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { SbbIconNameMixin } from '../../icon.js';
+import type { SbbActionBaseElement } from '../../core/base-elements.ts';
+import { type AbstractConstructor, SbbDisabledMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
 
 import style from './menu-action.scss?lit&inline';
 

@@ -5,7 +5,7 @@ import {
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html, type TemplateResult } from 'lit';
 
-import './autocomplete-grid-button.component.js';
+import './autocomplete-grid-button.component.ts';
 
 describe(`sbb-autocomplete-grid-button`, () => {
   const defaultArgs = {

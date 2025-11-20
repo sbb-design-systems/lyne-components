@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './notification/notification.component.js';
+export * from './notification/notification.component.ts';

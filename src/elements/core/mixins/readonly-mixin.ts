@@ -1,7 +1,7 @@
 import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { AbstractConstructor } from './constructor.js';
+import type { AbstractConstructor } from './constructor.ts';
 
 export declare class SbbReadonlyMixinType {
   public accessor readOnly: boolean;

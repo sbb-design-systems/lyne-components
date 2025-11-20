@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './date-input/date-input.component.js';
+export * from './date-input/date-input.component.ts';

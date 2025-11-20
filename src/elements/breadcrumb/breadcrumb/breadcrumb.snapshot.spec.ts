@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbBreadcrumbElement } from './breadcrumb.component.js';
-import './breadcrumb.component.js';
+import type { SbbBreadcrumbElement } from './breadcrumb.component.ts';
+import './breadcrumb.component.ts';
 
 describe(`sbb-breadcrumb`, () => {
   describe('renders with text', () => {

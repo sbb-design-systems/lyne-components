@@ -1,27 +1,27 @@
 import { html, type LitElement, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { sbbInputModalityDetector } from '../../core/a11y/input-modality-detector.js';
-import { SbbLanguageController } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
+import { sbbInputModalityDetector } from '../../core/a11y/input-modality-detector.ts';
+import { SbbLanguageController } from '../../core/controllers.ts';
+import { forceType } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
 import {
   i18nNextPage,
   i18nPage,
   i18nPaginatorSelected,
   i18nPreviousPage,
-} from '../../core/i18n.js';
-import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
+} from '../../core/i18n.ts';
+import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.ts';
 import {
   type AbstractConstructor,
   SbbDisabledMixin,
   SbbElementInternalsMixin,
   SbbNegativeMixin,
-} from '../../core/mixins.js';
+} from '../../core/mixins.ts';
 
-import '../../button/mini-button.js';
-import '../../button/mini-button-group.js';
-import '../../divider.js';
+import '../../button/mini-button.ts';
+import '../../button/mini-button-group.ts';
+import '../../divider.ts';
 
 export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNegativeMixin(
   SbbDisabledMixin(SbbElementInternalsMixin(LitElement)),

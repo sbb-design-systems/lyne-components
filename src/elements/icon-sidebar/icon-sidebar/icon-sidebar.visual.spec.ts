@@ -1,15 +1,15 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import type { SbbIconSidebarElement } from './icon-sidebar.component.js';
+import type { SbbIconSidebarElement } from './icon-sidebar.component.ts';
 
-import '../../header.js';
-import '../../link/block-link.js';
-import '../../link-list.js';
-import '../../logo.js';
-import '../../icon-sidebar.js';
-import '../../sidebar.js';
+import '../../header.ts';
+import '../../link/block-link.ts';
+import '../../link-list.ts';
+import '../../logo.ts';
+import '../../icon-sidebar.ts';
+import '../../sidebar.ts';
 
 describe('sbb-icon-sidebar', () => {
   const header = html`<sbb-header expanded size="s" scroll-origin="content">

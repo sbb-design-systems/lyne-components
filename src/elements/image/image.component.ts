@@ -18,8 +18,8 @@ import {
 } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
-import { forceType } from '../core/decorators.js';
-import { boxSizingStyles } from '../core/styles.js';
+import { forceType } from '../core/decorators.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './image.scss?lit&inline';
 

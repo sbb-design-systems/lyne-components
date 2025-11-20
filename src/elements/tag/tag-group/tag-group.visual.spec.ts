@@ -1,10 +1,10 @@
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import '../tag.js';
-import './tag-group.component.js';
+import '../tag.ts';
+import './tag-group.component.ts';
 
 describe(`sbb-tag-group`, () => {
   describeViewports({ viewports: ['zero', 'large'] }, () => {

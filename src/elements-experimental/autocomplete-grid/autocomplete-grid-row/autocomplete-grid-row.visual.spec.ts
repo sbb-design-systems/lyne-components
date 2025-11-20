@@ -5,10 +5,10 @@ import {
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import './autocomplete-grid-row.component.js';
-import '../autocomplete-grid-cell.js';
-import '../autocomplete-grid-option.js';
-import '../autocomplete-grid-button.js';
+import './autocomplete-grid-row.component.ts';
+import '../autocomplete-grid-cell.ts';
+import '../autocomplete-grid-option.ts';
+import '../autocomplete-grid-button.ts';
 
 describe('sbb-autocomplete-grid-row', () => {
   const defaultArgs = {

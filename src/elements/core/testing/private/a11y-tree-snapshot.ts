@@ -3,11 +3,11 @@ import { a11ySnapshot } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { isChromium, isFirefox } from '../../dom.js';
-import { testIf } from '../mocha-extensions.js';
-import { waitForLitRender } from '../wait-for-render.js';
+import { isChromium, isFirefox } from '../../dom.ts';
+import { testIf } from '../mocha-extensions.ts';
+import { waitForLitRender } from '../wait-for-render.ts';
 
-import { fixture } from './fixture.js';
+import { fixture } from './fixture.ts';
 
 /**
  * Get the a11y tree snapshot and tests its snapshot.

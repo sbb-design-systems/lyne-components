@@ -1,15 +1,15 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import type { visualRegressionFixture } from '../../core/testing/private.js';
+import type { visualRegressionFixture } from '../../core/testing/private.ts';
 import {
   describeEach,
   describeViewports,
   visualDiffDefault,
   visualDiffHover,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './menu-link.component.js';
+import './menu-link.component.ts';
 
 describe(`sbb-menu-link`, () => {
   const defaultArgs = {

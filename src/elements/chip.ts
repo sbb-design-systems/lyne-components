@@ -1,5 +1,5 @@
 /**
  * @entrypoint
  */
-export * from './chip/chip.js';
-export * from './chip/chip-group.js';
+export * from './chip/chip.ts';
+export * from './chip/chip-group.ts';

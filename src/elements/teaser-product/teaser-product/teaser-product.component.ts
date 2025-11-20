@@ -2,13 +2,13 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement } from '../../core/base-elements.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { SbbTeaserProductCommonElementMixin, teaserProductCommonStyle } from '../common.js';
+import { SbbLinkBaseElement } from '../../core/base-elements.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbTeaserProductCommonElementMixin, teaserProductCommonStyle } from '../common.ts';
 
 import style from './teaser-product.scss?lit&inline';
 
-import '../../screen-reader-only.js';
+import '../../screen-reader-only.ts';
 
 /**
  * Displays a text and a footnote, combined with an image, to tease a product

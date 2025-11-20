@@ -1,8 +1,8 @@
 import { isServer, type LitElement, type ReactiveController } from 'lit';
 
-import { SbbSlotStateController } from '../controllers.js';
+import { SbbSlotStateController } from '../controllers.ts';
 
-import type { AbstractConstructor } from './constructor.js';
+import type { AbstractConstructor } from './constructor.ts';
 
 // Most of our target browsers support the :state() pseudo class, but not all of them.
 // We patch the states property of the element internals to use attributes instead,

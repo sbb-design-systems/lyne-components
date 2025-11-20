@@ -8,13 +8,13 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
-import { forceType } from '../../core/decorators.js';
-import { breakpoints, isBreakpoint, isLean } from '../../core/dom.js';
-import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
-import { SbbHydrationMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.js';
+import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
+import { forceType } from '../../core/decorators.ts';
+import { breakpoints, isBreakpoint, isLean } from '../../core/dom.ts';
+import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';
+import { SbbHydrationMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.ts';
 
 import style from './stepper.scss?lit&inline';
 

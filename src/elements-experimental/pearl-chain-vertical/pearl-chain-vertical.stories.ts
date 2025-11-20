@@ -4,8 +4,8 @@ import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
-import './pearl-chain-vertical.component.js';
-import '../pearl-chain-vertical-item.js';
+import './pearl-chain-vertical.component.ts';
+import '../pearl-chain-vertical-item.ts';
 import '@sbb-esta/lyne-elements/icon.js';
 import '@sbb-esta/lyne-elements/timetable-occupancy.js';
 

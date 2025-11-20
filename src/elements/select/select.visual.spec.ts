@@ -1,10 +1,10 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.js';
+import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
 
-import '../form-field.js';
-import '../option.js';
-import './select.component.js';
+import '../form-field.ts';
+import '../option.ts';
+import './select.component.ts';
 
 describe('sbb-select', () => {
   const valueEllipsis: string = 'This label name is so long that it needs ellipsis to fit.';

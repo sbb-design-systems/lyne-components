@@ -7,9 +7,9 @@ import {
   visualDiffHover,
   visualDiffStandardStates,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './button.component.js';
+import './button.component.ts';
 
 describe(`sbb-button`, () => {
   let root: HTMLElement;

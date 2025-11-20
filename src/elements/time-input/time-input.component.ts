@@ -1,15 +1,15 @@
 import { type CSSResultGroup, isServer, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { sbbLiveAnnouncer } from '../core/a11y.js';
-import { SbbLanguageController } from '../core/controllers.js';
+import { sbbLiveAnnouncer } from '../core/a11y.ts';
+import { SbbLanguageController } from '../core/controllers.ts';
 import {
   i18nTimeInputChange,
   i18nTimeInvalid,
   i18nTimeMax,
   i18nTimeMaxLength,
-} from '../core/i18n.js';
-import { SbbFormAssociatedInputMixin } from '../core/mixins.js';
+} from '../core/i18n.ts';
+import { SbbFormAssociatedInputMixin } from '../core/mixins.ts';
 
 import style from './time-input.scss?lit&inline';
 

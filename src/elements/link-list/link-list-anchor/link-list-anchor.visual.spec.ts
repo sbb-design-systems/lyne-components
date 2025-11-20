@@ -8,10 +8,10 @@ import {
   visualDiffFocus,
   visualDiffHover,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './link-list-anchor.component.js';
-import '../../link/block-link.js';
+import './link-list-anchor.component.ts';
+import '../../link/block-link.ts';
 
 const links = (): TemplateResult[] =>
   new Array(5).fill('').map((_v, i) => html` <sbb-block-link href="#">Link ${i}</sbb-block-link> `);

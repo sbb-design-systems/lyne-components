@@ -1,6 +1,6 @@
 /**
  * @entrypoint
  */
-export * from './file-selector/common.js';
-export * from './file-selector/file-selector-dropzone.js';
-export * from './file-selector/file-selector.js';
+export * from './file-selector/common.ts';
+export * from './file-selector/file-selector-dropzone.ts';
+export * from './file-selector/file-selector.ts';

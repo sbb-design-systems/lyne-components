@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbSidebarCloseButtonElement } from './sidebar-close-button.component.js';
+import { SbbSidebarCloseButtonElement } from './sidebar-close-button.component.ts';
 
 describe(`sbb-sidebar-close-button ssr`, () => {
   let root: SbbSidebarCloseButtonElement;

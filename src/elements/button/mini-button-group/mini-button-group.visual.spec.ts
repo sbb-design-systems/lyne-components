@@ -4,11 +4,11 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './mini-button-group.component.js';
-import '../mini-button.js';
-import '../../divider/divider.component.js';
+import './mini-button-group.component.ts';
+import '../mini-button.ts';
+import '../../divider/divider.component.ts';
 
 describe('sbb-mini-button-group', () => {
   const sizeCases = ['s', 'm', 'l', 'xl'];

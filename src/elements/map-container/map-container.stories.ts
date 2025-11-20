@@ -3,16 +3,16 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './map-container.component.js';
-import '../card.js';
-import '../form-field.js';
-import '../header.js';
-import '../icon.js';
-import '../logo.js';
-import '../title.js';
+import './map-container.component.ts';
+import '../card.ts';
+import '../form-field.ts';
+import '../header.ts';
+import '../icon.ts';
+import '../logo.ts';
+import '../title.ts';
 
 const hideScrollUpButton: InputType = {
   control: {

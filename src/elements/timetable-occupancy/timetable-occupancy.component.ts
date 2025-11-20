@@ -2,16 +2,16 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/controllers.js';
-import { i18nClass } from '../core/i18n.js';
-import type { SbbOccupancy } from '../core/interfaces.js';
-import { SbbNegativeMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
+import { SbbLanguageController } from '../core/controllers.ts';
+import { i18nClass } from '../core/i18n.ts';
+import type { SbbOccupancy } from '../core/interfaces.ts';
+import { SbbNegativeMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './timetable-occupancy.scss?lit&inline';
 
-import '../screen-reader-only.js';
-import '../timetable-occupancy-icon.js';
+import '../screen-reader-only.ts';
+import '../timetable-occupancy-icon.ts';
 
 /**
  * Used in `sbb-timetable-row`, it displays information about wagon occupancy.

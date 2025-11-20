@@ -5,7 +5,7 @@ import { html } from 'lit';
 import {
   futureLeg,
   pastLeg,
-} from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.private.js';
+} from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.private.ts';
 
 import {
   bikeProduct,
@@ -16,10 +16,10 @@ import {
   skiplinkList,
   teaserHero,
   timetableInput,
-} from './home.common.js';
-import '../../../elements/dialog.js';
-import '../../../elements/journey-header.js';
-import '../../../elements-experimental/pearl-chain.js';
+} from './home.common.ts';
+import '../../../elements/dialog.ts';
+import '../../../elements/journey-header.ts';
+import '../../../elements-experimental/pearl-chain.ts';
 import './home.scss';
 
 export const homeLoggedInTemplate = (args: Args): TemplateResult => html`

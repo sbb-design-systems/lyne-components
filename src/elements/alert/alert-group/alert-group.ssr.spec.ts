@@ -1,12 +1,12 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbAlertGroupElement } from './alert-group.component.js';
+import { SbbAlertGroupElement } from './alert-group.component.ts';
 
-import '../alert/alert.component.js';
-import '../../title.js';
+import '../alert/alert.component.ts';
+import '../../title.ts';
 
 describe(`sbb-alert-group ssr`, () => {
   let root: SbbAlertGroupElement;

@@ -6,11 +6,11 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import { SbbTooltipElement } from './tooltip.component.js';
-import '../button/button.js';
+import { SbbTooltipElement } from './tooltip.component.ts';
+import '../button/button.ts';
 
 const position: InputType = {
   control: {

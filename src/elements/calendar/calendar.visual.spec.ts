@@ -1,7 +1,7 @@
 import { html, nothing } from 'lit';
 import { type SinonStub, stub } from 'sinon';
 
-import { defaultDateAdapter } from '../core/datetime.js';
+import { defaultDateAdapter } from '../core/datetime.ts';
 import {
   describeEach,
   describeViewports,
@@ -11,11 +11,11 @@ import {
   visualDiffHover,
   visualDiffStandardStates,
   visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import type { SbbCalendarElement } from './calendar.component.js';
+import type { SbbCalendarElement } from './calendar.component.ts';
 
-import './calendar.component.js';
+import './calendar.component.ts';
 
 describe('sbb-calendar', () => {
   let todayStub: SinonStub;

@@ -5,14 +5,14 @@ import { describeIf } from '@sbb-esta/lyne-elements/core/testing.js';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.component.js';
+import type { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.component.ts';
 
-import './autocomplete-grid-optgroup.component.js';
-import '../autocomplete-grid.js';
-import '../autocomplete-grid-row.js';
-import '../autocomplete-grid-option.js';
-import '../autocomplete-grid-cell.js';
-import '../autocomplete-grid-button.js';
+import './autocomplete-grid-optgroup.component.ts';
+import '../autocomplete-grid.ts';
+import '../autocomplete-grid-row.ts';
+import '../autocomplete-grid-option.ts';
+import '../autocomplete-grid-cell.ts';
+import '../autocomplete-grid-button.ts';
 
 describe('sbb-autocomplete-grid-optgroup', () => {
   const opt: TemplateResult = html`

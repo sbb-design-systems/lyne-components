@@ -3,10 +3,10 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { forceType } from '../core/decorators.js';
-import { SbbNegativeMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
-import type { SbbTitleLevel } from '../title.js';
+import { forceType } from '../core/decorators.ts';
+import { SbbNegativeMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbTitleLevel } from '../title.ts';
 
 import style from './footer.scss?lit&inline';
 

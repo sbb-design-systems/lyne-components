@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbAlertElement } from './alert.component.js';
+import type { SbbAlertElement } from './alert.component.ts';
 
-import './alert.component.js';
-import '../../link/link.js';
-import '../../title.js';
+import './alert.component.ts';
+import '../../link/link.ts';
+import '../../title.ts';
 
 describe(`sbb-alert`, () => {
   let element: SbbAlertElement;

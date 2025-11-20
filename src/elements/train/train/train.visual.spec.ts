@@ -5,9 +5,9 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './train.component.js';
+import './train.component.ts';
 
 describe(`sbb-train`, () => {
   const cases = { direction: ['left', 'right'], station: [undefined, 'Berne'] };

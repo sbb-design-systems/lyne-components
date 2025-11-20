@@ -4,16 +4,16 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { SbbTabElement } from '../tab.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import { SbbTabElement } from '../tab.ts';
 
 import readme from './readme.md?raw';
-import { type SbbTabChangedEventDetails, SbbTabGroupElement } from './tab-group.component.js';
+import { type SbbTabChangedEventDetails, SbbTabGroupElement } from './tab-group.component.ts';
 
-import '../../card.js';
-import '../../link.js';
-import '../../title.js';
-import '../tab-label.js';
+import '../../card.ts';
+import '../../link.ts';
+import '../../title.ts';
+import '../tab-label.ts';
 
 const changeEventHandler = (event: CustomEvent<SbbTabChangedEventDetails>): void => {
   const evDetail = event.detail;

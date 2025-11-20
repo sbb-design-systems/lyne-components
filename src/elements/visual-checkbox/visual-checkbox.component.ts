@@ -2,11 +2,11 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { SbbCheckboxSize } from '../checkbox/common.js';
-import { forceType } from '../core/decorators.js';
-import { isLean } from '../core/dom.js';
-import { SbbDisabledMixin, SbbNegativeMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
+import type { SbbCheckboxSize } from '../checkbox/common.ts';
+import { forceType } from '../core/decorators.ts';
+import { isLean } from '../core/dom.ts';
+import { SbbDisabledMixin, SbbNegativeMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './visual-checkbox.scss?lit&inline';
 

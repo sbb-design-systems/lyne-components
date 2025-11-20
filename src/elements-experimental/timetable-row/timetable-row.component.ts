@@ -26,16 +26,16 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime.js';
-import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetable.js';
-import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.js';
+import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime.ts';
+import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetable.ts';
+import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.ts';
 
 import style from './timetable-row.scss?lit&inline';
 
 import '@sbb-esta/lyne-elements/card.js';
 import '@sbb-esta/lyne-elements/icon.js';
 import '@sbb-esta/lyne-elements/timetable-occupancy.js';
-import '../pearl-chain-time.js';
+import '../pearl-chain-time.ts';
 
 /** HimCus interface for mapped icon name and text */
 export interface HimCus {

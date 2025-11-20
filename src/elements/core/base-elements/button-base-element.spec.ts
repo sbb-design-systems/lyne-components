@@ -2,12 +2,12 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
-import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../mixins.js';
-import { tabKey } from '../testing/private/keys.js';
-import { fixture, typeInElement } from '../testing/private.js';
-import { EventSpy, waitForLitRender } from '../testing.js';
+import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../mixins.ts';
+import { tabKey } from '../testing/private/keys.ts';
+import { fixture, typeInElement } from '../testing/private.ts';
+import { EventSpy, waitForLitRender } from '../testing.ts';
 
-import { SbbButtonBaseElement } from './button-base-element.js';
+import { SbbButtonBaseElement } from './button-base-element.ts';
 
 type FormDataEntry = { [p: string]: FormDataEntryValue };
 

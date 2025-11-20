@@ -1,12 +1,12 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
-import type { SbbOptionElement } from '../option.js';
-import '../option.js';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
+import type { SbbOptionElement } from '../option.ts';
+import '../option.ts';
 
-import { SbbOptGroupElement } from './optgroup.component.js';
+import { SbbOptGroupElement } from './optgroup.component.ts';
 
 describe(`sbb-optgroup`, () => {
   let element: SbbOptGroupElement;

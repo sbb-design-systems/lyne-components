@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './autocomplete-grid-option/autocomplete-grid-option.component.js';
+export * from './autocomplete-grid-option/autocomplete-grid-option.component.ts';

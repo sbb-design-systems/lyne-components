@@ -1,14 +1,14 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbMenuElement } from './menu.component.js';
+import { SbbMenuElement } from './menu.component.ts';
 
-import '../../button.js';
-import '../../divider.js';
-import '../../link.js';
-import '../menu-button.js';
+import '../../button.ts';
+import '../../divider.ts';
+import '../../link.ts';
+import '../menu-button.ts';
 
 describe(`sbb-menu ssr`, () => {
   let root: HTMLDivElement;

@@ -2,10 +2,10 @@
 import type { LitElement, PropertyDeclaration, PropertyValues } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { isWebkit } from '../dom.js';
+import { isWebkit } from '../dom.ts';
 
-import type { AbstractConstructor } from './constructor.js';
-import type { SbbElementInternalsMixinType } from './element-internals-mixin.js';
+import type { AbstractConstructor } from './constructor.ts';
+import type { SbbElementInternalsMixinType } from './element-internals-mixin.ts';
 
 declare global {
   /**

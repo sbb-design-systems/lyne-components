@@ -1,12 +1,12 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import type { SbbIconSidebarElement } from '../../icon-sidebar.js';
+import { fixture } from '../../core/testing/private.ts';
+import type { SbbIconSidebarElement } from '../../icon-sidebar.ts';
 
-import { SbbIconSidebarContainerElement } from './icon-sidebar-container.component.js';
+import { SbbIconSidebarContainerElement } from './icon-sidebar-container.component.ts';
 
-import '../../icon-sidebar.js';
+import '../../icon-sidebar.ts';
 
 describe('sbb-icon-sidebar-container', () => {
   let element: SbbIconSidebarContainerElement,

@@ -9,13 +9,13 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
-import type { SbbChipGroupElement } from '../../chip.js';
-import { sbbInputModalityDetector } from '../../core/a11y.js';
-import { SbbLanguageController } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
-import { i18nOptional } from '../../core/i18n.js';
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
+import type { SbbChipGroupElement } from '../../chip.ts';
+import { sbbInputModalityDetector } from '../../core/a11y.ts';
+import { SbbLanguageController } from '../../core/controllers.ts';
+import { forceType } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
+import { i18nOptional } from '../../core/i18n.ts';
 import {
   appendAriaElements,
   removeAriaElements,
@@ -23,13 +23,13 @@ import {
   type SbbFormAssociatedInputMixinType,
   SbbHydrationMixin,
   SbbNegativeMixin,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbSelectElement } from '../../select.js';
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbSelectElement } from '../../select.ts';
 
 import style from './form-field.scss?lit&inline';
 
-import '../../icon.js';
+import '../../icon.ts';
 
 let nextId = 0;
 

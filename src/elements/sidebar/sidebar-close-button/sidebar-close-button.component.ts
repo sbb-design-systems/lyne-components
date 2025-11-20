@@ -1,9 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbSecondaryButtonElement } from '../../button/secondary-button.js';
-import { SbbLanguageController } from '../../core/controllers.js';
-import { i18nCloseSidebar } from '../../core/i18n.js';
+import { SbbSecondaryButtonElement } from '../../button/secondary-button.ts';
+import { SbbLanguageController } from '../../core/controllers.ts';
+import { i18nCloseSidebar } from '../../core/i18n.ts';
 
 import style from './sidebar-close-button.scss?lit&inline';
 

@@ -9,20 +9,20 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { CalendarView } from '../../calendar.js';
-import { readConfig } from '../../core/config.js';
-import { SbbLanguageController } from '../../core/controllers.js';
-import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
-import { forceType, idReference } from '../../core/decorators.js';
-import { i18nDateChangedTo } from '../../core/i18n.js';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins.js';
-import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.js';
-import { SbbPopoverBaseElement } from '../../popover.js';
-import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
+import type { CalendarView } from '../../calendar.ts';
+import { readConfig } from '../../core/config.ts';
+import { SbbLanguageController } from '../../core/controllers.ts';
+import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.ts';
+import { forceType, idReference } from '../../core/decorators.ts';
+import { i18nDateChangedTo } from '../../core/i18n.ts';
+import { SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
+import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.ts';
+import { SbbPopoverBaseElement } from '../../popover.ts';
+import type { SbbDatepickerToggleElement } from '../datepicker-toggle.ts';
 
 import style from './datepicker.scss?lit&inline';
 
-import '../../calendar.js';
+import '../../calendar.ts';
 
 let nextId = 0;
 

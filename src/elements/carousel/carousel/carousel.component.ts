@@ -3,24 +3,24 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../../core/controllers/language-controller.js';
-import { forceType } from '../../core/decorators.js';
+import { SbbLanguageController } from '../../core/controllers/language-controller.ts';
+import { forceType } from '../../core/decorators.ts';
 import {
   i18nCarouselArrowsNavigationHint,
   i18nNextSlide,
   i18nPreviousSlide,
   i18nSlide,
-} from '../../core/i18n/i18n.js';
-import { SbbElementInternalsMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.js';
+} from '../../core/i18n/i18n.ts';
+import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.ts';
 import type {
   SbbCarouselItemElement,
   SbbCarouselItemEventDetail,
-} from '../carousel-item/carousel-item.component.js';
-import type { SbbCarouselListElement } from '../carousel-list/carousel-list.component.js';
+} from '../carousel-item/carousel-item.component.ts';
+import type { SbbCarouselListElement } from '../carousel-list/carousel-list.component.ts';
 
-import '../../screen-reader-only.js';
+import '../../screen-reader-only.ts';
 
 import style from './carousel.scss?lit&inline';
 

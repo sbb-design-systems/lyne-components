@@ -4,10 +4,10 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType, StoryContext } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './timetable-occupancy-icon.component.js';
+import './timetable-occupancy-icon.component.ts';
 
 const negative: InputType = {
   control: {

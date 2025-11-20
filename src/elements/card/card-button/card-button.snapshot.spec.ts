@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import type { SbbCardElement } from '../card.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
+import type { SbbCardElement } from '../card.ts';
 
-import type { SbbCardButtonElement } from './card-button.component.js';
+import type { SbbCardButtonElement } from './card-button.component.ts';
 
-import '../card.js';
-import './card-button.component.js';
+import '../card.ts';
+import './card-button.component.ts';
 
 describe(`sbb-card-button`, () => {
   let element: SbbCardButtonElement, card: SbbCardElement;

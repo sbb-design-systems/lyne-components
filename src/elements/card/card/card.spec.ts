@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 
-import { SbbCardElement } from './card.component.js';
+import { SbbCardElement } from './card.component.ts';
 
-import '../card-badge.js';
+import '../card-badge.ts';
 
 describe(`sbb-card`, () => {
   let element: SbbCardElement;

@@ -4,14 +4,14 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import { isZeroAnimationDuration } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { overlayRefs, SbbOverlayBaseElement } from '../../overlay.js';
-import type { SbbDialogContentElement } from '../dialog-content/dialog-content.component.js';
+import { isZeroAnimationDuration } from '../../core/dom.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { overlayRefs, SbbOverlayBaseElement } from '../../overlay.ts';
+import type { SbbDialogContentElement } from '../dialog-content/dialog-content.component.ts';
 
 import style from './dialog.scss?lit&inline';
 
-import '../../screen-reader-only.js';
+import '../../screen-reader-only.ts';
 
 let nextId = 0;
 

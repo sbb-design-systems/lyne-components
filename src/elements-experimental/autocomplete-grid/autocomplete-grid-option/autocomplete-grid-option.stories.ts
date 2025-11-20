@@ -10,14 +10,14 @@ import { html, type TemplateResult } from 'lit';
 import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
-import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.component.js';
+import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.component.ts';
 import readme from './readme.md?raw';
 
 import '@sbb-esta/lyne-elements/form-field.js';
-import '../autocomplete-grid.js';
-import '../autocomplete-grid-row.js';
+import '../autocomplete-grid.ts';
+import '../autocomplete-grid-row.ts';
 
 const preserveIconSpace: InputType = {
   control: {

@@ -6,7 +6,7 @@ import {
   describeEach,
   describeViewports,
   visualDiffDefault,
-} from '../../../elements/core/testing/private.js';
+} from '../../../elements/core/testing/private.ts';
 
 describe(`table`, () => {
   const cases = {

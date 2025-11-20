@@ -8,9 +8,9 @@
 
 // Copied from https://github.com/angular/components/blob/main/src/cdk/testing/testbed/fake-events/type-in-element.ts
 
-import type { SbbFormAssociatedInputMixinType } from '../../mixins.js';
+import type { SbbFormAssociatedInputMixinType } from '../../mixins.ts';
 
-import { dispatchFakeEvent, dispatchKeyboardEvent } from './dispatch-events.js';
+import { dispatchFakeEvent, dispatchKeyboardEvent } from './dispatch-events.ts';
 
 const PERIOD = 190;
 

@@ -1,8 +1,8 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbNegativeMixin } from '../../core/mixins.js';
-import { SbbTitleBase } from '../../title.js';
+import { SbbNegativeMixin } from '../../core/mixins.ts';
+import { SbbTitleBase } from '../../title.ts';
 
 import style from './dialog-title.scss?lit&inline';
 

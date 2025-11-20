@@ -1,9 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private.js';
+import { fixture } from '../core/testing/private.ts';
 
-import { SbbVisualCheckboxElement } from './visual-checkbox.component.js';
+import { SbbVisualCheckboxElement } from './visual-checkbox.component.ts';
 
 describe(`sbb-visual-checkbox`, (): void => {
   it('renders', async (): Promise<void> => {

@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbRadioButtonPanelElement } from './radio-button-panel.component.js';
+import { SbbRadioButtonPanelElement } from './radio-button-panel.component.ts';
 
 describe(`sbb-radio-button-panel ssr`, () => {
   it('renders', async () => {

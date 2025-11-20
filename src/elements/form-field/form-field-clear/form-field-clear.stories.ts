@@ -11,11 +11,11 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './form-field-clear.component.js';
-import '../form-field.js';
+import './form-field-clear.component.ts';
+import '../form-field.ts';
 
 const negative: InputType = {
   control: {

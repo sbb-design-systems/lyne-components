@@ -3,17 +3,17 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import {
   futureLeg,
   longFutureLeg,
   pastLeg,
   progressLeg,
-} from '../pearl-chain/pearl-chain.sample-data.private.js';
+} from '../pearl-chain/pearl-chain.sample-data.private.ts';
 
 import readme from './readme.md?raw';
 
-import './journey-summary.component.js';
+import './journey-summary.component.ts';
 import '@sbb-esta/lyne-elements/button/button.js';
 import '@sbb-esta/lyne-elements/button/secondary-button.js';
 

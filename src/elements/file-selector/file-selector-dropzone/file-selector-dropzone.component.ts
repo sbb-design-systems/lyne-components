@@ -3,17 +3,17 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonStaticElement } from '../../button.js';
-import { forceType } from '../../core/decorators.js';
+import type { SbbSecondaryButtonStaticElement } from '../../button.ts';
+import { forceType } from '../../core/decorators.ts';
 import {
   i18nFileSelectorSubtitleLabel,
   i18nFileSelectorSubtitleLabelMultiple,
-} from '../../core/i18n.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { fileSelectorCommonStyle, SbbFileSelectorCommonElementMixin } from '../common.js';
+} from '../../core/i18n.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { fileSelectorCommonStyle, SbbFileSelectorCommonElementMixin } from '../common.ts';
 
-import '../../button/secondary-button-static.js';
-import '../../icon.js';
+import '../../button/secondary-button-static.ts';
+import '../../icon.ts';
 
 import style from './file-selector-dropzone.scss?lit&inline';
 

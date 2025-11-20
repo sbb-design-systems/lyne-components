@@ -3,10 +3,10 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './train.component.js';
+import './train.component.ts';
 
 const Template = (args: Args): TemplateResult => html`<sbb-train ${sbbSpread(args)}></sbb-train>`;
 

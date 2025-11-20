@@ -1,18 +1,18 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbDateInputElement } from '../../date-input.js';
-import type { SbbFormFieldElement } from '../../form-field.js';
-import { SbbPopoverElement } from '../../popover.js';
-import type { SbbDatepickerElement } from '../datepicker.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbDateInputElement } from '../../date-input.ts';
+import type { SbbFormFieldElement } from '../../form-field.ts';
+import { SbbPopoverElement } from '../../popover.ts';
+import type { SbbDatepickerElement } from '../datepicker.ts';
 
-import { SbbDatepickerToggleElement } from './datepicker-toggle.component.js';
+import { SbbDatepickerToggleElement } from './datepicker-toggle.component.ts';
 
-import '../datepicker.js';
-import '../../date-input.js';
-import '../../form-field/form-field.js';
+import '../datepicker.ts';
+import '../../date-input.ts';
+import '../../form-field/form-field.ts';
 
 describe(`sbb-datepicker-toggle`, () => {
   it('renders', async () => {

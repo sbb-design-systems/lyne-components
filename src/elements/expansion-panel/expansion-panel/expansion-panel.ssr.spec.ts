@@ -1,12 +1,12 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbExpansionPanelElement } from './expansion-panel.component.js';
+import { SbbExpansionPanelElement } from './expansion-panel.component.ts';
 
-import '../expansion-panel-header.js';
-import '../expansion-panel-content.js';
+import '../expansion-panel-header.ts';
+import '../expansion-panel-content.ts';
 
 describe(`sbb-expansion-panel ssr`, () => {
   let root: SbbExpansionPanelElement;

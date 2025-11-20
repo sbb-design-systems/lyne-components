@@ -3,11 +3,11 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.private.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.private.ts';
 
 import readme from './readme.md?raw';
-import './pearl-chain-time.component.js';
+import './pearl-chain-time.component.ts';
 
 const departureWalk: InputType = {
   control: {

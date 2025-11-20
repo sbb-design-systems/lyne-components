@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbDatepickerToggleElement } from './datepicker-toggle.component.js';
+import { SbbDatepickerToggleElement } from './datepicker-toggle.component.ts';
 
 describe(`sbb-datepicker-toggle ssr`, () => {
   let root: SbbDatepickerToggleElement;

@@ -9,8 +9,8 @@ import { SbbIconNameMixin } from '@sbb-esta/lyne-elements/icon.js';
 import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup.js';
-import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.js';
+import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup.ts';
+import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.ts';
 
 let autocompleteButtonNextId = 0;
 

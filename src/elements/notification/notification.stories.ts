@@ -4,14 +4,14 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbSecondaryButtonElement } from '../button.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbSecondaryButtonElement } from '../button.ts';
 
-import { SbbNotificationElement } from './notification.component.js';
+import { SbbNotificationElement } from './notification.component.ts';
 import readme from './readme.md?raw';
-import '../button/secondary-button.js';
-import '../link/link.js';
-import '../title.js';
+import '../button/secondary-button.ts';
+import '../link/link.ts';
+import '../title.ts';
 
 const type: InputType = {
   control: {

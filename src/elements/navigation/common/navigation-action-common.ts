@@ -2,18 +2,18 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { isLean } from '../../core/dom.js';
-import type { AbstractConstructor } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbNavigationButtonElement } from '../navigation-button.js';
-import type { SbbNavigationLinkElement } from '../navigation-link.js';
-import type { SbbNavigationMarkerElement } from '../navigation-marker.js';
-import type { SbbNavigationSectionElement } from '../navigation-section.js';
+import type { SbbActionBaseElement } from '../../core/base-elements.ts';
+import { isLean } from '../../core/dom.ts';
+import type { AbstractConstructor } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button.ts';
+import type { SbbNavigationLinkElement } from '../navigation-link.ts';
+import type { SbbNavigationMarkerElement } from '../navigation-marker.ts';
+import type { SbbNavigationSectionElement } from '../navigation-section.ts';
 
 import style from './navigation-action.scss?lit&inline';
 
-import '../../icon.js';
+import '../../icon.ts';
 
 export type SbbNavigationActionSize = 's' | 'm' | 'l';
 

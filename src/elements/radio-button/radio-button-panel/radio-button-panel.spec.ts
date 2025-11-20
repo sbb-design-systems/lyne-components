@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
-import { SbbRadioButtonPanelElement } from './radio-button-panel.component.js';
+import { SbbRadioButtonPanelElement } from './radio-button-panel.component.ts';
 
 describe(`sbb-radio-button-panel`, () => {
   let element: SbbRadioButtonPanelElement;

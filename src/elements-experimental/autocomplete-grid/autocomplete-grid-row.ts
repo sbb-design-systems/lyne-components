@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './autocomplete-grid-row/autocomplete-grid-row.component.js';
+export * from './autocomplete-grid-row/autocomplete-grid-row.component.ts';

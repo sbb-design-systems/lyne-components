@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbTimetableOccupancyElement } from './timetable-occupancy.component.js';
+import { SbbTimetableOccupancyElement } from './timetable-occupancy.component.ts';
 
 describe(`sbb-timetable-occupancy ssr`, () => {
   let root: SbbTimetableOccupancyElement;

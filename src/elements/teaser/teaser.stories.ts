@@ -4,15 +4,15 @@ import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import images from '../core/images.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import images from '../core/images.ts';
 
 import placeholderImage from './assets/placeholder.png';
 import readme from './readme.md?raw';
-import '../chip-label.js';
-import '../image.js';
-import '../title.js';
-import './teaser.component.js';
+import '../chip-label.ts';
+import '../image.ts';
+import '../title.ts';
+import './teaser.component.ts';
 
 const loremIpsum: string = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
 invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea

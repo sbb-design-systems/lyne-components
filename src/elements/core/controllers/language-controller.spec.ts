@@ -1,7 +1,7 @@
 import { aTimeout, expect } from '@open-wc/testing';
 import type { ReactiveControllerHost } from 'lit';
 
-import { SbbLanguageController } from './language-controller.js';
+import { SbbLanguageController } from './language-controller.ts';
 
 describe('LanguageController', () => {
   let controller: SbbLanguageController;

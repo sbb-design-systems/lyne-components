@@ -1,14 +1,14 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../core/testing.js';
+import { fixture } from '../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../core/testing.ts';
 import {
   SbbExpansionPanelElement,
   type SbbExpansionPanelHeaderElement,
-} from '../expansion-panel.js';
+} from '../expansion-panel.ts';
 
-import { SbbAccordionElement } from './accordion.component.js';
+import { SbbAccordionElement } from './accordion.component.ts';
 
 describe(`sbb-accordion`, () => {
   let element: SbbAccordionElement;

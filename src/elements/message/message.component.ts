@@ -2,8 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../core/styles.js';
-import type { SbbTitleElement } from '../title.js';
+import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbTitleElement } from '../title.ts';
 
 import style from './message.scss?lit&inline';
 

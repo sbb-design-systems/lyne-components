@@ -1,8 +1,8 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './timetable-form-swap-button.component.js';
+import './timetable-form-swap-button.component.ts';
 
 describe('sbb-timetable-form-swap-button', () => {
   describeViewports({ viewports: ['small'] }, () => {

@@ -4,14 +4,14 @@ import { repeat } from 'lit/directives/repeat.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
-import '../../icon.js';
-import '../../title.js';
-import '../../card/card-badge.js';
-import '../radio-button-panel.js';
+import '../../icon.ts';
+import '../../title.ts';
+import '../../card/card-badge.ts';
+import '../radio-button-panel.ts';
 
 const value: InputType = {
   control: {

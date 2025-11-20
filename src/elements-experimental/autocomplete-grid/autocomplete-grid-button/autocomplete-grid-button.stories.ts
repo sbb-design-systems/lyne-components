@@ -10,12 +10,12 @@ import { html, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import '../autocomplete-grid-row.js';
-import '../autocomplete-grid-cell.js';
-import './autocomplete-grid-button.component.js';
+import '../autocomplete-grid-row.ts';
+import '../autocomplete-grid-cell.ts';
+import './autocomplete-grid-button.component.ts';
 
 const disabled: InputType = {
   control: {

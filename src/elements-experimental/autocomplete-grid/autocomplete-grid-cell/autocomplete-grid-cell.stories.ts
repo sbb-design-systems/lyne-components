@@ -11,12 +11,12 @@ import { repeat } from 'lit/directives/repeat.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import '../autocomplete-grid-row.js';
-import './autocomplete-grid-cell.component.js';
-import '../autocomplete-grid-button.js';
+import '../autocomplete-grid-row.ts';
+import './autocomplete-grid-cell.component.ts';
+import '../autocomplete-grid-button.ts';
 
 const numberOfButtons: InputType = {
   control: {

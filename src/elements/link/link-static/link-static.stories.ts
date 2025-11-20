@@ -13,10 +13,10 @@ import {
   inlineNegative,
   linkCommonDefaultArgs,
   linkCommonDefaultArgTypes,
-} from '../common/link-common-stories.private.js';
+} from '../common/link-common-stories.private.ts';
 
 import readme from './readme.md?raw';
-import './link-static.component.js';
+import './link-static.component.ts';
 
 const defaultArgTypes: ArgTypes = {
   ...linkCommonDefaultArgTypes,

@@ -5,16 +5,16 @@ import {
   loadAssetAsBase64,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
-import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
+} from '../../core/testing/private.ts';
+import { waitForImageReady } from '../../core/testing/wait-for-image-ready.ts';
 
-import './teaser-product-static.component.js';
-import '../../action-group.js';
-import '../../button/button.js';
-import '../../button/secondary-button.js';
-import '../../chip-label.js';
-import '../../image.js';
-import '../../title.js';
+import './teaser-product-static.component.ts';
+import '../../action-group.ts';
+import '../../button/button.ts';
+import '../../button/secondary-button.ts';
+import '../../chip-label.ts';
+import '../../image.ts';
+import '../../title.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 const imageBase64 = await loadAssetAsBase64(imageUrl);

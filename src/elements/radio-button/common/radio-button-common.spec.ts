@@ -3,15 +3,15 @@ import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { isChromium, isWebkit } from '../../core/dom.js';
-import { radioButtonRegistry } from '../../core/mixins.js';
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
-import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
-import type { SbbRadioButtonElement } from '../radio-button.js';
+import { isChromium, isWebkit } from '../../core/dom.ts';
+import { radioButtonRegistry } from '../../core/mixins.ts';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import type { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
+import type { SbbRadioButtonElement } from '../radio-button.ts';
 
-import '../radio-button.js';
-import '../radio-button-panel.js';
+import '../radio-button.ts';
+import '../radio-button-panel.ts';
 
 interface RadioButtonAccessibilitySnapshot {
   checked: boolean;

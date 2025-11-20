@@ -3,13 +3,13 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './timetable-form-field.component.js';
-import '../timetable-form.js';
-import '../timetable-form-swap-button.js';
-import '../../signet.js';
+import './timetable-form-field.component.ts';
+import '../timetable-form.ts';
+import '../timetable-form-swap-button.ts';
+import '../../signet.ts';
 
 const disabled: InputType = {
   control: {

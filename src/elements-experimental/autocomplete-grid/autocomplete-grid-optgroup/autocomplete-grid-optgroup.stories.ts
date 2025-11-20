@@ -4,12 +4,12 @@ import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
 import '@sbb-esta/lyne-elements/form-field.js';
-import './autocomplete-grid-optgroup.component.js';
-import '../autocomplete-grid.js';
-import '../autocomplete-grid-row.js';
-import '../autocomplete-grid-option.js';
-import '../autocomplete-grid-cell.js';
-import '../autocomplete-grid-button.js';
+import './autocomplete-grid-optgroup.component.ts';
+import '../autocomplete-grid.ts';
+import '../autocomplete-grid-row.ts';
+import '../autocomplete-grid-option.ts';
+import '../autocomplete-grid-cell.ts';
+import '../autocomplete-grid-button.ts';
 
 const label: InputType = {
   control: {

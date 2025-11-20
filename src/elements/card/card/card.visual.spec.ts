@@ -5,11 +5,11 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../../title.js';
-import '../card-badge.js';
-import './card.component.js';
+import '../../title.ts';
+import '../card-badge.ts';
+import './card.component.ts';
 
 describe(`sbb-card`, () => {
   let root: HTMLElement;

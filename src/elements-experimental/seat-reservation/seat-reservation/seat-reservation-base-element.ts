@@ -8,7 +8,7 @@ import {
   mapIconToSvg,
   mapPlaceAndCoachToSeatReservationPlaceSelection,
   mapPlaceInfosToPlaceSelection,
-} from '../common/mapper.js';
+} from '../common/mapper.ts';
 import type {
   CoachItem,
   CoachNumberOfFreePlaces,
@@ -23,8 +23,8 @@ import type {
   NavigationCoachItem,
   PlaceTravelClass,
   BaseElement,
-} from '../common.js';
-import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.js';
+} from '../common.ts';
+import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
 
 enum ScrollDirection {
   right = 'right',

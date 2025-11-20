@@ -1,9 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { elementInternalsSpy, fixture } from '../../core/testing/private.js';
+import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
 
-import { SbbMiniCalendarDayElement } from './mini-calendar-day.component.js';
+import { SbbMiniCalendarDayElement } from './mini-calendar-day.component.ts';
 
 describe('sbb-mini-calendar-day', () => {
   let element: SbbMiniCalendarDayElement;

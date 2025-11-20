@@ -4,12 +4,12 @@ import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
 
-import './header-environment.component.js';
-import '../header.js';
-import '../header-button.js';
-import '../header-link.js';
-import '../../logo.js';
-import '../../menu.js';
+import './header-environment.component.ts';
+import '../header.ts';
+import '../header-button.ts';
+import '../header-link.ts';
+import '../../logo.ts';
+import '../../menu.ts';
 
 const LoremIpsumTemplate = (): TemplateResult => html`
   <div>

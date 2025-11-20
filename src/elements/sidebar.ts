@@ -1,9 +1,9 @@
 /**
  * @entrypoint
  */
-export * from './sidebar/common.js';
-export * from './sidebar/sidebar.js';
-export * from './sidebar/sidebar-close-button.js';
-export * from './sidebar/sidebar-container.js';
-export * from './sidebar/sidebar-content.js';
-export * from './sidebar/sidebar-title.js';
+export * from './sidebar/common.ts';
+export * from './sidebar/sidebar.ts';
+export * from './sidebar/sidebar-close-button.ts';
+export * from './sidebar/sidebar-container.ts';
+export * from './sidebar/sidebar-content.ts';
+export * from './sidebar/sidebar-title.ts';

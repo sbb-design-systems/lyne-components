@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbTagElement } from './tag.component.js';
+import type { SbbTagElement } from './tag.component.ts';
 
-import './tag.component.js';
-import '../../icon.js';
+import './tag.component.ts';
+import '../../icon.ts';
 
 describe(`sbb-tag`, () => {
   let element: SbbTagElement;

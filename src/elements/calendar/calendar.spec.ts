@@ -3,14 +3,14 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { type SinonStub, stub } from 'sinon';
 
-import type { SbbSecondaryButtonElement } from '../button/secondary-button.js';
-import { defaultDateAdapter } from '../core/datetime.js';
-import { fixture, sbbBreakpointLargeMinPx } from '../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
+import type { SbbSecondaryButtonElement } from '../button/secondary-button.ts';
+import { defaultDateAdapter } from '../core/datetime.ts';
+import { fixture, sbbBreakpointLargeMinPx } from '../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 
-import { SbbCalendarElement } from './calendar.component.js';
+import { SbbCalendarElement } from './calendar.component.ts';
 
-import '../button.js';
+import '../button.ts';
 
 describe(`sbb-calendar`, () => {
   let element: SbbCalendarElement;

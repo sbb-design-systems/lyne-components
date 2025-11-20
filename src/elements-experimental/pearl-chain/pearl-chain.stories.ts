@@ -3,7 +3,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import {
   cancelledLeg,
@@ -13,9 +13,9 @@ import {
   longFutureLeg,
   redirectedOnDepartureLeg,
   redirectedOnArrivalLeg,
-} from './pearl-chain.sample-data.private.js';
+} from './pearl-chain.sample-data.private.ts';
 import readme from './readme.md?raw';
-import './pearl-chain.component.js';
+import './pearl-chain.component.ts';
 
 const disableAnimation: InputType = {
   control: {

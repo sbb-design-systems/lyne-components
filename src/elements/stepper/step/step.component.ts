@@ -12,10 +12,10 @@ import {
   appendAriaElements,
   removeAriaElements,
   SbbElementInternalsMixin,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbStepLabelElement } from '../step-label.js';
-import type { SbbStepperElement } from '../stepper.js';
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbStepLabelElement } from '../step-label.ts';
+import type { SbbStepperElement } from '../stepper.ts';
 
 import style from './step.scss?lit&inline';
 

@@ -1,7 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 
-import { SbbLinkBaseElement } from '../../core/base-elements.js';
-import { SbbCardActionCommonElementMixin } from '../common.js';
+import { SbbLinkBaseElement } from '../../core/base-elements.ts';
+import { SbbCardActionCommonElementMixin } from '../common.ts';
 
 /**
  * It turns the `sbb-card` into a link element.

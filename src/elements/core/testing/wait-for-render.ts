@@ -1,6 +1,6 @@
 import type { ReactiveElement } from 'lit';
 
-import type { SbbHydrationMixinType } from '../mixins.js';
+import type { SbbHydrationMixinType } from '../mixins.ts';
 
 /**
  * Tests if an element is a Lit `ReactiveElement`.

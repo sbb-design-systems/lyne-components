@@ -5,17 +5,17 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+} from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
-import type { SbbStickyBarElement } from './sticky-bar.component.js';
+import type { SbbStickyBarElement } from './sticky-bar.component.ts';
 
-import './sticky-bar.component.js';
-import '../container.js';
-import '../../action-group.js';
-import '../../button.js';
-import '../../link.js';
-import '../../title.js';
+import './sticky-bar.component.ts';
+import '../container.ts';
+import '../../action-group.ts';
+import '../../button.ts';
+import '../../link.ts';
+import '../../title.ts';
 
 function isDark(color: string): boolean {
   return color === 'midnight' || color === 'charcoal';

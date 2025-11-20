@@ -2,7 +2,7 @@ import { assert } from '@open-wc/testing';
 import { ssrHydratedFixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit';
 
-import { SbbTimetableRowElement } from './timetable-row.component.js';
+import { SbbTimetableRowElement } from './timetable-row.component.ts';
 
 describe(`sbb-timetable-row ssr`, () => {
   let root: SbbTimetableRowElement;

@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbCarouselElement } from './carousel.component.js';
-import '../carousel-item/carousel-item.component.js';
-import '../carousel-list/carousel-list.component.js';
+import { SbbCarouselElement } from './carousel.component.ts';
+import '../carousel-item/carousel-item.component.ts';
+import '../carousel-list/carousel-list.component.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

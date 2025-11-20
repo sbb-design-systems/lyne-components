@@ -1,6 +1,6 @@
 import type { LitElement } from 'lit';
 
-import type { AbstractConstructor } from './constructor.js';
+import type { AbstractConstructor } from './constructor.ts';
 
 // Define the interface for the mixin
 export declare class SbbUpdateSchedulerMixinType {

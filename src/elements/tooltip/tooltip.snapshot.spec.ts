@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbTooltipElement } from './tooltip.component.js';
-import './tooltip.component.js';
+import type { SbbTooltipElement } from './tooltip.component.ts';
+import './tooltip.component.ts';
 
 describe(`sbb-tooltip`, () => {
   let wrapper: HTMLElement;

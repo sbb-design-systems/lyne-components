@@ -4,12 +4,12 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { MOCK_GIRUNO_TRAIN } from '../common/mapper/seat-reservation-sample-data.js';
-import { mapRawDataToSeatReservation, type CoachItem, type SeatReservation } from '../common.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import { MOCK_GIRUNO_TRAIN } from '../common/mapper/seat-reservation-sample-data.ts';
+import { mapRawDataToSeatReservation, type CoachItem, type SeatReservation } from '../common.ts';
 
 import readme from './readme.md?raw';
-import { SbbSeatReservationElement } from './seat-reservation.component.js';
+import { SbbSeatReservationElement } from './seat-reservation.component.ts';
 
 const seatReservationType: InputType = {
   control: { type: 'object' },

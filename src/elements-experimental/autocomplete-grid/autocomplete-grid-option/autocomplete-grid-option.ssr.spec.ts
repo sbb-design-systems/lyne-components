@@ -3,13 +3,13 @@ import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.component.js';
+import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.component.ts';
 import '@sbb-esta/lyne-elements/form-field.js';
-import '../autocomplete-grid.js';
-import '../autocomplete-grid-optgroup.js';
-import '../autocomplete-grid-row.js';
-import '../autocomplete-grid-cell.js';
-import '../autocomplete-grid-button.js';
+import '../autocomplete-grid.ts';
+import '../autocomplete-grid-optgroup.ts';
+import '../autocomplete-grid-row.ts';
+import '../autocomplete-grid-cell.ts';
+import '../autocomplete-grid-button.ts';
 
 describe(`sbb-autocomplete-grid-option ssr`, () => {
   let element: SbbFormFieldElement;

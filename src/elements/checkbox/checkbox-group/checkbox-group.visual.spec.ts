@@ -5,14 +5,14 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../../card.js';
-import '../../form-field/error.js';
-import '../../icon.js';
-import '../checkbox.js';
-import '../checkbox-panel.js';
-import './checkbox-group.component.js';
+import '../../card.ts';
+import '../../form-field/error.ts';
+import '../../icon.ts';
+import '../checkbox.ts';
+import '../checkbox-panel.ts';
+import './checkbox-group.component.ts';
 
 describe('sbb-checkbox-group', () => {
   const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt

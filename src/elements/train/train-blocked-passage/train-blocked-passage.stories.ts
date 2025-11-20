@@ -2,10 +2,10 @@ import type { Args, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './train-blocked-passage.component.js';
+import './train-blocked-passage.component.ts';
 
 const Template = (args: Args): TemplateResult => html`
   <sbb-train-blocked-passage ${sbbSpread(args)}></sbb-train-blocked-passage>

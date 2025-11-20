@@ -1,11 +1,11 @@
 import { html, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import type { VisualDiffSetupBuilder } from '../core/testing/private.js';
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import type { VisualDiffSetupBuilder } from '../core/testing/private.ts';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './overlay.component.js';
-import type { SbbOverlayElement } from './overlay.component.js';
+import './overlay.component.ts';
+import type { SbbOverlayElement } from './overlay.component.ts';
 
 describe(`sbb-overlay`, () => {
   const defaultArgs = {

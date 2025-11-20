@@ -12,14 +12,14 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import type { SbbErrorElement } from '../form-field.js';
-import { SbbOptionElement } from '../option.js';
+import type { SbbErrorElement } from '../form-field.ts';
+import { SbbOptionElement } from '../option.ts';
 
-import { SbbAutocompleteElement } from './autocomplete.component.js';
+import { SbbAutocompleteElement } from './autocomplete.component.ts';
 import readme from './readme.md?raw';
 
-import '../card.js';
-import '../form-field.js';
+import '../card.ts';
+import '../form-field.ts';
 
 const negative: InputType = {
   control: {

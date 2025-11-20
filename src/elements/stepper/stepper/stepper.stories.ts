@@ -4,19 +4,19 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbErrorElement } from '../../form-field.js';
-import { SbbStepElement, type SbbStepValidateEventDetails } from '../step.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import type { SbbErrorElement } from '../../form-field.ts';
+import { SbbStepElement, type SbbStepValidateEventDetails } from '../step.ts';
 
 import readme from './readme.md?raw';
 
-import './stepper.component.js';
-import '../step-label.js';
-import '../../link/block-link-button.js';
-import '../../button/button.js';
-import '../../button/secondary-button.js';
-import '../../form-field.js';
-import '../../card.js';
+import './stepper.component.ts';
+import '../step-label.ts';
+import '../../link/block-link-button.ts';
+import '../../button/button.ts';
+import '../../button/secondary-button.ts';
+import '../../form-field.ts';
+import '../../card.ts';
 
 const loremIpsum = `
   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy

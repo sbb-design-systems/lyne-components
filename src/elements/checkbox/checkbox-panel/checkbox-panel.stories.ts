@@ -3,12 +3,12 @@ import { html, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
-import '../../button.js';
-import '../../card.js';
-import '../../icon.js';
-import './checkbox-panel.component.js';
+import '../../button.ts';
+import '../../card.ts';
+import '../../icon.ts';
+import './checkbox-panel.component.ts';
 
 import readme from './readme.md?raw';
 

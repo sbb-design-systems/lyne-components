@@ -3,7 +3,7 @@ import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { forceType, hostAttributes } from '../core/decorators.js';
+import { forceType, hostAttributes } from '../core/decorators.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -11,12 +11,12 @@ import {
   SbbElementInternalsMixin,
   SbbFormAssociatedMixin,
   SbbReadonlyMixin,
-} from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
+} from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './slider.scss?lit&inline';
 
-import '../icon.js';
+import '../icon.ts';
 
 /**
  * It displays an input knob that can be moved in a range.

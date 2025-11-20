@@ -1,8 +1,8 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './icon.component.js';
+import './icon.component.ts';
 
 describe(`sbb-icon`, () => {
   describeViewports({ viewports: ['small'] }, () => {

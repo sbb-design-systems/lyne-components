@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbTimetableFormDetailsElement } from './timetable-form-details.component.js';
+import { SbbTimetableFormDetailsElement } from './timetable-form-details.component.ts';
 
 describe(`sbb-timetable-form-details ssr`, () => {
   let root: SbbTimetableFormDetailsElement;

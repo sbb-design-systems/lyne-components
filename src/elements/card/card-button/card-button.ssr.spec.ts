@@ -1,12 +1,12 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
-import type { SbbCardElement } from '../card.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
+import type { SbbCardElement } from '../card.ts';
 
-import { SbbCardButtonElement } from './card-button.component.js';
+import { SbbCardButtonElement } from './card-button.component.ts';
 
-import '../card.js';
+import '../card.ts';
 
 describe(`sbb-card-button ssr`, () => {
   let root: SbbCardElement;

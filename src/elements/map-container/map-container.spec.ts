@@ -2,17 +2,17 @@ import { assert, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAccentButtonElement } from '../button.js';
+import type { SbbAccentButtonElement } from '../button.ts';
 import {
   fixture,
   sbbBreakpointLargeMinPx,
   sbbBreakpointSmallMinPx,
-} from '../core/testing/private.js';
-import { EventSpy, waitForCondition } from '../core/testing.js';
+} from '../core/testing/private.ts';
+import { EventSpy, waitForCondition } from '../core/testing.ts';
 
-import { SbbMapContainerElement } from './map-container.component.js';
+import { SbbMapContainerElement } from './map-container.component.ts';
 
-import '../title.js';
+import '../title.ts';
 
 describe(`sbb-map-container`, () => {
   let element: SbbMapContainerElement;

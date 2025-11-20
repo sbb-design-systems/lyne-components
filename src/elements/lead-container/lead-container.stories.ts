@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, type TemplateResult } from 'lit';
 
-import '../alert.js';
-import '../breadcrumb.js';
-import '../chip-label.js';
-import '../image.js';
-import '../link/block-link.js';
-import '../link/link.js';
-import '../notification.js';
-import '../title.js';
-import './lead-container.component.js';
+import '../alert.ts';
+import '../breadcrumb.ts';
+import '../chip-label.ts';
+import '../image.ts';
+import '../link/block-link.ts';
+import '../link/link.ts';
+import '../notification.ts';
+import '../title.ts';
+import './lead-container.component.ts';
 
-import images from '../core/images.js';
+import images from '../core/images.ts';
 
 import readme from './readme.md?raw';
 

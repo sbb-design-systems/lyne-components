@@ -1,11 +1,11 @@
 import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { readConfig } from '../../core/config/config.js';
-import { type DateAdapter } from '../../core/datetime/date-adapter.js';
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.js';
-import { forceType, omitEmptyConverter } from '../../core/decorators.js';
+import { SbbButtonBaseElement } from '../../core/base-elements.ts';
+import { readConfig } from '../../core/config/config.ts';
+import { type DateAdapter } from '../../core/datetime/date-adapter.ts';
+import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
+import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
 
 import style from './mini-calendar-day.scss?lit&inline';
 

@@ -2,10 +2,10 @@ import type { CSSResultGroup, PropertyDeclaration, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { isLean } from '../core/dom.js';
-import { SbbFormAssociatedCheckboxMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
-import { SbbIconNameMixin } from '../icon.js';
+import { isLean } from '../core/dom.ts';
+import { SbbFormAssociatedCheckboxMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import { SbbIconNameMixin } from '../icon.ts';
 
 import style from './toggle-check.scss?lit&inline';
 
