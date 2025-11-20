@@ -9,19 +9,12 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getOverride } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
 import type {
   SbbCheckedStateChange,
   SbbDisabledStateChange,
   SbbStateChange,
 } from '../../core/interfaces/types.ts';
-import {
-  panelCommonStyle,
-  SbbPanelMixin,
-  type SbbPanelSize,
-  SbbUpdateSchedulerMixin,
-} from '../../core/mixins.ts';
+import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { checkboxCommonStyle, SbbCheckboxCommonElementMixin } from '../common.ts';
 
@@ -58,14 +51,6 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
   /** Value of the form element. */
   @property()
   public accessor value: T | null = null;
-
-  /**
-   * Size variant, either m or s.
-   * @default 'm' / 's' (lean)
-   */
-  @property({ reflect: true })
-  @getOverride((i, v) => (i.group?.size ? (i.group.size === 'xs' ? 's' : i.group.size) : v))
-  public accessor size: SbbPanelSize = isLean() ? 's' : 'm';
 
   public override requestUpdate(
     name?: PropertyKey,

@@ -2,11 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-selection-expansion-panel renders DOM"] = 
-`<sbb-selection-expansion-panel
-  color="white"
-  data-size="m"
-  data-state="closed"
->
+`<sbb-selection-expansion-panel data-state="closed">
   <sbb-checkbox-panel
     color="white"
     data-has-card-badge=""
@@ -36,7 +32,7 @@ snapshots["sbb-selection-expansion-panel renders DOM"] =
 
 snapshots["sbb-selection-expansion-panel renders Shadow DOM"] = 
 `<div class="sbb-selection-expansion-panel__input">
-  <slot>
+snapshots["sbb-selection-expansion-panel renders Shadow DOM"] = 
   </slot>
 </div>
 <div
@@ -53,9 +49,9 @@ snapshots["sbb-selection-expansion-panel renders Shadow DOM"] =
 `;
 /* end snapshot sbb-selection-expansion-panel renders Shadow DOM */
 
-snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] = 
+snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] =
 `<p>
-  {
+snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] = 
   "role": "WebArea",
   "name": "",
   "children": [
@@ -72,7 +68,7 @@ snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] =
 
 snapshots["sbb-selection-expansion-panel renders A11y tree Firefox"] = 
 `<p>
-  {
+snapshots["sbb-selection-expansion-panel renders A11y tree Firefox"] = 
   "role": "document",
   "name": "",
   "children": [
