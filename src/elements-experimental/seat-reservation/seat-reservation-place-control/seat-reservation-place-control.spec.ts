@@ -1,185 +1,210 @@
-import { assert, fixture } from '@open-wc/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
+import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing/wait-for-render';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import './seat-reservation-place-control.component.js';
-import type { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.component.js';
+import { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.component.js';
 
 describe('sbb-seat-reservation-place-control', () => {
   let element: SbbSeatReservationPlaceControlElement;
 
   beforeEach(async () => {
     element = await fixture(
-      html`<sbb-seat-reservation-place-control
-        text="1A"
-        deck-index="0"
-        coach-index="0"
-      ></sbb-seat-reservation-place-control>`,
+      html`<sbb-seat-reservation-place-control></sbb-seat-reservation-place-control>`,
     );
   });
 
-  it('should have correct default settings', () => {
-    assert.equal(element.state, 'FREE');
-    assert.equal(element.placeType, 'SEAT');
-    assert.isFalse(element.preventClick);
+  it('renders', async () => {
+    assert.instanceOf(element, SbbSeatReservationPlaceControlElement);
+  });
+
+  it('should be accessible', async () => {
+    await expect(element).to.be.accessible();
+  });
+
+  it('should have correct default settings', async () => {
+    await waitForLitRender(element);
+    await expect(element.state).to.be.equal('FREE');
+    await expect(element.placeType).to.be.equal('SEAT');
+    expect(element.preventClick).to.be.false;
 
     const root = element.shadowRoot!;
-    assert.exists(root.querySelector('.sbb-sr-place-ctrl'));
-    assert.exists(root.querySelector('.sbb-sr-place-ctrl__text'));
-    assert.exists(root.querySelector('sbb-seat-reservation-graphic'));
+    expect(root.querySelector('.sbb-sr-place-ctrl')).to.exist;
+    expect(root.querySelector('.sbb-sr-place-ctrl__text')).to.exist;
+    expect(root.querySelector('sbb-seat-reservation-graphic')).to.exist;
   });
 
   it('should map properties to element', async () => {
-    const el = await fixture<SbbSeatReservationPlaceControlElement>(
-      html`<sbb-seat-reservation-place-control
-        text="A1"
-        deck-index="1"
-        coach-index="2"
-        type="BICYCLE"
-        state="SELECTED"
-      ></sbb-seat-reservation-place-control>`,
-    );
+    element.setAttribute('text', 'A1');
+    element.setAttribute('deck-index', '1');
+    element.setAttribute('coach-index', '2');
+    element.setAttribute('type', 'BICYCLE');
+    element.setAttribute('state', 'SELECTED');
 
-    assert.equal(el.text, 'A1');
-    assert.equal(el.deckIndex, 1);
-    assert.equal(el.coachIndex, 2);
-    assert.equal(el.placeType, 'BICYCLE');
-    assert.equal(el.state, 'SELECTED');
+    await waitForLitRender(element);
+    await expect(element.text).to.be.equal('A1');
+    await expect(element.deckIndex).to.be.equal(1);
+    await expect(element.coachIndex).to.be.equal(2);
+    await expect(element.placeType).to.be.equal('BICYCLE');
+    await expect(element.state).to.be.equal('SELECTED');
   });
 
   it('should emit full placeSelection detail on click', async () => {
-    const el = await fixture<SbbSeatReservationPlaceControlElement>(
-      html`<sbb-seat-reservation-place-control
-        id="place-1"
-        text="1A"
-        deck-index="1"
-        coach-index="2"
-        type="SEAT"
-        state="FREE"
-      ></sbb-seat-reservation-place-control>`,
-    );
+    element.setAttribute('id', 'place-1');
+    element.setAttribute('deck-index', '1');
+    element.setAttribute('coach-index', '2');
+    element.setAttribute('text', 'A1');
+    element.setAttribute('type', 'BICYCLE');
+    element.setAttribute('state', 'FREE');
+
+    await waitForLitRender(element);
 
     const eventPromise = new Promise<CustomEvent>((resolve) =>
-      el.addEventListener('selectplace', (e) => resolve(e as CustomEvent)),
+      element.addEventListener('selectplace', (e) => resolve(e as CustomEvent)),
     );
 
-    el.click();
+    element.click();
     const evt = await eventPromise;
 
-    assert.deepInclude(evt.detail, {
-      id: 'place-1',
-      deckIndex: 1,
-      coachIndex: 2,
-      number: '1A',
-      placeType: 'SEAT',
-      state: 'SELECTED',
-    });
+    await expect(evt.detail.id).to.equal('place-1');
+    await expect(evt.detail.deckIndex).to.equal(1);
+    await expect(evt.detail.coachIndex).to.equal(2);
+    await expect(evt.detail.number).to.equal('A1');
+    await expect(evt.detail.placeType).to.equal('BICYCLE');
+    await expect(evt.detail.state).to.equal('SELECTED');
   });
 
   it('should toggle free seat to selected, when clicking', async () => {
-    const el = await fixture<SbbSeatReservationPlaceControlElement>(
-      html`<sbb-seat-reservation-place-control state="FREE"></sbb-seat-reservation-place-control>`,
-    );
-
-    el.click();
-
-    assert.equal(el.state, 'SELECTED');
+    element.setAttribute('state', 'FREE');
+    await waitForLitRender(element);
+    element.click();
+    await expect(element.state).to.be.equal('SELECTED');
   });
 
   it('should toggle selected seat to free, when clicking', async () => {
-    const el = await fixture<SbbSeatReservationPlaceControlElement>(
-      html`<sbb-seat-reservation-place-control
-        state="SELECTED"
-      ></sbb-seat-reservation-place-control>`,
-    );
+    element.setAttribute('state', 'SELECTED');
+    await waitForLitRender(element);
+    element.click();
 
-    el.click();
+    await expect(element.state).to.be.equal('FREE');
+  });
 
-    assert.equal(el.state, 'FREE');
+  it('should toggle free seat to selected on enter-button press', async () => {
+    element.setAttribute('state', 'FREE');
+    element.focus();
+    await sendKeys({ press: 'Enter' });
+    await waitForLitRender(element);
+    await expect(element.state).to.be.equal('SELECTED');
+  });
+
+  it('should toggle selected seat to free on enter-button press', async () => {
+    element.setAttribute('state', 'SELECTED');
+    element.focus();
+    await sendKeys({ press: 'Enter' });
+    await waitForLitRender(element);
+    await expect(element.state).to.be.equal('FREE');
+  });
+
+  it('should not toggle to selected when blocked on enter-button press', async () => {
+    element.setAttribute('state', 'BLOCKED');
+    element.focus();
+    await sendKeys({ press: 'Enter' });
+    await waitForLitRender(element);
+    await expect(element.state).to.be.equal('BLOCKED');
+  });
+
+  it('should toggle free seat to selected on space-button press', async () => {
+    element.setAttribute('state', 'FREE');
+    element.focus();
+    await sendKeys({ press: 'Space' });
+    await waitForLitRender(element);
+    await expect(element.state).to.be.equal('SELECTED');
+  });
+
+  it('should toggle selected seat to free on space-button press', async () => {
+    element.setAttribute('state', 'SELECTED');
+    element.focus();
+    await sendKeys({ press: 'Space' });
+    await waitForLitRender(element);
+    await expect(element.state).to.be.equal('FREE');
+  });
+
+  it('should not toggle to selected when blocked on space-button press', async () => {
+    element.setAttribute('state', 'BLOCKED');
+    element.focus();
+    await sendKeys({ press: 'Space' });
+    await waitForLitRender(element);
+    await expect(element.state).to.be.equal('BLOCKED');
   });
 
   it('should not toggle or emit, when preventClick is true', async () => {
-    const el = await fixture<SbbSeatReservationPlaceControlElement>(
-      html`<sbb-seat-reservation-place-control prevent-click></sbb-seat-reservation-place-control>`,
-    );
-
+    element.setAttribute('prevent-click', '');
     let toggled = false;
-    el.addEventListener('selectplace', () => {
+    element.addEventListener('selectplace', () => {
       toggled = true;
     });
 
-    el.click();
+    await waitForLitRender(element);
+    element.click();
 
-    assert.equal(el.state, 'FREE');
-    assert.isFalse(toggled);
+    await expect(element.state).to.be.equal('FREE');
+    expect(toggled).to.be.false;
   });
 
   it('should not toggle or emit, when seat is blocked ', async () => {
-    const el = await fixture<SbbSeatReservationPlaceControlElement>(
-      html`<sbb-seat-reservation-place-control
-        state="BLOCKED"
-      ></sbb-seat-reservation-place-control>`,
-    );
+    element.setAttribute('state', 'BLOCKED');
 
     let toggled = false;
-    el.addEventListener('selectplace', () => {
+    element.addEventListener('selectplace', () => {
       toggled = true;
     });
 
-    el.click();
+    await waitForLitRender(element);
+    element.click();
 
-    assert.equal(el.state, 'BLOCKED');
-    assert.isFalse(toggled);
+    await expect(element.state).to.be.equal('BLOCKED');
+    expect(toggled).to.be.false;
   });
 
   it('should call focus-function, if keyfocus is set to focus', async () => {
-    const el = await fixture<SbbSeatReservationPlaceControlElement>(
-      html`<sbb-seat-reservation-place-control></sbb-seat-reservation-place-control>`,
-    );
-
     let focused = false;
 
-    el.focus = () => {
+    element.focus = () => {
       focused = true;
     };
 
-    el.keyfocus = 'focus';
-    await el.updateComplete;
+    element.keyfocus = 'focus';
+    await element.updateComplete;
 
-    assert.isTrue(focused);
+    expect(focused).to.be.true;
   });
 
   it('should update title when propertyIds are set', async () => {
-    const el = await fixture<SbbSeatReservationPlaceControlElement>(
-      html`<sbb-seat-reservation-place-control></sbb-seat-reservation-place-control>`,
-    );
+    const initialTitle = element.title;
 
-    const initialTitle = el.title;
+    element.propertyIds = ['QUIET', 'TABLE'];
+    await waitForLitRender(element);
 
-    el.propertyIds = ['QUIET', 'TABLE'];
-    await el.updateComplete;
-
-    assert.notEqual(el.title, initialTitle);
+    await expect(element.title).to.not.be.equal(initialTitle);
   });
 
   it('should apply disabled class when preventClick is true', async () => {
-    const el = await fixture<SbbSeatReservationPlaceControlElement>(
-      html`<sbb-seat-reservation-place-control prevent-click></sbb-seat-reservation-place-control>`,
-    );
+    element.setAttribute('prevent-click', '');
 
-    const wrapper = el.shadowRoot!.querySelector('.sbb-sr-place-ctrl')!;
-    assert.include(wrapper.className, 'sbb-reservation-place-control--disabled');
+    await waitForLitRender(element);
+    const wrapper = element.shadowRoot!.querySelector('.sbb-sr-place-ctrl')!;
+    expect(wrapper.className).to.include('sbb-reservation-place-control--disabled');
   });
 
   it('should render correct state- and type-classes', async () => {
-    const el = await fixture<SbbSeatReservationPlaceControlElement>(
-      html`<sbb-seat-reservation-place-control
-        type="BICYCLE"
-        state="SELECTED"
-      ></sbb-seat-reservation-place-control>`,
-    );
+    element.setAttribute('type', 'BICYCLE');
+    element.setAttribute('state', 'SELECTED');
 
-    const wrapper = el.shadowRoot!.querySelector('.sbb-sr-place-ctrl')!;
+    await waitForLitRender(element);
+    const wrapper = element.shadowRoot!.querySelector('.sbb-sr-place-ctrl')!;
     assert.include(wrapper.className, 'sbb-sr-place-ctrl--type-bicycle');
     assert.include(wrapper.className, 'sbb-sr-place-ctrl--state-selected');
+    expect(wrapper.className).to.include('sbb-sr-place-ctrl--type-bicycle');
+    expect(wrapper.className).to.include('sbb-sr-place-ctrl--state-selected');
   });
 });
