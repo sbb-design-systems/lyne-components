@@ -1,12 +1,14 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
-import type { SbbIconSidebarElement } from '../../sidebar.js';
+
+import type { SbbIconSidebarElement } from './icon-sidebar.component.js';
 
 import '../../header.js';
 import '../../link/block-link.js';
 import '../../link-list.js';
 import '../../logo.js';
+import '../../icon-sidebar.js';
 import '../../sidebar.js';
 
 describe('sbb-icon-sidebar', () => {

@@ -4,7 +4,7 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbIconSidebarElement } from '../icon-sidebar/icon-sidebar.component.js';
+import type { SbbIconSidebarElement } from '../../icon-sidebar/icon-sidebar/icon-sidebar.component.ts';
 
 import readme from './readme.md?raw';
 import { SbbSidebarElement } from './sidebar.component.js';
@@ -14,6 +14,7 @@ import '../../header.js';
 import '../../link/block-link.js';
 import '../../link-list.js';
 import '../../logo.js';
+import '../../icon-sidebar.js';
 import '../../sidebar.js';
 import '../../title.js';
 import '../../tooltip.js';
