@@ -62,7 +62,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
 
     btn.click();
 
-    await expect(btn.hasAttribute('disabled')).to.be.true;
+    expect(btn.hasAttribute('disabled')).to.be.true;
     await expect(clickSpy.count).to.be.equal(0);
   });
 

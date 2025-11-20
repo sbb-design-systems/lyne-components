@@ -1279,33 +1279,35 @@ export class SeatReservationBaseElement extends LitElement {
    *    - whether there is a driver area left or right
    * */
   private _prepareNavigationCoachData(): void {
-    const lowerDeck = this.seatReservations[this.seatReservations.length - 1].coachItems;
+    if (this.seatReservations) {
+      const lowerDeck = this.seatReservations[this.seatReservations.length - 1].coachItems;
 
-    lowerDeck.forEach((coach, index) => {
-      const travelClasses: PlaceTravelClass[] = [];
-      const propertyIds: string[] = [];
-      const places: Place[] = [];
+      lowerDeck?.forEach((coach, index) => {
+        const travelClasses: PlaceTravelClass[] = [];
+        const propertyIds: string[] = [];
+        const places: Place[] = [];
 
-      // Collect all important navigation data to be rendered
-      this.seatReservations
-        .map((sr) => {
-          return sr.coachItems[index];
-        })
-        .forEach((coach: CoachItem) => {
-          travelClasses.push(...coach.travelClass);
-          propertyIds.push(...(coach.propertyIds ? coach.propertyIds : []));
-          places.push(...(coach.places ? coach.places : []));
+        // Collect all important navigation data to be rendered
+        this.seatReservations
+          .map((sr) => {
+            return sr.coachItems[index];
+          })
+          .forEach((coach: CoachItem) => {
+            travelClasses.push(...coach.travelClass);
+            propertyIds.push(...(coach.propertyIds ? coach.propertyIds : []));
+            places.push(...(coach.places ? coach.places : []));
+          });
+
+        this.coachNavData.push({
+          id: coach.id,
+          travelClass: this._prepareTravelClassNavigation(travelClasses),
+          propertyIds: this._prepareServiceIconsNavigation(propertyIds),
+          isDriverArea: coach.places ? coach.places.length === 0 : true,
+          driverAreaSide: this._prepareDriverAreaSideNavigation(coach),
+          freePlaces: this.getAvailableFreePlacesNumFromCoach(places),
         });
-
-      this.coachNavData.push({
-        id: coach.id,
-        travelClass: this._prepareTravelClassNavigation(travelClasses),
-        propertyIds: this._prepareServiceIconsNavigation(propertyIds),
-        isDriverArea: coach.places ? coach.places.length === 0 : true,
-        driverAreaSide: this._prepareDriverAreaSideNavigation(coach),
-        freePlaces: this.getAvailableFreePlacesNumFromCoach(places),
       });
-    });
+    }
   }
 
   private _prepareTravelClassNavigation(travelClasses: PlaceTravelClass[]): PlaceTravelClass {
