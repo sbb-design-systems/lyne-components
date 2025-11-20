@@ -17,6 +17,7 @@ export function setOrRemoveAttribute(element: HTMLElement, attribute: string, va
  * @param element The element that will have the attribute
  * @param attribute The attribute name
  * @param value The value to add
+ * @deprecated As this was used for aria lists, use appendAriaElements instead.
  */
 export function addToListAttribute(element: HTMLElement, attribute: string, value: string): void {
   setOrRemoveAttribute(
@@ -31,6 +32,7 @@ export function addToListAttribute(element: HTMLElement, attribute: string, valu
  * @param element The element with the attribute
  * @param attribute The attribute name
  * @param value The value to remove from the list
+ * @deprecated As this was used for aria lists, use removeAriaElements instead.
  */
 export function removeFromListAttribute(
   element: HTMLElement,
