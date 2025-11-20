@@ -12,6 +12,7 @@ import '../../header.js';
 import '../../link/block-link.js';
 import '../../link-list.js';
 import '../../logo.js';
+import '../../icon-sidebar.js';
 import '../../sidebar.js';
 import '../../title.js';
 import '../../tooltip.js';
@@ -272,7 +273,7 @@ const meta: Meta = {
       story: { inline: false, iframeHeight: '500px' },
     },
   },
-  title: 'elements/sbb-sidebar/sbb-icon-sidebar',
+  title: 'elements/sbb-icon-sidebar/sbb-icon-sidebar',
 };
 
 export default meta;

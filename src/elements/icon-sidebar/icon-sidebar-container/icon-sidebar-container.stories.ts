@@ -6,8 +6,6 @@ import readme from './readme.md?raw';
 
 import '../../card.js';
 
-import './icon-sidebar-content.component.js';
-
 const Template = (): TemplateResult => html`
   <sbb-card color="milk"> See 'sbb-icon-sidebar' examples to see it in action. </sbb-card>
 `;
@@ -22,7 +20,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-sidebar/sbb-icon-sidebar-content',
+  title: 'elements/sbb-icon-sidebar/sbb-icon-sidebar-container',
 };
 
 export default meta;

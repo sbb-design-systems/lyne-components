@@ -6,23 +6,29 @@ import { sbbSpread } from '../../../storybook/helpers/spread.js';
 
 import readme from './readme.md?raw';
 
-import './icon-sidebar-button.component.js';
+import './icon-sidebar-link.component.js';
 
 const Template = ({ currentPage, ...args }: Args): TemplateResult => {
-  return html`<sbb-icon-sidebar-button
+  return html`<sbb-icon-sidebar-link
     ${sbbSpread(args)}
     class=${currentPage ? 'sbb-active' : nothing}
-    aria-current=${currentPage ? 'page' : nothing}
-  ></sbb-icon-sidebar-button>`;
+    accessibility-current=${currentPage ? 'page' : nothing}
+  ></sbb-icon-sidebar-link>`;
 };
 
-const ariaLabel: InputType = {
+const accessibilityLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
 const iconName: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const href: InputType = {
   control: {
     type: 'text',
   },
@@ -36,13 +42,15 @@ const currentPage: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   'icon-name': iconName,
-  'aria-label': ariaLabel,
+  'accessibility-label': accessibilityLabel,
+  href,
   currentPage,
 };
 
 const defaultArgs: Args = {
   'icon-name': 'glass-cocktail-small',
-  'aria-label': 'Go to the party',
+  'accessibility-label': 'Go to the party',
+  href: '#',
   currentPage: false,
 };
 
@@ -79,7 +87,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-sidebar/sbb-icon-sidebar-button',
+  title: 'elements/sbb-icon-sidebar/sbb-icon-sidebar-link',
 };
 
 export default meta;

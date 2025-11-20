@@ -2,16 +2,16 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.js';
-import type { SbbSidebarElement } from '../sidebar.js';
+import type { SbbIconSidebarElement } from '../../icon-sidebar.js';
 
 import { SbbIconSidebarContainerElement } from './icon-sidebar-container.component.js';
 
-import '../../sidebar.js';
+import '../../icon-sidebar.js';
 
 describe('sbb-icon-sidebar-container', () => {
   let element: SbbIconSidebarContainerElement,
-    sidebar1: SbbSidebarElement,
-    sidebar2: SbbSidebarElement;
+    sidebar1: SbbIconSidebarElement,
+    sidebar2: SbbIconSidebarElement;
 
   beforeEach(async () => {
     element = await fixture(
