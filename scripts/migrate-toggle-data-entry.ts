@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from 'fs';
+import { globSync } from 'node:fs';
 
-import * as glob from 'glob';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';
 import * as ts from 'typescript';
@@ -24,12 +24,9 @@ function toKebabCase(str: string): string {
 
 // custom ignores can be done like this, for example by saying
 // you'll ignore all markdown files, and all folders named 'docs'
-const sources = glob.sync('src/elements/**/*.ts', {
+const sources = globSync('src/elements/**/*.ts', {
   cwd: new URL('..', import.meta.url),
-  absolute: true,
-  ignore: {
-    ignored: (p) => /(index|e2e|stories|spec|config)\.ts$/.test(p.name),
-  },
+  exclude: (name) => /(index|e2e|stories|spec|config)\.ts$/.test(name),
 });
 
 for (const filePath of sources) {

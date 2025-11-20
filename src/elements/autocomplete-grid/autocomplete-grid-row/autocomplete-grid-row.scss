@@ -4,7 +4,6 @@
   --sbb-autocomplete-grid-row-color: var(--sbb-color-3);
   --sbb-autocomplete-grid-row-background-color: inherit;
   --sbb-autocomplete-grid-row-background-color-hover: var(--sbb-background-color-3);
-  --sbb-autocomplete-grid-row-background-color-active: var(--sbb-background-color-4);
   --sbb-autocomplete-grid-row-disabled-border-color: light-dark(
     var(--sbb-color-graphite),
     var(--sbb-color-smoke)
@@ -12,22 +11,14 @@
   --sbb-autocomplete-grid-row-disabled-background-color: var(--sbb-background-color-3);
   --sbb-autocomplete-grid-row-padding-inline-end: var(--sbb-spacing-responsive-xxxs);
   --sbb-autocomplete-grid-row-justify-content: space-between;
-  --sbb-autocomplete-grid-row-min-height: var(--sbb-size-button-m-min-height);
   --sbb-autocomplete-grid-row-cursor: var(--sbb-cursor-pointer);
-  --sbb-autocomplete-grid-row-border-radius: var(--sbb-border-radius-4x);
-  --sbb-autocomplete-grid-row-icon-color: light-dark(
-    var(--sbb-color-metal),
-    var(--sbb-color-smoke)
-  );
 
   display: block;
 }
 
 :host([data-negative]) {
   --sbb-autocomplete-grid-row-color: var(--sbb-color-3-negative);
-  --sbb-autocomplete-grid-row-icon-color: var(--sbb-color-5);
   --sbb-autocomplete-grid-row-background-color-hover: var(--sbb-background-color-3-negative);
-  --sbb-autocomplete-grid-row-background-color-active: var(--sbb-background-color-4-negative);
   --sbb-autocomplete-grid-row-disabled-border-color: var(--sbb-border-color-5);
   --sbb-autocomplete-grid-row-disabled-background-color: var(--sbb-background-color-3-negative);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
