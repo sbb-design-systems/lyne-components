@@ -4,7 +4,6 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { forceType } from '../../core/decorators.ts';
-import { setOrRemoveAttribute } from '../../core/dom.ts';
 import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
@@ -98,7 +97,7 @@ class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
   }
 
   private _handleDisabledChange(): void {
-    setOrRemoveAttribute(this, 'aria-disabled', this.disabled ? `true` : null);
+    this.internals.ariaDisabled = this.disabled ? 'true' : null;
     this._verifyTabindex();
   }
 
