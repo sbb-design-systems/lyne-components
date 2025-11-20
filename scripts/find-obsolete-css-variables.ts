@@ -2,35 +2,33 @@ import { readFileSync } from 'node:fs';
 
 import * as glob from 'glob';
 
-const patternDefinitions = 'src/**/*.scss';
-const patternToCompare = 'src/**/*.{scss,ts,svg}';
+const definitionsGlob = 'src/**/*.scss';
+const usagesGlob = 'src/**/*.{scss,ts,svg}';
 const varRegex = /--([a-zA-Z0-9-_]+)\s*:/g;
-const varCount: Record<string, number> = {};
+const cssVarNames: string[] = [];
+const cssVarUsagesCount: Record<string, number> = {};
 
-const cssVars: string[] = [];
-
-const definitionFiles = glob.sync(patternDefinitions, { ignore: 'node_modules/**' });
+const definitionFiles = glob.sync(definitionsGlob);
 
 for (const file of definitionFiles) {
   const content = readFileSync(file, 'utf8');
   let match;
   while ((match = varRegex.exec(content)) !== null) {
-    const varName = `--${match[1]}`;
-    cssVars.push(varName);
+    cssVarNames.push(`--${match[1]}`);
   }
 }
 
-const files = glob.sync(patternToCompare, { ignore: 'node_modules/**' });
+const files = glob.sync(usagesGlob);
 for (const file of files) {
   const content = readFileSync(file, 'utf8');
 
-  cssVars.forEach((varName) => {
+  cssVarNames.forEach((varName) => {
     const regex = new RegExp(`${varName.trim()}\\s*(?!:)`, 'g');
     const matches = regex.exec(content);
-    varCount[varName] = (varCount[varName] || 0) + (matches?.length ?? 0);
+    cssVarUsagesCount[varName] = (cssVarUsagesCount[varName] || 0) + (matches?.length ?? 0);
   });
 }
 
-Object.entries(varCount)
+Object.entries(cssVarUsagesCount)
   .filter(([_, count]) => count === 0)
   .forEach(([name]) => console.log(name));
