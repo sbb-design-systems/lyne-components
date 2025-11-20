@@ -18,8 +18,8 @@ for (const file of definitionFiles) {
   }
 }
 
-const files = glob.sync(usagesGlob);
-for (const file of files) {
+const usagesFiles = glob.sync(usagesGlob);
+for (const file of usagesFiles) {
   const content = readFileSync(file, 'utf8');
 
   cssVarNames.forEach((varName) => {
