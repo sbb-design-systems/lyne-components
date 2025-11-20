@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from 'fs';
+import { globSync } from 'node:fs';
 import { basename, dirname, relative } from 'path';
 
-import * as glob from 'glob';
 import * as ts from 'typescript';
 
 /*
@@ -23,11 +23,9 @@ const privateTesting = new URL(
   '../src/elements/core/testing/private.ts',
   import.meta.url,
 ).pathname.replace(/.ts$/, '.js');
-const specFiles = glob
-  .sync('**/*.{e2e,spec}.ts', {
-    cwd: new URL('../src/', import.meta.url),
-    absolute: true,
-  })
+const specFiles = globSync('**/*.{e2e,spec}.ts', {
+  cwd: new URL('../src/', import.meta.url),
+})
   .filter((f) => !f.includes('/core/') && !f.includes('/storybook/'))
   .filter((v, _i, a) => v.endsWith('.e2e.ts') || !a.includes(v.replace(/.spec.ts/, '.e2e.ts')))
   .sort();

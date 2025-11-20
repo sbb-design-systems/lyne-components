@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
+import { globSync } from 'node:fs';
 import { join } from 'path';
 
-import * as glob from 'glob';
 import type { PluginOption, ResolvedConfig } from 'vite';
 
 export function copyAssets(includes: string[]): PluginOption {
@@ -15,7 +15,7 @@ export function copyAssets(includes: string[]): PluginOption {
       if (viteConfig.command !== 'build') {
         return;
       }
-      for (const file of glob.sync(includes, { cwd: viteConfig.root })) {
+      for (const file of globSync(includes, { cwd: viteConfig.root })) {
         // Remove relative file path if file is on a more upper layer than cwd.
         const fileName = file.replace(/^(\.\.[/\\])*/, '');
         this.emitFile({

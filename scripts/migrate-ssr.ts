@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from 'fs';
+import { globSync } from 'node:fs';
 
-import * as glob from 'glob';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';
 import * as ts from 'typescript';
@@ -20,11 +20,9 @@ function* iterate(node: ts.Node): Generator<ts.Node, void, unknown> {
   }
 }
 
-const specFiles = glob
-  .sync('**/*.ssr.spec.ts', {
-    cwd: new URL('../src/', import.meta.url),
-    absolute: true,
-  })
+const specFiles = globSync('**/*.ssr.spec.ts', {
+  cwd: new URL('../src/', import.meta.url),
+})
   .filter((f) => !f.includes('/core/') && !f.includes('/storybook/'))
   .sort();
 for (const file of specFiles) {

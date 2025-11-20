@@ -1,6 +1,4 @@
-import { readFileSync } from 'node:fs';
-
-import * as glob from 'glob';
+import { globSync, readFileSync } from 'node:fs';
 
 const definitionsGlob = 'src/**/*.scss';
 const usagesGlob = 'src/**/*.{scss,ts,svg}';
@@ -8,7 +6,7 @@ const varRegex = /--([a-zA-Z0-9-_]+)\s*:/g;
 const cssVarNames: string[] = [];
 const cssVarUsagesCount: Record<string, number> = {};
 
-const definitionFiles = glob.sync(definitionsGlob);
+const definitionFiles = globSync(definitionsGlob);
 
 for (const file of definitionFiles) {
   const content = readFileSync(file, 'utf8');
@@ -18,7 +16,7 @@ for (const file of definitionFiles) {
   }
 }
 
-const usagesFiles = glob.sync(usagesGlob);
+const usagesFiles = globSync(usagesGlob);
 for (const file of usagesFiles) {
   const content = readFileSync(file, 'utf8');
 

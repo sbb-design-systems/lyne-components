@@ -2,10 +2,10 @@
  * Docs: https://github.com/open-wc/custom-elements-manifest/tree/master/packages/to-markdown
  */
 import fs from 'fs';
+import { globSync } from 'node:fs';
 
 import { customElementsManifestToMarkdown } from '@custom-elements-manifest/to-markdown';
 import type { Attribute, ClassDeclaration, CustomElement, Package } from 'custom-elements-manifest';
-import * as glob from 'glob';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';
 import { format, resolveConfig } from 'prettier';
@@ -89,7 +89,7 @@ async function updateComponentReadme(
   docs: string,
   manifest: CustomElement,
 ): Promise<void> {
-  const path = glob.sync(`${componentsFolder}/**/${tag.replace(/^sbb-/, '')}/readme.md`)[0];
+  const path = globSync(`${componentsFolder}/**/${tag.replace(/^sbb-/, '')}/readme.md`)[0];
   if (!fs.existsSync(path)) {
     console.error(`Component ${name} has no readme file, please create it following the template`);
     return;
