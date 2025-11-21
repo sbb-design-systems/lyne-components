@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.13.3](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.2...v3.13.3) (2025-11-21)
+
+
+### Bug Fixes
+
+* **lists:** display icon with forced colors ([#4203](https://github.com/sbb-design-systems/lyne-components/issues/4203)) ([#4212](https://github.com/sbb-design-systems/lyne-components/issues/4212)) ([7e1243b](https://github.com/sbb-design-systems/lyne-components/commit/7e1243b4b6fc330c1ddc1bebfd59f77bb698c67e))
+
 ## [3.13.2](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.1...v3.13.2) (2025-11-17)
 
 
