@@ -349,11 +349,7 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
     );
     const verticalPosition = popoverPosition.alignment.vertical;
     for (const position of ['above', 'below']) {
-      if (position === verticalPosition) {
-        this.internals.states.add(`position-${position}`);
-      } else {
-        this.internals.states.delete(`position-${position}`);
-      }
+      this.toggleState(`position-${position}`, position === verticalPosition);
     }
 
     const arrowXPosition =

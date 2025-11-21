@@ -24,11 +24,7 @@ class SbbAutocompleteGridOptgroupElement extends SbbOptgroupBaseElement {
 
   protected setAttributeFromParent(): void {
     this.negative = !!this.closest(`:is(sbb-autocomplete-grid, sbb-form-field)[negative]`);
-    if (this.negative) {
-      this.internals.states.add('negative');
-    } else {
-      this.internals.states.delete('negative');
-    }
+    this.toggleState('negative', this.negative);
   }
 }
 

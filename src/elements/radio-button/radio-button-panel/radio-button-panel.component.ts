@@ -87,11 +87,7 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('checked')) {
-      if (this.checked) {
-        this.internals.states.add('checked');
-      } else {
-        this.internals.states.delete('checked');
-      }
+      this.toggleState('checked', this.checked);
 
       if (this.checked !== changedProperties.get('checked')!) {
         this._dispatchChangeEvent({ type: 'checked', checked: this.checked });

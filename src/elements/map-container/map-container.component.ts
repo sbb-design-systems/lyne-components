@@ -88,11 +88,7 @@ class SbbMapContainerElement extends SbbElementInternalsMixin(LitElement) {
   private _toggleButtonVisibilityOnIntersect(entries: IntersectionObserverEntry[]): void {
     entries.forEach((entry) => {
       const mapIsHidden = !entry.isIntersecting;
-      if (mapIsHidden) {
-        this.internals.states.add('scroll-up-button-visible');
-      } else {
-        this.internals.states.delete('scroll-up-button-visible');
-      }
+      this.toggleState('scroll-up-button-visible', mapIsHidden);
       this._scrollUpButtonVisible = mapIsHidden;
     });
   }

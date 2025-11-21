@@ -153,11 +153,7 @@ class SbbHeaderElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEle
       return;
     }
 
-    if (currentScroll !== 0) {
-      this.internals.states.add('shadow');
-    } else {
-      this.internals.states.delete('shadow');
-    }
+    this.toggleState('shadow', currentScroll !== 0);
 
     // Close open overlays when scrolling down if the header is scrolled out of sight.
     if (
@@ -197,11 +193,7 @@ class SbbHeaderElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEle
 
   /** Apply the shadow if the element/document has been scrolled down. */
   private _scrollShadowListener(): void {
-    if (this._getCurrentScrollProperty('scrollTop') !== 0) {
-      this.internals.states.add('shadow');
-    } else {
-      this.internals.states.delete('shadow');
-    }
+    this.toggleState('shadow', this._getCurrentScrollProperty('scrollTop') !== 0);
   }
 
   private _closeOpenOverlays(): void {

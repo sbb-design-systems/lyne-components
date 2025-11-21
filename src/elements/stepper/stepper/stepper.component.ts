@@ -299,11 +299,7 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     window.addEventListener('resize', this._onStepperResize, {
       passive: true,
     });
-    if (!this._loaded) {
-      this.internals.states.add('disable-animation');
-    } else {
-      this.internals.states.delete('disable-animation');
-    }
+    this.toggleState('disable-animation', !this._loaded);
   }
 
   public override disconnectedCallback(): void {

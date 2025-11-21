@@ -366,11 +366,10 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
     });
 
     // Consider the menu as nested if the trigger is a menu button or menu link.
-    if (['sbb-menu-button', 'sbb-menu-link'].includes(this._triggerElement.localName)) {
-      this.internals.states.add('nested');
-    } else {
-      this.internals.states.delete('nested');
-    }
+    this.toggleState(
+      'nested',
+      ['sbb-menu-button', 'sbb-menu-link'].includes(this._triggerElement.localName),
+    );
     ɵstateController(this._triggerElement).add('sbb-menu-trigger');
   }
 

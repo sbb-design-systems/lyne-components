@@ -90,7 +90,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
   /** The state of the component. */
   private set _state(state: SbbOpenedClosedState) {
     this.applyStatePattern(state);
-    this.ariaHidden = this._state !== 'opened' ? 'true' : null;
+    this.internals.ariaHidden = this._state !== 'opened' ? 'true' : null;
   }
   private get _state(): SbbOpenedClosedState {
     return (

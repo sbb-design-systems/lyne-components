@@ -326,6 +326,7 @@ export interface SbbElementInternalsConstructor {
 
 export declare abstract class SbbElementInternalsMixinType {
   protected readonly internals: ElementInternals;
+  protected toggleState(value: string, force?: boolean): void;
   protected applyStatePattern(state: string | null, pattern?: string): void;
 }
 
@@ -395,10 +396,18 @@ export const SbbElementInternalsMixin = <T extends AbstractConstructor<LitElemen
       this.addController(new SbbSlotStateController(this, this.internals));
     }
 
+    protected toggleState(value: string, force?: boolean): void {
+      if (force || (force !== false && !this.internals.states.has(value))) {
+        this.internals.states.add(value);
+      } else {
+        this.internals.states.delete(value);
+      }
+    }
+
     protected applyStatePattern(state: string | null, pattern = 'state'): void {
       pattern = pattern.endsWith('-') ? pattern : `${pattern}-`;
       const combinedState = `${pattern}${state ?? ''}`;
-      if (state !== null) {
+      if (state != null) {
         this.internals.states.add(combinedState);
       }
 

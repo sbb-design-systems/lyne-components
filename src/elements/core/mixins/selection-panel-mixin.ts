@@ -52,11 +52,7 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
 
     /** Whether the selection panel is checked. */
     protected set checked(checked: boolean) {
-      if (checked) {
-        this.internals.states.add('checked');
-      } else {
-        this.internals.states.delete('checked');
-      }
+      this.toggleState('checked', checked);
     }
     protected get checked(): boolean {
       return this.internals.states.has('checked');
@@ -64,11 +60,7 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
 
     /** Whether the selection panel is disabled. */
     protected set disabled(disabled: boolean) {
-      if (disabled) {
-        this.internals.states.add('disabled');
-      } else {
-        this.internals.states.delete('disabled');
-      }
+      this.toggleState('disabled', disabled);
     }
     protected get disabled(): boolean {
       return this.internals.states.has('disabled');

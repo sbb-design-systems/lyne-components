@@ -151,11 +151,7 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(
       return;
     }
 
-    if (resizing) {
-      this.internals.states.add('disable-animation-on-resizing');
-    } else {
-      this.internals.states.delete('disable-animation-on-resizing');
-    }
+    this.toggleState('disable-animation-on-resizing', resizing);
 
     const firstOption = options[0];
     const isFirstChecked = firstOption.checked;

@@ -91,11 +91,7 @@ class SbbAlertGroupElement extends SbbHydrationMixin(SbbElementInternalsMixin(Li
       this.dispatchEvent(new Event('empty', { composed: true, bubbles: true }));
     }
 
-    if (!this._hasAlerts) {
-      this.internals.states.add('empty');
-    } else {
-      this.internals.states.delete('empty');
-    }
+    this.toggleState('empty', !this._hasAlerts);
   }
 
   protected override render(): TemplateResult {

@@ -51,11 +51,7 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     this._assignStep();
     // The `disabled` state is used to preserve the initial disabled state of
     // step labels in case of switching from linear to non-linear mode.
-    if (this.hasAttribute('disabled')) {
-      this.internals.states.add('disabled');
-    } else {
-      this.internals.states.delete('disabled');
-    }
+    this.toggleState('disabled', this.hasAttribute('disabled'));
   }
 
   /**

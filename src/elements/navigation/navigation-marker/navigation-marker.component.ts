@@ -58,11 +58,7 @@ class SbbNavigationMarkerElement extends SbbElementInternalsMixin(
     if (changedProperties.has('size') || changedProperties.has('listChildren')) {
       this._updateMarkerActions();
     }
-    if (this._currentActiveAction) {
-      this.internals.states.add('has-active-action');
-    } else {
-      this.internals.states.delete('has-active-action');
-    }
+    this.toggleState('has-active-action', !!this._currentActiveAction);
   }
 
   private _updateMarkerActions(): void {

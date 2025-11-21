@@ -91,11 +91,7 @@ class SbbFlipCardElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitE
     } else {
       this._cardDetailsResizeObserver.unobserve(this._detailsContentElement!);
     }
-    if (this._flipped) {
-      this.internals.states.add('flipped');
-    } else {
-      this.internals.states.delete('flipped');
-    }
+    this.toggleState('flipped', this._flipped);
     ɵstateController(this.details)?.toggle('flipped', this._flipped);
     this.summary!.inert = this._flipped;
     this.details!.inert = !this._flipped;

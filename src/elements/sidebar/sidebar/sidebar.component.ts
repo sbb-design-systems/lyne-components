@@ -304,11 +304,10 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   @eventOptions({ passive: true })
   private _detectScrolledState(): void {
-    if ((this.shadowRoot?.querySelector('.sbb-sidebar-content-section')?.scrollTop ?? 0) > 0) {
-      this.internals.states.add('scrolled');
-    } else {
-      this.internals.states.delete('scrolled');
-    }
+    this.toggleState(
+      'scrolled',
+      (this.shadowRoot?.querySelector('.sbb-sidebar-content-section')?.scrollTop ?? 0) > 0,
+    );
   }
 
   protected override render(): TemplateResult {

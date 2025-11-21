@@ -83,11 +83,7 @@ export const SbbNavigationActionCommonElementMixin = <
 
       // Check if the current element is nested inside a navigation section.
       this._navigationSection = this.closest('sbb-navigation-section');
-      if (this._navigationSection) {
-        this.internals.states.add('section-action');
-      } else {
-        this.internals.states.delete('section-action');
-      }
+      this.toggleState('section-action', !!this._navigationSection);
     }
 
     protected override renderTemplate(): TemplateResult {

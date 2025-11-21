@@ -83,11 +83,7 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElementInternalsMix
 
     const container = this.closest('sbb-container');
     if (container) {
-      if (container.expanded) {
-        this.internals.states.add('expanded');
-      } else {
-        this.internals.states.delete('expanded');
-      }
+      this.toggleState('expanded', container.expanded);
     }
     if (this._intersector) {
       this._observer.observe(this._intersector);
@@ -96,7 +92,6 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElementInternalsMix
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-
     this.internals.states.delete('initialized');
   }
 
@@ -131,22 +126,15 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElementInternalsMix
     )!.getBoundingClientRect();
     const HEIGHT_TOLERANCE = 30;
 
-    if (
+    this.toggleState(
+      'slide-vertically',
       isSticky &&
-      this._intersector &&
-      Math.abs(intersectorRect!.bottom - stickyBarRect.bottom) > HEIGHT_TOLERANCE
-    ) {
-      this.internals.states.add('slide-vertically');
-    } else {
-      this.internals.states.delete('slide-vertically');
-    }
+        this._intersector &&
+        Math.abs(intersectorRect!.bottom - stickyBarRect.bottom) > HEIGHT_TOLERANCE,
+    );
 
     // Toggling sticking has to be after slide-vertically (prevents background color transition)
-    if (isSticky) {
-      this.internals.states.add('sticking');
-    } else {
-      this.internals.states.delete('sticking');
-    }
+    this.toggleState('sticking', isSticky);
 
     // Sticky bar needs to be hidden until first observer callback
     this.completeUpdate();

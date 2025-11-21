@@ -58,11 +58,7 @@ export abstract class SbbIconBase extends SbbElementInternalsMixin(LitElement) {
     const svgIcon = this.fetchSvgIcon(this._svgNamespace, name);
     this._svgIcon = svgIcon.then((v) => unsafeHTML(v));
     try {
-      if (!(await svgIcon)) {
-        this.internals.states.add('empty');
-      } else {
-        this.internals.states.delete('empty');
-      }
+      this.toggleState('empty', !(await svgIcon));
     } catch {
       this.internals.states.add('empty');
     }

@@ -294,11 +294,7 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
         this._activeNavigationSection = this.querySelector(
           'sbb-navigation-section[data-state="opening"], sbb-navigation-section[data-state="opened"]',
         );
-        if (this._activeNavigationSection) {
-          this.internals.states.add('has-navigation-section');
-        } else {
-          this.internals.states.delete('has-navigation-section');
-        }
+        this.toggleState('has-navigation-section', !!this._activeNavigationSection);
       }
     }
   }

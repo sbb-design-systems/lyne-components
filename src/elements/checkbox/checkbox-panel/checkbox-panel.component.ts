@@ -76,11 +76,7 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
     if (name === 'checked') {
       this.internals.ariaChecked = `${this.checked}`;
       // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a checked CSS state.
-      if (this.checked) {
-        this.internals.states.add('checked');
-      } else {
-        this.internals.states.delete('checked');
-      }
+      this.toggleState('checked', this.checked);
     }
   }
 

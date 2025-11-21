@@ -66,11 +66,7 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
    * but after the 'SbbSlotStateController' has run.
    */
   private _setIconState(): void {
-    if (this.iconName || this.internals.states.has('icon')) {
-      this.internals.states.add('icon');
-    } else {
-      this.internals.states.delete('icon');
-    }
+    this.toggleState('icon', !!(this.iconName || this.internals.states.has('icon')));
   }
 
   protected override renderTemplate(): TemplateResult {

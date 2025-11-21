@@ -210,11 +210,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
   @state()
   private set _wide(wide: boolean) {
-    if (wide) {
-      this.internals.states.add('wide');
-    } else {
-      this.internals.states.delete('wide');
-    }
+    this.toggleState('wide', wide);
   }
   private get _wide(): boolean {
     return this.internals.states.has('wide');

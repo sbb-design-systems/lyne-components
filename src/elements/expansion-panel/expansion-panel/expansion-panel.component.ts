@@ -98,11 +98,7 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElementInternalsMixi
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    if (this.closest?.('sbb-accordion')) {
-      this.internals.states.add('accordion');
-    } else {
-      this.internals.states.delete('accordion');
-    }
+    this.toggleState('accordion', !!this.closest?.('sbb-accordion'));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

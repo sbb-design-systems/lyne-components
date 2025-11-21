@@ -162,11 +162,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   ): void {
     super.requestUpdate(name, oldValue, options);
     if (name === 'disabled' || name === 'disabledFromGroup') {
-      if (this.disabled || this.disabledFromGroup) {
-        this.internals.states.add('disabled');
-      } else {
-        this.internals.states.delete('disabled');
-      }
+      this.toggleState('disabled', this.disabled || this.disabledFromGroup);
     }
   }
 
@@ -191,11 +187,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
 
   protected updateDisableHighlight(disabled: boolean): void {
     this.disableLabelHighlight = disabled;
-    if (disabled) {
-      this.internals.states.add('disable-highlight');
-    } else {
-      this.internals.states.delete('disable-highlight');
-    }
+    this.toggleState('disable-highlight', disabled);
   }
 
   /**
@@ -203,11 +195,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
    * @internal
    */
   public setActive(value: boolean): void {
-    if (value) {
-      this.internals.states.add('active');
-    } else {
-      this.internals.states.delete('active');
-    }
+    this.toggleState('active', value);
   }
 
   protected init(): void {

@@ -65,11 +65,7 @@ class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<
     );
 
     this.negative = !!this.closest(`:is(sbb-autocomplete-grid[negative],sbb-form-field[negative])`);
-    if (this.negative) {
-      this.internals.states.add('negative');
-    } else {
-      this.internals.states.delete('negative');
-    }
+    this.toggleState('negative', this.negative);
   }
 
   protected selectByClick(event: MouseEvent): void {

@@ -45,11 +45,7 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   }
 
   private set _isMultiple(isMultiple: boolean) {
-    if (isMultiple) {
-      this.internals.states.add('multiple');
-    } else {
-      this.internals.states.delete('multiple');
-    }
+    this.toggleState('multiple', isMultiple);
   }
   private get _isMultiple(): boolean {
     return !this.hydrationRequired && this.internals.states.has('multiple');
@@ -70,17 +66,8 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
       // :is() selector not possible due to test environment
       `sbb-autocomplete[negative],sbb-form-field[negative]`,
     );
-    if (this.negative) {
-      this.internals.states.add('negative');
-    } else {
-      this.internals.states.delete('negative');
-    }
-
-    if (this._isMultiple) {
-      this.internals.states.add('multiple');
-    } else {
-      this.internals.states.delete('multiple');
-    }
+    this.toggleState('negative', this.negative);
+    this.toggleState('multiple', this._isMultiple);
   }
 
   protected selectByClick(event: MouseEvent): void {

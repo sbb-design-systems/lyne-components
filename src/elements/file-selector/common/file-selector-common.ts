@@ -337,11 +337,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
       isDragEnter: boolean = false,
     ): void {
       this._dragTarget = dragTarget;
-      if (isDragEnter) {
-        this.internals.states.add('active');
-      } else {
-        this.internals.states.delete('active');
-      }
+      this.toggleState('active', isDragEnter);
       ɵstateController(this.loadButton).toggle('active', isDragEnter);
     }
 

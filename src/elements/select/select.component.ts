@@ -542,11 +542,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._originElement =
       formField?.shadowRoot?.querySelector?.('#overlay-anchor') ?? this.parentElement!;
     if (this._originElement) {
-      if (formField?.hasAttribute?.('borderless')) {
-        this.internals.states.add('option-panel-origin-borderless');
-      } else {
-        this.internals.states.delete('option-panel-origin-borderless');
-      }
+      this.toggleState('option-panel-origin-borderless', formField?.hasAttribute?.('borderless'));
 
       if (this.isOpen) {
         this._originResizeObserver.observe(this._originElement);
