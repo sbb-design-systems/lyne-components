@@ -1,7 +1,8 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing/wait-for-render';
+import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import { spy } from 'sinon';
 
 import { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.component.js';
 
@@ -59,12 +60,15 @@ describe('sbb-seat-reservation-place-control', () => {
 
     await waitForLitRender(element);
 
-    const eventPromise = new Promise<CustomEvent>((resolve) =>
-      element.addEventListener('selectplace', (e) => resolve(e as CustomEvent)),
-    );
+    const handlerSpy = spy();
+    element.addEventListener('selectplace', handlerSpy);
 
     element.click();
-    const evt = await eventPromise;
+    await element.updateComplete;
+
+    expect(handlerSpy.calledOnce).to.be.true;
+
+    const evt = handlerSpy.firstCall.args[0] as CustomEvent;
 
     await expect(evt.detail.id).to.equal('place-1');
     await expect(evt.detail.deckIndex).to.equal(1);
@@ -139,31 +143,29 @@ describe('sbb-seat-reservation-place-control', () => {
 
   it('should not toggle or emit, when preventClick is true', async () => {
     element.setAttribute('prevent-click', '');
-    let toggled = false;
-    element.addEventListener('selectplace', () => {
-      toggled = true;
-    });
-
     await waitForLitRender(element);
-    element.click();
+    const handlerSpy = spy();
+    element.addEventListener('selectplace', handlerSpy);
 
-    await expect(element.state).to.be.equal('FREE');
-    expect(toggled).to.be.false;
+    element.click();
+    await element.updateComplete;
+
+    await expect(element.state).to.equal('FREE');
+    expect(handlerSpy.called).to.be.false;
   });
 
   it('should not toggle or emit, when seat is blocked ', async () => {
     element.setAttribute('state', 'BLOCKED');
-
-    let toggled = false;
-    element.addEventListener('selectplace', () => {
-      toggled = true;
-    });
-
     await waitForLitRender(element);
-    element.click();
 
-    await expect(element.state).to.be.equal('BLOCKED');
-    expect(toggled).to.be.false;
+    const handlerSpy = spy();
+    element.addEventListener('selectplace', handlerSpy);
+
+    element.click();
+    await element.updateComplete;
+
+    await expect(element.state).to.equal('BLOCKED');
+    expect(handlerSpy.called).to.be.false;
   });
 
   it('should call focus-function, if keyfocus is set to focus', async () => {
@@ -202,8 +204,6 @@ describe('sbb-seat-reservation-place-control', () => {
 
     await waitForLitRender(element);
     const wrapper = element.shadowRoot!.querySelector('.sbb-sr-place-ctrl')!;
-    assert.include(wrapper.className, 'sbb-sr-place-ctrl--type-bicycle');
-    assert.include(wrapper.className, 'sbb-sr-place-ctrl--state-selected');
     expect(wrapper.className).to.include('sbb-sr-place-ctrl--type-bicycle');
     expect(wrapper.className).to.include('sbb-sr-place-ctrl--state-selected');
   });
