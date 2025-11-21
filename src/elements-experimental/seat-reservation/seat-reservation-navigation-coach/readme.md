@@ -39,20 +39,22 @@ The purpose of this component is to be used in the main [sbb-reservation-navigat
 
 ## Properties
 
-| Name               | Attribute             | Privacy | Type                      | Default                     | Description                                                                                          |
-| ------------------ | --------------------- | ------- | ------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `coachId`          | `coach-id`            | public  | `string`                  | `''`                        | Coach ID, which is used to identify the coach in the navigation                                      |
-| `disable`          | `disable`             | public  | `boolean`                 | `false`                     | Disable the coach navigation                                                                         |
-| `driverArea`       | `driver-area`         | public  | `boolean`                 | `false`                     | If the coach is a driver/restricted area                                                             |
-| `first`            | `first`               | public  | `boolean`                 | `false`                     | If the coach is the first in the navigation                                                          |
-| `focused`          | `focused`             | public  | `boolean`                 | `false`                     | Focused coach index property                                                                         |
-| `freePlacesByType` | `free-places-by-type` | public  | `CoachNumberOfFreePlaces` | `{ seats: 0, bicycles: 0 }` | Representation of places available for selecting, counting seat places and bicycle places separetely |
-| `index`            | `index`               | public  | `number`                  | `0`                         |                                                                                                      |
-| `last`             | `last`                | public  | `boolean`                 | `false`                     | If the coach is the last in the navigation                                                           |
-| `propertyIds`      | `property-ids`        | public  | `string[]`                | `[]`                        | Coach service property ids, which are used to display the services in the navigation                 |
-| `selected`         | `selected`            | public  | `boolean`                 | `false`                     | Pre-selected coach index property                                                                    |
-| `travelClass`      | `travel-class`        | public  | `PlaceTravelClass[]`      | `['ANY_CLASS']`             | Travel class of the coach                                                                            |
-| `vertical`         | `vertical`            | public  | `boolean`                 | `false`                     | If the coach navigation should be displayed vertically                                               |
+| Name                | Attribute             | Privacy | Type                      | Default                     | Description                                                                                          |
+| ------------------- | --------------------- | ------- | ------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `coachId`           | `coach-id`            | public  | `string`                  | `''`                        | Coach ID, which is used to identify the coach in the navigation                                      |
+| `disable`           | `disable`             | public  | `boolean`                 | `false`                     | Disable the coach navigation                                                                         |
+| `driverArea`        | `driver-area`         | public  | `boolean`                 | `false`                     | If the coach is a driver/restricted area                                                             |
+| `first`             | `first`               | public  | `boolean`                 | `false`                     | If the coach is the first in the navigation                                                          |
+| `focused`           | `focused`             | public  | `boolean`                 | `false`                     | Focus coach property                                                                                 |
+| `freePlacesByType`  | `free-places-by-type` | public  | `CoachNumberOfFreePlaces` | `{ seats: 0, bicycles: 0 }` | Representation of places available for selecting, counting seat places and bicycle places separetely |
+| `hovered`           | `hovered`             | public  | `boolean`                 | `false`                     | Hover coach property                                                                                 |
+| `index`             | `index`               | public  | `number`                  | `0`                         |                                                                                                      |
+| `last`              | `last`                | public  | `boolean`                 | `false`                     | If the coach is the last in the navigation                                                           |
+| `nativeFocusActive` | `nativeFocusActive`   | public  | `boolean`                 | `true`                      | If the coach navigation should be displayed vertically                                               |
+| `propertyIds`       | `property-ids`        | public  | `string[]`                | `[]`                        | Coach service property ids, which are used to display the services in the navigation                 |
+| `selected`          | `selected`            | public  | `boolean`                 | `false`                     | Select coach property                                                                                |
+| `travelClass`       | `travel-class`        | public  | `PlaceTravelClass[]`      | `['ANY_CLASS']`             | Travel class of the coach                                                                            |
+| `vertical`          | `vertical`            | public  | `boolean`                 | `false`                     | If the coach navigation should be displayed vertically                                               |
 
 ## Events
 

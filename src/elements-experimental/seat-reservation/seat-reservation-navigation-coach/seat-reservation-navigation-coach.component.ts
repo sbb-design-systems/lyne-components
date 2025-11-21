@@ -37,15 +37,20 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ attribute: 'property-ids', type: Array })
   public accessor propertyIds: string[] = [];
 
-  /** Pre-selected coach index property */
+  /** Select coach property */
   @forceType()
   @property({ type: Boolean })
   public accessor selected: boolean = false;
 
-  /** Focused coach index property */
+  /** Focus coach property */
   @forceType()
   @property({ type: Boolean })
   public accessor focused: boolean = false;
+
+  /** Hover coach property */
+  @forceType()
+  @property({ type: Boolean })
+  public accessor hovered: boolean = false;
 
   @forceType()
   @property({ type: Number })
@@ -84,6 +89,11 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ type: Boolean, reflect: true, useDefault: true })
   public accessor vertical: boolean = false;
 
+  /** If the coach navigation should be displayed vertically */
+  @forceType()
+  @property({ type: Boolean })
+  public accessor nativeFocusActive: boolean = true;
+
   private _language = new SbbLanguageController(this);
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -94,7 +104,9 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
         '.sbb-sr-navigation__ctrl-button',
       ) as HTMLButtonElement;
       if (this.selected && selectedNavButtonElement) {
-        selectedNavButtonElement.focus();
+        if (this.nativeFocusActive) {
+          selectedNavButtonElement.focus();
+        }
         /** Emits when a nav coach has the focus */
         this.dispatchEvent(new Event('focuscoach', { bubbles: true, composed: true }));
       }
@@ -104,7 +116,8 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       const focusedNavButtonElement = this.shadowRoot?.querySelector(
         '.sbb-sr-navigation__ctrl-button',
       ) as HTMLButtonElement;
-      if (focusedNavButtonElement) {
+
+      if (focusedNavButtonElement && this.nativeFocusActive) {
         focusedNavButtonElement.focus();
       }
     }
@@ -123,6 +136,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
           'last-coach': this.last,
           'first-coach': this.first,
           'sbb-sr-navigation__item-coach--selected': this.selected,
+          'sbb-sr-navigation__item-coach--hovered': this.hovered,
         })}"
       >
         ${this._getNavigationButton()}
