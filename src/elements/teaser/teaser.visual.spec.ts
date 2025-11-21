@@ -180,7 +180,7 @@ describe(`sbb-teaser`, () => {
 
       it(
         'forcedColors=true',
-        visualDiffDefault.with(async (setup) => {
+        visualDiffFocus.with(async (setup) => {
           await setup.withFixture(
             html`
               <sbb-teaser href="#" alignment="below">
