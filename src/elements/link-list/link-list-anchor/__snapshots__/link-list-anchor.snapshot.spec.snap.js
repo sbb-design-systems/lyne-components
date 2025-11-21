@@ -7,9 +7,6 @@ snapshots["sbb-link-list-anchor renders DOM"] =
   title-content="title"
 >
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="https://www.sbb.ch"
     icon-placement="start"
     size="s"
@@ -18,9 +15,6 @@ snapshots["sbb-link-list-anchor renders DOM"] =
     Link 0
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="https://www.sbb.ch"
     icon-placement="start"
     size="s"
@@ -29,9 +23,6 @@ snapshots["sbb-link-list-anchor renders DOM"] =
     Link 1
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="https://www.sbb.ch"
     icon-placement="start"
     size="s"

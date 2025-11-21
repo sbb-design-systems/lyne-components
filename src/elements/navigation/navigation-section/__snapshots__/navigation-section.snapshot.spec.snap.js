@@ -3,8 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-navigation-section renders DOM"] = 
 `<sbb-navigation-section
-  aria-hidden="true"
-  data-state="closed"
   id="sbb-navigation-section-0"
   slot="navigation-section"
 >
@@ -24,9 +22,6 @@ snapshots["sbb-navigation-section renders Shadow DOM"] =
           <sbb-transparent-button
             aria-label="Go back"
             class="sbb-navigation-section__back"
-            data-action=""
-            data-button=""
-            data-sbb-button=""
             icon-name="chevron-small-left-small"
             id="sbb-navigation-section-back-button"
             negative=""

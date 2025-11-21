@@ -1,5 +1,6 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover.js';
 import { html, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
@@ -680,8 +681,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    */
   private _closePopover(): void {
     this.shadowRoot
-      ?.querySelectorAll('sbb-popover[data-state="opened"]')
-      .forEach((popover) => popover.setAttribute('data-state', 'closed'));
+      ?.querySelectorAll<SbbPopoverElement>('sbb-popover:state(state-opened)')
+      .forEach((popover) => popover.close());
   }
 
   private _getDescriptionTableCoach(coachItem: CoachItem): string {

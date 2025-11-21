@@ -38,9 +38,6 @@ snapshots["sbb-skiplink-list should render named slots if data-ssr-child-count a
 snapshots["sbb-skiplink-list renders DOM"] = 
 `<sbb-skiplink-list>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     negative=""
@@ -50,9 +47,6 @@ snapshots["sbb-skiplink-list renders DOM"] =
     Link 1
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     negative=""
@@ -62,9 +56,6 @@ snapshots["sbb-skiplink-list renders DOM"] =
     Link 2
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     negative=""
@@ -117,9 +108,6 @@ snapshots["sbb-skiplink-list renders with title DOM"] =
   title-level="3"
 >
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="https://www.sbb.ch"
     icon-placement="start"
     negative=""
@@ -129,9 +117,6 @@ snapshots["sbb-skiplink-list renders with title DOM"] =
     Link 1
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="https://www.sbb.ch"
     icon-placement="start"
     negative=""
@@ -141,9 +126,6 @@ snapshots["sbb-skiplink-list renders with title DOM"] =
     Link 2
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="https://www.sbb.ch"
     icon-placement="start"
     negative=""

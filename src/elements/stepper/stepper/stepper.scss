@@ -20,7 +20,7 @@
   }
 }
 
-:host([data-disable-animation]) {
+:host(:state(disable-animation)) {
   @include sbb.disable-animation;
 }
 

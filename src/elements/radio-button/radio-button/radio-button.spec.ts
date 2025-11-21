@@ -27,7 +27,7 @@ describe(`sbb-radio-button`, () => {
       element.click();
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-checked');
+      expect(element).to.match(':state(checked)');
       expect(element.checked).to.be.true;
       await change.calledOnce();
       expect(change.count).to.be.equal(1);

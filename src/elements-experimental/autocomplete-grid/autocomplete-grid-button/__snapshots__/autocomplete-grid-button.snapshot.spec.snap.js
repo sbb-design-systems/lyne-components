@@ -3,8 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-autocomplete-grid-button renders DOM"] = 
 `<sbb-autocomplete-grid-button
-  data-action=""
-  data-button=""
   icon-name="pie-small"
   id="sbb-autocomplete-grid-button-1"
 >
@@ -15,10 +13,7 @@ snapshots["sbb-autocomplete-grid-button renders DOM"] =
 snapshots["sbb-autocomplete-grid-button renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-autocomplete-grid-button">
   <slot name="icon">
-    <sbb-icon
-      data-namespace="default"
-      name="pie-small"
-    >
+    <sbb-icon name="pie-small">
     </sbb-icon>
   </slot>
 </span>
@@ -27,8 +22,6 @@ snapshots["sbb-autocomplete-grid-button renders Shadow DOM"] =
 
 snapshots["sbb-autocomplete-grid-button renders disabled DOM"] = 
 `<sbb-autocomplete-grid-button
-  data-action=""
-  data-button=""
   disabled=""
   icon-name="pie-small"
   id="sbb-autocomplete-grid-button-3"
@@ -40,10 +33,7 @@ snapshots["sbb-autocomplete-grid-button renders disabled DOM"] =
 snapshots["sbb-autocomplete-grid-button renders disabled Shadow DOM"] = 
 `<span class="sbb-action-base sbb-autocomplete-grid-button">
   <slot name="icon">
-    <sbb-icon
-      data-namespace="default"
-      name="pie-small"
-    >
+    <sbb-icon name="pie-small">
     </sbb-icon>
   </slot>
 </span>
@@ -52,8 +42,6 @@ snapshots["sbb-autocomplete-grid-button renders disabled Shadow DOM"] =
 
 snapshots["sbb-autocomplete-grid-button renders negative without icon DOM"] = 
 `<sbb-autocomplete-grid-button
-  data-action=""
-  data-button=""
   id="sbb-autocomplete-grid-button-5"
   negative=""
 >

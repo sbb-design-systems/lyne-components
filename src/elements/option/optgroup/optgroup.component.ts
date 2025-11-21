@@ -23,21 +23,22 @@ class SbbOptGroupElement extends SbbOptgroupBaseElement {
 
   protected setAttributeFromParent(): void {
     this.negative = !!this.closest?.(`:is(sbb-autocomplete, sbb-select, sbb-form-field)[negative]`);
-    this.toggleAttribute('data-negative', this.negative);
+    this.toggleState('negative', this.negative);
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.toggleAttribute('data-multiple', !!this.closest('sbb-select[multiple]'));
+    this.toggleState('multiple', !!this.closest('sbb-select[multiple]'));
     this._setVariantByContext();
   }
 
   private _setVariantByContext(): void {
-    if (this.closest?.('sbb-autocomplete')) {
-      this.setAttribute('data-variant', 'autocomplete');
-    } else if (this.closest?.('sbb-select')) {
-      this.setAttribute('data-variant', 'select');
-    }
+    const variant = this.closest?.('sbb-autocomplete')
+      ? 'autocomplete'
+      : this.closest?.('sbb-select')
+        ? 'select'
+        : null;
+    this.applyStatePattern(variant, 'variant');
   }
 }
 

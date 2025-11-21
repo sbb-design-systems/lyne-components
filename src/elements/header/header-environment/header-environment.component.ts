@@ -34,10 +34,7 @@ class SbbHeaderEnvironmentElement extends SbbElementInternalsMixin(LitElement) {
 
   private _slottedTextChange(): void {
     const env = this.textContent?.trim();
-    this.internals.states.clear();
-    if (env) {
-      this.toggleState(`env-${env}`, true);
-    }
+    this.applyStatePattern(env, 'env');
   }
 
   protected override render(): TemplateResult {

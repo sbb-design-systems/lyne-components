@@ -3,10 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-message renders DOM"] = 
 `<sbb-message>
-  <sbb-image
-    data-loaded=""
-    slot="image"
-  >
+  <sbb-image slot="image">
   </sbb-image>
   <sbb-title
     level="3"
@@ -22,9 +19,6 @@ snapshots["sbb-message renders DOM"] =
     Error code: 0001
   </p>
   <sbb-button
-    data-action=""
-    data-button=""
-    data-sbb-button=""
     icon-name="arrows-circle-small"
     size="l"
     slot="action"

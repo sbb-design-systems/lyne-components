@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-popover renders DOM"] = 
 `<sbb-popover
-  data-state="closed"
   id="sbb-popover-1"
   popover="manual"
 >
@@ -20,9 +19,6 @@ snapshots["sbb-popover renders Shadow DOM"] =
     <div class="sbb-popover__content">
       <sbb-secondary-button
         aria-label="Close note"
-        data-action=""
-        data-button=""
-        data-sbb-button=""
         icon-name="cross-small"
         sbb-popover-close=""
         size="s"

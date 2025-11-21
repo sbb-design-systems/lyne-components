@@ -141,13 +141,13 @@ describe(`sbb-datepicker`, () => {
     const openSpy = new EventSpy(SbbDatepickerElement.events.open, datepicker);
     await waitForLitRender(toggle);
     expect(toggle).not.to.have.attribute('disabled');
-    expect(datepicker).to.have.attribute('data-state', 'closed');
+    expect(datepicker).to.match(':state(state-closed)');
 
     datepicker.open();
 
     await openSpy.calledOnce();
 
-    expect(datepicker).to.have.attribute('data-state', 'opened');
+    expect(datepicker).to.match(':state(state-opened)');
   });
 
   it('renders in form field, open datepicker and change date', async () => {
@@ -161,14 +161,14 @@ describe(`sbb-datepicker`, () => {
     const toggle = root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
     const input = root.querySelector<SbbDateInputElement>('sbb-date-input')!;
     const datepicker = root.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
-    expect(datepicker).to.have.attribute('data-state', 'closed');
+    expect(datepicker).to.match(':state(state-closed)');
     const openSpy = new EventSpy(SbbDatepickerElement.events.open, datepicker);
     const changeSpy = new EventSpy('change', input);
     const blurSpy = new EventSpy('blur', input);
 
     toggle.click();
     await openSpy.calledOnce();
-    expect(datepicker).to.have.attribute('data-state', 'opened');
+    expect(datepicker).to.match(':state(state-opened)');
 
     const calendar = datepicker.shadowRoot!.querySelector('sbb-calendar')!;
     calendar.dispatchEvent(
@@ -224,17 +224,17 @@ describe(`sbb-datepicker`, () => {
     // Select year
     calendar.shadowRoot!.querySelectorAll('button')[5].click();
     await waitForLitRender(root);
-    await waitForCondition(() => !calendar.hasAttribute('data-transition'));
+    await waitForCondition(() => !calendar.matches(':state(transition)'));
 
     // Select month
     calendar.shadowRoot!.querySelectorAll('button')[5].click();
     await waitForLitRender(root);
-    await waitForCondition(() => !calendar.hasAttribute('data-transition'));
+    await waitForCondition(() => !calendar.matches(':state(transition)'));
 
     // Select day
     calendar.shadowRoot!.querySelectorAll('button')[5].click();
     await waitForLitRender(root);
-    await waitForCondition(() => !calendar.hasAttribute('data-transition'));
+    await waitForCondition(() => !calendar.matches(':state(transition)'));
 
     // Expect selected date and closed calendar
     expect(defaultDateAdapter.toIso8601((calendar.selected as Date)!)).to.be.equal('2020-05-05');

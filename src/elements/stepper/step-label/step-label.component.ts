@@ -49,9 +49,9 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     this.tabIndex = -1;
     this._stepper = this.closest('sbb-stepper');
     this._assignStep();
-    // The `data-disabled` attribute is used to preserve the initial disabled state of
+    // The `disabled` state is used to preserve the initial disabled state of
     // step labels in case of switching from linear to non-linear mode.
-    this.toggleAttribute('data-disabled', this.hasAttribute('disabled'));
+    this.toggleState('disabled', this.hasAttribute('disabled'));
   }
 
   /**
@@ -61,7 +61,7 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
   public select(): void {
     this.tabIndex = 0;
     this.internals.ariaSelected = 'true';
-    this.toggleAttribute('data-selected', true);
+    this.internals.states.add('selected');
   }
 
   /**
@@ -71,7 +71,7 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
   public deselect(): void {
     this.tabIndex = -1;
     this.internals.ariaSelected = 'false';
-    this.toggleAttribute('data-selected', false);
+    this.internals.states.delete('selected');
   }
 
   /**

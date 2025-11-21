@@ -47,9 +47,6 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
     Help & Contact
   </span>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     size="s"
@@ -58,9 +55,6 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
     Link 1
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     size="s"
@@ -69,9 +63,6 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
     Link 2
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     size="s"
@@ -80,9 +71,6 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
     Link 3
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     size="s"
@@ -91,9 +79,6 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
     Link 4
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     size="s"
@@ -157,9 +142,6 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
   title-level="2"
 >
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     size="s"
@@ -168,9 +150,6 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
     Link 1
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     size="s"
@@ -179,9 +158,6 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
     Link 2
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     size="s"
@@ -190,9 +166,6 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
     Link 3
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     size="s"
@@ -201,9 +174,6 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
     Link 4
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     size="s"
@@ -266,9 +236,6 @@ snapshots["sbb-link-list rendered without a title DOM"] =
   size="s"
 >
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     size="s"
@@ -277,9 +244,6 @@ snapshots["sbb-link-list rendered without a title DOM"] =
     Link 1
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     size="s"
@@ -288,9 +252,6 @@ snapshots["sbb-link-list rendered without a title DOM"] =
     Link 2
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     size="s"
@@ -299,9 +260,6 @@ snapshots["sbb-link-list rendered without a title DOM"] =
     Link 3
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     size="s"
@@ -310,9 +268,6 @@ snapshots["sbb-link-list rendered without a title DOM"] =
     Link 4
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="#"
     icon-placement="start"
     size="s"

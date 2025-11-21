@@ -7,6 +7,7 @@ export * from './generate-react-wrappers.ts';
 export * from './generate-root-entry-point.ts';
 export * from './package-json-template.ts';
 export * from './resolve-entry-points.ts';
+export * from './state-transform.ts';
 export * from './typescript-transform.ts';
 export * from './typography.ts';
 export * from './verify-entry-points.ts';

@@ -55,6 +55,6 @@ describe(`sbb-datepicker ssr`, () => {
     datepicker.open();
 
     // Then the calendar should be displayed
-    expect(datepicker.getAttribute('data-state')).not.to.be.equal('closed');
+    expect(datepicker).not.to.match(':state(state-closed)');
   });
 });

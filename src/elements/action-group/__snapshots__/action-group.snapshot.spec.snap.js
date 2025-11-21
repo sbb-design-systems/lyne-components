@@ -10,18 +10,12 @@ snapshots["sbb-action-group renders renders DOM"] =
   orientation="horizontal"
 >
   <sbb-secondary-button
-    data-action=""
-    data-button=""
-    data-sbb-button=""
     size="l"
     tabindex="0"
   >
     Button
   </sbb-secondary-button>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="https://github.com/sbb-design-systems/lyne-components"
     icon-name="chevron-small-left-small"
     icon-placement="start"

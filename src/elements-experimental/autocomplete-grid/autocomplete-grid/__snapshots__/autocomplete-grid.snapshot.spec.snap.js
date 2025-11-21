@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] = 
 `<sbb-autocomplete-grid
-  data-state="closed"
   popover="manual"
   size="m"
 >
@@ -13,8 +12,6 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button
-        data-action=""
-        data-button=""
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-1"
       >
@@ -27,8 +24,6 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] =
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button
-        data-action=""
-        data-button=""
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-2"
       >
@@ -77,7 +72,6 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox Shadow DOM"] =
 
 snapshots["sbb-autocomplete-grid Safari DOM"] = 
 `<sbb-autocomplete-grid
-  data-state="closed"
   id="sbb-autocomplete-grid-1"
   popover="manual"
   size="m"
@@ -88,8 +82,6 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button
-        data-action=""
-        data-button=""
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-1"
       >
@@ -102,8 +94,6 @@ snapshots["sbb-autocomplete-grid Safari DOM"] =
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button
-        data-action=""
-        data-button=""
         icon-name="dog-small"
         id="sbb-autocomplete-grid-button-2"
       >

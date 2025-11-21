@@ -24,7 +24,7 @@ async function openOverlay(element: SbbOverlayElement): Promise<void> {
 
   await openSpy.calledOnce();
   expect(openSpy.count).to.be.equal(1);
-  expect(element).to.have.attribute('data-state', 'opened');
+  expect(element).to.match(':state(state-opened)');
   expect(element).to.match(':popover-open');
 }
 
@@ -65,7 +65,7 @@ describe('sbb-overlay', () => {
       await beforeOpenSpy.calledOnce();
       expect(beforeOpenSpy.count).to.be.equal(1);
       expect(openSpy.count).to.be.equal(0);
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('closes the overlay', async () => {
@@ -84,7 +84,7 @@ describe('sbb-overlay', () => {
 
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
       expect(element).not.to.match(':popover-open');
       expect(ariaLiveRef.textContent).to.be.equal('');
     });
@@ -100,7 +100,7 @@ describe('sbb-overlay', () => {
 
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('does not close the overlay if prevented', async () => {
@@ -117,7 +117,7 @@ describe('sbb-overlay', () => {
       await beforeCloseSpy.calledOnce();
       expect(beforeCloseSpy.count).to.be.equal(1);
       expect(closeSpy.count).to.be.equal(0);
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('closes the overlay on close button click', async () => {
@@ -136,7 +136,7 @@ describe('sbb-overlay', () => {
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('closes the overlay on close button click with linked form', async () => {
@@ -186,7 +186,7 @@ describe('sbb-overlay', () => {
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('closes stacked overlays one by one on ESC key pressed', async () => {
@@ -222,7 +222,7 @@ describe('sbb-overlay', () => {
       await openSpy.calledTimes(2);
       expect(openSpy.count).to.be.equal(2);
 
-      expect(stackedOverlay).to.have.attribute('data-state', 'opened');
+      expect(stackedOverlay).to.match(':state(state-opened)');
 
       await sendKeys({ press: tabKey });
       await waitForLitRender(element);
@@ -236,8 +236,8 @@ describe('sbb-overlay', () => {
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
 
-      expect(stackedOverlay).to.have.attribute('data-state', 'closed');
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(stackedOverlay).to.match(':state(state-closed)');
+      expect(element).to.match(':state(state-opened)');
 
       await sendKeys({ press: tabKey });
       await waitForLitRender(element);
@@ -251,8 +251,8 @@ describe('sbb-overlay', () => {
       await closeSpy.calledTimes(2);
       expect(closeSpy.count).to.be.equal(2);
 
-      expect(stackedOverlay).to.have.attribute('data-state', 'closed');
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(stackedOverlay).to.match(':state(state-closed)');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('should remove ariaLiveRef content on any keyboard interaction', async () => {
@@ -376,7 +376,7 @@ describe('sbb-overlay', () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
       expect(element).to.match(':popover-open');
     });
 

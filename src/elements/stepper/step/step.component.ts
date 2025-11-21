@@ -74,7 +74,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
     if (!this.hasUpdated || !this.label) {
       return;
     }
-    this.toggleAttribute('data-selected', true);
+    this.internals.states.add('selected');
     this.label.select();
   }
 
@@ -86,7 +86,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
     if (!this.label) {
       return;
     }
-    this.toggleAttribute('data-selected', false);
+    this.internals.states.delete('selected');
     this.label.deselect();
   }
 
@@ -140,7 +140,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   }
 
   private _onStepElementResize(): void {
-    if (!this.hasAttribute('data-selected')) {
+    if (!this.matches(':state(selected)')) {
       return;
     }
 

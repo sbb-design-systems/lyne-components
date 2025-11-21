@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-alert should render default properties DOM"] = 
 `<sbb-alert
   animation="all"
-  data-state="opened"
   size="m"
 >
   <sbb-title
@@ -26,10 +25,7 @@ snapshots["sbb-alert should render default properties Shadow DOM"] =
     <div class="sbb-alert">
       <span class="sbb-alert__icon">
         <slot name="icon">
-          <sbb-icon
-            data-namespace="default"
-            name="info"
-          >
+          <sbb-icon name="info">
           </sbb-icon>
         </slot>
       </span>
@@ -51,9 +47,6 @@ snapshots["sbb-alert should render default properties Shadow DOM"] =
         <sbb-transparent-button
           aria-label="Close message"
           class="sbb-alert__close-button"
-          data-action=""
-          data-button=""
-          data-sbb-button=""
           icon-name="cross-small"
           negative=""
           size="m"
@@ -70,7 +63,6 @@ snapshots["sbb-alert should render default properties Shadow DOM"] =
 snapshots["sbb-alert should render customized properties DOM"] = 
 `<sbb-alert
   animation="all"
-  data-state="opened"
   icon-name="disruption"
   size="l"
 >
@@ -84,9 +76,6 @@ snapshots["sbb-alert should render customized properties DOM"] =
   </sbb-title>
   Alert content Alert content
   <sbb-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="https://www.sbb.ch"
     negative=""
     size="s"
@@ -103,10 +92,7 @@ snapshots["sbb-alert should render customized properties Shadow DOM"] =
     <div class="sbb-alert">
       <span class="sbb-alert__icon">
         <slot name="icon">
-          <sbb-icon
-            data-namespace="default"
-            name="disruption"
-          >
+          <sbb-icon name="disruption">
           </sbb-icon>
         </slot>
       </span>
@@ -128,9 +114,6 @@ snapshots["sbb-alert should render customized properties Shadow DOM"] =
         <sbb-transparent-button
           aria-label="Close message"
           class="sbb-alert__close-button"
-          data-action=""
-          data-button=""
-          data-sbb-button=""
           icon-name="cross-small"
           negative=""
           size="m"

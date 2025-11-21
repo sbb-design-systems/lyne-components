@@ -38,7 +38,7 @@
   --sbb-toggle-check-overall-height: calc(1em * var(--sbb-typo-line-height-text));
 }
 
-:host([data-checked]) {
+:host(:state(checked)) {
   --sbb-toggle-check-background-color: var(--sbb-toggle-check-checked-color);
   --sbb-toggle-check-circle-background-color: var(--sbb-background-color-1-negative-inverted);
   --sbb-toggle-check-circle-border-color: var(--sbb-toggle-check-background-color);

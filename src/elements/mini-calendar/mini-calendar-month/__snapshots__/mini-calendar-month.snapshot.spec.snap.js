@@ -7,8 +7,6 @@ snapshots["sbb-mini-calendar-month renders January DOM"] =
   style="--sbb-mini-calendar-month-offset: 3;"
 >
   <sbb-mini-calendar-day
-    data-action=""
-    data-button=""
     date="2025-01-01"
     tabindex="0"
   >
@@ -39,8 +37,6 @@ snapshots["sbb-mini-calendar-month renders June DOM"] =
   style="--sbb-mini-calendar-month-offset: 7;"
 >
   <sbb-mini-calendar-day
-    data-action=""
-    data-button=""
     date="2025-06-01"
     tabindex="0"
   >

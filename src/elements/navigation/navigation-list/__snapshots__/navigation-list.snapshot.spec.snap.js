@@ -4,8 +4,6 @@ export const snapshots = {};
 snapshots["sbb-navigation-list renders DOM"] = 
 `<sbb-navigation-list>
   <sbb-navigation-button
-    data-action=""
-    data-button=""
     size="m"
     slot="li-0"
     tabindex="0"
@@ -13,8 +11,6 @@ snapshots["sbb-navigation-list renders DOM"] =
     Tickets & Offers
   </sbb-navigation-button>
   <sbb-navigation-button
-    data-action=""
-    data-button=""
     size="m"
     slot="li-1"
     tabindex="0"
@@ -22,8 +18,6 @@ snapshots["sbb-navigation-list renders DOM"] =
     Vacations & Recreation
   </sbb-navigation-button>
   <sbb-navigation-button
-    data-action=""
-    data-button=""
     size="m"
     slot="li-2"
     tabindex="0"
@@ -31,8 +25,6 @@ snapshots["sbb-navigation-list renders DOM"] =
     Travel information
   </sbb-navigation-button>
   <sbb-navigation-button
-    data-action=""
-    data-button=""
     size="m"
     slot="li-3"
     tabindex="0"

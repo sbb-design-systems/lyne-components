@@ -8,7 +8,11 @@ import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import { throttle } from '../../core/eventing.ts';
-import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
+import {
+  SbbElementInternalsMixin,
+  SbbHydrationMixin,
+  ɵstateController,
+} from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbTabLabelElement } from '../tab-label.ts';
 import type { SbbTabElement } from '../tab.ts';
@@ -125,7 +129,7 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
     this._initSelection();
 
     // To avoid animations on initialization, we have to mark the component as initialized and wait a tick.
-    Promise.resolve().then(() => this.toggleState('initialized', true));
+    Promise.resolve().then(() => this.internals.states.add('initialized'));
     this._tabGroupResizeObserver.observe(this._tabGroupElement);
   }
 
@@ -166,7 +170,7 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
 
   private _updateSize(): void {
     this.labels.forEach((tabLabel: SbbTabLabelElement) =>
-      tabLabel.setAttribute('data-size', this.size),
+      tabLabel['applyStatePattern'](this.size, 'size'),
     );
   }
 
@@ -203,8 +207,8 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
       ).assignedElements() as SbbTabLabelElement[];
 
       for (const tabLabel of labelElements) {
-        tabLabel.toggleAttribute(
-          'data-has-divider',
+        ɵstateController(tabLabel)?.toggle(
+          'has-divider',
           tabLabel === labelElements[0] || tabLabel.offsetLeft === labelElements[0].offsetLeft,
         );
         this.style.setProperty('--sbb-tab-group-width', `${this._tabGroupElement.clientWidth}px`);

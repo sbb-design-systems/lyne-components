@@ -8,6 +8,7 @@ import { readConfig } from '../../core/config/config.ts';
 import type { DateAdapter } from '../../core/datetime/date-adapter.ts';
 import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
 import type { SbbOrientation } from '../../core/interfaces.ts';
+import { ɵstateController } from '../../core/mixins.ts';
 import type { SbbMiniCalendarDayElement } from '../mini-calendar-day.ts';
 import type { SbbMiniCalendarMonthElement } from '../mini-calendar-month.ts';
 
@@ -59,9 +60,9 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
         const splittedDate = monthElement.date.split('-');
         if (splittedDate.length > 0) {
           if (index === 0 || +splittedDate[1] === 1) {
-            monthElement['toggleState']('show-year', true);
+            ɵstateController(monthElement).add('show-year');
           } else {
-            monthElement['toggleState']('show-year', false);
+            ɵstateController(monthElement).delete('show-year');
           }
         }
       },

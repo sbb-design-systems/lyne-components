@@ -71,7 +71,7 @@ class SbbActionGroupElement extends LitElement {
   }
 
   private _syncButtons(): void {
-    this.querySelectorAll?.<SbbButtonCommonElementMixinType>('[data-sbb-button]').forEach(
+    this.querySelectorAll?.<SbbButtonCommonElementMixinType>(':state(sbb-button)').forEach(
       (b) => (b.size = this.buttonSize),
     );
   }

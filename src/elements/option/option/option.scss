@@ -20,7 +20,7 @@
   display: block;
 }
 
-:host([data-negative]) {
+:host(:state(negative)) {
   --sbb-option-color: var(--sbb-color-3-negative);
   --sbb-option-icon-color: var(--sbb-color-5);
   --sbb-option-background-color-hover: var(--sbb-background-color-3-negative);
@@ -41,7 +41,7 @@
 }
 
 // If highlighting is enabled, hide the original slot content
-:host(:not([data-disable-highlight])) {
+:host(:not(:state(disable-highlight))) {
   .sbb-option__label slot {
     display: none;
   }
@@ -55,16 +55,16 @@
   }
 }
 
-:host([data-variant='select']) {
+:host(:state(variant-select)) {
   --sbb-option-column-gap: var(--sbb-spacing-fixed-2x);
   --sbb-option-justify-content: space-between;
 }
 
-:host([data-variant='select'][data-multiple]) {
+:host(:state(variant-select):state(multiple)) {
   --sbb-option-justify-content: start;
 }
 
-:host([data-active]) {
+:host(:state(active)) {
   --sbb-option-focus-outline-color: var(--sbb-focus-outline-color);
 }
 
@@ -108,7 +108,7 @@
   }
 
   // Add inner border and background for disabled option when it's not multiple
-  :host(:state(disabled):not([data-multiple])) & {
+  :host(:state(disabled):not(:state(multiple))) & {
     position: relative;
     z-index: 0;
 

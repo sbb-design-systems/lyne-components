@@ -45,15 +45,15 @@ $open-anim-height-to: calc(
 }
 
 // By default, the open animation is disabled
-:host([data-state='opening']:not([animation='open'], [animation='all'])) {
+:host(:state(state-opening):not([animation='open'], [animation='all'])) {
   @include sbb.disable-animation;
 }
 
-:host([data-state='closing']:not([animation='close'], [animation='all'])) {
+:host(:state(state-closing):not([animation='close'], [animation='all'])) {
   @include sbb.disable-animation;
 }
 
-:host([data-resize-disable-animation]) {
+:host(:state(resize-disable-animation)) {
   @include sbb.disable-animation;
 }
 
@@ -126,13 +126,13 @@ $open-anim-height-to: calc(
     border-radius: var(--sbb-notification-base-radius);
   }
 
-  :host(:is([data-state='opened'], [data-state='closing'])) & {
+  :host(:is(:state(state-opened), :state(state-closing))) & {
     opacity: #{$open-anim-opacity-to};
     max-height: #{$open-anim-height-to};
     margin: #{$open-anim-margin-to};
   }
 
-  :host([data-state='opening']) & {
+  :host(:state(state-opening)) & {
     animation: {
       name: open;
       fill-mode: forwards;
@@ -141,7 +141,7 @@ $open-anim-height-to: calc(
     }
   }
 
-  :host([data-state='closing']) & {
+  :host(:state(state-closing)) & {
     animation: {
       name: close, close-height;
       fill-mode: forwards;

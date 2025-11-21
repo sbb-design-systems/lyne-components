@@ -3,9 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-button-link renders a sbb-button-link without icon DOM"] = 
 `<sbb-button-link
-  data-action=""
-  data-link=""
-  data-sbb-button=""
   download=""
   href="https://www.sbb.ch"
   rel="noopener"
@@ -40,15 +37,11 @@ snapshots["sbb-button-link renders a sbb-button-link without icon Shadow DOM"] =
 
 snapshots["sbb-button-link renders a disabled sbb-button-link with slotted icon DOM"] = 
 `<sbb-button-link
-  data-action=""
-  data-link=""
-  data-sbb-button=""
   disabled=""
   href="https://www.sbb.ch"
   size="l"
 >
   <sbb-icon
-    data-namespace="default"
     name="chevron-small-left-small"
     slot="icon"
   >

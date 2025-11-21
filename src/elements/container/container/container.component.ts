@@ -8,7 +8,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { forceType } from '../../core/decorators.ts';
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { SbbElementInternalsMixin, ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './container.scss?lit&inline';
@@ -47,7 +47,8 @@ class SbbContainerElement extends SbbElementInternalsMixin(LitElement) {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('expanded')) {
-      this.querySelector?.('sbb-sticky-bar')?.toggleAttribute('data-expanded', this.expanded);
+      const stickyBar = this.querySelector?.('sbb-sticky-bar');
+      ɵstateController(stickyBar)?.toggle('expanded', this.expanded);
     }
   }
 

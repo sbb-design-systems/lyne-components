@@ -6,6 +6,7 @@ import { html } from 'lit/static-html.js';
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.ts';
 
 import { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.component.ts';
+
 import '../autocomplete-grid.ts';
 import '../autocomplete-grid-row.ts';
 import '../autocomplete-grid-cell.ts';

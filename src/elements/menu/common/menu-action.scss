@@ -40,11 +40,11 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   }
 }
 
-:host([data-sbb-menu-trigger]) {
+:host(:state(sbb-menu-trigger)) {
   --sbb-menu-action-cursor: var(--sbb-cursor-default);
 }
 
-:host([data-button]) {
+:host(:state(button)) {
   @include sbb.if-forced-colors {
     --sbb-menu-action-color: ButtonText;
   }

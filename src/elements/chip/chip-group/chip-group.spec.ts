@@ -179,12 +179,12 @@ describe('sbb-chip-group', () => {
     });
 
     it('should inherit size from form-field', async () => {
-      expect(element).to.have.attribute('data-size', 'm');
+      expect(element).to.match(':state(size-m)');
 
       formField.size = 's';
       await waitForLitRender(formField);
 
-      expect(element).to.have.attribute('data-size', 's');
+      expect(element).to.match(':state(size-s)');
     });
 
     /** Verify whether the sync between slotted chip and the value works properly **/
@@ -695,13 +695,13 @@ describe('sbb-chip-group', () => {
       element = root.querySelector('sbb-chip-group')!;
       input = root.querySelector('input')!;
 
-      expect(element).to.have.attribute('data-size', 'm');
+      expect(element).to.match(':state(size-m)');
 
       formField.append(element);
       await waitForLitRender(root);
 
       expect(formField).to.have.match(':state(input-type-input)');
-      expect(element).to.have.attribute('data-size', 'l');
+      expect(element).to.match(':state(size-l)');
 
       input.focus();
       await sendKeys({ type: 'new chip' });

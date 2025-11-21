@@ -34,19 +34,21 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   protected optionId = `sbb-option`;
 
   private set _variant(state: SbbOptionVariant) {
-    if (state) {
-      this.setAttribute('data-variant', state);
-    }
+    this.applyStatePattern(state, 'variant');
   }
   private get _variant(): SbbOptionVariant {
-    return this.getAttribute('data-variant') as SbbOptionVariant;
+    return (
+      (Array.from(this.internals.states)
+        .find((s) => s.startsWith('variant-'))
+        ?.replace('variant-', '') as SbbOptionVariant) ?? null
+    );
   }
 
   private set _isMultiple(isMultiple: boolean) {
-    this.toggleAttribute('data-multiple', isMultiple);
+    this.toggleState('multiple', isMultiple);
   }
   private get _isMultiple(): boolean {
-    return !this.hydrationRequired && this.hasAttribute('data-multiple');
+    return !this.hydrationRequired && this.internals.states.has('multiple');
   }
 
   public constructor() {
@@ -64,9 +66,8 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
       // :is() selector not possible due to test environment
       `sbb-autocomplete[negative],sbb-form-field[negative]`,
     );
-    this.toggleAttribute('data-negative', this.negative);
-
-    this.toggleAttribute('data-multiple', this._isMultiple);
+    this.toggleState('negative', this.negative);
+    this.toggleState('multiple', this._isMultiple);
   }
 
   protected selectByClick(event: MouseEvent): void {

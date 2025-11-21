@@ -2,19 +2,14 @@
 export const snapshots = {};
 
 snapshots["sbb-optgroup autocomplete renders Safari DOM"] = 
-`<sbb-optgroup
-  data-variant="autocomplete"
-  label="Label"
->
+`<sbb-optgroup label="Label">
   <sbb-option
-    data-variant="autocomplete"
     id="sbb-option-0"
     value="1"
   >
     1
   </sbb-option>
   <sbb-option
-    data-variant="autocomplete"
     id="sbb-option-1"
     value="2"
   >
@@ -46,19 +41,16 @@ snapshots["sbb-optgroup autocomplete renders Safari Shadow DOM"] =
 
 snapshots["sbb-optgroup autocomplete renders disabled Safari DOM"] = 
 `<sbb-optgroup
-  data-variant="autocomplete"
   disabled=""
   label="Label"
 >
   <sbb-option
-    data-variant="autocomplete"
     id="sbb-option-4"
     value="1"
   >
     1
   </sbb-option>
   <sbb-option
-    data-variant="autocomplete"
     id="sbb-option-5"
     value="2"
   >
@@ -89,20 +81,11 @@ snapshots["sbb-optgroup autocomplete renders disabled Safari Shadow DOM"] =
 /* end snapshot sbb-optgroup autocomplete renders disabled Safari Shadow DOM */
 
 snapshots["sbb-optgroup autocomplete renders Chrome-Firefox DOM"] = 
-`<sbb-optgroup
-  data-variant="autocomplete"
-  label="Label"
->
-  <sbb-option
-    data-variant="autocomplete"
-    value="1"
-  >
+`<sbb-optgroup label="Label">
+  <sbb-option value="1">
     1
   </sbb-option>
-  <sbb-option
-    data-variant="autocomplete"
-    value="2"
-  >
+  <sbb-option value="2">
     2
   </sbb-option>
 </sbb-optgroup>
@@ -156,20 +139,13 @@ snapshots["sbb-optgroup autocomplete renders A11y tree Chrome"] =
 
 snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox DOM"] = 
 `<sbb-optgroup
-  data-variant="autocomplete"
   disabled=""
   label="Label"
 >
-  <sbb-option
-    data-variant="autocomplete"
-    value="1"
-  >
+  <sbb-option value="1">
     1
   </sbb-option>
-  <sbb-option
-    data-variant="autocomplete"
-    value="2"
-  >
+  <sbb-option value="2">
     2
   </sbb-option>
 </sbb-optgroup>

@@ -4,8 +4,6 @@ export const snapshots = {};
 snapshots["sbb-menu-button renders DOM"] = 
 `<sbb-menu-button
   aria-label="a11y label"
-  data-action=""
-  data-button=""
   form="formid"
   name="name"
   tabindex="0"
@@ -28,10 +26,7 @@ snapshots["sbb-menu-button renders Shadow DOM"] =
       </slot>
     </span>
     <span class="sbb-menu-submenu__icon">
-      <sbb-icon
-        data-namespace="default"
-        name="chevron-small-right-small"
-      >
+      <sbb-icon name="chevron-small-right-small">
       </sbb-icon>
     </span>
   </span>
@@ -41,8 +36,6 @@ snapshots["sbb-menu-button renders Shadow DOM"] =
 
 snapshots["sbb-menu-button renders component with icon DOM"] = 
 `<sbb-menu-button
-  data-action=""
-  data-button=""
   icon-name="menu-small"
   tabindex="0"
 >
@@ -56,10 +49,7 @@ snapshots["sbb-menu-button renders component with icon Shadow DOM"] =
   <span class="sbb-menu-action__content">
     <span class="sbb-menu-action__icon">
       <slot name="icon">
-        <sbb-icon
-          data-namespace="default"
-          name="menu-small"
-        >
+        <sbb-icon name="menu-small">
         </sbb-icon>
       </slot>
     </span>
@@ -68,10 +58,7 @@ snapshots["sbb-menu-button renders component with icon Shadow DOM"] =
       </slot>
     </span>
     <span class="sbb-menu-submenu__icon">
-      <sbb-icon
-        data-namespace="default"
-        name="chevron-small-right-small"
-      >
+      <sbb-icon name="chevron-small-right-small">
       </sbb-icon>
     </span>
   </span>

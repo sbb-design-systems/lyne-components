@@ -117,7 +117,7 @@ class SbbTagElement<T = string> extends SbbIconNameMixin(
 
     if (changedProperties.has('checked')) {
       this.internals.ariaPressed = `${this.checked}`;
-      this.toggleAttribute('data-checked', this.checked);
+      this.toggleState('checked', this.checked);
       this.updateFormValue();
     }
 

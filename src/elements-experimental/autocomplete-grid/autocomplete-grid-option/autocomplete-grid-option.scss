@@ -13,19 +13,19 @@
   display: block;
 }
 
-:host([data-negative]) {
+:host(:state(negative)) {
   --sbb-option-color: var(--sbb-color-3-negative);
   --sbb-option-icon-color: var(--sbb-color-5);
 }
 
 // If highlighting is enabled, hide the original slot content
-:host(:not([data-disable-highlight])) {
+:host(:not(:state(disable-highlight))) {
   .sbb-option__label slot {
     display: none;
   }
 }
 
-:host([data-active]) {
+:host(:state(active)) {
   --sbb-option-focus-outline-color: var(--sbb-focus-outline-color);
 }
 

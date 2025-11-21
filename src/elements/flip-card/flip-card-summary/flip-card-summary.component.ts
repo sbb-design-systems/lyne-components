@@ -32,7 +32,10 @@ class SbbFlipCardSummaryElement extends LitElement {
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('imageAlignment')) {
-      this.closest?.('sbb-flip-card')?.setAttribute('data-image-alignment', this.imageAlignment);
+      this.closest?.('sbb-flip-card')?.['applyStatePattern'](
+        this.imageAlignment,
+        'image-alignment',
+      );
     }
   }
 

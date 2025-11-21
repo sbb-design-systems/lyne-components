@@ -2,7 +2,7 @@ import { html, isServer, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../controllers.ts';
-import { forceType, hostAttributes, omitEmptyConverter } from '../decorators.ts';
+import { forceType, omitEmptyConverter } from '../decorators.ts';
 import { i18nTargetOpensInNewWindow } from '../i18n.ts';
 
 import { SbbActionBaseElement } from './action-base-element.ts';
@@ -13,11 +13,7 @@ import '../../screen-reader-only.ts';
 export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
 
 /** Link base class. */
-export
-@hostAttributes({
-  'data-link': '',
-})
-abstract class SbbLinkBaseElement extends SbbActionBaseElement {
+export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   /** The href value you want to link to. */
   @forceType()
   @property({ reflect: true, converter: omitEmptyConverter })
@@ -53,6 +49,7 @@ abstract class SbbLinkBaseElement extends SbbActionBaseElement {
 
   public constructor() {
     super();
+    this.internals.states.add('link');
     if (!isServer) {
       this.setupBaseEventHandlers();
     }

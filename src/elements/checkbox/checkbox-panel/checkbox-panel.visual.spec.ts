@@ -40,7 +40,6 @@ describe('sbb-checkbox-panel', () => {
         <sbb-icon
           name="diamond-small"
           style="margin-inline: var(--sbb-spacing-fixed-2x);"
-          data-namespace="default"
           role="img"
           aria-hidden="true"
         ></sbb-icon>

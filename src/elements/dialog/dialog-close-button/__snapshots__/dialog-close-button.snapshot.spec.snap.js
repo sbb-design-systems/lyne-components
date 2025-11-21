@@ -3,9 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-dialog-close-button renders DOM"] = 
 `<sbb-dialog-close-button
-  data-action=""
-  data-button=""
-  data-sbb-button=""
   size="s"
   tabindex="0"
 >
@@ -16,10 +13,7 @@ snapshots["sbb-dialog-close-button renders DOM"] =
 snapshots["sbb-dialog-close-button renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-dialog-close-button">
   <slot name="icon">
-    <sbb-icon
-      data-namespace="default"
-      name="cross-small"
-    >
+    <sbb-icon name="cross-small">
     </sbb-icon>
   </slot>
 </span>

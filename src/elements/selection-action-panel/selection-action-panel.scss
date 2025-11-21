@@ -44,7 +44,7 @@
   flex: auto;
 }
 
-::slotted([data-action]) {
+::slotted(:state(action)) {
   align-self: center;
   margin-inline: var(--sbb-selection-action-panel-action-margin-inline);
 }

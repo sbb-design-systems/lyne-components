@@ -35,8 +35,6 @@ describe(`sbb-autocomplete ssr`, () => {
   it('opens autocomplete', () => {
     root.querySelector('input')!.focus();
 
-    expect(root.querySelector('sbb-autocomplete')!.getAttribute('data-state')).not.to.be.equal(
-      'closed',
-    );
+    expect(root.querySelector('sbb-autocomplete')!).not.to.match(':state(state-closed)');
   });
 });

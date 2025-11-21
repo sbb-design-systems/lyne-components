@@ -3,10 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-lead-container DOM"] = 
 `<sbb-lead-container>
-  <sbb-image
-    data-loaded=""
-    slot="image"
-  >
+  <sbb-image slot="image">
   </sbb-image>
 </sbb-lead-container>
 `;

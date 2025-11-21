@@ -3,7 +3,6 @@ import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.ts';
-import { hostAttributes } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.ts';
 
@@ -19,7 +18,6 @@ export declare class SbbLinkCommonElementMixinType extends SbbNegativeMixin(SbbA
 export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActionBaseElement>>(
   superClass: T,
 ): AbstractConstructor<SbbLinkCommonElementMixinType> & T => {
-  @hostAttributes({ 'data-sbb-link': '' })
   abstract class SbbLinkCommonElement
     extends SbbNegativeMixin(superClass)
     implements Partial<SbbLinkCommonElementMixinType>
@@ -32,6 +30,11 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
      * @default 's' / 'xs' (lean)
      */
     @property({ reflect: true }) public accessor size: SbbLinkSize = isLean() ? 'xs' : 's';
+
+    public constructor() {
+      super();
+      this.internals.states.add('sbb-link');
+    }
 
     protected override renderTemplate(): TemplateResult {
       return html`<slot></slot>`;

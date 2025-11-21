@@ -3,9 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-sidebar-close-button renders DOM"] = 
 `<sbb-sidebar-close-button
-  data-action=""
-  data-button=""
-  data-sbb-button=""
   size="s"
   slot="title-section"
   tabindex="0"
@@ -17,10 +14,7 @@ snapshots["sbb-sidebar-close-button renders DOM"] =
 snapshots["sbb-sidebar-close-button renders Shadow DOM"] = 
 `<span class="sbb-action-base sbb-sidebar-close-button">
   <slot name="icon">
-    <sbb-icon
-      data-namespace="default"
-      name="cross-small"
-    >
+    <sbb-icon name="cross-small">
     </sbb-icon>
   </slot>
 </span>

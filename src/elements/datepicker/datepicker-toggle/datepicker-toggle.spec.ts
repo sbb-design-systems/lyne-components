@@ -41,12 +41,12 @@ describe(`sbb-datepicker-toggle`, () => {
     expect(toggle.datepicker).to.be.equal(datepicker);
     expect(toggle.input).to.be.equal(input);
     expect(toggle.disabled, 'toggle.disabled').to.be.false;
-    expect(datepicker).to.have.attribute('data-state', 'closed');
+    expect(datepicker).to.match(':state(state-closed)');
 
     toggle.click();
     await openSpy.calledOnce();
 
-    expect(datepicker).to.have.attribute('data-state', 'opened');
+    expect(datepicker).to.match(':state(state-opened)');
   });
 
   it('datepicker is created after the component', async () => {

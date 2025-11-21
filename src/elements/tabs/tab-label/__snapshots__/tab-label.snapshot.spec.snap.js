@@ -48,10 +48,7 @@ snapshots["sbb-tab-label renders correctly an H2 heading tag Shadow DOM"] =
   <h2 class="sbb-tab-label">
     <span class="sbb-tab-label__icon">
       <slot name="icon">
-        <sbb-icon
-          data-namespace="default"
-          name="pie-small"
-        >
+        <sbb-icon name="pie-small">
         </sbb-icon>
       </slot>
     </span>

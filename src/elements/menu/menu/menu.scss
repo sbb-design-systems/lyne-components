@@ -40,7 +40,7 @@
   }
 }
 
-:host(:is([data-state='opened'], [data-state='opening'])) {
+:host(:is(:state(state-opened), :state(state-opening))) {
   --sbb-menu-visibility: visible;
   --sbb-menu-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 20%, transparent);
 
@@ -53,7 +53,7 @@
   --sbb-menu-back-button-display: none;
 }
 
-:host(:not([data-state='closed'])) {
+:host(:not(:state(state-closed))) {
   --sbb-menu-inset: 0;
 }
 
@@ -74,11 +74,11 @@
     --sbb-menu-transform-x: -100%;
   }
 
-  :host(:state(nested)[data-state]:not([data-state='closed'])) {
+  :host(:state(nested):is(:state(state-opening), :state(state-opened), :state(state-closing))) {
     --sbb-menu-open-animation-name: open-sideways;
   }
 
-  :host([data-state][data-state='closing']:state(nested):not(:state(close-all))) {
+  :host(:state(state-closing):state(nested):not(:state(close-all))) {
     --sbb-menu-close-animation-name: close-sideways;
   }
 }
@@ -152,7 +152,7 @@ sbb-divider,
   // Used when navigating back from nested menu in mobile view
   transition: translate var(--sbb-menu-animation-duration);
 
-  :host([data-state]:not([data-state='closed'])) & {
+  :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
     display: block;
     opacity: 1;
     pointer-events: all;
@@ -164,7 +164,7 @@ sbb-divider,
     }
   }
 
-  :host([data-state][data-state='closing']) & {
+  :host(:state(state-closing)) & {
     pointer-events: none;
     animation-name: var(--sbb-menu-close-animation-name, close);
   }
@@ -181,7 +181,7 @@ sbb-divider,
     max-height: fit-content;
     border-radius: var(--sbb-menu-border-radius);
 
-    :host(:not([data-state='closed'])) & {
+    :host(:not(:state(state-closed))) & {
       top: var(--sbb-menu-position-y);
       left: var(--sbb-menu-position-x);
       max-height: var(--sbb-menu-max-height);
@@ -210,7 +210,7 @@ sbb-divider,
   @include sbb.mq($from: large) {
     max-height: fit-content;
 
-    :host(:not([data-state='closed'])) & {
+    :host(:not(:state(state-closed))) & {
       max-height: var(--sbb-menu-max-height);
       min-height: var(--sbb-menu-min-height);
     }
@@ -221,7 +221,7 @@ sbb-divider,
   }
 }
 
-::slotted(:is([data-sbb-link], [data-sbb-button])) {
+::slotted(:is(:state(sbb-link), :state(sbb-button))) {
   // As the background turns white, we need to ensure that buttons and links are displayed in positive.
   color-scheme: only light;
 }

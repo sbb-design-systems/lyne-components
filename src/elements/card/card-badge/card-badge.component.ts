@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { SbbElementInternalsMixin, ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './card-badge.scss?lit&inline';
@@ -28,15 +28,19 @@ class SbbCardBadgeElement extends SbbElementInternalsMixin(LitElement) {
     super.connectedCallback();
     this.slot ||= 'badge';
     this._parentElement = this.parentElement;
-    if (this._parentElement) {
-      this._parentElement.toggleAttribute('data-has-card-badge', true);
+    if (!this._parentElement) {
+      return;
+    } else {
+      ɵstateController(this._parentElement).add('has-card-badge');
     }
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    if (this._parentElement) {
-      this._parentElement.removeAttribute('data-has-card-badge');
+    if (!this._parentElement) {
+      return;
+    } else {
+      ɵstateController(this._parentElement).delete('has-card-badge');
     }
     this._parentElement = undefined;
   }

@@ -20,9 +20,6 @@ snapshots["sbb-map-container renders Shadow DOM"] =
     </slot>
     <sbb-accent-button
       class="sbb-map-container__sidebar-button"
-      data-action=""
-      data-button=""
-      data-sbb-button=""
       icon-name="location-pin-map-small"
       inert=""
       size="l"

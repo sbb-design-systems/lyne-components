@@ -3,6 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { isLean } from '../../core/dom.ts';
+import { SbbElementInternalsMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './card.scss?lit&inline';
@@ -16,7 +17,7 @@ import style from './card.scss?lit&inline';
  */
 export
 @customElement('sbb-card')
-class SbbCardElement extends LitElement {
+class SbbCardElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

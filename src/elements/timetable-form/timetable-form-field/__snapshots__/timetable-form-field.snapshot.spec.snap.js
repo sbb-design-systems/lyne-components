@@ -27,7 +27,6 @@ snapshots["sbb-timetable-form-field renders DOM"] =
 snapshots["sbb-timetable-form-field renders Shadow DOM"] = 
 `<sbb-icon
   class="sbb-timetable-form-field__start-route-icon"
-  data-namespace="default"
   name="route-circle-start-small"
 >
 </sbb-icon>

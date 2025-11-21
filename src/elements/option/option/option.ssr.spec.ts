@@ -69,11 +69,11 @@ describe(`sbb-option ssr`, () => {
       assert.instanceOf(root.querySelector('sbb-option'), SbbOptionElement);
     });
 
-    it('should have data-disable-highlight applied', () => {
+    it('should have state disable-highlight applied', () => {
       const options = root.querySelectorAll('sbb-option');
       expect(options.length).to.eq(3);
       for (const option of options) {
-        expect(option).to.have.attribute('data-disable-highlight');
+        expect(option).to.match(':state(disable-highlight)');
       }
     });
   });
