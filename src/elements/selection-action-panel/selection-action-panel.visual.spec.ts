@@ -31,12 +31,14 @@ describe(`sbb-selection-action-panel`, () => {
     size: 's' | 'm';
   };
   const withCheckboxPanel = (params: Partial<ParamsType>): TemplateResult => html`
-    <sbb-selection-action-panel ?borderless=${params.borderless} color=${params.color || nothing}>
+    <sbb-selection-action-panel>
       <sbb-checkbox-panel
         ?checked=${params.checked}
         ?disabled=${params.disabled}
         value=${params.value || nothing}
         size=${params.size || 'm'}
+        ?borderless=${params.borderless}
+        color=${params.color || nothing}
       >
         Value ${params.value || nothing}
         <span slot="subtext">Subtext</span>
@@ -52,12 +54,14 @@ describe(`sbb-selection-action-panel`, () => {
   `;
 
   const withRadioPanel = (params: Partial<ParamsType>): TemplateResult => html`
-    <sbb-selection-action-panel ?borderless=${params.borderless} color=${params.color || nothing}>
+    <sbb-selection-action-panel>
       <sbb-radio-button-panel
         ?checked=${params.checked}
         ?disabled=${params.disabled}
         value=${params.value || nothing}
         size=${params.size || 'm'}
+        ?borderless=${params.borderless}
+        color=${params.color || nothing}
       >
         Value ${params.value || nothing}
         <span slot="subtext">Subtext</span>
@@ -89,13 +93,8 @@ describe(`sbb-selection-action-panel`, () => {
             `expansion-panel ${visualDiffDefault.name}`,
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(html`
-                <sbb-selection-expansion-panel
-                  ?borderless=${params.borderless}
-                  color=${params.color || nothing}
-                >
-                  ${input === 'checkbox'
-                    ? withCheckboxPanel({ ...params, borderless: false, color: undefined })
-                    : withRadioPanel({ ...params, borderless: false, color: undefined })}
+                <sbb-selection-expansion-panel>
+                  ${input === 'checkbox' ? withCheckboxPanel(params) : withRadioPanel(params)}
                   <div slot="content">Inner Content</div>
                 </sbb-selection-expansion-panel>
               `);

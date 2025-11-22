@@ -16,11 +16,11 @@
 }
 
 :host([size='xs']) {
-  --sbb-visual-checkbox-dimension: var(--sbb-visual-checkbox-dimension-xs);
+  --sbb-visual-checkbox-dimension: var(--sbb-checkbox-dimension-xs);
 }
 
 :host(:is([size='s'], [size='m'])) {
-  --sbb-visual-checkbox-dimension: var(--sbb-visual-checkbox-dimension-m);
+  --sbb-visual-checkbox-dimension: var(--sbb-checkbox-dimension-s-m);
 }
 
 :host([negative]) {

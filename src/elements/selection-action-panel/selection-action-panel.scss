@@ -20,7 +20,7 @@
   width: 100%;
 }
 
-:host([color='milk']) {
+:host(:where(:state(color-milk))) {
   --sbb-selection-action-panel-background: var(--sbb-selection-panel-background-milk);
 }
 
@@ -31,7 +31,7 @@
 }
 
 // :where is to align specificity
-:host([borderless]:not(:where(:state(checked)))) {
+:host(:state(borderless):not(:where(:state(checked)))) {
   --sbb-selection-action-panel-border-color: transparent;
 }
 

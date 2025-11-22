@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { forceType } from '../decorators.ts';
 import { fixture } from '../testing/private.ts';
 
-import { SbbAncestorWatcherController } from './ancestor-watcher-controller.ts';
+import { SbbPropertyWatcherController } from './property-watcher-controller.ts';
 
 /** Test parent element */
 @customElement('parent-element')
@@ -30,24 +30,24 @@ class SbbChildElement extends LitElement {
     this._disabled = value;
   }
   public get disabled(): boolean {
-    return this._disabled || this._ancestorDisabled;
+    return this._disabled || this._referenceDisabled;
   }
   private _disabled: boolean = false;
 
-  private _ancestorDisabled = false;
+  private _referenceDisabled = false;
 
   public constructor() {
     super();
     this.addController(
-      new SbbAncestorWatcherController(this, () => this.closest('parent-element'), {
+      new SbbPropertyWatcherController(this, () => this.closest('parent-element'), {
         size: (p) => (this.size = p.size),
-        disabled: (p) => (this._ancestorDisabled = p.disabled),
+        disabled: (p) => (this._referenceDisabled = p.disabled),
       }),
     );
   }
 }
 
-describe('SbbAncestorWatcherController', () => {
+describe('SbbPropertyWatcherController', () => {
   it('should render', async () => {
     const parent = await fixture<SbbParentElement>(html`
       <parent-element>

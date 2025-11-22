@@ -90,11 +90,7 @@ snapshots["sbb-radio-button-group renders with selection-expansion-panel DOM"] =
   data-has-panel=""
   orientation="horizontal"
 >
-  <sbb-selection-expansion-panel
-    color="white"
-    data-size="m"
-    data-state="closed"
-  >
+  <sbb-selection-expansion-panel data-state="closed">
     <sbb-radio-button-panel
       color="white"
       size="m"

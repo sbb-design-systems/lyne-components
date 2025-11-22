@@ -1,7 +1,7 @@
 /**
  * @entrypoint
  */
-export * from './controllers/ancestor-watcher-controller.ts';
+export * from './controllers/property-watcher-controller.ts';
 export * from './controllers/escapable-overlay-controller.ts';
 export * from './controllers/id-reference-controller.ts';
 export * from './controllers/inert-controller.ts';

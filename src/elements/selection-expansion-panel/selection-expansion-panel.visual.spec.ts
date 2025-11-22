@@ -53,16 +53,14 @@ describe(`sbb-selection-expansion-panel`, () => {
     size: 'm' | 's';
   };
   const withCheckboxPanel = (params: Partial<ParamsType>): TemplateResult => html`
-    <sbb-selection-expansion-panel
-      ?borderless=${params.borderless}
-      color=${params.color || nothing}
-      ?force-open=${params.forceOpen}
-    >
+    <sbb-selection-expansion-panel ?force-open=${params.forceOpen}>
       <sbb-checkbox-panel
         ?checked=${params.checked}
         ?disabled=${params.disabled}
         value=${params.value || nothing}
         size=${params.size || 'm'}
+        ?borderless=${params.borderless}
+        color=${params.color || nothing}
       >
         ${inputPanelContent(params.size || 'm')}
       </sbb-checkbox-panel>
@@ -71,16 +69,14 @@ describe(`sbb-selection-expansion-panel`, () => {
   `;
 
   const withRadioPanel = (params: Partial<ParamsType>): TemplateResult => html`
-    <sbb-selection-expansion-panel
-      ?borderless=${params.borderless}
-      color=${params.color || nothing}
-      ?force-open=${params.forceOpen}
-    >
+    <sbb-selection-expansion-panel ?force-open=${params.forceOpen}>
       <sbb-radio-button-panel
         ?checked=${params.checked}
         ?disabled=${params.disabled}
         value=${params.value || nothing}
         size=${params.size || 'm'}
+        ?borderless=${params.borderless}
+        color=${params.color || nothing}
       >
         ${inputPanelContent(params.size || 'm')}
       </sbb-radio-button-panel>

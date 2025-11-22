@@ -21,14 +21,22 @@
   outline: none !important;
 }
 
+:host([size='xs']) {
+  --sbb-selection-panel-checkbox-dimension: var(--sbb-checkbox-dimension-xs);
+}
+
+:host(:is([size='s'], [size='m'])) {
+  --sbb-selection-panel-checkbox-dimension: var(--sbb-checkbox-dimension-s-m);
+}
+
+:host(:is([size='xs'], [size='s'])) {
+  --sbb-selection-panel-input-padding: var(--sbb-selection-panel-input-padding-block-xs-s)
+    var(--sbb-selection-panel-input-padding-inline-xs-s);
+}
+
 :host([size='m']) {
   --sbb-selection-panel-input-padding: var(--sbb-selection-panel-input-padding-block-m)
     var(--sbb-selection-panel-input-padding-inline-m);
-}
-
-:host([size='s']) {
-  --sbb-selection-panel-input-padding: var(--sbb-selection-panel-input-padding-block-s)
-    var(--sbb-selection-panel-input-padding-inline-s);
 }
 
 :host([color='milk']) {
@@ -104,7 +112,9 @@ slot[name='suffix'] {
 slot[name='subtext'] {
   display: block;
   color: var(--sbb-selection-panel-subtext-color);
-  padding-inline-start: var(--sbb-spacing-fixed-8x);
+  padding-inline-start: calc(
+    var(--sbb-selection-panel-checkbox-dimension) + var(--sbb-spacing-fixed-2x)
+  );
 
   :host(:not(:state(slotted-subtext))) & {
     display: none;

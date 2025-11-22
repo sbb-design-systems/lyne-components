@@ -7,6 +7,7 @@ import { isServer } from 'lit';
  * @param selector The selector to match ancestor against.
  * @param element The base element from which to start the search.
  * @returns The closest element matching the selector or null if none is found.
+ * @deprecated
  */
 export function hostContext(selector: string, element: Element): Element | null {
   if (isServer) {
