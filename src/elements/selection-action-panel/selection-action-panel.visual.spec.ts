@@ -1,5 +1,6 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
+import type { SbbCheckboxSize } from '../checkbox/common/checkbox-common.ts';
 import {
   describeEach,
   describeViewports,
@@ -28,7 +29,7 @@ describe(`sbb-selection-action-panel`, () => {
 
   type ParamsType = { [K in keyof typeof cases]: (typeof cases)[K][number] } & {
     value?: string;
-    size: 's' | 'm';
+    size: SbbCheckboxSize;
   };
   const withCheckboxPanel = (params: Partial<ParamsType>): TemplateResult => html`
     <sbb-selection-action-panel>
@@ -132,6 +133,17 @@ describe(`sbb-selection-action-panel`, () => {
               input === 'checkbox' ? withCheckboxPanel({}) : withRadioPanel({}),
             );
             setup.withStateElement(setup.snapshotElement.querySelector('sbb-secondary-button')!);
+          }),
+        );
+
+        it(
+          `size=xs`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(html`
+              ${input === 'checkbox'
+                ? withCheckboxPanel({ size: 'xs' })
+                : withRadioPanel({ size: 'xs' })}
+            `);
           }),
         );
 

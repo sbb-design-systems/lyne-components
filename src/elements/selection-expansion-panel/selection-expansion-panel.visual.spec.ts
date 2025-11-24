@@ -1,5 +1,6 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
+import type { SbbCheckboxSize } from '../checkbox/common/checkbox-common.ts';
 import {
   describeEach,
   describeViewports,
@@ -28,7 +29,7 @@ describe(`sbb-selection-expansion-panel`, () => {
     disabled: [false, true],
   };
 
-  const inputPanelContent = (size: 'm' | 's'): TemplateResult => html`
+  const inputPanelContent = (size: SbbCheckboxSize): TemplateResult => html`
     Value one
     <span slot="subtext">Subtext</span>
     <span slot="suffix" style="margin-inline-start: auto; display: flex; align-items: center">
@@ -50,7 +51,7 @@ describe(`sbb-selection-expansion-panel`, () => {
   type ParamsType = { [K in keyof typeof cases]: (typeof cases)[K][number] } & {
     forceOpen?: boolean;
     value?: string;
-    size: 'm' | 's';
+    size: SbbCheckboxSize;
   };
   const withCheckboxPanel = (params: Partial<ParamsType>): TemplateResult => html`
     <sbb-selection-expansion-panel ?force-open=${params.forceOpen}>
@@ -114,6 +115,17 @@ describe(`sbb-selection-expansion-panel`, () => {
             }),
           );
         }
+
+        it(
+          `size=xs`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(html`
+              ${input === 'checkbox'
+                ? withCheckboxPanel({ size: 'xs' })
+                : withRadioPanel({ size: 'xs' })}
+            `);
+          }),
+        );
 
         it(
           `size=s`,
