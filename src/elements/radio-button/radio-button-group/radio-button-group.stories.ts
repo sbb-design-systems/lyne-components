@@ -82,7 +82,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's', 'xs'],
+  options: ['xs', 's', 'm'],
 };
 
 const ariaLabel: InputType = {
@@ -111,7 +111,7 @@ const defaultArgs: Args = {
   'allow-empty-selection': false,
   orientation: orientation.options![0],
   'horizontal-from': undefined,
-  size: size.options![0],
+  size: size.options![2],
   'aria-label': undefined,
 };
 
@@ -196,7 +196,7 @@ export const VerticalSizeS: StoryObj = {
 export const SizeXS: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![2] },
+  args: { ...defaultArgs, size: size.options![0] },
 };
 
 export const Disabled: StoryObj = {

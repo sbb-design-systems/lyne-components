@@ -190,9 +190,7 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
           }}
         ></slot>
       </div>
-      <div class="sbb-radio-group__error">
-        <slot name="error"></slot>
-      </div>
+      <slot name="error"></slot>
     `;
   }
 }

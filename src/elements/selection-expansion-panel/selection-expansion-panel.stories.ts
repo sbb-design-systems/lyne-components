@@ -364,7 +364,7 @@ const NestedRadioTemplate = ({
       >
         Main Option 1
       </sbb-radio-button-panel>
-      <sbb-radio-button-group orientation="vertical" value="suboption1" slot="content">
+      <sbb-radio-button-group orientation="vertical" value="suboption1" slot="content" size=${size}>
         <sbb-radio-button value="suboption1">Suboption 1</sbb-radio-button>
         <sbb-radio-button value="suboption2">Suboption 2</sbb-radio-button>
       </sbb-radio-button-group>

@@ -2,7 +2,7 @@
 
 $theme: 'standard' !default;
 
-@mixin base() {
+@mixin base {
   --sbb-visual-checkbox-dimension: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-checkbox-dimension-s-m),
@@ -26,7 +26,7 @@ $theme: 'standard' !default;
   --sbb-visual-checkbox-cursor: var(--sbb-cursor-pointer);
 }
 
-@mixin base-forced-colors() {
+@mixin base-forced-colors {
   --sbb-visual-checkbox-selection-color: Canvas;
   --sbb-visual-checkbox-selection-color-negative: Canvas;
   --sbb-visual-checkbox-selection-color-disabled: Canvas;

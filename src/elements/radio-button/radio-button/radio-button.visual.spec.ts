@@ -5,7 +5,7 @@ import { describeEach, describeViewports, visualDiffDefault } from '../../core/t
 import '../radio-button.ts';
 
 const cases = {
-  size: ['m', 's', 'xs'],
+  size: ['xs', 's', 'm'],
   checked: [true, false],
 };
 

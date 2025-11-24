@@ -2,7 +2,7 @@
 
 $theme: 'standard' !default;
 
-@mixin base() {
+@mixin base {
   --sbb-selection-expansion-panel-background: var(--sbb-selection-panel-background-default);
   --sbb-selection-expansion-panel-border-color: var(--sbb-selection-panel-border-color-default);
   --sbb-selection-expansion-panel-border-width: var(--sbb-selection-panel-border-width-default);

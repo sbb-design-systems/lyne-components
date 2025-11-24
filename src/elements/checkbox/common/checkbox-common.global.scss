@@ -2,20 +2,20 @@
 
 $theme: 'standard' !default;
 
-@mixin base() {
+@mixin base {
   --sbb-checkbox-dimension-xs: #{sbb.px-to-rem-build(20)};
   --sbb-checkbox-dimension-s-m: var(--sbb-size-icon-ui-small);
-  --sbb-checkbox-font-size: #{sbb.theme-pattern-select(
-      (
-        'standard': var(--sbb-text-font-size-m),
-        'lean': var(--sbb-text-font-size-xs),
-      ),
-      $theme
-    )};
   --sbb-checkbox-dimension: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-checkbox-dimension-s-m),
         'lean': var(--sbb-checkbox-dimension-xs),
+      ),
+      $theme
+    )};
+  --sbb-checkbox-font-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-text-font-size-m),
+        'lean': var(--sbb-text-font-size-xs),
       ),
       $theme
     )};
