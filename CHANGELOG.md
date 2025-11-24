@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-next.3](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.0-next.2...v4.0.0-next.3) (2025-11-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sbb-icon-sidebar:** The `sbb-icon-sidebar` and related components have been moved to the `icon-sidebar` module.
+* **sbb-autocomplete-grid:** Due to problems with accessibility the `sbb-autocomplete-grid` and associated components are moved to the experimental package. This component will be structurally refactored in a future release.
+* **sbb-error:** `sbb-form-error` has been renamed to `sbb-error` and is now part of the `form-field` module.
+
+### Bug Fixes
+
+* **lists:** display icon with forced colors ([#4203](https://github.com/sbb-design-systems/lyne-components/issues/4203)) ([bd8c395](https://github.com/sbb-design-systems/lyne-components/commit/bd8c3959027fc0364f13f3fa6b1129c1fad06e0d))
+* **sbb-seat-reservation:** prevent autofocus by preselect index ([#4224](https://github.com/sbb-design-systems/lyne-components/issues/4224)) ([0d9c91c](https://github.com/sbb-design-systems/lyne-components/commit/0d9c91c166c0d0ea2ec72beb89185315f22c0a2f))
+* **sbb-teaser:** improve focus appearance with forced colors ([#4217](https://github.com/sbb-design-systems/lyne-components/issues/4217)) ([ed8d61e](https://github.com/sbb-design-systems/lyne-components/commit/ed8d61e3db95d3994998ef5747431f456b127e84)), closes [#4165](https://github.com/sbb-design-systems/lyne-components/issues/4165) [#4208](https://github.com/sbb-design-systems/lyne-components/issues/4208)
+
+
+### Code Refactoring
+
+* remove obsolete CSS variables ([#4216](https://github.com/sbb-design-systems/lyne-components/issues/4216)) ([8c9c98d](https://github.com/sbb-design-systems/lyne-components/commit/8c9c98d2c0d6a99a7a10e55467c2958ec1cb6806))
+* **sbb-autocomplete-grid:** move to experimental ([#4207](https://github.com/sbb-design-systems/lyne-components/issues/4207)) ([b04d0a8](https://github.com/sbb-design-systems/lyne-components/commit/b04d0a82c1269b8227bc287786f7578b24420c79))
+* **sbb-error:** rename `sbb-form-error` to `sbb-error` ([#4202](https://github.com/sbb-design-systems/lyne-components/issues/4202)) ([eeca677](https://github.com/sbb-design-systems/lyne-components/commit/eeca677e8003239dce2e92ac699d8864aaaabf2f))
+* **sbb-icon-sidebar:** extract to `icon-sidebar` module ([#4218](https://github.com/sbb-design-systems/lyne-components/issues/4218)) ([06ac8e6](https://github.com/sbb-design-systems/lyne-components/commit/06ac8e6250af89a91807b7e840491a31dddbd4d0))
+* use controller to sync ancestor properties ([#4200](https://github.com/sbb-design-systems/lyne-components/issues/4200)) ([f96e4bd](https://github.com/sbb-design-systems/lyne-components/commit/f96e4bd6fa4f1ef2626b5207d7b2295efb6523e1))
+
 ## [4.0.0-next.2](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.0-next.1...v4.0.0-next.2) (2025-11-17)
 
 
