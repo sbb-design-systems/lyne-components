@@ -96,6 +96,13 @@ describe('sbb-checkbox-panel', () => {
     );
 
     it(
+      `size=xs`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template({ ...defaultArgs, size: 'xs' }));
+      }),
+    );
+
+    it(
       `borderless`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ ...defaultArgs, borderless: true }), {

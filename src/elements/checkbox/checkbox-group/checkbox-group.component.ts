@@ -31,7 +31,7 @@ class SbbCheckboxGroupElement extends SbbDisabledMixin(SbbElementInternalsMixin(
   public accessor required: boolean = false;
 
   /**
-   * Size variant, either m, s or xs.
+   * Size variant, either xs, s or m.
    * @default 'm' / 'xs' (lean)
    */
   @property() public accessor size: SbbCheckboxSize = isLean() ? 'xs' : 'm';

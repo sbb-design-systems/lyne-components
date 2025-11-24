@@ -11,14 +11,14 @@ or [sbb-selection-expansion-panel](/docs/elements-sbb-selection-expansion-panel-
 
 <sbb-checkbox-group>
   <sbb-selection-expansion-panel>
-    <sbb-checkbox>
+    <sbb-checkbox-panel>
       Value
       <span slot="suffix">
         <sbb-icon></sbb-icon>
         <span class="sbb-text-xs sbb-text--bold">CHF</span>
         <span class="sbb-text-m sbb-text--bold">40.00</span>
       </span>
-    </sbb-checkbox>
+    </sbb-checkbox-panel>
   </sbb-selection-expansion-panel>
 </sbb-checkbox-group>
 ```
@@ -62,8 +62,8 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
 <sbb-checkbox-group orientation="vertical" horizontal-from="large"> ... </sbb-checkbox-group>
 ```
 
-The component has a `size` property too, which can be used to change the size of all the inner `sbb-checkbox`.
-Two values are available, `s` and `m`, which is the default
+The component has a `size` property, which can be used to change the size
+of all the inner `sbb-checkbox` or `sbb-checkboxpanel` elements.
 
 ```html
 <sbb-checkbox-group size="s"> ... </sbb-checkbox-group>
@@ -80,7 +80,7 @@ Two values are available, `s` and `m`, which is the default
 | `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| null`                         | `null`              | Overrides the behaviour of `orientation` property.                             |
 | `orientation`    | `orientation`     | public  | `SbbOrientation`                                    | `'horizontal'`      | Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`. |
 | `required`       | `required`        | public  | `boolean`                                           | `false`             | Whether the checkbox group is required.                                        |
-| `size`           | `size`            | public  | `SbbCheckboxSize`                                   | `'m' / 'xs' (lean)` | Size variant, either m, s or xs.                                               |
+| `size`           | `size`            | public  | `SbbCheckboxSize`                                   | `'m' / 'xs' (lean)` | Size variant, either xs, s or m.                                               |
 
 ## Slots
 
