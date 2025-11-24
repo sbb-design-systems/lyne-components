@@ -4,12 +4,12 @@ import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
-import './option-hint.component.js';
-import '../option.js';
-import '../optgroup.js';
-import '../../autocomplete.js';
-import '../../form-field.js';
-import '../../select.js';
+import './option-hint.component.ts';
+import '../option.ts';
+import '../optgroup.ts';
+import '../../autocomplete.ts';
+import '../../form-field.ts';
+import '../../select.ts';
 
 const divider: InputType = {
   control: {

@@ -2,14 +2,14 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { elementInternalsSpy, fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import { SbbStepElement } from '../step/step.component.js';
-import type { SbbStepLabelElement } from '../step-label.js';
+import { elementInternalsSpy, fixture, tabKey } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import { SbbStepElement } from '../step/step.component.ts';
+import type { SbbStepLabelElement } from '../step-label.ts';
 
-import { SbbStepperElement } from './stepper.component.js';
-import '../step-label.js';
-import '../step.js';
+import { SbbStepperElement } from './stepper.component.ts';
+import '../step-label.ts';
+import '../step.ts';
 
 describe('sbb-stepper', () => {
   let element: SbbStepperElement;

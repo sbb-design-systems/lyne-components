@@ -2,13 +2,13 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import { SbbMenuElement } from '../../menu.js';
-import type { SbbHeaderButtonElement } from '../header-button.js';
+import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import { SbbMenuElement } from '../../menu.ts';
+import type { SbbHeaderButtonElement } from '../header-button.ts';
 
-import { SbbHeaderElement } from './header.component.js';
-import '../header-button.js';
+import { SbbHeaderElement } from './header.component.ts';
+import '../header-button.ts';
 
 describe(`sbb-header`, () => {
   let element: SbbHeaderElement;

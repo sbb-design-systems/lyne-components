@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbTrainWagonElement } from './train-wagon.component.js';
+import { SbbTrainWagonElement } from './train-wagon.component.ts';
 
 describe(`sbb-train-wagon ssr`, () => {
   let root: SbbTrainWagonElement;

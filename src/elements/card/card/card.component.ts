@@ -2,8 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { isLean } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/styles.js';
+import { isLean } from '../../core/dom.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './card.scss?lit&inline';
 

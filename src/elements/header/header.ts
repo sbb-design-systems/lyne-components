@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './header/header.component.js';
+export * from './header/header.component.ts';

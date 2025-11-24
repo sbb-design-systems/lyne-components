@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbNotificationElement } from './notification.component.js';
+import type { SbbNotificationElement } from './notification.component.ts';
 
-import './notification.component.js';
-import '../title.js';
+import './notification.component.ts';
+import '../title.ts';
 
 describe(`sbb-notification`, () => {
   describe('renders', () => {

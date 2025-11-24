@@ -2,16 +2,16 @@ import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/we
 import { html, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 import {
   buttonDefaultArgs,
   buttonDefaultArgTypes,
-} from '../common/button-common-stories.private.js';
-import { commonDecorators } from '../common/common-stories.private.js';
+} from '../common/button-common-stories.private.ts';
+import { commonDecorators } from '../common/common-stories.private.ts';
 
-import '../../form-field.js';
-import '../../icon.js';
-import './mini-button.component.js';
+import '../../form-field.ts';
+import '../../icon.ts';
+import './mini-button.component.ts';
 
 import readme from './readme.md?raw';
 

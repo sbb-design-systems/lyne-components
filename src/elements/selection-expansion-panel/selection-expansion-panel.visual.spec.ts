@@ -6,17 +6,17 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './selection-expansion-panel.component.js';
-import '../card/card-badge.js';
-import '../checkbox/checkbox-panel.js';
-import '../checkbox/checkbox-group.js';
-import '../form-field/error.js';
-import '../icon.js';
-import '../link/block-link-button.js';
-import '../radio-button/radio-button-panel.js';
-import '../radio-button/radio-button-group.js';
+import './selection-expansion-panel.component.ts';
+import '../card/card-badge.ts';
+import '../checkbox/checkbox-panel.ts';
+import '../checkbox/checkbox-group.ts';
+import '../form-field/error.ts';
+import '../icon.ts';
+import '../link/block-link-button.ts';
+import '../radio-button/radio-button-panel.ts';
+import '../radio-button/radio-button-group.ts';
 
 describe(`sbb-selection-expansion-panel`, () => {
   let root: HTMLElement;

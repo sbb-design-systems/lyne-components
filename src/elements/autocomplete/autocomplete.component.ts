@@ -1,12 +1,12 @@
 import { customElement } from 'lit/decorators.js';
 
-import { getNextElementIndex } from '../core/a11y.js';
-import { isSafari } from '../core/dom.js';
-import { setAriaComboBoxAttributes } from '../core/overlay.js';
-import type { SbbDividerElement } from '../divider/divider.component.js';
-import type { SbbOptGroupElement, SbbOptionElement, SbbOptionHintElement } from '../option.js';
+import { getNextElementIndex } from '../core/a11y.ts';
+import { isSafari } from '../core/dom.ts';
+import { setAriaComboBoxAttributes } from '../core/overlay.ts';
+import type { SbbDividerElement } from '../divider/divider.component.ts';
+import type { SbbOptGroupElement, SbbOptionElement, SbbOptionHintElement } from '../option.ts';
 
-import { SbbAutocompleteBaseElement } from './autocomplete-base-element.js';
+import { SbbAutocompleteBaseElement } from './autocomplete-base-element.ts';
 
 let nextId = 0;
 

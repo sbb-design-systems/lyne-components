@@ -1,9 +1,9 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.js';
+import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
 
-import './skiplink-list.component.js';
-import '../link/block-link.js';
+import './skiplink-list.component.ts';
+import '../link/block-link.ts';
 
 const template = (title?: string): TemplateResult => html`
   <sbb-skiplink-list title-content=${title || nothing}>

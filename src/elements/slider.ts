@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './slider/slider.component.js';
+export * from './slider/slider.component.ts';

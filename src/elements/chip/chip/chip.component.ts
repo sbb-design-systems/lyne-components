@@ -7,18 +7,18 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../../core/controllers.js';
-import { i18nChipDelete } from '../../core/i18n.js';
+import { SbbLanguageController } from '../../core/controllers.ts';
+import { i18nChipDelete } from '../../core/i18n.ts';
 import {
   SbbDisabledMixin,
   SbbElementInternalsMixin,
   SbbNegativeMixin,
   SbbReadonlyMixin,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
 
-import '../../button/mini-button.js';
-import '../../screen-reader-only.js';
+import '../../button/mini-button.ts';
+import '../../screen-reader-only.ts';
 
 import style from './chip.scss?lit&inline';
 

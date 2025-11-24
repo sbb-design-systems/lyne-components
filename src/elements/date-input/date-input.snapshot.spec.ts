@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isFirefox } from '../core/dom.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
-import { describeIf } from '../core/testing.js';
+import { isFirefox } from '../core/dom.ts';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
+import { describeIf } from '../core/testing.ts';
 
-import type { SbbDateInputElement } from './date-input.component.js';
-import './date-input.component.js';
+import type { SbbDateInputElement } from './date-input.component.ts';
+import './date-input.component.ts';
 
 describe(`sbb-date-input`, () => {
   describe('renders', () => {

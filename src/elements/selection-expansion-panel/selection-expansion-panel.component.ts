@@ -7,19 +7,19 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbCheckboxPanelElement } from '../checkbox.js';
-import { SbbLanguageController } from '../core/controllers.js';
-import { forceType } from '../core/decorators.js';
-import { isZeroAnimationDuration } from '../core/dom.js';
-import { i18nCollapsed, i18nExpanded } from '../core/i18n.js';
-import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.js';
-import { SbbHydrationMixin, SbbSelectionPanelMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
-import type { SbbRadioButtonPanelElement } from '../radio-button.js';
+import type { SbbCheckboxPanelElement } from '../checkbox.ts';
+import { SbbLanguageController } from '../core/controllers.ts';
+import { forceType } from '../core/decorators.ts';
+import { isZeroAnimationDuration } from '../core/dom.ts';
+import { i18nCollapsed, i18nExpanded } from '../core/i18n.ts';
+import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.ts';
+import { SbbHydrationMixin, SbbSelectionPanelMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbRadioButtonPanelElement } from '../radio-button.ts';
 
 import style from './selection-expansion-panel.scss?lit&inline';
 
-import '../divider.js';
+import '../divider.ts';
 
 /**
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.

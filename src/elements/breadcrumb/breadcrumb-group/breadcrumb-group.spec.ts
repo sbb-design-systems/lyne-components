@@ -2,13 +2,13 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbBreadcrumbElement } from '../breadcrumb.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbBreadcrumbElement } from '../breadcrumb.ts';
 
-import { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.js';
+import { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.ts';
 
-import '../breadcrumb.js';
+import '../breadcrumb.ts';
 
 describe(`sbb-breadcrumb-group`, () => {
   describe('without ellipsis', () => {

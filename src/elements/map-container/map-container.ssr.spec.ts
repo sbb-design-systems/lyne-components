@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbMapContainerElement } from './map-container.component.js';
+import { SbbMapContainerElement } from './map-container.component.ts';
 
-import '../title.js';
+import '../title.ts';
 
 describe(`sbb-map-container ssr`, () => {
   let root: SbbMapContainerElement;

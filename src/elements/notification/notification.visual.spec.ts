@@ -1,11 +1,11 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import '../link/link.js';
-import '../title.js';
-import './notification.component.js';
+import '../link/link.ts';
+import '../title.ts';
+import './notification.component.ts';
 
 describe(`sbb-notification`, () => {
   const defaultArgs = {

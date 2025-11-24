@@ -1,1 +1,1 @@
-export * from './translations/i18n.js';
+export * from './translations/i18n.ts';

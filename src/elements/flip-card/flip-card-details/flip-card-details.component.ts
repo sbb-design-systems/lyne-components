@@ -3,8 +3,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { IS_FOCUSABLE_QUERY } from '../../core/a11y.js';
-import { boxSizingStyles } from '../../core/styles.js';
+import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './flip-card-details.scss?lit&inline';
 

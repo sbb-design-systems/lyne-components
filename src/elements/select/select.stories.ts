@@ -13,15 +13,15 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbErrorElement } from '../form-field.js';
-import { SbbOptionElement } from '../option.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbErrorElement } from '../form-field.ts';
+import { SbbOptionElement } from '../option.ts';
 
 import readme from './readme.md?raw';
-import { SbbSelectElement } from './select.component.js';
+import { SbbSelectElement } from './select.component.ts';
 
-import '../form-field.js';
-import '../card.js';
+import '../form-field.ts';
+import '../card.ts';
 
 const borderless: InputType = {
   control: {

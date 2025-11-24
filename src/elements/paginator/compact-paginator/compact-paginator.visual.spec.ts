@@ -1,8 +1,8 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './compact-paginator.component.js';
+import './compact-paginator.component.ts';
 
 describe('sbb-compact-paginator', () => {
   describeViewports({ viewports: ['zero', 'large'] }, () => {

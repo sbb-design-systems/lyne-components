@@ -2,12 +2,12 @@
 
 import { isServer } from 'lit';
 
-import { getEventTarget } from '../eventing.js';
+import { getEventTarget } from '../eventing.ts';
 
 import {
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader,
-} from './fake-event-detection.js';
+} from './fake-event-detection.ts';
 
 export type SbbInputModality = 'touch' | 'mouse' | 'keyboard' | 'program' | null;
 

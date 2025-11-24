@@ -3,8 +3,8 @@ import { html, isServer, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import type { SbbTime } from '../core/interfaces.js';
-import { boxSizingStyles } from '../core/styles.js';
+import type { SbbTime } from '../core/interfaces.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg?raw';

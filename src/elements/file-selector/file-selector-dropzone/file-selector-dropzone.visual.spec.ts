@@ -6,12 +6,12 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import type { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.js';
+import type { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.ts';
 
-import '../../form-field/error.js';
-import './file-selector-dropzone.component.js';
+import '../../form-field/error.ts';
+import './file-selector-dropzone.component.ts';
 
 describe(`sbb-file-selector-dropzone`, () => {
   function addFilesToComponentInput(elem: SbbFileSelectorDropzoneElement): void {

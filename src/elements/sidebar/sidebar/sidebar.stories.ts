@@ -3,20 +3,21 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbIconSidebarElement } from '../icon-sidebar/icon-sidebar.component.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import type { SbbIconSidebarElement } from '../../icon-sidebar/icon-sidebar/icon-sidebar.component.ts';
 
 import readme from './readme.md?raw';
-import { SbbSidebarElement } from './sidebar.component.js';
+import { SbbSidebarElement } from './sidebar.component.ts';
 
-import '../../chip-label.js';
-import '../../header.js';
-import '../../link/block-link.js';
-import '../../link-list.js';
-import '../../logo.js';
-import '../../sidebar.js';
-import '../../title.js';
-import '../../tooltip.js';
+import '../../chip-label.ts';
+import '../../header.ts';
+import '../../link/block-link.ts';
+import '../../link-list.ts';
+import '../../logo.ts';
+import '../../icon-sidebar.ts';
+import '../../sidebar.ts';
+import '../../title.ts';
+import '../../tooltip.ts';
 
 const position: InputType = {
   control: {

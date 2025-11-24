@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
+import { globSync } from 'node:fs';
 import { dirname, join, relative } from 'path';
 
-import * as glob from 'glob';
 import type { PluginOption, ResolvedConfig } from 'vite';
 
 import { root } from './build-meta.ts';
@@ -17,7 +17,7 @@ export function copySass(sassRoot: string): PluginOption {
       if (viteConfig.command !== 'build') {
         return;
       }
-      for (const file of glob.sync(`${sassRoot}/**/*.scss`, { cwd: viteConfig.root })) {
+      for (const file of globSync(`${sassRoot}/**/*.scss`, { cwd: viteConfig.root })) {
         this.emitFile({
           type: 'asset',
           fileName: file,

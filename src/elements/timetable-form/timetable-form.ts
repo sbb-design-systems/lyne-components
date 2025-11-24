@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './timetable-form/timetable-form.component.js';
+export * from './timetable-form/timetable-form.component.ts';

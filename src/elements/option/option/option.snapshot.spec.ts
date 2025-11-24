@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbOptionElement } from './option.component.js';
+import type { SbbOptionElement } from './option.component.ts';
 
-import '../../autocomplete.js';
-import './option.component.js';
+import '../../autocomplete.ts';
+import './option.component.ts';
 
 describe(`sbb-option`, () => {
   describe('autocomplete', () => {

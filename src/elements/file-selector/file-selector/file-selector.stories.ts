@@ -11,9 +11,9 @@ import {
   defaultWithError,
   fileSelectorDefaultArgs,
   fileSelectorDefaultArgTypes,
-} from '../common/file-selector-common-stories.private.js';
+} from '../common/file-selector-common-stories.private.ts';
 
-import { SbbFileSelectorElement } from './file-selector.component.js';
+import { SbbFileSelectorElement } from './file-selector.component.ts';
 import readme from './readme.md?raw';
 
 const defaultArgTypes: ArgTypes = { ...fileSelectorDefaultArgTypes };

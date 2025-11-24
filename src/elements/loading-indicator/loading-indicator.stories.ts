@@ -3,14 +3,14 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType, StoryContext } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
-import type { SbbLoadingIndicatorElement } from './loading-indicator.component.js';
+import type { SbbLoadingIndicatorElement } from './loading-indicator.component.ts';
 import readme from './readme.md?raw';
 
-import './loading-indicator.component.js';
-import '../button/button.js';
-import '../card.js';
+import './loading-indicator.component.ts';
+import '../button/button.ts';
+import '../card.ts';
 
 const createLoadingIndicator = (event: Event, args: Args): void => {
   const loader: SbbLoadingIndicatorElement = document.createElement('sbb-loading-indicator');

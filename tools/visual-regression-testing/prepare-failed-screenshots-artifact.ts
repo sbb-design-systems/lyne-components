@@ -1,6 +1,4 @@
-import { type CopySyncOptions, cpSync, existsSync, mkdirSync } from 'node:fs';
-
-import * as glob from 'glob';
+import { type CopySyncOptions, cpSync, existsSync, globSync, mkdirSync } from 'node:fs';
 
 // When visual regression tests have failed, we only want to pack the relevant screenshots
 // into the artifact transferred to the secure workflow, as uploading and downloading the full
@@ -15,14 +13,15 @@ mkdirSync(artifactDir, { recursive: true });
 
 cpSync(new URL('./meta.json', screenshotDir), new URL('./meta.json', artifactDir), copyOptions);
 
-const failedDirs = glob.sync('*/failed/', { cwd: screenshotDir });
+const failedDirs = globSync('*/failed/', { cwd: screenshotDir });
 for (const failedDir of failedDirs.map((d) => `./${d}`)) {
   cpSync(new URL(failedDir, screenshotDir), new URL(failedDir, artifactDir), copyOptions);
 }
 
-const failedFiles = glob
-  .sync('*/failed/**/*.png', { cwd: artifactDir, ignore: '**/*-diff.png' })
-  .map((p) => p.replace('/failed/', '/baseline/'));
+const failedFiles = globSync('*/failed/**/*.png', {
+  cwd: artifactDir,
+  exclude: (name) => name.endsWith('-diff.png'),
+}).map((p) => p.replace('/failed/', '/baseline/'));
 for (const failedFile of failedFiles.map((f) => `./${f}`)) {
   const baselineFile = new URL(failedFile, screenshotDir);
   if (existsSync(baselineFile)) {

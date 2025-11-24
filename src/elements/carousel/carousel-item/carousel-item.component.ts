@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../../core/mixins.js';
+import { SbbElementInternalsMixin } from '../../core/mixins.ts';
 
 import style from './carousel-item.scss?lit&inline';
 

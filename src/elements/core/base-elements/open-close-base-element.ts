@@ -1,7 +1,7 @@
 import { LitElement } from 'lit';
 
-import type { SbbOpenedClosedState } from '../interfaces.js';
-import { SbbElementInternalsMixin } from '../mixins.js';
+import type { SbbOpenedClosedState } from '../interfaces.ts';
+import { SbbElementInternalsMixin } from '../mixins.ts';
 
 /**
  * Base class for overlay components.

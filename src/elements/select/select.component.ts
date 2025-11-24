@@ -6,18 +6,18 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
 
-import { getNextElementIndex } from '../core/a11y.js';
-import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbEscapableOverlayController, SbbLanguageController } from '../core/controllers.js';
-import { forceType, getOverride, handleDistinctChange } from '../core/decorators.js';
+import { getNextElementIndex } from '../core/a11y.ts';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
+import { SbbEscapableOverlayController, SbbLanguageController } from '../core/controllers.ts';
+import { forceType, getOverride, handleDistinctChange } from '../core/decorators.ts';
 import {
   isLean,
   isNextjs,
   isSafari,
   isZeroAnimationDuration,
   setOrRemoveAttribute,
-} from '../core/dom.js';
-import { i18nSelectionRequired } from '../core/i18n.js';
+} from '../core/dom.ts';
+import { i18nSelectionRequired } from '../core/i18n.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -28,11 +28,11 @@ import {
   SbbReadonlyMixin,
   SbbRequiredMixin,
   SbbUpdateSchedulerMixin,
-} from '../core/mixins.js';
-import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.js';
-import { boxSizingStyles } from '../core/styles.js';
-import type { SbbDividerElement } from '../divider.js';
-import type { SbbOptGroupElement, SbbOptionElement, SbbOptionHintElement } from '../option.js';
+} from '../core/mixins.ts';
+import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbDividerElement } from '../divider.ts';
+import type { SbbOptGroupElement, SbbOptionElement, SbbOptionHintElement } from '../option.ts';
 
 import style from './select.scss?lit&inline';
 

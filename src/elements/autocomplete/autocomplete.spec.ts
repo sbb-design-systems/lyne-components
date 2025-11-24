@@ -3,13 +3,13 @@ import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { type SinonSpy, spy } from 'sinon';
 
-import { isSafari } from '../core/dom.js';
-import { fixture, tabKey } from '../core/testing/private.js';
-import { describeIf, EventSpy, waitForLitRender } from '../core/testing.js';
-import { SbbFormFieldElement } from '../form-field.js';
-import { SbbOptionElement } from '../option.js';
+import { isSafari } from '../core/dom.ts';
+import { fixture, tabKey } from '../core/testing/private.ts';
+import { describeIf, EventSpy, waitForLitRender } from '../core/testing.ts';
+import { SbbFormFieldElement } from '../form-field.ts';
+import { SbbOptionElement } from '../option.ts';
 
-import { SbbAutocompleteElement } from './autocomplete.component.js';
+import { SbbAutocompleteElement } from './autocomplete.component.ts';
 
 describe(`sbb-autocomplete`, () => {
   let element: SbbAutocompleteElement, formField: SbbFormFieldElement, input: HTMLInputElement;

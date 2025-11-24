@@ -1,6 +1,6 @@
 import { isServer } from 'lit';
 
-import { mergeConfig, type SbbIconConfig } from '../../config.js';
+import { mergeConfig, type SbbIconConfig } from '../../config.ts';
 
 if (isServer) {
   function setupIconConfig(): void {

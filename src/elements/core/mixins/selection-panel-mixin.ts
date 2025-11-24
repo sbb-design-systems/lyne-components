@@ -1,18 +1,18 @@
 import { isServer, type LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbCheckboxGroupElement } from '../../checkbox/checkbox-group.js';
-import type { SbbCheckboxPanelElement } from '../../checkbox/checkbox-panel.js';
-import type { SbbRadioButtonGroupElement } from '../../radio-button/radio-button-group.js';
-import type { SbbRadioButtonPanelElement } from '../../radio-button/radio-button-panel.js';
-import { forceType } from '../decorators.js';
-import type { SbbStateChange } from '../interfaces/types.js';
+import type { SbbCheckboxGroupElement } from '../../checkbox/checkbox-group.ts';
+import type { SbbCheckboxPanelElement } from '../../checkbox/checkbox-panel.ts';
+import type { SbbRadioButtonGroupElement } from '../../radio-button/radio-button-group.ts';
+import type { SbbRadioButtonPanelElement } from '../../radio-button/radio-button-panel.ts';
+import { forceType } from '../decorators.ts';
+import type { SbbStateChange } from '../interfaces/types.ts';
 
-import type { AbstractConstructor } from './constructor.js';
+import type { AbstractConstructor } from './constructor.ts';
 import {
   SbbElementInternalsMixin,
   type SbbElementInternalsMixinType,
-} from './element-internals-mixin.js';
+} from './element-internals-mixin.ts';
 
 export declare class SbbSelectionPanelMixinType {
   public accessor color: 'white' | 'milk';

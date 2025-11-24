@@ -9,8 +9,8 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType } from '../../core/decorators.js';
-import { SbbElementInternalsMixin, SbbNegativeMixin } from '../../core/mixins.js';
+import { forceType } from '../../core/decorators.ts';
+import { SbbElementInternalsMixin, SbbNegativeMixin } from '../../core/mixins.ts';
 
 import style from './table-wrapper.scss?lit&inline';
 

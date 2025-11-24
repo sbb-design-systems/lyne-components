@@ -11,13 +11,13 @@ import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './datepicker-next-day.component.js';
-import '../../date-input.js';
-import '../../form-field.js';
-import '../datepicker.js';
+import './datepicker-next-day.component.ts';
+import '../../date-input.ts';
+import '../../form-field.ts';
+import '../datepicker.ts';
 
 const negative: InputType = {
   control: {

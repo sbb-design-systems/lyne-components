@@ -3,14 +3,14 @@ import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { fixture, tabKey } from '../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../core/testing.js';
-import type { SbbFormFieldElement } from '../form-field.js';
-import { SbbOptionElement } from '../option.js';
+import { fixture, tabKey } from '../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import type { SbbFormFieldElement } from '../form-field.ts';
+import { SbbOptionElement } from '../option.ts';
 
-import { SbbSelectElement } from './select.component.js';
+import { SbbSelectElement } from './select.component.ts';
 
-import '../form-field.js';
+import '../form-field.ts';
 
 describe(`sbb-select`, () => {
   let element: SbbSelectElement, root: HTMLDivElement;

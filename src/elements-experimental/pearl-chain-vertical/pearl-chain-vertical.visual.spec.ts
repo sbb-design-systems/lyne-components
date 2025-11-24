@@ -6,8 +6,8 @@ import '@sbb-esta/lyne-elements/icon.js';
 import '@sbb-esta/lyne-elements/timetable-occupancy.js';
 import { html } from 'lit';
 
-import './pearl-chain-vertical.component.js';
-import '../pearl-chain-vertical-item.js';
+import './pearl-chain-vertical.component.ts';
+import '../pearl-chain-vertical-item.ts';
 
 describe(`sbb-pearl-chain-vertical`, () => {
   const defaultArgs = {

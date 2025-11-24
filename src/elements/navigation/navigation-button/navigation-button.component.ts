@@ -1,7 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { SbbNavigationActionCommonElementMixin } from '../common.js';
+import { SbbButtonBaseElement } from '../../core/base-elements.ts';
+import { SbbNavigationActionCommonElementMixin } from '../common.ts';
 
 /**
  * It displays a button element that can be used in the `sbb-navigation` component.

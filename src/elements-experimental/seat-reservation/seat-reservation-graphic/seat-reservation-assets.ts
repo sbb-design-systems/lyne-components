@@ -1,11 +1,11 @@
 import { html, type TemplateResult } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
-import { mapIconToSvg } from '../common.js';
+import { mapIconToSvg } from '../common.ts';
 
 import '@sbb-esta/lyne-elements/table.js';
-import '../seat-reservation-graphic.js';
-import '../seat-reservation-area/seat-reservation-area.component.js';
+import '../seat-reservation-graphic.ts';
+import '../seat-reservation-area/seat-reservation-area.component.ts';
 
 const svgImage = (src: string): TemplateResult => {
   return html`

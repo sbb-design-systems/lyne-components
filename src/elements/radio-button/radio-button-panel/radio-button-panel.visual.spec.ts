@@ -1,9 +1,9 @@
 import { html, type TemplateResult } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import '../../icon.js';
-import '../radio-button-panel.js';
+import '../../icon.ts';
+import '../radio-button-panel.ts';
 
 const cases = {
   checked: [true, false],

@@ -1,15 +1,15 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import type { VisualDiffSetupBuilder } from '../../core/testing/private.js';
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
-import type { SbbNavigationElement } from '../navigation.js';
+import type { VisualDiffSetupBuilder } from '../../core/testing/private.ts';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import type { SbbNavigationElement } from '../navigation.ts';
 
-import './navigation-section.component.js';
-import '../navigation.js';
-import '../navigation-marker.js';
-import '../navigation-list.js';
-import '../navigation-button.js';
-import '../navigation-link.js';
+import './navigation-section.component.ts';
+import '../navigation.ts';
+import '../navigation-marker.ts';
+import '../navigation-list.ts';
+import '../navigation-button.ts';
+import '../navigation-link.ts';
 
 describe(`sbb-navigation-section`, () => {
   const navigationActions = (): TemplateResult => html`

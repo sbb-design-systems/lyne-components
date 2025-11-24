@@ -1,16 +1,16 @@
 import { html, type PropertyDeclaration, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { readConfig } from '../../core/config.js';
-import { SbbLanguageController } from '../../core/controllers.js';
-import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.js';
-import { idReference } from '../../core/decorators.js';
-import { i18nToday } from '../../core/i18n.js';
-import { SbbNegativeMixin } from '../../core/mixins.js';
-import { SbbDateInputElement, type SbbDateInputAssociated } from '../../date-input.js';
+import { SbbButtonBaseElement } from '../../core/base-elements.ts';
+import { readConfig } from '../../core/config.ts';
+import { SbbLanguageController } from '../../core/controllers.ts';
+import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.ts';
+import { idReference } from '../../core/decorators.ts';
+import { i18nToday } from '../../core/i18n.ts';
+import { SbbNegativeMixin } from '../../core/mixins.ts';
+import { SbbDateInputElement, type SbbDateInputAssociated } from '../../date-input.ts';
 
-import '../../icon.js';
+import '../../icon.ts';
 
 export abstract class SbbDatepickerButtonBase<T = Date>
   extends SbbNegativeMixin(SbbButtonBaseElement)

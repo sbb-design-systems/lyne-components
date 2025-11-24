@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './clock/clock.component.js';
+export * from './clock/clock.component.ts';

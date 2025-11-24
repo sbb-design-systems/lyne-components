@@ -1,8 +1,8 @@
 import { html } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import '../radio-button.js';
+import '../radio-button.ts';
 
 const cases = {
   size: ['m', 's', 'xs'],

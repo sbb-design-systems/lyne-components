@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { i18nCloseSidebar } from '../../core/i18n.js';
-import { elementInternalsSpy, fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+import { i18nCloseSidebar } from '../../core/i18n.ts';
+import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
-import { SbbSidebarCloseButtonElement } from './sidebar-close-button.component.js';
+import { SbbSidebarCloseButtonElement } from './sidebar-close-button.component.ts';
 
 describe('sbb-sidebar-close-button', () => {
   let element: SbbSidebarCloseButtonElement;

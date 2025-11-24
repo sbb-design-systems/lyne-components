@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './popover/popover.component.js';
+export * from './popover/popover.component.ts';

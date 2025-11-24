@@ -6,11 +6,11 @@ import type { UnsafeHTMLDirective } from 'lit/directives/unsafe-html.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
 
-import { forceType, hostAttributes } from '../core/decorators.js';
-import { SbbElementInternalsMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
+import { forceType, hostAttributes } from '../core/decorators.ts';
+import { SbbElementInternalsMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
-import { getSvgContent } from './icon-request.js';
+import { getSvgContent } from './icon-request.ts';
 import style from './icon.scss?lit&inline';
 
 const defaultNamespace = 'default';

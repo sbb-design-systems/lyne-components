@@ -1,2 +1,2 @@
-export * from './mapper/mapper.js';
-export * from './mapper/icon-mapper.js';
+export * from './mapper/mapper.ts';
+export * from './mapper/icon-mapper.ts';

@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbCheckboxGroupElement } from './checkbox-group.component.js';
+import { SbbCheckboxGroupElement } from './checkbox-group.component.ts';
 
-import '../checkbox.js';
+import '../checkbox.ts';
 
 describe(`sbb-checkbox-group ssr`, () => {
   let root: SbbCheckboxGroupElement;

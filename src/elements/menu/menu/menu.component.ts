@@ -14,8 +14,8 @@ import {
   interactivityChecker,
   isArrowKeyOrPageKeysPressed,
   SbbFocusTrapController,
-} from '../../core/a11y.js';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
+} from '../../core/a11y.ts';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
 import {
   SbbDarkModeController,
   SbbEscapableOverlayController,
@@ -23,27 +23,27 @@ import {
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
-} from '../../core/controllers.js';
-import { idReference } from '../../core/decorators.js';
-import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.js';
-import { forwardEvent } from '../../core/eventing.js';
-import { i18nGoBack } from '../../core/i18n/i18n.js';
-import type { SbbNegativeMixinType } from '../../core/mixins.js';
+} from '../../core/controllers.ts';
+import { idReference } from '../../core/decorators.ts';
+import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.ts';
+import { forwardEvent } from '../../core/eventing.ts';
+import { i18nGoBack } from '../../core/i18n/i18n.ts';
+import type { SbbNegativeMixinType } from '../../core/mixins.ts';
 import {
   getElementPosition,
   getElementPositionHorizontal,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbMenuButtonElement } from '../menu-button.js';
-import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.js';
+} from '../../core/overlay.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbMenuButtonElement } from '../menu-button.ts';
+import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.ts';
 
 import style from './menu.scss?lit&inline';
 
-import '../../divider.js';
-import '../menu-button.js';
+import '../../divider.ts';
+import '../menu-button.ts';
 
 const MENU_OFFSET = 8;
 const NESTED_MENU_OFFSET = -4;

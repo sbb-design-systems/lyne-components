@@ -2,17 +2,17 @@ import { assert, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbMiniButtonElement } from '../../button.js';
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForImageReady, waitForLitRender } from '../../core/testing.js';
-import type { SbbCompactPaginatorElement } from '../../paginator.js';
-import { type SbbCarouselItemEventDetail } from '../carousel-item/carousel-item.component.js';
+import type { SbbMiniButtonElement } from '../../button.ts';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForImageReady, waitForLitRender } from '../../core/testing.ts';
+import type { SbbCompactPaginatorElement } from '../../paginator.ts';
+import { type SbbCarouselItemEventDetail } from '../carousel-item/carousel-item.component.ts';
 
-import { SbbCarouselElement } from './carousel.component.js';
+import { SbbCarouselElement } from './carousel.component.ts';
 
-import '../carousel-list/carousel-list.component.js';
-import '../carousel-item/carousel-item.component.js';
-import '../../paginator.js';
+import '../carousel-list/carousel-list.component.ts';
+import '../carousel-item/carousel-item.component.ts';
+import '../../paginator.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

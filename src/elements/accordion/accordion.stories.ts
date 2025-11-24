@@ -5,11 +5,11 @@ import { repeat } from 'lit/directives/repeat.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import { SbbExpansionPanelElement } from '../expansion-panel.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { SbbExpansionPanelElement } from '../expansion-panel.ts';
 
 import readme from './readme.md?raw';
-import './accordion.component.js';
+import './accordion.component.ts';
 
 const numberOfPanels: InputType = {
   control: {

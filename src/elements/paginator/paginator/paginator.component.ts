@@ -9,19 +9,19 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { sbbInputModalityDetector } from '../../core/a11y.js';
-import { forceType } from '../../core/decorators.js';
-import { i18nItemsPerPage, i18nPage } from '../../core/i18n.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbSelectElement } from '../../select.js';
-import { SbbPaginatorCommonElementMixin } from '../common.js';
+import { sbbInputModalityDetector } from '../../core/a11y.ts';
+import { forceType } from '../../core/decorators.ts';
+import { i18nItemsPerPage, i18nPage } from '../../core/i18n.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbSelectElement } from '../../select.ts';
+import { SbbPaginatorCommonElementMixin } from '../common.ts';
 
 import style from './paginator.scss?lit&inline';
 
-import '../../form-field.js';
-import '../../select.js';
-import '../../option.js';
-import '../../screen-reader-only.js';
+import '../../form-field.ts';
+import '../../select.ts';
+import '../../option.ts';
+import '../../screen-reader-only.ts';
 
 const MAX_PAGE_NUMBERS_DISPLAYED = 3;
 

@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender, waitForCondition } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender, waitForCondition } from '../../core/testing.ts';
 
-import { SbbTableWrapperElement } from './table-wrapper.component.js';
+import { SbbTableWrapperElement } from './table-wrapper.component.ts';
 
 describe(`sbb-table-wrapper`, () => {
   let element: SbbTableWrapperElement;

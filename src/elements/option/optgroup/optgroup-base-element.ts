@@ -9,20 +9,20 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
-import { forceType } from '../../core/decorators.js';
-import { isSafari } from '../../core/dom.js';
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
+import { forceType } from '../../core/decorators.ts';
+import { isSafari } from '../../core/dom.ts';
 import {
   SbbDisabledMixin,
   SbbElementInternalsMixin,
   SbbHydrationMixin,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbOptionBaseElement } from '../option.js';
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbOptionBaseElement } from '../option.ts';
 
 import style from './optgroup-base-element.scss?lit&inline';
 
-import '../../divider.js';
+import '../../divider.ts';
 
 /**
  * On Safari, the groups labels are not read by VoiceOver.

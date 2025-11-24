@@ -1,9 +1,9 @@
 import { html, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { forceType, omitEmptyConverter } from '../core/decorators.js';
+import { forceType, omitEmptyConverter } from '../core/decorators.ts';
 
-import { SbbIconBase } from './icon-base.js';
+import { SbbIconBase } from './icon-base.ts';
 
 /**
  * Displays an icon loaded from a registered namespace.

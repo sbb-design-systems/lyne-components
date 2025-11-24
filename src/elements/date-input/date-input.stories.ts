@@ -13,13 +13,13 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { defaultDateAdapter } from '../core/datetime.js';
+import { defaultDateAdapter } from '../core/datetime.ts';
 
-import { SbbDateInputElement } from './date-input.component.js';
+import { SbbDateInputElement } from './date-input.component.ts';
 import readme from './readme.md?raw';
 
-import '../form-field.js';
-import '../title.js';
+import '../form-field.ts';
+import '../title.ts';
 
 const toIso8601 = (date: number | null): string | typeof nothing =>
   date == null ? nothing : defaultDateAdapter.toIso8601(new Date(date));

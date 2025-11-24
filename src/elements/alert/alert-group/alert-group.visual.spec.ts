@@ -1,13 +1,13 @@
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTransparentButtonElement } from '../../button/transparent-button.js';
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition } from '../../core/testing.js';
-import { SbbAlertElement } from '../alert.js';
+import type { SbbTransparentButtonElement } from '../../button/transparent-button.ts';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import { EventSpy, waitForCondition } from '../../core/testing.ts';
+import { SbbAlertElement } from '../alert.ts';
 
-import './alert-group.component.js';
-import '../../title.js';
+import './alert-group.component.ts';
+import '../../title.ts';
 
 describe(`sbb-alert-group`, () => {
   const alert = html`<sbb-alert>

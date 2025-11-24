@@ -2,15 +2,15 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { elementInternalsSpy, fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
+import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import {
   buttonIconTestTemplate,
   buttonLoading,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils.private.js';
+} from '../common/button-test-utils.private.ts';
 
-import { SbbButtonElement } from './button.component.js';
+import { SbbButtonElement } from './button.component.ts';
 
 describe(`sbb-button`, () => {
   const elementInternals = elementInternalsSpy();

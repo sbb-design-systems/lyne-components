@@ -3,17 +3,17 @@ import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import type { SbbErrorElement } from '../error.js';
+import type { SbbErrorElement } from '../error.ts';
 
 import readme from './readme.md?raw';
 
-import './form-field.component.js';
-import '../form-field-clear.js';
-import '../../button/mini-button.js';
-import '../error.js';
-import '../../link.js';
-import '../../popover.js';
-import '../../title.js';
+import './form-field.component.ts';
+import '../form-field-clear.ts';
+import '../../button/mini-button.ts';
+import '../error.ts';
+import '../../link.ts';
+import '../../popover.ts';
+import '../../title.ts';
 
 const formField = (
   {

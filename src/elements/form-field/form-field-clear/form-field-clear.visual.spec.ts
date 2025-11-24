@@ -5,10 +5,10 @@ import {
   describeViewports,
   visualRegressionFixture,
   visualDiffDefault,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './form-field-clear.component.js';
-import '../form-field.js';
+import './form-field-clear.component.ts';
+import '../form-field.ts';
 
 describe(`sbb-form-field-clear`, () => {
   let root: HTMLElement;

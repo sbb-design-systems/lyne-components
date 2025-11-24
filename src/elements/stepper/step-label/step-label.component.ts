@@ -1,12 +1,12 @@
 import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { appendAriaElements, removeAriaElements, SbbDisabledMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { SbbIconNameMixin } from '../../icon.js';
-import type { SbbStepElement } from '../step.js';
-import type { SbbStepperElement } from '../stepper.js';
+import { SbbButtonBaseElement } from '../../core/base-elements.ts';
+import { appendAriaElements, removeAriaElements, SbbDisabledMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
+import type { SbbStepElement } from '../step.ts';
+import type { SbbStepperElement } from '../stepper.ts';
 
 import style from './step-label.scss?lit&inline';
 

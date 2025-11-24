@@ -2,22 +2,22 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAutocompleteElement } from '../../autocomplete/autocomplete.component.js';
-import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbFormFieldElement } from '../../form-field.js';
-import type { SbbOptionElement } from '../../option.js';
-import type { SbbChipElement } from '../chip.js';
+import type { SbbAutocompleteElement } from '../../autocomplete/autocomplete.component.ts';
+import { fixture, tabKey } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbFormFieldElement } from '../../form-field.ts';
+import type { SbbOptionElement } from '../../option.ts';
+import type { SbbChipElement } from '../chip.ts';
 
 import {
   SbbChipGroupElement,
   type SbbChipInputTokenEndEventDetails,
-} from './chip-group.component.js';
+} from './chip-group.component.ts';
 
-import '../chip.js';
-import '../../autocomplete.js';
-import '../../form-field.js';
-import '../../option.js';
+import '../chip.ts';
+import '../../autocomplete.ts';
+import '../../form-field.ts';
+import '../../option.ts';
 
 describe('sbb-chip-group', () => {
   let element: SbbChipGroupElement;

@@ -1,8 +1,8 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './clock.component.js';
+import './clock.component.ts';
 
 describe(`sbb-clock`, () => {
   const timeCases = [

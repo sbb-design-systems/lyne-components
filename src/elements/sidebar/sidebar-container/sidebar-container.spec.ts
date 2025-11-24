@@ -3,15 +3,15 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { isWebkit } from '../../core/dom.js';
-import { fixture, tabKey } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
-import type { SbbSidebarElement } from '../sidebar.js';
+import { isWebkit } from '../../core/dom.ts';
+import { fixture, tabKey } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
+import type { SbbSidebarElement } from '../sidebar.ts';
 
-import { SbbSidebarContainerElement } from './sidebar-container.component.js';
+import { SbbSidebarContainerElement } from './sidebar-container.component.ts';
 
-import '../sidebar.js';
-import '../sidebar-content.js';
+import '../sidebar.ts';
+import '../sidebar-content.ts';
 
 describe('sbb-sidebar-container', () => {
   let element: SbbSidebarContainerElement,

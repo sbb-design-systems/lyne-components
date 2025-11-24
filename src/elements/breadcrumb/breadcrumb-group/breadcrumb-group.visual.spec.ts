@@ -4,10 +4,10 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../breadcrumb.js';
-import './breadcrumb-group.component.js';
+import '../breadcrumb.ts';
+import './breadcrumb-group.component.ts';
 
 describe('sbb-breadcrumb-group', () => {
   const variants = [

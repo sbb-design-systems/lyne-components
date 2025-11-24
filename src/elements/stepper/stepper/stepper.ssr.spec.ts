@@ -1,12 +1,12 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbStepperElement } from './stepper.component.js';
+import { SbbStepperElement } from './stepper.component.ts';
 
-import '../step.js';
-import '../step-label.js';
+import '../step.ts';
+import '../step-label.ts';
 
 describe(`sbb-stepper ssr`, () => {
   let root: SbbStepperElement;

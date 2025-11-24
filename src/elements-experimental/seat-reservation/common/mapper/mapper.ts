@@ -8,9 +8,9 @@ import type {
   SeatReservationPlaceSelection,
   SeatReservationSelectedCoach,
   VehicleType,
-} from '../types.js';
+} from '../types.ts';
 
-import { MOCK_COACHES_RAW_0, MOCK_COACHES_RAW_1 } from './seat-reservation-sample-data.js';
+import { MOCK_COACHES_RAW_0, MOCK_COACHES_RAW_1 } from './seat-reservation-sample-data.ts';
 
 /**
  * Map function that converts the RAW OSDM mock data into SeatReservation

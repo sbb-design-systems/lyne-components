@@ -4,8 +4,8 @@ import {
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html, nothing } from 'lit';
 
-import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.private.js';
-import './pearl-chain-time.component.js';
+import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.private.ts';
+import './pearl-chain-time.component.ts';
 
 describe(`sbb-pearl-chain-time`, () => {
   const cases = [

@@ -2,12 +2,12 @@ import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-v
 import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbTime } from '../core/interfaces/types.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbTime } from '../core/interfaces/types.ts';
 
 import readme from './readme.md?raw';
 
-import './clock.component.js';
+import './clock.component.ts';
 
 const hours: InputType = { control: { type: 'number', min: 0, max: 23 } };
 const minutes: InputType = { control: { type: 'number', min: 0, max: 59 } };

@@ -3,14 +3,14 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { type SinonSpy, spy } from 'sinon';
 
-import type { SbbMiniButtonElement } from '../../button/mini-button.js';
-import type { SbbPaginatorPageEventDetails } from '../../core/interfaces/paginator-page.js';
-import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbOptionElement } from '../../option.js';
-import { SbbSelectElement } from '../../select.js';
+import type { SbbMiniButtonElement } from '../../button/mini-button.ts';
+import type { SbbPaginatorPageEventDetails } from '../../core/interfaces/paginator-page.ts';
+import { fixture, tabKey } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbOptionElement } from '../../option.ts';
+import { SbbSelectElement } from '../../select.ts';
 
-import { SbbPaginatorElement } from './paginator.component.js';
+import { SbbPaginatorElement } from './paginator.component.ts';
 
 describe('sbb-paginator', () => {
   let element: SbbPaginatorElement;

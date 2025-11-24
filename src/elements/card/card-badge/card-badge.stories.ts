@@ -3,12 +3,12 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
-import './card-badge.component.js';
-import '../card.js';
+import './card-badge.component.ts';
+import '../card.ts';
 
 const ariaLabel: InputType = {
   control: {

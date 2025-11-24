@@ -1,5 +1,5 @@
 /**
  * @entrypoint
  */
-export * from './breadcrumb/breadcrumb.js';
-export * from './breadcrumb/breadcrumb-group.js';
+export * from './breadcrumb/breadcrumb.ts';
+export * from './breadcrumb/breadcrumb-group.ts';

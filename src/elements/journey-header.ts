@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './journey-header/journey-header.component.js';
+export * from './journey-header/journey-header.component.ts';

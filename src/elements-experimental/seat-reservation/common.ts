@@ -1,7 +1,7 @@
 /**
  * @entrypoint
  */
-export * from './common/mapper.js';
-export * from './common/svgs.js';
-export * from './common/translations.js';
-export * from './common/types.js';
+export * from './common/mapper.ts';
+export * from './common/svgs.ts';
+export * from './common/translations.ts';
+export * from './common/types.ts';

@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './step/step.component.js';
+export * from './step/step.component.ts';

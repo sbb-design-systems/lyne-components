@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbDialogCloseButtonElement } from './dialog-close-button.component.js';
+import type { SbbDialogCloseButtonElement } from './dialog-close-button.component.ts';
 
-import './dialog-close-button.component.js';
+import './dialog-close-button.component.ts';
 
 describe(`sbb-dialog-close-button`, () => {
   describe('renders', () => {

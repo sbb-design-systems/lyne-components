@@ -8,9 +8,9 @@ import {
 } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core/styles.js';
-import { sidebarContainerCommonStyle } from '../common.js';
-import type { SbbSidebarElement } from '../sidebar.js';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { sidebarContainerCommonStyle } from '../common.ts';
+import type { SbbSidebarElement } from '../sidebar.ts';
 
 import style from './sidebar-container.scss?lit&inline';
 

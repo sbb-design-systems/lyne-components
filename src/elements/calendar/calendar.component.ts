@@ -11,14 +11,14 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
-import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y.js';
-import { readConfig } from '../core/config.js';
+import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y.ts';
+import { readConfig } from '../core/config.ts';
 import {
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointLargeAndAbove,
-} from '../core/controllers.js';
-import type { DateAdapter } from '../core/datetime.js';
+} from '../core/controllers.ts';
+import type { DateAdapter } from '../core/datetime.ts';
 import {
   DAYS_PER_ROW,
   defaultDateAdapter,
@@ -26,8 +26,8 @@ import {
   MONTHS_PER_ROW,
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
-} from '../core/datetime.js';
-import { forceType, handleDistinctChange, plainDate } from '../core/decorators.js';
+} from '../core/datetime.ts';
+import { forceType, handleDistinctChange, plainDate } from '../core/decorators.ts';
 import {
   i18nCalendarDateSelection,
   i18nCalendarWeekNumber,
@@ -38,16 +38,16 @@ import {
   i18nPreviousYear,
   i18nPreviousYearRange,
   i18nYearMonthSelection,
-} from '../core/i18n.js';
-import type { SbbOrientation } from '../core/interfaces.js';
-import { SbbHydrationMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
+} from '../core/i18n.ts';
+import type { SbbOrientation } from '../core/interfaces.ts';
+import { SbbHydrationMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './calendar.scss?lit&inline';
 
-import '../button/secondary-button.js';
-import '../icon.js';
-import '../screen-reader-only.js';
+import '../button/secondary-button.ts';
+import '../icon.ts';
+import '../screen-reader-only.ts';
 
 /**
  * Parameters needed in year and month views to correctly calculate the next element in keyboard navigation.

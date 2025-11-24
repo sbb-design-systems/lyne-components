@@ -5,11 +5,11 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './stepper.component.js';
-import '../step.js';
-import '../step-label.js';
+import './stepper.component.ts';
+import '../step.ts';
+import '../step-label.ts';
 
 describe(`sbb-stepper`, () => {
   const cases = {

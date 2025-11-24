@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbTeaserElement } from './teaser.component.js';
+import type { SbbTeaserElement } from './teaser.component.ts';
 
-import '../chip-label.js';
-import '../title.js';
-import './teaser.component.js';
+import '../chip-label.ts';
+import '../title.ts';
+import './teaser.component.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 

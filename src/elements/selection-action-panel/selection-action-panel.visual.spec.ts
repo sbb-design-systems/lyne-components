@@ -5,18 +5,18 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './selection-action-panel.component.js';
-import '../button/secondary-button.js';
-import '../card/card-badge.js';
-import '../checkbox/checkbox-panel.js';
-import '../checkbox/checkbox-group.js';
-import '../icon.js';
-import '../link/block-link-button.js';
-import '../radio-button/radio-button-panel.js';
-import '../radio-button/radio-button-group.js';
-import '../selection-expansion-panel.js';
+import './selection-action-panel.component.ts';
+import '../button/secondary-button.ts';
+import '../card/card-badge.ts';
+import '../checkbox/checkbox-panel.ts';
+import '../checkbox/checkbox-group.ts';
+import '../icon.ts';
+import '../link/block-link-button.ts';
+import '../radio-button/radio-button-panel.ts';
+import '../radio-button/radio-button-group.ts';
+import '../selection-expansion-panel.ts';
 
 describe(`sbb-selection-action-panel`, () => {
   const cases = {

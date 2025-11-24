@@ -5,9 +5,9 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffStandardStates,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './tag.component.js';
+import './tag.component.ts';
 
 describe(`sbb-tag`, () => {
   const cases = {

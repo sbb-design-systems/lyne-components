@@ -4,15 +4,15 @@ import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { defaultDateAdapter } from '../../core/datetime.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import { defaultDateAdapter } from '../../core/datetime.ts';
 
 import readme from './readme.md?raw';
 
-import '../../tooltip.js';
-import '../mini-calendar-month/mini-calendar-month.component.js';
-import '../mini-calendar-day/mini-calendar-day.component.js';
-import './mini-calendar.component.js';
+import '../../tooltip.ts';
+import '../mini-calendar-month/mini-calendar-month.component.ts';
+import '../mini-calendar-day/mini-calendar-day.component.ts';
+import './mini-calendar.component.ts';
 
 const createDays = (year: number, month: number, withTooltip: boolean): TemplateResult => {
   const numDays = defaultDateAdapter.getNumDaysInMonth(new Date(year, month));

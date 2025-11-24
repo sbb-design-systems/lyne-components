@@ -4,7 +4,7 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 import {
@@ -26,8 +26,8 @@ import {
   skippedArrivalStopTrip,
   skippedFirstDepartureStopTrip,
   skippedLastArrivalStopTrip,
-} from './timetable-row.sample-data.private.js';
-import './timetable-row.component.js';
+} from './timetable-row.sample-data.private.ts';
+import './timetable-row.component.ts';
 
 const cardActionLabel: InputType = {
   control: {

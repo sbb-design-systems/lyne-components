@@ -6,11 +6,11 @@ import {
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryForcedColors,
-} from '../core/controllers.js';
-import { i18nOccupancy } from '../core/i18n.js';
-import type { SbbOccupancy } from '../core/interfaces.js';
-import { SbbNegativeMixin } from '../core/mixins.js';
-import { SbbIconBase } from '../icon.js';
+} from '../core/controllers.ts';
+import { i18nOccupancy } from '../core/i18n.ts';
+import type { SbbOccupancy } from '../core/interfaces.ts';
+import { SbbNegativeMixin } from '../core/mixins.ts';
+import { SbbIconBase } from '../icon.ts';
 
 import style from './timetable-occupancy-icon.scss?lit&inline';
 

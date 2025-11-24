@@ -5,9 +5,9 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './divider.component.js';
+import './divider.component.ts';
 
 describe(`sbb-divider`, () => {
   let root: HTMLElement;

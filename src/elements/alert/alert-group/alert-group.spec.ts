@@ -2,14 +2,14 @@ import { expect } from '@open-wc/testing';
 import { sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTransparentButtonElement } from '../../button.js';
-import { fixture } from '../../core/testing/private.js';
-import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.js';
-import { SbbAlertElement } from '../alert.js';
+import type { SbbTransparentButtonElement } from '../../button.ts';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.ts';
+import { SbbAlertElement } from '../alert.ts';
 
-import { SbbAlertGroupElement } from './alert-group.component.js';
+import { SbbAlertGroupElement } from './alert-group.component.ts';
 
-import '../../title.js';
+import '../../title.ts';
 
 describe(`sbb-alert-group`, () => {
   let element: SbbAlertGroupElement;

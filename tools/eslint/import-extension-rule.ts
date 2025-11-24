@@ -11,7 +11,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
         | TSESTree.ExportNamedDeclarationWithSource
         | TSESTree.ImportDeclaration;
       const value = node.source?.value.replace(/\?.*$/, '');
-      if (!value || !value.startsWith('.') || value.endsWith('.js')) {
+      if (!value || !value.startsWith('.') || value.endsWith('.ts')) {
         return;
       }
 
@@ -22,7 +22,8 @@ export default ESLintUtils.RuleCreator.withoutDocs({
           messageId: 'importExtensionRule',
           data: { import: value },
           fix: !node.source.value.includes('?')
-            ? (fixer) => fixer.replaceText(node.source, `'${node.source.value}.js'`)
+            ? (fixer) =>
+                fixer.replaceText(node.source, `'${node.source.value.replace(/\.js$/, '')}.ts'`)
             : undefined,
         });
       } else if (existsSync(path) && statSync(path).isDirectory()) {
@@ -30,7 +31,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
           node,
           messageId: 'importExtensionRule',
           data: { import: value },
-          fix: (fixer) => fixer.replaceText(node.source, `'${node.source.value}/index.js'`),
+          fix: (fixer) => fixer.replaceText(node.source, `'${node.source.value}.ts'`),
         });
       }
     }
@@ -45,11 +46,11 @@ export default ESLintUtils.RuleCreator.withoutDocs({
   },
   meta: {
     docs: {
-      description: 'Relative imports and exports must end with .js',
+      description: 'Relative imports and exports must end with .ts',
     },
     messages: {
-      importExtensionRule: 'Missing .js extension in import/export path ({{ import }})',
-      importIndexExtensionRule: 'Missing index.js in import/export path ({{ import }})',
+      importExtensionRule: 'Missing .ts extension in import/export path ({{ import }})',
+      importIndexExtensionRule: 'Missing index.ts in import/export path ({{ import }})',
     },
     fixable: 'code',
     type: 'problem',

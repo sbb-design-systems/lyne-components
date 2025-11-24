@@ -4,7 +4,6 @@
   --sbb-optgroup-divider-display: block;
   --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-2x);
   --sbb-optgroup-label-padding-inline: var(--sbb-spacing-responsive-xxxs);
-  --sbb-optgroup-label-font-size: var(--sbb-typo-scale-0-75x);
   --sbb-optgroup-label-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
 
   display: block;
@@ -12,10 +11,6 @@
 
 :host(:first-child) {
   --sbb-optgroup-divider-display: none;
-}
-
-:host([data-variant='select']) {
-  --sbb-optgroup-label-font-size: inherit;
 }
 
 :host([data-negative]) {

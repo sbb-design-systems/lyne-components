@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { i18nCloseDialog } from '../../core/i18n.js';
-import { elementInternalsSpy, fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+import { i18nCloseDialog } from '../../core/i18n.ts';
+import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
-import { SbbDialogCloseButtonElement } from './dialog-close-button.component.js';
+import { SbbDialogCloseButtonElement } from './dialog-close-button.component.ts';
 
 describe('sbb-dialog-close-button', () => {
   let element: SbbDialogCloseButtonElement;

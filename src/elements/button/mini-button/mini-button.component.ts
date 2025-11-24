@@ -2,11 +2,11 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { SbbIconNameMixin } from '../../icon.js';
-import { miniButtonStyle } from '../common.js';
+import { SbbButtonBaseElement } from '../../core/base-elements.ts';
+import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
+import { miniButtonStyle } from '../common.ts';
 
 import style from './mini-button.scss?lit&inline';
 

@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbTransparentButtonElement } from './transparent-button.component.js';
+import { SbbTransparentButtonElement } from './transparent-button.component.ts';
 
 describe(`sbb-transparent-button ssr`, () => {
   let root: SbbTransparentButtonElement;

@@ -2,10 +2,10 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
-import { SbbLinkStaticElement } from './link-static.component.js';
+import { SbbLinkStaticElement } from './link-static.component.ts';
 
 describe(`sbb-link-static`, () => {
   let element: SbbLinkStaticElement;

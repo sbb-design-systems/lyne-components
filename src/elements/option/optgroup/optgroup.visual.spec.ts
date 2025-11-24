@@ -1,13 +1,13 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import '../../form-field.js';
-import '../../autocomplete.js';
-import '../../select.js';
-import '../option.js';
-import './optgroup.component.js';
+import '../../form-field.ts';
+import '../../autocomplete.ts';
+import '../../select.ts';
+import '../option.ts';
+import './optgroup.component.ts';
 
 describe(`sbb-optgroup`, () => {
   const defaultArgs = {

@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './tag-group/tag-group.component.js';
+export * from './tag-group/tag-group.component.ts';

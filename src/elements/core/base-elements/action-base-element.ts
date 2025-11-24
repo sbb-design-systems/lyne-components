@@ -1,7 +1,7 @@
 import { html, LitElement, type TemplateResult } from 'lit';
 
-import { hostAttributes } from '../decorators.js';
-import { SbbElementInternalsMixin } from '../mixins.js';
+import { hostAttributes } from '../decorators.ts';
+import { SbbElementInternalsMixin } from '../mixins.ts';
 
 /**
  * Whenever an element can be disabled it has disabled property

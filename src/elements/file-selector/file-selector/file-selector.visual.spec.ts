@@ -6,12 +6,12 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import type { SbbFileSelectorElement } from './file-selector.component.js';
+import type { SbbFileSelectorElement } from './file-selector.component.ts';
 
-import '../../form-field/error.js';
-import './file-selector.component.js';
+import '../../form-field/error.ts';
+import './file-selector.component.ts';
 
 describe(`sbb-file-selector`, () => {
   function addFilesToComponentInput(elem: SbbFileSelectorElement): void {

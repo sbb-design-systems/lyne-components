@@ -11,8 +11,8 @@ import {
   extractTimeAndStringFromNoticeText,
   isConnectionLeg,
   isRideLeg,
-} from './timetable-helper.js';
-import type { Leg, PtConnectionLeg, PtRideLeg } from './timetable-properties.js';
+} from './timetable-helper.ts';
+import type { Leg, PtConnectionLeg, PtRideLeg } from './timetable-properties.ts';
 
 import '@sbb-esta/lyne-elements/icon.js';
 

@@ -3,12 +3,12 @@ import { nothing, type TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
-import { commonDefaultArgs, commonDefaultArgTypes } from './common-stories.private.js';
+import { commonDefaultArgs, commonDefaultArgTypes } from './common-stories.private.ts';
 
-import '../../action-group.js';
-import '../../form-field.js';
+import '../../action-group.ts';
+import '../../form-field.ts';
 
 /* eslint-disable lit/binding-positions, @typescript-eslint/naming-convention */
 const FormTemplate = ({

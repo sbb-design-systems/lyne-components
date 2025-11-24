@@ -2,13 +2,13 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, handleDistinctChange } from '../core/decorators.js';
-import { isLean } from '../core/dom.js';
-import { isEventPrevented } from '../core/eventing.js';
-import { SbbHydrationMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
-import type { SbbExpansionPanelElement } from '../expansion-panel.js';
-import type { SbbTitleLevel } from '../title.js';
+import { forceType, handleDistinctChange } from '../core/decorators.ts';
+import { isLean } from '../core/dom.ts';
+import { isEventPrevented } from '../core/eventing.ts';
+import { SbbHydrationMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbExpansionPanelElement } from '../expansion-panel.ts';
+import type { SbbTitleLevel } from '../title.ts';
 
 import style from './accordion.scss?lit&inline';
 

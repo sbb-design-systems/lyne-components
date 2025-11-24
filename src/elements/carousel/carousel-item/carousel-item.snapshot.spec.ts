@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbCarouselItemElement } from './carousel-item.component.js';
+import type { SbbCarouselItemElement } from './carousel-item.component.ts';
 
-import './carousel-item.component.js';
-import '../../image.js';
+import './carousel-item.component.ts';
+import '../../image.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

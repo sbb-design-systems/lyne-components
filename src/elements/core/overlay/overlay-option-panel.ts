@@ -1,4 +1,4 @@
-import { getElementPosition } from './position.js';
+import { getElementPosition } from './position.ts';
 
 /**
  * Places the overlay in the correct position.

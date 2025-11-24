@@ -1,9 +1,9 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { fixture } from '../testing/private.js';
+import { fixture } from '../testing/private.ts';
 
-import { addToListAttribute, removeFromListAttribute } from './set-or-remove-attribute.js';
+import { addToListAttribute, removeFromListAttribute } from './set-or-remove-attribute.ts';
 
 describe('set-or-remove-attribute', () => {
   it('addToListAttribute', async () => {

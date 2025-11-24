@@ -8,18 +8,18 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
-import { forceType } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
+import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.ts';
+import { forceType } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
   SbbElementInternalsMixin,
   SbbFormAssociatedMixin,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { type SbbToggleOptionElement } from '../toggle-option.js';
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { type SbbToggleOptionElement } from '../toggle-option.ts';
 
 import style from './toggle.scss?lit&inline';
 

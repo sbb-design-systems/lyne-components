@@ -1,12 +1,12 @@
 import { html, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { defaultDateAdapter } from '../../core/datetime.js';
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { defaultDateAdapter } from '../../core/datetime.ts';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './mini-calendar.component.js';
-import '../mini-calendar-month.js';
-import '../mini-calendar-day.js';
+import './mini-calendar.component.ts';
+import '../mini-calendar-month.ts';
+import '../mini-calendar-day.ts';
 
 describe('sbb-mini-calendar', () => {
   const createDays = (year: number, month: number): TemplateResult => {

@@ -4,17 +4,17 @@ import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
-import { SbbNavigationElement } from './navigation.component.js';
+import { SbbNavigationElement } from './navigation.component.ts';
 import readme from './readme.md?raw';
-import '../navigation-section.js';
-import '../navigation-marker.js';
-import '../navigation-list.js';
-import '../navigation-button.js';
-import '../navigation-link.js';
-import '../../button/button.js';
-import '../../button/secondary-button.js';
+import '../navigation-section.ts';
+import '../navigation-marker.ts';
+import '../navigation-list.ts';
+import '../navigation-button.ts';
+import '../navigation-link.ts';
+import '../../button/button.ts';
+import '../../button/secondary-button.ts';
 
 const ariaLabel: InputType = {
   control: {

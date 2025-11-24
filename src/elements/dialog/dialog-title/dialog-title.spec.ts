@@ -1,7 +1,7 @@
 import { assert, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { SbbDialogTitleElement } from './dialog-title.component.js';
+import { SbbDialogTitleElement } from './dialog-title.component.ts';
 
 describe('sbb-dialog-title', () => {
   let element: SbbDialogTitleElement;

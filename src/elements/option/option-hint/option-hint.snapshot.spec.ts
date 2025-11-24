@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbOptionHintElement } from './option-hint.component.js';
-import './option-hint.component.js';
+import type { SbbOptionHintElement } from './option-hint.component.ts';
+import './option-hint.component.ts';
 
 describe(`sbb-option-hint`, () => {
   describe('renders', () => {

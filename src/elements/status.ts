@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './status/status.component.js';
+export * from './status/status.component.ts';

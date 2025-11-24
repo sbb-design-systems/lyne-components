@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbSelectElement } from './select.component.js';
-import '../option.js';
+import { SbbSelectElement } from './select.component.ts';
+import '../option.ts';
 
 describe(`sbb-select ssr`, () => {
   let root: SbbSelectElement;

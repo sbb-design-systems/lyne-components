@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbChipLabelElement } from './chip-label.component.js';
+import { SbbChipLabelElement } from './chip-label.component.ts';
 
 describe(`sbb-chip-label ssr`, () => {
   let root: SbbChipLabelElement;

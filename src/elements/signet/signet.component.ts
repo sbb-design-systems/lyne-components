@@ -2,9 +2,9 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType } from '../core/decorators.js';
-import type { SbbProtectiveRoom } from '../core/interfaces.js';
-import { boxSizingStyles } from '../core/styles.js';
+import { forceType } from '../core/decorators.ts';
+import type { SbbProtectiveRoom } from '../core/interfaces.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './signet.scss?lit&inline';
 

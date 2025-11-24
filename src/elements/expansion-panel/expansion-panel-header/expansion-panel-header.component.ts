@@ -1,12 +1,12 @@
 import { type CSSResultGroup, html, nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { SbbMediaQueryHover, SbbMediaMatcherController } from '../../core/controllers.js';
-import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { SbbIconNameMixin } from '../../icon.js';
-import type { SbbExpansionPanelElement } from '../expansion-panel.js';
+import { SbbButtonBaseElement } from '../../core/base-elements.ts';
+import { SbbMediaQueryHover, SbbMediaMatcherController } from '../../core/controllers.ts';
+import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
+import type { SbbExpansionPanelElement } from '../expansion-panel.ts';
 
 import style from './expansion-panel-header.scss?lit&inline';
 

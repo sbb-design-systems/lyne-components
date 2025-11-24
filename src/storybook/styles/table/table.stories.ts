@@ -4,7 +4,7 @@ import { html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import type { InputType } from 'storybook/internal/types';
 
-import '../../../elements/form-field.js';
+import '../../../elements/form-field.ts';
 
 import readme from './readme.md?raw';
 

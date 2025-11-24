@@ -5,14 +5,14 @@ import { classMap } from 'lit/directives/class-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import images from '../core/images.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import images from '../core/images.ts';
 
-import { SbbImageElement } from './image.component.js';
+import { SbbImageElement } from './image.component.ts';
 import readme from './readme.md?raw';
 
-import '../chip-label.js';
-import '../link.js';
+import '../chip-label.ts';
+import '../link.ts';
 
 const ImageTemplate = ({ aspectRatio, borderRadius, ...args }: Args): TemplateResult => html`
   <sbb-image

@@ -2,23 +2,23 @@ import type { PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType, omitEmptyConverter } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
+import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
 import {
   SbbElementInternalsMixin,
   SbbNamedSlotListMixin,
   SbbNegativeMixin,
   type WithListChildren,
-} from '../../core/mixins.js';
+} from '../../core/mixins.ts';
 import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,
   SbbBlockLinkStaticElement,
   SbbLinkSize,
-} from '../../link.js';
-import type { SbbTitleLevel } from '../../title.js';
+} from '../../link.ts';
+import type { SbbTitleLevel } from '../../title.ts';
 
-import '../../title.js';
+import '../../title.ts';
 
 /**
  * It displays a list of `sbb-block-link`.

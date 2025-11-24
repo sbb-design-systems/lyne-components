@@ -3,9 +3,9 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { forceType } from '../decorators.ts';
-import { fixture } from '../testing/private.js';
+import { fixture } from '../testing/private.ts';
 
-import { SbbAncestorWatcherController } from './ancestor-watcher-controller.js';
+import { SbbAncestorWatcherController } from './ancestor-watcher-controller.ts';
 
 /** Test parent element */
 @customElement('parent-element')

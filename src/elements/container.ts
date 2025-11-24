@@ -1,5 +1,5 @@
 /**
  * @entrypoint
  */
-export * from './container/container.js';
-export * from './container/sticky-bar.js';
+export * from './container/container.ts';
+export * from './container/sticky-bar.ts';

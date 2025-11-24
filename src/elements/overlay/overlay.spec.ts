@@ -2,15 +2,15 @@ import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../button.js';
-import { i18nDialog } from '../core/i18n.js';
-import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
-import { sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
+import type { SbbButtonElement } from '../button.ts';
+import { i18nDialog } from '../core/i18n.ts';
+import type { SbbOverlayCloseEventDetails } from '../core/interfaces.ts';
+import { sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 
-import { SbbOverlayElement } from './overlay.component.js';
-import '../button.js';
-import '../icon.js';
+import { SbbOverlayElement } from './overlay.component.ts';
+import '../button.ts';
+import '../icon.ts';
 
 async function openOverlay(element: SbbOverlayElement): Promise<void> {
   const beforeOpenSpy = new EventSpy(SbbOverlayElement.events.beforeopen, element);

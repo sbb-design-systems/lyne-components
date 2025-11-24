@@ -8,13 +8,13 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { readConfig } from '../core/config.js';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
+import { readConfig } from '../core/config.ts';
 import {
   SbbEscapableOverlayController,
   SbbOverlayPositionController,
-} from '../core/controllers.js';
-import { idReference } from '../core/decorators.js';
+} from '../core/controllers.ts';
+import { idReference } from '../core/decorators.ts';
 import {
   addToListAttribute,
   isAndroid,
@@ -22,10 +22,10 @@ import {
   isZeroAnimationDuration,
   queueDomContentLoaded,
   removeFromListAttribute,
-} from '../core/dom.js';
-import { SbbDisabledMixin } from '../core/mixins.js';
-import { sbbOverlayOutsidePointerEventListener } from '../core/overlay.js';
-import { boxSizingStyles } from '../core/styles.js';
+} from '../core/dom.ts';
+import { SbbDisabledMixin } from '../core/mixins.ts';
+import { sbbOverlayOutsidePointerEventListener } from '../core/overlay.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './tooltip.scss?lit&inline';
 

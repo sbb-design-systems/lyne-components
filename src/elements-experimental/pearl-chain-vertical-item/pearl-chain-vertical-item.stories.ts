@@ -3,8 +3,8 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import readme from './readme.md?raw';
-import '../pearl-chain-vertical.js';
-import './pearl-chain-vertical-item.component.js';
+import '../pearl-chain-vertical.ts';
+import './pearl-chain-vertical-item.component.ts';
 
 const Template = (args: Args): TemplateResult => {
   return html`

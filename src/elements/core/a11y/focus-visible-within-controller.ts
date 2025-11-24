@@ -1,6 +1,6 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
-import { sbbInputModalityDetector } from './input-modality-detector.js';
+import { sbbInputModalityDetector } from './input-modality-detector.ts';
 
 // Determine whether the element has a visible focus within.
 export class SbbFocusVisibleWithinController implements ReactiveController {

@@ -20,7 +20,6 @@ $open-anim-height-to: calc(
     color-mix(in srgb, var(--sbb-notification-type-color) 35%, white)
   );
   --sbb-notification-icon-color: var(--sbb-notification-type-color);
-  --sbb-notification-icon-margin-block-start: 0;
   --sbb-notification-border-width: var(--sbb-border-width-1x);
   --sbb-notification-border: var(--sbb-notification-border-width) solid
     var(--sbb-notification-type-color);

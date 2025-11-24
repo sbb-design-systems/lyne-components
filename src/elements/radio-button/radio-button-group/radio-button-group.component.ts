@@ -2,14 +2,14 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
-import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
-import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbRadioButtonSize } from '../common.js';
-import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
-import type { SbbRadioButtonElement } from '../radio-button.js';
+import { forceType } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
+import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';
+import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbRadioButtonSize } from '../common.ts';
+import type { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
+import type { SbbRadioButtonElement } from '../radio-button.ts';
 
 import style from './radio-button-group.scss?lit&inline';
 

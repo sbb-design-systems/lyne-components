@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing/wait-for-render.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing/wait-for-render.ts';
 
-import type { SbbMiniCalendarElement } from './mini-calendar.component.js';
-import './mini-calendar.component.js';
-import '../mini-calendar-month.js';
-import '../mini-calendar-day.js';
+import type { SbbMiniCalendarElement } from './mini-calendar.component.ts';
+import './mini-calendar.component.ts';
+import '../mini-calendar-month.ts';
+import '../mini-calendar-day.ts';
 
 describe(`sbb-mini-calendar`, () => {
   describe('renders', () => {

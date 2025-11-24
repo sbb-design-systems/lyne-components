@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './breadcrumb-group/breadcrumb-group.component.js';
+export * from './breadcrumb-group/breadcrumb-group.component.ts';

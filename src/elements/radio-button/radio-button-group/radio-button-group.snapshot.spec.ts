@@ -1,14 +1,14 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbRadioButtonGroupElement } from './radio-button-group.component.js';
+import type { SbbRadioButtonGroupElement } from './radio-button-group.component.ts';
 
-import './radio-button-group.component.js';
-import '../radio-button.js';
-import '../radio-button-panel.js';
-import '../../selection-expansion-panel.js';
+import './radio-button-group.component.ts';
+import '../radio-button.ts';
+import '../radio-button-panel.ts';
+import '../../selection-expansion-panel.ts';
 
 describe(`sbb-radio-button-group`, () => {
   let element: SbbRadioButtonGroupElement;

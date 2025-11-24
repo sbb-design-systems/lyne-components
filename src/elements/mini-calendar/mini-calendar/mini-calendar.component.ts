@@ -3,13 +3,13 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.js';
-import { readConfig } from '../../core/config/config.js';
-import type { DateAdapter } from '../../core/datetime/date-adapter.js';
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.js';
-import type { SbbOrientation } from '../../core/interfaces.js';
-import type { SbbMiniCalendarDayElement } from '../mini-calendar-day.js';
-import type { SbbMiniCalendarMonthElement } from '../mini-calendar-month.js';
+import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.ts';
+import { readConfig } from '../../core/config/config.ts';
+import type { DateAdapter } from '../../core/datetime/date-adapter.ts';
+import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
+import type { SbbOrientation } from '../../core/interfaces.ts';
+import type { SbbMiniCalendarDayElement } from '../mini-calendar-day.ts';
+import type { SbbMiniCalendarMonthElement } from '../mini-calendar-month.ts';
 
 import style from './mini-calendar.scss?lit&inline';
 

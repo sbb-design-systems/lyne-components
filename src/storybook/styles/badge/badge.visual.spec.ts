@@ -5,9 +5,9 @@ import {
   describeEach,
   describeViewports,
   visualDiffDefault,
-} from '../../../elements/core/testing/private.js';
+} from '../../../elements/core/testing/private.ts';
 
-import '../../../elements/icon.js';
+import '../../../elements/icon.ts';
 
 describe(`badge`, () => {
   const cases = {

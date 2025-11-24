@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './core/create-component.js';
+export * from './core/create-component.ts';

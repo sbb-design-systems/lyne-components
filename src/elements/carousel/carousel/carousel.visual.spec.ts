@@ -1,13 +1,13 @@
 import { aTimeout } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
-import { waitForImageReady } from '../../core/testing.js';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import { waitForImageReady } from '../../core/testing.ts';
 
-import './carousel.component.js';
-import '../carousel-list/carousel-list.component.js';
-import '../carousel-item/carousel-item.component.js';
-import '../../paginator/compact-paginator/compact-paginator.component.js';
+import './carousel.component.ts';
+import '../carousel-list/carousel-list.component.ts';
+import '../carousel-item/carousel-item.component.ts';
+import '../../paginator/compact-paginator/compact-paginator.component.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

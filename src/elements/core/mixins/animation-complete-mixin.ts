@@ -1,6 +1,6 @@
 import type { LitElement } from 'lit';
 
-import type { AbstractConstructor } from './constructor.js';
+import type { AbstractConstructor } from './constructor.ts';
 
 export declare abstract class SbbAnimationCompleteMixinType {
   public isAnimating: boolean;

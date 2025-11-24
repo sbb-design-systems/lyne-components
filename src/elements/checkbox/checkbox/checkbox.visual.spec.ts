@@ -4,9 +4,9 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './checkbox.component.js';
+import './checkbox.component.ts';
 
 describe('sbb-checkbox', () => {
   const defaultArgs = {

@@ -1,6 +1,6 @@
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
-import type { SbbOpenCloseBaseElement } from '../base-elements/open-close-base-element.js';
+import type { SbbOpenCloseBaseElement } from '../base-elements/open-close-base-element.ts';
 
 const overlayStack = new Array<SbbOpenCloseBaseElement>();
 
