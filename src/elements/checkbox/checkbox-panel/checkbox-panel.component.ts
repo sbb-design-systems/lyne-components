@@ -4,27 +4,16 @@ import {
   LitElement,
   nothing,
   type PropertyDeclaration,
-  type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type {
-  SbbCheckedStateChange,
-  SbbDisabledStateChange,
-  SbbStateChange,
-} from '../../core/interfaces/types.ts';
 import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { checkboxCommonStyle, SbbCheckboxCommonElementMixin } from '../common.ts';
 
 import '../../screen-reader-only.ts';
 import '../../visual-checkbox.ts';
-
-export type SbbCheckboxPanelStateChange = Extract<
-  SbbStateChange,
-  SbbDisabledStateChange | SbbCheckedStateChange
->;
 
 /**
  * It displays a checkbox enhanced with selection panel design.
@@ -65,32 +54,6 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
     }
   }
 
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('checked')) {
-      if (this.checked !== changedProperties.get('checked')!) {
-        this._dispatchStateChange({ type: 'checked', checked: this.checked });
-      }
-    }
-    if (changedProperties.has('disabled')) {
-      if (this.disabled !== changedProperties.get('disabled')!) {
-        this._dispatchStateChange({ type: 'disabled', disabled: this.disabled });
-      }
-    }
-  }
-
-  private _dispatchStateChange(detail: SbbCheckboxPanelStateChange): boolean {
-    /**
-     * @internal
-     * Internal event that emits whenever the state of the checkbox
-     * in relation to the parent selection panel changes.
-     */
-    return this.dispatchEvent(
-      new CustomEvent<SbbCheckboxPanelStateChange>('statechange', { detail, bubbles: true }),
-    );
-  }
-
   protected override render(): TemplateResult {
     return html`
       <span class="sbb-selection-panel">
@@ -128,9 +91,5 @@ declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-checkbox-panel': SbbCheckboxPanelElement;
-  }
-
-  interface GlobalEventHandlersEventMap {
-    statechange: CustomEvent<SbbStateChange>;
   }
 }

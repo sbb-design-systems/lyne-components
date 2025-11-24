@@ -30,7 +30,6 @@ class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonElementMixin
     radioButtonStyle,
   ];
   public static readonly events = {
-    statechange: 'statechange',
     change: 'change',
     input: 'input',
   } as const;
