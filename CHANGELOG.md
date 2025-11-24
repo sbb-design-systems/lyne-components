@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.13.3](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.2...v3.13.3) (2025-11-24)
+
+
+### Bug Fixes
+
+* **lists:** display icon with forced colors ([#4203](https://github.com/sbb-design-systems/lyne-components/issues/4203)) ([#4212](https://github.com/sbb-design-systems/lyne-components/issues/4212)) ([7e1243b](https://github.com/sbb-design-systems/lyne-components/commit/7e1243b4b6fc330c1ddc1bebfd59f77bb698c67e))
+* **sbb-seat-reservation:** prevent autofocus by preselect index ([#4224](https://github.com/sbb-design-systems/lyne-components/issues/4224)) ([1cbc07a](https://github.com/sbb-design-systems/lyne-components/commit/1cbc07aecf5c6c16f29e2de9c5d403d6ed466b94))
+* **sbb-teaser:** improve focus appearance with forced colors ([#4217](https://github.com/sbb-design-systems/lyne-components/issues/4217)) ([ba7574d](https://github.com/sbb-design-systems/lyne-components/commit/ba7574d075cdb95842add1f224ece786a722c020))
+
 ## [3.13.2](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.1...v3.13.2) (2025-11-17)
 
 
