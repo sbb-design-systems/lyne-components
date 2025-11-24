@@ -137,6 +137,7 @@ export class SeatReservationBaseElement extends LitElement {
   protected isAutoScrolling = false;
   protected isKeyboardNavigation = false;
   protected hasMultipleDecks = false;
+  protected hasSeatReservationNativeFocus = false;
   protected keyboardNavigationEvents = {
     ArrowLeft: 'ArrowLeft',
     ArrowRight: 'ArrowRight',
@@ -335,6 +336,15 @@ export class SeatReservationBaseElement extends LitElement {
 
     // For any keyboard use, the preventCoachScrollByPlaceClick variable must be reset to false
     this.preventCoachScrollByPlaceClick = false;
+
+    // Check any keyboard event was triggered inside the seat reservation component,
+    // so we can say the native browser focus lies on the this component
+    if (
+      !this.hasSeatReservationNativeFocus &&
+      ((event.shiftKey && event.keyCode === 9) || pressedKey === this.keyboardNavigationEvents.Tab)
+    ) {
+      this.hasSeatReservationNativeFocus = true;
+    }
 
     // If any place is selected and TAB Key combination ist pressed,
     // then we handle the next or previous coach selection
@@ -582,6 +592,9 @@ export class SeatReservationBaseElement extends LitElement {
       ? this.currSelectedCoachIndex
       : this._getCoachIndexByScrollTriggerPosition();
 
+    // After coach scrollend event we can reset the hovered coach index
+    this.hoveredScrollCoachIndex = -1;
+
     // In case the user uses the scrollbar without interacting with the seat reservation,
     // the currently selected index is -1 and we have to set this value with findScrollCoachIndex.
     if (this.currSelectedCoachIndex === -1) {
@@ -601,7 +614,6 @@ export class SeatReservationBaseElement extends LitElement {
       //When user is scrolling via scrollbar, it automatically scrolls to the focused coach in the main navigation
       this._scrollToSelectedNavigationButton(findScrollCoachIndex);
     }
-
     this.preventCoachScrollByPlaceClick = false;
     this.updateCurrentSelectedCoach();
 
@@ -670,7 +682,7 @@ export class SeatReservationBaseElement extends LitElement {
    */
   private _setFocusToSelectedCoachGrid(): void {
     // When the user performs an action that affects the coach navigation, then the navigated table is focusable.
-    if (this.isCoachGridFocusable) {
+    if (this.isCoachGridFocusable && this.hasSeatReservationNativeFocus) {
       this.isCoachGridFocusable = false;
       const coachTableCaptionElement = this.shadowRoot?.querySelector(
         '#sbb-sr-coach-caption-' + this.currSelectedCoachIndex,
@@ -1071,6 +1083,8 @@ export class SeatReservationBaseElement extends LitElement {
 
     if (!place) return;
 
+    this.unfocusPlaceElement();
+
     this.currSelectedDeckIndex = placeDeckIndex;
     this.currSelectedCoachIndex = coachIndex;
     this.currSelectedPlace = place;
@@ -1280,6 +1294,7 @@ export class SeatReservationBaseElement extends LitElement {
    * */
   private _prepareNavigationCoachData(): void {
     const lowerDeck = this.seatReservations[this.seatReservations.length - 1].coachItems;
+    this.coachNavData = [];
 
     lowerDeck.forEach((coach, index) => {
       const travelClasses: PlaceTravelClass[] = [];
