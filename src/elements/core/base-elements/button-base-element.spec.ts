@@ -71,7 +71,7 @@ describe(`SbbButtonBaseElement`, () => {
       element.click();
       await waitForLitRender(element);
       expect(clickSpy.count).to.be.equal(1);
-      expect(await element.getAttribute('data-active')).to.be.equal(null);
+      expect(element).not.to.match(':state(active)');
     });
 
     it('space keydown and keyup', async () => {

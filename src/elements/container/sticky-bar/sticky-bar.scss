@@ -2,9 +2,9 @@
 
 $intersector-overlapping: 1px;
 
-// `data-sticking` v.s. `data-state='sticky'`:
-// While `data-sticking` is representing whether the sticky bar is currently sticking (due scrolling),
-// the `data-state` holds information whether the `position: sticky` is applied or not
+// `:state(sticking)` v.s. `:state(state-sticky)`:
+// While `:state(sticking)` is representing whether the sticky bar is currently sticking (due scrolling),
+// the `:state(state-xy)` holds information whether the `position: sticky` is applied or not
 // but not considering the real sticking state.
 
 :host {
