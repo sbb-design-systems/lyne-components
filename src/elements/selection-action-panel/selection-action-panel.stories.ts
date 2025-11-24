@@ -96,7 +96,11 @@ const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`
 const subtext = (): TemplateResult => html` <span slot="subtext">Subtext</span>`;
 
 const actionButton = (size: string, disabled: boolean): TemplateResult => html`
-  <sbb-secondary-button size=${size} ?disabled=${disabled} icon-name="arrow-right-small">
+  <sbb-secondary-button
+    size=${size === 'm' ? 'm' : 's'}
+    ?disabled=${disabled}
+    icon-name="arrow-right-small"
+  >
   </sbb-secondary-button>
 `;
 
