@@ -47,13 +47,6 @@ $disabled: '[disabled], :disabled';
   );
 }
 
-:host(.sbb-sr__navigation-coach--hover-scroll) {
-  --sbb-seat-reservation-navigation-btn-background-color: light-dark(
-    var(--sbb-color-cloud),
-    var(--sbb-color-midnight)
-  );
-}
-
 .sbb-sr-navigation__item-coach {
   display: flex;
   flex-direction: column;
@@ -166,6 +159,13 @@ $disabled: '[disabled], :disabled';
   .sbb-sr-navigation__item-coach-number {
     color: light-dark(var(--sbb-color-black), var(--sbb-color-white));
   }
+}
+
+.sbb-sr-navigation__item-coach--hovered .sbb-sr-navigation__ctrl-button {
+  --sbb-seat-reservation-navigation-btn-background-color: light-dark(
+    var(--sbb-color-cloud),
+    var(--sbb-color-midnight)
+  );
 }
 
 // selected AND focus (FIGMA State:Selected + Focused)
