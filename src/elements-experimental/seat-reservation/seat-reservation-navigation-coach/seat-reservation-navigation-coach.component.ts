@@ -52,6 +52,11 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ type: Boolean })
   public accessor hovered: boolean = false;
 
+  /** Native focus for this navigation coach is also set when the focused property is changed */
+  @forceType()
+  @property({ type: Boolean })
+  public accessor nativeFocusActive: boolean = true;
+
   @forceType()
   @property({ type: Number })
   public accessor index: number = 0;
@@ -88,11 +93,6 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @forceType()
   @property({ type: Boolean, reflect: true, useDefault: true })
   public accessor vertical: boolean = false;
-
-  /** If the coach navigation should be displayed vertically */
-  @forceType()
-  @property({ type: Boolean })
-  public accessor nativeFocusActive: boolean = true;
 
   private _language = new SbbLanguageController(this);
 

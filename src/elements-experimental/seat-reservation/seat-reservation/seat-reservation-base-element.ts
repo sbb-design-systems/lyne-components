@@ -340,8 +340,8 @@ export class SeatReservationBaseElement extends LitElement {
     // Check any keyboard event was triggered inside the seat reservation component,
     // so we can say the native browser focus lies on the this component
     if (
-      (!this.hasSeatReservationNativeFocus && event.shiftKey && event.keyCode === 9) ||
-      pressedKey === this.keyboardNavigationEvents.Tab
+      !this.hasSeatReservationNativeFocus &&
+      ((event.shiftKey && event.keyCode === 9) || pressedKey === this.keyboardNavigationEvents.Tab)
     ) {
       this.hasSeatReservationNativeFocus = true;
     }
@@ -682,7 +682,7 @@ export class SeatReservationBaseElement extends LitElement {
    */
   private _setFocusToSelectedCoachGrid(): void {
     // When the user performs an action that affects the coach navigation, then the navigated table is focusable.
-    if (this.isCoachGridFocusable) {
+    if (this.isCoachGridFocusable && this.hasSeatReservationNativeFocus) {
       this.isCoachGridFocusable = false;
       const coachTableCaptionElement = this.shadowRoot?.querySelector(
         '#sbb-sr-coach-caption-' + this.currSelectedCoachIndex,
