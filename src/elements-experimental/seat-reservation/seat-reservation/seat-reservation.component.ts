@@ -22,12 +22,12 @@ import style from './seat-reservation.scss?lit&inline';
 
 import '@sbb-esta/lyne-elements/button.js';
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
+import '@sbb-esta/lyne-elements/popover.js';
 import '../seat-reservation-area.ts';
 import '../seat-reservation-graphic.ts';
 import '../seat-reservation-place-control.ts';
 import '../seat-reservation-navigation-coach.ts';
 import '../seat-reservation-scoped.ts';
-import '@sbb-esta/lyne-elements/popover/popover.js';
 
 /**
  * Main component for the seat reservation.

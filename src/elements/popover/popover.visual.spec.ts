@@ -1,12 +1,12 @@
 import { html, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
 import './popover.component.ts';
-import '../../button/mini-button.ts';
-import '../../link/block-link.ts';
-import '../../title.ts';
+import '../button/mini-button.ts';
+import '../link/block-link.ts';
+import '../title.ts';
 
 describe(`sbb-popover`, () => {
   const positionCases = [
