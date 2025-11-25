@@ -46,7 +46,6 @@ snapshots["sbb-toggle-option renders unchecked Shadow DOM"] =
 
 snapshots["sbb-toggle-option renders checked disabled DOM"] = 
 `<sbb-toggle-option
-  aria-disabled="true"
   checked=""
   disabled=""
   tabindex="-1"
@@ -70,7 +69,6 @@ snapshots["sbb-toggle-option renders checked disabled Shadow DOM"] =
 
 snapshots["sbb-toggle-option renders unchecked disabled DOM"] = 
 `<sbb-toggle-option
-  aria-disabled="true"
   disabled=""
   tabindex="-1"
   value="Option 1"
