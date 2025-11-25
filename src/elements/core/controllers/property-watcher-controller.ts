@@ -70,7 +70,9 @@ export class SbbPropertyWatcherController<T extends LitElement> implements React
   }
 
   public hostDisconnected(): void {
-    this.disconnect();
+    if (this._reference !== this._referenceResolver()) {
+      this.disconnect();
+    }
   }
 
   public connect(): void {
@@ -106,20 +108,19 @@ export class SbbPropertyWatcherController<T extends LitElement> implements React
     if (!this._reference) {
       return;
     }
-    if (this._reference !== this._referenceResolver()) {
-      for (const [property, handler] of Object.entries(this._handlers)) {
-        const watcher = this._watchers?.get(property);
-        if (watcher) {
-          watcher.removeHandler(handler);
-          if (!watcher.size) {
-            this._watchers!.delete(property);
-            if (!this._watchers!.size && this._reference) {
-              propertyWatchers.delete(this._reference);
-            }
+
+    for (const [property, handler] of Object.entries(this._handlers)) {
+      const watcher = this._watchers?.get(property);
+      if (watcher) {
+        watcher.removeHandler(handler);
+        if (!watcher.size) {
+          this._watchers!.delete(property);
+          if (!this._watchers!.size && this._reference) {
+            propertyWatchers.delete(this._reference);
           }
         }
       }
-      this._reference = null;
     }
+    this._reference = null;
   }
 }
