@@ -45,7 +45,7 @@ describe(`sbb-selection-action-panel`, () => {
         <span slot="subtext">Subtext</span>
       </sbb-checkbox-panel>
       <sbb-secondary-button
-        size=${params.size === 'm' ? 'm' : 's'}
+        size=${!params.size || params.size === 'm' ? 'm' : 's'}
         ?disabled=${params.disabled}
         icon-name="arrow-right-small"
       >
@@ -68,7 +68,7 @@ describe(`sbb-selection-action-panel`, () => {
         <span slot="subtext">Subtext</span>
       </sbb-radio-button-panel>
       <sbb-secondary-button
-        size=${params.size === 'm' ? 'm' : 's'}
+        size=${!params.size || params.size === 'm' ? 'm' : 's'}
         ?disabled=${params.disabled}
         icon-name="arrow-right-small"
       >

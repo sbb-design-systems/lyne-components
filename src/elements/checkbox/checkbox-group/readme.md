@@ -63,7 +63,7 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
 ```
 
 The component has a `size` property, which can be used to change the size
-of all the inner `sbb-checkbox` or `sbb-checkboxpanel` elements.
+of all the inner `sbb-checkbox` or `sbb-checkbox-panel` elements. Available sizes are `xs`, `s` and `m`.
 
 ```html
 <sbb-checkbox-group size="s"> ... </sbb-checkbox-group>
