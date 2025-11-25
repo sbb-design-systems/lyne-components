@@ -5,7 +5,7 @@ $theme: 'standard' !default;
 @mixin base {
   --sbb-visual-checkbox-dimension: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-checkbox-dimension-s-m),
+        'standard': var(--sbb-checkbox-dimension-m),
         'lean': var(--sbb-checkbox-dimension-xs),
       ),
       $theme

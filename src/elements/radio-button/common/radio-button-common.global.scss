@@ -10,10 +10,11 @@ $theme: 'standard' !default;
   --sbb-radio-button-border-color: var(--sbb-border-color-5);
   --sbb-radio-button-cursor: var(--sbb-cursor-pointer);
   --sbb-radio-button-dimension-xs: #{sbb.px-to-rem-build(20)};
-  --sbb-radio-button-dimension-s-m: var(--sbb-size-icon-ui-small);
+  --sbb-radio-button-dimension-s: var(--sbb-size-icon-ui-small);
+  --sbb-radio-button-dimension-m: var(--sbb-size-icon-ui-small);
   --sbb-radio-button-dimension: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-radio-button-dimension-s-m),
+        'standard': var(--sbb-radio-button-dimension-m),
         'lean': var(--sbb-radio-button-dimension-xs),
       ),
       $theme

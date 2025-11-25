@@ -53,12 +53,12 @@
 
 :host([size='s']) {
   --sbb-radio-button-font-size: var(--sbb-text-font-size-s);
-  --sbb-radio-button-dimension: var(--sbb-radio-button-dimension-s-m);
+  --sbb-radio-button-dimension: var(--sbb-radio-button-dimension-s);
 }
 
 :host([size='m']) {
   --sbb-radio-button-font-size: var(--sbb-text-font-size-m);
-  --sbb-radio-button-dimension: var(--sbb-checkbox-dimension-s-m);
+  --sbb-radio-button-dimension: var(--sbb-radio-button-dimension-m);
 }
 
 .sbb-screen-reader-only {

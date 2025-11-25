@@ -23,18 +23,18 @@
 
 :host([size='xs']) {
   --sbb-selection-panel-checkbox-dimension: var(--sbb-checkbox-dimension-xs);
+  --sbb-selection-panel-input-padding: var(--sbb-selection-panel-input-padding-block-xs)
+    var(--sbb-selection-panel-input-padding-inline-xs);
 }
 
-:host(:is([size='s'], [size='m'])) {
-  --sbb-selection-panel-checkbox-dimension: var(--sbb-checkbox-dimension-s-m);
-}
-
-:host(:is([size='xs'], [size='s'])) {
-  --sbb-selection-panel-input-padding: var(--sbb-selection-panel-input-padding-block-xs-s)
-    var(--sbb-selection-panel-input-padding-inline-xs-s);
+:host([size='s']) {
+  --sbb-selection-panel-checkbox-dimension: var(--sbb-checkbox-dimension-s);
+  --sbb-selection-panel-input-padding: var(--sbb-selection-panel-input-padding-block-s)
+    var(--sbb-selection-panel-input-padding-inline-s);
 }
 
 :host([size='m']) {
+  --sbb-selection-panel-checkbox-dimension: var(--sbb-checkbox-dimension-m);
   --sbb-selection-panel-input-padding: var(--sbb-selection-panel-input-padding-block-m)
     var(--sbb-selection-panel-input-padding-inline-m);
 }

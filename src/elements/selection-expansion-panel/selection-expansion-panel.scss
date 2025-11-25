@@ -56,9 +56,15 @@ $open-anim-opacity-to: 1;
   }
 }
 
-:host(:where(:state(size-xs), :state(size-s))) {
+:host(:state(size-xs)) {
   --sbb-selection-expansion-panel-content-padding-inline: var(
-    --sbb-selection-panel-input-padding-inline-xs-s
+    --sbb-selection-panel-input-padding-inline-xs
+  );
+}
+
+:host(:state(size-s)) {
+  --sbb-selection-expansion-panel-content-padding-inline: var(
+    --sbb-selection-panel-input-padding-inline-s
   );
 }
 

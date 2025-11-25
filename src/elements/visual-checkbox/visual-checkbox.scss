@@ -19,8 +19,12 @@
   --sbb-visual-checkbox-dimension: var(--sbb-checkbox-dimension-xs);
 }
 
-:host(:is([size='s'], [size='m'])) {
-  --sbb-visual-checkbox-dimension: var(--sbb-checkbox-dimension-s-m);
+:host([size='s']) {
+  --sbb-visual-checkbox-dimension: var(--sbb-checkbox-dimension-s);
+}
+
+:host([size='m']) {
+  --sbb-visual-checkbox-dimension: var(--sbb-checkbox-dimension-m);
 }
 
 :host([negative]) {

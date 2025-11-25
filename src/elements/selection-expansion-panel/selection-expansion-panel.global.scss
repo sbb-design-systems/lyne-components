@@ -14,7 +14,7 @@ $theme: 'standard' !default;
   --sbb-selection-expansion-panel-content-padding-inline: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-selection-panel-input-padding-inline-m),
-        'lean': var(--sbb-selection-panel-input-padding-inline-xs-s),
+        'lean': var(--sbb-selection-panel-input-padding-inline-xs),
       ),
       $theme
     )};

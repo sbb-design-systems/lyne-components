@@ -7,12 +7,12 @@
 
 :host([size='s']) {
   --sbb-checkbox-font-size: var(--sbb-text-font-size-s);
-  --sbb-checkbox-dimension: var(--sbb-checkbox-dimension-s-m);
+  --sbb-checkbox-dimension: var(--sbb-checkbox-dimension-s);
 }
 
 :host([size='m']) {
   --sbb-checkbox-font-size: var(--sbb-text-font-size-m);
-  --sbb-checkbox-dimension: var(--sbb-checkbox-dimension-s-m);
+  --sbb-checkbox-dimension: var(--sbb-checkbox-dimension-m);
 }
 
 :host(:disabled) {
