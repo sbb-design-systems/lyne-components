@@ -34,6 +34,7 @@
   --sbb-radio-button-cursor: var(--sbb-cursor-default);
 
   @include sbb.if-forced-colors {
+    --sbb-radio-button-background-color: Canvas;
     --sbb-radio-button-inner-circle-color: GrayText;
     --sbb-radio-button-border-color: GrayText;
     --sbb-radio-button-border-style: solid;

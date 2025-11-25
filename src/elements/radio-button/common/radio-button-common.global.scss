@@ -29,7 +29,7 @@ $theme: 'standard' !default;
 }
 
 @mixin base-forced-colors {
-  --sbb-radio-button-background-color: Canvas !important;
+  --sbb-radio-button-background-color: Canvas;
   --sbb-radio-button-border-width: var(--sbb-border-width-2x);
   --sbb-radio-button-border-color: ButtonBorder;
 }

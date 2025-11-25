@@ -19,13 +19,10 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
 
 :host([data-has-panel]) {
   --sbb-radio-button-group-width: 100%;
+  --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
 
   // Distribute available space to the panels
   --sbb-radio-button-group-radio-button-flex: auto;
-}
-
-:host([data-has-panel][orientation='vertical']) {
-  --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
 }
 
 @each $breakpoint in $breakpoints {
@@ -56,10 +53,7 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
   }
 }
 
-::slotted(:is(sbb-radio-button, sbb-radio-button-panel)) {
-  width: var(--sbb-radio-button-group-radio-button-width);
-}
-
 ::slotted(sbb-radio-button-panel) {
+  width: var(--sbb-radio-button-group-radio-button-width);
   flex: var(--sbb-radio-button-group-radio-button-flex);
 }
