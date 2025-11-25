@@ -24,8 +24,8 @@ describe(`sbb-card`, () => {
     ],
   };
 
-  const sizeCases = {
-    size: ['xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'],
+  const spacingCases = {
+    spacing: ['3x-xxs', 'xxxs-xxs', 'xxxs-s', '4x-xxs', 'xxs-xxs', 's-s', 'l-l'],
     badge: ['none', 'charcoal'],
   };
 
@@ -67,12 +67,12 @@ describe(`sbb-card`, () => {
       );
     });
 
-    // Size test cases
-    describeEach(sizeCases, ({ size, badge }) => {
+    // Spacing test cases
+    describeEach(spacingCases, ({ spacing, badge }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
-            <sbb-card size=${size}>
+            <sbb-card class=${`sbb-card-spacing-${spacing}`}>
               <span class="sbb-text-m">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. justo.
               </span>

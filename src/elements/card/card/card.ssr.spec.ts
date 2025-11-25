@@ -9,12 +9,9 @@ describe(`sbb-card ssr`, () => {
   let root: SbbCardElement;
 
   beforeEach(async () => {
-    root = await ssrHydratedFixture(
-      html`<sbb-card size="l" color="transparent-bordered"></sbb-card>`,
-      {
-        modules: ['./card.component.js'],
-      },
-    );
+    root = await ssrHydratedFixture(html`<sbb-card color="transparent-bordered"></sbb-card>`, {
+      modules: ['./card.component.js'],
+    });
   });
 
   it('renders', () => {

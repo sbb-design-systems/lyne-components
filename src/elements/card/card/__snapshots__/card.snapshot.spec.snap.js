@@ -5,7 +5,6 @@ snapshots["sbb-card should render with sbb-card-badge - DOM"] =
 `<sbb-card
   color="white"
   data-has-card-badge=""
-  size="xl"
 >
   <h2>
     Title
@@ -30,17 +29,15 @@ snapshots["sbb-card should render with sbb-card-badge - DOM"] =
 /* end snapshot sbb-card should render with sbb-card-badge - DOM */
 
 snapshots["sbb-card should render with sbb-card-badge - Shadow DOM"] = 
-`<span class="sbb-card">
-  <slot name="action">
+`<slot name="action">
+</slot>
+<span class="sbb-card__wrapper">
+  <slot>
   </slot>
-  <span class="sbb-card__wrapper">
-    <slot>
-    </slot>
-  </span>
-  <span class="sbb-card__badge-wrapper">
-    <slot name="badge">
-    </slot>
-  </span>
+</span>
+<span class="sbb-card__badge-wrapper">
+  <slot name="badge">
+  </slot>
 </span>
 `;
 /* end snapshot sbb-card should render with sbb-card-badge - Shadow DOM */

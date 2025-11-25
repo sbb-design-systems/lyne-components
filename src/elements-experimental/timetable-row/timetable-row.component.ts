@@ -294,7 +294,7 @@ class SbbTimetableRowElement extends LitElement {
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): TemplateResult {
     return html`
-      <sbb-card size="l" class="sbb-loading">
+      <sbb-card class="sbb-loading sbb-card-spacing-4x-xxs">
         ${this.loadingPrice
           ? html`<sbb-card-badge class="sbb-loading__badge"></sbb-card-badge>`
           : nothing}
@@ -535,7 +535,7 @@ class SbbTimetableRowElement extends LitElement {
     const durationObj = duration ? durationToTime(duration, this._language.current) : null;
 
     return html`
-      <sbb-card size="l" id=${id}>
+      <sbb-card class="sbb-card-spacing-4x-xxs" id=${id}>
         <sbb-card-button
           ?active=${this.active}
           aria-expanded=${this.accessibilityExpanded ? 'true' : nothing}

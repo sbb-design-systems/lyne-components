@@ -43,13 +43,9 @@ class SbbCardBadgeElement extends SbbElementInternalsMixin(LitElement) {
 
   protected override render(): TemplateResult {
     return html`
-      <span class="sbb-card-badge-wrapper">
-        <span class="sbb-card-badge">
-          <span class="sbb-card-badge-background" aria-hidden="true"></span>
-          <span class="sbb-card-badge-content">
-            <slot></slot>
-          </span>
-        </span>
+      <span class="sbb-card-badge-background" aria-hidden="true"></span>
+      <span class="sbb-card-badge-content">
+        <slot></slot>
       </span>
     `;
   }
