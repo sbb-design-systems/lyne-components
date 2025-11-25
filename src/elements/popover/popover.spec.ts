@@ -2,16 +2,16 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbButtonElement } from '../../button.ts';
-import { mergeConfig } from '../../core/config.ts';
-import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.ts';
-import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import type { SbbLinkElement } from '../../link.ts';
+import type { SbbButtonElement } from '../button.ts';
+import { mergeConfig } from '../core/config.ts';
+import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import type { SbbLinkElement } from '../link.ts';
 
 import { SbbPopoverElement } from './popover.component.ts';
 
-import '../../button/button.ts';
-import '../../link.ts';
+import '../button/button.ts';
+import '../link.ts';
 
 describe(`sbb-popover`, () => {
   let element: SbbPopoverElement,
