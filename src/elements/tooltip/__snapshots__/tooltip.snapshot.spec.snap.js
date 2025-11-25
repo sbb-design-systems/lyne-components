@@ -4,7 +4,7 @@ export const snapshots = {};
 snapshots["sbb-tooltip DOM"] = 
 `<div>
   <button
-    aria-describedby="sbb-tooltip-1"
+    aria-describedby=""
     id="trigger"
   >
     Button
