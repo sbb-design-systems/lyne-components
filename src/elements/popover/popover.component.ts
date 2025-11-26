@@ -8,30 +8,30 @@ import {
   isFakeMousedownFromScreenReader,
   SbbFocusTrapController,
   sbbInputModalityDetector,
-} from '../../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
-import { readConfig } from '../../core/config.ts';
+} from '../core/a11y.ts';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
+import { readConfig } from '../core/config.ts';
 import {
   SbbEscapableOverlayController,
   SbbLanguageController,
   SbbMediaQueryPointerCoarse,
-} from '../../core/controllers.ts';
-import { forceType, idReference } from '../../core/decorators.ts';
-import { isZeroAnimationDuration } from '../../core/dom.ts';
-import { composedPathHasAttribute } from '../../core/eventing.ts';
-import { i18nClosePopover } from '../../core/i18n.ts';
-import { SbbHydrationMixin, ɵstateController } from '../../core/mixins.ts';
+} from '../core/controllers.ts';
+import { forceType, idReference } from '../core/decorators.ts';
+import { isZeroAnimationDuration } from '../core/dom.ts';
+import { composedPathHasAttribute } from '../core/eventing.ts';
+import { i18nClosePopover } from '../core/i18n.ts';
+import { SbbHydrationMixin, ɵstateController } from '../core/mixins.ts';
 import {
   getElementPosition,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+} from '../core/overlay.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './popover.scss?lit&inline';
 
-import '../../button/secondary-button.ts';
+import '../button/secondary-button.ts';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;

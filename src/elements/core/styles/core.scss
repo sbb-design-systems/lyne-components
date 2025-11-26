@@ -53,6 +53,7 @@ $theme: 'standard' !default;
   @include visual-checkbox.base;
 
   @include a11y.if-forced-colors {
+    @include sbb-css-tokens.forced-colors;
     @include visual-checkbox.base-forced-colors;
   }
 

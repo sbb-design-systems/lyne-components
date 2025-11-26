@@ -42,7 +42,7 @@ describe('sbb-tooltip', () => {
 
     it('renders', async () => {
       assert.instanceOf(element, SbbTooltipElement);
-      expect(trigger).to.have.attribute('aria-describedby').contains(element.id);
+      expect(trigger.ariaDescribedByElements).contains(element);
     });
 
     it('should open on hover', async () => {
@@ -246,7 +246,7 @@ describe('sbb-tooltip', () => {
 
     it('should link the tooltip to the trigger', async () => {
       expect(element.trigger!.localName).to.equal(trigger.localName);
-      expect(trigger).to.have.attribute('aria-describedby').contains(element.id);
+      expect(trigger.ariaDescribedByElements).contains(element);
 
       const position = trigger.getBoundingClientRect();
       await sendMouse({ type: 'move', position: [position.x + 10, position.y + 10] });
@@ -256,11 +256,13 @@ describe('sbb-tooltip', () => {
     });
 
     it('should delete the tooltip if attribute is removed', async () => {
+      expect(trigger.ariaDescribedByElements).not.to.be.null;
+
       trigger.removeAttribute('sbb-tooltip');
       await aTimeout(50); // wait for the MutationObserver to trigger
 
       expect(tooltipOutlet!.children).to.be.empty;
-      expect(trigger).not.to.have.attribute('aria-describedby');
+      expect(trigger.ariaDescribedByElements).to.be.null;
     });
 
     it('should delete the tooltip if the trigger is removed', async () => {

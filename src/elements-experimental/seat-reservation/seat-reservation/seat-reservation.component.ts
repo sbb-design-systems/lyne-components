@@ -23,12 +23,12 @@ import style from './seat-reservation.scss?lit&inline';
 
 import '@sbb-esta/lyne-elements/button.js';
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
+import '@sbb-esta/lyne-elements/popover.js';
 import '../seat-reservation-area.ts';
 import '../seat-reservation-graphic.ts';
 import '../seat-reservation-place-control.ts';
 import '../seat-reservation-navigation-coach.ts';
 import '../seat-reservation-scoped.ts';
-import '@sbb-esta/lyne-elements/popover/popover.js';
 
 /**
  * Main component for the seat reservation.
@@ -186,7 +186,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _renderNavigation(): TemplateResult | null {
     if (!this.hasNavigation || !this.seatReservations) return null;
-
     return html`<div class="sbb-sr-navigation-wrapper">
       <nav id="sbb-sr-navigation" class="sbb-sr-navigation">
         <ul
@@ -202,14 +201,13 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
               <sbb-seat-reservation-navigation-coach
                 @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
                 @focuscoach=${() => this._onFocusNavCoach()}
-                class="${classMap({
-                  'sbb-sr__navigation-coach--hover-scroll': this.hoveredScrollCoachIndex === index,
-                })}"
                 index="${index}"
                 coach-id="${navigationCoach.id}"
                 .freePlacesByType="${navigationCoach.freePlaces}"
                 .selected=${this.selectedCoachIndex === index}
                 .focused=${this.focusedCoachIndex === index}
+                .hovered=${this.hoveredScrollCoachIndex === index}
+                .nativeFocusActive=${this.hasSeatReservationNativeFocus}
                 .propertyIds="${navigationCoach.propertyIds}"
                 .travelClass="${navigationCoach.travelClass}"
                 ?driver-area="${navigationCoach.isDriverArea}"
@@ -626,6 +624,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     this.preventCoachScrollByPlaceClick = true;
     this.isCoachGridFocusable = false;
 
+    // Check any keyboard event was triggered inside the seat reservation component,
+    // so we can say the native browser focus lies on the this component
+    if (!this.hasSeatReservationNativeFocus) {
+      this.hasSeatReservationNativeFocus = true;
+    }
+
     if (!this.preventPlaceClick) {
       // Add place to place collection
       this.updateSelectedSeatReservationPlaces(selectedPlace);
@@ -636,6 +640,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   private _onSelectNavCoach(event: CustomEvent<number>): void {
     const selectedNavCoachIndex = event.detail;
     this.isKeyboardNavigation = false;
+    this.preventCoachScrollByPlaceClick = false;
 
     if (selectedNavCoachIndex !== null && selectedNavCoachIndex !== this.currSelectedCoachIndex) {
       this.unfocusPlaceElement();
