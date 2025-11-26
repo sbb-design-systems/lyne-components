@@ -37,6 +37,12 @@
   float: left;
 }
 
+:host([loading-price]) {
+  sbb-card {
+    --sbb-card-badge-display: block;
+  }
+}
+
 // resets lists
 ul {
   @include sbb.list-reset;

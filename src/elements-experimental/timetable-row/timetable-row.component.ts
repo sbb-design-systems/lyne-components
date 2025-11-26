@@ -248,7 +248,7 @@ class SbbTimetableRowElement extends LitElement {
    * when this is true it will be render skeleton with an idling animation
    */
   @forceType()
-  @property({ attribute: 'loading-price', type: Boolean })
+  @property({ attribute: 'loading-price', type: Boolean, reflect: true })
   public accessor loadingPrice: boolean = false;
 
   /**
@@ -295,9 +295,7 @@ class SbbTimetableRowElement extends LitElement {
   private _renderSkeleton(): TemplateResult {
     return html`
       <sbb-card class="sbb-loading sbb-card-spacing-4x-xxs">
-        ${this.loadingPrice
-          ? html`<sbb-card-badge class="sbb-loading__badge"></sbb-card-badge>`
-          : nothing}
+        ${this.loadingPrice ? html`<div class="sbb-loading__badge" slot="badge"></div>` : nothing}
         <div class="sbb-loading__wrapper">
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
@@ -542,9 +540,7 @@ class SbbTimetableRowElement extends LitElement {
         >
           ${this.cardActionLabel ? this.cardActionLabel : this._getAccessibilityText(this.trip)}
         </sbb-card-button>
-        ${this.loadingPrice
-          ? html`<sbb-card-badge class="sbb-loading__badge"></sbb-card-badge>`
-          : nothing}
+        ${this.loadingPrice ? html`<div class="sbb-loading__badge" slot="badge"></div>` : nothing}
         ${this.price && !this.loadingPrice
           ? html`<sbb-card-badge color=${this.price.isDiscount ? 'charcoal' : 'white'}>
               ${this.price.isDiscount
