@@ -44,6 +44,24 @@
   flex: auto;
 }
 
+:host(:state(size-xs)) {
+  --sbb-selection-action-panel-action-margin-inline: var(
+    --sbb-selection-action-panel-action-margin-inline-xs
+  );
+}
+
+:host(:state(size-s)) {
+  --sbb-selection-action-panel-action-margin-inline: var(
+    --sbb-selection-action-panel-action-margin-inline-s
+  );
+}
+
+:host(:state(size-m)) {
+  --sbb-selection-action-panel-action-margin-inline: var(
+    --sbb-selection-action-panel-action-margin-inline-m
+  );
+}
+
 ::slotted([data-action]) {
   align-self: center;
   margin-inline: var(--sbb-selection-action-panel-action-margin-inline);
