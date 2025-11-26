@@ -9,7 +9,6 @@ snapshots["sbb-selection-expansion-panel renders DOM"] =
 >
   <sbb-checkbox-panel
     color="white"
-    data-has-card-badge=""
     size="m"
     tabindex="0"
   >

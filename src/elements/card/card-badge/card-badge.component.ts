@@ -22,23 +22,9 @@ class SbbCardBadgeElement extends SbbElementInternalsMixin(LitElement) {
   /** Color of the card badge. */
   @property({ reflect: true }) public accessor color: 'charcoal' | 'white' = 'charcoal';
 
-  private _parentElement?: HTMLElement | null;
-
   public override connectedCallback(): void {
     super.connectedCallback();
     this.slot ||= 'badge';
-    this._parentElement = this.parentElement;
-    if (this._parentElement) {
-      this._parentElement.toggleAttribute('data-has-card-badge', true);
-    }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    if (this._parentElement) {
-      this._parentElement.removeAttribute('data-has-card-badge');
-    }
-    this._parentElement = undefined;
   }
 
   protected override render(): TemplateResult {

@@ -70,7 +70,7 @@
 }
 
 // Has to be after spacing definitions
-:host([data-has-card-badge]) {
+:host(:state(slotted-badge)) {
   --sbb-card-padding-block: var(--sbb-card-with-badge-padding-block);
   --sbb-card-badge-display: block;
 }
