@@ -62,7 +62,7 @@ const defaultArgs: Args = {
 };
 
 const Template = (args: Args): TemplateResult => html`
-  <sbb-autocomplete-grid-row ?data-negative=${args.negative}>
+  <sbb-autocomplete-grid-row>
     <sbb-autocomplete-grid-cell>
       <sbb-autocomplete-grid-button ${sbbSpread(args)}></sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-cell>

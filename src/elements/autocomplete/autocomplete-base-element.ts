@@ -183,11 +183,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       this.state !== 'closed' ||
       !this._overlay ||
       this.options.length === 0 ||
-      this._readonly()
+      this._readonly() ||
+      !this.dispatchBeforeOpenEvent()
     ) {
-      return;
-    }
-    if (!this.dispatchBeforeOpenEvent()) {
       return;
     }
 

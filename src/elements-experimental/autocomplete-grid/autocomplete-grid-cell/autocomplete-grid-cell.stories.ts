@@ -1,11 +1,4 @@
-import type {
-  Args,
-  ArgTypes,
-  Decorator,
-  Meta,
-  StoryContext,
-  StoryObj,
-} from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { withActions } from 'storybook/actions/decorator';
@@ -24,12 +17,6 @@ const numberOfButtons: InputType = {
   },
 };
 
-const negative: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
 const disabled: InputType = {
   control: {
     type: 'boolean',
@@ -38,18 +25,16 @@ const disabled: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   numberOfButtons,
-  negative,
   disabled,
 };
 
 const defaultArgs: Args = {
   numberOfButtons: 1,
-  negative: false,
   disabled: false,
 };
 
 const Template = ({ numberOfButtons, ...args }: Args): TemplateResult => html`
-  <sbb-autocomplete-grid-row ?data-negative=${args.negative}>
+  <sbb-autocomplete-grid-row>
     ${repeat(
       new Array(numberOfButtons),
       (_, i) => html`
@@ -70,22 +55,10 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const Negative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true },
-};
-
 export const Disabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
-};
-
-export const DisabledNegative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, disabled: true, negative: true },
 };
 
 export const Multiple: StoryObj = {
@@ -94,22 +67,10 @@ export const Multiple: StoryObj = {
   args: { ...defaultArgs, numberOfButtons: 3 },
 };
 
-export const MultipleNegative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, numberOfButtons: 3, negative: true },
-};
-
 export const MultipleDisabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, numberOfButtons: 3, disabled: true },
-};
-
-export const MultipleDisabledNegative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, numberOfButtons: 3, disabled: true, negative: true },
 };
 
 const meta: Meta = {
@@ -118,10 +79,6 @@ const meta: Meta = {
     actions: {
       handles: ['click'],
     },
-    backgroundColor: (context: StoryContext) =>
-      context.args.negative
-        ? 'var(--sbb-background-color-1-negative)'
-        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

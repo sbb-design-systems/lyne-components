@@ -145,22 +145,13 @@ snapshots["sbb-select renders multiple Safari Shadow DOM"] =
 
 snapshots["sbb-select renders Chrome-Firefox DOM"] = 
 `<sbb-select size="m">
-  <sbb-option
-    id="sbb-option-0"
-    value="1"
-  >
+  <sbb-option value="1">
     Option 1
   </sbb-option>
-  <sbb-option
-    id="sbb-option-1"
-    value="2"
-  >
+  <sbb-option value="2">
     Option 2
   </sbb-option>
-  <sbb-option
-    id="sbb-option-2"
-    value="3"
-  >
+  <sbb-option value="3">
     Option 3
   </sbb-option>
 </sbb-select>
@@ -235,22 +226,13 @@ snapshots["sbb-select renders multiple Chrome-Firefox DOM"] =
   multiple=""
   size="m"
 >
-  <sbb-option
-    id="sbb-option-9"
-    value="1"
-  >
+  <sbb-option value="1">
     Option 1
   </sbb-option>
-  <sbb-option
-    id="sbb-option-10"
-    value="2"
-  >
+  <sbb-option value="2">
     Option 2
   </sbb-option>
-  <sbb-option
-    id="sbb-option-11"
-    value="3"
-  >
+  <sbb-option value="3">
     Option 3
   </sbb-option>
 </sbb-select>

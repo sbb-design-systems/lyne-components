@@ -42,7 +42,7 @@ describe('sbb-autocomplete-grid', () => {
 
   describeIf(!isSafari, 'Chrome-Firefox', async () => {
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
     });
 
     it('Shadow DOM', async () => {
@@ -54,7 +54,7 @@ describe('sbb-autocomplete-grid', () => {
 
   describeIf(isSafari, 'Safari', async () => {
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
     });
 
     it('Shadow DOM', async () => {

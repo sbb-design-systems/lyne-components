@@ -88,16 +88,19 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    this._setVariantByContext();
-
     // We need to check highlight state both on slot change, but also when connecting
     // the element to the DOM. The slot change events might be swallowed when using declarative
     // shadow DOM with SSR or if the DOM is changed when disconnected.
     if (this.hydrationRequired) {
-      this.hydrationComplete.then(() => this.handleHighlightState());
+      this.hydrationComplete.then(() => this._init());
     } else {
-      this.handleHighlightState();
+      this._init();
     }
+  }
+
+  private _init(): void {
+    this._setVariantByContext();
+    this.handleHighlightState();
   }
 
   protected selectByClick(event: MouseEvent): void {

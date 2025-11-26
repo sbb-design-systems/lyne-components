@@ -81,7 +81,7 @@
   --sbb-navigation-backdrop-animation-name: backdrop-close;
 }
 
-:host(:state(has-navigation-section)) {
+:host(:state(has-open-navigation-section)) {
   --sbb-navigation-content-translate: -100% 0;
 
   @include sbb.mq($from: 'large') {

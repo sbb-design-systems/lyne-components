@@ -98,7 +98,7 @@ describe(`sbb-paginator`, () => {
 
     describeIf(!isSafari, 'Chrome-Firefox', async () => {
       it('DOM', async () => {
-        await expect(element).dom.to.be.equalSnapshot();
+        await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
 
       it('Shadow DOM', async () => {

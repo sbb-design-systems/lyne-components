@@ -1,4 +1,3 @@
-import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
@@ -35,12 +34,6 @@ import type { SbbNavigationSectionElement } from '../navigation-section.ts';
 import style from './navigation.scss?lit&inline';
 
 import '../../button/transparent-button.ts';
-
-/** Configuration for the attribute to look at if a navigation section is displayed */
-const navigationObserverConfig: MutationObserverInit = {
-  subtree: true,
-  attributeFilter: ['data-state'],
-};
 
 let nextId = 0;
 const DEBOUNCE_TIME = 150;
@@ -111,23 +104,29 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this.addEventListener?.('click', (event) => this._handleNavigationClose(event));
     this.addEventListener?.('pointerup', (event) => this._closeOnBackdropClick(event));
     this.addEventListener?.('pointerdown', (event) => this._pointerDownListener(event));
-
-    this.addController(
-      new MutationController(this, {
-        skipInitial: true,
-        config: navigationObserverConfig,
-        callback: (mutationsList: MutationRecord[]) =>
-          this._onNavigationSectionChange(mutationsList),
-      }),
+    this.addEventListener?.(
+      'ɵnavigationsectionopening',
+      (event) => {
+        this._activeNavigationSection = event.target as SbbNavigationSectionElement;
+        this.toggleState('has-open-navigation-section', !!this._activeNavigationSection);
+      },
+      { capture: true },
+    );
+    this.addEventListener?.(
+      'ɵnavigationsectionclosing',
+      (event) => {
+        if (this._activeNavigationSection === event.target) {
+          this._activeNavigationSection = null;
+          this.internals.states.delete('has-open-navigation-section');
+        }
+      },
+      { capture: true },
     );
   }
 
   /** Opens the navigation. */
   public open(): void {
-    if (this.state !== 'closed' || !this.hasUpdated) {
-      return;
-    }
-    if (!this.dispatchBeforeOpenEvent()) {
+    if (this.state !== 'closed' || !this.hasUpdated || !this.dispatchBeforeOpenEvent()) {
       return;
     }
 
@@ -273,9 +272,9 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
     this._isPointerDownEventOnNavigation =
       isEventOnElement(this._navigation, event) ||
       isEventOnElement(
-        this.querySelector(
-          'sbb-navigation-section[data-state="opened"]',
-        )?.shadowRoot?.querySelector('nav.sbb-navigation-section') as HTMLElement,
+        this.querySelector('sbb-navigation-section:state(state-opened)')?.shadowRoot?.querySelector(
+          'nav.sbb-navigation-section',
+        ) as HTMLElement,
         event,
       );
   };
@@ -286,18 +285,6 @@ class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseEleme
       this.close();
     }
   };
-
-  // Observe changes on navigation section data-state.
-  private _onNavigationSectionChange(mutationsList: MutationRecord[]): void {
-    for (const mutation of mutationsList) {
-      if ((mutation.target as HTMLElement).nodeName === 'SBB-NAVIGATION-SECTION') {
-        this._activeNavigationSection = this.querySelector(
-          'sbb-navigation-section[data-state="opening"], sbb-navigation-section[data-state="opened"]',
-        );
-        this.toggleState('has-navigation-section', !!this._activeNavigationSection);
-      }
-    }
-  }
 
   private _onNavigationResize(): void {
     if (this.state !== 'opened') {

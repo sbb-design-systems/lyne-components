@@ -2,7 +2,6 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  LitElement,
   nothing,
   type PropertyDeclaration,
   type PropertyValues,
@@ -15,6 +14,7 @@ import {
   SbbFocusTrapController,
   sbbInputModalityDetector,
 } from '../../core/a11y.ts';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements/open-close-base-element.ts';
 import {
   SbbLanguageController,
   SbbMediaMatcherController,
@@ -24,11 +24,7 @@ import { forceType, idReference, omitEmptyConverter } from '../../core/decorator
 import { isBreakpoint, isZeroAnimationDuration } from '../../core/dom.ts';
 import { i18nGoBack } from '../../core/i18n.ts';
 import type { SbbOpenedClosedState } from '../../core/interfaces.ts';
-import {
-  SbbElementInternalsMixin,
-  SbbUpdateSchedulerMixin,
-  ɵstateController,
-} from '../../core/mixins.ts';
+import { SbbUpdateSchedulerMixin, ɵstateController } from '../../core/mixins.ts';
 import {
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
@@ -52,9 +48,7 @@ let nextId = 0;
  */
 export
 @customElement('sbb-navigation-section')
-class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
-  SbbElementInternalsMixin(LitElement),
-) {
+class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
@@ -157,7 +151,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
    * Opens the navigation section on trigger click.
    */
   public open(): void {
-    if (this._state !== 'closed' || !this.hasUpdated) {
+    if (this._state !== 'closed' || !this.hasUpdated || !this.dispatchBeforeOpenEvent()) {
       return;
     }
 
@@ -167,6 +161,8 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
 
     this._closePreviousNavigationSection();
     this._state = 'opening';
+    /** @internal */
+    this.dispatchEvent(new Event('ɵnavigationsectionopening'));
     this.startUpdate();
     this.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'true');
@@ -190,6 +186,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
     this._focusTrapController.focusInitialElement();
     this._checkActiveAction();
     this.completeUpdate();
+    this.dispatchOpenEvent();
   }
 
   private _handleClosing(): void {
@@ -202,6 +199,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
       this._triggerElement.focus();
     }
     this.completeUpdate();
+    this.dispatchCloseEvent();
   }
 
   private _closePreviousNavigationSection(): void {
@@ -212,10 +210,12 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
    * Closes the navigation section.
    */
   public close(): void {
-    if (this._state !== 'opened') {
+    if (this._state !== 'opened' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
+    /** @internal */
+    this.dispatchEvent(new Event('ɵnavigationsectionclosing'));
     this._state = 'closing';
     this.startUpdate();
     this.inert = true;

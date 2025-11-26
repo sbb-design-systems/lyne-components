@@ -25,7 +25,7 @@ describe(`sbb-select`, () => {
 
     describeIf(!isSafari, 'Chrome-Firefox', async () => {
       it('DOM', async () => {
-        await expect(elem).dom.to.be.equalSnapshot();
+        await expect(elem).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
 
       it('Shadow DOM', async () => {
@@ -61,7 +61,7 @@ describe(`sbb-select`, () => {
 
     describeIf(!isSafari, 'Chrome-Firefox', async () => {
       it('DOM', async () => {
-        await expect(elem).dom.to.be.equalSnapshot();
+        await expect(elem).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
 
       it('Shadow DOM', async () => {
