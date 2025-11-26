@@ -192,6 +192,7 @@ describe(`sbb-autocomplete-grid`, () => {
   });
 
   it('opens and closes with non-zero animation duration', async () => {
+    element.classList.add('sbb-enable-animation');
     element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
     const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
     const closeSpy = new EventSpy(SbbAutocompleteGridElement.events.close, element);

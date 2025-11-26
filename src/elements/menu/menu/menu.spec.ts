@@ -215,6 +215,7 @@ describe(`sbb-menu`, () => {
     });
 
     it('opens and closes with non-zero animation duration', async () => {
+      element.classList.add('sbb-enable-animation');
       element.style.setProperty('--sbb-menu-animation-duration', '1ms');
       const openSpy = new EventSpy(SbbMenuElement.events.open, element);
       const closeSpy = new EventSpy(SbbMenuElement.events.close, element);

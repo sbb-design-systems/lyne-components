@@ -89,6 +89,7 @@ describe(`sbb-select`, () => {
       // Test is flaky on WebKit
       this.retries(3);
 
+      element.classList.add('sbb-enable-animation');
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 
       const open = new EventSpy(SbbSelectElement.events.open, element);
@@ -126,6 +127,7 @@ describe(`sbb-select`, () => {
     });
 
     it('closes the select by option click with non-zero animation duration', async () => {
+      element.classList.add('sbb-enable-animation');
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 
       const open = new EventSpy(SbbSelectElement.events.open, element);
@@ -1103,6 +1105,7 @@ describe(`sbb-select`, () => {
     });
 
     it('closes the select by option click with non-zero animation duration', async () => {
+      element.classList.add('sbb-enable-animation');
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);

@@ -129,6 +129,7 @@ describe(`sbb-expansion-panel`, () => {
   });
 
   it('should fire animation events with non-zero animation duration', async () => {
+    element.classList.add('sbb-enable-animation');
     element.style.setProperty('--sbb-expansion-panel-animation-duration', '1ms');
 
     const openSpy = new EventSpy(SbbExpansionPanelElement.events.open, element);

@@ -10,6 +10,7 @@ snapshots["sbb-tooltip DOM"] =
     Button
   </button>
   <sbb-tooltip
+    data-position="block-end"
     id="sbb-tooltip-1"
     popover="manual"
     trigger="trigger"

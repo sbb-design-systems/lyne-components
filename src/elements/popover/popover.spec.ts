@@ -215,6 +215,7 @@ describe(`sbb-popover`, () => {
     });
 
     it('opens and closes with non-zero animation duration', async () => {
+      element.classList.add('sbb-enable-animation');
       element.style.setProperty('--sbb-popover-animation-duration', '1ms');
 
       const popoverLink = element.querySelector<SbbLinkElement>(':scope > sbb-link')!;

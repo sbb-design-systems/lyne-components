@@ -98,11 +98,11 @@ describe(`sbb-paginator`, () => {
 
     describeIf(!isSafari, 'Chrome-Firefox', async () => {
       it('DOM', async () => {
-        await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
+        await expect(element).dom.to.be.equalSnapshot();
       });
 
       it('Shadow DOM', async () => {
-        await expect(element).shadowDom.to.be.equalSnapshot();
+        await expect(element).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
     });
 

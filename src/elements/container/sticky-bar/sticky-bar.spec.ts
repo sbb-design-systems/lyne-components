@@ -145,6 +145,7 @@ describe(`sbb-sticky-bar`, () => {
     });
 
     it('works with non-zero animation duration', async () => {
+      stickyBar.classList.add('sbb-enable-animation');
       stickyBar.style.setProperty('--sbb-sticky-bar-slide-vertically-animation-duration', '1ms');
 
       stickyBar.unstick();

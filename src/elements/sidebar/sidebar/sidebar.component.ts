@@ -148,16 +148,15 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     }
 
     this.opened = true;
+    this.state = 'opening';
 
     const isZeroAnimationDuration = this._isZeroAnimationDuration() || !this.isConnected;
     const isDuringInitialization = !this.hasUpdated;
 
-    if (isDuringInitialization || isZeroAnimationDuration) {
-      this.internals.states.add('skip-animation');
-    } else {
-      this.state = 'opening';
+    if (!(isDuringInitialization || isZeroAnimationDuration)) {
       return;
     }
+    this.internals.states.add('skip-animation');
 
     // We have to wait for the first update to be completed
     // in order to have the size of the sidebar ready for the animation.

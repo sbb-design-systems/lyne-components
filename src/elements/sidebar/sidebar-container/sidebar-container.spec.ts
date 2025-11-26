@@ -133,10 +133,11 @@ describe('sbb-sidebar-container', () => {
   if (!isWebkit) {
     // This breaks for unknown reason in WebKit only during unit testing
     it('should collapse when space gets below minimum with non-zero animation duration', async () => {
+      element.classList.add('sbb-enable-animation');
       element.style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
-      element
-        .querySelector('sbb-sidebar-container')!
-        .style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
+      const container = element.querySelector('sbb-sidebar-container')!;
+      container.classList.add('sbb-enable-animation');
+      container.style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
 
       await testResizing();
     });

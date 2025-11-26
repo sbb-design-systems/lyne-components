@@ -93,6 +93,7 @@ describe(`sbb-navigation-section`, () => {
   });
 
   it('opens and closes with non-zero animation duration', async () => {
+    element.classList.add('sbb-enable-animation');
     element.style.setProperty('--sbb-navigation-section-animation-duration', '1ms');
 
     element.open();

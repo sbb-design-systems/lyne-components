@@ -201,6 +201,7 @@ describe(`sbb-toast`, () => {
   });
 
   it('closes by dismiss button click with non-zero animation duration', async () => {
+    element.classList.add('sbb-enable-animation');
     element.style.setProperty('--sbb-toast-animation-duration', '1ms');
     await waitForLitRender(element);
 

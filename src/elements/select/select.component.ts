@@ -36,6 +36,7 @@ import {
 import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import type { SbbDividerElement } from '../divider.ts';
+import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
 import type { SbbOptionElement, SbbOptionHintElement } from '../option.ts';
 
 import style from './select.scss?lit&inline';
@@ -529,7 +530,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   /** Sets the originElement; if the component is used in a sbb-form-field uses it, otherwise uses the parentElement. */
   private _setupOrigin(): void {
-    const formField = this.closest?.('sbb-form-field');
+    const formField = this.closest?.<SbbFormFieldElement>('sbb-form-field');
     if (this._originElement) {
       this._originResizeObserver.unobserve(this._originElement);
     }

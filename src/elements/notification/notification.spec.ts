@@ -106,7 +106,11 @@ describe(`sbb-notification`, () => {
         capture: true,
       });
       element = await fixture(html`
-        <sbb-notification id="notification" style="--sbb-notification-animation-duration: 1ms">
+        <sbb-notification
+          id="notification"
+          class="sbb-enable-animation"
+          style="--sbb-notification-animation-duration: 1ms"
+        >
           The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
           <sbb-link href="/">Link one</sbb-link>
         </sbb-notification>

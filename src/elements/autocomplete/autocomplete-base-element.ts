@@ -26,6 +26,7 @@ import {
   setOverlayPosition,
 } from '../core/overlay.ts';
 import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
 import type { SbbOptionBaseElement } from '../option.ts';
 
 import style from './autocomplete-base-element.scss?lit&inline';
@@ -160,13 +161,17 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     super();
 
     this.addController(
-      new SbbAncestorWatcherController(this, () => this.closest('sbb-form-field'), {
-        negative: (e) => {
-          this.negative = e.negative;
-          this.syncNegative();
+      new SbbAncestorWatcherController(
+        this,
+        () => this.closest<SbbFormFieldElement>('sbb-form-field'),
+        {
+          negative: (e) => {
+            this.negative = e.negative;
+            this.syncNegative();
+          },
+          borderless: (e) => this.toggleState('option-panel-origin-borderless', e.borderless),
         },
-        borderless: (e) => this.toggleState('option-panel-origin-borderless', e.borderless),
-      }),
+      ),
     );
   }
 
