@@ -3,9 +3,81 @@
 
 $disabled: '[disabled], :disabled';
 
+@mixin visualizeCoachBorder(
+  $border-radius-top-left,
+  $border-radius-top-right,
+  $border-radius-bottom-right,
+  $border-radius-bottom-left
+) {
+  $border-radius-top-left: var(--sbb-border-radius-#{$border-radius-top-left}x);
+  $border-radius-top-right: var(--sbb-border-radius-#{$border-radius-top-right}x);
+  $border-radius-bottom-right: var(--sbb-border-radius-#{$border-radius-bottom-right}x);
+  $border-radius-bottom-left: var(--sbb-border-radius-#{$border-radius-bottom-left}x);
+
+  border-radius: $border-radius-top-left $border-radius-top-right $border-radius-bottom-right
+    $border-radius-bottom-left;
+
+  // Pseudo visual border
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-navigation-btn-border-width))
+      solid var(--sbb-seat-reservation-navigation-btn-border-color);
+    border-radius: $border-radius-top-left $border-radius-top-right $border-radius-bottom-right
+      $border-radius-bottom-left;
+  }
+}
+
+@mixin colorizeCoachByState($state) {
+  // Set background color by state
+  --sbb-seat-reservation-navigation-btn-background-color: var(
+    --sbb-seat-reservation-navigation-btn-background-color-#{$state}
+  );
+
+  // Set border color by state
+  --sbb-seat-reservation-navigation-btn-border-color: var(
+    --sbb-seat-reservation-navigation-btn-border-color-#{$state}
+  );
+
+  // Set border width by state. No border width change for hovered state
+  @if $state != 'hovered' {
+    @if $state == 'selected' {
+      --sbb-seat-reservation-navigation-btn-border-width: var(
+        --sbb-seat-reservation-navigation-btn-border-width-selected
+      );
+    } @else {
+      --sbb-seat-reservation-navigation-btn-border-width: var(
+        --sbb-seat-reservation-navigation-btn-border-width-default
+      );
+    }
+  }
+
+  // Set outline style by state focus
+  @if $state == 'focused' {
+    outline: sbb-sr-functions.sr-px-to-rem(
+        var(--sbb-seat-reservation-navigation-btn-outline-width-focused)
+      )
+      solid
+      var(--sbb-seat-reservation-navigation-btn-outline-color-focused);
+    outline-offset: sbb-sr-functions.sr-px-to-rem(
+      var(--sbb-seat-reservation-navigation-btn-outline-offset-focused)
+    );
+    background-color: var(--sbb-seat-reservation-navigation-btn-background-color-focused);
+  }
+
+  @if $state == 'hovered' {
+    background-color: var(--sbb-seat-reservation-navigation-btn-background-color-hovered);
+  }
+}
+
 :host {
   --sbb-seat-reservation-navigation-travelclass-spacing: 10;
-  --sbb-seat-reservation-navigation-btn-border-width: 1;
+  --sbb-seat-reservation-navigation-btn-border-width-default: 1;
+  --sbb-seat-reservation-navigation-btn-border-width: var(
+    --sbb-seat-reservation-navigation-btn-border-width-default
+  );
   --sbb-seat-reservation-navigation-btn-border-color: light-dark(
     var(--sbb-color-granite),
     var(--sbb-color-graphite)
@@ -37,13 +109,26 @@ $disabled: '[disabled], :disabled';
     var(--sbb-color-white),
     var(--sbb-color-black)
   );
+  --sbb-seat-reservation-navigation-btn-border-width-focused: var(
+    --sbb-seat-reservation-navigation-btn-border-width
+  );
   --sbb-seat-reservation-navigation-btn-border-color-focused: light-dark(
     var(--sbb-color-black),
     var(--sbb-color-white)
   );
-  --sbb-seat-reservation-navigation-btn-background-color-hover: light-dark(
+
+  // hover state variables
+  --sbb-seat-reservation-navigation-btn-background-color-hovered: light-dark(
     var(--sbb-color-cloud),
     var(--sbb-color-midnight)
+  );
+  --sbb-seat-reservation-navigation-btn-border-color-hovered: var(
+    --sbb-seat-reservation-navigation-btn-border-color
+  );
+  --sbb-seat-reservation-navigation-btn-background-color-disabled: var(--sbb-background-color-2);
+  --sbb-seat-reservation-navigation-btn-border-color-disabled: light-dark(
+    var(--sbb-color-platinum),
+    var(--sbb-color-iron)
   );
 }
 
@@ -63,8 +148,7 @@ $disabled: '[disabled], :disabled';
 
   &.first-coach {
     .sbb-sr-navigation__ctrl-button:not(.sbb-seat-reservation-navigation-driver-area) {
-      border-start-start-radius: var(--sbb-border-radius-8x);
-      border-end-start-radius: var(--sbb-border-radius-8x);
+      @include visualizeCoachBorder(8, 2, 2, 8);
     }
 
     .sbb-sr-navigation--first-class {
@@ -76,8 +160,7 @@ $disabled: '[disabled], :disabled';
 
   &.last-coach {
     .sbb-sr-navigation__ctrl-button:not(.sbb-sr-navigation-driver-area) {
-      border-start-end-radius: var(--sbb-border-radius-8x);
-      border-end-end-radius: var(--sbb-border-radius-8x);
+      @include visualizeCoachBorder(2, 8, 8, 2);
     }
 
     .sbb-sr-navigation__additional-information {
@@ -103,36 +186,18 @@ $disabled: '[disabled], :disabled';
   justify-content: center;
   height: sbb-sr-functions.sr-px-to-rem(36);
   position: relative;
-  border: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-navigation-btn-border-width))
-    solid var(--sbb-seat-reservation-navigation-btn-border-color);
-  border-radius: var(--sbb-border-radius-2x);
   background-color: var(--sbb-seat-reservation-navigation-btn-background-color);
   cursor: var(--sbb-cursor-pointer);
 
   &.sbb-sr-navigation-driver-area {
-    border-radius: var(--sbb-border-radius-8x);
-    cursor: initial;
+    @include visualizeCoachBorder(8, 8, 8, 8);
   }
+
+  @include visualizeCoachBorder(2, 2, 2, 2);
 }
 
-// focus but not selected, INCLUDING the driver areas too (FIGMA State:Focused)
-// i.e. with keyboard navigation for example
-// don't move this block beneath selected if you don't want to mess up specificity
-.sbb-sr-navigation__ctrl-button:focus-visible:not(#{$disabled}) {
-  outline: sbb-sr-functions.sr-px-to-rem(
-      var(--sbb-seat-reservation-navigation-btn-outline-width-focused)
-    )
-    solid var(--sbb-seat-reservation-navigation-btn-outline-color-focused);
-  outline-offset: sbb-sr-functions.sr-px-to-rem(
-    var(--sbb-seat-reservation-navigation-btn-outline-offset-focused)
-  );
-
-  --sbb-seat-reservation-navigation-btn-background-color: var(
-    --sbb-seat-reservation-navigation-btn-background-color-focused
-  );
-  --sbb-seat-reservation-navigation-btn-border-color: var(
-    --sbb-seat-reservation-navigation-btn-border-color-focused
-  );
+.sbb-sr-navigation__item-coach--focused .sbb-sr-navigation__ctrl-button {
+  @include colorizeCoachByState('focused');
 
   .sbb-sr-navigation__item-coach-travelclass {
     background-color: light-dark(var(--sbb-color-metal), var(--sbb-color-storm));
@@ -145,12 +210,7 @@ $disabled: '[disabled], :disabled';
 
 // selected, i.e. the coach within the train is selected (FIGMA State:Selected)
 .sbb-sr-navigation__item-coach--selected .sbb-sr-navigation__ctrl-button {
-  --sbb-seat-reservation-navigation-btn-background-color: var(
-    --sbb-seat-reservation-navigation-btn-background-color-selected
-  );
-  --sbb-seat-reservation-navigation-btn-border-width: var(
-    --sbb-seat-reservation-navigation-btn-border-width-selected
-  );
+  @include colorizeCoachByState('selected');
 
   .sbb-sr-navigation__item-coach-travelclass {
     background-color: light-dark(var(--sbb-color-black), var(--sbb-color-white));
@@ -162,26 +222,23 @@ $disabled: '[disabled], :disabled';
 }
 
 .sbb-sr-navigation__item-coach--hovered .sbb-sr-navigation__ctrl-button {
-  --sbb-seat-reservation-navigation-btn-background-color: light-dark(
-    var(--sbb-color-cloud),
-    var(--sbb-color-midnight)
-  );
+  @include colorizeCoachByState('hovered');
 }
 
 // selected AND focus (FIGMA State:Selected + Focused)
 // background-color from selected State has more specificity, so we need to override it here (again)
 .sbb-sr-navigation__item-coach--selected
   .sbb-sr-navigation__ctrl-button:focus-visible:not(#{$disabled}) {
-  --sbb-seat-reservation-navigation-btn-background-color: var(
-    --sbb-seat-reservation-navigation-btn-background-color-selected
-  );
+  @include colorizeCoachByState('selected');
+}
+
+.sbb-sr-navigation__item-coach--hovered .sbb-sr-navigation__ctrl-button {
+  @include colorizeCoachByState('hovered');
 }
 
 // hover (FIGMA State:hover)
-.sbb-sr-navigation__ctrl-button:hover:not(#{$disabled}, .sbb-sr-navigation-driver-area) {
-  --sbb-seat-reservation-navigation-btn-background-color: var(
-    --sbb-seat-reservation-navigation-btn-background-color-hover
-  );
+.sbb-sr-navigation__ctrl-button:hover:not(#{$disabled}) {
+  @include colorizeCoachByState('hovered');
 
   .sbb-sr-navigation__item-coach-travelclass {
     background-color: var(--sbb-color-5);
@@ -194,11 +251,7 @@ $disabled: '[disabled], :disabled';
 
 // disabled (FIGMA State:disabled)
 .sbb-sr-navigation__ctrl-button:is(#{$disabled}) {
-  --sbb-seat-reservation-navigation-btn-background-color: var(--sbb-background-color-2);
-  --sbb-seat-reservation-navigation-btn-border-color: light-dark(
-    var(--sbb-color-platinum),
-    var(--sbb-color-iron)
-  );
+  @include colorizeCoachByState('disabled');
 
   cursor: unset;
   pointer-events: unset;
@@ -306,8 +359,7 @@ $disabled: '[disabled], :disabled';
   // handle border-radius
   &.first-coach:not(.last-coach) {
     .sbb-sr-navigation__ctrl-button:not(.sbb-sr-navigation-driver-area) {
-      border-start-end-radius: var(--sbb-border-radius-8x);
-      border-end-start-radius: var(--sbb-border-radius-2x);
+      @include visualizeCoachBorder(8, 8, 2, 2);
     }
 
     .sbb-sr-navigation--first-class {
@@ -320,8 +372,7 @@ $disabled: '[disabled], :disabled';
 
   &.last-coach:not(.first-coach) {
     .sbb-sr-navigation__ctrl-button:not(.sbb-sr-navigation-driver-area) {
-      border-start-end-radius: var(--sbb-border-radius-2x);
-      border-end-start-radius: var(--sbb-border-radius-8x);
+      @include visualizeCoachBorder(2, 2, 8, 8);
     }
 
     .sbb-sr-navigation--first-class {
