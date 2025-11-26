@@ -734,14 +734,6 @@ export const i18nItemsPerPage: Record<string, string> = {
   it: 'Elementi per pagina',
 };
 
-/** @deprecated */
-export const i18nSelectedPage = (pageNumber: number): Record<string, string> => ({
-  de: `Seite ${pageNumber} ausgewählt.`,
-  en: `Page ${pageNumber} selected.`,
-  fr: `Page ${pageNumber} sélectionnée.`,
-  it: `Pagina ${pageNumber} selezionata.`,
-});
-
 export const i18nPaginatorSelected: Record<string, string> = {
   de: `ausgewählt`,
   en: `selected`,

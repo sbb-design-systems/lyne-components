@@ -43,8 +43,6 @@ export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNega
   public hasNextPage(): boolean;
   public numberOfPages(): number;
   protected language: SbbLanguageController;
-  /* @deprecated */
-  protected changeAndEmitPage(pageIndex: number): void;
   protected emitPageEvent(previousPageIndex: number, pageIndex?: number): void;
   protected renderPrevNextButtons(): TemplateResult;
   protected abstract renderPaginator(): TemplateResult;

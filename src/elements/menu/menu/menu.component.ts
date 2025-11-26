@@ -551,7 +551,6 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
   }
 
   protected override render(): TemplateResult {
-    // TODO: Handle case with other elements than sbb-menu-button/sbb-menu-link.
     return html`
       <div class="sbb-menu__container">
         <div

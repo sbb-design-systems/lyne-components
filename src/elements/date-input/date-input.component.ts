@@ -91,14 +91,6 @@ class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitEleme
   private _valueAsDate?: T | null;
 
   /**
-   * Whether the input is empty
-   * @deprecated
-   */
-  public get empty(): boolean {
-    return !this.value || this.value.trim() === '';
-  }
-
-  /**
    * The minimum valid date. Accepts a date object or null.
    * Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.
    */
