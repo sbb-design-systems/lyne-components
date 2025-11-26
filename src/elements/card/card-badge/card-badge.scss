@@ -4,7 +4,8 @@
   display: flex;
   position: relative;
   height: fit-content;
-  justify-self: end;
+  width: fit-content;
+  margin-inline-start: auto;
 
   // Divider line to content
   &::after {
@@ -12,7 +13,7 @@
     display: var(--sbb-card-badge-border-display, none);
     position: absolute;
     inset: 0;
-    border-block-end: var(--sbb-border-width-1x) solid CanvasText;
+    border: var(--sbb-border-width-1x) solid CanvasText;
   }
 
   inset-block-start: 0;
@@ -46,7 +47,6 @@
 }
 
 .sbb-card-badge-background {
-  content: '';
   display: block;
   position: absolute;
   inset: 0;
