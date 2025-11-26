@@ -53,27 +53,6 @@ const themeDecorator = makeDecorator({
   },
 });
 
-/**
- * The Lean design is applied by adding the 'sbb-lean' class to the document.
- * @deprecated
- */
-const withLeanDecorator = makeDecorator({
-  name: 'withLeanStyle',
-  parameterName: 'isLean',
-  skipIfNoParametersOrOptions: false,
-  wrapper: (getStory, context, { parameters }) => {
-    const isLean = parameters as unknown as boolean;
-
-    if (isLean) {
-      document.documentElement.classList.add('sbb-lean');
-    } else {
-      document.documentElement.classList.remove('sbb-lean');
-    }
-
-    return getStory(context);
-  },
-});
-
 const lightDarkModeDecorator = makeDecorator({
   name: 'lightOrDarkMode',
   parameterName: 'darkMode',
@@ -186,7 +165,6 @@ const isDev = (): boolean => window.location.hostname === 'localhost';
 export default {
   decorators: [
     withBackgroundDecorator,
-    withLeanDecorator,
     lightDarkModeDecorator,
     themeDecorator,
     (story) => {

@@ -82,14 +82,6 @@ class SbbTimeInputElement extends SbbFormAssociatedInputMixin(LitElement) {
   private _valueAsTime?: Time | null;
 
   /**
-   * Whether the input is empty.
-   * @deprecated
-   */
-  public get empty(): boolean {
-    return !this.value || this.value.trim() === '';
-  }
-
-  /**
    * Stores the last string and parsed date object value to prevent repeated
    * parsing of the string value.
    */
