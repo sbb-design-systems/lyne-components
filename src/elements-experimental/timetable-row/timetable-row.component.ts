@@ -248,7 +248,7 @@ class SbbTimetableRowElement extends LitElement {
    * when this is true it will be render skeleton with an idling animation
    */
   @forceType()
-  @property({ attribute: 'loading-price', type: Boolean, reflect: true })
+  @property({ attribute: 'loading-price', type: Boolean })
   public accessor loadingPrice: boolean = false;
 
   /**
