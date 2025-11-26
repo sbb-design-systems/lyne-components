@@ -105,8 +105,8 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElementInternalsMixi
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('size')) {
-      this._headerRef?.['applyStatePattern'](this.size, 'size');
-      this._contentRef?.['applyStatePattern'](this.size, 'size');
+      ɵstateController(this._headerRef)?.applyPattern(this.size, 'size');
+      ɵstateController(this._contentRef)?.applyPattern(this.size, 'size');
     }
   }
 
@@ -191,12 +191,12 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElementInternalsMixi
       header.id ||= `sbb-expansion-panel-header${this._progressiveId}`;
       header.setAttribute('aria-expanded', String(this.expanded));
       header.toggleAttribute('disabled', this.disabled);
-      header['applyStatePattern'](this.size, 'size');
+      ɵstateController(header).applyPattern(this.size, 'size');
     }
     if (content && this._contentRef !== content) {
       content.id ||= `sbb-expansion-panel-content${this._progressiveId}`;
       content.setAttribute('aria-hidden', String(!this.expanded));
-      content['applyStatePattern'](this.size, 'size');
+      ɵstateController(content).applyPattern(this.size, 'size');
     }
 
     this._headerRef = header;

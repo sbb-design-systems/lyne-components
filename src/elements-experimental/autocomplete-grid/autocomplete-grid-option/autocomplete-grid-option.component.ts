@@ -36,8 +36,15 @@ class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<
             'disabled',
             this.disabled || this.disabledFromGroup,
           );
+          this.updateAriaDisabled();
         },
         label: (p) => (this.groupLabel = p.label),
+      }),
+    );
+
+    this.addController(
+      new SbbAncestorWatcherController(this, () => this.closest('sbb-autocomplete-grid'), {
+        negative: (e) => this.toggleState('negative', e.negative),
       }),
     );
   }
@@ -51,21 +58,6 @@ class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<
       );
       this.updateAriaDisabled();
     }
-  }
-
-  protected setAttributeFromParent(): void {
-    const parentGroup = this.closest('sbb-autocomplete-grid-optgroup');
-    if (parentGroup) {
-      this.disabledFromGroup = parentGroup.disabled;
-      this.updateAriaDisabled();
-    }
-    ɵstateController(this.closest?.('sbb-autocomplete-grid-row'))?.toggle(
-      'disabled',
-      this.disabled || this.disabledFromGroup,
-    );
-
-    this.negative = !!this.closest(`:is(sbb-autocomplete-grid[negative],sbb-form-field[negative])`);
-    this.toggleState('negative', this.negative);
   }
 
   protected selectByClick(event: MouseEvent): void {

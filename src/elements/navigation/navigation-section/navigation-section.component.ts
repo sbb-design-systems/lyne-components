@@ -110,6 +110,8 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(
 
   public constructor() {
     super();
+
+    // We need to make sure that the initial state is set to 'closed', if not defined externally.
     if (this._state === 'closed') {
       this._state = 'closed';
     }

@@ -33,6 +33,8 @@ export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(L
 
   public constructor() {
     super();
+
+    // We need to make sure that the initial state is set to 'closed', if not defined externally.
     if (this.state === 'closed') {
       this.state = 'closed';
     }

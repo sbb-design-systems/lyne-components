@@ -12,7 +12,11 @@ import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
 import { forceType } from '../../core/decorators.ts';
 import { breakpoints, isBreakpoint, isLean } from '../../core/dom.ts';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';
-import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
+import {
+  SbbElementInternalsMixin,
+  SbbHydrationMixin,
+  ɵstateController,
+} from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.ts';
 
@@ -257,8 +261,8 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
   private _updateLabels(): void {
     this.steps.forEach((step) => {
       step.slot = this.orientation === 'horizontal' ? 'step' : 'step-label';
-      step['applyStatePattern'](this.orientation, 'orientation');
-      step.label?.['applyStatePattern'](this.orientation, 'orientation');
+      ɵstateController(step).applyPattern(this.orientation, 'orientation');
+      ɵstateController(step.label)?.applyPattern(this.orientation, 'orientation');
     });
   }
 
@@ -336,9 +340,7 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
   }
 
   private _proxySize(): void {
-    this.steps.forEach((step) => {
-      step.label?.['applyStatePattern'](this.size, 'size');
-    });
+    this.steps.forEach((step) => ɵstateController(step.label)?.applyPattern(this.size, 'size'));
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {

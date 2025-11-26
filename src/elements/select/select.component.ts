@@ -8,7 +8,11 @@ import { until } from 'lit/directives/until.js';
 
 import { getNextElementIndex } from '../core/a11y.ts';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
-import { SbbEscapableOverlayController, SbbLanguageController } from '../core/controllers.ts';
+import {
+  SbbAncestorWatcherController,
+  SbbEscapableOverlayController,
+  SbbLanguageController,
+} from '../core/controllers.ts';
 import { forceType, getOverride, handleDistinctChange } from '../core/decorators.ts';
 import {
   isLean,
@@ -28,12 +32,11 @@ import {
   SbbReadonlyMixin,
   SbbRequiredMixin,
   SbbUpdateSchedulerMixin,
-  ɵstateController,
 } from '../core/mixins.ts';
 import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import type { SbbDividerElement } from '../divider.ts';
-import type { SbbOptGroupElement, SbbOptionElement, SbbOptionHintElement } from '../option.ts';
+import type { SbbOptionElement, SbbOptionHintElement } from '../option.ts';
 
 import style from './select.scss?lit&inline';
 
@@ -200,6 +203,15 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       new MutationController(this, {
         config: { attributeFilter: ['aria-labelledby', 'aria-label', 'aria-describedby'] },
         callback: () => this._syncAriaLabels(),
+      }),
+    );
+
+    this.addController(
+      new SbbAncestorWatcherController(this, () => this.closest('sbb-form-field'), {
+        negative: (e) => {
+          this.negative = e.negative;
+          this._syncNegative();
+        },
       }),
     );
   }
@@ -406,12 +418,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       this.id ||= this._overlayId;
     }
 
-    const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
-
-    if (formField) {
-      this.negative = formField.hasAttribute('negative');
-    }
-    this._syncProperties();
+    this._syncNegative();
     this._syncAriaLabels();
 
     if (this._didLoad) {
@@ -434,8 +441,8 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('negative') || changedProperties.has('multiple')) {
-      this._syncProperties();
+    if (changedProperties.has('negative')) {
+      this._syncNegative();
     }
     if (changedProperties.has('readOnly')) {
       this._closeOnDisabledReadonlyChanged(this.readOnly);
@@ -490,23 +497,10 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     return JSON.stringify({ value: this.value, manuallyAssigned: this._isValueManuallyAssigned });
   }
 
-  private _syncProperties(): void {
+  private _syncNegative(): void {
     this.querySelectorAll?.<SbbDividerElement | SbbOptionHintElement>(
       'sbb-divider, sbb-option-hint',
     ).forEach((el) => (el.negative = this.negative));
-
-    this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
-      'sbb-option, sbb-optgroup',
-    ).forEach((element) => {
-      customElements.upgrade(element);
-      const controller = ɵstateController(element);
-      controller.toggle('negative', this.negative);
-      controller.toggle('multiple', this.multiple);
-    });
-
-    this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
-      'sbb-option, sbb-optgroup',
-    ).forEach((e) => e.requestUpdate?.());
   }
 
   protected override shouldValidate(name: PropertyKey | undefined): boolean {

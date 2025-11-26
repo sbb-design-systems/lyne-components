@@ -170,7 +170,7 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
 
   private _updateSize(): void {
     this.labels.forEach((tabLabel: SbbTabLabelElement) =>
-      tabLabel['applyStatePattern'](this.size, 'size'),
+      ɵstateController(tabLabel).applyPattern(this.size, 'size'),
     );
   }
 

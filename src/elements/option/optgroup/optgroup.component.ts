@@ -1,6 +1,8 @@
 import { customElement } from 'lit/decorators.js';
 
-import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
+import type { SbbAutocompleteBaseElement, SbbAutocompleteElement } from '../../autocomplete.ts';
+import { SbbAncestorWatcherController } from '../../core/controllers.ts';
+import type { SbbSelectElement } from '../../select/select.component.ts';
 import type { SbbOptionElement } from '../option.ts';
 
 import { SbbOptgroupBaseElement } from './optgroup-base-element.ts';
@@ -17,22 +19,37 @@ class SbbOptGroupElement extends SbbOptgroupBaseElement {
     return Array.from(this.querySelectorAll?.('sbb-option') ?? []) as SbbOptionElement[];
   }
 
+  public constructor() {
+    super();
+
+    this.addController(
+      new SbbAncestorWatcherController(this, () => this.closest('sbb-autocomplete'), {
+        negative: (e) => this._handleNegativeChange(e),
+      }),
+    );
+
+    this.addController(
+      new SbbAncestorWatcherController(this, () => this.closest('sbb-select'), {
+        multiple: (ancestor) => this.toggleState('multiple', ancestor.multiple),
+        negative: (e) => this._handleNegativeChange(e),
+      }),
+    );
+  }
+
+  private _handleNegativeChange(ancestor: SbbAutocompleteElement | SbbSelectElement): void {
+    this.toggleState('negative', ancestor.negative);
+
+    // To update the sbb-divider we need a requestUpdate() here
+    this.requestUpdate();
+  }
+
   protected getAutocompleteParent(): SbbAutocompleteBaseElement | null {
     return this.closest?.<SbbAutocompleteBaseElement>('sbb-autocomplete') || null;
   }
 
-  protected setAttributeFromParent(): void {
-    this.negative = !!this.closest?.(`:is(sbb-autocomplete, sbb-select, sbb-form-field)[negative]`);
-    this.toggleState('negative', this.negative);
-  }
-
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.toggleState('multiple', !!this.closest('sbb-select[multiple]'));
-    this._setVariantByContext();
-  }
 
-  private _setVariantByContext(): void {
     const variant = this.closest?.('sbb-autocomplete')
       ? 'autocomplete'
       : this.closest?.('sbb-select')

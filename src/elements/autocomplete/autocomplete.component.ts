@@ -2,10 +2,9 @@ import { customElement } from 'lit/decorators.js';
 
 import { getNextElementIndex } from '../core/a11y.ts';
 import { isSafari } from '../core/dom.ts';
-import { ɵstateController } from '../core/mixins.ts';
 import { setAriaComboBoxAttributes } from '../core/overlay.ts';
 import type { SbbDividerElement } from '../divider/divider.component.ts';
-import type { SbbOptGroupElement, SbbOptionElement, SbbOptionHintElement } from '../option.ts';
+import type { SbbOptionElement, SbbOptionHintElement } from '../option.ts';
 
 import { SbbAutocompleteBaseElement } from './autocomplete-base-element.ts';
 
@@ -45,13 +44,6 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
     this.querySelectorAll?.<SbbDividerElement | SbbOptionHintElement>(
       'sbb-divider, sbb-option-hint',
     ).forEach((el) => (el.negative = this.negative));
-
-    this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
-      'sbb-option, sbb-optgroup',
-    ).forEach((element) => {
-      customElements.upgrade(element);
-      ɵstateController(element).toggle('negative', this.negative);
-    });
   }
 
   protected openedPanelKeyboardInteraction(event: KeyboardEvent): void {

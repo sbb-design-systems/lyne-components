@@ -1,4 +1,4 @@
-import type { SbbElementInternalsMixinType } from '../mixins.ts';
+import { type SbbElementInternalsMixinType, ɵstateController } from '../mixins.ts';
 
 import { getElementPosition } from './position.ts';
 
@@ -38,6 +38,9 @@ export function setOverlayPosition(
   element.style.setProperty('--sbb-options-panel-position-x', `${panelPosition.left}px`);
   element.style.setProperty('--sbb-options-panel-position-y', `${panelPosition.top}px`);
   element.style.setProperty('--sbb-options-panel-max-height', panelPosition.maxHeight);
-  element['applyStatePattern'](panelPosition.alignment.vertical, 'options-panel-position');
+  ɵstateController(element).applyPattern(
+    panelPosition.alignment.vertical,
+    'options-panel-position',
+  );
   originElement.setAttribute('data-options-panel-position', panelPosition.alignment.vertical);
 }

@@ -1,4 +1,5 @@
 import type { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.js';
+import { SbbAncestorWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { SbbOptgroupBaseElement } from '@sbb-esta/lyne-elements/option/optgroup.js';
 import { customElement } from 'lit/decorators.js';
 
@@ -18,13 +19,23 @@ class SbbAutocompleteGridOptgroupElement extends SbbOptgroupBaseElement {
     ) as SbbAutocompleteGridOptionElement[];
   }
 
-  protected getAutocompleteParent(): SbbAutocompleteBaseElement | null {
-    return this.closest?.<SbbAutocompleteBaseElement>('sbb-autocomplete-grid') || null;
+  public constructor() {
+    super();
+
+    this.addController(
+      new SbbAncestorWatcherController(this, () => this.closest('sbb-autocomplete-grid'), {
+        negative: (e) => {
+          this.toggleState('negative', e.negative);
+
+          // To update the sbb-divider we need a requestUpdate() here
+          this.requestUpdate();
+        },
+      }),
+    );
   }
 
-  protected setAttributeFromParent(): void {
-    this.negative = !!this.closest(`:is(sbb-autocomplete-grid, sbb-form-field)[negative]`);
-    this.toggleState('negative', this.negative);
+  protected getAutocompleteParent(): SbbAutocompleteBaseElement | null {
+    return this.closest?.<SbbAutocompleteBaseElement>('sbb-autocomplete-grid') || null;
   }
 }
 

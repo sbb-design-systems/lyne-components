@@ -23,6 +23,8 @@ const CustomStateSetPolyfill: (new (host: LitElement) => CustomStateSetInterface
           super();
           this._host.addController(this);
           if (!isServer) {
+            // We want to apply the attributes as early as possible which can
+            // either be via this Promise.resolve() or the connectedCallback().
             Promise.resolve().then(() => this._applyStates());
           }
         }
@@ -298,6 +300,7 @@ export function ɵstateController(element: Element | undefined | null): SbbState
       applyPattern,
     };
   } else {
+    // If no ElementInternals is attached, we fall back to using attributes. E.g. for triggers.
     return {
       add(value) {
         element.toggleAttribute(`state--${value}`, true);

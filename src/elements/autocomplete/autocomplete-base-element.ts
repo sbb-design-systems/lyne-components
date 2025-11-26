@@ -12,7 +12,10 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
-import { SbbEscapableOverlayController } from '../core/controllers.ts';
+import {
+  SbbAncestorWatcherController,
+  SbbEscapableOverlayController,
+} from '../core/controllers.ts';
 import { forceType, idReference } from '../core/decorators.ts';
 import { isLean, isSafari, isZeroAnimationDuration } from '../core/dom.ts';
 import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.ts';
@@ -152,6 +155,21 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   private _lastUserInput: string | null = null;
 
   protected abstract get options(): SbbOptionBaseElement<T>[];
+
+  public constructor() {
+    super();
+
+    this.addController(
+      new SbbAncestorWatcherController(this, () => this.closest('sbb-form-field'), {
+        negative: (e) => {
+          this.negative = e.negative;
+          this.syncNegative();
+        },
+        borderless: (e) => this.toggleState('option-panel-origin-borderless', e.borderless),
+      }),
+    );
+  }
+
   protected abstract syncNegative(): void;
   protected abstract setTriggerAttributes(element: HTMLInputElement): void;
   protected abstract openedPanelKeyboardInteraction(event: KeyboardEvent): void;
@@ -221,11 +239,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     super.connectedCallback();
     if (ariaRoleOnHost) {
       this.id ||= this.overlayId;
-    }
-    const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
-
-    if (formField) {
-      this.negative = formField.hasAttribute('negative');
     }
 
     if (this.hasUpdated) {
@@ -365,11 +378,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     if (isServer) {
       return;
     }
-
-    this.toggleState(
-      'option-panel-origin-borderless',
-      this.closest?.('sbb-form-field')?.hasAttribute('borderless'),
-    );
 
     this._configureTrigger();
   }
@@ -587,7 +595,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
         <div
           @animationend=${this._onAnimationEnd}
           class="sbb-autocomplete__panel"
-          ?data-open=${this.state === 'opened' || this.state === 'opening'}
           ${ref((overlayRef?: Element) => (this._overlay = overlayRef as HTMLElement))}
         >
           <div class="sbb-autocomplete__wrapper">

@@ -132,7 +132,7 @@
     }
   }
 
-  &:state(selected) {
+  &[data-selected] {
     @include sbb.text--bold;
 
     --sbb-paginator-page-color: var(--sbb-color-3);
@@ -157,7 +157,7 @@
     --sbb-paginator-page-background-color: var(--sbb-background-color-3);
     --sbb-paginator-page-cursor: var(--sbb-cursor-default);
 
-    &:not(:state(selected)) {
+    &:not([data-selected]) {
       --sbb-paginator-page-border-width: var(--sbb-border-width-1x);
     }
 
