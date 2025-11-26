@@ -9,10 +9,10 @@ snapshots["sbb-timetable-row renders defaultTrip DOM"] =
 
 snapshots["sbb-timetable-row renders defaultTrip Shadow DOM"] = 
 `<sbb-card
+  class="sbb-card-spacing-4x-xxs"
   color="white"
   data-action-role="button"
   data-has-action=""
-  size="l"
 >
   <sbb-card-button
     data-action=""
@@ -84,10 +84,10 @@ snapshots["sbb-timetable-row renders platform DOM"] =
 
 snapshots["sbb-timetable-row renders platform Shadow DOM"] = 
 `<sbb-card
+  class="sbb-card-spacing-4x-xxs"
   color="white"
   data-action-role="button"
   data-has-action=""
-  size="l"
 >
   <sbb-card-button
     data-action=""
@@ -178,10 +178,10 @@ snapshots["sbb-timetable-row renders bus strip DOM"] =
 
 snapshots["sbb-timetable-row renders bus strip Shadow DOM"] = 
 `<sbb-card
+  class="sbb-card-spacing-4x-xxs"
   color="white"
   data-action-role="button"
   data-has-action=""
-  size="l"
 >
   <sbb-card-button
     data-action=""
@@ -270,17 +270,14 @@ snapshots["sbb-timetable-row renders loading state DOM"] =
 
 snapshots["sbb-timetable-row renders loading state Shadow DOM"] = 
 `<sbb-card
-  class="sbb-loading"
+  class="sbb-card-spacing-4x-xxs sbb-loading"
   color="white"
-  data-has-card-badge=""
-  size="l"
 >
-  <sbb-card-badge
+  <div
     class="sbb-loading__badge"
-    color="charcoal"
     slot="badge"
   >
-  </sbb-card-badge>
+  </div>
   <div class="sbb-loading__wrapper">
     <div class="sbb-loading__row">
     </div>
@@ -409,10 +406,10 @@ snapshots["sbb-timetable-row renders trip with access leg DOM"] =
 
 snapshots["sbb-timetable-row renders trip with access leg Shadow DOM"] = 
 `<sbb-card
+  class="sbb-card-spacing-4x-xxs"
   color="white"
   data-action-role="button"
   data-has-action=""
-  size="l"
 >
   <sbb-card-button
     data-action=""
