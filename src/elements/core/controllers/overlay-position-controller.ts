@@ -1,6 +1,5 @@
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
-import { ɵstateController } from '../mixins/element-internals-mixin.ts';
 import type { SbbElementInternalsMixinType } from '../mixins.ts';
 
 const cssAnchorPositionSupported = !isServer && CSS.supports('anchor-name', '--test');
@@ -60,7 +59,7 @@ let nextId = 0;
  * Applies unique anchor names when using native CSS Anchor Positioning
  * or calculates and applies correct positions in polyfill mode.
  *
- * Also, the controller sets the 'overlay-position' state on the overlay element.
+ * Also, the controller sets the 'data-position' attribute on the overlay element.
  * This can be used to apply specific styles based on the current position of the overlay.
  *
  * ### Implementation
@@ -184,18 +183,7 @@ export class SbbOverlayPositionController implements ReactiveController {
       this._applyOverlayPosition(position.position, position.left, position.top);
     }
 
-    const positions = this.currentPosition.split(' ');
-    // TODO: This might fail for single values like start, center and end.
-    const controller = ɵstateController(this._overlay);
-    for (const position of positions) {
-      controller.add(`position-${position}`);
-    }
-
-    controller.forEach((state) => {
-      if (state.startsWith('position-') && !positions.includes(state.replace('position-', ''))) {
-        controller.delete(state);
-      }
-    });
+    this._overlay.setAttribute('data-position', this.currentPosition);
   }
 
   /**

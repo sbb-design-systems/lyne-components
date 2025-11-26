@@ -48,15 +48,26 @@ If the attribute is not used, the first focusable element receives focus (recomm
 | ------------------------ | -------------------------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
 | `accessibilityBackLabel` | `accessibility-back-label` | public  | `string`              | `''`    | This will be forwarded as aria-label to the back button element.                                          |
 | `accessibilityLabel`     | `accessibility-label`      | public  | `string`              | `''`    | This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section. |
+| `isOpen`                 | -                          | public  | `boolean`             |         | Whether the element is open.                                                                              |
 | `titleContent`           | `title-content`            | public  | `string`              | `''`    | The label to be shown before the action list.                                                             |
 | `trigger`                | `trigger`                  | public  | `HTMLElement \| null` | `null`  | The element that will trigger the navigation section. For attribute usage, provide an id reference.       |
 
 ## Methods
 
-| Name    | Privacy | Description                                    | Parameters | Return | Inherited From |
-| ------- | ------- | ---------------------------------------------- | ---------- | ------ | -------------- |
-| `close` | public  | Closes the navigation section.                 |            | `void` |                |
-| `open`  | public  | Opens the navigation section on trigger click. |            | `void` |                |
+| Name             | Privacy | Description                                                                 | Parameters | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Closes the navigation section.                                              |            | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the navigation section on trigger click.                              |            | `void` | SbbOpenCloseBaseElement |
+
+## Events
+
+| Name          | Type    | Description                                                                  | Inherited From          |
+| ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `Event` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event` | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## Slots
 
