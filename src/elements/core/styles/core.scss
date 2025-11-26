@@ -165,6 +165,7 @@ $theme: 'standard' !default;
 html {
   @include typo.text;
 
+  color-scheme: light dark;
   color: var(--sbb-font-color-default);
   background-color: var(--sbb-background-color-1);
 }

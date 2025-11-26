@@ -221,9 +221,10 @@ To enable lean mode, add the CSS class `sbb-lean` to the `html` tag.
 
 ### Dark Mode
 
-To provide the dark mode theme to the end users, you can set the `sbb-light-dark` CSS class on your `<html>` tag.
-Alternatively, you can force one mode or the other by applying either the `sbb-light` (current default) or `sbb-dark` CSS class.
-This CSS class sets the `color-scheme` CSS property which responds to the end user's preferred color scheme settings.
+To provide the dark mode theme to end users, the `sbb-light-dark` CSS class is set by default on the library's `<html>` tag,
+applying dynamic switching based on the user's system preferences.
+Alternatively, you can opt out and force one mode or the other by applying either the `sbb-light` or `sbb-dark` CSS class,
+which overrides the automatic `color-scheme` setting, thus forcing either a light or a dark mode.
 
 Please note, that every color on the consumer's side also needs to be set in light and dark modes using the CSS `light-dark()` function.
 See the `Context specific colors` section below for details of the predefined CSS variables we provide.
@@ -234,8 +235,8 @@ See the `Context specific colors` section below for details of the predefined CS
 }
 ```
 
-Some colors change their value between light and dark modes for contrast reasons. For example, the red used for errors or all
-colors in the additional color set.
+Some colors change their value between light and dark modes for contrast reasons.
+For example, the red used for errors or all colors in the additional color set.
 Note that JavaScript tokens are only available for primitive values. Please use CSS variables whenever possible.
 They automatically adapt their colors. Using JavaScript variables requires you to handle light and dark modes manually.
 
