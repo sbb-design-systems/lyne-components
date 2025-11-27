@@ -126,6 +126,7 @@ const testRunnerHtml = (
       ${renderStyles()}
     </style>
     <script type="module">
+      globalThis.disableAnimation = true;
       globalThis.testEnv = '${cliArgs.debug ? 'debug' : ''}';
       globalThis.testGroup = '${cliArgs['visual-regression'] ? 'visual-regression' : 'default'}';
       globalThis.testRunScript = '${testFramework}';

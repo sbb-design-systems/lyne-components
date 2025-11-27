@@ -6,7 +6,6 @@ import type { UncompiledTemplateResult } from 'lit';
 import type { MochaOptions } from 'mocha';
 
 import { mergeConfig, type SbbIconConfig } from '../../config.ts';
-import { isWebkit } from '../../dom/platform.ts';
 
 const {
   __WTR_CONFIG__: { testFrameworkConfig },
@@ -19,12 +18,6 @@ const {
   testRunScript: string;
 };
 
-if (isWebkit) {
-  // We currently have the problem that tests are randomly failing on WebKit.
-  // As a temporary solution, we add retries for WebKit.
-  // TODO: Figure out why this is necessary.
-  testFrameworkConfig.retries = 3;
-}
 testFrameworkConfig.rootHooks = {
   beforeEach: async () => {
     (await import('../../a11y/input-modality-detector.ts')).sbbInputModalityDetector.reset();
