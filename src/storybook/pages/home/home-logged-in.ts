@@ -230,7 +230,7 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
             <sbb-title level="3" visual-level="4" ?negative=${args.negative}>
               Your subscriptions.
             </sbb-title>
-            <sbb-card color="milk" size="s">
+            <sbb-card color="milk" class="sbb-card-spacing-xxxs-xxs">
               <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
                 Edit subscription
               </sbb-card-link>

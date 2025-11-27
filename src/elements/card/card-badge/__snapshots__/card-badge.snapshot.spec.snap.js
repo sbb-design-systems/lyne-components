@@ -12,18 +12,14 @@ snapshots["sbb-card-badge renders DOM"] =
 /* end snapshot sbb-card-badge renders DOM */
 
 snapshots["sbb-card-badge renders Shadow DOM"] = 
-`<span class="sbb-card-badge-wrapper">
-  <span class="sbb-card-badge">
-    <span
-      aria-hidden="true"
-      class="sbb-card-badge-background"
-    >
-    </span>
-    <span class="sbb-card-badge-content">
-      <slot>
-      </slot>
-    </span>
-  </span>
+`<span
+  aria-hidden="true"
+  class="sbb-card-badge-background"
+>
+</span>
+<span class="sbb-card-badge-content">
+  <slot>
+  </slot>
 </span>
 `;
 /* end snapshot sbb-card-badge renders Shadow DOM */
