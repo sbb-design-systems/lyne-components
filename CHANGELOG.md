@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.13.4](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.3...v3.13.4) (2025-11-27)
+
+
+### Bug Fixes
+
+* **sbb-paginator:** fix focus handling when selected by keyboard ([#4234](https://github.com/sbb-design-systems/lyne-components/issues/4234)) ([8f920c6](https://github.com/sbb-design-systems/lyne-components/commit/8f920c6208f7ea01f6d1006117941f3d26bd2baa))
+
 ## [3.13.3](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.2...v3.13.3) (2025-11-24)
 
 
