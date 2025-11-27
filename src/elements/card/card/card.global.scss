@@ -1,0 +1,18 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  @include sbb.card-variables--global($theme);
+
+  // TODO: remove after lean theme migration
+  &.sbb-lean {
+    --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
+    --sbb-card-padding-block: var(--sbb-spacing-fixed-3x);
+    --sbb-card-with-badge-padding-block: var(--sbb-spacing-fixed-6x) var(--sbb-spacing-fixed-3x);
+  }
+}
+
+@mixin base-forced-colors {
+  @include sbb.card-variables--global-forced-colors;
+}

@@ -36,7 +36,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's', 'xs'],
+  options: ['xs', 's', 'm'],
 };
 
 const ariaLabel: InputType = {
@@ -71,7 +71,7 @@ const defaultArgs: Args = {
   value: 'First value',
   checked: false,
   disabled: false,
-  size: size.options![0],
+  size: size.options![2],
   'aria-label': undefined,
   labelBoldClass: false,
   'allow-empty-selection': false,
@@ -136,7 +136,7 @@ export const SizeS: StoryObj = {
 export const SizeXS: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![2] },
+  args: { ...defaultArgs, size: size.options![0] },
 };
 
 export const Checked: StoryObj = {

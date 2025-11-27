@@ -12,23 +12,7 @@ export type SbbOrientation = 'horizontal' | 'vertical';
 
 export type SbbProtectiveRoom = 'none' | 'minimal' | 'ideal';
 
-export type SbbStateChange = SbbCheckedStateChange | SbbDisabledStateChange | SbbValueStateChange;
-
+/** @deprecated */
 export type SbbTimetableAppearance = 'first-level' | 'second-level';
 
 export type SbbOpenedClosedState = 'closed' | 'opening' | 'opened' | 'closing';
-
-export interface SbbCheckedStateChange {
-  type: 'checked';
-  checked: boolean;
-}
-
-export interface SbbDisabledStateChange {
-  type: 'disabled';
-  disabled: boolean;
-}
-
-export interface SbbValueStateChange {
-  type: 'value';
-  value: string | null;
-}

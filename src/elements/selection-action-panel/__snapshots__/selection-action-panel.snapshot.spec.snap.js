@@ -2,11 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-selection-action-panel renders DOM"] = 
-`<sbb-selection-action-panel
-  color="white"
-  data-has-card-badge=""
-  data-size="m"
->
+`<sbb-selection-action-panel>
   <sbb-checkbox-panel
     color="white"
     size="m"

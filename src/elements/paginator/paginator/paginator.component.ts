@@ -56,23 +56,23 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
   @property({ attribute: 'accessibility-items-per-page-label' })
   public accessor accessibilityItemsPerPageLabel: string = '';
 
-  private _markForFocus: number | null = null;
+  private _markForFocus = false;
 
   protected override updated(changedProperties: PropertyValues<this>): void {
     super.updated(changedProperties);
 
     /** Tab navigation can force a rerender when ellipsis elements need to be displayed; the focus must stay on the correct element. */
-    if (this._markForFocus && sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+    if (this._markForFocus) {
       const focusElement = this._getVisiblePages().find(
         (e) => this.pageIndex === +e.getAttribute('data-index')!,
       );
       if (focusElement) {
         (focusElement as HTMLElement).focus();
       }
-      // Reset mark for focus
-      this._markForFocus = null;
+      this._markForFocus = false;
     }
   }
+
   /** Returns the displayed page elements. */
   private _getVisiblePages(): Element[] {
     return Array.from(this.shadowRoot!.querySelectorAll('.sbb-paginator__page--number-item'));
@@ -116,16 +116,14 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
     return Array.from({ length }, (_, k) => k + offset);
   }
 
-  private _handleKeyUp(event: KeyboardEvent): void {
-    if (event.key !== ' ' && event.key !== 'Enter') {
-      return;
-    }
+  private _onPageNumberClick(index: number): void {
+    this.selectPage(index);
 
-    const current = this._getVisiblePages().find((e: Element) => e === event.target);
-    if (current) {
-      this._markForFocus = this.pageIndex;
-    }
+    // When the page is changed, the new current page might change its position.
+    // After the render, we need to ensure that the focus stays on the selected page.
+    this._markForFocus = sbbInputModalityDetector.mostRecentModality === 'keyboard';
   }
+
   private _renderItemPerPageTemplate(): TemplateResult | typeof nothing {
     return this.pageSizeOptions && this.pageSizeOptions.length > 0
       ? html`
@@ -183,8 +181,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
                         ? this.accessibilityPageLabel
                         : i18nPage[this.language.current]} ${item + 1}"
                       aria-current=${this.pageIndex === item ? 'true' : nothing}
-                      @click=${() => this.selectPage(item)}
-                      @keyup=${this._handleKeyUp}
+                      @click=${() => this._onPageNumberClick(item)}
                     >
                       <span class="sbb-paginator__page--number-item-label">${item + 1}</span>
                     </button>

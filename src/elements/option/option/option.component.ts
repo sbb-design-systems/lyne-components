@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbAncestorWatcherController } from '../../core/controllers.ts';
+import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import { SbbOptionBaseElement } from './option-base-element.ts';
@@ -52,7 +52,7 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public constructor() {
     super();
     this.addController(
-      new SbbAncestorWatcherController(this, () => this.closest('sbb-optgroup'), {
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-optgroup'), {
         disabled: (p) => (this.disabledFromGroup = p.disabled),
         label: (p) => (this.groupLabel = p.label),
       }),

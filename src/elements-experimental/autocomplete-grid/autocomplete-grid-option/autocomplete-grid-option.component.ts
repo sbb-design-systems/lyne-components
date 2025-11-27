@@ -1,4 +1,4 @@
-import { SbbAncestorWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
+import { SbbPropertyWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option.js';
 import type { CSSResultGroup, PropertyValues } from 'lit';
@@ -28,7 +28,7 @@ class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<
   public constructor() {
     super();
     this.addController(
-      new SbbAncestorWatcherController(this, () => this.closest('sbb-autocomplete-grid-optgroup'), {
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-autocomplete-grid-optgroup'), {
         disabled: (p) => {
           this.disabledFromGroup = p.disabled;
           this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(

@@ -7,7 +7,6 @@ snapshots["sbb-card-button renders DOM"] =
   data-action-role="button"
   data-has-action=""
   data-has-active-action=""
-  size="m"
 >
   <sbb-card-button
     active=""

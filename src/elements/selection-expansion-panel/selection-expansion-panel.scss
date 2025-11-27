@@ -56,19 +56,25 @@ $open-anim-opacity-to: 1;
   }
 }
 
-:host([data-size='m']) {
+:host(:state(size-xs)) {
   --sbb-selection-expansion-panel-content-padding-inline: var(
-    --sbb-selection-panel-input-padding-inline-m
+    --sbb-selection-panel-input-padding-inline-xs
   );
 }
 
-:host([data-size='s']) {
+:host(:state(size-s)) {
   --sbb-selection-expansion-panel-content-padding-inline: var(
     --sbb-selection-panel-input-padding-inline-s
   );
 }
 
-:host([color='milk']) {
+:host(:state(size-m)) {
+  --sbb-selection-expansion-panel-content-padding-inline: var(
+    --sbb-selection-panel-input-padding-inline-m
+  );
+}
+
+:host(:state(color-milk)) {
   --sbb-selection-expansion-panel-background: var(--sbb-selection-panel-background-milk);
 }
 
@@ -84,7 +90,7 @@ $open-anim-opacity-to: 1;
 }
 
 // :where is to align specificity
-:host([borderless]:not(:where(:state(checked)))) {
+:host(:state(borderless):not(:where(:state(checked)))) {
   --sbb-selection-expansion-panel-border-color: transparent;
 }
 
