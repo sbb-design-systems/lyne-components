@@ -5,7 +5,6 @@ snapshots["sbb-selection-expansion-panel renders DOM"] =
 `<sbb-selection-expansion-panel data-state="closed">
   <sbb-checkbox-panel
     color="white"
-    data-has-card-badge=""
     size="m"
     tabindex="0"
   >

@@ -15,7 +15,7 @@ describe(`sbb-card`, () => {
     // Note: for easier testing, we add the slot="badge"
     // to <sbb-card-badge> which would not be needed in real.
     element = await fixture(html`
-      <sbb-card size="xl">
+      <sbb-card>
         <h2>Title</h2>
         Content text
         <sbb-card-badge slot="badge">

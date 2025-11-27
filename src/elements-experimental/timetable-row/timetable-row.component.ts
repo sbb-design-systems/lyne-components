@@ -294,10 +294,8 @@ class SbbTimetableRowElement extends LitElement {
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): TemplateResult {
     return html`
-      <sbb-card size="l" class="sbb-loading">
-        ${this.loadingPrice
-          ? html`<sbb-card-badge class="sbb-loading__badge"></sbb-card-badge>`
-          : nothing}
+      <sbb-card class="sbb-loading sbb-card-spacing-4x-xxs">
+        ${this.loadingPrice ? html`<div class="sbb-loading__badge" slot="badge"></div>` : nothing}
         <div class="sbb-loading__wrapper">
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
@@ -535,16 +533,14 @@ class SbbTimetableRowElement extends LitElement {
     const durationObj = duration ? durationToTime(duration, this._language.current) : null;
 
     return html`
-      <sbb-card size="l" id=${id}>
+      <sbb-card class="sbb-card-spacing-4x-xxs" id=${id}>
         <sbb-card-button
           ?active=${this.active}
           aria-expanded=${this.accessibilityExpanded ? 'true' : nothing}
         >
           ${this.cardActionLabel ? this.cardActionLabel : this._getAccessibilityText(this.trip)}
         </sbb-card-button>
-        ${this.loadingPrice
-          ? html`<sbb-card-badge class="sbb-loading__badge"></sbb-card-badge>`
-          : nothing}
+        ${this.loadingPrice ? html`<div class="sbb-loading__badge" slot="badge"></div>` : nothing}
         ${this.price && !this.loadingPrice
           ? html`<sbb-card-badge color=${this.price.isDiscount ? 'charcoal' : 'white'}>
               ${this.price.isDiscount
