@@ -10,7 +10,7 @@ import style from './test-title-chip-list.scss?lit&inline';
  * - simple => "key=value" patterns
  * - complex => "key=( key=value-... )
  */
-const paramsRegex = /(?<complex>[a-zA-Z]*=\(.*\))|(?<simple>[a-zA-Z]+=[a-zA-Z0-9]*)/gm;
+const paramsRegex = /(?<complex>[a-zA-Z]*=\(.*\))|(?<simple>[a-zA-Z]+=-{0,1}[a-zA-Z0-9]*)/gm;
 
 type DescribeEachItem = {
   key: string;
