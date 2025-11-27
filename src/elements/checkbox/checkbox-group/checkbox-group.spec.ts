@@ -96,10 +96,11 @@ describe(`sbb-checkbox-group`, () => {
   });
 
   it('recognizes panel when added later', async () => {
-    element = await fixture(html`<sbb-checkbox-group> </sbb-checkbox-group>`);
+    element = await fixture(html`<sbb-checkbox-group></sbb-checkbox-group>`);
 
     const panel = document.createElement('sbb-checkbox-panel');
     element.appendChild(panel);
+    await waitForLitRender(element);
 
     expect(element).to.have.attribute('data-has-panel');
   });

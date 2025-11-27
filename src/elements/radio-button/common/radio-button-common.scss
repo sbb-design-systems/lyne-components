@@ -1,15 +1,7 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-radio-button-label-color: var(--sbb-color-3);
-  --sbb-radio-button-background-color: var(--sbb-background-color-1);
   --sbb-radio-button-inner-circle-color: var(--sbb-radio-button-background-color);
-  --sbb-radio-button-border-width: var(--sbb-border-width-1x);
-  --sbb-radio-button-border-style: solid;
-  --sbb-radio-button-border-color: var(--sbb-border-color-5);
-  --sbb-radio-button-dimension: var(--sbb-size-icon-ui-small);
-  --sbb-radio-button-inner-circle-dimension: #{sbb.px-to-rem-build(10)};
-  --sbb-radio-button-cursor: var(--sbb-cursor-pointer);
 
   // The border in unchecked state should fill the circle.
   --sbb-radio-button-background-fake-border-width: calc(var(--sbb-radio-button-dimension) / 2);
@@ -19,12 +11,6 @@
   --sbb-radio-button-icon-align: calc(
     (1em * var(--sbb-typo-line-height-text) - var(--sbb-radio-button-dimension)) / 2
   );
-
-  @include sbb.if-forced-colors {
-    --sbb-radio-button-background-color: Canvas !important;
-    --sbb-radio-button-border-width: var(--sbb-border-width-2x);
-    --sbb-radio-button-border-color: ButtonBorder;
-  }
 }
 
 :host([data-checked]) {
@@ -48,6 +34,7 @@
   --sbb-radio-button-cursor: var(--sbb-cursor-default);
 
   @include sbb.if-forced-colors {
+    --sbb-radio-button-background-color: Canvas;
     --sbb-radio-button-inner-circle-color: GrayText;
     --sbb-radio-button-border-color: GrayText;
     --sbb-radio-button-border-style: solid;
@@ -60,7 +47,18 @@
 }
 
 :host([size='xs']) {
-  --sbb-radio-button-dimension: #{sbb.px-to-rem-build(20)};
+  --sbb-radio-button-font-size: var(--sbb-text-font-size-xs);
+  --sbb-radio-button-dimension: var(--sbb-radio-button-dimension-xs);
+}
+
+:host([size='s']) {
+  --sbb-radio-button-font-size: var(--sbb-text-font-size-s);
+  --sbb-radio-button-dimension: var(--sbb-radio-button-dimension-s);
+}
+
+:host([size='m']) {
+  --sbb-radio-button-font-size: var(--sbb-text-font-size-m);
+  --sbb-radio-button-dimension: var(--sbb-radio-button-dimension-m);
 }
 
 .sbb-screen-reader-only {
@@ -68,22 +66,14 @@
 }
 
 .sbb-radio-button {
+  font-size: var(--sbb-radio-button-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   display: block;
   cursor: var(--sbb-radio-button-cursor);
   user-select: none;
   position: relative;
   color: var(--sbb-radio-button-label-color);
   -webkit-tap-highlight-color: transparent;
-
-  @include sbb.text-m--regular;
-
-  :host([size='s']) & {
-    @include sbb.text-s--regular;
-  }
-
-  :host([size='xs']) & {
-    @include sbb.text-xs--regular;
-  }
 }
 
 .sbb-radio-button__label-slot {

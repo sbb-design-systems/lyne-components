@@ -1887,7 +1887,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   private _getView(): TemplateResult {
     if (isServer || this.hydrationRequired) {
-      // TODO: We disable SSR for calendar for now. Figure our, if there is a way
+      // TODO: We disable SSR for calendar for now. Figure out, if there is a way
       // to enable it, while considering i18n and date information.
       return html`${nothing}`;
     }

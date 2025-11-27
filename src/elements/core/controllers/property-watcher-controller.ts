@@ -5,7 +5,7 @@ import {
   isServer,
 } from 'lit';
 
-type PropertyWatcherHandler<T extends LitElement> = (ancestor: T) => void;
+type PropertyWatcherHandler<T extends LitElement> = (reference: T) => void;
 
 class PropertyWatcher<T extends LitElement> implements ReactiveController {
   private _value: unknown;
@@ -53,58 +53,74 @@ class PropertyWatcher<T extends LitElement> implements ReactiveController {
 
 const propertyWatchers = new WeakMap<LitElement, Map<string, PropertyWatcher<any>>>();
 
-export class SbbAncestorWatcherController<T extends LitElement> implements ReactiveController {
-  private _ancestor?: T | null;
+export class SbbPropertyWatcherController<T extends LitElement> implements ReactiveController {
+  private _reference?: T | null;
   private _watchers?: Map<string, PropertyWatcher<T>>;
 
   public constructor(
     private readonly _host: ReactiveControllerHost & HTMLElement,
-    private readonly _ancestorResolver: () => T | null,
+    private readonly _referenceResolver: () => T | null,
     private readonly _handlers: Partial<Record<keyof T, PropertyWatcherHandler<T>>>,
   ) {
     this._host.addController(this);
   }
 
   public hostConnected(): void {
-    const ancestor = this._ancestorResolver();
-    if (this._ancestor === ancestor || !ancestor) {
+    this.connect();
+  }
+
+  public hostDisconnected(): void {
+    if (this._reference !== this._referenceResolver()) {
+      this.disconnect();
+    }
+  }
+
+  public connect(): void {
+    const reference = this._referenceResolver();
+    if (this._reference === reference) {
       return;
     }
-
-    this._ancestor = ancestor;
-    let watchers = propertyWatchers.get(this._ancestor) as
+    this.disconnect();
+    this._reference = reference;
+    if (!this._reference) {
+      return;
+    }
+    let watchers = propertyWatchers.get(this._reference) as
       | Map<string, PropertyWatcher<T>>
       | undefined;
     if (!watchers) {
       watchers = new Map();
-      propertyWatchers.set(this._ancestor, watchers);
+      propertyWatchers.set(this._reference, watchers);
     }
     this._watchers = watchers;
 
     for (const [property, handler] of Object.entries(this._handlers)) {
       let watcher = this._watchers.get(property);
       if (!watcher) {
-        watcher = new PropertyWatcher<T>(this._ancestor, property);
+        watcher = new PropertyWatcher<T>(this._reference, property);
         this._watchers.set(property, watcher);
       }
       watcher.addHandler(handler);
     }
   }
 
-  public hostDisconnected(): void {
-    if (this._ancestor !== this._ancestorResolver()) {
-      for (const [property, handler] of Object.entries(this._handlers)) {
-        const watcher = this._watchers?.get(property);
-        if (watcher) {
-          watcher.removeHandler(handler);
-          if (!watcher.size) {
-            this._watchers!.delete(property);
-            if (!this._watchers!.size && this._ancestor) {
-              propertyWatchers.delete(this._ancestor);
-            }
+  public disconnect(): void {
+    if (!this._reference) {
+      return;
+    }
+
+    for (const [property, handler] of Object.entries(this._handlers)) {
+      const watcher = this._watchers?.get(property);
+      if (watcher) {
+        watcher.removeHandler(handler);
+        if (!watcher.size) {
+          this._watchers!.delete(property);
+          if (!this._watchers!.size && this._reference) {
+            propertyWatchers.delete(this._reference);
           }
         }
       }
     }
+    this._reference = null;
   }
 }

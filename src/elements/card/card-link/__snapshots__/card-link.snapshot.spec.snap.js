@@ -6,7 +6,6 @@ snapshots["sbb-card-link renders DOM"] =
   color="white"
   data-action-role="link"
   data-has-action=""
-  size="m"
 >
   <sbb-card-link
     data-action=""

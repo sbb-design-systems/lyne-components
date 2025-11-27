@@ -11,13 +11,13 @@ describe(`sbb-card`, () => {
   let element: SbbCardElement;
 
   it('renders', async () => {
-    element = await fixture(html`<sbb-card size="l" color="transparent-bordered"></sbb-card>`);
+    element = await fixture(html`<sbb-card color="transparent-bordered"></sbb-card>`);
     assert.instanceOf(element, SbbCardElement);
   });
 
   it('should render with sbb-card-badge', async () => {
     element = await fixture(html`
-      <sbb-card size="xl">
+      <sbb-card>
         <h2>Title</h2>
         Content text
         <sbb-card-badge>
@@ -28,17 +28,18 @@ describe(`sbb-card`, () => {
       </sbb-card>
     `);
 
+    expect(element).to.match(':state(slotted-badge)');
+
     expect(
       getComputedStyle(
         element.shadowRoot!.querySelector<HTMLSpanElement>('.sbb-card__badge-wrapper')!,
       ).getPropertyValue('display'),
     ).not.to.be.equal('none');
-    expect(element).to.have.attribute('data-has-card-badge');
   });
 
   it('should render without sbb-card-badge', async () => {
     element = await fixture(
-      html` <sbb-card size="xl">
+      html` <sbb-card>
         <h2>Title</h2>
         Content text
       </sbb-card>`,
@@ -49,6 +50,6 @@ describe(`sbb-card`, () => {
         element.shadowRoot!.querySelector<HTMLSpanElement>('.sbb-card__badge-wrapper')!,
       ).getPropertyValue('display'),
     ).to.be.equal('none');
-    expect(element).not.to.have.attribute('data-has-card-badge');
+    expect(element).not.to.match(':state(slotted-badge)');
   });
 });

@@ -6,8 +6,6 @@ import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './selection-action-panel.scss?lit&inline';
 
-import '../divider.ts';
-
 /**
  * It displays a panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
  * It can also contain an action element (e.g. an `sbb-button`)
@@ -19,11 +17,6 @@ export
 @customElement('sbb-selection-action-panel')
 class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
-
-  public constructor() {
-    super();
-    this.addEventListener?.('statechange', (e) => this.onInputStateChange(e));
-  }
 
   public override connectedCallback(): void {
     super.connectedCallback();

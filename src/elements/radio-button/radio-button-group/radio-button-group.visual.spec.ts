@@ -15,7 +15,7 @@ import '../../radio-button.ts';
 const cases = {
   disabled: [false, true],
   orientation: ['vertical', 'horizontal'],
-  size: ['m', 's', 'xs'],
+  size: ['xs', 's', 'm'],
 };
 
 const suffixAndSubtext = (): TemplateResult => html`
