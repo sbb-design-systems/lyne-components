@@ -68,7 +68,7 @@ describe(`sbb-card-button`, () => {
         </span>
       </sbb-card>`,
     );
-    expect(element.querySelector('button')).to.match('[data-card-focusable]');
+    expect(element.querySelector('button')).to.match('.sbb-action');
 
     // Add a second button in content
     element
@@ -79,9 +79,9 @@ describe(`sbb-card-button`, () => {
     await waitForLitRender(element);
     const buttons = element.querySelectorAll('button');
     expect(buttons.length).to.be.equal(2);
-    expect(
-      Array.from(buttons).every((el) => el.getAttribute('data-card-focusable') !== null),
-    ).to.be.equal(true);
+    expect(Array.from(buttons).every((el) => el.classList.contains('sbb-action'))).to.be.equal(
+      true,
+    );
 
     // Remove all buttons
     buttons.forEach((el) => el.remove());
@@ -104,7 +104,7 @@ describe(`sbb-card-button`, () => {
     await waitForLitRender(element);
 
     // Button should be marked as focusable
-    expect(element.querySelector('button')).to.match('[data-card-focusable]');
+    expect(element.querySelector('button')).to.match('.sbb-action');
   });
 
   it('should detect focusable elements when action was added at later point', async () => {
@@ -119,7 +119,7 @@ describe(`sbb-card-button`, () => {
     await waitForLitRender(element);
 
     // Button should be marked as focusable
-    expect(element.querySelector('button')).to.match('[data-card-focusable]');
+    expect(element.querySelector('button')).to.match('.sbb-action');
   });
 
   describe('events', () => {

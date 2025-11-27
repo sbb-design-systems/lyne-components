@@ -40,10 +40,8 @@ class SbbFlipCardDetailsElement extends SbbElementInternalsMixin(LitElement) {
   }
 
   private _checkForSlottedActions(): void {
-    const cardFocusableAttributeName = 'data-card-focusable';
-
     Array.from(this.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? []).forEach((el: Element) =>
-      el.toggleAttribute(cardFocusableAttributeName, true),
+      el.classList.add('sbb-action'),
     );
   }
 

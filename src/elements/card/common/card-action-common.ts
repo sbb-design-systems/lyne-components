@@ -55,16 +55,16 @@ export const SbbCardActionCommonElementMixin = <
     }
 
     private _checkForSlottedActions(): void {
-      const cardFocusableAttributeName = 'data-card-focusable';
+      const cardFocusableClass = 'sbb-action';
 
       Array.from(this._card?.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? [])
         .filter(
           (el) =>
             el.localName !== 'sbb-card-link' &&
             el.localName !== 'sbb-card-button' &&
-            !el.hasAttribute(cardFocusableAttributeName),
+            !el.classList.contains(cardFocusableClass),
         )
-        .forEach((el: Element) => el.setAttribute(cardFocusableAttributeName, ''));
+        .forEach((el: Element) => el.classList.add(cardFocusableClass));
     }
 
     public override connectedCallback(): void {
@@ -97,8 +97,8 @@ export const SbbCardActionCommonElementMixin = <
           }
         });
         this._card
-          .querySelectorAll(`[data-card-focusable]`)
-          .forEach((el) => el.removeAttribute('data-card-focusable'));
+          .querySelectorAll(`.sbb-action`)
+          .forEach((el) => el.classList.remove('sbb-action'));
         this._card = null;
       }
     }

@@ -334,7 +334,7 @@ sbb-breadcrumb-group:not(:defined) {
 
 // Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
 // This style enables accessing focusable elements inside an sbb-card.
-[data-card-focusable] {
+:is(sbb-card, sbb-flip-card) .sbb-action {
   pointer-events: all;
 }
 
