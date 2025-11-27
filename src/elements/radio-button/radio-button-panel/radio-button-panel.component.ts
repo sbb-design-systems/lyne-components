@@ -8,28 +8,11 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getOverride } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
-import type {
-  SbbCheckedStateChange,
-  SbbDisabledStateChange,
-  SbbStateChange,
-} from '../../core/interfaces.ts';
-import {
-  panelCommonStyle,
-  SbbPanelMixin,
-  type SbbPanelSize,
-  SbbUpdateSchedulerMixin,
-} from '../../core/mixins.ts';
+import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { radioButtonCommonStyle, SbbRadioButtonCommonElementMixin } from '../common.ts';
 
 import '../../screen-reader-only.ts';
-
-export type SbbRadioButtonStateChange = Extract<
-  SbbStateChange,
-  SbbDisabledStateChange | SbbCheckedStateChange
->;
 
 /**
  /**
@@ -61,14 +44,6 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   } as const;
 
   /**
-   * Size variant, either s or m.
-   * @default 'm' / 's' (lean)
-   */
-  @property({ reflect: true })
-  @getOverride((i, v) => (i.group?.size ? (i.group.size === 'xs' ? 's' : i.group.size) : v))
-  public accessor size: SbbPanelSize = isLean() ? 's' : 'm';
-
-  /**
    * The value of the form element
    */
   @property()
@@ -88,16 +63,6 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
 
     if (changedProperties.has('checked')) {
       this.toggleAttribute('data-checked', this.checked);
-
-      if (this.checked !== changedProperties.get('checked')!) {
-        this._dispatchChangeEvent({ type: 'checked', checked: this.checked });
-      }
-    }
-
-    if (changedProperties.has('disabled')) {
-      if (this.disabled !== changedProperties.get('disabled')!) {
-        this._dispatchChangeEvent({ type: 'disabled', disabled: this.disabled });
-      }
     }
   }
 
@@ -122,15 +87,6 @@ class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
     } else {
       next.focus();
     }
-  }
-
-  private _dispatchChangeEvent(detail: SbbStateChange): void {
-    /**
-     * @internal
-     * Internal event that emits whenever the state of the radio option
-     * in relation to the parent selection panel changes.
-     */
-    this.dispatchEvent(new CustomEvent<SbbStateChange>('statechange', { bubbles: true, detail }));
   }
 
   protected override render(): TemplateResult {
@@ -158,9 +114,5 @@ declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-radio-button-panel': SbbRadioButtonPanelElement;
-  }
-
-  interface GlobalEventHandlersEventMap {
-    statechange: CustomEvent<SbbStateChange>;
   }
 }

@@ -32,6 +32,12 @@ $theme: 'standard' !default;
 @use '../../checkbox/common/checkbox-common.global' as checkbox-common with (
   $theme: $theme
 );
+@use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
+  $theme: $theme
+);
+@use '../../radio-button/radio-button-group/radio-button-group.global' as radio-button-group with (
+  $theme: $theme
+);
 @use '../../selection-action-panel/selection-action-panel.global' as selection-action-panel with (
   $theme: $theme
 );
@@ -56,6 +62,8 @@ $theme: 'standard' !default;
   @include checkbox.base;
   @include checkbox-group.base;
   @include checkbox-common.base;
+  @include radio-button-common.base;
+  @include radio-button-group.base;
   @include selection-action-panel.base;
   @include selection-expansion-panel.base;
   @include visual-checkbox.base;
@@ -66,6 +74,7 @@ $theme: 'standard' !default;
     @include card.base-forced-colors;
     @include card-badge.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
+    @include radio-button-common.base-forced-colors;
   }
 
   // Train formation

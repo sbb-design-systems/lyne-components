@@ -2,7 +2,7 @@
 
 $theme: 'standard' !default;
 
-@mixin base() {
+@mixin base {
   // For consistency, a few variables are also consumed in selection-action-panel and selection-expansion-panel
   --sbb-selection-panel-background-default: var(--sbb-background-color-1);
   --sbb-selection-panel-background-milk: var(--sbb-background-color-3);
@@ -13,16 +13,25 @@ $theme: 'standard' !default;
   --sbb-selection-panel-border-color: var(--sbb-selection-panel-border-color-default);
   --sbb-selection-panel-border-width-default: var(--sbb-border-width-1x);
   --sbb-selection-panel-border-width-checked: var(--sbb-border-width-2x);
-  --sbb-selection-panel-input-padding-block-m: var(--sbb-spacing-responsive-xs);
-  --sbb-selection-panel-input-padding-inline-m: var(--sbb-spacing-responsive-xxs);
+  --sbb-selection-panel-input-padding-block-xs: var(--sbb-spacing-responsive-xxs);
+  --sbb-selection-panel-input-padding-inline-xs: var(--sbb-spacing-responsive-xxxs);
   --sbb-selection-panel-input-padding-block-s: var(--sbb-spacing-responsive-xxs);
   --sbb-selection-panel-input-padding-inline-s: var(--sbb-spacing-responsive-xxxs);
+  --sbb-selection-panel-input-padding-block-m: var(--sbb-spacing-responsive-xs);
+  --sbb-selection-panel-input-padding-inline-m: var(--sbb-spacing-responsive-xxs);
   --sbb-selection-panel-input-padding: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-selection-panel-input-padding-block-m)
           var(--sbb-selection-panel-input-padding-inline-m),
-        'lean': var(--sbb-selection-panel-input-padding-block-s)
-          var(--sbb-selection-panel-input-padding-inline-s),
+        'lean': var(--sbb-selection-panel-input-padding-block-xs)
+          var(--sbb-selection-panel-input-padding-inline-xs),
+      ),
+      $theme
+    )};
+  --sbb-selection-panel-checkbox-dimension: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-checkbox-dimension-m),
+        'lean': var(--sbb-checkbox-dimension-xs),
       ),
       $theme
     )};

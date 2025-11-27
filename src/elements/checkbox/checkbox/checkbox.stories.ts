@@ -23,7 +23,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's', 'xs'],
+  options: ['xs', 's', 'm'],
 };
 
 const checked: InputType = {
@@ -171,12 +171,12 @@ export const defaultIndeterminate: StoryObj = {
 export const sizeM: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![0] },
+  args: { ...defaultArgs, size: size.options![2] },
 };
 export const sizeXS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![2] },
+  args: { ...defaultArgs, size: size.options![0] },
 };
 export const longLabel: StoryObj = {
   render: Template,

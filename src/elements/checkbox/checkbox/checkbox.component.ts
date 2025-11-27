@@ -41,7 +41,7 @@ class SbbCheckboxElement<T = string> extends SbbIconNameMixin(
   public accessor value: T | null = null;
 
   /**
-   * Size variant, either m, s or xs.
+   * Size variant, either xs, s or m.
    * @default 'm' / 'xs' (lean)
    */
   @property({ reflect: true })

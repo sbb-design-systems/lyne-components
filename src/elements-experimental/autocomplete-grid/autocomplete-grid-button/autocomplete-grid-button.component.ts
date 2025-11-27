@@ -1,6 +1,6 @@
 import { miniButtonStyle } from '@sbb-esta/lyne-elements/button/common.js';
 import { SbbActionBaseElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbAncestorWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
+import { SbbPropertyWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { hostAttributes } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { isEventPrevented } from '@sbb-esta/lyne-elements/core/eventing.js';
 import { SbbDisabledMixin, SbbNegativeMixin } from '@sbb-esta/lyne-elements/core/mixins.js';
@@ -49,7 +49,7 @@ class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
       this.setupBaseEventHandlers();
       this.addEventListener('click', this._handleButtonClick);
       this.addController(
-        new SbbAncestorWatcherController(
+        new SbbPropertyWatcherController(
           this,
           () => this.closest('sbb-autocomplete-grid-optgroup'),
           {

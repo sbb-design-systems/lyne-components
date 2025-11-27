@@ -232,7 +232,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's', 'xs'],
+  options: ['xs', 's', 'm'],
   table: {
     category: 'Checkbox group',
   },

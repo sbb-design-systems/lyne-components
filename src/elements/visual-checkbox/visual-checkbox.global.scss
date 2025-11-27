@@ -2,13 +2,11 @@
 
 $theme: 'standard' !default;
 
-@mixin base() {
-  --sbb-visual-checkbox-dimension-xs: #{sbb.px-to-rem-build(20)};
-  --sbb-visual-checkbox-dimension-m: var(--sbb-size-icon-ui-small);
+@mixin base {
   --sbb-visual-checkbox-dimension: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-visual-checkbox-dimension-m),
-        'lean': var(--sbb-visual-checkbox-dimension-xs),
+        'standard': var(--sbb-checkbox-dimension-m),
+        'lean': var(--sbb-checkbox-dimension-xs),
       ),
       $theme
     )};
@@ -28,7 +26,7 @@ $theme: 'standard' !default;
   --sbb-visual-checkbox-cursor: var(--sbb-cursor-pointer);
 }
 
-@mixin base-forced-colors() {
+@mixin base-forced-colors {
   --sbb-visual-checkbox-selection-color: Canvas;
   --sbb-visual-checkbox-selection-color-negative: Canvas;
   --sbb-visual-checkbox-selection-color-disabled: Canvas;
