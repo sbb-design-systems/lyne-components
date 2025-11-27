@@ -44,7 +44,12 @@ export const SbbCardActionCommonElementMixin = <
     private _card: SbbCardElement | null = null;
     private _cardMutationObserver = new MutationController(this, {
       target: null,
-      config: { childList: true, subtree: true },
+      config: {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['href', 'tabindex', 'disabled', 'inert'],
+      },
       callback: () => this._checkForSlottedActions(),
     });
 
@@ -55,16 +60,15 @@ export const SbbCardActionCommonElementMixin = <
     }
 
     private _checkForSlottedActions(): void {
-      const cardFocusableClass = 'sbb-action';
-
+      // We intentionally use toggle here, as add causes a MutationObserver loop.
       Array.from(this._card?.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? [])
         .filter(
           (el) =>
             el.localName !== 'sbb-card-link' &&
             el.localName !== 'sbb-card-button' &&
-            !el.classList.contains(cardFocusableClass),
+            !el.classList.contains('sbb-action'),
         )
-        .forEach((el: Element) => el.classList.add(cardFocusableClass));
+        .forEach((el: Element) => el.classList.toggle('sbb-action', true));
     }
 
     public override connectedCallback(): void {

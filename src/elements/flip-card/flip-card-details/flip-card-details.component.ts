@@ -28,6 +28,7 @@ class SbbFlipCardDetailsElement extends SbbElementInternalsMixin(LitElement) {
           childList: true,
           subtree: true,
           attributes: true,
+          attributeFilter: ['href', 'tabindex', 'disabled', 'inert'],
         },
         callback: () => this._checkForSlottedActions(),
       }),
@@ -40,8 +41,9 @@ class SbbFlipCardDetailsElement extends SbbElementInternalsMixin(LitElement) {
   }
 
   private _checkForSlottedActions(): void {
+    // We intentionally use toggle here, as add causes a MutationObserver loop.
     Array.from(this.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? []).forEach((el: Element) =>
-      el.classList.add('sbb-action'),
+      el.classList.toggle('sbb-action', true),
     );
   }
 
