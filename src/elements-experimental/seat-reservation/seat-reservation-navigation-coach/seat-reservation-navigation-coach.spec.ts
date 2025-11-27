@@ -44,7 +44,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     await expect(element.coachId).to.be.equal('coach-id');
   });
 
-  it('check child content', () => {
+  it('check child content', async () => {
     expect(
       element.shadowRoot!.firstElementChild!.classList.contains('sbb-sr-navigation__item-coach'),
     ).to.be.true;
