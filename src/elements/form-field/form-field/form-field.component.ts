@@ -311,7 +311,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   }
 
   private _connectInputElement(): 'changed' | 'no-input' | 'unchanged' {
-    let newInput: HTMLElement | null = null;
+    let newInput: HTMLElement | null;
     if (this._control?.id) {
       newInput = (this.getRootNode() as Document | ShadowRoot).getElementById(this._control.id);
     } else {

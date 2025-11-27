@@ -130,7 +130,7 @@ export const mapPlaceInfosToPlaceSelection = (
  * @param place
  * @param coach
  * @param placeId
- * @param coachDeckIndex
+ * @param deckIndex
  * @param coachIndex
  * @returns SeatReservationPlaceSelection
  */

@@ -61,7 +61,7 @@ export function prepareCompilerOptions(
 }
 
 export const resolve: ResolveHook = (specifier, context, nextResolve) => {
-  let url = null;
+  let url;
   if (
     (specifier.startsWith('.') || specifier.startsWith(root)) &&
     !specifier.includes('/node_modules/') &&

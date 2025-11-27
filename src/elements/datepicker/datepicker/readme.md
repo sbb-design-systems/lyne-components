@@ -51,7 +51,7 @@ By default, the `defaultDateAdapter` is used in the background.
 You can e.g. stub the `today()` method and return your fixed date.
 
 ```ts
-import { defaultDateAdapter } from `@sbb-esta/lyne-elements/datetime.js`;
+import { defaultDateAdapter } from '@sbb-esta/lyne-elements/datetime.js';
 import { stub, type SinonStub } from 'sinon';
 
 // Have defaultDateAdapter.today() return 2022-05-01
