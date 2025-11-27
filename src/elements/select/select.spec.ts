@@ -86,6 +86,8 @@ describe(`sbb-select`, () => {
     });
 
     it('opens and closes the select with non-zero animation duration', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
       (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
 
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');

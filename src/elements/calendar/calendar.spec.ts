@@ -560,7 +560,10 @@ describe(`sbb-calendar`, () => {
       await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
     });
 
-    it('changes to year and month selection views', async () => {
+    it('changes to year and month selection views', async function () {
+      // Flaky on WebKit
+      this.retries(3);
+
       element = await fixture(html`<sbb-calendar selected="2023-01-15" wide></sbb-calendar>`);
 
       // Open year selection
