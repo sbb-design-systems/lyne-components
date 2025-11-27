@@ -1,6 +1,7 @@
 import { isServer, type LitElement, type ReactiveController } from 'lit';
 
 import { SbbSlotStateController } from '../controllers/slot-state-controller.ts';
+import { isWebkit } from '../dom/platform.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 
@@ -8,11 +9,12 @@ import type { AbstractConstructor } from './constructor.ts';
 // We patch the states property of the element internals to use attributes instead,
 // if :state() is not supported.
 // Note that for SSR, the states property is a simple Set, implemented in Lit SSR.
-// TODO: Remove in 2026.
+// WebKit seems to have state detection problems, so we enable the polyfill for now.
+// TODO: Recheck enabling by testing sbb-autocomplete whether it reliably opens in Safari
 type CustomStateSetInterface = CustomStateSet;
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const CustomStateSetPolyfill: (new (host: LitElement) => CustomStateSetInterface) | null =
-  isServer || !CSS.supports('selector(:state(loading))')
+  isServer || !CSS.supports('selector(:state(loading))') || isWebkit
     ? class CustomStateSet
         extends Set<string>
         implements CustomStateSetInterface, ReactiveController

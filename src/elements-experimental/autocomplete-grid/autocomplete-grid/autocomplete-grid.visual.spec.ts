@@ -116,10 +116,10 @@ describe('sbb-autocomplete-grid', () => {
     disableOption: boolean,
     disableGroup: boolean,
   ): TemplateResult => html`
-    <sbb-option value="Option 1" selected>
+    <sbb-autocomplete-grid-option value="Option 1" selected>
       <sbb-icon slot="icon" name="clock-small" style="color: var(--sbb-color-sky)"></sbb-icon>
       Option Value
-    </sbb-option>
+    </sbb-autocomplete-grid-option>
     ${createOptionsGroup(withIcon, disableOption, disableGroup)}
   `;
 
