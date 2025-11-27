@@ -1,9 +1,8 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import type { SbbSecondaryButtonElement } from '@sbb-esta/lyne-elements/button/secondary-button/secondary-button.component';
-import { EventSpy } from '@sbb-esta/lyne-elements/core/testing/event-spy';
+import type { SbbSecondaryButtonElement } from '@sbb-esta/lyne-elements/button/secondary-button/secondary-button.component.js';
 import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
-import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing/wait-for-render';
-import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover/popover.component';
+import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
+import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover/popover.component.js';
 import { html } from 'lit/static-html.js';
 
 import { mapRawDataToSeatReservation, type SeatReservation } from '../common.js';
@@ -15,7 +14,7 @@ import { SbbSeatReservationElement } from './seat-reservation.component.js';
 let element: SbbSeatReservationElement;
 const dataFull: SeatReservation[] = [mapRawDataToSeatReservation('TRAIN')];
 
-describe('sbb-seat-reservation core', () => {
+describe(`sbb-seat-reservation`, () => {
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-seat-reservation
@@ -85,7 +84,6 @@ describe('sbb-seat-reservation core', () => {
   });
 
   it('should have hoverable seat areas which opens a popover element', async () => {
-    //TODO do we need to test the popover itself or is it enough to test that there are corresponding attributes set on the area element?
     const areaElement: SbbSeatReservationAreaElement | null =
       element.shadowRoot!.querySelector<SbbSeatReservationAreaElement>('sbb-seat-reservation-area');
 
@@ -117,7 +115,7 @@ const getServiceIconCount = (coach: HTMLElement): number => {
   );
 };
 
-describe('sbb-seat-reservation navigation', () => {
+describe(`sbb-seat-reservation`, () => {
   let btn: SbbSecondaryButtonElement;
 
   beforeEach(async () => {
@@ -231,7 +229,6 @@ describe('sbb-seat-reservation navigation', () => {
     });
 
     it('should have a clickable last-tab-element btn even if there are no selectable coaches behind because last coach is selected', async () => {
-      // TODO clarify if last btn should be disabled if last coach is selected
       const clickSpy = new EventSpy('click');
       btn.click();
       expect(clickSpy.count).to.be.greaterThan(0);
