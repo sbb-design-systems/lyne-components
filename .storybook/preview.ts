@@ -63,7 +63,6 @@ const withLeanDecorator = makeDecorator({
   skipIfNoParametersOrOptions: false,
   wrapper: (getStory, context, { parameters }) => {
     const isLean = parameters as unknown as boolean;
-    console.log(isLean);
     if (isLean) {
       document.documentElement.classList.add('sbb-lean');
     } else {
