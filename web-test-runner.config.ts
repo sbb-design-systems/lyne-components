@@ -97,14 +97,13 @@ const browsers =
 
 const preloadedIcons = await preloadIcons();
 
-// TODO: Remove sbb-light-dark class once we globally activated dark mode
 const testRunnerHtml = (
   testFramework: string,
   _config: TestRunnerCoreConfig,
   _group?: TestRunnerGroupConfig,
 ): string => `
 <!DOCTYPE html>
-<html lang="en" class="sbb-light-dark">
+<html lang="en">
   <head>${
     // Although we provide the fonts as base64, we preload the original
     // files which prevents a bug in Safari rendering special characters.
