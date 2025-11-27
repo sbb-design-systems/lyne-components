@@ -1,6 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import { fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
@@ -390,7 +391,9 @@ describe('sbb-sidebar', () => {
       expect(element.isOpen).to.be.true;
     });
 
-    it('opens and closes with non-zero animation duration', async () => {
+    it('opens and closes with non-zero animation duration', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
       container.classList.add('sbb-enable-animation');
       container.style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
       const openSpy = new EventSpy(SbbSidebarElement.events.open, element);

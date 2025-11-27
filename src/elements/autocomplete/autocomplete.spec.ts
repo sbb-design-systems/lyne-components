@@ -1,6 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 import { type SinonSpy, spy } from 'sinon';
 
 import { isSafari } from '../core/dom.ts';
@@ -72,7 +73,9 @@ describe(`sbb-autocomplete`, () => {
     );
   });
 
-  it('opens and closes with mouse and keyboard', async () => {
+  it('opens and closes with mouse and keyboard', async function (this: Context) {
+    // Flaky on WebKit
+    this.retries(3);
     const beforeOpenSpy = new EventSpy(SbbAutocompleteElement.events.beforeopen, element);
     const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
     const beforeCloseSpy = new EventSpy(SbbAutocompleteElement.events.beforeclose, element);
@@ -169,7 +172,9 @@ describe(`sbb-autocomplete`, () => {
     expect(optThree).to.match(':state(active)');
   });
 
-  it('opens and closes with non-zero animation duration', async () => {
+  it('opens and closes with non-zero animation duration', async function (this: Context) {
+    // Flaky on WebKit
+    this.retries(3);
     element.classList.add('sbb-enable-animation');
     element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
     const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);

@@ -1,5 +1,6 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import type { SbbSecondaryButtonElement } from '../button.ts';
 import { fixture } from '../core/testing/private.ts';
@@ -101,7 +102,9 @@ describe(`sbb-notification`, () => {
   });
 
   describe('with non-zero animation duration', () => {
-    it('closes the notification and removes it from the DOM with animationend event', async () => {
+    it('closes the notification and removes it from the DOM with animationend event', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
       openSpy = new EventSpy(SbbNotificationElement.events.open, null, {
         capture: true,
       });

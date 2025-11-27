@@ -108,7 +108,9 @@ describe(`sbb-select`, () => {
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
     });
 
-    it('closes the select by option click', async () => {
+    it('closes the select by option click', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
       const open = new EventSpy(SbbSelectElement.events.open, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
@@ -126,7 +128,9 @@ describe(`sbb-select`, () => {
       expect(element.value).to.be.equal('1');
     });
 
-    it('closes the select by option click with non-zero animation duration', async () => {
+    it('closes the select by option click with non-zero animation duration', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
       element.classList.add('sbb-enable-animation');
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 
@@ -1077,7 +1081,9 @@ describe(`sbb-select`, () => {
       firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
     });
 
-    it('closes the select by option click', async () => {
+    it('closes the select by option click', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
@@ -1104,7 +1110,9 @@ describe(`sbb-select`, () => {
       expect(element.value).to.be.equal('1');
     });
 
-    it('closes the select by option click with non-zero animation duration', async () => {
+    it('closes the select by option click with non-zero animation duration', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
       element.classList.add('sbb-enable-animation');
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 

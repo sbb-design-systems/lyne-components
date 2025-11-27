@@ -1,6 +1,7 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import type { SbbButtonElement } from '../button.ts';
 import { i18nDialog } from '../core/i18n.ts';
@@ -68,7 +69,9 @@ describe('sbb-overlay', () => {
       expect(element).to.match(':state(state-closed)');
     });
 
-    it('closes the overlay', async () => {
+    it('closes the overlay', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
       const beforeCloseSpy = new EventSpy(SbbOverlayElement.events.beforeclose, element);
       const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
 

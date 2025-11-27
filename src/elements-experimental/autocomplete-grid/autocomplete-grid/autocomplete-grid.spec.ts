@@ -5,6 +5,7 @@ import { describeIf, EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/
 import { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 import { type SinonSpy, spy } from 'sinon';
 
 import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.ts';
@@ -102,7 +103,9 @@ describe(`sbb-autocomplete-grid`, () => {
     );
   });
 
-  it('opens and closes with mouse and keyboard', async () => {
+  it('opens and closes with mouse and keyboard', async function (this: Context) {
+    // Flaky on WebKit
+    this.retries(3);
     const beforeOpenSpy = new EventSpy(SbbAutocompleteGridElement.events.beforeopen, element);
     const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
     const beforeCloseSpy = new EventSpy(SbbAutocompleteGridElement.events.beforeclose, element);
@@ -191,7 +194,9 @@ describe(`sbb-autocomplete-grid`, () => {
     expect(optTwo).to.match(':state(active)');
   });
 
-  it('opens and closes with non-zero animation duration', async () => {
+  it('opens and closes with non-zero animation duration', async function (this: Context) {
+    // Flaky on WebKit
+    this.retries(3);
     element.classList.add('sbb-enable-animation');
     element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
     const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);

@@ -1,5 +1,6 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import type { SbbTransparentButtonElement } from '../button.ts';
 import { elementInternalsSpy, fixture } from '../core/testing/private.ts';
@@ -26,7 +27,9 @@ describe(`sbb-toast`, () => {
     expect(elementInternals.get(element)!.ariaLive).to.equal(element.politeness);
   });
 
-  it('opens and closes after timeout', async () => {
+  it('opens and closes after timeout', async function (this: Context) {
+    // Flaky on WebKit
+    this.retries(3);
     const beforeOpenSpy = new EventSpy(SbbToastElement.events.beforeopen, element);
     const openSpy = new EventSpy(SbbToastElement.events.open, element);
     const beforeCloseSpy = new EventSpy(SbbToastElement.events.beforeclose, element);

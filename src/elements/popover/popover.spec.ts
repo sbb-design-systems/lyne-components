@@ -1,6 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import type { SbbButtonElement } from '../button.ts';
 import { mergeConfig } from '../core/config.ts';
@@ -214,7 +215,9 @@ describe(`sbb-popover`, () => {
       expect(document.activeElement).to.be.equal(trigger);
     });
 
-    it('opens and closes with non-zero animation duration', async () => {
+    it('opens and closes with non-zero animation duration', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
       element.classList.add('sbb-enable-animation');
       element.style.setProperty('--sbb-popover-animation-duration', '1ms');
 

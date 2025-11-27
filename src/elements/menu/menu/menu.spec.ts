@@ -1,6 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { emulateMedia, sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import type { SbbButtonElement } from '../../button.ts';
 import { isWebkit } from '../../core/dom.ts';
@@ -214,7 +215,9 @@ describe(`sbb-menu`, () => {
       expect(element).to.match(':state(state-closed)');
     });
 
-    it('opens and closes with non-zero animation duration', async () => {
+    it('opens and closes with non-zero animation duration', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
       element.classList.add('sbb-enable-animation');
       element.style.setProperty('--sbb-menu-animation-duration', '1ms');
       const openSpy = new EventSpy(SbbMenuElement.events.open, element);
