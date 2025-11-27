@@ -2,7 +2,6 @@
  * @entrypoint
  */
 export * from './dom/animation.ts';
-export * from './dom/breakpoint.ts';
 export * from './dom/contains-pierce-shadow-dom.ts';
 export * from './dom/lean-context.ts';
 export * from './dom/set-or-remove-attribute.ts';

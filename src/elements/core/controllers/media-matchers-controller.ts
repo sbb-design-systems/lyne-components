@@ -2,6 +2,9 @@ import {
   SbbBreakpointLargeMax,
   SbbBreakpointLargeMin,
   SbbBreakpointSmallMax,
+  SbbBreakpointSmallMin,
+  SbbBreakpointUltraMin,
+  SbbBreakpointZeroMin,
 } from '@sbb-esta/lyne-design-tokens';
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
@@ -12,9 +15,12 @@ export const SbbMediaQueryForcedColors = '(forced-colors: active)';
 export const SbbMediaQueryDarkMode = '(prefers-color-scheme: dark)';
 export const SbbMediaQueryHover = '(any-hover: hover)';
 export const SbbMediaQueryPointerCoarse = '(pointer: coarse)';
+export const SbbMediaQueryBreakpointZeroAndAbove = `(min-width: ${SbbBreakpointZeroMin})`;
+export const SbbMediaQueryBreakpointSmallAndAbove = `(min-width: ${SbbBreakpointSmallMin})`;
 export const SbbMediaQueryBreakpointLargeAndAbove = `(min-width: ${SbbBreakpointLargeMin})`;
-export const SbbMediaQueryBreakpointLargeAndBelow = `(max-width: ${SbbBreakpointLargeMax})`;
+export const SbbMediaQueryBreakpointUltraAndAbove = `(min-width: ${SbbBreakpointUltraMin})`;
 export const SbbMediaQueryBreakpointSmallAndBelow = `(max-width: ${SbbBreakpointSmallMax})`;
+export const SbbMediaQueryBreakpointLargeAndBelow = `(max-width: ${SbbBreakpointLargeMax})`;
 /* eslint-enable @typescript-eslint/naming-convention */
 
 /**

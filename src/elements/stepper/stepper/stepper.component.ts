@@ -9,8 +9,15 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
+import {
+  SbbMediaMatcherController,
+  SbbMediaQueryBreakpointLargeAndAbove,
+  SbbMediaQueryBreakpointSmallAndAbove,
+  SbbMediaQueryBreakpointUltraAndAbove,
+  SbbMediaQueryBreakpointZeroAndAbove,
+} from '../../core/controllers/media-matchers-controller.ts';
 import { forceType } from '../../core/decorators.ts';
-import { breakpoints, isBreakpoint, isLean } from '../../core/dom.ts';
+import { isLean } from '../../core/dom.ts';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';
 import { SbbHydrationMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
@@ -20,6 +27,12 @@ import style from './stepper.scss?lit&inline';
 
 const DEBOUNCE_TIME = 150;
 
+const breakpointMap: Record<string, string> = {
+  zero: SbbMediaQueryBreakpointZeroAndAbove,
+  small: SbbMediaQueryBreakpointSmallAndAbove,
+  large: SbbMediaQueryBreakpointLargeAndAbove,
+  ultra: SbbMediaQueryBreakpointUltraAndAbove,
+};
 /**
  * Provides a structured, step-by-step workflow for user interactions.
  * @slot - Provide a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` to the stepper.
@@ -57,7 +70,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
   /** Overrides the behaviour of `orientation` property. */
   @property({ attribute: 'horizontal-from', reflect: true })
   public set horizontalFrom(value: SbbHorizontalFrom | null) {
-    this._horizontalFrom = value && breakpoints.includes(value) ? value : null;
+    this._horizontalFrom = value && breakpointMap[value] ? value : null;
     if (this._horizontalFrom && this._loaded) {
       this._checkOrientation();
     }
@@ -110,6 +123,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
 
   private _loaded: boolean = false;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
+  private _mediaMatcher = new SbbMediaMatcherController(this, {});
 
   public constructor() {
     super();
@@ -264,7 +278,9 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
 
   private _checkOrientation(): void {
     if (this.horizontalFrom) {
-      this.orientation = isBreakpoint(this.horizontalFrom) ? 'horizontal' : 'vertical';
+      this.orientation = this._mediaMatcher.matches(breakpointMap[this.horizontalFrom])
+        ? 'horizontal'
+        : 'vertical';
       this._updateLabels();
     }
     // The timeout is needed to make sure that the marker takes the correct step-label size.
