@@ -50,27 +50,13 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
         this.onInputStateChange?.();
       },
       size: (panel) => {
-        // TODO: Use applyStatePattern function when available
-        const size = `size-${panel.size}`;
-        this.toggleState(size, true);
-        this.internals.states.forEach((state) => {
-          if (state.startsWith('size-') && state !== size) {
-            this.toggleState(state, false);
-          }
-        });
+        this.applyStatePattern(panel.size, 'size');
       },
       borderless: (panel) => {
         this.toggleState('borderless', panel.borderless);
       },
       color: (panel) => {
-        // TODO: Use applyStatePattern function when available
-        const color = `color-${panel.color}`;
-        this.toggleState(color, true);
-        this.internals.states.forEach((state) => {
-          if (state.startsWith('color-') && state !== color) {
-            this.toggleState(state, false);
-          }
-        });
+        this.applyStatePattern(panel.size, 'color');
       },
     });
 
