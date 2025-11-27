@@ -13,7 +13,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
 import {
-  SbbAncestorWatcherController,
+  SbbPropertyWatcherController,
   SbbEscapableOverlayController,
 } from '../core/controllers.ts';
 import { forceType, idReference } from '../core/decorators.ts';
@@ -161,7 +161,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     super();
 
     this.addController(
-      new SbbAncestorWatcherController(
+      new SbbPropertyWatcherController(
         this,
         () => this.closest<SbbFormFieldElement>('sbb-form-field'),
         {

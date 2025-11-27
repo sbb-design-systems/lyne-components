@@ -3,7 +3,7 @@
 
 $theme: 'standard' !default;
 
-@mixin base() {
+@mixin base {
   @include checkbox-group.horizontal-orientation;
 
   --sbb-checkbox-group-width: max-content;

@@ -1,5 +1,6 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
+import type { SbbCheckboxSize } from '../checkbox/common/checkbox-common.ts';
 import {
   describeEach,
   describeViewports,
@@ -28,21 +29,23 @@ describe(`sbb-selection-action-panel`, () => {
 
   type ParamsType = { [K in keyof typeof cases]: (typeof cases)[K][number] } & {
     value?: string;
-    size: 's' | 'm';
+    size: SbbCheckboxSize;
   };
   const withCheckboxPanel = (params: Partial<ParamsType>): TemplateResult => html`
-    <sbb-selection-action-panel ?borderless=${params.borderless} color=${params.color || nothing}>
+    <sbb-selection-action-panel>
       <sbb-checkbox-panel
         ?checked=${params.checked}
         ?disabled=${params.disabled}
         value=${params.value || nothing}
         size=${params.size || 'm'}
+        ?borderless=${params.borderless}
+        color=${params.color || nothing}
       >
         Value ${params.value || nothing}
         <span slot="subtext">Subtext</span>
       </sbb-checkbox-panel>
       <sbb-secondary-button
-        size=${params.size || 'm'}
+        size=${!params.size || params.size === 'm' ? 'm' : 's'}
         ?disabled=${params.disabled}
         icon-name="arrow-right-small"
       >
@@ -52,18 +55,20 @@ describe(`sbb-selection-action-panel`, () => {
   `;
 
   const withRadioPanel = (params: Partial<ParamsType>): TemplateResult => html`
-    <sbb-selection-action-panel ?borderless=${params.borderless} color=${params.color || nothing}>
+    <sbb-selection-action-panel>
       <sbb-radio-button-panel
         ?checked=${params.checked}
         ?disabled=${params.disabled}
         value=${params.value || nothing}
         size=${params.size || 'm'}
+        ?borderless=${params.borderless}
+        color=${params.color || nothing}
       >
         Value ${params.value || nothing}
         <span slot="subtext">Subtext</span>
       </sbb-radio-button-panel>
       <sbb-secondary-button
-        size=${params.size || 'm'}
+        size=${!params.size || params.size === 'm' ? 'm' : 's'}
         ?disabled=${params.disabled}
         icon-name="arrow-right-small"
       >
@@ -89,13 +94,8 @@ describe(`sbb-selection-action-panel`, () => {
             `expansion-panel ${visualDiffDefault.name}`,
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(html`
-                <sbb-selection-expansion-panel
-                  ?borderless=${params.borderless}
-                  color=${params.color || nothing}
-                >
-                  ${input === 'checkbox'
-                    ? withCheckboxPanel({ ...params, borderless: false, color: undefined })
-                    : withRadioPanel({ ...params, borderless: false, color: undefined })}
+                <sbb-selection-expansion-panel>
+                  ${input === 'checkbox' ? withCheckboxPanel(params) : withRadioPanel(params)}
                   <div slot="content">Inner Content</div>
                 </sbb-selection-expansion-panel>
               `);
@@ -133,6 +133,17 @@ describe(`sbb-selection-action-panel`, () => {
               input === 'checkbox' ? withCheckboxPanel({}) : withRadioPanel({}),
             );
             setup.withStateElement(setup.snapshotElement.querySelector('sbb-secondary-button')!);
+          }),
+        );
+
+        it(
+          `size=xs`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(html`
+              ${input === 'checkbox'
+                ? withCheckboxPanel({ size: 'xs' })
+                : withRadioPanel({ size: 'xs' })}
+            `);
           }),
         );
 

@@ -9,7 +9,7 @@ import { until } from 'lit/directives/until.js';
 import { getNextElementIndex } from '../core/a11y.ts';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
 import {
-  SbbAncestorWatcherController,
+  SbbPropertyWatcherController,
   SbbEscapableOverlayController,
   SbbLanguageController,
 } from '../core/controllers.ts';
@@ -208,7 +208,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     );
 
     this.addController(
-      new SbbAncestorWatcherController(this, () => this.closest('sbb-form-field'), {
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-form-field'), {
         negative: (e) => {
           this.negative = e.negative;
           this._syncNegative();

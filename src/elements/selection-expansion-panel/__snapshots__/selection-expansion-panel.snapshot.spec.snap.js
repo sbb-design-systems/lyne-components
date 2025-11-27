@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-selection-expansion-panel renders DOM"] = 
-`<sbb-selection-expansion-panel color="white">
+`<sbb-selection-expansion-panel>
   <sbb-checkbox-panel
     color="white"
     size="m"

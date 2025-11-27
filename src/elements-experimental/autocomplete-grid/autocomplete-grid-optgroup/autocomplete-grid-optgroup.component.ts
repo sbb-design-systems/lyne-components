@@ -1,5 +1,5 @@
 import type { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.js';
-import { SbbAncestorWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
+import { SbbPropertyWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { SbbOptgroupBaseElement } from '@sbb-esta/lyne-elements/option/optgroup.js';
 import { customElement } from 'lit/decorators.js';
 
@@ -23,7 +23,7 @@ class SbbAutocompleteGridOptgroupElement extends SbbOptgroupBaseElement {
     super();
 
     this.addController(
-      new SbbAncestorWatcherController(this, () => this.closest('sbb-autocomplete-grid'), {
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-autocomplete-grid'), {
         negative: (e) => {
           this.toggleState('negative', e.negative);
 

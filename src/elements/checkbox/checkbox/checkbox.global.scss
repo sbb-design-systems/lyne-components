@@ -2,7 +2,7 @@
 
 $theme: 'standard' !default;
 
-@mixin base() {
+@mixin base {
   --sbb-checkbox-label-icon-flex-direction: row;
   --sbb-checkbox-label-icon-justify-content: space-between;
   --sbb-checkbox-label-icon-flex-grow: 1;

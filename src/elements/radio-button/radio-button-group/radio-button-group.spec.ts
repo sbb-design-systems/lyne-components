@@ -131,6 +131,7 @@ import '../radio-button-panel.ts';
 
           const panel = document.createElement('sbb-radio-button-panel');
           element.appendChild(panel);
+          await waitForLitRender(element);
 
           expect(element).to.match(':state(has-panel)');
         });

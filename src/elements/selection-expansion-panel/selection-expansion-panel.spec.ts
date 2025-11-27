@@ -710,6 +710,48 @@ describe(`sbb-selection-expansion-panel`, () => {
     it('wraps around on arrow key navigation', async () => {
       await wrapsAround(wrapper, firstInput, secondInput);
     });
+
+    it('should sync borderless state', async () => {
+      expect(firstPanel).not.to.match(':state(borderless)');
+
+      firstInput.borderless = true;
+      await waitForLitRender(wrapper);
+
+      expect(firstPanel).to.match(':state(borderless)');
+    });
+
+    it('should sync checked state', async () => {
+      expect(firstPanel).not.to.match(':state(borderless)');
+
+      firstInput.checked = true;
+      await waitForLitRender(wrapper);
+
+      expect(firstPanel).to.match(':state(checked)');
+    });
+
+    it('should sync color state', async () => {
+      expect(firstPanel).to.match(':state(color-white)');
+      expect(firstPanel).not.to.match(':state(color-milk)');
+
+      firstInput.color = 'milk';
+      await waitForLitRender(wrapper);
+
+      expect(firstPanel).not.to.match(':state(color-white)');
+      expect(firstPanel).to.match(':state(color-milk)');
+    });
+
+    it('should sync size state', async () => {
+      expect(firstPanel).not.to.match(':state(size-xs)');
+      expect(firstPanel).not.to.match(':state(size-s)');
+      expect(firstPanel).to.match(':state(size-m)');
+
+      wrapper.size = 'xs';
+      await waitForLitRender(wrapper);
+
+      expect(firstPanel).to.match(':state(size-xs)');
+      expect(firstPanel).not.to.match(':state(size-s)');
+      expect(firstPanel).not.to.match(':state(size-m)');
+    });
   });
 
   describe('with nested checkboxes', () => {
@@ -794,77 +836,79 @@ describe(`sbb-selection-expansion-panel`, () => {
 
   describe('size s', () => {
     it('checkbox group', async () => {
-      const root = await fixture(html`
+      const group = await fixture(html`
         <sbb-checkbox-group size="s">
           <sbb-selection-expansion-panel id="one">
-            <sbb-checkbox-panel> Value 1 </sbb-checkbox-panel>
+            <sbb-checkbox-panel>Value 1</sbb-checkbox-panel>
             <div slot="content">Inner content</div>
           </sbb-selection-expansion-panel>
           <sbb-selection-expansion-panel id="two">
-            <sbb-checkbox-panel> Value 2 </sbb-checkbox-panel>
+            <sbb-checkbox-panel>Value 2</sbb-checkbox-panel>
             <div slot="content">Inner content</div>
           </sbb-selection-expansion-panel>
         </sbb-checkbox-group>
       `);
-      await waitForLitRender(root);
-      expect(root.querySelector('sbb-selection-expansion-panel#one')!).to.match(':state(size-s)');
-      expect(root.querySelector('sbb-selection-expansion-panel#two')!).to.match(':state(size-s)');
-      root.setAttribute('size', 'm');
-      await waitForLitRender(root);
-      expect(root.querySelector('sbb-selection-expansion-panel#one')!).to.match(':state(size-m)');
-      expect(root.querySelector('sbb-selection-expansion-panel#two')!).to.match(':state(size-m)');
+      await waitForLitRender(group);
+      expect(group.querySelector('sbb-selection-expansion-panel#one')!).to.match(':state(size-s)');
+      expect(group.querySelector('sbb-selection-expansion-panel#two')!).to.match(':state(size-s)');
+
+      group.setAttribute('size', 'm');
+      await waitForLitRender(group);
+      expect(group.querySelector('sbb-selection-expansion-panel#one')!).to.match(':state(size-m)');
+      expect(group.querySelector('sbb-selection-expansion-panel#two')!).to.match(':state(size-m)');
     });
 
     it('checkbox panel', async () => {
-      const root = await fixture(html`
+      const element = await fixture(html`
         <sbb-selection-expansion-panel>
-          <sbb-checkbox-panel size="s"> Value </sbb-checkbox-panel>
+          <sbb-checkbox-panel size="s">Value</sbb-checkbox-panel>
           <div slot="content">Inner content</div>
         </sbb-selection-expansion-panel>
       `);
-      await waitForLitRender(root);
-      expect(root).to.match(':state(size-s)');
-      const panel = root.querySelector('sbb-checkbox-panel')!;
+      await waitForLitRender(element);
+      expect(element).to.match(':state(size-s)');
+      const panel = element.querySelector('sbb-checkbox-panel')!;
       panel.setAttribute('size', 'm');
-      await waitForLitRender(root);
-      expect(root).to.match(':state(size-m)');
+      await waitForLitRender(element);
+      expect(element).to.match(':state(size-m)');
     });
 
     it('radio group', async () => {
-      const root = await fixture(html`
+      const group = await fixture(html`
         <sbb-radio-button-group size="s">
           <sbb-selection-expansion-panel id="one">
-            <sbb-radio-button-panel> Value 1 </sbb-radio-button-panel>
+            <sbb-radio-button-panel>Value 1</sbb-radio-button-panel>
             <div slot="content">Inner content</div>
           </sbb-selection-expansion-panel>
           <sbb-selection-expansion-panel id="two">
-            <sbb-radio-button-panel> Value 2 </sbb-radio-button-panel>
+            <sbb-radio-button-panel>Value 2</sbb-radio-button-panel>
             <div slot="content">Inner content</div>
           </sbb-selection-expansion-panel>
         </sbb-radio-button-group>
       `);
-      await waitForLitRender(root);
-      expect(root.querySelector('sbb-selection-expansion-panel#one')!).to.match(':state(size-s)');
-      expect(root.querySelector('sbb-selection-expansion-panel#two')!).to.match(':state(size-s)');
-      root.setAttribute('size', 'm');
-      await waitForLitRender(root);
-      expect(root.querySelector('sbb-selection-expansion-panel#one')!).to.match(':state(size-m)');
-      expect(root.querySelector('sbb-selection-expansion-panel#two')!).to.match(':state(size-m)');
+      await waitForLitRender(group);
+      expect(group.querySelector('sbb-selection-expansion-panel#one')!).to.match(':state(size-s)');
+      expect(group.querySelector('sbb-selection-expansion-panel#two')!).to.match(':state(size-s)');
+
+      group.setAttribute('size', 'm');
+      await waitForLitRender(group);
+      expect(group.querySelector('sbb-selection-expansion-panel#one')!).to.match(':state(size-m)');
+      expect(group.querySelector('sbb-selection-expansion-panel#two')!).to.match(':state(size-m)');
     });
 
     it('radio panel', async () => {
-      const root = await fixture(html`
+      const element = await fixture(html`
         <sbb-selection-expansion-panel>
           <sbb-radio-button-panel size="s"> Value </sbb-radio-button-panel>
           <div slot="content">Inner content</div>
         </sbb-selection-expansion-panel>
       `);
-      await waitForLitRender(root);
-      expect(root).to.match(':state(size-s)');
-      const panel = root.querySelector('sbb-radio-button-panel')!;
+      await waitForLitRender(element);
+      expect(element).to.match(':state(size-s)');
+      const panel = element.querySelector('sbb-radio-button-panel')!;
       panel.setAttribute('size', 'm');
-      await waitForLitRender(root);
-      expect(root).to.match(':state(size-m)');
+      await waitForLitRender(element);
+      expect(element).to.match(':state(size-m)');
     });
   });
 });

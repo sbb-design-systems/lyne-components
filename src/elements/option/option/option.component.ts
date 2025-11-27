@@ -3,7 +3,7 @@ import { html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import type { SbbAutocompleteElement } from '../../autocomplete.ts';
-import { SbbAncestorWatcherController } from '../../core/controllers.ts';
+import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbSelectElement } from '../../select.ts';
 
@@ -49,20 +49,20 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public constructor() {
     super();
     this.addController(
-      new SbbAncestorWatcherController(this, () => this.closest('sbb-optgroup'), {
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-optgroup'), {
         disabled: (p) => (this.disabledFromGroup = p.disabled),
         label: (p) => (this.groupLabel = p.label),
       }),
     );
 
     this.addController(
-      new SbbAncestorWatcherController(this, () => this.closest('sbb-autocomplete'), {
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-autocomplete'), {
         negative: (e) => this._handleNegativeChange(e),
       }),
     );
 
     this.addController(
-      new SbbAncestorWatcherController(this, () => this.closest('sbb-select'), {
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-select'), {
         multiple: (ancestor) => {
           this.toggleState('multiple', ancestor.multiple);
 

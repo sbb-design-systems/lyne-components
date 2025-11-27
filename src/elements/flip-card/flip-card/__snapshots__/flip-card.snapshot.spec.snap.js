@@ -46,7 +46,7 @@ snapshots["sbb-flip-card DOM"] =
           Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh. Duis dapibus
           vitae tortor ullamcorper maximus. In convallis consectetur felis.
     <sbb-link
-      data-card-focusable=""
+      class="sbb-action"
       href="https://www.sbb.ch"
       negative=""
       size="s"

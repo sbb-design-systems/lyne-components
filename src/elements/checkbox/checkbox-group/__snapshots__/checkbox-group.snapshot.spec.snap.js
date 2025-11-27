@@ -134,7 +134,7 @@ snapshots["sbb-checkbox-group renders with panel Shadow DOM"] =
 
 snapshots["sbb-checkbox-group renders with selection-expansion-panel DOM"] = 
 `<sbb-checkbox-group orientation="horizontal">
-  <sbb-selection-expansion-panel color="white">
+  <sbb-selection-expansion-panel>
     <sbb-checkbox-panel
       color="white"
       size="m"

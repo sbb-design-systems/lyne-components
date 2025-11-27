@@ -60,7 +60,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['xs', 's', 'm'],
 };
 
 const allowEmptySelection: InputType = {
@@ -89,7 +89,7 @@ const defaultArgs: Args = {
   labelBoldClass: false,
   color: color.options![0],
   borderless: false,
-  size: size.options![0],
+  size: size.options![2],
   'allow-empty-selection': false,
 };
 

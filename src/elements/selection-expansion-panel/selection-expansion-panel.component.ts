@@ -7,15 +7,13 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbCheckboxPanelElement } from '../checkbox.ts';
 import { SbbLanguageController } from '../core/controllers.ts';
 import { forceType } from '../core/decorators.ts';
 import { isZeroAnimationDuration } from '../core/dom.ts';
 import { i18nCollapsed, i18nExpanded } from '../core/i18n.ts';
-import type { SbbOpenedClosedState, SbbStateChange } from '../core/interfaces.ts';
+import type { SbbOpenedClosedState } from '../core/interfaces.ts';
 import { SbbHydrationMixin, SbbSelectionPanelMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbRadioButtonPanelElement } from '../radio-button.ts';
 
 import style from './selection-expansion-panel.scss?lit&inline';
 
@@ -24,7 +22,7 @@ import '../divider.ts';
 /**
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
  *
- * @slot - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-expansion-panel`.
+ * @slot - Use the unnamed slot to add `sbb-checkbox-panel` or `sbb-radio-button-panel` elements to the `sbb-selection-expansion-panel`.
  * @slot content - Use this slot to provide custom content for the panel (optional).
  */
 export
@@ -84,13 +82,7 @@ class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(
     }
   }
 
-  protected override initFromInput(event: Event): void {
-    super.initFromInput(event);
-    this._updateState();
-  }
-
-  protected override onInputStateChange(event: CustomEvent<SbbStateChange>): void {
-    super.onInputStateChange(event);
+  protected override onInputStateChange(): void {
     this._updateState();
   }
 
@@ -99,12 +91,12 @@ class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(
       return;
     }
 
-    if (this.forceOpen || this.checked) {
+    if (this.forceOpen || this.matches(':state(checked)')) {
       this._open();
     } else {
       this._close();
     }
-    this._updateExpandedLabel(this.forceOpen || this.checked);
+    this._updateExpandedLabel(this.forceOpen || this.matches(':state(checked)'));
   }
 
   private _open(): void {
@@ -166,9 +158,7 @@ class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(
   private async _updateExpandedLabel(open: boolean): Promise<void> {
     await this.hydrationComplete;
 
-    const panelElement = this.querySelector<SbbRadioButtonPanelElement | SbbCheckboxPanelElement>(
-      'sbb-radio-button-panel, sbb-checkbox-panel',
-    );
+    const panelElement = this.panel;
     if (!panelElement) {
       return;
     }
@@ -185,7 +175,7 @@ class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-selection-expansion-panel__input" @statechange=${this.onInputStateChange}>
+      <div class="sbb-selection-expansion-panel__input">
         <slot></slot>
       </div>
       <div

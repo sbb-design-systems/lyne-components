@@ -1,12 +1,10 @@
-import { isServer, type LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import type { LitElement } from 'lit';
 
 import type { SbbCheckboxGroupElement } from '../../checkbox/checkbox-group.ts';
 import type { SbbCheckboxPanelElement } from '../../checkbox/checkbox-panel.ts';
 import type { SbbRadioButtonGroupElement } from '../../radio-button/radio-button-group.ts';
 import type { SbbRadioButtonPanelElement } from '../../radio-button/radio-button-panel.ts';
-import { forceType } from '../decorators.ts';
-import type { SbbStateChange } from '../interfaces/types.ts';
+import { SbbPropertyWatcherController } from '../controllers.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 import {
@@ -15,20 +13,10 @@ import {
 } from './element-internals-mixin.ts';
 
 export declare class SbbSelectionPanelMixinType {
-  public accessor color: 'white' | 'milk';
-  public accessor borderless: boolean;
+  public get panel(): SbbRadioButtonPanelElement | SbbCheckboxPanelElement | null;
+  public get group(): SbbRadioButtonGroupElement | SbbCheckboxGroupElement | null;
 
-  protected set checked(checked: boolean);
-  protected get checked(): boolean;
-
-  protected set disabled(disabled: boolean);
-  protected get disabled(): boolean;
-
-  protected group: SbbRadioButtonGroupElement | SbbCheckboxGroupElement | null;
-  protected sizeAttributeObserver: MutationObserver | null;
-
-  protected initFromInput(event: Event): void;
-  protected onInputStateChange(event: CustomEvent<SbbStateChange>): void;
+  protected onInputStateChange?(): void;
 }
 
 /**
@@ -42,94 +30,56 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
     extends SbbElementInternalsMixin(superClass)
     implements Partial<SbbSelectionPanelMixinType>
   {
-    /** The background color of the panel. */
-    @property({ reflect: true }) public accessor color: 'white' | 'milk' = 'white';
-
-    /** Whether the unselected panel has a border. */
-    @forceType()
-    @property({ reflect: true, type: Boolean })
-    public accessor borderless: boolean = false;
-
-    /** Whether the selection panel is checked. */
-    protected set checked(checked: boolean) {
-      this.toggleState('checked', checked);
-    }
-    protected get checked(): boolean {
-      return this.internals.states.has('checked');
+    /** Group element if present */
+    public get group(): SbbRadioButtonGroupElement | SbbCheckboxGroupElement | null {
+      return this.closest?.('sbb-radio-button-group, sbb-checkbox-group') ?? null;
     }
 
-    /** Whether the selection panel is disabled. */
-    protected set disabled(disabled: boolean) {
-      this.toggleState('disabled', disabled);
-    }
-    protected get disabled(): boolean {
-      return this.internals.states.has('disabled');
+    /** Input panel element */
+    public get panel(): SbbCheckboxPanelElement | SbbRadioButtonPanelElement | null {
+      return this.querySelector?.('sbb-radio-button-panel, sbb-checkbox-panel') ?? null;
     }
 
-    protected group: SbbRadioButtonGroupElement | SbbCheckboxGroupElement | null = null;
-
-    protected sizeAttributeObserver = !isServer
-      ? new MutationObserver((mutationsList: MutationRecord[]) =>
-          this._onSizeAttributesChange(mutationsList),
-        )
-      : null;
+    private _propertyWatcher = new SbbPropertyWatcherController(this, () => this.panel, {
+      checked: (panel) => {
+        this.toggleState('checked', panel.checked);
+        this.onInputStateChange?.();
+      },
+      disabled: (panel) => {
+        this.toggleState('disabled', panel.disabled);
+        this.onInputStateChange?.();
+      },
+      size: (panel) => {
+        // TODO: Use applyStatePattern function when available
+        const size = `size-${panel.size}`;
+        this.toggleState(size, true);
+        this.internals.states.forEach((state) => {
+          if (state.startsWith('size-') && state !== size) {
+            this.toggleState(state, false);
+          }
+        });
+      },
+      borderless: (panel) => {
+        this.toggleState('borderless', panel.borderless);
+      },
+      color: (panel) => {
+        // TODO: Use applyStatePattern function when available
+        const color = `color-${panel.color}`;
+        this.toggleState(color, true);
+        this.internals.states.forEach((state) => {
+          if (state.startsWith('color-') && state !== color) {
+            this.toggleState(state, false);
+          }
+        });
+      },
+    });
 
     protected constructor(...args: any[]) {
       super(args);
-      this.addEventListener?.('panelconnected', (e) => this.initFromInput(e));
+      this.addEventListener?.('panelconnected', () => this._propertyWatcher.connect());
     }
 
-    public override connectedCallback(): void {
-      super.connectedCallback();
-      this.group = this.closest('sbb-radio-button-group, sbb-checkbox-group');
-    }
-
-    public override disconnectedCallback(): void {
-      super.disconnectedCallback();
-      this.sizeAttributeObserver?.disconnect();
-    }
-
-    protected initFromInput(event: Event): void {
-      const input = event.target as SbbCheckboxPanelElement | SbbRadioButtonPanelElement;
-
-      this.checked = input.checked;
-      this.disabled = input.disabled;
-      this.sizeAttributeObserver?.disconnect();
-      // The size of the inner panel can change due direct change on the panel or due to change of the input-group size.
-      this.sizeAttributeObserver?.observe(input, { attributeFilter: ['size'] });
-    }
-
-    protected onInputStateChange(event: CustomEvent<SbbStateChange>): void {
-      if (event.detail.type === 'disabled') {
-        this.disabled = event.detail.disabled;
-      } else if (event.detail.type === 'checked') {
-        this.checked = event.detail.checked;
-      }
-    }
-
-    /**
-     * Set the size state in two cases:
-     * - if there's no group, so the size change comes directly from a change on the inner panel;
-     * - if there's a wrapper group and its size changes, syncing it with the panel size.
-     *
-     * On the other hand, if there's a wrapper group and the size changes on the inner panel, the size state doesn't change.
-     */
-    private _onSizeAttributesChange(mutationsList: MutationRecord[]): void {
-      for (const mutation of mutationsList) {
-        if (mutation.attributeName === 'size') {
-          const group = this.group;
-          const size = (mutation.target as HTMLElement).getAttribute('size')!;
-          this.internals.states.forEach((state) => {
-            if (state.startsWith('size-')) {
-              this.internals.states.delete(state);
-            }
-          });
-          if (!group || group.size === size) {
-            this.internals.states.add(`size-${size}`);
-          }
-        }
-      }
-    }
+    protected onInputStateChange?(): void {}
   }
 
   return SbbSelectionPanelElement as unknown as AbstractConstructor<

@@ -1,7 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 
 import type { SbbAutocompleteBaseElement, SbbAutocompleteElement } from '../../autocomplete.ts';
-import { SbbAncestorWatcherController } from '../../core/controllers.ts';
+import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import type { SbbSelectElement } from '../../select/select.component.ts';
 import type { SbbOptionElement } from '../option.ts';
 
@@ -23,13 +23,13 @@ class SbbOptGroupElement extends SbbOptgroupBaseElement {
     super();
 
     this.addController(
-      new SbbAncestorWatcherController(this, () => this.closest('sbb-autocomplete'), {
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-autocomplete'), {
         negative: (e) => this._handleNegativeChange(e),
       }),
     );
 
     this.addController(
-      new SbbAncestorWatcherController(this, () => this.closest('sbb-select'), {
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-select'), {
         multiple: (ancestor) => this.toggleState('multiple', ancestor.multiple),
         negative: (e) => this._handleNegativeChange(e),
       }),

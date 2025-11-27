@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin, ɵstateController } from '../../core/mixins.ts';
+import { SbbElementInternalsMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './card-badge.scss?lit&inline';
@@ -22,38 +22,16 @@ class SbbCardBadgeElement extends SbbElementInternalsMixin(LitElement) {
   /** Color of the card badge. */
   @property({ reflect: true }) public accessor color: 'charcoal' | 'white' = 'charcoal';
 
-  private _parentElement?: HTMLElement | null;
-
   public override connectedCallback(): void {
     super.connectedCallback();
     this.slot ||= 'badge';
-    this._parentElement = this.parentElement;
-    if (!this._parentElement) {
-      return;
-    } else {
-      ɵstateController(this._parentElement).add('has-card-badge');
-    }
-  }
-
-  public override disconnectedCallback(): void {
-    super.disconnectedCallback();
-    if (!this._parentElement) {
-      return;
-    } else {
-      ɵstateController(this._parentElement).delete('has-card-badge');
-    }
-    this._parentElement = undefined;
   }
 
   protected override render(): TemplateResult {
     return html`
-      <span class="sbb-card-badge-wrapper">
-        <span class="sbb-card-badge">
-          <span class="sbb-card-badge-background" aria-hidden="true"></span>
-          <span class="sbb-card-badge-content">
-            <slot></slot>
-          </span>
-        </span>
+      <span class="sbb-card-badge-background" aria-hidden="true"></span>
+      <span class="sbb-card-badge-content">
+        <slot></slot>
       </span>
     `;
   }
