@@ -16,7 +16,10 @@ export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(L
 
   /** The state of the component. */
   protected set state(state: SbbOpenedClosedState) {
-    this.applyStatePattern(state);
+    ['state-opened', 'state-closed', 'state-closing', 'state-opening'].forEach((s) =>
+      this.internals.states.delete(s),
+    );
+    this.internals.states.add(`state-${state}`);
   }
   protected get state(): SbbOpenedClosedState {
     return (

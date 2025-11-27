@@ -1,7 +1,6 @@
 import { isServer, type LitElement, type ReactiveController } from 'lit';
 
 import { SbbSlotStateController } from '../controllers/slot-state-controller.ts';
-import { isWebkit } from '../dom/platform.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 
@@ -14,7 +13,7 @@ import type { AbstractConstructor } from './constructor.ts';
 type CustomStateSetInterface = CustomStateSet;
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const CustomStateSetPolyfill: (new (host: LitElement) => CustomStateSetInterface) | null =
-  isServer || !CSS.supports('selector(:state(loading))') || isWebkit
+  isServer || !CSS.supports('selector(:state(loading))')
     ? class CustomStateSet
         extends Set<string>
         implements CustomStateSetInterface, ReactiveController
