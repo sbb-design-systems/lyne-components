@@ -20,7 +20,7 @@ const promiseComplete = Promise.resolve();
  * Waits for all Lit `ReactiveElement` children of the given parent node to
  * finish rendering.
  *
- * @param root a parent node to wait for rendering on.
+ * @param node a parent node to wait for rendering on.
  */
 export const waitForLitRender = async <
   T extends HTMLElement | DocumentFragment = HTMLElement | DocumentFragment,

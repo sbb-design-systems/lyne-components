@@ -56,9 +56,9 @@ class SbbMiniCalendarElement<T = Date> extends LitElement {
   private _setMonthsShowYear(): void {
     this._getMiniCalendarMonths().forEach(
       (monthElement: SbbMiniCalendarMonthElement, index: number) => {
-        const splittedDate = monthElement.date.split('-');
-        if (splittedDate.length > 0) {
-          if (index === 0 || +splittedDate[1] === 1) {
+        const splitDate = monthElement.date.split('-');
+        if (splitDate.length > 0) {
+          if (index === 0 || +splitDate[1] === 1) {
             monthElement['toggleState']('show-year', true);
           } else {
             monthElement['toggleState']('show-year', false);

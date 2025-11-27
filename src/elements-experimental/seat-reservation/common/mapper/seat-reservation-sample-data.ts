@@ -10344,8 +10344,7 @@ export const MOCK_COACHES_RAW_1 = [
 
 /**
  * taken from json provided by VAKE;
- * Attention: <b>all the type information does not reflect our assumptions</b> and the data was
- * manuelly adjusted.
+ * Attention: <b>all the type information does not reflect our assumptions</b> and the data was manually adjusted.
  */
 export const MOCK_COACHES_RAW_REAL_DATA = [
   {

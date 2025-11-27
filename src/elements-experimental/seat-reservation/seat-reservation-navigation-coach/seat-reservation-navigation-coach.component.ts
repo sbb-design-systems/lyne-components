@@ -61,7 +61,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ type: Number })
   public accessor index: number = 0;
 
-  /** Representation of places available for selecting, counting seat places and bicycle places separetely */
+  /** Representation of places available for selecting, counting seat places and bicycle places separately */
   @property({ attribute: 'free-places-by-type', type: Object })
   public accessor freePlacesByType: CoachNumberOfFreePlaces = { seats: 0, bicycles: 0 };
 
@@ -238,15 +238,15 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   }
 
   private _getAriaDescriptionCoachServices(): string | null {
-    let ariaDescrition = null;
+    let ariaDescription = null;
     if (this.propertyIds.length) {
-      ariaDescrition =
+      ariaDescription =
         getI18nSeatReservation('COACH_AVAILABLE_SERVICES', this._language.current) + ': ';
-      ariaDescrition += this.propertyIds
+      ariaDescription += this.propertyIds
         .map((propertyId) => getI18nSeatReservation(propertyId, this._language.current))
         .join();
     }
-    return ariaDescrition;
+    return ariaDescription;
   }
 
   /**

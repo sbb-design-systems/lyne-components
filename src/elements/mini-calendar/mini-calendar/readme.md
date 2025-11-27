@@ -1,7 +1,7 @@
 The `sbb-mini-calendar` is a component used to display a minimal calendar.
 
-It must be used in combination with one or more [sbb-mini-calendar-month](/docs/elements-sbb-mini-calendar-sbb-mini-calendar-month),
-each one slotting the requested [sbb-mini-calendar-day](/docs/elements-sbb-mini-calendar-sbb-mini-calendar-day).
+It must be used in combination with one or more [sbb-mini-calendar-month](/docs/elements-sbb-mini-calendar-sbb-mini-calendar-month--docs),
+each one slotting the requested [sbb-mini-calendar-day](/docs/elements-sbb-mini-calendar-sbb-mini-calendar-day--docs).
 
 ```html
 <sbb-mini-calendar>

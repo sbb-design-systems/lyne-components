@@ -77,7 +77,7 @@ export function createMouseEvent(
  * by default will appear as if they are the primary pointer of their type.
  * https://www.w3.org/TR/pointerevents2/#dom-pointerevent-isprimary.
  *
- * For example, if pointer events for a multi-touch interaction are created, the non-primary
+ * For example, if pointer events for a multitouch interaction are created, the non-primary
  * pointer touches would need to be represented by non-primary pointer events.
  *
  * @docs-private

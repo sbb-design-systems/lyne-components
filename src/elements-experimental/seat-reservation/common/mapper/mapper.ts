@@ -103,6 +103,8 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
 /**
  * Mapped place and coach information to place selection
  * @param place
+ * @param placeId
+ * @param deckIndex
  * @param coachIndex
  * @returns PlaceSelection
  */

@@ -160,7 +160,7 @@ function isHiddenInput(element: HTMLElement): boolean {
   return isInputElement(element) && element.type == 'hidden';
 }
 
-/** Gets whether an element is an anchor that has an href attribute. */
+/** Gets whether an element is an anchor that has a href attribute. */
 function isAnchorWithHref(element: HTMLElement): boolean {
   return isAnchorElement(element) && element.hasAttribute('href');
 }

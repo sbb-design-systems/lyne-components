@@ -44,7 +44,7 @@ export const SbbNavigationActionCommonElementMixin = <
       ? 's'
       : 'l';
 
-    /** The section that is beign controlled by the action, if any. */
+    /** The section that is being controlled by the action, if any. */
     public connectedSection?: SbbNavigationSectionElement;
 
     /** The navigation marker in which the action is nested. */

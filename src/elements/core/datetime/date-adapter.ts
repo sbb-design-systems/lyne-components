@@ -43,8 +43,7 @@ export abstract class DateAdapter<T = any> {
 
   /**
    * Get the number of days in a month.
-   * @param year
-   * @param month
+   * @param date
    */
   public abstract getNumDaysInMonth(date: T): number;
 
@@ -137,7 +136,6 @@ export abstract class DateAdapter<T = any> {
   /**
    * Get the given string as Date.
    * @param value The date in the format DD.MM.YYYY.
-   * @param now The current date as Date.
    */
   public abstract parse(value: string | null | undefined): T | null;
 

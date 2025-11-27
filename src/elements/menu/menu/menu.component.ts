@@ -170,7 +170,7 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
     this._close();
   }
 
-  /** Closes the menu and all related menus  nested and parent menus). */
+  /** Closes the menu and all related menus (nested and parent menus). */
   public closeAll(): void {
     this._mainMenu()._close(true);
   }

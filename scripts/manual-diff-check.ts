@@ -1,6 +1,6 @@
 /**
  * To execute this script, run the following row in the root directory of this project.
- * Please add a valid github token and replace the PR number.
+ * Please add a valid GitHub token and replace the PR number.
  * rm -rf dist/screenshots && tsx scripts/manual-diff-check.ts --pr=3131 --github-token=<YOUR-TOKEN> && cd dist/screenshots && unzip screenshots.zip && cd ../.. && yarn start:visual-regression-app
  */
 

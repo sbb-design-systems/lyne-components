@@ -1,4 +1,4 @@
-The `sbb-option-hint` is a component used to show an hint message within a [sbb-autocomplete](/docs/elements-sbb-autocomplete--docs)
+The `sbb-option-hint` is a component used to show a hint message within a [sbb-autocomplete](/docs/elements-sbb-autocomplete--docs)
 or a [sbb-select](/docs/elements-sbb-select--docs) component.
 
 ```html

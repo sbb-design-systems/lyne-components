@@ -1,4 +1,4 @@
-The `sbb-navigation-section` is a container for both [sbb-navigation-list](/docs/elements-sbb-navigation-sbb-navigation-list--docs) and [sbb-button](/docs/elements-sbb-button--docs).
+The `sbb-navigation-section` is a container for both [sbb-navigation-list](/docs/elements-sbb-navigation-sbb-navigation-list--docs) and [sbb-button](/docs/elements-sbb-button-sbb-button--docs).
 Its intended use is inside a [sbb-navigation](/docs/elements-sbb-navigation-sbb-navigation--docs) component, in which it can be seen as a 'second-level' panel.
 
 ## Trigger

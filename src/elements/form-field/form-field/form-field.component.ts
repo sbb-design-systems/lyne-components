@@ -36,7 +36,7 @@ let nextId = 0;
 const patchedInputs = new WeakMap<HTMLInputElement, PropertyDescriptor>();
 const nativeInputElements = ['input', 'textarea', 'select'];
 
-/** An interface which allows a control to work inside of a `SbbFormField`. */
+/** An interface which allows a control to work inside a `SbbFormField`. */
 export interface SbbFormFieldElementControl {
   /** The id of the form field control. */
   readonly id: string;

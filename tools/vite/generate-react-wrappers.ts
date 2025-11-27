@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import {
-  readFileSync,
   existsSync,
   mkdirSync,
-  writeFileSync,
   readdirSync,
-  statSync,
+  readFileSync,
   rmSync,
+  statSync,
   unlinkSync,
+  writeFileSync,
 } from 'fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
-import type { Package, Export, CustomElementDeclaration, Module } from 'custom-elements-manifest';
+import type { CustomElementDeclaration, Export, Module, Package } from 'custom-elements-manifest';
 import type { PluginOption } from 'vite';
 
 import { distDir } from './build-meta.ts';
@@ -160,7 +160,7 @@ function renderTemplate(
     .set('SeatReservationSelectedPlaces', 'seat-reservation/common.js')
     .set('PlaceSelection', 'seat-reservation/common.js');
 
-  // In case of properties that are not string, but can be used as an string attribute in
+  // In case of properties that are not string, but can be used as a string attribute in
   // React (e.g. trigger), we need to patch the class property types to allow string as
   // an additional type. We do this by checking for HTML*Element or Sbb*Element property
   // types, which usually support id references as attributes. If a class has these
