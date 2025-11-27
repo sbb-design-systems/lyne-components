@@ -81,14 +81,12 @@ const lightDarkModeDecorator = makeDecorator({
   wrapper: (getStory, context) => {
     const selectedMode = context.globals.mode as 'light' | 'dark' | 'auto';
 
-    document.documentElement.classList.remove('sbb-dark', 'sbb-light', 'sbb-light-dark');
+    document.documentElement.classList.remove('sbb-dark', 'sbb-light');
 
     if (selectedMode === 'light') {
       document.documentElement.classList.add('sbb-light');
     } else if (selectedMode === 'dark') {
       document.documentElement.classList.add('sbb-dark');
-    } else {
-      document.documentElement.classList.add('sbb-light-dark');
     }
 
     return getStory(context);

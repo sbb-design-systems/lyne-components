@@ -156,7 +156,7 @@ describe(`sbb-alert`, () => {
   });
 
   it('should sync negative property changing sbb-dark class', async () => {
-    document.documentElement.classList.remove('sbb-light-dark');
+    document.documentElement.style.colorScheme = 'light dark';
 
     const button = alert.shadowRoot!.querySelector('sbb-transparent-button')!;
     expect(button.negative, 'button negative').to.be.true;
@@ -169,6 +169,6 @@ describe(`sbb-alert`, () => {
     expect(alert).to.match(':state(dark)');
     document.documentElement.classList.remove('sbb-dark');
     await waitForLitRender(alert);
-    document.documentElement.classList.add('sbb-light-dark');
+    document.documentElement.style.removeProperty('color-scheme');
   });
 });
