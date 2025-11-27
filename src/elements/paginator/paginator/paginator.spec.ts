@@ -303,6 +303,27 @@ describe('sbb-paginator', () => {
     expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToPrev);
   });
 
+  it('focus should stay on arrows', async () => {
+    const goToNext: SbbMiniButtonElement = element.shadowRoot!.querySelector(
+      '#sbb-paginator-next-page',
+    )!;
+
+    // Select using the page number
+    const page3Button: HTMLButtonElement = element.shadowRoot!.querySelector(`[data-index='2']`)!;
+    page3Button.focus();
+    await sendKeys({ press: 'Enter' });
+    await waitForLitRender(element);
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(page3Button);
+
+    goToNext.focus();
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToNext);
+
+    // Next
+    await sendKeys({ press: 'Enter' });
+    await waitForLitRender(element);
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToNext);
+  });
+
   it('should update items per page label on language change', async () => {
     element = await fixture(
       html`<sbb-paginator length="50" page-size="5" .pageSizeOptions=${[5, 10]}></sbb-paginator>`,
