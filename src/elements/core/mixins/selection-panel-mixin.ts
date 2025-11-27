@@ -56,7 +56,7 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
         this.toggleState('borderless', panel.borderless);
       },
       color: (panel) => {
-        this.applyStatePattern(panel.size, 'color');
+        this.applyStatePattern(panel.color, 'color');
       },
     });
 
