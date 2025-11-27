@@ -57,16 +57,16 @@
   @include sbb.card-variables--spacing-4x-xxs;
 }
 
-:host(.sbb-card-spacing-xxs-xxs) {
-  @include sbb.card-variables--spacing-xxs-xxs;
+:host(.sbb-card-spacing-xxs) {
+  @include sbb.card-variables--spacing-xxs;
 }
 
-:host(.sbb-card-spacing-s-s) {
-  @include sbb.card-variables--spacing-s-s;
+:host(.sbb-card-spacing-s) {
+  @include sbb.card-variables--spacing-s;
 }
 
-:host(.sbb-card-spacing-l-l) {
-  @include sbb.card-variables--spacing-l-l;
+:host(.sbb-card-spacing-l) {
+  @include sbb.card-variables--spacing-l;
 }
 
 // Has to be after spacing definitions

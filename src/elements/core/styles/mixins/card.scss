@@ -10,10 +10,6 @@
 @mixin card-variables--global($theme: 'standard') {
   --sbb-card-background-color: var(--sbb-background-color-1);
   --sbb-card-border-radius: var(--sbb-border-radius-4x);
-  --sbb-card-animation-duration: var(
-    --sbb-disable-animation-duration,
-    var(--sbb-animation-duration-1x)
-  );
   --sbb-card-animation-easing: var(--sbb-animation-easing);
   --sbb-card-border-color: transparent;
   --sbb-card-border-style: solid;
@@ -87,11 +83,14 @@
 // Card sizing
 @mixin card-variables--spacing-3x-xxs {
   --sbb-card-padding-block: var(--sbb-spacing-fixed-3x);
+  --sbb-card-with-badge-padding-block: var(--sbb-spacing-fixed-6x) var(--sbb-spacing-fixed-3x);
   --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
 }
 
 @mixin card-variables--spacing-xxxs-xxs {
   --sbb-card-padding-block: var(--sbb-spacing-responsive-xxxs);
+  --sbb-card-with-badge-padding-block: var(--sbb-spacing-fixed-6x)
+    var(--sbb-spacing-responsive-xxxs);
   --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
 }
 
@@ -108,19 +107,19 @@
   --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
 }
 
-@mixin card-variables--spacing-xxs-xxs {
+@mixin card-variables--spacing-xxs {
   --sbb-card-padding-block: var(--sbb-spacing-responsive-xxs);
   --sbb-card-with-badge-padding-block: var(--sbb-spacing-fixed-6x) var(--sbb-spacing-responsive-xxs);
   --sbb-card-padding-inline: var(--sbb-spacing-responsive-xxs);
 }
 
-@mixin card-variables--spacing-s-s {
+@mixin card-variables--spacing-s {
   --sbb-card-padding-block: var(--sbb-spacing-responsive-s);
   --sbb-card-with-badge-padding-block: var(--sbb-spacing-responsive-s);
   --sbb-card-padding-inline: var(--sbb-spacing-responsive-s);
 }
 
-@mixin card-variables--spacing-l-l {
+@mixin card-variables--spacing-l {
   --sbb-card-padding-block: var(--sbb-spacing-responsive-l);
   --sbb-card-with-badge-padding-block: var(--sbb-spacing-responsive-l);
   --sbb-card-padding-inline: var(--sbb-spacing-responsive-l);
@@ -139,16 +138,6 @@
 }
 
 @mixin card {
-  display: block;
-  position: relative;
-  padding-inline: var(--sbb-card-padding-inline);
-  padding-block: var(--sbb-card-padding-block);
-  border-radius: var(--sbb-card-border-radius);
-  background-color: var(--sbb-card-background-color);
-  box-shadow: none;
-  transition: box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
-  color: var(--sbb-card-color);
-
   // As the card has always a white/milk background, we have to fix the focus outline color
   // to default color for cases where the card is used in a negative context.
   --sbb-focus-outline-color: light-dark(
@@ -158,6 +147,20 @@
 
   // Propagate card text color to title text color to ensure correct color in forced colors mode
   --sbb-title-text-color-normal-override: var(--sbb-card-color);
+  --sbb-card-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-1x)
+  );
+
+  display: block;
+  position: relative;
+  padding-inline: var(--sbb-card-padding-inline);
+  padding-block: var(--sbb-card-padding-block);
+  border-radius: var(--sbb-card-border-radius);
+  background-color: var(--sbb-card-background-color);
+  box-shadow: none;
+  transition: box-shadow var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
+  color: var(--sbb-card-color);
 
   // Apply border as after element to let it be inline
   &::after {

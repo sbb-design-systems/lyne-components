@@ -54,9 +54,9 @@ different preset spacing classes.
 <sbb-card class="sbb-card-spacing-xxxs-xxs">Card content</sbb-card>
 <sbb-card class="sbb-card-spacing-xxxs-s">Card content</sbb-card>
 <sbb-card class="sbb-card-spacing-4x-xxs">Card content</sbb-card>
-<sbb-card class="sbb-card-spacing-xxs-xxs">Card content</sbb-card>
-<sbb-card class="sbb-card-spacing-s-s">Card content</sbb-card>
-<sbb-card class="sbb-card-spacing-l-l">Card content</sbb-card>
+<sbb-card class="sbb-card-spacing-xxs">Card content</sbb-card>
+<sbb-card class="sbb-card-spacing-s">Card content</sbb-card>
+<sbb-card class="sbb-card-spacing-l">Card content</sbb-card>
 ```
 
 The component has four different values to choose from for the `color` property; default is `white`.

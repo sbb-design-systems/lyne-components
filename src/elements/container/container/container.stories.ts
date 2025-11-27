@@ -36,7 +36,7 @@ const containerContent = (title: string, isDark: boolean, last = false): Templat
 `;
 
 const card = (title: string): TemplateResult => html`
-  <sbb-card class="sbb-card-spacing-s-s">
+  <sbb-card class="sbb-card-spacing-s">
     <sbb-title level="5">${title}</sbb-title>
     <p class="sbb-text-s" style="margin: 0">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
