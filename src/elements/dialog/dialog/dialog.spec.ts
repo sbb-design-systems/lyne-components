@@ -337,7 +337,8 @@ describe('sbb-dialog', () => {
     });
 
     it('opens and closes the overlay with non-zero animation duration', async () => {
-      element.classList.add('sbb-enable-animation');
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       element.style.setProperty('--sbb-dialog-animation-duration', '1ms');
 
       const beforeCloseSpy = new EventSpy(SbbDialogElement.events.beforeclose, element);

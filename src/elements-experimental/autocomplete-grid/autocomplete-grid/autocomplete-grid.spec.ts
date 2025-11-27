@@ -195,9 +195,8 @@ describe(`sbb-autocomplete-grid`, () => {
   });
 
   it('opens and closes with non-zero animation duration', async function (this: Context) {
-    // Flaky on WebKit
-    this.retries(3);
-    element.classList.add('sbb-enable-animation');
+    (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
     element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
     const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
     const closeSpy = new EventSpy(SbbAutocompleteGridElement.events.close, element);

@@ -336,6 +336,8 @@ describe(`sbb-selection-expansion-panel`, () => {
     let closeSpy: EventSpy<Event>;
 
     beforeEach(async () => {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       beforeOpenSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.beforeopen, null, {
         capture: true,
       });
@@ -605,10 +607,11 @@ describe(`sbb-selection-expansion-panel`, () => {
     });
 
     it('selects input on click with non-zero-animation duration', async () => {
-      elements.forEach((panel) => {
-        panel.classList.add('sbb-enable-animation');
-        panel.style.setProperty('--sbb-selection-expansion-panel-animation-duration', '1ms');
-      });
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
+      elements.forEach((panel) =>
+        panel.style.setProperty('--sbb-selection-expansion-panel-animation-duration', '1ms'),
+      );
       await openSpy.calledOnce();
       expect(firstPanel).to.match(':state(state-opened)');
 

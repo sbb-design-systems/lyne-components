@@ -94,9 +94,8 @@ describe(`sbb-navigation-section`, () => {
   });
 
   it('opens and closes with non-zero animation duration', async function (this: Context) {
-    // Flaky on WebKit
-    this.retries(3);
-    element.classList.add('sbb-enable-animation');
+    (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
     element.style.setProperty('--sbb-navigation-section-animation-duration', '1ms');
 
     element.open();

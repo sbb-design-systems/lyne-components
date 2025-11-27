@@ -392,9 +392,8 @@ describe('sbb-sidebar', () => {
     });
 
     it('opens and closes with non-zero animation duration', async function (this: Context) {
-      // Flaky on WebKit
-      this.retries(3);
-      container.classList.add('sbb-enable-animation');
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       container.style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
       const openSpy = new EventSpy(SbbSidebarElement.events.open, element);
       const closeSpy = new EventSpy(SbbSidebarElement.events.close, element);
@@ -474,11 +473,10 @@ describe('sbb-sidebar', () => {
     });
 
     it('should handle initial opened state with non-zero animation time', async () => {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       container = await fixture(
-        html`<sbb-sidebar-container
-          class="sbb-enable-animation"
-          style="--sbb-sidebar-container-animation-duration: 1ms"
-        >
+        html`<sbb-sidebar-container style="--sbb-sidebar-container-animation-duration: 1ms">
           <sbb-sidebar opened>Content</sbb-sidebar>
           <sbb-sidebar-content>Content</sbb-sidebar-content>
         </sbb-sidebar-container>`,
@@ -493,7 +491,8 @@ describe('sbb-sidebar', () => {
 
     describe('status change during animation', () => {
       beforeEach(() => {
-        container.classList.add('sbb-enable-animation');
+        (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
         container.style.setProperty('--sbb-sidebar-container-animation-duration', '10ms');
       });
 

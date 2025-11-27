@@ -93,7 +93,8 @@ describe('sbb-overlay', () => {
     });
 
     it('opens and closes the overlay with non-zero animation duration', async () => {
-      element.classList.add('sbb-enable-animation');
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       element.style.setProperty('--sbb-overlay-animation-duration', '1ms');
       const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
 

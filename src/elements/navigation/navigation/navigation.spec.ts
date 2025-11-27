@@ -317,7 +317,8 @@ describe(`sbb-navigation`, () => {
   });
 
   it('opens and closes navigation with non-zero animation duration', async () => {
-    element.classList.add('sbb-enable-animation');
+    (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
     element.style.setProperty('--sbb-navigation-animation-duration', '1ms');
 
     const openSpy = new EventSpy(SbbNavigationElement.events.open, element);

@@ -216,9 +216,8 @@ describe(`sbb-menu`, () => {
     });
 
     it('opens and closes with non-zero animation duration', async function (this: Context) {
-      // Flaky on WebKit
-      this.retries(3);
-      element.classList.add('sbb-enable-animation');
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       element.style.setProperty('--sbb-menu-animation-duration', '1ms');
       const openSpy = new EventSpy(SbbMenuElement.events.open, element);
       const closeSpy = new EventSpy(SbbMenuElement.events.close, element);

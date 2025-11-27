@@ -216,9 +216,8 @@ describe(`sbb-popover`, () => {
     });
 
     it('opens and closes with non-zero animation duration', async function (this: Context) {
-      // Flaky on WebKit
-      this.retries(3);
-      element.classList.add('sbb-enable-animation');
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       element.style.setProperty('--sbb-popover-animation-duration', '1ms');
 
       const popoverLink = element.querySelector<SbbLinkElement>(':scope > sbb-link')!;
