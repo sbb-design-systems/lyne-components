@@ -12,7 +12,4 @@ export type SbbOrientation = 'horizontal' | 'vertical';
 
 export type SbbProtectiveRoom = 'none' | 'minimal' | 'ideal';
 
-/** @deprecated */
-export type SbbTimetableAppearance = 'first-level' | 'second-level';
-
 export type SbbOpenedClosedState = 'closed' | 'opening' | 'opened' | 'closing';
