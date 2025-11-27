@@ -106,7 +106,8 @@ export class SbbMediaMatcherController implements ReactiveController {
  */
 export class SbbDarkModeController extends SbbMediaMatcherController {
   /** The current mode based on the class attribute of the <html> element. */
-  private static _currentMode: 'light-dark' | 'light' | 'dark' | null = this._readLightDarkClass();
+  private static _currentMode: 'sbb-light-dark' | 'sbb-light' | 'sbb-dark' | null =
+    this._readLightDarkClass();
 
   /** MutationObserver that observes the "class" attribute of the <html> element. */
   private static readonly _observer = !isServer
@@ -142,14 +143,14 @@ export class SbbDarkModeController extends SbbMediaMatcherController {
     this._onChangeWithStateUpdater = onChangeWithStateUpdater;
   }
 
-  private static _readLightDarkClass(): 'light-dark' | 'light' | 'dark' | null {
+  private static _readLightDarkClass(): 'sbb-light-dark' | 'sbb-light' | 'sbb-dark' | null {
     if (isServer) {
       return null;
     }
     const classList = document.documentElement.classList;
     return (
-      (['light-dark', 'dark', 'light'] as const).find((mode) =>
-        classList.contains(`sbb-${mode}`),
+      (['sbb-light-dark', 'sbb-dark', 'sbb-light'] as const).find((mode) =>
+        classList.contains(mode),
       ) ?? null
     );
   }

@@ -221,6 +221,10 @@ To enable lean mode, add the CSS class `sbb-lean` to the `html` tag.
 
 ### Dark Mode
 
+We use the browser native functionality
+[color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/color-scheme)
+to provide support for light and dark modes.
+
 Per default, lyne components adapt to the user's system color scheme preference (light or dark mode).
 Alternatively, you can opt out and force one mode or the other by applying either the `sbb-light` or `sbb-dark` CSS class,
 which overrides the automatic `color-scheme` setting, thus forcing either a light or a dark mode.
