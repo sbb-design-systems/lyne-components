@@ -8,47 +8,34 @@ snapshots["sbb-stepper renders DOM"] =
   size="m"
 >
   <sbb-step-label
-    id="sbb-step-label-0"
     slot="step-label"
     tabindex="0"
   >
     Test step label 1
   </sbb-step-label>
-  <sbb-step
-    id="sbb-step-0"
-    slot="step"
-  >
+  <sbb-step slot="step">
     Test step content 1
   </sbb-step>
   <sbb-step-label
-    id="sbb-step-label-1"
     slot="step-label"
     tabindex="-1"
   >
     Test step label 2
   </sbb-step-label>
-  <sbb-step
-    id="sbb-step-1"
-    slot="step"
-  >
+  <sbb-step slot="step">
     Test step content 2
   </sbb-step>
   <sbb-step-label
     disabled=""
-    id="sbb-step-label-2"
     slot="step-label"
     tabindex="-1"
   >
     Test step label 3
   </sbb-step-label>
-  <sbb-step
-    id="sbb-step-2"
-    slot="step"
-  >
+  <sbb-step slot="step">
     Test step content 3
   </sbb-step>
   <sbb-step-label
-    id="sbb-step-label-3"
     slot="step-label"
     tabindex="-1"
   >
