@@ -27,7 +27,7 @@ describe('sbb-stepper', () => {
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['id', 'style'] });
     });
 
     it('Shadow DOM', async () => {

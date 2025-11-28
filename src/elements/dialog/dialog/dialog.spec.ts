@@ -744,9 +744,11 @@ describe('sbb-dialog', () => {
 
     it('should open the dialog and the stepper should appear with the correct style', async () => {
       const stepper = root.querySelector('sbb-stepper')!;
-      expect(getComputedStyle(stepper).getPropertyValue('--sbb-stepper-marker-size')).to.be.equal(
-        '0px',
-      );
+      // TODO: Firefox has 0 instead of 0px; fix when possible
+      expect(
+        parseInt(getComputedStyle(stepper).getPropertyValue('--sbb-stepper-marker-size')),
+        'stepper marker size',
+      ).to.be.equal(0);
       expect(
         getComputedStyle(stepper).getPropertyValue('--sbb-stepper-content-height'),
       ).to.be.equal('0px');
