@@ -48,7 +48,7 @@ describe('sbb-flip-card', () => {
     await flipSpy.calledOnce();
     expect(flipSpy.count).to.be.equal(1);
 
-    expect(element).to.have.attribute('data-flipped');
+    expect(element).to.match(':state(flipped)');
     expect(element.isFlipped).to.be.true;
 
     expect(summary.inert).to.be.equal(true);
@@ -70,7 +70,7 @@ describe('sbb-flip-card', () => {
     await flipSpy.calledOnce();
     expect(flipSpy.count).to.be.equal(1);
 
-    expect(element).to.have.attribute('data-flipped');
+    expect(element).to.match(':state(flipped)');
     expect(element.isFlipped).to.be.true;
 
     expect(summary.inert).to.be.equal(true);
@@ -92,7 +92,7 @@ describe('sbb-flip-card', () => {
     await flipSpy.calledOnce();
     expect(flipSpy.count).to.be.equal(1);
 
-    expect(element).to.have.attribute('data-flipped');
+    expect(element).to.match(':state(flipped)');
     expect(element.isFlipped).to.be.true;
 
     expect(summary.inert).to.be.equal(true);
@@ -138,16 +138,16 @@ describe('sbb-flip-card', () => {
   it('should detect link when href set as attribute', async () => {
     const link = element.querySelector('sbb-link')!;
 
-    expect(link).to.have.attribute('data-card-focusable');
+    expect(link).to.match('.sbb-action');
   });
 
   it('should detect link when href set as property', async () => {
     const link = element.querySelector('sbb-link')!;
     link.removeAttribute('href');
-    link.removeAttribute('data-card-focusable');
+    link.classList.remove('sbb-action');
     link.href = '#';
     await waitForLitRender(element);
 
-    expect(link).to.have.attribute('data-card-focusable');
+    expect(link).to.match('.sbb-action');
   });
 });

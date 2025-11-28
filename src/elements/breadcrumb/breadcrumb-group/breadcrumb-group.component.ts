@@ -15,7 +15,6 @@ import {
   sbbInputModalityDetector,
 } from '../../core/a11y.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
-import { setOrRemoveAttribute } from '../../core/dom.ts';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n.ts';
 import {
   SbbElementInternalsMixin,
@@ -38,22 +37,16 @@ const MIN_BREADCRUMBS_TO_COLLAPSE = 3;
  */
 export
 @customElement('sbb-breadcrumb-group')
-class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
-  SbbBreadcrumbElement,
-  typeof LitElement
->(SbbElementInternalsMixin(LitElement)) {
-  public static readonly role = 'navigation';
+class SbbBreadcrumbGroupElement extends SbbElementInternalsMixin(
+  SbbNamedSlotListMixin<SbbBreadcrumbElement, typeof LitElement>(LitElement),
+) {
+  public static override readonly role = 'navigation';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = ['sbb-breadcrumb'];
 
   /** The state of the breadcrumb group. */
   @state()
-  private set _state(state: 'collapsed' | 'manually-expanded' | null) {
-    setOrRemoveAttribute(this, 'data-state', state);
-  }
-  private get _state(): 'collapsed' | 'manually-expanded' | null {
-    return this.getAttribute('data-state') as 'collapsed' | 'manually-expanded' | null;
-  }
+  private accessor _state: 'collapsed' | 'manually-expanded' | null = null;
 
   private _resizeObserver = new ResizeController(this, {
     target: null,
@@ -89,7 +82,7 @@ class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
     super.firstUpdated(changedProperties);
 
     this._resizeObserver.observe(this);
-    this.toggleAttribute('data-loaded', true);
+    this.internals.states.add('loaded');
   }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {

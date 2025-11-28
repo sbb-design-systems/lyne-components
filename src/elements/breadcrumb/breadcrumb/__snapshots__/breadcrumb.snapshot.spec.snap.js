@@ -3,8 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-breadcrumb renders with text DOM"] = 
 `<sbb-breadcrumb
-  data-action=""
-  data-link=""
   download=""
   href="https://example.com/test"
   rel="subsection"
@@ -38,8 +36,6 @@ snapshots["sbb-breadcrumb renders with text Shadow DOM"] =
 
 snapshots["sbb-breadcrumb renders with icon DOM"] = 
 `<sbb-breadcrumb
-  data-action=""
-  data-link=""
   href="/"
   icon-name="house-small"
 >
@@ -55,7 +51,6 @@ snapshots["sbb-breadcrumb renders with icon Shadow DOM"] =
   <slot name="icon">
     <sbb-icon
       class="sbb-breadcrumb__icon"
-      data-namespace="default"
       name="house-small"
     >
     </sbb-icon>
@@ -70,8 +65,6 @@ snapshots["sbb-breadcrumb renders with icon Shadow DOM"] =
 
 snapshots["sbb-breadcrumb renders with icon and text DOM"] = 
 `<sbb-breadcrumb
-  data-action=""
-  data-link=""
   href="/"
   icon-name="house-small"
 >
@@ -88,7 +81,6 @@ snapshots["sbb-breadcrumb renders with icon and text Shadow DOM"] =
   <slot name="icon">
     <sbb-icon
       class="sbb-breadcrumb__icon"
-      data-namespace="default"
       name="house-small"
     >
     </sbb-icon>

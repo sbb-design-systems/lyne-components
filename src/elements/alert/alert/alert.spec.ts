@@ -55,6 +55,8 @@ describe(`sbb-alert`, () => {
   });
 
   it('should fire animation events with non-zero animation duration', async () => {
+    (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
     const alert: SbbAlertElement = await fixture(
       html`<sbb-alert style="--sbb-alert-animation-duration: 1ms">
         <sbb-title level="3">Disruption</sbb-title>

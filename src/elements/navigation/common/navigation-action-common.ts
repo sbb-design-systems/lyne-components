@@ -64,7 +64,7 @@ export const SbbNavigationActionCommonElementMixin = <
       super(...args);
       this.addEventListener?.('click', () => {
         if (
-          !this.hasAttribute('data-action-active') &&
+          !this.matches(':state(action-active)') &&
           this._navigationMarker &&
           !this.connectedSection
         ) {
@@ -83,7 +83,7 @@ export const SbbNavigationActionCommonElementMixin = <
 
       // Check if the current element is nested inside a navigation section.
       this._navigationSection = this.closest('sbb-navigation-section');
-      this.toggleAttribute('data-section-action', !!this._navigationSection);
+      this.toggleState('section-action', !!this._navigationSection);
     }
 
     protected override renderTemplate(): TemplateResult {

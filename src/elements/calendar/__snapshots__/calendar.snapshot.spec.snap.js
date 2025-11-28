@@ -15,9 +15,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
   <div class="sbb-calendar__controls">
     <sbb-secondary-button
       aria-label="Change to the previous month"
-      data-action=""
-      data-button=""
-      data-sbb-button=""
       icon-name="chevron-small-left-small"
       id="sbb-calendar__controls-previous"
       size="m"
@@ -31,10 +28,7 @@ snapshots["sbb-calendar renders Shadow DOM"] =
         type="button"
       >
         January 2023
-        <sbb-icon
-          data-namespace="default"
-          name="chevron-small-down-small"
-        >
+        <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
       <sbb-screen-reader-only role="status">
@@ -43,9 +37,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
-      data-action=""
-      data-button=""
-      data-sbb-button=""
       icon-name="chevron-small-right-small"
       id="sbb-calendar__controls-next"
       size="m"
@@ -596,9 +587,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
   <div class="sbb-calendar__controls">
     <sbb-secondary-button
       aria-label="Change to the previous month"
-      data-action=""
-      data-button=""
-      data-sbb-button=""
       icon-name="chevron-small-left-small"
       id="sbb-calendar__controls-previous"
       size="m"
@@ -612,10 +600,7 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
         type="button"
       >
         January 2023
-        <sbb-icon
-          data-namespace="default"
-          name="chevron-small-down-small"
-        >
+        <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
       <sbb-screen-reader-only role="status">
@@ -624,9 +609,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
-      data-action=""
-      data-button=""
-      data-sbb-button=""
       icon-name="chevron-small-right-small"
       id="sbb-calendar__controls-next"
       size="m"
@@ -1176,9 +1158,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
   <div class="sbb-calendar__controls">
     <sbb-secondary-button
       aria-label="Change to the previous month"
-      data-action=""
-      data-button=""
-      data-sbb-button=""
       icon-name="chevron-small-left-small"
       id="sbb-calendar__controls-previous"
       size="m"
@@ -1192,10 +1171,7 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
         type="button"
       >
         January 2023
-        <sbb-icon
-          data-namespace="default"
-          name="chevron-small-down-small"
-        >
+        <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
       <sbb-screen-reader-only role="status">
@@ -1204,9 +1180,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
-      data-action=""
-      data-button=""
-      data-sbb-button=""
       icon-name="chevron-small-right-small"
       id="sbb-calendar__controls-next"
       size="m"
@@ -1745,7 +1718,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
 
 snapshots["sbb-calendar renders horizontal wide with week numbers DOM"] = 
 `<sbb-calendar
-  data-wide=""
   orientation="horizontal"
   selected="2023-01-20T00:00:00"
   week-numbers=""
@@ -1760,9 +1732,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
   <div class="sbb-calendar__controls">
     <sbb-secondary-button
       aria-label="Change to the previous month"
-      data-action=""
-      data-button=""
-      data-sbb-button=""
       icon-name="chevron-small-left-small"
       id="sbb-calendar__controls-previous"
       size="m"
@@ -1776,10 +1745,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
         type="button"
       >
         January 2023
-        <sbb-icon
-          data-namespace="default"
-          name="chevron-small-down-small"
-        >
+        <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
       <button
@@ -1788,10 +1754,7 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
         type="button"
       >
         February 2023
-        <sbb-icon
-          data-namespace="default"
-          name="chevron-small-down-small"
-        >
+        <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
       <sbb-screen-reader-only role="status">
@@ -1800,9 +1763,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
-      data-action=""
-      data-button=""
-      data-sbb-button=""
       icon-name="chevron-small-right-small"
       id="sbb-calendar__controls-next"
       size="m"
@@ -2903,7 +2863,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
 
 snapshots["sbb-calendar renders vertical wide with week numbers DOM"] = 
 `<sbb-calendar
-  data-wide=""
   orientation="vertical"
   selected="2023-01-20T00:00:00"
   week-numbers=""
@@ -2918,9 +2877,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
   <div class="sbb-calendar__controls">
     <sbb-secondary-button
       aria-label="Change to the previous month"
-      data-action=""
-      data-button=""
-      data-sbb-button=""
       icon-name="chevron-small-left-small"
       id="sbb-calendar__controls-previous"
       size="m"
@@ -2934,10 +2890,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
         type="button"
       >
         January 2023
-        <sbb-icon
-          data-namespace="default"
-          name="chevron-small-down-small"
-        >
+        <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
       <button
@@ -2946,10 +2899,7 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
         type="button"
       >
         February 2023
-        <sbb-icon
-          data-namespace="default"
-          name="chevron-small-down-small"
-        >
+        <sbb-icon name="chevron-small-down-small">
         </sbb-icon>
       </button>
       <sbb-screen-reader-only role="status">
@@ -2958,9 +2908,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
     </div>
     <sbb-secondary-button
       aria-label="Change to the next month"
-      data-action=""
-      data-button=""
-      data-sbb-button=""
       icon-name="chevron-small-right-small"
       id="sbb-calendar__controls-next"
       size="m"

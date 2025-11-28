@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-toast renders DOM"] = 
 `<sbb-toast
-  data-state="closed"
   icon-name="circle-tick-small"
   popover="manual"
   position="bottom-center"
@@ -20,10 +19,7 @@ snapshots["sbb-toast renders Shadow DOM"] =
   <div class="sbb-toast">
     <div class="sbb-toast-wrapper">
       <slot name="icon">
-        <sbb-icon
-          data-namespace="default"
-          name="circle-tick-small"
-        >
+        <sbb-icon name="circle-tick-small">
         </sbb-icon>
       </slot>
       <div class="sbb-toast__content">
@@ -43,9 +39,6 @@ snapshots["sbb-toast renders Shadow DOM"] =
       <sbb-transparent-button
         aria-label="Close message"
         class="sbb-toast__close-button"
-        data-action=""
-        data-button=""
-        data-sbb-button=""
         icon-name="cross-small"
         negative=""
         sbb-toast-close=""
@@ -61,7 +54,6 @@ snapshots["sbb-toast renders Shadow DOM"] =
 
 snapshots["sbb-toast renders readonly DOM"] = 
 `<sbb-toast
-  data-state="closed"
   icon-name="circle-tick-small"
   popover="manual"
   position="bottom-center"
@@ -79,10 +71,7 @@ snapshots["sbb-toast renders readonly Shadow DOM"] =
   <div class="sbb-toast">
     <div class="sbb-toast-wrapper">
       <slot name="icon">
-        <sbb-icon
-          data-namespace="default"
-          name="circle-tick-small"
-        >
+        <sbb-icon name="circle-tick-small">
         </sbb-icon>
       </slot>
       <div class="sbb-toast__content">
@@ -107,7 +96,6 @@ snapshots["sbb-toast renders readonly Shadow DOM"] =
 
 snapshots["sbb-toast renders with action DOM"] = 
 `<sbb-toast
-  data-state="closed"
   icon-name="circle-tick-small"
   popover="manual"
   position="bottom-center"
@@ -116,9 +104,6 @@ snapshots["sbb-toast renders with action DOM"] =
     Lorem ipsum dolor
   </span>
   <sbb-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="https://www.sbb.ch"
     negative=""
     sbb-toast-close=""
@@ -137,10 +122,7 @@ snapshots["sbb-toast renders with action Shadow DOM"] =
   <div class="sbb-toast">
     <div class="sbb-toast-wrapper">
       <slot name="icon">
-        <sbb-icon
-          data-namespace="default"
-          name="circle-tick-small"
-        >
+        <sbb-icon name="circle-tick-small">
         </sbb-icon>
       </slot>
       <div class="sbb-toast__content">
@@ -160,9 +142,6 @@ snapshots["sbb-toast renders with action Shadow DOM"] =
       <sbb-transparent-button
         aria-label="Close message"
         class="sbb-toast__close-button"
-        data-action=""
-        data-button=""
-        data-sbb-button=""
         icon-name="cross-small"
         negative=""
         sbb-toast-close=""
@@ -218,7 +197,6 @@ snapshots["sbb-toast renders readonly A11y tree Firefox"] =
 
 snapshots["sbb-toast renders in dark mode DOM"] = 
 `<sbb-toast
-  data-state="closed"
   icon-name="circle-tick-small"
   popover="manual"
   position="bottom-center"
@@ -227,9 +205,6 @@ snapshots["sbb-toast renders in dark mode DOM"] =
     Lorem ipsum dolor
   </span>
   <sbb-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="https://www.sbb.ch"
     sbb-toast-close=""
     size="s"
@@ -247,10 +222,7 @@ snapshots["sbb-toast renders in dark mode Shadow DOM"] =
   <div class="sbb-toast">
     <div class="sbb-toast-wrapper">
       <slot name="icon">
-        <sbb-icon
-          data-namespace="default"
-          name="circle-tick-small"
-        >
+        <sbb-icon name="circle-tick-small">
         </sbb-icon>
       </slot>
       <div class="sbb-toast__content">
@@ -269,9 +241,6 @@ snapshots["sbb-toast renders in dark mode Shadow DOM"] =
       <sbb-transparent-button
         aria-label="Close message"
         class="sbb-toast__close-button"
-        data-action=""
-        data-button=""
-        data-sbb-button=""
         icon-name="cross-small"
         sbb-toast-close=""
         size="m"

@@ -62,7 +62,7 @@
   );
 }
 
-::slotted([data-action]) {
+::slotted(:is(:state(action), .sbb-action)) {
   align-self: center;
   margin-inline: var(--sbb-selection-action-panel-action-margin-inline);
 }

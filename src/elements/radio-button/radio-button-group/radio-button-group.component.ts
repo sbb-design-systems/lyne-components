@@ -117,7 +117,7 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
       new MutationController(this, {
         config: { childList: true, subtree: true },
         callback: () =>
-          this.toggleAttribute('data-has-panel', !!this.querySelector?.('sbb-radio-button-panel')),
+          this.toggleState('has-panel', !!this.querySelector?.('sbb-radio-button-panel')),
       }),
     );
 

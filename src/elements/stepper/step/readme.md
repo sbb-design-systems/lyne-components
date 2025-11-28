@@ -29,9 +29,10 @@ The aria attribute `aria-labelledby` is set automatically.
 
 ## Properties
 
-| Name    | Attribute | Privacy | Type                          | Default | Description            |
-| ------- | --------- | ------- | ----------------------------- | ------- | ---------------------- |
-| `label` | -         | public  | `SbbStepLabelElement \| null` | `null`  | The label of the step. |
+| Name      | Attribute | Privacy | Type                          | Default | Description            |
+| --------- | --------- | ------- | ----------------------------- | ------- | ---------------------- |
+| `label`   | -         | public  | `SbbStepLabelElement \| null` | `null`  | The label of the step. |
+| `stepper` | -         | public  | `SbbStepperElement \| null`   |         |                        |
 
 ## Events
 

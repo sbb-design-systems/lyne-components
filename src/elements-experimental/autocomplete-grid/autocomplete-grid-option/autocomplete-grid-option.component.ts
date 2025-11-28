@@ -1,4 +1,5 @@
 import { SbbPropertyWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
+import { ɵstateController } from '@sbb-esta/lyne-elements/core/mixins.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option.js';
 import type { CSSResultGroup, PropertyValues } from 'lit';
@@ -31,12 +32,19 @@ class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<
       new SbbPropertyWatcherController(this, () => this.closest('sbb-autocomplete-grid-optgroup'), {
         disabled: (p) => {
           this.disabledFromGroup = p.disabled;
-          this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
-            'data-disabled',
+          ɵstateController(this.closest?.('sbb-autocomplete-grid-row'))?.toggle(
+            'disabled',
             this.disabled || this.disabledFromGroup,
           );
+          this.updateAriaDisabled();
         },
         label: (p) => (this.groupLabel = p.label),
+      }),
+    );
+
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-autocomplete-grid'), {
+        negative: (e) => this.toggleState('negative', e.negative),
       }),
     );
   }
@@ -44,27 +52,12 @@ class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
     if (changedProperties.has('disabled')) {
-      this.closest?.('sbb-autocomplete-grid-row')?.toggleAttribute(
-        'data-disabled',
+      ɵstateController(this.closest?.('sbb-autocomplete-grid-row'))?.toggle(
+        'disabled',
         this.disabled || this.disabledFromGroup,
       );
       this.updateAriaDisabled();
     }
-  }
-
-  protected setAttributeFromParent(): void {
-    const parentGroup = this.closest('sbb-autocomplete-grid-optgroup');
-    if (parentGroup) {
-      this.disabledFromGroup = parentGroup.disabled;
-      this.updateAriaDisabled();
-    }
-    this.closest('sbb-autocomplete-grid-row')?.toggleAttribute(
-      'data-disabled',
-      this.disabled || this.disabledFromGroup,
-    );
-
-    this.negative = !!this.closest(`:is(sbb-autocomplete-grid[negative],sbb-form-field[negative])`);
-    this.toggleAttribute('data-negative', this.negative);
   }
 
   protected selectByClick(event: MouseEvent): void {

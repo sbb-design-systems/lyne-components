@@ -30,7 +30,7 @@ class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this._formField = this.closest<SbbFormFieldElement>('sbb-form-field, [data-form-field]');
+    this._formField = this.closest<SbbFormFieldElement>('sbb-form-field');
 
     if (this._formField) {
       this.slot ||= 'suffix';

@@ -63,14 +63,7 @@ describe(`sbb-tag`, () => {
     beforeEach(async () => {
       element = await fixture(html`
         <sbb-tag value="foo">
-          <sbb-icon
-            aria-hidden="true"
-            data-namespace="default"
-            name="cross-small"
-            role="img"
-            slot="icon"
-          >
-          </sbb-icon>
+          <sbb-icon aria-hidden="true" name="cross-small" role="img" slot="icon"> </sbb-icon>
           Info
           <span slot="amount">123</span>
         </sbb-tag>

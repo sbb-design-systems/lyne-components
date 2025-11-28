@@ -2,18 +2,14 @@
 export const snapshots = {};
 
 snapshots["sbb-breadcrumb-group renders DOM"] = 
-`<sbb-breadcrumb-group data-loaded="">
+`<sbb-breadcrumb-group>
   <sbb-breadcrumb
-    data-action=""
-    data-link=""
     href="https://example.com"
     icon-name="pie-small"
     slot="li-0"
   >
   </sbb-breadcrumb>
   <sbb-breadcrumb
-    data-action=""
-    data-link=""
     href="https://example.com/one"
     slot="li-1"
   >
@@ -21,8 +17,6 @@ snapshots["sbb-breadcrumb-group renders DOM"] =
   </sbb-breadcrumb>
   <sbb-breadcrumb
     accessibility-current="page"
-    data-action=""
-    data-link=""
     href="https://example.com/one"
     slot="li-2"
   >
@@ -39,7 +33,6 @@ snapshots["sbb-breadcrumb-group renders Shadow DOM"] =
     </slot>
     <sbb-icon
       class="sbb-breadcrumb-group__divider-icon"
-      data-namespace="default"
       name="chevron-small-right-small"
     >
     </sbb-icon>
@@ -49,7 +42,6 @@ snapshots["sbb-breadcrumb-group renders Shadow DOM"] =
     </slot>
     <sbb-icon
       class="sbb-breadcrumb-group__divider-icon"
-      data-namespace="default"
       name="chevron-small-right-small"
     >
     </sbb-icon>

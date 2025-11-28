@@ -34,7 +34,7 @@
   --sbb-sidebar-background-color: var(--sbb-background-color-3);
 }
 
-:host(:is([mode='over'], [data-mode-over-forced]:not([data-mode-over-forced-closing]))) {
+:host(:is([mode='over'], :state(mode-over-forced):not(:state(mode-over-forced-closing)))) {
   --sbb-sidebar__margin: var(--sbb-sidebar-margin);
   --sbb-sidebar__border-radius-end: var(--sbb-sidebar-border-radius);
   --sbb-sidebar__z-index: 3;
@@ -73,14 +73,14 @@
     inset-inline-end: 0;
   }
 
-  :host([data-state='closed']) & {
+  :host(:state(state-closed)) & {
     // Stops the sidenav from poking out (e.g. with the box shadow) while it's off-screen.
     // We can't use `display` because it interrupts the transition and `transition-behavior`
     // isn't available in all browsers.
     visibility: hidden;
   }
 
-  :host(:is([data-state='closing'], [data-state='closed'])) & {
+  :host(:is(:state(state-closing), :state(state-closed))) & {
     translate: var(--sbb-sidebar__translate-x) 0;
   }
 }
@@ -94,7 +94,7 @@
   transition: box-shadow var(--sbb-animation-easing) var(--sbb-sidebar-container-animation-duration);
   box-shadow: none;
 
-  :host([data-scrolled]) & {
+  :host(:state(scrolled)) & {
     box-shadow: var(--sbb-box-shadow-level-5-soft);
   }
 }

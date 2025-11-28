@@ -85,7 +85,7 @@
 }
 
 :is(.sbb-clock__hand-hours, .sbb-clock__hand-minutes, .sbb-clock__hand-seconds) {
-  :host(:not([data-initialized])) & {
+  :host(:not(:state(initialized))) & {
     display: none;
   }
 }

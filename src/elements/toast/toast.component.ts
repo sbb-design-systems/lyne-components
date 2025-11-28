@@ -222,7 +222,7 @@ class SbbToastElement extends SbbIconNameMixin(
    */
   private _closeOtherToasts(): void {
     toastRefs.forEach((t) => {
-      if (t.getAttribute('data-state') === 'opened') {
+      if (t.isOpen) {
         t.close();
       }
     });

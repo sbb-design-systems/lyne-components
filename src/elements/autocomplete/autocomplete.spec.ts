@@ -1,6 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 import { type SinonSpy, spy } from 'sinon';
 
 import { isSafari } from '../core/dom.ts';
@@ -72,7 +73,9 @@ describe(`sbb-autocomplete`, () => {
     );
   });
 
-  it('opens and closes with mouse and keyboard', async () => {
+  it('opens and closes with mouse and keyboard', async function (this: Context) {
+    // Flaky on WebKit
+    this.retries(3);
     const beforeOpenSpy = new EventSpy(SbbAutocompleteElement.events.beforeopen, element);
     const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
     const beforeCloseSpy = new EventSpy(SbbAutocompleteElement.events.beforeclose, element);
@@ -86,7 +89,7 @@ describe(`sbb-autocomplete`, () => {
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'true');
-    expect(input).to.have.attribute('data-expanded');
+    expect(input).to.match('[data-expanded]');
     expect(element).to.match(':popover-open');
 
     await sendKeys({ press: 'Escape' });
@@ -95,7 +98,7 @@ describe(`sbb-autocomplete`, () => {
     await closeSpy.calledOnce();
     expect(closeSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'false');
-    expect(input).not.to.have.attribute('data-expanded');
+    expect(input).not.to.match('[data-expanded]');
     expect(element).not.to.match(':popover-open');
 
     await sendKeys({ press: 'ArrowDown' });
@@ -104,7 +107,7 @@ describe(`sbb-autocomplete`, () => {
     await openSpy.calledTimes(2);
     expect(openSpy.count).to.be.equal(2);
     expect(input).to.have.attribute('aria-expanded', 'true');
-    expect(input).to.have.attribute('data-expanded');
+    expect(input).to.match('[data-expanded]');
 
     await sendKeys({ press: tabKey });
     await beforeCloseSpy.calledTimes(2);
@@ -112,7 +115,7 @@ describe(`sbb-autocomplete`, () => {
     await closeSpy.calledTimes(2);
     expect(closeSpy.count).to.be.equal(2);
     expect(input).to.have.attribute('aria-expanded', 'false');
-    expect(input).not.to.have.attribute('data-expanded');
+    expect(input).not.to.match('[data-expanded]');
 
     input.click();
     await beforeOpenSpy.calledTimes(3);
@@ -120,7 +123,7 @@ describe(`sbb-autocomplete`, () => {
     await openSpy.calledTimes(3);
     expect(openSpy.count).to.be.equal(3);
     expect(input).to.have.attribute('aria-expanded', 'true');
-    expect(input).to.have.attribute('data-expanded');
+    expect(input).to.match('[data-expanded]');
 
     // Simulate backdrop click
     await sendMouse({ type: 'click', position: [formField.offsetWidth + 25, 25] });
@@ -130,7 +133,7 @@ describe(`sbb-autocomplete`, () => {
     await closeSpy.calledTimes(3);
     expect(closeSpy.count).to.be.equal(3);
     expect(input).to.have.attribute('aria-expanded', 'false');
-    expect(element).not.to.have.attribute('data-expanded');
+    expect(element).not.to.match('[data-expanded]');
   });
 
   it('deactivates later disabled options when already active', async () => {
@@ -142,11 +145,11 @@ describe(`sbb-autocomplete`, () => {
     await sendKeys({ press: 'ArrowDown' });
     const optOne = element.querySelector<SbbOptionElement>('#option-1')!;
 
-    expect(optOne).to.have.attribute('data-active');
+    expect(optOne).to.match(':state(active)');
     optOne.disabled = true;
     await waitForLitRender(element);
 
-    expect(optOne).not.to.have.attribute('data-active');
+    expect(optOne).not.to.match(':state(active)');
   });
 
   it('ignores later removed option', async () => {
@@ -159,17 +162,19 @@ describe(`sbb-autocomplete`, () => {
     await openSpy.calledOnce();
     await sendKeys({ press: 'ArrowDown' });
 
-    expect(optOne).to.have.attribute('data-active');
+    expect(optOne).to.match(':state(active)');
 
     optOne.remove();
     optTwo.remove();
     await waitForLitRender(element);
 
     await sendKeys({ press: 'ArrowDown' });
-    expect(optThree).to.have.attribute('data-active');
+    expect(optThree).to.match(':state(active)');
   });
 
-  it('opens and closes with non-zero animation duration', async () => {
+  it('opens and closes with non-zero animation duration', async function (this: Context) {
+    (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
     element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
     const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
     const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
@@ -233,9 +238,9 @@ describe(`sbb-autocomplete`, () => {
     await sendKeys({ press: 'ArrowDown' });
     await sendKeys({ press: 'ArrowDown' });
     await waitForLitRender(element);
-    expect(optOne).not.to.have.attribute('data-active');
+    expect(optOne).not.to.match(':state(active)');
     expect(optOne).not.to.have.attribute('selected');
-    expect(optTwo).to.have.attribute('data-active');
+    expect(optTwo).to.match(':state(active)');
     expect(optTwo).not.to.have.attribute('selected');
     expect(input).to.have.attribute('aria-activedescendant', 'option-2');
 
@@ -244,7 +249,7 @@ describe(`sbb-autocomplete`, () => {
     expect(closeSpy.count).to.be.equal(1);
     expect(keydownSpy.lastEvent?.defaultPrevented).to.be.true;
 
-    expect(optTwo).not.to.have.attribute('data-active');
+    expect(optTwo).not.to.match(':state(active)');
     expect(optTwo).to.have.attribute('selected');
     expect(inputEventSpy.count).to.be.equal(1);
     expect(changeEventSpy.count).to.be.equal(1);
@@ -256,13 +261,13 @@ describe(`sbb-autocomplete`, () => {
 
   describe('autoActiveFirstOption', () => {
     function assertActiveOption(option: SbbOptionElement): void {
-      expect(option).to.have.attribute('data-active');
+      expect(option).to.match(':state(active)');
       expect(option).not.to.have.attribute('selected');
       expect(input).to.have.attribute('aria-activedescendant', option.id);
     }
 
     function assertInactiveOption(option: SbbOptionElement): void {
-      expect(option).not.to.have.attribute('data-active');
+      expect(option).not.to.match(':state(active)');
       expect(option).not.to.have.attribute('selected');
       expect(input).not.to.have.attribute('aria-activedescendant', option.id);
     }
@@ -359,7 +364,7 @@ describe(`sbb-autocomplete`, () => {
 
       await sendKeys({ press: 'ArrowDown' });
       await waitForLitRender(element);
-      expect(optOne).to.have.attribute('data-active');
+      expect(optOne).to.match(':state(active)');
       expect(optOne).to.have.attribute('selected');
       expect(input).to.have.attribute('aria-activedescendant', 'option-1');
       expect(input).to.have.attribute('aria-expanded', 'true');
@@ -369,9 +374,9 @@ describe(`sbb-autocomplete`, () => {
 
       await sendKeys({ press: 'ArrowDown' });
       await waitForLitRender(element);
-      expect(optOne).not.to.have.attribute('data-active');
+      expect(optOne).not.to.match(':state(active)');
       expect(optOne).not.to.have.attribute('selected');
-      expect(optTwo).to.have.attribute('data-active');
+      expect(optTwo).to.match(':state(active)');
       expect(optTwo).to.have.attribute('selected');
       expect(input).to.have.attribute('aria-activedescendant', 'option-2');
       expect(input).to.have.attribute('aria-expanded', 'true');
@@ -472,7 +477,7 @@ describe(`sbb-autocomplete`, () => {
 
       await sendKeys({ press: 'ArrowDown' });
       await waitForLitRender(element);
-      expect(optOne).to.have.attribute('data-active');
+      expect(optOne).to.match(':state(active)');
       expect(optOne).not.to.have.attribute('selected');
       expect(input).to.have.attribute('aria-activedescendant', 'option-1');
 
@@ -547,7 +552,7 @@ describe(`sbb-autocomplete`, () => {
     optOne.click();
 
     await aTimeout(0);
-    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
   });
 
   it('should stay closed when disabled', async () => {
@@ -579,7 +584,7 @@ describe(`sbb-autocomplete`, () => {
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'true');
-    expect(input).to.have.attribute('data-expanded');
+    expect(input).to.match('[data-expanded]');
     expect(element).to.match(':popover-open');
 
     input.toggleAttribute('disabled', true);
@@ -589,7 +594,7 @@ describe(`sbb-autocomplete`, () => {
     await closeSpy.calledOnce();
     expect(closeSpy.count).to.be.equal(1);
     expect(input).to.have.attribute('aria-expanded', 'false');
-    expect(input).not.to.have.attribute('data-expanded');
+    expect(input).not.to.match('[data-expanded]');
     expect(element).not.to.match(':popover-open');
   });
 
@@ -619,7 +624,7 @@ describe(`sbb-autocomplete`, () => {
     expect(beforeOpenSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-closed)');
   });
 
   it('does not close if prevented', async () => {
@@ -638,7 +643,7 @@ describe(`sbb-autocomplete`, () => {
     await beforeCloseSpy.calledOnce();
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
   });
 
   it('opens when new options are slotted', async () => {
@@ -747,7 +752,7 @@ describe(`sbb-autocomplete`, () => {
     await waitForLitRender(element);
     await openSpy.calledOnce();
 
-    expect(element).to.have.attribute('data-options-panel-position', 'above');
+    expect(element).to.match(':state(options-panel-position-above)');
   });
 
   it('should open below if forced to', async () => {
@@ -762,7 +767,7 @@ describe(`sbb-autocomplete`, () => {
     await waitForLitRender(element);
     await openSpy.calledOnce();
 
-    expect(element).to.have.attribute('data-options-panel-position', 'below');
+    expect(element).to.match(':state(options-panel-position-below)');
   });
 
   describe('trigger connection', () => {

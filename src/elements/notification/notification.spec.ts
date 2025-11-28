@@ -1,5 +1,6 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import type { SbbSecondaryButtonElement } from '../button.ts';
 import { fixture } from '../core/testing/private.ts';
@@ -20,7 +21,7 @@ describe(`sbb-notification`, () => {
     const closeSpy = new EventSpy(SbbNotificationElement.events.close, element);
 
     await openSpy.calledOnce();
-    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
 
     element.close();
     await waitForLitRender(element);
@@ -33,7 +34,7 @@ describe(`sbb-notification`, () => {
     expect(closeSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-closed)');
 
     await aTimeout(0);
     element = parent.querySelector<SbbNotificationElement>('sbb-notification')!;
@@ -71,7 +72,7 @@ describe(`sbb-notification`, () => {
       ) as SbbSecondaryButtonElement;
 
       await openSpy.calledOnce();
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       closeButton.click();
       await waitForLitRender(element);
@@ -84,7 +85,7 @@ describe(`sbb-notification`, () => {
       expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
 
       await aTimeout(0);
       element = parent.querySelector<SbbNotificationElement>('sbb-notification')!;
@@ -101,7 +102,9 @@ describe(`sbb-notification`, () => {
   });
 
   describe('with non-zero animation duration', () => {
-    it('closes the notification and removes it from the DOM with animationend event', async () => {
+    it('closes the notification and removes it from the DOM with animationend event', async function (this: Context) {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       openSpy = new EventSpy(SbbNotificationElement.events.open, null, {
         capture: true,
       });

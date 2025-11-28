@@ -355,7 +355,7 @@ sbb-breadcrumb-group:not(:defined) {
 
 // Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
 // This style enables accessing focusable elements inside an sbb-card.
-[data-card-focusable] {
+:is(sbb-card, sbb-flip-card) .sbb-action {
   pointer-events: all;
 }
 
@@ -535,7 +535,7 @@ sbb-train-formation[view='top'] sbb-train-wagon {
 
 // Skip animation for the container, content and sidebars when a sidebar requests it
 // (during initialization or if animation is disabled, but only during transition)
-sbb-sidebar-container:has(> sbb-sidebar[data-skip-animation]) {
+sbb-sidebar-container:has(> sbb-sidebar:state(skip-animation)) {
   --sbb-sidebar-container-animation-duration: 0s;
 }
 
@@ -546,10 +546,10 @@ sbb-sidebar-container:has(> sbb-sidebar[data-skip-animation]) {
 sbb-sidebar-container:is(
     :has(
       > sbb-sidebar:not([position='end']):is(
-          [data-state='closing'],
-          [data-state='closed'],
+          :state(state-closing),
+          :state(state-closed),
           [mode='over'],
-          [data-mode-over-forced]
+          :state(mode-over-forced)
         )
     ),
     :not(:has(> sbb-sidebar:not([position='end'])))
@@ -565,10 +565,10 @@ sbb-sidebar-container:is(
 sbb-sidebar-container:is(
     :has(
       > sbb-sidebar[position='end']:is(
-          [data-state='closing'],
-          [data-state='closed'],
+          :state(state-closing),
+          :state(state-closed),
           [mode='over'],
-          [data-mode-over-forced]
+          :state(mode-over-forced)
         )
     ),
     :not(:has(> sbb-sidebar[position='end']))
@@ -579,9 +579,9 @@ sbb-sidebar-container:is(
 
 // Toggles visibility of backdrop if there is an affected sidebar inside the container.
 sbb-sidebar-container:has(
-  > sbb-sidebar:is([mode='over'], [data-mode-over-forced]):is(
-      [data-state='opening'],
-      [data-state='opened']
+  > sbb-sidebar:is([mode='over'], :state(mode-over-forced)):is(
+      :state(state-opening),
+      :state(state-opened)
     )
 ) {
   --sbb-sidebar-container__backdrop-visibility: visible;

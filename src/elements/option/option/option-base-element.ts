@@ -74,9 +74,6 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     return this.hasAttribute('selected');
   }
 
-  /** Whether to apply the negative styling */
-  @state() protected accessor negative = false;
-
   /** Whether the component must be set disabled due disabled attribute on sbb-optgroup. */
   @state() protected accessor disabledFromGroup = false;
 
@@ -148,11 +145,6 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `${this.optionId}-${nextId++}`;
-    if (this.hydrationRequired) {
-      this.hydrationComplete.then(() => this.init());
-    } else {
-      this.init();
-    }
   }
 
   public override requestUpdate(
@@ -162,19 +154,12 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   ): void {
     super.requestUpdate(name, oldValue, options);
     if (name === 'disabled' || name === 'disabledFromGroup') {
-      if (this.disabled || this.disabledFromGroup) {
-        this.internals.states.add('disabled');
-      } else {
-        this.internals.states.delete('disabled');
-      }
-    }
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('disabled')) {
-      setOrRemoveAttribute(this, 'tabindex', isAndroid && !this.disabled && 0);
+      this.toggleState('disabled', this.disabled || this.disabledFromGroup);
+      setOrRemoveAttribute(
+        this,
+        'tabindex',
+        isAndroid && !this.disabled && !this.disabledFromGroup ? 0 : null,
+      );
       this.updateAriaDisabled();
     }
   }
@@ -187,11 +172,10 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   }
 
   protected abstract selectByClick(event: MouseEvent): void;
-  protected abstract setAttributeFromParent(): void;
 
   protected updateDisableHighlight(disabled: boolean): void {
     this.disableLabelHighlight = disabled;
-    this.toggleAttribute('data-disable-highlight', disabled);
+    this.toggleState('disable-highlight', disabled);
   }
 
   /**
@@ -199,11 +183,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
    * @internal
    */
   public setActive(value: boolean): void {
-    this.toggleAttribute('data-active', value);
-  }
-
-  protected init(): void {
-    this.setAttributeFromParent();
+    this.toggleState('active', value);
   }
 
   protected updateAriaDisabled(): void {

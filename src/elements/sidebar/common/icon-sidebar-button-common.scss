@@ -26,19 +26,19 @@
   }
 }
 
-:host([data-button]) {
+:host(:state(button)) {
   @include sbb.if-forced-colors {
     --sbb-icon-sidebar-button-color: ButtonText !important;
   }
 }
 
-:host([data-link]) {
+:host(:state(link)) {
   @include sbb.if-forced-colors {
     --sbb-icon-sidebar-button-color: LinkText !important;
   }
 }
 
-:host(:not(:active, [data-active]):hover) {
+:host(:not(:active, :state(active)):hover) {
   @include sbb.hover-mq($hover: true) {
     --sbb-icon-sidebar-button__hover-shift: #{sbb.px-to-rem-build(1)};
     --sbb-icon-sidebar-button__cursor: var(--sbb-cursor-pointer);

@@ -44,14 +44,21 @@ class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(
   @property({ attribute: 'force-open', type: Boolean })
   public accessor forceOpen: boolean = false;
 
-  /** The state of the selection panel. */
+  /** The state of the component. */
   @state()
   private set _state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
+    if (this._stateInternal) {
+      this.internals.states.delete(`state-${this._stateInternal}`);
+    }
+    this._stateInternal = state;
+    if (this._stateInternal) {
+      this.internals.states.add(`state-${this._stateInternal}`);
+    }
   }
   private get _state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
+    return this._stateInternal;
   }
+  private _stateInternal!: SbbOpenedClosedState;
 
   private _language = new SbbLanguageController(this);
 
@@ -61,10 +68,10 @@ class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(
     return this.querySelectorAll?.('[slot="content"]').length > 0;
   }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
+  public constructor() {
+    super();
 
-    this._state ||= 'closed';
+    this._state = 'closed';
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

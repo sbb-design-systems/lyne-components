@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-teaser-product-static renders DOM"] = 
-`<sbb-teaser-product-static
-  data-action=""
-  image-alignment="after"
->
+`<sbb-teaser-product-static image-alignment="after">
   <figure
     class="sbb-figure"
     slot="image"

@@ -46,11 +46,11 @@
   );
 }
 
-:host([borderless]:not([data-checked])) {
+:host([borderless]:not(:state(checked))) {
   --sbb-selection-panel-border-color: var(--sbb-selection-panel-border-color-borderless);
 }
 
-:host(:is([data-checked]):not(:disabled, [disabled])) {
+:host(:is(:state(checked)):not(:disabled, [disabled])) {
   --sbb-selection-panel-border-color: var(--sbb-selection-panel-border-color-checked);
   --sbb-selection-panel-border-width: var(
     --sbb-selection-panel-inner-border-width,

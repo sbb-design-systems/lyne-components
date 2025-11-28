@@ -14,9 +14,6 @@ snapshots["sbb-selection-action-panel renders DOM"] =
     </span>
   </sbb-checkbox-panel>
   <sbb-secondary-button
-    data-action=""
-    data-button=""
-    data-sbb-button=""
     icon-name="arrow-right-small"
     size="m"
     tabindex="0"

@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../testing/private.ts';
 
-import { SbbElementInternalsMixin } from './element-internals-mixin.ts';
+import { SbbElementInternalsMixin, ɵstateController } from './element-internals-mixin.ts';
 
 /** Dummy docs */
 @customElement('sbb-element-internals-test')
@@ -29,35 +29,35 @@ describe(`SbbElementInternalsMixin`, () => {
   });
 
   it('should allow setting state', async () => {
-    element['toggleState']('test');
+    ɵstateController(element).toggle('test');
     expect(element).to.match(':state(test)');
   });
 
   it('should allow unsetting state', async () => {
-    element['toggleState']('test');
-    element['toggleState']('test');
+    ɵstateController(element).toggle('test');
+    ɵstateController(element).toggle('test');
     expect(element).to.not.match(':state(test)');
   });
 
   it('should allow force setting state', async () => {
-    element['toggleState']('test', true);
+    ɵstateController(element).toggle('test', true);
     expect(element).to.match(':state(test)');
   });
 
   it('should allow force setting state when already set', async () => {
-    element['toggleState']('test');
-    element['toggleState']('test', true);
+    ɵstateController(element).toggle('test');
+    ɵstateController(element).toggle('test', true);
     expect(element).to.match(':state(test)');
   });
 
   it('should allow force unsetting state', async () => {
-    element['toggleState']('test');
-    element['toggleState']('test', false);
+    ɵstateController(element).toggle('test');
+    ɵstateController(element).toggle('test', false);
     expect(element).to.not.match(':state(test)');
   });
 
   it('should allow force unsetting state when already unset', async () => {
-    element['toggleState']('test', false);
+    ɵstateController(element).toggle('test', false);
     expect(element).to.not.match(':state(test)');
   });
 });

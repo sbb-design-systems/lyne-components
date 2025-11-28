@@ -40,7 +40,6 @@ snapshots["sbb-train-wagon should render as type wagon Shadow DOM"] =
     </li>
     <sbb-timetable-occupancy-icon
       class="sbb-train-wagon__occupancy"
-      data-namespace="default"
       occupancy="none"
       role="listitem"
     >
@@ -60,7 +59,6 @@ snapshots["sbb-train-wagon should render as type wagon Shadow DOM"] =
 snapshots["sbb-train-wagon should render as type wagon with one icon DOM"] = 
 `<sbb-train-wagon type="wagon">
   <sbb-icon
-    data-namespace="default"
     name="sa-rs"
     slot="li-0"
   >
@@ -101,13 +99,11 @@ snapshots["sbb-train-wagon should render as type wagon with one icon Shadow DOM"
 snapshots["sbb-train-wagon should render as type wagon with multiple icons DOM"] = 
 `<sbb-train-wagon type="wagon">
   <sbb-icon
-    data-namespace="default"
     name="sa-rs"
     slot="li-0"
   >
   </sbb-icon>
   <sbb-icon
-    data-namespace="default"
     name="sa-rs"
     slot="li-1"
   >

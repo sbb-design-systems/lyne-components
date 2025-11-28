@@ -1,6 +1,7 @@
 import { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.js';
 import { getNextElementIndex } from '@sbb-esta/lyne-elements/core/a11y.js';
 import { isSafari } from '@sbb-esta/lyne-elements/core/dom.js';
+import { ɵstateController } from '@sbb-esta/lyne-elements/core/mixins.js';
 import { setAriaComboBoxAttributes } from '@sbb-esta/lyne-elements/core/overlay.js';
 import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.js';
 import type { SbbOptGroupElement, SbbOptionHintElement } from '@sbb-esta/lyne-elements/option.js';
@@ -55,7 +56,7 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
 
     this.querySelectorAll?.<SbbAutocompleteGridOptionElement<T> | SbbOptGroupElement>(
       'sbb-autocomplete-grid-row, sbb-autocomplete-grid-option, sbb-autocomplete-grid-optgroup',
-    ).forEach((element) => element.toggleAttribute('data-negative', this.negative));
+    ).forEach((element) => ɵstateController(element).toggle('negative', this.negative));
   }
 
   protected openedPanelKeyboardInteraction(event: KeyboardEvent): void {
@@ -114,8 +115,8 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
     this.activeOption?.setActive(false);
     this.triggerElement?.removeAttribute('aria-activedescendant');
     Array.from(
-      this.querySelectorAll?.('sbb-autocomplete-grid-row [data-focus-visible]') ?? [],
-    ).forEach((row) => row.removeAttribute('data-focus-visible'));
+      this.querySelectorAll?.('sbb-autocomplete-grid-row :state(focus-visible)') ?? [],
+    ).forEach((row) => ɵstateController(row).delete('focus-visible'));
     this._activeColumnIndex = 0;
 
     if (!enabledOptions.length) {
@@ -161,14 +162,14 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
     if (nextElement instanceof SbbAutocompleteGridOptionElement) {
       nextElement.setActive(true);
     } else {
-      nextElement.toggleAttribute('data-focus-visible', true);
+      ɵstateController(nextElement).add('focus-visible');
     }
 
     const lastActiveElement = elementsInRow[this._activeColumnIndex];
     if (lastActiveElement instanceof SbbAutocompleteGridOptionElement) {
       lastActiveElement.setActive(false);
     } else {
-      lastActiveElement.toggleAttribute('data-focus-visible', false);
+      ɵstateController(lastActiveElement).delete('focus-visible');
     }
     this.triggerElement?.setAttribute('aria-activedescendant', nextElement.id);
     nextElement.scrollIntoView({ block: 'nearest' });
@@ -180,7 +181,7 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
       this.activeOption
         ?.closest('sbb-autocomplete-grid-row')
         ?.querySelectorAll('sbb-autocomplete-grid-button')
-        .forEach((e) => e.toggleAttribute('data-focus-visible', false));
+        .forEach((e) => ɵstateController(e).delete('focus-visible'));
     }
     this.activeOption?.setActive(false);
     this.activeOption = null;

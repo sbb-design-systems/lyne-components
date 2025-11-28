@@ -19,6 +19,7 @@ import {
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
 import { forceType } from '../core/decorators.ts';
+import { SbbElementInternalsMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './image.scss?lit&inline';
@@ -141,7 +142,7 @@ const breakpointMap: Record<string, string> = {
  */
 export
 @customElement('sbb-image')
-class SbbImageElement extends LitElement {
+class SbbImageElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     error: 'error',
@@ -370,7 +371,7 @@ class SbbImageElement extends LitElement {
     // We need to wait until the update is complete to check whether the image has already been completely loaded.
     this.updateComplete.then(() => {
       if (this.complete) {
-        this.toggleAttribute('data-loaded', true);
+        this.internals.states.add('loaded');
       }
     });
   }
@@ -519,7 +520,7 @@ class SbbImageElement extends LitElement {
   @eventOptions(eventListenerOptions)
   private _imageLoaded(): void {
     this._logPerformanceMarks();
-    this.toggleAttribute('data-loaded', true);
+    this.internals.states.add('loaded');
 
     /** Emits when the image has been loaded. */
     this.dispatchEvent(new Event('load'));

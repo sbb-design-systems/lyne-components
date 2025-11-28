@@ -13,7 +13,7 @@
   );
 }
 
-:host([data-checked]) {
+:host(:state(checked)) {
   --sbb-radio-button-inner-circle-color: var(--sbb-color-primary);
   --sbb-radio-button-background-fake-border-width: calc(
     (var(--sbb-radio-button-dimension) - var(--sbb-radio-button-inner-circle-dimension)) / 2
@@ -42,7 +42,7 @@
 }
 
 // Disabled definitions have to be after checked definitions
-:host(:disabled[data-checked]) {
+:host(:disabled:state(checked)) {
   --sbb-radio-button-inner-circle-color: var(--sbb-background-color-2-inverted);
 }
 

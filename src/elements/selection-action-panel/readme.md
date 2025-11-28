@@ -11,7 +11,7 @@ or a [sbb-radio-button-panel](/docs/elements-sbb-radio-button-sbb-radio-button-p
   <!-- action -->
   <sbb-secondary-button icon-name="arrow-right-small">...</sbb-secondary-button>
   <!-- or -->
-  <button data-action>...</button>
+  <button class="sbb-action">...</button>
 </sbb-selection-action-panel>
 ```
 

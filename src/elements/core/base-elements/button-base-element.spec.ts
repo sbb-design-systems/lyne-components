@@ -71,22 +71,22 @@ describe(`SbbButtonBaseElement`, () => {
       element.click();
       await waitForLitRender(element);
       expect(clickSpy.count).to.be.equal(1);
-      expect(await element.getAttribute('data-active')).to.be.equal(null);
+      expect(element).not.to.match(':state(active)');
     });
 
     it('space keydown and keyup', async () => {
       element.focus();
       await waitForLitRender(element);
       const clickSpy = new EventSpy('click');
-      expect(await element.getAttribute('data-active')).to.be.equal(null);
+      expect(element).not.to.match(':state(active)');
 
       await sendKeys({ down: 'Space' });
       await waitForLitRender(element);
-      expect(await element.getAttribute('data-active')).to.be.equal('');
+      expect(element).to.match(':state(active)');
 
       await sendKeys({ up: 'Space' });
       await waitForLitRender(element);
-      expect(await element.getAttribute('data-active')).to.be.equal(null);
+      expect(element).not.to.match(':state(active)');
       await waitForLitRender(element);
       expect(clickSpy.count).to.be.equal(1);
     });

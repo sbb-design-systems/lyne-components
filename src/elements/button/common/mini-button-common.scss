@@ -1,7 +1,7 @@
 @use '../../core/styles' as sbb;
 
-$disabled: '[disabled], :disabled, [disabled-interactive], [data-disabled], :state(disabled)';
-$active: ':active, [data-active]';
+$disabled: '[disabled], :disabled, [disabled-interactive], :state(disabled)';
+$active: ':active, :state(active)';
 
 :host {
   display: inline-block;
@@ -71,9 +71,9 @@ $active: ':active, [data-active]';
   --sbb-mini-button-cursor: var(--sbb-cursor-default);
 }
 
-:host([data-focus-visible]) {
+:host(:state(focus-visible)) {
   // Basically the focus-outline mixin is made for use with focus-visible.
-  // As we use it here with data-focus-visible, we have to ensure that the outline is not overridden when mouse or touch is in use.
+  // As we use it here with :state(focus-visible), we have to ensure that the outline is not overridden when mouse or touch is in use.
   --sbb-focus-outline-style: initial;
 }
 
@@ -101,7 +101,7 @@ $active: ':active, [data-active]';
     transition-property: inset, background-color;
     border: var(--sbb-mini-button-border);
 
-    :host(:is([data-focus-visible], :focus-visible)) & {
+    :host(:is(:state(focus-visible), :focus-visible)) & {
       @include sbb.focus-outline;
     }
   }

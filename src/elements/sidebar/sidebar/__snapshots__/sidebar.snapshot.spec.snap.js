@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-sidebar renders DOM"] = 
 `<sbb-sidebar
   color="white"
-  data-state="closed"
   mode="side"
   position="start"
   role="navigation"

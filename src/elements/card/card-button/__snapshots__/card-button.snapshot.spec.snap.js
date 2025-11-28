@@ -2,16 +2,9 @@
 export const snapshots = {};
 
 snapshots["sbb-card-button renders DOM"] = 
-`<sbb-card
-  color="white"
-  data-action-role="button"
-  data-has-action=""
-  data-has-active-action=""
->
+`<sbb-card color="white">
   <sbb-card-button
     active=""
-    data-action=""
-    data-button=""
     slot="action"
     tabindex="0"
   >

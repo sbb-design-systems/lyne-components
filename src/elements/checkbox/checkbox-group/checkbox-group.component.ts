@@ -60,8 +60,7 @@ class SbbCheckboxGroupElement extends SbbDisabledMixin(SbbElementInternalsMixin(
     this.addController(
       new MutationController(this, {
         config: { childList: true, subtree: true },
-        callback: () =>
-          this.toggleAttribute('data-has-panel', !!this.querySelector?.('sbb-checkbox-panel')),
+        callback: () => this.toggleState('has-panel', !!this.querySelector?.('sbb-checkbox-panel')),
       }),
     );
   }

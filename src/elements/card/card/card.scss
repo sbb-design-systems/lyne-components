@@ -21,23 +21,23 @@
   @include sbb.card-variables--transparent-bordered-dashed;
 }
 
-:host([data-has-active-action]) {
+:host(:state(has-active-action)) {
   @include sbb.card-variables--active;
 }
 
-:host([data-has-action]) {
+:host(:state(has-action)) {
   --sbb-card-pointer-events: none;
 }
 
-:host([data-has-action]:not([data-has-active-action]):hover) {
+:host(:state(has-action):not(:state(has-active-action)):hover) {
   @include sbb.card--hover;
 }
 
-:host([data-has-action][data-action-role='button']) {
+:host(:state(has-action):state(action-role-button)) {
   @include sbb.card-variables--button;
 }
 
-:host([data-has-action][data-action-role='link']) {
+:host(:state(has-action):state(action-role-link)) {
   @include sbb.card-variables--link;
 }
 

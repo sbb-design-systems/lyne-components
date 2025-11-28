@@ -16,26 +16,33 @@ export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(L
 
   /** The state of the component. */
   protected set state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
+    if (this._state) {
+      this.internals.states.delete(`state-${this._state}`);
+    }
+    this._state = state;
+    if (this._state) {
+      this.internals.states.add(`state-${this._state}`);
+    }
   }
   protected get state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
+    return this._state;
   }
+  private _state!: SbbOpenedClosedState;
 
   /** Whether the element is open. */
   public get isOpen(): boolean {
     return this.state === 'opened';
   }
 
+  public constructor() {
+    super();
+    this.state = 'closed';
+  }
+
   /** Opens the component. */
   public abstract open(): void;
   /** Closes the component. */
   public abstract close(): void;
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.state ||= 'closed';
-  }
 
   /** The method which is called on escape key press. Defaults to calling close() */
   public escapeStrategy(): void {

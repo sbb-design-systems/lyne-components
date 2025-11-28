@@ -26,9 +26,6 @@ snapshots["sbb-timetable-form renders DOM"] =
       >
     </sbb-timetable-form-field>
     <sbb-timetable-form-swap-button
-      data-action=""
-      data-button=""
-      data-sbb-button=""
       size="l"
       tabindex="0"
     >
@@ -69,7 +66,6 @@ snapshots["sbb-timetable-form renders DOM"] =
         </sbb-time-input>
       </sbb-form-field>
       <sbb-toggle
-        data-initialized=""
         name="departure-arrival"
         size="s"
         style="--sbb-toggle-option-left: 0px; --sbb-toggle-option-right: 43px;"
@@ -91,9 +87,6 @@ snapshots["sbb-timetable-form renders DOM"] =
       <div style="flex-grow: 1;">
       </div>
       <sbb-button
-        data-action=""
-        data-button=""
-        data-sbb-button=""
         size="m"
         tabindex="0"
         type="submit"

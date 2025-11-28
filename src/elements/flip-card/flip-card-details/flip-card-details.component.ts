@@ -4,6 +4,7 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
+import { SbbElementInternalsMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './flip-card-details.scss?lit&inline';
@@ -15,7 +16,7 @@ import style from './flip-card-details.scss?lit&inline';
  */
 export
 @customElement('sbb-flip-card-details')
-class SbbFlipCardDetailsElement extends LitElement {
+class SbbFlipCardDetailsElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public constructor() {
@@ -27,6 +28,7 @@ class SbbFlipCardDetailsElement extends LitElement {
           childList: true,
           subtree: true,
           attributes: true,
+          attributeFilter: ['href', 'tabindex', 'disabled', 'inert'],
         },
         callback: () => this._checkForSlottedActions(),
       }),
@@ -39,10 +41,9 @@ class SbbFlipCardDetailsElement extends LitElement {
   }
 
   private _checkForSlottedActions(): void {
-    const cardFocusableAttributeName = 'data-card-focusable';
-
+    // We intentionally use toggle here, as add causes a MutationObserver loop.
     Array.from(this.querySelectorAll?.(IS_FOCUSABLE_QUERY) ?? []).forEach((el: Element) =>
-      el.toggleAttribute(cardFocusableAttributeName, true),
+      el.classList.toggle('sbb-action', true),
     );
   }
 
