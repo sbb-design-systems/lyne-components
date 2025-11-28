@@ -2,6 +2,66 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-next.4](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.0-next.3...v4.0.0-next.4) (2025-11-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* on the `Day` interface, the `dateValue`, `weekValue` and `weekDayValue` are no more optional. Moreover, the following deprecations have been permanently removed:
+    - `sbb-date-input`, `sbb-time-input`: the `empty` getter;
+    - `sbb-tab-group`: the interfaces `InterfaceSbbTabGroupActions` and
+    `InterfaceSbbTabGroupTab`;
+    - `sbb-tab`: the `configure` method;
+    - the `i18nSelectedPage` translation key;
+    - the global `SbbTimetableAppearance` type;
+* The light or dark mode is now per default defined by the users system preference. To opt out, add `sbb-light` class to the `html` element (or `sbb-dark` to force dark mode).
+* introduced size `xs` for checkbox panel and radio button panel. The default of size `s` in lean has been changed to `xs`.
+    - removed `SbbStateChange` type and related `statechange` event.
+    - removed `checked`, `disabled`, `size`, `borderless` and `color`
+    properties from `SbbSelectionExpansionPanel` and
+    `SbbSelectionActionPanel`.
+    - removed type `SbbPanelSize` in favor of `SbbCheckboxSize` and
+    `SbbRadioButtonSize`
+    - renamed `SbbAncestorWatcherController` into
+    `SbbPropertyWatcherController`
+* **sbb-card:** Some card SASS mixins were renamed. Removed `size` property of `sbb-card` in favor of more flexibility. Now, the padding can directly be set on the `sbb-card` element. Additionally, some predefined CSS classes can be used. Consider the following mapping when migrating:
+    - size `xs` -> CSS class `sbb-card-spacing-3x-xxs`
+    - size `s` -> CSS class `sbb-card-spacing-xxxs-xxs`
+    - size `m` -> CSS class `sbb-card-spacing-xxxs-s`
+    - size `l` -> CSS class `sbb-card-spacing-4x-xxs`
+    - size `xl` -> CSS class `sbb-card-spacing-xxs`
+    - size `xxl` -> CSS class `sbb-card-spacing-s`
+    - size `xxxl` -> CSS class `sbb-card-spacing-l`
+* **sbb-popover:** the component import should be checked and possibly adapted with the new path, e.g.:  ```ts // old  import '@sbb-esta/lyne-elements/popover/popover.js';` // new  import '@sbb-esta/lyne-elements/popover.js'; ```
+
+### Features
+
+* add size xs to checkbox and radio button panel ([#4221](https://github.com/sbb-design-systems/lyne-components/issues/4221)) ([a6dcecf](https://github.com/sbb-design-systems/lyne-components/commit/a6dcecf0ecf82e67584eb2cf9de2e3e8bd8dbcff))
+
+
+### Bug Fixes
+
+* **sbb-paginator:** fix focus handling when selected by keyboard ([#4234](https://github.com/sbb-design-systems/lyne-components/issues/4234)) ([cc18c94](https://github.com/sbb-design-systems/lyne-components/commit/cc18c94a0f141f328bb07d04ac93e727ceec8bb4))
+* **sbb-popover:** remove duplicate folder ([c26a1d2](https://github.com/sbb-design-systems/lyne-components/commit/c26a1d2980d3f312922f6072cb848eaa29b2386e))
+
+
+### Documentation
+
+* cherry pick changelog ([5a85a8d](https://github.com/sbb-design-systems/lyne-components/commit/5a85a8d643d6ee7ebb132a92b45e9a4b50f0ba41))
+
+
+### Code Refactoring
+
+* migrate data attributes to internal state usage ([#4222](https://github.com/sbb-design-systems/lyne-components/issues/4222)) ([207dede](https://github.com/sbb-design-systems/lyne-components/commit/207dedede77719f397014999c4b3148552b936f5))
+* remove aria attributes usage where possible ([#4220](https://github.com/sbb-design-systems/lyne-components/issues/4220)) ([31e0cbc](https://github.com/sbb-design-systems/lyne-components/commit/31e0cbc5b339a9d4461445b523cf358bd6d29a0b))
+* remove deprecated symbols ([#4238](https://github.com/sbb-design-systems/lyne-components/issues/4238)) ([097bfbb](https://github.com/sbb-design-systems/lyne-components/commit/097bfbbbf6f94391c4d160cb2bc1df6c171dd9c1))
+* **sbb-card:** replace property `size` by spacing CSS classes ([#4232](https://github.com/sbb-design-systems/lyne-components/issues/4232)) ([beae61a](https://github.com/sbb-design-systems/lyne-components/commit/beae61a3ebb88499279f9652ada09cb0625fcef4))
+
+
+### Styles
+
+* apply light dark color-scheme by default ([#4233](https://github.com/sbb-design-systems/lyne-components/issues/4233)) ([c459357](https://github.com/sbb-design-systems/lyne-components/commit/c4593572b5f39d507d6c4b7fd523668932e3d58c))
+
 ## [3.13.3](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.2...v3.13.3) (2025-11-24)
 
 
