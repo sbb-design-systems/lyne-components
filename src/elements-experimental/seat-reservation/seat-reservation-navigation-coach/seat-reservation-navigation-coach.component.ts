@@ -136,6 +136,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
           'last-coach': this.last,
           'first-coach': this.first,
           'sbb-sr-navigation__item-coach--selected': this.selected,
+          'sbb-sr-navigation__item-coach--focused': this.focused,
           'sbb-sr-navigation__item-coach--hovered': this.hovered,
         })}"
       >
@@ -155,17 +156,16 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     const titleDescriptionNavCoachButton =
       this._getTitleDescriptionNavCoachButton(currServiceClassNumber);
     const ariaDescriptionCoachServices = this._getAriaDescriptionCoachServices();
-
     return html` <button
-        type="button"
-        ?disabled="${this.disable}"
+        @click=${() => this._selectNavCoach(this.index)}
         class="${classMap({
           'sbb-sr-navigation__ctrl-button': true,
           'sbb-sr-navigation-driver-area': this.driverArea,
         })}"
+        ?disabled="${this.disable}"
         title="${titleDescriptionNavCoachButton}"
+        type="button"
         aria-describedby="nav-coach-service-descriptions-${this.index}"
-        @click=${() => this._selectNavCoach(this.index)}
       >
         ${this._getBtnInformation(currServiceClassNumber)}
       </button>
@@ -255,19 +255,17 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
    * @private
    */
   private _selectNavCoach(coachIndex: number): void {
-    if (!this.driverArea) {
-      /**
-       * @type {CustomEvent<SelectCoachEventDetails>}
-       * Emits when a coach within the navigation was selected and returns the clicked coach nav index.
-       */
-      this.dispatchEvent(
-        new CustomEvent<SelectCoachEventDetails>('selectcoach', {
-          bubbles: true,
-          composed: true,
-          detail: coachIndex,
-        }),
-      );
-    }
+    /**
+     * @type {CustomEvent<SelectCoachEventDetails>}
+     * Emits when a coach within the navigation was selected and returns the clicked coach nav index.
+     */
+    this.dispatchEvent(
+      new CustomEvent<SelectCoachEventDetails>('selectcoach', {
+        bubbles: true,
+        composed: true,
+        detail: coachIndex,
+      }),
+    );
   }
 
   private _getCoachServiceClassNumber(): number | null {
