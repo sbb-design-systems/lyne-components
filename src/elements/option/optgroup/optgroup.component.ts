@@ -55,7 +55,11 @@ class SbbOptGroupElement extends SbbOptgroupBaseElement {
       : this.closest?.('sbb-select')
         ? 'select'
         : null;
-    this.applyStatePattern(variant, 'variant');
+    this.internals.states.delete('variant-autocomplete');
+    this.internals.states.delete('variant-select');
+    if (variant) {
+      this.internals.states.add(`variant-${variant}`);
+    }
   }
 }
 

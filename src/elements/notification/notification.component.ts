@@ -47,7 +47,6 @@ export
 class SbbNotificationElement extends SbbIconNameMixin(
   SbbReadonlyMixin(SbbElementInternalsMixin(LitElement)),
 ) {
-  // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     beforeopen: 'beforeopen',
@@ -75,15 +74,18 @@ class SbbNotificationElement extends SbbIconNameMixin(
 
   /** The state of the component. */
   private set _state(state: SbbOpenedClosedState) {
-    this.applyStatePattern(state);
+    if (this._stateInternal) {
+      this.internals.states.delete(`state-${this._stateInternal}`);
+    }
+    this._stateInternal = state;
+    if (this._stateInternal) {
+      this.internals.states.add(`state-${this._stateInternal}`);
+    }
   }
   private get _state(): SbbOpenedClosedState {
-    return (
-      (Array.from(this.internals.states)
-        .find((s) => s.startsWith('state-'))
-        ?.replace('state-', '') as SbbOpenedClosedState) ?? 'closed'
-    );
+    return this._stateInternal;
   }
+  private _stateInternal!: SbbOpenedClosedState;
 
   private _notificationElement!: HTMLElement;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -93,6 +95,11 @@ class SbbNotificationElement extends SbbIconNameMixin(
     skipInitial: true,
     callback: () => this._onNotificationResize(),
   });
+
+  public constructor() {
+    super();
+    this._state = 'closed';
+  }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -131,12 +138,6 @@ class SbbNotificationElement extends SbbIconNameMixin(
   private _dispatchBeforeCloseEvent(): boolean {
     /** Emits when the closing animation starts. Can be canceled to prevent the component from closing. */
     return this.dispatchEvent(new Event('beforeclose', { cancelable: true }));
-  }
-
-  public override connectedCallback(): void {
-    this._state ||= 'closed';
-
-    super.connectedCallback();
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {

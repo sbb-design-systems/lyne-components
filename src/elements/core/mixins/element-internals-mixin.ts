@@ -331,7 +331,6 @@ export interface SbbElementInternalsConstructor {
 export declare abstract class SbbElementInternalsMixinType {
   protected readonly internals: ElementInternals;
   protected toggleState(value: string, force?: boolean): void;
-  protected applyStatePattern(state: string | null, pattern?: string): void;
 }
 
 /**
@@ -406,20 +405,6 @@ export const SbbElementInternalsMixin = <T extends AbstractConstructor<LitElemen
       } else {
         this.internals.states.delete(value);
       }
-    }
-
-    protected applyStatePattern(state: string | null, pattern = 'state'): void {
-      pattern = pattern.endsWith('-') ? pattern : `${pattern}-`;
-      const combinedState = `${pattern}${state ?? ''}`;
-      if (state != null) {
-        this.internals.states.add(combinedState);
-      }
-
-      this.internals.states.forEach((s) => {
-        if (s.startsWith(pattern) && s !== combinedState) {
-          this.internals.states.delete(s);
-        }
-      });
     }
   }
   return SbbElementInternalElement as unknown as AbstractConstructor<SbbElementInternalsMixinType> &

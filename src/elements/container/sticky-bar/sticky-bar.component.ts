@@ -55,15 +55,18 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElementInternalsMix
 
   /** The state of the component. */
   private set _state(state: StickyState) {
-    this.applyStatePattern(state);
+    if (this._stateInternal) {
+      this.internals.states.delete(`state-${this._stateInternal}`);
+    }
+    this._stateInternal = state;
+    if (this._stateInternal) {
+      this.internals.states.add(`state-${this._stateInternal}`);
+    }
   }
   private get _state(): StickyState {
-    return (
-      (Array.from(this.internals.states)
-        .find((s) => s.startsWith('state-'))
-        ?.replace('state-', '') as StickyState) ?? 'unsticky'
-    );
+    return this._stateInternal;
   }
+  private _stateInternal!: StickyState;
 
   private _intersector?: HTMLSpanElement;
   private _observer = new IntersectionController(this, {
@@ -73,10 +76,15 @@ class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElementInternalsMix
     callback: (entries) => this._detectStickyState(entries[0]),
   });
 
+  public constructor() {
+    super();
+
+    this._state = 'sticky';
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
     this.slot ||= 'sticky-bar';
-    this._state = 'sticky';
 
     // Sticky bar needs to be hidden until first observer callback
     this.startUpdate();

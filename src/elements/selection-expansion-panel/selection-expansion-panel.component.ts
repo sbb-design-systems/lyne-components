@@ -47,15 +47,18 @@ class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(
   /** The state of the component. */
   @state()
   private set _state(state: SbbOpenedClosedState) {
-    this.applyStatePattern(state);
+    if (this._stateInternal) {
+      this.internals.states.delete(`state-${this._stateInternal}`);
+    }
+    this._stateInternal = state;
+    if (this._stateInternal) {
+      this.internals.states.add(`state-${this._stateInternal}`);
+    }
   }
   private get _state(): SbbOpenedClosedState {
-    return (
-      (Array.from(this.internals.states)
-        .find((s) => s.startsWith('state-'))
-        ?.replace('state-', '') as SbbOpenedClosedState) ?? 'closed'
-    );
+    return this._stateInternal;
   }
+  private _stateInternal!: SbbOpenedClosedState;
 
   private _language = new SbbLanguageController(this);
 
@@ -68,10 +71,7 @@ class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(
   public constructor() {
     super();
 
-    // We need to make sure that the initial state is set to 'closed', if not defined externally.
-    if (this._state === 'closed') {
-      this._state = 'closed';
-    }
+    this._state = 'closed';
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

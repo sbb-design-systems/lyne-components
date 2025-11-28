@@ -52,8 +52,14 @@ export abstract class SbbIconBase extends SbbElementInternalsMixin(LitElement) {
     }
 
     const [namespace, name] = this._splitIconName(iconName);
+
+    if (this._svgNamespace) {
+      this.internals.states.delete(`namespace-${this._svgNamespace}`);
+    }
     this._svgNamespace = namespace;
-    this.applyStatePattern(namespace, 'namespace');
+    if (this._svgNamespace) {
+      this.internals.states.add(`namespace-${this._svgNamespace}`);
+    }
 
     const svgIcon = this.fetchSvgIcon(this._svgNamespace, name);
     this._svgIcon = svgIcon.then((v) => unsafeHTML(v));

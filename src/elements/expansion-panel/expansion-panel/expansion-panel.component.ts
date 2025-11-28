@@ -77,15 +77,18 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElementInternalsMixi
 
   /** The state of the component. */
   private set _state(state: SbbOpenedClosedState) {
-    this.applyStatePattern(state);
+    if (this._stateInternal) {
+      this.internals.states.delete(`state-${this._stateInternal}`);
+    }
+    this._stateInternal = state;
+    if (this._stateInternal) {
+      this.internals.states.add(`state-${this._stateInternal}`);
+    }
   }
   private get _state(): SbbOpenedClosedState {
-    return (
-      (Array.from(this.internals.states)
-        .find((s) => s.startsWith('state-'))
-        ?.replace('state-', '') as SbbOpenedClosedState) ?? 'closed'
-    );
+    return this._stateInternal;
   }
+  private _stateInternal!: SbbOpenedClosedState;
 
   private _progressiveId = `-${++nextId}`;
   private _headerRef?: SbbExpansionPanelHeaderElement;
@@ -93,6 +96,8 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElementInternalsMixi
 
   public constructor() {
     super();
+
+    this._state = 'closed';
     this.addEventListener?.('toggleexpanded', () => this._toggleExpanded());
   }
 

@@ -82,16 +82,12 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   public accessor accessibilityBackLabel: string = '';
 
   /** The state of the component. */
-  private set _state(state: SbbOpenedClosedState) {
-    this.applyStatePattern(state);
-    this.internals.ariaHidden = this._state !== 'opened' ? 'true' : null;
+  protected override set state(state: SbbOpenedClosedState) {
+    super.state = state;
+    this.internals.ariaHidden = this.state !== 'opened' ? 'true' : null;
   }
-  private get _state(): SbbOpenedClosedState {
-    return (
-      (Array.from(this.internals.states)
-        .find((s) => s.startsWith('state-'))
-        ?.replace('state-', '') as SbbOpenedClosedState) ?? 'closed'
-    );
+  protected override get state(): SbbOpenedClosedState {
+    return super.state;
   }
 
   private _firstLevelNavigation?: SbbNavigationElement | null = null;
@@ -105,15 +101,10 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   public constructor() {
     super();
 
-    // We need to make sure that the initial state is set to 'closed', if not defined externally.
-    if (this._state === 'closed') {
-      this._state = 'closed';
-    }
-
     this.addController(
       new SbbMediaMatcherController(this, {
         [SbbMediaQueryBreakpointLargeAndBelow]: (matches) => {
-          if (this._state !== 'closed') {
+          if (this.state !== 'closed') {
             this._setNavigationInert(matches);
           }
         },
@@ -151,7 +142,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
    * Opens the navigation section on trigger click.
    */
   public open(): void {
-    if (this._state !== 'closed' || !this.hasUpdated || !this.dispatchBeforeOpenEvent()) {
+    if (this.state !== 'closed' || !this.hasUpdated || !this.dispatchBeforeOpenEvent()) {
       return;
     }
 
@@ -160,7 +151,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
     }
 
     this._closePreviousNavigationSection();
-    this._state = 'opening';
+    this.state = 'opening';
     /** @internal */
     this.dispatchEvent(new Event('ɵnavigationsectionopening'));
     this.startUpdate();
@@ -179,7 +170,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   }
 
   private _handleOpening(): void {
-    this._state = 'opened';
+    this.state = 'opened';
     this.inert = false;
     this._attachWindowEvents();
     this._setNavigationInert();
@@ -190,7 +181,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   }
 
   private _handleClosing(): void {
-    this._state = 'closed';
+    this.state = 'closed';
     this.shadowRoot?.querySelector('.sbb-navigation-section__container')?.scrollTo(0, 0);
     this._windowEventsController?.abort();
     this._resetLists();
@@ -210,13 +201,13 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
    * Closes the navigation section.
    */
   public close(): void {
-    if (this._state !== 'opened' || !this.dispatchBeforeCloseEvent()) {
+    if (this.state !== 'opened' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
     /** @internal */
     this.dispatchEvent(new Event('ɵnavigationsectionclosing'));
-    this._state = 'closing';
+    this.state = 'closing';
     this.startUpdate();
     this.inert = true;
     this._triggerElement?.setAttribute('aria-expanded', 'false');
@@ -242,7 +233,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
       return;
     }
 
-    setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this._state);
+    setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this.state);
     this._triggerAbortController = new AbortController();
     if (this._isNavigationButton(this._triggerElement)) {
       this._triggerElement.connectedSection = this;
@@ -260,16 +251,16 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   private _setNavigationInert(isBelowLarge: boolean = this._isBelowLarge()): void {
     const navigationContent = this._firstLevelNavigation?.navigationContent;
     if (navigationContent) {
-      navigationContent.inert = isBelowLarge && this._state !== 'closed';
+      navigationContent.inert = isBelowLarge && this.state !== 'closed';
     }
   }
 
   // In rare cases it can be that the animationEnd event is triggered twice.
   // To avoid entering a corrupt state, exit when state is not expected.
   private _onAnimationEnd(event: AnimationEvent): void {
-    if (event.animationName === 'open' && this._state === 'opening') {
+    if (event.animationName === 'open' && this.state === 'opening') {
       this._handleOpening();
-    } else if (event.animationName === 'close' && this._state === 'closing') {
+    } else if (event.animationName === 'close' && this.state === 'closing') {
       this._handleClosing();
     }
   }
@@ -321,7 +312,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
 
   // Closes the navigation on "Esc" key pressed.
   private _onKeydownEvent(event: KeyboardEvent): void {
-    if (this._state === 'opened' && event.key === 'Escape') {
+    if (this.state === 'opened' && event.key === 'Escape') {
       this.close();
     }
   }

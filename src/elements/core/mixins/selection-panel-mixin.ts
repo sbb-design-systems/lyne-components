@@ -40,6 +40,9 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
       return this.querySelector?.('sbb-radio-button-panel, sbb-checkbox-panel') ?? null;
     }
 
+    private _previousSize?: (SbbCheckboxPanelElement | SbbRadioButtonPanelElement)['size'];
+    private _previousColor?: (SbbCheckboxPanelElement | SbbRadioButtonPanelElement)['color'];
+
     private _propertyWatcher = new SbbPropertyWatcherController(this, () => this.panel, {
       checked: (panel) => {
         this.toggleState('checked', panel.checked);
@@ -50,13 +53,25 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
         this.onInputStateChange?.();
       },
       size: (panel) => {
-        this.applyStatePattern(panel.size, 'size');
+        if (this._previousSize) {
+          this.internals.states.delete(`size-${this._previousSize}`);
+        }
+        this._previousSize = panel.size;
+        if (this._previousSize) {
+          this.internals.states.add(`size-${this._previousSize}`);
+        }
       },
       borderless: (panel) => {
         this.toggleState('borderless', panel.borderless);
       },
       color: (panel) => {
-        this.applyStatePattern(panel.color, 'color');
+        if (this._previousColor) {
+          this.internals.states.delete(`color-${this._previousColor}`);
+        }
+        this._previousColor = panel.color;
+        if (this._previousColor) {
+          this.internals.states.add(`color-${this._previousColor}`);
+        }
       },
     });
 

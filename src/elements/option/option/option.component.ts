@@ -35,16 +35,19 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
 
   protected optionId = `sbb-option`;
 
-  private set _variant(state: SbbOptionVariant) {
-    this.applyStatePattern(state, 'variant');
+  private set _variant(variant: SbbOptionVariant) {
+    if (this._variantInternal) {
+      this.internals.states.delete(`variant-${this._variantInternal}`);
+    }
+    this._variantInternal = variant;
+    if (this._variantInternal) {
+      this.internals.states.add(`variant-${this._variantInternal}`);
+    }
   }
   private get _variant(): SbbOptionVariant {
-    return (
-      (Array.from(this.internals.states)
-        .find((s) => s.startsWith('variant-'))
-        ?.replace('variant-', '') as SbbOptionVariant) ?? null
-    );
+    return this._variantInternal ?? null;
   }
+  private _variantInternal?: SbbOptionVariant;
 
   public constructor() {
     super();

@@ -16,18 +16,18 @@ export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(L
 
   /** The state of the component. */
   protected set state(state: SbbOpenedClosedState) {
-    ['state-opened', 'state-closed', 'state-closing', 'state-opening'].forEach((s) =>
-      this.internals.states.delete(s),
-    );
-    this.internals.states.add(`state-${state}`);
+    if (this._state) {
+      this.internals.states.delete(`state-${this._state}`);
+    }
+    this._state = state;
+    if (this._state) {
+      this.internals.states.add(`state-${this._state}`);
+    }
   }
   protected get state(): SbbOpenedClosedState {
-    return (
-      (Array.from(this.internals.states)
-        .find((s) => s.startsWith('state-'))
-        ?.replace('state-', '') as SbbOpenedClosedState) ?? 'closed'
-    );
+    return this._state;
   }
+  private _state!: SbbOpenedClosedState;
 
   /** Whether the element is open. */
   public get isOpen(): boolean {
@@ -36,11 +36,7 @@ export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(L
 
   public constructor() {
     super();
-
-    // We need to make sure that the initial state is set to 'closed', if not defined externally.
-    if (this.state === 'closed') {
-      this.state = 'closed';
-    }
+    this.state = 'closed';
   }
 
   /** Opens the component. */
