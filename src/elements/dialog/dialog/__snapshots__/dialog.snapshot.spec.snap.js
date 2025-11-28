@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-dialog renders an open dialog DOM"] = 
 `<sbb-dialog
   backdrop="opaque"
-  data-state="opened"
   popover="manual"
 >
   <sbb-dialog-title
@@ -37,7 +36,6 @@ snapshots["sbb-dialog renders an open dialog Shadow DOM"] =
 snapshots["sbb-dialog renders an open dialog with close button negative DOM"] = 
 `<sbb-dialog
   backdrop="opaque"
-  data-state="opened"
   negative=""
   popover="manual"
 >
@@ -49,9 +47,6 @@ snapshots["sbb-dialog renders an open dialog with close button negative DOM"] =
     Title
   </sbb-dialog-title>
   <sbb-dialog-close-button
-    data-action=""
-    data-button=""
-    data-sbb-button=""
     negative=""
     size="s"
     tabindex="0"

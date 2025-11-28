@@ -3,9 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-secondary-button renders a sbb-secondary-button without icon DOM"] = 
 `<sbb-secondary-button
-  data-action=""
-  data-button=""
-  data-sbb-button=""
   disabled=""
   form="formid"
   name="name"
@@ -33,14 +30,10 @@ snapshots["sbb-secondary-button renders a sbb-secondary-button without icon Shad
 
 snapshots["sbb-secondary-button renders a sbb-secondary-button with slotted icon DOM"] = 
 `<sbb-secondary-button
-  data-action=""
-  data-button=""
-  data-sbb-button=""
   size="l"
   tabindex="0"
 >
   <sbb-icon
-    data-namespace="default"
     name="chevron-small-left-small"
     slot="icon"
   >

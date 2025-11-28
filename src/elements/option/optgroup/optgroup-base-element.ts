@@ -1,4 +1,3 @@
-import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import {
   type CSSResultGroup,
   html,
@@ -42,24 +41,12 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
   @property()
   public accessor label: string = '';
 
-  @state() protected accessor negative = false;
-
   @state() private accessor _inertAriaGroups = false;
 
   protected abstract get options(): SbbOptionBaseElement[];
 
   public constructor() {
     super();
-
-    this.addController(
-      new MutationController(this, {
-        config: {
-          attributes: true,
-          attributeFilter: ['data-negative'],
-        },
-        callback: () => this._onNegativeChange(),
-      }),
-    );
 
     if (inertAriaGroups) {
       if (this.hydrationRequired) {
@@ -72,7 +59,6 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.setAttributeFromParent();
     this._updateAriaLabel();
   }
 
@@ -89,7 +75,6 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
     }
   }
 
-  protected abstract setAttributeFromParent(): void;
   protected abstract getAutocompleteParent(): SbbAutocompleteBaseElement | null;
 
   private _handleSlotchange(): void {
@@ -116,14 +101,11 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
     this.options.forEach((opt) => opt.highlight(value));
   }
 
-  private _onNegativeChange(): void {
-    this.negative = this.hasAttribute('data-negative');
-  }
-
   protected override render(): TemplateResult {
+    // TODO: replace divider with CSS
     return html`
       <div class="sbb-optgroup__divider">
-        <sbb-divider ?negative=${this.negative}></sbb-divider>
+        <sbb-divider ?negative=${this.matches?.(':state(negative)')}></sbb-divider>
       </div>
       ${this.label
         ? html`

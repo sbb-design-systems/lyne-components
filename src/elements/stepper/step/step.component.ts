@@ -8,6 +8,7 @@ import {
 } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import {
   appendAriaElements,
   removeAriaElements,
@@ -43,8 +44,6 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
     resizechange: 'resizechange',
   } as const;
 
-  private _stepper: SbbStepperElement | null = null;
-
   // We use a timeout as a workaround to the "ResizeObserver loop completed with undelivered notifications" error.
   // For more details:
   // - https://github.com/WICG/resize-observer/issues/38#issuecomment-422126006
@@ -61,9 +60,28 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   }
   private _label: SbbStepLabelElement | null = null;
 
+  public get stepper(): SbbStepperElement | null {
+    return this.closest('sbb-stepper');
+  }
+
+  private _previousOrientation?: string;
+
   public constructor() {
     super();
     this.addEventListener?.('click', (e) => this._handleClick(e));
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.stepper, {
+        orientation: (s) => {
+          if (this._previousOrientation) {
+            this.internals.states.delete(`orientation-${this._previousOrientation}`);
+          }
+          this._previousOrientation = s.orientation;
+          if (this._previousOrientation) {
+            this.internals.states.add(`orientation-${this._previousOrientation}`);
+          }
+        },
+      }),
+    );
   }
 
   /**
@@ -74,7 +92,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
     if (!this.hasUpdated || !this.label) {
       return;
     }
-    this.toggleAttribute('data-selected', true);
+    this.internals.states.add('selected');
     this.label.select();
   }
 
@@ -86,7 +104,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
     if (!this.label) {
       return;
     }
-    this.toggleAttribute('data-selected', false);
+    this.internals.states.delete('selected');
     this.label.deselect();
   }
 
@@ -125,9 +143,9 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
       .composedPath()
       .filter((el) => el instanceof window.HTMLElement);
     if (composedPathElements.some((el) => this._isGoNextElement(el as HTMLElement))) {
-      this._stepper?.next();
+      this.stepper?.next();
     } else if (composedPathElements.some((el) => this._isGoPreviousElement(el as HTMLElement))) {
-      this._stepper?.previous();
+      this.stepper?.previous();
     }
   }
 
@@ -140,7 +158,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   }
 
   private _onStepElementResize(): void {
-    if (!this.hasAttribute('data-selected')) {
+    if (!this.matches(':state(selected)')) {
       return;
     }
 
@@ -155,7 +173,6 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
     super.connectedCallback();
     this.id ||= `sbb-step-${nextId++}`;
     this.slot ||= 'step';
-    this._stepper = this.closest('sbb-stepper');
     this._assignLabel();
   }
 

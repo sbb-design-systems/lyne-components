@@ -166,8 +166,8 @@ li {
 .sbb-loading__badge {
   margin-inline: auto calc(var(--sbb-spacing-fixed-3x) * -1);
   padding-inline-end: var(--sbb-spacing-fixed-6x);
-  border-end-start-radius: var(--sbb-border-radius-4x);
-  transform: skew(16deg, 0deg);
+  border-end-start-radius: var(--sbb-card-badge-border-radius);
+  transform: var(--sbb-card-badge-skew);
   width: #{sbb.px-to-rem-build(115)};
   height: #{sbb.px-to-rem-build(20)};
 }

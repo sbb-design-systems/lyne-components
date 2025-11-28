@@ -8,8 +8,6 @@ snapshots["sbb-datepicker renders DOM"] =
   width="default"
 >
   <sbb-datepicker-previous-day
-    data-action=""
-    data-button=""
     slot="prefix"
     tabindex="0"
   >
@@ -26,21 +24,16 @@ snapshots["sbb-datepicker renders DOM"] =
     aria-controls="sbb-datepicker-1"
     aria-expanded="false"
     aria-haspopup="dialog"
-    data-action=""
-    data-button=""
     slot="suffix"
     tabindex="0"
   >
   </sbb-datepicker-toggle>
   <sbb-datepicker-next-day
-    data-action=""
-    data-button=""
     slot="suffix"
     tabindex="0"
   >
   </sbb-datepicker-next-day>
   <sbb-datepicker
-    data-state="closed"
     id="sbb-datepicker-1"
     popover="manual"
   >

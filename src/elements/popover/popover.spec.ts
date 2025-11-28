@@ -1,17 +1,18 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
-import type { SbbButtonElement } from '../../button.ts';
-import { mergeConfig } from '../../core/config.ts';
-import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.ts';
-import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import type { SbbLinkElement } from '../../link.ts';
+import type { SbbButtonElement } from '../button.ts';
+import { mergeConfig } from '../core/config.ts';
+import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import type { SbbLinkElement } from '../link.ts';
 
 import { SbbPopoverElement } from './popover.component.ts';
 
-import '../../button/button.ts';
-import '../../link.ts';
+import '../button/button.ts';
+import '../link.ts';
 
 describe(`sbb-popover`, () => {
   let element: SbbPopoverElement,
@@ -75,14 +76,14 @@ describe(`sbb-popover`, () => {
       await beforeOpenSpy.calledOnce();
       await openSpy.calledOnce();
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('shows on trigger click', async () => {
       trigger.click();
 
       await openSpy.calledOnce();
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('closes the popover', async () => {
@@ -91,14 +92,14 @@ describe(`sbb-popover`, () => {
       element.open();
 
       await openSpy.calledOnce();
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
       expect(element).to.match(':popover-open');
 
       element.close();
 
       await beforeCloseSpy.calledOnce();
       await closeSpy.calledOnce();
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
       expect(element).not.to.match(':popover-open');
     });
 
@@ -108,13 +109,13 @@ describe(`sbb-popover`, () => {
       element.open();
 
       await openSpy.calledOnce();
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       closeButton!.click();
 
       await openSpy.calledOnce();
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
       expect(document.activeElement).to.be.equal(trigger);
     });
 
@@ -125,14 +126,14 @@ describe(`sbb-popover`, () => {
 
       await openSpy.calledOnce();
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
       expect(popoverLink).not.to.be.null;
 
       popoverLink.click();
 
       await closeSpy.calledOnce();
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
       expect(document.activeElement).to.be.equal(trigger);
     });
 
@@ -143,7 +144,7 @@ describe(`sbb-popover`, () => {
 
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       const buttonHeight = getComputedStyle(document.documentElement).getPropertyValue(
         `--sbb-size-element-m`,
@@ -214,7 +215,9 @@ describe(`sbb-popover`, () => {
       expect(document.activeElement).to.be.equal(trigger);
     });
 
-    it('opens and closes with non-zero animation duration', async () => {
+    it('opens and closes with non-zero animation duration', async function (this: Context) {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       element.style.setProperty('--sbb-popover-animation-duration', '1ms');
 
       const popoverLink = element.querySelector<SbbLinkElement>(':scope > sbb-link')!;
@@ -235,7 +238,7 @@ describe(`sbb-popover`, () => {
       await sendKeys({ press: 'Enter' });
 
       await openSpy.calledOnce();
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       expect(document.activeElement).to.be.equal(element);
       expect(
@@ -266,14 +269,14 @@ describe(`sbb-popover`, () => {
 
       await openSpy.calledOnce();
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       await sendKeys({ press: tabKey });
       await sendKeys({ press: 'Escape' });
 
       await closeSpy.calledOnce();
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
       expect(document.activeElement).to.be.equal(trigger);
     });
 
@@ -286,7 +289,7 @@ describe(`sbb-popover`, () => {
       await beforeOpenSpy.calledOnce();
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('does not close if prevented', async () => {
@@ -302,7 +305,7 @@ describe(`sbb-popover`, () => {
       await beforeCloseSpy.calledOnce();
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('should update config when changing hoverTrigger', async () => {
@@ -315,7 +318,7 @@ describe(`sbb-popover`, () => {
       // Assert hover does not trigger
       trigger.dispatchEvent(new Event('mouseenter'));
       await aTimeout(10);
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
 
       // Change to hover trigger
       element.hoverTrigger = true;
@@ -332,7 +335,7 @@ describe(`sbb-popover`, () => {
       // Assert click does not trigger
       trigger.click();
       await aTimeout(0);
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('should handle hover closing on popover', async () => {
@@ -563,7 +566,7 @@ describe(`sbb-popover`, () => {
     await openSpy.calledOnce();
 
     expect(openSpy.count).to.be.equal(1);
-    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
 
     trigger.focus();
     await sendKeys({ press: tabKey });
@@ -574,11 +577,11 @@ describe(`sbb-popover`, () => {
 
     await closeSpy.calledOnce();
     expect(closeSpy.count).to.be.equal(1);
-    expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-closed)');
 
     await openSpy.calledTimes(2);
     expect(openSpy.count).to.be.equal(2);
-    expect(secondElement).to.have.attribute('data-state', 'opened');
+    expect(secondElement).to.match(':state(state-opened)');
   });
 
   it('init with HtmlElement as trigger', async () => {
@@ -597,6 +600,6 @@ describe(`sbb-popover`, () => {
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
 
-    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
   });
 });

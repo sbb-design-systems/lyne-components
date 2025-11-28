@@ -22,14 +22,14 @@ describe('sbb-flip-card-details', () => {
     assert.instanceOf(element, SbbFlipCardDetailsElement);
   });
 
-  it('should have data-card-focusable attribute', async () => {
-    expect(element.querySelector('a')).to.have.attribute('data-card-focusable');
+  it('should have .sbb-action class', async () => {
+    expect(element.querySelector('a')).to.match('.sbb-action');
   });
 
-  it('should set data-card-focusable on a newly slotted action', async () => {
+  it('should set .sbb-action class on a newly slotted action', async () => {
     element.append(document.createElement('button'));
     await waitForLitRender(element);
 
-    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.match('.sbb-action');
   });
 });

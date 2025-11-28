@@ -1,3 +1,4 @@
+import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -31,7 +32,7 @@ class SbbCheckboxGroupElement extends SbbDisabledMixin(SbbElementInternalsMixin(
   public accessor required: boolean = false;
 
   /**
-   * Size variant, either m, s or xs.
+   * Size variant, either xs, s or m.
    * @default 'm' / 'xs' (lean)
    */
   @property() public accessor size: SbbCheckboxSize = isLean() ? 'xs' : 'm';
@@ -56,16 +57,18 @@ class SbbCheckboxGroupElement extends SbbDisabledMixin(SbbElementInternalsMixin(
   public constructor() {
     super();
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
-  }
-
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.toggleAttribute('data-has-panel', !!this.querySelector?.('sbb-checkbox-panel'));
+    this.addController(
+      new MutationController(this, {
+        config: { childList: true, subtree: true },
+        callback: () => this.toggleState('has-panel', !!this.querySelector?.('sbb-checkbox-panel')),
+      }),
+    );
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
+    // TODO: Use PropertyWatcherController in checkbox
     if (changedProperties.has('disabled')) {
       this.checkboxes.forEach((c) => c.requestUpdate?.('disabled'));
     }

@@ -2,7 +2,7 @@
 
 $theme: 'standard' !default;
 
-@mixin base() {
+@mixin base {
   --sbb-selection-expansion-panel-background: var(--sbb-selection-panel-background-default);
   --sbb-selection-expansion-panel-border-color: var(--sbb-selection-panel-border-color-default);
   --sbb-selection-expansion-panel-border-width: var(--sbb-selection-panel-border-width-default);
@@ -14,7 +14,7 @@ $theme: 'standard' !default;
   --sbb-selection-expansion-panel-content-padding-inline: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-selection-panel-input-padding-inline-m),
-        'lean': var(--sbb-selection-panel-input-padding-inline-s),
+        'lean': var(--sbb-selection-panel-input-padding-inline-xs),
       ),
       $theme
     )};

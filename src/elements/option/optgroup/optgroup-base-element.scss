@@ -13,7 +13,7 @@
   --sbb-optgroup-divider-display: none;
 }
 
-:host([data-negative]) {
+:host(:state(negative)) {
   --sbb-optgroup-label-color: var(--sbb-color-5);
 }
 

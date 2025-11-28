@@ -104,7 +104,7 @@ describe(`sbb-train-wagon`, () => {
 
   describe('should render as type wagon with multiple icons', async () => {
     beforeEach(async () => {
-      element = await await fixture(
+      element = await fixture(
         html`<sbb-train-wagon
           ><sbb-icon name="sa-rs"></sbb-icon><sbb-icon name="sa-rs"></sbb-icon
         ></sbb-train-wagon>`,
@@ -122,7 +122,7 @@ describe(`sbb-train-wagon`, () => {
 
   describe('should render as type locomotive', async () => {
     beforeEach(async () => {
-      element = await await fixture(
+      element = await fixture(
         html`<sbb-train-wagon
           type="locomotive"
           additional-accessibility-text="Top of the train"
@@ -141,7 +141,7 @@ describe(`sbb-train-wagon`, () => {
 
   describe('should render as type closed wagon without number', async () => {
     beforeEach(async () => {
-      element = await await fixture(html`<sbb-train-wagon type="closed"></sbb-train-wagon>`);
+      element = await fixture(html`<sbb-train-wagon type="closed"></sbb-train-wagon>`);
     });
 
     it('DOM', async () => {

@@ -5,8 +5,6 @@ snapshots["sbb-teaser renders after centered DOM"] =
 `<sbb-teaser
   accessibility-label="SBB teaser"
   alignment="after-centered"
-  data-action=""
-  data-link=""
   href="https://github.com/sbb-design-systems/lyne-components"
 >
 </sbb-teaser>
@@ -48,8 +46,6 @@ snapshots["renders after with title set DOM"] =
 `<sbb-teaser
   accessibility-label="SBB teaser"
   alignment="after"
-  data-action=""
-  data-link=""
   href="https://github.com/sbb-design-systems/lyne-components"
 >
   <sbb-title level="2">Title</sbb-title>
@@ -94,8 +90,6 @@ snapshots["sbb-teaser renders below with projected content DOM"] =
 `<sbb-teaser
   accessibility-label="SBB teaser"
   alignment="below"
-  data-action=""
-  data-link=""
   href="https://github.com/sbb-design-systems/lyne-components"
 >
   <figure
@@ -199,8 +193,6 @@ snapshots["sbb-teaser renders after with title set DOM"] =
 `<sbb-teaser
   accessibility-label="SBB teaser"
   alignment="after"
-  data-action=""
-  data-link=""
   href="https://github.com/sbb-design-systems/lyne-components"
 >
   <sbb-title

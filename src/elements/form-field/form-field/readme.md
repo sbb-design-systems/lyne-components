@@ -191,12 +191,12 @@ export class MyFormControl implements SbbFormFieldElementControl, OnChanges {
 
   @Input() id = `my-form-control-${nextId++}`;
 
-  @Input(({ transform: booleanAttribute }) readOnly = false;
+  @Input({ transform: booleanAttribute }) readOnly = false;
 
-  @Input(({ transform: booleanAttribute }) disabled = false;
+  @Input({ transform: booleanAttribute }) disabled = false;
 
   get empty() {
-    return Logic to determine whether the control is empty
+    return <Logic to determine whether the control is empty>
   }
 
   onContainerClick(event: MouseEvent): void {
@@ -215,7 +215,7 @@ export class MyFormControl implements SbbFormFieldElementControl, OnChanges {
 
 ### Generic example
 
-If you are using another framework or you are using an existing library
+If you are using another framework, or you are using an existing library
 that you need to connect, you can write the integration yourself.
 
 ```ts

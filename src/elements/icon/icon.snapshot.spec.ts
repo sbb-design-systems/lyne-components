@@ -97,10 +97,9 @@ describe(`sbb-icon`, () => {
       html`<sbb-icon name="app-icon-medium" aria-hidden="false"></sbb-icon>`,
     );
 
-    expect(icon).dom.to.be.equal(`
-      <sbb-icon name="app-icon-medium" aria-hidden="false" data-namespace="default">
-      </sbb-icon>
-    `);
+    expect(icon).dom.to.be.equal(
+      `<sbb-icon name="app-icon-medium" aria-hidden="false"></sbb-icon>`,
+    );
     expect(icon).shadowDom.to.be.equal(`
       <span class="sbb-icon-inner"><svg-fake data-name="app-icon-medium" height="36" width="36" style="width:36px;height:36px"></svg-fake></span>
     `);
@@ -109,8 +108,7 @@ describe(`sbb-icon`, () => {
     await waitForLitRender(icon);
 
     expect(icon).dom.to.be.equal(`
-      <sbb-icon name="pie-medium" aria-hidden="false" data-namespace="default">
-      </sbb-icon>
+      <sbb-icon name="pie-medium" aria-hidden="false"></sbb-icon>
     `);
     expect(icon).shadowDom.to.be.equal(`
       <span class="sbb-icon-inner"><svg-fake data-name="pie-medium" height="36" width="36" style="width:36px;height:36px"></svg-fake></span>
@@ -145,10 +143,7 @@ describe(`sbb-icon`, () => {
 
     const root = await fixture(html`<sbb-icon name="kom:heart-medium"></sbb-icon>`);
 
-    expect(root).dom.to.be.equal(`
-      <sbb-icon name="kom:heart-medium" data-namespace="kom">
-      </sbb-icon>
-    `);
+    expect(root).dom.to.be.equal(`<sbb-icon name="kom:heart-medium"></sbb-icon>`);
     await expect(root).shadowDom.to.equalSnapshot();
 
     expect(interceptorCalled).to.be.true;

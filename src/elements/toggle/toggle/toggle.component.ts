@@ -151,7 +151,7 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(
       return;
     }
 
-    this.toggleAttribute('data-disable-animation-on-resizing', resizing);
+    this.toggleState('disable-animation-on-resizing', resizing);
 
     const firstOption = options[0];
     const isFirstChecked = firstOption.checked;
@@ -172,7 +172,7 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(
     this.offsetWidth;
 
     // In order to avoid a transition glitch, we have to know when the first values were set.
-    this.toggleAttribute('data-initialized', true);
+    this.internals.states.add('initialized');
   }
 
   private _updateToggle(): void {

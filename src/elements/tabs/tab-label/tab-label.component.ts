@@ -3,6 +3,7 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
 import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
@@ -30,6 +31,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
 
   /** Whether the tab is selected. */
   private _selected: boolean = false;
+  private _previousSize: SbbTabGroupElement['size'] | null = null;
 
   /**
    * The level will correspond to the heading tag generated in the title.
@@ -63,6 +65,19 @@ class SbbTabLabelElement extends SbbDisabledMixin(
     super();
 
     this.addEventListener('click', () => this.activate());
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.group, {
+        size: (g) => {
+          if (this._previousSize) {
+            this.internals.states.delete(`size-${this._previousSize}`);
+          }
+          this._previousSize = g?.size || null;
+          if (this._previousSize) {
+            this.internals.states.add(`size-${this._previousSize}`);
+          }
+        },
+      }),
+    );
   }
 
   public override connectedCallback(): void {

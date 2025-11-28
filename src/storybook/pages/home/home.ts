@@ -80,7 +80,7 @@ export const homeTemplate = (args: Args): TemplateResult => html`
         <sbb-title level="2" ?negative=${args.negative}> Top Products. </sbb-title>
         <div class="top-products-grid">
           ${dailyTicketProduct()} ${bikeProduct()} ${liberoProduct()}
-          <sbb-card color="milk" size="s">
+          <sbb-card color="milk" class="sbb-card-spacing-xxxs-xxs">
             <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
               Buy daily ticket
             </sbb-card-link>
@@ -94,7 +94,7 @@ export const homeTemplate = (args: Args): TemplateResult => html`
             </span>
           </sbb-card>
 
-          <sbb-card color="milk" size="s" class="grid-span-2">
+          <sbb-card color="milk" class="sbb-card-spacing-xxxs-xxs grid-span-2">
             <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
               Show all GAs at a glance
             </sbb-card-link>
@@ -109,7 +109,7 @@ export const homeTemplate = (args: Args): TemplateResult => html`
             </span>
           </sbb-card>
 
-          <sbb-card class="grid-span-2" color="milk" size="s">
+          <sbb-card class="grid-span-2 sbb-card-spacing-xxxs-xxs" color="milk">
             <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
               Buy half price ticket
             </sbb-card-link>

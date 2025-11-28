@@ -11,7 +11,7 @@ export class SbbSpreadDirective extends Directive {
     return nothing;
   }
 
-  public override update(part: Part, [spreadData]: { [key: string]: unknown }[]): void {
+  public override update(part: Part, [spreadData]: { [_: string]: unknown }[]): void {
     super.update(part, [spreadData]);
     if (this._element !== (part as ElementPart).element) {
       this._element = (part as ElementPart).element;

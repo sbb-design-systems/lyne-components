@@ -23,7 +23,7 @@ class SbbErrorElement extends SbbNegativeMixin(LitElement) {
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-error-${nextId++}`;
-    const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
+    const formField = this.closest?.('sbb-form-field');
     if (formField) {
       this.negative = formField.hasAttribute('negative');
     }

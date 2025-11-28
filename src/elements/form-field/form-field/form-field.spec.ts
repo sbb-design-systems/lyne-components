@@ -269,13 +269,13 @@ describe(`sbb-form-field`, () => {
 
     it('should open select on form field click', async () => {
       expect(element).not.to.have.match(':state(focus)');
-      expect(select).to.not.have.attribute('data-state', 'opened');
+      expect(select).to.not.match(':state(state-opened)');
 
       const label = element.querySelector('label')!;
       label.click();
       await waitForLitRender(element);
 
-      expect(select).to.have.attribute('data-state', 'opened');
+      expect(select).to.match(':state(state-opened)');
     });
 
     it('should focus select on form field click readonly', async () => {

@@ -228,7 +228,6 @@ snapshots["sbb-form-field should render select without label Shadow DOM"] =
       </div>
       <sbb-icon
         class="sbb-form-field__select-input-icon"
-        data-namespace="default"
         name="chevron-small-down-small"
       >
       </sbb-icon>
@@ -302,7 +301,6 @@ snapshots["sbb-form-field renders select with optional flag and borderless Shado
       </div>
       <sbb-icon
         class="sbb-form-field__select-input-icon"
-        data-namespace="default"
         name="chevron-small-down-small"
       >
       </sbb-icon>

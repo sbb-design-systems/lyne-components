@@ -1,5 +1,6 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.js';
 import { html, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
@@ -22,12 +23,12 @@ import style from './seat-reservation.scss?lit&inline';
 
 import '@sbb-esta/lyne-elements/button.js';
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
+import '@sbb-esta/lyne-elements/popover.js';
 import '../seat-reservation-area.ts';
 import '../seat-reservation-graphic.ts';
 import '../seat-reservation-place-control.ts';
 import '../seat-reservation-navigation-coach.ts';
 import '../seat-reservation-scoped.ts';
-import '@sbb-esta/lyne-elements/popover/popover.js';
 
 /**
  * Main component for the seat reservation.
@@ -214,7 +215,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    *
    * @returns
    * @param seatReservation
-   * @param deckIndex
+   * @param coachDeckIndex
    */
   private _renderCoaches(
     seatReservation: SeatReservation,
@@ -322,7 +323,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       return null;
     }
 
-    // Prepair rows with the places to render a table
+    // Prepare rows with the places to render a table
     const tableRowPlaces: Record<number, Place[]> = {};
     for (const place of coach.places) {
       if (!tableRowPlaces[place.position.y]) {
@@ -538,7 +539,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       coachDimension,
     );
 
-    // If the icon is the driver area, then here concat the vehicle type to get the right vehicle chassie icon
+    // If the icon is the driver area, then here concat the vehicle type to get the right vehicle chassis icon
     const icon =
       graphicalElement.icon && graphicalElement.icon.indexOf('DRIVER_AREA') === -1
         ? graphicalElement.icon
@@ -614,7 +615,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     this.isCoachGridFocusable = false;
 
     // Check any keyboard event was triggered inside the seat reservation component,
-    // so we can say the native browser focus lies on the this component
+    // so we can say the native browser focus lies on the component
     if (!this.hasSeatReservationNativeFocus) {
       this.hasSeatReservationNativeFocus = true;
     }
@@ -678,8 +679,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    */
   private _closePopover(): void {
     this.shadowRoot
-      ?.querySelectorAll('sbb-popover[data-state="opened"]')
-      .forEach((popover) => popover.setAttribute('data-state', 'closed'));
+      ?.querySelectorAll<SbbPopoverElement>('sbb-popover:state(state-opened)')
+      .forEach((popover) => popover.close());
   }
 
   private _getDescriptionTableCoach(coachItem: CoachItem): string {
@@ -724,7 +725,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         const icon = descriptionElement.icon;
         if (!icon) return null;
 
-        const descriptionAlreayExist = uniqueDescriptions.indexOf(icon) > -1;
+        const descriptionAlreadyExist = uniqueDescriptions.indexOf(icon) > -1;
         const translation = getI18nSeatReservation(
           descriptionElement.icon!,
           this._language.current,
@@ -733,10 +734,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           this._notFixedRotatableAreaIcons.indexOf(icon) === -1 &&
           this._notAreaElements.indexOf(icon) === -1;
 
-        if (!descriptionAlreayExist) {
+        if (!descriptionAlreadyExist) {
           uniqueDescriptions.push(descriptionElement.icon!);
         }
-        return !!translation && !descriptionAlreayExist && isValidDescription ? translation : null;
+        return !!translation && !descriptionAlreadyExist && isValidDescription ? translation : null;
       })
       .filter((description) => !!description)
       .join(', ');

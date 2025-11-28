@@ -65,7 +65,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends AbstractConstructor<
     public set checked(value: boolean) {
       this._checked = !!value;
 
-      this.toggleAttribute('data-checked', this.checked);
+      this.toggleState('checked', this.checked);
       this.internals.ariaChecked = this.checked.toString();
       this.updateFormValue();
       this._synchronizeGroupState();

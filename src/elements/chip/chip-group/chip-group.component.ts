@@ -22,6 +22,7 @@ import {
   SbbRequiredMixin,
 } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbFormFieldElement } from '../../form-field/form-field/form-field.component.ts';
 import type { SbbOptionBaseElement } from '../../option/option/option-base-element.ts';
 import { SbbChipElement } from '../chip.ts';
 
@@ -123,6 +124,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   private _inputElement: HTMLInputElement | undefined;
   private _inputAbortController: AbortController | undefined;
   private _language = new SbbLanguageController(this);
+  private _previousSize?: SbbFormFieldElement['size'];
 
   public constructor() {
     super();
@@ -242,7 +244,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
       });
     }
 
-    this.toggleAttribute('data-empty', this.value.length === 0);
+    this.toggleState('empty', this.value.length === 0);
     this._reactToInputChanges();
     this._updateInputDescription();
     this.updateFormValue();
@@ -417,7 +419,13 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   }
 
   private _inheritSize(): void {
-    this.setAttribute('data-size', this.closest('sbb-form-field')?.size ?? (isLean() ? 's' : 'm'));
+    if (this._previousSize) {
+      this.internals.states.delete(`size-${this._previousSize}`);
+    }
+    this._previousSize = this.closest('sbb-form-field')?.size ?? (isLean() ? 's' : 'm');
+    if (this._previousSize) {
+      this.internals.states.add(`size-${this._previousSize}`);
+    }
   }
 
   private _updateInputDescription(): void {

@@ -33,7 +33,7 @@ class SbbTeaserProductElement extends SbbTeaserProductCommonElementMixin(SbbLink
     return html`
       <div class="sbb-teaser-product__wrapper">
         ${this.renderLink(
-          // For SEO we add the accessibility hidden as hidden content of the link
+          // For SEO, we add the accessibility hidden as hidden content of the link
           html`<sbb-screen-reader-only>${this.accessibilityLabel}</sbb-screen-reader-only>`,
         )}
         ${this.renderTemplate()}

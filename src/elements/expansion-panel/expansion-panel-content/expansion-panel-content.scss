@@ -9,7 +9,7 @@
   display: block;
 }
 
-:host([data-size='s']) {
+:host(:state(size-s)) {
   --sbb-expansion-panel-content-padding-inline: var(--sbb-spacing-fixed-5x);
 }
 

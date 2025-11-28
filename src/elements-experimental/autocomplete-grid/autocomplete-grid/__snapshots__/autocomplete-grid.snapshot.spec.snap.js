@@ -3,35 +3,24 @@ export const snapshots = {};
 
 snapshots["sbb-autocomplete-grid Chrome-Firefox DOM"] = 
 `<sbb-autocomplete-grid
-  data-state="closed"
   popover="manual"
   size="m"
 >
-  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
-    <sbb-autocomplete-grid-option id="sbb-autocomplete-grid-option-0">
+  <sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-option>
       Option 1
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell>
-      <sbb-autocomplete-grid-button
-        data-action=""
-        data-button=""
-        icon-name="dog-small"
-        id="sbb-autocomplete-grid-button-1"
-      >
+      <sbb-autocomplete-grid-button icon-name="dog-small">
       </sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
-  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-2">
-    <sbb-autocomplete-grid-option id="sbb-autocomplete-grid-option-1">
+  <sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-option>
       Option 2
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell>
-      <sbb-autocomplete-grid-button
-        data-action=""
-        data-button=""
-        icon-name="dog-small"
-        id="sbb-autocomplete-grid-button-2"
-      >
+      <sbb-autocomplete-grid-button icon-name="dog-small">
       </sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
@@ -77,36 +66,24 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox Shadow DOM"] =
 
 snapshots["sbb-autocomplete-grid Safari DOM"] = 
 `<sbb-autocomplete-grid
-  data-state="closed"
-  id="sbb-autocomplete-grid-1"
   popover="manual"
   size="m"
 >
-  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-1">
-    <sbb-autocomplete-grid-option id="sbb-autocomplete-grid-option-0">
+  <sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-option>
       Option 1
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell>
-      <sbb-autocomplete-grid-button
-        data-action=""
-        data-button=""
-        icon-name="dog-small"
-        id="sbb-autocomplete-grid-button-1"
-      >
+      <sbb-autocomplete-grid-button icon-name="dog-small">
       </sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
-  <sbb-autocomplete-grid-row id="sbb-autocomplete-grid-row-2">
-    <sbb-autocomplete-grid-option id="sbb-autocomplete-grid-option-1">
+  <sbb-autocomplete-grid-row>
+    <sbb-autocomplete-grid-option>
       Option 2
     </sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell>
-      <sbb-autocomplete-grid-button
-        data-action=""
-        data-button=""
-        icon-name="dog-small"
-        id="sbb-autocomplete-grid-button-2"
-      >
+      <sbb-autocomplete-grid-button icon-name="dog-small">
       </sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>

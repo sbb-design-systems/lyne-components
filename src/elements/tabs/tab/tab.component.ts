@@ -44,12 +44,6 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
     return this.closest('sbb-tab-group');
   }
 
-  /**
-   * @internal
-   * @deprecated
-   */
-  public configure(): void {}
-
   public override connectedCallback(): void {
     super.connectedCallback();
 
@@ -59,14 +53,14 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
 
   /** @internal */
   protected activate(): void {
-    this.toggleState('active', true);
+    this.internals.states.add('active');
     this._tabContentResizeObserver.observe(this);
   }
 
   /** @internal */
   protected deactivate(): void {
     this._tabContentResizeObserver.unobserve(this);
-    this.toggleState('active', false);
+    this.internals.states.delete('active');
   }
 
   private _onTabContentElementResize(): void {

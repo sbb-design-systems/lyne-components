@@ -3,8 +3,11 @@ import {
   visualDiffDefault,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html, nothing, type TemplateResult } from 'lit';
+import { ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
+
+import type { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.component.ts';
 
 import '@sbb-esta/lyne-elements/form-field.js';
 import '../../autocomplete-grid.ts';
@@ -27,9 +30,11 @@ describe(`sbb-autocomplete-grid-option`, () => {
       <sbb-autocomplete-grid-option
         style=${styleMap(style)}
         icon-name=${iconName || nothing}
-        ?data-active=${active && i === 0}
         ?disabled=${disabled && i === 0}
         value=${`Value ${i + 1}`}
+        ${ref((o?: Element) =>
+          (o as SbbAutocompleteGridOptionElement | undefined)?.setActive(active && i === 0),
+        )}
         >Value ${i + 1}</sbb-autocomplete-grid-option
       >
     `;

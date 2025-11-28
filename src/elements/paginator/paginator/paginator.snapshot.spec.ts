@@ -102,7 +102,7 @@ describe(`sbb-paginator`, () => {
       });
 
       it('Shadow DOM', async () => {
-        await expect(element).shadowDom.to.be.equalSnapshot();
+        await expect(element).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
     });
 

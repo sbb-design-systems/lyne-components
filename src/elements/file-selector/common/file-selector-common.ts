@@ -23,6 +23,7 @@ import {
   SbbDisabledMixin,
   SbbElementInternalsMixin,
   SbbFormAssociatedMixin,
+  ɵstateController,
 } from '../../core/mixins.ts';
 
 import '../../button/secondary-button.ts';
@@ -165,12 +166,12 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
 
     private _onFocus(): void {
       if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-        this.loadButton.toggleAttribute('data-focus-visible', true);
+        ɵstateController(this.loadButton).add('focus-visible');
       }
     }
 
     private _onBlur(): void {
-      this.loadButton.removeAttribute('data-focus-visible');
+      ɵstateController(this.loadButton).delete('focus-visible');
     }
 
     private _readFiles(event: Event): void {
@@ -337,7 +338,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     ): void {
       this._dragTarget = dragTarget;
       this.toggleState('active', isDragEnter);
-      this.loadButton.toggleAttribute('data-active', isDragEnter);
+      ɵstateController(this.loadButton).toggle('active', isDragEnter);
     }
 
     protected override render(): TemplateResult {

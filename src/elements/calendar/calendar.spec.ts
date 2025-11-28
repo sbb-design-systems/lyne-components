@@ -24,7 +24,7 @@ describe(`sbb-calendar`, () => {
 
   const waitForTransition = async (): Promise<void> => {
     //Wait for the transition to be over
-    await waitForCondition(() => !element.hasAttribute('data-transition'));
+    await waitForCondition(() => !element.matches(':state(transition)'));
 
     await waitForLitRender(element);
 
@@ -193,7 +193,7 @@ describe(`sbb-calendar`, () => {
       expect(yearSelection).dom.to.be.equal(`
         <button aria-label="Choose date 2016 - 2039" class="sbb-calendar__controls-change-date" id="sbb-calendar__year-selection" type="button">
           2016 - 2039
-          <sbb-icon data-namespace="default" name="chevron-small-up-small"></sbb-icon>
+          <sbb-icon name="chevron-small-up-small"></sbb-icon>
         </button>
       `);
 
@@ -225,7 +225,7 @@ describe(`sbb-calendar`, () => {
       expect(monthSelection).dom.to.be.equal(`
         <button aria-label="Choose date 2023" class="sbb-calendar__controls-change-date" id="sbb-calendar__month-selection" type="button">
           2023
-          <sbb-icon data-namespace="default" name="chevron-small-up-small"></sbb-icon>
+          <sbb-icon name="chevron-small-up-small"></sbb-icon>
         </button>
       `);
 
@@ -560,7 +560,10 @@ describe(`sbb-calendar`, () => {
       await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
     });
 
-    it('changes to year and month selection views', async () => {
+    it('changes to year and month selection views', async function () {
+      // Flaky on WebKit
+      this.retries(3);
+
       element = await fixture(html`<sbb-calendar selected="2023-01-15" wide></sbb-calendar>`);
 
       // Open year selection

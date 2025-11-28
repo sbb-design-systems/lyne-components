@@ -18,7 +18,7 @@ describe(`sbb-sticky-bar`, () => {
   let beforeUnstickSpy: EventSpy<Event>;
   let unstickSpy: EventSpy<Event>;
 
-  const isSticking = (): boolean => stickyBar.hasAttribute('data-sticking');
+  const isSticking = (): boolean => stickyBar.matches(':state(sticking)');
 
   describe('sticky', () => {
     beforeEach(async () => {
@@ -54,7 +54,7 @@ describe(`sbb-sticky-bar`, () => {
 
     it('stops sticking when scrolling to bottom', async () => {
       expect(isSticking()).to.equal(true);
-      expect(stickyBar).to.have.attribute('data-slide-vertically');
+      expect(stickyBar).to.match(':state(slide-vertically)');
 
       window.scrollTo(0, 400);
 
@@ -62,7 +62,7 @@ describe(`sbb-sticky-bar`, () => {
       await waitForLitRender(container);
 
       expect(isSticking()).to.equal(false);
-      expect(stickyBar).not.to.have.attribute('data-slide-vertically');
+      expect(stickyBar).not.to.match(':state(slide-vertically)');
     });
 
     it('expands the sticky-bar when container is expanded', async () => {
@@ -70,7 +70,7 @@ describe(`sbb-sticky-bar`, () => {
 
       await waitForLitRender(container);
 
-      expect(stickyBar).to.have.attribute('data-expanded');
+      expect(stickyBar).to.match(':state(expanded)');
     });
 
     it('gets unsticky when calling unstick()', async () => {
@@ -93,7 +93,7 @@ describe(`sbb-sticky-bar`, () => {
 
       await beforeUnstickSpy.calledOnce();
 
-      expect(stickyBar).to.have.attribute('data-state', 'sticky');
+      expect(stickyBar).to.match(':state(state-sticky)');
       expect(beforeUnstickSpy.count).to.be.equal(1);
       expect(unstickSpy.count).to.be.equal(0);
     });
@@ -139,12 +139,14 @@ describe(`sbb-sticky-bar`, () => {
 
       await beforeStickSpy.calledOnce();
 
-      expect(stickyBar).to.have.attribute('data-state', 'unsticky');
+      expect(stickyBar).to.match(':state(state-unsticky)');
       expect(beforeStickSpy.count).to.be.equal(1);
       expect(stickSpy.count).to.be.equal(0);
     });
 
     it('works with non-zero animation duration', async () => {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       stickyBar.style.setProperty('--sbb-sticky-bar-slide-vertically-animation-duration', '1ms');
 
       stickyBar.unstick();
@@ -186,6 +188,6 @@ describe(`sbb-sticky-bar`, () => {
     `);
     stickyBar = container.querySelector('sbb-sticky-bar')!;
 
-    expect(stickyBar).to.have.attribute('data-expanded');
+    expect(stickyBar).to.match(':state(expanded)');
   });
 });

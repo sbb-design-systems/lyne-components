@@ -20,12 +20,6 @@ const partiallyCancelledService = {
   ...defaultService,
   serviceAlteration: { partiallyCancelled: true },
 };
-const delayedService = { ...defaultService, serviceAlteration: { delay: true } };
-const isNotReachableService = { ...defaultService, serviceAlteration: { reachable: false } };
-const unplannedStopService = {
-  ...defaultService,
-  serviceAlteration: { unplannedStopPointsText: 'unplannedStop' },
-};
 const redirectedService = {
   ...defaultService,
   serviceAlteration: { redirectedText: 'Exceptionally no stop' },
@@ -162,27 +156,6 @@ export const defaultTramLeg: any = {
     quayTypeName: 'Stand',
     quayTypeShortName: 'Stand',
   },
-};
-
-export const delayedLeg = {
-  __typename: 'PTRideLeg',
-  arrival: { time: future2 },
-  departure: { time: future },
-  serviceJourney: delayedService,
-};
-
-export const notReachableLeg = {
-  __typename: 'PTRideLeg',
-  arrival: { time: future2 },
-  departure: { time: future },
-  serviceJourney: isNotReachableService,
-};
-
-export const unplannedStopLeg = {
-  __typename: 'PTRideLeg',
-  arrival: { time: future2 },
-  departure: { time: future },
-  serviceJourney: unplannedStopService,
 };
 
 export const redirectedOnDepartureLeg = {

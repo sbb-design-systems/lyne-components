@@ -1,6 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import { fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
@@ -254,7 +255,7 @@ describe('sbb-sidebar', () => {
       expect(element.isOpen).to.be.true;
 
       await aTimeout(0);
-      expect(element).not.to.have.attribute('data-skip-animation');
+      expect(element).not.to.match(':state(skip-animation)');
     });
 
     it('should abort opening when defaultPrevented', async () => {
@@ -341,7 +342,7 @@ describe('sbb-sidebar', () => {
       await setViewport({ width: 400, height: 400 });
 
       // Wait for resizeObserver of container to be triggered
-      await waitForCondition(() => element.hasAttribute('data-mode-over-forced'));
+      await waitForCondition(() => element.matches(':state(mode-over-forced)'));
 
       element.open();
       expect(element.isOpen).to.be.true;
@@ -375,7 +376,7 @@ describe('sbb-sidebar', () => {
       expect(element.isOpen).to.be.false;
 
       await aTimeout(0);
-      expect(element).not.to.have.attribute('data-skip-animation');
+      expect(element).not.to.match(':state(skip-animation)');
 
       // As the sidebar is closed, focus should be on the last focused element before opening the sidebar;
       expect(document.activeElement!.id).to.be.equal('b1');
@@ -390,7 +391,9 @@ describe('sbb-sidebar', () => {
       expect(element.isOpen).to.be.true;
     });
 
-    it('opens and closes with non-zero animation duration', async () => {
+    it('opens and closes with non-zero animation duration', async function (this: Context) {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       container.style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
       const openSpy = new EventSpy(SbbSidebarElement.events.open, element);
       const closeSpy = new EventSpy(SbbSidebarElement.events.close, element);
@@ -464,12 +467,14 @@ describe('sbb-sidebar', () => {
 
       element = container.querySelector('sbb-sidebar')!;
 
-      expect(element).to.have.attribute('data-skip-animation');
+      expect(element).to.match(':state(skip-animation)');
 
-      await waitForCondition(() => !element.hasAttribute('data-skip-animation'));
+      await waitForCondition(() => !element.matches(':state(skip-animation)'));
     });
 
     it('should handle initial opened state with non-zero animation time', async () => {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       container = await fixture(
         html`<sbb-sidebar-container style="--sbb-sidebar-container-animation-duration: 1ms">
           <sbb-sidebar opened>Content</sbb-sidebar>
@@ -479,24 +484,26 @@ describe('sbb-sidebar', () => {
 
       element = container.querySelector('sbb-sidebar')!;
 
-      expect(element).to.have.attribute('data-skip-animation');
+      expect(element).to.match(':state(skip-animation)');
 
-      await waitForCondition(() => !element.hasAttribute('data-skip-animation'));
+      await waitForCondition(() => !element.matches(':state(skip-animation)'));
     });
 
     describe('status change during animation', () => {
       beforeEach(() => {
+        (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
         container.style.setProperty('--sbb-sidebar-container-animation-duration', '10ms');
       });
 
       it('should allow closing during opening', async () => {
         element.open();
-        expect(element).to.have.attribute('data-state', 'opening');
+        expect(element).to.match(':state(state-opening)');
         expect(element.opened).to.be.true;
 
         element.close();
         expect(element.opened).to.be.false;
-        expect(element).to.have.attribute('data-state', 'closing');
+        expect(element).to.match(':state(state-closing)');
       });
 
       it('should allow opening during closing', async () => {
@@ -506,22 +513,22 @@ describe('sbb-sidebar', () => {
         await openSpy.calledOnce();
 
         element.close();
-        expect(element).to.have.attribute('data-state', 'closing');
+        expect(element).to.match(':state(state-closing)');
         expect(element.opened).to.be.false;
 
         element.open();
         expect(element.opened).to.be.true;
-        expect(element).to.have.attribute('data-state', 'opening');
+        expect(element).to.match(':state(state-opening)');
       });
 
       it('should allow toggling during opening', async () => {
         element.open();
-        expect(element).to.have.attribute('data-state', 'opening');
+        expect(element).to.match(':state(state-opening)');
         expect(element.opened).to.be.true;
 
         element.close();
         expect(element.opened).to.be.false;
-        expect(element).to.have.attribute('data-state', 'closing');
+        expect(element).to.match(':state(state-closing)');
       });
 
       it('should prevent double open() call', async () => {
@@ -640,12 +647,12 @@ describe('sbb-sidebar', () => {
 
       await setViewport({ width: 800, height: 200 });
       await waitForLitRender(element);
-      expect(element).not.to.have.attribute('data-scrolled');
+      expect(element).not.to.match(':state(scrolled)');
 
       scrollContext.scrollTo({ top: 1, behavior: 'instant' });
       await scrollEventSpy.calledTimes(1);
 
-      expect(element).to.have.attribute('data-scrolled');
+      expect(element).to.match(':state(scrolled)');
     });
   });
 });

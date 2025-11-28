@@ -72,8 +72,8 @@ describe(`sbb-selection-expansion-panel`, () => {
     await waitForLitRender(wrapper);
 
     for (const el of elements) {
-      await waitForCondition(() => el.getAttribute('data-state') === 'opened');
-      expect(el).to.have.attribute('data-state', 'opened');
+      await waitForCondition(() => el.matches(':state(state-opened)'));
+      expect(el).to.match(':state(state-opened)');
     }
 
     expect(secondInput.checked).to.be.false;
@@ -177,10 +177,10 @@ describe(`sbb-selection-expansion-panel`, () => {
       await waitForLitRender(wrapper);
 
       expect(firstInput.checked).to.be.false;
-      expect(firstPanel).to.have.attribute('data-state', 'closed');
+      expect(firstPanel).to.match(':state(state-closed)');
 
       expect(secondInput.checked).to.be.false;
-      expect(secondPanel).to.have.attribute('data-state', 'closed');
+      expect(secondPanel).to.match(':state(state-closed)');
 
       secondInput.click();
 
@@ -191,9 +191,9 @@ describe(`sbb-selection-expansion-panel`, () => {
       expect(beforeOpenSpy.count).to.be.equal(1);
       expect(openSpy.count).to.be.equal(1);
       expect(firstInput.checked).to.be.false;
-      expect(firstPanel).to.have.attribute('data-state', 'closed');
+      expect(firstPanel).to.match(':state(state-closed)');
       expect(secondInput.checked).to.be.true;
-      expect(secondPanel).to.have.attribute('data-state', 'opened');
+      expect(secondPanel).to.match(':state(state-opened)');
     });
 
     it('always displays related content with forceOpen', async () => {
@@ -336,6 +336,8 @@ describe(`sbb-selection-expansion-panel`, () => {
     let closeSpy: EventSpy<Event>;
 
     beforeEach(async () => {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       beforeOpenSpy = new EventSpy(SbbSelectionExpansionPanelElement.events.beforeopen, null, {
         capture: true,
       });
@@ -388,7 +390,7 @@ describe(`sbb-selection-expansion-panel`, () => {
       })) as unknown as { name: string };
 
       // We assert that there was no fade in animation (skipped opening state).
-      await waitForCondition(() => panel1.getAttribute('data-state') === 'opening', 1, 100)
+      await waitForCondition(() => panel1.matches(':state(state-opening)'), 1, 100)
         .then(() => Promise.reject('accidentally passed'))
         .catch((error) => expect(error).to.include('timeout'));
 
@@ -397,8 +399,8 @@ describe(`sbb-selection-expansion-panel`, () => {
       expect(openSpy.count).to.be.equal(1);
       expect(mainRadioButton1Label.name.trim()).to.be.equal('Main Option 1 , expanded');
       expect(mainRadioButton2Label.name.trim()).to.be.equal('Main Option 2 , collapsed');
-      expect(panel1).to.have.attribute('data-state', 'opened');
-      expect(panel2).to.have.attribute('data-state', 'closed');
+      expect(panel1).to.match(':state(state-opened)');
+      expect(panel2).to.match(':state(state-closed)');
 
       // Activate main option 2
       mainRadioButton2.click();
@@ -423,8 +425,8 @@ describe(`sbb-selection-expansion-panel`, () => {
       );
       expect(mainRadioButton2LabelSecondRender.name.trim()).to.be.equal('Main Option 2 , expanded');
 
-      expect(panel1).to.have.attribute('data-state', 'closed');
-      expect(panel2).to.have.attribute('data-state', 'opened');
+      expect(panel1).to.match(':state(state-closed)');
+      expect(panel2).to.match(':state(state-opened)');
     });
 
     it('should mark only outer group children as disabled', async () => {
@@ -460,8 +462,8 @@ describe(`sbb-selection-expansion-panel`, () => {
       await openSpy.calledOnce();
       expect(beforeOpenSpy.count).to.be.equal(1);
       expect(openSpy.count).to.be.equal(1);
-      expect(panel1).to.have.attribute('data-state', 'opened');
-      expect(panel2).to.have.attribute('data-state', 'closed');
+      expect(panel1).to.match(':state(state-opened)');
+      expect(panel2).to.match(':state(state-closed)');
       expect(main1.checked).to.be.true;
       expect(main2.checked).to.be.false;
       expect(sub1.checked).to.be.true;
@@ -476,8 +478,8 @@ describe(`sbb-selection-expansion-panel`, () => {
       expect(beforeCloseSpy.count).to.be.equal(1);
       expect(closeSpy.count).to.be.equal(1);
 
-      expect(panel1).to.have.attribute('data-state', 'closed');
-      expect(panel2).to.have.attribute('data-state', 'opened');
+      expect(panel1).to.match(':state(state-closed)');
+      expect(panel2).to.match(':state(state-opened)');
       expect(main1.checked).to.be.false;
       expect(main2.checked).to.be.true;
       expect(sub1.checked).to.be.true;
@@ -587,9 +589,9 @@ describe(`sbb-selection-expansion-panel`, () => {
 
       expect(beforeOpenSpy.count).to.be.equal(1);
       expect(openSpy.count).to.be.equal(1);
-      expect(firstPanel).to.have.attribute('data-state', 'opened');
+      expect(firstPanel).to.match(':state(state-opened)');
       expect(firstInput.checked).to.be.true;
-      expect(secondPanel).to.have.attribute('data-state', 'closed');
+      expect(secondPanel).to.match(':state(state-closed)');
       expect(secondInput.checked).to.be.false;
 
       secondInput.click();
@@ -599,17 +601,19 @@ describe(`sbb-selection-expansion-panel`, () => {
       expect(beforeOpenSpy.count).to.be.equal(2);
       expect(openSpy.count).to.be.equal(2);
       expect(firstInput.checked).to.be.true;
-      expect(firstPanel).to.have.attribute('data-state', 'opened');
+      expect(firstPanel).to.match(':state(state-opened)');
       expect(secondInput.checked).to.be.true;
-      expect(secondPanel).to.have.attribute('data-state', 'opened');
+      expect(secondPanel).to.match(':state(state-opened)');
     });
 
     it('selects input on click with non-zero-animation duration', async () => {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       elements.forEach((panel) =>
         panel.style.setProperty('--sbb-selection-expansion-panel-animation-duration', '1ms'),
       );
       await openSpy.calledOnce();
-      expect(firstPanel).to.have.attribute('data-state', 'opened');
+      expect(firstPanel).to.match(':state(state-opened)');
 
       firstInput.click();
       secondInput.click();
@@ -618,14 +622,14 @@ describe(`sbb-selection-expansion-panel`, () => {
       await openSpy.calledTimes(2);
       await closeSpy.calledOnce();
 
-      expect(firstPanel).to.have.attribute('data-state', 'closed');
-      expect(secondPanel).to.have.attribute('data-state', 'opened');
+      expect(firstPanel).to.match(':state(state-closed)');
+      expect(secondPanel).to.match(':state(state-opened)');
     });
 
     it('deselects input on click and hides related content', async () => {
-      await waitForCondition(() => firstPanel.getAttribute('data-state') === 'opened');
+      await waitForCondition(() => firstPanel.matches(':state(state-opened)'));
       expect(firstInput.checked).to.be.true;
-      expect(firstPanel).to.have.attribute('data-state', 'opened');
+      expect(firstPanel).to.match(':state(state-opened)');
 
       firstInput.click();
 
@@ -633,7 +637,7 @@ describe(`sbb-selection-expansion-panel`, () => {
       expect(beforeCloseSpy.count).to.be.equal(1);
       expect(closeSpy.count).to.be.equal(1);
       expect(firstInput.checked).to.be.false;
-      expect(firstPanel).to.have.attribute('data-state', 'closed');
+      expect(firstPanel).to.match(':state(state-closed)');
     });
 
     it('always displays related content with forceOpen', async () => {
@@ -708,6 +712,48 @@ describe(`sbb-selection-expansion-panel`, () => {
 
     it('wraps around on arrow key navigation', async () => {
       await wrapsAround(wrapper, firstInput, secondInput);
+    });
+
+    it('should sync borderless state', async () => {
+      expect(firstPanel).not.to.match(':state(borderless)');
+
+      firstInput.borderless = true;
+      await waitForLitRender(wrapper);
+
+      expect(firstPanel).to.match(':state(borderless)');
+    });
+
+    it('should sync checked state', async () => {
+      expect(firstPanel).not.to.match(':state(borderless)');
+
+      firstInput.checked = true;
+      await waitForLitRender(wrapper);
+
+      expect(firstPanel).to.match(':state(checked)');
+    });
+
+    it('should sync color state', async () => {
+      expect(firstPanel).to.match(':state(color-white)');
+      expect(firstPanel).not.to.match(':state(color-milk)');
+
+      firstInput.color = 'milk';
+      await waitForLitRender(wrapper);
+
+      expect(firstPanel).not.to.match(':state(color-white)');
+      expect(firstPanel).to.match(':state(color-milk)');
+    });
+
+    it('should sync size state', async () => {
+      expect(firstPanel).not.to.match(':state(size-xs)');
+      expect(firstPanel).not.to.match(':state(size-s)');
+      expect(firstPanel).to.match(':state(size-m)');
+
+      wrapper.size = 'xs';
+      await waitForLitRender(wrapper);
+
+      expect(firstPanel).to.match(':state(size-xs)');
+      expect(firstPanel).not.to.match(':state(size-s)');
+      expect(firstPanel).not.to.match(':state(size-m)');
     });
   });
 
@@ -793,93 +839,79 @@ describe(`sbb-selection-expansion-panel`, () => {
 
   describe('size s', () => {
     it('checkbox group', async () => {
-      const root = await fixture(html`
+      const group = await fixture(html`
         <sbb-checkbox-group size="s">
           <sbb-selection-expansion-panel id="one">
-            <sbb-checkbox-panel> Value 1 </sbb-checkbox-panel>
+            <sbb-checkbox-panel>Value 1</sbb-checkbox-panel>
             <div slot="content">Inner content</div>
           </sbb-selection-expansion-panel>
           <sbb-selection-expansion-panel id="two">
-            <sbb-checkbox-panel> Value 2 </sbb-checkbox-panel>
+            <sbb-checkbox-panel>Value 2</sbb-checkbox-panel>
             <div slot="content">Inner content</div>
           </sbb-selection-expansion-panel>
         </sbb-checkbox-group>
       `);
-      await waitForLitRender(root);
-      expect(
-        root.querySelector('sbb-selection-expansion-panel#one')!.getAttribute('data-size'),
-      ).to.be.equal('s');
-      expect(
-        root.querySelector('sbb-selection-expansion-panel#two')!.getAttribute('data-size'),
-      ).to.be.equal('s');
-      root.setAttribute('size', 'm');
-      await waitForLitRender(root);
-      expect(
-        root.querySelector('sbb-selection-expansion-panel#one')!.getAttribute('data-size'),
-      ).to.be.equal('m');
-      expect(
-        root.querySelector('sbb-selection-expansion-panel#two')!.getAttribute('data-size'),
-      ).to.be.equal('m');
+      await waitForLitRender(group);
+      expect(group.querySelector('sbb-selection-expansion-panel#one')!).to.match(':state(size-s)');
+      expect(group.querySelector('sbb-selection-expansion-panel#two')!).to.match(':state(size-s)');
+
+      group.setAttribute('size', 'm');
+      await waitForLitRender(group);
+      expect(group.querySelector('sbb-selection-expansion-panel#one')!).to.match(':state(size-m)');
+      expect(group.querySelector('sbb-selection-expansion-panel#two')!).to.match(':state(size-m)');
     });
 
     it('checkbox panel', async () => {
-      const root = await fixture(html`
+      const element = await fixture(html`
         <sbb-selection-expansion-panel>
-          <sbb-checkbox-panel size="s"> Value </sbb-checkbox-panel>
+          <sbb-checkbox-panel size="s">Value</sbb-checkbox-panel>
           <div slot="content">Inner content</div>
         </sbb-selection-expansion-panel>
       `);
-      await waitForLitRender(root);
-      expect(root.getAttribute('data-size')).to.be.equal('s');
-      const panel = root.querySelector('sbb-checkbox-panel')!;
+      await waitForLitRender(element);
+      expect(element).to.match(':state(size-s)');
+      const panel = element.querySelector('sbb-checkbox-panel')!;
       panel.setAttribute('size', 'm');
-      await waitForLitRender(root);
-      expect(root.getAttribute('data-size')).to.be.equal('m');
+      await waitForLitRender(element);
+      expect(element).to.match(':state(size-m)');
     });
 
     it('radio group', async () => {
-      const root = await fixture(html`
+      const group = await fixture(html`
         <sbb-radio-button-group size="s">
           <sbb-selection-expansion-panel id="one">
-            <sbb-radio-button-panel> Value 1 </sbb-radio-button-panel>
+            <sbb-radio-button-panel>Value 1</sbb-radio-button-panel>
             <div slot="content">Inner content</div>
           </sbb-selection-expansion-panel>
           <sbb-selection-expansion-panel id="two">
-            <sbb-radio-button-panel> Value 2 </sbb-radio-button-panel>
+            <sbb-radio-button-panel>Value 2</sbb-radio-button-panel>
             <div slot="content">Inner content</div>
           </sbb-selection-expansion-panel>
         </sbb-radio-button-group>
       `);
-      await waitForLitRender(root);
-      expect(
-        root.querySelector('sbb-selection-expansion-panel#one')!.getAttribute('data-size'),
-      ).to.be.equal('s');
-      expect(
-        root.querySelector('sbb-selection-expansion-panel#two')!.getAttribute('data-size'),
-      ).to.be.equal('s');
-      root.setAttribute('size', 'm');
-      await waitForLitRender(root);
-      expect(
-        root.querySelector('sbb-selection-expansion-panel#one')!.getAttribute('data-size'),
-      ).to.be.equal('m');
-      expect(
-        root.querySelector('sbb-selection-expansion-panel#two')!.getAttribute('data-size'),
-      ).to.be.equal('m');
+      await waitForLitRender(group);
+      expect(group.querySelector('sbb-selection-expansion-panel#one')!).to.match(':state(size-s)');
+      expect(group.querySelector('sbb-selection-expansion-panel#two')!).to.match(':state(size-s)');
+
+      group.setAttribute('size', 'm');
+      await waitForLitRender(group);
+      expect(group.querySelector('sbb-selection-expansion-panel#one')!).to.match(':state(size-m)');
+      expect(group.querySelector('sbb-selection-expansion-panel#two')!).to.match(':state(size-m)');
     });
 
     it('radio panel', async () => {
-      const root = await fixture(html`
+      const element = await fixture(html`
         <sbb-selection-expansion-panel>
           <sbb-radio-button-panel size="s"> Value </sbb-radio-button-panel>
           <div slot="content">Inner content</div>
         </sbb-selection-expansion-panel>
       `);
-      await waitForLitRender(root);
-      expect(root.getAttribute('data-size')).to.be.equal('s');
-      const panel = root.querySelector('sbb-radio-button-panel')!;
+      await waitForLitRender(element);
+      expect(element).to.match(':state(size-s)');
+      const panel = element.querySelector('sbb-radio-button-panel')!;
       panel.setAttribute('size', 'm');
-      await waitForLitRender(root);
-      expect(root.getAttribute('data-size')).to.be.equal('m');
+      await waitForLitRender(element);
+      expect(element).to.match(':state(size-m)');
     });
   });
 });

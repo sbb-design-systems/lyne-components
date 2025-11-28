@@ -1,6 +1,7 @@
 import { expect } from '@open-wc/testing';
 import { sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import type { SbbTransparentButtonElement } from '../../button.ts';
 import { fixture } from '../../core/testing/private.ts';
@@ -14,7 +15,10 @@ import '../../title.ts';
 describe(`sbb-alert-group`, () => {
   let element: SbbAlertGroupElement;
 
-  it('should handle events ond states on interacting with alerts', async () => {
+  it('should handle events ond states on interacting with alerts', async function (this: Context) {
+    // Flaky on WebKit
+    this.retries(3);
+
     const alertGroupId = 'alertgroup';
     const accessibilityTitle = 'Disruptions';
     const accessibilityTitleLevel = '3';

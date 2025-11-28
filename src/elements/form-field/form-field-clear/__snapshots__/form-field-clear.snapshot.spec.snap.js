@@ -20,8 +20,6 @@ snapshots["sbb-form-field-clear renders form-field DOM"] =
     value="Input value"
   >
   <sbb-form-field-clear
-    data-action=""
-    data-button=""
     slot="suffix"
     tabindex="0"
   >
@@ -32,10 +30,7 @@ snapshots["sbb-form-field-clear renders form-field DOM"] =
 
 snapshots["sbb-form-field-clear renders form-field-clear Shadow DOM"] = 
 `<span class="sbb-action-base sbb-form-field-clear">
-  <sbb-icon
-    data-namespace="default"
-    name="cross-small"
-  >
+  <sbb-icon name="cross-small">
   </sbb-icon>
 </span>
 `;

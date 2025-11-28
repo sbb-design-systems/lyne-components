@@ -156,15 +156,15 @@ function renderWalkTime(
 }
 
 /**
- * @param legs: An array of Leg objects representing the journey legs.
- * @param departureWalk: The walking distance in minutes from the departure point to the first leg.
- * @param arrivalWalk: The walking distance in minutes from the last leg to the arrival point.
- * @param currentLanguage: The current language for localization.
- * @param a11yFootpath: Whether the a11y-icon should be shown.
  * @returns renderDepartureTimeAttribute: A function that renders the element for the departure time attribute.
  * @returns renderArrivalTimeAttribute: A function that renders the element for the arrival time attribute.
  * @returns arrivalTimeAttribute: The access attribute for the arrival time.
  * @returns departureTimeAttribute: The access attribute for the departure time.
+ * @param legs An array of Leg objects representing the journey legs.
+ * @param departureWalk The walking distance in minutes from the departure point to the first leg.
+ * @param arrivalWalk The walking distance in minutes from the last leg to the arrival point.
+ * @param currentLanguage The current language for localization.
+ * @param a11yFootpath Whether the a11y-icon should be shown.
  */
 export function getDepartureArrivalTimeAttribute(
   legs: Leg[],

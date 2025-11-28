@@ -20,7 +20,8 @@ const {
 
 testFrameworkConfig.rootHooks = {
   beforeEach: async () => {
-    (await import('../../a11y/input-modality-detector.js')).sbbInputModalityDetector.reset();
+    (await import('../../a11y/input-modality-detector.ts')).sbbInputModalityDetector.reset();
+    (globalThis as { disableAnimation?: boolean }).disableAnimation = true;
   },
   afterEach: () => {
     cleanupFixtures();

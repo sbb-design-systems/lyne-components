@@ -3,14 +3,11 @@ export const snapshots = {};
 
 snapshots["sbb-block-link-static renders DOM"] = 
 `<sbb-block-link-static
-  data-action=""
-  data-sbb-link=""
   icon-placement="end"
   size="m"
 >
   <sbb-icon
     aria-hidden="true"
-    data-namespace="default"
     name="chevron-small-right-small"
     role="img"
     slot="icon"

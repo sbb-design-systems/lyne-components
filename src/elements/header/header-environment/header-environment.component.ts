@@ -20,6 +20,8 @@ export
 class SbbHeaderEnvironmentElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
+  private _env: string | null = null;
+
   public constructor() {
     super();
     this.addController(
@@ -33,10 +35,12 @@ class SbbHeaderEnvironmentElement extends SbbElementInternalsMixin(LitElement) {
   }
 
   private _slottedTextChange(): void {
-    const env = this.textContent?.trim();
-    this.internals.states.clear();
-    if (env) {
-      this.toggleState(`env-${env}`, true);
+    if (this._env) {
+      this.internals.states.delete(`env-${this._env}`);
+    }
+    this._env = this.textContent?.trim() ?? '';
+    if (this._env) {
+      this.internals.states.add(`env-${this._env}`);
     }
   }
 

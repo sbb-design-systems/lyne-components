@@ -1,9 +1,13 @@
+import { ɵstateController } from '@sbb-esta/lyne-elements/core/mixins.js';
 import {
   describeViewports,
   visualDiffDefault,
   visualDiffHover,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html, type TemplateResult } from 'lit';
+import { ref } from 'lit/directives/ref.js';
+
+import type { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.component.ts';
 
 import './autocomplete-grid-button.component.ts';
 
@@ -11,22 +15,24 @@ describe(`sbb-autocomplete-grid-button`, () => {
   const defaultArgs = {
     disabled: false,
     negative: false,
-    active: false,
     focusVisible: false,
   };
 
   const template = ({
     disabled,
     negative,
-    active,
     focusVisible,
   }: typeof defaultArgs): TemplateResult => html`
     <sbb-autocomplete-grid-button
       icon-name="arrow-right-small"
       ?disabled=${disabled}
       ?negative=${negative}
-      ?data-active=${active}
-      ?data-focus-visible=${focusVisible}
+      ${ref((b?: Element) =>
+        ɵstateController(b as SbbAutocompleteGridButtonElement | undefined)?.toggle(
+          'focus-visible',
+          focusVisible,
+        ),
+      )}
     ></sbb-autocomplete-grid-button>
   `;
 
@@ -47,14 +53,6 @@ describe(`sbb-autocomplete-grid-button`, () => {
           );
         }
       }
-
-      it(
-        `negative=${negative} active`,
-        visualDiffDefault.with(async (setup) => {
-          const args = { ...defaultArgs, negative, active: true };
-          await setup.withFixture(template(args), wrapperStyle);
-        }),
-      );
 
       it(
         `negative=${negative} focus-visible`,

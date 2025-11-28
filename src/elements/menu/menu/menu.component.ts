@@ -28,7 +28,7 @@ import { idReference } from '../../core/decorators.ts';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.ts';
 import { forwardEvent } from '../../core/eventing.ts';
 import { i18nGoBack } from '../../core/i18n/i18n.ts';
-import type { SbbNegativeMixinType } from '../../core/mixins.ts';
+import { ɵstateController, type SbbNegativeMixinType } from '../../core/mixins.ts';
 import {
   getElementPosition,
   getElementPositionHorizontal,
@@ -138,7 +138,7 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
 
     if (this._isNested()) {
       const parentMenu = this._parentMenu()!;
-      parentMenu.toggleState('nested-child', true);
+      parentMenu.internals.states.add('nested-child');
 
       // In case we change between arrow key navigation and mouse navigation, it can be that another
       // nested parent menu is still open. We have to close it.
@@ -170,7 +170,7 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
     this._close();
   }
 
-  /** Closes the menu and all related menus  nested and parent menus). */
+  /** Closes the menu and all related menus (nested and parent menus). */
   public closeAll(): void {
     this._mainMenu()._close(true);
   }
@@ -186,9 +186,14 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
 
     if (this._isNested()) {
       const parentMenu = this._parentMenu()!;
-      this.toggleState('close-all', closeAll);
-      parentMenu.toggleState('skip-animation', closeAll);
-      parentMenu.toggleState('nested-child', false);
+      if (closeAll) {
+        this.internals.states.add('close-all');
+        parentMenu.internals.states.add('skip-animation');
+      } else {
+        this.internals.states.delete('close-all');
+        parentMenu.internals.states.delete('skip-animation');
+      }
+      parentMenu.internals.states.delete('nested-child');
       parentMenu._nestedMenu = null;
     }
 
@@ -223,8 +228,8 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
 
   private _handleClosing(): void {
     this.state = 'closed';
-    this.toggleState('skip-animation', false);
-    this.toggleState('close-all', false);
+    this.internals.states.delete('skip-animation');
+    this.internals.states.delete('close-all');
     this.hidePopover?.();
 
     this._menu?.firstElementChild?.scrollTo(0, 0);
@@ -280,7 +285,7 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
         break;
 
       case 'ArrowRight':
-        if ((evt.target as HTMLElement).hasAttribute('data-sbb-menu-trigger')) {
+        if ((evt.target as HTMLElement).matches(':state(sbb-menu-trigger)')) {
           (evt.target as HTMLElement).click();
         }
         break;
@@ -365,7 +370,7 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
       'nested',
       ['sbb-menu-button', 'sbb-menu-link'].includes(this._triggerElement.localName),
     );
-    this._triggerElement.toggleAttribute('data-sbb-menu-trigger', true);
+    ɵstateController(this._triggerElement).add('sbb-menu-trigger');
   }
 
   private _attachWindowEvents(): void {
@@ -401,7 +406,7 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
     if (
       INTERACTIVE_ELEMENTS.includes(target.nodeName) &&
       !target.hasAttribute('disabled') &&
-      !target.hasAttribute('data-sbb-menu-trigger') &&
+      !target.matches(':state(sbb-menu-trigger)') &&
       target.id !== 'sbb-menu__back-button'
     ) {
       this.closeAll();
@@ -483,7 +488,7 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
       this._nestedMenu.close();
     }
 
-    if (element.hasAttribute('data-sbb-menu-trigger') && !isMobile) {
+    if (element.matches(':state(sbb-menu-trigger)') && !isMobile) {
       element.click();
     }
   }
@@ -540,7 +545,7 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
 
   private _syncNegative(): void {
     // Links and buttons are the most expected contents which have a negative property
-    this.querySelectorAll('[data-sbb-link], [data-sbb-button]')?.forEach((el: Element) => {
+    this.querySelectorAll(':state(sbb-link), :state(sbb-button)')?.forEach((el: Element) => {
       customElements.upgrade(el);
       (el as Element & SbbNegativeMixinType).negative = !this._darkModeController.matches();
     });
@@ -551,7 +556,6 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
   }
 
   protected override render(): TemplateResult {
-    // TODO: Handle case with other elements than sbb-menu-button/sbb-menu-link.
     return html`
       <div class="sbb-menu__container">
         <div

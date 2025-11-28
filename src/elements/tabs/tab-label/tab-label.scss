@@ -31,7 +31,7 @@
   }
 }
 
-:host([data-size='s']) {
+:host(:state(size-s)) {
   --sbb-tab-label-height: var(--sbb-size-element-xs);
   --sbb-tab-label-inline-padding: var(--sbb-spacing-responsive-xxxs);
 }
@@ -104,7 +104,7 @@
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
 
   // Show a border under the tab-group and between flex rows when the tab titles wrap to a new line
-  :host([data-has-divider]) & {
+  :host(:state(has-divider)) & {
     &::after {
       content: '';
       position: absolute;
@@ -158,11 +158,11 @@
   @include sbb.ellipsis;
   @include sbb.text-m--bold;
 
-  :host([data-size='s']) & {
+  :host(:state(size-s)) & {
     @include sbb.text-s--bold;
   }
 
-  :host([data-size='xl']) & {
+  :host(:state(size-xl)) & {
     @include sbb.text-xl--bold;
   }
 
@@ -182,11 +182,11 @@
     display: none;
   }
 
-  :host([data-size='s']) & {
+  :host(:state(size-s)) & {
     @include sbb.text-s--regular;
   }
 
-  :host([data-size='xl']) & {
+  :host(:state(size-xl)) & {
     @include sbb.text-xl--regular;
   }
 }

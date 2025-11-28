@@ -1,3 +1,4 @@
+import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -111,12 +112,16 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
 
   public constructor() {
     super();
-    this.addEventListener?.('change', (e: Event) => this._onRadioChange(e));
-  }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.toggleAttribute('data-has-panel', !!this.querySelector?.('sbb-radio-button-panel'));
+    this.addController(
+      new MutationController(this, {
+        config: { childList: true, subtree: true },
+        callback: () =>
+          this.toggleState('has-panel', !!this.querySelector?.('sbb-radio-button-panel')),
+      }),
+    );
+
+    this.addEventListener?.('change', (e: Event) => this._onRadioChange(e));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -190,9 +195,7 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
           }}
         ></slot>
       </div>
-      <div class="sbb-radio-group__error">
-        <slot name="error"></slot>
-      </div>
+      <slot name="error"></slot>
     `;
   }
 }

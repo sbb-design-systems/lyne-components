@@ -3,9 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-transparent-button renders a sbb-transparent-button without icon DOM"] = 
 `<sbb-transparent-button
-  data-action=""
-  data-button=""
-  data-sbb-button=""
   disabled=""
   form="formid"
   name="name"
@@ -33,14 +30,10 @@ snapshots["sbb-transparent-button renders a sbb-transparent-button without icon 
 
 snapshots["sbb-transparent-button renders a sbb-transparent-button with slotted icon DOM"] = 
 `<sbb-transparent-button
-  data-action=""
-  data-button=""
-  data-sbb-button=""
   size="l"
   tabindex="0"
 >
   <sbb-icon
-    data-namespace="default"
     name="chevron-small-left-small"
     slot="icon"
   >

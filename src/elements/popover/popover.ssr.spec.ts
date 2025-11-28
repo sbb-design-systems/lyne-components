@@ -1,13 +1,13 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import type { SbbButtonElement } from '../../button.ts';
-import { ssrHydratedFixture } from '../../core/testing/private.ts';
+import type { SbbButtonElement } from '../button.ts';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbPopoverElement } from './popover.component.ts';
 
-import '../../button.ts';
-import '../../link.ts';
+import '../button.ts';
+import '../link.ts';
 
 describe(`sbb-popover ssr`, () => {
   let root: HTMLSpanElement;
@@ -27,7 +27,7 @@ describe(`sbb-popover ssr`, () => {
             </sbb-block-link>
           </span>
         `,
-        { modules: ['../../button.js', './popover.component.js', '../../link.js'] },
+        { modules: ['../button.js', './popover.component.js', '../link.js'] },
       );
     });
 
@@ -37,9 +37,7 @@ describe(`sbb-popover ssr`, () => {
 
     it('connects trigger correctly', () => {
       root.querySelector<SbbButtonElement>('#popover-trigger')!.click();
-      expect(root.querySelector('sbb-popover')!.getAttribute('data-state')).not.to.be.equal(
-        'closed',
-      );
+      expect(root.querySelector('sbb-popover')!).not.to.match(':state(state-closed)');
     });
   });
 
@@ -58,7 +56,7 @@ describe(`sbb-popover ssr`, () => {
             </sbb-block-link>
           </span>
         `,
-        { modules: ['../../button.js', './popover.component.js', '../../link.js'] },
+        { modules: ['../button.js', './popover.component.js', '../link.js'] },
       );
     });
 

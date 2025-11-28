@@ -27,7 +27,7 @@ describe('sbb-sidebar-container', () => {
       await waitForLitRender(element);
     }
 
-    // In Safari it takes a little bit longer to render everything
+    // In Safari, it takes a little bit longer to render everything
     await aTimeout(100);
   }
 
@@ -95,8 +95,8 @@ describe('sbb-sidebar-container', () => {
     expect(sidebar2.isOpen, 'sidebar 2, after reduction').to.be.true;
     expect(sidebar3.isOpen, 'sidebar 3, after reduction').to.be.false;
     expect(sidebar4.isOpen, 'sidebar 4, after reduction').to.be.true;
-    expect(sidebar3).to.have.attribute('data-mode-over-forced');
-    expect(sidebar3).not.to.have.attribute('data-mode-over-forced-closing');
+    expect(sidebar3).to.match(':state(mode-over-forced)');
+    expect(sidebar3).not.to.match(':state(mode-over-forced-closing)');
 
     await setViewportWidth(320);
     await aTimeout(1);
@@ -133,10 +133,11 @@ describe('sbb-sidebar-container', () => {
   if (!isWebkit) {
     // This breaks for unknown reason in WebKit only during unit testing
     it('should collapse when space gets below minimum with non-zero animation duration', async () => {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       element.style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
-      element
-        .querySelector('sbb-sidebar-container')!
-        .style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
+      const container = element.querySelector('sbb-sidebar-container')!;
+      container.style.setProperty('--sbb-sidebar-container-animation-duration', '1ms');
 
       await testResizing();
     });

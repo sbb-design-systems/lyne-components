@@ -2,8 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbAncestorWatcherController } from '../../core/controllers.ts';
+import type { SbbAutocompleteElement } from '../../autocomplete.ts';
+import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbSelectElement } from '../../select.ts';
 
 import { SbbOptionBaseElement } from './option-base-element.ts';
 import style from './option.scss?lit&inline';
@@ -33,40 +35,75 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
 
   protected optionId = `sbb-option`;
 
-  private set _variant(state: SbbOptionVariant) {
-    if (state) {
-      this.setAttribute('data-variant', state);
+  private set _variant(variant: SbbOptionVariant) {
+    if (this._variantInternal) {
+      this.internals.states.delete(`variant-${this._variantInternal}`);
+    }
+    this._variantInternal = variant;
+    if (this._variantInternal) {
+      this.internals.states.add(`variant-${this._variantInternal}`);
     }
   }
   private get _variant(): SbbOptionVariant {
-    return this.getAttribute('data-variant') as SbbOptionVariant;
+    return this._variantInternal ?? null;
   }
-
-  private set _isMultiple(isMultiple: boolean) {
-    this.toggleAttribute('data-multiple', isMultiple);
-  }
-  private get _isMultiple(): boolean {
-    return !this.hydrationRequired && this.hasAttribute('data-multiple');
-  }
+  private _variantInternal?: SbbOptionVariant;
 
   public constructor() {
     super();
     this.addController(
-      new SbbAncestorWatcherController(this, () => this.closest('sbb-optgroup'), {
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-optgroup'), {
         disabled: (p) => (this.disabledFromGroup = p.disabled),
         label: (p) => (this.groupLabel = p.label),
       }),
     );
+
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-autocomplete'), {
+        negative: (e) => this._handleNegativeChange(e),
+      }),
+    );
+
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-select'), {
+        multiple: (ancestor) => {
+          this.toggleState('multiple', ancestor.multiple);
+
+          // Multiple has to be propagated to sbb-visual-checkbox inside the option.
+          this.requestUpdate();
+        },
+        negative: (e) => this._handleNegativeChange(e),
+      }),
+    );
   }
 
-  protected setAttributeFromParent(): void {
-    this.negative = !!this.closest?.(
-      // :is() selector not possible due to test environment
-      `sbb-autocomplete[negative],sbb-form-field[negative]`,
-    );
-    this.toggleAttribute('data-negative', this.negative);
+  private _isMultiple(): boolean {
+    return !this.hydrationRequired && this.internals.states.has('multiple');
+  }
 
-    this.toggleAttribute('data-multiple', this._isMultiple);
+  private _handleNegativeChange(ancestor: SbbAutocompleteElement | SbbSelectElement): void {
+    this.toggleState('negative', ancestor.negative);
+
+    // Negative has to be propagated to sbb-visual-checkbox inside the option.
+    this.requestUpdate();
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    // We need to check highlight state both on slot change, but also when connecting
+    // the element to the DOM. The slot change events might be swallowed when using declarative
+    // shadow DOM with SSR or if the DOM is changed when disconnected.
+    if (this.hydrationRequired) {
+      this.hydrationComplete.then(() => this._init());
+    } else {
+      this._init();
+    }
+  }
+
+  private _init(): void {
+    this._setVariantByContext();
+    this.handleHighlightState();
   }
 
   protected selectByClick(event: MouseEvent): void {
@@ -75,7 +112,7 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
       return;
     }
 
-    if (this._isMultiple) {
+    if (this._isMultiple()) {
       event.stopPropagation();
       this.selectViaUserInteraction(!this.selected);
     } else {
@@ -89,22 +126,12 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
     this.dispatchEvent(new Event('optionselectionchange', { bubbles: true, composed: true }));
   }
 
-  protected override init(): void {
-    super.init();
-    this._setVariantByContext();
-    // We need to check highlight state both on slot change, but also when connecting
-    // the element to the DOM. The slot change events might be swallowed when using declarative
-    // shadow DOM with SSR or if the DOM is changed when disconnected.
-    this.handleHighlightState();
-  }
-
   private _setVariantByContext(): void {
     if (this.closest?.('sbb-autocomplete')) {
       this._variant = 'autocomplete';
     } else if (this.closest?.('sbb-select')) {
       this._variant = 'select';
     }
-    this._isMultiple = !!this.closest?.('sbb-select[multiple]');
   }
 
   protected override handleHighlightState(): void {
@@ -119,17 +146,17 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   protected override renderIcon(): TemplateResult {
     return html`
       <!-- Icon -->
-      ${!this._isMultiple
+      ${!this._isMultiple()
         ? html` <span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`
         : nothing}
 
       <!-- Checkbox -->
-      ${this._isMultiple
+      ${this._isMultiple()
         ? html`
             <sbb-visual-checkbox
               ?checked=${this.selected}
               ?disabled=${this.disabled || this.disabledFromGroup}
-              ?negative=${this.negative}
+              ?negative=${this.matches?.(':state(negative)')}
             ></sbb-visual-checkbox>
           `
         : nothing}
@@ -144,7 +171,7 @@ class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
   }
 
   protected override renderTick(): TemplateResult | typeof nothing {
-    return this._variant === 'select' && !this._isMultiple && this.selected
+    return this._variant === 'select' && !this._isMultiple() && this.selected
       ? html`<sbb-icon name="tick-small"></sbb-icon>`
       : nothing;
   }
