@@ -18,9 +18,7 @@
   ],
   "packages": {
     ".": {
-      "changelog-path": "CHANGELOG.md",
-      "versioning": "prerelease",
-      "prerelease-type": "next"
+      "changelog-path": "CHANGELOG.md"
     }
   },
   "last-release-sha": "15ff9d172caf94c1ab7fa5baeb528b62995b48bb"
