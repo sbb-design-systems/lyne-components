@@ -21,7 +21,7 @@ import {
   SbbMediaQueryBreakpointLargeAndBelow,
 } from '../../core/controllers.ts';
 import { forceType, idReference, omitEmptyConverter } from '../../core/decorators.ts';
-import { isBreakpoint, isZeroAnimationDuration } from '../../core/dom.ts';
+import { isZeroAnimationDuration } from '../../core/dom.ts';
 import { i18nGoBack } from '../../core/i18n.ts';
 import type { SbbOpenedClosedState } from '../../core/interfaces.ts';
 import { SbbUpdateSchedulerMixin, ɵstateController } from '../../core/mixins.ts';
@@ -97,6 +97,13 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   private _language = new SbbLanguageController(this);
   private _focusTrapController = new SbbFocusTrapController(this);
   private _lastKeydownEvent: KeyboardEvent | null = null;
+  private _mediaMatcherController = new SbbMediaMatcherController(this, {
+    [SbbMediaQueryBreakpointLargeAndBelow]: (matches) => {
+      if (this._state !== 'closed') {
+        this._setNavigationInert(matches);
+      }
+    },
+  });
 
   public constructor() {
     super();
@@ -307,7 +314,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   }
 
   private _isBelowLarge(): boolean {
-    return isBreakpoint('zero', 'large') ?? false;
+    return this._mediaMatcherController.matches(SbbMediaQueryBreakpointLargeAndBelow) ?? false;
   }
 
   // Closes the navigation on "Esc" key pressed.

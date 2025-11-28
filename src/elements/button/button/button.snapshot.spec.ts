@@ -14,7 +14,7 @@ import './button.component.ts';
 describe(`sbb-button`, () => {
   let element: SbbButtonElement;
 
-  describe('renders an sbb-button without icon', async () => {
+  describe('renders a sbb-button without icon', async () => {
     beforeEach(async () => {
       element = await fixture(buttonTestTemplate('sbb-button'));
     });
@@ -28,7 +28,7 @@ describe(`sbb-button`, () => {
     });
   });
 
-  describe('renders an sbb-button with slotted icon', async () => {
+  describe('renders a sbb-button with slotted icon', async () => {
     beforeEach(async () => {
       element = await fixture(buttonSlottedIconTestTemplate('sbb-button'));
     });
@@ -44,7 +44,7 @@ describe(`sbb-button`, () => {
     testA11yTreeSnapshot();
   });
 
-  describe('renders an sbb-button in loading state', async () => {
+  describe('renders a sbb-button in loading state', async () => {
     beforeEach(async () => {
       element = await fixture(buttonLoading('sbb-button'));
     });

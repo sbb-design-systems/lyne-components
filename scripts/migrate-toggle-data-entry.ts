@@ -30,7 +30,7 @@ const sources = globSync('src/elements/**/*.ts', {
 });
 
 for (const filePath of sources) {
-  const file = await readFileSync(filePath, 'utf8');
+  const file = readFileSync(filePath, 'utf8');
   const sourceFile = ts.createSourceFile(filePath, file, ts.ScriptTarget.ES2021, true);
   const newSource = new MagicString(file, { filename: sourceFile.fileName });
 

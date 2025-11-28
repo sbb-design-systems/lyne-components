@@ -207,7 +207,7 @@
 
 // ------------- Seat Reservation Coaches END -----------------
 
-// MAIN SEAT RESERVATRION GRID LAYOUT - VERTCIAL MODE
+// MAIN SEAT RESERVATION GRID LAYOUT - VERTICAL MODE
 //  ____  _____
 // |     |  L  |
 // |     |     |
@@ -228,10 +228,10 @@
 // |     |  V  |
 // |_____|_____|
 :host([align-vertical]) .sbb-sr {
-  // $coach-scollbar-width: The complete width of the coach grid consists of the coach height
+  // $coach-scrollbar-width: The complete width of the coach grid consists of the coach height
   // and the width of the scrollbar area.
-  $coach-scollbar-width: 24;
-  $coach-grid-width: calc(var(--sbb-seat-reservation-height) + $coach-scollbar-width);
+  $coach-scrollbar-width: 24;
+  $coach-grid-width: calc(var(--sbb-seat-reservation-height) + $coach-scrollbar-width);
 
   // $coach-border-width: Describes the approximate width of the wagon edge in the svg
   // and is also set here for the optimised rotation pivot point for rotating. 6 is an optimal value here.
@@ -239,7 +239,7 @@
 
   // For the calculated pivot point, we only need the width of the visual coach schema without any other elements like border-width and scrollbar.
   $rotation-pivot-point: calc(
-    calc($coach-grid-width - $coach-scollbar-width - $coach-border-width) / 2
+    calc($coach-grid-width - $coach-scrollbar-width - $coach-border-width) / 2
   );
 
   grid-template-columns: sbb-sr-functions.sr-px-to-rem($coach-grid-width) 1fr;
@@ -325,7 +325,7 @@
 
         .sbb-sr__wrapper-deck-labels {
           flex-direction: column-reverse;
-          width: calc(100% - sbb-sr-functions.sr-px-to-rem($coach-scollbar-width));
+          width: calc(100% - sbb-sr-functions.sr-px-to-rem($coach-scrollbar-width));
           height: initial;
 
           b {

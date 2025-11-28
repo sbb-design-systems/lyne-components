@@ -39,7 +39,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
 
   /**
    * Whether to skip restoring focus to the previously-focused element when the overlay is closed.
-   * Note that automatic focus restoration is an accessibility feature and it is recommended that
+   * Note that automatic focus restoration is an accessibility feature, and it is recommended that
    * you provide your own equivalent, if you decide to turn it off.
    */
   @forceType()

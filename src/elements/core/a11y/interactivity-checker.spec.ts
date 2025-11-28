@@ -427,7 +427,7 @@ describe('InteractivityChecker', () => {
         if (!shouldSkip) {
           const iframe = createFromTemplate('<iframe>', true);
 
-          // iFrame elements will be never marked as tabbable, because it depends on the content
+          // iFrame elements will never be marked as tabbable, because it depends on the content
           // which is mostly not detectable due to CORS and also the checks will be not reliable.
           expect(checker.isTabbable(iframe)).to.be.false;
         }

@@ -16,7 +16,7 @@ const tsPaths = Object.entries(
 
 /**
  * Creates a resolver function, which allows resolving alias import paths.
- * The resolver function returns an url as string, if the import path was an alias, null if not.
+ * The resolver function returns a url as string, if the import path was an alias, null if not.
  * @param {string | undefined} mode An optional base for resolving the paths.
  * @return {(specifier: string) => string | null}
  */

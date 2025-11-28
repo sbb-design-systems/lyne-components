@@ -44,12 +44,6 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
     return this.closest('sbb-tab-group');
   }
 
-  /**
-   * @internal
-   * @deprecated
-   */
-  public configure(): void {}
-
   public override connectedCallback(): void {
     super.connectedCallback();
 

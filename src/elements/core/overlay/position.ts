@@ -184,7 +184,7 @@ export function getElementPosition(
 
   const containerRect = container.getBoundingClientRect();
 
-  // When zooming in Safari the container rectangle contains negative values for the position
+  // When zooming in Safari the container rectangle contains negative values for the position,
   // and we need to re-add them to the calculated coordinates.
   if (containerRect.left < 0) {
     elementXPosition -= containerRect.left;
@@ -274,7 +274,7 @@ export function getElementPositionHorizontal(
     elementYPosition = availableVerticalSpace - elementRec.clientHeight - maxHeightOffset;
   }
 
-  // When zooming in Safari the container rectangle contains negative values for the position
+  // When zooming in Safari the container rectangle contains negative values for the position,
   // and we need to re-add them to the calculated coordinates.
   if (containerRect.left < 0) {
     elementXPosition -= containerRect.left;

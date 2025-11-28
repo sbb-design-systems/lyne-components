@@ -267,7 +267,7 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
       });
 
       // On blur the native text input scrolls the text to the start of the text.
-      // We mimick that by resetting the scroll position.
+      // We mimic that by resetting the scroll position.
       // We also unset any selection to align with the native text input.
       this.addEventListener?.(
         'blur',
@@ -322,7 +322,7 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
     ): void {
       /**
        * The native text input changes the value property when the value attribute is
-       * changed under the condition that no input event has occured since creation
+       * changed under the condition that no input event has occurred since creation
        * or the last form reset.
        */
       if (name !== 'value' || !this.internals.states.has('interacted')) {

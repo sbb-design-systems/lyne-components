@@ -1,7 +1,7 @@
 The `sbb-mini-calendar-month` is a component used to group
-many [sbb-mini-calendar-day](/docs/elements-sbb-mini-calendar-sbb-mini-calendar-day).
+many [sbb-mini-calendar-day](/docs/elements-sbb-mini-calendar-sbb-mini-calendar-day--docs).
 
-The component needs to be wrapped in a [sbb-mini-calendar](/docs/elements-sbb-mini-calendar-sbb-mini-calendar),
+The component needs to be wrapped in a [sbb-mini-calendar](/docs/elements-sbb-mini-calendar-sbb-mini-calendar--docs),
 and it requires a `date` property in ISOString format (YYYY-MM).
 
 ```html

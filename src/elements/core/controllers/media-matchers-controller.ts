@@ -2,6 +2,9 @@ import {
   SbbBreakpointLargeMax,
   SbbBreakpointLargeMin,
   SbbBreakpointSmallMax,
+  SbbBreakpointSmallMin,
+  SbbBreakpointUltraMin,
+  SbbBreakpointZeroMin,
 } from '@sbb-esta/lyne-design-tokens';
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
@@ -13,9 +16,12 @@ export const SbbMediaQueryForcedColors = '(forced-colors: active)';
 export const SbbMediaQueryDarkMode = '(prefers-color-scheme: dark)';
 export const SbbMediaQueryHover = '(any-hover: hover)';
 export const SbbMediaQueryPointerCoarse = '(pointer: coarse)';
+export const SbbMediaQueryBreakpointZeroAndAbove = `(min-width: ${SbbBreakpointZeroMin})`;
+export const SbbMediaQueryBreakpointSmallAndAbove = `(min-width: ${SbbBreakpointSmallMin})`;
 export const SbbMediaQueryBreakpointLargeAndAbove = `(min-width: ${SbbBreakpointLargeMin})`;
-export const SbbMediaQueryBreakpointLargeAndBelow = `(max-width: ${SbbBreakpointLargeMax})`;
+export const SbbMediaQueryBreakpointUltraAndAbove = `(min-width: ${SbbBreakpointUltraMin})`;
 export const SbbMediaQueryBreakpointSmallAndBelow = `(max-width: ${SbbBreakpointSmallMax})`;
+export const SbbMediaQueryBreakpointLargeAndBelow = `(max-width: ${SbbBreakpointLargeMax})`;
 /* eslint-enable @typescript-eslint/naming-convention */
 
 /**
@@ -107,7 +113,8 @@ export class SbbMediaMatcherController implements ReactiveController {
  */
 export class SbbDarkModeController extends SbbMediaMatcherController {
   /** The current mode based on the class attribute of the <html> element. */
-  private static _currentMode: 'light-dark' | 'light' | 'dark' | null = this._readLightDarkClass();
+  private static _currentMode: 'sbb-light-dark' | 'sbb-light' | 'sbb-dark' | null =
+    this._readLightDarkClass();
 
   /** MutationObserver that observes the "class" attribute of the <html> element. */
   private static readonly _observer = !isServer
@@ -143,14 +150,14 @@ export class SbbDarkModeController extends SbbMediaMatcherController {
     this._onChangeWithStateUpdater = onChangeWithStateUpdater;
   }
 
-  private static _readLightDarkClass(): 'light-dark' | 'light' | 'dark' | null {
+  private static _readLightDarkClass(): 'sbb-light-dark' | 'sbb-light' | 'sbb-dark' | null {
     if (isServer) {
       return null;
     }
     const classList = document.documentElement.classList;
     return (
-      (['light-dark', 'dark', 'light'] as const).find((mode) =>
-        classList.contains(`sbb-${mode}`),
+      (['sbb-light-dark', 'sbb-dark', 'sbb-light'] as const).find((mode) =>
+        classList.contains(mode),
       ) ?? null
     );
   }

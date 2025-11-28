@@ -36,7 +36,7 @@ let nextId = 0;
 const patchedInputs = new WeakMap<HTMLInputElement, PropertyDescriptor>();
 const nativeInputElements = ['input', 'textarea', 'select'];
 
-/** An interface which allows a control to work inside of a `SbbFormField`. */
+/** An interface which allows a control to work inside a `SbbFormField`. */
 export interface SbbFormFieldElementControl {
   /** The id of the form field control. */
   readonly id: string;
@@ -311,7 +311,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   }
 
   private _connectInputElement(): 'changed' | 'no-input' | 'unchanged' {
-    let newInput: HTMLElement | null = null;
+    let newInput: HTMLElement | null;
     if (this._control?.id) {
       newInput = (this.getRootNode() as Document | ShadowRoot).getElementById(this._control.id);
     } else {

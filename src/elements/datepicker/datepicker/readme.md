@@ -19,7 +19,7 @@ automatically take care of connecting the corresponding components.
 
 ## In `sbb-form-field`
 
-If the `<sbb-datepicker>` is used within an [sbb-form-field](/docs/elements-sbb-form-field-sbb-form-field--docs)
+If the `<sbb-datepicker>` is used within a [sbb-form-field](/docs/elements-sbb-form-field-sbb-form-field--docs)
 with an `<sbb-date-input>`, they are automatically linked. This also
 applies to the `<sbb-datepicker-previous-day>` and
 `<sbb-datepicker-next-day>` components.
@@ -47,11 +47,11 @@ applies to the `<sbb-datepicker-previous-day>` and
 For testing purposes you might want to set a fixed date as `today`.
 This can be achieved by using the underlying date adapter that
 the date components use.
-By default the `defaultDateAdapter` is used in the background.
+By default, the `defaultDateAdapter` is used in the background.
 You can e.g. stub the `today()` method and return your fixed date.
 
 ```ts
-import { defaultDateAdapter } from `@sbb-esta/lyne-elements/datetime.js`;
+import { defaultDateAdapter } from '@sbb-esta/lyne-elements/datetime.js';
 import { stub, type SinonStub } from 'sinon';
 
 // Have defaultDateAdapter.today() return 2022-05-01

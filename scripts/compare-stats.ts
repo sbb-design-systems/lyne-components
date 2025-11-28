@@ -15,8 +15,8 @@ interface Stats {
 }
 
 let previousStats: Stats | null = null;
-let summary = '';
-let text = '';
+let summary: string;
+let text: string;
 let title = 'Size Check';
 try {
   const previousStatsURL = process.env.CI
