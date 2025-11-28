@@ -8,127 +8,79 @@ snapshots["sbb-seat-reservation renders DOM"] =
 /* end snapshot sbb-seat-reservation renders DOM */
 
 snapshots["sbb-seat-reservation renders Shadow DOM"] = 
-`<div class="sbb-sr__container">
-  <div class="sbb-sr sbb-sr__grid">
-    <div class="sbb-sr-navigation-first-grid">
-      <sbb-secondary-button
-        aria-label="Start Graphic Seat Reservation"
-        class="sbb-sr__navigation-control-button"
-        data-action=""
-        data-button=""
-        data-sbb-button=""
-        disabled-interactive=""
-        icon-name="chevron-small-left-small"
-        id="first-tab-element"
-        role="contentinfo"
-        size="s"
-        tabindex="0"
-        type="button"
-      >
-      </sbb-secondary-button>
-    </div>
-    <div class="sbb-sr__component">
-      <div class="sbb-sr-grid-inner">
-        <div class="nav-grid">
-          <div class="sbb-sr-navigation-wrapper">
-            <nav
-              class="sbb-sr-navigation"
-              id="sbb-sr-navigation"
-            >
-              <ul
-                aria-label="Seat reservation navigation"
-                class="sbb-sr-navigation__list-coaches"
-                id="sbb-sr__navigation-list-coaches"
-              >
-              </ul>
-            </nav>
-          </div>
-        </div>
-        <div class="coaches-grid">
-          <div class="sbb-sr__wrapper-coach-decks">
-            <div class="sbb-sr__wrapper-deck-labels">
-            </div>
-            <div
-              class="sbb-sr__wrapper"
-              id="sbb-sr__wrapper-scrollarea"
-            >
-              <div
-                class="sbb-sr__parent"
-                id="sbb-sr__parent-area"
-                tabindex="-1"
-              >
-                <ul class="sbb-sr__list-decks">
-                  <li class="sbb-sr__list-item-deck">
-                    <ul
-                      class="sbb-sr__list-coaches"
-                      role="presentation"
-                    >
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+`<div class="sbb-sr__component">
+  <div class="sbb-sr-navigation-wrapper">
+    <nav
+      class="sbb-sr-navigation"
+      id="sbb-sr-navigation"
+    >
+      <div class="sbb-sr-navigation__wrapper-button-direction">
+        <sbb-secondary-button
+          aria-label="Start Graphic Seat Reservation"
+          class="sbb-sr__navigation-control-button"
+          data-action=""
+          data-button=""
+          data-sbb-button=""
+          disabled-interactive=""
+          icon-name="chevron-small-left-small"
+          role="button"
+          size="m"
+          tabindex="0"
+          type="button"
+        >
+        </sbb-secondary-button>
       </div>
-    </div>
-    <div class="sbb-sr-navigation-last-grid">
-      <sbb-secondary-button
-        aria-label="Exit Graphic Seat Reservation"
-        class="sbb-sr__navigation-control-button"
-        data-action=""
-        data-button=""
-        data-sbb-button=""
-        disabled-interactive=""
-        icon-name="chevron-small-right-small"
-        id="last-tab-element"
-        role="contentinfo"
-        size="s"
-        tabindex="0"
-        type="button"
+      <ul
+        aria-label="Seat reservation navigation"
+        class="sbb-sr-navigation__list-coaches"
+        id="sbb-sr__navigation-list-coaches"
       >
-      </sbb-secondary-button>
+      </ul>
+      <div class="sbb-sr-navigation__wrapper-button-direction">
+        <sbb-secondary-button
+          aria-label="Exit Graphic Seat Reservation"
+          class="sbb-sr__navigation-control-button"
+          data-action=""
+          data-button=""
+          data-sbb-button=""
+          disabled-interactive=""
+          icon-name="chevron-small-right-small"
+          role="button"
+          size="m"
+          tabindex="0"
+          type="button"
+        >
+        </sbb-secondary-button>
+      </div>
+    </nav>
+  </div>
+  <div class="sbb-sr__wrapper-coach-decks">
+    <div class="sbb-sr__wrapper-deck-labels">
+    </div>
+    <div
+      class="sbb-sr__wrapper-scrollarea"
+      id="sbb-sr__wrapper-scrollarea"
+      tabindex="-1"
+    >
+      <div
+        class="sbb-sr__parent"
+        id="sbb-sr__parent-area"
+      >
+        <ul class="sbb-sr__list-decks">
+          <li class="sbb-sr__list-item-deck">
+            <ul
+              class="sbb-sr__list-coaches"
+              role="presentation"
+            >
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
 `;
 /* end snapshot sbb-seat-reservation renders Shadow DOM */
-
-snapshots["sbb-seat-reservation renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "landmark",
-      "name": "Start Graphic Seat Reservation",
-      "disabled": true
-    },
-    {
-      "role": "landmark",
-      "name": "",
-      "children": [
-        {
-          "role": "list",
-          "name": "Seat reservation navigation"
-        }
-      ]
-    },
-    {
-      "role": "section",
-      "name": ""
-    },
-    {
-      "role": "landmark",
-      "name": "Exit Graphic Seat Reservation",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-seat-reservation renders A11y tree Firefox */
 
 snapshots["sbb-seat-reservation renders A11y tree Chrome"] = 
 `<p>
@@ -137,7 +89,7 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "contentinfo",
+      "role": "button",
       "name": "Start Graphic Seat Reservation",
       "disabled": true
     },
@@ -146,13 +98,13 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
       "name": "Seat reservation navigation"
     },
     {
-      "role": "generic",
-      "name": ""
-    },
-    {
-      "role": "contentinfo",
+      "role": "button",
       "name": "Exit Graphic Seat Reservation",
       "disabled": true
+    },
+    {
+      "role": "generic",
+      "name": ""
     }
   ]
 }

@@ -137,8 +137,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _renderNavigationControlButton(btnDirection: string): TemplateResult | null {
     if (!this.hasNavigation || !this.seatReservations) return null;
-
-    const btnId = btnDirection == 'DIRECTION_RIGHT' ? 'last-tab-element' : 'first-tab-element';
     const btnIcon =
       btnDirection == 'DIRECTION_RIGHT' ? 'chevron-small-right-small' : 'chevron-small-left-small';
     const btnAriaDescription =
@@ -151,8 +149,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       btnDisabled = false;
     } else if (
       btnDirection == 'DIRECTION_RIGHT' &&
-      this.selectedCoachIndex <
-        this.seatReservations[this.currSelectedDeckIndex].coachItems.length - 1
+      this.selectedCoachIndex < this.coachNavData.length - 1
     ) {
       btnDisabled = false;
     }
@@ -161,13 +158,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       <sbb-secondary-button
         @click="${() => this.navigateByDirectionBtn(btnDirection)}"
         @focus="${() => this.onFocusNavDirectionButton()}"
-        id="${btnId}"
         class="sbb-sr__navigation-control-button"
         size="m"
         icon-name="${btnIcon}"
         type="button"
         aria-label="${btnAriaDescription}"
-        role="contentinfo"
+        role="button"
         .disabledInteractive="${btnDisabled || nothing}"
       ></sbb-secondary-button>
     </div>`;

@@ -1,76 +1,8 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
+@use '../common/styles/seat-reservation-mixins.scss' as sbb-sr-mixin;
 @use '../common/styles/seat-reservation-functions' as sbb-sr-functions;
 
 $disabled: '[disabled], :disabled';
-
-@mixin visualizeCoachBorder(
-  $border-radius-top-left,
-  $border-radius-top-right,
-  $border-radius-bottom-right,
-  $border-radius-bottom-left
-) {
-  $border-radius-top-left: var(--sbb-border-radius-#{$border-radius-top-left}x);
-  $border-radius-top-right: var(--sbb-border-radius-#{$border-radius-top-right}x);
-  $border-radius-bottom-right: var(--sbb-border-radius-#{$border-radius-bottom-right}x);
-  $border-radius-bottom-left: var(--sbb-border-radius-#{$border-radius-bottom-left}x);
-
-  border-radius: $border-radius-top-left $border-radius-top-right $border-radius-bottom-right
-    $border-radius-bottom-left;
-
-  // Pseudo visual border
-  &::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-navigation-btn-border-width))
-      solid var(--sbb-seat-reservation-navigation-btn-border-color);
-    border-radius: $border-radius-top-left $border-radius-top-right $border-radius-bottom-right
-      $border-radius-bottom-left;
-  }
-}
-
-@mixin colorizeCoachByState($state) {
-  // Set background color by state
-  --sbb-seat-reservation-navigation-btn-background-color: var(
-    --sbb-seat-reservation-navigation-btn-background-color-#{$state}
-  );
-
-  // Set border color by state
-  --sbb-seat-reservation-navigation-btn-border-color: var(
-    --sbb-seat-reservation-navigation-btn-border-color-#{$state}
-  );
-
-  // Set border width by state. No border width change for hovered state
-  @if $state != 'hovered' {
-    @if $state == 'selected' {
-      --sbb-seat-reservation-navigation-btn-border-width: var(
-        --sbb-seat-reservation-navigation-btn-border-width-selected
-      );
-    } @else {
-      --sbb-seat-reservation-navigation-btn-border-width: var(
-        --sbb-seat-reservation-navigation-btn-border-width-default
-      );
-    }
-  }
-
-  // Set outline style by state focus
-  @if $state == 'focused' {
-    outline: sbb-sr-functions.sr-px-to-rem(
-        var(--sbb-seat-reservation-navigation-btn-outline-width-focused)
-      )
-      solid
-      var(--sbb-seat-reservation-navigation-btn-outline-color-focused);
-    outline-offset: sbb-sr-functions.sr-px-to-rem(
-      var(--sbb-seat-reservation-navigation-btn-outline-offset-focused)
-    );
-    background-color: var(--sbb-seat-reservation-navigation-btn-background-color-focused);
-  }
-
-  @if $state == 'hovered' {
-    background-color: var(--sbb-seat-reservation-navigation-btn-background-color-hovered);
-  }
-}
 
 :host {
   --sbb-seat-reservation-navigation-travelclass-spacing: 10;
@@ -148,7 +80,7 @@ $disabled: '[disabled], :disabled';
 
   &.first-coach {
     .sbb-sr-navigation__ctrl-button:not(.sbb-seat-reservation-navigation-driver-area) {
-      @include visualizeCoachBorder(8, 2, 2, 8);
+      @include sbb-sr-mixin.visualize-coach-border(8, 2, 2, 8);
     }
 
     .sbb-sr-navigation--first-class {
@@ -160,7 +92,8 @@ $disabled: '[disabled], :disabled';
 
   &.last-coach {
     .sbb-sr-navigation__ctrl-button:not(.sbb-sr-navigation-driver-area) {
-      @include visualizeCoachBorder(2, 8, 8, 2);
+      // @include sbb-sr-mixin.visualize-coach-border(2, 8, 8, 2);
+      @include sbb-sr-mixin.visualize-coach-border(2, 8, 8, 2);
     }
 
     .sbb-sr-navigation__additional-information {
@@ -190,14 +123,14 @@ $disabled: '[disabled], :disabled';
   cursor: var(--sbb-cursor-pointer);
 
   &.sbb-sr-navigation-driver-area {
-    @include visualizeCoachBorder(8, 8, 8, 8);
+    @include sbb-sr-mixin.visualize-coach-border(8, 8, 8, 8);
   }
 
-  @include visualizeCoachBorder(2, 2, 2, 2);
+  @include sbb-sr-mixin.visualize-coach-border(2, 2, 2, 2);
 }
 
 .sbb-sr-navigation__item-coach--focused .sbb-sr-navigation__ctrl-button {
-  @include colorizeCoachByState('focused');
+  @include sbb-sr-mixin.colorize-coach-by-state('focused');
 
   .sbb-sr-navigation__item-coach-travelclass {
     background-color: light-dark(var(--sbb-color-metal), var(--sbb-color-storm));
@@ -210,7 +143,7 @@ $disabled: '[disabled], :disabled';
 
 // selected, i.e. the coach within the train is selected (FIGMA State:Selected)
 .sbb-sr-navigation__item-coach--selected .sbb-sr-navigation__ctrl-button {
-  @include colorizeCoachByState('selected');
+  @include sbb-sr-mixin.colorize-coach-by-state('selected');
 
   .sbb-sr-navigation__item-coach-travelclass {
     background-color: light-dark(var(--sbb-color-black), var(--sbb-color-white));
@@ -222,23 +155,23 @@ $disabled: '[disabled], :disabled';
 }
 
 .sbb-sr-navigation__item-coach--hovered .sbb-sr-navigation__ctrl-button {
-  @include colorizeCoachByState('hovered');
+  @include sbb-sr-mixin.colorize-coach-by-state('hovered');
 }
 
 // selected AND focus (FIGMA State:Selected + Focused)
 // background-color from selected State has more specificity, so we need to override it here (again)
 .sbb-sr-navigation__item-coach--selected
   .sbb-sr-navigation__ctrl-button:focus-visible:not(#{$disabled}) {
-  @include colorizeCoachByState('selected');
+  @include sbb-sr-mixin.colorize-coach-by-state('selected');
 }
 
 .sbb-sr-navigation__item-coach--hovered .sbb-sr-navigation__ctrl-button {
-  @include colorizeCoachByState('hovered');
+  @include sbb-sr-mixin.colorize-coach-by-state('hovered');
 }
 
 // hover (FIGMA State:hover)
 .sbb-sr-navigation__ctrl-button:hover:not(#{$disabled}) {
-  @include colorizeCoachByState('hovered');
+  @include sbb-sr-mixin.colorize-coach-by-state('hovered');
 
   .sbb-sr-navigation__item-coach-travelclass {
     background-color: var(--sbb-color-5);
@@ -251,7 +184,7 @@ $disabled: '[disabled], :disabled';
 
 // disabled (FIGMA State:disabled)
 .sbb-sr-navigation__ctrl-button:is(#{$disabled}) {
-  @include colorizeCoachByState('disabled');
+  @include sbb-sr-mixin.colorize-coach-by-state('disabled');
 
   cursor: unset;
   pointer-events: unset;
@@ -359,7 +292,7 @@ $disabled: '[disabled], :disabled';
   // handle border-radius
   &.first-coach:not(.last-coach) {
     .sbb-sr-navigation__ctrl-button:not(.sbb-sr-navigation-driver-area) {
-      @include visualizeCoachBorder(8, 8, 2, 2);
+      @include sbb-sr-mixin.visualize-coach-border(8, 8, 2, 2);
     }
 
     .sbb-sr-navigation--first-class {
@@ -372,7 +305,7 @@ $disabled: '[disabled], :disabled';
 
   &.last-coach:not(.first-coach) {
     .sbb-sr-navigation__ctrl-button:not(.sbb-sr-navigation-driver-area) {
-      @include visualizeCoachBorder(2, 2, 8, 8);
+      @include sbb-sr-mixin.visualize-coach-border(2, 2, 8, 8);
     }
 
     .sbb-sr-navigation--first-class {

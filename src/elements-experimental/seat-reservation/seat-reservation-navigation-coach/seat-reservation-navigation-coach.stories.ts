@@ -23,11 +23,6 @@ const indexType: InputType = {
   description: 'index number for coach',
 };
 
-const selectedType: InputType = {
-  control: 'boolean',
-  description: 'is coach selected',
-};
-
 const coachIdType: InputType = {
   control: 'text',
   description: 'coach item id',
@@ -39,7 +34,14 @@ const propertyIdsType: InputType = {
 };
 
 const travelClassType: InputType = {
-  control: 'object',
+  control: {
+    type: 'select',
+  },
+  mapping: {
+    FIRST: JSON.stringify("['FIRST']"),
+    SECOND: JSON.stringify("['SECOND']"),
+    ANY_CLASS: JSON.stringify("['ANY_CLASS']"),
+  },
   description: 'travelClass',
   options: ['FIRST', 'SECOND', 'ANY_CLASS'],
 };
@@ -64,19 +66,40 @@ const disabledAreaType: InputType = {
   description: 'is coach disabled',
 };
 
+const selectedType: InputType = {
+  control: 'boolean',
+  description: 'is coach selected',
+};
+
+const hoveredType: InputType = {
+  control: 'boolean',
+  description: 'coach hovered',
+};
+
+const focusedType: InputType = {
+  control: 'boolean',
+  description: 'coach focused',
+};
+
 const defaultArgsTypes: Args = {
   index: indexType,
   selected: selectedType,
-  coachId: coachIdType,
+  hovered: hoveredType,
+  focused: focusedType,
+  disable: disabledAreaType,
+  'coach-id': coachIdType,
   'travel-class': travelClassType,
   'property-ids': propertyIdsType,
   'driver-area': driverAreaType,
   first: firstAreaType,
   last: lastAreaType,
-  disable: disabledAreaType,
 };
 
 const defaultArgs: Args = {
+  selected: false,
+  hovered: false,
+  focused: false,
+  disable: false,
   'coach-id': mappedSeatReservation.coachItems[0].id,
   'property-ids': JSON.stringify(mappedSeatReservation.coachItems[0].propertyIds),
 };
@@ -84,7 +107,7 @@ const defaultArgs: Args = {
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgsTypes,
-  args: { ...defaultArgs, 'travel-class': JSON.stringify(['SECOND']) },
+  args: { ...defaultArgs, 'travel-class': 'FIRST' },
 };
 
 export const NavigationCoachFirstClassSelected: StoryObj = {
