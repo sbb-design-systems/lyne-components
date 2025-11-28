@@ -17,12 +17,12 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
         data-action=""
         data-button=""
         data-sbb-button=""
+        disabled=""
         disabled-interactive=""
         icon-name="chevron-small-left-small"
         id="first-tab-element"
-        role="contentinfo"
+        role="navigation"
         size="s"
-        tabindex="0"
         type="button"
       >
       </sbb-secondary-button>
@@ -51,6 +51,7 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
             <div
               class="sbb-sr__wrapper"
               id="sbb-sr__wrapper-scrollarea"
+              tabindex="0"
             >
               <div
                 class="sbb-sr__parent"
@@ -79,12 +80,12 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
         data-action=""
         data-button=""
         data-sbb-button=""
+        disabled=""
         disabled-interactive=""
         icon-name="chevron-small-right-small"
         id="last-tab-element"
-        role="contentinfo"
+        role="navigation"
         size="s"
-        tabindex="0"
         type="button"
       >
       </sbb-secondary-button>
@@ -117,7 +118,13 @@ snapshots["sbb-seat-reservation renders A11y tree Firefox"] =
     },
     {
       "role": "section",
-      "name": ""
+      "name": "",
+      "children": [
+        {
+          "role": "section",
+          "name": ""
+        }
+      ]
     },
     {
       "role": "landmark",
@@ -137,22 +144,18 @@ snapshots["sbb-seat-reservation renders A11y tree Chrome"] =
   "name": "",
   "children": [
     {
-      "role": "contentinfo",
-      "name": "Start Graphic Seat Reservation",
-      "disabled": true
-    },
-    {
       "role": "list",
       "name": "Seat reservation navigation"
     },
     {
       "role": "generic",
-      "name": ""
-    },
-    {
-      "role": "contentinfo",
-      "name": "Exit Graphic Seat Reservation",
-      "disabled": true
+      "name": "",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        }
+      ]
     }
   ]
 }
