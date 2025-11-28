@@ -249,9 +249,7 @@ export interface SbbStateController {
   add(value: string): this;
   delete(value: string): boolean;
   has(value: string): boolean;
-  forEach(callbackfn: (value: string, value2: string, set: SbbStateController) => void): void;
   toggle(value: string, force?: boolean): void;
-  applyPattern(state: string, pattern?: string): void;
 }
 
 /**
@@ -273,19 +271,6 @@ export function ɵstateController(element: Element | undefined | null): SbbState
       this.delete(value);
     }
   };
-  const applyPattern: SbbStateController['applyPattern'] = function (
-    this: SbbStateController,
-    state,
-    pattern = 'state',
-  ) {
-    const stateName = `${pattern}-${state}`;
-    this.add(stateName);
-    this.forEach((s) => {
-      if (s.startsWith(`${pattern}-`) && s !== stateName) {
-        this.delete(s);
-      }
-    });
-  };
   if (states) {
     return {
       add(value) {
@@ -294,11 +279,7 @@ export function ɵstateController(element: Element | undefined | null): SbbState
       },
       delete: (value) => states.delete(value),
       has: (value) => states.has(value),
-      forEach(callbackfn) {
-        states.forEach((value, key) => callbackfn(value, key, this));
-      },
       toggle,
-      applyPattern,
     };
   } else {
     // If no ElementInternals is attached, we fall back to using attributes. E.g. for triggers.
@@ -309,17 +290,7 @@ export function ɵstateController(element: Element | undefined | null): SbbState
       },
       delete: (value) => element.toggleAttribute(`state--${value}`, false),
       has: (value) => element.hasAttribute(`state--${value}`),
-      forEach(callbackfn) {
-        element
-          .getAttributeNames()
-          .filter((attr) => attr.startsWith('state--'))
-          .map((attr) => attr.substring(7))
-          .forEach((key) => {
-            callbackfn(key, key, this);
-          });
-      },
       toggle,
-      applyPattern,
     };
   }
 }

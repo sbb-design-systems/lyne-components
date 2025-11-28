@@ -38,9 +38,13 @@ export function setOverlayPosition(
   element.style.setProperty('--sbb-options-panel-position-x', `${panelPosition.left}px`);
   element.style.setProperty('--sbb-options-panel-position-y', `${panelPosition.top}px`);
   element.style.setProperty('--sbb-options-panel-max-height', panelPosition.maxHeight);
-  ɵstateController(element).applyPattern(
-    panelPosition.alignment.vertical,
-    'options-panel-position',
-  );
+  const controller = ɵstateController(element);
+  if (panelPosition.alignment.vertical === 'above') {
+    controller.add('options-panel-position-above');
+    controller.delete('options-panel-position-below');
+  } else {
+    controller.add('options-panel-position-below');
+    controller.delete('options-panel-position-above');
+  }
   originElement.setAttribute('data-options-panel-position', panelPosition.alignment.vertical);
 }

@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
+import { SbbLanguageController, SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { forceType } from '../../core/decorators.ts';
 import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.ts';
 import {
@@ -72,6 +72,7 @@ class SbbFlipCardElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitE
     skipInitial: true,
     callback: () => this._setCardDetailsHeight(),
   });
+  private _previousImageAlignment?: string;
 
   public constructor() {
     super();
@@ -80,6 +81,19 @@ class SbbFlipCardElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitE
         this.toggle();
       }
     });
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.summary, {
+        imageAlignment: (s) => {
+          if (this._previousImageAlignment) {
+            this.internals.states.delete(`image-alignment-${this._previousImageAlignment}`);
+          }
+          this._previousImageAlignment = s.imageAlignment;
+          if (this._previousImageAlignment) {
+            this.internals.states.add(`image-alignment-${this._previousImageAlignment}`);
+          }
+        },
+      }),
+    );
   }
 
   /** Toggles the state of the sbb-flip-card. */

@@ -1,4 +1,4 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
@@ -106,15 +106,6 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElementInternalsMixi
     this.toggleState('accordion', !!this.closest?.('sbb-accordion'));
   }
 
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('size')) {
-      ɵstateController(this._headerRef)?.applyPattern(this.size, 'size');
-      ɵstateController(this._contentRef)?.applyPattern(this.size, 'size');
-    }
-  }
-
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.internals.states.delete('accordion');
@@ -196,12 +187,10 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElementInternalsMixi
       header.id ||= `sbb-expansion-panel-header${this._progressiveId}`;
       header.setAttribute('aria-expanded', String(this.expanded));
       header.toggleAttribute('disabled', this.disabled);
-      ɵstateController(header).applyPattern(this.size, 'size');
     }
     if (content && this._contentRef !== content) {
       content.id ||= `sbb-expansion-panel-content${this._progressiveId}`;
       content.setAttribute('aria-hidden', String(!this.expanded));
-      ɵstateController(content).applyPattern(this.size, 'size');
     }
 
     this._headerRef = header;

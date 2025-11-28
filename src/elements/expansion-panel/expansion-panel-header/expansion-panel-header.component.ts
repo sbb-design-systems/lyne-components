@@ -2,7 +2,11 @@ import { type CSSResultGroup, html, nothing, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { SbbMediaQueryHover, SbbMediaMatcherController } from '../../core/controllers.ts';
+import {
+  SbbMediaQueryHover,
+  SbbMediaMatcherController,
+  SbbPropertyWatcherController,
+} from '../../core/controllers.ts';
 import { SbbDisabledTabIndexActionMixin, ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
@@ -31,6 +35,7 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
   });
 
   private _isHover: boolean = this._mediaMatcher.matches(SbbMediaQueryHover) ?? false;
+  private _previousSize?: string;
 
   public constructor() {
     super();
@@ -38,6 +43,19 @@ class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
     this.addEventListener?.('mouseenter', () => this._onMouseMovement(true));
     this.addEventListener?.('mouseleave', () => this._onMouseMovement(false));
     this.addEventListener?.('slottedchange', () => this._setIconState());
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-expansion-panel'), {
+        size: (s) => {
+          if (this._previousSize) {
+            this.internals.states.delete(`size-${this._previousSize}`);
+          }
+          this._previousSize = s.size;
+          if (this._previousSize) {
+            this.internals.states.add(`size-${this._previousSize}`);
+          }
+        },
+      }),
+    );
   }
 
   public override connectedCallback(): void {

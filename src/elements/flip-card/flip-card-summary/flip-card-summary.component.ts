@@ -1,8 +1,7 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './flip-card-summary.scss?lit&inline';
@@ -27,17 +26,6 @@ class SbbFlipCardSummaryElement extends LitElement {
   public override connectedCallback(): void {
     super.connectedCallback();
     this.slot ||= 'summary';
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('imageAlignment')) {
-      ɵstateController(this.closest?.('sbb-flip-card'))?.applyPattern(
-        this.imageAlignment,
-        'image-alignment',
-      );
-    }
   }
 
   protected override render(): TemplateResult {

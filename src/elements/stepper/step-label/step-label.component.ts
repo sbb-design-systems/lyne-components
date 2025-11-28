@@ -2,6 +2,7 @@ import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
+import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { appendAriaElements, removeAriaElements, SbbDisabledMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
@@ -30,15 +31,43 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
   }
   private _step: SbbStepElement | null = null;
 
-  private _stepper: SbbStepperElement | null = null;
+  public get stepper(): SbbStepperElement | null {
+    return this.closest('sbb-stepper');
+  }
+
+  private _previousOrientation?: string;
+  private _previousSize?: string;
 
   public constructor() {
     super();
     this.addEventListener?.('click', () => {
-      if (this._stepper && this.step) {
-        this._stepper.selected = this.step;
+      const stepper = this.stepper;
+      if (stepper && this.step) {
+        stepper.selected = this.step;
       }
     });
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.stepper, {
+        orientation: (s) => {
+          if (this._previousOrientation) {
+            this.internals.states.delete(`orientation-${this._previousOrientation}`);
+          }
+          this._previousOrientation = s.orientation;
+          if (this._previousOrientation) {
+            this.internals.states.add(`orientation-${this._previousOrientation}`);
+          }
+        },
+        size: (s) => {
+          if (this._previousSize) {
+            this.internals.states.delete(`size-${this._previousSize}`);
+          }
+          this._previousSize = s.size;
+          if (this._previousSize) {
+            this.internals.states.add(`size-${this._previousSize}`);
+          }
+        },
+      }),
+    );
   }
 
   public override connectedCallback(): void {
@@ -47,7 +76,6 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     this.slot ||= 'step-label';
     this.internals.ariaSelected = 'false';
     this.tabIndex = -1;
-    this._stepper = this.closest('sbb-stepper');
     this._assignStep();
     // The `disabled` state is used to preserve the initial disabled state of
     // step labels in case of switching from linear to non-linear mode.

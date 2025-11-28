@@ -91,15 +91,10 @@ export const SbbCardActionCommonElementMixin = <
       super.disconnectedCallback();
       if (this._card) {
         const controller = ɵstateController(this._card);
-        controller.forEach((state) => {
-          if (
-            state.startsWith('action-role-') ||
-            state === 'has-active-action' ||
-            state === 'has-action'
-          ) {
-            controller.delete(state);
-          }
-        });
+        controller.delete('has-action');
+        controller.delete('has-active-action');
+        controller.delete('action-role-button');
+        controller.delete('action-role-link');
         this._card
           .querySelectorAll(`.sbb-action`)
           .forEach((el) => el.classList.remove('sbb-action'));

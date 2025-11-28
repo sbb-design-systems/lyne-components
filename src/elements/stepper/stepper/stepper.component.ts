@@ -19,11 +19,7 @@ import {
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';
-import {
-  SbbElementInternalsMixin,
-  SbbHydrationMixin,
-  ɵstateController,
-} from '../../core/mixins.ts';
+import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.ts';
 
@@ -269,14 +265,11 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
         label.configure(i + 1, array.length, this._loaded);
       });
     this._select(this.selected || this._enabledSteps[0]);
-    this._proxySize();
   }
 
   private _updateLabels(): void {
     this.steps.forEach((step) => {
       step.slot = this.orientation === 'horizontal' ? 'step' : 'step-label';
-      ɵstateController(step).applyPattern(this.orientation, 'orientation');
-      ɵstateController(step.label)?.applyPattern(this.orientation, 'orientation');
     });
   }
 
@@ -350,13 +343,8 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     }
 
     if (changedProperties.has('size')) {
-      this._proxySize();
       this._setMarkerSize();
     }
-  }
-
-  private _proxySize(): void {
-    this.steps.forEach((step) => ɵstateController(step.label)?.applyPattern(this.size, 'size'));
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {

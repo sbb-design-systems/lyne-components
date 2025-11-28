@@ -55,14 +55,7 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
    * @default 'l' / 's' (lean)
    */
   @property()
-  public set size(value: 's' | 'l' | 'xl') {
-    this._size = value;
-    this._updateSize();
-  }
-  public get size(): 's' | 'l' | 'xl' {
-    return this._size;
-  }
-  private _size: 's' | 'l' | 'xl' = isLean() ? 's' : 'l';
+  public accessor size: 's' | 'l' | 'xl' = isLean() ? 's' : 'l';
 
   /**
    * Sets the initial tab. If it matches a disabled tab or exceeds the length of
@@ -145,19 +138,12 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
     });
   }
 
-  private _updateSize(): void {
-    this.labels.forEach((tabLabel: SbbTabLabelElement) =>
-      ɵstateController(tabLabel).applyPattern(this.size, 'size'),
-    );
-  }
-
   private _onContentSlotChange = (): void => {
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
     this.labels.find((tabLabel) => tabLabel.active)?.activate();
   };
 
   private _onLabelSlotChange = (): void => {
-    this._updateSize();
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
   };
 
