@@ -99,7 +99,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   private _lastKeydownEvent: KeyboardEvent | null = null;
   private _mediaMatcherController = new SbbMediaMatcherController(this, {
     [SbbMediaQueryBreakpointLargeAndBelow]: (matches) => {
-      if (this._state !== 'closed') {
+      if (this.state !== 'closed') {
         this._setNavigationInert(matches);
       }
     },
@@ -107,16 +107,6 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
 
   public constructor() {
     super();
-
-    this.addController(
-      new SbbMediaMatcherController(this, {
-        [SbbMediaQueryBreakpointLargeAndBelow]: (matches) => {
-          if (this.state !== 'closed') {
-            this._setNavigationInert(matches);
-          }
-        },
-      }),
-    );
 
     this.addEventListener?.('keydown', (e) => {
       this._lastKeydownEvent = e;
