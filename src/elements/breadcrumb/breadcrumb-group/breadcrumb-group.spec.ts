@@ -45,7 +45,7 @@ describe(`sbb-breadcrumb-group`, () => {
       });
     });
 
-    describe('with two breadcrumns', () => {
+    describe('with two breadcrumbs', () => {
       beforeEach(async () => {
         element = await fixture(html`
           <sbb-breadcrumb-group>

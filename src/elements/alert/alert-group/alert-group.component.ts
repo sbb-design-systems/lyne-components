@@ -69,7 +69,7 @@ class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
 
     // Restore focus
     if (hasFocusInsideAlertGroup) {
-      // Set tabindex to 0 the make it focusable and afterwards focus it.
+      // Set tabindex to 0 the make it focusable and afterward focus it.
       // This is done to not completely lose focus after removal of an alert.
       // Once the sbb-alert-group was blurred, make the alert group not focusable again.
       this.tabIndex = 0;

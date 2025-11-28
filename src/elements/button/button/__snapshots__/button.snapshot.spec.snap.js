@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-button renders an sbb-button without icon DOM"] = 
+snapshots["sbb-button renders a sbb-button without icon DOM"] = 
 `<sbb-button
   data-action=""
   data-button=""
@@ -17,9 +17,9 @@ snapshots["sbb-button renders an sbb-button without icon DOM"] =
   Label Text
 </sbb-button>
 `;
-/* end snapshot sbb-button renders an sbb-button without icon DOM */
+/* end snapshot sbb-button renders a sbb-button without icon DOM */
 
-snapshots["sbb-button renders an sbb-button without icon Shadow DOM"] = 
+snapshots["sbb-button renders a sbb-button without icon Shadow DOM"] = 
 `<span class="sbb-action-base sbb-button">
   <slot name="icon">
   </slot>
@@ -29,9 +29,9 @@ snapshots["sbb-button renders an sbb-button without icon Shadow DOM"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-button renders an sbb-button without icon Shadow DOM */
+/* end snapshot sbb-button renders a sbb-button without icon Shadow DOM */
 
-snapshots["sbb-button renders an sbb-button with slotted icon DOM"] = 
+snapshots["sbb-button renders a sbb-button with slotted icon DOM"] = 
 `<sbb-button
   data-action=""
   data-button=""
@@ -48,9 +48,9 @@ snapshots["sbb-button renders an sbb-button with slotted icon DOM"] =
   Label Text
 </sbb-button>
 `;
-/* end snapshot sbb-button renders an sbb-button with slotted icon DOM */
+/* end snapshot sbb-button renders a sbb-button with slotted icon DOM */
 
-snapshots["sbb-button renders an sbb-button with slotted icon Shadow DOM"] = 
+snapshots["sbb-button renders a sbb-button with slotted icon Shadow DOM"] = 
 `<span class="sbb-action-base sbb-button">
   <slot name="icon">
   </slot>
@@ -60,9 +60,9 @@ snapshots["sbb-button renders an sbb-button with slotted icon Shadow DOM"] =
   </span>
 </span>
 `;
-/* end snapshot sbb-button renders an sbb-button with slotted icon Shadow DOM */
+/* end snapshot sbb-button renders a sbb-button with slotted icon Shadow DOM */
 
-snapshots["sbb-button renders an sbb-button in loading state DOM"] = 
+snapshots["sbb-button renders a sbb-button in loading state DOM"] = 
 `<sbb-button
   data-action=""
   data-button=""
@@ -76,9 +76,9 @@ snapshots["sbb-button renders an sbb-button in loading state DOM"] =
   Loading Button
 </sbb-button>
 `;
-/* end snapshot sbb-button renders an sbb-button in loading state DOM */
+/* end snapshot sbb-button renders a sbb-button in loading state DOM */
 
-snapshots["sbb-button renders an sbb-button in loading state Shadow DOM"] = 
+snapshots["sbb-button renders a sbb-button in loading state Shadow DOM"] = 
 `<span class="sbb-action-base sbb-button">
   <slot name="icon">
     <sbb-icon
@@ -95,25 +95,9 @@ snapshots["sbb-button renders an sbb-button in loading state Shadow DOM"] =
   </div>
 </span>
 `;
-/* end snapshot sbb-button renders an sbb-button in loading state Shadow DOM */
+/* end snapshot sbb-button renders a sbb-button in loading state Shadow DOM */
 
-snapshots["sbb-button renders an sbb-button with slotted icon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Label Text"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-button renders an sbb-button with slotted icon A11y tree Firefox */
-
-snapshots["sbb-button renders an sbb-button with slotted icon A11y tree Chrome"] = 
+snapshots["sbb-button renders a sbb-button with slotted icon A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -127,9 +111,9 @@ snapshots["sbb-button renders an sbb-button with slotted icon A11y tree Chrome"]
 }
 </p>
 `;
-/* end snapshot sbb-button renders an sbb-button with slotted icon A11y tree Chrome */
+/* end snapshot sbb-button renders a sbb-button with slotted icon A11y tree Chrome */
 
-snapshots["sbb-button renders an sbb-button in loading state A11y tree Firefox"] = 
+snapshots["sbb-button renders a sbb-button with slotted icon A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -137,16 +121,15 @@ snapshots["sbb-button renders an sbb-button in loading state A11y tree Firefox"]
   "children": [
     {
       "role": "button",
-      "name": "Loading Button",
-      "disabled": true
+      "name": "Label Text"
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-button renders an sbb-button in loading state A11y tree Firefox */
+/* end snapshot sbb-button renders a sbb-button with slotted icon A11y tree Firefox */
 
-snapshots["sbb-button renders an sbb-button in loading state A11y tree Chrome"] = 
+snapshots["sbb-button renders a sbb-button in loading state A11y tree Chrome"] = 
 `<p>
   {
   "role": "WebArea",
@@ -161,5 +144,22 @@ snapshots["sbb-button renders an sbb-button in loading state A11y tree Chrome"] 
 }
 </p>
 `;
-/* end snapshot sbb-button renders an sbb-button in loading state A11y tree Chrome */
+/* end snapshot sbb-button renders a sbb-button in loading state A11y tree Chrome */
+
+snapshots["sbb-button renders a sbb-button in loading state A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "document",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Loading Button",
+      "disabled": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-button renders a sbb-button in loading state A11y tree Firefox */
 

@@ -255,9 +255,9 @@ class SbbImageElement extends LitElement {
   @property() public accessor loading: 'eager' | 'lazy' = 'eager';
 
   /**
-   * With performance.mark you can log a timestamp associated with
+   * With `performance.mark` you can log a timestamp associated with
    * the name you define in performanceMark when a certain event is
-   * happening. In our case we will log the performance.mark into
+   * happening. In our case we will log the `performance.mark` into
    * the PerformanceEntry API once the image is fully loaded.
    * Performance monitoring tools like SpeedCurve or Lighthouse are
    * then able to grab these entries from the PerformanceEntry API
@@ -392,7 +392,7 @@ class SbbImageElement extends LitElement {
       return '';
     }
 
-    // Creating an URL without a schema will fail, but is a valid input for baseUrl.
+    // Creating a URL without a schema will fail, but is a valid input for baseUrl.
     // e.g. image-src can be https://example.com/my-image.png or /my-image.png
     const isFullyQualifiedUrl = !!baseUrl.match(/^\w+:\/\//);
     const imageUrlObj = isFullyQualifiedUrl ? new URL(baseUrl) : new URL(`http://noop/${baseUrl}`);

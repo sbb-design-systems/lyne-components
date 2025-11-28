@@ -170,7 +170,7 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
     this._close();
   }
 
-  /** Closes the menu and all related menus  nested and parent menus). */
+  /** Closes the menu and all related menus (nested and parent menus). */
   public closeAll(): void {
     this._mainMenu()._close(true);
   }
@@ -551,7 +551,6 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
   }
 
   protected override render(): TemplateResult {
-    // TODO: Handle case with other elements than sbb-menu-button/sbb-menu-link.
     return html`
       <div class="sbb-menu__container">
         <div

@@ -207,7 +207,7 @@ export abstract class SbbButtonBaseElement extends SbbButtonLikeBaseElement {
       // In the case where there is only one form element, an enter press submits the form.
       // In the case where we only have one input and this button as a submit button,
       // we need to prevent the default functionality of submitting the form because
-      // while this button should be recognized as a submit element, that is not natively the case
+      // while this button should be recognized as a submit element, that is not natively the case,
       // and therefore we manually handle this case here.
       // If this button is not disabled we will then request a submit further down below.
       event.stopImmediatePropagation();

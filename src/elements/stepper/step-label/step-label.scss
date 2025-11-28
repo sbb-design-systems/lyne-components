@@ -23,7 +23,7 @@
     cursor: var(--sbb-step-label-cursor);
     color: var(--sbb-step-label-color);
 
-    // The `--sbb-text-font-size-l` is beign used here to align the bubble's inner text to
+    // The `--sbb-text-font-size-l` is being used here to align the bubble's inner text to
     // the label text which includes the `sbb.text-l--bold` mixin.
     inset-block-start: calc(
       var(--sbb-text-font-size-l) * (var(--sbb-typo-line-height-text) / 2) +
@@ -60,7 +60,7 @@
   --sbb-step-label-prefix-size: var(--sbb-size-element-xxxs);
 
   &::before {
-    // The `--sbb-text-font-size-m` is beign used here to align the bubble's inner text to
+    // The `--sbb-text-font-size-m` is being used here to align the bubble's inner text to
     // the label text which includes the `sbb.text-m--bold` mixin.
     inset-block-start: calc(
       var(--sbb-text-font-size-m) * (var(--sbb-typo-line-height-text) / 2) +

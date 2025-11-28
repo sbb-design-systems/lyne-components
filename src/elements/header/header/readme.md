@@ -5,7 +5,7 @@ The `sbb-header` component is a container for actions and a logo, and it is disp
 The slot can contain:
 
 - one or more actions ([sbb-header-button](/docs/elements-sbb-header-sbb-header-button--docs) or [sbb-header-link](/docs/elements-sbb-header-sbb-header-link--docs))
-- other action items like [sbb-button](/docs/elements-sbb-button--docs) or [sbb-link](/docs/elements-sbb-link--docs)
+- other action items like [sbb-button](/docs/elements-sbb-button-sbb-button--docs) or [sbb-link](/docs/elements-sbb-link-sbb-link--docs)
 - a logo or a signet with the `.sbb-header-logo` class (see [sbb-logo](/docs/elements-sbb-logo--docs))
 
 Slotted elements are aligned to the left. Use `<div class="sbb-header-spacer">` to align elements after it to the right.

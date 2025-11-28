@@ -27,7 +27,7 @@ describe('sbb-sidebar-container', () => {
       await waitForLitRender(element);
     }
 
-    // In Safari it takes a little bit longer to render everything
+    // In Safari, it takes a little bit longer to render everything
     await aTimeout(100);
   }
 
