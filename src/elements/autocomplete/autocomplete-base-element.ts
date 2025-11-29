@@ -393,6 +393,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     }
 
     this._triggerAbortController?.abort();
+    this._triggerElement?.toggleAttribute('data-expanded', false);
     removeAriaComboBoxAttributes(this.triggerElement);
     this._triggerElement = triggerElement;
 
