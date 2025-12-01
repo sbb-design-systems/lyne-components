@@ -18,9 +18,6 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
         <sbb-secondary-button
           aria-label="Start Graphic Seat Reservation"
           class="sbb-sr__navigation-control-button"
-          data-action=""
-          data-button=""
-          data-sbb-button=""
           disabled-interactive=""
           icon-name="chevron-small-left-small"
           role="button"
@@ -40,9 +37,6 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
         <sbb-secondary-button
           aria-label="Exit Graphic Seat Reservation"
           class="sbb-sr__navigation-control-button"
-          data-action=""
-          data-button=""
-          data-sbb-button=""
           disabled-interactive=""
           icon-name="chevron-small-right-small"
           role="button"
