@@ -4,6 +4,7 @@ $theme: 'standard' !default;
 
 @mixin base {
   @include sbb.card-variables--global($theme);
+  @include sbb.card-variables--white;
 
   // TODO: remove after lean theme migration
   &.sbb-lean {

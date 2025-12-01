@@ -9,6 +9,10 @@
   @include sbb.card;
 }
 
+:host([color='white']) {
+  @include sbb.card-variables--white;
+}
+
 :host([color='milk']) {
   @include sbb.card-variables--milk;
 }

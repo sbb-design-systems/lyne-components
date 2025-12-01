@@ -44,10 +44,16 @@
 
 @mixin card-variables($theme: 'standard') {
   @include card-variables--global($theme);
+  @include card-variables--white;
 
   @include a11y.if-forced-colors {
     @include card-variables--global-forced-colors;
   }
+}
+
+@mixin card-variables--white {
+  --sbb-card-background-color: var(--sbb-background-color-1);
+  --sbb-card-border-color: transparent;
 }
 
 @mixin card-variables--milk {
