@@ -150,8 +150,7 @@
     "@web/dev-server-core": "0.7.1",
     "jackspeak": "2.1.1",
     "lit": "3.3.1",
-    "playwright": "1.56.1",
-    "prettier": "3.7.3"
+    "playwright": "1.56.1"
   },
   "prettier": {
     "singleQuote": true,
