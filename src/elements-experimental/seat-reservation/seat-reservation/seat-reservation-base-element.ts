@@ -396,7 +396,6 @@ export class SeatReservationBaseElement extends LitElement {
         event.preventDefault();
         return;
       }
-      return;
     }
 
     if (this.currSelectedCoachIndex !== -1 && isArrowKeyOrPageKeysPressed(event)) {

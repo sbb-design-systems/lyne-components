@@ -92,7 +92,6 @@ $disabled: '[disabled], :disabled';
 
   &.last-coach {
     .sbb-sr-navigation__ctrl-button:not(.sbb-sr-navigation-driver-area) {
-      // @include sbb-sr-mixin.visualize-coach-border(2, 8, 8, 2);
       @include sbb-sr-mixin.visualize-coach-border(2, 8, 8, 2);
     }
 

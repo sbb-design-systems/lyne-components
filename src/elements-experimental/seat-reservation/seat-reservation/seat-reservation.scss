@@ -2,6 +2,7 @@
 @use '../common/styles/seat-reservation-mixins' as sbb-sr-mixins;
 @use '../common/styles/seat-reservation-functions' as sbb-sr-functions;
 
+// Maximum responsive navigation width, consists of the maximum navigation extent minus 2x nav direction buttons -> 96px
 $max-coach-navigation-width: calc(960px - 96px);
 $scrollbar-height: 16px;
 
@@ -32,11 +33,11 @@ $scrollbar-height: 16px;
   .sbb-sr__component {
     flex-direction: row-reverse;
     justify-content: flex-end;
-    gap: 32px;
+    gap: sbb-sr-functions.sr-px-to-rem(32);
     height: inherit;
 
     @include sbb.mq($from: small) {
-      gap: 64px;
+      gap: sbb-sr-functions.sr-px-to-rem(64);
     }
 
     nav.sbb-sr-navigation,
@@ -46,10 +47,10 @@ $scrollbar-height: 16px;
 
     nav.sbb-sr-navigation {
       padding-inline: 0;
-      padding-block: 16px;
+      padding-block: sbb-sr-functions.sr-px-to-rem(16);
 
       .sbb-sr__navigation-control-button {
-        left: 1px;
+        left: sbb-sr-functions.sr-px-to-rem(1);
         rotate: 90deg;
       }
 
@@ -58,8 +59,8 @@ $scrollbar-height: 16px;
 
         // Padding needs to visual focus-visible style for nav button inside overflow content,
         // otherwise focus-visible style is cutted.
-        padding-block: 6px;
-        padding-inline: 5px 0;
+        padding-block: sbb-sr-functions.sr-px-to-rem(6);
+        padding-inline: sbb-sr-functions.sr-px-to-rem(5) 0;
 
         & {
           overflow: hidden scroll;
@@ -80,7 +81,7 @@ $scrollbar-height: 16px;
       b {
         width: calc(50% - sbb-sr-functions.sr-px-to-rem(16));
         height: sbb-sr-functions.sr-px-to-rem(20);
-        margin-bottom: 16px;
+        margin-bottom: sbb-sr-functions.sr-px-to-rem(16);
         rotate: initial;
         writing-mode: initial;
       }
@@ -107,12 +108,12 @@ $scrollbar-height: 16px;
 
 nav.sbb-sr-navigation {
   padding-inline: 0;
-  gap: 4px;
+  gap: sbb-sr-functions.sr-px-to-rem(4);
 }
 
 nav.sbb-sr-navigation .sbb-sr__navigation-control-button {
   position: relative;
-  top: 2px;
+  top: sbb-sr-functions.sr-px-to-rem(2);
 
   @include sbb.mq($from: large) {
     top: 0;
@@ -122,7 +123,7 @@ nav.sbb-sr-navigation .sbb-sr__navigation-control-button {
 .sbb-sr__component {
   display: flex;
   flex-direction: column;
-  gap: calc(64px - $scrollbar-height);
+  gap: calc(sbb-sr-functions.sr-px-to-rem(64) - $scrollbar-height);
 }
 
 // NAVIGATION NEW
@@ -145,8 +146,8 @@ ul.sbb-sr-navigation__list-coaches {
   display: flex;
   flex-wrap: nowrap;
   gap: sbb-sr-functions.sr-px-to-rem(4);
-  padding: 6px 6px 0;
-  max-width: $max-coach-navigation-width; // calc(960px - 96px);
+  padding: sbb-sr-functions.sr-px-to-rem(6) sbb-sr-functions.sr-px-to-rem(6) 0;
+  max-width: $max-coach-navigation-width;
 
   & {
     // Set sbb scrollbar transparent by default
