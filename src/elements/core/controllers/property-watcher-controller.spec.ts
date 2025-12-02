@@ -194,6 +194,31 @@ describe('SbbPropertyWatcherController', () => {
     await waitForLitRender(watcher);
     expect(watcher.size).to.be.equal('m');
   });
+
+  it('should handle undefined custom element', async () => {
+    const watched = await fixture<SbbWatcherElement>(
+      html`<watched-element-deferred size="m">
+        <watcher-element></watcher-element>
+      </watched-element-deferred>`,
+    );
+    const watcher = watched.querySelector<SbbWatcherElement>('watcher-element')!;
+    const propertyWatcherController = new SbbPropertyWatcherController(watcher, () => watched, {
+      size: (p) => (watcher.size = p.size),
+    });
+    watcher.addController(propertyWatcherController);
+
+    customElements.define('watched-element-deferred', class extends SbbWatchedElement {});
+    await customElements.whenDefined('watched-element-deferred');
+
+    watched.size = 's';
+    await waitForLitRender(watcher);
+    expect(watcher.size).to.be.equal('s');
+
+    // Should still sync
+    watched.size = 'm';
+    await waitForLitRender(watcher);
+    expect(watcher.size).to.be.equal('m');
+  });
 });
 
 declare global {
@@ -202,5 +227,7 @@ declare global {
     'watched-element': SbbWatchedElement;
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'watcher-element': SbbWatcherElement;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'watched-element-deferred': SbbWatchedElement;
   }
 }
