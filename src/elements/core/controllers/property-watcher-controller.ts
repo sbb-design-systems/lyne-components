@@ -10,6 +10,7 @@ type PropertyWatcherHandler<T extends LitElement> = (reference: T) => void;
 class PropertyWatcher<T extends LitElement> implements ReactiveController {
   private _value: unknown;
   private _handlers = new Set<PropertyWatcherHandler<T>>();
+  private _hostDefinedPromise: Promise<void> | null = null;
 
   public get size(): number {
     return this._handlers.size;
@@ -20,23 +21,46 @@ class PropertyWatcher<T extends LitElement> implements ReactiveController {
     private readonly _property: string,
   ) {
     if (!isServer) {
-      customElements.upgrade(this._host);
+      if (customElements.get(this._host.localName)) {
+        customElements.upgrade(this._host);
+      } else {
+        // The host element is not yet defined, wait for its definition before upgrading
+        this._hostDefinedPromise = customElements.whenDefined(this._host.localName).then(() => {
+          customElements.upgrade(this._host);
+          this._hostDefinedPromise = null;
+        });
+      }
     }
     this._value = (this._host as unknown as Record<string, unknown>)[this._property];
   }
 
   public addHandler(handler: PropertyWatcherHandler<T>): void {
     if (!this._handlers.size) {
-      this._host.addController(this);
+      // We check if the addController method is available (element was defined && upgraded), otherwise we wait for the host to be defined
+      if (this._host.addController) {
+        this._host.addController(this);
+      } else if (this._hostDefinedPromise) {
+        this._hostDefinedPromise.then(() => this._host.addController(this));
+      }
     }
     this._handlers.add(handler);
-    handler(this._host);
+
+    if (!this._hostDefinedPromise) {
+      handler(this._host);
+    } else {
+      this._hostDefinedPromise.then(() => handler(this._host));
+    }
   }
 
   public removeHandler(handler: PropertyWatcherHandler<T>): void {
     this._handlers.delete(handler);
     if (!this._handlers.size) {
-      this._host.removeController(this);
+      // We check if the removeController method is available (element was defined && upgraded), otherwise we wait for the host to be defined
+      if (this._host.removeController) {
+        this._host.removeController(this);
+      } else if (this._hostDefinedPromise) {
+        this._hostDefinedPromise.then(() => this._host.removeController(this));
+      }
     }
   }
 
