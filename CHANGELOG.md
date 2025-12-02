@@ -14,6 +14,8 @@ All notable changes to this project will be documented in this file. See [standa
 ## [3.13.5](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.4...v3.13.5) (2025-12-02)
 
 
+### Bug Fixes
+
 * **sbb-autocomplete:** remove `data-expanded` on trigger disconnection ([#4255](https://github.com/sbb-design-systems/lyne-components/issues/4255)) ([9ffb7c2](https://github.com/sbb-design-systems/lyne-components/commit/9ffb7c23fa7aa1f33bde5109cab76d65285d815c))
 
 ## [4.0.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.0-next.4...v4.0.0) (2025-11-28)
