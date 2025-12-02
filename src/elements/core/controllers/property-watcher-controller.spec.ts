@@ -1,4 +1,4 @@
-import { expect } from '@open-wc/testing';
+import { aTimeout, expect } from '@open-wc/testing';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -194,6 +194,36 @@ describe('SbbPropertyWatcherController', () => {
     await waitForLitRender(watcher);
     expect(watcher.size).to.be.equal('m');
   });
+
+  it('should handle undefined custom element', async () => {
+    const watched = await fixture<SbbWatcherElement>(
+      html`<watched-element-deferred size="m">
+        <watcher-element></watcher-element>
+      </watched-element-deferred>`,
+    );
+    const watcher = watched.querySelector<SbbWatcherElement>('watcher-element')!;
+    const propertyWatcherController = new SbbPropertyWatcherController(watcher, () => watched, {
+      size: (p) => (watcher.size = p.size),
+    });
+    watcher.addController(propertyWatcherController);
+
+    customElements.define('watched-element-deferred', class extends SbbWatchedElement {});
+    await customElements.whenDefined('watched-element-deferred');
+
+    // Initially the size of the watcher is taken until the Promise callback of whenDefined was executed.
+    expect(watcher.size).to.be.equal('s');
+    await aTimeout(0);
+    expect(watcher.size).to.be.equal('m');
+
+    watched.size = 's';
+    await waitForLitRender(watcher);
+    expect(watcher.size).to.be.equal('s');
+
+    // Should still sync
+    watched.size = 'm';
+    await waitForLitRender(watcher);
+    expect(watcher.size).to.be.equal('m');
+  });
 });
 
 declare global {
@@ -202,5 +232,7 @@ declare global {
     'watched-element': SbbWatchedElement;
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'watcher-element': SbbWatcherElement;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'watched-element-deferred': SbbWatchedElement;
   }
 }
