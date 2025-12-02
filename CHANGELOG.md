@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.0...v4.0.1) (2025-12-02)
+
+
+### Bug Fixes
+
+* handle undefined elements in SbbPropertyWatcherController ([#4254](https://github.com/sbb-design-systems/lyne-components/issues/4254)) ([12c2097](https://github.com/sbb-design-systems/lyne-components/commit/12c20977c27fe1da1bc08f8c65e415c6df67689c))
+* **sbb-autocomplete:** remove `data-expanded` on trigger disconnection ([#4255](https://github.com/sbb-design-systems/lyne-components/issues/4255)) ([6797205](https://github.com/sbb-design-systems/lyne-components/commit/6797205af5f0c4b06b8b16cd34c0e0ad3ab0d4bf))
+* **sbb-card:** pick configured background color if nested ([#4251](https://github.com/sbb-design-systems/lyne-components/issues/4251)) ([57c513e](https://github.com/sbb-design-systems/lyne-components/commit/57c513eb18d5c629c600c55472c51d759945b453))
+
 ## [3.13.5](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.4...v3.13.5) (2025-12-02)
 
 
