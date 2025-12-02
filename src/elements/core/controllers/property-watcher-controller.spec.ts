@@ -1,4 +1,4 @@
-import { expect } from '@open-wc/testing';
+import { aTimeout, expect } from '@open-wc/testing';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -209,6 +209,11 @@ describe('SbbPropertyWatcherController', () => {
 
     customElements.define('watched-element-deferred', class extends SbbWatchedElement {});
     await customElements.whenDefined('watched-element-deferred');
+
+    // Initially the size of the watcher is taken until the Promise callback of whenDefined was executed.
+    expect(watcher.size).to.be.equal('s');
+    await aTimeout(0);
+    expect(watcher.size).to.be.equal('m');
 
     watched.size = 's';
     await waitForLitRender(watcher);

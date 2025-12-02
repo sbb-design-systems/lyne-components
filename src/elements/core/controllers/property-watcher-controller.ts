@@ -25,9 +25,10 @@ class PropertyWatcher<T extends LitElement> implements ReactiveController {
         customElements.upgrade(this._host);
       } else {
         // The host element is not yet defined, wait for its definition before upgrading
-        this._hostDefinedPromise = customElements
-          .whenDefined(this._host.localName)
-          .then(() => customElements.upgrade(this._host));
+        this._hostDefinedPromise = customElements.whenDefined(this._host.localName).then(() => {
+          customElements.upgrade(this._host);
+          this._hostDefinedPromise = null;
+        });
       }
     }
     this._value = (this._host as unknown as Record<string, unknown>)[this._property];
@@ -43,7 +44,12 @@ class PropertyWatcher<T extends LitElement> implements ReactiveController {
       }
     }
     this._handlers.add(handler);
-    handler(this._host);
+
+    if (!this._hostDefinedPromise) {
+      handler(this._host);
+    } else {
+      this._hostDefinedPromise.then(() => handler(this._host));
+    }
   }
 
   public removeHandler(handler: PropertyWatcherHandler<T>): void {
