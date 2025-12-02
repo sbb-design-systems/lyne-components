@@ -8,12 +8,11 @@
 // Card: Mixins & CSS custom properties
 // -----------------------------------------------------------------------------
 @mixin card-variables--global($theme: 'standard') {
-  --sbb-card-background-color: var(--sbb-background-color-1);
+  @include card-variables--white;
+
   --sbb-card-border-radius: var(--sbb-border-radius-4x);
   --sbb-card-animation-easing: var(--sbb-animation-easing);
-  --sbb-card-border-color: transparent;
   --sbb-card-border-style: solid;
-  --sbb-card-hover-shift: 0;
   --sbb-card-padding-inline: #{functions.theme-pattern-select(
       (
         'standard': var(--sbb-spacing-responsive-s),
@@ -48,6 +47,11 @@
   @include a11y.if-forced-colors {
     @include card-variables--global-forced-colors;
   }
+}
+
+@mixin card-variables--white {
+  --sbb-card-background-color: var(--sbb-background-color-1);
+  --sbb-card-border-color: transparent;
 }
 
 @mixin card-variables--milk {
@@ -134,6 +138,7 @@
 @mixin card-variables--link {
   @include a11y.if-forced-colors {
     --sbb-card-color: LinkText;
+    --sbb-card-border-color: CanvasText;
   }
 }
 
