@@ -9,15 +9,23 @@
   @include sbb.card;
 }
 
-:host([color='milk']) {
+// :where is needed for lower specificity
+:host(:where([color='white'])) {
+  @include sbb.card-variables--white;
+}
+
+// :where is needed for lower specificity
+:host(:where([color='milk'])) {
   @include sbb.card-variables--milk;
 }
 
-:host([color='transparent-bordered']) {
+// :where is needed for lower specificity
+:host(:where([color='transparent-bordered'])) {
   @include sbb.card-variables--transparent-bordered;
 }
 
-:host([color='transparent-bordered-dashed']) {
+// :where is needed for lower specificity
+:host(:where([color='transparent-bordered-dashed'])) {
   @include sbb.card-variables--transparent-bordered-dashed;
 }
 
@@ -33,11 +41,13 @@
   @include sbb.card--hover;
 }
 
-:host(:state(has-action):state(action-role-button)) {
+// :where is needed for lower specificity
+:host(:where(:state(has-action):state(action-role-button))) {
   @include sbb.card-variables--button;
 }
 
-:host(:state(has-action):state(action-role-link)) {
+// :where is needed for lower specificity
+:host(:where(:state(has-action):state(action-role-link))) {
   @include sbb.card-variables--link;
 }
 
@@ -79,7 +89,7 @@
   @include sbb.card--wrapper;
 
   pointer-events: var(--sbb-card-pointer-events, auto);
-  translate: 0 var(--sbb-card-hover-shift);
+  translate: 0 var(--sbb-card-hover-shift, 0);
   transition: translate var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
 }
 

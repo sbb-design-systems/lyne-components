@@ -113,5 +113,18 @@ describe(`sbb-card`, () => {
         );
       }),
     );
+
+    it(
+      'nested',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-card color="milk">
+            <sbb-card color="white">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. justo.
+            </sbb-card>
+          </sbb-card>
+        `);
+      }),
+    );
   });
 });
