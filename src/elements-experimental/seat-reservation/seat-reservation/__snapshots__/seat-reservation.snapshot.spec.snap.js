@@ -76,6 +76,36 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
 `;
 /* end snapshot sbb-seat-reservation renders Shadow DOM */
 
+snapshots["sbb-seat-reservation renders A11y tree Firefox"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Start Graphic Seat Reservation",
+      "disabled": true
+    },
+    {
+      "role": "list",
+      "name": "Seat reservation navigation"
+    },
+    {
+      "role": "button",
+      "name": "Exit Graphic Seat Reservation",
+      "disabled": true
+    },
+    {
+      "role": "generic",
+      "name": ""
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-seat-reservation renders A11y tree Firefox */
+
 snapshots["sbb-seat-reservation renders A11y tree Chrome"] = 
 `<p>
   {
