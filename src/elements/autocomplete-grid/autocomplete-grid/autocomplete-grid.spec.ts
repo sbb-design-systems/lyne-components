@@ -96,6 +96,32 @@ describe(`sbb-autocomplete-grid`, () => {
     });
   });
 
+  it('removes attributes on trigger disconnection', async () => {
+    const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+
+    // We have to move the input out of the form field as the default trigger fallback is the input inside a form field.
+    input.remove();
+    formField.parentElement?.appendChild(input);
+    element.trigger = input;
+
+    // In order to test the removal of data-expanded, we need to open the autocomplete first
+    element.open();
+    await openSpy.calledOnce();
+
+    // Remove trigger to update configuration after removal
+    element.trigger = null;
+    await waitForLitRender(element);
+
+    expect(input).not.to.have.attribute('autocomplete');
+    expect(input).not.to.have.attribute('role');
+    expect(input).not.to.have.attribute('aria-autocomplete');
+    expect(input).not.to.have.attribute('aria-haspopup');
+    expect(input).not.to.have.attribute('aria-controls');
+    expect(input).not.to.have.attribute('aria-owns');
+    expect(input).not.to.have.attribute('aria-expanded');
+    expect(input).not.to.have.attribute('data-expanded');
+  });
+
   it('should have form-field as origin when not defined otherwise', async () => {
     expect(element.originElement).to.be.equal(
       formField.shadowRoot?.querySelector?.('#overlay-anchor'),
