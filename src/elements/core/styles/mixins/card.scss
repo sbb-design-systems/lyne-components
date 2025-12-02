@@ -138,6 +138,7 @@
 @mixin card-variables--link {
   @include a11y.if-forced-colors {
     --sbb-card-color: LinkText;
+    --sbb-card-border-color: CanvasText;
   }
 }
 

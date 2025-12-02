@@ -95,6 +95,10 @@ $theme: 'standard' !default;
   --sbb-cursor-default: default;
   --sbb-cursor-pointer: pointer;
 
+  // Infinity border radius, can be used to achieve rounded border on start and end
+  // TODO: Check if infinity is supported by all browsers (e.g. Firefox) -> calc(1em * infinity);
+  --sbb-border-radius-infinity: 100000em;
+
   // TODO: Remove complete block when new lean theme is complete
   // TODO: Also remove all occurrences of the variables in lyne-components (e.g. --sbb-title-font-size-level-1-lean)
   // Only render the block in standard theme as fallback for CSS class usage
@@ -119,10 +123,6 @@ $theme: 'standard' !default;
       --sbb-heading-margin-block-6-lean: var(--sbb-spacing-responsive-s) 0;
     }
   }
-
-  // Infinity border radius, can be used to achieve rounded border on start and end
-  // TODO: Check if infinity is supported by all browsers (e.g. Firefox) -> calc(1em * infinity);
-  --sbb-border-radius-infinity: 100000em;
 
   &:has(sbb-header[size='s']) {
     --sbb-header-height: #{functions.px-to-rem-build(52)};

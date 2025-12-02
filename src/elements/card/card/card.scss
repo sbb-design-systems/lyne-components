@@ -9,19 +9,23 @@
   @include sbb.card;
 }
 
-:host([color='white']) {
+// :where is needed for lower specificity
+:host(:where([color='white'])) {
   @include sbb.card-variables--white;
 }
 
-:host([color='milk']) {
+// :where is needed for lower specificity
+:host(:where([color='milk'])) {
   @include sbb.card-variables--milk;
 }
 
-:host([color='transparent-bordered']) {
+// :where is needed for lower specificity
+:host(:where([color='transparent-bordered'])) {
   @include sbb.card-variables--transparent-bordered;
 }
 
-:host([color='transparent-bordered-dashed']) {
+// :where is needed for lower specificity
+:host(:where([color='transparent-bordered-dashed'])) {
   @include sbb.card-variables--transparent-bordered-dashed;
 }
 
@@ -37,11 +41,13 @@
   @include sbb.card--hover;
 }
 
-:host(:state(has-action):state(action-role-button)) {
+// :where is needed for lower specificity
+:host(:where(:state(has-action):state(action-role-button))) {
   @include sbb.card-variables--button;
 }
 
-:host(:state(has-action):state(action-role-link)) {
+// :where is needed for lower specificity
+:host(:where(:state(has-action):state(action-role-link))) {
   @include sbb.card-variables--link;
 }
 
