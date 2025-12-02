@@ -20,6 +20,5 @@
     ".": {
       "changelog-path": "CHANGELOG.md"
     }
-  },
-  "last-release-sha": "4cf9277100f7d10067a07bdf087bf2906a70b4a6"
+  }
 }
