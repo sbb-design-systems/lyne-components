@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.13.5](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.4...v3.13.5) (2025-12-02)
+
+
+### Bug Fixes
+
+* **sbb-autocomplete:** remove `data-expanded` on trigger disconnection ([#4255](https://github.com/sbb-design-systems/lyne-components/issues/4255)) ([9ffb7c2](https://github.com/sbb-design-systems/lyne-components/commit/9ffb7c23fa7aa1f33bde5109cab76d65285d815c))
+
 ## [3.13.4](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.3...v3.13.4) (2025-11-27)
 
 
