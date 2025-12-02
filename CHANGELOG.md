@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.0...v4.0.1) (2025-12-02)
+
+
+### Bug Fixes
+
+* handle undefined elements in SbbPropertyWatcherController ([#4254](https://github.com/sbb-design-systems/lyne-components/issues/4254)) ([74f3546](https://github.com/sbb-design-systems/lyne-components/commit/74f3546f464d54b949cbc6266b6da3d57b54b6e7))
+
 ## [4.0.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.0-next.4...v4.0.0) (2025-11-28)
 
 
