@@ -156,6 +156,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     const titleDescriptionNavCoachButton =
       this._getTitleDescriptionNavCoachButton(currServiceClassNumber);
     const ariaDescriptionCoachServices = this._getAriaDescriptionCoachServices();
+
     return html` <button
         @click=${() => this._selectNavCoach(this.index)}
         class="${classMap({

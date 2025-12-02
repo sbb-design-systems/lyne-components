@@ -79,7 +79,7 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
 snapshots["sbb-seat-reservation renders A11y tree Firefox"] = 
 `<p>
   {
-  "role": "WebArea",
+  "role": "document",
   "name": "",
   "children": [
     {
@@ -97,7 +97,7 @@ snapshots["sbb-seat-reservation renders A11y tree Firefox"] =
       "disabled": true
     },
     {
-      "role": "generic",
+      "role": "section",
       "name": ""
     }
   ]
