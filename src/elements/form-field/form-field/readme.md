@@ -9,7 +9,7 @@ The `sbb-form-field` component is intended to be used as a form input wrapper wi
 <sbb-form-field>
   <label>Example</label>
   <input required />
-  <sbb-form-error>This field is required!</sbb-form-error>
+  <sbb-error>This field is required!</sbb-error>
 </sbb-form-field>
 ```
 
@@ -48,14 +48,14 @@ it's mandatory to call the `reset()` method of the `sbb-form-field` to update th
 
 ### Error messages
 
-Error messages can be shown under the form field by adding `sbb-form-error` elements inside the form field.
+Error messages can be shown under the form field by adding `sbb-error` elements inside the form field.
 The component will automatically assign them to the `slot='error'`.
 
 ```html
 <sbb-form-field floating-label>
   <label>Example</label>
   <input required />
-  <sbb-form-error>This field is required!</sbb-form-error>
+  <sbb-error>This field is required!</sbb-error>
 </sbb-form-field>
 ```
 
@@ -105,7 +105,7 @@ The component has a `size` property, which accepts three different values: `s`, 
 <sbb-form-field size="l">
   <label>Example</label>
   <input required />
-  <sbb-form-error>This field is required!</sbb-form-error>
+  <sbb-error>This field is required!</sbb-error>
 </sbb-form-field>
 ```
 
@@ -191,12 +191,12 @@ export class MyFormControl implements SbbFormFieldElementControl, OnChanges {
 
   @Input() id = `my-form-control-${nextId++}`;
 
-  @Input(({ transform: booleanAttribute }) readOnly = false;
+  @Input({ transform: booleanAttribute }) readOnly = false;
 
-  @Input(({ transform: booleanAttribute }) disabled = false;
+  @Input({ transform: booleanAttribute }) disabled = false;
 
   get empty() {
-    return Logic to determine whether the control is empty
+    return <Logic to determine whether the control is empty>
   }
 
   onContainerClick(event: MouseEvent): void {
@@ -215,7 +215,7 @@ export class MyFormControl implements SbbFormFieldElementControl, OnChanges {
 
 ### Generic example
 
-If you are using another framework or you are using an existing library
+If you are using another framework, or you are using an existing library
 that you need to connect, you can write the integration yourself.
 
 ```ts
@@ -259,7 +259,7 @@ element outside the `sbb-form-field`, the automatic assignment is skipped, and i
 consumer to use the correct id references.
 If you like to visually hide a label, but still present it with screen readers, use the `hiddenLabel` property.
 
-When you provide informational text via `sbb-form-error`, it automatically adds these elements' IDs
+When you provide informational text via `sbb-error`, it automatically adds these elements' IDs
 to the form element's `ariaErrorMessageElements` property (or `aria-errormessage` attribute as fallback).
 
 <!-- Auto Generated Below -->

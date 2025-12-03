@@ -1,12 +1,12 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbSelectionActionPanelElement } from './selection-action-panel.component.js';
+import { SbbSelectionActionPanelElement } from './selection-action-panel.component.ts';
 
-import '../button/secondary-button.js';
-import '../checkbox.js';
+import '../button/secondary-button.ts';
+import '../checkbox.ts';
 
 describe(`sbb-selection-action-panel ssr`, () => {
   let root: SbbSelectionActionPanelElement;

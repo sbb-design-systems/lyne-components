@@ -5,13 +5,13 @@ import {
   describeViewports,
   loadAssetAsBase64,
   visualDiffDefault,
-} from '../../core/testing/private.js';
-import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
+} from '../../core/testing/private.ts';
+import { waitForImageReady } from '../../core/testing/wait-for-image-ready.ts';
 
-import './flip-card-summary.component.js';
-import '../../flip-card.js';
-import '../../title.js';
-import '../../image.js';
+import './flip-card-summary.component.ts';
+import '../../flip-card.ts';
+import '../../title.ts';
+import '../../image.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 const imageBase64 = await loadAssetAsBase64(imageUrl);

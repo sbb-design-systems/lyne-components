@@ -1,16 +1,16 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
-import { waitForCondition } from '../../core/testing.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import { waitForCondition } from '../../core/testing.ts';
 
-import type { SbbSidebarElement } from './sidebar.component.js';
+import type { SbbSidebarElement } from './sidebar.component.ts';
 
-import '../../header.js';
-import '../../link/block-link.js';
-import '../../link-list.js';
-import '../../logo.js';
-import '../../sidebar.js';
+import '../../header.ts';
+import '../../link/block-link.ts';
+import '../../link-list.ts';
+import '../../logo.ts';
+import '../../sidebar.ts';
 
 describe('sbb-sidebar', () => {
   const header = html`<sbb-header expanded size="s" scroll-origin="content">
@@ -133,7 +133,7 @@ describe('sbb-sidebar', () => {
           const sidebarElement = setup.snapshotElement.querySelector('sbb-sidebar')!;
           if (setup.snapshotElement.offsetWidth === 320) {
             // Some resize triggers can kick in too late. We have to wait until the small space was detected.
-            await waitForCondition(() => sidebarElement.hasAttribute('data-mode-over-forced'));
+            await waitForCondition(() => sidebarElement.matches(':state(mode-over-forced)'));
           }
 
           sidebarElement.open();
@@ -191,7 +191,7 @@ describe('sbb-sidebar', () => {
           // We need to wait until the resizing is done.
           // We can't await a promise here because we don't know if the resizing is really going to happen
           // or if it's already in zero viewport
-          await waitForCondition(() => sidebarElement.getAttribute('data-state') === 'closed');
+          await waitForCondition(() => sidebarElement.matches(':state(state-closed)'));
           sidebarElement.open();
         });
       }),

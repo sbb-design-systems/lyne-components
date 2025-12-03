@@ -3,12 +3,11 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType } from '../../core/decorators.js';
-import { setOrRemoveAttribute } from '../../core/dom.js';
-import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { SbbIconNameMixin } from '../../icon.js';
-import type { SbbToggleElement } from '../toggle.js';
+import { forceType } from '../../core/decorators.ts';
+import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
+import type { SbbToggleElement } from '../toggle.ts';
 
 import style from './toggle-option.scss?lit&inline';
 
@@ -98,7 +97,7 @@ class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
   }
 
   private _handleDisabledChange(): void {
-    setOrRemoveAttribute(this, 'aria-disabled', this.disabled ? `true` : null);
+    this.internals.ariaDisabled = this.disabled ? 'true' : null;
     this._verifyTabindex();
   }
 

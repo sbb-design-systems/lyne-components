@@ -2,20 +2,20 @@ import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import '../../../elements/action-group.js';
-import '../../../elements/alert.js';
-import '../../../elements/container.js';
-import '../../../elements/button.js';
-import '../../../elements/card.js';
-import '../../../elements/checkbox.js';
-import '../../../elements/form-field.js';
-import '../../../elements/header.js';
-import '../../../elements/icon.js';
-import '../../../elements/menu.js';
-import '../../../elements/paginator.js';
-import '../../../elements/radio-button.js';
-import '../../../elements/signet.js';
-import '../../../elements/table.js';
+import '../../../elements/action-group.ts';
+import '../../../elements/alert.ts';
+import '../../../elements/container.ts';
+import '../../../elements/button.ts';
+import '../../../elements/card.ts';
+import '../../../elements/checkbox.ts';
+import '../../../elements/form-field.ts';
+import '../../../elements/header.ts';
+import '../../../elements/icon.ts';
+import '../../../elements/menu.ts';
+import '../../../elements/paginator.ts';
+import '../../../elements/radio-button.ts';
+import '../../../elements/signet.ts';
+import '../../../elements/table.ts';
 
 import './lean.scss';
 
@@ -133,9 +133,6 @@ const leanExampleTemplate = (): TemplateResult => html`
             <sbb-icon
               name="diamond-small"
               style="margin-inline: var(--sbb-spacing-fixed-2x);"
-              data-namespace="default"
-              role="img"
-              aria-hidden="true"
             ></sbb-icon>
             <span class="sbb-text-m sbb-text--bold"> CHF 40.00 </span>
           </span>

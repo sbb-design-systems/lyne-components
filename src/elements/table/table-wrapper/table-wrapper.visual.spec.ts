@@ -7,10 +7,10 @@ import {
   visualRegressionFixture,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
-import { waitForCondition } from '../../core/testing/wait-for-condition.js';
+} from '../../core/testing/private.ts';
+import { waitForCondition } from '../../core/testing/wait-for-condition.ts';
 
-import './table-wrapper.component.js';
+import './table-wrapper.component.ts';
 
 describe(`sbb-table-wrapper`, () => {
   let root: HTMLElement;

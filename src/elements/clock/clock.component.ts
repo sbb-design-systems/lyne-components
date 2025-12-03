@@ -3,8 +3,9 @@ import { html, isServer, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import type { SbbTime } from '../core/interfaces.js';
-import { boxSizingStyles } from '../core/styles.js';
+import type { SbbTime } from '../core/interfaces.ts';
+import { SbbElementInternalsMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg?raw';
@@ -55,7 +56,7 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
  */
 export
 @customElement('sbb-clock')
-class SbbClockElement extends LitElement {
+class SbbClockElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
@@ -240,7 +241,7 @@ class SbbClockElement extends LitElement {
     this._clockHandSeconds?.classList.add('sbb-clock__hand-seconds--initial-minute');
     this._clockHandHours?.classList.add('sbb-clock__hand-hours--initial-hour');
 
-    this.toggleAttribute('data-initialized', true);
+    this.internals.states.add('initialized');
   }
 
   /** Given the current date, calculates the hh/mm/ss values and the hh/mm/ss left to the next midnight. */

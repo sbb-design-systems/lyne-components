@@ -3,16 +3,16 @@ import { a11ySnapshot } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { isChromium, isFirefox } from '../../dom.js';
-import { testIf } from '../mocha-extensions.js';
-import { waitForLitRender } from '../wait-for-render.js';
+import { isChromium, isFirefox } from '../../dom.ts';
+import { testIf } from '../mocha-extensions.ts';
+import { waitForLitRender } from '../wait-for-render.ts';
 
-import { fixture } from './fixture.js';
+import { fixture } from './fixture.ts';
 
 /**
  * Get the a11y tree snapshot and tests its snapshot.
  * Since the snapshot is list of nodes, we have to stringify it
- * and create an html wrapper in order to use the `equalSnapshot` function.
+ * and create a html wrapper in order to use the `equalSnapshot` function.
  */
 async function a11yTreeEqualSnapshot(): Promise<void> {
   await aTimeout(500);
@@ -27,6 +27,7 @@ async function a11yTreeEqualSnapshot(): Promise<void> {
  * If a template is passed, it will be instantiated before the snapshot is taken.
  * @param title The title of the section
  * @param template The optional html template
+ * @param exclude Which browsers should be excluded from testing.
  */
 export function testA11yTreeSnapshot(
   template?: TemplateResult,

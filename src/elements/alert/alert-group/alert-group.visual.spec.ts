@@ -1,13 +1,13 @@
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbTransparentButtonElement } from '../../button/transparent-button.js';
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition } from '../../core/testing.js';
-import { SbbAlertElement } from '../alert.js';
+import type { SbbTransparentButtonElement } from '../../button/transparent-button.ts';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import { EventSpy, waitForCondition } from '../../core/testing.ts';
+import { SbbAlertElement } from '../alert.ts';
 
-import './alert-group.component.js';
-import '../../title.js';
+import './alert-group.component.ts';
+import '../../title.ts';
 
 describe(`sbb-alert-group`, () => {
   const alert = html`<sbb-alert>
@@ -37,7 +37,7 @@ describe(`sbb-alert-group`, () => {
           const closeSpy = new EventSpy(SbbAlertElement.events.close, alert);
 
           // As registering an eventSpy is too late we have to use waitForCondition().
-          await waitForCondition(() => alert.getAttribute('data-state') === 'opened');
+          await waitForCondition(() => alert.matches(':state(state-opened)'));
 
           const closeButton = setup.snapshotElement
             .querySelector('sbb-alert')!

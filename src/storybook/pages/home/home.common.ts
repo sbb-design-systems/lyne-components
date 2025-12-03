@@ -2,24 +2,24 @@ import type { Args } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import images from '../../../elements/core/images.js';
+import images from '../../../elements/core/images.ts';
 
-import '../../../elements/button.js';
-import '../../../elements/card.js';
-import '../../../elements/clock.js';
-import '../../../elements/divider.js';
-import '../../../elements/footer.js';
-import '../../../elements/icon.js';
-import '../../../elements/image.js';
-import '../../../elements/header.js';
-import '../../../elements/logo.js';
-import '../../../elements/link.js';
-import '../../../elements/link-list.js';
-import '../../../elements/menu.js';
-import '../../../elements/navigation.js';
-import '../../../elements/skiplink-list.js';
-import '../../../elements/title.js';
-import '../../../elements/teaser-hero.js';
+import '../../../elements/button.ts';
+import '../../../elements/card.ts';
+import '../../../elements/clock.ts';
+import '../../../elements/divider.ts';
+import '../../../elements/footer.ts';
+import '../../../elements/icon.ts';
+import '../../../elements/image.ts';
+import '../../../elements/header.ts';
+import '../../../elements/logo.ts';
+import '../../../elements/link.ts';
+import '../../../elements/link-list.ts';
+import '../../../elements/menu.ts';
+import '../../../elements/navigation.ts';
+import '../../../elements/skiplink-list.ts';
+import '../../../elements/title.ts';
+import '../../../elements/teaser-hero.ts';
 
 export const skiplinkList = (): TemplateResult => html`
   <sbb-skiplink-list title-level="2" title-content="Skip to">
@@ -157,7 +157,7 @@ export const navigation = (): TemplateResult => html`
 `;
 
 export const dailyTicketProduct = (): TemplateResult => html`
-  <sbb-card color="milk" size="s">
+  <sbb-card color="milk" class="sbb-card-spacing-xxxs-xxs">
     <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
       Buy Daily Ticket
     </sbb-card-link>
@@ -174,7 +174,7 @@ export const dailyTicketProduct = (): TemplateResult => html`
 `;
 
 export const bikeProduct = (): TemplateResult => html`
-  <sbb-card color="milk" size="s">
+  <sbb-card color="milk" class="sbb-card-spacing-xxxs-xxs">
     <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
       Buy Bike daily pass
     </sbb-card-link>
@@ -191,7 +191,7 @@ export const bikeProduct = (): TemplateResult => html`
 `;
 
 export const liberoProduct = (): TemplateResult => html`
-  <sbb-card color="milk" size="s">
+  <sbb-card color="milk" class="sbb-card-spacing-xxxs-xxs">
     <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
       Buy Libero short distance ticket
     </sbb-card-link>

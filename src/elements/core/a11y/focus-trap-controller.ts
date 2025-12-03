@@ -1,6 +1,6 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
-import { interactivityChecker } from './interactivity-checker.js';
+import { interactivityChecker } from './interactivity-checker.ts';
 
 export class SbbFocusTrapController implements ReactiveController {
   /**

@@ -4,14 +4,18 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
-import { forceType } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
-import { throttle } from '../../core/eventing.js';
-import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbTabLabelElement } from '../tab-label.js';
-import type { SbbTabElement } from '../tab.js';
+import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
+import { forceType } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
+import { throttle } from '../../core/eventing.ts';
+import {
+  SbbElementInternalsMixin,
+  SbbHydrationMixin,
+  ɵstateController,
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbTabLabelElement } from '../tab-label.ts';
+import type { SbbTabElement } from '../tab.ts';
 
 import style from './tab-group.scss?lit&inline';
 
@@ -23,29 +27,6 @@ export type SbbTabChangedEventDetails = {
   previousTabLabel: SbbTabLabelElement | undefined;
   previousTab: SbbTabElement | undefined;
 };
-
-/**
- * @deprecated
- */
-export interface InterfaceSbbTabGroupActions {
-  activate(): void;
-  deactivate(): void;
-  enable(): void;
-  disable(): void;
-  select(): void;
-}
-
-/**
- * @deprecated
- */
-export interface InterfaceSbbTabGroupTab extends SbbTabLabelElement {
-  active: boolean;
-  disabled: boolean;
-  tab: SbbTabElement | null;
-  index?: number;
-  tabGroupActions?: InterfaceSbbTabGroupActions;
-  size: 's' | 'l' | 'xl';
-}
 
 /**
  * It displays one or more tabs, each one with a label and some content.
@@ -74,14 +55,7 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
    * @default 'l' / 's' (lean)
    */
   @property()
-  public set size(value: 's' | 'l' | 'xl') {
-    this._size = value;
-    this._updateSize();
-  }
-  public get size(): 's' | 'l' | 'xl' {
-    return this._size;
-  }
-  private _size: 's' | 'l' | 'xl' = isLean() ? 's' : 'l';
+  public accessor size: 's' | 'l' | 'xl' = isLean() ? 's' : 'l';
 
   /**
    * Sets the initial tab. If it matches a disabled tab or exceeds the length of
@@ -125,7 +99,7 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
     this._initSelection();
 
     // To avoid animations on initialization, we have to mark the component as initialized and wait a tick.
-    Promise.resolve().then(() => this.toggleState('initialized', true));
+    Promise.resolve().then(() => this.internals.states.add('initialized'));
     this._tabGroupResizeObserver.observe(this._tabGroupElement);
   }
 
@@ -164,19 +138,12 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
     });
   }
 
-  private _updateSize(): void {
-    this.labels.forEach((tabLabel: SbbTabLabelElement) =>
-      tabLabel.setAttribute('data-size', this.size),
-    );
-  }
-
   private _onContentSlotChange = (): void => {
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
     this.labels.find((tabLabel) => tabLabel.active)?.activate();
   };
 
   private _onLabelSlotChange = (): void => {
-    this._updateSize();
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
   };
 
@@ -203,8 +170,8 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
       ).assignedElements() as SbbTabLabelElement[];
 
       for (const tabLabel of labelElements) {
-        tabLabel.toggleAttribute(
-          'data-has-divider',
+        ɵstateController(tabLabel)?.toggle(
+          'has-divider',
           tabLabel === labelElements[0] || tabLabel.offsetLeft === labelElements[0].offsetLeft,
         );
         this.style.setProperty('--sbb-tab-group-width', `${this._tabGroupElement.clientWidth}px`);

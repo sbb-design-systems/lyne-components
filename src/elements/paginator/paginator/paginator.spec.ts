@@ -3,27 +3,24 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { type SinonSpy, spy } from 'sinon';
 
-import type { SbbMiniButtonElement } from '../../button/mini-button.js';
-import type { SbbPaginatorPageEventDetails } from '../../core/interfaces/paginator-page.js';
-import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbOptionElement } from '../../option.js';
-import { SbbSelectElement } from '../../select.js';
+import type { SbbMiniButtonElement } from '../../button/mini-button.ts';
+import type { SbbPaginatorPageEventDetails } from '../../core/interfaces/paginator-page.ts';
+import { fixture, tabKey } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbOptionElement } from '../../option.ts';
+import { SbbSelectElement } from '../../select.ts';
 
-import { SbbPaginatorElement } from './paginator.component.js';
+import { SbbPaginatorElement } from './paginator.component.ts';
 
 describe('sbb-paginator', () => {
   let element: SbbPaginatorElement;
   let pageEventSpy: SinonSpy<CustomEvent<SbbPaginatorPageEventDetails>[]>;
-  let ɵpageEventSpy: SinonSpy<CustomEvent<SbbPaginatorPageEventDetails>[]>;
 
   beforeEach(async () => {
     pageEventSpy = spy();
-    ɵpageEventSpy = spy();
     element = await fixture(
       html`<sbb-paginator
         @page=${(e: CustomEvent<SbbPaginatorPageEventDetails>) => pageEventSpy(e)}
-        @ɵpage=${(e: CustomEvent<SbbPaginatorPageEventDetails>) => ɵpageEventSpy(e)}
         length="50"
         page-size="5"
       ></sbb-paginator>`,
@@ -34,7 +31,7 @@ describe('sbb-paginator', () => {
     assert.instanceOf(element, SbbPaginatorElement);
   });
 
-  it('change pages via prev/next buttons and emits `ɵpage` and `page` event', async () => {
+  it('change pages via prev/next buttons and emits `page` event', async () => {
     const goToPrev: SbbMiniButtonElement = element.shadowRoot!.querySelector(
       '#sbb-paginator-prev-page',
     )!;
@@ -45,14 +42,11 @@ describe('sbb-paginator', () => {
     expect(goToPrev).to.have.attribute('disabled');
     goToPrev.click();
     await waitForLitRender(element);
-    expect(ɵpageEventSpy).not.to.have.been.called;
     expect(pageEventSpy).not.to.have.been.called;
 
     expect(goToNext).not.to.have.attribute('disabled');
     goToNext.click();
     await waitForLitRender(element);
-    expect(ɵpageEventSpy).to.have.been.calledOnce;
-    expect(ɵpageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
     expect(pageEventSpy).to.have.been.calledOnce;
     expect(pageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
     expect(element.pageIndex).to.be.equal(1);
@@ -61,8 +55,6 @@ describe('sbb-paginator', () => {
 
     goToPrev.click();
     await waitForLitRender(element);
-    expect(ɵpageEventSpy).to.have.been.calledTwice;
-    expect(ɵpageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
     expect(pageEventSpy).to.have.been.calledTwice;
     expect(pageEventSpy.lastCall.firstArg.detail.pageIndex).to.be.equal(element.pageIndex);
     expect(element.pageIndex).to.be.equal(0);
@@ -128,48 +120,50 @@ describe('sbb-paginator', () => {
     const secondOption = select.querySelector<SbbOptionElement>('[value="20"]')!;
     expect(secondOption).not.to.be.null;
     expect(pageEventSpy).not.to.have.been.called;
-    expect(ɵpageEventSpy).not.to.have.been.called;
     secondOption.click();
     await waitForLitRender(element);
 
-    expect(pageEventSpy).not.to.have.been.called;
-    expect(ɵpageEventSpy).to.have.been.calledOnce;
-    const ɵpageEventDetail: SbbPaginatorPageEventDetails = ɵpageEventSpy.lastCall.firstArg.detail;
-    expect(ɵpageEventDetail.pageSize).to.be.equal(20);
-    expect(ɵpageEventDetail.pageIndex).to.be.equal(0);
-    expect(ɵpageEventDetail.previousPageIndex).to.be.equal(0);
-    expect(ɵpageEventDetail.length).to.be.equal(50);
+    expect(pageEventSpy).to.have.been.calledOnce;
+    const pageEventDetail: SbbPaginatorPageEventDetails = pageEventSpy.lastCall.firstArg.detail;
+    expect(pageEventDetail.pageSize).to.be.equal(20);
+    expect(pageEventDetail.pageIndex).to.be.equal(0);
+    expect(pageEventDetail.previousPageIndex).to.be.equal(0);
+    expect(pageEventDetail.length).to.be.equal(50);
 
     element.setAttribute('page-index', '2');
     await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(2);
-    expect(ɵpageEventSpy).to.have.been.calledTwice;
+    expect(pageEventSpy).to.have.been.calledTwice;
     const thirdOption = select.querySelector<SbbOptionElement>('[value="50"]')!;
     expect(thirdOption).not.to.be.null;
     thirdOption.click();
     await waitForLitRender(element);
 
-    expect(ɵpageEventSpy).to.have.been.calledThrice;
-    expect(pageEventSpy).to.have.been.calledOnce;
-    const pageEventDetail: SbbPaginatorPageEventDetails = pageEventSpy.lastCall.firstArg.detail;
-    expect(pageEventDetail.pageSize).to.be.equal(50);
-    expect(pageEventDetail.pageIndex).to.be.equal(0);
-    expect(pageEventDetail.previousPageIndex).to.be.equal(2);
-    expect(pageEventDetail.length).to.be.equal(50);
+    expect(pageEventSpy).to.have.been.calledThrice;
+    const pageEventDetail2: SbbPaginatorPageEventDetails = pageEventSpy.lastCall.firstArg.detail;
+    expect(pageEventDetail2.pageSize).to.be.equal(50);
+    expect(pageEventDetail2.pageIndex).to.be.equal(0);
+    expect(pageEventDetail2.previousPageIndex).to.be.equal(2);
+    expect(pageEventDetail2.length).to.be.equal(50);
   });
 
-  it('the `page` event is not emitted when pageSize and pageIndex change programmatically', async () => {
+  it('doesnt emit `page` event when size changes', async () => {
+    element.size = 's';
+    await waitForLitRender(element);
+
+    expect(pageEventSpy).not.to.have.been.called;
+  });
+
+  it('the `page` event is emitted when pageSize and pageIndex change programmatically', async () => {
     element.setAttribute('page-index', '4');
     await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(4);
-    expect(ɵpageEventSpy).to.have.been.calledOnce;
-    expect(pageEventSpy).not.to.have.been.called;
+    expect(pageEventSpy).to.have.been.calledOnce;
 
     element.setAttribute('page-size', '10');
     await waitForLitRender(element);
     expect(element.pageSize).to.be.equal(10);
-    expect(ɵpageEventSpy).to.have.been.calledTwice;
-    expect(pageEventSpy).not.to.have.been.called;
+    expect(pageEventSpy).to.have.been.calledTwice;
   });
 
   it('handles length change', async () => {
@@ -177,15 +171,18 @@ describe('sbb-paginator', () => {
     element.length = 100;
     await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(9);
+    expect(pageEventSpy).to.have.been.calledOnce;
 
     element.length = 10;
     await waitForLitRender(element);
     expect(element.pageIndex).to.be.equal(1);
+    expect(pageEventSpy).to.have.been.calledTwice;
 
     element.length = -1;
     await waitForLitRender(element);
     expect(element.length).to.be.equal(0);
     expect(element.pageIndex).to.be.equal(0);
+    expect(pageEventSpy).to.have.been.calledThrice;
   });
 
   it('handles pageSize change', async () => {
@@ -205,6 +202,17 @@ describe('sbb-paginator', () => {
     await waitForLitRender(element);
     expect(element.pageSize).to.be.equal(0);
     expect(element.pageIndex).to.be.equal(0);
+  });
+
+  it('handles pageSize and simultaneous pageIndex change', async () => {
+    element.pageIndex = 9;
+    await waitForLitRender(element);
+    expect(element.pageIndex).to.be.equal(9);
+
+    element.pageIndex = 2;
+    element.pageSize = 20;
+    await waitForLitRender(element);
+    expect(element.pageIndex).to.be.equal(2);
   });
 
   it('handles pageIndex change', async () => {
@@ -293,6 +301,27 @@ describe('sbb-paginator', () => {
     goToNext.focus();
     await sendKeys({ press: 'Enter' });
     expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToPrev);
+  });
+
+  it('focus should stay on arrows', async () => {
+    const goToNext: SbbMiniButtonElement = element.shadowRoot!.querySelector(
+      '#sbb-paginator-next-page',
+    )!;
+
+    // Select using the page number
+    const page3Button: HTMLButtonElement = element.shadowRoot!.querySelector(`[data-index='2']`)!;
+    page3Button.focus();
+    await sendKeys({ press: 'Enter' });
+    await waitForLitRender(element);
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(page3Button);
+
+    goToNext.focus();
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToNext);
+
+    // Next
+    await sendKeys({ press: 'Enter' });
+    await waitForLitRender(element);
+    expect(document.activeElement?.shadowRoot?.activeElement).to.be.equal(goToNext);
   });
 
   it('should update items per page label on language change', async () => {

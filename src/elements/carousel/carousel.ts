@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './carousel/carousel.component.js';
+export * from './carousel/carousel.component.ts';

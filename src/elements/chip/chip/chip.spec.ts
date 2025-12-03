@@ -2,10 +2,10 @@ import { assert, expect } from '@open-wc/testing';
 import { sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
-import { SbbChipElement } from './chip.component.js';
+import { SbbChipElement } from './chip.component.ts';
 
 describe('sbb-chip', () => {
   let element: SbbChipElement;

@@ -11,11 +11,11 @@
   outline: none !important;
 }
 
-:host([data-section-action][data-action-active].sbb-active) {
+:host(:state(section-action):state(action-active).sbb-active) {
   --sbb-navigation-action-icon-display: block;
 }
 
-:host([data-action-active]) {
+:host(:state(action-active)) {
   --sbb-navigation-action-color: var(--sbb-color-5);
 
   @include sbb.if-forced-colors {
@@ -27,7 +27,7 @@ sbb-icon {
   display: var(--sbb-navigation-action-icon-display);
   position: absolute;
   inset-inline-start: calc((var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-1x)) * -1);
-  inset-block-start: calc(1em * (var(--sbb-typo-line-height-body-text) / 2));
+  inset-block-start: calc(1em * (var(--sbb-typo-line-height-text) / 2));
   translate: 0 -50%;
 }
 
@@ -37,7 +37,7 @@ sbb-icon {
   }
 }
 
-:host([data-button]) {
+:host(:state(button)) {
   @include sbb.if-forced-colors {
     --sbb-navigation-action-color: ButtonText;
   }

@@ -4,14 +4,13 @@ export const snapshots = {};
 snapshots["sbb-tooltip DOM"] = 
 `<div>
   <button
-    aria-describedby="sbb-tooltip-1"
+    aria-describedby=""
     id="trigger"
   >
     Button
   </button>
   <sbb-tooltip
     data-position="block-end"
-    data-state="opened"
     id="sbb-tooltip-1"
     popover="manual"
     trigger="trigger"

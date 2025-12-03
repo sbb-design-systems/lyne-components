@@ -2,14 +2,14 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils.private.js';
+} from '../common/button-test-utils.private.ts';
 
-import { SbbButtonStaticElement } from './button-static.component.js';
+import { SbbButtonStaticElement } from './button-static.component.ts';
 
 describe(`sbb-button-static`, () => {
   let element: SbbButtonStaticElement;

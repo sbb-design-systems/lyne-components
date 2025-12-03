@@ -1,14 +1,14 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
-import type { SbbDialogElement } from './dialog.component.js';
-import './dialog.component.js';
-import '../dialog-title.js';
-import '../dialog-close-button.js';
-import '../dialog-content.js';
+import type { SbbDialogElement } from './dialog.component.ts';
+import './dialog.component.ts';
+import '../dialog-title.ts';
+import '../dialog-close-button.ts';
+import '../dialog-content.ts';
 
 describe(`sbb-dialog`, () => {
   describe('renders an open dialog', async () => {

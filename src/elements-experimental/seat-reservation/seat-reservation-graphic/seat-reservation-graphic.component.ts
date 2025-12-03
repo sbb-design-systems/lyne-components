@@ -6,7 +6,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
-import { getI18nSeatReservation, mapIconToSvg } from '../common.js';
+import { getI18nSeatReservation, mapIconToSvg } from '../common.ts';
 
 import style from './seat-reservation-graphic.scss?lit&inline';
 

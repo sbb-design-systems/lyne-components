@@ -1,8 +1,8 @@
 import { html, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.js';
+import type { SbbActionBaseElement } from '../../core/base-elements.ts';
+import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.ts';
 
 export declare class SbbTeaserProductCommonElementMixinType extends SbbNegativeMixin(
   SbbActionBaseElement,

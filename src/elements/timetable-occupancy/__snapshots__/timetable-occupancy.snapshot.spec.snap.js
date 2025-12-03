@@ -22,10 +22,7 @@ snapshots["sbb-timetable-occupancy renders Shadow DOM"] =
     <sbb-screen-reader-only>
       First Class.
     </sbb-screen-reader-only>
-    <sbb-timetable-occupancy-icon
-      class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
-    >
+    <sbb-timetable-occupancy-icon class="sbb-timetable-occupancy__list-item-icon">
     </sbb-timetable-occupancy-icon>
   </li>
   <li class="sbb-timetable-occupancy__list-item">
@@ -38,10 +35,7 @@ snapshots["sbb-timetable-occupancy renders Shadow DOM"] =
     <sbb-screen-reader-only>
       Second Class.
     </sbb-screen-reader-only>
-    <sbb-timetable-occupancy-icon
-      class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
-    >
+    <sbb-timetable-occupancy-icon class="sbb-timetable-occupancy__list-item-icon">
     </sbb-timetable-occupancy-icon>
   </li>
 </ul>
@@ -72,7 +66,6 @@ snapshots["sbb-timetable-occupancy renders negative Shadow DOM"] =
     </sbb-screen-reader-only>
     <sbb-timetable-occupancy-icon
       class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
       negative=""
     >
     </sbb-timetable-occupancy-icon>
@@ -89,7 +82,6 @@ snapshots["sbb-timetable-occupancy renders negative Shadow DOM"] =
     </sbb-screen-reader-only>
     <sbb-timetable-occupancy-icon
       class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
       negative=""
     >
     </sbb-timetable-occupancy-icon>
@@ -119,10 +111,7 @@ snapshots["sbb-timetable-occupancy renders only first class wagon Shadow DOM"] =
     <sbb-screen-reader-only>
       First Class.
     </sbb-screen-reader-only>
-    <sbb-timetable-occupancy-icon
-      class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
-    >
+    <sbb-timetable-occupancy-icon class="sbb-timetable-occupancy__list-item-icon">
     </sbb-timetable-occupancy-icon>
   </li>
 </ul>
@@ -150,10 +139,7 @@ snapshots["sbb-timetable-occupancy renders only second class wagon Shadow DOM"] 
     <sbb-screen-reader-only>
       Second Class.
     </sbb-screen-reader-only>
-    <sbb-timetable-occupancy-icon
-      class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
-    >
+    <sbb-timetable-occupancy-icon class="sbb-timetable-occupancy__list-item-icon">
     </sbb-timetable-occupancy-icon>
   </li>
 </ul>

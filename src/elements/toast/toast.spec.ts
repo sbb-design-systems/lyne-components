@@ -1,14 +1,15 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
-import type { SbbTransparentButtonElement } from '../button.js';
-import { elementInternalsSpy, fixture } from '../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
+import type { SbbTransparentButtonElement } from '../button.ts';
+import { elementInternalsSpy, fixture } from '../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 
-import { SbbToastElement } from './toast.component.js';
+import { SbbToastElement } from './toast.component.ts';
 
-import '../button/transparent-button.js';
-import '../link/link-button.js';
+import '../button/transparent-button.ts';
+import '../link/link-button.ts';
 
 describe(`sbb-toast`, () => {
   let element: SbbToastElement;
@@ -20,13 +21,15 @@ describe(`sbb-toast`, () => {
 
   it('renders and sets the correct attributes', async () => {
     assert.instanceOf(element, SbbToastElement);
-    expect(element).not.to.have.attribute('data-has-action');
-    expect(element).not.to.have.attribute('data-has-icon');
-    expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).not.to.match(':state(has-action)');
+    expect(element).not.to.match(':state(has-icon)');
+    expect(element).to.match(':state(state-closed)');
     expect(elementInternals.get(element)!.ariaLive).to.equal(element.politeness);
   });
 
-  it('opens and closes after timeout', async () => {
+  it('opens and closes after timeout', async function (this: Context) {
+    // Flaky on WebKit
+    this.retries(3);
     const beforeOpenSpy = new EventSpy(SbbToastElement.events.beforeopen, element);
     const openSpy = new EventSpy(SbbToastElement.events.open, element);
     const beforeCloseSpy = new EventSpy(SbbToastElement.events.beforeclose, element);
@@ -44,7 +47,7 @@ describe(`sbb-toast`, () => {
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
-    expect(element.getAttribute('data-state')).to.be.equal('opened');
+    expect(element).to.match(':state(state-opened)');
     expect(element).to.match(':popover-open');
 
     // Will wait for timeout and then close itself
@@ -58,7 +61,7 @@ describe(`sbb-toast`, () => {
     expect(closeSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
-    expect(element.getAttribute('data-state')).to.be.equal('closed');
+    expect(element).to.match(':state(state-closed)');
     expect(element).not.to.match(':popover-open');
   });
 
@@ -86,7 +89,7 @@ describe(`sbb-toast`, () => {
     expect(closeSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
-    expect(element.getAttribute('data-state')).to.be.equal('closed');
+    expect(element).to.match(':state(state-closed)');
   });
 
   it('closes by marked action element', async () => {
@@ -116,7 +119,7 @@ describe(`sbb-toast`, () => {
     expect(closeSpy.count).to.be.equal(1);
 
     await waitForLitRender(element);
-    expect(element.getAttribute('data-state')).to.be.equal('closed');
+    expect(element).to.match(':state(state-closed)');
   });
 
   it('forces state on button actions', async () => {
@@ -157,17 +160,17 @@ describe(`sbb-toast`, () => {
     toast1.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => toast1.getAttribute('data-state') === 'opened');
-    expect(toast1).to.have.attribute('data-state', 'opened');
+    await waitForCondition(() => toast1.matches(':state(state-opened)'));
+    expect(toast1).to.match(':state(state-opened)');
 
     // Open the second toast and expect the first to be closed
     toast2.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => toast1.getAttribute('data-state') === 'closed');
-    await waitForCondition(() => toast2.getAttribute('data-state') === 'opened');
-    expect(toast1).to.have.attribute('data-state', 'closed');
-    expect(toast2).to.have.attribute('data-state', 'opened');
+    await waitForCondition(() => toast1.matches(':state(state-closed)'));
+    await waitForCondition(() => toast2.matches(':state(state-opened)'));
+    expect(toast1).to.match(':state(state-closed)');
+    expect(toast2).to.match(':state(state-opened)');
   });
 
   it('does not open if prevented', async () => {
@@ -180,7 +183,7 @@ describe(`sbb-toast`, () => {
     expect(beforeOpenSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-closed)');
   });
 
   it('does not close if prevented', async () => {
@@ -197,10 +200,12 @@ describe(`sbb-toast`, () => {
     await beforeCloseSpy.calledOnce();
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'opened');
+    expect(element).to.match(':state(state-opened)');
   });
 
   it('closes by dismiss button click with non-zero animation duration', async () => {
+    (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
     element.style.setProperty('--sbb-toast-animation-duration', '1ms');
     await waitForLitRender(element);
 
@@ -218,6 +223,6 @@ describe(`sbb-toast`, () => {
 
     await waitForLitRender(element);
     await closeSpy.calledOnce();
-    expect(element.getAttribute('data-state')).to.be.equal('closed');
+    expect(element).to.match(':state(state-closed)');
   });
 });

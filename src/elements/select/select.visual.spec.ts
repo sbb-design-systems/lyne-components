@@ -1,11 +1,10 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.js';
+import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
 
-import '../form-error.js';
-import '../form-field.js';
-import '../option.js';
-import './select.component.js';
+import '../form-field.ts';
+import '../option.ts';
+import './select.component.ts';
 
 describe('sbb-select', () => {
   const valueEllipsis: string = 'This label name is so long that it needs ellipsis to fit.';
@@ -84,7 +83,7 @@ describe('sbb-select', () => {
             ? createOptionsGroup(disableOption, disableGroup)
             : createOptions(disableOption, false, args.value)}
         </sbb-select>
-        ${args.required ? html`<sbb-form-error>Error</sbb-form-error>` : nothing}
+        ${args.required ? html`<sbb-error>Error</sbb-error>` : nothing}
       </sbb-form-field>
     `;
   };

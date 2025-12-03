@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-action-group renders renders DOM"] = 
+snapshots["sbb-action-group renders DOM"] = 
 `<sbb-action-group
   align-group="start"
   button-size="l"
@@ -10,18 +10,12 @@ snapshots["sbb-action-group renders renders DOM"] =
   orientation="horizontal"
 >
   <sbb-secondary-button
-    data-action=""
-    data-button=""
-    data-sbb-button=""
     size="l"
     tabindex="0"
   >
     Button
   </sbb-secondary-button>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
     href="https://github.com/sbb-design-systems/lyne-components"
     icon-name="chevron-small-left-small"
     icon-placement="start"
@@ -31,37 +25,17 @@ snapshots["sbb-action-group renders renders DOM"] =
   </sbb-block-link>
 </sbb-action-group>
 `;
-/* end snapshot sbb-action-group renders renders DOM */
+/* end snapshot sbb-action-group renders DOM */
 
-snapshots["sbb-action-group renders renders Shadow DOM"] = 
+snapshots["sbb-action-group renders Shadow DOM"] = 
 `<div class="sbb-action-group">
   <slot>
   </slot>
 </div>
 `;
-/* end snapshot sbb-action-group renders renders Shadow DOM */
+/* end snapshot sbb-action-group renders Shadow DOM */
 
-snapshots["sbb-action-group renders renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Button"
-    },
-    {
-      "role": "link",
-      "name": "Link"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-action-group renders renders A11y tree Chrome */
-
-snapshots["sbb-action-group renders renders A11y tree Firefox"] = 
+snapshots["sbb-action-group renders A11y tree Firefox"] = 
 `<p>
   {
   "role": "document",
@@ -80,5 +54,25 @@ snapshots["sbb-action-group renders renders A11y tree Firefox"] =
 }
 </p>
 `;
-/* end snapshot sbb-action-group renders renders A11y tree Firefox */
+/* end snapshot sbb-action-group renders A11y tree Firefox */
+
+snapshots["sbb-action-group renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "WebArea",
+  "name": "",
+  "children": [
+    {
+      "role": "button",
+      "name": "Button"
+    },
+    {
+      "role": "link",
+      "name": "Link"
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-action-group renders A11y tree Chrome */
 

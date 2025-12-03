@@ -17,8 +17,6 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
   <sbb-mini-button-group size="l">
     <sbb-mini-button
       aria-label="Previous page"
-      data-action=""
-      data-button=""
       disabled=""
       icon-name="chevron-small-left-small"
       id="sbb-paginator-prev-page"
@@ -32,8 +30,6 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
     </sbb-divider>
     <sbb-mini-button
       aria-label="Next page"
-      data-action=""
-      data-button=""
       icon-name="chevron-small-right-small"
       id="sbb-paginator-next-page"
       slot="li-2"
@@ -144,8 +140,6 @@ snapshots["sbb-compact-paginator renders accessibility labels Shadow DOM"] =
   <sbb-mini-button-group size="l">
     <sbb-mini-button
       aria-label="Previous slide"
-      data-action=""
-      data-button=""
       disabled=""
       icon-name="chevron-small-left-small"
       id="sbb-paginator-prev-page"
@@ -159,8 +153,6 @@ snapshots["sbb-compact-paginator renders accessibility labels Shadow DOM"] =
     </sbb-divider>
     <sbb-mini-button
       aria-label="Next slide"
-      data-action=""
-      data-button=""
       icon-name="chevron-small-right-small"
       id="sbb-paginator-next-page"
       slot="li-2"

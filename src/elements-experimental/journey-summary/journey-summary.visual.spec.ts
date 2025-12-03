@@ -9,9 +9,9 @@ import {
   longFutureLeg,
   pastLeg,
   progressLeg,
-} from '../pearl-chain/pearl-chain.sample-data.private.js';
+} from '../pearl-chain/pearl-chain.sample-data.private.ts';
 
-import './journey-summary.component.js';
+import './journey-summary.component.ts';
 import '@sbb-esta/lyne-elements/button/button.js';
 import '@sbb-esta/lyne-elements/button/secondary-button.js';
 

@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - '*.x'
-      - main
 
 # Documentation:
 # https://github.com/googleapis/release-please
@@ -58,7 +57,7 @@ jobs:
       - name: Run build
         run: STORYBOOK_COMPONENTS_VERSION="${{ steps.version.outputs.version }}" yarn build
       - name: Remove files with forbidden extensions
-        run: node ./scripts/clean-storybook-files.cjs
+        run: node ./scripts/clean-storybook-files.ts
 
       - name: Update npm
         run: npm install --global npm@latest
@@ -109,6 +108,14 @@ jobs:
           DOCKER_BUILDKIT: 1
           VERSION: ${{ steps.release.outputs.version }}
 
+      - name: Send Teams webhook
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          node scripts/teams-webhook.ts
+        env:
+          RELEASE_TAG: ${{ steps.release.outputs.version }}
+          TEAMS_WEBHOOK: ${{ secrets.TEAMS_WEBHOOK }}
+
       - name: Cherry-pick CHANGELOG.md into ${{ github.event.repository.default_branch }}
         if: ${{ steps.release.outputs.release_created && github.ref_name != 'main' }}
         run: |
@@ -121,7 +128,7 @@ jobs:
 
       - name: Update maintenance issue
         if: ${{ steps.release.outputs.release_created && failure() }}
-        run: yarn ts-hooks scripts/update-maintenance-issue.ts
+        run: node scripts/update-maintenance-issue.ts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FAILED_RELEASE: ${{ steps.release.outputs.version }}

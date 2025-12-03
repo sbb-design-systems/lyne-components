@@ -2,13 +2,13 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, handleDistinctChange } from '../core/decorators.js';
-import { isLean } from '../core/dom.js';
-import { isEventPrevented } from '../core/eventing.js';
-import { SbbHydrationMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
-import type { SbbExpansionPanelElement } from '../expansion-panel.js';
-import type { SbbTitleLevel } from '../title.js';
+import { forceType, handleDistinctChange } from '../core/decorators.ts';
+import { isLean } from '../core/dom.ts';
+import { isEventPrevented } from '../core/eventing.ts';
+import { SbbHydrationMixin, ɵstateController } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbExpansionPanelElement } from '../expansion-panel.ts';
+import type { SbbTitleLevel } from '../title.ts';
 
 import style from './accordion.scss?lit&inline';
 
@@ -108,8 +108,9 @@ class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
       (panel: SbbExpansionPanelElement, index: number, array: SbbExpansionPanelElement[]) => {
         panel.titleLevel = this.titleLevel;
         panel.size = this.size;
-        panel.toggleAttribute('data-accordion-first', index === 0);
-        panel.toggleAttribute('data-accordion-last', index === array.length - 1);
+        const controller = ɵstateController(panel);
+        controller.toggle('accordion-first', index === 0);
+        controller.toggle('accordion-last', index === array.length - 1);
       },
     );
   }

@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbBlockLinkButtonElement } from './block-link-button.component.js';
+import { SbbBlockLinkButtonElement } from './block-link-button.component.ts';
 
 describe(`sbb-block-link-button ssr`, () => {
   let root: SbbBlockLinkButtonElement;

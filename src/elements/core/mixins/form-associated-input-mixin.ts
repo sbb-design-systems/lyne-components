@@ -7,21 +7,21 @@ import {
 } from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
-import { sbbInputModalityDetector } from '../a11y.js';
-import { SbbLanguageController, SbbMediaQueryPointerCoarse } from '../controllers.js';
-import { isBlink, isWebkit } from '../dom.js';
-import { i18nInputRequired } from '../i18n.js';
+import { sbbInputModalityDetector } from '../a11y.ts';
+import { SbbLanguageController, SbbMediaQueryPointerCoarse } from '../controllers.ts';
+import { isBlink, isWebkit } from '../dom.ts';
+import { i18nInputRequired } from '../i18n.ts';
 
-import type { AbstractConstructor } from './constructor.js';
-import { SbbDisabledMixin } from './disabled-mixin.js';
-import { SbbElementInternalsMixin } from './element-internals-mixin.js';
+import type { AbstractConstructor } from './constructor.ts';
+import { SbbDisabledMixin } from './disabled-mixin.ts';
+import { SbbElementInternalsMixin } from './element-internals-mixin.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbFormAssociatedMixin,
-} from './form-associated-mixin.js';
-import { SbbReadonlyMixin } from './readonly-mixin.js';
-import { SbbRequiredMixin } from './required-mixin.js';
+} from './form-associated-mixin.ts';
+import { SbbReadonlyMixin } from './readonly-mixin.ts';
+import { SbbRequiredMixin } from './required-mixin.ts';
 
 export declare abstract class SbbFormAssociatedInputMixinType extends SbbRequiredMixin(
   SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)),
@@ -267,7 +267,7 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
       });
 
       // On blur the native text input scrolls the text to the start of the text.
-      // We mimick that by resetting the scroll position.
+      // We mimic that by resetting the scroll position.
       // We also unset any selection to align with the native text input.
       this.addEventListener?.(
         'blur',
@@ -322,7 +322,7 @@ export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitEle
     ): void {
       /**
        * The native text input changes the value property when the value attribute is
-       * changed under the condition that no input event has occured since creation
+       * changed under the condition that no input event has occurred since creation
        * or the last form reset.
        */
       if (name !== 'value' || !this.internals.states.has('interacted')) {

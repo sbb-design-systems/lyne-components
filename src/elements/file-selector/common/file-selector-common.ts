@@ -4,18 +4,18 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonStaticElement } from '../../button.js';
-import { sbbInputModalityDetector } from '../../core/a11y.js';
-import { SbbLanguageController } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
-import { forwardEvent } from '../../core/eventing.js';
+import type { SbbSecondaryButtonStaticElement } from '../../button.ts';
+import { sbbInputModalityDetector } from '../../core/a11y.ts';
+import { SbbLanguageController } from '../../core/controllers.ts';
+import { forceType } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
+import { forwardEvent } from '../../core/eventing.ts';
 import {
   i18nFileSelectorButtonLabel,
   i18nFileSelectorButtonLabelMultiple,
   i18nFileSelectorCurrentlySelected,
   i18nFileSelectorDeleteFile,
-} from '../../core/i18n.js';
+} from '../../core/i18n.ts';
 import {
   type Constructor,
   type FormRestoreReason,
@@ -23,9 +23,10 @@ import {
   SbbDisabledMixin,
   SbbElementInternalsMixin,
   SbbFormAssociatedMixin,
-} from '../../core/mixins.js';
+  ɵstateController,
+} from '../../core/mixins.ts';
 
-import '../../button/secondary-button.js';
+import '../../button/secondary-button.ts';
 
 export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbDisabledMixin(
   SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)),
@@ -165,12 +166,12 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
 
     private _onFocus(): void {
       if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-        this.loadButton.toggleAttribute('data-focus-visible', true);
+        ɵstateController(this.loadButton).add('focus-visible');
       }
     }
 
     private _onBlur(): void {
-      this.loadButton.removeAttribute('data-focus-visible');
+      ɵstateController(this.loadButton).delete('focus-visible');
     }
 
     private _readFiles(event: Event): void {
@@ -337,7 +338,7 @@ export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitEleme
     ): void {
       this._dragTarget = dragTarget;
       this.toggleState('active', isDragEnter);
-      this.loadButton.toggleAttribute('data-active', isDragEnter);
+      ɵstateController(this.loadButton).toggle('active', isDragEnter);
     }
 
     protected override render(): TemplateResult {

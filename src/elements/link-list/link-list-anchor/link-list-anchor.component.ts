@@ -1,8 +1,8 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core/styles.js';
-import { linkListBaseStyle, SbbLinkListBaseElement } from '../common.js';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { linkListBaseStyle, SbbLinkListBaseElement } from '../common.ts';
 
 import style from './link-list-anchor.scss?lit&inline';
 

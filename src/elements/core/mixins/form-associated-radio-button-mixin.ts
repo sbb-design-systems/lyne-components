@@ -1,19 +1,19 @@
 import { isServer, type LitElement, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../a11y.js';
-import { SbbLanguageController } from '../controllers.js';
-import { i18nSelectionRequired } from '../i18n.js';
+import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../a11y.ts';
+import { SbbLanguageController } from '../controllers.ts';
+import { i18nSelectionRequired } from '../i18n.ts';
 
-import type { AbstractConstructor } from './constructor.js';
-import { SbbDisabledMixin } from './disabled-mixin.js';
-import { SbbElementInternalsMixin } from './element-internals-mixin.js';
+import type { AbstractConstructor } from './constructor.ts';
+import { SbbDisabledMixin } from './disabled-mixin.ts';
+import { SbbElementInternalsMixin } from './element-internals-mixin.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbFormAssociatedMixin,
-} from './form-associated-mixin.js';
-import { SbbRequiredMixin } from './required-mixin.js';
+} from './form-associated-mixin.ts';
+import { SbbRequiredMixin } from './required-mixin.ts';
 
 /**
  * A static registry that holds a collection of grouped `radio-buttons`.
@@ -65,7 +65,7 @@ export const SbbFormAssociatedRadioButtonMixin = <T extends AbstractConstructor<
     public set checked(value: boolean) {
       this._checked = !!value;
 
-      this.toggleAttribute('data-checked', this.checked);
+      this.toggleState('checked', this.checked);
       this.internals.ariaChecked = this.checked.toString();
       this.updateFormValue();
       this._synchronizeGroupState();

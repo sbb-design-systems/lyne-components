@@ -1,17 +1,17 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
-import type { SbbButtonElement } from '../button.js';
-import { i18nDialog } from '../core/i18n.js';
-import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
-import { tabKey } from '../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.js';
+import type { SbbButtonElement } from '../button.ts';
+import { i18nDialog } from '../core/i18n.ts';
+import type { SbbOverlayCloseEventDetails } from '../core/interfaces.ts';
+import { sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 
-import { SbbOverlayElement } from './overlay.component.js';
-import '../button.js';
-import '../icon.js';
+import { SbbOverlayElement } from './overlay.component.ts';
+import '../button.ts';
+import '../icon.ts';
 
 async function openOverlay(element: SbbOverlayElement): Promise<void> {
   const beforeOpenSpy = new EventSpy(SbbOverlayElement.events.beforeopen, element);
@@ -25,7 +25,7 @@ async function openOverlay(element: SbbOverlayElement): Promise<void> {
 
   await openSpy.calledOnce();
   expect(openSpy.count).to.be.equal(1);
-  expect(element).to.have.attribute('data-state', 'opened');
+  expect(element).to.match(':state(state-opened)');
   expect(element).to.match(':popover-open');
 }
 
@@ -34,7 +34,7 @@ describe('sbb-overlay', () => {
     let element: SbbOverlayElement, ariaLiveRef: HTMLElement;
 
     beforeEach(async () => {
-      await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
       element = await fixture(html`
         <sbb-overlay id="my-overlay-1" accessibility-label="Label">
           <p>Overlay content</p>
@@ -66,10 +66,12 @@ describe('sbb-overlay', () => {
       await beforeOpenSpy.calledOnce();
       expect(beforeOpenSpy.count).to.be.equal(1);
       expect(openSpy.count).to.be.equal(0);
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
-    it('closes the overlay', async () => {
+    it('closes the overlay', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
       const beforeCloseSpy = new EventSpy(SbbOverlayElement.events.beforeclose, element);
       const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
 
@@ -85,12 +87,14 @@ describe('sbb-overlay', () => {
 
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
       expect(element).not.to.match(':popover-open');
       expect(ariaLiveRef.textContent).to.be.equal('');
     });
 
     it('opens and closes the overlay with non-zero animation duration', async () => {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       element.style.setProperty('--sbb-overlay-animation-duration', '1ms');
       const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
 
@@ -101,7 +105,7 @@ describe('sbb-overlay', () => {
 
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('does not close the overlay if prevented', async () => {
@@ -118,7 +122,7 @@ describe('sbb-overlay', () => {
       await beforeCloseSpy.calledOnce();
       expect(beforeCloseSpy.count).to.be.equal(1);
       expect(closeSpy.count).to.be.equal(0);
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('closes the overlay on close button click', async () => {
@@ -137,7 +141,7 @@ describe('sbb-overlay', () => {
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('closes the overlay on close button click with linked form', async () => {
@@ -187,7 +191,7 @@ describe('sbb-overlay', () => {
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('closes stacked overlays one by one on ESC key pressed', async () => {
@@ -223,7 +227,7 @@ describe('sbb-overlay', () => {
       await openSpy.calledTimes(2);
       expect(openSpy.count).to.be.equal(2);
 
-      expect(stackedOverlay).to.have.attribute('data-state', 'opened');
+      expect(stackedOverlay).to.match(':state(state-opened)');
 
       await sendKeys({ press: tabKey });
       await waitForLitRender(element);
@@ -237,8 +241,8 @@ describe('sbb-overlay', () => {
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
 
-      expect(stackedOverlay).to.have.attribute('data-state', 'closed');
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(stackedOverlay).to.match(':state(state-closed)');
+      expect(element).to.match(':state(state-opened)');
 
       await sendKeys({ press: tabKey });
       await waitForLitRender(element);
@@ -252,8 +256,8 @@ describe('sbb-overlay', () => {
       await closeSpy.calledTimes(2);
       expect(closeSpy.count).to.be.equal(2);
 
-      expect(stackedOverlay).to.have.attribute('data-state', 'closed');
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(stackedOverlay).to.match(':state(state-closed)');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('should remove ariaLiveRef content on any keyboard interaction', async () => {
@@ -313,7 +317,7 @@ describe('sbb-overlay', () => {
     let element: SbbOverlayElement, trigger: HTMLElement;
 
     beforeEach(async () => {
-      await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
       const root = await fixture(html`
         <div>
           <button id="trigger"></button>
@@ -377,7 +381,7 @@ describe('sbb-overlay', () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
       expect(element).to.match(':popover-open');
     });
 

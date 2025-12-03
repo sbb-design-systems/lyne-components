@@ -7,16 +7,16 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType, omitEmptyConverter } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
+import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
 import {
   SbbElementInternalsMixin,
   SbbNamedSlotListMixin,
   type WithListChildren,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbNavigationButtonElement } from '../navigation-button.js';
-import type { SbbNavigationLinkElement } from '../navigation-link.js';
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button.ts';
+import type { SbbNavigationLinkElement } from '../navigation-link.ts';
 
 import style from './navigation-list.scss?lit&inline';
 

@@ -12,8 +12,9 @@ import {
   generateRootEntryPoint,
   verifyEntryPoints,
   resolveEntryPoints,
-} from '../../tools/vite/index.js';
-import rootConfig from '../../vite.config.js';
+  stateTransform,
+} from '../../tools/vite/index.ts';
+import rootConfig from '../../vite.config.ts';
 
 const packageRoot = new URL('.', import.meta.url);
 
@@ -22,6 +23,7 @@ export default defineConfig((config) =>
     root: fileURLToPath(packageRoot),
     plugins: [
       ...(config.command === 'build' ? [dts()] : []),
+      stateTransform(),
       ...(isProdBuild(config)
         ? [
             customElementsManifest('elements-experimental'),

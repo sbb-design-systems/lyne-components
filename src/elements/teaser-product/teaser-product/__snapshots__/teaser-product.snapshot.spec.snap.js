@@ -3,8 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-teaser-product renders DOM"] = 
 `<sbb-teaser-product
-  data-action=""
-  data-link=""
   href="https://www.sbb.ch"
   image-alignment="after"
 >

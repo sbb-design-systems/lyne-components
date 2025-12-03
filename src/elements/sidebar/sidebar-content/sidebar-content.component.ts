@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { sidebarContentCommonStyle } from '../common.js';
+import { sidebarContentCommonStyle } from '../common.ts';
 
 import style from './sidebar-content.scss?lit&inline';
 

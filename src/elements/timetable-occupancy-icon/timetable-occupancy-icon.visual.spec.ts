@@ -1,8 +1,8 @@
 import { html } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './timetable-occupancy-icon.component.js';
+import './timetable-occupancy-icon.component.ts';
 
 describe(`sbb-timetable-occupancy-icon`, () => {
   const cases = {

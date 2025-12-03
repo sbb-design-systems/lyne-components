@@ -1,12 +1,10 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbHydrationMixin, SbbSelectionPanelMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
+import { SbbHydrationMixin, SbbSelectionPanelMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './selection-action-panel.scss?lit&inline';
-
-import '../divider.js';
 
 /**
  * It displays a panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
@@ -19,11 +17,6 @@ export
 @customElement('sbb-selection-action-panel')
 class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
-
-  public constructor() {
-    super();
-    this.addEventListener?.('statechange', (e) => this.onInputStateChange(e));
-  }
 
   public override connectedCallback(): void {
     super.connectedCallback();

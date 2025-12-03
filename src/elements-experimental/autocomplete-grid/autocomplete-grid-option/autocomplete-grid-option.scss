@@ -1,0 +1,81 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+
+:host {
+  --sbb-option-color: var(--sbb-color-3);
+  --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
+  --sbb-option-icon-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-option-border-radius: var(--sbb-border-radius-4x);
+  --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
+  --sbb-option-min-height: var(--sbb-size-element-s);
+  --sbb-option-focus-outline-color: transparent;
+  --sbb-option-focus-outline-inset: var(--sbb-spacing-fixed-1x);
+
+  display: block;
+}
+
+:host(:state(negative)) {
+  --sbb-option-color: var(--sbb-color-3-negative);
+  --sbb-option-icon-color: var(--sbb-color-5);
+}
+
+// If highlighting is enabled, hide the original slot content
+:host(:not(:state(disable-highlight))) {
+  .sbb-option__label slot {
+    display: none;
+  }
+}
+
+:host(:state(active)) {
+  --sbb-option-focus-outline-color: var(--sbb-focus-outline-color);
+}
+
+.sbb-option {
+  @include sbb.text-s--regular;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  column-gap: var(--sbb-option-column-gap);
+  justify-content: start;
+  min-height: var(--sbb-option-min-height);
+  padding-inline: var(--sbb-option-padding-inline);
+  color: var(--sbb-option-color);
+
+  // We use the pseudo element to display the focus outline (inline in this case)
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: var(--sbb-option-focus-outline-inset);
+    pointer-events: none;
+    border: var(--sbb-focus-outline-width) solid var(--sbb-option-focus-outline-color);
+    border-radius: var(--sbb-option-border-radius);
+  }
+}
+
+.sbb-option__label--highlight {
+  :host(:not(:state(disabled))) & {
+    @include sbb.text--bold;
+    @include sbb.if-forced-colors {
+      color: Highlight;
+    }
+  }
+}
+
+.sbb-option__icon {
+  display: flex;
+  min-width: var(--sbb-size-icon-ui-small);
+  min-height: var(--sbb-size-icon-ui-small);
+  color: var(--sbb-option-icon-color);
+
+  :host(:not(:state(slotted-icon), :state(has-icon-name))) & {
+    // Can be overridden by the 'preserve-icon-space' on the autocomplete
+    display: var(--sbb-option-icon-container-display, none);
+  }
+}
+
+.sbb-option__label {
+  text-overflow: var(--sbb-option-text-overflow);
+  overflow: var(--sbb-option-overflow);
+  white-space: var(--sbb-option-white-space, initial);
+}

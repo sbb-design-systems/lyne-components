@@ -42,13 +42,13 @@
   margin: 0;
 }
 
-:host([data-state]:not([data-state='closed'])) {
+:host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
   display: block;
 
   --sbb-tooltip-animation-name: open;
 }
 
-:host([data-state][data-state='closing']) {
+:host(:state(state-closing)) {
   --sbb-tooltip-animation-name: close;
   --sbb-tooltip-pointer-events: none;
 }

@@ -1,5 +1,6 @@
 $theme: 'standard' !default;
 
+@use 'sass:string';
 @use '@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables-as-css.scss' as sbb-css-tokens with (
   $theme: $theme
 );
@@ -13,6 +14,41 @@ $theme: 'standard' !default;
 @use './mixins/scrollbar';
 @use './mixins/typo';
 
+@use '../../card/card/card.global' as card with (
+  $theme: $theme
+);
+@use '../../card/card-badge/card-badge.global' as card-badge with (
+  $theme: $theme
+);
+@use '../../core/mixins/panel-common.global' as panel-common with (
+  $theme: $theme
+);
+@use '../../checkbox/checkbox/checkbox.global' as checkbox with (
+  $theme: $theme
+);
+@use '../../checkbox/checkbox-group/checkbox-group.global' as checkbox-group with (
+  $theme: $theme
+);
+@use '../../checkbox/common/checkbox-common.global' as checkbox-common with (
+  $theme: $theme
+);
+@use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
+  $theme: $theme
+);
+@use '../../radio-button/radio-button-group/radio-button-group.global' as radio-button-group with (
+  $theme: $theme
+);
+@use '../../selection-action-panel/selection-action-panel.global' as selection-action-panel with (
+  $theme: $theme
+);
+@use '../../selection-expansion-panel/selection-expansion-panel.global' as selection-expansion-panel
+  with (
+  $theme: $theme
+);
+@use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
+  $theme: $theme
+);
+
 @include helpers.box-sizing;
 
 // Core variables
@@ -20,10 +56,30 @@ $theme: 'standard' !default;
   // Grab CSS vars defined by `@sbb-esta/lyne-design-tokens` package
   @include sbb-css-tokens.base;
 
+  @include card.base;
+  @include card-badge.base;
+  @include panel-common.base;
+  @include checkbox.base;
+  @include checkbox-group.base;
+  @include checkbox-common.base;
+  @include radio-button-common.base;
+  @include radio-button-group.base;
+  @include selection-action-panel.base;
+  @include selection-expansion-panel.base;
+  @include visual-checkbox.base;
+
+  @include a11y.if-forced-colors {
+    @include sbb-css-tokens.forced-colors;
+
+    @include card.base-forced-colors;
+    @include card-badge.base-forced-colors;
+    @include visual-checkbox.base-forced-colors;
+    @include radio-button-common.base-forced-colors;
+  }
+
   // Train formation
   --sbb-train-formation-wagon-width: #{functions.px-to-rem-build(80)};
   --sbb-train-formation-wagon-height: #{functions.px-to-rem-build(40)};
-  --sbb-train-formation-wagon-border-radius: #{functions.px-to-rem-build(12)};
   --sbb-train-formation-wagon-gap: var(--sbb-spacing-fixed-1x);
 
   // Header
@@ -39,42 +95,34 @@ $theme: 'standard' !default;
   --sbb-cursor-default: default;
   --sbb-cursor-pointer: pointer;
 
-  // Title
-  --sbb-title-font-size-level-1: var(--sbb-font-size-title-1);
-  --sbb-title-font-size-level-2: var(--sbb-font-size-title-2);
-  --sbb-title-font-size-level-3: var(--sbb-font-size-title-3);
-  --sbb-title-font-size-level-4: var(--sbb-font-size-title-4);
-  --sbb-title-font-size-level-5: var(--sbb-font-size-title-5);
-  --sbb-title-font-size-level-6: var(--sbb-font-size-title-6);
-  --sbb-title-default-margin-block-start: var(--sbb-spacing-responsive-m);
-  --sbb-title-margin-block-start-level-1: var(--sbb-spacing-responsive-l);
-  --sbb-title-margin-block-end-level-1: var(--sbb-spacing-responsive-s);
-  --sbb-title-margin-block-end-level-2: var(--sbb-spacing-responsive-xxxs);
-  --sbb-title-margin-block-end-level-3: var(--sbb-spacing-responsive-xxxs);
-  --sbb-title-margin-block-end-level-4: var(--sbb-spacing-fixed-3x);
-  --sbb-title-margin-block-end-level-5: var(--sbb-spacing-fixed-2x);
-  --sbb-title-margin-block-end-level-6: var(--sbb-spacing-fixed-1x);
-
-  &.sbb-lean {
-    --sbb-title-font-size-level-1: var(--sbb-font-size-title-2);
-    --sbb-title-font-size-level-2: var(--sbb-font-size-title-3);
-    --sbb-title-font-size-level-3: var(--sbb-font-size-title-4);
-    --sbb-title-font-size-level-4: var(--sbb-font-size-title-5);
-    --sbb-title-font-size-level-5: var(--sbb-font-size-title-6);
-    --sbb-title-font-size-level-6: var(--sbb-font-size-title-7);
-    --sbb-title-default-margin-block-start: var(--sbb-spacing-responsive-s);
-    --sbb-title-margin-block-start-level-1: var(--sbb-spacing-responsive-s);
-    --sbb-title-margin-block-end-level-1: var(--sbb-spacing-fixed-3x);
-    --sbb-title-margin-block-end-level-2: var(--sbb-spacing-fixed-3x);
-    --sbb-title-margin-block-end-level-3: var(--sbb-spacing-responsive-xxxs);
-    --sbb-title-margin-block-end-level-4: var(--sbb-spacing-fixed-2x);
-    --sbb-title-margin-block-end-level-5: var(--sbb-spacing-fixed-1x);
-    --sbb-title-margin-block-end-level-6: 0;
-  }
-
   // Infinity border radius, can be used to achieve rounded border on start and end
   // TODO: Check if infinity is supported by all browsers (e.g. Firefox) -> calc(1em * infinity);
   --sbb-border-radius-infinity: 100000em;
+
+  // TODO: Remove complete block when new lean theme is complete
+  // TODO: Also remove all occurrences of the variables in lyne-components (e.g. --sbb-title-font-size-level-1-lean)
+  // Only render the block in standard theme as fallback for CSS class usage
+  @if not string.index($theme, 'lean') {
+    &.sbb-lean {
+      --sbb-title-font-size-level-1-lean: var(--sbb-heading-font-size-2);
+      --sbb-title-font-size-level-2-lean: var(--sbb-heading-font-size-3);
+      --sbb-title-font-size-level-3-lean: var(--sbb-heading-font-size-4);
+      --sbb-title-font-size-level-4-lean: var(--sbb-heading-font-size-5);
+      --sbb-title-font-size-level-5-lean: var(--sbb-heading-font-size-6);
+      --sbb-title-font-size-level-6-lean: var(--sbb-typo-scale-0-75x);
+      --sbb-heading-margin-block-1-lean: var(--sbb-spacing-responsive-s)
+        var(--sbb-spacing-fixed-3x);
+      --sbb-heading-margin-block-2-lean: var(--sbb-spacing-responsive-s)
+        var(--sbb-spacing-fixed-3x);
+      --sbb-heading-margin-block-3-lean: var(--sbb-spacing-responsive-s)
+        var(--sbb-spacing-responsive-xxxs);
+      --sbb-heading-margin-block-4-lean: var(--sbb-spacing-responsive-s)
+        var(--sbb-spacing-fixed-2x);
+      --sbb-heading-margin-block-5-lean: var(--sbb-spacing-responsive-s)
+        var(--sbb-spacing-fixed-1x);
+      --sbb-heading-margin-block-6-lean: var(--sbb-spacing-responsive-s) 0;
+    }
+  }
 
   &:has(sbb-header[size='s']) {
     --sbb-header-height: #{functions.px-to-rem-build(52)};
@@ -94,6 +142,14 @@ $theme: 'standard' !default;
 
   @include mediaqueries.mq($from: large) {
     @include sbb-css-tokens.breakpoint-large;
+
+    // TODO: Remove complete block when new lean theme is complete
+    // Only render the block in standard theme as fallback for CSS class usage
+    @if not string.index($theme, 'lean') {
+      &.sbb-lean {
+        --sbb-title-font-size-level-6-lean: var(--sbb-typo-scale-0-875x);
+      }
+    }
 
     // Header
     --sbb-header-height: var(--sbb-spacing-fixed-24x);
@@ -129,7 +185,8 @@ $theme: 'standard' !default;
 html {
   @include typo.text;
 
-  color: var(--sbb-font-default-color);
+  color-scheme: light dark;
+  color: var(--sbb-font-color-default);
   background-color: var(--sbb-background-color-1);
 }
 
@@ -161,7 +218,7 @@ html {
     // TODO: Find a better solution
     font-size: var(--sbb-form-field-input-text-size) !important;
     font-family: var(--sbb-typo-font-family) !important;
-    line-height: var(--sbb-typo-line-height-body-text) !important;
+    line-height: var(--sbb-typo-line-height-text) !important;
 
     &::placeholder {
       @include typo.placeholder;
@@ -205,7 +262,7 @@ html {
 
     // We add the missing block spacing to fit the line-height
     margin-block: calc(
-      0.5 * (var(--sbb-form-field-input-text-size) * (var(--sbb-typo-line-height-body-text) - 1.25))
+      0.5 * (var(--sbb-form-field-input-text-size) * (var(--sbb-typo-line-height-text) - 1.25))
     );
   }
 
@@ -219,7 +276,7 @@ html {
       // White-space break needed for Firefox
       white-space: break-spaces;
       overflow-y: auto;
-      min-height: calc((var(--sbb-typo-line-height-body-text) * 1em));
+      min-height: calc((var(--sbb-typo-line-height-text) * 1em));
     }
   }
 
@@ -292,13 +349,13 @@ html {
 // Ensure stable breadcrumb height during hydrating
 sbb-breadcrumb-group:not(:defined) {
   display: block;
-  height: calc(var(--sbb-typo-line-height-body-text) * var(--sbb-font-size-text-xs));
+  height: calc(var(--sbb-typo-line-height-text) * var(--sbb-text-font-size-xs));
   overflow: hidden;
 }
 
 // Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
 // This style enables accessing focusable elements inside an sbb-card.
-[data-card-focusable] {
+:is(sbb-card, sbb-flip-card) .sbb-action {
   pointer-events: all;
 }
 
@@ -313,7 +370,7 @@ sbb-breadcrumb-group:not(:defined) {
   color: var(--sbb-color-1);
 
   strong + * {
-    font-size: var(--sbb-font-size-text-xxs);
+    font-size: var(--sbb-text-font-size-xxs);
     color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   }
 }
@@ -478,7 +535,7 @@ sbb-train-formation[view='top'] sbb-train-wagon {
 
 // Skip animation for the container, content and sidebars when a sidebar requests it
 // (during initialization or if animation is disabled, but only during transition)
-sbb-sidebar-container:has(> sbb-sidebar[data-skip-animation]) {
+sbb-sidebar-container:has(> sbb-sidebar:state(skip-animation)) {
   --sbb-sidebar-container-animation-duration: 0s;
 }
 
@@ -489,10 +546,10 @@ sbb-sidebar-container:has(> sbb-sidebar[data-skip-animation]) {
 sbb-sidebar-container:is(
     :has(
       > sbb-sidebar:not([position='end']):is(
-          [data-state='closing'],
-          [data-state='closed'],
+          :state(state-closing),
+          :state(state-closed),
           [mode='over'],
-          [data-mode-over-forced]
+          :state(mode-over-forced)
         )
     ),
     :not(:has(> sbb-sidebar:not([position='end'])))
@@ -508,10 +565,10 @@ sbb-sidebar-container:is(
 sbb-sidebar-container:is(
     :has(
       > sbb-sidebar[position='end']:is(
-          [data-state='closing'],
-          [data-state='closed'],
+          :state(state-closing),
+          :state(state-closed),
           [mode='over'],
-          [data-mode-over-forced]
+          :state(mode-over-forced)
         )
     ),
     :not(:has(> sbb-sidebar[position='end']))
@@ -522,9 +579,9 @@ sbb-sidebar-container:is(
 
 // Toggles visibility of backdrop if there is an affected sidebar inside the container.
 sbb-sidebar-container:has(
-  > sbb-sidebar:is([mode='over'], [data-mode-over-forced]):is(
-      [data-state='opening'],
-      [data-state='opened']
+  > sbb-sidebar:is([mode='over'], :state(mode-over-forced)):is(
+      :state(state-opening),
+      :state(state-opened)
     )
 ) {
   --sbb-sidebar-container__backdrop-visibility: visible;
@@ -622,33 +679,31 @@ sbb-dialog-close-button {
   // The close button positioning needs the current dialog title size
   sbb-dialog:has(> sbb-dialog-title[visual-level='3']) > &,
   sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='3']) > * > & {
-    // TODO: Adapt to lean size title
-    --_sbb-dialog-title-size: var(--sbb-font-size-title-3);
+    --_sbb-dialog-title-size: var(--sbb-heading-font-size-3);
   }
 
   // The close button positioning needs the current dialog title size
   sbb-dialog:has(> sbb-dialog-title[visual-level='5']) > &,
   sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='5']) > * > & {
-    // TODO: Adapt to lean size title
-    --_sbb-dialog-title-size: var(--sbb-font-size-title-5);
+    --_sbb-dialog-title-size: var(--sbb-heading-font-size-5);
   }
 }
 
 sbb-notification:has(sbb-title) {
-  --_sbb-notification-icon-authoritative-font-size: var(--sbb-font-size-title-5);
-  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-titles);
+  --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-5);
+  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-heading);
 
   &[size='s'] {
-    --_sbb-notification-icon-authoritative-font-size: var(--sbb-font-size-title-6);
-    --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-body-text);
+    --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-6);
+    --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-text);
   }
 }
 
 sbb-status:has(sbb-title) {
   --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
   --_sbb-status-text-color-override: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
-  --_sbb-status-title-font-size: var(--sbb-font-size-title-5);
-  --_sbb-status-title-line-height: var(--sbb-typo-line-height-titles);
+  --_sbb-status-title-font-size: var(--sbb-heading-font-size-5);
+  --_sbb-status-title-line-height: var(--sbb-typo-line-height-heading);
 }
 
 .sbb-overlay-outlet {

@@ -1,8 +1,8 @@
 import { html } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './visual-checkbox.component.js';
+import './visual-checkbox.component.ts';
 
 describe(`sbb-visual-checkbox`, () => {
   const states = [

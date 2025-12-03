@@ -1,4 +1,3 @@
-import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import {
   type CSSResultGroup,
   html,
@@ -9,20 +8,20 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
-import { forceType } from '../../core/decorators.js';
-import { isSafari } from '../../core/dom.js';
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
+import { forceType } from '../../core/decorators.ts';
+import { isSafari } from '../../core/dom.ts';
 import {
   SbbDisabledMixin,
   SbbElementInternalsMixin,
   SbbHydrationMixin,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbOptionBaseElement } from '../option.js';
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbOptionBaseElement } from '../option.ts';
 
 import style from './optgroup-base-element.scss?lit&inline';
 
-import '../../divider.js';
+import '../../divider.ts';
 
 /**
  * On Safari, the groups labels are not read by VoiceOver.
@@ -42,24 +41,12 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
   @property()
   public accessor label: string = '';
 
-  @state() protected accessor negative = false;
-
   @state() private accessor _inertAriaGroups = false;
 
   protected abstract get options(): SbbOptionBaseElement[];
 
   public constructor() {
     super();
-
-    this.addController(
-      new MutationController(this, {
-        config: {
-          attributes: true,
-          attributeFilter: ['data-negative'],
-        },
-        callback: () => this._onNegativeChange(),
-      }),
-    );
 
     if (inertAriaGroups) {
       if (this.hydrationRequired) {
@@ -72,8 +59,7 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.setAttributeFromParent();
-    this._proxyGroupLabelToOptions();
+    this._updateAriaLabel();
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -83,48 +69,24 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
       if (!this._inertAriaGroups) {
         this.internals.ariaDisabled = this.disabled ? 'true' : null;
       }
-
-      this.proxyDisabledToOptions();
     }
     if (changedProperties.has('label')) {
-      this._proxyGroupLabelToOptions();
+      this._updateAriaLabel();
     }
   }
 
-  protected abstract setAttributeFromParent(): void;
   protected abstract getAutocompleteParent(): SbbAutocompleteBaseElement | null;
 
   private _handleSlotchange(): void {
-    this.proxyDisabledToOptions();
-    this._proxyGroupLabelToOptions();
+    this._updateAriaLabel();
     this._highlightOptions();
     // Used to notify associated components like the sbb-select to update state
     /** @internal */
     this.dispatchEvent(new Event('ɵoptgroupslotchange'));
   }
 
-  private _proxyGroupLabelToOptions(): void {
-    if (!this._inertAriaGroups) {
-      this.internals.ariaLabel = this.label;
-      return;
-    } else if (this.label) {
-      this.internals.ariaLabel = null;
-      for (const option of this.options) {
-        option.setAttribute('data-group-label', this.label);
-        option.requestUpdate?.();
-      }
-    } else {
-      for (const option of this.options) {
-        option.removeAttribute('data-group-label');
-        option.requestUpdate?.();
-      }
-    }
-  }
-
-  protected proxyDisabledToOptions(): void {
-    for (const option of this.options) {
-      option.toggleAttribute('data-group-disabled', this.disabled);
-    }
+  private _updateAriaLabel(): void {
+    this.internals.ariaLabel = !this._inertAriaGroups ? this.label : null;
   }
 
   private _highlightOptions(): void {
@@ -139,14 +101,11 @@ export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
     this.options.forEach((opt) => opt.highlight(value));
   }
 
-  private _onNegativeChange(): void {
-    this.negative = this.hasAttribute('data-negative');
-  }
-
   protected override render(): TemplateResult {
+    // TODO: replace divider with CSS
     return html`
       <div class="sbb-optgroup__divider">
-        <sbb-divider ?negative=${this.negative}></sbb-divider>
+        <sbb-divider ?negative=${this.matches?.(':state(negative)')}></sbb-divider>
       </div>
       ${this.label
         ? html`

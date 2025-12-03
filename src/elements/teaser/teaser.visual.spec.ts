@@ -8,14 +8,14 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
-} from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
+} from '../core/testing/private.ts';
+import { waitForImageReady } from '../core/testing.ts';
 
-import './teaser.component.js';
-import '../chip-label.js';
-import '../container.js';
-import '../image.js';
-import '../title.js';
+import './teaser.component.ts';
+import '../chip-label.ts';
+import '../container.ts';
+import '../image.ts';
+import '../title.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 const imageBase64 = await loadAssetAsBase64(imageUrl);
@@ -180,7 +180,7 @@ describe(`sbb-teaser`, () => {
 
       it(
         'forcedColors=true',
-        visualDiffDefault.with(async (setup) => {
+        visualDiffFocus.with(async (setup) => {
           await setup.withFixture(
             html`
               <sbb-teaser href="#" alignment="below">

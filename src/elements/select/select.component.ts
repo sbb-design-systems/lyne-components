@@ -6,18 +6,22 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
 
-import { getNextElementIndex } from '../core/a11y.js';
-import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbEscapableOverlayController, SbbLanguageController } from '../core/controllers.js';
-import { forceType, getOverride, handleDistinctChange } from '../core/decorators.js';
+import { getNextElementIndex } from '../core/a11y.ts';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
+import {
+  SbbPropertyWatcherController,
+  SbbEscapableOverlayController,
+  SbbLanguageController,
+} from '../core/controllers.ts';
+import { forceType, getOverride, handleDistinctChange } from '../core/decorators.ts';
 import {
   isLean,
   isNextjs,
   isSafari,
   isZeroAnimationDuration,
   setOrRemoveAttribute,
-} from '../core/dom.js';
-import { i18nSelectionRequired } from '../core/i18n.js';
+} from '../core/dom.ts';
+import { i18nSelectionRequired } from '../core/i18n.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -28,11 +32,12 @@ import {
   SbbReadonlyMixin,
   SbbRequiredMixin,
   SbbUpdateSchedulerMixin,
-} from '../core/mixins.js';
-import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.js';
-import { boxSizingStyles } from '../core/styles.js';
-import type { SbbDividerElement } from '../divider.js';
-import type { SbbOptGroupElement, SbbOptionElement, SbbOptionHintElement } from '../option.js';
+} from '../core/mixins.ts';
+import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbDividerElement } from '../divider.ts';
+import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
+import type { SbbOptionElement, SbbOptionHintElement } from '../option.ts';
 
 import style from './select.scss?lit&inline';
 
@@ -179,7 +184,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     super();
     this.addEventListener?.('optionselectionchange', (e: Event) => this._onOptionChanged(e));
     this.addEventListener?.('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e));
-    this.addEventListener?.('ɵoptgroupslotchange', () => this._onSlotChange(), { capture: true });
+    this.addEventListener?.('ɵoptgroupslotchange', () => this._updateValueOptionState(), {
+      capture: true,
+    });
     this.addEventListener?.('click', (e: MouseEvent) => {
       const target = e.target as SbbSelectElement<T> | SbbOptionElement<T>;
       if (target.localName === 'sbb-option') {
@@ -197,6 +204,15 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       new MutationController(this, {
         config: { attributeFilter: ['aria-labelledby', 'aria-label', 'aria-describedby'] },
         callback: () => this._syncAriaLabels(),
+      }),
+    );
+
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-form-field'), {
+        negative: (e) => {
+          this.negative = e.negative;
+          this._syncNegative();
+        },
       }),
     );
   }
@@ -249,7 +265,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.showPopover?.();
     this.state = 'opening';
-    this.toggleAttribute('data-expanded', true);
+    this.internals.states.add('expanded');
     this._setOverlayPosition();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -266,7 +282,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     }
 
     this.state = 'closing';
-    this.toggleAttribute('data-expanded', false);
+    this.internals.states.delete('expanded');
     this._openPanelEventsController.abort();
     if (this._originElement) {
       this._originResizeObserver.unobserve(this._originElement);
@@ -289,7 +305,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _selectableOptions(): SbbOptionElement<T>[] {
-    return this.options.filter((opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'));
+    return this.options.filter((opt) => !opt.matches(':state(disabled)'));
   }
 
   /** Listens to option changes. */
@@ -356,6 +372,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
+    this._updateValueOptionState();
 
     // Wait for ssr hydration
     if (!isNextjs()) {
@@ -402,12 +419,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       this.id ||= this._overlayId;
     }
 
-    const formField = this.closest?.('sbb-form-field') ?? this.closest?.('[data-form-field]');
-
-    if (formField) {
-      this.negative = formField.hasAttribute('negative');
-    }
-    this._syncProperties();
+    this._syncNegative();
     this._syncAriaLabels();
 
     if (this._didLoad) {
@@ -430,8 +442,8 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('negative') || changedProperties.has('multiple')) {
-      this._syncProperties();
+    if (changedProperties.has('negative')) {
+      this._syncNegative();
     }
     if (changedProperties.has('readOnly')) {
       this._closeOnDisabledReadonlyChanged(this.readOnly);
@@ -486,21 +498,10 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     return JSON.stringify({ value: this.value, manuallyAssigned: this._isValueManuallyAssigned });
   }
 
-  private _syncProperties(): void {
+  private _syncNegative(): void {
     this.querySelectorAll?.<SbbDividerElement | SbbOptionHintElement>(
       'sbb-divider, sbb-option-hint',
     ).forEach((el) => (el.negative = this.negative));
-
-    this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
-      'sbb-option, sbb-optgroup',
-    ).forEach((element) => {
-      element.toggleAttribute('data-negative', this.negative);
-      element.toggleAttribute('data-multiple', this.multiple);
-    });
-
-    this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
-      'sbb-option, sbb-optgroup',
-    ).forEach((e) => e.requestUpdate?.());
   }
 
   protected override shouldValidate(name: PropertyKey | undefined): boolean {
@@ -529,17 +530,14 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   /** Sets the originElement; if the component is used in a sbb-form-field uses it, otherwise uses the parentElement. */
   private _setupOrigin(): void {
-    const formField = this.closest?.('sbb-form-field');
+    const formField = this.closest?.<SbbFormFieldElement>('sbb-form-field');
     if (this._originElement) {
       this._originResizeObserver.unobserve(this._originElement);
     }
     this._originElement =
       formField?.shadowRoot?.querySelector?.('#overlay-anchor') ?? this.parentElement!;
     if (this._originElement) {
-      this.toggleAttribute(
-        'data-option-panel-origin-borderless',
-        !!formField?.hasAttribute?.('borderless'),
-      );
+      this.toggleState('option-panel-origin-borderless', formField?.hasAttribute?.('borderless'));
 
       if (this.isOpen) {
         this._originResizeObserver.observe(this._originElement);
@@ -907,7 +905,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._updateDisplayValue();
   }
 
-  private _onSlotChange(): void {
+  private _updateValueOptionState(): void {
     if (this._isValueManuallyAssigned) {
       this._updateOptionsFromValue();
     } else {
@@ -1001,7 +999,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
               ?aria-multiselectable=${this.multiple}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
-              <slot @slotchange=${this._onSlotChange}></slot>
+              <slot @slotchange=${this._updateValueOptionState}></slot>
             </div>
           </div>
         </div>

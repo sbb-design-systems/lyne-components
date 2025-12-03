@@ -11,12 +11,12 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
-import type { SbbButtonCommonElementMixinType } from './button-common.js';
+import type { SbbButtonCommonElementMixinType } from './button-common.ts';
 
-import '../../icon.js';
-import '../../loading-indicator-circle.js';
+import '../../icon.ts';
+import '../../loading-indicator-circle.ts';
 
 /* eslint-disable lit/binding-positions, @typescript-eslint/naming-convention */
 const Template = ({ tag, text, ...args }: Args): TemplateResult => html`

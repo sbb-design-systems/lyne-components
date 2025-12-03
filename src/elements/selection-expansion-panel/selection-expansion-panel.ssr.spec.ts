@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.js';
+import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.ts';
 
-import '../checkbox.js';
+import '../checkbox.ts';
 
 describe(`sbb-selection-expansion-panel ssr`, () => {
   let root: SbbSelectionExpansionPanelElement;

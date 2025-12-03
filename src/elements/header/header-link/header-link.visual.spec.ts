@@ -4,11 +4,11 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffStandardStates,
-} from '../../core/testing/private.js';
-import { waitForImageReady } from '../../core/testing.js';
+} from '../../core/testing/private.ts';
+import { waitForImageReady } from '../../core/testing.ts';
 
-import './header-link.component.js';
-import '../../image.js';
+import './header-link.component.ts';
+import '../../image.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

@@ -1,12 +1,13 @@
 import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
-import { appendAriaElements, removeAriaElements, SbbDisabledMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { SbbIconNameMixin } from '../../icon.js';
-import type { SbbStepElement } from '../step.js';
-import type { SbbStepperElement } from '../stepper.js';
+import { SbbButtonBaseElement } from '../../core/base-elements.ts';
+import { SbbPropertyWatcherController } from '../../core/controllers.ts';
+import { appendAriaElements, removeAriaElements, SbbDisabledMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
+import type { SbbStepElement } from '../step.ts';
+import type { SbbStepperElement } from '../stepper.ts';
 
 import style from './step-label.scss?lit&inline';
 
@@ -30,15 +31,43 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
   }
   private _step: SbbStepElement | null = null;
 
-  private _stepper: SbbStepperElement | null = null;
+  public get stepper(): SbbStepperElement | null {
+    return this.closest('sbb-stepper');
+  }
+
+  private _previousOrientation?: string;
+  private _previousSize?: string;
 
   public constructor() {
     super();
     this.addEventListener?.('click', () => {
-      if (this._stepper && this.step) {
-        this._stepper.selected = this.step;
+      const stepper = this.stepper;
+      if (stepper && this.step) {
+        stepper.selected = this.step;
       }
     });
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.stepper, {
+        orientation: (s) => {
+          if (this._previousOrientation) {
+            this.internals.states.delete(`orientation-${this._previousOrientation}`);
+          }
+          this._previousOrientation = s.orientation;
+          if (this._previousOrientation) {
+            this.internals.states.add(`orientation-${this._previousOrientation}`);
+          }
+        },
+        size: (s) => {
+          if (this._previousSize) {
+            this.internals.states.delete(`size-${this._previousSize}`);
+          }
+          this._previousSize = s.size;
+          if (this._previousSize) {
+            this.internals.states.add(`size-${this._previousSize}`);
+          }
+        },
+      }),
+    );
   }
 
   public override connectedCallback(): void {
@@ -47,11 +76,10 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     this.slot ||= 'step-label';
     this.internals.ariaSelected = 'false';
     this.tabIndex = -1;
-    this._stepper = this.closest('sbb-stepper');
     this._assignStep();
-    // The `data-disabled` attribute is used to preserve the initial disabled state of
+    // The `disabled` state is used to preserve the initial disabled state of
     // step labels in case of switching from linear to non-linear mode.
-    this.toggleAttribute('data-disabled', this.hasAttribute('disabled'));
+    this.toggleState('disabled', this.hasAttribute('disabled'));
   }
 
   /**
@@ -61,7 +89,7 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
   public select(): void {
     this.tabIndex = 0;
     this.internals.ariaSelected = 'true';
-    this.toggleAttribute('data-selected', true);
+    this.internals.states.add('selected');
   }
 
   /**
@@ -71,7 +99,7 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
   public deselect(): void {
     this.tabIndex = -1;
     this.internals.ariaSelected = 'false';
-    this.toggleAttribute('data-selected', false);
+    this.internals.states.delete('selected');
   }
 
   /**

@@ -3,12 +3,12 @@ import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
-import '../title.js';
-import './status.component.js';
+import '../title.ts';
+import './status.component.ts';
 
 const type: InputType = {
   control: {

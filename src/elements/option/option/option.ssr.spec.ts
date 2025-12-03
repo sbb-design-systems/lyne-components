@@ -1,14 +1,14 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
-import type { SbbFormFieldElement } from '../../form-field.js';
-import type { SbbSelectElement } from '../../select.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
+import type { SbbFormFieldElement } from '../../form-field.ts';
+import type { SbbSelectElement } from '../../select.ts';
 
-import { SbbOptionElement } from './option.component.js';
+import { SbbOptionElement } from './option.component.ts';
 
-import '../../autocomplete.js';
-import '../../select.js';
+import '../../autocomplete.ts';
+import '../../select.ts';
 
 describe(`sbb-option ssr`, () => {
   describe('standalone', () => {
@@ -69,11 +69,11 @@ describe(`sbb-option ssr`, () => {
       assert.instanceOf(root.querySelector('sbb-option'), SbbOptionElement);
     });
 
-    it('should have data-disable-highlight applied', () => {
+    it('should have state disable-highlight applied', () => {
       const options = root.querySelectorAll('sbb-option');
       expect(options.length).to.eq(3);
       for (const option of options) {
-        expect(option).to.have.attribute('data-disable-highlight');
+        expect(option).to.match(':state(disable-highlight)');
       }
     });
   });

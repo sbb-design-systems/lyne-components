@@ -1,6 +1,6 @@
 /**
  * @entrypoint
  */
-export * from './option/optgroup.js';
-export * from './option/option.js';
-export * from './option/option-hint.js';
+export * from './option/optgroup.ts';
+export * from './option/option.ts';
+export * from './option/option-hint.ts';

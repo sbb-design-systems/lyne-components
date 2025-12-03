@@ -2,11 +2,11 @@ import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import images from '../core/images.js';
-import '../image.js';
-import '../title.js';
-import '../button/secondary-button.js';
-import './message.component.js';
+import images from '../core/images.ts';
+import '../image.ts';
+import '../title.ts';
+import '../button/secondary-button.ts';
+import './message.component.ts';
 
 import readme from './readme.md?raw';
 

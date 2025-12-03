@@ -1,27 +1,26 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAutocompleteElement } from '../../autocomplete.js';
-import type { SbbButtonElement } from '../../button.js';
-import { i18nDialog } from '../../core/i18n.js';
-import { tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
-import { SbbStepElement } from '../../stepper/step/step.component.js';
+import type { SbbAutocompleteElement } from '../../autocomplete.ts';
+import type { SbbButtonElement } from '../../button.ts';
+import { i18nDialog } from '../../core/i18n.ts';
+import { sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { SbbStepElement } from '../../stepper/step/step.component.ts';
 
-import { SbbDialogElement } from './dialog.component.js';
+import { SbbDialogElement } from './dialog.component.ts';
 
-import '../../autocomplete.js';
-import '../../button.js';
-import '../../form-field.js';
-import '../../icon.js';
-import '../../option.js';
-import '../../stepper.js';
-import '../dialog-title.js';
-import '../dialog-close-button.js';
-import '../dialog-content.js';
-import '../dialog-actions.js';
+import '../../autocomplete.ts';
+import '../../button.ts';
+import '../../form-field.ts';
+import '../../icon.ts';
+import '../../option.ts';
+import '../../stepper.ts';
+import '../dialog-title.ts';
+import '../dialog-close-button.ts';
+import '../dialog-content.ts';
+import '../dialog-actions.ts';
 
 async function openDialog(element: SbbDialogElement): Promise<void> {
   const beforeOpenSpy = new EventSpy(SbbDialogElement.events.beforeopen, element);
@@ -38,7 +37,7 @@ async function openDialog(element: SbbDialogElement): Promise<void> {
   expect(openSpy.count).to.be.equal(1);
   await waitForLitRender(element);
 
-  expect(element).to.have.attribute('data-state', 'opened');
+  expect(element).to.match(':state(state-opened)');
   expect(element).to.match(':popover-open');
 }
 
@@ -47,7 +46,7 @@ describe('sbb-dialog', () => {
     let element: SbbDialogElement, ariaLiveRef: HTMLElement;
 
     beforeEach(async () => {
-      await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
       element = await fixture(html`
         <sbb-dialog id="my-dialog-1">
           <sbb-dialog-title>Title</sbb-dialog-title>
@@ -82,7 +81,7 @@ describe('sbb-dialog', () => {
       await waitForLitRender(element);
 
       expect(openSpy.count).to.be.equal(0);
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('closes the dialog', async () => {
@@ -104,7 +103,7 @@ describe('sbb-dialog', () => {
       expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
       expect(element).not.to.match(':popover-open');
       expect(ariaLiveRef.textContent).to.be.equal('');
     });
@@ -125,7 +124,7 @@ describe('sbb-dialog', () => {
       await waitForLitRender(element);
 
       expect(closeSpy.count).to.be.equal(0);
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('closes the dialog on backdrop click', async () => {
@@ -147,7 +146,7 @@ describe('sbb-dialog', () => {
       expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('does not close the dialog on backdrop click', async () => {
@@ -170,7 +169,7 @@ describe('sbb-dialog', () => {
       expect(closeSpy.count).to.be.equal(0);
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('does not close the dialog on backdrop click if pointerdown is on dialog', async () => {
@@ -192,7 +191,7 @@ describe('sbb-dialog', () => {
       expect(closeSpy.count).to.be.equal(0);
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('does not close the dialog on backdrop click if pointerup is on dialog', async () => {
@@ -214,7 +213,7 @@ describe('sbb-dialog', () => {
       expect(closeSpy.count).to.be.equal(0);
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('closes the dialog on close button click with sbb-dialog-close attribute', async () => {
@@ -235,7 +234,7 @@ describe('sbb-dialog', () => {
       expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('closes the dialog on Esc key press', async () => {
@@ -258,7 +257,7 @@ describe('sbb-dialog', () => {
       expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('closes stacked dialogs one by one on ESC key pressed', async () => {
@@ -300,7 +299,7 @@ describe('sbb-dialog', () => {
       expect(openSpy.count).to.be.equal(2);
       await waitForLitRender(element);
 
-      expect(stackedDialog).to.have.attribute('data-state', 'opened');
+      expect(stackedDialog).to.match(':state(state-opened)');
 
       await sendKeys({ press: tabKey });
       await waitForLitRender(element);
@@ -316,8 +315,8 @@ describe('sbb-dialog', () => {
       expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(stackedDialog).to.have.attribute('data-state', 'closed');
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(stackedDialog).to.match(':state(state-closed)');
+      expect(element).to.match(':state(state-opened)');
 
       await sendKeys({ press: tabKey });
       await waitForLitRender(element);
@@ -333,11 +332,13 @@ describe('sbb-dialog', () => {
       expect(closeSpy.count).to.be.equal(2);
       await waitForLitRender(element);
 
-      expect(stackedDialog).to.have.attribute('data-state', 'closed');
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(stackedDialog).to.match(':state(state-closed)');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('opens and closes the overlay with non-zero animation duration', async () => {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       element.style.setProperty('--sbb-dialog-animation-duration', '1ms');
 
       const beforeCloseSpy = new EventSpy(SbbDialogElement.events.beforeclose, element);
@@ -356,11 +357,11 @@ describe('sbb-dialog', () => {
       expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('does not close the dialog on other overlay click', async () => {
-      await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
       element = await fixture(html`
         <sbb-dialog id="my-dialog-4">
           <sbb-dialog-title>Title</sbb-dialog-title>
@@ -395,7 +396,7 @@ describe('sbb-dialog', () => {
       expect(openSpy.count).to.be.equal(2);
       await waitForLitRender(element);
 
-      expect(innerElement).to.have.attribute('data-state', 'opened');
+      expect(innerElement).to.match(':state(state-opened)');
 
       // Simulate a click on the inner dialog's backdrop
       innerElement.dispatchEvent(new PointerEvent('pointerdown'));
@@ -410,8 +411,8 @@ describe('sbb-dialog', () => {
       expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(innerElement).to.have.attribute('data-state', 'closed');
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(innerElement).to.match(':state(state-closed)');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('should remove ariaLiveRef content on any keyboard interaction', async () => {
@@ -464,7 +465,7 @@ describe('sbb-dialog', () => {
     let element: SbbDialogElement, trigger: HTMLElement;
 
     beforeEach(async () => {
-      await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
       const root = await fixture(html`
         <div>
           <button id="trigger"></button>
@@ -532,7 +533,7 @@ describe('sbb-dialog', () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
       expect(element).to.match(':popover-open');
     });
 
@@ -571,7 +572,7 @@ describe('sbb-dialog', () => {
     let element: SbbDialogElement;
 
     beforeEach(async () => {
-      await setViewport({ width: SbbBreakpointLargeMin, height: 300 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 300 });
       element = await fixture(html`
         <sbb-dialog id="my-dialog-1">
           <sbb-dialog-title>Title</sbb-dialog-title>
@@ -603,7 +604,7 @@ describe('sbb-dialog', () => {
     it('sets the overflows state', async () => {
       await openDialog(element);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
       await waitForCondition(() => element.matches(':state(bottom-shadow)'));
       expect(element).to.match(':state(bottom-shadow)');
     });
@@ -615,7 +616,7 @@ describe('sbb-dialog', () => {
 
       const scrollEventSpy = new EventSpy('scroll', scrollContext, { passive: true });
 
-      await setViewport({ width: SbbBreakpointLargeMin, height: 200 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 200 });
       await waitForLitRender(element);
       expect(element).not.to.match(':state(top-shadow)');
 
@@ -672,44 +673,44 @@ describe('sbb-dialog', () => {
       const autocomplete = root.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
 
       // the overlays are all closed
-      expect(dialog).to.have.attribute('data-state', 'closed');
-      expect(nestedDialog).to.have.attribute('data-state', 'closed');
-      expect(autocomplete).to.have.attribute('data-state', 'closed');
+      expect(dialog).to.match(':state(state-closed)');
+      expect(nestedDialog).to.match(':state(state-closed)');
+      expect(autocomplete).to.match(':state(state-closed)');
 
       // open the first dialog
       button.click();
       await waitForLitRender(root);
-      expect(dialog).to.have.attribute('data-state', 'opened');
-      expect(nestedDialog).to.have.attribute('data-state', 'closed');
-      expect(autocomplete).to.have.attribute('data-state', 'closed');
+      expect(dialog).to.match(':state(state-opened)');
+      expect(nestedDialog).to.match(':state(state-closed)');
+      expect(autocomplete).to.match(':state(state-closed)');
 
       // open the second dialog; since it has no sbb-title, the autocomplete is the first focusable element, so it opens
       nestedButton.click();
       await waitForLitRender(root);
-      expect(dialog).to.have.attribute('data-state', 'opened');
-      expect(nestedDialog).to.have.attribute('data-state', 'opened');
-      expect(autocomplete).to.have.attribute('data-state', 'opened');
+      expect(dialog).to.match(':state(state-opened)');
+      expect(nestedDialog).to.match(':state(state-opened)');
+      expect(autocomplete).to.match(':state(state-opened)');
 
       // press Escape for the first time will close the autocomplete but not the dialogs
       await sendKeys({ press: 'Escape' });
       await waitForLitRender(root);
-      expect(dialog).to.have.attribute('data-state', 'opened');
-      expect(nestedDialog).to.have.attribute('data-state', 'opened');
-      expect(autocomplete).to.have.attribute('data-state', 'closed');
+      expect(dialog).to.match(':state(state-opened)');
+      expect(nestedDialog).to.match(':state(state-opened)');
+      expect(autocomplete).to.match(':state(state-closed)');
 
       // press Escape for the second time will close the second dialog
       await sendKeys({ press: 'Escape' });
       await waitForLitRender(root);
-      expect(dialog).to.have.attribute('data-state', 'opened');
-      expect(nestedDialog).to.have.attribute('data-state', 'closed');
-      expect(autocomplete).to.have.attribute('data-state', 'closed');
+      expect(dialog).to.match(':state(state-opened)');
+      expect(nestedDialog).to.match(':state(state-closed)');
+      expect(autocomplete).to.match(':state(state-closed)');
 
       // press Escape again will close the first dialog
       await sendKeys({ press: 'Escape' });
       await waitForLitRender(root);
-      expect(dialog).to.have.attribute('data-state', 'closed');
-      expect(nestedDialog).to.have.attribute('data-state', 'closed');
-      expect(autocomplete).to.have.attribute('data-state', 'closed');
+      expect(dialog).to.match(':state(state-closed)');
+      expect(nestedDialog).to.match(':state(state-closed)');
+      expect(autocomplete).to.match(':state(state-closed)');
     });
   });
 
@@ -717,7 +718,7 @@ describe('sbb-dialog', () => {
     let root: SbbDialogElement;
 
     beforeEach(async () => {
-      await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
       root = await fixture(html`
         <sbb-dialog>
           <sbb-dialog-title>Title</sbb-dialog-title>
@@ -743,9 +744,11 @@ describe('sbb-dialog', () => {
 
     it('should open the dialog and the stepper should appear with the correct style', async () => {
       const stepper = root.querySelector('sbb-stepper')!;
-      expect(getComputedStyle(stepper).getPropertyValue('--sbb-stepper-marker-size')).to.be.equal(
-        '0px',
-      );
+      // TODO: Firefox has 0 instead of 0px; fix when possible
+      expect(
+        parseInt(getComputedStyle(stepper).getPropertyValue('--sbb-stepper-marker-size')),
+        'stepper marker size',
+      ).to.be.equal(0);
       expect(
         getComputedStyle(stepper).getPropertyValue('--sbb-stepper-content-height'),
       ).to.be.equal('0px');
@@ -756,7 +759,7 @@ describe('sbb-dialog', () => {
       await waitForLitRender(root);
       await resizeChangeSpy.calledOnce();
       expect(resizeChangeSpy.count).to.be.equal(1);
-      expect(root).to.have.attribute('data-state', 'opened');
+      expect(root).to.match(':state(state-opened)');
 
       // Need to wait for the intersector to kick in; the value is set in px, so we have to remove the unit
       await waitForCondition(
@@ -818,18 +821,18 @@ describe('sbb-dialog', () => {
     nestedOpenButton.click();
     await nestedOpenSpy.calledOnce();
 
-    expect(dialog).to.have.attribute('data-state', 'opened');
-    expect(nestedDialog).to.have.attribute('data-state', 'opened');
+    expect(dialog).to.match(':state(state-opened)');
+    expect(nestedDialog).to.match(':state(state-opened)');
 
     nestedCloseButton.click();
     await nestedCloseSpy.calledOnce();
 
-    expect(dialog).to.have.attribute('data-state', 'opened');
-    expect(nestedDialog).to.have.attribute('data-state', 'closed');
+    expect(dialog).to.match(':state(state-opened)');
+    expect(nestedDialog).to.match(':state(state-closed)');
 
     closeButton.click();
     await closeSpy.calledOnce();
-    expect(dialog).to.have.attribute('data-state', 'closed');
-    expect(nestedDialog).to.have.attribute('data-state', 'closed');
+    expect(dialog).to.match(':state(state-closed)');
+    expect(nestedDialog).to.match(':state(state-closed)');
   });
 });

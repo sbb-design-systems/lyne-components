@@ -2,12 +2,12 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
-import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../mixins.js';
-import { tabKey } from '../testing/private/keys.js';
-import { fixture, typeInElement } from '../testing/private.js';
-import { EventSpy, waitForLitRender } from '../testing.js';
+import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../mixins.ts';
+import { tabKey } from '../testing/private/keys.ts';
+import { fixture, typeInElement } from '../testing/private.ts';
+import { EventSpy, waitForLitRender } from '../testing.ts';
 
-import { SbbButtonBaseElement } from './button-base-element.js';
+import { SbbButtonBaseElement } from './button-base-element.ts';
 
 type FormDataEntry = { [p: string]: FormDataEntryValue };
 
@@ -71,22 +71,22 @@ describe(`SbbButtonBaseElement`, () => {
       element.click();
       await waitForLitRender(element);
       expect(clickSpy.count).to.be.equal(1);
-      expect(await element.getAttribute('data-active')).to.be.equal(null);
+      expect(element).not.to.match(':state(active)');
     });
 
     it('space keydown and keyup', async () => {
       element.focus();
       await waitForLitRender(element);
       const clickSpy = new EventSpy('click');
-      expect(await element.getAttribute('data-active')).to.be.equal(null);
+      expect(element).not.to.match(':state(active)');
 
       await sendKeys({ down: 'Space' });
       await waitForLitRender(element);
-      expect(await element.getAttribute('data-active')).to.be.equal('');
+      expect(element).to.match(':state(active)');
 
       await sendKeys({ up: 'Space' });
       await waitForLitRender(element);
-      expect(await element.getAttribute('data-active')).to.be.equal(null);
+      expect(element).not.to.match(':state(active)');
       await waitForLitRender(element);
       expect(clickSpy.count).to.be.equal(1);
     });

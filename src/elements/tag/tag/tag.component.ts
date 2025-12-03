@@ -2,17 +2,17 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbButtonLikeBaseElement } from '../../core/base-elements.js';
-import { forceType, getOverride, omitEmptyConverter } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
+import { SbbButtonLikeBaseElement } from '../../core/base-elements.ts';
+import { forceType, getOverride, omitEmptyConverter } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledTabIndexActionMixin,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { SbbIconNameMixin } from '../../icon.js';
-import type { SbbTagGroupElement } from '../tag-group.js';
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
+import type { SbbTagGroupElement } from '../tag-group.ts';
 
 import style from './tag.scss?lit&inline';
 
@@ -117,7 +117,7 @@ class SbbTagElement<T = string> extends SbbIconNameMixin(
 
     if (changedProperties.has('checked')) {
       this.internals.ariaPressed = `${this.checked}`;
-      this.toggleAttribute('data-checked', this.checked);
+      this.toggleState('checked', this.checked);
       this.updateFormValue();
     }
 

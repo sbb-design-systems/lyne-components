@@ -2,9 +2,9 @@
 
 $intersector-overlapping: 1px;
 
-// `data-sticking` v.s. `data-state='sticky'`:
-// While `data-sticking` is representing whether the sticky bar is currently sticking (due scrolling),
-// the `data-state` holds information whether the `position: sticky` is applied or not
+// `:state(sticking)` v.s. `:state(state-sticky)`:
+// While `:state(sticking)` is representing whether the sticky bar is currently sticking (due scrolling),
+// the `:state(state-xy)` holds information whether the `position: sticky` is applied or not
 // but not considering the real sticking state.
 
 :host {
@@ -41,7 +41,7 @@ $intersector-overlapping: 1px;
   --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xxxs);
 }
 
-:host([data-sticking]:not([data-state='unsticky'])) {
+:host(:state(sticking):not(:state(state-unsticky))) {
   --sbb-sticky-bar-sticky-background-color: var(
     --sbb-container-background-color,
     var(--sbb-background-color-1)
@@ -54,45 +54,45 @@ $intersector-overlapping: 1px;
   }
 }
 
-:host([data-sticking]:not([data-state='unsticky'])[color='white']) {
+:host(:state(sticking):not(:state(state-unsticky))[color='white']) {
   --sbb-sticky-bar-sticky-background-color: var(--sbb-background-color-1);
 }
 
-:host([data-sticking]:not([data-state='unsticky'])[color='milk']) {
+:host(:state(sticking):not(:state(state-unsticky))[color='milk']) {
   --sbb-sticky-bar-sticky-background-color: var(--sbb-background-color-3);
 }
 
-:host([data-sticking]:not([data-state='unsticky'])[color='midnight']) {
+:host(:state(sticking):not(:state(state-unsticky))[color='midnight']) {
   --sbb-sticky-bar-sticky-background-color: var(--sbb-background-color-1-negative);
 }
 
-:host([data-sticking]:not([data-state='unsticky'])[color='charcoal']) {
+:host(:state(sticking):not(:state(state-unsticky))[color='charcoal']) {
   --sbb-sticky-bar-sticky-background-color: var(--sbb-background-color-2-negative);
 }
 
 :host(
   :is(
-    [data-sticking]:is([data-slide-vertically], [data-state='sticking'], [data-state='unsticking']),
-    [data-state='unsticky']
+    :state(sticking):is(:state(slide-vertically), :state(state-sticking), :state(state-unsticking)),
+    :state(state-unsticky)
   )
 ) {
   --_sbb-sticky-bar-background-animation-duration: 0s;
 }
 
 :host(
-  [data-sticking]:is(
-    [data-slide-vertically]:not([data-state='unsticky'], [data-state='unsticking']),
-    [data-state='sticking']
+  :state(sticking):is(
+    :state(slide-vertically):not(:state(state-unsticky), :state(state-unsticking)),
+    :state(state-sticking)
   )
 ) {
   --sbb-sticky-bar-slide-vertically-animation-name: slide-in;
 }
 
-:host([data-sticking][data-state='unsticking']) {
+:host(:state(sticking):state(state-unsticking)) {
   --sbb-sticky-bar-slide-vertically-animation-name: slide-out;
 }
 
-:host(:is(:not([data-initialized]), [data-state='unsticky'])) {
+:host(:is(:not(:state(initialized)), :state(state-unsticky))) {
   --sbb-sticky-bar-position: relative;
 }
 
@@ -129,7 +129,7 @@ $intersector-overlapping: 1px;
     // has troubles displaying correct padding when there is no content.
     padding: 0 !important;
 
-    :host(:not([data-expanded])) & {
+    :host(:not(:state(expanded))) & {
       @include sbb.page-spacing;
     }
   }
@@ -171,16 +171,16 @@ $intersector-overlapping: 1px;
       -50% 50%
     );
 
-    :host([data-sticking]:not([data-state='unsticky'])) & {
+    :host(:state(sticking):not(:state(state-unsticky))) & {
       box-shadow: var(--sbb-box-shadow-level-11-soft);
     }
   }
 
-  :host(:not([data-expanded])) & {
+  :host(:not(:state(expanded))) & {
     @include sbb.page-spacing;
   }
 
-  :host([data-expanded]) & {
+  :host(:state(expanded)) & {
     @include sbb.page-spacing-expanded;
   }
 }

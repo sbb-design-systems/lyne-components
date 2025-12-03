@@ -1,6 +1,6 @@
 import type { ReactiveElement } from 'lit';
 
-import type { Interface, PropertyDecorator } from './base.js';
+import type { Interface, PropertyDecorator } from './base.ts';
 
 /**
  * Decorator that forces the value of a property or getter/setter

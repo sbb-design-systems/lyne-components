@@ -5,17 +5,17 @@ import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbCheckboxElement } from '../checkbox.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import type { SbbCheckboxElement } from '../checkbox.ts';
 
 import readme from './readme.md?raw';
 
-import './checkbox-group.component.js';
-import '../checkbox.js';
-import '../checkbox-panel.js';
-import '../../form-error.js';
-import '../../icon.js';
-import '../../card/card-badge.js';
+import './checkbox-group.component.ts';
+import '../checkbox.ts';
+import '../checkbox-panel.ts';
+import '../../form-field/error.ts';
+import '../../icon.ts';
+import '../../card/card-badge.ts';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -112,9 +112,7 @@ const ErrorMessageTemplate = ({
 }: Args): TemplateResult => html`
   <sbb-checkbox-group ${sbbSpread(args)} id="sbb-checkbox-group">
     ${checkboxes(checked, disabledSingle, iconName, iconPlacement, label)}
-    ${args.required
-      ? html`<sbb-form-error slot="error">This is a required field.</sbb-form-error>`
-      : nothing}
+    ${args.required ? html`<sbb-error slot="error">This is a required field.</sbb-error>` : nothing}
   </sbb-checkbox-group>
 `;
 
@@ -234,7 +232,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's', 'xs'],
+  options: ['xs', 's', 'm'],
   table: {
     category: 'Checkbox group',
   },
@@ -407,13 +405,13 @@ export const verticalIconEndLongLabel: StoryObj = {
   args: { ...checkboxArgsVertical, ...iconEnd, label: longLabelText },
 };
 
-export const horizontalWithSbbFormError: StoryObj = {
+export const horizontalWitherror: StoryObj = {
   render: ErrorMessageTemplate,
   argTypes: checkboxArgTypes,
   args: { ...checkboxArgs, required: true },
 };
 
-export const verticalWithSbbFormError: StoryObj = {
+export const verticalWitherror: StoryObj = {
   render: ErrorMessageTemplate,
   argTypes: checkboxArgTypes,
   args: { ...checkboxArgsVertical, required: true },

@@ -1,0 +1,19 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-selection-action-panel-action-margin-inline-xs: var(--sbb-spacing-responsive-xxxs);
+  --sbb-selection-action-panel-action-margin-inline-s: var(--sbb-spacing-responsive-xxxs);
+  --sbb-selection-action-panel-action-margin-inline-m: var(--sbb-spacing-responsive-xxs);
+  --sbb-selection-action-panel-action-margin-inline: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-selection-action-panel-action-margin-inline-m),
+        'lean': var(--sbb-selection-action-panel-action-margin-inline-xs),
+      ),
+      $theme
+    )};
+  --sbb-selection-action-panel-background: var(--sbb-selection-panel-background-default);
+  --sbb-selection-action-panel-border-color: var(--sbb-selection-panel-border-color-default);
+  --sbb-selection-action-panel-border-width: var(--sbb-selection-panel-border-width-default);
+}

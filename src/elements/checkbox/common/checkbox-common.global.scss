@@ -1,0 +1,25 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-checkbox-dimension-xs: #{sbb.px-to-rem-build(20)};
+  --sbb-checkbox-dimension-s: var(--sbb-size-icon-ui-small);
+  --sbb-checkbox-dimension-m: var(--sbb-size-icon-ui-small);
+  --sbb-checkbox-dimension: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-checkbox-dimension-m),
+        'lean': var(--sbb-checkbox-dimension-xs),
+      ),
+      $theme
+    )};
+  --sbb-checkbox-font-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-text-font-size-m),
+        'lean': var(--sbb-text-font-size-xs),
+      ),
+      $theme
+    )};
+  --sbb-checkbox-label-color: var(--sbb-color-color-3);
+  --sbb-checkbox-cursor: var(--sbb-cursor-pointer);
+}

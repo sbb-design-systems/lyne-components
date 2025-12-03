@@ -2,11 +2,16 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { isLean } from '../../core/dom.js';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbNavigationButtonElement } from '../navigation-button.js';
-import type { SbbNavigationLinkElement } from '../navigation-link.js';
+import { isLean } from '../../core/dom.ts';
+import {
+  SbbElementInternalsMixin,
+  SbbNamedSlotListMixin,
+  ɵstateController,
+  type WithListChildren,
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button.ts';
+import type { SbbNavigationLinkElement } from '../navigation-link.ts';
 
 import style from './navigation-marker.scss?lit&inline';
 
@@ -17,10 +22,11 @@ import style from './navigation-marker.scss?lit&inline';
  */
 export
 @customElement('sbb-navigation-marker')
-class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
-  SbbNavigationButtonElement | SbbNavigationLinkElement,
-  typeof LitElement
->(LitElement) {
+class SbbNavigationMarkerElement extends SbbElementInternalsMixin(
+  SbbNamedSlotListMixin<SbbNavigationButtonElement | SbbNavigationLinkElement, typeof LitElement>(
+    LitElement,
+  ),
+) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = [
     'sbb-navigation-button',
@@ -52,7 +58,7 @@ class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
     if (changedProperties.has('size') || changedProperties.has('listChildren')) {
       this._updateMarkerActions();
     }
-    this.toggleAttribute('data-has-active-action', !!this._currentActiveAction);
+    this.toggleState('has-active-action', !!this._currentActiveAction);
   }
 
   private _updateMarkerActions(): void {
@@ -61,7 +67,7 @@ class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
     }
 
     this._currentActiveAction = this.listChildren.find((action) =>
-      action.hasAttribute('data-action-active'),
+      action.matches(':state(action-active)'),
     );
     this._setMarkerPosition();
   }
@@ -85,7 +91,7 @@ class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
       return;
     }
     this.reset();
-    action.toggleAttribute('data-action-active', true);
+    ɵstateController(action).add('action-active');
     this._currentActiveAction = action;
     setTimeout(() => this._setMarkerPosition());
   }
@@ -98,7 +104,7 @@ class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
 
   public reset(): void {
     if (this._currentActiveAction) {
-      this._currentActiveAction.removeAttribute('data-action-active');
+      ɵstateController(this._currentActiveAction).delete('action-active');
       this._currentActiveAction.connectedSection?.close();
       this._currentActiveAction = undefined;
     }

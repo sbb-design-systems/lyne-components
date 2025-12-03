@@ -23,10 +23,10 @@ import {
   blockXSIcon,
   linkCommonDefaultArgs,
   linkCommonDefaultArgTypes,
-} from '../common/link-common-stories.private.js';
+} from '../common/link-common-stories.private.ts';
 
 import readme from './readme.md?raw';
-import './block-link-static.component.js';
+import './block-link-static.component.ts';
 
 const defaultArgTypes: ArgTypes = {
   ...blockLinkCommonDefaultArgTypes,

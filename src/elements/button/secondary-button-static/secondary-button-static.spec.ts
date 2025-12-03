@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils.private.js';
-import './secondary-button-static.component.js';
+} from '../common/button-test-utils.private.ts';
+import './secondary-button-static.component.ts';
 
 describe(`sbb-secondary-button-static`, () => {
   it('should detect icon in sbb-secondary-button-static', async () => {

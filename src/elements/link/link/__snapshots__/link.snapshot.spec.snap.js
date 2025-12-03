@@ -3,9 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-link renders DOM"] = 
 `<sbb-link
-  data-action=""
-  data-link=""
-  data-sbb-link=""
   href="https://sbb.ch"
   size="m"
   target="_blank"
@@ -66,9 +63,6 @@ snapshots["sbb-link renders A11y tree Firefox"] =
 
 snapshots["sbb-link reflects properties DOM"] = 
 `<sbb-link
-  data-action=""
-  data-link=""
-  data-sbb-link=""
   download=""
   href="https://sbb.ch/"
   rel="nofollow"

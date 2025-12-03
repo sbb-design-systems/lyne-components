@@ -13,8 +13,8 @@ import {
   progressLeg,
   redirectedOnArrivalLeg,
   redirectedOnDepartureLeg,
-} from './pearl-chain.sample-data.private.js';
-import './pearl-chain.component.js';
+} from './pearl-chain.sample-data.private.ts';
+import './pearl-chain.component.ts';
 
 describe(`sbb-pearl-chain`, () => {
   const cases = [

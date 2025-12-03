@@ -6,10 +6,10 @@ import {
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html, type TemplateResult } from 'lit';
 
-import type { ITripItem } from '../core/timetable/timetable-properties.js';
+import type { ITripItem } from '../core/timetable/timetable-properties.ts';
 
-import type { Boarding, Price } from './timetable-row.component.js';
-import './timetable-row.component.js';
+import type { Boarding, Price } from './timetable-row.component.ts';
+import './timetable-row.component.ts';
 import {
   a11yFootpathTrip,
   busTrip,
@@ -29,7 +29,7 @@ import {
   skippedLastArrivalStopTrip,
   trainTrip,
   walkTimeTrip,
-} from './timetable-row.sample-data.private.js';
+} from './timetable-row.sample-data.private.ts';
 
 const samplePrice: Price = { price: '39.90', text: 'ab CHF', isDiscount: false };
 

@@ -11,19 +11,18 @@ or a [sbb-radio-button-panel](/docs/elements-sbb-radio-button-sbb-radio-button-p
   <!-- action -->
   <sbb-secondary-button icon-name="arrow-right-small">...</sbb-secondary-button>
   <!-- or -->
-  <button data-action>...</button>
+  <button class="sbb-action">...</button>
 </sbb-selection-action-panel>
 ```
 
 ## With expansion panel
 
 It is possible to combine the usage of the `sbb-selection-action-panel` and the [sbb-selection-expansion-panel](/docs/elements-sbb-selection-expansion-panel--docs).
-Be aware that the `color` and the `borderless` properties need to be set on the expansion panel component.
 
 ```html
-<sbb-selection-expansion-panel color="..." borderless>
+<sbb-selection-expansion-panel>
   <sbb-selection-action-panel>
-    <sbb-radio-button-panel>
+    <sbb-radio-button-panel color="milk" borderless>
       Value
       <span slot="subtext">Subtext</span>
     </sbb-radio-button-panel>
@@ -74,48 +73,16 @@ With `sbb-checkbox-group`:
 
 ## Style
 
-### Color
-
-The component has two background options that can be set using the `color` variable: `milk` and `white` (default).
-
-```html
-<sbb-selection-action-panel color="milk"> ... </sbb-selection-action-panel>
-```
-
-It's also possible to display the `sbb-selection-action-panel` without border by setting the `borderless` variable to `true`.
-
-```html
-<sbb-selection-action-panel borderless> ... </sbb-selection-action-panel>
-```
-
-### Size
-
-The component has no `size` property but, when slotted in a `sbb-radio-button-group` or in a `sbb-checkbox-group`,
-it adapts to the parent `size` (`m` or `s`); if there's no wrapping group component,
-it adapts its `size` to the slotted `sbb-radio-button-panel` or in a `sbb-checkbox-panel`.
-
-```html
-<!-- Adapts to the size of the `sbb-checkbox-group`-->
-<sbb-checkbox-group size="s">
-  <sbb-selection-action-panel>
-    <sbb-checkbox-panel> ... </sbb-checkbox-panel>
-  </sbb-selection-action-panel>
-</sbb-checkbox-group>
-
-<!-- Adapts to the size of the `sbb-checkbox-panel`-->
-<sbb-selection-action-panel>
-  <sbb-checkbox-panel size="s"> ... </sbb-checkbox-panel>
-</sbb-selection-action-panel>
-```
+The component inherits its style from the slotted panel component (`sbb-checkbox-panel` or `sbb-radio-button-panel`).
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name         | Attribute    | Privacy | Type                | Default   | Description                                |
-| ------------ | ------------ | ------- | ------------------- | --------- | ------------------------------------------ |
-| `borderless` | `borderless` | public  | `boolean`           | `false`   | Whether the unselected panel has a border. |
-| `color`      | `color`      | public  | `'white' \| 'milk'` | `'white'` | The background color of the panel.         |
+| Name    | Attribute | Privacy | Type                                                            | Default | Description              |
+| ------- | --------- | ------- | --------------------------------------------------------------- | ------- | ------------------------ |
+| `group` | -         | public  | `SbbRadioButtonGroupElement \| SbbCheckboxGroupElement \| null` |         | Group element if present |
+| `panel` | -         | public  | `SbbCheckboxPanelElement \| SbbRadioButtonPanelElement \| null` |         | Input panel element      |
 
 ## Slots
 

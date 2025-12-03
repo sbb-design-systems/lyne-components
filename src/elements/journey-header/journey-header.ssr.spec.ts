@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbJourneyHeaderElement } from './journey-header.component.js';
+import { SbbJourneyHeaderElement } from './journey-header.component.ts';
 
 describe(`sbb-journey-header ssr`, () => {
   let root: SbbJourneyHeaderElement;

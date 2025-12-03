@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender, waitForCondition } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender, waitForCondition } from '../../core/testing.ts';
 
-import { SbbTableWrapperElement } from './table-wrapper.component.js';
+import { SbbTableWrapperElement } from './table-wrapper.component.ts';
 
 describe(`sbb-table-wrapper`, () => {
   let element: SbbTableWrapperElement;
@@ -33,7 +33,7 @@ describe(`sbb-table-wrapper`, () => {
 
   it('renders', async () => {
     assert.instanceOf(element, SbbTableWrapperElement);
-    expect(element).not.to.have.attribute('data-has-horizontal-scrollbar');
+    expect(element).not.to.match(':state(has-horizontal-scrollbar)');
   });
 
   it('detect horizontal scrollbar', async () => {

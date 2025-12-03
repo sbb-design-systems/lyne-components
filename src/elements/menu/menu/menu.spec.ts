@@ -1,20 +1,25 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { SbbBreakpointLargeMin, SbbBreakpointSmallMin } from '@sbb-esta/lyne-design-tokens';
-import { emulateMedia, sendMouse, sendKeys, setViewport } from '@web/test-runner-commands';
+import { emulateMedia, sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
-import type { SbbButtonElement } from '../../button.js';
-import { isWebkit } from '../../core/dom.js';
-import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
-import type { SbbMenuButtonElement } from '../menu-button.js';
+import type { SbbButtonElement } from '../../button.ts';
+import { isWebkit } from '../../core/dom.ts';
+import {
+  fixture,
+  sbbBreakpointLargeMinPx,
+  sbbBreakpointSmallMinPx,
+  tabKey,
+} from '../../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import type { SbbMenuButtonElement } from '../menu-button.ts';
 
-import { SbbMenuElement } from './menu.component.js';
+import { SbbMenuElement } from './menu.component.ts';
 
-import '../../button/button.js';
-import '../../link.js';
-import '../../divider.js';
-import '../menu-button.js';
+import '../../button/button.ts';
+import '../../link.ts';
+import '../../divider.ts';
+import '../menu-button.ts';
 
 describe(`sbb-menu`, () => {
   let element: SbbMenuElement, trigger: SbbButtonElement;
@@ -57,7 +62,7 @@ describe(`sbb-menu`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
       expect(element).to.match(':popover-open');
     });
 
@@ -75,7 +80,7 @@ describe(`sbb-menu`, () => {
 
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       await sendKeys({ press: tabKey });
       await waitForLitRender(element);
@@ -89,7 +94,7 @@ describe(`sbb-menu`, () => {
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
       expect(element).not.to.match(':popover-open');
     });
 
@@ -99,7 +104,7 @@ describe(`sbb-menu`, () => {
       await waitForLitRender(element);
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       // First element focused by default.
       expect(document.activeElement!.id).to.be.equal('menu-link');
@@ -166,7 +171,7 @@ describe(`sbb-menu`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
       expect(menuAction).not.to.be.null;
 
       menuAction.click();
@@ -176,7 +181,7 @@ describe(`sbb-menu`, () => {
 
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('closes on interactive element click', async () => {
@@ -195,7 +200,7 @@ describe(`sbb-menu`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
       expect(menuLink).not.to.be.null;
 
       menuLink.click();
@@ -207,10 +212,12 @@ describe(`sbb-menu`, () => {
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
-    it('opens and closes with non-zero animation duration', async () => {
+    it('opens and closes with non-zero animation duration', async function (this: Context) {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       element.style.setProperty('--sbb-menu-animation-duration', '1ms');
       const openSpy = new EventSpy(SbbMenuElement.events.open, element);
       const closeSpy = new EventSpy(SbbMenuElement.events.close, element);
@@ -226,13 +233,13 @@ describe(`sbb-menu`, () => {
 
       await closeSpy.calledOnce();
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('is correctly positioned on desktop', async () => {
       const beforeOpenSpy = new EventSpy(SbbMenuElement.events.beforeopen, element);
       const openSpy = new EventSpy(SbbMenuElement.events.open, element);
-      await setViewport({ width: SbbBreakpointLargeMin, height: 800 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 800 });
       if (isWebkit) {
         // Needed to let media queries get applied on Webkit
         // TODO: Figure out why
@@ -250,7 +257,7 @@ describe(`sbb-menu`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       const buttonHeight = getComputedStyle(document.documentElement).getPropertyValue(
         `--sbb-size-element-m`,
@@ -271,7 +278,7 @@ describe(`sbb-menu`, () => {
       const beforeOpenSpy = new EventSpy(SbbMenuElement.events.beforeopen, element);
       const openSpy = new EventSpy(SbbMenuElement.events.open, element);
 
-      await setViewport({ width: SbbBreakpointSmallMin, height: 600 });
+      await setViewport({ width: sbbBreakpointSmallMinPx, height: 600 });
       const menu: HTMLDivElement = element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-menu')!;
 
       trigger.click();
@@ -283,7 +290,7 @@ describe(`sbb-menu`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       const menuOffsetTop = menu.offsetTop;
       const menuHeight = menu.offsetHeight;
@@ -306,7 +313,7 @@ describe(`sbb-menu`, () => {
 
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
 
       expect(document.activeElement!.id).to.be.equal('menu-link');
     });
@@ -321,7 +328,7 @@ describe(`sbb-menu`, () => {
       expect(beforeOpenSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('does not close if prevented', async () => {
@@ -338,7 +345,7 @@ describe(`sbb-menu`, () => {
       await waitForLitRender(element);
       await beforeCloseSpy.calledOnce();
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('does forward scroll event to document', async () => {
@@ -407,7 +414,7 @@ describe(`sbb-menu`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
       expect(element).to.match(':popover-open');
     });
 
@@ -625,8 +632,8 @@ describe(`sbb-menu`, () => {
       await waitForLitRender(element);
       await closeSpy.calledTimes(2);
 
-      expect(element.getAttribute('data-state')).to.be.equal('closed');
-      expect(nestedMenu.getAttribute('data-state')).to.be.equal('closed');
+      expect(element).to.match(':state(state-closed)');
+      expect(nestedMenu).to.match(':state(state-closed)');
 
       element.open();
       await waitForLitRender(element);
@@ -634,8 +641,8 @@ describe(`sbb-menu`, () => {
 
       // If multiple menus are closed at the same time, when opening
       // the outermost menu again the nested ones should stay closed
-      expect(element.getAttribute('data-state')).to.be.equal('opened');
-      expect(nestedMenu.getAttribute('data-state')).to.be.equal('closed');
+      expect(element).to.match(':state(state-opened)');
+      expect(nestedMenu).to.match(':state(state-closed)');
     });
 
     it('clicks need to start and end on backdrop to close menu', async () => {
@@ -658,8 +665,8 @@ describe(`sbb-menu`, () => {
       root.dispatchEvent(new Event('pointerup', { bubbles: true }));
       await waitForLitRender(element);
 
-      expect(element.getAttribute('data-state')).to.be.equal('opened');
-      expect(nestedMenu.getAttribute('data-state')).to.be.equal('opened');
+      expect(element).to.match(':state(state-opened)');
+      expect(nestedMenu).to.match(':state(state-opened)');
 
       root.dispatchEvent(new Event('pointerdown', { bubbles: true }));
       await waitForLitRender(element);
@@ -667,8 +674,8 @@ describe(`sbb-menu`, () => {
       firstElement.dispatchEvent(new Event('pointerup', { bubbles: true }));
       await waitForLitRender(element);
 
-      expect(element.getAttribute('data-state')).to.be.equal('opened');
-      expect(nestedMenu.getAttribute('data-state')).to.be.equal('opened');
+      expect(element).to.match(':state(state-opened)');
+      expect(nestedMenu).to.match(':state(state-opened)');
     });
   });
 });

@@ -1,4 +1,6 @@
-import { getElementPosition } from './position.js';
+import { type SbbElementInternalsMixinType, ɵstateController } from '../mixins.ts';
+
+import { getElementPosition } from './position.ts';
 
 /**
  * Places the overlay in the correct position.
@@ -14,7 +16,7 @@ export function setOverlayPosition(
   originElement: HTMLElement,
   optionContainer: HTMLElement,
   container: HTMLElement,
-  element: HTMLElement,
+  element: HTMLElement & SbbElementInternalsMixinType,
   position: 'auto' | 'above' | 'below' = 'auto',
 ): void {
   if (!dialog || !originElement) {
@@ -36,6 +38,13 @@ export function setOverlayPosition(
   element.style.setProperty('--sbb-options-panel-position-x', `${panelPosition.left}px`);
   element.style.setProperty('--sbb-options-panel-position-y', `${panelPosition.top}px`);
   element.style.setProperty('--sbb-options-panel-max-height', panelPosition.maxHeight);
-  element.setAttribute('data-options-panel-position', panelPosition.alignment.vertical);
+  const controller = ɵstateController(element);
+  if (panelPosition.alignment.vertical === 'above') {
+    controller.add('options-panel-position-above');
+    controller.delete('options-panel-position-below');
+  } else {
+    controller.add('options-panel-position-below');
+    controller.delete('options-panel-position-above');
+  }
   originElement.setAttribute('data-options-panel-position', panelPosition.alignment.vertical);
 }

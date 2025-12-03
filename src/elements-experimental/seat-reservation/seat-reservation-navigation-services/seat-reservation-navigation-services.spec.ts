@@ -1,9 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
-import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing/wait-for-render';
+import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbSeatReservationNavigationServicesElement } from './seat-reservation-navigation-services.component.js';
+import { SbbSeatReservationNavigationServicesElement } from './seat-reservation-navigation-services.component.ts';
 
 let element: SbbSeatReservationNavigationServicesElement;
 

@@ -1,6 +1,6 @@
-import { SbbLanguageController } from '../controllers.js';
+import { SbbLanguageController } from '../controllers.ts';
 
-import { DateAdapter, FORMAT_DATE, ISO8601_FORMAT_DATE } from './date-adapter.js';
+import { DateAdapter, FORMAT_DATE, ISO8601_FORMAT_DATE } from './date-adapter.ts';
 
 /**
  * Matches strings that have the form of a valid RFC 3339 string

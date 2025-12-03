@@ -1,13 +1,13 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './map-container.component.js';
-import '../card.js';
-import '../header.js';
-import '../logo.js';
-import '../title.js';
+import './map-container.component.ts';
+import '../card.ts';
+import '../header.ts';
+import '../logo.ts';
+import '../title.ts';
 
 describe(`sbb-map-container`, () => {
   const template = (stickyOffset = false): TemplateResult => html`

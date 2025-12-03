@@ -2,12 +2,12 @@ import { nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { forceType, hostAttributes } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
-import type { AbstractConstructor } from '../../core/mixins.js';
-import { SbbNegativeMixin } from '../../core/mixins.js';
-import { SbbIconNameMixin } from '../../icon.js';
+import type { SbbActionBaseElement } from '../../core/base-elements.ts';
+import { forceType } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
+import type { AbstractConstructor } from '../../core/mixins.ts';
+import { SbbNegativeMixin } from '../../core/mixins.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
 
 export type SbbButtonSize = 'l' | 'm' | 's';
 
@@ -22,9 +22,6 @@ export declare class SbbButtonCommonElementMixinType extends SbbNegativeMixin(
 export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbActionBaseElement>>(
   superClass: T,
 ): AbstractConstructor<SbbButtonCommonElementMixinType> & T => {
-  @hostAttributes({
-    'data-sbb-button': '',
-  })
   abstract class SbbButtonCommonElementClass
     extends SbbNegativeMixin(SbbIconNameMixin(superClass))
     implements Partial<SbbButtonCommonElementMixinType>
@@ -42,6 +39,11 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
     @forceType()
     @property({ reflect: true, type: Boolean })
     public accessor loading: boolean = false;
+
+    protected constructor(...args: unknown[]) {
+      super(...args);
+      this.internals.states.add('sbb-button');
+    }
 
     protected override willUpdate(changedProperties: PropertyValues<this>): void {
       super.willUpdate(changedProperties);

@@ -4,9 +4,9 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
-import '../../icon.js';
+import '../../icon.ts';
 
 export const paragraphStyle = (negative: boolean): Record<string, string> => ({
   color: negative

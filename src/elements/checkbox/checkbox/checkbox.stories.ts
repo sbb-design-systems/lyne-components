@@ -4,13 +4,13 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './checkbox.component.js';
-import '../../card.js';
-import '../../button/button.js';
-import '../../button/secondary-button.js';
+import './checkbox.component.ts';
+import '../../card.ts';
+import '../../button/button.ts';
+import '../../button/secondary-button.ts';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -23,7 +23,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's', 'xs'],
+  options: ['xs', 's', 'm'],
 };
 
 const checked: InputType = {
@@ -171,12 +171,12 @@ export const defaultIndeterminate: StoryObj = {
 export const sizeM: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![0] },
+  args: { ...defaultArgs, size: size.options![2] },
 };
 export const sizeXS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![2] },
+  args: { ...defaultArgs, size: size.options![0] },
 };
 export const longLabel: StoryObj = {
   render: Template,

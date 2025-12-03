@@ -1,15 +1,16 @@
+import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
-import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
-import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbRadioButtonSize } from '../common.js';
-import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
-import type { SbbRadioButtonElement } from '../radio-button.js';
+import { forceType } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
+import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';
+import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbRadioButtonSize } from '../common.ts';
+import type { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
+import type { SbbRadioButtonElement } from '../radio-button.ts';
 
 import style from './radio-button-group.scss?lit&inline';
 
@@ -19,7 +20,7 @@ let nextId = 0;
  * It can be used as a container for one or more `sbb-radio-button`.
  *
  * @slot - Use the unnamed slot to add `sbb-radio-button` elements to the `sbb-radio-button-group`.
- * @slot error - Use this to provide a `sbb-form-error` to show an error message.
+ * @slot error - Use this to provide a `sbb-error` to show an error message.
  * @overrideType value - (T = string) | null
  */
 export
@@ -111,12 +112,16 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
 
   public constructor() {
     super();
-    this.addEventListener?.('change', (e: Event) => this._onRadioChange(e));
-  }
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.toggleAttribute('data-has-panel', !!this.querySelector?.('sbb-radio-button-panel'));
+    this.addController(
+      new MutationController(this, {
+        config: { childList: true, subtree: true },
+        callback: () =>
+          this.toggleState('has-panel', !!this.querySelector?.('sbb-radio-button-panel')),
+      }),
+    );
+
+    this.addEventListener?.('change', (e: Event) => this._onRadioChange(e));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -190,9 +195,7 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
           }}
         ></slot>
       </div>
-      <div class="sbb-radio-group__error">
-        <slot name="error"></slot>
-      </div>
+      <slot name="error"></slot>
     `;
   }
 }

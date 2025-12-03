@@ -1,10 +1,10 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbOptGroupElement } from './optgroup.component.js';
-import '../option.js';
+import { SbbOptGroupElement } from './optgroup.component.ts';
+import '../option.ts';
 
 describe(`sbb-optgroup ssr`, () => {
   let root: SbbOptGroupElement;

@@ -2,22 +2,22 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAutocompleteElement } from '../../autocomplete/autocomplete.component.js';
-import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbFormFieldElement } from '../../form-field.js';
-import type { SbbOptionElement } from '../../option.js';
-import type { SbbChipElement } from '../chip.js';
+import type { SbbAutocompleteElement } from '../../autocomplete/autocomplete.component.ts';
+import { fixture, tabKey } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbFormFieldElement } from '../../form-field.ts';
+import type { SbbOptionElement } from '../../option.ts';
+import type { SbbChipElement } from '../chip.ts';
 
 import {
   SbbChipGroupElement,
   type SbbChipInputTokenEndEventDetails,
-} from './chip-group.component.js';
+} from './chip-group.component.ts';
 
-import '../chip.js';
-import '../../autocomplete.js';
-import '../../form-field.js';
-import '../../option.js';
+import '../chip.ts';
+import '../../autocomplete.ts';
+import '../../form-field.ts';
+import '../../option.ts';
 
 describe('sbb-chip-group', () => {
   let element: SbbChipGroupElement;
@@ -179,12 +179,12 @@ describe('sbb-chip-group', () => {
     });
 
     it('should inherit size from form-field', async () => {
-      expect(element).to.have.attribute('data-size', 'm');
+      expect(element).to.match(':state(size-m)');
 
       formField.size = 's';
       await waitForLitRender(formField);
 
-      expect(element).to.have.attribute('data-size', 's');
+      expect(element).to.match(':state(size-s)');
     });
 
     /** Verify whether the sync between slotted chip and the value works properly **/
@@ -695,13 +695,13 @@ describe('sbb-chip-group', () => {
       element = root.querySelector('sbb-chip-group')!;
       input = root.querySelector('input')!;
 
-      expect(element).to.have.attribute('data-size', 'm');
+      expect(element).to.match(':state(size-m)');
 
       formField.append(element);
       await waitForLitRender(root);
 
       expect(formField).to.have.match(':state(input-type-input)');
-      expect(element).to.have.attribute('data-size', 'l');
+      expect(element).to.match(':state(size-l)');
 
       input.focus();
       await sendKeys({ type: 'new chip' });

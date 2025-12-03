@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbNavigationButtonElement } from './navigation-button.component.js';
+import type { SbbNavigationButtonElement } from './navigation-button.component.ts';
 
-import './navigation-button.component.js';
+import './navigation-button.component.ts';
 
 describe(`sbb-navigation-button`, () => {
   let element: SbbNavigationButtonElement;

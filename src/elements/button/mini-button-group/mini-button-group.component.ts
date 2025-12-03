@@ -2,12 +2,12 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { forceType } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
-import { SbbNamedSlotListMixin, SbbNegativeMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbDividerElement } from '../../divider/divider.component.js';
-import type { SbbMiniButtonElement } from '../mini-button/mini-button.component.js';
+import { forceType } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
+import { SbbNamedSlotListMixin, SbbNegativeMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbDividerElement } from '../../divider/divider.component.ts';
+import type { SbbMiniButtonElement } from '../mini-button/mini-button.component.ts';
 
 import style from './mini-button-group.scss?lit&inline';
 

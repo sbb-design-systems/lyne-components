@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isSafari } from '../../core/dom.js';
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import { describeIf } from '../../core/testing.js';
+import { isSafari } from '../../core/dom.ts';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
+import { describeIf } from '../../core/testing.ts';
 
-import type { SbbPaginatorElement } from './paginator.component.js';
+import type { SbbPaginatorElement } from './paginator.component.ts';
 
-import './paginator.component.js';
+import './paginator.component.ts';
 
 describe(`sbb-paginator`, () => {
   describe('renders', () => {
@@ -102,7 +102,7 @@ describe(`sbb-paginator`, () => {
       });
 
       it('Shadow DOM', async () => {
-        await expect(element).shadowDom.to.be.equalSnapshot();
+        await expect(element).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
     });
 

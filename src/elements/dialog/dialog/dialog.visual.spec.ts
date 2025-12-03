@@ -1,17 +1,17 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import type { SbbDialogElement } from './dialog.component.js';
+import type { SbbDialogElement } from './dialog.component.ts';
 
-import './dialog.component.js';
-import '../dialog-actions.js';
-import '../dialog-close-button.js';
-import '../dialog-content.js';
-import '../dialog-title.js';
-import '../../link/block-link.js';
-import '../../button/button.js';
-import '../../button/secondary-button.js';
+import './dialog.component.ts';
+import '../dialog-actions.ts';
+import '../dialog-close-button.ts';
+import '../dialog-content.ts';
+import '../dialog-title.ts';
+import '../../link/block-link.ts';
+import '../../button/button.ts';
+import '../../button/secondary-button.ts';
 
 describe(`sbb-dialog`, () => {
   const negativeCases = [false, true];

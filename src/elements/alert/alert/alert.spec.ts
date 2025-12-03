@@ -2,14 +2,14 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { emulateMedia } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { SbbDarkModeController } from '../../core/controllers.js';
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
+import { SbbDarkModeController } from '../../core/controllers.ts';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
 
-import { SbbAlertElement } from './alert.component.js';
+import { SbbAlertElement } from './alert.component.ts';
 
-import '../../title.js';
-import '../../link.js';
+import '../../title.ts';
+import '../../link.ts';
 
 describe(`sbb-alert`, () => {
   let alert: SbbAlertElement,
@@ -55,6 +55,8 @@ describe(`sbb-alert`, () => {
   });
 
   it('should fire animation events with non-zero animation duration', async () => {
+    (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
     const alert: SbbAlertElement = await fixture(
       html`<sbb-alert style="--sbb-alert-animation-duration: 1ms">
         <sbb-title level="3">Disruption</sbb-title>
@@ -156,19 +158,18 @@ describe(`sbb-alert`, () => {
   });
 
   it('should sync negative property changing sbb-dark class', async () => {
-    document.documentElement.classList.remove('sbb-light-dark');
+    document.documentElement.classList.add('sbb-light');
 
     const button = alert.shadowRoot!.querySelector('sbb-transparent-button')!;
     expect(button.negative, 'button negative').to.be.true;
     expect(alert).not.to.match(':state(dark)');
 
+    document.documentElement.classList.remove('sbb-light');
     document.documentElement.classList.add('sbb-dark');
     await waitForLitRender(alert);
 
     expect(button.negative, 'button not negative').to.be.false;
     expect(alert).to.match(':state(dark)');
     document.documentElement.classList.remove('sbb-dark');
-    await waitForLitRender(alert);
-    document.documentElement.classList.add('sbb-light-dark');
   });
 });

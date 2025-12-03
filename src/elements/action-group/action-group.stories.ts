@@ -4,12 +4,12 @@ import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './action-group.component.js';
-import '../button.js';
-import '../link/block-link.js';
+import './action-group.component.ts';
+import '../button.ts';
+import '../link/block-link.ts';
 
 const secondaryButtonTemplate = (alignSelf?: string): TemplateResult => html`
   <sbb-secondary-button align-self=${alignSelf || nothing}> Button 1 </sbb-secondary-button>

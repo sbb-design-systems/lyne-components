@@ -58,10 +58,7 @@ snapshots["sbb-slider renders with properties Shadow DOM"] =
 `<div class="sbb-slider__height-container">
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
-      <sbb-icon
-        data-namespace="default"
-        name="walk-slow-small"
-      >
+      <sbb-icon name="walk-slow-small">
       </sbb-icon>
     </slot>
     <div class="sbb-slider__container">
@@ -81,10 +78,7 @@ snapshots["sbb-slider renders with properties Shadow DOM"] =
       </div>
     </div>
     <slot name="suffix">
-      <sbb-icon
-        data-namespace="default"
-        name="walk-fast-small"
-      >
+      <sbb-icon name="walk-fast-small">
       </sbb-icon>
     </slot>
   </div>
@@ -111,10 +105,7 @@ snapshots["sbb-slider renders disabled Shadow DOM"] =
 `<div class="sbb-slider__height-container">
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
-      <sbb-icon
-        data-namespace="default"
-        name="walk-slow-small"
-      >
+      <sbb-icon name="walk-slow-small">
       </sbb-icon>
     </slot>
     <div class="sbb-slider__container">
@@ -135,10 +126,7 @@ snapshots["sbb-slider renders disabled Shadow DOM"] =
       </div>
     </div>
     <slot name="suffix">
-      <sbb-icon
-        data-namespace="default"
-        name="walk-fast-small"
-      >
+      <sbb-icon name="walk-fast-small">
       </sbb-icon>
     </slot>
   </div>
@@ -165,10 +153,7 @@ snapshots["sbb-slider renders readonly Shadow DOM"] =
 `<div class="sbb-slider__height-container">
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
-      <sbb-icon
-        data-namespace="default"
-        name="walk-slow-small"
-      >
+      <sbb-icon name="walk-slow-small">
       </sbb-icon>
     </slot>
     <div class="sbb-slider__container">
@@ -189,10 +174,7 @@ snapshots["sbb-slider renders readonly Shadow DOM"] =
       </div>
     </div>
     <slot name="suffix">
-      <sbb-icon
-        data-namespace="default"
-        name="walk-fast-small"
-      >
+      <sbb-icon name="walk-fast-small">
       </sbb-icon>
     </slot>
   </div>

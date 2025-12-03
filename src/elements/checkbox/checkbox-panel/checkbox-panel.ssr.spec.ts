@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbCheckboxPanelElement } from './checkbox-panel.component.js';
+import { SbbCheckboxPanelElement } from './checkbox-panel.component.ts';
 
 describe(`sbb-checkbox-panel ssr`, () => {
   let root: SbbCheckboxPanelElement;

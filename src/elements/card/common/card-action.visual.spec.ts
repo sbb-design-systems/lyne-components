@@ -8,11 +8,11 @@ import {
   visualDiffFocus,
   visualDiffHover,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../../title.js';
-import '../card.js';
-import '../card-badge.js';
+import '../../title.ts';
+import '../card.ts';
+import '../card-badge.ts';
 
 export function cardActionVisualSpec(component: string): void {
   describe(component, () => {

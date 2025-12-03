@@ -1,7 +1,7 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { setOrRemoveAttribute } from '../../core/dom.js';
+import { setOrRemoveAttribute } from '../../core/dom.ts';
 import {
   i18nBlockedPassage,
   i18nClass,
@@ -10,12 +10,12 @@ import {
   i18nRestaurantWagonLabel,
   i18nSleepingWagonLabel,
   i18nWagonLabel,
-} from '../../core/i18n.js';
-import { elementInternalsSpy, fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbIconElement } from '../../icon.js';
+} from '../../core/i18n.ts';
+import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbIconElement } from '../../icon.ts';
 
-import { SbbTrainWagonElement } from './train-wagon.component.js';
+import { SbbTrainWagonElement } from './train-wagon.component.ts';
 
 describe(`sbb-train-wagon`, () => {
   let element: SbbTrainWagonElement;

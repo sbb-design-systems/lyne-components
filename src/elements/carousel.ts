@@ -1,6 +1,6 @@
 /**
  * @entrypoint
  */
-export * from './carousel/carousel.js';
-export * from './carousel/carousel-item.js';
-export * from './carousel/carousel-list.js';
+export * from './carousel/carousel.ts';
+export * from './carousel/carousel-item.ts';
+export * from './carousel/carousel-list.ts';

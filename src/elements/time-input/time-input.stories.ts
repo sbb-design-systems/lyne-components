@@ -12,16 +12,15 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbFormFieldElement } from '../form-field.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbFormFieldElement } from '../form-field.ts';
 
 import readme from './readme.md?raw';
-import type { SbbTimeInputElement } from './time-input.component.js';
+import type { SbbTimeInputElement } from './time-input.component.ts';
 
-import './time-input.component.js';
-import '../button/secondary-button.js';
-import '../form-field.js';
-import '../form-error.js';
+import './time-input.component.ts';
+import '../button/secondary-button.ts';
+import '../form-field.ts';
 
 const updateOutput = (timeInput: SbbTimeInputElement): void => {
   const exampleParent = timeInput.closest<HTMLDivElement>('div.example-parent');
@@ -35,10 +34,9 @@ const handleInput = (event: Event): void => {
   const formField = target.closest<SbbFormFieldElement>('sbb-form-field');
   updateOutput(target);
 
-  formField?.querySelectorAll('sbb-form-error').forEach((el) => el.remove());
+  formField?.querySelectorAll('sbb-error').forEach((el) => el.remove());
   if (formField && !target.validity.valid) {
-    formField.appendChild(document.createElement('sbb-form-error')).innerText =
-      target.validationMessage;
+    formField.appendChild(document.createElement('sbb-error')).innerText = target.validationMessage;
   }
 };
 

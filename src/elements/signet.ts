@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './signet/signet.component.js';
+export * from './signet/signet.component.ts';

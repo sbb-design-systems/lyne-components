@@ -3,9 +3,9 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html, LitElement, type ReactiveControllerHost } from 'lit';
 import { spy } from 'sinon';
 
-import { fixture, tabKey } from '../testing/private.js';
+import { fixture, tabKey } from '../testing/private.ts';
 
-import { SbbFocusTrapController } from './focus-trap-controller.js';
+import { SbbFocusTrapController } from './focus-trap-controller.ts';
 
 describe('focusTrapController', () => {
   let element: LitElement, focusTrapController: SbbFocusTrapController;

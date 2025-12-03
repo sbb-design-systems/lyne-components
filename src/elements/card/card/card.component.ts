@@ -2,8 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { isLean } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/styles.js';
+import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './card.scss?lit&inline';
 
@@ -16,21 +16,8 @@ import style from './card.scss?lit&inline';
  */
 export
 @customElement('sbb-card')
-class SbbCardElement extends LitElement {
+class SbbCardElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
-
-  /**
-   * Size variant, either xs, s, m, l, xl, xxl or xxxl.
-   * @default 'm' / 'xs' (lean)
-   */
-  @property({ reflect: true }) public accessor size:
-    | 'xs'
-    | 's'
-    | 'm'
-    | 'l'
-    | 'xl'
-    | 'xxl'
-    | 'xxxl' = isLean() ? 'xs' : 'm';
 
   /** Option to set the component's background color. */
   @property({ reflect: true }) public accessor color:
@@ -41,14 +28,12 @@ class SbbCardElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <span class="sbb-card">
-        <slot name="action"></slot>
-        <span class="sbb-card__wrapper">
-          <slot></slot>
-        </span>
-        <span class="sbb-card__badge-wrapper">
-          <slot name="badge"></slot>
-        </span>
+      <slot name="action"></slot>
+      <span class="sbb-card__wrapper">
+        <slot></slot>
+      </span>
+      <span class="sbb-card__badge-wrapper">
+        <slot name="badge"></slot>
       </span>
     `;
   }

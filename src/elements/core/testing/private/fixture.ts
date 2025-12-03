@@ -2,7 +2,7 @@ import { emulateMedia } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { waitForLitRender } from '../wait-for-render.js';
+import { waitForLitRender } from '../wait-for-render.ts';
 
 // Copied from @lit-labs/testing/lib/fixtures/fixture-options.d.ts
 interface FixtureOptions {

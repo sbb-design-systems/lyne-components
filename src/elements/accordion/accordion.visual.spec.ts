@@ -5,10 +5,10 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './accordion.component.js';
-import '../expansion-panel.js';
+import './accordion.component.ts';
+import '../expansion-panel.ts';
 
 describe(`sbb-accordion`, () => {
   let root: HTMLElement;

@@ -5,11 +5,11 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './toast.component.js';
-import '../button.js';
-import '../link.js';
+import './toast.component.ts';
+import '../button.ts';
+import '../link.ts';
 
 describe(`sbb-toast`, () => {
   const cases = {

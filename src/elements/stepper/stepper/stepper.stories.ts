@@ -4,20 +4,19 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbFormErrorElement } from '../../form-error.js';
-import { SbbStepElement, type SbbStepValidateEventDetails } from '../step.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import type { SbbErrorElement } from '../../form-field.ts';
+import { SbbStepElement, type SbbStepValidateEventDetails } from '../step.ts';
 
 import readme from './readme.md?raw';
 
-import './stepper.component.js';
-import '../step-label.js';
-import '../../link/block-link-button.js';
-import '../../button/button.js';
-import '../../button/secondary-button.js';
-import '../../form-field.js';
-import '../../form-error.js';
-import '../../card.js';
+import './stepper.component.ts';
+import '../step-label.ts';
+import '../../link/block-link-button.ts';
+import '../../button/button.ts';
+import '../../button/secondary-button.ts';
+import '../../form-field.ts';
+import '../../card.ts';
 
 const loremIpsum = `
   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
@@ -97,17 +96,17 @@ const addElement = (event: PointerEvent): void => {
   (event.target as HTMLButtonElement).parentElement!.querySelector('sbb-step')!.appendChild(div);
 };
 
-const firstFormElement = (sbbFormError: SbbFormErrorElement): TemplateResult => html`
+const firstFormElement = (error: SbbErrorElement): TemplateResult => html`
   <sbb-form-field error-space="reserve" size="m">
     <label>Name</label>
     <input
       @input=${(event: KeyboardEvent) => {
         const input = event.currentTarget as HTMLInputElement;
         if (input.value !== '') {
-          sbbFormError.remove();
+          error.remove();
           input.classList.remove('sbb-invalid');
         } else {
-          input.closest('sbb-form-field')!.append(sbbFormError);
+          input.closest('sbb-form-field')!.append(error);
           input.classList.add('sbb-invalid');
         }
       }}
@@ -170,10 +169,10 @@ const stepperContent = (disabled: boolean, longLabel: boolean): TemplateResult[]
 
 const WithSingleFormTemplate = (args: Args): TemplateResult => {
   document.querySelector('sbb-stepper')?.reset();
-  document.querySelector('sbb-form-error')?.remove();
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = 'This is a required field.';
+  document.querySelector('sbb-error')?.remove();
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = 'This is a required field.';
 
   return html`
     <form
@@ -206,7 +205,7 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
           }}
         >
           <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
-            ${firstFormElement(sbbFormError)}
+            ${firstFormElement(error)}
           </div>
           <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
         </sbb-step>
@@ -262,10 +261,10 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
 
 const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
   document.querySelector('sbb-stepper')?.reset();
-  document.querySelector('sbb-form-error')?.remove();
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = 'This is a required field.';
+  document.querySelector('sbb-error')?.remove();
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = 'This is a required field.';
 
   return html`
     <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
@@ -291,7 +290,7 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
               );
             }}
           >
-            ${firstFormElement(sbbFormError)}
+            ${firstFormElement(error)}
           </form>
         </div>
         <sbb-button size="m" sbb-stepper-next>Next</sbb-button>

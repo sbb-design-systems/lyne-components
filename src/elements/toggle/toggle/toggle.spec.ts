@@ -2,13 +2,13 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbToggleOptionElement } from '../toggle-option.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbToggleOptionElement } from '../toggle-option.ts';
 
-import { SbbToggleElement } from './toggle.component.js';
+import { SbbToggleElement } from './toggle.component.ts';
 
-import '../toggle-option.js';
+import '../toggle-option.ts';
 
 describe(`sbb-toggle`, () => {
   let element: SbbToggleElement,

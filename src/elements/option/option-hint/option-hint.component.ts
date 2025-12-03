@@ -2,8 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbNegativeMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
+import { SbbNegativeMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './option-hint.scss?lit&inline';
 

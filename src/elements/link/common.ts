@@ -1,6 +1,6 @@
 /**
  * @entrypoint
  */
-export * from './common/block-link-common.js';
-export * from './common/inline-link-common.js';
-export * from './common/link-common.js';
+export * from './common/block-link-common.ts';
+export * from './common/inline-link-common.ts';
+export * from './common/link-common.ts';

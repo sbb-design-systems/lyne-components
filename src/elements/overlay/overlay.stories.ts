@@ -5,19 +5,19 @@ import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import sampleImages from '../core/images.js';
-import type { SbbOverlayCloseEventDetails } from '../core/interfaces.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import sampleImages from '../core/images.ts';
+import type { SbbOverlayCloseEventDetails } from '../core/interfaces.ts';
 
-import { SbbOverlayElement } from './overlay.component.js';
+import { SbbOverlayElement } from './overlay.component.ts';
 import readme from './readme.md?raw';
 
-import '../button.js';
-import '../card.js';
-import '../form-field.js';
-import '../image.js';
-import '../link.js';
-import '../title.js';
+import '../button.ts';
+import '../card.ts';
+import '../form-field.ts';
+import '../image.ts';
+import '../link.ts';
+import '../title.ts';
 
 const expanded: InputType = {
   control: {

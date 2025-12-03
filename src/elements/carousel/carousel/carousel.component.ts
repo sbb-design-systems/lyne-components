@@ -3,24 +3,24 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../../core/controllers/language-controller.js';
-import { forceType } from '../../core/decorators.js';
+import { SbbLanguageController } from '../../core/controllers/language-controller.ts';
+import { forceType } from '../../core/decorators.ts';
 import {
   i18nCarouselArrowsNavigationHint,
   i18nNextSlide,
   i18nPreviousSlide,
   i18nSlide,
-} from '../../core/i18n/i18n.js';
-import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
-import { SbbElementInternalsMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.js';
+} from '../../core/i18n/i18n.ts';
+import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.ts';
 import type {
   SbbCarouselItemElement,
   SbbCarouselItemEventDetail,
-} from '../carousel-item/carousel-item.component.js';
-import type { SbbCarouselListElement } from '../carousel-list/carousel-list.component.js';
-import '../../screen-reader-only.js';
+} from '../carousel-item/carousel-item.component.ts';
+import type { SbbCarouselListElement } from '../carousel-list/carousel-list.component.ts';
+
+import '../../screen-reader-only.ts';
 
 import style from './carousel.scss?lit&inline';
 
@@ -73,6 +73,8 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
 
     this.internals.role = 'region';
     this.internals.ariaLabel = 'carousel';
+
+    this._setupPaginator();
   }
 
   public override firstUpdated(_changedProperties: PropertyValues): void {
@@ -108,16 +110,33 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
     paginator.accessibilityPageLabel ||= i18nSlide[this._language.current];
 
     if (paginator !== this._paginator) {
-      this._abortController = new AbortController();
-      paginator.addEventListener('page', (e) => this._scrollAtPageChange(e), {
-        signal: this._abortController.signal,
-      });
       this._paginator = paginator;
+      this._setupPaginator();
     }
   }
 
-  private _scrollAtPageChange(e: CustomEvent<SbbPaginatorPageEventDetails>): void {
-    this._requestedPageIndexByPaginator = e.detail.pageIndex;
+  private _setupPaginator(): void {
+    this._abortController?.abort();
+
+    if (!this._paginator) {
+      return;
+    }
+    this._abortController = new AbortController();
+
+    // By listening to the click event on the paginator, we can ensure that the change was user triggered.
+    // If we instead use the page event, we would also catch programmatic changes to the paginator
+    // which can cause a loop and wrong timing as we also listen to the show event.
+    this._paginator.addEventListener('click', () => this._scrollAtPaginatorChange(), {
+      signal: this._abortController.signal,
+    });
+  }
+
+  private _scrollAtPaginatorChange(): void {
+    if (!this._paginator) {
+      return;
+    }
+    this._requestedPageIndexByPaginator = this._paginator.pageIndex;
+
     const list = this.querySelector<SbbCarouselListElement>('sbb-carousel-list');
 
     if (list) {
@@ -125,7 +144,7 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
 
       // As the offsetLeft is always rendered from the viewport boundaries, we need to subtract the offsetLeft
       // from the carousel to get the offset inside the scroll area.
-      const offsetLeft = items[e.detail.pageIndex].offsetLeft - this.offsetLeft;
+      const offsetLeft = items[this._paginator.pageIndex].offsetLeft - this.offsetLeft;
 
       // Prevents redundant scrolling when the paginator updates after a scroll event
       // by checking the distance between the current and target scroll positions.

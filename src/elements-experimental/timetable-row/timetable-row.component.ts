@@ -26,16 +26,16 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, LitElement, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime.js';
-import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetable.js';
-import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.js';
+import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime.ts';
+import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetable.ts';
+import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.ts';
 
 import style from './timetable-row.scss?lit&inline';
 
 import '@sbb-esta/lyne-elements/card.js';
 import '@sbb-esta/lyne-elements/icon.js';
 import '@sbb-esta/lyne-elements/timetable-occupancy.js';
-import '../pearl-chain-time.js';
+import '../pearl-chain-time.ts';
 
 /** HimCus interface for mapped icon name and text */
 export interface HimCus {
@@ -294,10 +294,8 @@ class SbbTimetableRowElement extends LitElement {
   /** The skeleton render function for the loading state */
   private _renderSkeleton(): TemplateResult {
     return html`
-      <sbb-card size="l" class="sbb-loading">
-        ${this.loadingPrice
-          ? html`<sbb-card-badge class="sbb-loading__badge"></sbb-card-badge>`
-          : nothing}
+      <sbb-card class="sbb-loading sbb-card-spacing-4x-xxs">
+        ${this.loadingPrice ? html`<div class="sbb-loading__badge" slot="badge"></div>` : nothing}
         <div class="sbb-loading__wrapper">
           <div class="sbb-loading__row"></div>
           <div class="sbb-loading__row"></div>
@@ -535,16 +533,14 @@ class SbbTimetableRowElement extends LitElement {
     const durationObj = duration ? durationToTime(duration, this._language.current) : null;
 
     return html`
-      <sbb-card size="l" id=${id}>
+      <sbb-card class="sbb-card-spacing-4x-xxs" id=${id}>
         <sbb-card-button
           ?active=${this.active}
           aria-expanded=${this.accessibilityExpanded ? 'true' : nothing}
         >
           ${this.cardActionLabel ? this.cardActionLabel : this._getAccessibilityText(this.trip)}
         </sbb-card-button>
-        ${this.loadingPrice
-          ? html`<sbb-card-badge class="sbb-loading__badge"></sbb-card-badge>`
-          : nothing}
+        ${this.loadingPrice ? html`<div class="sbb-loading__badge" slot="badge"></div>` : nothing}
         ${this.price && !this.loadingPrice
           ? html`<sbb-card-badge color=${this.price.isDiscount ? 'charcoal' : 'white'}>
               ${this.price.isDiscount

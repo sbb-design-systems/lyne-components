@@ -1,12 +1,12 @@
 import { customElement } from 'lit/decorators.js';
 
-import { getNextElementIndex } from '../core/a11y.js';
-import { isSafari } from '../core/dom.js';
-import { setAriaComboBoxAttributes } from '../core/overlay.js';
-import type { SbbDividerElement } from '../divider/divider.component.js';
-import type { SbbOptGroupElement, SbbOptionElement, SbbOptionHintElement } from '../option.js';
+import { getNextElementIndex } from '../core/a11y.ts';
+import { isSafari } from '../core/dom.ts';
+import { setAriaComboBoxAttributes } from '../core/overlay.ts';
+import type { SbbDividerElement } from '../divider/divider.component.ts';
+import type { SbbOptionElement, SbbOptionHintElement } from '../option.ts';
 
-import { SbbAutocompleteBaseElement } from './autocomplete-base-element.js';
+import { SbbAutocompleteBaseElement } from './autocomplete-base-element.ts';
 
 let nextId = 0;
 
@@ -44,10 +44,6 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
     this.querySelectorAll?.<SbbDividerElement | SbbOptionHintElement>(
       'sbb-divider, sbb-option-hint',
     ).forEach((el) => (el.negative = this.negative));
-
-    this.querySelectorAll?.<SbbOptionElement<T> | SbbOptGroupElement>(
-      'sbb-option, sbb-optgroup',
-    ).forEach((element) => element.toggleAttribute('data-negative', this.negative));
   }
 
   protected openedPanelKeyboardInteraction(event: KeyboardEvent): void {
@@ -78,9 +74,7 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
   }
 
   protected setNextActiveOption(event?: KeyboardEvent): void {
-    const enabledOptions = this.options.filter(
-      (opt) => !opt.disabled && !opt.hasAttribute('data-group-disabled'),
-    );
+    const enabledOptions = this.options.filter((opt) => !opt.matches(':state(disabled)'));
 
     // Reset potentially active option
     this.activeOption?.setActive(false);

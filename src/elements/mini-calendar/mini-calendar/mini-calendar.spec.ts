@@ -3,13 +3,13 @@ import { sendKeys } from '@web/test-runner-commands';
 import { repeat } from 'lit/directives/repeat.js';
 import { html } from 'lit/static-html.js';
 
-import { defaultDateAdapter } from '../../core/datetime.js';
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing/wait-for-render.js';
+import { defaultDateAdapter } from '../../core/datetime.ts';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing/wait-for-render.ts';
 
-import { SbbMiniCalendarElement } from './mini-calendar.component.js';
-import '../mini-calendar-month.js';
-import '../mini-calendar-day.js';
+import { SbbMiniCalendarElement } from './mini-calendar.component.ts';
+import '../mini-calendar-month.ts';
+import '../mini-calendar-day.ts';
 
 describe('sbb-mini-calendar', () => {
   let element: SbbMiniCalendarElement;

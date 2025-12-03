@@ -11,17 +11,14 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './card.component.js';
-import '../card-badge.js';
-import '../card-button.js';
-import '../card-link.js';
-import '../../title.js';
-
-const styleSizeS =
-  '--sbb-card-padding-block-start: var(--sbb-spacing-fixed-6x); --sbb-card-padding-block-end: var(--sbb-spacing-responsive-xxxs)';
+import './card.component.ts';
+import '../card-badge.ts';
+import '../card-button.ts';
+import '../card-link.ts';
+import '../../title.ts';
 
 const ContentText = (): TemplateResult => html`
   <span class="sbb-text-m">
@@ -37,12 +34,12 @@ const Content = (): TemplateResult => html`
   ${ContentText()}
 `;
 
-const Template = ({ size, color }: Args): TemplateResult => html`
-  <sbb-card ${sbbSpread({ size, color })}> ${Content()} </sbb-card>
+const Template = ({ spacing, color }: Args): TemplateResult => html`
+  <sbb-card ${sbbSpread({ color })} class=${`sbb-card-spacing-${spacing}`}>${Content()}</sbb-card>
 `;
 
-const TemplateWithBadge = ({ size, color }: Args): TemplateResult => html`
-  <sbb-card ${sbbSpread({ size, color })} style=${size.includes('s') ? styleSizeS : ''}>
+const TemplateWithBadge = ({ spacing, color }: Args): TemplateResult => html`
+  <sbb-card ${sbbSpread({ color })} class=${`sbb-card-spacing-${spacing}`}>
     <sbb-card-badge>
       <span>%</span>
       <span>from CHF</span>
@@ -62,14 +59,19 @@ const TemplateAction = ({ label, ...args }: Args): TemplateResult => {
   }
 };
 
-const TemplateCardAction = ({ size, color, label, ...args }: Args): TemplateResult => html`
-  <sbb-card ${sbbSpread({ size, color })}>
+const TemplateCardAction = ({ spacing, color, label, ...args }: Args): TemplateResult => html`
+  <sbb-card ${sbbSpread({ color })} class=${`sbb-card-spacing-${spacing}`}>
     ${TemplateAction({ label, ...args })} ${Content()}
   </sbb-card>
 `;
 
-const TemplateCardActionWithBadge = ({ size, color, label, ...args }: Args): TemplateResult => html`
-  <sbb-card ${sbbSpread({ size, color })}>
+const TemplateCardActionWithBadge = ({
+  spacing,
+  color,
+  label,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-card ${sbbSpread({ color })} class=${`sbb-card-spacing-${spacing}`}>
     ${TemplateAction({ label, ...args })}
     <sbb-card-badge>
       <span>%</span>
@@ -86,13 +88,6 @@ const TemplateCardActionMultipleCards = (args: Args): TemplateResult => html`
     ${TemplateCardActionWithBadge(args)} ${TemplateCardActionWithBadge(args)}
   </div>
 `;
-
-const size: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'],
-};
 
 const color: InputType = {
   control: {
@@ -117,6 +112,13 @@ const label: InputType = {
   table: {
     category: 'Card Action',
   },
+};
+
+const spacing: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['3x-xxs', 'xxxs-xxs', 'xxxs-s', '4x-xxs', 'xxs-xxs', 's-s', 'l-l'],
 };
 
 const hrefs = ['https://www.sbb.ch', 'https://github.com/sbb-design-systems/lyne-components'];
@@ -200,7 +202,7 @@ const value: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  size,
+  spacing,
   color,
 };
 
@@ -225,8 +227,8 @@ const defaultArgTypesLink: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: 'm',
   color: color.options![0],
+  spacing: 'xxxs-s',
 };
 
 const defaultArgsLink = {
@@ -262,16 +264,7 @@ export const WithBadge: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options![2],
-  },
-};
-
-export const WithBadgeS: StoryObj = {
-  render: TemplateWithBadge,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    size: size.options![1],
+    spacing: spacing.options![2],
   },
 };
 

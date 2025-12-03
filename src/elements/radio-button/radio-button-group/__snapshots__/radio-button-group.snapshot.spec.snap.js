@@ -13,7 +13,6 @@ snapshots["sbb-radio-button-group renders DOM"] =
     1
   </sbb-radio-button>
   <sbb-radio-button
-    data-checked=""
     size="m"
     tabindex="0"
     value="2"
@@ -35,18 +34,13 @@ snapshots["sbb-radio-button-group renders Shadow DOM"] =
   <slot>
   </slot>
 </div>
-<div class="sbb-radio-group__error">
-  <slot name="error">
-  </slot>
-</div>
+<slot name="error">
+</slot>
 `;
 /* end snapshot sbb-radio-button-group renders Shadow DOM */
 
 snapshots["sbb-radio-button-group renders with panel DOM"] = 
-`<sbb-radio-button-group
-  data-has-panel=""
-  orientation="horizontal"
->
+`<sbb-radio-button-group orientation="horizontal">
   <sbb-radio-button-panel
     color="white"
     size="m"
@@ -78,23 +72,14 @@ snapshots["sbb-radio-button-group renders with panel Shadow DOM"] =
   <slot>
   </slot>
 </div>
-<div class="sbb-radio-group__error">
-  <slot name="error">
-  </slot>
-</div>
+<slot name="error">
+</slot>
 `;
 /* end snapshot sbb-radio-button-group renders with panel Shadow DOM */
 
 snapshots["sbb-radio-button-group renders with selection-expansion-panel DOM"] = 
-`<sbb-radio-button-group
-  data-has-panel=""
-  orientation="horizontal"
->
-  <sbb-selection-expansion-panel
-    color="white"
-    data-size="m"
-    data-state="closed"
-  >
+`<sbb-radio-button-group orientation="horizontal">
+  <sbb-selection-expansion-panel>
     <sbb-radio-button-panel
       color="white"
       size="m"
@@ -129,10 +114,8 @@ snapshots["sbb-radio-button-group renders with selection-expansion-panel Shadow 
   <slot>
   </slot>
 </div>
-<div class="sbb-radio-group__error">
-  <slot name="error">
-  </slot>
-</div>
+<slot name="error">
+</slot>
 `;
 /* end snapshot sbb-radio-button-group renders with selection-expansion-panel Shadow DOM */
 

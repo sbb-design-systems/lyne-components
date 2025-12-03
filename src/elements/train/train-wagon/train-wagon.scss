@@ -102,7 +102,7 @@
   grid-area: label;
   text-align: center;
   display: var(--sbb-train-formation-wagon-label-display, inline-block);
-  min-height: calc(1em * var(--sbb-typo-line-height-body-text));
+  min-height: calc(1em * var(--sbb-typo-line-height-text));
 }
 
 .sbb-train-wagon__occupancy,

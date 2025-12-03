@@ -4,34 +4,16 @@ import {
   LitElement,
   nothing,
   type PropertyDeclaration,
-  type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getOverride } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
-import type {
-  SbbCheckedStateChange,
-  SbbDisabledStateChange,
-  SbbStateChange,
-} from '../../core/interfaces/types.js';
-import {
-  panelCommonStyle,
-  SbbPanelMixin,
-  type SbbPanelSize,
-  SbbUpdateSchedulerMixin,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { checkboxCommonStyle, SbbCheckboxCommonElementMixin } from '../common.js';
+import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { checkboxCommonStyle, SbbCheckboxCommonElementMixin } from '../common.ts';
 
-import '../../screen-reader-only.js';
-import '../../visual-checkbox.js';
-
-export type SbbCheckboxPanelStateChange = Extract<
-  SbbStateChange,
-  SbbDisabledStateChange | SbbCheckedStateChange
->;
+import '../../screen-reader-only.ts';
+import '../../visual-checkbox.ts';
 
 /**
  * It displays a checkbox enhanced with selection panel design.
@@ -59,14 +41,6 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
   @property()
   public accessor value: T | null = null;
 
-  /**
-   * Size variant, either m or s.
-   * @default 'm' / 's' (lean)
-   */
-  @property({ reflect: true })
-  @getOverride((i, v) => (i.group?.size ? (i.group.size === 'xs' ? 's' : i.group.size) : v))
-  public accessor size: SbbPanelSize = isLean() ? 's' : 'm';
-
   public override requestUpdate(
     name?: PropertyKey,
     oldValue?: unknown,
@@ -75,35 +49,9 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
     super.requestUpdate(name, oldValue, options);
     if (name === 'checked') {
       this.internals.ariaChecked = `${this.checked}`;
-      // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a data-checked.
-      this.toggleAttribute('data-checked', this.checked);
+      // As SbbFormAssociatedCheckboxMixin does not reflect checked property, we add a checked CSS state.
+      this.toggleState('checked', this.checked);
     }
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('checked')) {
-      if (this.checked !== changedProperties.get('checked')!) {
-        this._dispatchStateChange({ type: 'checked', checked: this.checked });
-      }
-    }
-    if (changedProperties.has('disabled')) {
-      if (this.disabled !== changedProperties.get('disabled')!) {
-        this._dispatchStateChange({ type: 'disabled', disabled: this.disabled });
-      }
-    }
-  }
-
-  private _dispatchStateChange(detail: SbbCheckboxPanelStateChange): boolean {
-    /**
-     * @internal
-     * Internal event that emits whenever the state of the checkbox
-     * in relation to the parent selection panel changes.
-     */
-    return this.dispatchEvent(
-      new CustomEvent<SbbCheckboxPanelStateChange>('statechange', { detail, bubbles: true }),
-    );
   }
 
   protected override render(): TemplateResult {
@@ -120,6 +68,7 @@ class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
                   ?checked=${this.checked}
                   ?indeterminate=${this.indeterminate}
                   ?disabled=${this.disabled || this.formDisabled}
+                  .size=${this.size}
                 ></sbb-visual-checkbox>
               </span>
               <span class="sbb-checkbox__label">
@@ -142,9 +91,5 @@ declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-checkbox-panel': SbbCheckboxPanelElement;
-  }
-
-  interface GlobalEventHandlersEventMap {
-    statechange: CustomEvent<SbbStateChange>;
   }
 }

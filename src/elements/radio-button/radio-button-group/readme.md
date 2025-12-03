@@ -1,7 +1,7 @@
 The `sbb-radio-button-group` is a component which can be used as a wrapper for
 a collection of either [sbb-radio-button](/docs/elements-sbb-radio-button-sbb-radio-button--docs)s, [sbb-radio-button-panel](/docs/elements-sbb-radio-button-sbb-radio-button-panel--docs)s,
 or [sbb-selection-expansion-panel](/docs/elements-sbb-selection-expansion-panel--docs)s.
-Individual radio-buttons inside of a radio-group will inherit the `name` of the group.
+Individual radio-buttons inside a radio-group will inherit the `name` of the group.
 
 ```html
 <!-- The first option will be selected by default -->
@@ -112,4 +112,4 @@ const values = [
 | Name    | Description                                                                              |
 | ------- | ---------------------------------------------------------------------------------------- |
 |         | Use the unnamed slot to add `sbb-radio-button` elements to the `sbb-radio-button-group`. |
-| `error` | Use this to provide a `sbb-form-error` to show an error message.                         |
+| `error` | Use this to provide a `sbb-error` to show an error message.                              |

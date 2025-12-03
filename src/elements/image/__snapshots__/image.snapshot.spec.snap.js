@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-image should render DOM"] = 
-`<sbb-image data-loaded="">
+`<sbb-image>
 </sbb-image>
 `;
 /* end snapshot sbb-image should render DOM */

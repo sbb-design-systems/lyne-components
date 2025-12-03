@@ -4,14 +4,14 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './header.component.js';
-import '../header-link.js';
-import '../header-button.js';
-import '../../menu.js';
-import '../../logo.js';
-import '../../signet.js';
+import './header.component.ts';
+import '../header-link.ts';
+import '../header-button.ts';
+import '../../menu.ts';
+import '../../logo.ts';
+import '../../signet.ts';
 
 describe(`sbb-header`, () => {
   const loremIpsumTemplate = `

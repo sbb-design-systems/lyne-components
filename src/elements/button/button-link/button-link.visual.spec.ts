@@ -5,9 +5,9 @@ import {
   describeViewports,
   visualDiffStandardStates,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './button-link.component.js';
+import './button-link.component.ts';
 
 // We test only the differences to the sbb-button
 describe(`sbb-button-link`, () => {

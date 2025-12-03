@@ -2,14 +2,9 @@
 export const snapshots = {};
 
 snapshots["sbb-selection-expansion-panel renders DOM"] = 
-`<sbb-selection-expansion-panel
-  color="white"
-  data-size="m"
-  data-state="closed"
->
+`<sbb-selection-expansion-panel>
   <sbb-checkbox-panel
     color="white"
-    data-has-card-badge=""
     size="m"
     tabindex="0"
   >
@@ -35,21 +30,19 @@ snapshots["sbb-selection-expansion-panel renders DOM"] =
 /* end snapshot sbb-selection-expansion-panel renders DOM */
 
 snapshots["sbb-selection-expansion-panel renders Shadow DOM"] = 
-`<div class="sbb-selection-expansion-panel">
-  <div class="sbb-selection-expansion-panel__input">
-    <slot>
+`<div class="sbb-selection-expansion-panel__input">
+  <slot>
+  </slot>
+</div>
+<div
+  class="sbb-selection-expansion-panel__content--wrapper"
+  inert=""
+>
+  <div class="sbb-selection-expansion-panel__content">
+    <sbb-divider orientation="horizontal">
+    </sbb-divider>
+    <slot name="content">
     </slot>
-  </div>
-  <div
-    class="sbb-selection-expansion-panel__content--wrapper"
-    inert=""
-  >
-    <div class="sbb-selection-expansion-panel__content">
-      <sbb-divider orientation="horizontal">
-      </sbb-divider>
-      <slot name="content">
-      </slot>
-    </div>
   </div>
 </div>
 `;

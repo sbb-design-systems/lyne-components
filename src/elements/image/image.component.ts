@@ -1,13 +1,12 @@
 import {
-  SbbBreakpointZeroMin,
-  SbbBreakpointZeroMax,
-  SbbBreakpointSmallMin,
-  SbbBreakpointSmallMax,
-  SbbBreakpointLargeMin,
   SbbBreakpointLargeMax,
-  SbbBreakpointUltraMin,
+  SbbBreakpointLargeMin,
+  SbbBreakpointSmallMax,
+  SbbBreakpointSmallMin,
   SbbBreakpointUltraMax,
-  SbbTypoScaleDefault,
+  SbbBreakpointUltraMin,
+  SbbBreakpointZeroMax,
+  SbbBreakpointZeroMin,
 } from '@sbb-esta/lyne-design-tokens';
 import {
   type CSSResultGroup,
@@ -19,8 +18,9 @@ import {
 } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
-import { forceType } from '../core/decorators.js';
-import { boxSizingStyles } from '../core/styles.js';
+import { forceType } from '../core/decorators.ts';
+import { SbbElementInternalsMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './image.scss?lit&inline';
 
@@ -120,17 +120,15 @@ const eventListenerOptions = {
   passive: true,
 };
 
-const pxToRem = (px: number): number => px / SbbTypoScaleDefault;
-
-const breakpointMap: Record<string, number> = {
-  'sbb-breakpoint-zero-min': pxToRem(SbbBreakpointZeroMin),
-  'sbb-breakpoint-zero-max': pxToRem(SbbBreakpointZeroMax),
-  'sbb-breakpoint-small-min': pxToRem(SbbBreakpointSmallMin),
-  'sbb-breakpoint-small-max': pxToRem(SbbBreakpointSmallMax),
-  'sbb-breakpoint-large-min': pxToRem(SbbBreakpointLargeMin),
-  'sbb-breakpoint-large-max': pxToRem(SbbBreakpointLargeMax),
-  'sbb-breakpoint-ultra-min': pxToRem(SbbBreakpointUltraMin),
-  'sbb-breakpoint-ultra-max': pxToRem(SbbBreakpointUltraMax),
+const breakpointMap: Record<string, string> = {
+  'sbb-breakpoint-zero-min': SbbBreakpointZeroMin,
+  'sbb-breakpoint-zero-max': SbbBreakpointZeroMax,
+  'sbb-breakpoint-small-min': SbbBreakpointSmallMin,
+  'sbb-breakpoint-small-max': SbbBreakpointSmallMax,
+  'sbb-breakpoint-large-min': SbbBreakpointLargeMin,
+  'sbb-breakpoint-large-max': SbbBreakpointLargeMax,
+  'sbb-breakpoint-ultra-min': SbbBreakpointUltraMin,
+  'sbb-breakpoint-ultra-max': SbbBreakpointUltraMax,
 };
 
 /**
@@ -144,7 +142,7 @@ const breakpointMap: Record<string, number> = {
  */
 export
 @customElement('sbb-image')
-class SbbImageElement extends LitElement {
+class SbbImageElement extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     error: 'error',
@@ -258,9 +256,9 @@ class SbbImageElement extends LitElement {
   @property() public accessor loading: 'eager' | 'lazy' = 'eager';
 
   /**
-   * With performance.mark you can log a timestamp associated with
+   * With `performance.mark` you can log a timestamp associated with
    * the name you define in performanceMark when a certain event is
-   * happening. In our case we will log the performance.mark into
+   * happening. In our case we will log the `performance.mark` into
    * the PerformanceEntry API once the image is fully loaded.
    * Performance monitoring tools like SpeedCurve or Lighthouse are
    * then able to grab these entries from the PerformanceEntry API
@@ -373,7 +371,7 @@ class SbbImageElement extends LitElement {
     // We need to wait until the update is complete to check whether the image has already been completely loaded.
     this.updateComplete.then(() => {
       if (this.complete) {
-        this.toggleAttribute('data-loaded', true);
+        this.internals.states.add('loaded');
       }
     });
   }
@@ -384,12 +382,6 @@ class SbbImageElement extends LitElement {
       performance.mark(this.performanceMark);
     }
   }
-
-  private _matchMediaQueryDesignToken(breakpointSizeName: string): string {
-    const value = breakpointMap[breakpointSizeName];
-    return value ? `${value}rem` : '';
-  }
-
   private _addFocusAbilityToLinksInCaption(): void {
     this._linksInCaption?.forEach((link) => {
       link.removeAttribute('tabindex');
@@ -401,7 +393,7 @@ class SbbImageElement extends LitElement {
       return '';
     }
 
-    // Creating an URL without a schema will fail, but is a valid input for baseUrl.
+    // Creating a URL without a schema will fail, but is a valid input for baseUrl.
     // e.g. image-src can be https://example.com/my-image.png or /my-image.png
     const isFullyQualifiedUrl = !!baseUrl.match(/^\w+:\/\//);
     const imageUrlObj = isFullyQualifiedUrl ? new URL(baseUrl) : new URL(`http://noop/${baseUrl}`);
@@ -512,7 +504,7 @@ class SbbImageElement extends LitElement {
       let mqValue;
 
       if (mq.conditionFeatureValue.lyneDesignToken) {
-        mqValue = this._matchMediaQueryDesignToken(mq.conditionFeatureValue.value);
+        mqValue = breakpointMap[mq.conditionFeatureValue.value] ?? '';
       } else {
         mqValue = mq.conditionFeatureValue.value;
       }
@@ -528,7 +520,7 @@ class SbbImageElement extends LitElement {
   @eventOptions(eventListenerOptions)
   private _imageLoaded(): void {
     this._logPerformanceMarks();
-    this.toggleAttribute('data-loaded', true);
+    this.internals.states.add('loaded');
 
     /** Emits when the image has been loaded. */
     this.dispatchEvent(new Event('load'));

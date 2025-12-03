@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbSidebarCloseButtonElement } from './sidebar-close-button.component.js';
-import './sidebar-close-button.component.js';
+import type { SbbSidebarCloseButtonElement } from './sidebar-close-button.component.ts';
+import './sidebar-close-button.component.ts';
 
 describe(`sbb-sidebar-close-button`, () => {
   describe('renders', () => {

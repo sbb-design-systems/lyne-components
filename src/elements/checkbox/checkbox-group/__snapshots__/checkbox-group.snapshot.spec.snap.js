@@ -36,10 +36,8 @@ snapshots["sbb-checkbox-group renders Shadow DOM"] =
   <slot>
   </slot>
 </div>
-<div class="sbb-checkbox-group__error">
-  <slot name="error">
-  </slot>
-</div>
+<slot name="error">
+</slot>
 `;
 /* end snapshot sbb-checkbox-group renders Shadow DOM */
 
@@ -95,10 +93,7 @@ snapshots["sbb-checkbox-group renders A11y tree Firefox"] =
 /* end snapshot sbb-checkbox-group renders A11y tree Firefox */
 
 snapshots["sbb-checkbox-group renders with panel DOM"] = 
-`<sbb-checkbox-group
-  data-has-panel=""
-  orientation="horizontal"
->
+`<sbb-checkbox-group orientation="horizontal">
   <sbb-checkbox-panel
     color="white"
     size="m"
@@ -132,23 +127,14 @@ snapshots["sbb-checkbox-group renders with panel Shadow DOM"] =
   <slot>
   </slot>
 </div>
-<div class="sbb-checkbox-group__error">
-  <slot name="error">
-  </slot>
-</div>
+<slot name="error">
+</slot>
 `;
 /* end snapshot sbb-checkbox-group renders with panel Shadow DOM */
 
 snapshots["sbb-checkbox-group renders with selection-expansion-panel DOM"] = 
-`<sbb-checkbox-group
-  data-has-panel=""
-  orientation="horizontal"
->
-  <sbb-selection-expansion-panel
-    color="white"
-    data-size="m"
-    data-state="closed"
-  >
+`<sbb-checkbox-group orientation="horizontal">
+  <sbb-selection-expansion-panel>
     <sbb-checkbox-panel
       color="white"
       size="m"
@@ -183,10 +169,8 @@ snapshots["sbb-checkbox-group renders with selection-expansion-panel Shadow DOM"
   <slot>
   </slot>
 </div>
-<div class="sbb-checkbox-group__error">
-  <slot name="error">
-  </slot>
-</div>
+<slot name="error">
+</slot>
 `;
 /* end snapshot sbb-checkbox-group renders with selection-expansion-panel Shadow DOM */
 

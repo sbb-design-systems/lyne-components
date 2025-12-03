@@ -1,15 +1,15 @@
 import { assert, expect } from '@open-wc/testing';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbRadioButtonPanelElement } from '../radio-button-panel.js';
-import type { SbbRadioButtonElement } from '../radio-button.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
+import type { SbbRadioButtonElement } from '../radio-button.ts';
 
-import { SbbRadioButtonGroupElement } from './radio-button-group.component.js';
+import { SbbRadioButtonGroupElement } from './radio-button-group.component.ts';
 
-import '../radio-button.js';
-import '../radio-button-panel.js';
+import '../radio-button.ts';
+import '../radio-button-panel.ts';
 
 ['sbb-radio-button', 'sbb-radio-button-panel'].forEach((selector) => {
   const tagSingle = unsafeStatic(selector);
@@ -131,8 +131,9 @@ import '../radio-button-panel.js';
 
           const panel = document.createElement('sbb-radio-button-panel');
           element.appendChild(panel);
+          await waitForLitRender(element);
 
-          expect(element).to.have.attribute('data-has-panel');
+          expect(element).to.match(':state(has-panel)');
         });
       }
 

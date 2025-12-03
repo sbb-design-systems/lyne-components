@@ -3,10 +3,10 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import images from '../../core/images.js';
-import '../../image.js';
+import images from '../../core/images.ts';
+import '../../image.ts';
 
-import { SbbCarouselItemElement } from './carousel-item.component.js';
+import { SbbCarouselItemElement } from './carousel-item.component.ts';
 import readme from './readme.md?raw';
 
 const imageSrc: InputType = {

@@ -3,12 +3,12 @@ import { LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { forceType } from '../../core/decorators.js';
-import { isEventPrevented } from '../../core/eventing.js';
-import { SbbHydrationMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbTitleLevel } from '../../title.js';
-import type { SbbAlertElement } from '../alert.js';
+import { forceType } from '../../core/decorators.ts';
+import { isEventPrevented } from '../../core/eventing.ts';
+import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbTitleLevel } from '../../title.ts';
+import type { SbbAlertElement } from '../alert.ts';
 
 import style from './alert-group.scss?lit&inline';
 
@@ -20,7 +20,7 @@ import style from './alert-group.scss?lit&inline';
  */
 export
 @customElement('sbb-alert-group')
-class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
+class SbbAlertGroupElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     empty: 'empty',
@@ -69,7 +69,7 @@ class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
 
     // Restore focus
     if (hasFocusInsideAlertGroup) {
-      // Set tabindex to 0 the make it focusable and afterwards focus it.
+      // Set tabindex to 0 the make it focusable and afterward focus it.
       // This is done to not completely lose focus after removal of an alert.
       // Once the sbb-alert-group was blurred, make the alert group not focusable again.
       this.tabIndex = 0;
@@ -91,7 +91,7 @@ class SbbAlertGroupElement extends SbbHydrationMixin(LitElement) {
       this.dispatchEvent(new Event('empty', { composed: true, bubbles: true }));
     }
 
-    this.toggleAttribute('data-empty', !this._hasAlerts);
+    this.toggleState('empty', !this._hasAlerts);
   }
 
   protected override render(): TemplateResult {

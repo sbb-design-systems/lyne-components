@@ -9,19 +9,19 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/controllers.js';
-import { isLean, isZeroAnimationDuration } from '../core/dom.js';
-import { i18nCloseNotification } from '../core/i18n.js';
-import type { SbbOpenedClosedState } from '../core/interfaces.js';
-import { SbbElementInternalsMixin, SbbReadonlyMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
-import { SbbIconNameMixin } from '../icon.js';
-import type { SbbTitleElement } from '../title.js';
+import { SbbLanguageController } from '../core/controllers.ts';
+import { isLean, isZeroAnimationDuration } from '../core/dom.ts';
+import { i18nCloseNotification } from '../core/i18n.ts';
+import type { SbbOpenedClosedState } from '../core/interfaces.ts';
+import { SbbElementInternalsMixin, SbbReadonlyMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import { SbbIconNameMixin } from '../icon.ts';
+import type { SbbTitleElement } from '../title.ts';
 
 import style from './notification.scss?lit&inline';
 
-import '../button/secondary-button.js';
-import '../divider.js';
+import '../button/secondary-button.ts';
+import '../divider.ts';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],
@@ -47,7 +47,6 @@ export
 class SbbNotificationElement extends SbbIconNameMixin(
   SbbReadonlyMixin(SbbElementInternalsMixin(LitElement)),
 ) {
-  // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     beforeopen: 'beforeopen',
@@ -73,13 +72,20 @@ class SbbNotificationElement extends SbbIconNameMixin(
   /** The enabled animations. */
   @property({ reflect: true }) public accessor animation: 'open' | 'close' | 'all' | 'none' = 'all';
 
-  /** The state of the notification. */
+  /** The state of the component. */
   private set _state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
+    if (this._stateInternal) {
+      this.internals.states.delete(`state-${this._stateInternal}`);
+    }
+    this._stateInternal = state;
+    if (this._stateInternal) {
+      this.internals.states.add(`state-${this._stateInternal}`);
+    }
   }
   private get _state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
+    return this._stateInternal;
   }
+  private _stateInternal!: SbbOpenedClosedState;
 
   private _notificationElement!: HTMLElement;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -89,6 +95,11 @@ class SbbNotificationElement extends SbbIconNameMixin(
     skipInitial: true,
     callback: () => this._onNotificationResize(),
   });
+
+  public constructor() {
+    super();
+    this._state = 'closed';
+  }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -129,12 +140,6 @@ class SbbNotificationElement extends SbbIconNameMixin(
     return this.dispatchEvent(new Event('beforeclose', { cancelable: true }));
   }
 
-  public override connectedCallback(): void {
-    this._state ||= 'closed';
-
-    super.connectedCallback();
-  }
-
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
@@ -171,9 +176,9 @@ class SbbNotificationElement extends SbbIconNameMixin(
     }
 
     // Disable the animation when resizing the notification to avoid strange height transition effects.
-    this.toggleAttribute('data-resize-disable-animation', true);
+    this.internals.states.add('resize-disable-animation');
     this._resizeObserverTimeout = setTimeout(
-      () => this.removeAttribute('data-resize-disable-animation'),
+      () => this.internals.states.delete('resize-disable-animation'),
       DEBOUNCE_TIME,
     );
 

@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbSecondaryButtonStaticElement } from './secondary-button-static.component.js';
+import { SbbSecondaryButtonStaticElement } from './secondary-button-static.component.ts';
 
 describe(`sbb-secondary-button-static ssr`, () => {
   let root: SbbSecondaryButtonStaticElement;

@@ -2,14 +2,14 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
-import { SbbFocusTrapController } from '../../core/a11y.js';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.js';
-import { SbbEscapableOverlayController } from '../../core/controllers.js';
-import { forceType, handleDistinctChange } from '../../core/decorators.js';
-import { isZeroAnimationDuration } from '../../core/dom.js';
-import { SbbAnimationCompleteMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbSidebarContainerElement } from '../sidebar-container.js';
+import { SbbFocusTrapController } from '../../core/a11y.ts';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
+import { SbbEscapableOverlayController } from '../../core/controllers.ts';
+import { forceType, handleDistinctChange } from '../../core/decorators.ts';
+import { isZeroAnimationDuration } from '../../core/dom.ts';
+import { SbbAnimationCompleteMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbSidebarContainerElement } from '../sidebar-container.ts';
 
 import style from './sidebar.scss?lit&inline';
 
@@ -148,16 +148,15 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     }
 
     this.opened = true;
+    this.state = 'opening';
 
     const isZeroAnimationDuration = this._isZeroAnimationDuration() || !this.isConnected;
     const isDuringInitialization = !this.hasUpdated;
 
-    if (isDuringInitialization || isZeroAnimationDuration) {
-      this.toggleAttribute('data-skip-animation', true);
-    } else {
-      this.state = 'opening';
+    if (!(isDuringInitialization || isZeroAnimationDuration)) {
       return;
     }
+    this.internals.states.add('skip-animation');
 
     // We have to wait for the first update to be completed
     // in order to have the size of the sidebar ready for the animation.
@@ -179,7 +178,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
     // We have to ensure that removing the animation skip instruction is done a tick later.
     // Otherwise, it's removed too early and it doesn't have any effect.
-    setTimeout(() => this.toggleAttribute('data-skip-animation', false));
+    setTimeout(() => this.internals.states.delete('skip-animation'));
 
     this._takeFocus();
     this.stopAnimation();
@@ -197,7 +196,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     const isZeroAnimationDuration = this._isZeroAnimationDuration();
 
     if (!this.hasUpdated || isZeroAnimationDuration) {
-      this.toggleAttribute('data-skip-animation', true);
+      this.internals.states.add('skip-animation');
     } else {
       this.state = 'closing';
     }
@@ -215,7 +214,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     this.state = 'closed';
     // We have to ensure that removing the animation skip instruction is done a tick later.
     // Otherwise, it's removed too early and it doesn't have any effect.
-    setTimeout(() => this.toggleAttribute('data-skip-animation', false));
+    setTimeout(() => this.internals.states.delete('skip-animation'));
     this.cedeFocus();
 
     if (!isServer && (this.contains(document.activeElement) || this._isModeOver())) {
@@ -286,7 +285,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   private _isModeOver(): boolean {
     // If the minimum space attribute is set, the sidebar should behave like in mode over.
-    return this.mode === 'over' || this.hasAttribute('data-mode-over-forced');
+    return this.mode === 'over' || this.matches(':state(mode-over-forced)');
   }
 
   private _onTransitionEnd(event: TransitionEvent): void {
@@ -304,8 +303,8 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
 
   @eventOptions({ passive: true })
   private _detectScrolledState(): void {
-    this.toggleAttribute(
-      'data-scrolled',
+    this.toggleState(
+      'scrolled',
       (this.shadowRoot?.querySelector('.sbb-sidebar-content-section')?.scrollTop ?? 0) > 0,
     );
   }

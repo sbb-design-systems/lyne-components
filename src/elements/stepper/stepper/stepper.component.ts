@@ -8,18 +8,31 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.js';
-import { forceType } from '../../core/decorators.js';
-import { breakpoints, isBreakpoint, isLean } from '../../core/dom.js';
-import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.js';
-import { SbbHydrationMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.js';
+import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
+import {
+  SbbMediaMatcherController,
+  SbbMediaQueryBreakpointLargeAndAbove,
+  SbbMediaQueryBreakpointSmallAndAbove,
+  SbbMediaQueryBreakpointUltraAndAbove,
+  SbbMediaQueryBreakpointZeroAndAbove,
+} from '../../core/controllers/media-matchers-controller.ts';
+import { forceType } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
+import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';
+import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.ts';
 
 import style from './stepper.scss?lit&inline';
 
 const DEBOUNCE_TIME = 150;
 
+const breakpointMap: Record<string, string> = {
+  zero: SbbMediaQueryBreakpointZeroAndAbove,
+  small: SbbMediaQueryBreakpointSmallAndAbove,
+  large: SbbMediaQueryBreakpointLargeAndAbove,
+  ultra: SbbMediaQueryBreakpointUltraAndAbove,
+};
 /**
  * Provides a structured, step-by-step workflow for user interactions.
  * @slot - Provide a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` to the stepper.
@@ -28,7 +41,7 @@ const DEBOUNCE_TIME = 150;
  */
 export
 @customElement('sbb-stepper')
-class SbbStepperElement extends SbbHydrationMixin(LitElement) {
+class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
@@ -57,7 +70,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
   /** Overrides the behaviour of `orientation` property. */
   @property({ attribute: 'horizontal-from', reflect: true })
   public set horizontalFrom(value: SbbHorizontalFrom | null) {
-    this._horizontalFrom = value && breakpoints.includes(value) ? value : null;
+    this._horizontalFrom = value && breakpointMap[value] ? value : null;
     if (this._horizontalFrom && this._loaded) {
       this._checkOrientation();
     }
@@ -85,7 +98,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     }
   }
   public get selected(): SbbStepElement | null {
-    return this.querySelector?.<SbbStepElement>('sbb-step[data-selected]') ?? null;
+    return this.querySelector?.<SbbStepElement>('sbb-step:state(selected)') ?? null;
   }
 
   /** The currently selected step index. */
@@ -110,6 +123,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
 
   private _loaded: boolean = false;
   private _resizeObserverTimeout: ReturnType<typeof setTimeout> | null = null;
+  private _mediaMatcher = new SbbMediaMatcherController(this, {});
 
   public constructor() {
     super();
@@ -251,20 +265,19 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
         label.configure(i + 1, array.length, this._loaded);
       });
     this._select(this.selected || this._enabledSteps[0]);
-    this._proxySize();
   }
 
   private _updateLabels(): void {
     this.steps.forEach((step) => {
       step.slot = this.orientation === 'horizontal' ? 'step' : 'step-label';
-      step.setAttribute('data-orientation', this.orientation);
-      step.label?.setAttribute('data-orientation', this.orientation);
     });
   }
 
   private _checkOrientation(): void {
     if (this.horizontalFrom) {
-      this.orientation = isBreakpoint(this.horizontalFrom) ? 'horizontal' : 'vertical';
+      this.orientation = this._mediaMatcher.matches(breakpointMap[this.horizontalFrom])
+        ? 'horizontal'
+        : 'vertical';
       this._updateLabels();
     }
     // The timeout is needed to make sure that the marker takes the correct step-label size.
@@ -275,11 +288,11 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     this._checkOrientation();
     this._setStepperHeight(this.selected);
     clearTimeout(this._resizeObserverTimeout!);
-    this.toggleAttribute('data-disable-animation', true);
+    this.internals.states.add('disable-animation');
 
     // Disable the animation when resizing to avoid strange transition effects.
     this._resizeObserverTimeout = setTimeout(
-      () => this.toggleAttribute('data-disable-animation', false),
+      () => this.internals.states.delete('disable-animation'),
       DEBOUNCE_TIME,
     );
   };
@@ -289,7 +302,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
       step.label?.toggleAttribute(
         'disabled',
         (this.linear && index > this.selectedIndex!) ||
-          (!this.linear && step.label.hasAttribute('data-disabled')),
+          (!this.linear && step.label.matches(':state(disabled)')),
       );
     });
   }
@@ -299,7 +312,7 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     window.addEventListener('resize', this._onStepperResize, {
       passive: true,
     });
-    this.toggleAttribute('data-disable-animation', !this._loaded);
+    this.toggleState('disable-animation', !this._loaded);
   }
 
   public override disconnectedCallback(): void {
@@ -314,8 +327,8 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
       this.selectedIndex = this.linear ? 0 : Number(this.getAttribute('selected-index')) || 0;
       this._observer.observe(this);
       this._checkOrientation();
-      // Remove [data-disable-animation] after component init
-      setTimeout(() => this.toggleAttribute('data-disable-animation', false), DEBOUNCE_TIME);
+      // Remove disable-animation state after component init
+      setTimeout(() => this.internals.states.delete('disable-animation'), DEBOUNCE_TIME);
     });
   }
 
@@ -330,15 +343,8 @@ class SbbStepperElement extends SbbHydrationMixin(LitElement) {
     }
 
     if (changedProperties.has('size')) {
-      this._proxySize();
       this._setMarkerSize();
     }
-  }
-
-  private _proxySize(): void {
-    this.steps.forEach((step) => {
-      step.label?.setAttribute('data-size', this.size);
-    });
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {

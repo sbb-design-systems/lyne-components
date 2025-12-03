@@ -3,24 +3,24 @@ import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonStaticElement } from '../../button.js';
-import { forceType } from '../../core/decorators.js';
+import type { SbbSecondaryButtonStaticElement } from '../../button.ts';
+import { forceType } from '../../core/decorators.ts';
 import {
   i18nFileSelectorSubtitleLabel,
   i18nFileSelectorSubtitleLabelMultiple,
-} from '../../core/i18n.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { fileSelectorCommonStyle, SbbFileSelectorCommonElementMixin } from '../common.js';
+} from '../../core/i18n.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { fileSelectorCommonStyle, SbbFileSelectorCommonElementMixin } from '../common.ts';
 
-import '../../button/secondary-button-static.js';
-import '../../icon.js';
+import '../../button/secondary-button-static.ts';
+import '../../icon.ts';
 
 import style from './file-selector-dropzone.scss?lit&inline';
 
 /**
  * It allows to select one or more file from storage devices via button click or drag and drop, and display them.
  *
- * @slot error - Use this to provide a `sbb-form-error` to show an error message.
+ * @slot error - Use this to provide a `sbb-error` to show an error message.
  */
 export
 @customElement('sbb-file-selector-dropzone')

@@ -12,10 +12,7 @@ snapshots["sbb-status renders Shadow DOM"] =
 `<div class="sbb-status">
   <span class="sbb-status__icon">
     <slot name="icon">
-      <sbb-icon
-        data-namespace="default"
-        name="circle-information-small"
-      >
+      <sbb-icon name="circle-information-small">
       </sbb-icon>
     </slot>
   </span>
@@ -49,10 +46,7 @@ snapshots["sbb-status renders with title Shadow DOM"] =
 `<div class="sbb-status">
   <span class="sbb-status__icon">
     <slot name="icon">
-      <sbb-icon
-        data-namespace="default"
-        name="circle-information-small"
-      >
+      <sbb-icon name="circle-information-small">
       </sbb-icon>
     </slot>
   </span>

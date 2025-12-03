@@ -1,10 +1,10 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
-import { waitForImageReady } from '../../core/testing.js';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import { waitForImageReady } from '../../core/testing.ts';
 
-import './carousel-item.component.js';
-import '../../image.js';
+import './carousel-item.component.ts';
+import '../../image.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

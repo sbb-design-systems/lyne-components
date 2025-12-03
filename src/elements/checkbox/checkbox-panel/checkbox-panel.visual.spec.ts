@@ -4,11 +4,11 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../../card.js';
-import '../../icon.js';
-import './checkbox-panel.component.js';
+import '../../card.ts';
+import '../../icon.ts';
+import './checkbox-panel.component.ts';
 
 describe('sbb-checkbox-panel', () => {
   const defaultArgs = {
@@ -40,7 +40,6 @@ describe('sbb-checkbox-panel', () => {
         <sbb-icon
           name="diamond-small"
           style="margin-inline: var(--sbb-spacing-fixed-2x);"
-          data-namespace="default"
           role="img"
           aria-hidden="true"
         ></sbb-icon>
@@ -92,6 +91,13 @@ describe('sbb-checkbox-panel', () => {
       `size=s`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ ...defaultArgs, size: 's' }));
+      }),
+    );
+
+    it(
+      `size=xs`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template({ ...defaultArgs, size: 'xs' }));
       }),
     );
 

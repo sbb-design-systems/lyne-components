@@ -1,5 +1,5 @@
 import { describeViewports } from '@sbb-esta/lyne-elements/core/testing/private.js';
-import './seat-reservation.component.js';
+import './seat-reservation.component.ts';
 
 describe('sbb-seat-reservation', () => {
   /**

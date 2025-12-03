@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
-import { SbbRadioButtonPanelElement } from './radio-button-panel.component.js';
+import { SbbRadioButtonPanelElement } from './radio-button-panel.component.ts';
 
 describe(`sbb-radio-button-panel`, () => {
   let element: SbbRadioButtonPanelElement;
@@ -29,7 +29,7 @@ describe(`sbb-radio-button-panel`, () => {
     await waitForLitRender(element);
 
     expect(element.checked).to.be.true;
-    expect(element).to.have.attribute('data-checked');
+    expect(element).to.match(':state(checked)');
   });
 
   it('does not deselect radio if already checked', async () => {

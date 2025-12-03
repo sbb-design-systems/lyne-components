@@ -6,11 +6,12 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../../form-error.js';
-import './file-selector.component.js';
-import type { SbbFileSelectorElement } from './file-selector.component.js';
+import type { SbbFileSelectorElement } from './file-selector.component.ts';
+
+import '../../form-field/error.ts';
+import './file-selector.component.ts';
 
 describe(`sbb-file-selector`, () => {
   function addFilesToComponentInput(elem: SbbFileSelectorElement): void {
@@ -50,7 +51,7 @@ describe(`sbb-file-selector`, () => {
           html`
             <sbb-file-selector id="fs" multiple ?disabled=${state.disabled}></sbb-file-selector>
             ${state.error
-              ? html`<sbb-form-error slot="error">There has been an error.</sbb-form-error>`
+              ? html`<sbb-error slot="error">There has been an error.</sbb-error>`
               : nothing}
           `,
           { forcedColors: forcedColors, darkMode },

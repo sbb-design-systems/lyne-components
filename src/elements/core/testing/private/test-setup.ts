@@ -5,7 +5,7 @@ import { cleanupFixtures } from '@lit-labs/testing/fixtures.js';
 import type { UncompiledTemplateResult } from 'lit';
 import type { MochaOptions } from 'mocha';
 
-import { mergeConfig, type SbbIconConfig } from '../../config.js';
+import { mergeConfig, type SbbIconConfig } from '../../config.ts';
 
 const {
   __WTR_CONFIG__: { testFrameworkConfig },
@@ -20,7 +20,8 @@ const {
 
 testFrameworkConfig.rootHooks = {
   beforeEach: async () => {
-    (await import('../../a11y/input-modality-detector.js')).sbbInputModalityDetector.reset();
+    (await import('../../a11y/input-modality-detector.ts')).sbbInputModalityDetector.reset();
+    (globalThis as { disableAnimation?: boolean }).disableAnimation = true;
   },
   afterEach: () => {
     cleanupFixtures();

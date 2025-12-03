@@ -6,13 +6,13 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
-import { getI18nSeatReservation } from '../common/translations.js';
-import type { CoachNumberOfFreePlaces, PlaceTravelClass } from '../common.js';
+import { getI18nSeatReservation } from '../common/translations.ts';
+import type { CoachNumberOfFreePlaces, PlaceTravelClass } from '../common.ts';
 
 import style from './seat-reservation-navigation-coach.scss?lit&inline';
 
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
-import '../seat-reservation-navigation-services.js';
+import '../seat-reservation-navigation-services.ts';
 
 export type SelectCoachEventDetails = number;
 
@@ -37,21 +37,31 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ attribute: 'property-ids', type: Array })
   public accessor propertyIds: string[] = [];
 
-  /** Pre-selected coach index property */
+  /** Select coach property */
   @forceType()
   @property({ type: Boolean })
   public accessor selected: boolean = false;
 
-  /** Focused coach index property */
+  /** Focus coach property */
   @forceType()
   @property({ type: Boolean })
   public accessor focused: boolean = false;
+
+  /** Hover coach property */
+  @forceType()
+  @property({ type: Boolean })
+  public accessor hovered: boolean = false;
+
+  /** Native focus for this navigation coach is also set when the focused property is changed */
+  @forceType()
+  @property({ type: Boolean })
+  public accessor nativeFocusActive: boolean = true;
 
   @forceType()
   @property({ type: Number })
   public accessor index: number = 0;
 
-  /** Representation of places available for selecting, counting seat places and bicycle places separetely */
+  /** Representation of places available for selecting, counting seat places and bicycle places separately */
   @property({ attribute: 'free-places-by-type', type: Object })
   public accessor freePlacesByType: CoachNumberOfFreePlaces = { seats: 0, bicycles: 0 };
 
@@ -94,7 +104,9 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
         '.sbb-sr-navigation__ctrl-button',
       ) as HTMLButtonElement;
       if (this.selected && selectedNavButtonElement) {
-        selectedNavButtonElement.focus();
+        if (this.nativeFocusActive) {
+          selectedNavButtonElement.focus();
+        }
         /** Emits when a nav coach has the focus */
         this.dispatchEvent(new Event('focuscoach', { bubbles: true, composed: true }));
       }
@@ -104,7 +116,8 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       const focusedNavButtonElement = this.shadowRoot?.querySelector(
         '.sbb-sr-navigation__ctrl-button',
       ) as HTMLButtonElement;
-      if (focusedNavButtonElement) {
+
+      if (focusedNavButtonElement && this.nativeFocusActive) {
         focusedNavButtonElement.focus();
       }
     }
@@ -123,6 +136,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
           'last-coach': this.last,
           'first-coach': this.first,
           'sbb-sr-navigation__item-coach--selected': this.selected,
+          'sbb-sr-navigation__item-coach--hovered': this.hovered,
         })}"
       >
         ${this._getNavigationButton()}
@@ -224,15 +238,15 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   }
 
   private _getAriaDescriptionCoachServices(): string | null {
-    let ariaDescrition = null;
+    let ariaDescription = null;
     if (this.propertyIds.length) {
-      ariaDescrition =
+      ariaDescription =
         getI18nSeatReservation('COACH_AVAILABLE_SERVICES', this._language.current) + ': ';
-      ariaDescrition += this.propertyIds
+      ariaDescription += this.propertyIds
         .map((propertyId) => getI18nSeatReservation(propertyId, this._language.current))
         .join();
     }
-    return ariaDescrition;
+    return ariaDescription;
   }
 
   /**

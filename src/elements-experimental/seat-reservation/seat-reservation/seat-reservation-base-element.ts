@@ -1,6 +1,6 @@
 import { isArrowKeyOrPageKeysPressed } from '@sbb-esta/lyne-elements/core/a11y.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { LitElement, isServer, type PropertyValues } from 'lit';
+import { isServer, LitElement, type PropertyValues } from 'lit';
 import { eventOptions, property, state } from 'lit/decorators.js';
 
 import {
@@ -8,23 +8,23 @@ import {
   mapIconToSvg,
   mapPlaceAndCoachToSeatReservationPlaceSelection,
   mapPlaceInfosToPlaceSelection,
-} from '../common/mapper.js';
+} from '../common/mapper.ts';
 import type {
+  BaseElement,
   CoachItem,
   CoachNumberOfFreePlaces,
   ElementDimension,
   ElementPosition,
+  NavigationCoachItem,
   Place,
   PlaceSelection,
+  PlaceTravelClass,
   SeatReservation,
+  SeatReservationPlaceSelection,
   SeatReservationSelectedCoach,
   SeatReservationSelectedPlaces,
-  SeatReservationPlaceSelection,
-  NavigationCoachItem,
-  PlaceTravelClass,
-  BaseElement,
-} from '../common.js';
-import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.js';
+} from '../common.ts';
+import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
 
 enum ScrollDirection {
   right = 'right',
@@ -137,6 +137,7 @@ export class SeatReservationBaseElement extends LitElement {
   protected isAutoScrolling = false;
   protected isKeyboardNavigation = false;
   protected hasMultipleDecks = false;
+  protected hasSeatReservationNativeFocus = false;
   protected keyboardNavigationEvents = {
     ArrowLeft: 'ArrowLeft',
     ArrowRight: 'ArrowRight',
@@ -272,7 +273,7 @@ export class SeatReservationBaseElement extends LitElement {
         ? this.coachScrollArea.getBoundingClientRect().height
         : this.coachScrollArea.getBoundingClientRect().width;
 
-      // Precalculate trigger scroll position array depends from coach width
+      // Precalculate trigger scroll position array depends on coach width
       this.triggerCoachPositionsCollection = seatReservationDeck.coachItems.map((coach) => {
         const startPosX = currCalcTriggerPos;
         const coachWidth = this.getCalculatedDimension(coach.dimension).w;
@@ -295,18 +296,18 @@ export class SeatReservationBaseElement extends LitElement {
   /**
    * Scroll event handler managed the end of scrolling inside the coach scroll area.
    * Timeout event handling to check if the scrolling has been completed.
-   * It is required because the Safari browser does not handle scrollend event
+   * It is required because the Safari browser does not handle scrollend event,
    * and we therefore imitate this event -> scrollend.
    */
   @eventOptions({ passive: true })
   protected coachAreaScrollend(): void {
     if (this._scrollTimeout) {
       // First, we cleared the registered timeout, as the scrolling is still running
-      // and thus we prevent the execution of the _handleCoachAreaScrollEvent function
+      // and thus we prevent the execution of the _handleCoachAreaScrollendEvent function
       clearTimeout(this._scrollTimeout);
     }
-    // If no further scoll event is fired, the next timeout can execute the inner function _handleCoachAreaScrollEvent without clearing
-    this._scrollTimeout = setTimeout(() => this._handleCoachAreaScrollEvent(), 150);
+    // If no further scroll event is fired, the next timeout can execute the inner function _handleCoachAreaScrollendEvent without clearing
+    this._scrollTimeout = setTimeout(() => this._handleCoachAreaScrollendEvent(), 150);
   }
 
   /**
@@ -332,6 +333,18 @@ export class SeatReservationBaseElement extends LitElement {
    */
   protected handleKeyboardEvent(event: KeyboardEvent): void {
     const pressedKey = event.key;
+
+    // For any keyboard use, the preventCoachScrollByPlaceClick variable must be reset to false
+    this.preventCoachScrollByPlaceClick = false;
+
+    // Check any keyboard event was triggered inside the seat reservation component,
+    // so we can say the native browser focus lies on the component
+    if (
+      !this.hasSeatReservationNativeFocus &&
+      ((event.shiftKey && event.keyCode === 9) || pressedKey === this.keyboardNavigationEvents.Tab)
+    ) {
+      this.hasSeatReservationNativeFocus = true;
+    }
 
     // If any place is selected and TAB Key combination ist pressed,
     // then we handle the next or previous coach selection
@@ -398,7 +411,7 @@ export class SeatReservationBaseElement extends LitElement {
    */
   protected preselectPlaceInCoach(): void {
     const closestPlace = this._getClosestPlaceByKeyDirection();
-    //If closestPlace exist, we have to unfocus previouse focused place
+    //If closestPlace exist, we have to unfocus previous focused place
     if (closestPlace) {
       this.unfocusPlaceElement();
     }
@@ -410,7 +423,7 @@ export class SeatReservationBaseElement extends LitElement {
         this.focusPlaceElement(closestPlace);
       }
     }
-    // In cases where the preselection function is triggered by normal clicking or via screenreader via tab,
+    // In cases where the preselection function is triggered by normal clicking or via screen reader via tab,
     // we only focus the table without directly focusing the place.
     else {
       // We need to set the currSelectedPlace here for further correct functioning navigation via tab.
@@ -421,7 +434,7 @@ export class SeatReservationBaseElement extends LitElement {
 
   protected scrollToSelectedNavCoach(selectedNavCoachIndex: number): void {
     if (
-      this._isValidCaochIndex(selectedNavCoachIndex) &&
+      this._isValidCoachIndex(selectedNavCoachIndex) &&
       selectedNavCoachIndex !== this.currSelectedCoachIndex
     ) {
       this.isAutoScrolling = true;
@@ -566,13 +579,24 @@ export class SeatReservationBaseElement extends LitElement {
    * At the end of a scroll Event from the coach scrollable area,
    * the reached coach is marked as selected
    */
-  private _handleCoachAreaScrollEvent(): void {
+  private _handleCoachAreaScrollendEvent(): void {
+    // If a place was selected by mouse click (preventCoachScrollByPlaceClick) before triggering this scrolling end methode,
+    // this scrolling was triggered by the method _scrollPlaceIntoNearestViewport and nothing have to do here,
+    // because only the place was scrolled into the visible view area.
+    if (this.preventCoachScrollByPlaceClick) {
+      this.preventCoachScrollByPlaceClick = false;
+      return;
+    }
+
     const findScrollCoachIndex = this.isAutoScrolling
       ? this.currSelectedCoachIndex
       : this._getCoachIndexByScrollTriggerPosition();
 
+    // After coach scrollend event we can reset the hovered coach index
+    this.hoveredScrollCoachIndex = -1;
+
     // In case the user uses the scrollbar without interacting with the seat reservation,
-    // the currently selected index is -1 and we have to set this value with findScrollCoachIndex.
+    // the currently selected index is -1, and we have to set this value with findScrollCoachIndex.
     if (this.currSelectedCoachIndex === -1) {
       this.currSelectedCoachIndex = findScrollCoachIndex;
     }
@@ -590,7 +614,6 @@ export class SeatReservationBaseElement extends LitElement {
       //When user is scrolling via scrollbar, it automatically scrolls to the focused coach in the main navigation
       this._scrollToSelectedNavigationButton(findScrollCoachIndex);
     }
-
     this.preventCoachScrollByPlaceClick = false;
     this.updateCurrentSelectedCoach();
 
@@ -659,7 +682,7 @@ export class SeatReservationBaseElement extends LitElement {
    */
   private _setFocusToSelectedCoachGrid(): void {
     // When the user performs an action that affects the coach navigation, then the navigated table is focusable.
-    if (this.isCoachGridFocusable) {
+    if (this.isCoachGridFocusable && this.hasSeatReservationNativeFocus) {
       this.isCoachGridFocusable = false;
       const coachTableCaptionElement = this.shadowRoot?.querySelector(
         '#sbb-sr-coach-caption-' + this.currSelectedCoachIndex,
@@ -710,7 +733,7 @@ export class SeatReservationBaseElement extends LitElement {
    * Get the first place of current selected coach by table cell coordinate 0-0 id.
    * @returns Place or null
    */
-  private _getFirstPlaceInSelecedCoach(): Place | null {
+  private _getFirstPlaceInSelectedCoach(): Place | null {
     let firstPlace: Place | null = null;
     const coach =
       this.seatReservations[this.currSelectedDeckIndex].coachItems[this.currSelectedCoachIndex];
@@ -773,25 +796,25 @@ export class SeatReservationBaseElement extends LitElement {
     if (coachPlaces) {
       // If no place set, then we use initial the left-top place on the coach
       if (!this.currSelectedPlaceElementId) {
-        return this._getFirstPlaceInSelecedCoach();
+        return this._getFirstPlaceInSelectedCoach();
       } else {
         if (this.currSelectedPlace) {
           const currSelectedPlacePosition = { ...this.currSelectedPlace.position };
 
           if (pressedKey) {
-            // Check whether the keyboard nagivation is used to switch to another coach deck (Up -> Down | Down -> Up).
-            // In this case, we takes the coach places we have to checked from the target deck now.
+            // Check whether the keyboard navigation is used to switch to another coach deck (Up -> Down | Down -> Up).
+            // In this case, we take the coach places we have to checked from the target deck now.
             switchedCoachDeckIndex = this._getSwitchedCoachDeckIndexByKeyNavigation(
               pressedKey,
               coach,
             );
             if (switchedCoachDeckIndex !== null) {
-              //Assign check places from the target switch deck
+              // Assign check places from the target switch deck
               coachPlaces =
                 this.seatReservations[switchedCoachDeckIndex].coachItems[
                   this.currSelectedCoachIndex
                 ].places || [];
-              //We have to update y coorodinate
+              // We have to update y coordinate
               currSelectedPlacePosition.y =
                 switchedCoachDeckIndex < this.currSelectedDeckIndex ? coach.dimension.h : -1;
             }
@@ -800,7 +823,7 @@ export class SeatReservationBaseElement extends LitElement {
           for (const place of coachPlaces) {
             // If no key pressed, then we try to find the place of the current currScrollDirection
             if (!pressedKey) {
-              //Find place from the left side of coach by y coordinate. Current currScrollDirection is RIGHT)
+              // Find place from the left side of coach by y coordinate. Current currScrollDirection is RIGHT
               if (
                 this.currScrollDirection === ScrollDirection.right &&
                 place.position.y === currSelectedPlacePosition.y &&
@@ -873,7 +896,7 @@ export class SeatReservationBaseElement extends LitElement {
     return closestPlace;
   }
 
-  // Handling for Tab navigation if an place is selected inside the coach.
+  // Handling for Tab navigation if a place is selected inside the coach.
   // This controls the focused coach from the current selected coach.
   private _navigateCoachNavigationByKeyboard(tabDirection: string): void {
     const currFocusIndex =
@@ -888,7 +911,7 @@ export class SeatReservationBaseElement extends LitElement {
         ? this.getNextAvailableCoachIndex(currFocusIndex)
         : this.getPrevAvailableCoachIndex(currFocusIndex);
 
-    // If the currFocusIndex equals the newFocusableIndex then we have reached the first or last tabable navigation coach Element and we have to the set the focus manual to the firstTabElement or lastTabElement.
+    // If the currFocusIndex equals the newFocusableIndex then we have reached the first or last tabable navigation coach Element, and we have to the set the focus manual to the firstTabElement or lastTabElement.
     if (currFocusIndex === newFocusableIndex) {
       this.unfocusPlaceElement();
       this.seatReservationWithoutNavigationHasFocus = false;
@@ -944,7 +967,6 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   private _navigateToPlaceByKeyboard(pressedKey: string): void {
-    this.preventCoachScrollByPlaceClick = false;
     this.isKeyboardNavigation = true;
 
     if (this.focusedCoachIndex !== -1) {
@@ -995,13 +1017,12 @@ export class SeatReservationBaseElement extends LitElement {
     const maxReservations =
       placeSelection.placeType === 'SEAT' ? this.maxSeatReservations : this.maxBicycleReservations;
     const currSelectedPlaces = this.selectedSeatReservationPlaces[placeTypeProp];
-    const updatedSelectedPlaces = this._updateSelectedSeatReservationPlaces(
+
+    this.selectedSeatReservationPlaces[placeTypeProp] = this._updateSelectedSeatReservationPlaces(
       currSelectedPlaces,
       maxReservations,
       placeSelection,
     );
-
-    this.selectedSeatReservationPlaces[placeTypeProp] = updatedSelectedPlaces;
     /**
      * @type {CustomEvent<SeatReservationSelectedPlaces>}
      * Emits when a place was selected and returns a Place array with all selected places.
@@ -1061,6 +1082,8 @@ export class SeatReservationBaseElement extends LitElement {
 
     if (!place) return;
 
+    this.unfocusPlaceElement();
+
     this.currSelectedDeckIndex = placeDeckIndex;
     this.currSelectedCoachIndex = coachIndex;
     this.currSelectedPlace = place;
@@ -1070,6 +1093,12 @@ export class SeatReservationBaseElement extends LitElement {
     }
 
     this._setCurrSelectedPlaceElementId(place);
+
+    // Time delay to wait for status update process at clicked place
+    const delayScrollInViewport = setTimeout(() => {
+      this._scrollPlaceIntoNearestViewport(placeSelection.id);
+      clearTimeout(delayScrollInViewport);
+    }, 0);
   }
 
   protected updateCurrentSelectedCoach(): void {
@@ -1264,6 +1293,7 @@ export class SeatReservationBaseElement extends LitElement {
    * */
   private _prepareNavigationCoachData(): void {
     const lowerDeck = this.seatReservations[this.seatReservations.length - 1].coachItems;
+    this.coachNavData = [];
 
     lowerDeck.forEach((coach, index) => {
       const travelClasses: PlaceTravelClass[] = [];
@@ -1374,7 +1404,7 @@ export class SeatReservationBaseElement extends LitElement {
     return null;
   }
 
-  private _isValidCaochIndex(coachIndex: number): boolean {
+  private _isValidCoachIndex(coachIndex: number): boolean {
     return (
       coachIndex >= 0 &&
       coachIndex <= this.seatReservations[this.seatReservations.length - 1].coachItems.length
@@ -1407,5 +1437,17 @@ export class SeatReservationBaseElement extends LitElement {
     return this.currSelectedDeckIndex >= nextAvailableDeckCoachIndex
       ? this.currSelectedDeckIndex
       : nextAvailableDeckCoachIndex;
+  }
+
+  /**
+   * If a selected place is slightly hidden by the overflow scroll content and is still clicked,
+   * the method tries to scroll the selected place into the nearest viewport, so that it is completely visible.
+   *
+   * @param placeId
+   */
+  private _scrollPlaceIntoNearestViewport(placeId: string): void {
+    this.shadowRoot
+      ?.getElementById(placeId)
+      ?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
   }
 }

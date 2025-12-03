@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import './dialog-actions.component.js';
+import './dialog-actions.component.ts';
 import readme from './readme.md?raw';
 
-import '../../button/button.js';
-import '../../button/secondary-button.js';
-import '../../link/block-link.js';
+import '../../button/button.ts';
+import '../../button/secondary-button.ts';
+import '../../link/block-link.ts';
 
 const Template = (): TemplateResult =>
   html`<sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="large">

@@ -2,14 +2,14 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getOverride } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
-import { boxSizingStyles } from '../../core/styles.js';
+import { getOverride } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
 import {
   SbbRadioButtonCommonElementMixin,
   radioButtonCommonStyle,
   type SbbRadioButtonSize,
-} from '../common.js';
+} from '../common.ts';
 
 import radioButtonStyle from './radio-button.scss?lit&inline';
 
@@ -30,7 +30,6 @@ class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonElementMixin
     radioButtonStyle,
   ];
   public static readonly events = {
-    statechange: 'statechange',
     change: 'change',
     input: 'input',
   } as const;

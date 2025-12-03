@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
 
-import { NativeDateAdapter } from './native-date-adapter.js';
+import { NativeDateAdapter } from './native-date-adapter.ts';
 
 describe('NativeDateAdapter', () => {
   let nativeDateAdapter: NativeDateAdapter;

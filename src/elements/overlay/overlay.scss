@@ -20,11 +20,11 @@
   z-index: var(--sbb-overlay-z-index, var(--sbb-overlay-default-z-index));
 }
 
-:host([data-state]:not([data-state='closed'])) {
+:host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
   display: block;
 }
 
-:host(:is([data-state='opening'], [data-state='opened'])) {
+:host(:is(:state(state-opening), :state(state-opened))) {
   --sbb-overlay-pointer-events: all;
 }
 
@@ -36,7 +36,7 @@
   --sbb-overlay-background-color: var(--sbb-background-color-3-negative);
 }
 
-:host(:not([data-state='closed'])) {
+:host(:not(:state(state-closed))) {
   --sbb-overlay-inset: 0;
 }
 
@@ -48,7 +48,7 @@
   position: fixed;
   inset: var(--sbb-overlay-inset);
 
-  :host([data-state]:not([data-state='closed'])) & {
+  :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
     display: flex;
     animation: {
       name: open;
@@ -57,7 +57,7 @@
     }
   }
 
-  :host([data-state][data-state='closing']) & {
+  :host(:state(state-closing)) & {
     pointer-events: none;
     animation-name: close;
   }
@@ -73,7 +73,7 @@
   overflow: auto;
   color: var(--sbb-overlay-color);
 
-  :host([data-state]:not([data-state='closed'])) & {
+  :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
     animation: {
       name: open-move-in;
       duration: var(--sbb-overlay-animation-duration);
@@ -81,7 +81,7 @@
     }
   }
 
-  :host([data-state][data-state='closing']) & {
+  :host(:state(state-closing)) & {
     animation-name: close-move-out;
   }
 }

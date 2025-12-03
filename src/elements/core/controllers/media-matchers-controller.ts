@@ -2,22 +2,26 @@ import {
   SbbBreakpointLargeMax,
   SbbBreakpointLargeMin,
   SbbBreakpointSmallMax,
-  SbbTypoScaleDefault,
+  SbbBreakpointSmallMin,
+  SbbBreakpointUltraMin,
+  SbbBreakpointZeroMin,
 } from '@sbb-esta/lyne-design-tokens';
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
-import type { SbbElementInternalsMixinType } from '../mixins.js';
-
-const pxToRem = (px: number): number => px / SbbTypoScaleDefault;
+import { ɵstateController } from '../mixins/element-internals-mixin.ts';
+import type { SbbElementInternalsMixinType } from '../mixins.ts';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export const SbbMediaQueryForcedColors = '(forced-colors: active)';
 export const SbbMediaQueryDarkMode = '(prefers-color-scheme: dark)';
 export const SbbMediaQueryHover = '(any-hover: hover)';
 export const SbbMediaQueryPointerCoarse = '(pointer: coarse)';
-export const SbbMediaQueryBreakpointLargeAndAbove = `(min-width: ${pxToRem(SbbBreakpointLargeMin)}rem)`;
-export const SbbMediaQueryBreakpointLargeAndBelow = `(max-width: ${pxToRem(SbbBreakpointLargeMax)}rem)`;
-export const SbbMediaQueryBreakpointSmallAndBelow = `(max-width: ${pxToRem(SbbBreakpointSmallMax)}rem)`;
+export const SbbMediaQueryBreakpointZeroAndAbove = `(min-width: ${SbbBreakpointZeroMin})`;
+export const SbbMediaQueryBreakpointSmallAndAbove = `(min-width: ${SbbBreakpointSmallMin})`;
+export const SbbMediaQueryBreakpointLargeAndAbove = `(min-width: ${SbbBreakpointLargeMin})`;
+export const SbbMediaQueryBreakpointUltraAndAbove = `(min-width: ${SbbBreakpointUltraMin})`;
+export const SbbMediaQueryBreakpointSmallAndBelow = `(max-width: ${SbbBreakpointSmallMax})`;
+export const SbbMediaQueryBreakpointLargeAndBelow = `(max-width: ${SbbBreakpointLargeMax})`;
 /* eslint-enable @typescript-eslint/naming-convention */
 
 /**
@@ -109,7 +113,8 @@ export class SbbMediaMatcherController implements ReactiveController {
  */
 export class SbbDarkModeController extends SbbMediaMatcherController {
   /** The current mode based on the class attribute of the <html> element. */
-  private static _currentMode: 'light-dark' | 'light' | 'dark' | null = this._readLightDarkClass();
+  private static _currentMode: 'sbb-light-dark' | 'sbb-light' | 'sbb-dark' | null =
+    this._readLightDarkClass();
 
   /** MutationObserver that observes the "class" attribute of the <html> element. */
   private static readonly _observer = !isServer
@@ -137,7 +142,7 @@ export class SbbDarkModeController extends SbbMediaMatcherController {
   ) {
     const onChangeWithStateUpdater: () => void = () => {
       onChange(this.matches());
-      this._host['toggleState']('dark', this.matches());
+      ɵstateController(this._host).toggle('dark', this.matches());
     };
     super(_host, {
       [SbbMediaQueryDarkMode]: onChangeWithStateUpdater,
@@ -145,14 +150,14 @@ export class SbbDarkModeController extends SbbMediaMatcherController {
     this._onChangeWithStateUpdater = onChangeWithStateUpdater;
   }
 
-  private static _readLightDarkClass(): 'light-dark' | 'light' | 'dark' | null {
+  private static _readLightDarkClass(): 'sbb-light-dark' | 'sbb-light' | 'sbb-dark' | null {
     if (isServer) {
       return null;
     }
     const classList = document.documentElement.classList;
     return (
-      (['light-dark', 'dark', 'light'] as const).find((mode) =>
-        classList.contains(`sbb-${mode}`),
+      (['sbb-light-dark', 'sbb-dark', 'sbb-light'] as const).find((mode) =>
+        classList.contains(mode),
       ) ?? null
     );
   }

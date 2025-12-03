@@ -6,10 +6,10 @@ import { type CSSResultGroup, html, nothing, type TemplateResult, type PropertyV
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { getI18nSeatReservation } from '../common.js';
-import type { PlaceSelection, PlaceState, PlaceType } from '../common.js';
+import { getI18nSeatReservation } from '../common.ts';
+import type { PlaceSelection, PlaceState, PlaceType } from '../common.ts';
 
-import '../seat-reservation-graphic.js';
+import '../seat-reservation-graphic.ts';
 
 import style from './seat-reservation-place-control.scss?lit&inline';
 
@@ -68,7 +68,6 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   public constructor() {
     super();
     this.addEventListener('click', () => this._selectPlace());
-    this.addEventListener('focus', () => this.scrollIntoView({ behavior: 'smooth' }));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {

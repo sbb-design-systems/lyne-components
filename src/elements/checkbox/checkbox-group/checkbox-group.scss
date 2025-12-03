@@ -8,11 +8,6 @@
 $breakpoints: 'zero', 'small', 'large', 'ultra';
 
 :host {
-  @include horizontal-orientation;
-
-  --sbb-checkbox-group-width: max-content;
-  --sbb-checkbox-group-gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-6x);
-
   display: block;
 }
 
@@ -20,22 +15,14 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
   --sbb-checkbox-group-orientation: column;
   --sbb-checkbox-group-width: 100%;
   --sbb-checkbox-group-checkbox-width: 100%;
-
-  ::slotted(sbb-checkbox-panel) {
-    width: 100%;
-  }
 }
 
-:host([data-has-panel]) {
+:host(:state(has-panel)) {
   --sbb-checkbox-group-width: 100%;
-
-  ::slotted(sbb-checkbox-panel) {
-    flex: auto;
-  }
-}
-
-:host([data-has-panel][orientation='vertical']) {
   --sbb-checkbox-group-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+
+  // Distribute available space to the panels
+  --sbb-checkbox-group-checkbox-flex: auto;
 }
 
 @each $breakpoint in $breakpoints {
@@ -45,12 +32,10 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
       @include horizontal-orientation;
 
       // We need to unset the 100% width of the vertical mode if it starts to be horizontal
-      ::slotted(sbb-checkbox-panel) {
-        width: initial;
-      }
+      --sbb-checkbox-group-checkbox-width: initial;
     }
 
-    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']:not([data-has-panel])) {
+    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']:not(:state(has-panel))) {
       --sbb-checkbox-group-width: max-content;
     }
   }
@@ -62,17 +47,16 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
   gap: var(--sbb-checkbox-group-gap);
   align-items: flex-start;
   width: var(--sbb-checkbox-group-width);
-}
 
-.sbb-checkbox-group__error {
-  display: inline-block;
-  margin-block-start: var(--sbb-spacing-fixed-1x);
-
-  :host(:not(:state(slotted-error))) & {
-    display: none;
+  :host(:state(slotted-error)) & {
+    margin-block-end: var(--sbb-spacing-fixed-1x);
   }
 }
 
-::slotted(sbb-checkbox) {
+::slotted(:is(sbb-checkbox, sbb-checkbox-panel)) {
   width: var(--sbb-checkbox-group-checkbox-width);
+}
+
+::slotted(sbb-checkbox-panel) {
+  flex: var(--sbb-checkbox-group-checkbox-flex);
 }

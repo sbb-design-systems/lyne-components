@@ -5,15 +5,15 @@ import { repeat } from 'lit/directives/repeat.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbTagElement, SbbTagGroupElement } from '../../tag.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import type { SbbTagElement, SbbTagGroupElement } from '../../tag.ts';
 
 import readme from './readme.md?raw';
-import './tag-group.component.js';
-import '../tag.js';
-import '../../action-group.js';
-import '../../button.js';
-import '../../card.js';
+import './tag-group.component.ts';
+import '../tag.ts';
+import '../../action-group.ts';
+import '../../button.ts';
+import '../../card.ts';
 
 const uncheckAllTag = (event: Event): void => {
   const tagGroup = (event.currentTarget as SbbTagElement).closest(

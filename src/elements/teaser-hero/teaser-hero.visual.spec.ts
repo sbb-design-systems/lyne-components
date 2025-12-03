@@ -5,13 +5,13 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
-} from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
-import type { SbbImageElement } from '../image.js';
+} from '../core/testing/private.ts';
+import { waitForImageReady } from '../core/testing.ts';
+import type { SbbImageElement } from '../image.ts';
 
-import './teaser-hero.component.js';
-import '../image.js';
-import '../chip-label.js';
+import './teaser-hero.component.ts';
+import '../image.ts';
+import '../chip-label.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 

@@ -5,18 +5,18 @@ import {
   describeViewports,
   loadAssetAsBase64,
   visualDiffDefault,
-} from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
+} from '../core/testing/private.ts';
+import { waitForImageReady } from '../core/testing.ts';
 
-import '../alert.js';
-import '../breadcrumb.js';
-import '../chip-label.js';
-import '../image.js';
-import '../link/block-link.js';
-import '../link/link.js';
-import '../notification.js';
-import '../title.js';
-import './lead-container.component.js';
+import '../alert.ts';
+import '../breadcrumb.ts';
+import '../chip-label.ts';
+import '../image.ts';
+import '../link/block-link.ts';
+import '../link/link.ts';
+import '../notification.ts';
+import '../title.ts';
+import './lead-container.component.ts';
 
 const leadImageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 const leadImageBase64 = await loadAssetAsBase64(leadImageUrl);

@@ -1,5 +1,5 @@
-import type { SbbImageElement } from '../../image.js';
-import { isSafari } from '../dom.js';
+import type { SbbImageElement } from '../../image.ts';
+import { isSafari } from '../dom.ts';
 
 export async function waitForImageReady(
   element: HTMLImageElement | SbbImageElement,

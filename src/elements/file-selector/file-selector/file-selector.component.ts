@@ -3,16 +3,16 @@ import { customElement } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonStaticElement } from '../../button.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { fileSelectorCommonStyle, SbbFileSelectorCommonElementMixin } from '../common.js';
+import type { SbbSecondaryButtonStaticElement } from '../../button.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { fileSelectorCommonStyle, SbbFileSelectorCommonElementMixin } from '../common.ts';
 
-import '../../button/secondary-button-static.js';
+import '../../button/secondary-button-static.ts';
 
 /**
  * It allows to select one or more file from storage devices and display them.
  *
- * @slot error - Use this to provide a `sbb-form-error` to show an error message.
+ * @slot error - Use this to provide a `sbb-error` to show an error message.
  */
 export
 @customElement('sbb-file-selector')

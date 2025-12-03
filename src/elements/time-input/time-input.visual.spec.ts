@@ -5,12 +5,11 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './time-input.component.js';
-import '../form-field.js';
-import '../form-error.js';
-import '../icon.js';
+import './time-input.component.ts';
+import '../form-field.ts';
+import '../icon.ts';
 
 describe(`sbb-time-input`, () => {
   const cases = {
@@ -49,7 +48,7 @@ describe(`sbb-time-input`, () => {
       ${!args.noIcons
         ? html`<sbb-icon slot="suffix" name="circle-information-small"></sbb-icon>`
         : nothing}
-      ${args.withError ? html`<sbb-form-error>Error message</sbb-form-error>` : nothing}
+      ${args.withError ? html`<sbb-error>Error message</sbb-error>` : nothing}
     </sbb-form-field>
   `;
 

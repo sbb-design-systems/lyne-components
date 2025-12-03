@@ -1,12 +1,12 @@
 import { html, type TemplateResult } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
-import type { SbbFormFieldElement } from '../../form-field/form-field.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
+import type { SbbFormFieldElement } from '../../form-field/form-field.ts';
 
-import './chip-group.component.js';
-import '../chip.js';
-import '../../form-field.js';
+import './chip-group.component.ts';
+import '../chip.ts';
+import '../../form-field.ts';
 
 const cases = {
   negative: [true, false],

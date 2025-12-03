@@ -1,9 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbImageElement } from './image.component.js';
+import { SbbImageElement } from './image.component.ts';
 
 describe(`sbb-image ssr`, () => {
   let root: SbbImageElement;

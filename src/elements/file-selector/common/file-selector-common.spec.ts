@@ -1,15 +1,15 @@
 import { expect } from '@open-wc/testing';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonElement } from '../../button.js';
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbFileSelectorDropzoneElement } from '../file-selector-dropzone.js';
-import { SbbFileSelectorElement } from '../file-selector.js';
+import type { SbbSecondaryButtonElement } from '../../button.ts';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbFileSelectorDropzoneElement } from '../file-selector-dropzone.ts';
+import { SbbFileSelectorElement } from '../file-selector.ts';
 
-import '../file-selector-dropzone.js';
+import '../file-selector-dropzone.ts';
 
-import '../../button/secondary-button.js';
+import '../../button/secondary-button.ts';
 
 function createDataTransfer(
   numberOfFiles: number,
@@ -165,9 +165,6 @@ describe(`sbb-file-selector-common`, () => {
               </span>
               <sbb-secondary-button aria-label="Remove file - hello0.txt"
                                     icon-name="trash-small"
-                                    data-action
-                                    data-button
-                                    data-sbb-button
                                     size="m"
                                     tabindex="0">
               </sbb-secondary-button>

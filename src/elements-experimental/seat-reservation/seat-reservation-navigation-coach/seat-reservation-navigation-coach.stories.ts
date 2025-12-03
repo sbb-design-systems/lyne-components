@@ -4,12 +4,12 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { mapRawDataToSeatReservation } from '../common/mapper/mapper.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import { mapRawDataToSeatReservation } from '../common/mapper/mapper.ts';
 import extraStylesFromParent from '../seat-reservation/seat-reservation.scss?lit&inline';
 
 import readme from './readme.md?raw';
-import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.component.js';
+import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.component.ts';
 
 const mappedSeatReservation = mapRawDataToSeatReservation('TRAIN');
 

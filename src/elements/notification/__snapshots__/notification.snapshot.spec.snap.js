@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-notification renders DOM"] = 
 `<sbb-notification
   animation="all"
-  data-state="opened"
   size="m"
   type="info"
 >
@@ -19,7 +18,6 @@ snapshots["sbb-notification renders Shadow DOM"] =
     <slot name="icon">
       <sbb-icon
         class="sbb-notification__icon"
-        data-namespace="default"
         name="circle-information-small"
       >
       </sbb-icon>
@@ -41,9 +39,6 @@ snapshots["sbb-notification renders Shadow DOM"] =
       <sbb-secondary-button
         aria-label="Close message"
         class="sbb-notification__close"
-        data-action=""
-        data-button=""
-        data-sbb-button=""
         icon-name="cross-small"
         size="m"
         tabindex="0"
@@ -58,7 +53,6 @@ snapshots["sbb-notification renders Shadow DOM"] =
 snapshots["sbb-notification renders with a title DOM"] = 
 `<sbb-notification
   animation="all"
-  data-state="opened"
   size="m"
   type="success"
 >
@@ -80,7 +74,6 @@ snapshots["sbb-notification renders with a title Shadow DOM"] =
     <slot name="icon">
       <sbb-icon
         class="sbb-notification__icon"
-        data-namespace="default"
         name="circle-tick-small"
       >
       </sbb-icon>
@@ -102,9 +95,6 @@ snapshots["sbb-notification renders with a title Shadow DOM"] =
       <sbb-secondary-button
         aria-label="Close message"
         class="sbb-notification__close"
-        data-action=""
-        data-button=""
-        data-sbb-button=""
         icon-name="cross-small"
         size="m"
         tabindex="0"
@@ -119,7 +109,6 @@ snapshots["sbb-notification renders with a title Shadow DOM"] =
 snapshots["sbb-notification renders with a slotted title DOM"] = 
 `<sbb-notification
   animation="all"
-  data-state="opened"
   size="m"
   type="info"
 >
@@ -136,7 +125,6 @@ snapshots["sbb-notification renders with a slotted title Shadow DOM"] =
   <div class="sbb-notification">
     <sbb-icon
       class="sbb-notification__icon"
-      data-namespace="default"
       name="circle-information-small"
     >
     </sbb-icon>
@@ -161,9 +149,6 @@ snapshots["sbb-notification renders with a slotted title Shadow DOM"] =
       <sbb-secondary-button
         aria-label="Close message"
         class="sbb-notification__close"
-        data-action=""
-        data-button=""
-        data-sbb-button=""
         icon-name="cross-small"
         size="m"
         tabindex="0"
@@ -178,7 +163,6 @@ snapshots["sbb-notification renders with a slotted title Shadow DOM"] =
 snapshots["sbb-notification renders without the close button DOM"] = 
 `<sbb-notification
   animation="all"
-  data-state="opened"
   readonly=""
   size="m"
   type="info"
@@ -201,7 +185,6 @@ snapshots["sbb-notification renders without the close button Shadow DOM"] =
     <slot name="icon">
       <sbb-icon
         class="sbb-notification__icon"
-        data-namespace="default"
         name="circle-information-small"
       >
       </sbb-icon>
@@ -222,7 +205,6 @@ snapshots["sbb-notification renders without the close button Shadow DOM"] =
 snapshots["sbb-notification renders size s DOM"] = 
 `<sbb-notification
   animation="all"
-  data-state="opened"
   size="s"
   type="info"
 >
@@ -244,7 +226,6 @@ snapshots["sbb-notification renders size s Shadow DOM"] =
     <slot name="icon">
       <sbb-icon
         class="sbb-notification__icon"
-        data-namespace="default"
         name="circle-information-small"
       >
       </sbb-icon>
@@ -266,9 +247,6 @@ snapshots["sbb-notification renders size s Shadow DOM"] =
       <sbb-secondary-button
         aria-label="Close message"
         class="sbb-notification__close"
-        data-action=""
-        data-button=""
-        data-sbb-button=""
         icon-name="cross-small"
         size="s"
         tabindex="0"

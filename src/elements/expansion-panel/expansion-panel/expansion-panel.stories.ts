@@ -11,14 +11,14 @@ import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.ts';
 
-import { SbbExpansionPanelElement } from './expansion-panel.component.js';
+import { SbbExpansionPanelElement } from './expansion-panel.component.ts';
 import readme from './readme.md?raw';
 
-import '../expansion-panel-content.js';
-import '../../icon.js';
+import '../expansion-panel-content.ts';
+import '../../icon.ts';
 
 const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et

@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbTimeInputElement } from './time-input.component.js';
+import { SbbTimeInputElement } from './time-input.component.ts';
 
 describe(`sbb-time-input ssr`, () => {
   let root: SbbTimeInputElement;

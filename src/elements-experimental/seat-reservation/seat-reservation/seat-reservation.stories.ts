@@ -4,12 +4,12 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { MOCK_GIRUNO_TRAIN } from '../common/mapper/seat-reservation-sample-data.js';
-import { mapRawDataToSeatReservation, type CoachItem, type SeatReservation } from '../common.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import { MOCK_GIRUNO_TRAIN } from '../common/mapper/seat-reservation-sample-data.ts';
+import { mapRawDataToSeatReservation, type CoachItem, type SeatReservation } from '../common.ts';
 
 import readme from './readme.md?raw';
-import { SbbSeatReservationElement } from './seat-reservation.component.js';
+import { SbbSeatReservationElement } from './seat-reservation.component.ts';
 
 const seatReservationType: InputType = {
   control: { type: 'object' },
@@ -101,12 +101,12 @@ const deckTwoCoaches: CoachItem[] = [];
 
 trainDeckBottom.deckCoachLevel = 'LOWER_DECK';
 
-//Prepair upper deck by copy from the trainDeckBottom
+// Prepare upper deck by copy from the trainDeckBottom
 const trainDeckUpper = JSON.parse(JSON.stringify(trainDeckBottom)) as SeatReservation;
 trainDeckUpper.deckCoachIndex = 1;
 trainDeckUpper.deckCoachLevel = 'UPPER_DECK';
 
-//For showcase we adjust the places from the upper deck to get a little variation
+// For showcase, we adjust the places from the upper deck to get a little variation
 mappedSeatReservationTrain.coachItems.forEach((coachItem) => {
   const filteredPlaesInCoach =
     coachItem.places?.filter((place) => Number(place.number) % 2 === 0) || [];

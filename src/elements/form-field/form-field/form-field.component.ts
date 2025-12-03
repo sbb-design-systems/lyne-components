@@ -9,12 +9,13 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import type { SbbAutocompleteBaseElement } from '../../autocomplete.js';
-import { sbbInputModalityDetector } from '../../core/a11y.js';
-import { SbbLanguageController } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
-import { i18nOptional } from '../../core/i18n.js';
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
+import type { SbbChipGroupElement } from '../../chip.ts';
+import { sbbInputModalityDetector } from '../../core/a11y.ts';
+import { SbbLanguageController } from '../../core/controllers.ts';
+import { forceType } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
+import { i18nOptional } from '../../core/i18n.ts';
 import {
   appendAriaElements,
   removeAriaElements,
@@ -22,20 +23,20 @@ import {
   type SbbFormAssociatedInputMixinType,
   SbbHydrationMixin,
   SbbNegativeMixin,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbSelectElement } from '../../select.js';
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbSelectElement } from '../../select.ts';
 
 import style from './form-field.scss?lit&inline';
 
-import '../../icon.js';
+import '../../icon.ts';
 
 let nextId = 0;
 
 const patchedInputs = new WeakMap<HTMLInputElement, PropertyDescriptor>();
 const nativeInputElements = ['input', 'textarea', 'select'];
 
-/** An interface which allows a control to work inside of a `SbbFormField`. */
+/** An interface which allows a control to work inside a `SbbFormField`. */
 export interface SbbFormFieldElementControl {
   /** The id of the form field control. */
   readonly id: string;
@@ -306,13 +307,11 @@ class SbbFormFieldElement extends SbbNegativeMixin(
 
   private _assignSlots(): void {
     this.querySelectorAll('label:not([slot])').forEach((e) => e.setAttribute('slot', 'label'));
-    this.querySelectorAll('sbb-form-error:not([slot])').forEach((e) =>
-      e.setAttribute('slot', 'error'),
-    );
+    this.querySelectorAll('sbb-error:not([slot])').forEach((e) => e.setAttribute('slot', 'error'));
   }
 
   private _connectInputElement(): 'changed' | 'no-input' | 'unchanged' {
-    let newInput: HTMLElement | null = null;
+    let newInput: HTMLElement | null;
     if (this._control?.id) {
       newInput = (this.getRootNode() as Document | ShadowRoot).getElementById(this._control.id);
     } else {
@@ -478,7 +477,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   }
 
   private _isInputEmpty(): boolean {
-    const chipGroupElem = this.querySelector('sbb-chip-group');
+    const chipGroupElem: SbbChipGroupElement | null = this.querySelector('sbb-chip-group');
     if (chipGroupElem) {
       return (
         this._isInputValueEmpty() &&
@@ -506,7 +505,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   }
 
   /**
-   * It is used internally to set the aria-describedby attribute for the slotted input referencing available <sbb-form-error> instances.
+   * It is used internally to set the aria-describedby attribute for the slotted input referencing available <sbb-error> instances.
    */
   private _onSlotErrorChange(event: Event): void {
     const errorElements = (event.target as HTMLSlotElement).assignedElements();
@@ -554,7 +553,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
 
   private _syncNegative(): void {
     this.querySelectorAll?.(
-      'sbb-form-error,sbb-mini-button,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group',
+      'sbb-error,sbb-mini-button,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group',
     ).forEach((element) => element.toggleAttribute('negative', this.negative));
   }
 

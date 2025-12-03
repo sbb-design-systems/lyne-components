@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 
-import { SbbCarouselItemElement } from './carousel-item.component.js';
+import { SbbCarouselItemElement } from './carousel-item.component.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

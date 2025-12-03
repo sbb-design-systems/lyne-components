@@ -1,8 +1,8 @@
 import { html, nothing } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './loading-indicator-circle.component.js';
+import './loading-indicator-circle.component.ts';
 
 describe(`sbb-loading-indicator-circle`, () => {
   const cases = {
@@ -20,7 +20,7 @@ describe(`sbb-loading-indicator-circle`, () => {
             html`
               <sbb-loading-indicator-circle
                 color=${color}
-                style=${size === 'l' ? 'font-size: var(--sbb-font-size-text-xl);' : nothing}
+                style=${size === 'l' ? 'font-size: var(--sbb-text-font-size-xl);' : nothing}
               ></sbb-loading-indicator-circle>
             `,
             {

@@ -1,4 +1,4 @@
-import type { SbbLanguage, SbbOccupancy } from '../interfaces.js';
+import type { SbbLanguage, SbbOccupancy } from '../interfaces.ts';
 
 export const i18nDirection: Record<string, string> = {
   de: 'Richtung',
@@ -733,14 +733,6 @@ export const i18nItemsPerPage: Record<string, string> = {
   fr: 'Entrées par page',
   it: 'Elementi per pagina',
 };
-
-/** @deprecated */
-export const i18nSelectedPage = (pageNumber: number): Record<string, string> => ({
-  de: `Seite ${pageNumber} ausgewählt.`,
-  en: `Page ${pageNumber} selected.`,
-  fr: `Page ${pageNumber} sélectionnée.`,
-  it: `Pagina ${pageNumber} selezionata.`,
-});
 
 export const i18nPaginatorSelected: Record<string, string> = {
   de: `ausgewählt`,

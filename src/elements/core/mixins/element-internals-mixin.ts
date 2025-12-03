@@ -1,14 +1,15 @@
 import { isServer, type LitElement, type ReactiveController } from 'lit';
 
-import { SbbSlotStateController } from '../controllers.js';
+import { SbbSlotStateController } from '../controllers/slot-state-controller.ts';
 
-import type { AbstractConstructor } from './constructor.js';
+import type { AbstractConstructor } from './constructor.ts';
 
 // Most of our target browsers support the :state() pseudo class, but not all of them.
 // We patch the states property of the element internals to use attributes instead,
 // if :state() is not supported.
 // Note that for SSR, the states property is a simple Set, implemented in Lit SSR.
-// TODO: Remove in 2026.
+// WebKit seems to have state detection problems, so we enable the polyfill for now.
+// TODO: Recheck enabling by testing sbb-autocomplete whether it reliably opens in Safari
 type CustomStateSetInterface = CustomStateSet;
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const CustomStateSetPolyfill: (new (host: LitElement) => CustomStateSetInterface) | null =
@@ -17,13 +18,20 @@ const CustomStateSetPolyfill: (new (host: LitElement) => CustomStateSetInterface
         extends Set<string>
         implements CustomStateSetInterface, ReactiveController
       {
+        private _applied = isServer;
+
         public constructor(private _host: LitElement) {
           super();
           this._host.addController(this);
+          if (!isServer) {
+            // We want to apply the attributes as early as possible which can
+            // either be via this Promise.resolve() or the connectedCallback().
+            Promise.resolve().then(() => this._applyStates());
+          }
         }
 
         public override add(state: string): this {
-          if (this._host.isConnected) {
+          if (this._applied) {
             this._toggleState(state, true);
           }
           return super.add(state);
@@ -39,11 +47,19 @@ const CustomStateSetPolyfill: (new (host: LitElement) => CustomStateSetInterface
         }
 
         public hostConnected(): void {
-          this.forEach((state) => this._toggleState(state, true));
+          this._applyStates();
         }
 
         private _toggleState(state: string, enabled: boolean): void {
           this._host.toggleAttribute(`state--${state}`, enabled);
+        }
+
+        private _applyStates(): void {
+          if (this._applied) {
+            return;
+          }
+          this._applied = true;
+          this.forEach((state) => this._toggleState(state, true));
         }
       }
     : null;
@@ -227,13 +243,65 @@ if (!isServer) {
   }
 }
 
+const attachedElementInternals = new WeakMap<Element, ElementInternals>();
+
+export interface SbbStateController {
+  add(value: string): this;
+  delete(value: string): boolean;
+  has(value: string): boolean;
+  toggle(value: string, force?: boolean): void;
+}
+
+/**
+ * Creates a state controller for the given element.
+ * NOT INTENDED TO BE USED BY CONSUMERS!
+ * @internal
+ */
+export function ɵstateController(element: Element): SbbStateController;
+export function ɵstateController(element: Element | undefined | null): SbbStateController | null;
+export function ɵstateController(element: Element | undefined | null): SbbStateController | null {
+  if (!element) {
+    return null;
+  }
+  const states = attachedElementInternals.get(element)?.states;
+  const toggle: SbbStateController['toggle'] = function (this: SbbStateController, value, force) {
+    if (force || (force !== false && !this.has(value))) {
+      this.add(value);
+    } else {
+      this.delete(value);
+    }
+  };
+  if (states) {
+    return {
+      add(value) {
+        states.add(value);
+        return this;
+      },
+      delete: (value) => states.delete(value),
+      has: (value) => states.has(value),
+      toggle,
+    };
+  } else {
+    // If no ElementInternals is attached, we fall back to using attributes. E.g. for triggers.
+    return {
+      add(value) {
+        element.toggleAttribute(`state--${value}`, true);
+        return this;
+      },
+      delete: (value) => element.toggleAttribute(`state--${value}`, false),
+      has: (value) => element.hasAttribute(`state--${value}`),
+      toggle,
+    };
+  }
+}
+
 export interface SbbElementInternalsConstructor {
   role?: ElementInternals['role'];
 }
 
 export declare abstract class SbbElementInternalsMixinType {
   protected readonly internals: ElementInternals;
-  protected toggleState(state: string, force?: boolean): void;
+  protected toggleState(value: string, force?: boolean): void;
 }
 
 /**
@@ -278,6 +346,7 @@ export const SbbElementInternalsMixin = <T extends AbstractConstructor<LitElemen
 
     public constructor(...args: any[]) {
       super(...args);
+      attachedElementInternals.set(this, this.internals);
       if (CustomStateSetPolyfill) {
         Object.defineProperty(this.internals, 'states', {
           value: new CustomStateSetPolyfill(this),
@@ -301,11 +370,11 @@ export const SbbElementInternalsMixin = <T extends AbstractConstructor<LitElemen
       this.addController(new SbbSlotStateController(this, this.internals));
     }
 
-    protected toggleState(state: string, force?: boolean): void {
-      if (force || (force !== false && !this.internals.states.has(state))) {
-        this.internals.states.add(state);
+    protected toggleState(value: string, force?: boolean): void {
+      if (force || (force !== false && !this.internals.states.has(value))) {
+        this.internals.states.add(value);
       } else {
-        this.internals.states.delete(state);
+        this.internals.states.delete(value);
       }
     }
   }

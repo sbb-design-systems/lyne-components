@@ -7,15 +7,15 @@ import {
   describeEach,
   visualDiffDefault,
   type VisualDiffSetupBuilder,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../../select.js';
-import '../../form-field.js';
-import '../../autocomplete.js';
-import '../../autocomplete-grid.js';
-import '../optgroup.js';
-import '../option.js';
-import './option-hint.component.js';
+import '../../select.ts';
+import '../../form-field.ts';
+import '../../autocomplete.ts';
+import '../../../elements-experimental/autocomplete-grid.ts';
+import '../optgroup.ts';
+import '../option.ts';
+import './option-hint.component.ts';
 
 const openAutocomplete = async (setup: VisualDiffSetupBuilder): Promise<void> => {
   // Wait for page is rendered stable. Otherwise, the overlay can be positioned slightly off.

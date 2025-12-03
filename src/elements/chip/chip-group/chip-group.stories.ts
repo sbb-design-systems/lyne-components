@@ -10,13 +10,13 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { SbbChipGroupElement } from './chip-group.component.js';
+import { SbbChipGroupElement } from './chip-group.component.ts';
 import readme from './readme.md?raw';
 
-import '../chip.js';
-import '../../autocomplete.js';
-import '../../form-field.js';
-import '../../option.js';
+import '../chip.ts';
+import '../../autocomplete.ts';
+import '../../form-field.ts';
+import '../../option.ts';
 
 const disabled: InputType = {
   control: {

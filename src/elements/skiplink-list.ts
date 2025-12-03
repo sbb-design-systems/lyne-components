@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './skiplink-list/skiplink-list.component.js';
+export * from './skiplink-list/skiplink-list.component.ts';

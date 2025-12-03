@@ -23,7 +23,7 @@
   display: none;
 }
 
-:host([data-state]:not([data-state='closed'])) {
+:host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
   --sbb-toast-container-display: flex;
 
   display: block;
@@ -86,7 +86,7 @@
   color: var(--sbb-toast-text-color);
   background-color: var(--sbb-toast-background-color);
 
-  :host([data-state='opening']) & {
+  :host(:state(state-opening)) & {
     animation: {
       name: open;
       duration: var(--sbb-toast-animation-duration);
@@ -94,7 +94,7 @@
     }
   }
 
-  :host([data-state='closing']) & {
+  :host(:state(state-closing)) & {
     animation: {
       name: close;
       duration: var(--sbb-toast-animation-duration);

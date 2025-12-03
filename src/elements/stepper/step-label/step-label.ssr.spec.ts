@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbStepLabelElement } from './step-label.component.js';
+import { SbbStepLabelElement } from './step-label.component.ts';
 
 describe(`sbb-step-label ssr`, () => {
   let root: SbbStepLabelElement;

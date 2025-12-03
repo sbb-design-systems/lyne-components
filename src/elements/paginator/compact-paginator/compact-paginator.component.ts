@@ -3,14 +3,14 @@ import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { i18nPage, i18nPaginatorOf } from '../../core/i18n.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { SbbPaginatorCommonElementMixin } from '../common.js';
+import { i18nPage, i18nPaginatorOf } from '../../core/i18n.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbPaginatorCommonElementMixin } from '../common.ts';
 
 import style from './compact-paginator.scss?lit&inline';
 
-import '../../divider.js';
-import '../../screen-reader-only.js';
+import '../../divider.ts';
+import '../../screen-reader-only.ts';
 
 /**
  * It displays a paginator component in compact mode.
@@ -21,7 +21,6 @@ class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(LitEleme
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events: Record<string, string> = {
     page: 'page',
-    ɵpage: 'ɵpage',
   } as const;
 
   private _renderPageNumbers(): TemplateResult {

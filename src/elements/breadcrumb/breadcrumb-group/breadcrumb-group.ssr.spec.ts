@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.js';
+import { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.ts';
 
-import '../breadcrumb.js';
+import '../breadcrumb.ts';
 
 describe(`sbb-breadcrumb-group ssr`, () => {
   let root: SbbBreadcrumbGroupElement;

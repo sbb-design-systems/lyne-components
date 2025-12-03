@@ -1,13 +1,13 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.js';
-import '../expansion-panel-content.js';
-import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.ts';
+import '../expansion-panel-content.ts';
+import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.ts';
 
-import { SbbExpansionPanelElement } from './expansion-panel.component.js';
+import { SbbExpansionPanelElement } from './expansion-panel.component.ts';
 
 describe(`sbb-expansion-panel`, () => {
   let element: SbbExpansionPanelElement;
@@ -30,13 +30,13 @@ describe(`sbb-expansion-panel`, () => {
     expect(header).to.have.attribute('id', 'sbb-expansion-panel-header-2');
     expect(header).to.have.attribute('aria-controls', 'sbb-expansion-panel-content-2');
     expect(header).to.match(':state(icon)');
-    expect(header).to.have.attribute('data-size', 'l');
+    expect(header).to.match(':state(size-l)');
 
     const content = element.querySelector('sbb-expansion-panel-content');
     expect(content).to.have.attribute('id', 'sbb-expansion-panel-content-2');
     expect(content).to.have.attribute('aria-labelledby', `sbb-expansion-panel-header-2`);
     expect(content).to.match(':state(icon-space)');
-    expect(content).to.have.attribute('data-size', 'l');
+    expect(content).to.match(':state(size-l)');
   });
 
   it('has slotted elements with the correct properties when id are set', async () => {
@@ -114,21 +114,23 @@ describe(`sbb-expansion-panel`, () => {
       element.querySelector<SbbExpansionPanelHeaderElement>('sbb-expansion-panel-header')!;
     const content: SbbExpansionPanelContentElement =
       element.querySelector<SbbExpansionPanelContentElement>('sbb-expansion-panel-content')!;
-    expect(header).to.have.attribute('data-size', 'l');
-    expect(content).to.have.attribute('data-size', 'l');
+    expect(header).to.match(':state(size-l)');
+    expect(content).to.match(':state(size-l)');
 
     element.size = 's';
     await waitForLitRender(element);
-    expect(header).to.have.attribute('data-size', 's');
-    expect(content).to.have.attribute('data-size', 's');
+    expect(header).to.match(':state(size-s)');
+    expect(content).to.match(':state(size-s)');
 
     element.size = 'l';
     await waitForLitRender(element);
-    expect(header).to.have.attribute('data-size', 'l');
-    expect(content).to.have.attribute('data-size', 'l');
+    expect(header).to.match(':state(size-l)');
+    expect(content).to.match(':state(size-l)');
   });
 
   it('should fire animation events with non-zero animation duration', async () => {
+    (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
     element.style.setProperty('--sbb-expansion-panel-animation-duration', '1ms');
 
     const openSpy = new EventSpy(SbbExpansionPanelElement.events.open, element);

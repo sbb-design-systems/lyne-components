@@ -1,15 +1,14 @@
 import { expect } from '@open-wc/testing';
-import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { stub, type SinonStub } from 'sinon';
+import { type SinonStub, stub } from 'sinon';
 
-import { defaultDateAdapter } from '../core/datetime.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { defaultDateAdapter } from '../core/datetime.ts';
+import { fixture, sbbBreakpointLargeMinPx, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbCalendarElement } from './calendar.component.js';
+import type { SbbCalendarElement } from './calendar.component.ts';
 
-import './calendar.component.js';
+import './calendar.component.ts';
 
 describe(`sbb-calendar`, () => {
   let todayStub: SinonStub;
@@ -80,7 +79,7 @@ describe(`sbb-calendar`, () => {
     let element: SbbCalendarElement;
 
     beforeEach(async () => {
-      await setViewport({ width: SbbBreakpointLargeMin, height: 640 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 640 });
       element = await fixture(html`
         <sbb-calendar
           selected="2023-01-20T00:00:00"
@@ -104,7 +103,7 @@ describe(`sbb-calendar`, () => {
     let element: SbbCalendarElement;
 
     beforeEach(async () => {
-      await setViewport({ width: SbbBreakpointLargeMin, height: 640 });
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 640 });
       element = await fixture(html`
         <sbb-calendar
           selected="2023-01-20T00:00:00"

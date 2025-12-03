@@ -3,9 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-accent-button renders a sbb-accent-button without icon DOM"] = 
 `<sbb-accent-button
-  data-action=""
-  data-button=""
-  data-sbb-button=""
   disabled=""
   form="formid"
   name="name"
@@ -33,14 +30,10 @@ snapshots["sbb-accent-button renders a sbb-accent-button without icon Shadow DOM
 
 snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon DOM"] = 
 `<sbb-accent-button
-  data-action=""
-  data-button=""
-  data-sbb-button=""
   size="l"
   tabindex="0"
 >
   <sbb-icon
-    data-namespace="default"
     name="chevron-small-left-small"
     slot="icon"
   >

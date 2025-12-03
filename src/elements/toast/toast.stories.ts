@@ -4,14 +4,14 @@ import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbButtonElement } from '../button.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbButtonElement } from '../button.ts';
 
 import readme from './readme.md?raw';
-import { SbbToastElement } from './toast.component.js';
-import '../button/button.js';
-import '../button/transparent-button.js';
-import '../link/link.js';
+import { SbbToastElement } from './toast.component.ts';
+import '../button/button.ts';
+import '../button/transparent-button.ts';
+import '../link/link.ts';
 
 const position: InputType = {
   control: {

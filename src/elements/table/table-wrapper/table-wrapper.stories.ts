@@ -5,7 +5,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
-import './table-wrapper.component.js';
+import './table-wrapper.component.ts';
 
 const columns = [
   'Line',

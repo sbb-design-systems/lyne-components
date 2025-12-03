@@ -1,6 +1,6 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
-import type { SbbOpenCloseBaseElement } from '../base-elements.js';
+import type { SbbOpenCloseBaseElement } from '../base-elements.ts';
 
 const IGNORED_ELEMENTS = ['script', 'head', 'template', 'style'];
 const inertElements = new Set<HTMLElement>();

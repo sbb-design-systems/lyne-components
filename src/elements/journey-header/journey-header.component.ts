@@ -2,18 +2,18 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/controllers.js';
-import { forceType } from '../core/decorators.js';
-import { isLean } from '../core/dom.js';
-import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n.js';
-import { SbbNegativeMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
-import { SbbTitleBase, type SbbTitleLevel } from '../title.js';
+import { SbbLanguageController } from '../core/controllers.ts';
+import { forceType } from '../core/decorators.ts';
+import { isLean } from '../core/dom.ts';
+import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n.ts';
+import { SbbNegativeMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import { SbbTitleBase, type SbbTitleLevel } from '../title.ts';
 
 import style from './journey-header.scss?lit&inline';
 
-import '../icon.js';
-import '../screen-reader-only.js';
+import '../icon.ts';
+import '../screen-reader-only.ts';
 
 export type JourneyHeaderSize = 's' | 'm' | 'l';
 

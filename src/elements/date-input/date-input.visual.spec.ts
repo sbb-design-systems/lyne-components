@@ -6,10 +6,10 @@ import {
   visualDiffDefault,
   visualDiffStandardStates,
   visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './date-input.component.js';
-import '../form-field/form-field.js';
+import './date-input.component.ts';
+import '../form-field/form-field.ts';
 
 describe('sbb-date-input', () => {
   let root: HTMLElement;

@@ -1,18 +1,18 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { isChromium } from '../../core/dom.js';
+import { isChromium } from '../../core/dom.ts';
 import {
   describeEach,
   describeViewports,
   visualDiffActive,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './form-field.component.js';
-import '../../button/mini-button.js';
-import '../../form-error.js';
-import '../../popover.js';
+import './form-field.component.ts';
+import '../../button/mini-button.ts';
+import '../error.ts';
+import '../../popover.ts';
 
 describe(`sbb-form-field`, () => {
   const formField = (
@@ -47,9 +47,7 @@ describe(`sbb-form-field`, () => {
           ? html`<span slot="label">${label}</span>`
           : nothing}
       ${template}
-      ${errorText
-        ? html`<sbb-form-error slot="error">This is a required field.</sbb-form-error>`
-        : nothing}
+      ${errorText ? html`<sbb-error slot="error">This is a required field.</sbb-error>` : nothing}
     </sbb-form-field>`;
 
   const basicInput = ({

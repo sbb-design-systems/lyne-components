@@ -1,17 +1,17 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { defaultDateAdapter } from '../../core/datetime.js';
-import { ssrHydratedFixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
-import type { SbbDateInputElement } from '../../date-input.js';
-import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
+import { defaultDateAdapter } from '../../core/datetime.ts';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
+import type { SbbDateInputElement } from '../../date-input.ts';
+import type { SbbDatepickerToggleElement } from '../datepicker-toggle.ts';
 
-import { SbbDatepickerElement } from './datepicker.component.js';
+import { SbbDatepickerElement } from './datepicker.component.ts';
 
-import '../../date-input.js';
-import '../../datepicker.js';
-import '../../form-field.js';
+import '../../date-input.ts';
+import '../../datepicker.ts';
+import '../../form-field.ts';
 
 describe(`sbb-datepicker ssr`, () => {
   const asIso8601 = (date: Date): string => defaultDateAdapter.toIso8601(date);
@@ -55,6 +55,6 @@ describe(`sbb-datepicker ssr`, () => {
     datepicker.open();
 
     // Then the calendar should be displayed
-    expect(datepicker.getAttribute('data-state')).not.to.be.equal('closed');
+    expect(datepicker).not.to.match(':state(state-closed)');
   });
 });

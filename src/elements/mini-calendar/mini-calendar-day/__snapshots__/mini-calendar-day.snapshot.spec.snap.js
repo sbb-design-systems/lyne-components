@@ -3,8 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-mini-calendar-day renders DOM"] = 
 `<sbb-mini-calendar-day
-  data-action=""
-  data-button=""
   date="2025-01-01"
   tabindex="0"
 >

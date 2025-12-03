@@ -1,10 +1,10 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbActionBaseElement } from '../../core/base-elements.js';
-import { SbbDisabledMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { buttonCommonStyle, buttonPrimaryStyle, SbbButtonCommonElementMixin } from '../common.js';
+import { SbbActionBaseElement } from '../../core/base-elements.ts';
+import { SbbDisabledMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { buttonCommonStyle, buttonPrimaryStyle, SbbButtonCommonElementMixin } from '../common.ts';
 
 /**
  * It displays a static button enhanced with the SBB Design in the 'primary' variant.

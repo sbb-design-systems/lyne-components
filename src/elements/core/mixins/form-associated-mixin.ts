@@ -2,10 +2,10 @@
 import type { LitElement, PropertyDeclaration, PropertyValues } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { isWebkit } from '../dom.js';
+import { isWebkit } from '../dom.ts';
 
-import type { AbstractConstructor } from './constructor.js';
-import type { SbbElementInternalsMixinType } from './element-internals-mixin.js';
+import type { AbstractConstructor } from './constructor.ts';
+import type { SbbElementInternalsMixinType } from './element-internals-mixin.ts';
 
 declare global {
   /**
@@ -146,7 +146,7 @@ export const SbbFormAssociatedMixin = <
      * Please note that only one message is returned at a time (e.g. if
      * multiple validity states are invalid, only the chronologically first one
      * is returned until it is fixed, at which point the next message might be
-     * returned, if it is still applicable). Also a custom validity message
+     * returned, if it is still applicable). Also, a custom validity message
      * (see below) has precedence over native validation messages.
      */
     public get validationMessage(): string {

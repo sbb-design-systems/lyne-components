@@ -2,10 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
-import { SbbIconNameMixin } from '../icon.js';
-import type { SbbTitleElement } from '../title.js';
+import { SbbElementInternalsMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import { SbbIconNameMixin } from '../icon.ts';
+import type { SbbTitleElement } from '../title.ts';
 
 import style from './status.scss?lit&inline';
 

@@ -1,0 +1,38 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-visual-checkbox-dimension: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-checkbox-dimension-m),
+        'lean': var(--sbb-checkbox-dimension-xs),
+      ),
+      $theme
+    )};
+  --sbb-visual-checkbox-selection-color: var(--sbb-color-primary);
+  --sbb-visual-checkbox-selection-color-negative: var(--sbb-color-primary85);
+  --sbb-visual-checkbox-selection-color-disabled: var(--sbb-color-2);
+  --sbb-visual-checkbox-selection-color-disabled-negative: var(--sbb-color-2-negative);
+  --sbb-visual-checkbox-background-color: var(--sbb-background-color-1);
+  --sbb-visual-checkbox-background-color-negative: var(--sbb-background-color-1-negative);
+  --sbb-visual-checkbox-background-color-disabled: var(--sbb-background-color-3);
+  --sbb-visual-checkbox-background-color-negative-disabled: var(--sbb-background-color-3-negative);
+  --sbb-visual-checkbox-border-color: var(--sbb-border-color-5);
+  --sbb-visual-checkbox-border-color-disabled: var(--sbb-border-color-5);
+  --sbb-visual-checkbox-border-style: solid;
+  --sbb-visual-checkbox-border-style-disabled: dashed;
+  --sbb-visual-checkbox-border-width: var(--sbb-border-width-1x);
+  --sbb-visual-checkbox-cursor: var(--sbb-cursor-pointer);
+}
+
+@mixin base-forced-colors {
+  --sbb-visual-checkbox-selection-color: Canvas;
+  --sbb-visual-checkbox-selection-color-negative: Canvas;
+  --sbb-visual-checkbox-selection-color-disabled: Canvas;
+  --sbb-visual-checkbox-selection-color-disabled-negative: Canvas;
+  --sbb-visual-checkbox-border-color: ButtonBorder;
+  --sbb-visual-checkbox-border-color-disabled: GrayText;
+  --sbb-visual-checkbox-border-width: var(--sbb-border-width-2x);
+  --sbb-visual-checkbox-border-style-disabled: solid;
+}

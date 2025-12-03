@@ -3,9 +3,9 @@ import { LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../testing/private.js';
+import { fixture } from '../testing/private.ts';
 
-import { SbbReadonlyMixin } from './readonly-mixin.js';
+import { SbbReadonlyMixin } from './readonly-mixin.ts';
 
 /** Dummy docs */
 @customElement('sbb-readonly-test')

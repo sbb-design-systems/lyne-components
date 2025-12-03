@@ -11,14 +11,14 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
-import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y.js';
-import { readConfig } from '../core/config.js';
+import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y.ts';
+import { readConfig } from '../core/config.ts';
 import {
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointLargeAndAbove,
-} from '../core/controllers.js';
-import type { DateAdapter } from '../core/datetime.js';
+} from '../core/controllers.ts';
+import type { DateAdapter } from '../core/datetime.ts';
 import {
   DAYS_PER_ROW,
   defaultDateAdapter,
@@ -26,8 +26,8 @@ import {
   MONTHS_PER_ROW,
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
-} from '../core/datetime.js';
-import { forceType, handleDistinctChange, plainDate } from '../core/decorators.js';
+} from '../core/datetime.ts';
+import { forceType, handleDistinctChange, plainDate } from '../core/decorators.ts';
 import {
   i18nCalendarDateSelection,
   i18nCalendarWeekNumber,
@@ -38,16 +38,16 @@ import {
   i18nPreviousYear,
   i18nPreviousYearRange,
   i18nYearMonthSelection,
-} from '../core/i18n.js';
-import type { SbbOrientation } from '../core/interfaces.js';
-import { SbbHydrationMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
+} from '../core/i18n.ts';
+import type { SbbOrientation } from '../core/interfaces.ts';
+import { SbbElementInternalsMixin, SbbHydrationMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './calendar.scss?lit&inline';
 
-import '../button/secondary-button.js';
-import '../icon.js';
-import '../screen-reader-only.js';
+import '../button/secondary-button.ts';
+import '../icon.ts';
+import '../screen-reader-only.ts';
 
 /**
  * Parameters needed in year and month views to correctly calculate the next element in keyboard navigation.
@@ -87,16 +87,15 @@ interface CalendarKeyboardNavigationDayViewParameters {
   secondMonthOffset: number;
 }
 
-// TODO: new parameters are optional to avoid breaking changes; make them mandatory right before the next major release
 export interface Day<T = Date> {
   /** Date as ISO string. */
   value: string;
   dayValue: string;
   monthValue: string;
   yearValue: string;
-  dateValue?: T;
-  weekValue?: number;
-  weekDayValue?: number;
+  dateValue: T;
+  weekValue: number;
+  weekDayValue: number;
 }
 
 export interface Month {
@@ -117,7 +116,7 @@ export type CalendarView = 'day' | 'month' | 'year';
  */
 export
 @customElement('sbb-calendar')
-class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
+class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     dateselected: 'dateselected',
@@ -210,10 +209,10 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
   @state()
   private set _wide(wide: boolean) {
-    this.toggleAttribute('data-wide', wide);
+    this.toggleState('wide', wide);
   }
   private get _wide(): boolean {
-    return this.hasAttribute('data-wide');
+    return this.internals.states.has('wide');
   }
 
   @state() private accessor _calendarView: CalendarView = 'day';
@@ -986,13 +985,13 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
     switch (evt.key) {
       case 'ArrowUp':
-        return this._findDayArrows(cells, index, day.dateValue!, -arrowsOffset.upDown);
+        return this._findDayArrows(cells, index, day.dateValue, -arrowsOffset.upDown);
       case 'ArrowDown':
-        return this._findDayArrows(cells, index, day.dateValue!, arrowsOffset.upDown);
+        return this._findDayArrows(cells, index, day.dateValue, arrowsOffset.upDown);
       case 'ArrowLeft':
-        return this._findDayArrows(cells, index, day.dateValue!, -arrowsOffset.leftRight);
+        return this._findDayArrows(cells, index, day.dateValue, -arrowsOffset.leftRight);
       case 'ArrowRight':
-        return this._findDayArrows(cells, index, day.dateValue!, arrowsOffset.leftRight);
+        return this._findDayArrows(cells, index, day.dateValue, arrowsOffset.leftRight);
       case 'PageUp': {
         if (this.orientation === 'horizontal') {
           const firstOfWeek: number = +day.dayValue % DAYS_PER_ROW || DAYS_PER_ROW;
@@ -1071,7 +1070,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     deltaIfDisabled: number,
   ): HTMLButtonElement {
     const newDateValue = this._dateAdapter.toIso8601(
-      this._dateAdapter.addCalendarDays(day.dateValue!, delta),
+      this._dateAdapter.addCalendarDays(day.dateValue, delta),
     );
     if (this._isDayOutOfView(newDateValue)) {
       return cells[index];
@@ -1579,12 +1578,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       if (this.multiple) {
         selected =
           (this._selected as T[]).find(
-            (selDay: T) => this._dateAdapter.compareDate(day.dateValue!, selDay) === 0,
+            (selDay: T) => this._dateAdapter.compareDate(day.dateValue, selDay) === 0,
           ) !== undefined;
       } else {
         selected =
           !!this._selected &&
-          this._dateAdapter.compareDate(day.dateValue!, this._selected as T) === 0;
+          this._dateAdapter.compareDate(day.dateValue, this._selected as T) === 0;
       }
       return html`
         <td
@@ -1601,7 +1600,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
               'sbb-calendar__selected': selected,
               'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
             })}
-            @click=${() => this._selectDate(day.dateValue!)}
+            @click=${() => this._selectDate(day.dateValue)}
             ?disabled=${isOutOfRange || isFilteredOut}
             value=${day.value}
             type="button"
@@ -1888,7 +1887,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
 
   private _getView(): TemplateResult {
     if (isServer || this.hydrationRequired) {
-      // TODO: We disable SSR for calendar for now. Figure our, if there is a way
+      // TODO: We disable SSR for calendar for now. Figure out, if there is a way
       // to enable it, while considering i18n and date information.
       return html`${nothing}`;
     }
@@ -1910,12 +1909,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       this._resetFocus = true;
       this._calendarView = this._nextCalendarView;
     } else if (event.animationName === 'show') {
-      this.removeAttribute('data-transition');
+      this.internals.states.delete('transition');
     }
   }
 
   private _startTableTransition(): void {
-    this.toggleAttribute('data-transition', true);
+    this.internals.states.add('transition');
     this.shadowRoot
       ?.querySelectorAll('table')
       ?.forEach((e) => e.classList.toggle('sbb-calendar__table-hide'));

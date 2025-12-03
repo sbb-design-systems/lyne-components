@@ -142,7 +142,7 @@
   );
   --sbb-calendar-margin: var(--sbb-calendar-start-offset);
 
-  :host([data-wide]) & {
+  :host(:state(wide)) & {
     --sbb-calendar-min-width: calc(
       2 * 7 * var(--sbb-calendar-cell-size) + var(--sbb-calendar-tables-gap)
     );
@@ -153,7 +153,7 @@
     --sbb-calendar-min-width: calc(8 * var(--sbb-calendar-cell-size));
   }
 
-  :host([orientation='horizontal'][week-numbers][data-wide]) & {
+  :host([orientation='horizontal'][week-numbers]:state(wide)) & {
     --sbb-calendar-min-width: calc(
       2 * 8 * var(--sbb-calendar-cell-size) + var(--sbb-calendar-tables-gap)
     );
@@ -170,7 +170,7 @@
   }
 
   // The min-width in wide is calculated as (max number of weeks in a month) * (displayed months) + (header column) = 6 * 2 + 1 = 13.
-  :host([orientation='vertical'][data-wide]) & {
+  :host([orientation='vertical']:state(wide)) & {
     --sbb-calendar-min-width: calc(
       13 * var(--sbb-calendar-cell-size) + var(--sbb-calendar-tables-gap)
     );
@@ -196,7 +196,7 @@
     }
   }
 
-  :host(:not([data-wide])) & {
+  :host(:not(:state(wide))) & {
     // Due to a Safari iOS rendering bug we need to define min-width as well.
     // Otherwise, after orientation change, there is a wrong width if placed in an sbb-dialog.
     min-width: 100%;

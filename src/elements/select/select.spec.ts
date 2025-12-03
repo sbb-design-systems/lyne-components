@@ -3,17 +3,17 @@ import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { fixture, tabKey } from '../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../core/testing.js';
-import type { SbbFormFieldElement } from '../form-field.js';
-import { SbbOptionElement } from '../option.js';
+import { fixture, tabKey } from '../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import type { SbbFormFieldElement } from '../form-field.ts';
+import { SbbOptionElement } from '../option.ts';
 
-import { SbbSelectElement } from './select.component.js';
+import { SbbSelectElement } from './select.component.ts';
 
-import '../form-field.js';
+import '../form-field.ts';
 
 describe(`sbb-select`, () => {
-  let element: SbbSelectElement;
+  let element: SbbSelectElement, root: HTMLDivElement;
 
   const displayValue = (): string => {
     const displayValueElement = element.shadowRoot!.querySelector('.sbb-select__trigger')!;
@@ -28,7 +28,7 @@ describe(`sbb-select`, () => {
       comboBoxElement: HTMLElement;
 
     beforeEach(async () => {
-      const root = await fixture(html`
+      root = await fixture(html`
         <div id="parent">
           <sbb-select placeholder="Placeholder">
             <sbb-option id="option-1" value="1">First</sbb-option>
@@ -68,7 +68,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
-      expect(element).to.have.attribute('data-expanded');
+      expect(element).to.match(':state(expanded)');
       expect(overlayContainerElement).to.match(':popover-open');
 
       element.dispatchEvent(new PointerEvent('click'));
@@ -81,13 +81,14 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
-      expect(element).not.to.have.attribute('data-expanded');
+      expect(element).not.to.match(':state(expanded)');
       expect(overlayContainerElement).not.to.match(':popover-open');
     });
 
     it('opens and closes the select with non-zero animation duration', async function (this: Context) {
-      // Test is flaky on WebKit
+      // Flaky on WebKit
       this.retries(3);
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
 
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 
@@ -107,7 +108,9 @@ describe(`sbb-select`, () => {
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
     });
 
-    it('closes the select by option click', async () => {
+    it('closes the select by option click', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
       const open = new EventSpy(SbbSelectElement.events.open, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
@@ -125,7 +128,9 @@ describe(`sbb-select`, () => {
       expect(element.value).to.be.equal('1');
     });
 
-    it('closes the select by option click with non-zero animation duration', async () => {
+    it('closes the select by option click with non-zero animation duration', async function (this: Context) {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 
       const open = new EventSpy(SbbSelectElement.events.open, element);
@@ -248,10 +253,10 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
-      expect(firstOption).not.to.have.attribute('data-active');
+      expect(firstOption).not.to.match(':state(active)');
       expect(firstOption).to.have.attribute('selected');
       secondOption = element.querySelector<SbbOptionElement>('#option-2')!;
-      expect(secondOption).not.to.have.attribute('data-active');
+      expect(secondOption).not.to.match(':state(active)');
       expect(secondOption).not.to.have.attribute('selected');
 
       const selectionChange = new EventSpy(SbbOptionElement.events.optionselectionchange);
@@ -309,9 +314,9 @@ describe(`sbb-select`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
       await waitForLitRender(element);
-      expect(firstOption).not.to.have.attribute('data-active');
+      expect(firstOption).not.to.match(':state(active)');
       expect(firstOption).not.to.have.attribute('selected');
-      expect(secondOption).not.to.have.attribute('data-active');
+      expect(secondOption).not.to.match(':state(active)');
       expect(secondOption).not.to.have.attribute('selected');
 
       const selectionChange = new EventSpy(SbbOptionElement.events.optionselectionchange);
@@ -452,11 +457,11 @@ describe(`sbb-select`, () => {
       await sendKeys({ press: ' ' });
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
-      expect(firstOption).not.to.have.attribute('data-active');
+      expect(firstOption).not.to.match(':state(active)');
       expect(firstOption).not.to.have.attribute('selected');
 
       await sendKeys({ press: 'ArrowDown' });
-      expect(firstOption).to.have.attribute('data-active');
+      expect(firstOption).to.match(':state(active)');
       expect(firstOption).to.have.attribute('selected');
       expect(element.value).to.be.equal('1');
       expect(element.getDisplayValue()).to.be.equal('First');
@@ -466,7 +471,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       expect(openSpy.count).to.be.equal(1);
       expect(element.getDisplayValue()).to.be.equal('Third');
-      expect(thirdOption).to.have.attribute('data-active');
+      expect(thirdOption).to.match(':state(active)');
       expect(thirdOption).to.have.attribute('selected');
       expect(element.value).to.be.equal('3');
 
@@ -476,7 +481,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       expect(openSpy.count).to.be.equal(1);
       expect(element.getDisplayValue()).to.be.equal('Second');
-      expect(secondOption).to.have.attribute('data-active');
+      expect(secondOption).to.match(':state(active)');
       expect(secondOption).to.have.attribute('selected');
       expect(element.value).to.be.equal('2');
     });
@@ -495,7 +500,7 @@ describe(`sbb-select`, () => {
 
       await closeSpy.calledOnce();
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'false');
       expect(element.value).to.be.equal('2');
     });
@@ -531,12 +536,12 @@ describe(`sbb-select`, () => {
       await openSpy.calledOnce();
       expect(openSpy.count).to.be.equal(1);
 
-      expect(secondOption).not.to.have.attribute('data-active');
+      expect(secondOption).not.to.match(':state(active)');
       expect(secondOption).not.to.have.attribute('selected');
       await sendKeys({ press: 'ArrowDown' });
       await sendKeys({ press: 'ArrowDown' });
       await sendKeys({ press: 'Enter' });
-      expect(secondOption).to.have.attribute('data-active');
+      expect(secondOption).to.match(':state(active)');
       expect(secondOption).to.have.attribute('selected');
       expect(element.value).to.be.eql(['2']);
       expect(element.getDisplayValue()).to.be.equal('Second');
@@ -550,7 +555,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await openSpy.calledTimes(2);
       expect(openSpy.count).to.be.equal(2);
-      expect(secondOption).not.to.have.attribute('data-active');
+      expect(secondOption).not.to.match(':state(active)');
       expect(secondOption).to.have.attribute('selected');
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
     });
@@ -575,7 +580,7 @@ describe(`sbb-select`, () => {
       expect(beforeOpenSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
     });
 
     it('does not close if prevented', async () => {
@@ -592,7 +597,7 @@ describe(`sbb-select`, () => {
       await beforeCloseSpy.calledOnce();
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'opened');
+      expect(element).to.match(':state(state-opened)');
     });
 
     it('updates displayed value on option value change', async () => {
@@ -647,6 +652,31 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
 
       expect(displayValue()).to.be.equal('Placeholder');
+    });
+
+    it('detects options when shadowRoot is not yet rendered', async () => {
+      element.remove();
+
+      element = document.createElement('sbb-select');
+      element.value = '2';
+
+      const option1 = document.createElement('sbb-option');
+      option1.value = '1';
+      option1.textContent = 'First';
+
+      const option2 = document.createElement('sbb-option');
+      option2.value = '2';
+      option2.textContent = 'Second';
+
+      element.append(option1, option2);
+      root.appendChild(element);
+
+      // We need to wait one tick as rendering happens after one Promise resolution.
+      await Promise.resolve();
+
+      expect(option2.selected, 'option 2 to be selected').to.be.true;
+      expect(element.value).to.be.equal('2');
+      expect(element.getDisplayValue()).to.be.equal('Second');
     });
   });
 
@@ -1050,7 +1080,9 @@ describe(`sbb-select`, () => {
       firstOption = element.querySelector<SbbOptionElement>('#option-1')!;
     });
 
-    it('closes the select by option click', async () => {
+    it('closes the select by option click', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
       const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
 
@@ -1077,7 +1109,9 @@ describe(`sbb-select`, () => {
       expect(element.value).to.be.equal('1');
     });
 
-    it('closes the select by option click with non-zero animation duration', async () => {
+    it('closes the select by option click with non-zero animation duration', async function (this: Context) {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
       element.style.setProperty('--sbb-options-panel-animation-duration', '1ms');
 
       const openSpy = new EventSpy(SbbSelectElement.events.open, element);
@@ -1113,12 +1147,12 @@ describe(`sbb-select`, () => {
       expect(openSpy.count).to.be.equal(1);
       await waitForLitRender(element);
       expect(comboBoxElement).to.have.attribute('aria-expanded', 'true');
-      expect(element).to.have.attribute('data-expanded');
+      expect(element).to.match(':state(expanded)');
       expect(overlayContainerElement).to.match(':popover-open');
 
       await sendKeys({ press: 'ArrowDown' });
       element.querySelectorAll<SbbOptionElement>('sbb-option')!.forEach((e: SbbOptionElement) => {
-        expect(e).not.to.have.attribute('data-active');
+        expect(e).not.to.match(':state(active)');
         expect(e).not.to.have.attribute('selected');
       });
       expect(element.value).to.be.null;

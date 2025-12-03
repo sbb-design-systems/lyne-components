@@ -8,18 +8,18 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.js';
-import { forceType } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
+import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.ts';
+import { forceType } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
   SbbElementInternalsMixin,
   SbbFormAssociatedMixin,
-} from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { type SbbToggleOptionElement } from '../toggle-option.js';
+} from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { type SbbToggleOptionElement } from '../toggle-option.ts';
 
 import style from './toggle.scss?lit&inline';
 
@@ -151,7 +151,7 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(
       return;
     }
 
-    this.toggleAttribute('data-disable-animation-on-resizing', resizing);
+    this.toggleState('disable-animation-on-resizing', resizing);
 
     const firstOption = options[0];
     const isFirstChecked = firstOption.checked;
@@ -172,7 +172,7 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(
     this.offsetWidth;
 
     // In order to avoid a transition glitch, we have to know when the first values were set.
-    this.toggleAttribute('data-initialized', true);
+    this.internals.states.add('initialized');
   }
 
   private _updateToggle(): void {

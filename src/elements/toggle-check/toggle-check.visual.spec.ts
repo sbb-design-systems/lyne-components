@@ -5,11 +5,11 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import '../icon.js';
-import '../title.js';
-import './toggle-check.component.js';
+import '../icon.ts';
+import '../title.ts';
+import './toggle-check.component.ts';
 
 describe(`sbb-toggle-check`, () => {
   const longLabel = `For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit.

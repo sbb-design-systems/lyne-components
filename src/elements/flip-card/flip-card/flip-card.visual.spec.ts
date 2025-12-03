@@ -6,19 +6,19 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
-} from '../../core/testing/private.js';
-import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
-import type { SbbFlipCardImageAlignment } from '../flip-card-summary.js';
+} from '../../core/testing/private.ts';
+import { waitForImageReady } from '../../core/testing/wait-for-image-ready.ts';
+import type { SbbFlipCardImageAlignment } from '../flip-card-summary.ts';
 
-import type { SbbFlipCardElement } from './flip-card.component.js';
+import type { SbbFlipCardElement } from './flip-card.component.ts';
 
-import './flip-card.component.js';
-import '../flip-card-summary.js';
-import '../flip-card-details.js';
-import '../../chip-label.js';
-import '../../image.js';
-import '../../link.js';
-import '../../title.js';
+import './flip-card.component.ts';
+import '../flip-card-summary.ts';
+import '../flip-card-details.ts';
+import '../../chip-label.ts';
+import '../../image.ts';
+import '../../link.ts';
+import '../../title.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

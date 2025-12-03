@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 
-import { SbbHeaderEnvironmentElement } from './header-environment.component.js';
-import '../header-button.js';
-import '../header.js';
+import { SbbHeaderEnvironmentElement } from './header-environment.component.ts';
+import '../header-button.ts';
+import '../header.ts';
 
 describe(`sbb-header-environment`, () => {
   let element: SbbHeaderEnvironmentElement;

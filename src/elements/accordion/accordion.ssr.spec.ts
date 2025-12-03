@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbAccordionElement } from './accordion.component.js';
+import { SbbAccordionElement } from './accordion.component.ts';
 
-import '../expansion-panel.js';
+import '../expansion-panel.ts';
 
 describe(`sbb-accordion ssr`, () => {
   let root: SbbAccordionElement;

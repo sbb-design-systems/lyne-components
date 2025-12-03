@@ -1,27 +1,31 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { SbbBreakpointLargeMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
-import { stub, type SinonStub } from 'sinon';
+import { type SinonStub, stub } from 'sinon';
 
-import { SbbCalendarElement } from '../../calendar.js';
-import { defaultDateAdapter } from '../../core/datetime.js';
-import { i18nDateChangedTo } from '../../core/i18n.js';
-import { fixture, tabKey, typeInElement } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
-import type { SbbDateInputElement } from '../../date-input.js';
-import type { SbbFormFieldElement } from '../../form-field.js';
-import type { SbbDatepickerToggleElement } from '../datepicker-toggle.js';
+import { SbbCalendarElement } from '../../calendar.ts';
+import { defaultDateAdapter } from '../../core/datetime.ts';
+import { i18nDateChangedTo } from '../../core/i18n.ts';
+import {
+  fixture,
+  sbbBreakpointLargeMinPx,
+  tabKey,
+  typeInElement,
+} from '../../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import type { SbbDateInputElement } from '../../date-input.ts';
+import type { SbbFormFieldElement } from '../../form-field.ts';
+import type { SbbDatepickerToggleElement } from '../datepicker-toggle.ts';
 
-import { SbbDatepickerElement } from './datepicker.component.js';
+import { SbbDatepickerElement } from './datepicker.component.ts';
 
-import '../../date-input.js';
-import '../../form-field.js';
-import '../datepicker-previous-day.js';
-import '../datepicker-next-day.js';
-import '../datepicker-toggle.js';
+import '../../date-input.ts';
+import '../../form-field.ts';
+import '../datepicker-previous-day.ts';
+import '../datepicker-next-day.ts';
+import '../datepicker-toggle.ts';
 
 describe(`sbb-datepicker`, () => {
   let todayStub: SinonStub;
@@ -137,13 +141,13 @@ describe(`sbb-datepicker`, () => {
     const openSpy = new EventSpy(SbbDatepickerElement.events.open, datepicker);
     await waitForLitRender(toggle);
     expect(toggle).not.to.have.attribute('disabled');
-    expect(datepicker).to.have.attribute('data-state', 'closed');
+    expect(datepicker).to.match(':state(state-closed)');
 
     datepicker.open();
 
     await openSpy.calledOnce();
 
-    expect(datepicker).to.have.attribute('data-state', 'opened');
+    expect(datepicker).to.match(':state(state-opened)');
   });
 
   it('renders in form field, open datepicker and change date', async () => {
@@ -157,14 +161,14 @@ describe(`sbb-datepicker`, () => {
     const toggle = root.querySelector<SbbDatepickerToggleElement>('sbb-datepicker-toggle')!;
     const input = root.querySelector<SbbDateInputElement>('sbb-date-input')!;
     const datepicker = root.querySelector<SbbDatepickerElement>('sbb-datepicker')!;
-    expect(datepicker).to.have.attribute('data-state', 'closed');
+    expect(datepicker).to.match(':state(state-closed)');
     const openSpy = new EventSpy(SbbDatepickerElement.events.open, datepicker);
     const changeSpy = new EventSpy('change', input);
     const blurSpy = new EventSpy('blur', input);
 
     toggle.click();
     await openSpy.calledOnce();
-    expect(datepicker).to.have.attribute('data-state', 'opened');
+    expect(datepicker).to.match(':state(state-opened)');
 
     const calendar = datepicker.shadowRoot!.querySelector('sbb-calendar')!;
     calendar.dispatchEvent(
@@ -220,17 +224,17 @@ describe(`sbb-datepicker`, () => {
     // Select year
     calendar.shadowRoot!.querySelectorAll('button')[5].click();
     await waitForLitRender(root);
-    await waitForCondition(() => !calendar.hasAttribute('data-transition'));
+    await waitForCondition(() => !calendar.matches(':state(transition)'));
 
     // Select month
     calendar.shadowRoot!.querySelectorAll('button')[5].click();
     await waitForLitRender(root);
-    await waitForCondition(() => !calendar.hasAttribute('data-transition'));
+    await waitForCondition(() => !calendar.matches(':state(transition)'));
 
     // Select day
     calendar.shadowRoot!.querySelectorAll('button')[5].click();
     await waitForLitRender(root);
-    await waitForCondition(() => !calendar.hasAttribute('data-transition'));
+    await waitForCondition(() => !calendar.matches(':state(transition)'));
 
     // Expect selected date and closed calendar
     expect(defaultDateAdapter.toIso8601((calendar.selected as Date)!)).to.be.equal('2020-05-05');
@@ -268,7 +272,7 @@ describe(`sbb-datepicker`, () => {
   });
 
   it('renders correctly the calendar when wide is set', async () => {
-    await setViewport({ width: SbbBreakpointLargeMin, height: 600 });
+    await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
     const element: SbbFormFieldElement = await fixture(
       html`<sbb-form-field>
         <sbb-datepicker-toggle></sbb-datepicker-toggle>

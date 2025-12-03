@@ -5,9 +5,9 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './navigation-button.component.js';
+import './navigation-button.component.ts';
 
 describe(`sbb-navigation-button`, () => {
   const sizeCases = ['s', 'm', 'l'];

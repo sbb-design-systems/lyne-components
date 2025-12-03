@@ -1,16 +1,15 @@
 import type { CSSResultGroup } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbNegativeMixin } from '../core/mixins.js';
+import { SbbNegativeMixin } from '../core/mixins.ts';
 
-import { SbbTitleBase, type SbbTitleLevel } from './title-base.js';
+import { SbbTitleBase, type SbbTitleLevel } from './title-base.ts';
 import style from './title.scss?lit&inline';
 
 /**
  * @slot - Use the unnamed slot for the content of the title.
  *
- * @cssprop [--sbb-title-margin-block-start=var(--sbb-spacing-responsive-m)] - Margin block start of the title.
- * @cssprop [--sbb-title-margin-block-end=var(--sbb-spacing-responsive-s)] - Margin block end of the title.
+ * @cssprop [--sbb-title-margin-block] - Margin block of the title.
  */
 export
 @customElement('sbb-title')

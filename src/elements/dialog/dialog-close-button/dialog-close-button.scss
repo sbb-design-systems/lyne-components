@@ -11,8 +11,8 @@
   margin-block-start: calc(
     var(--sbb-dialog-padding-block) + 0.5 *
       (
-        var(--sbb-typo-line-height-titles) *
-          var(--_sbb-dialog-title-size, var(--sbb-font-size-title-4)) - var(--sbb-size-element-xs)
+        var(--sbb-typo-line-height-heading) *
+          var(--_sbb-dialog-title-size, var(--sbb-heading-font-size-4)) - var(--sbb-size-element-xs)
       )
   );
 }

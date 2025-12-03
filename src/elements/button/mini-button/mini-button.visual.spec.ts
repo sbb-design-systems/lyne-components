@@ -7,10 +7,10 @@ import {
   visualRegressionFixture,
   visualDiffDefault,
   visualDiffHover,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../../form-field.js';
-import './mini-button.component.js';
+import '../../form-field.ts';
+import './mini-button.component.ts';
 
 describe(`sbb-mini-button`, () => {
   let root: HTMLElement;

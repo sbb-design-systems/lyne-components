@@ -2,14 +2,14 @@ import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-v
 import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import sampleImages from '../../core/images.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import sampleImages from '../../core/images.ts';
 
-import '../../button/secondary-button.js';
-import '../../card.js';
-import '../../image.js';
-import '../../title.js';
-import './container.component.js';
+import '../../button/secondary-button.ts';
+import '../../card.ts';
+import '../../image.ts';
+import '../../title.ts';
+import './container.component.ts';
 
 import readme from './readme.md?raw';
 
@@ -36,7 +36,7 @@ const containerContent = (title: string, isDark: boolean, last = false): Templat
 `;
 
 const card = (title: string): TemplateResult => html`
-  <sbb-card size="xxl">
+  <sbb-card class="sbb-card-spacing-s">
     <sbb-title level="5">${title}</sbb-title>
     <p class="sbb-text-s" style="margin: 0">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut

@@ -12,7 +12,6 @@
   --sbb-teaser-flex-direction: row;
   --sbb-teaser-align-items: center;
   --sbb-teaser-gap: var(--sbb-spacing-fixed-4x);
-  --sbb-teaser-width: fit-content;
   --sbb-teaser-border-radius: var(--sbb-border-radius-4x);
 
   @include sbb.if-forced-colors {
@@ -29,7 +28,6 @@
   --sbb-teaser-flex-direction: column;
   --sbb-teaser-align-items: baseline;
   --sbb-teaser-gap: var(--sbb-spacing-fixed-3x);
-  --sbb-teaser-width: 100%;
 }
 
 @include sbb.hover-mq($hover: true) {
@@ -55,15 +53,21 @@
     @include sbb.focus-outline;
 
     border-radius: var(--sbb-teaser-border-radius);
+
+    // We move the focus outline further out to not overlap with the teaser border in forced colors
+    @include sbb.if-forced-colors {
+      outline-offset: calc(2 * var(--sbb-focus-outline-offset));
+    }
   }
 
   @include sbb.if-forced-colors {
-    outline-offset: var(--sbb-focus-outline-offset);
-    outline: CanvasText solid var(--sbb-focus-outline-width);
-    border-radius: var(--sbb-teaser-border-radius);
-
-    &:hover {
-      outline-color: Highlight;
+    &::before {
+      content: '';
+      position: absolute;
+      inset: calc(-1 * var(--sbb-focus-outline-offset));
+      pointer-events: none;
+      border-radius: calc(var(--sbb-teaser-border-radius) + var(--sbb-focus-outline-offset));
+      border: var(--sbb-border-width-1x) solid CanvasText;
     }
   }
 }

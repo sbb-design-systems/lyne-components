@@ -1,11 +1,9 @@
 import { readFileSync, unlinkSync, writeFileSync } from 'fs';
+import { globSync } from 'node:fs';
 import { basename, dirname } from 'path';
 
-import * as glob from 'glob';
-
-const indexFiles = glob.sync('**/index.ts', {
+const indexFiles = globSync('**/index.ts', {
   cwd: dirname(import.meta.resolve('../src/elements')),
-  absolute: true,
 });
 for (const indexFile of indexFiles) {
   const content = readFileSync(indexFile, 'utf8').replaceAll(

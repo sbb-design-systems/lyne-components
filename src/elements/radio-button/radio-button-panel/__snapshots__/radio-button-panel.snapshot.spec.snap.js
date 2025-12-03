@@ -44,7 +44,6 @@ snapshots["sbb-radio-button-panel renders checked DOM"] =
 `<sbb-radio-button-panel
   checked=""
   color="white"
-  data-checked=""
   name="radio"
   size="m"
   tabindex="0"

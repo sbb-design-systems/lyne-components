@@ -2,10 +2,10 @@ import { expect } from '@open-wc/testing';
 import { html, LitElement, type PropertyDeclaration } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { fixture } from '../testing/private.js';
-import { waitForLitRender } from '../testing.js';
+import { fixture } from '../testing/private.ts';
+import { waitForLitRender } from '../testing.ts';
 
-import { SbbIdReferenceController } from './id-reference-controller.js';
+import { SbbIdReferenceController } from './id-reference-controller.ts';
 
 const observers = new WeakMap<
   Node,

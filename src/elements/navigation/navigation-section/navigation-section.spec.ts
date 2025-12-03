@@ -1,17 +1,22 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { SbbBreakpointSmallMin, SbbBreakpointUltraMin } from '@sbb-esta/lyne-design-tokens';
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
-import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.js';
-import type { SbbNavigationButtonElement } from '../navigation-button.js';
-import { SbbNavigationElement } from '../navigation.js';
+import {
+  fixture,
+  sbbBreakpointSmallMinPx,
+  sbbBreakpointUltraMinPx,
+  tabKey,
+} from '../../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button.ts';
+import { SbbNavigationElement } from '../navigation.ts';
 
-import { SbbNavigationSectionElement } from './navigation-section.component.js';
+import { SbbNavigationSectionElement } from './navigation-section.component.ts';
 
-import '../navigation-list.js';
-import '../navigation-button.js';
+import '../navigation-list.ts';
+import '../navigation-button.ts';
 
 describe(`sbb-navigation-section`, () => {
   let element: SbbNavigationSectionElement,
@@ -56,8 +61,8 @@ describe(`sbb-navigation-section`, () => {
 
     // Start with closed navigation section for all the tests
     element.close();
-    await waitForCondition(() => element.getAttribute('data-state') === 'closed');
-    expect(element).to.have.attribute('data-state', 'closed');
+    await waitForCondition(() => element.matches(':state(state-closed)'));
+    expect(element).to.match(':state(state-closed)');
   });
 
   it('renders', async () => {
@@ -68,38 +73,40 @@ describe(`sbb-navigation-section`, () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => element.getAttribute('data-state') === 'opened');
-    expect(element).to.have.attribute('data-state', 'opened');
+    await waitForCondition(() => element.matches(':state(state-opened)'));
+    expect(element).to.match(':state(state-opened)');
   });
 
   it('closes the section', async () => {
     element.open();
     await waitForLitRender(element);
 
-    await waitForCondition(() => element.getAttribute('data-state') === 'opened');
-    expect(element).to.have.attribute('data-state', 'opened');
+    await waitForCondition(() => element.matches(':state(state-opened)'));
+    expect(element).to.match(':state(state-opened)');
     expect(element).not.to.have.attribute('inert');
 
     element.close();
     await waitForLitRender(element);
 
-    await waitForCondition(() => element.getAttribute('data-state') === 'closed');
-    expect(element).to.have.attribute('data-state', 'closed');
+    await waitForCondition(() => element.matches(':state(state-closed)'));
+    expect(element).to.match(':state(state-closed)');
     expect(element).to.have.attribute('inert');
   });
 
-  it('opens and closes with non-zero animation duration', async () => {
+  it('opens and closes with non-zero animation duration', async function (this: Context) {
+    (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
     element.style.setProperty('--sbb-navigation-section-animation-duration', '1ms');
 
     element.open();
     await waitForLitRender(element);
-    await waitForCondition(() => element.getAttribute('data-state') === 'opened');
-    expect(element).to.have.attribute('data-state', 'opened');
+    await waitForCondition(() => element.matches(':state(state-opened)'));
+    expect(element).to.match(':state(state-opened)');
     element.close();
     await waitForLitRender(element);
 
-    await waitForCondition(() => element.getAttribute('data-state') === 'closed');
-    expect(element).to.have.attribute('data-state', 'closed');
+    await waitForCondition(() => element.matches(':state(state-closed)'));
+    expect(element).to.match(':state(state-closed)');
   });
 
   it('should update trigger connected by id', async () => {
@@ -132,7 +139,7 @@ describe(`sbb-navigation-section`, () => {
 
   describe('on desktop viewport', () => {
     beforeEach(async () => {
-      await setViewport({ width: SbbBreakpointUltraMin, height: 600 });
+      await setViewport({ width: sbbBreakpointUltraMinPx, height: 600 });
     });
 
     it('should wrap around tabbing forwards', async () => {
@@ -219,7 +226,7 @@ describe(`sbb-navigation-section`, () => {
 
   describe('on mobile viewport', () => {
     beforeEach(async () => {
-      await setViewport({ width: SbbBreakpointSmallMin, height: 400 });
+      await setViewport({ width: sbbBreakpointSmallMinPx, height: 400 });
     });
 
     it('should wrap around tabbing', async () => {
@@ -265,16 +272,16 @@ describe(`sbb-navigation-section`, () => {
     )!;
 
     // Start on mobile
-    await setViewport({ width: SbbBreakpointSmallMin, height: 400 });
+    await setViewport({ width: sbbBreakpointSmallMinPx, height: 400 });
     element.open();
-    await waitForCondition(() => element.getAttribute('data-state') === 'opened');
+    await waitForCondition(() => element.matches(':state(state-opened)'));
 
     // Navigation should be inert
     await waitForCondition(() => navigationContent.inert);
     expect(navigationContent).to.have.attribute('inert');
 
     // Switch to desktop
-    await setViewport({ width: SbbBreakpointUltraMin, height: 400 });
+    await setViewport({ width: sbbBreakpointUltraMinPx, height: 400 });
 
     // Navigation should not be inert
     await waitForCondition(() => !navigationContent.inert);

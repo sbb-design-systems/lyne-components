@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils.private.js';
+} from '../common/button-test-utils.private.ts';
 
-import './accent-button.component.js';
+import './accent-button.component.ts';
 
 describe(`sbb-accent-button`, () => {
   it('should detect icon in sbb-accent-button', async () => {

@@ -17,11 +17,11 @@
   display: block;
 }
 
-:host([data-loaded]) {
+:host(:state(loaded)) {
   --sbb-breadcrumb-group-visibility: visible;
 }
 
-:host([data-state]) {
+:host(:state(state)) {
   --sbb-breadcrumb-group-wrap: wrap;
 }
 

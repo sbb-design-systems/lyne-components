@@ -1,7 +1,7 @@
 @use '../../core/styles' as sbb;
 
 $disabled: ':disabled, [disabled-interactive]';
-$active: ':active, [data-active]';
+$active: ':active, :state(active)';
 
 :host {
   display: inline-block;
@@ -40,7 +40,7 @@ $active: ':active, [data-active]';
 }
 
 // Active state
-:host([data-checked]) {
+:host(:state(checked)) {
   --sbb-tag-border-color: var(--sbb-border-color-3);
   --sbb-tag-border-width: var(--sbb-border-width-2x);
 
@@ -66,7 +66,7 @@ $active: ':active, [data-active]';
   }
 }
 
-:host([data-checked]:is(#{$disabled})) {
+:host(:state(checked):is(#{$disabled})) {
   --sbb-tag-border-color: light-dark(var(--sbb-color-metal), var(--sbb-color-cement));
   --sbb-tag-border-style: dashed;
 }
@@ -139,7 +139,7 @@ $active: ':active, [data-active]';
 .sbb-tag__icon {
   display: flex;
   align-items: center;
-  height: calc(var(--sbb-typo-line-height-body-text) * 1em);
+  height: calc(var(--sbb-typo-line-height-text) * 1em);
   flex-shrink: 0;
 
   :host(:not(:state(slotted-icon), :state(has-icon-name))) & {

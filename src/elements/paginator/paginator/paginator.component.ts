@@ -9,19 +9,19 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { sbbInputModalityDetector } from '../../core/a11y.js';
-import { forceType } from '../../core/decorators.js';
-import { i18nItemsPerPage, i18nPage } from '../../core/i18n.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import type { SbbSelectElement } from '../../select.js';
-import { SbbPaginatorCommonElementMixin } from '../common.js';
+import { sbbInputModalityDetector } from '../../core/a11y.ts';
+import { forceType } from '../../core/decorators.ts';
+import { i18nItemsPerPage, i18nPage } from '../../core/i18n.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbSelectElement } from '../../select.ts';
+import { SbbPaginatorCommonElementMixin } from '../common.ts';
 
 import style from './paginator.scss?lit&inline';
 
-import '../../form-field.js';
-import '../../select.js';
-import '../../option.js';
-import '../../screen-reader-only.js';
+import '../../form-field.ts';
+import '../../select.ts';
+import '../../option.ts';
+import '../../screen-reader-only.ts';
 
 const MAX_PAGE_NUMBERS_DISPLAYED = 3;
 
@@ -34,7 +34,6 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events: Record<string, string> = {
     page: 'page',
-    ɵpage: 'ɵpage',
   } as const;
 
   /** The available `pageSize` choices. */
@@ -57,23 +56,23 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
   @property({ attribute: 'accessibility-items-per-page-label' })
   public accessor accessibilityItemsPerPageLabel: string = '';
 
-  private _markForFocus: number | null = null;
+  private _markForFocus = false;
 
   protected override updated(changedProperties: PropertyValues<this>): void {
     super.updated(changedProperties);
 
     /** Tab navigation can force a rerender when ellipsis elements need to be displayed; the focus must stay on the correct element. */
-    if (this._markForFocus && sbbInputModalityDetector.mostRecentModality === 'keyboard') {
+    if (this._markForFocus) {
       const focusElement = this._getVisiblePages().find(
         (e) => this.pageIndex === +e.getAttribute('data-index')!,
       );
       if (focusElement) {
         (focusElement as HTMLElement).focus();
       }
-      // Reset mark for focus
-      this._markForFocus = null;
+      this._markForFocus = false;
     }
   }
+
   /** Returns the displayed page elements. */
   private _getVisiblePages(): Element[] {
     return Array.from(this.shadowRoot!.querySelectorAll('.sbb-paginator__page--number-item'));
@@ -117,30 +116,12 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
     return Array.from({ length }, (_, k) => k + offset);
   }
 
-  private _handleKeyUp(event: KeyboardEvent): void {
-    if (event.key !== ' ' && event.key !== 'Enter') {
-      return;
-    }
+  private _onPageNumberClick(index: number): void {
+    this.selectPage(index);
 
-    const current = this._getVisiblePages().find((e: Element) => e === event.target);
-    if (current) {
-      this._markForFocus = this.pageIndex;
-    }
-  }
-
-  /**
-   * A `pageSize` change would trigger a `pageIndex` change via `willUpdate`;
-   * this triggers a `ɵpage` event, but it's late for the `page` event,
-   * so the checks on the `pageIndex` changes are done here, and possibly the event is emitted.
-   */
-  private _setPageSizeFromSizeOptionsSelect(value: number): void {
-    const previousPageSize = this.pageSize;
-    const currentPageIndex = this.pageIndex;
-    this.pageSize = value;
-    const newPageIndex = Math.floor((this.pageIndex * previousPageSize) / this.pageSize) || 0;
-    if (currentPageIndex !== newPageIndex) {
-      this.emitPageEvent(currentPageIndex, newPageIndex);
-    }
+    // When the page is changed, the new current page might change its position.
+    // After the render, we need to ensure that the focus stays on the selected page.
+    this._markForFocus = sbbInputModalityDetector.mostRecentModality === 'keyboard';
   }
 
   private _renderItemPerPageTemplate(): TemplateResult | typeof nothing {
@@ -164,9 +145,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
                 value=${this.pageSizeOptions?.find((e) => e === this.pageSize) ??
                 this.pageSizeOptions![0]}
                 @change=${(e: Event) =>
-                  this._setPageSizeFromSizeOptionsSelect(
-                    +((e.target as SbbSelectElement).value as string),
-                  )}
+                  (this.pageSize = +((e.target as SbbSelectElement).value as string))}
               >
                 ${repeat(
                   this.pageSizeOptions!,
@@ -202,8 +181,7 @@ class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
                         ? this.accessibilityPageLabel
                         : i18nPage[this.language.current]} ${item + 1}"
                       aria-current=${this.pageIndex === item ? 'true' : nothing}
-                      @click=${() => this.changeAndEmitPage(item)}
-                      @keyup=${this._handleKeyUp}
+                      @click=${() => this._onPageNumberClick(item)}
                     >
                       <span class="sbb-paginator__page--number-item-label">${item + 1}</span>
                     </button>

@@ -1,6 +1,6 @@
 import type { ReactiveElement } from 'lit';
 
-import type { Interface } from './base.js';
+import type { Interface } from './base.ts';
 
 /**
  * Decorator that calls the given callback when the value

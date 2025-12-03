@@ -1,6 +1,6 @@
 /**
  * @entrypoint
  */
-export * from './paginator/common.js';
-export * from './paginator/compact-paginator.js';
-export * from './paginator/paginator.js';
+export * from './paginator/common.ts';
+export * from './paginator/compact-paginator.ts';
+export * from './paginator/paginator.ts';

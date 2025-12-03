@@ -3,13 +3,14 @@ import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { forceType, omitEmptyConverter } from '../../core/decorators.js';
-import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
-import { SbbIconNameMixin } from '../../icon.js';
-import type { SbbTitleLevel } from '../../title.js';
-import type { SbbTabElement } from '../tab/tab.component.js';
-import type { SbbTabChangedEventDetails, SbbTabGroupElement } from '../tab-group.js';
+import { SbbPropertyWatcherController } from '../../core/controllers.ts';
+import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
+import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
+import type { SbbTitleLevel } from '../../title.ts';
+import type { SbbTabElement } from '../tab/tab.component.ts';
+import type { SbbTabChangedEventDetails, SbbTabGroupElement } from '../tab-group.ts';
 
 import style from './tab-label.scss?lit&inline';
 
@@ -30,6 +31,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
 
   /** Whether the tab is selected. */
   private _selected: boolean = false;
+  private _previousSize: SbbTabGroupElement['size'] | null = null;
 
   /**
    * The level will correspond to the heading tag generated in the title.
@@ -63,6 +65,19 @@ class SbbTabLabelElement extends SbbDisabledMixin(
     super();
 
     this.addEventListener('click', () => this.activate());
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.group, {
+        size: (g) => {
+          if (this._previousSize) {
+            this.internals.states.delete(`size-${this._previousSize}`);
+          }
+          this._previousSize = g?.size || null;
+          if (this._previousSize) {
+            this.internals.states.add(`size-${this._previousSize}`);
+          }
+        },
+      }),
+    );
   }
 
   public override connectedCallback(): void {

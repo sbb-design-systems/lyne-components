@@ -2,12 +2,12 @@ import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'l
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { readConfig } from '../../core/config/config.js';
-import { type DateAdapter } from '../../core/datetime/date-adapter.js';
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.js';
-import { forceType } from '../../core/decorators.js';
-import { SbbElementInternalsMixin } from '../../core/mixins.js';
-import { boxSizingStyles } from '../../core/styles.js';
+import { readConfig } from '../../core/config/config.ts';
+import { type DateAdapter } from '../../core/datetime/date-adapter.ts';
+import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
+import { forceType } from '../../core/decorators.ts';
+import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './mini-calendar-month.scss?lit&inline';
 
@@ -37,12 +37,12 @@ class SbbMiniCalendarMonthElement<T = Date> extends SbbElementInternalsMixin(Lit
       if (!this.date.match(/^\d{4}-(0[1-9]|1[0-2])$/)) {
         return;
       }
-      const splittedDate = this.date.split('-');
-      const date = this._dateAdapter.createDate(+splittedDate[0], +splittedDate[1], 1);
+      const splitDate = this.date.split('-');
+      const date = this._dateAdapter.createDate(+splitDate[0], +splitDate[1], 1);
       const offset = this._dateAdapter.getFirstWeekOffset(date);
       this.style?.setProperty('--sbb-mini-calendar-month-offset', `${offset + 1}`);
 
-      this._monthLabel = `${this._monthNames[+splittedDate[1] - 1]}.`;
+      this._monthLabel = `${this._monthNames[+splitDate[1] - 1]}.`;
       this._yearLabel = String(this._dateAdapter.getYear(date));
     }
   }

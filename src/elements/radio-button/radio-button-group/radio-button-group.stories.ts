@@ -5,17 +5,17 @@ import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbFormErrorElement } from '../../form-error.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import type { SbbErrorElement } from '../../form-field.ts';
 
-import type { SbbRadioButtonGroupElement } from './radio-button-group.component.js';
+import type { SbbRadioButtonGroupElement } from './radio-button-group.component.ts';
 import readme from './readme.md?raw';
-import './radio-button-group.component.js';
-import '../radio-button.js';
-import '../radio-button-panel.js';
-import '../../form-error.js';
-import '../../icon.js';
-import '../../card/card-badge.js';
+import './radio-button-group.component.ts';
+import '../radio-button.ts';
+import '../radio-button-panel.ts';
+import '../../form-field.ts';
+import '../../icon.ts';
+import '../../card/card-badge.ts';
 
 const suffixStyle: Readonly<StyleInfo> = {
   display: 'flex',
@@ -82,7 +82,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's', 'xs'],
+  options: ['xs', 's', 'm'],
 };
 
 const ariaLabel: InputType = {
@@ -111,7 +111,7 @@ const defaultArgs: Args = {
   'allow-empty-selection': false,
   orientation: orientation.options![0],
   'horizontal-from': undefined,
-  size: size.options![0],
+  size: size.options![2],
   'aria-label': undefined,
 };
 
@@ -139,22 +139,22 @@ const PanelTemplate = (args: Args): TemplateResult => html`
 `;
 
 const ErrorMessageTemplate = (args: Args): TemplateResult => {
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = 'This is a required field.';
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = 'This is a required field.';
 
   return html`
     <sbb-radio-button-group
       ${sbbSpread(args)}
       @change=${(event: Event) => {
         if ((event.currentTarget as SbbRadioButtonGroupElement).value) {
-          sbbFormError.remove();
+          error.remove();
         } else if (args.required) {
-          (event.target as HTMLElement).closest('sbb-radio-button-group')?.append(sbbFormError);
+          (event.target as HTMLElement).closest('sbb-radio-button-group')?.append(error);
         }
       }}
     >
-      ${radioButtons()} ${args.required && sbbFormError}
+      ${radioButtons()} ${args.required && error}
     </sbb-radio-button-group>
   `;
 };
@@ -196,7 +196,7 @@ export const VerticalSizeS: StoryObj = {
 export const SizeXS: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![2] },
+  args: { ...defaultArgs, size: size.options![0] },
 };
 
 export const Disabled: StoryObj = {

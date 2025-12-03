@@ -26,7 +26,7 @@ import {
   visualRegressionConfig,
   vitePlugin,
   preloadIcons,
-} from './tools/web-test-runner/index.js';
+} from './tools/web-test-runner/index.ts';
 
 const { values: cliArgs } = parseArgs({
   strict: false,
@@ -97,14 +97,13 @@ const browsers =
 
 const preloadedIcons = await preloadIcons();
 
-// TODO: Remove sbb-light-dark class once we globally activated dark mode
 const testRunnerHtml = (
   testFramework: string,
   _config: TestRunnerCoreConfig,
   _group?: TestRunnerGroupConfig,
 ): string => `
 <!DOCTYPE html>
-<html lang="en" class="sbb-light-dark">
+<html lang="en">
   <head>${
     // Although we provide the fonts as base64, we preload the original
     // files which prevents a bug in Safari rendering special characters.
@@ -126,6 +125,7 @@ const testRunnerHtml = (
       ${renderStyles()}
     </style>
     <script type="module">
+      globalThis.disableAnimation = true;
       globalThis.testEnv = '${cliArgs.debug ? 'debug' : ''}';
       globalThis.testGroup = '${cliArgs['visual-regression'] ? 'visual-regression' : 'default'}';
       globalThis.testRunScript = '${testFramework}';
@@ -203,7 +203,7 @@ export default {
     a11ySnapshotPlugin(),
     litSsrPlugin({
       workerInitModules: [
-        './tools/node-esm-hook/register-hooks.js',
+        './tools/node-esm-hook/register-hooks.ts',
         './src/elements/core/testing/private/test-setup-ssr.ts',
       ],
     }),

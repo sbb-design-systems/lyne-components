@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 import type { LibraryOptions, PluginOption, ResolvedConfig } from 'vite';
 
-register('../node-esm-hook/lyne-alias-hook.js', import.meta.url);
+register('../node-esm-hook/lyne-alias-hook.ts', import.meta.url);
 
 export function verifyEntryPoints(): PluginOption {
   let viteConfig: ResolvedConfig;

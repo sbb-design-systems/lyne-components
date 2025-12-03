@@ -2,22 +2,22 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.js';
-import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbDarkModeController, SbbLanguageController } from '../core/controllers.js';
-import { forceType } from '../core/decorators.js';
-import { isLean, isZeroAnimationDuration } from '../core/dom.js';
-import { composedPathHasAttribute } from '../core/eventing.js';
-import { i18nCloseAlert } from '../core/i18n.js';
-import { SbbHydrationMixin, SbbReadonlyMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
-import { SbbIconNameMixin } from '../icon.js';
-import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.js';
+import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.ts';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
+import { SbbDarkModeController, SbbLanguageController } from '../core/controllers.ts';
+import { forceType } from '../core/decorators.ts';
+import { isLean, isZeroAnimationDuration } from '../core/dom.ts';
+import { composedPathHasAttribute } from '../core/eventing.ts';
+import { i18nCloseAlert } from '../core/i18n.ts';
+import { SbbHydrationMixin, SbbReadonlyMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import { SbbIconNameMixin } from '../icon.ts';
+import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.ts';
 
 import style from './toast.scss?lit&inline';
 
-import '../button/transparent-button.js';
-import '../divider.js';
+import '../button/transparent-button.ts';
+import '../divider.ts';
 
 type SbbToastPositionVertical = 'top' | 'bottom';
 type SbbToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';
@@ -222,7 +222,7 @@ class SbbToastElement extends SbbIconNameMixin(
    */
   private _closeOtherToasts(): void {
     toastRefs.forEach((t) => {
-      if (t.getAttribute('data-state') === 'opened') {
+      if (t.isOpen) {
         t.close();
       }
     });

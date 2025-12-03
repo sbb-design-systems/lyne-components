@@ -3,14 +3,14 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import '../../icon.js';
-import '../train.js';
-import '../train-wagon.js';
-import '../train-blocked-passage.js';
-import './train-formation.component.js';
+import '../../icon.ts';
+import '../train.ts';
+import '../train-wagon.ts';
+import '../train-blocked-passage.ts';
+import './train-formation.component.ts';
 
 const MountedFormationTemplate = (args: Args): TemplateResult => html`
   <sbb-train-formation ${sbbSpread(args)}>

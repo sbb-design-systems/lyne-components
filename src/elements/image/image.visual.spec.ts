@@ -1,10 +1,10 @@
 import { html } from 'lit/static-html.js';
 
-import sampleImages from '../core/images.js';
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
+import sampleImages from '../core/images.ts';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
+import { waitForImageReady } from '../core/testing.ts';
 
-import './image.component.js';
+import './image.component.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 

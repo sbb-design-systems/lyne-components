@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbScreenReaderOnlyElement } from './screen-reader-only.component.js';
+import { SbbScreenReaderOnlyElement } from './screen-reader-only.component.ts';
 
 describe(`sbb-screen-reader-only ssr`, () => {
   let root: SbbScreenReaderOnlyElement;

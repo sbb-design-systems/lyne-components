@@ -1,16 +1,23 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  html,
+  LitElement,
+  nothing,
+  type PropertyDeclaration,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
+import { isAndroid, isBlink, isSafari, setOrRemoveAttribute } from '../../core/dom.ts';
 import {
   SbbDisabledMixin,
   SbbElementInternalsMixin,
   SbbHydrationMixin,
-} from '../../core/mixins.js';
-import { SbbIconNameMixin } from '../../icon.js';
+} from '../../core/mixins.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
 
-import '../../screen-reader-only.js';
+import '../../screen-reader-only.ts';
 
 let nextId = 0;
 
@@ -23,8 +30,6 @@ const inertAriaGroups = isSafari;
 
 /** Configuration for the attribute to look at if component is nested in an option group */
 const optionObserverConfig: MutationObserverInit = {
-  attributeFilter: ['data-group-disabled', 'data-negative'],
-  attributes: true,
   childList: true,
   subtree: true,
   characterData: true,
@@ -69,11 +74,10 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     return this.hasAttribute('selected');
   }
 
-  /** Whether to apply the negative styling */
-  @state() protected accessor negative = false;
-
   /** Whether the component must be set disabled due disabled attribute on sbb-optgroup. */
   @state() protected accessor disabledFromGroup = false;
+
+  @state() protected accessor groupLabel = '';
 
   @state() protected accessor label!: string;
 
@@ -94,7 +98,11 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     this.addController(
       new MutationController(this, {
         config: optionObserverConfig,
-        callback: (mutationsList) => this.onExternalMutation(mutationsList),
+        callback: () => {
+          this.handleHighlightState();
+          /** @internal */
+          this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
+        },
       }),
     );
 
@@ -137,18 +145,21 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `${this.optionId}-${nextId++}`;
-    if (this.hydrationRequired) {
-      this.hydrationComplete.then(() => this.init());
-    } else {
-      this.init();
-    }
   }
 
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('disabled')) {
-      setOrRemoveAttribute(this, 'tabindex', isAndroid && !this.disabled && 0);
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+    if (name === 'disabled' || name === 'disabledFromGroup') {
+      this.toggleState('disabled', this.disabled || this.disabledFromGroup);
+      setOrRemoveAttribute(
+        this,
+        'tabindex',
+        isAndroid && !this.disabled && !this.disabledFromGroup ? 0 : null,
+      );
       this.updateAriaDisabled();
     }
   }
@@ -161,11 +172,10 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   }
 
   protected abstract selectByClick(event: MouseEvent): void;
-  protected abstract setAttributeFromParent(): void;
 
   protected updateDisableHighlight(disabled: boolean): void {
     this.disableLabelHighlight = disabled;
-    this.toggleAttribute('data-disable-highlight', disabled);
+    this.toggleState('disable-highlight', disabled);
   }
 
   /**
@@ -173,19 +183,11 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
    * @internal
    */
   public setActive(value: boolean): void {
-    this.toggleAttribute('data-active', value);
-  }
-
-  protected init(): void {
-    this.setAttributeFromParent();
+    this.toggleState('active', value);
   }
 
   protected updateAriaDisabled(): void {
-    if (this.disabled || this.disabledFromGroup) {
-      this.setAttribute('aria-disabled', 'true');
-    } else {
-      this.removeAttribute('aria-disabled');
-    }
+    this.internals.ariaDisabled = this.disabled || this.disabledFromGroup ? 'true' : null;
 
     // Listened by autocomplete
     /** @internal */
@@ -193,28 +195,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   }
 
   private _updateAriaSelected(): void {
-    this.setAttribute('aria-selected', `${this.selected}`);
-  }
-
-  /** Observe changes on data attributes + slotted content and set the appropriate values. */
-  protected onExternalMutation(mutationsList: MutationRecord[]): void {
-    let contentChanged = false;
-    for (const mutation of mutationsList) {
-      if (mutation.attributeName === 'data-group-disabled') {
-        this.disabledFromGroup = this.hasAttribute('data-group-disabled');
-        this.updateAriaDisabled();
-      } else if (mutation.attributeName === 'data-negative') {
-        this.negative = this.hasAttribute('data-negative');
-      } else {
-        contentChanged = true;
-      }
-    }
-
-    if (contentChanged) {
-      this.handleHighlightState();
-      /** @internal */
-      this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
-    }
+    this.internals.ariaSelected = `${this.selected}`;
   }
 
   protected handleHighlightState(): void {
@@ -265,7 +246,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
   }
 
   protected renderIcon(): TemplateResult {
-    return html` <span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`;
+    return html`<span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`;
   }
 
   protected renderLabel(): TemplateResult | typeof nothing {
@@ -283,11 +264,21 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
           ${this.renderIcon()}
           <span class="sbb-option__label">
             <slot @slotchange=${this.handleHighlightState}></slot>
-            ${this.renderLabel()}
-            ${this._inertAriaGroups && this.getAttribute('data-group-label')
-              ? html`<sbb-screen-reader-only>
-                  (${this.getAttribute('data-group-label')})</sbb-screen-reader-only
-                >`
+            <span
+              aria-hidden=${
+                /**
+                 * Screen readers with Chromium read the option twice.
+                 * We therefore have to hide the option for the screen readers.
+                 * TODO: Recheck periodically if this is still necessary.
+                 * https://issues.chromium.org/issues/460165741
+                 */
+                isBlink ? 'true' : nothing
+              }
+            >
+              ${this.renderLabel()}
+            </span>
+            ${this._inertAriaGroups && this.groupLabel
+              ? html`<sbb-screen-reader-only> (${this.groupLabel})</sbb-screen-reader-only>`
               : nothing}
           </span>
           ${this.renderTick()}

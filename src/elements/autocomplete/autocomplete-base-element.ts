@@ -11,19 +11,23 @@ import {
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbEscapableOverlayController } from '../core/controllers.js';
-import { forceType, idReference } from '../core/decorators.js';
-import { isLean, isSafari, isZeroAnimationDuration } from '../core/dom.js';
-import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.js';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
+import {
+  SbbPropertyWatcherController,
+  SbbEscapableOverlayController,
+} from '../core/controllers.ts';
+import { forceType, idReference } from '../core/decorators.ts';
+import { isLean, isSafari, isZeroAnimationDuration } from '../core/dom.ts';
+import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.ts';
 import {
   isEventOnElement,
   overlayGapFixCorners,
   removeAriaComboBoxAttributes,
   setOverlayPosition,
-} from '../core/overlay.js';
-import { boxSizingStyles } from '../core/styles.js';
-import type { SbbOptionBaseElement } from '../option.js';
+} from '../core/overlay.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
+import type { SbbOptionBaseElement } from '../option.ts';
 
 import style from './autocomplete-base-element.scss?lit&inline';
 
@@ -152,6 +156,25 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   private _lastUserInput: string | null = null;
 
   protected abstract get options(): SbbOptionBaseElement<T>[];
+
+  public constructor() {
+    super();
+
+    this.addController(
+      new SbbPropertyWatcherController(
+        this,
+        () => this.closest<SbbFormFieldElement>('sbb-form-field'),
+        {
+          negative: (e) => {
+            this.negative = e.negative;
+            this.syncNegative();
+          },
+          borderless: (e) => this.toggleState('option-panel-origin-borderless', e.borderless),
+        },
+      ),
+    );
+  }
+
   protected abstract syncNegative(): void;
   protected abstract setTriggerAttributes(element: HTMLInputElement): void;
   protected abstract openedPanelKeyboardInteraction(event: KeyboardEvent): void;
@@ -165,17 +188,15 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       this.state !== 'closed' ||
       !this._overlay ||
       this.options.length === 0 ||
-      this._readonly()
+      this._readonly() ||
+      !this.dispatchBeforeOpenEvent()
     ) {
-      return;
-    }
-    if (!this.dispatchBeforeOpenEvent()) {
       return;
     }
 
     this.showPopover?.();
     this.state = 'opening';
-    this._triggerElement?.toggleAttribute('data-expanded', true);
+    this.triggerElement?.toggleAttribute('data-expanded', true);
     const originElement = this.originElement;
     if (!originElement) {
       throw new Error(
@@ -199,7 +220,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     }
 
     this.state = 'closing';
-    this._triggerElement?.toggleAttribute('data-expanded', false);
+    this.triggerElement?.removeAttribute('data-expanded');
     this._openPanelEventsController.abort();
     if (this.originElement) {
       this._originResizeObserver.unobserve(this.originElement);
@@ -221,11 +242,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     super.connectedCallback();
     if (ariaRoleOnHost) {
       this.id ||= this.overlayId;
-    }
-    const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
-
-    if (formField) {
-      this.negative = formField.hasAttribute('negative');
     }
 
     if (this.hasUpdated) {
@@ -366,23 +382,19 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       return;
     }
 
-    this.toggleAttribute(
-      'data-option-panel-origin-borderless',
-      !!this.closest?.('sbb-form-field')?.hasAttribute('borderless'),
-    );
-
     this._configureTrigger();
   }
 
   private _configureTrigger(): void {
     const triggerElement = (this.trigger ??
       this.closest?.('sbb-form-field')?.querySelector('input')) as HTMLInputElement | null;
-    if (triggerElement === this._triggerElement) {
+    if (triggerElement === this.triggerElement) {
       return;
     }
 
     this._triggerAbortController?.abort();
     removeAriaComboBoxAttributes(this.triggerElement);
+    this.triggerElement?.removeAttribute('data-expanded');
     this._triggerElement = triggerElement;
 
     if (!this.triggerElement) {
@@ -395,7 +407,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       this._setOverlayPosition(originElement);
     }
 
-    this._triggerAttributeObserver?.observe(this._triggerElement!, {
+    this._triggerAttributeObserver?.observe(this.triggerElement!, {
       attributes: true,
       attributeFilter: ['disabled', 'readonly'],
     });
@@ -587,7 +599,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
         <div
           @animationend=${this._onAnimationEnd}
           class="sbb-autocomplete__panel"
-          ?data-open=${this.state === 'opened' || this.state === 'opening'}
           ${ref((overlayRef?: Element) => (this._overlay = overlayRef as HTMLElement))}
         >
           <div class="sbb-autocomplete__wrapper">

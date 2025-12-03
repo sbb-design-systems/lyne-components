@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbRadioButtonGroupElement } from './radio-button-group.component.js';
+import { SbbRadioButtonGroupElement } from './radio-button-group.component.ts';
 
-import '../radio-button.js';
+import '../radio-button.ts';
 
 describe(`sbb-radio-button-group ssr`, () => {
   let root: SbbRadioButtonGroupElement;

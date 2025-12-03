@@ -4,9 +4,6 @@ export const snapshots = {};
 snapshots["sbb-link-button renders DOM"] = 
 `<sbb-link-button
   aria-label="Travelcards &amp; tickets"
-  data-action=""
-  data-button=""
-  data-sbb-link=""
   form="form"
   name="name"
   size="m"

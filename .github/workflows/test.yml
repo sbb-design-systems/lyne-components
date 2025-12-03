@@ -22,7 +22,7 @@ jobs:
         run: yarn lint:tsc
 
       - name: Preload test artifacts
-        run: yarn ts-hooks scripts/preload-test-artifacts.ts
+        run: node scripts/preload-test-artifacts.ts
 
       - name: Store test artifacts
         uses: actions/upload-artifact@v4

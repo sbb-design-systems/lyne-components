@@ -2,11 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-link-static renders DOM"] = 
-`<sbb-link-static
-  data-action=""
-  data-sbb-link=""
-  size="m"
->
+`<sbb-link-static size="m">
   Travelcards & tickets.
 </sbb-link-static>
 `;

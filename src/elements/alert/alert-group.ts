@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './alert-group/alert-group.component.js';
+export * from './alert-group/alert-group.component.ts';

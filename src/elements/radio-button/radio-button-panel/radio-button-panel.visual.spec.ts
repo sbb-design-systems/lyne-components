@@ -1,17 +1,18 @@
 import { html, type TemplateResult } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import type { SbbRadioButtonSize } from '../common/radio-button-common.ts';
 
-import '../../icon.js';
-import '../radio-button-panel.js';
+import '../../icon.ts';
+import '../radio-button-panel.ts';
 
-const cases = {
+const cases: { checked: boolean[]; disabled: boolean[]; size: SbbRadioButtonSize[] } = {
   checked: [true, false],
   disabled: [false, true],
-  size: ['m', 's'],
+  size: ['xs', 's', 'm'],
 };
 
-const suffixAndSubtext = (size: 's' | 'm' = 'm'): TemplateResult =>
+const suffixAndSubtext = (size: SbbRadioButtonSize = 'm'): TemplateResult =>
   html`<span slot="subtext">Subtext</span>
     <span slot="suffix" style="margin-inline-start: auto; display:flex; align-items:center;">
       <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
@@ -26,7 +27,7 @@ describe(`sbb-radio-button-panel`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
             <sbb-radio-button-panel ?checked=${checked} ?disabled=${disabled} size=${size}>
-              Value ${suffixAndSubtext(size as 's' | 'm')}
+              Value ${suffixAndSubtext(size)}
             </sbb-radio-button-panel>
           `);
         }),

@@ -20,7 +20,6 @@ $open-anim-height-to: calc(
     color-mix(in srgb, var(--sbb-notification-type-color) 35%, white)
   );
   --sbb-notification-icon-color: var(--sbb-notification-type-color);
-  --sbb-notification-icon-margin-block-start: 0;
   --sbb-notification-border-width: var(--sbb-border-width-1x);
   --sbb-notification-border: var(--sbb-notification-border-width) solid
     var(--sbb-notification-type-color);
@@ -36,7 +35,7 @@ $open-anim-height-to: calc(
   --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
     var(--sbb-spacing-responsive-xs);
   --_sbb-notification-icon-authoritative-font-size: 1em;
-  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-body-text);
+  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-text);
 
   // As the notification has always a light background, we have to fix the focus outline color
   // to default color for cases where the notification is used in a negative context.
@@ -46,15 +45,15 @@ $open-anim-height-to: calc(
 }
 
 // By default, the open animation is disabled
-:host([data-state='opening']:not([animation='open'], [animation='all'])) {
+:host(:state(state-opening):not([animation='open'], [animation='all'])) {
   @include sbb.disable-animation;
 }
 
-:host([data-state='closing']:not([animation='close'], [animation='all'])) {
+:host(:state(state-closing):not([animation='close'], [animation='all'])) {
   @include sbb.disable-animation;
 }
 
-:host([data-resize-disable-animation]) {
+:host(:state(resize-disable-animation)) {
   @include sbb.disable-animation;
 }
 
@@ -127,13 +126,13 @@ $open-anim-height-to: calc(
     border-radius: var(--sbb-notification-base-radius);
   }
 
-  :host(:is([data-state='opened'], [data-state='closing'])) & {
+  :host(:is(:state(state-opened), :state(state-closing))) & {
     opacity: #{$open-anim-opacity-to};
     max-height: #{$open-anim-height-to};
     margin: #{$open-anim-margin-to};
   }
 
-  :host([data-state='opening']) & {
+  :host(:state(state-opening)) & {
     animation: {
       name: open;
       fill-mode: forwards;
@@ -142,7 +141,7 @@ $open-anim-height-to: calc(
     }
   }
 
-  :host([data-state='closing']) & {
+  :host(:state(state-closing)) & {
     animation: {
       name: close, close-height;
       fill-mode: forwards;

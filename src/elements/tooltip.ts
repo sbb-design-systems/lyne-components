@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './tooltip/tooltip.component.js';
+export * from './tooltip/tooltip.component.ts';

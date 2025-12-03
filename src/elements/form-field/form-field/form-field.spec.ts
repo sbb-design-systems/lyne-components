@@ -3,16 +3,16 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { spy } from 'sinon';
 
-import { fixture, tabKey } from '../../core/testing/private.js';
-import { waitForCondition, waitForLitRender } from '../../core/testing.js';
-import { SbbOptionElement } from '../../option.js';
-import { SbbSelectElement } from '../../select.js';
+import { fixture, tabKey } from '../../core/testing/private.ts';
+import { waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { SbbOptionElement } from '../../option.ts';
+import { SbbSelectElement } from '../../select.ts';
 
 import {
   SbbFormFieldControlEvent,
   SbbFormFieldElement,
   type SbbFormFieldElementControl,
-} from './form-field.component.js';
+} from './form-field.component.ts';
 
 type Mutable<T> = {
   -readonly [P in keyof T]: T[P];
@@ -88,18 +88,18 @@ describe(`sbb-form-field`, () => {
       expect(label).to.have.attribute('for', input.id);
     });
 
-    it('should reference sbb-form-error', async () => {
-      // When adding a sbb-form-error
-      const formError = document.createElement('sbb-form-error');
+    it('should reference sbb-error', async () => {
+      // When adding a sbb-error
+      const formError = document.createElement('sbb-error');
       element.append(formError);
       await waitForLitRender(element);
       await nextFrame();
 
-      // Then input should be linked and sbb-form-error configured
+      // Then input should be linked and sbb-error configured
       expect(input.ariaDescribedByElements).to.have.same.members([formError]);
       expect(formError).to.have.attribute('role', 'status');
 
-      // When removing sbb-form-error
+      // When removing sbb-error
       formError.remove();
       await waitForLitRender(element);
 
@@ -107,13 +107,13 @@ describe(`sbb-form-field`, () => {
       expect(input).not.to.have.attribute('aria-describedby');
     });
 
-    it('should reference sbb-form-error with existing reference', async () => {
+    it('should reference sbb-error with existing reference', async () => {
       const description = document.createElement('div');
       description.textContent = 'Description';
       element.append(description);
       input.ariaDescribedByElements = [description];
 
-      const formError = document.createElement('sbb-form-error');
+      const formError = document.createElement('sbb-error');
       element.append(formError);
       await waitForLitRender(element);
       await nextFrame();
@@ -215,18 +215,18 @@ describe(`sbb-form-field`, () => {
       expect(label).to.have.attribute('for', textarea.id);
     });
 
-    it('should reference sbb-form-error', async () => {
-      // When adding a sbb-form-error
-      const formError = document.createElement('sbb-form-error');
+    it('should reference sbb-error', async () => {
+      // When adding a sbb-error
+      const formError = document.createElement('sbb-error');
       element.append(formError);
       await waitForLitRender(element);
       await nextFrame();
 
-      // Then input should be linked and sbb-form-error configured
+      // Then input should be linked and sbb-error configured
       expect(textarea.ariaDescribedByElements).to.have.same.members([formError]);
       expect(formError).to.have.attribute('role', 'status');
 
-      // When removing sbb-form-error
+      // When removing sbb-error
       formError.remove();
       await waitForLitRender(element);
 
@@ -269,13 +269,13 @@ describe(`sbb-form-field`, () => {
 
     it('should open select on form field click', async () => {
       expect(element).not.to.have.match(':state(focus)');
-      expect(select).to.not.have.attribute('data-state', 'opened');
+      expect(select).to.not.match(':state(state-opened)');
 
       const label = element.querySelector('label')!;
       label.click();
       await waitForLitRender(element);
 
-      expect(select).to.have.attribute('data-state', 'opened');
+      expect(select).to.match(':state(state-opened)');
     });
 
     it('should focus select on form field click readonly', async () => {

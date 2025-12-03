@@ -2,15 +2,15 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { type SbbCheckboxGroupElement, SbbCheckboxPanelElement } from '../checkbox.js';
-import { fixture, tabKey } from '../core/testing/private.js';
-import { waitForLitRender } from '../core/testing.js';
-import { type SbbRadioButtonGroupElement, SbbRadioButtonPanelElement } from '../radio-button.js';
+import { type SbbCheckboxGroupElement, SbbCheckboxPanelElement } from '../checkbox.ts';
+import { fixture, tabKey } from '../core/testing/private.ts';
+import { waitForLitRender } from '../core/testing.ts';
+import { type SbbRadioButtonGroupElement, SbbRadioButtonPanelElement } from '../radio-button.ts';
 
-import { SbbSelectionActionPanelElement } from './selection-action-panel.component.js';
+import { SbbSelectionActionPanelElement } from './selection-action-panel.component.ts';
 
-import '../link/block-link-button.js';
-import '../button/secondary-button.js';
+import '../link/block-link-button.ts';
+import '../button/secondary-button.ts';
 
 describe(`sbb-selection-action-panel`, () => {
   let elements: SbbSelectionActionPanelElement[];
@@ -190,14 +190,14 @@ describe(`sbb-selection-action-panel`, () => {
       });
 
       it('change size on group', async () => {
-        expect(firstPanel).to.have.attribute('data-size', 'm');
-        expect(secondPanel).to.have.attribute('data-size', 'm');
+        expect(firstPanel).to.match(`:state(size-m)`);
+        expect(secondPanel).to.match(`:state(size-m)`);
 
         wrapper.size = 's';
         await waitForLitRender(wrapper);
 
-        expect(firstPanel).to.have.attribute('data-size', 's');
-        expect(secondPanel).to.have.attribute('data-size', 's');
+        expect(firstPanel).to.match(`:state(size-s)`);
+        expect(secondPanel).to.match(`:state(size-s)`);
       });
 
       it('change size on input', async () => {
@@ -213,12 +213,12 @@ describe(`sbb-selection-action-panel`, () => {
         /* eslint-enable lit/binding-positions */
         firstInput = firstPanel.querySelector(`sbb-${inputType}-panel`)!;
 
-        expect(firstPanel).to.have.attribute('data-size', 'm');
+        expect(firstPanel).to.match(`:state(size-m)`);
 
         firstInput.size = 's';
         await waitForLitRender(wrapper);
 
-        expect(firstPanel).to.have.attribute('data-size', 's');
+        expect(firstPanel).to.match(`:state(size-s)`);
       });
     });
   }

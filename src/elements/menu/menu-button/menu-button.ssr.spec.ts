@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbMenuButtonElement } from './menu-button.component.js';
+import { SbbMenuButtonElement } from './menu-button.component.ts';
 
 describe(`sbb-menu-button ssr`, () => {
   let root: SbbMenuButtonElement;

@@ -1,27 +1,27 @@
 import { html, type LitElement, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { sbbInputModalityDetector } from '../../core/a11y/input-modality-detector.js';
-import { SbbLanguageController } from '../../core/controllers.js';
-import { forceType } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
+import { sbbInputModalityDetector } from '../../core/a11y/input-modality-detector.ts';
+import { SbbLanguageController } from '../../core/controllers.ts';
+import { forceType } from '../../core/decorators.ts';
+import { isLean } from '../../core/dom.ts';
 import {
   i18nNextPage,
   i18nPage,
   i18nPaginatorSelected,
   i18nPreviousPage,
-} from '../../core/i18n.js';
-import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.js';
+} from '../../core/i18n.ts';
+import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.ts';
 import {
   type AbstractConstructor,
   SbbDisabledMixin,
   SbbElementInternalsMixin,
   SbbNegativeMixin,
-} from '../../core/mixins.js';
+} from '../../core/mixins.ts';
 
-import '../../button/mini-button.js';
-import '../../button/mini-button-group.js';
-import '../../divider.js';
+import '../../button/mini-button.ts';
+import '../../button/mini-button-group.ts';
+import '../../divider.ts';
 
 export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNegativeMixin(
   SbbDisabledMixin(SbbElementInternalsMixin(LitElement)),
@@ -43,7 +43,6 @@ export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNega
   public hasNextPage(): boolean;
   public numberOfPages(): number;
   protected language: SbbLanguageController;
-  protected changeAndEmitPage(pageIndex: number): void;
   protected emitPageEvent(previousPageIndex: number, pageIndex?: number): void;
   protected renderPrevNextButtons(): TemplateResult;
   protected abstract renderPaginator(): TemplateResult;
@@ -134,7 +133,8 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
         this.pageSize = isNaN(this.pageSize) || this.pageSize < 0 ? 0 : this.pageSize;
         // Current page needs to be updated to reflect the new page size.
         // Navigate to the page containing the previous page's first item.
-        if (previousPageSize) {
+        // If the pageIndex changes in the same update cycle, we shouldn't adjust it.
+        if (previousPageSize && !changedProperties.has('pageIndex')) {
           this.pageIndex = Math.floor((this.pageIndex * previousPageSize) / this.pageSize) || 0;
         }
         /**
@@ -155,7 +155,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       }
 
       if (prevPageIndex !== null) {
-        this._emitPrivatePageEvent(prevPageIndex);
+        this._emitPageEvent(prevPageIndex);
       }
     }
 
@@ -177,12 +177,6 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
 
     private _currentPageLabel(): string {
       return `${this.accessibilityPageLabel ? this.accessibilityPageLabel : i18nPage[this.language.current]} ${this.pageIndex + 1} ${i18nPaginatorSelected[this.language.current]}.`;
-    }
-
-    protected changeAndEmitPage(pageIndex: number): void {
-      const prevPageIndex = this.pageIndex;
-      this.pageIndex = pageIndex;
-      this.emitPageEvent(prevPageIndex);
     }
 
     /** Advances to the next page if it exists. */
@@ -229,34 +223,14 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
       return this.pageSize ? Math.ceil(this.length / this.pageSize) : 0;
     }
 
-    protected emitPageEvent(previousPageIndex: number, pageIndex?: number): void {
-      /**
-       * @type {CustomEvent<SbbPaginatorPageEventDetails>}
-       * The page event is dispatched whenever the user changes the page.
-       */
-      this.dispatchEvent(
-        new CustomEvent<SbbPaginatorPageEventDetails>('page', {
-          bubbles: true,
-          composed: true,
-          detail: {
-            previousPageIndex,
-            pageIndex: pageIndex ?? this.pageIndex,
-            length: this.length,
-            pageSize: this.pageSize,
-          },
-        }),
-      );
-    }
-
-    private _emitPrivatePageEvent(previousPageIndex: number): void {
+    private _emitPageEvent(previousPageIndex: number): void {
       if (this.hasUpdated) {
         /**
-         * @internal
          * @type {CustomEvent<SbbPaginatorPageEventDetails>}
-         * The page event is dispatched when the page index changes.
+         * The page event is dispatched when the page index, length or page size changes.
          */
         this.dispatchEvent(
-          new CustomEvent<SbbPaginatorPageEventDetails>('ɵpage', {
+          new CustomEvent<SbbPaginatorPageEventDetails>('page', {
             bubbles: true,
             composed: true,
             detail: {
@@ -281,7 +255,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
             icon-name="chevron-small-left-small"
             ?disabled=${this.disabled || !this.hasPreviousPage()}
             @click=${() => {
-              this.changeAndEmitPage(this.pageIndex - 1);
+              this.previousPage();
               if (
                 !this.hasPreviousPage() &&
                 sbbInputModalityDetector.mostRecentModality === 'keyboard'
@@ -299,7 +273,7 @@ export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<Lit
             icon-name="chevron-small-right-small"
             ?disabled=${this.disabled || !this.hasNextPage()}
             @click=${() => {
-              this.changeAndEmitPage(this.pageIndex + 1);
+              this.nextPage();
               if (
                 !this.hasNextPage() &&
                 sbbInputModalityDetector.mostRecentModality === 'keyboard'

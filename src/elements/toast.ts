@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './toast/toast.component.js';
+export * from './toast/toast.component.ts';

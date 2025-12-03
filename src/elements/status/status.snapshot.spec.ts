@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbStatusElement } from './status.component.js';
+import type { SbbStatusElement } from './status.component.ts';
 
-import '../title.js';
-import './status.component.js';
+import '../title.ts';
+import './status.component.ts';
 
 describe(`sbb-status`, () => {
   let element: SbbStatusElement;

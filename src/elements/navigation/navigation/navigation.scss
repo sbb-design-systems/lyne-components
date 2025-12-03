@@ -59,29 +59,29 @@
   }
 }
 
-:host([data-state]:not([data-state='closed'])) {
+:host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
   display: block;
 }
 
-:host([data-state='opened']) {
+:host(:state(state-opened)) {
   --sbb-navigation-animation-easing: ease-out;
 }
 
-:host(:is([data-state='opened'], [data-state='opening'])) {
+:host(:is(:state(state-opened), :state(state-opening))) {
   --sbb-navigation-backdrop-visibility: visible;
   --sbb-navigation-backdrop-pointer-events: all;
 }
 
-:host(:not([data-state='closed'])) {
+:host(:not(:state(state-closed))) {
   --sbb-navigation-inset: 0;
   --sbb-navigation-translate: ;
 }
 
-:host([data-state][data-state='closing']) {
+:host(:state(state-closing)) {
   --sbb-navigation-backdrop-animation-name: backdrop-close;
 }
 
-:host([data-has-navigation-section]) {
+:host(:state(has-open-navigation-section)) {
   --sbb-navigation-content-translate: -100% 0;
 
   @include sbb.mq($from: 'large') {
@@ -90,7 +90,7 @@
   }
 }
 
-:host([data-resize-disable-animation]) {
+:host(:state(resize-disable-animation)) {
   @include sbb.disable-animation;
 }
 
@@ -151,7 +151,7 @@
     background: var(--sbb-navigation-background-color);
   }
 
-  :host([data-state]:not([data-state='closed'])) & {
+  :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
     display: block;
     pointer-events: all;
 
@@ -162,7 +162,7 @@
     }
   }
 
-  :host([data-state][data-state='closing']) & {
+  :host(:state(state-closing)) & {
     pointer-events: none;
     animation-name: close;
   }

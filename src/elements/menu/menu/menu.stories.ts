@@ -4,14 +4,14 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { SbbMenuElement } from './menu.component.js';
+import { SbbMenuElement } from './menu.component.ts';
 import readme from './readme.md?raw';
 
-import '../../button/button.js';
-import '../../divider.js';
-import '../../link.js';
-import '../menu-button.js';
-import '../menu-link.js';
+import '../../button/button.ts';
+import '../../divider.ts';
+import '../../link.ts';
+import '../menu-button.ts';
+import '../menu-link.ts';
 
 const iconName: InputType = {
   control: {
@@ -54,13 +54,13 @@ const defaultArgs: Args = {
 
 const userNameStyle: Args = {
   fontWeight: 'bold',
-  fontSize: 'var(--sbb-font-size-text-xs)',
+  fontSize: 'var(--sbb-text-font-size-xs)',
   marginTop: 'var(--sbb-spacing-fixed-1x)',
 };
 
 const userInfoStyle: Args = {
   color: 'light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke))',
-  fontSize: 'var(--sbb-font-size-text-xxs)',
+  fontSize: 'var(--sbb-text-font-size-xxs)',
 };
 
 const triggerButton = (id: string): TemplateResult => html`

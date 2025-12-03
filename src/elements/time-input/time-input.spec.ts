@@ -3,13 +3,13 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { clearElement, fixture, typeInElement } from '../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../core/testing.js';
-import type { SbbFormFieldElement } from '../form-field.js';
+import { clearElement, fixture, typeInElement } from '../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import type { SbbFormFieldElement } from '../form-field.ts';
 
-import { SbbTimeInputElement } from './time-input.component.js';
+import { SbbTimeInputElement } from './time-input.component.ts';
 
-import '../form-field/form-field.js';
+import '../form-field/form-field.ts';
 
 describe(`sbb-time-input`, () => {
   let element: SbbTimeInputElement;

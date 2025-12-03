@@ -1,14 +1,14 @@
 import {
-  SbbBreakpointLargeMin,
-  SbbBreakpointSmallMin,
-  SbbBreakpointUltraMin,
-} from '@sbb-esta/lyne-design-tokens';
+  sbbBreakpointLargeMinPx,
+  sbbBreakpointSmallMinPx,
+  sbbBreakpointUltraMinPx,
+} from './breakpoints.ts';
 
 const viewportSizes = {
   zero: 320,
-  small: SbbBreakpointSmallMin,
-  large: SbbBreakpointLargeMin,
-  ultra: SbbBreakpointUltraMin,
+  small: sbbBreakpointSmallMinPx,
+  large: sbbBreakpointLargeMinPx,
+  ultra: sbbBreakpointUltraMinPx,
 } as const;
 
 export interface DescribeViewportOptions {

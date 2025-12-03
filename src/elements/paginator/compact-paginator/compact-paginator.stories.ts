@@ -11,9 +11,9 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
-import { SbbCompactPaginatorElement } from './compact-paginator.component.js';
+import { SbbCompactPaginatorElement } from './compact-paginator.component.ts';
 import readme from './readme.md?raw';
 
 const length: InputType = {

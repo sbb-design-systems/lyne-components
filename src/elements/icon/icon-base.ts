@@ -6,11 +6,11 @@ import type { UnsafeHTMLDirective } from 'lit/directives/unsafe-html.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
 
-import { forceType, hostAttributes } from '../core/decorators.js';
-import { SbbElementInternalsMixin } from '../core/mixins.js';
-import { boxSizingStyles } from '../core/styles.js';
+import { forceType } from '../core/decorators.ts';
+import { SbbElementInternalsMixin } from '../core/mixins.ts';
+import { boxSizingStyles } from '../core/styles.ts';
 
-import { getSvgContent } from './icon-request.js';
+import { getSvgContent } from './icon-request.ts';
 import style from './icon.scss?lit&inline';
 
 const defaultNamespace = 'default';
@@ -19,12 +19,7 @@ const defaultNamespace = 'default';
  * @cssprop [--sbb-icon-svg-width=auto] - Can be used to set a custom width.
  * @cssprop [--sbb-icon-svg-height=auto] - Can be used to set a custom height.
  */
-export
-@hostAttributes({
-  'data-namespace': defaultNamespace,
-  'data-empty': '',
-})
-abstract class SbbIconBase extends SbbElementInternalsMixin(LitElement) {
+export abstract class SbbIconBase extends SbbElementInternalsMixin(LitElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static override readonly role = 'img';
 
@@ -46,21 +41,32 @@ abstract class SbbIconBase extends SbbElementInternalsMixin(LitElement) {
   @property({ attribute: 'no-sanitize', type: Boolean })
   public accessor noSanitize: boolean = false;
 
+  public constructor() {
+    super();
+    this.internals.states.add('empty');
+  }
+
   protected async loadSvgIcon(iconName: string): Promise<void> {
     if (!iconName) {
       return;
     }
 
     const [namespace, name] = this._splitIconName(iconName);
+
+    if (this._svgNamespace) {
+      this.internals.states.delete(`namespace-${this._svgNamespace}`);
+    }
     this._svgNamespace = namespace;
-    this.setAttribute('data-namespace', this._svgNamespace);
+    if (this._svgNamespace) {
+      this.internals.states.add(`namespace-${this._svgNamespace}`);
+    }
 
     const svgIcon = this.fetchSvgIcon(this._svgNamespace, name);
     this._svgIcon = svgIcon.then((v) => unsafeHTML(v));
     try {
-      this.toggleAttribute('data-empty', !(await svgIcon));
+      this.toggleState('empty', !(await svgIcon));
     } catch {
-      this.toggleAttribute('data-empty', true);
+      this.internals.states.add('empty');
     }
   }
 
