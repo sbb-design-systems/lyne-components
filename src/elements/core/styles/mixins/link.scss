@@ -107,14 +107,11 @@
 @mixin link-consolidation {
   @include typo.text-inherit;
   @include link-base;
+  @include link-focus-visible;
+  @include link-hover;
 
-  & {
-    @include link-focus-visible;
-    @include link-hover;
-
-    // Active definitions have to be after :hover definitions
-    @include link-active;
-  }
+  // Active definitions have to be after :hover definitions
+  @include link-active;
 }
 
 @mixin link {

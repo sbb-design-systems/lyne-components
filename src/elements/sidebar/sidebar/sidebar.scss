@@ -102,19 +102,17 @@
 .sbb-sidebar-content-section {
   @include sbb.scrollbar;
 
-  & {
-    padding-block-start: var(--sbb-sidebar__padding-block-start);
-    padding-inline: var(--sbb-sidebar-padding) var(--sbb-sidebar__padding-inline-end);
-    overflow-y: auto;
-    flex-grow: 1;
+  padding-block-start: var(--sbb-sidebar__padding-block-start);
+  padding-inline: var(--sbb-sidebar-padding) var(--sbb-sidebar__padding-inline-end);
+  overflow-y: auto;
+  flex-grow: 1;
 
-    // If the element is scrollable and has no focusable content, it gets focused.
-    // To adapt to lyne styles we colorize it
-    outline-color: var(--sbb-focus-outline-color);
+  // If the element is scrollable and has no focusable content, it gets focused.
+  // To adapt to lyne styles we colorize it
+  outline-color: var(--sbb-focus-outline-color);
 
-    @supports (scrollbar-gutter: stable) {
-      scrollbar-gutter: stable;
-    }
+  @supports (scrollbar-gutter: stable) {
+    scrollbar-gutter: stable;
   }
 }
 
