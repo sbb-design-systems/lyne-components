@@ -1,10 +1,11 @@
 import { assert, expect, fixture } from '@open-wc/testing';
-import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { spy } from 'sinon';
 
-import { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.component.js';
+import { waitForLitRender } from '../../../elements/core/testing.ts';
+
+import { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.component.ts';
 
 describe('sbb-seat-reservation-place-control', () => {
   let element: SbbSeatReservationPlaceControlElement;
