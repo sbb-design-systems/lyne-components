@@ -1,9 +1,9 @@
 import { assert, expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import { spy } from 'sinon';
 
-import { waitForLitRender } from '../../../elements/core/testing.ts';
+import { EventSpy, waitForLitRender } from '../../../elements/core/testing.ts';
+import type { PlaceSelection } from '../common/types.ts';
 
 import { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.component.ts';
 
@@ -61,15 +61,14 @@ describe('sbb-seat-reservation-place-control', () => {
 
     await waitForLitRender(element);
 
-    const handlerSpy = spy();
-    element.addEventListener('selectplace', handlerSpy);
+    const selectPlaceSpy = new EventSpy<CustomEvent<PlaceSelection>>('selectplace', element);
 
     element.click();
     await element.updateComplete;
 
-    expect(handlerSpy.calledOnce).to.be.true;
+    await selectPlaceSpy.calledOnce();
 
-    const evt = handlerSpy.firstCall.args[0] as CustomEvent;
+    const evt = selectPlaceSpy.events[0];
 
     await expect(evt.detail.id).to.equal('place-1');
     await expect(evt.detail.deckIndex).to.equal(1);
@@ -80,93 +79,108 @@ describe('sbb-seat-reservation-place-control', () => {
   });
 
   it('should toggle free seat to selected, when clicking', async () => {
+    const clickSpy = new EventSpy('click');
     element.setAttribute('state', 'FREE');
     await waitForLitRender(element);
     element.click();
+    await expect(clickSpy.count).to.be.equal(1);
     await expect(element.state).to.be.equal('SELECTED');
   });
 
   it('should toggle selected seat to free, when clicking', async () => {
+    const clickSpy = new EventSpy('click');
     element.setAttribute('state', 'SELECTED');
     await waitForLitRender(element);
     element.click();
-
+    await expect(clickSpy.count).to.be.equal(1);
     await expect(element.state).to.be.equal('FREE');
   });
 
   it('should toggle free seat to selected on enter-button press', async () => {
+    const clickSpy = new EventSpy('click');
     element.setAttribute('state', 'FREE');
     element.focus();
     await sendKeys({ press: 'Enter' });
     await waitForLitRender(element);
+    await expect(clickSpy.count).to.be.equal(1);
     await expect(element.state).to.be.equal('SELECTED');
   });
 
   it('should toggle selected seat to free on enter-button press', async () => {
+    const clickSpy = new EventSpy('click');
     element.setAttribute('state', 'SELECTED');
     element.focus();
     await sendKeys({ press: 'Enter' });
     await waitForLitRender(element);
+    await expect(clickSpy.count).to.be.equal(1);
     await expect(element.state).to.be.equal('FREE');
   });
 
   it('should not toggle to selected when blocked on enter-button press', async () => {
+    const clickSpy = new EventSpy('click');
     element.setAttribute('state', 'BLOCKED');
     element.focus();
     await sendKeys({ press: 'Enter' });
     await waitForLitRender(element);
+    await expect(clickSpy.count).to.be.equal(1);
     await expect(element.state).to.be.equal('BLOCKED');
   });
 
   it('should toggle free seat to selected on space-button press', async () => {
+    const clickSpy = new EventSpy('click');
     element.setAttribute('state', 'FREE');
     element.focus();
     await sendKeys({ press: 'Space' });
     await waitForLitRender(element);
+    await expect(clickSpy.count).to.be.equal(1);
     await expect(element.state).to.be.equal('SELECTED');
   });
 
   it('should toggle selected seat to free on space-button press', async () => {
     element.setAttribute('state', 'SELECTED');
     element.focus();
+    const selectPlaceSpy = new EventSpy('selectplace', element);
     await sendKeys({ press: 'Space' });
     await waitForLitRender(element);
+    await expect(selectPlaceSpy.count).to.be.equal(1);
     await expect(element.state).to.be.equal('FREE');
   });
 
   it('should not toggle to selected when blocked on space-button press', async () => {
     element.setAttribute('state', 'BLOCKED');
     element.focus();
+    const selectPlaceSpy = new EventSpy('selectplace', element);
     await sendKeys({ press: 'Space' });
     await waitForLitRender(element);
+    await expect(selectPlaceSpy.count).to.equal(0);
     await expect(element.state).to.be.equal('BLOCKED');
   });
 
   it('should not toggle or emit, when preventClick is true', async () => {
+    element.setAttribute('state', 'FREE');
     element.setAttribute('prevent-click', '');
     await waitForLitRender(element);
-    const handlerSpy = spy();
-    element.addEventListener('selectplace', handlerSpy);
+
+    const selectPlaceSpy = new EventSpy('selectplace', element);
 
     element.click();
     await element.updateComplete;
 
     await expect(element.state).to.equal('FREE');
-    expect(handlerSpy.called).to.be.false;
+    await expect(selectPlaceSpy.count).to.equal(0);
   });
 
   it('should not toggle or emit, when seat is blocked ', async () => {
     element.setAttribute('state', 'BLOCKED');
     await waitForLitRender(element);
 
-    const handlerSpy = spy();
-    element.addEventListener('selectplace', handlerSpy);
+    const selectPLaceSpy = new EventSpy('selectplace', element);
 
     element.click();
     await element.updateComplete;
 
     await expect(element.state).to.equal('BLOCKED');
-    expect(handlerSpy.called).to.be.false;
+    await expect(selectPLaceSpy.count).to.equal(0);
   });
 
   it('should call focus-function, if keyfocus is set to focus', async () => {
