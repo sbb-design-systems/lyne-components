@@ -112,14 +112,12 @@
   // button outline-offset would be clipped otherwise because it's not calculated in the box-model
   padding-block-start: sbb-sr-functions.sr-px-to-rem(4);
 
-  & {
-    // Set sbb scrollbar transparent by default
-    --sbb-scrollbar-color: transparent;
+  // Set sbb scrollbar transparent by default
+  --sbb-scrollbar-color: transparent;
 
-    display: flex;
-    overflow: scroll hidden;
-    position: relative;
-  }
+  display: flex;
+  overflow: scroll hidden;
+  position: relative;
 }
 
 .sbb-sr-navigation__list-coaches {
@@ -159,15 +157,13 @@
 .sbb-sr__wrapper {
   @include sbb.scrollbar;
 
-  & {
-    overflow-x: scroll;
-    padding-block: sbb-sr-functions.sr-px-to-rem(8) sbb-sr-functions.sr-px-to-rem(16);
+  overflow-x: scroll;
+  padding-block: sbb-sr-functions.sr-px-to-rem(8) sbb-sr-functions.sr-px-to-rem(16);
 
-    .sbb-sr__parent {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
+  .sbb-sr__parent {
+    display: flex;
+    flex-direction: column;
+    position: relative;
   }
 }
 
@@ -340,11 +336,9 @@
         .sbb-sr__wrapper {
           @include sbb.scrollbar;
 
-          & {
-            overflow: hidden scroll;
-            height: 100%;
-            padding: 0;
-          }
+          overflow: hidden scroll;
+          height: 100%;
+          padding: 0;
         }
 
         .sbb-sr__parent {

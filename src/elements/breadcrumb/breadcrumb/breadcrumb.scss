@@ -22,15 +22,13 @@
   @include sbb.text-xs--regular;
   @include sbb.link-base;
 
-  & {
-    display: flex;
-    cursor: var(--sbb-cursor-pointer);
-    gap: var(--sbb-spacing-fixed-2x);
-    color: var(--sbb-breadcrumb-color);
-    align-items: center;
-    overflow: hidden;
-    outline: none;
-  }
+  display: flex;
+  cursor: var(--sbb-cursor-pointer);
+  gap: var(--sbb-spacing-fixed-2x);
+  color: var(--sbb-breadcrumb-color);
+  align-items: center;
+  overflow: hidden;
+  outline: none;
 
   @include sbb.if-forced-colors {
     --sbb-breadcrumb-color: ButtonText;
