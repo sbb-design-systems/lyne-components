@@ -23,12 +23,12 @@ describe(`sbb-calendar`, () => {
     (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText;
 
   const waitForTransition = async (): Promise<void> => {
-    //Wait for the transition to be over
+    // Wait for the transition to be over
     await waitForCondition(() => !element.matches(':state(transition)'));
 
     await waitForLitRender(element);
 
-    //Wait for the new table to be rendered completely
+    // Wait for the new table to be rendered completely
     await waitForCondition(
       () => Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__cell')).length > 0,
     );

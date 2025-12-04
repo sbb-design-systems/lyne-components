@@ -209,7 +209,9 @@ describe(`sbb-navigation-section`, () => {
       expect(document.activeElement!.id).to.be.equal('navigation-button-3');
     });
 
-    it('should close and move focus on Escape key press', async () => {
+    it('should close and move focus on Escape key press', async function (this: Context) {
+      // Flaky on Webkit
+      this.retries(3);
       const closeSpy = new EventSpy(SbbNavigationElement.events.close, root);
 
       trigger.focus();

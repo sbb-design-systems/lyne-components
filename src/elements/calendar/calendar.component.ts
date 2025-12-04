@@ -210,10 +210,14 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
   @state()
   private set _wide(wide: boolean) {
     this.toggleState('wide', wide);
+    this._wideInternal = wide;
   }
   private get _wide(): boolean {
-    return this.internals.states.has('wide');
+    return this._wideInternal;
   }
+  // We keep the state in a field because of the WebKit bug https://bugs.webkit.org/show_bug.cgi?id=303467.
+  // TODO: re-check whether field is needed
+  private _wideInternal: boolean = false;
 
   @state() private accessor _calendarView: CalendarView = 'day';
 
