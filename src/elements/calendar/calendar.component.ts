@@ -210,10 +210,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
   @state()
   private set _wide(wide: boolean) {
     this.toggleState('wide', wide);
+    this._wideInternal = wide;
   }
   private get _wide(): boolean {
-    return this.internals.states.has('wide');
+    return this._wideInternal;
   }
+  private _wideInternal: boolean = false;
 
   @state() private accessor _calendarView: CalendarView = 'day';
 
@@ -367,6 +369,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
     if (activeDate) {
       this._assignActiveDate(activeDate);
     }
+    console.log(this._mediaMatcher.matches(SbbMediaQueryBreakpointLargeAndAbove));
     this._wide =
       (this._mediaMatcher.matches(SbbMediaQueryBreakpointLargeAndAbove) ?? false) && this.wide;
     this._weeks = this._createWeekRows(this._activeDate);
@@ -1342,6 +1345,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
     isWideNextMonth: boolean = false,
   ): TemplateResult {
     const today: string = this._dateAdapter.toIso8601(this._dateAdapter.today());
+    console.log('createdaytable', this._wide);
     const weeksForSelectMultipleWeekNumbers: Day<T>[] = (
       this._wide
         ? [...this._weeks, ...this._nextMonthWeeks]

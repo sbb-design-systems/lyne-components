@@ -1,7 +1,6 @@
 import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
-import type { Context } from 'mocha';
 import { type SinonStub, stub } from 'sinon';
 
 import type { SbbSecondaryButtonElement } from '../button/secondary-button.ts';
@@ -591,9 +590,7 @@ describe(`sbb-calendar`, () => {
       ).to.be.equal('December 2063');
     });
 
-    it('renders with min and max', async function (this: Context) {
-      // Flaky on WebKit
-      this.retries(3);
+    it('renders with min and max', async () => {
       await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
       element = await fixture(
         html`<sbb-calendar
