@@ -154,10 +154,21 @@ export const visualDiffActive: VisualDiffState = {
   with(setup: (setup: VisualDiffSetupBuilder) => void | Promise<void>): Mocha.Func {
     return async function (this: Mocha.Context) {
       const builder = await runSetupWithViewport(setup, this.test?.ctx?.['requestViewport']);
-      builder.stateElement.focus();
-      await sendKeys({ down: 'Space' });
-      sbbInputModalityDetector.reset();
-      await visualDiff(builder.snapshotElement, imageName(this.test!));
+
+      try {
+        await sendMouse({ type: 'move', position: builder.stateElementCenter });
+        await sendMouse({ type: 'down' });
+
+        // We also force active state with keyboard in order to stabilize testing.
+        builder.stateElement.focus();
+        await sendKeys({ down: 'Space' });
+        sbbInputModalityDetector.reset();
+
+        await aTimeout(5);
+        await visualDiff(builder.snapshotElement, imageName(this.test!));
+      } finally {
+        await resetMouse();
+      }
     };
   },
 };
