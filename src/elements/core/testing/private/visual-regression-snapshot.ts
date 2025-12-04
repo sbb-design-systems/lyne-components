@@ -154,7 +154,6 @@ export const visualDiffActive: VisualDiffState = {
       const builder = await runSetupWithViewport(setup, this.test?.ctx?.['requestViewport']);
       try {
         await sendMouse({ type: 'move', position: builder.stateElementCenter });
-        await aTimeout(0);
         await sendMouse({ type: 'down' });
         await aTimeout(5);
         await visualDiff(builder.snapshotElement, imageName(this.test!));
