@@ -30,9 +30,7 @@
 .sbb-chip-label {
   @include sbb.chip-label-rules;
 
-  & {
-    display: flex;
-  }
+  display: flex;
 }
 
 .sbb-chip__text-wrapper {

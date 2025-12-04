@@ -269,15 +269,13 @@ html {
   :where(textarea) {
     @include scrollbar.scrollbar;
 
-    & {
-      position: relative;
-      resize: none;
+    position: relative;
+    resize: none;
 
-      // White-space break needed for Firefox
-      white-space: break-spaces;
-      overflow-y: auto;
-      min-height: calc((var(--sbb-typo-line-height-text) * 1em));
-    }
+    // White-space break needed for Firefox
+    white-space: break-spaces;
+    overflow-y: auto;
+    min-height: calc((var(--sbb-typo-line-height-text) * 1em));
   }
 
   &[size='l'] :where(textarea) {

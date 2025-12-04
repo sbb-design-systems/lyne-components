@@ -196,17 +196,15 @@
   @include transition(translate);
   @include sbb.scrollbar($negative: true);
 
-  & {
-    display: flex;
-    flex-direction: column;
-    gap: var(--sbb-spacing-responsive-xxl);
-    position: relative;
-    height: var(--sbb-navigation-height);
-    padding-inline: var(--sbb-navigation-padding-inline);
-    padding-block: var(--sbb-navigation-padding-block-start) var(--sbb-navigation-padding-block-end);
-    overflow-y: auto;
-    translate: var(--sbb-navigation-content-translate);
-  }
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-responsive-xxl);
+  position: relative;
+  height: var(--sbb-navigation-height);
+  padding-inline: var(--sbb-navigation-padding-inline);
+  padding-block: var(--sbb-navigation-padding-block-start) var(--sbb-navigation-padding-block-end);
+  overflow-y: auto;
+  translate: var(--sbb-navigation-content-translate);
 }
 
 ::slotted(:first-child) {
