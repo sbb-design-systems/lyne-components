@@ -3,6 +3,8 @@ import { resetMouse, sendKeys, sendMouse, setViewport } from '@web/test-runner-c
 import { visualDiff } from '@web/test-runner-visual-regression';
 import type { TemplateResult } from 'lit';
 
+import { sbbInputModalityDetector } from '../../a11y/input-modality-detector.ts';
+
 import { visualRegressionFixture } from './fixture.ts';
 import { tabKey } from './keys.ts';
 
@@ -152,14 +154,10 @@ export const visualDiffActive: VisualDiffState = {
   with(setup: (setup: VisualDiffSetupBuilder) => void | Promise<void>): Mocha.Func {
     return async function (this: Mocha.Context) {
       const builder = await runSetupWithViewport(setup, this.test?.ctx?.['requestViewport']);
-      try {
-        await sendMouse({ type: 'move', position: builder.stateElementCenter });
-        await sendMouse({ type: 'down' });
-        await aTimeout(5);
-        await visualDiff(builder.snapshotElement, imageName(this.test!));
-      } finally {
-        await resetMouse();
-      }
+      builder.stateElement.focus();
+      await sendKeys({ down: 'Space' });
+      sbbInputModalityDetector.reset();
+      await visualDiff(builder.snapshotElement, imageName(this.test!));
     };
   },
 };
