@@ -1,7 +1,7 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, isServer, type TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -56,13 +56,17 @@ class SbbSeatReservationGraphicElement extends LitElement {
   }
 
   private _getSvgElement(svg: string): Element | null {
-    const parser = new DOMParser();
-    const svgString = svg || '<svg></svg>';
-    const svgElm = parser.parseFromString(svgString, 'image/svg+xml').firstElementChild;
-    if (this.stretch && svgElm?.nodeName.toLowerCase() === 'svg') {
-      svgElm.setAttribute('preserveAspectRatio', 'none');
+    if (!isServer) {
+      const parser = new DOMParser();
+      const svgString = svg || '<svg></svg>';
+      const svgElm = parser.parseFromString(svgString, 'image/svg+xml').firstElementChild;
+      if (this.stretch && svgElm?.nodeName.toLowerCase() === 'svg') {
+        svgElm.setAttribute('preserveAspectRatio', 'none');
+      }
+      return svgElm;
     }
-    return svgElm;
+
+    return null;
   }
 }
 
