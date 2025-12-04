@@ -125,6 +125,16 @@ export const DriverArea: StoryObj = {
   args: { ...defaultArgs, 'driver-area': true, 'coach-id': mappedSeatReservation.coachItems[3].id },
 };
 
+export const DriverAreaSelected: StoryObj = {
+  render: Template,
+  args: { ...defaultArgs, 'driver-area': true, selected: true },
+};
+
+export const DriverAreaFocused: StoryObj = {
+  render: Template,
+  args: { ...defaultArgs, 'driver-area': true, focused: true },
+};
+
 export const FirstCoachInTrainFirstClass: StoryObj = {
   render: Template,
   args: {

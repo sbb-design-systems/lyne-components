@@ -144,7 +144,7 @@ export class SeatReservationBaseElement extends LitElement {
     Enter: 'Enter',
   } as const;
 
-  protected isRunningInitPreselectCoachIndex = false;
+  private _isRunningInitPreselectCoachIndex = false;
   private _scrollTimeout: ReturnType<typeof setTimeout> | undefined;
   private _lastStartScrollPos = -1;
 
@@ -185,7 +185,7 @@ export class SeatReservationBaseElement extends LitElement {
     if (changedProperties.has('preselectCoachIndex')) {
       // setTimeout is necessary because without, _getCoachScrollPositionX() would fail with NPE because
       // the coachScrollArea is not yet initialized
-      this.isRunningInitPreselectCoachIndex = true;
+      this._isRunningInitPreselectCoachIndex = true;
       setTimeout(() => this.scrollToSelectedNavCoach(this.preselectCoachIndex), 1);
     }
   }
@@ -329,7 +329,7 @@ export class SeatReservationBaseElement extends LitElement {
 
   /** Will be triggerd by focus navigation direction */
   protected onFocusNavDirectionButton(): void {
-    // If any navigation direction button (right|left) get the focus, so we have manual reset the previouse focusCoachIndex.
+    // If any navigation direction button (right|left) get the focus, so we have manual reset the previous focusCoachIndex.
     this.focusedCoachIndex = -1;
   }
 
@@ -446,8 +446,8 @@ export class SeatReservationBaseElement extends LitElement {
    */
   protected preselectPlaceInCoach(): void {
     // No auto place preselection by running the preselect coach index
-    if (this.isRunningInitPreselectCoachIndex) {
-      this.isRunningInitPreselectCoachIndex = false;
+    if (this._isRunningInitPreselectCoachIndex) {
+      this._isRunningInitPreselectCoachIndex = false;
       return;
     }
 
@@ -647,9 +647,10 @@ export class SeatReservationBaseElement extends LitElement {
       ? this.currSelectedCoachIndex
       : this._getCoachIndexByScrollTriggerPosition();
 
-    // If a place was selected by mouse click (preventCoachScrollByPlaceClick) before triggering this scrolling end methode,
-    // this scrolling was triggered by the method _scrollPlaceIntoNearestViewport and nothing have to do here,
-    // because only the place was scrolled into the visible view area.
+    // TIMO-43705
+    // If a place was selected by mouse click (preventCoachScrollByPlaceClick) before triggering this scrollend method,
+    // then this scrolling was triggered by the method _scrollPlaceIntoNearestViewport and it is only a place adjustment scroll (scrollIntoView),
+    // where a less visible place has been scrolled into the viewport. In case of a place adjustment by click, we can return here.
     if (this.preventCoachScrollByPlaceClick) {
       // Check wheather the endscrolling is just a place ajuestment scrolling (place has 2 grid size units)
       const isCoachScrolling =

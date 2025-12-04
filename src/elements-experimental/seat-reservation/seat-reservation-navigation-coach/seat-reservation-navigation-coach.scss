@@ -1,6 +1,6 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 @use '../common/styles/seat-reservation-mixins.scss' as sbb-sr-mixin;
-@use '../common/styles/seat-reservation-functions' as sbb-sr-functions;
+@use '../common/styles/seat-reservation-functions' as sbb-sr-function;
 
 $disabled: '[disabled], :disabled';
 
@@ -50,13 +50,17 @@ $disabled: '[disabled], :disabled';
   );
 
   // hover state variables
+  --sbb-seat-reservation-navigation-btn-border-width-hovered: 2;
   --sbb-seat-reservation-navigation-btn-background-color-hovered: light-dark(
     var(--sbb-color-cloud),
     var(--sbb-color-midnight)
   );
-  --sbb-seat-reservation-navigation-btn-border-color-hovered: var(
-    --sbb-seat-reservation-navigation-btn-border-color
+  --sbb-seat-reservation-navigation-btn-border-color-hovered: light-dark(
+    var(--sbb-color-black),
+    var(--sbb-color-white)
   );
+
+  // disable state variables
   --sbb-seat-reservation-navigation-btn-background-color-disabled: var(--sbb-background-color-2);
   --sbb-seat-reservation-navigation-btn-border-color-disabled: light-dark(
     var(--sbb-color-platinum),
@@ -67,14 +71,14 @@ $disabled: '[disabled], :disabled';
 .sbb-sr-navigation__item-coach {
   display: flex;
   flex-direction: column;
-  gap: sbb-sr-functions.sr-px-to-rem(8);
-  width: sbb-sr-functions.sr-px-to-rem(80);
+  gap: sbb-sr-function.sr-px-to-rem(8);
+  width: sbb-sr-function.sr-px-to-rem(80);
   list-style-type: none;
 
   &.first-coach,
   &.last-coach {
     .sbb-sr-navigation--first-class {
-      width: calc(100% - sbb-sr-functions.sr-px-to-rem(18));
+      width: calc(100% - sbb-sr-function.sr-px-to-rem(18));
     }
   }
 
@@ -84,7 +88,7 @@ $disabled: '[disabled], :disabled';
     }
 
     .sbb-sr-navigation--first-class {
-      margin-inline-start: sbb-sr-functions.sr-px-to-rem(
+      margin-inline-start: sbb-sr-function.sr-px-to-rem(
         var(--sbb-seat-reservation-navigation-travelclass-spacing)
       );
     }
@@ -96,13 +100,13 @@ $disabled: '[disabled], :disabled';
     }
 
     .sbb-sr-navigation__additional-information {
-      padding-inline-end: sbb-sr-functions.sr-px-to-rem(
+      padding-inline-end: sbb-sr-function.sr-px-to-rem(
         var(--sbb-seat-reservation-navigation-travelclass-spacing)
       );
     }
 
     .sbb-sr-navigation--first-class {
-      margin-inline-end: sbb-sr-functions.sr-px-to-rem(
+      margin-inline-end: sbb-sr-function.sr-px-to-rem(
         var(--sbb-seat-reservation-navigation-travelclass-spacing)
       );
     }
@@ -116,7 +120,7 @@ $disabled: '[disabled], :disabled';
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: sbb-sr-functions.sr-px-to-rem(36);
+  height: sbb-sr-function.sr-px-to-rem(36);
   position: relative;
   background-color: var(--sbb-seat-reservation-navigation-btn-background-color);
   cursor: var(--sbb-cursor-pointer);
@@ -129,7 +133,7 @@ $disabled: '[disabled], :disabled';
 }
 
 .sbb-sr-navigation__item-coach--focused .sbb-sr-navigation__ctrl-button {
-  @include sbb-sr-mixin.colorize-coach-by-state('focused');
+  @include sbb-sr-mixin.style-coach-by-state('focused');
 
   .sbb-sr-navigation__item-coach-travelclass {
     background-color: light-dark(var(--sbb-color-metal), var(--sbb-color-storm));
@@ -142,7 +146,7 @@ $disabled: '[disabled], :disabled';
 
 // selected, i.e. the coach within the train is selected (FIGMA State:Selected)
 .sbb-sr-navigation__item-coach--selected .sbb-sr-navigation__ctrl-button {
-  @include sbb-sr-mixin.colorize-coach-by-state('selected');
+  @include sbb-sr-mixin.style-coach-by-state('selected');
 
   .sbb-sr-navigation__item-coach-travelclass {
     background-color: light-dark(var(--sbb-color-black), var(--sbb-color-white));
@@ -154,26 +158,33 @@ $disabled: '[disabled], :disabled';
 }
 
 .sbb-sr-navigation__item-coach--hovered .sbb-sr-navigation__ctrl-button {
-  @include sbb-sr-mixin.colorize-coach-by-state('hovered');
+  @include sbb-sr-mixin.style-coach-by-state('hovered');
+}
+
+.sbb-sr-navigation__item-coach--selected.sbb-sr-navigation__item-coach--hovered
+  .sbb-sr-navigation__ctrl-button {
+  @include sbb-sr-mixin.style-coach-by-state('selected');
+
+  background-color: var(--sbb-seat-reservation-navigation-btn-background-color-hovered) !important;
 }
 
 // selected AND focus (FIGMA State:Selected + Focused)
 // background-color from selected State has more specificity, so we need to override it here (again)
 .sbb-sr-navigation__item-coach--selected
   .sbb-sr-navigation__ctrl-button:focus-visible:not(#{$disabled}) {
-  @include sbb-sr-mixin.colorize-coach-by-state('selected');
+  @include sbb-sr-mixin.style-coach-by-state('selected');
 }
 
 .sbb-sr-navigation__item-coach--hovered .sbb-sr-navigation__ctrl-button {
-  @include sbb-sr-mixin.colorize-coach-by-state('hovered');
+  @include sbb-sr-mixin.style-coach-by-state('hovered');
 }
 
 // hover (FIGMA State:hover)
 .sbb-sr-navigation__ctrl-button:hover:not(#{$disabled}) {
-  @include sbb-sr-mixin.colorize-coach-by-state('hovered');
+  @include sbb-sr-mixin.style-coach-by-state('hovered');
 
   .sbb-sr-navigation__item-coach-travelclass {
-    background-color: var(--sbb-color-5);
+    background-color: var(--sbb-color-smoke);
   }
 
   .sbb-sr-navigation__item-coach-number {
@@ -183,7 +194,7 @@ $disabled: '[disabled], :disabled';
 
 // disabled (FIGMA State:disabled)
 .sbb-sr-navigation__ctrl-button:is(#{$disabled}) {
-  @include sbb-sr-mixin.colorize-coach-by-state('disabled');
+  @include sbb-sr-mixin.style-coach-by-state('disabled');
 
   cursor: unset;
   pointer-events: unset;
@@ -202,8 +213,8 @@ $disabled: '[disabled], :disabled';
   justify-content: space-between;
   align-items: center;
   flex: 1;
-  column-gap: sbb-sr-functions.sr-px-to-rem(8);
-  padding-inline: sbb-sr-functions.sr-px-to-rem(16);
+  column-gap: sbb-sr-function.sr-px-to-rem(8);
+  padding-inline: sbb-sr-function.sr-px-to-rem(16);
   font-family: var(--sbb-typo-font-family);
   font-weight: 700;
   color: light-dark(var(--sbb-color-granite), var(--sbb-color-granite));
@@ -231,13 +242,13 @@ $disabled: '[disabled], :disabled';
 
 // graphical orientation of FIRST class
 .sbb-sr-navigation--first-class {
-  width: calc(100% - sbb-sr-functions.sr-px-to-rem(8));
+  width: calc(100% - sbb-sr-function.sr-px-to-rem(8));
   position: absolute;
-  inset-block-start: sbb-sr-functions.sr-px-to-rem(3);
-  inset-inline-start: sbb-sr-functions.sr-px-to-rem(4);
+  inset-block-start: sbb-sr-function.sr-px-to-rem(3);
+  inset-inline-start: sbb-sr-function.sr-px-to-rem(4);
 
   // use border instead of height to support force-color modes
-  border: sbb-sr-functions.sr-px-to-rem(1) solid transparent;
+  border: sbb-sr-function.sr-px-to-rem(1) solid transparent;
   border-radius: var(--sbb-border-radius-1x);
   margin: auto;
   background-color: var(--sbb-color-lemon);
@@ -248,8 +259,8 @@ $disabled: '[disabled], :disabled';
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: sbb-sr-functions.sr-px-to-rem(20);
-  min-width: sbb-sr-functions.sr-px-to-rem(20);
+  min-height: sbb-sr-function.sr-px-to-rem(20);
+  min-width: sbb-sr-function.sr-px-to-rem(20);
   border-radius: var(--sbb-border-radius-1x);
   text-align: center;
   background-color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
@@ -262,29 +273,29 @@ $disabled: '[disabled], :disabled';
 
   .sbb-sr-navigation__ctrl-button {
     flex-direction: row-reverse;
-    height: sbb-sr-functions.sr-px-to-rem(80);
-    min-width: sbb-sr-functions.sr-px-to-rem(36);
+    height: sbb-sr-function.sr-px-to-rem(80);
+    min-width: sbb-sr-function.sr-px-to-rem(36);
   }
 
   .sbb-sr-navigation__additional-information {
     flex-direction: column-reverse;
-    padding-block: sbb-sr-functions.sr-px-to-rem(16);
+    padding-block: sbb-sr-function.sr-px-to-rem(16);
     padding-inline-start: unset;
     padding-inline-end: unset;
   }
 
   .sbb-sr-navigation--first-class {
-    height: calc(100% - sbb-sr-functions.sr-px-to-rem(8));
+    height: calc(100% - sbb-sr-function.sr-px-to-rem(8));
     width: initial;
-    inset-inline-end: sbb-sr-functions.sr-px-to-rem(3);
-    inset-block-start: sbb-sr-functions.sr-px-to-rem(4);
+    inset-inline-end: sbb-sr-function.sr-px-to-rem(3);
+    inset-block-start: sbb-sr-function.sr-px-to-rem(4);
     inset-inline-start: initial;
   }
 
   &.first-coach,
   &.last-coach {
     .sbb-sr-navigation--first-class {
-      height: calc(100% - sbb-sr-functions.sr-px-to-rem(18));
+      height: calc(100% - sbb-sr-function.sr-px-to-rem(18));
     }
   }
 
@@ -295,7 +306,7 @@ $disabled: '[disabled], :disabled';
     }
 
     .sbb-sr-navigation--first-class {
-      margin-block-start: sbb-sr-functions.sr-px-to-rem(
+      margin-block-start: sbb-sr-function.sr-px-to-rem(
         var(--sbb-seat-reservation-navigation-travelclass-spacing)
       );
       margin-inline-start: initial;
@@ -308,7 +319,7 @@ $disabled: '[disabled], :disabled';
     }
 
     .sbb-sr-navigation--first-class {
-      margin-block-end: sbb-sr-functions.sr-px-to-rem(
+      margin-block-end: sbb-sr-function.sr-px-to-rem(
         var(--sbb-seat-reservation-navigation-travelclass-spacing)
       );
       margin-inline-end: initial;
@@ -317,7 +328,7 @@ $disabled: '[disabled], :disabled';
 
   // Driver area
   .sbb-sr-navigation-driver-area {
-    height: sbb-sr-functions.sr-px-to-rem(80);
-    min-width: sbb-sr-functions.sr-px-to-rem(36);
+    height: sbb-sr-function.sr-px-to-rem(80);
+    min-width: sbb-sr-function.sr-px-to-rem(36);
   }
 }
