@@ -1,12 +1,12 @@
 import { html } from 'lit/static-html.js';
 
-import sampleImages from '../core/images.ts';
 import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 import { waitForImageReady } from '../core/testing.ts';
 
 import './image.component.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
+const transparentImageUrl = import.meta.resolve('../core/testing/assets/transparent-image.png');
 
 const aspectRatios = [
   '1-1',
@@ -99,7 +99,7 @@ describe(`sbb-image`, () => {
     it(
       'transparent image from img cdn',
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`<sbb-image image-src=${sampleImages[8]}></sbb-image>`);
+        await setup.withFixture(html`<sbb-image image-src=${transparentImageUrl}></sbb-image>`);
 
         setup.withPostSetupAction(
           async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
