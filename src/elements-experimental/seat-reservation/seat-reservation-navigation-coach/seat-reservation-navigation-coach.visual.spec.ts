@@ -33,7 +33,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
         root = await visualRegressionFixture(
           html`
             <sbb-seat-reservation-navigation-coach
-              coach-id="CI"
+              coach-id="85"
               ?selected=${selected}
               ?disable=${disabled}
               travel-class=["FIRST"]
