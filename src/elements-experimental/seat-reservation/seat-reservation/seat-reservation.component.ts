@@ -138,6 +138,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _renderNavigationControlButton(btnDirection: string): TemplateResult | null {
     if (!this.hasNavigation || !this.seatReservations) return null;
+    const btnNavigationDirectionId =
+      btnDirection == 'DIRECTION_RIGHT'
+        ? 'sbb-sr-navigation__wrapper-button-direction-right'
+        : 'sbb-sr-navigation__wrapper-button-direction-left';
     const btnIcon =
       btnDirection == 'DIRECTION_RIGHT' ? 'chevron-small-right-small' : 'chevron-small-left-small';
     const btnAriaDescription =
@@ -159,6 +163,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       <sbb-secondary-button
         @click="${() => this.navigateByDirectionBtn(btnDirection)}"
         @focus="${() => this.onFocusNavDirectionButton()}"
+        id="${btnNavigationDirectionId}"
         class="sbb-sr__navigation-control-button"
         size="m"
         icon-name="${btnIcon}"
@@ -613,7 +618,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     // We have to set preventCoachScrollByPlaceClick to true, to prevent automatic scrolling to the new focused place
     this.preventCoachScrollByPlaceClick = true;
     this.isCoachGridFocusable = false;
-
+    this.focusedCoachIndex = -1;
     // Check any keyboard event was triggered inside the seat reservation component,
     // so we can say the native browser focus lies on the component
     if (!this.hasSeatReservationNativeFocus) {
@@ -629,12 +634,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _onSelectNavCoach(event: CustomEvent<number>): void {
     const selectedNavCoachIndex = event.detail;
+
     this.isKeyboardNavigation = false;
     this.preventCoachScrollByPlaceClick = false;
     this.hasSeatReservationNativeFocus = true;
 
     if (selectedNavCoachIndex !== null && selectedNavCoachIndex !== this.currSelectedCoachIndex) {
-      this.hoveredCoachIndex = selectedNavCoachIndex;
       this.unfocusPlaceElement();
       this.scrollToSelectedNavCoach(selectedNavCoachIndex);
     } else if (selectedNavCoachIndex === this.currSelectedCoachIndex) {

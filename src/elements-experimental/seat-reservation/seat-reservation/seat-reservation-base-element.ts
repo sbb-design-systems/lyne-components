@@ -339,29 +339,59 @@ export class SeatReservationBaseElement extends LitElement {
     currNavCoachButtonIndex: number,
   ): void {
     const pressedKey = event.key;
-    const pressedShiftTab = event.shiftKey;
 
-    //Control focus coach index to visualize focus style for nav coach button
-    if (pressedKey === 'Tab') {
-      if (currNavCoachButtonIndex === this.currSelectedCoachIndex) {
-        // Check back tabbing, then focus the current selected place
-        if (this.currSelectedPlace && pressedShiftTab) {
-          this.focusedCoachIndex = -1;
-          this.focusPlaceElement(this.currSelectedPlace);
-        } else {
-          this.focusedCoachIndex = currNavCoachButtonIndex;
-          this._setFocusToSelectedCoachGrid();
-        }
-      } else {
-        this._scrollToSelectedNavigationButton(currNavCoachButtonIndex);
-        this.focusedCoachIndex = currNavCoachButtonIndex;
-      }
+    if (pressedKey === this.keyboardNavigationEvents.Tab) {
+      this._handleTabKeyNavigation(event, 'navigation', currNavCoachButtonIndex);
       return;
     }
 
     // By using any other key (no TAB) inside the Navigation area, so we can handle this by using the logic from keyboardSeatmapEventHadling
     if (isArrowKeyOrPageKeysPressed(event)) {
       this.keyboardSeatmapEventHadling(event);
+    }
+  }
+
+  /** General TAB Key Event handling for tab navigation inside the coach navigation area and the seatmap area */
+  private _handleTabKeyNavigation(
+    event: KeyboardEvent,
+    eventArea: string,
+    currTabIndex?: number,
+  ): void {
+    const pressedKey = event.key;
+    const pressedShiftTab = event.shiftKey;
+
+    if (pressedKey === this.keyboardNavigationEvents.Tab) {
+      // Handle TAB key event navigation for coach navigation area.
+      // Fpr coach navigation we just control the focus index to visualize focus style for nav coach button
+      if (eventArea == 'navigation') {
+        if (currTabIndex == this.currSelectedCoachIndex) {
+          if (
+            !this.currSelectedPlace ||
+            !pressedShiftTab ||
+            this.coachNavData[currTabIndex].isDriverArea ||
+            this.focusedCoachIndex == -1
+          ) {
+            this.focusedCoachIndex = currTabIndex;
+          } else if (pressedShiftTab && this.currSelectedPlace) {
+            //If the For back tabbing, we jump
+            this.focusedCoachIndex = -1;
+            this.focusPlaceElement(this.currSelectedPlace);
+          }
+        } else {
+          this.focusedCoachIndex = currTabIndex!;
+        }
+
+        this._scrollToSelectedNavigationButton(currTabIndex!);
+      }
+      // Handle TAB key event navigation for seatmap area
+      else if (eventArea == 'seatmap') {
+        event.preventDefault();
+        if (pressedShiftTab) {
+          this._navigateCoachNavigationByKeyboard('PREV_TAB');
+        } else {
+          this._navigateCoachNavigationByKeyboard('NEXT_TAB');
+        }
+      }
     }
   }
 
@@ -377,27 +407,20 @@ export class SeatReservationBaseElement extends LitElement {
     // so we can say the native browser focus lies on the component
     if (
       !this.hasSeatReservationNativeFocus &&
-      ((event.shiftKey && event.keyCode === 9) || pressedKey === this.keyboardNavigationEvents.Tab)
+      ((event.shiftKey && pressedKey === this.keyboardNavigationEvents.Tab) ||
+        pressedKey === this.keyboardNavigationEvents.Tab)
     ) {
       this.hasSeatReservationNativeFocus = true;
     }
 
     // If any place is selected and TAB Key combination ist pressed,
     // then we handle the next or previous coach selection
-    if (this.currSelectedPlace) {
-      if (event.shiftKey && event.keyCode === 9) {
-        this._navigateCoachNavigationByKeyboard('PREV_TAB');
-        event.preventDefault();
-        return;
-      }
-
-      if (pressedKey === this.keyboardNavigationEvents.Tab) {
-        this._navigateCoachNavigationByKeyboard('NEXT_TAB');
-        event.preventDefault();
-        return;
-      }
+    if (pressedKey == this.keyboardNavigationEvents.Tab) {
+      this._handleTabKeyNavigation(event, 'seatmap');
+      return;
     }
 
+    // Arrow Keyboard navigation to control places inside the seatmap
     if (this.currSelectedCoachIndex !== -1 && isArrowKeyOrPageKeysPressed(event)) {
       event.preventDefault();
 
@@ -445,6 +468,9 @@ export class SeatReservationBaseElement extends LitElement {
    * otherwise the coach grid is selected (necessary for ScreenReader)
    */
   protected preselectPlaceInCoach(): void {
+    // No preselect place by manual seatmap scrolling
+    if (!this.isAutoScrolling) return;
+
     // No auto place preselection by running the preselect coach index
     if (this._isRunningInitPreselectCoachIndex) {
       this._isRunningInitPreselectCoachIndex = false;
@@ -452,7 +478,11 @@ export class SeatReservationBaseElement extends LitElement {
     }
 
     // For DriverArea or Empty coach (no places), no place is selectable, so we return directly
-    if (this.coachNavData[this.currSelectedCoachIndex].isDriverArea) {
+    if (
+      this.coachNavData[this.currSelectedCoachIndex] &&
+      this.coachNavData[this.currSelectedCoachIndex].isDriverArea
+    ) {
+      this._setFocusToSelectedCoachGrid();
       return;
     }
 
@@ -467,6 +497,7 @@ export class SeatReservationBaseElement extends LitElement {
     if (this.isKeyboardNavigation && this.isAutoScrolling) {
       if (closestPlace) {
         this.focusPlaceElement(closestPlace);
+        this.focusedCoachIndex = -1;
       } else {
         // If a coach was selected with no places, then we have to focus the coachGrid
         this._setFocusToSelectedCoachGrid();
@@ -983,19 +1014,31 @@ export class SeatReservationBaseElement extends LitElement {
         : this.getPrevAvailableCoachIndex(currFocusIndex);
 
     if (this.hasNavigation) {
+      //const placeInCoachHasFocus = this.currSelectedPlace != null;
       const selectedPlaceElement = this._getPlaceHtmlElement();
+      /*const placeInCoachHasFocus = this.isKeyboardNavigation ? this.currSelectedPlace != null :  selectedPlaceElement
+        ? selectedPlaceElement.getAttribute('keyfocus') === 'focus'
+        : false;*/
       const placeInCoachHasFocus = selectedPlaceElement
         ? selectedPlaceElement.getAttribute('keyfocus') === 'focus'
         : false;
-
       // If we tab back (PREV_TAB) and the focus is currently on place,
       // we remove the selected state from the currently selected navigation coach and only set the focus status to it
       if (tabDirection === 'PREV_TAB' && this.selectedCoachIndex === currFocusIndex) {
         if (placeInCoachHasFocus) {
           this.focusedCoachIndex = currFocusIndex;
           this.unfocusPlaceElement();
-
           return;
+        }
+        // If we tab back and the currect selected nav coach is the first element, so we have to focus (jump) directly to the left nav direction button
+        else if (currFocusIndex == 0) {
+          this.unfocusPlaceElement();
+          this.currSelectedPlace = null;
+          this.focusedCoachIndex = -1;
+          const btnLeftDirection = this.shadowRoot?.getElementById(
+            'sbb-sr-navigation__wrapper-button-direction-left',
+          ) as HTMLElement;
+          btnLeftDirection.focus();
         } else {
           this.focusedCoachIndex = newFocusableIndex;
         }
@@ -1003,6 +1046,15 @@ export class SeatReservationBaseElement extends LitElement {
       // Only sets the focus on the new navigation coach
       else if (newFocusableIndex !== this.currSelectedCoachIndex) {
         this.focusedCoachIndex = newFocusableIndex;
+      }
+      // If we tab next and the currect selected nav coach is the last element, so we have to focus (jump) directly to the right nav direction button
+      else if (tabDirection === 'NEXT_TAB' && newFocusableIndex === this.coachNavData.length - 1) {
+        this.unfocusPlaceElement();
+        this.focusedCoachIndex = -1;
+        const btnRightDirection = this.shadowRoot?.getElementById(
+          'sbb-sr-navigation__wrapper-button-direction-right',
+        ) as HTMLElement;
+        btnRightDirection.focus();
       } else {
         this.focusedCoachIndex = -1;
         this.selectedCoachIndex = newFocusableIndex;
@@ -1142,8 +1194,6 @@ export class SeatReservationBaseElement extends LitElement {
 
     if (!place) return;
 
-    this.unfocusPlaceElement();
-
     this.currSelectedDeckIndex = placeDeckIndex;
     this.currSelectedCoachIndex = coachIndex;
     this.currSelectedPlace = place;
@@ -1162,8 +1212,15 @@ export class SeatReservationBaseElement extends LitElement {
   }
 
   protected updateCurrentSelectedCoach(): void {
+    //Only if the selectedCoachIndex has changed, an update needs to be carried out
+    if (this.currSelectedCoachIndex == this.selectedCoachIndex) return;
+
+    // If a focusindex has been set (!= -1), it can be updated with the current selectedCoachIndex
+    if (this.focusedCoachIndex != -1) {
+      this.focusedCoachIndex = this.currSelectedCoachIndex;
+    }
     this.selectedCoachIndex = this.currSelectedCoachIndex;
-    this.focusedCoachIndex = -1;
+
     const coachSelection = this._getSeatReservationSelectedCoach(this.selectedCoachIndex);
     if (coachSelection) {
       /**
