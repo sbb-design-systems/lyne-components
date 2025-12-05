@@ -1036,7 +1036,7 @@ export class SeatReservationBaseElement extends LitElement {
           this.currSelectedPlace = null;
           this.focusedCoachIndex = -1;
           const btnLeftDirection = this.shadowRoot?.getElementById(
-            'sbb-sr-navigation__wrapper-button-direction-left',
+            'sbb-sr-navigation__wrapper-button-direction--left',
           ) as HTMLElement;
           btnLeftDirection.focus();
         } else {
@@ -1052,7 +1052,7 @@ export class SeatReservationBaseElement extends LitElement {
         this.unfocusPlaceElement();
         this.focusedCoachIndex = -1;
         const btnRightDirection = this.shadowRoot?.getElementById(
-          'sbb-sr-navigation__wrapper-button-direction-right',
+          'sbb-sr-navigation__wrapper-button-direction--right',
         ) as HTMLElement;
         btnRightDirection.focus();
       } else {

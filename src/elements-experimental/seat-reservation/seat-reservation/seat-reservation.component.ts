@@ -140,8 +140,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     if (!this.hasNavigation || !this.seatReservations) return null;
     const btnNavigationDirectionId =
       btnDirection == 'DIRECTION_RIGHT'
-        ? 'sbb-sr-navigation__wrapper-button-direction-right'
-        : 'sbb-sr-navigation__wrapper-button-direction-left';
+        ? 'sbb-sr-navigation__wrapper-button-direction--right'
+        : 'sbb-sr-navigation__wrapper-button-direction--left';
     const btnIcon =
       btnDirection == 'DIRECTION_RIGHT' ? 'chevron-small-right-small' : 'chevron-small-left-small';
     const btnAriaDescription =
