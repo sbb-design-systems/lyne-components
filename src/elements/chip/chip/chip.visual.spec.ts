@@ -1,5 +1,7 @@
 import { html } from 'lit';
 
+import { isWebkit } from '../../core/dom/platform.ts';
+import { ɵstateController } from '../../core/mixins/element-internals-mixin.ts';
 import {
   describeEach,
   describeViewports,
@@ -99,6 +101,12 @@ describe('sbb-chip', () => {
             setup.withPostSetupAction(() => {
               // We force the tab index on the delete button for test purposes
               deleteStateElement.tabIndex = 0;
+
+              // Webkit has problems to render the :active state, we help by manually set the state.
+              // TODO: re-check whether this is still needed in the future.
+              if (isWebkit && state === visualDiffActive) {
+                ɵstateController(deleteStateElement)?.add('active');
+              }
             });
           }),
         );

@@ -196,7 +196,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
     this.showPopover?.();
     this.state = 'opening';
-    this._triggerElement?.toggleAttribute('data-expanded', true);
+    this.triggerElement?.toggleAttribute('data-expanded', true);
     const originElement = this.originElement;
     if (!originElement) {
       throw new Error(
@@ -220,7 +220,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     }
 
     this.state = 'closing';
-    this._triggerElement?.toggleAttribute('data-expanded', false);
+    this.triggerElement?.removeAttribute('data-expanded');
     this._openPanelEventsController.abort();
     if (this.originElement) {
       this._originResizeObserver.unobserve(this.originElement);
@@ -388,12 +388,13 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   private _configureTrigger(): void {
     const triggerElement = (this.trigger ??
       this.closest?.('sbb-form-field')?.querySelector('input')) as HTMLInputElement | null;
-    if (triggerElement === this._triggerElement) {
+    if (triggerElement === this.triggerElement) {
       return;
     }
 
     this._triggerAbortController?.abort();
     removeAriaComboBoxAttributes(this.triggerElement);
+    this.triggerElement?.removeAttribute('data-expanded');
     this._triggerElement = triggerElement;
 
     if (!this.triggerElement) {
@@ -406,7 +407,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       this._setOverlayPosition(originElement);
     }
 
-    this._triggerAttributeObserver?.observe(this._triggerElement!, {
+    this._triggerAttributeObserver?.observe(this.triggerElement!, {
       attributes: true,
       attributeFilter: ['disabled', 'readonly'],
     });

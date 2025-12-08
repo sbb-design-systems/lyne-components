@@ -76,10 +76,7 @@ $scrollbar-height: 16px;
         // Padding needs to visual focus-visible style for nav button inside overflow content,
         // otherwise focus-visible style is cutted.
         padding: sbb-sr-functios.sr-px-to-rem($coach-navigation-padding);
-
-        & {
-          overflow: hidden scroll;
-        }
+        overflow: hidden scroll;
       }
     }
   }
@@ -107,14 +104,11 @@ $scrollbar-height: 16px;
   .sbb-sr__wrapper-scrollarea {
     width: sbb-sr-functios.sr-px-to-rem($coach-grid-width);
     height: 100%;
+    overflow: hidden scroll;
 
-    & {
-      overflow: hidden scroll;
-
-      .sbb-sr__parent {
-        flex-direction: row;
-        rotate: 90deg;
-      }
+    .sbb-sr__parent {
+      flex-direction: row;
+      rotate: 90deg;
     }
   }
 }
@@ -162,13 +156,11 @@ $scrollbar-height: 16px;
   padding: sbb-sr-functios.sr-px-to-rem(6) sbb-sr-functios.sr-px-to-rem(5) 0;
   max-width: $max-coach-navigation-width;
 
-  & {
-    // Set sbb scrollbar transparent by default
-    --sbb-scrollbar-color: transparent;
+  // Set sbb scrollbar transparent by default
+  --sbb-scrollbar-color: transparent;
 
-    overflow: scroll hidden;
-    position: relative;
-  }
+  overflow: scroll hidden;
+  position: relative;
 }
 
 // --------------- Seat Reservation Main Navigation - END ----------------
@@ -199,15 +191,13 @@ $scrollbar-height: 16px;
 .sbb-sr__wrapper-scrollarea {
   @include sbb.scrollbar;
 
-  & {
-    overflow: scroll hidden;
-    padding-block: sbb-sr-functios.sr-px-to-rem(8) sbb-sr-functios.sr-px-to-rem(16);
+  overflow: scroll hidden;
+  padding-block: sbb-sr-functios.sr-px-to-rem(8) sbb-sr-functios.sr-px-to-rem(16);
 
-    .sbb-sr__parent {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
+  .sbb-sr__parent {
+    display: flex;
+    flex-direction: column;
+    position: relative;
   }
 }
 

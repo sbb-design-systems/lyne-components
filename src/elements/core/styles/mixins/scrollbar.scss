@@ -40,6 +40,7 @@
   //  We have to use the `not` selector as Chrome supports both, the -webkit-* and the following properties.
   //  As long as possible we use the -webkit-* approach as we have more styling possibilities there.
   @supports not selector(::-webkit-scrollbar) {
+    // stylelint-disable-next-line block-no-redundant-nested-style-rules
     & {
       scrollbar-width: var(--sbb-scrollbar-width-firefox);
       scrollbar-color: var(--sbb-scrollbar-color, currentcolor)

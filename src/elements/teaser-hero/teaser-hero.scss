@@ -35,10 +35,7 @@
   z-index: 1;
 
   @include sbb.panel;
-
-  & {
-    @include sbb.absolute-center-y;
-  }
+  @include sbb.absolute-center-y;
 
   // Hide panel when no content or link-content is provided.
   :host(:not(:state(slotted), :state(slotted-link-content), [link-content])) & {

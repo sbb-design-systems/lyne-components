@@ -50,7 +50,6 @@
     ],
     "number-max-precision": 12,
     "value-no-vendor-prefix": [true, { "ignoreValues": ["box"] }],
-    "no-duplicate-selectors": null,
-    "block-no-redundant-nested-style-rules": null
+    "no-duplicate-selectors": null
   }
 }
