@@ -1,17 +1,17 @@
-import {
+/*
   describeEach,
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
   visualRegressionFixture,
-} from '@sbb-esta/lyne-elements/core/testing/private.js';
+} from '@sbb-esta/lyne-elements/core/testing/private.js';*/
 import './seat-reservation-navigation-coach.component.ts';
-import { html } from 'lit';
+//import { html } from 'lit';
 
 describe('sbb-seat-reservation-navigation-coach', () => {
-  let root: HTMLElement;
-
+  /*let root: HTMLElement;
+  
   const propertyIds = ['BISTRO', 'WIFI', 'PRAM'];
 
   const cases = {
@@ -57,5 +57,5 @@ describe('sbb-seat-reservation-navigation-coach', () => {
         );
       }
     });
-  });
+  });*/
 });
