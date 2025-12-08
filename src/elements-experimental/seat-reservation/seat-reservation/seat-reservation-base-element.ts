@@ -486,16 +486,13 @@ export class SeatReservationBaseElement extends LitElement {
       return;
     }
 
-    const closestPlace = this._getClosestPlaceByKeyDirection();
-    //If closestPlace exist, we have to unfocus previous focused place
-    if (closestPlace) {
-      this.unfocusPlaceElement();
-    }
-
     // Only when keyboard navigation is used and coaches are scrolled by auto scrolling,
     // then we can set the focus on the first place in the coach.
     if (this.isKeyboardNavigation && this.isAutoScrolling) {
+      const closestPlace = this._getClosestPlaceByKeyDirection();
+      //If closestPlace exist, we have to unfocus previous focused place
       if (closestPlace) {
+        this.unfocusPlaceElement();
         this.focusPlaceElement(closestPlace);
         this.focusedCoachIndex = -1;
       } else {
@@ -506,8 +503,8 @@ export class SeatReservationBaseElement extends LitElement {
     // In cases where the preselection function is triggered by normal clicking or via screen reader via tab,
     // we only focus the table without directly focusing the place.
     else {
-      // We need to set the currSelectedPlace here for further correct functioning navigation via tab.
-      this.currSelectedPlace = closestPlace;
+      this.unfocusPlaceElement();
+
       this.isCoachGridFocusable = true;
       this._setFocusToSelectedCoachGrid();
     }
@@ -1014,18 +1011,16 @@ export class SeatReservationBaseElement extends LitElement {
         : this.getPrevAvailableCoachIndex(currFocusIndex);
 
     if (this.hasNavigation) {
-      //const placeInCoachHasFocus = this.currSelectedPlace != null;
       const selectedPlaceElement = this._getPlaceHtmlElement();
-      /*const placeInCoachHasFocus = this.isKeyboardNavigation ? this.currSelectedPlace != null :  selectedPlaceElement
-        ? selectedPlaceElement.getAttribute('keyfocus') === 'focus'
-        : false;*/
       const placeInCoachHasFocus = selectedPlaceElement
         ? selectedPlaceElement.getAttribute('keyfocus') === 'focus'
         : false;
+
       // If we tab back (PREV_TAB) and the focus is currently on place,
       // we remove the selected state from the currently selected navigation coach and only set the focus status to it
       if (tabDirection === 'PREV_TAB' && this.selectedCoachIndex === currFocusIndex) {
-        if (placeInCoachHasFocus) {
+        // If we TAB back and have a selected places inisde the current coach, then we move out from the seatmap and set the focus to the current selected coach
+        if (placeInCoachHasFocus || this.currSelectedPlace !== null) {
           this.focusedCoachIndex = currFocusIndex;
           this.unfocusPlaceElement();
           return;
