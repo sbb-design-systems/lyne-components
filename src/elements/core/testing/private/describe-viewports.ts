@@ -5,7 +5,7 @@ import {
 } from './breakpoints.ts';
 
 const viewportSizes = {
-  zero: 320,
+  zero: 360,
   small: sbbBreakpointSmallMinPx,
   large: sbbBreakpointLargeMinPx,
   ultra: sbbBreakpointUltraMinPx,
