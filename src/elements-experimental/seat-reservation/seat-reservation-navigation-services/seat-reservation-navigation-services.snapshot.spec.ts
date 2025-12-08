@@ -24,11 +24,11 @@ describe(`sbb-seat-reservation-navigation-services`, () => {
     });
 
     it('DOM', async () => {
-      expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot();
     });
 
     it('Shadow DOM', async () => {
-      expect(element).shadowDom.to.be.equalSnapshot();
+      await expect(element).shadowDom.to.be.equalSnapshot();
     });
 
     testA11yTreeSnapshot();
