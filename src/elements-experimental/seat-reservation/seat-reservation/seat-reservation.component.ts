@@ -87,50 +87,37 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _initVehicleSeatReservationConstruction(): void {
     this._coachesHtmlTemplate = html`
-      <div class="sbb-sr__container">
-        <div class="sbb-sr sbb-sr__grid">
-          <div class="sbb-sr-navigation-first-grid">
-            ${this._renderNavigationControlButton('DIRECTION_LEFT')}
-          </div>
+      <div class="sbb-sr__component">
+        ${this._renderNavigation()}
+        <div
+          class="sbb-sr__wrapper-coach-decks"
+          @keydown=${(evt: KeyboardEvent) => this.keyboardSeatmapEventHadling(evt)}
+        >
+          <div class="sbb-sr__wrapper-deck-labels">${this._renderDeckLabels()}</div>
           <div
-            class="sbb-sr__component"
-            @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}
+            @scroll=${() => this.coachAreaScrollend()}
+            id="sbb-sr__wrapper-scrollarea"
+            class="sbb-sr__wrapper-scrollarea"
+            tabindex="-1"
           >
-            <div class="sbb-sr-grid-inner">
-              <div class="nav-grid">${this._renderNavigation()}</div>
-              <div class="coaches-grid">
-                <div class="sbb-sr__wrapper-coach-decks">
-                  <div class="sbb-sr__wrapper-deck-labels">${this._renderDeckLabels()}</div>
-                  <div
-                    id="sbb-sr__wrapper-scrollarea"
-                    class="sbb-sr__wrapper"
-                    @scroll=${() => this.coachAreaScrollend()}
-                  >
-                    <div id="sbb-sr__parent-area" class="sbb-sr__parent" tabindex="-1">
-                      <ul
-                        class="${classMap({
-                          'sbb-sr__list-decks': true,
-                          'sbb-sr__list-decks--gap': this.hasMultipleDecks,
-                        })}"
-                      >
-                        ${this.seatReservations?.map(
-                          (seatReservation: SeatReservation, coachDeckIndex: number) => {
-                            return html`<li class="sbb-sr__list-item-deck">
-                              <ul class="sbb-sr__list-coaches" role="presentation">
-                                ${this._renderCoaches(seatReservation, coachDeckIndex)}
-                              </ul>
-                            </li>`;
-                          },
-                        )}
+            <div id="sbb-sr__parent-area" class="sbb-sr__parent">
+              <ul
+                class="${classMap({
+                  'sbb-sr__list-decks': true,
+                  'sbb-sr__list-decks--gap': this.hasMultipleDecks,
+                })}"
+              >
+                ${this.seatReservations?.map(
+                  (seatReservation: SeatReservation, coachDeckIndex: number) => {
+                    return html`<li class="sbb-sr__list-item-deck">
+                      <ul class="sbb-sr__list-coaches" role="presentation">
+                        ${this._renderCoaches(seatReservation, coachDeckIndex)}
                       </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                    </li>`;
+                  },
+                )}
+              </ul>
             </div>
-          </div>
-          <div class="sbb-sr-navigation-last-grid">
-            ${this._renderNavigationControlButton('DIRECTION_RIGHT')}
           </div>
         </div>
       </div>
@@ -151,8 +138,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _renderNavigationControlButton(btnDirection: string): TemplateResult | null {
     if (!this.hasNavigation || !this.seatReservations) return null;
-
-    const btnId = btnDirection == 'DIRECTION_RIGHT' ? 'last-tab-element' : 'first-tab-element';
+    const btnNavigationDirectionId =
+      btnDirection == 'DIRECTION_RIGHT'
+        ? 'sbb-sr-navigation__wrapper-button-direction--right'
+        : 'sbb-sr-navigation__wrapper-button-direction--left';
     const btnIcon =
       btnDirection == 'DIRECTION_RIGHT' ? 'chevron-small-right-small' : 'chevron-small-left-small';
     const btnAriaDescription =
@@ -165,29 +154,32 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       btnDisabled = false;
     } else if (
       btnDirection == 'DIRECTION_RIGHT' &&
-      this.selectedCoachIndex <
-        this.seatReservations[this.currSelectedDeckIndex].coachItems.length - 1
+      this.selectedCoachIndex < this.coachNavData.length - 1
     ) {
       btnDisabled = false;
     }
 
-    return html`<sbb-secondary-button
-      @click="${() => this.navigateByDirectionBtn(btnDirection)}"
-      id="${btnId}"
-      class="sbb-sr__navigation-control-button"
-      size="s"
-      icon-name="${btnIcon}"
-      type="button"
-      aria-label="${btnAriaDescription}"
-      role="contentinfo"
-      .disabledInteractive="${btnDisabled || nothing}"
-    ></sbb-secondary-button>`;
+    return html`<div class="sbb-sr-navigation__wrapper-button-direction">
+      <sbb-secondary-button
+        @click="${() => this.navigateByDirectionBtn(btnDirection)}"
+        @focus="${() => this.onFocusNavDirectionButton()}"
+        id="${btnNavigationDirectionId}"
+        class="sbb-sr__navigation-control-button"
+        size="m"
+        icon-name="${btnIcon}"
+        type="button"
+        aria-label="${btnAriaDescription}"
+        role="button"
+        .disabledInteractive="${btnDisabled || nothing}"
+      ></sbb-secondary-button>
+    </div>`;
   }
 
   private _renderNavigation(): TemplateResult | null {
     if (!this.hasNavigation || !this.seatReservations) return null;
     return html`<div class="sbb-sr-navigation-wrapper">
       <nav id="sbb-sr-navigation" class="sbb-sr-navigation">
+        ${this._renderNavigationControlButton('DIRECTION_LEFT')}
         <ul
           id="sbb-sr__navigation-list-coaches"
           class="sbb-sr-navigation__list-coaches"
@@ -201,12 +193,13 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
               <sbb-seat-reservation-navigation-coach
                 @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
                 @focuscoach=${() => this._onFocusNavCoach()}
+                @keyup=${(evt: KeyboardEvent) => this.onKeyNavigationNavCoachButton(evt, index)}
                 index="${index}"
                 coach-id="${navigationCoach.id}"
                 .freePlacesByType="${navigationCoach.freePlaces}"
                 .selected=${this.selectedCoachIndex === index}
                 .focused=${this.focusedCoachIndex === index}
-                .hovered=${this.hoveredScrollCoachIndex === index}
+                .hovered=${this.hoveredCoachIndex === index}
                 .nativeFocusActive=${this.hasSeatReservationNativeFocus}
                 .propertyIds="${navigationCoach.propertyIds}"
                 .travelClass="${navigationCoach.travelClass}"
@@ -219,6 +212,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             </li>`;
           })}
         </ul>
+        ${this._renderNavigationControlButton('DIRECTION_RIGHT')}
       </nav>
     </div>`;
   }
@@ -280,6 +274,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         id="sbb-sr-coach-${coachIndex}"
         class="sbb-sr-coach-wrapper__table"
         aria-describedby="sbb-sr-coach-caption-${coachIndex}"
+        tabindex="-1"
       >
         <caption id="sbb-sr-coach-caption-${coachIndex}" tabindex="-1">
           <sbb-screen-reader-only>${descriptionTableCoachWithServices}</sbb-screen-reader-only>
@@ -623,7 +618,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     // We have to set preventCoachScrollByPlaceClick to true, to prevent automatic scrolling to the new focused place
     this.preventCoachScrollByPlaceClick = true;
     this.isCoachGridFocusable = false;
-
+    this.focusedCoachIndex = -1;
     // Check any keyboard event was triggered inside the seat reservation component,
     // so we can say the native browser focus lies on the component
     if (!this.hasSeatReservationNativeFocus) {
@@ -639,8 +634,10 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _onSelectNavCoach(event: CustomEvent<number>): void {
     const selectedNavCoachIndex = event.detail;
+
     this.isKeyboardNavigation = false;
     this.preventCoachScrollByPlaceClick = false;
+    this.hasSeatReservationNativeFocus = true;
 
     if (selectedNavCoachIndex !== null && selectedNavCoachIndex !== this.currSelectedCoachIndex) {
       this.unfocusPlaceElement();
@@ -660,6 +657,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     } else {
       this.focusPlaceElement(this.currSelectedPlace);
     }
+
     this.isAutoScrolling = false;
   }
 
