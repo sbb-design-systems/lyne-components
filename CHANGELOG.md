@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.2](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.1...v4.0.2) (2025-12-08)
+
+
+### Bug Fixes
+
+* **sbb-calendar:** fix wide mode for Safari ([#4270](https://github.com/sbb-design-systems/lyne-components/issues/4270)) ([ee5e5df](https://github.com/sbb-design-systems/lyne-components/commit/ee5e5df96d9c3dfa60c7e30a22ee805e30c6077d))
+* **sbb-seat-reservation:** optimize responsive behavior and improve keyboard navigation ([#4280](https://github.com/sbb-design-systems/lyne-components/issues/4280)) ([362b8ae](https://github.com/sbb-design-systems/lyne-components/commit/362b8aec91cfbb7641e28cbda04d8f3f1f37fd20))
+
 ## [4.0.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.0...v4.0.1) (2025-12-02)
 
 
