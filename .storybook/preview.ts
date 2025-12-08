@@ -133,7 +133,7 @@ const storybookViewports = breakpoints.reduce(
       [next.key]: {
         name: `Breakpoint ${next.key}`,
         styles: {
-          width: `${next.value || 320}px`,
+          width: `${next.value || 360}px`,
           height: '',
         },
       },
