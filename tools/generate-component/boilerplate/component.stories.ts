@@ -11,9 +11,9 @@ import type {
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
-import { __nameUpperCase__ } from './__noPrefixName__.component.js';
+import { __nameUpperCase__ } from './__noPrefixName__.component.ts';
 import readme from './readme.md?raw';
 
 const myProp: InputType = {
