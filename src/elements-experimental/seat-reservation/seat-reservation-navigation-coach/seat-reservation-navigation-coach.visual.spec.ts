@@ -1,21 +1,23 @@
-/*
+import {
   describeEach,
   describeViewports,
   visualDiffDefault,
-  visualDiffFocus,
   visualDiffHover,
+  visualDiffFocus,
   visualRegressionFixture,
-} from '@sbb-esta/lyne-elements/core/testing/private.js';*/
+} from '@sbb-esta/lyne-elements/core/testing/private.js';
 import './seat-reservation-navigation-coach.component.ts';
-//import { html } from 'lit';
+import { html } from 'lit';
 
 describe('sbb-seat-reservation-navigation-coach', () => {
-  /*let root: HTMLElement;
-  
+  let root: HTMLElement;
+
   const propertyIds = ['BISTRO', 'WIFI', 'PRAM'];
 
   const cases = {
     selected: [false, true],
+    focused: [false, true],
+    hovered: [false, true],
     disabled: [false, true],
     darkMode: [false, true],
     forcedColors: [false, true],
@@ -24,17 +26,19 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   // Standard visual diff states to be tested;
   // own states array because the visual-regression-snapshot.ts constant "visualDiffStandardStates"
   // includes more than we need
-  const visualDiffStandardStates = [visualDiffDefault, visualDiffFocus, visualDiffHover] as const;
+  const visualDiffStandardStates = [visualDiffDefault, visualDiffHover, visualDiffFocus] as const;
 
   // large only viewport because we don't use any other breakpoint media queries
   describeViewports({ viewports: ['large'] }, () => {
-    describeEach(cases, ({ selected, disabled, darkMode, forcedColors }) => {
+    describeEach(cases, ({ selected, focused, hovered, disabled, darkMode, forcedColors }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
             <sbb-seat-reservation-navigation-coach
               coach-id="85"
               ?selected=${selected}
+              ?focused=${focused}
+              ?hovered=${hovered}
               ?disable=${disabled}
               travel-class=["FIRST"]
               .propertyIds=${propertyIds}
@@ -57,5 +61,5 @@ describe('sbb-seat-reservation-navigation-coach', () => {
         );
       }
     });
-  });*/
+  });
 });
