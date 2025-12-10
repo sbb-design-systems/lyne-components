@@ -40,5 +40,5 @@ therefore have to comply with its rules.
    `git commit --allow-empty -m "chore: fix release version to 3.4.0" -m "Release-As: 3.4.0"`.
 
 3. Merge the Release Please Pull Request.
-4. Check published packages and Storybook deployment.
+4. Check published packages and docs deployment.
 5. Adapt potential changes to the Angular Wrapper and publish a new version of it if necessary.
