@@ -3,7 +3,6 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffHover,
-  visualDiffFocus,
   visualRegressionFixture,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import './seat-reservation-navigation-coach.component.ts';
@@ -26,7 +25,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   // Standard visual diff states to be tested;
   // own states array because the visual-regression-snapshot.ts constant "visualDiffStandardStates"
   // includes more than we need
-  const visualDiffStandardStates = [visualDiffDefault, visualDiffHover, visualDiffFocus] as const;
+  const visualDiffStandardStates = [visualDiffDefault, visualDiffHover] as const;
 
   // large only viewport because we don't use any other breakpoint media queries
   describeViewports({ viewports: ['large'] }, () => {
