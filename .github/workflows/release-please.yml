@@ -16,7 +16,7 @@ permissions:
   pull-requests: write
 
 env:
-  IMAGE_REPO_STORYBOOK: ghcr.io/sbb-design-systems/lyne-components/storybook
+  IMAGE_REPO_DOCS: ghcr.io/sbb-design-systems/lyne-components/docs
 
 jobs:
   release-please:
@@ -57,7 +57,7 @@ jobs:
       - name: Run build
         run: STORYBOOK_COMPONENTS_VERSION="${{ steps.version.outputs.version }}" yarn build
       - name: Remove files with forbidden extensions
-        run: node ./scripts/clean-storybook-files.cjs
+        run: node ./scripts/clean-docs-files.mjs
 
       - name: Update npm
         run: npm install --global npm@latest
@@ -92,20 +92,16 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build --tag ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION-fat .
+          docker build --tag ${{ env.IMAGE_REPO_DOCS }}:$VERSION-fat .
           mint slim \
-            --target ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION-fat \
-            --tag ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION \
+            --target ${{ env.IMAGE_REPO_DOCS }}:$VERSION-fat \
+            --tag ${{ env.IMAGE_REPO_DOCS }}:$VERSION \
             --preserve-path /usr/share/nginx/html \
             --include-new false
-          docker push ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION
-          docker tag ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION-slim
-          docker push ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION-slim
+          docker push ${{ env.IMAGE_REPO_DOCS }}:$VERSION
           if [[ $VERSION != *"-"* ]]; then
-            docker tag ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ env.IMAGE_REPO_STORYBOOK }}:latest
-            docker push ${{ env.IMAGE_REPO_STORYBOOK }}:latest
-            docker tag ${{ env.IMAGE_REPO_STORYBOOK }}:$VERSION ${{ env.IMAGE_REPO_STORYBOOK }}:latest-slim
-            docker push ${{ env.IMAGE_REPO_STORYBOOK }}:latest-slim
+            docker tag ${{ env.IMAGE_REPO_DOCS }}:$VERSION ${{ env.IMAGE_REPO_DOCS }}:latest
+            docker push ${{ env.IMAGE_REPO_DOCS }}:latest
           fi
           docker image list
         env:

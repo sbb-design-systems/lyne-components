@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CLOSED_PR_RETENTION_DAYS: 5
-      PACKAGE_NAMES: storybook-preview,visual-regression
+      PACKAGE_NAMES: docs-preview,visual-regression
     steps:
       - uses: actions/github-script@v7
         with:
@@ -56,11 +56,13 @@ jobs:
             if (packageDeletionFailed) {
               throw new Error('A package deletion failed, please check the log.');
             }
-      - uses: actions/delete-package-versions@v4
-        with:
-          package-name: lyne-components/storybook-preview
-          package-type: container
-          delete-only-untagged-versions: 'true'
+
+  untagged-image-cleanup:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        repo: [docs, docs-preview, visual-regression]
+    steps:
       - uses: actions/delete-package-versions@v4
         with:
           package-name: lyne-components/visual-regression

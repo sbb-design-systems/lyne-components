@@ -10,7 +10,7 @@ on:
 
 env:
   PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0] != null && github.event.workflow_run.pull_requests[0].number || '' }}
-  IMAGE_REPO_PREVIEW: ghcr.io/sbb-design-systems/lyne-components/storybook-preview
+  IMAGE_REPO_PREVIEW: ghcr.io/sbb-design-systems/lyne-components/docs-preview
 
 jobs:
   preview-image:
@@ -25,8 +25,8 @@ jobs:
       packages: write
       pull-requests: write
     services:
-      visual-regression:
-        image: ghcr.io/sbb-design-systems/lyne-components/storybook:dev
+      dev-docs:
+        image: ghcr.io/sbb-design-systems/lyne-components/docs:dev
         ports:
           - 8050:8080
     steps:
@@ -39,12 +39,12 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: storybook
+          name: docs
           path: dist/storybook/
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GH_ACTIONS_ARTIFACT_DOWNLOAD }}
       - name: Remove files with forbidden extensions
-        run: node ./scripts/clean-storybook-files.cjs
+        run: node ./scripts/clean-docs-files.mjs
 
       - name: Create size check
         uses: actions/github-script@v7

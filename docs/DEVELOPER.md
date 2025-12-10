@@ -69,9 +69,9 @@ possibly replacing `test:csr` with `test:ssr` to test SSR:
 Finally, open the file you want to test and run the script.
 Add the `--debug` param to enable breakpoint debugging and the detailed test report.
 
-## Starting showcase
+## Starting docs
 
-To start the showcase, run `yarn start`. This will run the devserver in watch mode.
+To start the docs, run `yarn start`. This will run the devserver in watch mode.
 
 ## Commits
 
