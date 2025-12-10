@@ -1,4 +1,4 @@
 /**
  * @entrypoint
  */
-export * from './calendar/calendar.component.ts';
+export * from './calendar/calendar/calendar.component.ts';

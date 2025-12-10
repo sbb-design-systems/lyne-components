@@ -3,8 +3,12 @@ import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { type SinonStub, stub } from 'sinon';
 
-import { defaultDateAdapter } from '../core/datetime.ts';
-import { fixture, sbbBreakpointLargeMinPx, testA11yTreeSnapshot } from '../core/testing/private.ts';
+import { defaultDateAdapter } from '../../core/datetime.ts';
+import {
+  fixture,
+  sbbBreakpointLargeMinPx,
+  testA11yTreeSnapshot,
+} from '../../core/testing/private.ts';
 
 import type { SbbCalendarElement } from './calendar.component.ts';
 
