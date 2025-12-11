@@ -4692,10 +4692,10 @@ eslint-plugin-react@7.37.5:
     string.prototype.matchall "^4.0.12"
     string.prototype.repeat "^1.0.0"
 
-eslint-plugin-storybook@10.1.6:
-  version "10.1.6"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-storybook/-/eslint-plugin-storybook-10.1.6.tgz#3be96abb23e2e4e3398c6d3fc5828b34610acdb9"
-  integrity sha512-EHMJ2cWmww3cOhB0bNonbqsm1MG7163em+uJEfuAvgBftsCaul7dGGq8izTKxurF/nospYUTYEB3bIJRStP0BQ==
+eslint-plugin-storybook@10.1.7:
+  version "10.1.7"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-storybook/-/eslint-plugin-storybook-10.1.7.tgz#7ca0aef55c67b5305a1fe63382030e230a9db36a"
+  integrity sha512-rJNg0arpGyxlRyYdFd9XS7KQtH0K+NMp78vEXotcAR2pk+eo5sZoGJRW41Lf9k+lW6i4CHbJUhh6XGzITTiSeg==
   dependencies:
     "@typescript-eslint/utils" "^8.8.1"
 
