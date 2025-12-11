@@ -431,7 +431,6 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
 
   /** Creates the rows along the horizontal direction and sets the parameters used in keyboard navigation. */
   private _createWeekRows(value: T, isSecondMonthInView = false): Day<T>[][] {
-    const dateNames: string[] = this._dateAdapter.getDateNames();
     const daysInMonth: number = this._dateAdapter.getNumDaysInMonth(value);
     const weekOffset: number = this._dateAdapter.getFirstWeekOffset(value);
     if (!isSecondMonthInView) {
@@ -462,8 +461,8 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       );
     }
     return this.orientation === 'horizontal'
-      ? this._createWeekRowsHorizontal(value, dateNames, daysInMonth, weekOffset)
-      : this._createWeekRowsVertical(value, dateNames, daysInMonth, weekOffset);
+      ? this._createWeekRowsHorizontal(value, daysInMonth, weekOffset)
+      : this._createWeekRowsVertical(value, daysInMonth, weekOffset);
   }
 
   /**
@@ -474,12 +473,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
    *
    * The result is a matrix in which every row is a week (or part of it, considering offset).
    */
-  private _createWeekRowsHorizontal(
-    value: T,
-    dateNames: string[],
-    daysInMonth: number,
-    weekOffset: number,
-  ): Day<T>[][] {
+  private _createWeekRowsHorizontal(value: T, daysInMonth: number, weekOffset: number): Day<T>[][] {
     const weeks: Day<T>[][] = [[]];
     for (let i = 0, cell = weekOffset; i < daysInMonth; i++, cell++) {
       if (cell === DAYS_PER_ROW) {
@@ -491,16 +485,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
         this._dateAdapter.getMonth(value),
         i + 1,
       )!;
-      const isoDate = this._dateAdapter.toIso8601(date);
-      weeks[weeks.length - 1].push({
-        value: isoDate,
-        dateValue: date,
-        dayValue: dateNames[i],
-        monthValue: String(this._dateAdapter.getMonth(date)),
-        yearValue: String(this._dateAdapter.getYear(date)),
-        weekValue: getWeek(isoDate, { weekStartsOn: 1, firstWeekContainsDate: 4 }),
-        weekDayValue: this._dateAdapter.getDayOfWeek(date),
-      });
+      weeks[weeks.length - 1].push(this.mapDateToDay(date));
     }
     return weeks;
   }
@@ -519,12 +504,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
    * - ...
    * - row 7: all the Sundays.
    */
-  private _createWeekRowsVertical(
-    value: T,
-    dateNames: string[],
-    daysInMonth: number,
-    weekOffset: number,
-  ): Day<T>[][] {
+  private _createWeekRowsVertical(value: T, daysInMonth: number, weekOffset: number): Day<T>[][] {
     const weeks: Day<T>[][] = Array.from({ length: DAYS_PER_ROW }, () => []);
     for (let i = 0, cell = weekOffset; i < daysInMonth; i++, cell++) {
       if (cell === DAYS_PER_ROW) {
@@ -535,18 +515,22 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
         this._dateAdapter.getMonth(value),
         i + 1,
       )!;
-      const isoDate = this._dateAdapter.toIso8601(date);
-      weeks[cell].push({
-        value: isoDate,
-        dateValue: date,
-        dayValue: dateNames[i],
-        monthValue: String(this._dateAdapter.getMonth(date)),
-        yearValue: String(this._dateAdapter.getYear(date)),
-        weekValue: getWeek(isoDate, { weekStartsOn: 1, firstWeekContainsDate: 4 }),
-        weekDayValue: this._dateAdapter.getDayOfWeek(date),
-      });
+      weeks[cell].push(this.mapDateToDay(date));
     }
     return weeks;
+  }
+
+  protected mapDateToDay(date: T): Day<T> {
+    const isoDate = this._dateAdapter.toIso8601(date);
+    return {
+      value: isoDate,
+      dateValue: date,
+      dayValue: String(this._dateAdapter.getDate(date)),
+      monthValue: String(this._dateAdapter.getMonth(date)),
+      yearValue: String(this._dateAdapter.getYear(date)),
+      weekValue: getWeek(isoDate, { weekStartsOn: 1, firstWeekContainsDate: 4 }),
+      weekDayValue: this._dateAdapter.getDayOfWeek(date),
+    };
   }
 
   /** Creates the rows for the month selection view. */
@@ -802,7 +786,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   }
 
   /** Goes to the month identified by the shift. */
-  private _goToDifferentMonth(months: number): void {
+  protected goToDifferentMonth(months: number): void {
     this._init(this._dateAdapter.addCalendarMonths(this._activeDate, months));
   }
 
@@ -1264,7 +1248,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       <div class="sbb-calendar__controls">
         ${this._getArrow(
           'left',
-          () => this._goToDifferentMonth(-1),
+          () => this.goToDifferentMonth(-1),
           i18nPreviousMonth[this._language.current],
           this._previousMonthDisabled(),
         )}
@@ -1277,7 +1261,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
         </div>
         ${this._getArrow(
           'right',
-          () => this._goToDifferentMonth(1),
+          () => this.goToDifferentMonth(1),
           i18nNextMonth[this._language.current],
           this._nextMonthDisabled(),
         )}
