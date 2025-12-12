@@ -1,14 +1,57 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 import { defaultDateAdapter } from '../../core/datetime.ts';
 
+import type { SbbMonthChangeEvent } from './calendar-enhanced.component.ts';
 import { SbbCalendarEnhancedElement } from './calendar-enhanced.component.ts';
+import '../calendar-day/calendar-day.component.ts';
 import readme from './readme.md?raw';
+
+const today = new Date();
+today.setDate(today.getDate() >= 15 ? 8 : 18);
+
+const monthChangedHandler = (e: SbbMonthChangeEvent): void => {
+  const calendar = e.target as SbbCalendarEnhancedElement;
+  Array.from(calendar.children).forEach((e) => calendar.removeChild(e));
+  e.range?.map((day) => {
+    const child = document.createElement('sbb-calendar-day');
+    child.setAttribute('slot', day.value);
+    calendar.appendChild(child);
+  });
+};
+
+const createDaysTemplate = (numDays: number, year: number, month: number): TemplateResult => {
+  return html`
+    ${repeat(new Array(numDays), (_, index) => {
+      const date = defaultDateAdapter.toIso8601(new Date(year, month - 1, index + 1));
+      return html` <sbb-calendar-day slot=${date}></sbb-calendar-day> `;
+    })}
+  `;
+};
+
+const createDays = (wide: boolean): TemplateResult => {
+  const numDays = defaultDateAdapter.getNumDaysInMonth(today);
+  const year = defaultDateAdapter.getYear(today);
+  const month = defaultDateAdapter.getMonth(today);
+  if (wide) {
+    const todayNextMonth = defaultDateAdapter.addCalendarMonths(today, 1);
+    const numDaysNextMonth = defaultDateAdapter.getNumDaysInMonth(todayNextMonth);
+    const yearNextMonth = defaultDateAdapter.getYear(todayNextMonth);
+    const nextMonth = defaultDateAdapter.getMonth(todayNextMonth);
+    return html`
+      ${createDaysTemplate(numDays, year, month)}
+      ${createDaysTemplate(numDaysNextMonth, yearNextMonth, nextMonth)}
+    `;
+  } else {
+    return createDaysTemplate(numDays, year, month);
+  }
+};
 
 const getCalendarAttr = (min: number | string, max: number | string): Record<string, string> => {
   const attr: Record<string, string> = {};
@@ -44,7 +87,9 @@ const Template = ({ min, max, multiple, selected, dateFilter, ...args }: Args): 
       .dateFilter="${dateFilter}"
       ${sbbSpread(getCalendarAttr(min, max))}
       ${sbbSpread(args)}
-    ></sbb-calendar-enhanced>
+      @monthchanged=${(e: SbbMonthChangeEvent) => monthChangedHandler(e)}
+      >${createDays(args.wide)}</sbb-calendar-enhanced
+    >
   `;
 };
 
@@ -155,9 +200,6 @@ const defaultArgTypes: ArgTypes = {
   dateFilter,
   view,
 };
-
-const today = new Date();
-today.setDate(today.getDate() >= 15 ? 8 : 18);
 
 const defaultArgs: Args = {
   wide: false,

@@ -162,21 +162,19 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     if (Array.isArray(value)) {
       this._selected = value
         .map((dateLike: T) =>
-          this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(dateLike)),
+          this.dateAdapter.getValidDateOrNull(this.dateAdapter.deserialize(dateLike)),
         )
         .filter((date: T | null): date is T => date !== null)
         .filter(
           (date: T) =>
-            !this._isDayInRange(this._dateAdapter.toIso8601(date)) || this._dateFilter(date),
+            !this.isDayInRange(this.dateAdapter.toIso8601(date)) || this.internalDateFilter(date),
         );
     } else {
-      const selectedDate = this._dateAdapter.getValidDateOrNull(
-        this._dateAdapter.deserialize(value),
-      );
+      const selectedDate = this.dateAdapter.getValidDateOrNull(this.dateAdapter.deserialize(value));
       if (
         !!selectedDate &&
-        (!this._isDayInRange(this._dateAdapter.toIso8601(selectedDate)) ||
-          this._dateFilter(selectedDate))
+        (!this.isDayInRange(this.dateAdapter.toIso8601(selectedDate)) ||
+          this.internalDateFilter(selectedDate))
       ) {
         this._selected = selectedDate;
       } else {
@@ -201,10 +199,10 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   @property({ attribute: 'week-numbers', type: Boolean })
   public accessor weekNumbers: boolean = false;
 
-  private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
+  protected dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
   /** The currently active date. */
-  @state() private accessor _activeDate: T = this._dateAdapter.today();
+  @state() private accessor _activeDate: T = this.dateAdapter.today();
 
   /** The current wide property considering property value and breakpoints. From zero to small `wide` has always to be false. */
   @state()
@@ -236,7 +234,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   private _weekdays!: Weekday[];
 
   /** Grid of calendar cells representing the dates of the month. */
-  private _weeks: Day<T>[][] = [];
+  protected weeks: Day<T>[][] = [];
 
   /** Grid of calendar cells representing months. */
   private _months!: Month[][];
@@ -248,10 +246,10 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   private _nextMonthYears!: number[][];
 
   /** Grid of calendar cells representing the dates of the next month. */
-  private _nextMonthWeeks!: Day<T>[][];
+  protected nextMonthWeeks!: Day<T>[][];
 
   /** An array containing all the month names in the current language. */
-  private _monthNames: string[] = this._dateAdapter.getMonthNames('long');
+  private _monthNames: string[] = this.dateAdapter.getMonthNames('long');
 
   /** An array containing the weeks' numbers for the current month. */
   private _weekNumbers!: number[];
@@ -279,7 +277,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   private accessor _initialized = false;
 
   private _language = new SbbLanguageController(this).withHandler(() => {
-    this._monthNames = this._dateAdapter.getMonthNames('long');
+    this._monthNames = this.dateAdapter.getMonthNames('long');
     this._createMonthRows();
   });
   private _mediaMatcher = new SbbMediaMatcherController(this, {
@@ -292,7 +290,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     this._setWeekdays();
   }
 
-  private _dateFilter(date: T): boolean {
+  protected internalDateFilter(date: T): boolean {
     return this.dateFilter?.(date) ?? true;
   }
 
@@ -373,14 +371,14 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     }
     this._wide =
       (this._mediaMatcher.matches(SbbMediaQueryBreakpointLargeAndAbove) ?? false) && this.wide;
-    this._weeks = this._createWeekRows(this._activeDate);
+    this.weeks = this._createWeekRows(this._activeDate);
     this._years = this._createYearRows();
     this._weekNumbers = this._createWeekNumbers(this._activeDate);
-    this._nextMonthWeeks = [[]];
+    this.nextMonthWeeks = [[]];
     this._nextMonthYears = [[]];
-    if (this._wide) {
-      const nextMonthDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
-      this._nextMonthWeeks = this._createWeekRows(nextMonthDate, true);
+    if (this.wide) {
+      const nextMonthDate = this.dateAdapter.addCalendarMonths(this._activeDate, 1);
+      this.nextMonthWeeks = this._createWeekRows(nextMonthDate, true);
       this._nextMonthYears = this._createYearRows(YEARS_PER_PAGE);
       this._nextMonthWeekNumbers = this._createWeekNumbers(nextMonthDate);
     }
@@ -397,15 +395,15 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
 
   /** Creates the array of weekdays. */
   private _setWeekdays(): void {
-    const narrowWeekdays: string[] = this._dateAdapter.getDayOfWeekNames('narrow');
-    const longWeekdays: string[] = this._dateAdapter.getDayOfWeekNames('long');
+    const narrowWeekdays: string[] = this.dateAdapter.getDayOfWeekNames('narrow');
+    const longWeekdays: string[] = this.dateAdapter.getDayOfWeekNames('long');
     const weekdays: Weekday[] = longWeekdays.map((long: string, i: number) => ({
       long,
       narrow: narrowWeekdays[i],
     }));
 
     // Rotates the labels for days of the week based on the configured first day of the week.
-    const firstDayOfWeek: number = this._dateAdapter.getFirstDayOfWeek();
+    const firstDayOfWeek: number = this.dateAdapter.getFirstDayOfWeek();
     this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
   }
 
@@ -431,31 +429,31 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
 
   /** Creates the rows along the horizontal direction and sets the parameters used in keyboard navigation. */
   private _createWeekRows(value: T, isSecondMonthInView = false): Day<T>[][] {
-    const daysInMonth: number = this._dateAdapter.getNumDaysInMonth(value);
-    const weekOffset: number = this._dateAdapter.getFirstWeekOffset(value);
+    const daysInMonth: number = this.dateAdapter.getNumDaysInMonth(value);
+    const weekOffset: number = this.dateAdapter.getFirstWeekOffset(value);
     if (!isSecondMonthInView) {
       this._keyboardNavigationDayViewParameters.firstMonthLength = daysInMonth;
       this._keyboardNavigationDayViewParameters.firstMonthOffset = weekOffset;
-      this._keyboardNavigationDayViewParameters.firstDayInView = this._dateAdapter.toIso8601(
-        this._dateAdapter.createDate(
-          this._dateAdapter.getYear(value),
-          this._dateAdapter.getMonth(value),
+      this._keyboardNavigationDayViewParameters.firstDayInView = this.dateAdapter.toIso8601(
+        this.dateAdapter.createDate(
+          this.dateAdapter.getYear(value),
+          this.dateAdapter.getMonth(value),
           1,
         ),
       );
-      this._keyboardNavigationDayViewParameters.lastDayInView = this._dateAdapter.toIso8601(
-        this._dateAdapter.createDate(
-          this._dateAdapter.getYear(value),
-          this._dateAdapter.getMonth(value),
+      this._keyboardNavigationDayViewParameters.lastDayInView = this.dateAdapter.toIso8601(
+        this.dateAdapter.createDate(
+          this.dateAdapter.getYear(value),
+          this.dateAdapter.getMonth(value),
           daysInMonth,
         ),
       );
     } else {
       this._keyboardNavigationDayViewParameters.secondMonthOffset = weekOffset;
-      this._keyboardNavigationDayViewParameters.lastDayInView = this._dateAdapter.toIso8601(
-        this._dateAdapter.createDate(
-          this._dateAdapter.getYear(value),
-          this._dateAdapter.getMonth(value),
+      this._keyboardNavigationDayViewParameters.lastDayInView = this.dateAdapter.toIso8601(
+        this.dateAdapter.createDate(
+          this.dateAdapter.getYear(value),
+          this.dateAdapter.getMonth(value),
           daysInMonth,
         ),
       );
@@ -480,9 +478,9 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
         weeks.push([]);
         cell = 0;
       }
-      const date = this._dateAdapter.createDate(
-        this._dateAdapter.getYear(value),
-        this._dateAdapter.getMonth(value),
+      const date = this.dateAdapter.createDate(
+        this.dateAdapter.getYear(value),
+        this.dateAdapter.getMonth(value),
         i + 1,
       )!;
       weeks[weeks.length - 1].push(this.mapDateToDay(date));
@@ -510,9 +508,9 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       if (cell === DAYS_PER_ROW) {
         cell = 0;
       }
-      const date = this._dateAdapter.createDate(
-        this._dateAdapter.getYear(value),
-        this._dateAdapter.getMonth(value),
+      const date = this.dateAdapter.createDate(
+        this.dateAdapter.getYear(value),
+        this.dateAdapter.getMonth(value),
         i + 1,
       )!;
       weeks[cell].push(this.mapDateToDay(date));
@@ -521,21 +519,21 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   }
 
   protected mapDateToDay(date: T): Day<T> {
-    const isoDate = this._dateAdapter.toIso8601(date);
+    const isoDate = this.dateAdapter.toIso8601(date);
     return {
       value: isoDate,
       dateValue: date,
-      dayValue: String(this._dateAdapter.getDate(date)),
-      monthValue: String(this._dateAdapter.getMonth(date)),
-      yearValue: String(this._dateAdapter.getYear(date)),
+      dayValue: String(this.dateAdapter.getDate(date)),
+      monthValue: String(this.dateAdapter.getMonth(date)),
+      yearValue: String(this.dateAdapter.getYear(date)),
       weekValue: getWeek(isoDate, { weekStartsOn: 1, firstWeekContainsDate: 4 }),
-      weekDayValue: this._dateAdapter.getDayOfWeek(date),
+      weekDayValue: this.dateAdapter.getDayOfWeek(date),
     };
   }
 
   /** Creates the rows for the month selection view. */
   private _createMonthRows(): void {
-    const shortNames: string[] = this._dateAdapter.getMonthNames('short');
+    const shortNames: string[] = this.dateAdapter.getMonthNames('short');
     const months: Month[] = new Array(12).fill(null).map(
       (_, i: number): Month => ({
         value: shortNames[i],
@@ -578,11 +576,11 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   private _getStartValueYearView(): number {
     let startingYear = 0;
     if (this.max) {
-      startingYear = this._dateAdapter.getYear(this.max) - YEARS_PER_PAGE + 1;
+      startingYear = this.dateAdapter.getYear(this.max) - YEARS_PER_PAGE + 1;
     } else if (this.min) {
-      startingYear = this._dateAdapter.getYear(this.min);
+      startingYear = this.dateAdapter.getYear(this.min);
     }
-    const activeYear = this._dateAdapter.getYear(this._activeDate);
+    const activeYear = this.dateAdapter.getYear(this._activeDate);
     return (
       activeYear -
       ((((activeYear - startingYear) % YEARS_PER_PAGE) + YEARS_PER_PAGE) % YEARS_PER_PAGE)
@@ -590,16 +588,16 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   }
 
   /** Checks if date is within the min-max range. */
-  private _isDayInRange(date: string): boolean {
+  protected isDayInRange(date: string): boolean {
     if (!this.min && !this.max) {
       return true;
     }
     const isBeforeMin: boolean =
-      this._dateAdapter.isValid(this.min) &&
-      this._dateAdapter.compareDate(this.min!, this._dateAdapter.deserialize(date)!) > 0;
+      this.dateAdapter.isValid(this.min) &&
+      this.dateAdapter.compareDate(this.min!, this.dateAdapter.deserialize(date)!) > 0;
     const isAfterMax: boolean =
-      this._dateAdapter.isValid(this.max) &&
-      this._dateAdapter.compareDate(this.max!, this._dateAdapter.deserialize(date)!) < 0;
+      this.dateAdapter.isValid(this.max) &&
+      this.dateAdapter.compareDate(this.max!, this.dateAdapter.deserialize(date)!) < 0;
     return !(isBeforeMin || isAfterMax);
   }
 
@@ -610,16 +608,16 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     }
 
     const isBeforeMin: boolean =
-      this._dateAdapter.isValid(this.min) &&
-      (year < this._dateAdapter.getYear(this.min!) ||
-        (year === this._dateAdapter.getYear(this.min!) &&
-          month < this._dateAdapter.getMonth(this.min!)));
+      this.dateAdapter.isValid(this.min) &&
+      (year < this.dateAdapter.getYear(this.min!) ||
+        (year === this.dateAdapter.getYear(this.min!) &&
+          month < this.dateAdapter.getMonth(this.min!)));
 
     const isAfterMax: boolean =
-      this._dateAdapter.isValid(this.max) &&
-      (year > this._dateAdapter.getYear(this.max!) ||
-        (year === this._dateAdapter.getYear(this.max!) &&
-          month > this._dateAdapter.getMonth(this.max!)));
+      this.dateAdapter.isValid(this.max) &&
+      (year > this.dateAdapter.getYear(this.max!) ||
+        (year === this.dateAdapter.getYear(this.max!) &&
+          month > this.dateAdapter.getMonth(this.max!)));
 
     return !(isBeforeMin || isAfterMax);
   }
@@ -630,9 +628,9 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       return true;
     }
     const isBeforeMin: boolean =
-      this._dateAdapter.isValid(this.min) && this._dateAdapter.getYear(this.min!) > year;
+      this.dateAdapter.isValid(this.min) && this.dateAdapter.getYear(this.min!) > year;
     const isAfterMax: boolean =
-      this._dateAdapter.isValid(this.max) && this._dateAdapter.getYear(this.max!) < year;
+      this.dateAdapter.isValid(this.max) && this.dateAdapter.getYear(this.max!) < year;
     return !(isBeforeMin || isAfterMax);
   }
 
@@ -642,11 +640,11 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       return true;
     }
 
-    const firstOfMonth = this._dateAdapter.createDate(year, month, 1)!;
+    const firstOfMonth = this.dateAdapter.createDate(year, month, 1)!;
     for (
       let date: T = firstOfMonth;
-      this._dateAdapter.getMonth(date) == month;
-      date = this._dateAdapter.addCalendarDays(date, 1)
+      this.dateAdapter.getMonth(date) == month;
+      date = this.dateAdapter.addCalendarDays(date, 1)
     ) {
       if (this.dateFilter(date)) {
         return true;
@@ -662,11 +660,11 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       return true;
     }
 
-    const firstOfYear = this._dateAdapter.createDate(year, 1, 1)!;
+    const firstOfYear = this.dateAdapter.createDate(year, 1, 1)!;
     for (
       let date: T = firstOfYear;
-      this._dateAdapter.getYear(date) == year;
-      date = this._dateAdapter.addCalendarDays(date, 1)
+      this.dateAdapter.getYear(date) == year;
+      date = this.dateAdapter.addCalendarDays(date, 1)
     ) {
       if (this.dateFilter(date)) {
         return true;
@@ -677,14 +675,14 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   }
 
   /** Emits the selected date and sets it internally. */
-  private _selectDate(day: T): void {
+  protected selectDate(day: T): void {
     this._chosenMonth = undefined;
     this._setChosenYear();
     if (this.multiple) {
       // Check if _selected has elements
       if (this._selected && (this._selected as T[]).length > 0) {
         const indexOfSelectedDay: number = (this._selected as T[]).findIndex(
-          (sel) => this._dateAdapter.compareDate(sel, day) === 0,
+          (sel) => this.dateAdapter.compareDate(sel, day) === 0,
         );
         // If the selected date is already in the _selected array, remove it, otherwise add it
         if (indexOfSelectedDay !== -1) {
@@ -696,12 +694,12 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
         // If _selected is empty, set it
         this._selected = [day];
       }
-      this._emitDateSelectedEvent(this._selected.map((e) => this._dateAdapter.deserialize(e)!));
+      this._emitDateSelectedEvent(this._selected.map((e) => this.dateAdapter.deserialize(e)!));
     } else {
       // In single selection, check if the day is already selected
-      if (!this._selected || this._dateAdapter.compareDate(this._selected as T, day) !== 0) {
+      if (!this._selected || this.dateAdapter.compareDate(this._selected as T, day) !== 0) {
         this._selected = day;
-        this._emitDateSelectedEvent(this._dateAdapter.deserialize(day)!);
+        this._emitDateSelectedEvent(this.dateAdapter.deserialize(day)!);
       }
     }
   }
@@ -721,11 +719,11 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       .map((e: Day<T>) => e.value)
       .filter((isoDate: string) => enabledDays.includes(isoDate));
     const daysToAddSet = new Set(daysToAdd);
-    const selectedSet = new Set((this._selected as T[]).map((s) => this._dateAdapter.toIso8601(s)));
+    const selectedSet = new Set((this._selected as T[]).map((s) => this.dateAdapter.toIso8601(s)));
     const selStrings = this._updateSelectedWithMultipleDates(daysToAdd, daysToAddSet, selectedSet);
-    this._selected = selStrings.map((s) => this._dateAdapter.deserialize(s)!);
+    this._selected = selStrings.map((s) => this.dateAdapter.deserialize(s)!);
 
-    this._emitDateSelectedEvent(this._selected.map((e) => this._dateAdapter.deserialize(e)!));
+    this._emitDateSelectedEvent(this._selected.map((e) => this.dateAdapter.deserialize(e)!));
   }
 
   /**
@@ -767,18 +765,18 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       } else {
         selectedDate = this.selected as T;
       }
-      this._chosenYear = this._dateAdapter.getYear(selectedDate ?? this._dateAdapter.today());
+      this._chosenYear = this.dateAdapter.getYear(selectedDate ?? this.dateAdapter.today());
     } else {
       this._chosenYear = undefined;
     }
   }
 
   private _assignActiveDate(date: T): void {
-    if (this.min && this._dateAdapter.compareDate(this.min, date) > 0) {
+    if (this.min && this.dateAdapter.compareDate(this.min, date) > 0) {
       this._activeDate = this.min;
       return;
     }
-    if (this.max && this._dateAdapter.compareDate(this.max, date) < 0) {
+    if (this.max && this.dateAdapter.compareDate(this.max, date) < 0) {
       this._activeDate = this.max;
       return;
     }
@@ -787,53 +785,53 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
 
   /** Goes to the month identified by the shift. */
   protected goToDifferentMonth(months: number): void {
-    this._init(this._dateAdapter.addCalendarMonths(this._activeDate, months));
+    this._init(this.dateAdapter.addCalendarMonths(this._activeDate, months));
   }
 
   private _goToDifferentYear(years: number): void {
     this._chosenYear! += years;
     // Can't use `_assignActiveDate(...)` here, because it will set it to min/max value if argument is out of range
-    this._activeDate = this._dateAdapter.createDate(
+    this._activeDate = this.dateAdapter.createDate(
       this._chosenYear!,
-      this._dateAdapter.getMonth(this._activeDate),
-      this._dateAdapter.getDate(this._activeDate),
+      this.dateAdapter.getMonth(this._activeDate),
+      this.dateAdapter.getDate(this._activeDate),
     );
     this._init();
   }
 
   private _goToDifferentYearRange(years: number): void {
-    this._init(this._dateAdapter.addCalendarYears(this._activeDate, years));
+    this._init(this.dateAdapter.addCalendarYears(this._activeDate, years));
   }
 
   private _prevDisabled(prevDate: T): boolean {
     if (!this.min) {
       return false;
     }
-    return this._dateAdapter.compareDate(prevDate, this.min) < 0;
+    return this.dateAdapter.compareDate(prevDate, this.min) < 0;
   }
 
   private _nextDisabled(nextDate: T): boolean {
     if (!this.max) {
       return false;
     }
-    return this._dateAdapter.compareDate(nextDate, this.max) > 0;
+    return this.dateAdapter.compareDate(nextDate, this.max) > 0;
   }
 
   /** Checks if the "previous month" button should be disabled. */
   private _previousMonthDisabled(): boolean {
-    const prevMonth = this._dateAdapter.addCalendarDays(
+    const prevMonth = this.dateAdapter.addCalendarDays(
       this._activeDate,
-      this._dateAdapter.getDate(this._activeDate) * -1,
+      this.dateAdapter.getDate(this._activeDate) * -1,
     );
     return this._prevDisabled(prevMonth);
   }
 
   /** Checks if the "next month" button should be disabled. */
   private _nextMonthDisabled(): boolean {
-    let nextMonth = this._dateAdapter.addCalendarMonths(this._activeDate, this._wide ? 2 : 1);
-    nextMonth = this._dateAdapter.createDate(
-      this._dateAdapter.getYear(nextMonth),
-      this._dateAdapter.getMonth(nextMonth),
+    let nextMonth = this.dateAdapter.addCalendarMonths(this._activeDate, this._wide ? 2 : 1);
+    nextMonth = this.dateAdapter.createDate(
+      this.dateAdapter.getYear(nextMonth),
+      this.dateAdapter.getMonth(nextMonth),
       1,
     );
     return this._nextDisabled(nextMonth);
@@ -841,8 +839,8 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
 
   /** Checks if the "previous year" button should be disabled. */
   private _previousYearDisabled(): boolean {
-    const prevYear = this._dateAdapter.createDate(
-      this._dateAdapter.getYear(this._activeDate) - 1,
+    const prevYear = this.dateAdapter.createDate(
+      this.dateAdapter.getYear(this._activeDate) - 1,
       12,
       31,
     );
@@ -851,8 +849,8 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
 
   /** Checks if the "next year" button should be disabled. */
   private _nextYearDisabled(): boolean {
-    const nextYear = this._dateAdapter.createDate(
-      this._dateAdapter.getYear(this._activeDate) + (this._wide ? 2 : 1),
+    const nextYear = this.dateAdapter.createDate(
+      this.dateAdapter.getYear(this._activeDate) + (this._wide ? 2 : 1),
       1,
       1,
     );
@@ -861,7 +859,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
 
   /** Checks if the "previous year" button should be disabled in year view. */
   private _previousYearRangeDisabled(): boolean {
-    const prevYear = this._dateAdapter.createDate(this._years[0][0] - 1, 12, 31);
+    const prevYear = this.dateAdapter.createDate(this._years[0][0] - 1, 12, 31);
     return this._prevDisabled(prevYear);
   }
 
@@ -870,7 +868,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     const years = this._wide ? this._nextMonthYears : this._years;
     const lastYearRange = years[years.length - 1];
     const lastYear = lastYearRange[lastYearRange.length - 1];
-    const nextYear = this._dateAdapter.createDate(lastYear + 1, 1, 1);
+    const nextYear = this.dateAdapter.createDate(lastYear + 1, 1, 1);
     return this._nextDisabled(nextYear);
   }
 
@@ -896,15 +894,15 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     if (this.multiple) {
       active = (this._selected as T[])?.length
         ? [...(this._selected as T[])].sort()[0]
-        : this._dateAdapter.today();
+        : this.dateAdapter.today();
     } else {
-      active = (this._selected as T) ?? this._dateAdapter.today();
+      active = (this._selected as T) ?? this.dateAdapter.today();
     }
     let firstFocusable =
       this.shadowRoot!.querySelector('.sbb-calendar__selected') ??
-      this.shadowRoot!.querySelector(`[value="${this._dateAdapter.toIso8601(active)}"]`) ??
-      this.shadowRoot!.querySelector(`[data-month="${this._dateAdapter.getMonth(active)}"]`) ??
-      this.shadowRoot!.querySelector(`[data-year="${this._dateAdapter.getYear(active)}"]`);
+      this.shadowRoot!.querySelector(`[value="${this.dateAdapter.toIso8601(active)}"]`) ??
+      this.shadowRoot!.querySelector(`[data-month="${this.dateAdapter.getMonth(active)}"]`) ??
+      this.shadowRoot!.querySelector(`[data-year="${this.dateAdapter.getYear(active)}"]`);
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
       firstFocusable =
         this._calendarView === 'day'
@@ -933,7 +931,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     }
   }
 
-  private _handleKeyboardEvent(event: KeyboardEvent, day?: Day<T>): void {
+  protected handleKeyboardEvent(event: KeyboardEvent, day?: Day<T>): void {
     if (isArrowKeyOrPageKeysPressed(event)) {
       event.preventDefault();
     }
@@ -996,9 +994,9 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
         if (this.orientation === 'horizontal') {
           const monthInBounds = +day.monthValue + 1 > 12 ? 1 : +day.monthValue + 1;
           const yearInBounds = +day.monthValue + 1 > 12 ? +day.yearValue + 1 : +day.yearValue;
-          const firstNextMonth: T = this._dateAdapter.createDate(yearInBounds, monthInBounds, 1);
-          const lastOfMonth: number = this._dateAdapter.getDate(
-            this._dateAdapter.addCalendarDays(firstNextMonth, -1),
+          const firstNextMonth: T = this.dateAdapter.createDate(yearInBounds, monthInBounds, 1);
+          const lastOfMonth: number = this.dateAdapter.getDate(
+            this.dateAdapter.addCalendarDays(firstNextMonth, -1),
           );
           const delta: number =
             Math.trunc((lastOfMonth - +day.dayValue!) / DAYS_PER_ROW) * DAYS_PER_ROW;
@@ -1016,7 +1014,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       case 'End': {
         const monthInBounds = +day.monthValue + 1 > 12 ? 1 : +day.monthValue + 1;
         const yearInBounds = +day.monthValue + 1 > 12 ? +day.yearValue + 1 : +day.yearValue;
-        const firstNextMonth: T = this._dateAdapter.createDate(yearInBounds, monthInBounds, 1);
+        const firstNextMonth: T = this.dateAdapter.createDate(yearInBounds, monthInBounds, 1);
         return this._findDayLast(cells, index, firstNextMonth);
       }
       default:
@@ -1037,15 +1035,13 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     date: T,
     delta: number,
   ): HTMLButtonElement {
-    const newDateValue = this._dateAdapter.toIso8601(
-      this._dateAdapter.addCalendarDays(date, delta),
-    );
+    const newDateValue = this.dateAdapter.toIso8601(this.dateAdapter.addCalendarDays(date, delta));
     if (this._isDayOutOfView(newDateValue)) {
       return cells[index];
     }
     const nextCell = cells.find((e) => e.value === newDateValue);
     if (!nextCell || nextCell.disabled) {
-      return this._findDayArrows(cells, index, this._dateAdapter.deserialize(newDateValue)!, delta);
+      return this._findDayArrows(cells, index, this.dateAdapter.deserialize(newDateValue)!, delta);
     }
     return nextCell;
   }
@@ -1057,8 +1053,8 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     delta: number,
     deltaIfDisabled: number,
   ): HTMLButtonElement {
-    const newDateValue = this._dateAdapter.toIso8601(
-      this._dateAdapter.addCalendarDays(day.dateValue, delta),
+    const newDateValue = this.dateAdapter.toIso8601(
+      this.dateAdapter.addCalendarDays(day.dateValue, delta),
     );
     if (this._isDayOutOfView(newDateValue)) {
       return cells[index];
@@ -1076,8 +1072,8 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     day: Day<T>,
     date: number,
   ): HTMLButtonElement {
-    const newDateValue = this._dateAdapter.toIso8601(
-      this._dateAdapter.createDate(+day.yearValue, +day.monthValue, date),
+    const newDateValue = this.dateAdapter.toIso8601(
+      this.dateAdapter.createDate(+day.yearValue, +day.monthValue, date),
     );
     if (this._isDayOutOfView(newDateValue)) {
       return cells[index];
@@ -1094,15 +1090,15 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     index: number,
     firstNextMonth: T,
   ): HTMLButtonElement {
-    const newDateValue = this._dateAdapter.toIso8601(
-      this._dateAdapter.addCalendarDays(firstNextMonth, -1),
+    const newDateValue = this.dateAdapter.toIso8601(
+      this.dateAdapter.addCalendarDays(firstNextMonth, -1),
     );
     if (this._isDayOutOfView(newDateValue)) {
       return cells[index];
     }
     const nextCell = cells.find((e) => e.value === newDateValue);
     if (!nextCell || nextCell.disabled) {
-      return this._findDayLast(cells, index, this._dateAdapter.deserialize(newDateValue)!);
+      return this._findDayLast(cells, index, this.dateAdapter.deserialize(newDateValue)!);
     }
     return nextCell;
   }
@@ -1229,7 +1225,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     this._resetFocus = true;
     this._activeDate =
       (this.multiple ? (this._selected as T[]).at(-1) : (this._selected as T)) ??
-      this._dateAdapter.today();
+      this.dateAdapter.today();
     this._setChosenYear();
     this._chosenMonth = undefined;
     this._nextCalendarView = this._calendarView = this.view;
@@ -1242,7 +1238,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   /** Render the view for the day selection. */
   private _renderDayView(): TemplateResult {
     const nextMonthActiveDate = this._wide
-      ? this._dateAdapter.addCalendarMonths(this._activeDate, 1)
+      ? this.dateAdapter.addCalendarMonths(this._activeDate, 1)
       : undefined;
     return html`
       <div class="sbb-calendar__controls">
@@ -1269,16 +1265,16 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
         ${this.orientation === 'horizontal'
           ? html`
-              ${this._createDayTable(this._weeks, this._weekNumbers)}
+              ${this._createDayTable(this.weeks, this._weekNumbers)}
               ${this._wide
-                ? this._createDayTable(this._nextMonthWeeks, this._nextMonthWeekNumbers, true)
+                ? this._createDayTable(this.nextMonthWeeks, this._nextMonthWeekNumbers, true)
                 : nothing}
             `
           : html`
-              ${this._createDayTableVertical(this._weeks, this._weekNumbers)}
+              ${this._createDayTableVertical(this.weeks, this._weekNumbers)}
               ${this._wide
                 ? this._createDayTableVertical(
-                    this._nextMonthWeeks,
+                    this.nextMonthWeeks,
                     this._nextMonthWeekNumbers,
                     nextMonthActiveDate,
                   )
@@ -1291,8 +1287,8 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   /** Creates the label with the month for the daily view. */
   private _createLabelForDayView(d: T): TemplateResult {
     const monthLabel = `${
-      this._monthNames[this._dateAdapter.getMonth(d) - 1]
-    } ${this._dateAdapter.getYear(d)}`;
+      this._monthNames[this.dateAdapter.getMonth(d) - 1]
+    } ${this.dateAdapter.getYear(d)}`;
     return html`
       <button
         type="button"
@@ -1316,8 +1312,8 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     for (const d of dates) {
       if (d) {
         monthLabel += `${
-          this._monthNames[this._dateAdapter.getMonth(d) - 1]
-        } ${this._dateAdapter.getYear(d)} `;
+          this._monthNames[this.dateAdapter.getMonth(d) - 1]
+        } ${this.dateAdapter.getYear(d)} `;
       }
     }
     return monthLabel;
@@ -1329,16 +1325,16 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     weekNumbers: number[],
     isWideNextMonth: boolean = false,
   ): TemplateResult {
-    const today: string = this._dateAdapter.toIso8601(this._dateAdapter.today());
+    const today: string = this.dateAdapter.toIso8601(this.dateAdapter.today());
     const weeksForSelectMultipleWeekNumbers: Day<T>[] = (
       this._wide
-        ? [...this._weeks, ...this._nextMonthWeeks]
+        ? [...this.weeks, ...this.nextMonthWeeks]
         : isWideNextMonth
-          ? this._nextMonthWeeks
-          : this._weeks
+          ? this.nextMonthWeeks
+          : this.weeks
     ).flat();
     const weeksForSelectMultipleWeekDays: Day<T>[] = (
-      isWideNextMonth ? this._nextMonthWeeks : this._weeks
+      isWideNextMonth ? this.nextMonthWeeks : this.weeks
     ).flat();
     return html`
       <table
@@ -1414,7 +1410,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
                   ${[...Array(firstRowOffset).keys()].map(
                     () => html`<td class="sbb-calendar__table-data"></td>`,
                   )}
-                  ${this._createDayCells(week, today)}
+                  ${this.createDayCells(week, today)}
                 </tr>
               `;
             }
@@ -1447,7 +1443,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
                       </td>
                     `
                   : nothing}
-                ${this._createDayCells(week, today)}
+                ${this.createDayCells(week, today)}
               </tr>
             `;
           })}
@@ -1462,16 +1458,14 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     weekNumbers: number[],
     nextMonthActiveDate?: T,
   ): TemplateResult {
-    const today: string = this._dateAdapter.toIso8601(this._dateAdapter.today());
-    const weekOffset = this._dateAdapter.getFirstWeekOffset(
-      nextMonthActiveDate ?? this._activeDate,
-    );
+    const today: string = this.dateAdapter.toIso8601(this.dateAdapter.today());
+    const weekOffset = this.dateAdapter.getFirstWeekOffset(nextMonthActiveDate ?? this._activeDate);
     const weeksForSelectMultipleWeekNumbers: Day<T>[] = (
       this._wide
-        ? [...this._weeks, ...this._nextMonthWeeks]
+        ? [...this.weeks, ...this.nextMonthWeeks]
         : nextMonthActiveDate
-          ? this._nextMonthWeeks
-          : this._weeks
+          ? this.nextMonthWeeks
+          : this.weeks
     ).flat();
     return html`
       <table
@@ -1521,7 +1515,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
         <tbody class="sbb-calendar__table-body">
           ${weeks.map((week: Day<T>[], rowIndex: number) => {
             const weekday = this._weekdays[rowIndex];
-            const selectableDays = this._wide ? [...week, ...this._nextMonthWeeks[rowIndex]] : week;
+            const selectableDays = this._wide ? [...week, ...this.nextMonthWeeks[rowIndex]] : week;
             return html`
               <tr>
                 ${nextMonthActiveDate
@@ -1547,7 +1541,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
                 ${rowIndex < weekOffset
                   ? html`<td class="sbb-calendar__table-data"></td>`
                   : nothing}
-                ${this._createDayCells(week, today)}
+                ${this.createDayCells(week, today)}
               </tr>
             `;
           })}
@@ -1557,21 +1551,21 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   }
 
   /** Creates the cells for the daily view. */
-  private _createDayCells(week: Day<T>[], today: string): TemplateResult[] {
+  protected createDayCells(week: Day<T>[], today: string): TemplateResult[] {
     return week.map((day: Day<T>) => {
-      const isOutOfRange = !this._isDayInRange(day.value);
-      const isFilteredOut = !this._dateFilter(this._dateAdapter.deserialize(day.value)!);
+      const isOutOfRange = !this.isDayInRange(day.value);
+      const isFilteredOut = !this.internalDateFilter(this.dateAdapter.deserialize(day.value)!);
       const isToday = day.value === today;
       let selected: boolean;
       if (this.multiple) {
         selected =
           (this._selected as T[]).find(
-            (selDay: T) => this._dateAdapter.compareDate(day.dateValue, selDay) === 0,
+            (selDay: T) => this.dateAdapter.compareDate(day.dateValue, selDay) === 0,
           ) !== undefined;
       } else {
         selected =
           !!this._selected &&
-          this._dateAdapter.compareDate(day.dateValue, this._selected as T) === 0;
+          this.dateAdapter.compareDate(day.dateValue, this._selected as T) === 0;
       }
       return html`
         <td
@@ -1588,16 +1582,16 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
               'sbb-calendar__selected': selected,
               'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
             })}
-            @click=${() => this._selectDate(day.dateValue)}
+            @click=${() => this.selectDate(day.dateValue)}
             ?disabled=${isOutOfRange || isFilteredOut}
             value=${day.value}
             type="button"
-            aria-label=${this._dateAdapter.getAccessibilityFormatDate(day.value)}
+            aria-label=${this.dateAdapter.getAccessibilityFormatDate(day.value)}
             aria-pressed=${selected}
             aria-disabled=${isOutOfRange || isFilteredOut}
             aria-current=${isToday ? 'date' : nothing}
             tabindex="-1"
-            @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, day)}
+            @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt, day)}
             sbb-popover-close
           >
             ${day.dayValue}
@@ -1671,15 +1665,15 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
                     selected =
                       (this._selected as T[]).find(
                         (date: T) =>
-                          year === this._dateAdapter.getYear(date) &&
-                          month.monthValue === this._dateAdapter.getMonth(date),
+                          year === this.dateAdapter.getYear(date) &&
+                          month.monthValue === this.dateAdapter.getMonth(date),
                       ) !== undefined;
                   } else {
                     const selectedMonth = this._selected
-                      ? this._dateAdapter.getMonth(this._selected as T)
+                      ? this.dateAdapter.getMonth(this._selected as T)
                       : undefined;
                     const selectedYear = this._selected
-                      ? this._dateAdapter.getYear(this._selected as T)
+                      ? this.dateAdapter.getYear(this._selected as T)
                       : undefined;
                     selected =
                       !!this._selected &&
@@ -1689,8 +1683,8 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
                   const isOutOfRange = !this._isMonthInRange(month.monthValue, year);
                   const isFilteredOut = !this._isMonthFilteredOut(month.monthValue, year);
                   const isCurrentMonth =
-                    year === this._dateAdapter.getYear(this._dateAdapter.today()) &&
-                    this._dateAdapter.getMonth(this._dateAdapter.today()) === month.monthValue;
+                    year === this.dateAdapter.getYear(this.dateAdapter.today()) &&
+                    this.dateAdapter.getMonth(this.dateAdapter.today()) === month.monthValue;
 
                   return html` <td
                     class=${classMap({
@@ -1713,7 +1707,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
                       aria-disabled=${String(isOutOfRange || isFilteredOut)}
                       tabindex="-1"
                       data-month=${month.monthValue || nothing}
-                      @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
+                      @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}
                     >
                       ${month.value}
                     </button>
@@ -1732,10 +1726,10 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     this._chosenMonth = month;
     this._nextCalendarView = 'day';
     this._init(
-      this._dateAdapter.createDate(
+      this.dateAdapter.createDate(
         year,
         this._chosenMonth,
-        this._dateAdapter.getDate(this._activeDate),
+        this.dateAdapter.getDate(this._activeDate),
       ),
     );
     this._startTableTransition();
@@ -1806,7 +1800,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
 
   /** Creates the table for the year selection view. */
   private _createYearTable(years: number[][], shiftRight = false): TemplateResult {
-    const now = this._dateAdapter.today();
+    const now = this.dateAdapter.today();
     return html` <table
       class="sbb-calendar__table"
       @animationend=${(e: AnimationEvent) => this._tableAnimationEnd(e)}
@@ -1820,17 +1814,17 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
                 if (this.multiple) {
                   selected =
                     (this._selected as T[]).find(
-                      (date: T) => year === this._dateAdapter.getYear(date),
+                      (date: T) => year === this.dateAdapter.getYear(date),
                     ) !== undefined;
                 } else {
                   const selectedYear = this._selected
-                    ? this._dateAdapter.getYear(this._selected as T)
+                    ? this.dateAdapter.getYear(this._selected as T)
                     : undefined;
                   selected = !!this._selected && year === selectedYear;
                 }
                 const isOutOfRange = !this._isYearInRange(year);
                 const isFilteredOut = !this._isYearFilteredOut(year);
-                const isCurrentYear = this._dateAdapter.getYear(now) === year;
+                const isCurrentYear = this.dateAdapter.getYear(now) === year;
                 return html` <td class="sbb-calendar__table-data sbb-calendar__table-year">
                   <button
                     class=${classMap({
@@ -1847,7 +1841,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
                     aria-disabled=${String(isOutOfRange || isFilteredOut)}
                     tabindex="-1"
                     data-year=${year || nothing}
-                    @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
+                    @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt)}
                   >
                     ${year}
                   </button>
@@ -1864,10 +1858,10 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     this._chosenYear = rightSide ? year - 1 : year;
     this._nextCalendarView = 'month';
     this._assignActiveDate(
-      this._dateAdapter.createDate(
+      this.dateAdapter.createDate(
         this._chosenYear,
-        this._dateAdapter.getMonth(this._activeDate),
-        this._dateAdapter.getDate(this._activeDate),
+        this.dateAdapter.getMonth(this._activeDate),
+        this.dateAdapter.getDate(this._activeDate),
       ),
     );
     this._startTableTransition();
