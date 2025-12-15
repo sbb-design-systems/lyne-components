@@ -5,7 +5,11 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-import { MOCK_GIRUNO_TRAIN } from '../common/mapper/seat-reservation-sample-data.ts';
+import {
+  MOCK_GIRUNO_TRAIN,
+  MOCK_IP_TRAIN_FRANCE,
+  MOCK_IP_TRAIN_ITALY_TO_SWITZERLAND,
+} from '../common/mapper/seat-reservation-sample-data.ts';
 import { mapRawDataToSeatReservation, type CoachItem, type SeatReservation } from '../common.ts';
 
 import readme from './readme.md?raw';
@@ -193,6 +197,38 @@ export const preSelectedCoachIndexFour: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes, 'preselect-coach-index': preselectCoachIndexType },
   args: { ...defaultArgs, 'preselect-coach-index': 4 },
+};
+
+const trainIPFrance: Args = {
+  seatReservations: [MOCK_IP_TRAIN_FRANCE],
+  'has-navigation': true,
+  'max-reservations': 4,
+  'align-vertical': false,
+  'base-grid-size': 16,
+  height: null,
+  'prevent-place-click': false,
+};
+
+export const TrainIPFrance: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: trainIPFrance,
+};
+
+const trainIPItaly: Args = {
+  seatReservations: [MOCK_IP_TRAIN_ITALY_TO_SWITZERLAND],
+  'has-navigation': true,
+  'max-reservations': 4,
+  'align-vertical': false,
+  'base-grid-size': 16,
+  height: null,
+  'prevent-place-click': false,
+};
+
+export const TrainIPItaly: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: trainIPItaly,
 };
 
 const meta: Meta = {

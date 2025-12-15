@@ -294,18 +294,31 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     const COACH_PASSAGE_WIDTH = 1;
     const allElements = coachItem.graphicElements;
     const driverArea = allElements?.find((element: BaseElement) => element.icon === 'DRIVER_AREA');
-    const borderWidth = driverArea
+    let borderWidth = driverArea
       ? coachItem.dimension.w - driverArea.dimension.w - COACH_PASSAGE_WIDTH
       : coachItem.dimension.w - COACH_PASSAGE_WIDTH * 2;
+    borderWidth *= this.baseGridSize;
     const borderHeight = (coachItem.dimension.h + this.coachBorderOffset * 2) * this.baseGridSize;
-    const borderOffsetX =
+
+    let borderOffsetX =
       driverArea && driverArea.position.x === 0
         ? driverArea?.dimension.w * this.baseGridSize
         : this.baseGridSize;
+
+    let hasOverhangingPlaces =
+      coachItem.places &&
+      this.getOverhangingPlacesByCoach(coachItem.dimension.w, coachItem.places) || false;
+
+    if (hasOverhangingPlaces) {
+      borderWidth += 2 * this.baseGridSize; // we increase the width by 2 grid sizes to have enough space for protruded places
+      borderOffsetX = 0; // we start at 0 to have enough space on the left side as well
+    }
+
     return html`
       <sbb-seat-reservation-graphic
+        class="${classMap({ 'sbb-sr-coach-has-overhanging-places': hasOverhangingPlaces })}"
         style=${styleMap({
-          '--sbb-seat-reservation-graphic-width': borderWidth * this.baseGridSize,
+          '--sbb-seat-reservation-graphic-width': borderWidth,
           '--sbb-seat-reservation-graphic-height': borderHeight,
           '--sbb-seat-reservation-graphic-top': this.coachBorderPadding * -1,
           '--sbb-seat-reservation-graphic-left': borderOffsetX,

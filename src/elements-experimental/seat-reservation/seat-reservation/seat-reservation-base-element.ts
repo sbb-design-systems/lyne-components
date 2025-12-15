@@ -576,6 +576,22 @@ export class SeatReservationBaseElement extends LitElement {
     }
   }
 
+  /**
+   * checks if any places are overhanging the coach borders
+   * x-pos is x-pos * baseGridSize + dimension in px (e.g. 2*16(==>this.baseGridSize));
+   * @param coachItemWidth
+   * @param places
+   *
+   * @protected
+   */
+  protected getOverhangingPlacesByCoach(coachItemWidth: number, places: Place[]): boolean {
+    return places
+      .filter(
+        (element) =>
+          element.position.x === 0 || element.position.x + element.dimension.w >= coachItemWidth,
+      ).length > 0;
+  }
+
   protected getCalculatedDimension(
     elementDimension: ElementDimension,
     coachDimension?: ElementDimension,
@@ -1404,7 +1420,9 @@ export class SeatReservationBaseElement extends LitElement {
    *    - whether there is a driver area left or right
    * */
   private _prepareNavigationCoachData(): void {
-    const lowerDeck = this.seatReservations[this.seatReservations.length - 1].coachItems;
+    const lowerDeck: CoachItem[] =
+      this.seatReservations[this.seatReservations.length - 1].coachItems;
+
     this.coachNavData = [];
 
     lowerDeck.forEach((coach, index) => {

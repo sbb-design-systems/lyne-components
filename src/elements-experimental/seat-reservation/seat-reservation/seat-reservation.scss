@@ -223,6 +223,10 @@ $scrollbar-height: 16px;
   gap: sbb-sr-functios.sr-px-to-rem(4);
 }
 
+.sbb-sr__list-coaches:has(.sbb-sr-coach-has-overhanging-places) {
+  gap: sbb-sr-functios.sr-px-to-rem(8);
+}
+
 .sbb-sr__item-coach {
   position: relative;
 }
