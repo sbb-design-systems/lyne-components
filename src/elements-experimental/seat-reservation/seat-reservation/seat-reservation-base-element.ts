@@ -576,22 +576,6 @@ export class SeatReservationBaseElement extends LitElement {
     }
   }
 
-  /**
-   * checks if any places are overhanging the coach borders
-   * x-pos is x-pos * baseGridSize + dimension in px (e.g. 2*16(==>this.baseGridSize));
-   * @param coachItemWidth
-   * @param places
-   *
-   * @protected
-   */
-  protected getOverhangingPlacesByCoach(coachItemWidth: number, places: Place[]): boolean {
-    return places
-      .filter(
-        (element) =>
-          element.position.x === 0 || element.position.x + element.dimension.w >= coachItemWidth,
-      ).length > 0;
-  }
-
   protected getCalculatedDimension(
     elementDimension: ElementDimension,
     coachDimension?: ElementDimension,
