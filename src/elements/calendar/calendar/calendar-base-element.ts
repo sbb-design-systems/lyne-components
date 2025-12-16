@@ -217,7 +217,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   // TODO: re-check whether field is needed
   private _wideInternal: boolean = false;
 
-  @state() private accessor _calendarView: CalendarView = 'day';
+  @state() protected accessor calendarView: CalendarView = 'day';
 
   private _nextCalendarView: CalendarView = 'day';
 
@@ -258,7 +258,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   private _nextMonthWeekNumbers!: number[];
 
   /** A list of buttons corresponding to days, months or years depending on the view. */
-  private get _cells(): HTMLButtonElement[] {
+  protected get cells(): HTMLButtonElement[] {
     return Array.from(
       this.shadowRoot!.querySelectorAll('.sbb-calendar__cell') ?? [],
     ) as HTMLButtonElement[];
@@ -325,7 +325,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     if (changedProperties.has('view')) {
       this._setChosenYear();
       this._chosenMonth = undefined;
-      this._nextCalendarView = this._calendarView = this.view;
+      this._nextCalendarView = this.calendarView = this.view;
     }
   }
 
@@ -333,7 +333,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     super.updated(changedProperties);
     // The calendar needs to calculate tab-indexes on first render,
     // and every time a date is selected or the month view changes.
-    this._setTabIndex();
+    this.setTabIndex();
     // When changing view to year/month, the tabindex is changed, but the focused element is not,
     // so if the navigation is done via keyboard, there's the need
     // to call the `_focusCell()` method explicitly to correctly set the focus.
@@ -388,7 +388,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   /** Focuses on a day cell prioritizing the selected day, the current day, and lastly, the first selectable day. */
   private _focusCell(): void {
     if (this._resetFocus) {
-      this._getFirstFocusable()?.focus();
+      this.getFirstFocusable()?.focus();
       this._resetFocus = false;
     }
   }
@@ -714,7 +714,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   private _selectMultipleDates(days: Day<T>[]): void {
     // Filter disabled days by matching the provided `days` parameter against the enabled cells.
     // Since the buttons' value is set to the Day's interface value (ISO string), there's no need to deserialize it.
-    const enabledDays: string[] = this._cells.filter((e) => !e.disabled).map((e) => e.value);
+    const enabledDays: string[] = this.cells.filter((e) => !e.disabled).map((e) => e.value);
     const daysToAdd: string[] = days
       .map((e: Day<T>) => e.value)
       .filter((isoDate: string) => enabledDays.includes(isoDate));
@@ -874,22 +874,22 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
 
   private _handleTableBlur(eventTarget: HTMLElement): void {
     if (eventTarget?.localName !== 'button') {
-      this._setTabIndex();
+      this.setTabIndex();
     }
   }
 
-  private _setTabIndex(): void {
+  protected setTabIndex(): void {
     Array.from(
       this.shadowRoot!.querySelectorAll('.sbb-calendar__cell[tabindex="0"]') ?? [],
     ).forEach((day) => ((day as HTMLElement).tabIndex = -1));
-    const firstFocusable = this._getFirstFocusable();
+    const firstFocusable = this.getFirstFocusable();
     if (firstFocusable) {
       firstFocusable.tabIndex = 0;
     }
   }
 
   /** Get the element in the calendar to assign focus. */
-  private _getFirstFocusable(): HTMLButtonElement {
+  protected getFirstFocusable(): HTMLButtonElement {
     let active: T;
     if (this.multiple) {
       active = (this._selected as T[])?.length
@@ -905,8 +905,8 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       this.shadowRoot!.querySelector(`[data-year="${this.dateAdapter.getYear(active)}"]`);
     if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
       firstFocusable =
-        this._calendarView === 'day'
-          ? this._getFirstFocusableDay()
+        this.calendarView === 'day'
+          ? this.getFirstFocusableDay()
           : this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])');
     }
     return (firstFocusable as HTMLButtonElement) || null;
@@ -919,7 +919,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
    *
    * To solve this, the element with the lowest `value` is taken (ISO String are ordered).
    */
-  private _getFirstFocusableDay(): HTMLButtonElement | null {
+  protected getFirstFocusableDay(): HTMLButtonElement | null {
     const daysInView: HTMLButtonElement[] = Array.from(
       this.shadowRoot!.querySelectorAll('.sbb-calendar__cell:not([disabled])'),
     );
@@ -938,7 +938,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     // Gets the currently rendered table's cell;
     // they could be days, months or years based on the current selection view.
     // If `wide` is true, years are doubled in number and days are (roughly) doubled too, affecting the `index` calculation.
-    const cells: HTMLButtonElement[] = this._cells;
+    const cells: HTMLButtonElement[] = this.cells;
     const index: number = cells.findIndex((e: HTMLButtonElement) => e === event.target);
     let nextEl: HTMLButtonElement;
     if (day) {
@@ -946,10 +946,14 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     } else {
       nextEl = this._navigateByKeyboard(event, index, cells);
     }
+    this.setTabIndexAndFocusKeyboardNavigation(nextEl);
+  }
+
+  protected setTabIndexAndFocusKeyboardNavigation(elementToFocus: HTMLButtonElement): void {
     const activeEl: HTMLButtonElement = this.shadowRoot!.activeElement as HTMLButtonElement;
-    if (nextEl !== activeEl) {
-      (nextEl as HTMLButtonElement).tabIndex = 0;
-      nextEl?.focus();
+    if (elementToFocus !== activeEl) {
+      (elementToFocus as HTMLButtonElement).tabIndex = 0;
+      elementToFocus?.focus();
       (activeEl as HTMLButtonElement).tabIndex = -1;
     }
   }
@@ -1120,7 +1124,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       lastElementIndexForWideMode,
       verticalOffset,
     }: CalendarKeyboardNavigationMonthYearViewsParameters =
-      this._calculateParametersForKeyboardNavigation(index, this._calendarView === 'year');
+      this._calculateParametersForKeyboardNavigation(index, this.calendarView === 'year');
 
     switch (evt.key) {
       case 'ArrowUp':
@@ -1228,7 +1232,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       this.dateAdapter.today();
     this._setChosenYear();
     this._chosenMonth = undefined;
-    this._nextCalendarView = this._calendarView = this.view;
+    this._nextCalendarView = this.calendarView = this.view;
 
     if (initTransition) {
       this._startTableTransition();
@@ -1873,7 +1877,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       // to enable it, while considering i18n and date information.
       return html`${nothing}`;
     }
-    switch (this._calendarView) {
+    switch (this.calendarView) {
       case 'year':
         return this._renderYearView();
       case 'month':
@@ -1889,7 +1893,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     if (event.animationName === 'hide') {
       table.classList.remove('sbb-calendar__table-hide');
       this._resetFocus = true;
-      this._calendarView = this._nextCalendarView;
+      this.calendarView = this._nextCalendarView;
     } else if (event.animationName === 'show') {
       this.internals.states.delete('transition');
     }
