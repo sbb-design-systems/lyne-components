@@ -297,26 +297,46 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     let borderWidth = driverArea
       ? coachItem.dimension.w - driverArea.dimension.w - COACH_PASSAGE_WIDTH
       : coachItem.dimension.w - COACH_PASSAGE_WIDTH * 2;
-    borderWidth *= this.baseGridSize;
-    const borderHeight = (coachItem.dimension.h + this.coachBorderOffset * 2) * this.baseGridSize;
 
+    //multiply with base grid size always for all kind of borderWidth
+    borderWidth *= this.baseGridSize;
+
+    const borderHeight = (coachItem.dimension.h + this.coachBorderOffset * 2) * this.baseGridSize;
     let borderOffsetX =
       driverArea && driverArea.position.x === 0
         ? driverArea?.dimension.w * this.baseGridSize
         : this.baseGridSize;
 
-    let hasOverhangingPlaces =
-      coachItem.places &&
-      this.getOverhangingPlacesByCoach(coachItem.dimension.w, coachItem.places) || false;
+    const hasOverhangingPlaces = this._isOverhangingElementsPresent(
+      coachItem.dimension.w,
+      coachItem.places,
+    );
 
-    if (hasOverhangingPlaces) {
-      borderWidth += 2 * this.baseGridSize; // we increase the width by 2 grid sizes to have enough space for protruded places
+    //Must  be done also for graphical elements, as they can also protrude the coach border
+    // Check only graphical elements that are not area elements
+    const filteredElements = coachItem.graphicElements?.filter(
+      (e) => e.icon && !this._notAreaElements.includes(e.icon),
+    );
+
+    const hasOverhangingGraphicAreas = this._isOverhangingElementsPresent(
+      coachItem.dimension.w,
+      filteredElements,
+    );
+
+    // check if there are overhanging places or graphical elements to adjust the border width and offset + gap
+    // We do not differentiate whether there is something to be done on both sides as this would lead to unnecessary
+    // complexity. So if there is something on one side, we just increase the coach-border on both sides.
+    if (hasOverhangingPlaces || hasOverhangingGraphicAreas) {
+      borderWidth += 2 * this.baseGridSize; // we increase the width by 2 grid sizes to have enough space for protruded places on both sides
       borderOffsetX = 0; // we start at 0 to have enough space on the left side as well
     }
 
     return html`
       <sbb-seat-reservation-graphic
-        class="${classMap({ 'sbb-sr-coach-has-overhanging-places': hasOverhangingPlaces })}"
+        class="${classMap({
+          'sbb-sr-coach-has-overhanging-elements':
+            hasOverhangingPlaces || hasOverhangingGraphicAreas,
+        })}"
         style=${styleMap({
           '--sbb-seat-reservation-graphic-width': borderWidth,
           '--sbb-seat-reservation-graphic-height': borderHeight,
@@ -759,6 +779,24 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       })
       .filter((description) => !!description)
       .join(', ');
+  }
+
+  /**
+   * checks if any places or graphical elements (e.g. toilet area, etc.) are overhanging the coach borders
+   * x-pos is x-pos * baseGridSize + dimension in px (e.g. 2*16(==>this.baseGridSize));
+   * @param coachItemWidth
+   * @param elements
+   */
+  private _isOverhangingElementsPresent(
+    coachItemWidth: number,
+    elements: (Place | BaseElement)[] | undefined,
+  ): boolean {
+    return (
+      elements?.some(
+        (element) =>
+          element.position.x === 0 || element.position.x + element.dimension.w >= coachItemWidth,
+      ) ?? false
+    );
   }
 }
 
