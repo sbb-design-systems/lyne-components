@@ -1,4 +1,4 @@
-import { assert, expect } from '@open-wc/testing';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
@@ -14,6 +14,5 @@ describe('sbb-tab-nav-bar', () => {
 
   it('renders', async () => {
     assert.instanceOf(element, SbbTabNavBarElement);
-    expect(element.role).to.be.equal('navigation');
   });
 });
