@@ -8,7 +8,7 @@ concurrency:
 permissions: read-all
 
 env:
-  IMAGE_REPO_STORYBOOK: ghcr.io/sbb-design-systems/lyne-components/storybook
+  IMAGE_REPO_DOCS: ghcr.io/sbb-design-systems/lyne-components/docs
 
 jobs:
   remove-label:
@@ -72,11 +72,11 @@ jobs:
         run: yarn build
         env:
           STORYBOOK_COMPONENTS_VERSION: ${{ github.event.pull_request.head.sha || github.sha }}
-      - name: Store storybook artifacts
+      - name: Store docs artifacts
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
         with:
-          name: storybook
+          name: docs
           path: dist/storybook/
           retention-days: 1
 
@@ -86,13 +86,13 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build --tag ${{ env.IMAGE_REPO_STORYBOOK }}:dev-fat .
+          docker build --tag ${{ env.IMAGE_REPO_DOCS }}:dev-fat .
           mint slim \
-            --target ${{ env.IMAGE_REPO_STORYBOOK }}:dev-fat \
-            --tag ${{ env.IMAGE_REPO_STORYBOOK }}:dev \
+            --target ${{ env.IMAGE_REPO_DOCS }}:dev-fat \
+            --tag ${{ env.IMAGE_REPO_DOCS }}:dev \
             --preserve-path /usr/share/nginx/html \
             --include-new false
-          docker push ${{ env.IMAGE_REPO_STORYBOOK }}:dev
+          docker push ${{ env.IMAGE_REPO_DOCS }}:dev
           docker image list
         env:
           DOCKER_BUILDKIT: 1

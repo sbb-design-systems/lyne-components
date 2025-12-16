@@ -5,7 +5,7 @@ LABEL org.opencontainers.image.source=https://github.com/sbb-design-systems/lyne
 # Copy nginx configuration
 COPY ./.github/default.conf /etc/nginx/conf.d/default.conf
 
-# Copy showcase
+# Copy docs
 COPY ./dist/storybook /usr/share/nginx/html
 
 # Add support for .mjs extension

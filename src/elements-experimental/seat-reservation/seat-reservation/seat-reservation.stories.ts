@@ -106,7 +106,7 @@ const trainDeckUpper = JSON.parse(JSON.stringify(trainDeckBottom)) as SeatReserv
 trainDeckUpper.deckCoachIndex = 1;
 trainDeckUpper.deckCoachLevel = 'UPPER_DECK';
 
-// For showcase, we adjust the places from the upper deck to get a little variation
+// For docs, we adjust the places from the upper deck to get a little variation
 mappedSeatReservationTrain.coachItems.forEach((coachItem) => {
   const filteredPlaesInCoach =
     coachItem.places?.filter((place) => Number(place.number) % 2 === 0) || [];
