@@ -11,7 +11,7 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
-import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y.ts';
+import { isArrowKeyOrPageKeysPressed } from '../core/a11y.ts';
 import { readConfig } from '../core/config.ts';
 import {
   SbbLanguageController,
@@ -275,6 +275,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
   /** Whether the focus should be reset on focusCell. */
   private _resetFocus = false;
 
+  /** Whether an element inside the calendar is currently focused. */
+  private _containingFocus = false;
+
   @state()
   private accessor _initialized = false;
 
@@ -290,6 +293,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
     super();
     this._createMonthRows();
     this._setWeekdays();
+
+    // We need to track the focus as we should only take focus into the calendar, when the
+    // focus was once set into the calendar.
+    // For shadow DOM compatibility we need to track this programmatically.
+    this.addEventListener('focusin', () => (this._containingFocus = true));
+    this.addEventListener('focusout', () => (this._containingFocus = false));
   }
 
   private _dateFilter(date: T): boolean {
@@ -336,12 +345,10 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
     // The calendar needs to calculate tab-indexes on first render,
     // and every time a date is selected or the month view changes.
     this._setTabIndex();
-    // When changing view to year/month, the tabindex is changed, but the focused element is not,
-    // so if the navigation is done via keyboard, there's the need
-    // to call the `_focusCell()` method explicitly to correctly set the focus.
-    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      this._focusCell();
-    }
+
+    // When changing view to year/month, the tabindex is changed, but the focused element is getting lost.
+    // We need to call `_focusCell()` method explicitly to correctly set the focus.
+    this._focusCell();
   }
 
   /**
@@ -1242,7 +1249,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
   }
 
   private _resetCalendarView(initTransition = false): void {
-    this._resetFocus = true;
+    if (this._containingFocus) {
+      this._resetFocus = true;
+    }
     this._activeDate =
       (this.multiple ? (this._selected as T[]).at(-1) : (this._selected as T)) ??
       this._dateAdapter.today();
@@ -1910,7 +1919,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
     const table = event.target as HTMLElement;
     if (event.animationName === 'hide') {
       table.classList.remove('sbb-calendar__table-hide');
-      this._resetFocus = true;
+      if (this._containingFocus) {
+        this._resetFocus = true;
+      }
       this._calendarView = this._nextCalendarView;
     } else if (event.animationName === 'show') {
       this.internals.states.delete('transition');

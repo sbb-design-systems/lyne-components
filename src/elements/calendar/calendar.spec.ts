@@ -256,6 +256,28 @@ describe(`sbb-calendar`, () => {
       expect(dayCells.length).to.be.equal(31);
     });
 
+    it('avoids taking focus on updating', async () => {
+      document.body.focus();
+      expect(document.activeElement).to.be.equal(document.body);
+
+      // Trigger an update which triggers updated().
+      element.wide = true;
+      await waitForTransition();
+
+      expect(document.activeElement).to.be.equal(document.body);
+    });
+
+    it('keeps focus on updating', async () => {
+      element.focus();
+      expect(document.activeElement).to.be.equal(element);
+
+      // Trigger an update which triggers updated().
+      element.wide = true;
+      await waitForTransition();
+
+      expect(document.activeElement).to.be.equal(element);
+    });
+
     it('opens year view', async () => {
       element.view = 'year';
       await waitForLitRender(element);
