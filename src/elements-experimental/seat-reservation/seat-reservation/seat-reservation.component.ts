@@ -793,7 +793,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     return (
       elements?.some(
         (element) =>
-          element.position.x === 0 || element.position.x + element.dimension.w > coachItemWidth,
+          element.position.x === 0 || element.position.x + element.dimension.w >= coachItemWidth,
       ) ?? false
     );
   }
