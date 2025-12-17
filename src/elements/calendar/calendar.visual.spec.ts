@@ -100,6 +100,32 @@ describe('sbb-calendar', () => {
             }),
           );
 
+          it(
+            'full width',
+            visualDiffFocus.with(async (setup) => {
+              await setup.withFixture(html`
+                <sbb-calendar
+                  style="width: 100%"
+                  orientation=${orientation}
+                  ?wide=${wide}
+                  .selected=${new Date(2023, 0, 20)}
+                ></sbb-calendar>
+              `);
+
+              // Focus an element on the very right side. Should not be cut!
+              setup
+                .withStateElement(
+                  (setup.stateElement as SbbCalendarElement).shadowRoot!.querySelector(
+                    'button[value="2023-01-08"]',
+                  )!,
+                )
+                .withPostSetupAction(() => {
+                  // Shortcut to let the stateElement be focused
+                  setup.stateElement.tabIndex = 0;
+                });
+            }),
+          );
+
           for (const multiple of [false, true]) {
             const selected = multiple
               ? [new Date(2023, 0, 20), new Date(2023, 0, 21)]

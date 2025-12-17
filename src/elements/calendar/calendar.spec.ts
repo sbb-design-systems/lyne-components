@@ -278,6 +278,25 @@ describe(`sbb-calendar`, () => {
       expect(document.activeElement).to.be.equal(element);
     });
 
+    it('does not create horizontal scrollbar when calendar is 100% width in overflow container', async () => {
+      const container = document.createElement('div');
+      container.style.width = '400px';
+      container.style.overflow = 'auto';
+      document.body.appendChild(container);
+
+      const testElement = document.createElement('sbb-calendar');
+      testElement.style.width = '100%';
+      container.appendChild(testElement);
+
+      await waitForLitRender(testElement);
+
+      // ScrollWidth should equal clientWidth if there's no horizontal scroll
+      expect(container.scrollWidth).to.be.equal(container.clientWidth);
+
+      // Cleanup
+      document.body.removeChild(container);
+    });
+
     it('opens year view', async () => {
       element.view = 'year';
       await waitForLitRender(element);

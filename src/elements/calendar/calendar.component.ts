@@ -1291,24 +1291,26 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
           this._nextMonthDisabled(),
         )}
       </div>
-      <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
-        ${this.orientation === 'horizontal'
-          ? html`
-              ${this._createDayTable(this._weeks, this._weekNumbers)}
-              ${this._wide
-                ? this._createDayTable(this._nextMonthWeeks, this._nextMonthWeekNumbers, true)
-                : nothing}
-            `
-          : html`
-              ${this._createDayTableVertical(this._weeks, this._weekNumbers)}
-              ${this._wide
-                ? this._createDayTableVertical(
-                    this._nextMonthWeeks,
-                    this._nextMonthWeekNumbers,
-                    nextMonthActiveDate,
-                  )
-                : nothing}
-            `}
+      <div class="sbb-calendar__table-overflow-break">
+        <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
+          ${this.orientation === 'horizontal'
+            ? html`
+                ${this._createDayTable(this._weeks, this._weekNumbers)}
+                ${this._wide
+                  ? this._createDayTable(this._nextMonthWeeks, this._nextMonthWeekNumbers, true)
+                  : nothing}
+              `
+            : html`
+                ${this._createDayTableVertical(this._weeks, this._weekNumbers)}
+                ${this._wide
+                  ? this._createDayTableVertical(
+                      this._nextMonthWeeks,
+                      this._nextMonthWeekNumbers,
+                      nextMonthActiveDate,
+                    )
+                  : nothing}
+              `}
+        </div>
       </div>
     `;
   }
@@ -1650,9 +1652,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
           this._nextYearDisabled(),
         )}
       </div>
-      <div class="sbb-calendar__table-container sbb-calendar__table-month-view">
-        ${this._createMonthTable(this._months, this._chosenYear!)}
-        ${this._wide ? this._createMonthTable(this._months, this._chosenYear! + 1) : nothing}
+      <div class="sbb-calendar__table-overflow-break">
+        <div class="sbb-calendar__table-container sbb-calendar__table-month-view">
+          ${this._createMonthTable(this._months, this._chosenYear!)}
+          ${this._wide ? this._createMonthTable(this._months, this._chosenYear! + 1) : nothing}
+        </div>
       </div>
     `;
   }
@@ -1784,9 +1788,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
           this._nextYearRangeDisabled(),
         )}
       </div>
-      <div class="sbb-calendar__table-container sbb-calendar__table-year-view">
-        ${this._createYearTable(this._years)}
-        ${this._wide ? this._createYearTable(this._nextMonthYears, true) : nothing}
+      <div class="sbb-calendar__table-overflow-break">
+        <div class="sbb-calendar__table-container sbb-calendar__table-year-view">
+          ${this._createYearTable(this._years)}
+          ${this._wide ? this._createYearTable(this._nextMonthYears, true) : nothing}
+        </div>
       </div>
     `;
   }

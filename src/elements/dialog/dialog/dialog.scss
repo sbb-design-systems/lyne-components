@@ -145,7 +145,6 @@
 
   @include sbb.mq($from: large) {
     border-radius: var(--sbb-dialog-border-radius);
-    overflow: hidden;
     height: auto;
   }
 }
