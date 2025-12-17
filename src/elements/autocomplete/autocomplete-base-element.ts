@@ -592,6 +592,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   }
 
   protected override render(): TemplateResult {
+    // Scroll areas without containing an interactive element will receive focus when tabbing through the document.
+    // If there are a lot of options and when pressing tab key, the scroll area on sbb-autocomplete__options gets focus.
+    // As elements inside the panel should never get focus, we have to avoid that by setting tabindex=-1.
     return html`
       <div class="sbb-autocomplete__gap-fix"></div>
       <div class="sbb-autocomplete__container">
@@ -606,6 +609,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
               class="sbb-autocomplete__options"
               role=${!ariaRoleOnHost ? this.panelRole : nothing}
               id=${!ariaRoleOnHost ? this.overlayId : nothing}
+              tabindex="-1"
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
               <slot @slotchange=${this._handleSlotchange}></slot>

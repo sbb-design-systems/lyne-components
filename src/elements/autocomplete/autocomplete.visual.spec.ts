@@ -1,6 +1,7 @@
 import { aTimeout } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
 
 import type { VisualDiffSetupBuilder } from '../core/testing/private.ts';
 import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
@@ -51,8 +52,10 @@ describe('sbb-autocomplete', () => {
   `;
 
   const createOptionBlockTwo = (): TemplateResult => html`
-    <sbb-option value="Option 4">Option 4</sbb-option>
-    <sbb-option value="Option 5">Option 5</sbb-option>
+    ${repeat(
+      new Array(2),
+      (_, index) => html`<sbb-option value="Option ${index + 4}">Option ${index + 4}</sbb-option>`,
+    )}
   `;
 
   const createOptions = (withIcon: boolean, disableOption: boolean): TemplateResult => html`
