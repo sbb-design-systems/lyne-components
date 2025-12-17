@@ -195,6 +195,35 @@ export const preSelectedCoachIndexFour: StoryObj = {
   args: { ...defaultArgs, 'preselect-coach-index': 4 },
 };
 
+const mappedSeatReservationLowerDeck = JSON.parse(
+  JSON.stringify(mapRawDataToSeatReservation(null, 'LOWER_DECK')),
+);
+const mappedSeatReservationUpperDeck = JSON.parse(
+  JSON.stringify(mapRawDataToSeatReservation(null, 'UPPER_DECK')),
+);
+const seatReservationToggleSelectType: InputType = {
+  control: {
+    type: 'select',
+  },
+  name: 'Toggle Seatreservation decks',
+  mapping: {
+    LOWER_DECK: [mappedSeatReservationLowerDeck],
+    UPPER_DECK: [mappedSeatReservationUpperDeck],
+  },
+  description: 'Toggle Seatreservatin decks',
+  options: ['UPPER_DECK', 'LOWER_DECK'],
+};
+
+const toggleArgs: Args = {
+  seatReservations: seatReservationToggleSelectType,
+};
+
+export const trainToggleDecks: StoryObj = {
+  render: Template,
+  argTypes: toggleArgs,
+  args: { seatReservations: 'LOWER_DECK' },
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {

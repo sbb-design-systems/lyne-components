@@ -31,7 +31,7 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
 
   /** state of the place, e.g. 'FREE', 'SELECTED', 'BLOCKED' */
   @forceType()
-  @property({ attribute: 'state' })
+  @property({ attribute: 'state', reflect: true })
   public accessor state: PlaceState = 'FREE';
 
   /** property ids of the place, to display more info about the place */
