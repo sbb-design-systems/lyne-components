@@ -783,7 +783,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   /**
    * checks if any places or graphical elements (e.g. toilet area, etc.) are overhanging the coach borders
-   * x-pos is x-pos * baseGridSize + dimension in px (e.g. 2*16(==>this.baseGridSize));
    * @param coachItemWidth
    * @param elements
    */
@@ -794,7 +793,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     return (
       elements?.some(
         (element) =>
-          element.position.x === 0 || element.position.x + element.dimension.w >= coachItemWidth,
+          element.position.x === 0 || element.position.x + element.dimension.w > coachItemWidth,
       ) ?? false
     );
   }
