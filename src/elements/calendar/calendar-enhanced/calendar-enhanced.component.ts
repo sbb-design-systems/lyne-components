@@ -69,7 +69,7 @@ class SbbCalendarEnhancedElement<T extends Date = Date> extends SbbCalendarBaseE
       active = (this.selected as T) ?? this.dateAdapter.today();
     }
     let firstFocusable =
-      this.querySelector('.sbb-calendar__selected') ??
+      this.querySelector(':state(selected)') ??
       this.querySelector(`[value="${this.dateAdapter.toIso8601(active)}"]`) ??
       this.querySelector(`[data-month="${this.dateAdapter.getMonth(active)}"]`) ??
       this.querySelector(`[data-year="${this.dateAdapter.getYear(active)}"]`);
@@ -97,7 +97,7 @@ class SbbCalendarEnhancedElement<T extends Date = Date> extends SbbCalendarBaseE
 
   // FIXME
   /** Creates the cells for the daily view. */
-  protected override createDayCells(week: Day<T>[], today: string): TemplateResult[] {
+  protected override createDayCells(week: Day<T>[], _: string): TemplateResult[] {
     return week.map((day: Day<T>) => {
       let selected: boolean;
       if (this.multiple) {
@@ -118,7 +118,7 @@ class SbbCalendarEnhancedElement<T extends Date = Date> extends SbbCalendarBaseE
         >
           <slot
             name=${day.value}
-            @slotchange=${(e: Event) => this._handleSlotChange(e, day, today)}
+            @slotchange=${(e: Event) => this._handleSlotChange(e, day)}
           ></slot>
         </td>
       `;
@@ -126,38 +126,12 @@ class SbbCalendarEnhancedElement<T extends Date = Date> extends SbbCalendarBaseE
   }
 
   // FIXME
-  private _handleSlotChange(e: Event, day: Day, today: string): void {
-    const isOutOfRange = !this.isDayInRange(day.value);
-    const isFilteredOut = !this.internalDateFilter(this.dateAdapter.deserialize(day.value)!);
-    const isToday = day.value === today;
-    let selected: boolean;
-    if (this.multiple) {
-      selected =
-        (this.selected as T[]).find(
-          (selDay: T) => this.dateAdapter.compareDate(day.dateValue, selDay) === 0,
-        ) !== undefined;
-    } else {
-      selected =
-        !!this.selected && this.dateAdapter.compareDate(day.dateValue, this.selected as T) === 0;
-    }
+  private _handleSlotChange(e: Event, day: Day): void {
     const calendarDay = (e.target as HTMLSlotElement)
       .assignedElements()
       .find((e): e is SbbCalendarDayElement => e.localName === 'sbb-calendar-day');
     if (calendarDay) {
-      calendarDay.type = 'button';
-      calendarDay.toggleAttribute('sbb-popover-close', true);
-      calendarDay.classList.add('sbb-calendar__cell');
-      calendarDay.classList.add('sbb-calendar__day');
-      calendarDay.classList.toggle('sbb-calendar__cell-current', isToday);
-      calendarDay.classList.toggle('sbb-calendar__selected', selected);
-      calendarDay.classList.toggle('sbb-calendar__crossed-out', !isOutOfRange && isFilteredOut);
-      calendarDay.tabIndex = -1;
-      calendarDay.disabled = isOutOfRange || isFilteredOut;
       calendarDay.value = day.value;
-      calendarDay.ariaLabel = this.dateAdapter.getAccessibilityFormatDate(day.value);
-      calendarDay.ariaPressed = String(selected);
-      calendarDay.ariaDisabled = String(isOutOfRange || isFilteredOut);
-      calendarDay.ariaCurrent = isToday ? 'date' : null;
       calendarDay.addEventListener('click', () => this.selectDate(day.dateValue));
       calendarDay.addEventListener('keydown', (evt: KeyboardEvent) =>
         this.handleKeyboardEvent(evt, day),
