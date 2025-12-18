@@ -699,7 +699,7 @@ describe(`sbb-autocomplete-grid`, () => {
     describe('interrupting opening and closing with non-zero animation duration', () => {
       beforeEach(() => {
         (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
-        element.style.setProperty('--sbb-options-panel-animation-duration', '10ms');
+        element.style.setProperty('--sbb-options-panel-animation-duration', '5ms');
       });
 
       it('should close autocomplete when closing during opening', async function (this: Context) {
