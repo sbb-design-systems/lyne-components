@@ -914,27 +914,16 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
   }
 
   /** Get the element in the calendar to assign focus. */
-  private _getFirstFocusable(): HTMLButtonElement {
-    let active: T;
-    if (this.multiple) {
-      active = (this._selected as T[])?.length
-        ? [...(this._selected as T[])].sort()[0]
-        : this._dateAdapter.today();
-    } else {
-      active = (this._selected as T) ?? this._dateAdapter.today();
-    }
-    let firstFocusable =
-      this.shadowRoot!.querySelector('.sbb-calendar__selected') ??
-      this.shadowRoot!.querySelector(`[value="${this._dateAdapter.toIso8601(active)}"]`) ??
-      this.shadowRoot!.querySelector(`[data-month="${this._dateAdapter.getMonth(active)}"]`) ??
-      this.shadowRoot!.querySelector(`[data-year="${this._dateAdapter.getYear(active)}"]`);
-    if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
-      firstFocusable =
-        this._calendarView === 'day'
-          ? this._getFirstFocusableDay()
-          : this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])');
-    }
-    return (firstFocusable as HTMLButtonElement) || null;
+  private _getFirstFocusable(): HTMLButtonElement | null {
+    const selectedOrCurrent =
+      this.shadowRoot!.querySelector<HTMLButtonElement>('.sbb-calendar__selected') ??
+      this.shadowRoot!.querySelector<HTMLButtonElement>('.sbb-calendar__cell-current');
+
+    return selectedOrCurrent && !selectedOrCurrent.disabled
+      ? selectedOrCurrent
+      : this._calendarView === 'day'
+        ? this._getFirstFocusableDay()
+        : this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])');
   }
 
   /**
