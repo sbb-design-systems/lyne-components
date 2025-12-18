@@ -799,6 +799,79 @@ describe(`sbb-autocomplete`, () => {
 
       expect(element).to.match(':state(options-panel-position-below)');
     });
+
+    describe('interrupting opening and closing with non-zero animation duration', () => {
+      beforeEach(() => {
+        (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+        element.style.setProperty('--sbb-options-panel-animation-duration', '5ms');
+      });
+
+      it('should close autocomplete when closing during opening', async () => {
+        const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+
+        element.open();
+        await aTimeout(1);
+        expect(element).to.match(':state(state-opening)');
+        element.close();
+
+        await closeSpy.calledOnce();
+        expect(element.isOpen).to.be.false;
+      });
+
+      it('should close autocomplete when closing during opening with Escape key', async () => {
+        const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+
+        element.open();
+        await aTimeout(1);
+        expect(element).to.match(':state(state-opening)');
+        await sendKeys({ press: 'Escape' });
+
+        await closeSpy.calledOnce();
+        expect(element.isOpen).to.be.false;
+      });
+
+      it('should close autocomplete when closing during opening with Tab key', async () => {
+        const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+
+        input.focus();
+        await aTimeout(1);
+        expect(element).to.match(':state(state-opening)');
+        await sendKeys({ press: tabKey });
+
+        await closeSpy.calledOnce();
+        expect(element.isOpen).to.be.false;
+      });
+
+      it('should open autocomplete again when opening during closing', async () => {
+        const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+
+        input.focus();
+        await openSpy.calledOnce();
+
+        element.close();
+        await aTimeout(1);
+        expect(element).to.match(':state(state-closing)');
+        element.open();
+
+        await openSpy.calledTimes(2);
+        expect(element.isOpen).to.be.true;
+      });
+
+      it('should open autocomplete again when opening during closing by arrow press on input', async () => {
+        const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+
+        input.focus();
+        await openSpy.calledOnce();
+
+        element.close();
+        await aTimeout(1);
+        expect(element).to.match(':state(state-closing)');
+        await sendKeys({ press: 'ArrowDown' });
+
+        await openSpy.calledTimes(2);
+        expect(element.isOpen).to.be.true;
+      });
+    });
   });
 
   describe('trigger connection', () => {
