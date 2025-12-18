@@ -6,6 +6,7 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
+import '../../icon.ts';
 import './tab-nav-bar.component.ts';
 
 const size: InputType = {
@@ -25,15 +26,61 @@ const defaultArgs: Args = {
 
 const Template = (args: Args): TemplateResult => html`
   <sbb-tab-nav-bar ${sbbSpread(args)}>
-    <a href="javascript:void(0);" class="sbb-active">Nav item 1</a>
-    <a href="javascript:void(0);">Nav item 2</a>
+    <a href="https://www.sbb.ch" class="sbb-active">Nav item 1</a>
+    <a href="https://www.sbb.ch">Nav item 2</a>
     <a class="sbb-disabled" aria-disabled="true">Nav item 3</a>
-    <a href="javascript:void(0);">Nav item 4</a>
+    <a href="https://www.sbb.ch">Nav item 4</a>
+  </sbb-tab-nav-bar>
+`;
+
+const withIconTemplate = (args: Args): TemplateResult => html`
+  <sbb-tab-nav-bar ${sbbSpread(args)}>
+    <a href="https://www.sbb.ch" class="sbb-active">
+      <sbb-icon name="app-icon-small"></sbb-icon>
+      Nav item 1</a
+    >
+    <a href="https://www.sbb.ch">
+      <sbb-icon name="user-small"></sbb-icon>
+      Nav item 2</a
+    >
+    <a class="sbb-disabled" aria-disabled="true">
+      <sbb-icon name="circle-information-small"></sbb-icon>
+      Nav item 3</a
+    >
+    <a href="https://www.sbb.ch">
+      <sbb-icon name="pie-small"></sbb-icon>
+      Nav item 4</a
+    >
+  </sbb-tab-nav-bar>
+`;
+
+const withAmountTemplate = (args: Args): TemplateResult => html`
+  <sbb-tab-nav-bar ${sbbSpread(args)}>
+    <a href="https://www.sbb.ch" class="sbb-active"
+      >Nav item 1 <span class="sbb-tab-amount">42</span></a
+    >
+    <a href="https://www.sbb.ch">Nav item 2 <span class="sbb-tab-amount">42</span></a>
+    <a class="sbb-disabled" aria-disabled="true"
+      >Nav item 3 <span class="sbb-tab-amount">42</span></a
+    >
+    <a href="https://www.sbb.ch">Nav item 4 <span class="sbb-tab-amount">42</span></a>
   </sbb-tab-nav-bar>
 `;
 
 export const Default: StoryObj = {
   render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const WithIcon: StoryObj = {
+  render: withIconTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const WithAmount: StoryObj = {
+  render: withAmountTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
