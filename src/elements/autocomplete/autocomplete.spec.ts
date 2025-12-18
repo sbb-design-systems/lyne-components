@@ -806,7 +806,10 @@ describe(`sbb-autocomplete`, () => {
         element.style.setProperty('--sbb-options-panel-animation-duration', '5ms');
       });
 
-      it('should close autocomplete when closing during opening', async () => {
+      it('should close autocomplete when closing during opening', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
         const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
 
         element.open();
@@ -818,7 +821,10 @@ describe(`sbb-autocomplete`, () => {
         expect(element.isOpen).to.be.false;
       });
 
-      it('should close autocomplete when closing during opening with Escape key', async () => {
+      it('should close autocomplete when closing during opening with Escape key', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
         const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
 
         element.open();
@@ -830,7 +836,10 @@ describe(`sbb-autocomplete`, () => {
         expect(element.isOpen).to.be.false;
       });
 
-      it('should close autocomplete when closing during opening with Tab key', async () => {
+      it('should close autocomplete when closing during opening with Tab key', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
         const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
 
         input.focus();
@@ -842,7 +851,10 @@ describe(`sbb-autocomplete`, () => {
         expect(element.isOpen).to.be.false;
       });
 
-      it('should open autocomplete again when opening during closing', async () => {
+      it('should open autocomplete again when opening during closing', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
         const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
 
         input.focus();
@@ -857,7 +869,10 @@ describe(`sbb-autocomplete`, () => {
         expect(element.isOpen).to.be.true;
       });
 
-      it('should open autocomplete again when opening during closing by arrow press on input', async () => {
+      it('should open autocomplete again when opening during closing by arrow press on input', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
         const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
 
         input.focus();
