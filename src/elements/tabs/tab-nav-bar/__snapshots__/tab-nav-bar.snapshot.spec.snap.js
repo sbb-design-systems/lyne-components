@@ -5,11 +5,11 @@ snapshots["sbb-tab-nav-bar renders DOM"] =
 `<sbb-tab-nav-bar size="l">
   <a
     class="sbb-active"
-    href="javascript:void(0);"
+    href="#"
   >
     Nav item 1
   </a>
-  <a href="javascript:void(0);">
+  <a href="#">
     Nav item 2
   </a>
   <a
@@ -61,12 +61,12 @@ snapshots["sbb-tab-nav-bar renders A11y tree Firefox"] =
     {
       "role": "link",
       "name": "Nav item 1",
-      "value": "javascript:void(0);"
+      "value": "http://localhost:8000/?wtr-session-id=TI4JtgqCpuJQiYomOjPJI#"
     },
     {
       "role": "link",
       "name": "Nav item 2",
-      "value": "javascript:void(0);"
+      "value": "http://localhost:8000/?wtr-session-id=TI4JtgqCpuJQiYomOjPJI#"
     },
     {
       "role": "text leaf",
