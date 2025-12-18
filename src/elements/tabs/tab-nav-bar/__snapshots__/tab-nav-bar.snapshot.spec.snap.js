@@ -5,11 +5,11 @@ snapshots["sbb-tab-nav-bar renders DOM"] =
 `<sbb-tab-nav-bar size="l">
   <a
     class="sbb-active"
-    href="#"
+    href="https://www.sbb.ch"
   >
     Nav item 1
   </a>
-  <a href="#">
+  <a href="https://www.sbb.ch">
     Nav item 2
   </a>
   <a
@@ -61,12 +61,12 @@ snapshots["sbb-tab-nav-bar renders A11y tree Firefox"] =
     {
       "role": "link",
       "name": "Nav item 1",
-      "value": "http://localhost:8000/?wtr-session-id=TI4JtgqCpuJQiYomOjPJI#"
+      "value": "https://www.sbb.ch/"
     },
     {
       "role": "link",
       "name": "Nav item 2",
-      "value": "http://localhost:8000/?wtr-session-id=TI4JtgqCpuJQiYomOjPJI#"
+      "value": "https://www.sbb.ch/"
     },
     {
       "role": "text leaf",

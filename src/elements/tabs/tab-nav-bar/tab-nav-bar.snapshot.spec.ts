@@ -13,8 +13,8 @@ describe(`sbb-tab-nav-bar`, () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-tab-nav-bar>
-          <a href="#" class="sbb-active">Nav item 1</a>
-          <a href="#">Nav item 2</a>
+          <a href="https://www.sbb.ch" class="sbb-active">Nav item 1</a>
+          <a href="https://www.sbb.ch">Nav item 2</a>
           <a class="sbb-disabled" aria-disabled="true">Nav item 3</a>
         </sbb-tab-nav-bar>`,
       );
