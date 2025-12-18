@@ -297,7 +297,16 @@ export class SeatReservationBaseElement extends LitElement {
         const coachWidth = this.getCalculatedDimension(coach.dimension).w;
 
         // Calculation of the end scroll trigger position of a coach, including the gap between the coaches
-        currCalcTriggerPos += coachWidth + this.gapBetweenCoaches;
+        // The gap is maybe adjusted if overhanging places or graphics exist
+        const currentCoachOverhangingInfo = this.overHangingElementInformation.find(
+          (e) => e.coachId === coach.id,
+        );
+        const overhangingElementsPresent =
+          currentCoachOverhangingInfo?.overhangingPlaces ||
+          currentCoachOverhangingInfo?.overhangingGraphicAreas;
+        currCalcTriggerPos +=
+          coachWidth +
+          (!overhangingElementsPresent ? this.gapBetweenCoaches : 2 * this.gapBetweenCoaches);
 
         return {
           start: startPosX,
