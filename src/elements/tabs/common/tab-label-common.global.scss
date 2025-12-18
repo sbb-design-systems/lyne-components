@@ -1,13 +1,13 @@
-@use '../../core/styles' as sbb;
+@use '../../core/styles/index' as sbb;
 
 $theme: 'standard' !default;
 
+// These variables are shared within the `sbb-tab-label` and the `sbb-tab-nav-bar`.
 @mixin base {
-  // TODO: these variables are shared with the tab-label component. They should be merged once the css refactoring happen.
   --sbb-tab-label-height: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-text-font-size-m),
-        'lean': var(--sbb-text-font-size-xs),
+        'standard': var(--sbb-size-element-m),
+        'lean': var(--sbb-size-element-xs),
       ),
       $theme
     )};

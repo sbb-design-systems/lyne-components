@@ -1,4 +1,4 @@
-@use '../../core/styles/index' as sbb;
+@use '../../core/styles' as sbb;
 
 :host {
   --sbb-tab-label-animation-duration: var(
@@ -24,6 +24,8 @@
 }
 
 :host([size='xl']) {
+  --sbb-tab-label-height: var(--sbb-size-element-m);
+  --sbb-tab-label-inline-padding: var(--sbb-spacing-responsive-xs);
   --sbb-tab-label-font-size: var(--sbb-text-font-size-xl);
   --sbb-tab-label-amount-font-size: var(--sbb-text-font-size-xl);
 }
