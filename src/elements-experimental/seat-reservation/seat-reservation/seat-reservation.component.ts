@@ -316,8 +316,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       <sbb-seat-reservation-graphic
         class="${classMap({
           'sbb-sr-coach-has-overhanging-elements':
-            !currentCoachOverlappingInfo?.overhangingPlaces ||
-            !currentCoachOverlappingInfo?.overhangingGraphicAreas,
+            currentCoachOverlappingInfo?.overhangingPlaces ||
+            currentCoachOverlappingInfo?.overhangingGraphicAreas ||
+            false,
         })}"
         style=${styleMap({
           '--sbb-seat-reservation-graphic-width': borderWidth,
