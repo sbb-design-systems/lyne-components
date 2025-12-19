@@ -130,7 +130,7 @@
     "react": "19.2.3",
     "rollup-plugin-postcss-lit": "2.2.0",
     "sass": "1.97.0",
-    "sinon": "21.0.0",
+    "sinon": "21.0.1",
     "storybook": "10.1.10",
     "stylelint": "16.26.1",
     "stylelint-config-prettier-scss": "1.0.0",
