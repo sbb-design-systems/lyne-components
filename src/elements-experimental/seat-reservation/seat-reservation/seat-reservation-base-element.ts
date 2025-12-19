@@ -172,7 +172,7 @@ export class SeatReservationBaseElement extends LitElement {
       this.hasMultipleDecks = this.seatReservations?.length > 1;
 
       this._initPrepareSeatReservationData();
-      this.prepareCoachWidthAndGapCalculations();
+      this._prepareCoachWidthAndGapCalculations();
       this._initSeatReservationPlaceSelection();
       this.initNavigationSelectionByScrollEvent();
     }
@@ -1521,7 +1521,7 @@ export class SeatReservationBaseElement extends LitElement {
     return shrunkPropertyIds ? shrunkPropertyIds : [];
   };
 
-  protected prepareCoachWidthAndGapCalculations(): void {
+  private _prepareCoachWidthAndGapCalculations(): void {
     const coachItems: CoachItem[] =
       this.seatReservations[this.seatReservations.length - 1]?.coachItems;
 
