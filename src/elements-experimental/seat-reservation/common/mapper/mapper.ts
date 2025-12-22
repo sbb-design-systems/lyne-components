@@ -1,4 +1,5 @@
 import type {
+  CoachDeckLevel,
   CoachItem,
   CoachNumberOfFreePlaces,
   Place,
@@ -10,13 +11,45 @@ import type {
   VehicleType,
 } from '../types.ts';
 
-import { MOCK_COACHES_RAW_0, MOCK_COACHES_RAW_1 } from './seat-reservation-sample-data.ts';
+import {
+  MOCK_COACHE_RAW_DECK_LOWER,
+  MOCK_COACHE_RAW_DECK_UPPPER,
+  MOCK_COACHES_RAW_0,
+  MOCK_COACHES_RAW_1,
+} from './seat-reservation-sample-data.ts';
+
+/**
+ * Handle mock data based on vehicle type or coach deck level
+ * @param vehicleType
+ * @param coachDeckLevel
+ * @returns
+ */
+function getMockData(
+  vehicleType: VehicleType | null,
+  coachDeckLevel: CoachDeckLevel | null,
+): any[] {
+  if (vehicleType !== null) {
+    return vehicleType === 'TRAIN' ? MOCK_COACHES_RAW_0 : MOCK_COACHES_RAW_1;
+  } else {
+    if (coachDeckLevel === 'LOWER_DECK') {
+      return MOCK_COACHE_RAW_DECK_LOWER;
+    } else if (coachDeckLevel === 'UPPER_DECK') {
+      return MOCK_COACHE_RAW_DECK_UPPPER;
+    }
+  }
+  return MOCK_COACHES_RAW_0;
+}
 
 /**
  * Map function that converts the RAW OSDM mock data into SeatReservation
  */
-export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReservation => {
-  const MOCK_DATA = vehicleType === 'TRAIN' ? MOCK_COACHES_RAW_0 : MOCK_COACHES_RAW_1;
+export const mapRawDataToSeatReservation = (
+  vehicleType: VehicleType | null,
+  coachDeckLevel: CoachDeckLevel | null = null,
+): SeatReservation => {
+  const MOCK_DATA = getMockData(vehicleType, coachDeckLevel);
+  const deckCoachLevelIndex = coachDeckLevel === 'LOWER_DECK' ? 1 : 0;
+
   const coachsArr = MOCK_DATA.map((coachDeckLayout) => {
     const coachLayout = coachDeckLayout?.coachDeckLayout;
     const coachTravelClasses: PlaceTravelClass[] = [];
@@ -52,7 +85,7 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
       })
       .flat();
 
-    const signs = coachLayout.serviceIcons.map((serviceIcon) => {
+    const signs = coachLayout.serviceIcons.map((serviceIcon: any) => {
       return {
         icon: serviceIcon.type,
         position: {
@@ -67,7 +100,7 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
       };
     });
 
-    const graphicalElements = coachLayout.graphicElements.map((element) => {
+    const graphicalElements = coachLayout.graphicElements.map((element: any) => {
       return {
         icon: element?.type,
         position: {
@@ -93,8 +126,8 @@ export const mapRawDataToSeatReservation = (vehicleType: VehicleType): SeatReser
   });
 
   return {
-    vehicleType: vehicleType,
-    deckCoachIndex: 0,
+    vehicleType: vehicleType || 'TRAIN',
+    deckCoachIndex: deckCoachLevelIndex,
     deckCoachLevel: 'SINGLE_DECK',
     coachItems: coachsArr,
   };
