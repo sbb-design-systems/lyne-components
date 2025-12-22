@@ -1244,6 +1244,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
       this._dateAdapter.today();
     this._setChosenYear();
     this._chosenMonth = undefined;
+    this._init();
     this._nextCalendarView = this._calendarView = this.view;
 
     if (initTransition) {
