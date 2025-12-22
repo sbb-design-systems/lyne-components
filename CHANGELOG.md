@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.3](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.2...v4.0.3) (2025-12-22)
+
+
+### Bug Fixes
+
+* **sbb-autocomplete:** avoid focusing inside autocomplete panel ([#4303](https://github.com/sbb-design-systems/lyne-components/issues/4303)) ([7d5e1da](https://github.com/sbb-design-systems/lyne-components/commit/7d5e1da55f6491052463dc8fe7603ff358e54a0d)), closes [#4291](https://github.com/sbb-design-systems/lyne-components/issues/4291)
+* **sbb-calendar:** avoid inconsistent label when aborting selection ([#4311](https://github.com/sbb-design-systems/lyne-components/issues/4311)) ([5033e94](https://github.com/sbb-design-systems/lyne-components/commit/5033e947847781758992447cae4769526563f743))
+* **sbb-calendar:** fix calendar focus behavior ([#4307](https://github.com/sbb-design-systems/lyne-components/issues/4307)) ([da58c21](https://github.com/sbb-design-systems/lyne-components/commit/da58c21b24ae7c4f44e6343adc76542cb0443075)), closes [#4288](https://github.com/sbb-design-systems/lyne-components/issues/4288)
+* **sbb-notification:** fix inner border radius ([#4312](https://github.com/sbb-design-systems/lyne-components/issues/4312)) ([6b83a1a](https://github.com/sbb-design-systems/lyne-components/commit/6b83a1a981032a02c3a12b633333bebba08b095e)), closes [#4310](https://github.com/sbb-design-systems/lyne-components/issues/4310)
+* **sbb-seat-reservation:** fix incorrect place status when change coach deck ([#4305](https://github.com/sbb-design-systems/lyne-components/issues/4305)) ([cbf81e3](https://github.com/sbb-design-systems/lyne-components/commit/cbf81e3dd3650140c681d50b87e4f86c2c61f841))
+
+
+### Documentation
+
+* **sbb-form-field:** remove Angular custom form field example ([#4314](https://github.com/sbb-design-systems/lyne-components/issues/4314)) ([4ddfec3](https://github.com/sbb-design-systems/lyne-components/commit/4ddfec371735cdc5bcf173cefb459dc3d565c7ba))
+
+
+### Code Refactoring
+
+* avoid SASS warnings by using new SASS/CSS `if` condition ([#4285](https://github.com/sbb-design-systems/lyne-components/issues/4285)) ([7f2e630](https://github.com/sbb-design-systems/lyne-components/commit/7f2e6308a1dcead21dd150adc5ec05f84628b62b))
+
 ## [3.13.6](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.5...v3.13.6) (2025-12-22)
 
 
