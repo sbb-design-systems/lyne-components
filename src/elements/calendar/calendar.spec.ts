@@ -254,6 +254,49 @@ describe(`sbb-calendar`, () => {
 
       const dayCells = Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__day'));
       expect(dayCells.length).to.be.equal(31);
+      expect((dayCells[0] as HTMLButtonElement).value).to.be.equal('2023-01-01');
+    });
+
+    it('reset view if day is not selected when year/month are changed', async () => {
+      // We move from Dec 2023 to Sep 2030
+      const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(
+        '.sbb-calendar__date-selection',
+      )!;
+      expect(yearSelectionButton).not.to.be.null;
+      yearSelectionButton.click();
+      await waitForTransition();
+
+      const yearButton: HTMLButtonElement =
+        element.shadowRoot!.querySelector<HTMLButtonElement>('[data-year="2030"]')!;
+      expect(yearButton).not.to.be.null;
+      yearButton.click();
+      await waitForTransition();
+
+      const monthCells: HTMLElement[] = Array.from(
+        element.shadowRoot!.querySelectorAll('.sbb-calendar__table-month'),
+      );
+      expect(monthCells.length).to.be.equal(12);
+      monthCells[8].querySelector('button')!.click();
+      await waitForLitRender(element);
+      await waitForTransition();
+
+      const dayCells = Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__day'));
+      expect(dayCells.length).to.be.equal(30);
+      expect((dayCells[0] as HTMLButtonElement).value).to.be.equal('2030-09-01');
+
+      // Without selecting a day, change to the year view
+      yearSelectionButton.click();
+      await waitForTransition();
+      // Go back to day view again by clicking once more
+      const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
+        '#sbb-calendar__year-selection',
+      )!;
+      monthSelection.click();
+      await waitForTransition();
+      // We expect to be in the month of the selected day (Dec 2023)
+      const dayCells2 = Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__day'));
+      expect(dayCells2.length).to.be.equal(31);
+      expect((dayCells2[0] as HTMLButtonElement).value).to.be.equal('2023-01-01');
     });
 
     describe('focusing', () => {
