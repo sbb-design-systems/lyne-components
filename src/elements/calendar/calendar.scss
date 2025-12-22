@@ -120,6 +120,12 @@
   --sbb-calendar-table-column-spaces: 6;
 }
 
+.sbb-calendar__table-overflow-break {
+  // We have to cut the negative margin which is built by the containing sbb-calendar__table-container.
+  // Overflow: hidden would cut the focus outline. Therefore we take `contain` here.
+  contain: layout;
+}
+
 .sbb-calendar__table-container {
   display: flex;
   gap: var(--sbb-calendar-tables-gap);
