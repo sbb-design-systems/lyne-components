@@ -161,7 +161,8 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   /** Opens the autocomplete. */
   public open(): void {
     if (
-      this.state !== 'closed' ||
+      this.state === 'opening' ||
+      this.state === 'opened' ||
       !this._overlay ||
       this.options.length === 0 ||
       this._readonly()
@@ -183,6 +184,8 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     }
     this._setOverlayPosition(originElement);
     this._setNextActiveOptionIfAutoActiveFirstOption();
+    this._attachOpenPanelEvents();
+    this._escapableOverlayController.connect();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -193,7 +196,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
   /** Closes the autocomplete. */
   public close(): void {
-    if (this.state !== 'opened' || !this.dispatchBeforeCloseEvent()) {
+    if (this.state === 'closing' || this.state === 'closed' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
@@ -464,12 +467,10 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this._attachOpenPanelEvents();
     if (this.originElement) {
       this._originResizeObserver.observe(this.originElement);
     }
     this.triggerElement?.setAttribute('aria-expanded', 'true');
-    this._escapableOverlayController.connect();
     this.dispatchOpenEvent();
   }
 
@@ -477,6 +478,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.state = 'closed';
     this.hidePopover?.();
     this.triggerElement?.setAttribute('aria-expanded', 'false');
+
     // Clears the input if there's user interaction without selection (selection clears `_lastUserInput`).
     if (this.requireSelection && this.triggerElement && this._lastUserInput) {
       const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
@@ -558,7 +560,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   };
 
   private _closedPanelKeyboardInteraction(event: KeyboardEvent): void {
-    if (this.state !== 'closed') {
+    if (this.state === 'opening' || this.state === 'opened') {
       return;
     }
 
@@ -580,6 +582,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   }
 
   protected override render(): TemplateResult {
+    // Scroll areas without containing an interactive element will receive focus when tabbing through the document.
+    // If there are a lot of options and when pressing tab key, the scroll area on sbb-autocomplete__options gets focus.
+    // As elements inside the panel should never get focus, we have to avoid that by setting tabindex=-1.
     return html`
       <div class="sbb-autocomplete__gap-fix"></div>
       <div class="sbb-autocomplete__container">
@@ -595,6 +600,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
               class="sbb-autocomplete__options"
               role=${!ariaRoleOnHost ? this.panelRole : nothing}
               id=${!ariaRoleOnHost ? this.overlayId : nothing}
+              tabindex="-1"
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
               <slot @slotchange=${this._handleSlotchange}></slot>
