@@ -47,23 +47,19 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
   }
 
   protected openedPanelKeyboardInteraction(event: KeyboardEvent): void {
-    if (this.state !== 'opened') {
-      return;
-    }
+    if ((this.state === 'opening' || this.state === 'opened') && event.key === 'Tab') {
+      this.close();
+    } else if (this.isOpen) {
+      switch (event.key) {
+        case 'Enter':
+          this.selectByKeyboard(event);
+          break;
 
-    switch (event.key) {
-      case 'Tab':
-        this.close();
-        break;
-
-      case 'Enter':
-        this.selectByKeyboard(event);
-        break;
-
-      case 'ArrowDown':
-      case 'ArrowUp':
-        this.setNextActiveOption(event);
-        break;
+        case 'ArrowDown':
+        case 'ArrowUp':
+          this.setNextActiveOption(event);
+          break;
+      }
     }
   }
 
