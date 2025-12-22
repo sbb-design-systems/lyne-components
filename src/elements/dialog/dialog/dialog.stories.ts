@@ -26,7 +26,6 @@ import '../dialog-actions.ts';
 import '../dialog-close-button.ts';
 import '../dialog-content.ts';
 import '../dialog-title.ts';
-import '../../calendar/calendar.component.ts';
 
 const loremIpsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -143,7 +142,16 @@ const DefaultTemplate = ({ level, includeCloseButton, ...args }: Args): Template
     ${dialogTitle(level)}
     ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
     <sbb-dialog-content>
-      <sbb-calendar style="width:100%"></sbb-calendar>
+      <p style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); margin: 0;">
+        Dialog content
+        <sbb-mini-button
+          icon-name="circle-information-small"
+          id="popover-trigger"
+        ></sbb-mini-button>
+      </p>
+      <sbb-popover trigger="popover-trigger">
+        <p style="margin: 0" class="sbb-text-s">Some content.</p>
+      </sbb-popover>
     </sbb-dialog-content>
     ${dialogActions(args.negative, includeCloseButton)}
   </sbb-dialog>
