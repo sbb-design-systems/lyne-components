@@ -128,6 +128,13 @@
   .sbb-gap-fix-wrapper {
     position: relative;
     overflow: hidden;
+
+    // In Safari there is a bug where overflow: hidden doesn't have the required effect.
+    // Overflow: auto helps here.
+    @supports (font: -apple-system-body) {
+      overflow: auto;
+    }
+
     width: $radius;
     height: $radius;
     background-color: transparent;

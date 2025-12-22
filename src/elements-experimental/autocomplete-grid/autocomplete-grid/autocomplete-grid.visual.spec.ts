@@ -359,5 +359,15 @@ describe('sbb-autocomplete-grid', () => {
         setup.withPostSetupAction(() => openAutocomplete(setup));
       }),
     );
+
+    it(
+      'custom background gap fix',
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(template(defaultArgs));
+        setup.snapshotElement.style.backgroundColor = 'red';
+
+        setup.withPostSetupAction(() => openAutocomplete(setup));
+      }),
+    );
   });
 });
