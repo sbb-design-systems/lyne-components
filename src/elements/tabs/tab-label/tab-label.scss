@@ -89,10 +89,7 @@
       display: block;
       inset: 0;
       z-index: 1;
-
-      // The desired border radius is --sbb-border-radius-2x.
-      // We have to subtract --sbb-focus-outline-offset in order have the desired visual border radius.
-      border-radius: calc(var(--sbb-border-radius-2x) - var(--sbb-focus-outline-offset));
+      border-radius: var(--sbb-tab-label-outline-border-radius);
     }
   }
 }
@@ -104,7 +101,7 @@
   display: flex;
   align-items: center;
   padding-inline: var(--sbb-tab-label-inline-padding);
-  gap: var(--sbb-spacing-fixed-2x);
+  gap: var(--sbb-tab-label-gap);
   user-select: none;
   cursor: var(--sbb-tab-label-cursor);
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
@@ -159,6 +156,7 @@
   color: var(--sbb-tab-label-color);
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
   font-size: var(--sbb-tab-label-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   font-weight: var(--sbb-tab-label-font-weight);
 
   @include sbb.ellipsis;
@@ -173,6 +171,7 @@
   color: var(--sbb-tab-label-amount-color);
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
   font-size: var(--sbb-tab-label-amount-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   font-weight: var(--sbb-tab-label-amount-font-weight);
 
   :host(:not(:state(slotted-amount), [amount])) & {

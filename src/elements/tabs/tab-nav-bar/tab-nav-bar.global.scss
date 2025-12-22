@@ -1,0 +1,14 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin tab-nav-bar-amount {
+  sbb-tab-nav-bar .sbb-tab-amount {
+    color: var(--sbb-tab-label-amount-color);
+    font-size: var(--sbb-tab-label-amount-font-size);
+    letter-spacing: var(--sbb-typo-letter-spacing-text);
+    font-weight: var(--sbb-tab-label-amount-font-weight);
+    text-decoration: var(--sbb-tab-label-text-decoration);
+    transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
+  }
+}

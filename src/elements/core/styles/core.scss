@@ -51,6 +51,9 @@ $theme: 'standard' !default;
 @use '../../tabs/tab-label/tab-label.global' as tab-label with (
   $theme: $theme
 );
+@use '../../tabs/tab-nav-bar/tab-nav-bar.global' as tab-nav-bar with (
+  $theme: $theme
+);
 @use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
   $theme: $theme
 );
@@ -176,6 +179,9 @@ $theme: 'standard' !default;
 }
 
 @include font-face.font-declarations;
+
+// Components global styles
+@include tab-nav-bar.tab-nav-bar-amount;
 
 // TODO: discuss where to add these classes
 .sbb-dark {
@@ -749,12 +755,4 @@ sbb-mini-calendar[orientation='vertical'] {
       grid-row-start: var(--sbb-mini-calendar-month-offset);
     }
   }
-}
-
-sbb-tab-nav-bar .sbb-tab-amount {
-  color: var(--sbb-tab-label-amount-color);
-  font-size: var(--sbb-tab-label-amount-font-size);
-  font-weight: var(--sbb-tab-label-amount-font-weight);
-  text-decoration: var(--sbb-tab-label-text-decoration);
-  transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
 }
