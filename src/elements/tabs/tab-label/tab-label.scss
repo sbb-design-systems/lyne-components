@@ -1,11 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-tab-label-animation-duration: var(
-    --sbb-disable-animation-duration,
-    var(--sbb-animation-duration-2x)
-  );
-
   display: inline-block;
   max-width: 100%;
   pointer-events: var(--sbb-tab-label-pointer-events, unset);
@@ -19,27 +14,6 @@
     --sbb-tab-label-color: ButtonText;
     --sbb-tab-label-amount-color: ButtonText;
   }
-}
-
-:host(:state(size-s)) {
-  --sbb-tab-label-height: var(--sbb-size-element-xs);
-  --sbb-tab-label-inline-padding: var(--sbb-spacing-responsive-xxxs);
-  --sbb-tab-label-font-size: var(--sbb-text-font-size-s);
-  --sbb-tab-label-amount-font-size: var(--sbb-text-font-size-s);
-}
-
-:host(:state(size-l)) {
-  --sbb-tab-label-height: var(--sbb-size-element-m);
-  --sbb-tab-label-inline-padding: var(--sbb-spacing-responsive-xs);
-  --sbb-tab-label-font-size: var(--sbb-text-font-size-m);
-  --sbb-tab-label-amount-font-size: var(--sbb-text-font-size-m);
-}
-
-:host(:state(size-xl)) {
-  --sbb-tab-label-height: var(--sbb-size-element-m);
-  --sbb-tab-label-inline-padding: var(--sbb-spacing-responsive-xs);
-  --sbb-tab-label-font-size: var(--sbb-text-font-size-xl);
-  --sbb-tab-label-amount-font-size: var(--sbb-text-font-size-xl);
 }
 
 :host([disabled]) {

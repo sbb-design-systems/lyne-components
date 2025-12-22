@@ -1,33 +1,7 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-tab-label-animation-duration: var(
-    --sbb-disable-animation-duration,
-    var(--sbb-animation-duration-2x)
-  );
-
   display: flex;
-}
-
-:host([size='s']) {
-  --sbb-tab-label-height: var(--sbb-size-element-xs);
-  --sbb-tab-label-inline-padding: var(--sbb-spacing-responsive-xxxs);
-  --sbb-tab-label-font-size: var(--sbb-text-font-size-s);
-  --sbb-tab-label-amount-font-size: var(--sbb-text-font-size-s);
-}
-
-:host([size='l']) {
-  --sbb-tab-label-height: var(--sbb-size-element-m);
-  --sbb-tab-label-inline-padding: var(--sbb-spacing-responsive-xs);
-  --sbb-tab-label-font-size: var(--sbb-text-font-size-m);
-  --sbb-tab-label-amount-font-size: var(--sbb-text-font-size-m);
-}
-
-:host([size='xl']) {
-  --sbb-tab-label-height: var(--sbb-size-element-m);
-  --sbb-tab-label-inline-padding: var(--sbb-spacing-responsive-xs);
-  --sbb-tab-label-font-size: var(--sbb-text-font-size-xl);
-  --sbb-tab-label-amount-font-size: var(--sbb-text-font-size-xl);
 }
 
 ::slotted(a) {

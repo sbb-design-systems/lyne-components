@@ -9,6 +9,7 @@ import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.ts
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 import type { SbbTitleLevel } from '../../title.ts';
+import { tabLabelCommonStyles } from '../common.ts';
 import type { SbbTabElement } from '../tab/tab.component.ts';
 import type { SbbTabChangedEventDetails, SbbTabGroupElement } from '../tab-group.ts';
 
@@ -27,7 +28,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
   SbbIconNameMixin(SbbElementInternalsMixin(LitElement)),
 ) {
   public static override role = 'tab';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, tabLabelCommonStyles, style];
 
   /** Whether the tab is selected. */
   private _selected: boolean = false;
