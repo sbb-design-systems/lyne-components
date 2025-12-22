@@ -31,12 +31,7 @@ $theme: 'standard' !default;
     )};
   --sbb-tab-label-font-weight: bold;
   --sbb-tab-label-gap: var(--sbb-spacing-fixed-2x);
-
-  // The desired border radius is --sbb-border-radius-2x.
-  // We have to subtract --sbb-focus-outline-offset in order have the desired visual border radius.
-  --sbb-tab-label-outline-border-radius: calc(
-    var(--sbb-border-radius-2x) - var(--sbb-focus-outline-offset)
-  );
+  --sbb-tab-label-outline-border-radius: var(--sbb-border-radius-2x);
   --sbb-tab-label-amount-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-tab-label-amount-font-size: #{sbb.theme-pattern-select(
       (

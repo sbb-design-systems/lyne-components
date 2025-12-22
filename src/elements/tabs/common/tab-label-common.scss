@@ -3,6 +3,12 @@
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
+
+  // The desired border radius is --sbb-border-radius-2x.
+  // We have to subtract --sbb-focus-outline-offset in order have the desired visual border radius.
+  --sbb-tab-label-outline-border-radius-internal: calc(
+    var(--sbb-tab-label-outline-border-radius) - var(--sbb-focus-outline-offset)
+  );
 }
 
 :host(:is(:state(size-s), [size='s'])) {
