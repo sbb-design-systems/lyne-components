@@ -218,7 +218,7 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     this.label = labelNodes
       .map((l) => l.wholeText)
       .filter((l) => l.trim())
-      .join();
+      .join('');
   }
 
   protected getHighlightedLabel(): TemplateResult {
