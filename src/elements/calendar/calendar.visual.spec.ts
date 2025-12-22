@@ -2,7 +2,9 @@ import { html, nothing } from 'lit';
 import { stub, type SinonStub } from 'sinon';
 
 import { defaultDateAdapter } from '../core/datetime.js';
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.js';
+
+import type { SbbCalendarElement } from './calendar.component.js';
 
 import './calendar.component.js';
 
