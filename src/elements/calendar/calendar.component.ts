@@ -11,7 +11,7 @@ import {
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
-import { isArrowKeyOrPageKeysPressed, sbbInputModalityDetector } from '../core/a11y.js';
+import { isArrowKeyOrPageKeysPressed } from '../core/a11y.js';
 import { readConfig } from '../core/config.js';
 import {
   SbbLanguageController,
@@ -271,6 +271,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   /** Whether the focus should be reset on focusCell. */
   private _resetFocus = false;
 
+  /** Whether an element inside the calendar is currently focused. */
+  private _containingFocus = false;
+
   @state()
   private accessor _initialized = false;
 
@@ -286,6 +289,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     super();
     this._createMonthRows();
     this._setWeekdays();
+
+    // We need to track the focus as we should only take focus into the calendar, when the
+    // focus was once set into the calendar.
+    // For shadow DOM compatibility we need to track this programmatically.
+    this.addEventListener('focusin', () => (this._containingFocus = true));
+    this.addEventListener('focusout', () => (this._containingFocus = false));
   }
 
   private _dateFilter(date: T): boolean {
@@ -332,12 +341,10 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     // The calendar needs to calculate tab-indexes on first render,
     // and every time a date is selected or the month view changes.
     this._setTabIndex();
-    // When changing view to year/month, the tabindex is changed, but the focused element is not,
-    // so if the navigation is done via keyboard, there's the need
-    // to call the `_focusCell()` method explicitly to correctly set the focus.
-    if (sbbInputModalityDetector.mostRecentModality === 'keyboard') {
-      this._focusCell();
-    }
+
+    // When changing view to year/month, the tabindex is changed, but the focused element is getting lost.
+    // We need to call `_focusCell()` method explicitly to correctly set the focus.
+    this._focusCell();
   }
 
   /**
@@ -903,27 +910,16 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   /** Get the element in the calendar to assign focus. */
-  private _getFirstFocusable(): HTMLButtonElement {
-    let active: T;
-    if (this.multiple) {
-      active = (this._selected as T[])?.length
-        ? [...(this._selected as T[])].sort()[0]
-        : this._dateAdapter.today();
-    } else {
-      active = (this._selected as T) ?? this._dateAdapter.today();
-    }
-    let firstFocusable =
-      this.shadowRoot!.querySelector('.sbb-calendar__selected') ??
-      this.shadowRoot!.querySelector(`[value="${this._dateAdapter.toIso8601(active)}"]`) ??
-      this.shadowRoot!.querySelector(`[data-month="${this._dateAdapter.getMonth(active)}"]`) ??
-      this.shadowRoot!.querySelector(`[data-year="${this._dateAdapter.getYear(active)}"]`);
-    if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
-      firstFocusable =
-        this._calendarView === 'day'
-          ? this._getFirstFocusableDay()
-          : this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])');
-    }
-    return (firstFocusable as HTMLButtonElement) || null;
+  private _getFirstFocusable(): HTMLButtonElement | null {
+    const selectedOrCurrent =
+      this.shadowRoot!.querySelector<HTMLButtonElement>('.sbb-calendar__selected') ??
+      this.shadowRoot!.querySelector<HTMLButtonElement>('.sbb-calendar__cell-current');
+
+    return selectedOrCurrent && !selectedOrCurrent.disabled
+      ? selectedOrCurrent
+      : this._calendarView === 'day'
+        ? this._getFirstFocusableDay()
+        : this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])');
   }
 
   /**
@@ -1238,7 +1234,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
   }
 
   private _resetCalendarView(initTransition = false): void {
-    this._resetFocus = true;
+    if (this._containingFocus) {
+      this._resetFocus = true;
+    }
     this._activeDate =
       (this.multiple ? (this._selected as T[]).at(-1) : (this._selected as T)) ??
       this._dateAdapter.today();
@@ -1279,24 +1277,26 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
           this._nextMonthDisabled(),
         )}
       </div>
-      <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
-        ${this.orientation === 'horizontal'
-          ? html`
-              ${this._createDayTable(this._weeks, this._weekNumbers)}
-              ${this._wide
-                ? this._createDayTable(this._nextMonthWeeks, this._nextMonthWeekNumbers, true)
-                : nothing}
-            `
-          : html`
-              ${this._createDayTableVertical(this._weeks, this._weekNumbers)}
-              ${this._wide
-                ? this._createDayTableVertical(
-                    this._nextMonthWeeks,
-                    this._nextMonthWeekNumbers,
-                    nextMonthActiveDate,
-                  )
-                : nothing}
-            `}
+      <div class="sbb-calendar__table-overflow-break">
+        <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
+          ${this.orientation === 'horizontal'
+            ? html`
+                ${this._createDayTable(this._weeks, this._weekNumbers)}
+                ${this._wide
+                  ? this._createDayTable(this._nextMonthWeeks, this._nextMonthWeekNumbers, true)
+                  : nothing}
+              `
+            : html`
+                ${this._createDayTableVertical(this._weeks, this._weekNumbers)}
+                ${this._wide
+                  ? this._createDayTableVertical(
+                      this._nextMonthWeeks,
+                      this._nextMonthWeekNumbers,
+                      nextMonthActiveDate,
+                    )
+                  : nothing}
+              `}
+        </div>
       </div>
     `;
   }
@@ -1638,9 +1638,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
           this._nextYearDisabled(),
         )}
       </div>
-      <div class="sbb-calendar__table-container sbb-calendar__table-month-view">
-        ${this._createMonthTable(this._months, this._chosenYear!)}
-        ${this._wide ? this._createMonthTable(this._months, this._chosenYear! + 1) : nothing}
+      <div class="sbb-calendar__table-overflow-break">
+        <div class="sbb-calendar__table-container sbb-calendar__table-month-view">
+          ${this._createMonthTable(this._months, this._chosenYear!)}
+          ${this._wide ? this._createMonthTable(this._months, this._chosenYear! + 1) : nothing}
+        </div>
       </div>
     `;
   }
@@ -1772,9 +1774,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
           this._nextYearRangeDisabled(),
         )}
       </div>
-      <div class="sbb-calendar__table-container sbb-calendar__table-year-view">
-        ${this._createYearTable(this._years)}
-        ${this._wide ? this._createYearTable(this._nextMonthYears, true) : nothing}
+      <div class="sbb-calendar__table-overflow-break">
+        <div class="sbb-calendar__table-container sbb-calendar__table-year-view">
+          ${this._createYearTable(this._years)}
+          ${this._wide ? this._createYearTable(this._nextMonthYears, true) : nothing}
+        </div>
       </div>
     `;
   }
@@ -1907,7 +1911,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(LitElement) {
     const table = event.target as HTMLElement;
     if (event.animationName === 'hide') {
       table.classList.remove('sbb-calendar__table-hide');
-      this._resetFocus = true;
+      if (this._containingFocus) {
+        this._resetFocus = true;
+      }
       this._calendarView = this._nextCalendarView;
     } else if (event.animationName === 'show') {
       this.removeAttribute('data-transition');
