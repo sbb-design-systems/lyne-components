@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.13.6](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.5...v3.13.6) (2025-12-22)
+
+
+### Bug Fixes
+
+* **sbb-autocomplete:** avoid focusing inside autocomplete panel ([#4303](https://github.com/sbb-design-systems/lyne-components/issues/4303)) ([ebec204](https://github.com/sbb-design-systems/lyne-components/commit/ebec2044892fd6e468ab335d1abb40766f35f052))
+* **sbb-calendar:** avoid inconsistent label when aborting selection ([#4311](https://github.com/sbb-design-systems/lyne-components/issues/4311)) ([174d274](https://github.com/sbb-design-systems/lyne-components/commit/174d274cf2e97a91e8459fe477a8b5e0b05c70ac))
+* **sbb-calendar:** fix calendar focus behavior ([#4307](https://github.com/sbb-design-systems/lyne-components/issues/4307)) ([572485e](https://github.com/sbb-design-systems/lyne-components/commit/572485e93df00dd0449157a39e94f7bfa08f7f40))
+* **sbb-notification:** fix inner border radius ([#4312](https://github.com/sbb-design-systems/lyne-components/issues/4312)) ([7e44416](https://github.com/sbb-design-systems/lyne-components/commit/7e4441697a7f6e27dfc36f858d4c2e89f1b85900)), closes [#4310](https://github.com/sbb-design-systems/lyne-components/issues/4310)
+
 ## [3.13.5](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.4...v3.13.5) (2025-12-02)
 
 
