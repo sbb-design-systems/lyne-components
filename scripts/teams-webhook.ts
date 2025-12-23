@@ -7,6 +7,26 @@ if (!response.ok) {
 }
 const release = (await response.json()) as GitHubResponse;
 
+const majorVersion = version.split('.')[0];
+const isNext = version.includes('next') || version.includes('rc');
+
+let storybookUrl = 'https://lyne-storybook.app.sbb.ch';
+if (isNext) {
+  try {
+    await fetch(`https://lyne-storybook-next.app.sbb.ch`);
+    storybookUrl = `https://lyne-storybook-next.app.sbb.ch`;
+  } catch {
+    // Do nothing, next deployment maybe not configured.
+  }
+} else {
+  try {
+    await fetch(`https://lyne-storybook-v${majorVersion}.app.sbb.ch`);
+    storybookUrl = `https://lyne-storybook-v${majorVersion}.app.sbb.ch`;
+  } catch {
+    // Do nothing, release was on current major version.
+  }
+}
+
 const teamsResponse = await fetch(process.env.TEAMS_WEBHOOK!, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
@@ -45,7 +65,7 @@ const teamsResponse = await fetch(process.env.TEAMS_WEBHOOK!, {
             {
               type: 'Action.OpenUrl',
               title: 'View Storybook',
-              url: 'https://lyne-storybook.app.sbb.ch',
+              url: storybookUrl,
             },
           ],
         },
