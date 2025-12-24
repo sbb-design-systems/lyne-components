@@ -58,7 +58,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   protected escapableOverlayController = new SbbEscapableOverlayController(this);
 
   private _ariaLiveRefToggle = false;
-  private _ariaLiveRef!: SbbScreenReaderOnlyElement;
+  private _ariaLiveRef?: SbbScreenReaderOnlyElement;
   private _triggerElement: HTMLElement | null = null;
   private _triggerAbortController!: AbortController;
 
@@ -158,6 +158,15 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     this._ariaLiveRef =
       this.shadowRoot!.querySelector<SbbScreenReaderOnlyElement>('sbb-screen-reader-only')!;
     this._configureTrigger();
+
+    // If the component is already open on firstUpdate, fix the focus
+    if (this.isOpen) {
+      // TODO: find better solution
+      // Problem: content's shadow DOM not yet ready, so focusing is impossible.
+      setTimeout(() => {
+        this.focusTrapController.focusInitialElement();
+      }, 0);
+    }
   }
 
   public override disconnectedCallback(): void {
@@ -230,10 +239,17 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   }
 
   protected removeAriaLiveRefContent(): void {
+    if (!this._ariaLiveRef) {
+      return;
+    }
     this._ariaLiveRef.textContent = '';
   }
 
   protected setAriaLiveRefContent(label?: string): void {
+    if (!this._ariaLiveRef) {
+      return;
+    }
+
     this._ariaLiveRefToggle = !this._ariaLiveRefToggle;
 
     // If the text content remains the same, on VoiceOver the aria-live region is not announced a second time.
