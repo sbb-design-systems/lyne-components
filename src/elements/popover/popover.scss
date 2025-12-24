@@ -41,6 +41,10 @@
   --sbb-popover-transform: translateY(calc(var(--sbb-spacing-fixed-2x) * -1));
 }
 
+:host(:not([hide-close-button], :state(hover-trigger))) {
+  --sbb-popover-min-height: calc(var(--sbb-size-element-xs) + 2 * var(--sbb-popover-padding));
+}
+
 // Popover arrow and arrow top cover
 .sbb-popover::after,
 .sbb-popover__content::before {
@@ -149,6 +153,7 @@
   outline: none;
   background-color: var(--sbb-popover-background);
   flex-direction: row-reverse;
+  min-height: var(--sbb-popover-min-height);
 
   :host(:state(position-above)) & {
     &::before {
