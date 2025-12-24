@@ -739,13 +739,12 @@
   resolved "https://registry.yarnpkg.com/@keyv/serialize/-/serialize-1.1.1.tgz#0c01dd3a3483882af7cf3878d4e71d505c81fc4a"
   integrity sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==
 
-"@lit-labs/observers@2.0.6":
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/@lit-labs/observers/-/observers-2.0.6.tgz#6238d2fd8fd828631863b42f1727e9b0b5792a3a"
-  integrity sha512-m+fSQ0twckagzw7SG7DPvGO4qMfKqItIUREXwC7GTo4TWk2H4oz4ozAab5tdMtMqch3M9z4uIx3oPy9x/Ut2Ow==
+"@lit-labs/observers@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@lit-labs/observers/-/observers-2.1.0.tgz#0152eabe3692d5ed7d47ccff009b9f31dc813f61"
+  integrity sha512-oeQ2tvi/ygq7S+VgnXIInMKHHFPFqvIV9j2zBzpCwl33cWviT2ltuxNpbd11etwtUVsM8woKQzfVnrc80PKhKA==
   dependencies:
     "@lit/reactive-element" "^1.0.0 || ^2.0.0"
-    lit-html "^3.2.0"
 
 "@lit-labs/router@0.1.4":
   version "0.1.4"
@@ -6228,7 +6227,7 @@ lit-element@^4.0.4, lit-element@^4.2.0:
     "@lit/reactive-element" "^2.1.0"
     lit-html "^3.3.0"
 
-"lit-html@^2.0.0 || ^3.0.0", lit-html@^3.1.2, lit-html@^3.2.0, lit-html@^3.3.0:
+"lit-html@^2.0.0 || ^3.0.0", lit-html@^3.1.2, lit-html@^3.3.0:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/lit-html/-/lit-html-3.3.1.tgz#f0a7e4b9ea0a1d034eb28a4bf2d1b0a0096253e3"
   integrity sha512-S9hbyDu/vs1qNrithiNyeyv64c9yqiW9l+DBgI18fL+MTvOtWoFR0FWiyq1TxaYef5wNlpEmzlXoBlZEO+WjoA==
