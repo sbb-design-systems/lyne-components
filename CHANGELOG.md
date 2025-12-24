@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.4](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.3...v4.0.4) (2025-12-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency lit to v3.3.2 ([cb49103](https://github.com/sbb-design-systems/lyne-components/commit/cb4910317df81ae807b498c5483c86572fde4b2d))
+
 ## [4.0.3](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.2...v4.0.3) (2025-12-22)
 
 
