@@ -1,5 +1,31 @@
 @use '../../core/styles' as sbb;
 
+@mixin icon-only {
+  // The variable is assigned to the property in the sbb-header component if it is
+  // the first element in the header and needs left offset correction (see sbb-header.scss).
+  // To avoid duplicated CSS definitions, the value itself is assigned here in
+  // sbb-header-button/sbb-header-link instead of sbb-header.
+
+  // Move it left by padding of header action to the icon itself.
+  --_sbb-header-first-item-padding-shift: calc(
+    -0.5 * (var(--sbb-header-action-min-width) - var(--sbb-header-action-icon-dimension))
+  );
+  --sbb-header-action-padding-inline-zero: 0;
+  --sbb-header-action-active-border-margin-inline: calc(
+    0.5 * (100% - var(--sbb-size-icon-ui-small))
+  );
+
+  .sbb-header-action__text {
+    @include sbb.screen-reader-only;
+
+    // This is a workaround to fix styling after orientation change on iOS.
+    // If the display value changes comparing to the base state (display: flex),
+    // it re-renders and displays everything correctly.
+    // Without this workaround, elements are overlapping each other.
+    display: flex;
+  }
+}
+
 :host {
   display: inline-block;
 
@@ -133,7 +159,7 @@
   &::after {
     content: '';
     position: absolute;
-    border-bottom: var(--sbb-header-action-active-border-width) solid
+    border-block-end: var(--sbb-header-action-active-border-width) solid
       var(--sbb-header-action-active-border-color);
     inset: auto 0 calc(-1 * var(--sbb-header-action-active-border-width));
     margin-inline: var(--sbb-header-action-active-border-margin-inline);
@@ -180,33 +206,22 @@
   }
 }
 
+// If there is no slotted text, regardless of expanded-from state, the icon only variant should be set.
+:host(:is(:state(slotted-icon), :state(has-icon-name)):not(:state(slotted))) {
+  @include icon-only;
+}
+
 // TODO: reevaluate this once 'CSS container queries' is supported
 // https://caniuse.com/css-container-queries-style
 @each $breakpoint, $value in sbb.$mq-breakpoints {
-  :host([expand-from='#{$breakpoint}']:is(:state(slotted-icon), :state(has-icon-name))) {
-    @include sbb.mq($to: #{$breakpoint}) {
-      // The variable is assigned to the property in the sbb-header component if it is
-      // the first element in the header and needs left offset correction (see sbb-header.scss).
-      // To avoid duplicated CSS definitions, the value itself is assigned here in
-      // sbb-header-button/sbb-header-link instead of sbb-header.
-
-      // Move it left by padding of header action to the icon itself.
-      --_sbb-header-first-item-padding-shift: calc(
-        -0.5 * (var(--sbb-header-action-min-width) - var(--sbb-header-action-icon-dimension))
-      );
-      --sbb-header-action-padding-inline-zero: 0;
-      --sbb-header-action-active-border-margin-inline: calc(
-        0.5 * (100% - var(--sbb-size-icon-ui-small))
-      );
-
-      .sbb-header-action__text {
-        @include sbb.screen-reader-only;
-
-        // This is a workaround to fix styling after orientation change on iOS.
-        // If the display value changes comparing to the base state (display: flex),
-        // it re-renders and displays everything correctly.
-        // Without this workaround, elements are overlapping each other.
-        display: flex;
+  // We skip zero breakpoint as it would resolve into (to: 0).
+  // The rules are set to force the icon only variant if there is slotted text, but not yet expanded.
+  @if $breakpoint != 'zero' {
+    :host(
+      [expand-from='#{$breakpoint}']:is(:state(slotted-icon), :state(has-icon-name)):state(slotted)
+    ) {
+      @include sbb.mq($to: #{$breakpoint}) {
+        @include icon-only;
       }
     }
   }
