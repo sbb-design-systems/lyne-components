@@ -105,6 +105,28 @@ describe(`sbb-popover`, () => {
         );
       }),
     );
+
+    it(
+      'small content',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-mini-button
+              icon-name="circle-information-small"
+              id="popover-trigger"
+            ></sbb-mini-button>
+            <sbb-popover trigger="popover-trigger">Test</sbb-popover>
+          `,
+          {
+            minHeight: '400px',
+            padding: '3rem',
+          },
+        );
+        setup.withPostSetupAction(() =>
+          setup.snapshotElement.querySelector('sbb-mini-button')!.click(),
+        );
+      }),
+    );
   });
 
   describeViewports({ viewports: ['zero'], viewportHeight: 150 }, () => {
