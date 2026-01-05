@@ -54,7 +54,7 @@
   // and applied to a selector usage.
   $selector: 'ul';
   @if & {
-    $selector: '&:where(ul)"';
+    $selector: '&:where(ul)';
   }
   #{$selector} {
     &,
