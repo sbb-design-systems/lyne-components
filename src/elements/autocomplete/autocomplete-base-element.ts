@@ -553,6 +553,18 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
         capture: true,
       },
     );
+
+    this.triggerElement?.addEventListener(
+      'blur',
+      (e) => {
+        if (!this.contains(e.relatedTarget as Node)) {
+          this.close();
+        }
+      },
+      {
+        signal: this._openPanelEventsController.signal,
+      },
+    );
   }
 
   // Check if the pointerdown event target is triggered on the menu.

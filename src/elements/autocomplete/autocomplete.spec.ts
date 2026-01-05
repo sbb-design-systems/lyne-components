@@ -229,21 +229,21 @@ describe(`sbb-autocomplete`, () => {
       input.focus();
       await openSpy.calledOnce();
 
-      const positionRect = optTwo.getBoundingClientRect();
+      const optTwoPositionRect = optTwo.getBoundingClientRect();
 
       await sendMouse({
         type: 'click',
         position: [
-          Math.round(positionRect.x + window.scrollX + positionRect.width / 2),
-          Math.round(positionRect.y + window.scrollY + positionRect.height / 2),
+          Math.round(optTwoPositionRect.x + window.scrollX + optTwoPositionRect.width / 2),
+          Math.round(optTwoPositionRect.y + window.scrollY + optTwoPositionRect.height / 2),
         ],
       });
       await waitForLitRender(element);
 
-      expect(inputEventSpy.count).to.be.equal(1);
-      expect(changeEventSpy.count).to.be.equal(1);
-      expect(inputAutocompleteSpy.count).to.be.equal(1);
-      expect(optionSelectedSpy.count).to.be.equal(1);
+      expect(inputEventSpy.count, 'input events').to.be.equal(1);
+      expect(changeEventSpy.count, 'change events').to.be.equal(1);
+      expect(inputAutocompleteSpy.count, 'inputAutocomplete events').to.be.equal(1);
+      expect(optionSelectedSpy.count, 'option selected events').to.be.equal(1);
       expect(optionSelectedSpy.firstEvent!.target).to.have.property('id', 'option-2');
       expect(document.activeElement).to.be.equal(input);
     });
