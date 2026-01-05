@@ -224,7 +224,7 @@ $scrollbar-height: 16px;
 }
 
 // If there are overhanging elements we need to increase the gap between coaches
-.sbb-sr__list-coaches:has(.sbb-sr-coach-has-overhanging-elements) {
+.sbb-sr__list-decks:has(.sbb-sr-coach-has-overhanging-elements) .sbb-sr__list-coaches {
   gap: sbb-sr-functions.sr-px-to-rem(8);
 }
 
