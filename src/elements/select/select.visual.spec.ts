@@ -309,5 +309,18 @@ describe('sbb-select', () => {
         }
       }
     }
+
+    it(
+      `with custom max height`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template(defaultArgs), {
+          minHeight: '400px',
+        });
+        setup.withPostSetupAction(() => {
+          const element = setup.snapshotElement.querySelector('sbb-select')!;
+          element.style.setProperty('--sbb-options-panel-max-height', '100px');
+        });
+      }),
+    );
   });
 });
