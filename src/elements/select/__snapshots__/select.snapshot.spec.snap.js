@@ -60,7 +60,10 @@ snapshots["sbb-select renders Safari Shadow DOM"] =
   </div>
   <div class="sbb-select__panel">
     <div class="sbb-select__wrapper">
-      <div class="sbb-select__options">
+      <div
+        class="sbb-select__options"
+        tabindex="-1"
+      >
         <slot>
         </slot>
       </div>
@@ -133,6 +136,7 @@ snapshots["sbb-select renders multiple Safari Shadow DOM"] =
       <div
         aria-multiselectable=""
         class="sbb-select__options"
+        tabindex="-1"
       >
         <slot>
         </slot>
@@ -194,6 +198,7 @@ snapshots["sbb-select renders Chrome-Firefox Shadow DOM"] =
         class="sbb-select__options"
         id="sbb-select-2"
         role="listbox"
+        tabindex="-1"
       >
         <slot>
         </slot>
@@ -276,6 +281,7 @@ snapshots["sbb-select renders multiple Chrome-Firefox Shadow DOM"] =
         class="sbb-select__options"
         id="sbb-select-5"
         role="listbox"
+        tabindex="-1"
       >
         <slot>
         </slot>

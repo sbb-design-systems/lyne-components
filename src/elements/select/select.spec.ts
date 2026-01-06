@@ -1,5 +1,6 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
+import { repeat } from 'lit/directives/repeat.js';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
@@ -1600,5 +1601,34 @@ describe(`sbb-select`, () => {
       expect(element.value).to.be.equal('2');
       expect(element.getDisplayValue()).to.be.equal('Second');
     });
+  });
+
+  it('should handle focus when options are in a scroll area', async () => {
+    const formField = await fixture(html`
+      <sbb-form-field>
+        <sbb-select placeholder="Placeholder">
+          ${repeat(
+            new Array(30),
+            (_, index) => html`<sbb-option value="option-${index}">Option ${index}</sbb-option>`,
+          )}
+        </sbb-select>
+      </sbb-form-field>
+      <input id="after-select" />
+    `);
+    element = formField.querySelector<SbbSelectElement>('sbb-select')!;
+
+    element.focus();
+    element.open();
+    expect(document.activeElement).to.be.equal(element.inputElement);
+    expect(element.isOpen, 'isOpen').to.be.true;
+
+    // In real browser, the focus would land in the scroll area of the options panel.
+    // In Headless mode, this doesn't seem to happen.
+    // Due to this fact, this test would also be green without the fix (tabindex=0).
+    // We keep the test for consistency.
+    await sendKeys({ press: tabKey });
+    expect(document.activeElement).to.be.equal(
+      formField.parentElement!.querySelector<HTMLInputElement>('input#after-select'),
+    );
   });
 });
