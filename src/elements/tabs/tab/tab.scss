@@ -17,6 +17,7 @@
     duration: var(--sbb-tab-group-animation-duration);
     delay: var(--sbb-tab-group-animation-duration);
     timing-function: var(--sbb-animation-easing);
+    property: opacity, height;
   }
 
   // Experimental property, but supported in every major browser.
