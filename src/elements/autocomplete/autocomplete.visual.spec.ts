@@ -2,7 +2,7 @@ import { aTimeout } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';
 
-import type { VisualDiffSetupBuilder } from '../core/testing/private.ts';
+import { tabKey, type VisualDiffSetupBuilder } from '../core/testing/private.ts';
 import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
 import { waitForLitRender } from '../core/testing/wait-for-render.ts';
 
@@ -200,10 +200,14 @@ describe('sbb-autocomplete', () => {
 
         it(
           'darkMode=true focus',
-          visualDiffFocus.with(async (setup) => {
+          visualDiffDefault.with(async (setup) => {
             await setup.withFixture(template(defaultArgs), { darkMode: true });
 
             setup.withPostSetupAction(async () => {
+              // Force focus in input field
+              await sendKeys({ press: tabKey });
+              await sendKeys({ press: `Shift+${tabKey}` });
+
               await openAutocomplete(setup);
               await sendKeys({ press: 'ArrowDown' });
             });
