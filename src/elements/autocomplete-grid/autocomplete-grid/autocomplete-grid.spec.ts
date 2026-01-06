@@ -57,6 +57,7 @@ describe(`sbb-autocomplete-grid`, () => {
             </sbb-autocomplete-grid-row>
           </sbb-autocomplete-grid>
         </sbb-form-field>
+        <button>Button to focus</button>
       `);
       input = formField.querySelector<HTMLInputElement>('input')!;
       element = formField.querySelector<SbbAutocompleteGridElement>('sbb-autocomplete-grid')!;
@@ -156,9 +157,9 @@ describe(`sbb-autocomplete-grid`, () => {
 
       await sendKeys({ press: 'ArrowDown' });
       await beforeOpenSpy.calledTimes(2);
-      expect(beforeOpenSpy.count).to.be.equal(2);
+      expect(beforeOpenSpy.count, 'before open spy after arrow down').to.be.equal(2);
       await openSpy.calledTimes(2);
-      expect(openSpy.count).to.be.equal(2);
+      expect(openSpy.count, 'open spy after arrow down').to.be.equal(2);
       expect(input).to.have.attribute('aria-expanded', 'true');
 
       await sendKeys({ press: tabKey });
@@ -247,20 +248,20 @@ describe(`sbb-autocomplete-grid`, () => {
       input.focus();
       await openSpy.calledOnce();
 
-      const positionRect = optTwo.getBoundingClientRect();
+      const optTwoPositionRect = optTwo.getBoundingClientRect();
 
       await sendMouse({
         type: 'click',
         position: [
-          Math.round(positionRect.x + window.scrollX + positionRect.width / 2),
-          Math.round(positionRect.y + window.scrollY + positionRect.height / 2),
+          Math.round(optTwoPositionRect.x + window.scrollX + optTwoPositionRect.width / 2),
+          Math.round(optTwoPositionRect.y + window.scrollY + optTwoPositionRect.height / 2),
         ],
       });
       await waitForLitRender(element);
 
-      expect(inputEventSpy.count).to.be.equal(1);
-      expect(changeEventSpy.count).to.be.equal(1);
-      expect(optionSelectedEventSpy.count).to.be.equal(1);
+      expect(inputEventSpy.count, 'input events').to.be.equal(1);
+      expect(changeEventSpy.count, 'change events').to.be.equal(1);
+      expect(optionSelectedEventSpy.count, 'option selected events').to.be.equal(1);
       expect(optionSelectedEventSpy.firstEvent!.target).to.have.property('id', 'option-2');
       expect(document.activeElement).to.be.equal(input);
     });

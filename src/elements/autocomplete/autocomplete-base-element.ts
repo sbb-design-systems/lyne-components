@@ -541,6 +541,20 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
         capture: true,
       },
     );
+
+    this.triggerElement?.addEventListener(
+      'blur',
+      (e) => {
+        // If the new focus is the autocomplete or inside of it then an option
+        // was selected and there is a separate mechanism that closes this instance.
+        if (!this.contains(e.relatedTarget as Node)) {
+          this.close();
+        }
+      },
+      {
+        signal: this._openPanelEventsController.signal,
+      },
+    );
   }
 
   // Check if the pointerdown event target is triggered on the menu.
