@@ -1,5 +1,8 @@
 import { aTimeout } from '@open-wc/testing';
-import type { VisualDiffSetupBuilder } from '@sbb-esta/lyne-elements/core/testing/private.js';
+import {
+  tabKey,
+  type VisualDiffSetupBuilder,
+} from '@sbb-esta/lyne-elements/core/testing/private.js';
 import {
   describeViewports,
   visualDiffDefault,
@@ -241,10 +244,14 @@ describe('sbb-autocomplete-grid', () => {
 
         it(
           'darkMode=true focus',
-          visualDiffFocus.with(async (setup) => {
+          visualDiffDefault.with(async (setup) => {
             await setup.withFixture(template(defaultArgs), { darkMode: true });
 
             setup.withPostSetupAction(async () => {
+              // Force focus in input field
+              await sendKeys({ press: tabKey });
+              await sendKeys({ press: `Shift+${tabKey}` });
+
               await openAutocomplete(setup);
               await sendKeys({ press: 'ArrowDown' });
             });
