@@ -64,9 +64,12 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
   }
 
   protected selectByKeyboard(event: KeyboardEvent): void {
-    event.preventDefault();
+    if (this.activeOption) {
+      // We are currently selecting an option and therefore the Enter press shouldn't trigger a form submit
+      event.preventDefault();
 
-    this.activeOption?.['selectViaUserInteraction'](true);
+      this.activeOption['selectViaUserInteraction'](true);
+    }
   }
 
   protected setNextActiveOption(event?: KeyboardEvent): void {
