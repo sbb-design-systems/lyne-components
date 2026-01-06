@@ -319,6 +319,8 @@ describe('sbb-select', () => {
         setup.withPostSetupAction(() => {
           const element = setup.snapshotElement.querySelector('sbb-select')!;
           element.style.setProperty('--sbb-options-panel-max-height', '100px');
+          element.focus();
+          element.open();
         });
       }),
     );

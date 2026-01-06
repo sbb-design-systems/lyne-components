@@ -376,6 +376,7 @@ describe('sbb-autocomplete-grid', () => {
         setup.withPostSetupAction(() => {
           const element = setup.snapshotElement.querySelector('sbb-autocomplete-grid')!;
           element.style.setProperty('--sbb-options-panel-max-height', '100px');
+          openAutocomplete(setup);
         });
       }),
     );

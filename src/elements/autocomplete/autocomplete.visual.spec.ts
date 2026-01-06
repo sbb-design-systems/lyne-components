@@ -350,6 +350,7 @@ describe('sbb-autocomplete', () => {
         setup.withPostSetupAction(() => {
           const element = setup.snapshotElement.querySelector('sbb-autocomplete')!;
           element.style.setProperty('--sbb-options-panel-max-height', '100px');
+          openAutocomplete(setup);
         });
       }),
     );
