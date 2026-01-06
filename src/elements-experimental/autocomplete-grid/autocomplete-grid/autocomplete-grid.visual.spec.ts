@@ -366,5 +366,19 @@ describe('sbb-autocomplete-grid', () => {
         setup.withPostSetupAction(() => openAutocomplete(setup));
       }),
     );
+
+    it(
+      `with custom max height`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template(defaultArgs), {
+          minHeight: '400px',
+        });
+        setup.withPostSetupAction(() => {
+          const element = setup.snapshotElement.querySelector('sbb-autocomplete-grid')!;
+          element.style.setProperty('--sbb-options-panel-max-height', '100px');
+          openAutocomplete(setup);
+        });
+      }),
+    );
   });
 });
