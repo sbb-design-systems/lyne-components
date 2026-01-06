@@ -7,8 +7,11 @@
   --sbb-options-panel-position-y: 0;
   --sbb-options-panel-active-option-y: 0;
 
-  // 85vh is not an exact value but looks optimized for mobile view.
-  --sbb-options-panel-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
+  // In order to have a valid value, we need a big integer to not fall into the minimum
+  --_sbb-options-panel-max-height: min(
+    var(--sbb-options-panel-max-height-calculated),
+    var(--sbb-options-panel-max-height, 100000em)
+  );
   --sbb-options-panel-min-height: var(--sbb-options-panel-origin-height);
   --sbb-options-panel-visibility: visible;
   --sbb-options-panel-width: fit-content;
@@ -109,7 +112,7 @@
   padding-block: var(--sbb-options-panel-padding-block);
   padding-inline: 0;
   border-radius: var(--sbb-options-panel-options-border-radius);
-  max-height: var(--sbb-options-panel-max-height);
+  max-height: var(--_sbb-options-panel-max-height);
   min-height: var(--sbb-options-panel-min-height);
   pointer-events: all;
   overflow-y: auto;

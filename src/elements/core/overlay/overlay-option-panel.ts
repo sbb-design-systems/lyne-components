@@ -35,7 +35,7 @@ export function setOverlayPosition(
 
   element.style.setProperty('--sbb-options-panel-position-x', `${panelPosition.left}px`);
   element.style.setProperty('--sbb-options-panel-position-y', `${panelPosition.top}px`);
-  element.style.setProperty('--sbb-options-panel-max-height', panelPosition.maxHeight);
+  element.style.setProperty('--sbb-options-panel-max-height-calculated', panelPosition.maxHeight);
   element.setAttribute('data-options-panel-position', panelPosition.alignment.vertical);
   originElement.setAttribute('data-options-panel-position', panelPosition.alignment.vertical);
 }
