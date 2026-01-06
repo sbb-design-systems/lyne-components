@@ -1149,7 +1149,7 @@ describe(`sbb-autocomplete`, () => {
       expect(submitSpy.count).to.be.equal(1);
     });
 
-    it('should avoid submitting form on Enter press when autocomplete is closed', async () => {
+    it('should avoid submitting form on Enter press when autocomplete is opened', async () => {
       // Focus input and open autocomplete
       input.focus();
       expect(element.isOpen).to.be.true;
