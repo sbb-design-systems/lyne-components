@@ -305,7 +305,27 @@ const SelectEllipsisTemplate = ({
   }
 
   return html`
-    <div>
+    <form>
+      <input />
+      <select>
+        <option>hi</option>
+      </select>
+      <sbb-form-field
+        ?borderless=${borderless}
+        size=${size}
+        ?negative=${negative}
+        ?floating-label=${floatingLabel}
+      >
+        <label>Select</label>
+        <sbb-select ${sbbSpread(args)} @change=${(event: Event) => changeEventHandler(event)}>
+          <sbb-option value=${valueEllipsis} ?selected=${ellipsisSelected}>
+            ${valueEllipsis}
+          </sbb-option>
+          ${withOptionGroup
+            ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
+            : createOptions(numberOfOptions, disableOption, false, args.value)}
+        </sbb-select>
+      </sbb-form-field>
       <sbb-form-field
         ?borderless=${borderless}
         size=${size}
@@ -323,7 +343,7 @@ const SelectEllipsisTemplate = ({
         </sbb-select>
       </sbb-form-field>
       ${textBlock()}
-    </div>
+    </form>
     <div
       id="container-value"
       style="margin-block-start: 2rem; color: var(--sbb-color-smoke);"

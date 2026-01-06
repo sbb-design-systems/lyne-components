@@ -35,6 +35,7 @@ describe(`sbb-select`, () => {
             <sbb-option id="option-2" value="2">Second</sbb-option>
             <sbb-option id="option-3" value="3">Third</sbb-option>
           </sbb-select>
+          <button>Other button to focus</button>
         </div>
       `);
       element = root.querySelector<SbbSelectElement>('sbb-select')!;
@@ -677,6 +678,96 @@ describe(`sbb-select`, () => {
       expect(option2.selected, 'option 2 to be selected').to.be.true;
       expect(element.value).to.be.equal('2');
       expect(element.getDisplayValue()).to.be.equal('Second');
+    });
+
+    describe('interrupting opening and closing with non-zero animation duration', () => {
+      beforeEach(() => {
+        (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+        element.style.setProperty('--sbb-options-panel-animation-duration', '5ms');
+      });
+
+      it('should close when closing during opening', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
+        const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+        element.open();
+        await aTimeout(1);
+        expect(element).to.match(':state(state-opening)');
+        element.close();
+
+        await closeSpy.calledOnce();
+        expect(element.isOpen).to.be.false;
+      });
+
+      it('should close when closing during opening with Escape key', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
+        const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+        element.open();
+        await aTimeout(1);
+        expect(element).to.match(':state(state-opening)');
+        await sendKeys({ press: 'Escape' });
+
+        await closeSpy.calledOnce();
+        expect(element.isOpen).to.be.false;
+      });
+
+      it('should close when closing during opening with Tab key', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
+        const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+        element.focus();
+        await sendKeys({ press: 'Space' });
+        await aTimeout(1);
+        expect(element).to.match(':state(state-opening)');
+        await sendKeys({ press: tabKey });
+
+        await closeSpy.calledOnce();
+        expect(element.isOpen).to.be.false;
+      });
+
+      it('should open again when opening during closing', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
+        const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+
+        element.open();
+        await openSpy.calledOnce();
+
+        element.close();
+        await aTimeout(1);
+        expect(element).to.match(':state(state-closing)');
+        element.open();
+
+        await openSpy.calledTimes(2);
+        expect(element.isOpen).to.be.true;
+      });
+
+      it('should open again when opening during closing by arrow press on input', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
+        const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+
+        element.focus();
+        await sendKeys({ press: 'Space' });
+        await openSpy.calledOnce();
+
+        element.close();
+        await aTimeout(1);
+        expect(element).to.match(':state(state-closing)');
+        await sendKeys({ press: 'ArrowDown' });
+
+        await openSpy.calledTimes(2);
+        expect(element.isOpen).to.be.true;
+      });
     });
   });
 

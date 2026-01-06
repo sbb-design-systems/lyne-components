@@ -151,7 +151,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _optionContainer!: HTMLElement;
   private _originElement!: HTMLElement;
   private _triggerElement!: HTMLElement;
-  private _openPanelEventsController!: AbortController;
+  private _openPanelEventsController?: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _overlayId = `sbb-select-${++nextId}`;
   private _activeItemIndex = -1;
@@ -253,7 +253,8 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   /** Opens the selection panel. */
   public open(): void {
     if (
-      this.state !== 'closed' ||
+      this.state === 'opening' ||
+      this.state === 'opened' ||
       !this._overlay ||
       this.options.length === 0 ||
       this.disabled ||
@@ -267,6 +268,8 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this.state = 'opening';
     this.internals.states.add('expanded');
     this._setOverlayPosition();
+    this._escapableOverlayController.connect();
+    this._attachOpenPanelEvents();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -277,13 +280,13 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   /** Closes the selection panel. */
   public close(): void {
-    if (this.state !== 'opened' || !this.dispatchBeforeCloseEvent()) {
+    if (this.state === 'closing' || this.state === 'closed' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
     this.state = 'closing';
     this.internals.states.delete('expanded');
-    this._openPanelEventsController.abort();
+    this._openPanelEventsController?.abort();
     if (this._originElement) {
       this._originResizeObserver.unobserve(this._originElement);
     }
@@ -365,7 +368,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
    * If the `disabled` or the `readonly` properties are set, and the panel is open, close it.
    */
   private _closeOnDisabledReadonlyChanged(newValue: boolean): void {
-    if (this.isOpen && newValue) {
+    if ((this.state === 'opening' || this.state === 'opened') && newValue) {
       this.close();
     }
   }
@@ -576,9 +579,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this._attachOpenPanelEvents();
     this._triggerElement.setAttribute('aria-expanded', 'true');
-    this._escapableOverlayController.connect();
     if (this._originElement) {
       this._originResizeObserver.observe(this._originElement);
     }
@@ -665,9 +666,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       return;
     }
 
-    if (this.state === 'opened') {
+    if (this.state === 'opening' || this.state === 'opened') {
       this._openedPanelKeyboardInteraction(event);
-    } else if (this.state === 'closed') {
+    } else if (this.state === 'closed' || this.state === 'closing') {
       this._closedPanelKeyboardInteraction(event);
     }
   }
@@ -689,7 +690,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   private _openedPanelKeyboardInteraction(event: KeyboardEvent): void {
-    if (this.readOnly || this.state !== 'opened') {
+    if (this.readOnly) {
       return;
     }
 
@@ -928,10 +929,12 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._triggerElement?.focus();
 
     switch (this.state) {
+      case 'opening':
       case 'opened': {
         this.close();
         break;
       }
+      case 'closing':
       case 'closed': {
         this.open();
         break;
@@ -955,6 +958,10 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   protected override render(): TemplateResult {
+    // Scroll areas without containing an interactive element will receive focus when tabbing through the document.
+    // If there are a lot of options and when pressing tab key, the scroll area on sbb-select__options gets focus.
+    // As elements inside the panel should never get focus, we have to avoid that by setting tabindex=-1.
+
     return html`
       <!-- This element is visually hidden and will be appended to the light DOM to allow screen
       readers to work properly -->
@@ -998,6 +1005,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
               role=${!ariaRoleOnHost ? 'listbox' : nothing}
               ?aria-multiselectable=${this.multiple}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
+              tabindex="-1"
             >
               <slot @slotchange=${this._updateValueOptionState}></slot>
             </div>
