@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.4](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.3...v4.0.4) (2026-01-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency lit to v3.3.2 ([cb49103](https://github.com/sbb-design-systems/lyne-components/commit/cb4910317df81ae807b498c5483c86572fde4b2d))
+* improve relative SASS path for IDE compatibility ([#4330](https://github.com/sbb-design-systems/lyne-components/issues/4330)) ([86d4a52](https://github.com/sbb-design-systems/lyne-components/commit/86d4a52e353f72419115d513ecd4a084f5e6cb45))
+* **sbb-autocomplete, sbb-autocomplete-grid:** consider blur event instead of Tab event ([#4339](https://github.com/sbb-design-systems/lyne-components/issues/4339)) ([2834fcb](https://github.com/sbb-design-systems/lyne-components/commit/2834fcb76ab1c9d3a816cbe4aa7937b7dc12237e))
+* **sbb-autocomplete,sbb-autocomplete-grid:** enable form submission when not interacting ([#4309](https://github.com/sbb-design-systems/lyne-components/issues/4309)) ([0973941](https://github.com/sbb-design-systems/lyne-components/commit/097394118d49edf7a0edd4aa1e38820db061d9fe))
+* **sbb-dialog, sbb-autocomplete:** allow configuration of max height of panel ([#4345](https://github.com/sbb-design-systems/lyne-components/issues/4345)) ([ef2ac1b](https://github.com/sbb-design-systems/lyne-components/commit/ef2ac1bb128f1d64312391a9d2889e91f9e1858f))
+* **sbb-dialog, sbb-overlay:** allow opening when shadow DOM not ready ([#4332](https://github.com/sbb-design-systems/lyne-components/issues/4332)) ([5266d60](https://github.com/sbb-design-systems/lyne-components/commit/5266d604d22b5558e399140e96a2ff5cad180219))
+* **sbb-header:** support icon only header actions ([#4337](https://github.com/sbb-design-systems/lyne-components/issues/4337)) ([a6341e8](https://github.com/sbb-design-systems/lyne-components/commit/a6341e879855bdadd7b2f0325b8eabb72b9bb75b)), closes [#4325](https://github.com/sbb-design-systems/lyne-components/issues/4325)
+* **sbb-popover:** fix min-height with close-button ([#4329](https://github.com/sbb-design-systems/lyne-components/issues/4329)) ([34ac7bc](https://github.com/sbb-design-systems/lyne-components/commit/34ac7bc28c74b4212edb47100caa9ea71ecf21c9))
+* **sbb-select:** improve handling of opening and closing ([#4341](https://github.com/sbb-design-systems/lyne-components/issues/4341)) ([3240554](https://github.com/sbb-design-systems/lyne-components/commit/3240554fc2198558cfecfc1a006725e08613df39))
+* **sbb-tab:** prevent animation on focus outline ([#4344](https://github.com/sbb-design-systems/lyne-components/issues/4344)) ([803bbdd](https://github.com/sbb-design-systems/lyne-components/commit/803bbdd4f523ca65a06df6ae77e6f2abde78697c)), closes [#4326](https://github.com/sbb-design-systems/lyne-components/issues/4326)
+
+
+### Documentation
+
+* **sbb-datepicker:** fix control categories of stories ([#4333](https://github.com/sbb-design-systems/lyne-components/issues/4333)) ([ee7d185](https://github.com/sbb-design-systems/lyne-components/commit/ee7d185e947a1aff07f8e826fa2dace150764b7a))
+
+
+### Code Refactoring
+
+* avoid using sass "if" for better consumer support ([#4338](https://github.com/sbb-design-systems/lyne-components/issues/4338)) ([5aa11a6](https://github.com/sbb-design-systems/lyne-components/commit/5aa11a6a13c732ff9ee5283f3b873da7b2e9b65b))
+
 ## [4.0.3](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.2...v4.0.3) (2025-12-22)
 
 
