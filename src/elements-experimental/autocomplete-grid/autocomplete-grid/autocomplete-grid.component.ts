@@ -89,18 +89,21 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
    * would always return a `SbbAutocompleteGridButtonElement`.
    */
   protected selectByKeyboard(event: KeyboardEvent): void {
-    event.preventDefault();
+    if (this.activeOption) {
+      // We are currently selecting an option and therefore the Enter press shouldn't trigger a form submit
+      event.preventDefault();
 
-    if (this._activeColumnIndex !== 0) {
-      this.activeOption
-        ?.closest('sbb-autocomplete-grid-row')
-        ?.querySelectorAll('sbb-autocomplete-grid-button')
-        [
-          // We ignore the option in the selector. Therefore, we have to shift the activeColumnIndex by one.
-          this._activeColumnIndex - 1
-        ]?.click();
-    } else {
-      this.activeOption?.['selectViaUserInteraction'](true);
+      if (this._activeColumnIndex !== 0) {
+        this.activeOption
+          .closest('sbb-autocomplete-grid-row')
+          ?.querySelectorAll('sbb-autocomplete-grid-button')
+          [
+            // We ignore the option in the selector. Therefore, we have to shift the activeColumnIndex by one.
+            this._activeColumnIndex - 1
+          ]?.click();
+      } else {
+        this.activeOption['selectViaUserInteraction'](true);
+      }
     }
   }
 
