@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.13.7](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.6...v3.13.7) (2026-01-06)
+
+
+### Bug Fixes
+
+* **sbb-autocomplete, sbb-autocomplete-grid:** consider blur event instead of Tab event ([#4339](https://github.com/sbb-design-systems/lyne-components/issues/4339)) ([38d6a6e](https://github.com/sbb-design-systems/lyne-components/commit/38d6a6e0293b010282f6d0b1433e539c299296a6))
+* **sbb-autocomplete,sbb-autocomplete-grid:** enable form submission when not interacting ([#4309](https://github.com/sbb-design-systems/lyne-components/issues/4309)) ([d2d7166](https://github.com/sbb-design-systems/lyne-components/commit/d2d716689e4372aefd6f00a6a114c0dd0591c7d3))
+* **sbb-dialog, sbb-autocomplete:** allow configuration of max height of panel ([#4345](https://github.com/sbb-design-systems/lyne-components/issues/4345)) ([f7fbc3d](https://github.com/sbb-design-systems/lyne-components/commit/f7fbc3d2c24c529bb21f11071346e54d3483aacb))
+
 ## [3.13.6](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.5...v3.13.6) (2025-12-22)
 
 
