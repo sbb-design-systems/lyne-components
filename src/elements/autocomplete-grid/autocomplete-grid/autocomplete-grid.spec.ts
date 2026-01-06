@@ -1034,4 +1034,62 @@ describe(`sbb-autocomplete-grid`, () => {
       formField.parentElement!.querySelector<HTMLInputElement>('input#after-autocomplete'),
     );
   });
+
+  describe('form submission', () => {
+    let form: HTMLFormElement, submitSpy: EventSpy<SubmitEvent>;
+
+    beforeEach(async () => {
+      form = await fixture(html`
+        <form @submit=${(e: SubmitEvent) => e.preventDefault()}>
+          <sbb-form-field>
+            <input name="test-input" />
+            <sbb-autocomplete-grid>
+              <sbb-autocomplete-grid-row>
+                <sbb-autocomplete-grid-option value="o1"> Option 1 </sbb-autocomplete-grid-option>
+                <sbb-autocomplete-grid-cell>
+                  <sbb-autocomplete-grid-button
+                    icon-name="pen-small"
+                  ></sbb-autocomplete-grid-button>
+                </sbb-autocomplete-grid-cell>
+              </sbb-autocomplete-grid-row>
+            </sbb-autocomplete-grid>
+          </sbb-form-field>
+        </form>
+      `);
+      formField = form.querySelector<SbbFormFieldElement>('sbb-form-field')!;
+      input = form.querySelector<HTMLInputElement>('input')!;
+      element = form.querySelector<SbbAutocompleteGridElement>('sbb-autocomplete-grid')!;
+
+      submitSpy = new EventSpy('submit', form);
+    });
+
+    it('should submit form on Enter press when not interacting with autocomplete', async () => {
+      // Focus input and open autocomplete
+      input.focus();
+      expect(element.isOpen).to.be.true;
+      expect(document.activeElement).to.be.equal(input);
+
+      // Press Enter to submit form
+      await sendKeys({ press: 'Enter' });
+      await submitSpy.calledOnce();
+
+      expect(submitSpy.count).to.be.equal(1);
+    });
+
+    it('should avoid submitting form on Enter press when autocomplete is opened', async () => {
+      // Focus input and open autocomplete
+      input.focus();
+      expect(element.isOpen).to.be.true;
+      expect(document.activeElement).to.be.equal(input);
+
+      // Interact with autocomplete
+      await sendKeys({ press: 'ArrowDown' });
+
+      // Press Enter to submit form
+      await sendKeys({ press: 'Enter' });
+      await aTimeout(10);
+
+      expect(submitSpy.count).to.be.equal(0);
+    });
+  });
 });
