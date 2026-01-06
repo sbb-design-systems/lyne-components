@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
@@ -60,6 +60,15 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     this.id ||= `sbb-overlay-${nextId++}`;
 
     super.connectedCallback();
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
+    // If the component is already open on firstUpdate, announce the title
+    if (this.isOpen) {
+      this.setAriaLiveRefContent();
+    }
   }
 
   protected isZeroAnimationDuration(): boolean {
