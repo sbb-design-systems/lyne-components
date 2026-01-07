@@ -208,7 +208,10 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   }
 
   protected removeInstanceFromGlobalCollection(): void {
-    overlayRefs.splice(overlayRefs.indexOf(this as SbbOverlayBaseElement), 1);
+    const indexInOverlayRefs = overlayRefs.indexOf(this as SbbOverlayBaseElement);
+    if (indexInOverlayRefs > -1) {
+      overlayRefs.splice(indexInOverlayRefs, 1);
+    }
   }
 
   // Close the component on click of any element that has the `closeAttribute` attribute.
@@ -235,7 +238,9 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
       overlayCloseElement.getAttribute('type') === 'submit'
         ? ((overlayCloseElement as HTMLButtonElement | SbbButtonBaseElement).form ?? null)
         : null;
-    overlayRefs[overlayRefs.length - 1].close(closestForm, overlayCloseElement);
+    if (overlayRefs.length) {
+      overlayRefs[overlayRefs.length - 1].close(closestForm, overlayCloseElement);
+    }
   }
 
   protected removeAriaLiveRefContent(): void {
