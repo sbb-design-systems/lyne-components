@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.13.8](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.7...v3.13.8) (2026-01-07)
+
+
+### Bug Fixes
+
+* **sbb-autocomplete, sbb-autocomplete-grid:** remove Enter as opening criteria ([#4349](https://github.com/sbb-design-systems/lyne-components/issues/4349)) ([cf0ddad](https://github.com/sbb-design-systems/lyne-components/commit/cf0ddad80fba4ea2370073fbb787e862f96621fe))
+
 ## [3.13.7](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.6...v3.13.7) (2026-01-06)
 
 
