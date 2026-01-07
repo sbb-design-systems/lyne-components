@@ -591,7 +591,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     }
 
     switch (event.key) {
-      case 'Enter':
       case 'ArrowDown':
       case 'ArrowUp':
         this.open();
