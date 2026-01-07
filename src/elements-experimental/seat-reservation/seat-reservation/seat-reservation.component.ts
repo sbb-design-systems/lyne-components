@@ -41,16 +41,6 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _language = new SbbLanguageController(this);
   private _coachesHtmlTemplate?: TemplateResult;
-  // Graphics that should not be rendered with an area
-  private _notAreaElements = [
-    'DRIVER_AREA',
-    'COACH_PASSAGE',
-    'COACH_WALL_NO_PASSAGE',
-    'COMPARTMENT_PASSAGE',
-    'COMPARTMENT_PASSAGE_HIGH',
-    'COMPARTMENT_PASSAGE_MIDDLE',
-    'COMPARTMENT_PASSAGE_LOW',
-  ];
 
   // Area icons that should not be fixed during rotation when vertical mode is selected
   private _notFixedRotatableAreaIcons = ['ENTRY_EXIT'];
@@ -74,7 +64,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    // We need to wait until the first update is complete to init different html element dimensions
+    // We need to wait until the first update is complete to init different HTML element dimensions
     this.updateComplete.then(() => {
       this.initNavigationSelectionByScrollEvent();
     });
@@ -91,7 +81,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         ${this._renderNavigation()}
         <div
           class="sbb-sr__wrapper-coach-decks"
-          @keydown=${(evt: KeyboardEvent) => this.keyboardSeatmapEventHadling(evt)}
+          @keydown=${(evt: KeyboardEvent) => this.keyboardSeatmapEventHandling(evt)}
         >
           <div class="sbb-sr__wrapper-deck-labels">${this._renderDeckLabels()}</div>
           <div
@@ -294,18 +284,44 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     const COACH_PASSAGE_WIDTH = 1;
     const allElements = coachItem.graphicElements;
     const driverArea = allElements?.find((element: BaseElement) => element.icon === 'DRIVER_AREA');
-    const borderWidth = driverArea
+    let borderWidth = driverArea
       ? coachItem.dimension.w - driverArea.dimension.w - COACH_PASSAGE_WIDTH
       : coachItem.dimension.w - COACH_PASSAGE_WIDTH * 2;
+
+    //multiply with base grid size always for all kind of borderWidth
+    borderWidth *= this.baseGridSize;
+
     const borderHeight = (coachItem.dimension.h + this.coachBorderOffset * 2) * this.baseGridSize;
-    const borderOffsetX =
+    let borderOffsetX =
       driverArea && driverArea.position.x === 0
         ? driverArea?.dimension.w * this.baseGridSize
         : this.baseGridSize;
+
+    const currentCoachOverlappingInfo = this.overHangingElementInformation.find(
+      (el) => el.coachId == coachItem.id,
+    );
+
+    // check if there are overhanging places or graphical elements to adjust the border width and offset + gap
+    // We do not differentiate whether there is something to be done on both sides as this would lead to unnecessary
+    // complexity. So if there is something on one side, we just increase the coach-border on both sides.
+    if (
+      currentCoachOverlappingInfo?.overhangingPlaces ||
+      currentCoachOverlappingInfo?.overhangingGraphicAreas
+    ) {
+      borderWidth += 2 * this.baseGridSize; // we increase the width by 2 grid sizes to have enough space for protruded places on both sides
+      borderOffsetX = 0; // we start at 0 to have enough space on the left side as well
+    }
+
     return html`
       <sbb-seat-reservation-graphic
+        class="${classMap({
+          'sbb-sr-coach-has-overhanging-elements':
+            currentCoachOverlappingInfo?.overhangingPlaces ||
+            currentCoachOverlappingInfo?.overhangingGraphicAreas ||
+            false,
+        })}"
         style=${styleMap({
-          '--sbb-seat-reservation-graphic-width': borderWidth * this.baseGridSize,
+          '--sbb-seat-reservation-graphic-width': borderWidth,
           '--sbb-seat-reservation-graphic-height': borderHeight,
           '--sbb-seat-reservation-graphic-top': this.coachBorderPadding * -1,
           '--sbb-seat-reservation-graphic-left': borderOffsetX,
@@ -427,7 +443,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
           : elementRotation;
 
       //check if the current element is not an area element, since this element is drawn without an area component
-      if (this._notAreaElements.findIndex((notAreaElement) => notAreaElement === icon) > -1) {
+      if (this.notAreaElements.findIndex((notAreaElement) => notAreaElement === icon) > -1) {
         return this._getRenderElementWithoutArea(graphicalElement, elementRotation, coachDimension);
       }
       return this._getRenderElementWithArea(
@@ -737,7 +753,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         );
         const isValidDescription =
           this._notFixedRotatableAreaIcons.indexOf(icon) === -1 &&
-          this._notAreaElements.indexOf(icon) === -1;
+          this.notAreaElements.indexOf(icon) === -1;
 
         if (!descriptionAlreadyExist) {
           uniqueDescriptions.push(descriptionElement.icon!);
