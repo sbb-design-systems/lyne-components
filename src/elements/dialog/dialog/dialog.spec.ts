@@ -831,6 +831,9 @@ describe('sbb-dialog', () => {
     expect(dialog).to.match(':state(state-opened)');
     expect(nestedDialog).to.match(':state(state-closed)');
 
+    // Should not throw when dialog was removed from DOM before closing
+    nestedDialog.remove();
+
     closeButton.click();
     await closeSpy.calledOnce();
     expect(dialog).to.match(':state(state-closed)');
