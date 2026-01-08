@@ -1,7 +1,14 @@
 @use '../../core/styles' as sbb;
 
 :host {
+  --sbb-expansion-panel-content-padding-inline-start: var(
+    --sbb-expansion-panel-content-padding-inline
+  );
+
   display: block;
+  padding-block-end: var(--sbb-spacing-responsive-s);
+  padding-inline: var(--sbb-expansion-panel-content-padding-inline-start)
+    var(--sbb-expansion-panel-content-padding-inline);
 }
 
 :host(:state(size-s)) {
@@ -17,12 +24,6 @@
         var(--sbb-expansion-panel-title-gap)
     );
   }
-}
-
-.sbb-expansion-panel-content {
-  padding-block-end: var(--sbb-spacing-responsive-s);
-  padding-inline: var(--sbb-expansion-panel-content-padding-inline-start)
-    var(--sbb-expansion-panel-content-padding-inline);
 }
 
 ::slotted(:is(p, sbb-title):first-child) {

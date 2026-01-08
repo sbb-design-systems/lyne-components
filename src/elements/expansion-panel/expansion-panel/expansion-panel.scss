@@ -11,8 +11,23 @@ $open-anim-opacity-to: 1;
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
   );
+  --sbb-expansion-panel-border-block-start-width: var(--sbb-expansion-panel-border-width);
+  --sbb-expansion-panel-border-block-start-color: var(--sbb-expansion-panel-border-color);
+  --sbb-expansion-panel-content-visibility: hidden;
+  --sbb-expansion-panel-start-end-radius: var(--sbb-expansion-panel-border-radius);
+  --sbb-expansion-panel-start-start-radius: var(--sbb-expansion-panel-border-radius);
+  --sbb-expansion-panel-end-end-radius: var(--sbb-expansion-panel-border-radius);
+  --sbb-expansion-panel-end-start-radius: var(--sbb-expansion-panel-border-radius);
 
   display: block;
+  background-color: var(--sbb-expansion-panel-background-color);
+  border: var(--sbb-expansion-panel-border-width) solid var(--sbb-expansion-panel-border-color);
+  border-block-start-color: var(--sbb-expansion-panel-border-block-start-color);
+  border-block-start-width: var(--sbb-expansion-panel-border-block-start-width);
+  border-radius: var(--sbb-expansion-panel-start-start-radius)
+    var(--sbb-expansion-panel-start-end-radius) var(--sbb-expansion-panel-end-end-radius)
+    var(--sbb-expansion-panel-end-start-radius);
+  background-clip: padding-box;
 }
 
 :host([size='s']) {
@@ -87,17 +102,6 @@ $open-anim-opacity-to: 1;
 
 :host(:not([disabled])[color='milk']:state(toggle-hover)) {
   --sbb-expansion-panel-background-color: var(--sbb-background-color-1);
-}
-
-.sbb-expansion-panel {
-  background-color: var(--sbb-expansion-panel-background-color);
-  border: var(--sbb-expansion-panel-border-width) solid var(--sbb-expansion-panel-border-color);
-  border-block-start-color: var(--sbb-expansion-panel-border-block-start-color);
-  border-block-start-width: var(--sbb-expansion-panel-border-block-start-width);
-  border-radius: var(--sbb-expansion-panel-start-start-radius)
-    var(--sbb-expansion-panel-start-end-radius) var(--sbb-expansion-panel-end-end-radius)
-    var(--sbb-expansion-panel-end-start-radius);
-  background-clip: padding-box;
 }
 
 .sbb-expansion-panel__header {
