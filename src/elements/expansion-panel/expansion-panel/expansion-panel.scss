@@ -36,6 +36,10 @@ $open-anim-opacity-to: 1;
   --sbb-expansion-panel-title-gap: var(--sbb-spacing-fixed-2x);
 }
 
+:host([size='l']) {
+  --sbb-expansion-panel-title-gap: var(--sbb-spacing-fixed-4x);
+}
+
 :host([disabled]) {
   @include sbb.if-forced-colors {
     --sbb-expansion-panel-border-color: GrayText;

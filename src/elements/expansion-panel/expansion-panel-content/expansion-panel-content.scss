@@ -1,7 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-expansion-panel-content-padding-inline: var(--sbb-spacing-fixed-6x);
   --sbb-expansion-panel-content-padding-inline-start: var(
     --sbb-expansion-panel-content-padding-inline
   );
@@ -14,6 +13,10 @@
 
 :host(:state(size-s)) {
   --sbb-expansion-panel-content-padding-inline: var(--sbb-spacing-fixed-5x);
+}
+
+:host(:state(size-l)) {
+  --sbb-expansion-panel-content-padding-inline: var(--sbb-spacing-fixed-6x);
 }
 
 :host(:state(icon-space)) {

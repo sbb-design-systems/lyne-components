@@ -6,10 +6,28 @@ $theme: 'standard' !default;
   --sbb-expansion-panel-header-cursor: var(--sbb-cursor-pointer);
   --sbb-expansion-panel-header-font-size: var(--sbb-text-font-size-l);
   --sbb-expansion-panel-header-text-color: var(--sbb-color-2);
-  --sbb-expansion-panel-header-gap: var(--sbb-spacing-fixed-6x);
   --sbb-expansion-panel-header-justify-content: space-between;
-  --sbb-expansion-panel-header-padding-block: var(--sbb-spacing-responsive-xs);
-  --sbb-expansion-panel-header-padding-inline: var(--sbb-spacing-fixed-6x);
+  --sbb-expansion-panel-header-gap: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-6x),
+        'lean': var(--sbb-spacing-fixed-2x),
+      ),
+      $theme
+    )};
+  --sbb-expansion-panel-header-padding-block: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-responsive-xs),
+        'lean': var(--sbb-spacing-fixed-3x),
+      ),
+      $theme
+    )};
+  --sbb-expansion-panel-header-padding-inline: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-6x),
+        'lean': var(--sbb-spacing-fixed-5x),
+      ),
+      $theme
+    )};
 }
 
 @mixin base-forced-colors {
