@@ -106,9 +106,9 @@ class SbbToastElement extends SbbIconNameMixin(
       return;
     }
 
+    this._closeOtherToasts();
     this.showPopover?.();
     this.state = 'opening';
-    this._closeOtherToasts();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
