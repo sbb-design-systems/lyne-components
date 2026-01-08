@@ -254,6 +254,211 @@ describe(`sbb-calendar`, () => {
 
       const dayCells = Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__day'));
       expect(dayCells.length).to.be.equal(31);
+      expect((dayCells[0] as HTMLButtonElement).value).to.be.equal('2023-01-01');
+    });
+
+    it('reset view if day is not selected when year/month are changed', async () => {
+      // We move from Dec 2023 to Sep 2030
+      const yearSelectionButton: HTMLElement = element.shadowRoot!.querySelector(
+        '.sbb-calendar__date-selection',
+      )!;
+      expect(yearSelectionButton).not.to.be.null;
+      yearSelectionButton.click();
+      await waitForTransition();
+
+      const yearButton: HTMLButtonElement =
+        element.shadowRoot!.querySelector<HTMLButtonElement>('[data-year="2030"]')!;
+      expect(yearButton).not.to.be.null;
+      yearButton.click();
+      await waitForTransition();
+
+      const monthCells: HTMLElement[] = Array.from(
+        element.shadowRoot!.querySelectorAll('.sbb-calendar__table-month'),
+      );
+      expect(monthCells.length).to.be.equal(12);
+      monthCells[8].querySelector('button')!.click();
+      await waitForLitRender(element);
+      await waitForTransition();
+
+      const dayCells = Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__day'));
+      expect(dayCells.length).to.be.equal(30);
+      expect((dayCells[0] as HTMLButtonElement).value).to.be.equal('2030-09-01');
+
+      // Without selecting a day, change to the year view
+      yearSelectionButton.click();
+      await waitForTransition();
+      // Go back to day view again by clicking once more
+      const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
+        '#sbb-calendar__year-selection',
+      )!;
+      monthSelection.click();
+      await waitForTransition();
+      // We expect to be in the month of the selected day (Dec 2023)
+      const dayCells2 = Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__day'));
+      expect(dayCells2.length).to.be.equal(31);
+      expect((dayCells2[0] as HTMLButtonElement).value).to.be.equal('2023-01-01');
+    });
+
+    describe('focusing', () => {
+      before(() => {
+        today = new Date(2023, 9, 15, 0, 0, 0, 0);
+      });
+
+      after(() => {
+        today = null;
+      });
+
+      it('focuses current day', async () => {
+        element = await fixture(html`<sbb-calendar></sbb-calendar>`);
+
+        // Open year selection
+        const yearSelectionButton = element.shadowRoot!.querySelector<HTMLElement>(
+          '.sbb-calendar__date-selection',
+        )!;
+        yearSelectionButton.click();
+        await waitForTransition();
+
+        // Select same year
+        const year2023Button =
+          element.shadowRoot!.querySelector<HTMLButtonElement>('[data-year="2023"]')!;
+
+        year2023Button.click();
+        await waitForTransition();
+
+        const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
+          '#sbb-calendar__month-selection',
+        )!;
+        expect(monthSelection).not.to.be.null;
+
+        const october2023Button = element.shadowRoot!.querySelector<HTMLButtonElement>(
+          '[aria-label="October 2023"]',
+        )!;
+        expect(document.activeElement!.shadowRoot!.activeElement).to.be.equal(october2023Button);
+
+        october2023Button.click();
+        await waitForTransition();
+
+        const selectedDayButton =
+          element.shadowRoot!.querySelector<HTMLButtonElement>('[value="2023-10-15"]')!;
+
+        expect(document.activeElement!.shadowRoot!.activeElement).to.be.equal(selectedDayButton);
+      });
+
+      it('focuses selected month when selecting same year', async () => {
+        element = await fixture(html`<sbb-calendar selected="2023-10-15"></sbb-calendar>`);
+
+        // Open year selection
+        const yearSelectionButton = element.shadowRoot!.querySelector<HTMLElement>(
+          '.sbb-calendar__date-selection',
+        )!;
+        yearSelectionButton.click();
+        await waitForTransition();
+
+        // Select same year
+        const year2023Button =
+          element.shadowRoot!.querySelector<HTMLButtonElement>('[data-year="2023"]')!;
+        expect(document.activeElement!.shadowRoot!.activeElement).to.be.equal(year2023Button);
+
+        year2023Button.click();
+        await waitForTransition();
+
+        // Check that we're in month selection view
+        const monthSelection: HTMLElement = element.shadowRoot!.querySelector(
+          '#sbb-calendar__month-selection',
+        )!;
+        expect(monthSelection).not.to.be.null;
+
+        const october2023Button = element.shadowRoot!.querySelector<HTMLButtonElement>(
+          '[aria-label="October 2023"]',
+        )!;
+        expect(document.activeElement!.shadowRoot!.activeElement).to.be.equal(october2023Button);
+
+        october2023Button.click();
+        await waitForTransition();
+
+        const selectedDayButton =
+          element.shadowRoot!.querySelector<HTMLButtonElement>('[value="2023-10-15"]')!;
+
+        expect(document.activeElement!.shadowRoot!.activeElement).to.be.equal(selectedDayButton);
+      });
+
+      it('focuses first month when selecting different year', async () => {
+        element = await fixture(html`<sbb-calendar selected="2023-10-15"></sbb-calendar>`);
+
+        // Open year selection
+        const yearSelectionButton = element.shadowRoot!.querySelector<HTMLElement>(
+          '.sbb-calendar__date-selection',
+        )!;
+        yearSelectionButton.click();
+        await waitForTransition();
+
+        // Select a different year (2024, not the current year 2023)
+        const yearButton =
+          element.shadowRoot!.querySelector<HTMLButtonElement>('[data-year="2024"]')!;
+        yearButton.click();
+        await waitForTransition();
+
+        // Check that we're in month selection view
+        const monthSelection = element.shadowRoot!.querySelector<HTMLElement>(
+          '#sbb-calendar__month-selection',
+        )!;
+        expect(monthSelection).not.to.be.null;
+
+        // Check that the first month (January) has tabindex="0" (is focused)
+        const january2024Button = element.shadowRoot!.querySelector<HTMLButtonElement>(
+          '[aria-label="January 2024"]',
+        )!;
+        expect(document.activeElement!.shadowRoot!.activeElement).to.be.equal(january2024Button);
+
+        january2024Button.click();
+        await waitForTransition();
+
+        const selectedDayButton =
+          element.shadowRoot!.querySelector<HTMLButtonElement>('[value="2024-01-01"]')!;
+
+        expect(document.activeElement!.shadowRoot!.activeElement).to.be.equal(selectedDayButton);
+      });
+    });
+
+    it('avoids taking focus on updating', async () => {
+      document.body.focus();
+      expect(document.activeElement).to.be.equal(document.body);
+
+      // Trigger an update which triggers updated().
+      element.wide = true;
+      await waitForTransition();
+
+      expect(document.activeElement).to.be.equal(document.body);
+    });
+
+    it('keeps focus on updating', async () => {
+      element.focus();
+      expect(document.activeElement).to.be.equal(element);
+
+      // Trigger an update which triggers updated().
+      element.wide = true;
+      await waitForTransition();
+
+      expect(document.activeElement).to.be.equal(element);
+    });
+
+    it('does not create horizontal scrollbar when calendar is 100% width in overflow container', async () => {
+      const container = document.createElement('div');
+      container.style.width = '400px';
+      container.style.overflow = 'auto';
+      document.body.appendChild(container);
+
+      const testElement = document.createElement('sbb-calendar');
+      testElement.style.width = '100%';
+      container.appendChild(testElement);
+
+      await waitForLitRender(testElement);
+
+      // ScrollWidth should equal clientWidth if there's no horizontal scroll
+      expect(container.scrollWidth).to.be.equal(container.clientWidth);
+
+      // Cleanup
+      document.body.removeChild(container);
     });
 
     it('opens year view', async () => {

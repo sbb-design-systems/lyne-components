@@ -1,4 +1,4 @@
-import { assert, expect, fixture } from '@open-wc/testing';
+import { assert, aTimeout, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
@@ -482,7 +482,8 @@ describe('sbb-dialog', () => {
 
     it('configures trigger', () => {
       expect(trigger.ariaHasPopup).to.be.equal('dialog');
-      expect(trigger.getAttribute('aria-controls')).to.be.equal('sbb-dialog-0');
+      const ariaControlsId = trigger.getAttribute('aria-controls');
+      expect(element.id).to.be.equal(ariaControlsId);
       expect(trigger.getAttribute('aria-expanded')).to.be.equal('false');
 
       trigger.click();
@@ -830,9 +831,36 @@ describe('sbb-dialog', () => {
     expect(dialog).to.match(':state(state-opened)');
     expect(nestedDialog).to.match(':state(state-closed)');
 
+    // Should not throw when dialog was removed from DOM before closing
+    nestedDialog.remove();
+
     closeButton.click();
     await closeSpy.calledOnce();
     expect(dialog).to.match(':state(state-closed)');
     expect(nestedDialog).to.match(':state(state-closed)');
+  });
+
+  it('handles opening without first rendering', async () => {
+    const button = document.createElement('button');
+    button.textContent = 'Button';
+    const content = document.createElement('sbb-dialog-content');
+    content.appendChild(button);
+    const element = document.createElement('sbb-dialog');
+    element.appendChild(content);
+    document.body.appendChild(element);
+
+    element.open();
+
+    await waitForLitRender(element);
+    expect(element.shadowRoot?.querySelector('sbb-screen-reader-only')).to.have.trimmed.text(
+      'Dialog',
+    );
+
+    // Wait until setTimeout of overlay base kicks in.
+    await aTimeout(0);
+
+    expect(document.activeElement).to.be.equal(button);
+
+    element.remove();
   });
 });

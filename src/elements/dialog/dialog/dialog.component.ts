@@ -114,9 +114,9 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     this.escapableOverlayController.connect();
     this.attachOpenOverlayEvents();
     this.focusTrapController.focusInitialElement();
+    this.focusTrapController.enabled = true;
     // Use timeout to read label after focused element
     setTimeout(() => this.announceTitle());
-    this.focusTrapController.enabled = true;
 
     const contentElement = this._contentElement();
     if (contentElement) {
@@ -127,6 +127,11 @@ class SbbDialogElement extends SbbOverlayBaseElement {
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
+
+    // If the component is already open on firstUpdate, announce the title
+    if (this.isOpen) {
+      this.announceTitle();
+    }
 
     this._syncTitleNegative();
   }

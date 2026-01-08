@@ -14,7 +14,11 @@
 @mixin list {
   // Support both top level usage (& is empty / falsy)
   // and applied to a selector usage.
-  #{if(sass(&): "&:where(ol, ul)"; else: ":is(ol, ul)")} {
+  $selector: ':is(ol, ul)';
+  @if & {
+    $selector: '&:where(ol, ul)';
+  }
+  #{$selector} {
     --sbb-list-vertical-gap: 0.75em;
     --sbb-list-padding-inline-start: 1.5em;
 
@@ -48,7 +52,11 @@
 
   // Support both top level usage (& is empty / falsy)
   // and applied to a selector usage.
-  #{if(sass(&): "&:where(ul)"; else: "ul")} {
+  $selector: 'ul';
+  @if & {
+    $selector: '&:where(ul)';
+  }
+  #{$selector} {
     &,
     ul {
       list-style-type: none;
@@ -79,7 +87,11 @@
 @mixin description-list {
   // Support both top level usage (& is empty / falsy)
   // and applied to a selector usage.
-  #{if(sass(&): "&:where(dl)"; else: "dl")} {
+  $selector: 'dl';
+  @if & {
+    $selector: '&:where(dl)';
+  }
+  #{$selector} {
     @include typo.text-s--regular;
 
     margin: 0;

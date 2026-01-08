@@ -37,7 +37,7 @@ export function setOverlayPosition(
 
   element.style.setProperty('--sbb-options-panel-position-x', `${panelPosition.left}px`);
   element.style.setProperty('--sbb-options-panel-position-y', `${panelPosition.top}px`);
-  element.style.setProperty('--sbb-options-panel-max-height', panelPosition.maxHeight);
+  element.style.setProperty('--sbb-options-panel-max-height-calculated', panelPosition.maxHeight);
   const controller = ɵstateController(element);
   if (panelPosition.alignment.vertical === 'above') {
     controller.add('options-panel-position-above');

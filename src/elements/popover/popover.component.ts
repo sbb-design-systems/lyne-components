@@ -425,7 +425,7 @@ export
 class SbbPopoverElement extends SbbPopoverBaseElement {
   /** Whether the close button should be hidden. */
   @forceType()
-  @property({ attribute: 'hide-close-button', type: Boolean })
+  @property({ attribute: 'hide-close-button', type: Boolean, reflect: true })
   public accessor hideCloseButton: boolean = false;
 
   /** Whether the popover should be triggered on hover. */
@@ -485,6 +485,7 @@ class SbbPopoverElement extends SbbPopoverBaseElement {
 
     if (this._hoverTrigger !== hoverTrigger) {
       this._hoverTrigger = hoverTrigger;
+      this.toggleState('hover-trigger', this._hoverTrigger);
       this._registerOverlayListeners();
     }
 

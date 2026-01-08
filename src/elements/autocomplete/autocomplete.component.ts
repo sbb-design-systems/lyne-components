@@ -23,6 +23,8 @@ const ariaRoleOnHost = isSafari;
  * @cssprop [--sbb-autocomplete-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
+ * @cssprop [--sbb-options-panel-max-height] - Maximum height of the options panel.
+ * If the calculated remaining space is smaller, the value gets ignored.
  */
 export
 @customElement('sbb-autocomplete')
@@ -47,15 +49,10 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
   }
 
   protected openedPanelKeyboardInteraction(event: KeyboardEvent): void {
-    if (this.state !== 'opened') {
+    if (!this.isOpen) {
       return;
     }
-
     switch (event.key) {
-      case 'Tab':
-        this.close();
-        break;
-
       case 'Enter':
         this.selectByKeyboard(event);
         break;
@@ -68,9 +65,12 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
   }
 
   protected selectByKeyboard(event: KeyboardEvent): void {
-    event.preventDefault();
+    if (this.activeOption) {
+      // We are currently selecting an option and therefore the Enter press shouldn't trigger a form submit
+      event.preventDefault();
 
-    this.activeOption?.['selectViaUserInteraction'](true);
+      this.activeOption['selectViaUserInteraction'](true);
+    }
   }
 
   protected setNextActiveOption(event?: KeyboardEvent): void {
