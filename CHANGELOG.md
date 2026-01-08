@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.5](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.4...v4.0.5) (2026-01-07)
+
+
+### Bug Fixes
+
+* **sbb-autocomplete, sbb-autocomplete-grid:** remove Enter as opening criteria ([#4349](https://github.com/sbb-design-systems/lyne-components/issues/4349)) ([631dc0d](https://github.com/sbb-design-systems/lyne-components/commit/631dc0dbab325b800883a4a01754a895bb22cb37))
+* **sbb-dialog, sbb-overlay:** prevent throwing if nested overlay gets removed from DOM ([#4347](https://github.com/sbb-design-systems/lyne-components/issues/4347)) ([097a577](https://github.com/sbb-design-systems/lyne-components/commit/097a577fc6d10b7de45446867a5ec1d5877e5c4c))
+
 ## [3.13.8](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.7...v3.13.8) (2026-01-07)
 
 
