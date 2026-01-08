@@ -4,8 +4,7 @@ $theme: 'standard' !default;
 
 @mixin base {
   --sbb-expansion-panel-background-color: var(--sbb-background-color-1);
-  --sbb-expansion-panel-border-width: var(--sbb-border-width-1x);
-  --sbb-expansion-panel-border-color: var(--sbb-border-color-4-inverted);
+  --sbb-expansion-panel-background-color-hover: var(--sbb-background-color-3);
   --sbb-expansion-panel-border-radius: var(--sbb-border-radius-4x);
 
   // Vars which will be used by child components

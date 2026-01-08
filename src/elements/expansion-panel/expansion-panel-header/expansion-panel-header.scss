@@ -30,8 +30,6 @@
 }
 
 .sbb-expansion-panel-header {
-  @include sbb.text-l--regular;
-
   display: flex;
   justify-content: var(--sbb-expansion-panel-header-justify-content);
   align-items: center;
@@ -42,6 +40,9 @@
   text-align: start;
   cursor: var(--sbb-expansion-panel-header-cursor);
   color: var(--sbb-expansion-panel-header-text-color);
+  font-size: var(--sbb-expansion-panel-header-font-size);
+  font-weight: normal;
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   -webkit-tap-highlight-color: transparent;
 }
 

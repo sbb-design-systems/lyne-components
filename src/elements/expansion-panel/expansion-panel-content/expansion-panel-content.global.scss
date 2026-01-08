@@ -1,7 +1,0 @@
-@use '../../core/styles' as sbb;
-
-$theme: 'standard' !default;
-
-@mixin base {
-  --sbb-expansion-panel-content-padding-inline: var(--sbb-spacing-fixed-6x);
-}

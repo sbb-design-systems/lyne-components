@@ -4,6 +4,7 @@ $theme: 'standard' !default;
 
 @mixin base {
   --sbb-expansion-panel-header-cursor: var(--sbb-cursor-pointer);
+  --sbb-expansion-panel-header-font-size: var(--sbb-text-font-size-l);
   --sbb-expansion-panel-header-text-color: var(--sbb-color-2);
   --sbb-expansion-panel-header-gap: var(--sbb-spacing-fixed-6x);
   --sbb-expansion-panel-header-justify-content: space-between;
