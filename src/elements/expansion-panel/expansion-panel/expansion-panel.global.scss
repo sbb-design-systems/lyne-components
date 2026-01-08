@@ -1,0 +1,21 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-expansion-panel-background-color: var(--sbb-background-color-1);
+  --sbb-expansion-panel-content-visibility: hidden;
+  --sbb-expansion-panel-border-width: var(--sbb-border-width-1x);
+  --sbb-expansion-panel-border-color: var(--sbb-border-color-4-inverted);
+  --sbb-expansion-panel-border-block-start-width: var(--sbb-expansion-panel-border-width);
+  --sbb-expansion-panel-border-block-start-color: var(--sbb-expansion-panel-border-color);
+  --sbb-expansion-panel-border-radius: var(--sbb-border-radius-4x);
+  --sbb-expansion-panel-start-end-radius: var(--sbb-expansion-panel-border-radius);
+  --sbb-expansion-panel-start-start-radius: var(--sbb-expansion-panel-border-radius);
+  --sbb-expansion-panel-end-end-radius: var(--sbb-expansion-panel-border-radius);
+  --sbb-expansion-panel-end-start-radius: var(--sbb-expansion-panel-border-radius);
+
+  // Vars which will be used by child components
+  --sbb-expansion-panel-title-gap: var(--sbb-spacing-fixed-4x);
+  --sbb-expansion-panel-icon-size: var(--sbb-size-icon-ui-medium);
+}
