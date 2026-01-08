@@ -99,8 +99,9 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElementInternalsMixi
 
     this._state = 'closed';
     this.addEventListener?.('toggleexpanded', (ev: Event) => {
-      this._toggleExpanded();
-      ev.stopPropagation();
+      if (ev.target === this._headerRef) {
+        this._toggleExpanded();
+      }
     });
   }
 
