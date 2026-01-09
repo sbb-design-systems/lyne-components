@@ -44,7 +44,7 @@
   }
 }
 
-:host(:not(:state(selected), :active, :disabled)) {
+:host(:not(:active, :disabled)) {
   @include sbb.hover-mq($hover: true) {
     .sbb-calendar-day:hover {
       --sbb-calendar-cell-background-color: var(--sbb-background-color-3);
@@ -77,7 +77,7 @@
   }
 }
 
-:host(:not(:state(selected), :disabled):active) {
+:host(:not(:disabled):active) {
   --sbb-calendar-cell-background-color: var(--sbb-background-color-4);
 
   .sbb-calendar-day::before {
