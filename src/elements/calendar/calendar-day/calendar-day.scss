@@ -19,10 +19,6 @@
   );
   --sbb-calendar-cell-transition-easing-function: var(--sbb-animation-easing);
   --sbb-calendar-cell-cursor: var(--sbb-cursor-pointer);
-
-  @include sbb.mq($from: large) {
-    --sbb-calendar-cell-height: #{sbb.px-to-rem-build(56)};
-  }
 }
 
 :host(:state(selected)) {
@@ -102,6 +98,8 @@
   display: flex;
   flex-direction: column;
   height: var(--sbb-calendar-cell-height);
+  width: var(--sbb-calendar-cell-width);
+  padding: var(--sbb-calendar-cell-padding);
   color: var(--sbb-calendar-cell-color);
   cursor: var(--sbb-calendar-cell-cursor);
   position: relative;
@@ -119,4 +117,13 @@
     transition-timing-function: var(--sbb-calendar-cell-transition-easing-function);
     transition-property: background-color;
   }
+}
+
+.sbb-calendar-day__value {
+  height: var(--sbb-spacing-fixed-6x);
+}
+
+.sbb-calendar-day__extra {
+  height: var(--sbb-spacing-fixed-5x);
+  padding: var(--sbb-calendar-cell-padding);
 }

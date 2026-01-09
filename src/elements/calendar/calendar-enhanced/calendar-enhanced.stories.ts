@@ -30,7 +30,7 @@ const createDaysTemplate = (numDays: number, year: number, month: number): Templ
   return html`
     ${repeat(new Array(numDays), (_, index) => {
       const date = defaultDateAdapter.toIso8601(new Date(year, month - 1, index + 1));
-      return html` <sbb-calendar-day slot=${date}><small>9.90</small></sbb-calendar-day> `;
+      return html` <sbb-calendar-day slot=${date}></sbb-calendar-day> `;
     })}
   `;
 };
