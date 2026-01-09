@@ -1,6 +1,7 @@
 import { assert, aTimeout, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import type { SbbAutocompleteElement } from '../../autocomplete.ts';
 import type { SbbButtonElement } from '../../button.ts';
@@ -789,55 +790,104 @@ describe('sbb-dialog', () => {
     });
   });
 
-  it('should only close most upper dialog when pressing close button', async () => {
-    const root: HTMLElement = await fixture(html`
-      <div>
-        <sbb-button id="button-1">Open dialog</sbb-button>
-        <sbb-dialog id="dialog-1" trigger="button-1">
-          <sbb-dialog-close-button id="close-1"></sbb-dialog-close-button>
-          <sbb-dialog-content>
-            <sbb-button id="button-2">Open nested dialog</sbb-button>
-            <sbb-dialog id="dialog-2" trigger="button-2">
-              <sbb-dialog-close-button id="close-2"></sbb-dialog-close-button>
-            </sbb-dialog>
-          </sbb-dialog-content>
-        </sbb-dialog>
-      </div>
-    `);
+  describe('nested dialogs', () => {
+    let root: HTMLElement;
+    let openButton: SbbButtonElement;
+    let nestedOpenButton: SbbButtonElement;
+    let closeButton: SbbButtonElement;
+    let nestedCloseButton: SbbButtonElement;
+    let dialog: SbbDialogElement;
+    let nestedDialog: SbbDialogElement;
+    let openSpy: EventSpy<Event>;
+    let closeSpy: EventSpy<Event>;
+    let nestedOpenSpy: EventSpy<Event>;
+    let nestedCloseSpy: EventSpy<Event>;
 
-    const openButton = root.querySelector<SbbButtonElement>('#button-1')!;
-    const nestedOpenButton = root.querySelector<SbbButtonElement>('#button-2')!;
-    const closeButton = root.querySelector<SbbButtonElement>('#close-1')!;
-    const nestedCloseButton = root.querySelector<SbbButtonElement>('#close-2')!;
-    const dialog = root.querySelector<SbbDialogElement>('#dialog-1')!;
-    const nestedDialog = root.querySelector<SbbDialogElement>('#dialog-2')!;
-    const openSpy = new EventSpy(SbbDialogElement.events.open, dialog);
-    const closeSpy = new EventSpy(SbbDialogElement.events.close, dialog);
-    const nestedOpenSpy = new EventSpy(SbbDialogElement.events.open, nestedDialog);
-    const nestedCloseSpy = new EventSpy(SbbDialogElement.events.close, nestedDialog);
+    beforeEach(async () => {
+      root = await fixture(html`
+        <div>
+          <sbb-button id="button-1">Open dialog</sbb-button>
+          <sbb-dialog id="dialog-1" trigger="button-1">
+            <sbb-dialog-close-button id="close-1"></sbb-dialog-close-button>
+            <sbb-dialog-content>
+              <sbb-button id="button-2">Open nested dialog</sbb-button>
+              <sbb-dialog id="dialog-2" trigger="button-2">
+                <sbb-dialog-close-button id="close-2"></sbb-dialog-close-button>
+              </sbb-dialog>
+            </sbb-dialog-content>
+          </sbb-dialog>
+        </div>
+      `);
 
-    openButton.click();
-    await openSpy.calledOnce();
+      openButton = root.querySelector<SbbButtonElement>('#button-1')!;
+      nestedOpenButton = root.querySelector<SbbButtonElement>('#button-2')!;
+      closeButton = root.querySelector<SbbButtonElement>('#close-1')!;
+      nestedCloseButton = root.querySelector<SbbButtonElement>('#close-2')!;
+      dialog = root.querySelector<SbbDialogElement>('#dialog-1')!;
+      nestedDialog = root.querySelector<SbbDialogElement>('#dialog-2')!;
+      openSpy = new EventSpy(SbbDialogElement.events.open, dialog);
+      closeSpy = new EventSpy(SbbDialogElement.events.close, dialog);
+      nestedOpenSpy = new EventSpy(SbbDialogElement.events.open, nestedDialog);
+      nestedCloseSpy = new EventSpy(SbbDialogElement.events.close, nestedDialog);
+    });
 
-    nestedOpenButton.click();
-    await nestedOpenSpy.calledOnce();
+    it('should only close most upper dialog when pressing close button', async () => {
+      openButton.click();
+      await openSpy.calledOnce();
 
-    expect(dialog).to.match(':state(state-opened)');
-    expect(nestedDialog).to.match(':state(state-opened)');
+      nestedOpenButton.click();
+      await nestedOpenSpy.calledOnce();
 
-    nestedCloseButton.click();
-    await nestedCloseSpy.calledOnce();
+      expect(dialog).to.match(':state(state-opened)');
+      expect(nestedDialog).to.match(':state(state-opened)');
 
-    expect(dialog).to.match(':state(state-opened)');
-    expect(nestedDialog).to.match(':state(state-closed)');
+      nestedCloseButton.click();
+      await nestedCloseSpy.calledOnce();
 
-    // Should not throw when dialog was removed from DOM before closing
-    nestedDialog.remove();
+      expect(dialog).to.match(':state(state-opened)');
+      expect(nestedDialog).to.match(':state(state-closed)');
 
-    closeButton.click();
-    await closeSpy.calledOnce();
-    expect(dialog).to.match(':state(state-closed)');
-    expect(nestedDialog).to.match(':state(state-closed)');
+      // Should not throw when dialog was removed from DOM before closing
+      nestedDialog.remove();
+
+      closeButton.click();
+      await closeSpy.calledOnce();
+      expect(dialog).to.match(':state(state-closed)');
+      expect(nestedDialog).to.match(':state(state-closed)');
+    });
+
+    it('should only close most upper dialog when pressing Escape', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
+
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
+      nestedDialog.style.setProperty('--sbb-dialog-animation-duration', '5ms');
+
+      openButton.click();
+      await openSpy.calledOnce();
+
+      nestedOpenButton.click();
+      expect(nestedDialog).to.match(':state(state-opening)');
+      await sendKeys({ press: 'Escape' });
+      expect(nestedDialog).to.match(':state(state-closing)');
+      await nestedCloseSpy.calledOnce();
+
+      expect(dialog).to.match(':state(state-opened)');
+      expect(nestedDialog).to.match(':state(state-closed)');
+    });
+
+    it('should prevent opening a nested dialog if outer is closed or closing', async () => {
+      openButton.click();
+      await openSpy.calledOnce();
+
+      await sendKeys({ press: 'Escape' });
+      nestedOpenButton.click();
+      expect(nestedDialog, 'nested dialog should stay close').to.match(':state(state-closed)');
+      await closeSpy.calledOnce();
+      expect(nestedDialog, 'nested dialog').to.match(':state(state-closed)');
+      expect(dialog, 'outer dialog').to.match(':state(state-closed)');
+    });
   });
 
   it('handles opening without first rendering', async () => {
