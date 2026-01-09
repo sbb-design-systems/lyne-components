@@ -751,7 +751,7 @@ describe(`sbb-select`, () => {
         expect(element.isOpen).to.be.true;
       });
 
-      it('should open again when opening during closing by arrow press on input', async function (this: Context) {
+      it('should open again when opening during closing by arrow press', async function (this: Context) {
         // Flaky on WebKit
         this.retries(3);
 
