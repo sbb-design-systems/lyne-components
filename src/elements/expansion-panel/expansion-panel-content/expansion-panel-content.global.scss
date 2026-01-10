@@ -1,0 +1,13 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-expansion-panel-content-padding-inline: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-6x),
+        'lean': var(--sbb-spacing-fixed-5x),
+      ),
+      $theme
+    )};
+}

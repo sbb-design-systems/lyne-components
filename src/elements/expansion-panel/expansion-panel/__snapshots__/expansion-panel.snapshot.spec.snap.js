@@ -28,17 +28,15 @@ snapshots["sbb-expansion-panel renders DOM"] =
 /* end snapshot sbb-expansion-panel renders DOM */
 
 snapshots["sbb-expansion-panel renders Shadow DOM"] = 
-`<div class="sbb-expansion-panel">
-  <div class="sbb-expansion-panel__header">
-    <slot name="header">
+`<div class="sbb-expansion-panel__header">
+  <slot name="header">
+  </slot>
+</div>
+<div class="sbb-expansion-panel__content-wrapper">
+  <span class="sbb-expansion-panel__content">
+    <slot name="content">
     </slot>
-  </div>
-  <div class="sbb-expansion-panel__content-wrapper">
-    <span class="sbb-expansion-panel__content">
-      <slot name="content">
-      </slot>
-    </span>
-  </div>
+  </span>
 </div>
 `;
 /* end snapshot sbb-expansion-panel renders Shadow DOM */
@@ -70,17 +68,15 @@ snapshots["sbb-expansion-panel renders size s DOM"] =
 /* end snapshot sbb-expansion-panel renders size s DOM */
 
 snapshots["sbb-expansion-panel renders size s Shadow DOM"] = 
-`<div class="sbb-expansion-panel">
-  <div class="sbb-expansion-panel__header">
-    <slot name="header">
+`<div class="sbb-expansion-panel__header">
+  <slot name="header">
+  </slot>
+</div>
+<div class="sbb-expansion-panel__content-wrapper">
+  <span class="sbb-expansion-panel__content">
+    <slot name="content">
     </slot>
-  </div>
-  <div class="sbb-expansion-panel__content-wrapper">
-    <span class="sbb-expansion-panel__content">
-      <slot name="content">
-      </slot>
-    </span>
-  </div>
+  </span>
 </div>
 `;
 /* end snapshot sbb-expansion-panel renders size s Shadow DOM */
@@ -113,17 +109,15 @@ snapshots["sbb-expansion-panel renders with level set DOM"] =
 /* end snapshot sbb-expansion-panel renders with level set DOM */
 
 snapshots["sbb-expansion-panel renders with level set Shadow DOM"] = 
-`<div class="sbb-expansion-panel">
-  <h4 class="sbb-expansion-panel__header">
-    <slot name="header">
+`<h4 class="sbb-expansion-panel__header">
+  <slot name="header">
+  </slot>
+</h4>
+<div class="sbb-expansion-panel__content-wrapper">
+  <span class="sbb-expansion-panel__content">
+    <slot name="content">
     </slot>
-  </h4>
-  <div class="sbb-expansion-panel__content-wrapper">
-    <span class="sbb-expansion-panel__content">
-      <slot name="content">
-      </slot>
-    </span>
-  </div>
+  </span>
 </div>
 `;
 /* end snapshot sbb-expansion-panel renders with level set Shadow DOM */

@@ -105,30 +105,54 @@ describe(`sbb-expansion-panel`, () => {
     describeEach(
       cases,
       ({ borderless, disabled, expanded, color, emulateMedia: { forcedColors, darkMode } }) => {
-        beforeEach(async function () {
-          root = await visualRegressionFixture(
-            html`
-              <sbb-expansion-panel
-                ?borderless=${borderless}
-                ?disabled=${disabled}
-                ?expanded=${expanded}
-                color=${color}
-              >
-                <sbb-expansion-panel-header icon-name="arrow-right-small">
-                  Header
-                </sbb-expansion-panel-header>
-                <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
-              </sbb-expansion-panel>
-            `,
-            { forcedColors, darkMode },
-          );
-        });
-
         for (const state of [visualDiffDefault, visualDiffFocus, visualDiffHover]) {
           it(
             state.name,
             state.with((setup) => {
-              setup.withSnapshotElement(root);
+              setup.withFixture(
+                html`
+                  <sbb-expansion-panel
+                    ?borderless=${borderless}
+                    ?disabled=${disabled}
+                    ?expanded=${expanded}
+                    color=${color}
+                  >
+                    <sbb-expansion-panel-header icon-name="arrow-right-small">
+                      Header
+                    </sbb-expansion-panel-header>
+                    <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
+                  </sbb-expansion-panel>
+                `,
+                { forcedColors, darkMode },
+              );
+            }),
+          );
+
+          it(
+            `nested ${setup.name}`,
+            state.with((setup) => {
+              setup.withFixture(
+                html`
+                  <sbb-expansion-panel
+                    ?borderless=${borderless}
+                    ?disabled=${disabled}
+                    ?expanded=${expanded}
+                    color=${color}
+                  >
+                    <sbb-expansion-panel-header icon-name="arrow-right-small">
+                      Header
+                    </sbb-expansion-panel-header>
+                    <sbb-expansion-panel-content>
+                      Content
+                      <sbb-expansion-panel>
+                        <sbb-expansion-panel-header>Nested header</sbb-expansion-panel-header>
+                        <sbb-expansion-panel-content>Nested content</sbb-expansion-panel-content>
+                      </sbb-expansion-panel>
+                    </sbb-expansion-panel-content>
+                  </sbb-expansion-panel>
+                `,
+                { forcedColors, darkMode },
+              );
             }),
           );
         }

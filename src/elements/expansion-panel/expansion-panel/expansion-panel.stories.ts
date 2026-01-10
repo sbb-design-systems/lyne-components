@@ -158,6 +158,26 @@ const TemplateSlottedIcon = ({
   </sbb-expansion-panel>
 `;
 
+const NestedTemplate = ({
+  headerText,
+  iconName,
+  contentText,
+  'disabled-interactive': disabledInteractive,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-expansion-panel ${sbbSpread(args)}>
+    <sbb-expansion-panel-header
+      icon-name=${iconName ?? nothing}
+      ?disabled-interactive=${disabledInteractive}
+    >
+      ${headerText}
+    </sbb-expansion-panel-header>
+    <sbb-expansion-panel-content>
+      ${Template({ headerText, iconName, contentText })}
+    </sbb-expansion-panel-content>
+  </sbb-expansion-panel>
+`;
+
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -228,6 +248,12 @@ export const SizeSWithIcon: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![1], iconName: 'swisspass-medium' },
+};
+
+export const Nested: StoryObj = {
+  render: NestedTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
 };
 
 const meta: Meta = {
