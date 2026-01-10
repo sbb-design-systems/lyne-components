@@ -95,7 +95,7 @@
     "@types/chai": "4.3.20",
     "@types/mocha": "10.0.10",
     "@types/node": "24.10.4",
-    "@types/react": "19.2.7",
+    "@types/react": "19.2.8",
     "@typescript-eslint/eslint-plugin": "8.52.0",
     "@typescript-eslint/parser": "8.52.0",
     "@web/test-runner": "0.20.2",
