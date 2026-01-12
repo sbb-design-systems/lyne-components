@@ -33,11 +33,11 @@
     inset-block-end: 0;
     height: var(--sbb-tab-label-marker-thickness);
     background-color: var(--sbb-tab-label-color);
-    transform: var(--sbb-tab-label-marker-transform, scale(0));
+    scale: var(--sbb-tab-label-marker-scale, 0);
     transition: {
       duration: var(--sbb-tab-label-animation-duration);
       timing-function: var(--sbb-tab-label-animation-easing);
-      property: transform, background-color;
+      property: scale, background-color;
     }
 
     @include sbb.if-forced-colors {
@@ -66,7 +66,7 @@
 
 ::slotted(a:hover:not(.sbb-disabled)) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-tab-label-marker-transform: scale(1);
+    --sbb-tab-label-marker-scale: 1;
   }
 }
 
@@ -75,7 +75,7 @@
 }
 
 ::slotted(a.sbb-active:not(.sbb-disabled)) {
-  --sbb-tab-label-marker-transform: scale(1);
+  --sbb-tab-label-marker-scale: 1;
   --sbb-tab-label-color: var(--sbb-color-3);
 }
 
