@@ -6,7 +6,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { isLean } from '../../core/dom/lean-context.ts';
 import { SbbElementInternalsMixin, SbbNamedSlotListMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { tabLabelCommonStyles } from '../common.ts';
+import { tabGroupCommonStyles, tabLabelCommonStyles } from '../common.ts';
 
 import style from './tab-nav-bar.scss?lit&inline';
 
@@ -18,7 +18,12 @@ import style from './tab-nav-bar.scss?lit&inline';
 export
 @customElement('sbb-tab-nav-bar')
 class SbbTabNavBarElement extends SbbNamedSlotListMixin(SbbElementInternalsMixin(LitElement)) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, tabLabelCommonStyles, style];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    tabLabelCommonStyles,
+    tabGroupCommonStyles,
+    style,
+  ];
   public static override readonly role = 'navigation';
 
   protected override listChildLocalNames = ['a'];

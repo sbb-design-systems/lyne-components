@@ -34,6 +34,7 @@ describe('sbb-tab-nav-bar', () => {
                     <a class="sbb-disabled" aria-disabled="true" role="link">Nav 3</a>
                     <a href="#" class="sbb-active" aria-current="page">Nav 4</a>
                   </sbb-tab-nav-bar>
+                  <div>Content</div>
                 `,
                 { forcedColors, darkMode },
               );
@@ -64,6 +65,7 @@ describe('sbb-tab-nav-bar', () => {
                     <p class="sbb-tab-amount">42</p></a
                   >
                 </sbb-tab-nav-bar>
+                <div>Content</div>
               `,
               { forcedColors, darkMode },
             );

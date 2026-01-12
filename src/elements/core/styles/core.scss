@@ -45,6 +45,9 @@ $theme: 'standard' !default;
   with (
   $theme: $theme
 );
+@use '../../tabs/common/tab-group-common.global' as tab-group-common with (
+  $theme: $theme
+);
 @use '../../tabs/common/tab-label-common.global' as tab-label-common with (
   $theme: $theme
 );
@@ -72,6 +75,7 @@ $theme: 'standard' !default;
   @include radio-button-group.base;
   @include selection-action-panel.base;
   @include selection-expansion-panel.base;
+  @include tab-group-common.base;
   @include tab-label-common.base;
   @include visual-checkbox.base;
 

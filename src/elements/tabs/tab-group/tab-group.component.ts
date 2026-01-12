@@ -14,6 +14,7 @@ import {
   ɵstateController,
 } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
+import { tabGroupCommonStyles } from '../common.ts';
 import type { SbbTabLabelElement } from '../tab-label.ts';
 import type { SbbTabElement } from '../tab.ts';
 
@@ -37,7 +38,7 @@ export type SbbTabChangedEventDetails = {
 export
 @customElement('sbb-tab-group')
 class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitElement)) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, tabGroupCommonStyles, style];
   public static readonly events = {
     tabchange: 'tabchange',
   } as const;

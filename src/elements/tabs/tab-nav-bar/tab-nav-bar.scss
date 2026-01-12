@@ -1,12 +1,9 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: contents;
+  margin-block-end: var(--sbb-tab-group-content-gap);
 }
 
 .sbb-tab-nav-bar {
   @include sbb.list-reset;
-
-  display: flex;
-  flex-wrap: wrap;
 }

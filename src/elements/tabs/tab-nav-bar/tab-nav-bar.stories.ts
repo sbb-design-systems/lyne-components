@@ -31,6 +31,7 @@ const Template = (args: Args): TemplateResult => html`
     <a class="sbb-disabled" aria-disabled="true" role="link">Nav item 3</a>
     <a href="https://www.sbb.ch">Nav item 4</a>
   </sbb-tab-nav-bar>
+  <div>Content</div>
 `;
 
 const withIconTemplate = (args: Args): TemplateResult => html`
@@ -52,6 +53,7 @@ const withIconTemplate = (args: Args): TemplateResult => html`
       Nav item 4
     </a>
   </sbb-tab-nav-bar>
+  <div>Content</div>
 `;
 
 const withAmountTemplate = (args: Args): TemplateResult => html`
@@ -73,6 +75,7 @@ const withAmountTemplate = (args: Args): TemplateResult => html`
       <p class="sbb-tab-amount">42 <span class="sbb-screen-reader-only">Items</span></p></a
     >
   </sbb-tab-nav-bar>
+  <div>Content</div>
 `;
 
 export const Default: StoryObj = {
