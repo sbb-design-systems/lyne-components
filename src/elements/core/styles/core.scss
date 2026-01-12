@@ -181,7 +181,7 @@ $theme: 'standard' !default;
 @include font-face.font-declarations;
 
 // Components global styles
-@include tab-nav-bar.tab-nav-bar-amount;
+@include tab-nav-bar.rules;
 
 // TODO: discuss where to add these classes
 .sbb-dark {

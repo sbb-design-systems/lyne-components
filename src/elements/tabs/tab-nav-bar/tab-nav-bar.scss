@@ -8,6 +8,7 @@
   @include sbb.list-reset;
 
   display: flex;
+  flex-wrap: wrap;
 }
 
 ::slotted(a) {
@@ -38,6 +39,22 @@
       timing-function: var(--sbb-tab-label-animation-easing);
       property: transform, background-color;
     }
+
+    @include sbb.if-forced-colors {
+      background-color: ButtonText;
+    }
+  }
+}
+
+::slotted(a[data-has-divider]) {
+  &::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-end: 0;
+    width: var(--sbb-tab-nav-bar-width);
+    height: var(--sbb-border-width-1x);
+    background-color: var(--sbb-tab-label-line-color);
   }
 }
 

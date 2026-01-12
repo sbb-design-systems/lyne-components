@@ -1,4 +1,5 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -28,6 +29,52 @@ class SbbTabNavBarElement extends SbbNamedSlotListMixin(SbbElementInternalsMixin
    */
   @property({ reflect: true })
   public accessor size: 's' | 'l' | 'xl' = isLean() ? 's' : 'l';
+
+  private _resizeController = new ResizeController(this, {
+    target: null,
+    callback: () => this._onTabGroupElementResize(),
+  });
+
+  private _lastObservedTarget: Element | null = null;
+
+  private _onTabGroupElementResize(): void {
+    this.listChildren.forEach((anchor) => {
+      anchor?.toggleAttribute(
+        'data-has-divider',
+        anchor === this.listChildren[0] || anchor.offsetLeft === this.listChildren[0].offsetLeft,
+      );
+    });
+
+    this.style.setProperty(
+      '--sbb-tab-nav-bar-width',
+      `${this.shadowRoot?.firstElementChild?.clientWidth}px`,
+    );
+  }
+
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
+    this._updateWidthObserver();
+
+    // Whenever slotted element change, the target to observe might change as well
+    // (change from single to multiple elements or vice versa).
+    this.shadowRoot?.addEventListener('slotchange', () => this._updateWidthObserver());
+  }
+
+  private _updateWidthObserver(): void {
+    const target = this.shadowRoot?.querySelector(`.${this.localName}`);
+
+    if (target && this._lastObservedTarget !== target) {
+      if (this._lastObservedTarget) {
+        this._resizeController.unobserve(this._lastObservedTarget);
+      }
+      this._lastObservedTarget = target;
+      this._resizeController.observe(target);
+    } else if (!target && this._lastObservedTarget) {
+      this._resizeController.unobserve(this._lastObservedTarget);
+      this._lastObservedTarget = null;
+    }
+  }
 
   protected override render(): TemplateResult {
     return this.renderList();

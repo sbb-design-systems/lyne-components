@@ -11,7 +11,7 @@ import '../../icon.ts';
 import './tab-nav-bar.component.ts';
 
 describe('sbb-tab-nav-bar', () => {
-  describeViewports({ viewports: ['small', 'large'] }, () => {
+  describeViewports({ viewports: ['zero', 'small', 'large'] }, () => {
     describeEach(
       {
         size: ['s', 'l', 'xl'],
