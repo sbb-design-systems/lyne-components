@@ -47,7 +47,10 @@ snapshots["sbb-autocomplete renders standalone Safari Shadow DOM"] =
   </div>
   <div class="sbb-autocomplete__panel">
     <div class="sbb-autocomplete__wrapper">
-      <div class="sbb-autocomplete__options">
+      <div
+        class="sbb-autocomplete__options"
+        tabindex="-1"
+      >
         <slot>
         </slot>
       </div>
@@ -173,6 +176,7 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM"] =
         class="sbb-autocomplete__options"
         id="sbb-autocomplete-2"
         role="listbox"
+        tabindex="-1"
       >
         <slot>
         </slot>

@@ -443,6 +443,61 @@ describe(`sbb-popover`, () => {
       await waitForLitRender(element);
       expect(trigger.ariaHasPopup).to.be.null;
     });
+
+    describe('interrupting opening and closing with non-zero animation duration', () => {
+      beforeEach(() => {
+        (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+        element.style.setProperty('--sbb-popover-animation-duration', '5ms');
+      });
+
+      it('should close when closing during opening', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
+        const closeSpy = new EventSpy(SbbPopoverElement.events.close, element);
+
+        element.open();
+        await aTimeout(1);
+        expect(element).to.match(':state(state-opening)');
+        element.close();
+
+        await closeSpy.calledOnce();
+        expect(element.isOpen).to.be.false;
+      });
+
+      it('should close when closing during opening with Escape key', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
+        const closeSpy = new EventSpy(SbbPopoverElement.events.close, element);
+
+        element.open();
+        await aTimeout(1);
+        expect(element).to.match(':state(state-opening)');
+        await sendKeys({ press: 'Escape' });
+
+        await closeSpy.calledOnce();
+        expect(element.isOpen).to.be.false;
+      });
+
+      it('should open again when opening during closing', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
+        const openSpy = new EventSpy(SbbPopoverElement.events.open, element);
+
+        element.open();
+        await openSpy.calledOnce();
+
+        element.close();
+        await aTimeout(1);
+        expect(element).to.match(':state(state-closing)');
+        element.open();
+
+        await openSpy.calledTimes(2);
+        expect(element.isOpen).to.be.true;
+      });
+    });
   });
 
   describe('with no interactive content', () => {

@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
@@ -62,6 +62,15 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     super.connectedCallback();
   }
 
+  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
+    // If the component is already open on firstUpdate, announce the title
+    if (this.isOpen) {
+      this.setAriaLiveRefContent();
+    }
+  }
+
   protected isZeroAnimationDuration(): boolean {
     return isZeroAnimationDuration(this, '--sbb-overlay-animation-duration');
   }
@@ -69,8 +78,6 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
   protected handleOpening(): void {
     this.state = 'opened';
     this.inertController.activate();
-    this.escapableOverlayController.connect();
-    this.attachOpenOverlayEvents();
     this.focusTrapController.focusInitialElement();
     // Use timeout to read label after focused element
     setTimeout(() => this.setAriaLiveRefContent(this.accessibilityLabel));

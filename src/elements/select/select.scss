@@ -56,7 +56,7 @@
 :host(:state(options-panel-position-above)) {
   --sbb-options-panel-options-border-radius: var(--sbb-options-panel-border-radius)
     var(--sbb-options-panel-border-radius) 0 0;
-  --sbb-options-panel-gap-fix-top: var(--sbb-options-panel-max-height);
+  --sbb-options-panel-gap-fix-top: var(--_sbb-options-panel-max-height);
   --sbb-options-panel-gap-fix-transform: rotate(180deg);
   --sbb-options-panel-animation-transform: translateY(
     calc(var(--sbb-options-panel-origin-height) / 2)

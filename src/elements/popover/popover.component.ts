@@ -59,8 +59,8 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
   private _popoverCloseElement?: HTMLElement;
   private _isPointerDownEventOnPopover?: boolean;
   private _triggerElement?: HTMLElement | null;
-  private _triggerAbortController!: AbortController;
-  private _openStateController!: AbortController;
+  private _triggerAbortController?: AbortController;
+  private _openStateController?: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusTrapController = new SbbFocusTrapController(this);
   private _blurTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -88,6 +88,8 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
     this.state = 'opening';
     this.inert = true;
     this._setPopoverPosition();
+    this._attachWindowEvents();
+    this._escapableOverlayController.connect();
     this._triggerElement?.setAttribute('aria-expanded', 'true');
     this._nextFocusedElement = undefined;
     this._skipCloseFocus = false;
@@ -140,16 +142,14 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
     }
 
     this._escapableOverlayController.disconnect();
-    this.dispatchCloseEvent({ closeTarget: this._popoverCloseElement ?? null });
     this._openStateController?.abort();
     this._focusTrapController.enabled = false;
+    this.dispatchCloseEvent({ closeTarget: this._popoverCloseElement ?? null });
   }
 
   private _handleOpening(): void {
     this.state = 'opened';
     this.inert = false;
-    this._attachWindowEvents();
-    this._escapableOverlayController.connect();
     this._setPopoverFocus();
     this._focusTrapController.enabled = true;
     this.dispatchOpenEvent();
@@ -292,7 +292,7 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
   private _setPopoverFocus(): void {
     const focused = this._focusTrapController.focusInitialElement();
 
-    if (!focused) {
+    if (!focused && this._openStateController) {
       this.setAttribute('tabindex', '0');
       this.focus();
 
@@ -425,7 +425,7 @@ export
 class SbbPopoverElement extends SbbPopoverBaseElement {
   /** Whether the close button should be hidden. */
   @forceType()
-  @property({ attribute: 'hide-close-button', type: Boolean })
+  @property({ attribute: 'hide-close-button', type: Boolean, reflect: true })
   public accessor hideCloseButton: boolean = false;
 
   /** Whether the popover should be triggered on hover. */
@@ -485,6 +485,7 @@ class SbbPopoverElement extends SbbPopoverBaseElement {
 
     if (this._hoverTrigger !== hoverTrigger) {
       this._hoverTrigger = hoverTrigger;
+      this.toggleState('hover-trigger', this._hoverTrigger);
       this._registerOverlayListeners();
     }
 
