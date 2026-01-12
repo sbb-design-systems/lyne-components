@@ -33,6 +33,7 @@
   display: block;
   width: 100%;
   cursor: var(--sbb-checkbox-cursor);
+  user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
 

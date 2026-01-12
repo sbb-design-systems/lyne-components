@@ -81,6 +81,7 @@
   position: relative;
   display: flex;
   color: var(--sbb-toggle-check-color);
+  user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: var(--sbb-toggle-check-cursor);
 
