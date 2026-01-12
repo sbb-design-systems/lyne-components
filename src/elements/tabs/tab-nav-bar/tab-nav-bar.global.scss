@@ -6,9 +6,8 @@ $theme: 'standard' !default;
   sbb-tab-nav-bar .sbb-tab-amount {
     margin: 0;
     color: var(--sbb-tab-label-amount-color);
-    font-size: var(--sbb-tab-label-amount-font-size);
+    font-size: var(--sbb-tab-label-font-size);
     letter-spacing: var(--sbb-typo-letter-spacing-text);
-    font-weight: var(--sbb-tab-label-amount-font-weight);
     text-decoration: var(--sbb-tab-label-text-decoration);
     transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
   }

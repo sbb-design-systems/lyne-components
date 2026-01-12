@@ -46,6 +46,7 @@
   }
 }
 
+// Show a border below the tab-group and between flex rows when the tab titles wrap to a new line
 ::slotted(a[data-has-divider]) {
   &::before {
     content: '';

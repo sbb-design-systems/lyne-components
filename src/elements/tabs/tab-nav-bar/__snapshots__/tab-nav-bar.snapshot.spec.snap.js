@@ -2,10 +2,14 @@
 export const snapshots = {};
 
 snapshots["sbb-tab-nav-bar renders DOM"] = 
-`<sbb-tab-nav-bar size="l">
+`<sbb-tab-nav-bar
+  size="l"
+  style="--sbb-tab-nav-bar-width: 800px;"
+>
   <a
     aria-current="page"
     class="sbb-active"
+    data-has-divider=""
     href="https://www.sbb.ch"
     slot="li-0"
   >

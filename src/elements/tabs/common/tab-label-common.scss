@@ -15,19 +15,16 @@
   --sbb-tab-label-height: var(--sbb-size-element-xs);
   --sbb-tab-label-inline-padding: var(--sbb-spacing-responsive-xxxs);
   --sbb-tab-label-font-size: var(--sbb-text-font-size-s);
-  --sbb-tab-label-amount-font-size: var(--sbb-text-font-size-s);
 }
 
 :host(:is(:state(size-l), [size='l'])) {
   --sbb-tab-label-height: var(--sbb-size-element-m);
   --sbb-tab-label-inline-padding: var(--sbb-spacing-responsive-xs);
   --sbb-tab-label-font-size: var(--sbb-text-font-size-m);
-  --sbb-tab-label-amount-font-size: var(--sbb-text-font-size-m);
 }
 
 :host(:is(:state(size-xl), [size='xl'])) {
   --sbb-tab-label-height: var(--sbb-size-element-m);
   --sbb-tab-label-inline-padding: var(--sbb-spacing-responsive-xs);
   --sbb-tab-label-font-size: var(--sbb-text-font-size-xl);
-  --sbb-tab-label-amount-font-size: var(--sbb-text-font-size-xl);
 }

@@ -172,7 +172,6 @@ class SbbTabLabelElement extends SbbDisabledMixin(
 
     /* eslint-disable lit/binding-positions */
     return html`
-      <div class="sbb-tab-label__wrapper">
         <${unsafeStatic(TAGNAME)} class="sbb-tab-label">
           <span class="sbb-tab-label__icon">
             ${this.renderIconSlot()}
@@ -184,7 +183,6 @@ class SbbTabLabelElement extends SbbDisabledMixin(
             <slot name="amount">${this.amount}</slot>
           </p>
         </${unsafeStatic(TAGNAME)}>
-      </div>
     `;
   }
 }

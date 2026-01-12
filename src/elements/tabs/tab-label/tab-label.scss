@@ -51,36 +51,24 @@
   --sbb-tab-label-color: var(--sbb-color-3);
 }
 
-.sbb-tab-label__wrapper {
-  position: relative;
-
-  :host(:focus-visible) & {
-    &::before {
-      @include sbb.focus-outline;
-
-      content: '';
-      position: absolute;
-      display: block;
-      inset: 0;
-      z-index: 1;
-      border-radius: var(--sbb-tab-label-outline-border-radius-internal);
-    }
-  }
-}
-
 .sbb-tab-label {
   position: relative;
-  margin: 0;
-  min-height: var(--sbb-tab-label-height);
   display: flex;
   align-items: center;
-  padding-inline: var(--sbb-tab-label-inline-padding);
   gap: var(--sbb-tab-label-gap);
-  user-select: none;
-  cursor: var(--sbb-tab-label-cursor);
+  color: var(--sbb-tab-label-color);
+  margin: 0;
+  padding-inline: var(--sbb-tab-label-inline-padding);
+  min-height: var(--sbb-tab-label-height);
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
+  font-size: var(--sbb-tab-label-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  font-weight: var(--sbb-tab-label-font-weight);
+  text-decoration: var(--sbb-tab-label-text-decoration);
+  cursor: var(--sbb-tab-label-cursor);
+  user-select: none;
 
-  // Show a border under the tab-group and between flex rows when the tab titles wrap to a new line
+  // Show a border below the tab-group and between flex rows when the tab titles wrap to a new line
   :host(:state(has-divider)) & {
     &::before {
       content: '';
@@ -107,19 +95,17 @@
       property: scale, background-color;
     }
   }
-}
 
-.sbb-tab-label__icon,
-.sbb-tab-label__text,
-.sbb-tab-label__amount {
-  text-decoration: var(--sbb-tab-label-text-decoration);
+  :host(:focus-visible) & {
+    @include sbb.focus-outline;
+
+    border-radius: var(--sbb-tab-label-outline-border-radius-internal);
+  }
 }
 
 .sbb-tab-label__icon {
   display: flex;
   flex-shrink: 0;
-  color: var(--sbb-tab-label-color);
-  transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
 
   :host(:not(:state(slotted-icon), :state(has-icon-name))) & {
     display: none;
@@ -127,12 +113,6 @@
 }
 
 .sbb-tab-label__text {
-  color: var(--sbb-tab-label-color);
-  transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
-  font-size: var(--sbb-tab-label-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
-  font-weight: var(--sbb-tab-label-font-weight);
-
   @include sbb.ellipsis;
 
   :host(:not(:state(slotted))) & {
@@ -141,13 +121,9 @@
 }
 
 .sbb-tab-label__amount {
-  margin: 0;
   display: flex;
+  margin: 0;
   color: var(--sbb-tab-label-amount-color);
-  transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
-  font-size: var(--sbb-tab-label-amount-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
-  font-weight: var(--sbb-tab-label-amount-font-weight);
 
   :host(:not(:state(slotted-amount), [amount])) & {
     display: none;

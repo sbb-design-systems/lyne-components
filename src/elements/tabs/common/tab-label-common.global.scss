@@ -33,12 +33,4 @@ $theme: 'standard' !default;
   --sbb-tab-label-gap: var(--sbb-spacing-fixed-2x);
   --sbb-tab-label-outline-border-radius: var(--sbb-border-radius-2x);
   --sbb-tab-label-amount-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
-  --sbb-tab-label-amount-font-size: #{sbb.theme-pattern-select(
-      (
-        'standard': var(--sbb-text-font-size-m),
-        'lean': var(--sbb-text-font-size-s),
-      ),
-      $theme
-    )};
-  --sbb-tab-label-amount-font-weight: normal;
 }
