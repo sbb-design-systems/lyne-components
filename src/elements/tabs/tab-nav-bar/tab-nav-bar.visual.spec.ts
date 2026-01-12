@@ -25,8 +25,8 @@ describe('sbb-tab-nav-bar', () => {
                 <sbb-tab-nav-bar size=${size}>
                   <a href="#">Nav 1</a>
                   <a href="#">Nav 2</a>
-                  <a class="sbb-disabled" aria-disabled="true">Nav 3</a>
-                  <a href="#" class="sbb-active">Nav 4</a>
+                  <a class="sbb-disabled" aria-disabled="true" role="link">Nav 3</a>
+                  <a href="#" class="sbb-active" aria-current="page">Nav 4</a>
                 </sbb-tab-nav-bar>
               `);
               setup.withStateElement(setup.snapshotElement.querySelector('a')!);
@@ -39,20 +39,20 @@ describe('sbb-tab-nav-bar', () => {
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
               <sbb-tab-nav-bar size=${size}>
-                <a href="#" class="sbb-active">
+                <a href="#" class="sbb-active" aria-current="page">
                   <sbb-icon name="app-icon-small"></sbb-icon>
                   Nav 1
-                  <span class="sbb-tab-amount">42</span>
+                  <p class="sbb-tab-amount">42</p>
                 </a>
                 <a href="#">
                   <sbb-icon name="user-small"></sbb-icon>
                   Nav 2
-                  <span class="sbb-tab-amount">42</span>
+                  <p class="sbb-tab-amount">42</p>
                 </a>
-                <a class="sbb-disabled" aria-disabled="true">
+                <a class="sbb-disabled" aria-disabled="true" role="link">
                   <sbb-icon name="circle-information-small"></sbb-icon>
                   Nav 3
-                  <span class="sbb-tab-amount">42</span></a
+                  <p class="sbb-tab-amount">42</p></a
                 >
               </sbb-tab-nav-bar>
             `);

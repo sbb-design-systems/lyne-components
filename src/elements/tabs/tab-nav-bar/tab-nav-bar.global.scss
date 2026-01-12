@@ -4,6 +4,7 @@ $theme: 'standard' !default;
 
 @mixin tab-nav-bar-amount {
   sbb-tab-nav-bar .sbb-tab-amount {
+    margin: 0;
     color: var(--sbb-tab-label-amount-color);
     font-size: var(--sbb-tab-label-amount-font-size);
     letter-spacing: var(--sbb-typo-letter-spacing-text);

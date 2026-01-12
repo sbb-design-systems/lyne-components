@@ -4,17 +4,24 @@ export const snapshots = {};
 snapshots["sbb-tab-nav-bar renders DOM"] = 
 `<sbb-tab-nav-bar size="l">
   <a
+    aria-current="page"
     class="sbb-active"
     href="https://www.sbb.ch"
+    slot="li-0"
   >
     Nav item 1
   </a>
-  <a href="https://www.sbb.ch">
+  <a
+    href="https://www.sbb.ch"
+    slot="li-1"
+  >
     Nav item 2
   </a>
   <a
     aria-disabled="true"
     class="sbb-disabled"
+    role="link"
+    slot="li-2"
   >
     Nav item 3
   </a>
@@ -23,8 +30,24 @@ snapshots["sbb-tab-nav-bar renders DOM"] =
 /* end snapshot sbb-tab-nav-bar renders DOM */
 
 snapshots["sbb-tab-nav-bar renders Shadow DOM"] = 
-`<slot>
-</slot>
+`<ul class="sbb-tab-nav-bar">
+  <li>
+    <slot name="li-0">
+    </slot>
+  </li>
+  <li>
+    <slot name="li-1">
+    </slot>
+  </li>
+  <li>
+    <slot name="li-2">
+    </slot>
+  </li>
+</ul>
+<span hidden="">
+  <slot>
+  </slot>
+</span>
 `;
 /* end snapshot sbb-tab-nav-bar renders Shadow DOM */
 

@@ -180,9 +180,9 @@ class SbbTabLabelElement extends SbbDisabledMixin(
           <span class="sbb-tab-label__text">
             <slot></slot>
           </span>
-          <span class="sbb-tab-label__amount">
+          <p class="sbb-tab-label__amount">
             <slot name="amount">${this.amount}</slot>
-          </span>
+          </p>
         </${unsafeStatic(TAGNAME)}>
       </div>
     `;

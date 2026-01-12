@@ -1,6 +1,12 @@
 @use '../../core/styles' as sbb;
 
 :host {
+  display: contents;
+}
+
+.sbb-tab-nav-bar {
+  @include sbb.list-reset;
+
   display: flex;
 }
 

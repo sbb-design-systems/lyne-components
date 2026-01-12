@@ -141,6 +141,7 @@
 }
 
 .sbb-tab-label__amount {
+  margin: 0;
   display: flex;
   color: var(--sbb-tab-label-amount-color);
   transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);

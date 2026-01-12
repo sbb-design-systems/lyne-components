@@ -1,9 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { isLean } from '../../core/dom/lean-context.ts';
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { SbbElementInternalsMixin, SbbNamedSlotListMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { tabLabelCommonStyles } from '../common.ts';
 
@@ -16,9 +16,11 @@ import style from './tab-nav-bar.scss?lit&inline';
  */
 export
 @customElement('sbb-tab-nav-bar')
-class SbbTabNavBarElement extends SbbElementInternalsMixin(LitElement) {
+class SbbTabNavBarElement extends SbbNamedSlotListMixin(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, tabLabelCommonStyles, style];
   public static override readonly role = 'navigation';
+
+  protected override listChildLocalNames = ['a'];
 
   /**
    * Size variant, either s, l or xl.
@@ -28,7 +30,7 @@ class SbbTabNavBarElement extends SbbElementInternalsMixin(LitElement) {
   public accessor size: 's' | 'l' | 'xl' = isLean() ? 's' : 'l';
 
   protected override render(): TemplateResult {
-    return html`<slot></slot>`;
+    return this.renderList();
   }
 }
 
