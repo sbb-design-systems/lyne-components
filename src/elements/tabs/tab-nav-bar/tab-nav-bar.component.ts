@@ -46,7 +46,7 @@ class SbbTabNavBarElement extends SbbNamedSlotListMixin(SbbElementInternalsMixin
     });
 
     this.style.setProperty(
-      '--sbb-tab-nav-bar-width',
+      '--sbb-tab-group-width',
       `${this.shadowRoot?.firstElementChild?.clientWidth}px`,
     );
   }

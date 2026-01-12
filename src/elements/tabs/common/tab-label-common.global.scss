@@ -33,4 +33,6 @@ $theme: 'standard' !default;
   --sbb-tab-label-gap: var(--sbb-spacing-fixed-2x);
   --sbb-tab-label-outline-border-radius: var(--sbb-border-radius-2x);
   --sbb-tab-label-amount-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-tab-label-line-color: var(--sbb-border-color-4-inverted);
+  --sbb-tab-label-cursor: var(--sbb-cursor-pointer);
 }

@@ -1,106 +1,19 @@
 @use '../../core/styles' as sbb;
+@use '../common/tab-label-common' as tab-label-common;
 
 :host {
   display: inline-block;
   max-width: 100%;
-  pointer-events: var(--sbb-tab-label-pointer-events, unset);
-  -webkit-tap-highlight-color: transparent;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
-
-  @include sbb.if-forced-colors {
-    --sbb-tab-label-color: ButtonText;
-    --sbb-tab-label-amount-color: ButtonText;
-  }
-}
-
-:host([disabled]) {
-  --sbb-tab-label-cursor: unset;
-  --sbb-tab-label-pointer-events: none;
-  --sbb-tab-label-text-decoration: line-through;
-
-  @include sbb.if-forced-colors {
-    --sbb-tab-label-color: GrayText;
-    --sbb-tab-label-amount-color: GrayText;
-  }
-}
-
-// If active and not disabled
-:host([active]:not([disabled])) {
-  --sbb-tab-label-color: var(--sbb-color-3);
-  --sbb-tab-label-cursor: unset;
-  --sbb-tab-label-pointer-events: none;
-  --sbb-tab-label-marker-scale: 1;
-
-  @include sbb.if-forced-colors {
-    --sbb-tab-label-color: ButtonText;
-    --sbb-tab-label-amount-color: ButtonText;
-  }
-}
-
-:host(:hover:not([disabled])) {
-  @include sbb.hover-mq($hover: true) {
-    --sbb-tab-label-marker-scale: 1;
-  }
-}
-
-// Pressed/active state
-:host(:active) {
-  --sbb-tab-label-color: var(--sbb-color-3);
 }
 
 .sbb-tab-label {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: var(--sbb-tab-label-gap);
-  color: var(--sbb-tab-label-color);
-  margin: 0;
-  padding-inline: var(--sbb-tab-label-inline-padding);
-  min-height: var(--sbb-tab-label-height);
-  transition: color var(--sbb-tab-label-animation-duration) var(--sbb-tab-label-animation-easing);
-  font-size: var(--sbb-tab-label-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
-  font-weight: var(--sbb-tab-label-font-weight);
-  text-decoration: var(--sbb-tab-label-text-decoration);
   cursor: var(--sbb-tab-label-cursor);
   user-select: none;
-
-  // Show a border below the tab-group and between flex rows when the tab titles wrap to a new line
-  :host(:state(has-divider)) & {
-    &::before {
-      content: '';
-      position: absolute;
-      inset-inline-start: 0;
-      inset-block-end: 0;
-      width: var(--sbb-tab-group-width);
-      height: var(--sbb-border-width-1x);
-      background-color: var(--sbb-tab-label-line-color);
-    }
-  }
-
-  &::after {
-    position: absolute;
-    content: '';
-    inset-inline: 0;
-    inset-block-end: 0;
-    height: var(--sbb-tab-label-marker-thickness);
-    background-color: var(--sbb-tab-label-color);
-    scale: var(--sbb-tab-label-marker-scale, 0);
-    transition: {
-      duration: var(--sbb-tab-label-animation-duration);
-      timing-function: var(--sbb-tab-label-animation-easing);
-      property: scale, background-color;
-    }
-  }
-
-  :host(:focus-visible) & {
-    @include sbb.focus-outline;
-
-    border-radius: var(--sbb-tab-label-outline-border-radius-internal);
-  }
+  -webkit-tap-highlight-color: transparent;
 }
 
 .sbb-tab-label__icon {
@@ -121,9 +34,7 @@
 }
 
 .sbb-tab-label__amount {
-  display: flex;
-  margin: 0;
-  color: var(--sbb-tab-label-amount-color);
+  @include tab-label-common.tab-label-amount;
 
   :host(:not(:state(slotted-amount), [amount])) & {
     display: none;

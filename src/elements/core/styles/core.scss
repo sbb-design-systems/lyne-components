@@ -48,9 +48,6 @@ $theme: 'standard' !default;
 @use '../../tabs/common/tab-label-common.global' as tab-label-common with (
   $theme: $theme
 );
-@use '../../tabs/tab-label/tab-label.global' as tab-label with (
-  $theme: $theme
-);
 @use '../../tabs/tab-nav-bar/tab-nav-bar.global' as tab-nav-bar with (
   $theme: $theme
 );
@@ -76,7 +73,6 @@ $theme: 'standard' !default;
   @include selection-action-panel.base;
   @include selection-expansion-panel.base;
   @include tab-label-common.base;
-  @include tab-label.base;
   @include visual-checkbox.base;
 
   @include a11y.if-forced-colors {

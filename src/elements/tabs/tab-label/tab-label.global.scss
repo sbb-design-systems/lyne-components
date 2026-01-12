@@ -1,8 +1,0 @@
-@use '../../core/styles' as sbb;
-
-$theme: 'standard' !default;
-
-@mixin base {
-  --sbb-tab-label-line-color: var(--sbb-border-color-4-inverted);
-  --sbb-tab-label-cursor: var(--sbb-cursor-pointer);
-}
