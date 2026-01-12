@@ -111,8 +111,6 @@ class SbbDialogElement extends SbbOverlayBaseElement {
   protected handleOpening(): void {
     this.state = 'opened';
     this.inertController.activate();
-    this.escapableOverlayController.connect();
-    this.attachOpenOverlayEvents();
     this.focusTrapController.focusInitialElement();
     this.focusTrapController.enabled = true;
     // Use timeout to read label after focused element

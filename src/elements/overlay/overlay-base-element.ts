@@ -49,7 +49,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   // The last element which had focus before the component was opened.
   protected lastFocusedElement?: HTMLElement;
   protected overlayCloseElement?: HTMLElement;
-  protected openOverlayController!: AbortController;
+  protected openOverlayController?: AbortController;
   protected focusTrapController = new SbbFocusTrapController(this);
   protected scrollHandler = new SbbScrollHandler();
   protected returnValue: any;
@@ -60,7 +60,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   private _ariaLiveRefToggle = false;
   private _ariaLiveRef?: SbbScreenReaderOnlyElement;
   private _triggerElement: HTMLElement | null = null;
-  private _triggerAbortController!: AbortController;
+  private _triggerAbortController?: AbortController;
 
   protected abstract closeAttribute: string;
   protected closeTag?: string;
@@ -70,14 +70,16 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
 
   /** Opens the component. */
   public open(): void {
-    if (this.state !== 'closed') {
+    if (
+      this.state === 'opening' ||
+      this.state === 'opened' ||
+      this._hasClosedParent() ||
+      !this.dispatchBeforeOpenEvent()
+    ) {
       return;
     }
-    this.lastFocusedElement = document.activeElement as HTMLElement;
 
-    if (!this.dispatchBeforeOpenEvent()) {
-      return;
-    }
+    this.lastFocusedElement = document.activeElement as HTMLElement;
 
     this.showPopover?.();
     this.state = 'opening';
@@ -86,8 +88,9 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     // Add this overlay to the global collection
     overlayRefs.push(this);
 
-    // Disable scrolling for content below the overlay
     this.scrollHandler.disableScroll();
+    this.escapableOverlayController.connect();
+    this.attachOpenOverlayEvents();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -98,7 +101,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
 
   /** Closes the component. */
   public close(result?: any, target?: HTMLElement): any {
-    if (this.state !== 'opened') {
+    if (this.state === 'closing' || this.state === 'closed') {
       return;
     }
 
@@ -121,6 +124,18 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     if (this.isZeroAnimationDuration()) {
       this.handleClosing();
     }
+  }
+
+  /**
+   * Check if there is a parent dialog or overlay in the DOM that is closed.
+   * In this case, the overlay should not be opened because it would break the state.
+   * Not nested but stacked overlays are supported so this logic does not apply in this case.
+   */
+  private _hasClosedParent(): boolean {
+    const parentDialog =
+      this.parentElement?.closest<SbbOverlayBaseElement>('sbb-dialog, sbb-overlay');
+
+    return (parentDialog?.state === 'closed' || parentDialog?.state === 'closing') ?? false;
   }
 
   public override connectedCallback(): void {
