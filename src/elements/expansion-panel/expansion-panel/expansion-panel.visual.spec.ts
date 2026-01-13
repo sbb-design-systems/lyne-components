@@ -19,7 +19,6 @@ describe(`sbb-expansion-panel`, () => {
     disabled: [false, true],
     expanded: [false, true],
     color: ['white', 'milk'],
-    size: [null, 's', 'l'],
     emulateMedia: [
       { forcedColors: false, darkMode: false },
       { forcedColors: true, darkMode: false },
@@ -36,7 +35,29 @@ describe(`sbb-expansion-panel`, () => {
     { name: 'slotted', icon: 'arrow-right-small', slotted: true, disabled: false },
   ];
 
+  const sizeCases = {
+    size: [undefined, 's', 'l'],
+    expanded: [false, true],
+  };
+
   describeViewports({ viewports: ['zero', 'large'] }, () => {
+    // Size test cases
+    describeEach(sizeCases, ({ expanded, size }) => {
+      it(
+        visualDiffDefault.name,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
+            <sbb-expansion-panel ?expanded=${expanded} size=${size ?? nothing}>
+              <sbb-expansion-panel-header icon-name="arrow-right-small">
+                Header
+              </sbb-expansion-panel-header>
+              <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
+            </sbb-expansion-panel>
+          `);
+        }),
+      );
+    });
+
     // Title level test
     for (const titleLevel of titleLevelCases) {
       it(
@@ -76,25 +97,17 @@ describe(`sbb-expansion-panel`, () => {
     // Main test cases
     describeEach(
       cases,
-      ({
-        borderless,
-        disabled,
-        expanded,
-        size,
-        color,
-        emulateMedia: { forcedColors, darkMode },
-      }) => {
+      ({ borderless, disabled, expanded, color, emulateMedia: { forcedColors, darkMode } }) => {
         for (const state of [visualDiffDefault, visualDiffFocus, visualDiffHover]) {
           it(
             state.name,
-            state.with((setup) => {
-              setup.withFixture(
+            state.with(async (setup) => {
+              await setup.withFixture(
                 html`
                   <sbb-expansion-panel
                     ?borderless=${borderless}
                     ?disabled=${disabled}
                     ?expanded=${expanded}
-                    size=${size ?? nothing}
                     color=${color}
                   >
                     <sbb-expansion-panel-header icon-name="arrow-right-small">
@@ -109,16 +122,16 @@ describe(`sbb-expansion-panel`, () => {
           );
 
           it(
-            `nested ${setup.name}`,
-            state.with((setup) => {
-              setup.withFixture(
+            `nested ${state.name}`,
+            state.with(async (setup) => {
+              await setup.withFixture(
                 html`
                   <sbb-expansion-panel
                     ?borderless=${borderless}
                     ?disabled=${disabled}
                     ?expanded=${expanded}
-                    size=${size ?? nothing}
                     color=${color}
+                    size="s"
                   >
                     <sbb-expansion-panel-header icon-name="arrow-right-small">
                       Header
