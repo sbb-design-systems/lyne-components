@@ -1,6 +1,5 @@
 import { html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 
 import type { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 import { type Day, SbbCalendarBaseElement } from '../calendar.ts';
@@ -19,9 +18,7 @@ export class SbbMonthChangeEvent extends Event {
 }
 
 /**
- * Describe the purpose of the component with a single short sentence.
- *
- * @slot - Use the unnamed slot to add `sbb-TODO` elements.
+ * It displays a calendar when combined with `sbb-calendar-day`.
  */
 export
 @customElement('sbb-calendar-enhanced')
@@ -31,91 +28,79 @@ class SbbCalendarEnhancedElement<T extends Date = Date> extends SbbCalendarBaseE
     monthchanged: 'monthchanged',
   } as const;
 
-  // FIXME move to a element selector
-  /** A list of buttons corresponding to days, months or years depending on the view. */
-  protected override get cells(): HTMLButtonElement[] {
-    return Array.from(this!.querySelectorAll('.sbb-calendar__cell') ?? []) as HTMLButtonElement[];
+  protected override get cells(): SbbCalendarDayElement[] {
+    return Array.from(
+      this!.querySelectorAll('.sbb-calendar__cell') ?? [],
+    ) as SbbCalendarDayElement[];
   }
 
   protected override goToDifferentMonth(months: number): void {
     super.goToDifferentMonth(months);
-    const currentViewDays = (this.wide ? [...this.weeks, ...this.nextMonthWeeks] : this.weeks)
-      .flat()
-      .sort((a, b) => a.value.localeCompare(b.value));
-    this.dispatchEvent(new SbbMonthChangeEvent(currentViewDays));
+    this._emitMonthChanged();
   }
 
-  // FIXME change type to SbbCalendarDay
+  protected override onMonthSelection(month: number, year: number): void {
+    super.onMonthSelection(month, year);
+    this._emitMonthChanged();
+  }
+
+  protected override resetCalendarView(initTransition = false): void {
+    super.resetCalendarView(initTransition);
+    this._emitMonthChanged();
+  }
+
   protected override setTabIndexAndFocusKeyboardNavigation(
-    elementToFocus: HTMLButtonElement,
+    elementToFocus: SbbCalendarDayElement,
   ): void {
-    const activeEl: HTMLButtonElement = document.activeElement as HTMLButtonElement;
+    const activeEl: SbbCalendarDayElement = document.activeElement as SbbCalendarDayElement;
     if (elementToFocus !== activeEl) {
-      (elementToFocus as HTMLButtonElement).tabIndex = 0;
+      (elementToFocus as SbbCalendarDayElement).tabIndex = 0;
       elementToFocus?.focus();
-      (activeEl as HTMLButtonElement).tabIndex = -1;
+      (activeEl as SbbCalendarDayElement).tabIndex = -1;
     }
   }
 
-  // FIXME change type to SbbCalendarDay
-  /** Get the element in the calendar to assign focus. */
-  protected override getFirstFocusable(): HTMLButtonElement {
-    let active;
-    if (this.multiple) {
-      active = (this.selected as T[])?.length
-        ? [...(this.selected as T[])].sort()[0]
-        : this.dateAdapter.today();
+  protected override getFirstFocusable(): HTMLButtonElement | SbbCalendarDayElement | null {
+    if (this.calendarView === 'day') {
+      const selectedOrCurrent = this.querySelector<SbbCalendarDayElement>(':state(selected)');
+      return selectedOrCurrent && !selectedOrCurrent.disabled
+        ? selectedOrCurrent
+        : this.getFirstFocusableDay();
     } else {
-      active = (this.selected as T) ?? this.dateAdapter.today();
+      const selectedOrCurrent = this.shadowRoot?.querySelector<HTMLButtonElement>(
+        '.sbb-calendar__cell-current',
+      );
+      return selectedOrCurrent && !selectedOrCurrent.disabled
+        ? selectedOrCurrent
+        : this.shadowRoot!.querySelector<HTMLButtonElement>('.sbb-calendar__cell:not([disabled])');
     }
-    let firstFocusable =
-      this.querySelector(':state(selected)') ??
-      this.querySelector(`[value="${this.dateAdapter.toIso8601(active)}"]`) ??
-      this.querySelector(`[data-month="${this.dateAdapter.getMonth(active)}"]`) ??
-      this.querySelector(`[data-year="${this.dateAdapter.getYear(active)}"]`);
-    if (!firstFocusable || (firstFocusable as HTMLButtonElement)?.disabled) {
-      firstFocusable =
-        this.calendarView === 'day'
-          ? this.getFirstFocusableDay()
-          : this!.querySelector('.sbb-calendar__cell:not([disabled])');
-    }
-    return (firstFocusable as HTMLButtonElement) || null;
   }
 
-  // FIXME change type to SbbCalendarDay
-  protected override getFirstFocusableDay(): HTMLButtonElement | null {
-    const daysInView: HTMLButtonElement[] = Array.from(
+  protected override getFirstFocusableDay(): SbbCalendarDayElement | null {
+    const daysInView: SbbCalendarDayElement[] = Array.from(
       this.querySelectorAll('.sbb-calendar__cell:not([disabled])'),
     );
     if (!daysInView || daysInView.length === 0) {
       return null;
     } else {
-      const firstElement = daysInView.map((e: HTMLButtonElement): string => e.value).sort()[0];
-      return this!.querySelector(`.sbb-calendar__cell[value="${firstElement}"]`);
+      return daysInView[0];
     }
   }
 
-  // FIXME
-  /** Creates the cells for the daily view. */
+  protected override setTabIndex(): void {
+    Array.from(this.querySelectorAll('.sbb-calendar__cell[tabindex="0"]') ?? []).forEach(
+      (day) => ((day as SbbCalendarDayElement).tabIndex = -1),
+    );
+    const firstFocusable = this.getFirstFocusable();
+    if (firstFocusable) {
+      firstFocusable.tabIndex = 0;
+    }
+  }
+
   protected override createDayCells(week: Day<T>[], _: string): TemplateResult[] {
     return week.map((day: Day<T>) => {
-      let selected: boolean;
-      if (this.multiple) {
-        selected =
-          (this.selected as T[]).find(
-            (selDay: T) => this.dateAdapter.compareDate(day.dateValue, selDay) === 0,
-          ) !== undefined;
-      } else {
-        selected =
-          !!this.selected && this.dateAdapter.compareDate(day.dateValue, this.selected as T) === 0;
-      }
       return html`
-        <td
-          class=${classMap({
-            'sbb-calendar__table-data': true,
-            'sbb-calendar__table-data-selected': selected,
-          })}
-        >
+        <td class="sbb-calendar__table-data">
           <slot
             name=${day.value}
             @slotchange=${(e: Event) => this._handleSlotChange(e, day)}
@@ -125,7 +110,6 @@ class SbbCalendarEnhancedElement<T extends Date = Date> extends SbbCalendarBaseE
     });
   }
 
-  // FIXME
   private _handleSlotChange(e: Event, day: Day): void {
     const calendarDay = (e.target as HTMLSlotElement)
       .assignedElements()
@@ -138,6 +122,13 @@ class SbbCalendarEnhancedElement<T extends Date = Date> extends SbbCalendarBaseE
       );
     }
     this.setTabIndex();
+  }
+
+  private _emitMonthChanged(): void {
+    const currentViewDays = (this.wide ? [...this.weeks, ...this.nextMonthWeeks] : this.weeks)
+      .flat()
+      .sort((a, b) => a.value.localeCompare(b.value));
+    this.dispatchEvent(new SbbMonthChangeEvent(currentViewDays));
   }
 }
 

@@ -12,6 +12,7 @@ import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.ts';
+import type { SbbButtonBaseElement } from '../../core/base-elements/button-base-element.ts';
 import { readConfig } from '../../core/config.ts';
 import {
   SbbLanguageController,
@@ -42,6 +43,7 @@ import {
 import type { SbbOrientation } from '../../core/interfaces.ts';
 import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 
 import style from './calendar.scss?lit&inline';
 
@@ -258,7 +260,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   private _nextMonthWeekNumbers!: number[];
 
   /** A list of buttons corresponding to days, months or years depending on the view. */
-  protected get cells(): HTMLButtonElement[] {
+  protected get cells(): (HTMLButtonElement | SbbCalendarDayElement)[] {
     return Array.from(
       this.shadowRoot!.querySelectorAll('.sbb-calendar__cell') ?? [],
     ) as HTMLButtonElement[];
@@ -305,7 +307,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
 
   /** Resets the active month according to the new state of the calendar. */
   public resetPosition(): void {
-    this._resetCalendarView();
+    this.resetCalendarView();
     this._init();
   }
 
@@ -896,7 +898,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   }
 
   /** Get the element in the calendar to assign focus. */
-  protected getFirstFocusable(): HTMLButtonElement | null {
+  protected getFirstFocusable(): HTMLButtonElement | SbbButtonBaseElement | null {
     const selectedOrCurrent =
       this.shadowRoot!.querySelector<HTMLButtonElement>('.sbb-calendar__selected') ??
       this.shadowRoot!.querySelector<HTMLButtonElement>('.sbb-calendar__cell-current');
@@ -915,7 +917,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
    *
    * To solve this, the element with the lowest `value` is taken (ISO String are ordered).
    */
-  protected getFirstFocusableDay(): HTMLButtonElement | null {
+  protected getFirstFocusableDay(): HTMLButtonElement | SbbCalendarDayElement | null {
     const daysInView: HTMLButtonElement[] = Array.from(
       this.shadowRoot!.querySelectorAll('.sbb-calendar__cell:not([disabled])'),
     );
@@ -934,7 +936,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     // Gets the currently rendered table's cell;
     // they could be days, months or years based on the current selection view.
     // If `wide` is true, years are doubled in number and days are (roughly) doubled too, affecting the `index` calculation.
-    const cells: HTMLButtonElement[] = this.cells;
+    const cells: HTMLButtonElement[] = this.cells as HTMLButtonElement[];
     const index: number = cells.findIndex((e: HTMLButtonElement) => e === event.target);
     let nextEl: HTMLButtonElement;
     if (day) {
@@ -945,7 +947,9 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     this.setTabIndexAndFocusKeyboardNavigation(nextEl);
   }
 
-  protected setTabIndexAndFocusKeyboardNavigation(elementToFocus: HTMLButtonElement): void {
+  protected setTabIndexAndFocusKeyboardNavigation(
+    elementToFocus: HTMLButtonElement | SbbCalendarDayElement,
+  ): void {
     const activeEl: HTMLButtonElement = this.shadowRoot!.activeElement as HTMLButtonElement;
     if (elementToFocus !== activeEl) {
       (elementToFocus as HTMLButtonElement).tabIndex = 0;
@@ -1221,7 +1225,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       : this._findNext(days, nextIndex, -verticalOffset);
   }
 
-  private _resetCalendarView(initTransition = false): void {
+  protected resetCalendarView(initTransition = false): void {
     if (this._containingFocus) {
       this._resetFocus = true;
     }
@@ -1640,7 +1644,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
         id="sbb-calendar__month-selection"
         class="sbb-calendar__controls-change-date"
         aria-label=${`${i18nCalendarDateSelection[this._language.current]} ${this._chosenYear}`}
-        @click=${() => this._resetCalendarView(true)}
+        @click=${() => this.resetCalendarView(true)}
       >
         ${this._chosenYear} ${this._wide ? ` - ${this._chosenYear! + 1}` : nothing}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>
@@ -1707,7 +1711,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
                         'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
                         'sbb-calendar__selected': selected,
                       })}
-                      @click=${() => this._onMonthSelection(month.monthValue, year)}
+                      @click=${() => this.onMonthSelection(month.monthValue, year)}
                       ?disabled=${isOutOfRange || isFilteredOut}
                       aria-label=${`${month.longValue} ${year}`}
                       aria-pressed=${selected}
@@ -1729,7 +1733,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   }
 
   /** Select the month and change the view to day selection. */
-  private _onMonthSelection(month: number, year: number): void {
+  protected onMonthSelection(month: number, year: number): void {
     this._chosenMonth = month;
     this._nextCalendarView = 'day';
     this._init(
@@ -1798,7 +1802,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
         id="sbb-calendar__year-selection"
         class="sbb-calendar__controls-change-date"
         aria-label="${i18nCalendarDateSelection[this._language.current]} ${yearLabel}"
-        @click=${() => this._resetCalendarView(true)}
+        @click=${() => this.resetCalendarView(true)}
       >
         ${yearLabel}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>

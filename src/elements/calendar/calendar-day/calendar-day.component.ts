@@ -15,9 +15,7 @@ import type { SbbCalendarEnhancedElement } from '../calendar-enhanced/calendar-e
 import style from './calendar-day.scss?lit&inline';
 
 /**
- * Describe the purpose of the component with a single short sentence.
- *
- * @slot - Use the unnamed slot to add `sbb-TODO` elements.
+ * It displays a single day cell in the `sbb-calendar-enhanced` component.
  */
 export
 @customElement('sbb-calendar-day')
