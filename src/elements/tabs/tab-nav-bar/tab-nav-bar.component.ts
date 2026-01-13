@@ -40,7 +40,7 @@ class SbbTabNavBarElement extends SbbNamedSlotListMixin(SbbElementInternalsMixin
     callback: () => this._onTabGroupElementResize(),
   });
 
-  private _lastObservedTarget: Element | null = null;
+  private _listElement: Element | null = null;
 
   private _onTabGroupElementResize(): void {
     this.listChildren.forEach((anchor) => {
@@ -50,10 +50,7 @@ class SbbTabNavBarElement extends SbbNamedSlotListMixin(SbbElementInternalsMixin
       );
     });
 
-    this.style.setProperty(
-      '--sbb-tab-group-width',
-      `${this.shadowRoot?.firstElementChild?.clientWidth}px`,
-    );
+    this.style.setProperty('--sbb-tab-group-width', `${this._listElement?.clientWidth}px`);
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -69,15 +66,15 @@ class SbbTabNavBarElement extends SbbNamedSlotListMixin(SbbElementInternalsMixin
   private _updateWidthObserver(): void {
     const target = this.shadowRoot?.querySelector(`.${this.localName}`);
 
-    if (target && this._lastObservedTarget !== target) {
-      if (this._lastObservedTarget) {
-        this._resizeController.unobserve(this._lastObservedTarget);
+    if (target && this._listElement !== target) {
+      if (this._listElement) {
+        this._resizeController.unobserve(this._listElement);
       }
-      this._lastObservedTarget = target;
+      this._listElement = target;
       this._resizeController.observe(target);
-    } else if (!target && this._lastObservedTarget) {
-      this._resizeController.unobserve(this._lastObservedTarget);
-      this._lastObservedTarget = null;
+    } else if (!target && this._listElement) {
+      this._resizeController.unobserve(this._listElement);
+      this._listElement = null;
     }
   }
 
