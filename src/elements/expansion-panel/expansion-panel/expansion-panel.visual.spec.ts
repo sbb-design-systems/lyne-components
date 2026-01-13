@@ -120,36 +120,36 @@ describe(`sbb-expansion-panel`, () => {
               );
             }),
           );
-
-          it(
-            `nested ${state.name}`,
-            state.with(async (setup) => {
-              await setup.withFixture(
-                html`
-                  <sbb-expansion-panel
-                    ?borderless=${borderless}
-                    ?disabled=${disabled}
-                    ?expanded=${expanded}
-                    color=${color}
-                    size="s"
-                  >
-                    <sbb-expansion-panel-header icon-name="arrow-right-small">
-                      Header
-                    </sbb-expansion-panel-header>
-                    <sbb-expansion-panel-content>
-                      Content
-                      <sbb-expansion-panel>
-                        <sbb-expansion-panel-header>Nested header</sbb-expansion-panel-header>
-                        <sbb-expansion-panel-content>Nested content</sbb-expansion-panel-content>
-                      </sbb-expansion-panel>
-                    </sbb-expansion-panel-content>
-                  </sbb-expansion-panel>
-                `,
-                { forcedColors, darkMode },
-              );
-            }),
-          );
         }
+
+        it(
+          `nested default`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`
+                <sbb-expansion-panel
+                  ?borderless=${borderless}
+                  ?disabled=${disabled}
+                  ?expanded=${expanded}
+                  color=${color}
+                  size="s"
+                >
+                  <sbb-expansion-panel-header icon-name="arrow-right-small">
+                    Header
+                  </sbb-expansion-panel-header>
+                  <sbb-expansion-panel-content>
+                    Content
+                    <sbb-expansion-panel>
+                      <sbb-expansion-panel-header>Nested header</sbb-expansion-panel-header>
+                      <sbb-expansion-panel-content>Nested content</sbb-expansion-panel-content>
+                    </sbb-expansion-panel>
+                  </sbb-expansion-panel-content>
+                </sbb-expansion-panel>
+              `,
+              { forcedColors, darkMode },
+            );
+          }),
+        );
       },
     );
   });
