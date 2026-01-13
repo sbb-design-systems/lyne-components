@@ -45,6 +45,15 @@ $theme: 'standard' !default;
   with (
   $theme: $theme
 );
+@use '../../tabs/common/tab-group-common.global' as tab-group-common with (
+  $theme: $theme
+);
+@use '../../tabs/common/tab-label-common.global' as tab-label-common with (
+  $theme: $theme
+);
+@use '../../tabs/tab-nav-bar/tab-nav-bar.global' as tab-nav-bar with (
+  $theme: $theme
+);
 @use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
   $theme: $theme
 );
@@ -66,6 +75,8 @@ $theme: 'standard' !default;
   @include radio-button-group.base;
   @include selection-action-panel.base;
   @include selection-expansion-panel.base;
+  @include tab-group-common.base;
+  @include tab-label-common.base;
   @include visual-checkbox.base;
 
   @include a11y.if-forced-colors {
@@ -168,6 +179,9 @@ $theme: 'standard' !default;
 }
 
 @include font-face.font-declarations;
+
+// Components global styles
+@include tab-nav-bar.rules;
 
 // TODO: discuss where to add these classes
 .sbb-dark {

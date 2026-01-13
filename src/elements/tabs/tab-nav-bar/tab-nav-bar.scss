@@ -1,0 +1,9 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  margin-block-end: var(--sbb-tab-group-content-gap);
+}
+
+.sbb-tab-nav-bar {
+  @include sbb.list-reset;
+}

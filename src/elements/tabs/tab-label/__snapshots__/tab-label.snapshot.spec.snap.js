@@ -12,22 +12,20 @@ snapshots["sbb-tab-label renders DOM"] =
 /* end snapshot sbb-tab-label renders DOM */
 
 snapshots["sbb-tab-label renders Shadow DOM"] = 
-`<div class="sbb-tab-label__wrapper">
-  <h1 class="sbb-tab-label">
-    <span class="sbb-tab-label__icon">
-      <slot name="icon">
-      </slot>
-    </span>
-    <span class="sbb-tab-label__text">
-      <slot>
-      </slot>
-    </span>
-    <span class="sbb-tab-label__amount">
-      <slot name="amount">
-      </slot>
-    </span>
-  </h1>
-</div>
+`<h1 class="sbb-tab-label">
+  <span class="sbb-tab-label__icon">
+    <slot name="icon">
+    </slot>
+  </span>
+  <span class="sbb-tab-label__text">
+    <slot>
+    </slot>
+  </span>
+  <p class="sbb-tab-label__amount">
+    <slot name="amount">
+    </slot>
+  </p>
+</h1>
 `;
 /* end snapshot sbb-tab-label renders Shadow DOM */
 
@@ -44,24 +42,22 @@ snapshots["sbb-tab-label renders correctly an H2 heading tag DOM"] =
 /* end snapshot sbb-tab-label renders correctly an H2 heading tag DOM */
 
 snapshots["sbb-tab-label renders correctly an H2 heading tag Shadow DOM"] = 
-`<div class="sbb-tab-label__wrapper">
-  <h2 class="sbb-tab-label">
-    <span class="sbb-tab-label__icon">
-      <slot name="icon">
-        <sbb-icon name="pie-small">
-        </sbb-icon>
-      </slot>
-    </span>
-    <span class="sbb-tab-label__text">
-      <slot>
-      </slot>
-    </span>
-    <span class="sbb-tab-label__amount">
-      <slot name="amount">
-      </slot>
-    </span>
-  </h2>
-</div>
+`<h2 class="sbb-tab-label">
+  <span class="sbb-tab-label__icon">
+    <slot name="icon">
+      <sbb-icon name="pie-small">
+      </sbb-icon>
+    </slot>
+  </span>
+  <span class="sbb-tab-label__text">
+    <slot>
+    </slot>
+  </span>
+  <p class="sbb-tab-label__amount">
+    <slot name="amount">
+    </slot>
+  </p>
+</h2>
 `;
 /* end snapshot sbb-tab-label renders correctly an H2 heading tag Shadow DOM */
 
@@ -78,23 +74,21 @@ snapshots["sbb-tab-label renders an H1 heading tag if the provided level is grea
 /* end snapshot sbb-tab-label renders an H1 heading tag if the provided level is greater than 6 DOM */
 
 snapshots["sbb-tab-label renders an H1 heading tag if the provided level is greater than 6 Shadow DOM"] = 
-`<div class="sbb-tab-label__wrapper">
-  <h1 class="sbb-tab-label">
-    <span class="sbb-tab-label__icon">
-      <slot name="icon">
-      </slot>
-    </span>
-    <span class="sbb-tab-label__text">
-      <slot>
-      </slot>
-    </span>
-    <span class="sbb-tab-label__amount">
-      <slot name="amount">
-        78
-      </slot>
-    </span>
-  </h1>
-</div>
+`<h1 class="sbb-tab-label">
+  <span class="sbb-tab-label__icon">
+    <slot name="icon">
+    </slot>
+  </span>
+  <span class="sbb-tab-label__text">
+    <slot>
+    </slot>
+  </span>
+  <p class="sbb-tab-label__amount">
+    <slot name="amount">
+      78
+    </slot>
+  </p>
+</h1>
 `;
 /* end snapshot sbb-tab-label renders an H1 heading tag if the provided level is greater than 6 Shadow DOM */
 

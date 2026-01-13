@@ -1,0 +1,38 @@
+@use '../../core/styles/index' as sbb;
+
+$theme: 'standard' !default;
+
+// These variables are shared within the `sbb-tab-label` and the `sbb-tab-nav-bar`.
+@mixin base {
+  --sbb-tab-label-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-size-element-m),
+        'lean': var(--sbb-size-element-xs),
+      ),
+      $theme
+    )};
+  --sbb-tab-label-inline-padding: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-responsive-xs),
+        'lean': var(--sbb-spacing-responsive-xxxs),
+      ),
+      $theme
+    )};
+  --sbb-tab-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
+  --sbb-tab-label-marker-thickness: var(--sbb-border-width-3x);
+  --sbb-tab-label-text-decoration: none;
+  --sbb-tab-label-animation-easing: var(--sbb-animation-easing);
+  --sbb-tab-label-font-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-text-font-size-m),
+        'lean': var(--sbb-text-font-size-s),
+      ),
+      $theme
+    )};
+  --sbb-tab-label-font-weight: bold;
+  --sbb-tab-label-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-tab-label-outline-border-radius: var(--sbb-border-radius-2x);
+  --sbb-tab-label-amount-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-tab-label-line-color: var(--sbb-border-color-4-inverted);
+  --sbb-tab-label-cursor: var(--sbb-cursor-pointer);
+}
