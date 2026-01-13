@@ -25,7 +25,7 @@ describe(`sbb-card`, () => {
   };
 
   const spacingCases = {
-    spacing: ['3x-xxs', 'xxxs-xxs', 'xxxs-s', '4x-xxs', 'xxs-xxs', 's-s', 'l-l'],
+    spacing: ['3x-xxs', 'xxxs-xxs', 'xxxs-s', '4x-xxs', 'xxs', 's', 'l'],
     badge: ['none', 'charcoal'],
   };
 
@@ -118,10 +118,8 @@ describe(`sbb-card`, () => {
       'nested',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-card color="milk">
-            <sbb-card color="white">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. justo.
-            </sbb-card>
+          <sbb-card color="milk" class="sbb-card-spacing-l">
+            <sbb-card> Lorem ipsum dolor sit amet, consectetur adipiscing elit. justo. </sbb-card>
           </sbb-card>
         `);
       }),
