@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.5...v4.1.0) (2026-01-13)
+
+
+### Features
+
+* **sbb-tab-nav-bar:** initial implementation ([#4302](https://github.com/sbb-design-systems/lyne-components/issues/4302)) ([7bcdc18](https://github.com/sbb-design-systems/lyne-components/commit/7bcdc18a84e466fc89e34d00614c1386e4ca689d))
+
+
+### Bug Fixes
+
+* **sbb-dialog, sbb-overlay:** improve handling of nested dialogs and overlays ([#4352](https://github.com/sbb-design-systems/lyne-components/issues/4352)) ([bb5cbb8](https://github.com/sbb-design-systems/lyne-components/commit/bb5cbb863bf19c32fcef733282497ba8a661573e)), closes [#4323](https://github.com/sbb-design-systems/lyne-components/issues/4323)
+* **sbb-link, sbb-block-link:** remove unnecessary `user-select: none` ([#4361](https://github.com/sbb-design-systems/lyne-components/issues/4361)) ([4445e7e](https://github.com/sbb-design-systems/lyne-components/commit/4445e7ecb9c698ac71be6c9109917016007e69bc)), closes [#4355](https://github.com/sbb-design-systems/lyne-components/issues/4355)
+
+
+### Documentation
+
+* update coding standards ([#4357](https://github.com/sbb-design-systems/lyne-components/issues/4357)) ([8e1ea1b](https://github.com/sbb-design-systems/lyne-components/commit/8e1ea1b7e6ffb4909e766b69705f8572370feddd))
+
+
+### Code Refactoring
+
+* **sbb-popover:** support closing during opening ([#4354](https://github.com/sbb-design-systems/lyne-components/issues/4354)) ([cbfc6fa](https://github.com/sbb-design-systems/lyne-components/commit/cbfc6fa371d68486c8060a1169024eefeac2562d))
+
 ## [4.0.5](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.4...v4.0.5) (2026-01-07)
 
 
