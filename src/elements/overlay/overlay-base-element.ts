@@ -19,6 +19,49 @@ import {
 } from '../core/overlay.ts';
 import type { SbbScreenReaderOnlyElement } from '../screen-reader-only.ts';
 
+const overlayResultMap = new WeakMap<HTMLElement, any>();
+
+export class SbbOverlayCloseEvent<T = any> extends CustomEvent<SbbOverlayCloseEventDetails> {
+  /**
+   * The result associated with the closed overlay.
+   * This is either the result assigned to the `closeTarget` via
+   * `assignOverlayResult` / `assignDialogResult` or the value of the
+   * corresponding close attribute on the `closeTarget`
+   * (e.g. sbb-overlay-close="my-result" or sbb-dialog-close="my-result").
+   */
+  public readonly result: T | null;
+
+  /**
+   * The element that was used to close the overlay/dialog, i.e. the element that the
+   * user clicked on that had the close attribute.
+   * Empty if closed programmatically or via Escape press.
+   */
+  public readonly closeTarget: HTMLElement | null;
+
+  public constructor(
+    name: string,
+    {
+      closeAttribute,
+      cancelable,
+      ...detail
+    }: { closeAttribute: string; cancelable?: boolean } & SbbOverlayCloseEventDetails,
+  ) {
+    super(name, { cancelable, detail });
+
+    this.result = !detail.closeTarget
+      ? null
+      : (overlayResultMap.get(detail.closeTarget) ??
+        (detail.closeTarget.getAttribute(closeAttribute)?.trim() || null));
+    this.closeTarget = detail.closeTarget ?? null;
+  }
+}
+
+export function assignOverlayResult<T>(element: HTMLElement, result: T): void {
+  overlayResultMap.set(element, result);
+}
+
+// Check if the target is a submission element within a form and return the form, if present
+
 // A global collection of existing overlays.
 export const overlayRefs: SbbOverlayBaseElement[] = [];
 
@@ -293,12 +336,18 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   protected override dispatchBeforeCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
     /** @type {CustomEvent<SbbOverlayCloseEventDetails>} Emits whenever the component begins the closing transition. Can be canceled. */
     return this.dispatchEvent(
-      new CustomEvent<SbbOverlayCloseEventDetails>('beforeclose', { detail, cancelable: true }),
+      new SbbOverlayCloseEvent('beforeclose', {
+        ...detail,
+        closeAttribute: this.closeAttribute,
+        cancelable: true,
+      }),
     );
   }
 
   protected override dispatchCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
     /** @type {CustomEvent<SbbOverlayCloseEventDetails>} Emits whenever the component is closed. */
-    return this.dispatchEvent(new CustomEvent<SbbOverlayCloseEventDetails>('close', { detail }));
+    return this.dispatchEvent(
+      new SbbOverlayCloseEvent('close', { ...detail, closeAttribute: this.closeAttribute }),
+    );
   }
 }

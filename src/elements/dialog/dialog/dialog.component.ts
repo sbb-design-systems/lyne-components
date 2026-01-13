@@ -13,6 +13,11 @@ import style from './dialog.scss?lit&inline';
 
 import '../../screen-reader-only.ts';
 
+export {
+  assignOverlayResult as assignDialogResult,
+  SbbOverlayCloseEvent as SbbDialogCloseEvent,
+} from '../../overlay/overlay-base-element.ts';
+
 let nextId = 0;
 
 /**
