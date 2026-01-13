@@ -9,7 +9,6 @@ snapshots["sbb-tab-nav-bar renders DOM"] =
   <a
     aria-current="page"
     class="sbb-active"
-    data-has-divider=""
     href="https://www.sbb.ch"
     slot="li-0"
   >
@@ -35,7 +34,7 @@ snapshots["sbb-tab-nav-bar renders DOM"] =
 
 snapshots["sbb-tab-nav-bar renders Shadow DOM"] = 
 `<ul class="sbb-tab-nav-bar">
-  <li>
+  <li data-has-divider="">
     <slot name="li-0">
     </slot>
   </li>

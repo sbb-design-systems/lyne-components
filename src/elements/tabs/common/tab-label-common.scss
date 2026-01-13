@@ -3,6 +3,8 @@
 @mixin tab-label-amount {
   margin: 0;
   color: var(--sbb-tab-label-amount-color);
+  font-weight: normal;
+  text-decoration: var(--sbb-tab-label-text-decoration);
 }
 
 :host {
@@ -78,9 +80,13 @@
   }
 }
 
-:host(sbb-tab-nav-bar) ::slotted(a[data-has-divider]),
-:host(sbb-tab-label:state(has-divider)) .sbb-tab-label {
-  // Show a border below the tab-group and between flex rows when the tab titles wrap to a new line
+// Displays a border below the tab-group and between flex rows when the tab titles wrap to a new line
+// We place the line on another element than the one which would receive the focus outline
+// to guarantee that the focus outline is always on top of the line.
+:host(sbb-tab-nav-bar) .sbb-tab-nav-bar > [data-has-divider],
+:host(sbb-tab-label:state(has-divider)) {
+  position: relative;
+
   &::before {
     content: '';
     position: absolute;

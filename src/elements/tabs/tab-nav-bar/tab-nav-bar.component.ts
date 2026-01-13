@@ -44,7 +44,7 @@ class SbbTabNavBarElement extends SbbNamedSlotListMixin(SbbElementInternalsMixin
 
   private _onTabGroupElementResize(): void {
     this.listChildren.forEach((anchor) => {
-      anchor?.toggleAttribute(
+      anchor.assignedSlot?.parentElement?.toggleAttribute(
         'data-has-divider',
         anchor === this.listChildren[0] || anchor.offsetLeft === this.listChildren[0].offsetLeft,
       );
