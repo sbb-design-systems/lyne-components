@@ -11,8 +11,8 @@ $theme: 'standard' !default;
   --sbb-expansion-panel-header-gap-l: var(--sbb-spacing-fixed-6x);
   --sbb-expansion-panel-header-gap-default: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-fixed-6x),
-        'lean': var(--sbb-spacing-fixed-2x),
+        'standard': var(--sbb-expansion-panel-header-gap-l),
+        'lean': var(--sbb-expansion-panel-header-gap-s),
       ),
       $theme
     )};
@@ -20,8 +20,8 @@ $theme: 'standard' !default;
   --sbb-expansion-panel-header-padding-block-l: var(--sbb-spacing-responsive-xs);
   --sbb-expansion-panel-header-padding-block-default: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-responsive-xs),
-        'lean': var(--sbb-spacing-fixed-3x),
+        'standard': var(--sbb-expansion-panel-header-padding-block-l),
+        'lean': var(--sbb-expansion-panel-header-padding-block-s),
       ),
       $theme
     )};
@@ -29,8 +29,8 @@ $theme: 'standard' !default;
   --sbb-expansion-panel-header-padding-inline-l: var(--sbb-spacing-fixed-6x);
   --sbb-expansion-panel-header-padding-inline-default: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-fixed-6x),
-        'lean': var(--sbb-spacing-fixed-5x),
+        'standard': var(--sbb-expansion-panel-header-padding-inline-l),
+        'lean': var(--sbb-expansion-panel-header-padding-inline-s),
       ),
       $theme
     )};

@@ -7,8 +7,8 @@ $theme: 'standard' !default;
   --sbb-expansion-panel-content-padding-inline-l: var(--sbb-spacing-fixed-6x);
   --sbb-expansion-panel-content-padding-inline-default: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-spacing-fixed-6x),
-        'lean': var(--sbb-spacing-fixed-5x),
+        'standard': var(--sbb-expansion-panel-content-padding-inline-l),
+        'lean': var(--sbb-expansion-panel-content-padding-inline-s),
       ),
       $theme
     )};
