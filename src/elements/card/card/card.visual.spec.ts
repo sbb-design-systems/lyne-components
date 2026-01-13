@@ -119,7 +119,8 @@ describe(`sbb-card`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
           <sbb-card color="milk" class="sbb-card-spacing-l">
-            <sbb-card> Lorem ipsum dolor sit amet, consectetur adipiscing elit. justo. </sbb-card>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br />
+            <sbb-card> Nested lorem ipsum dolor sit amet, consectetur adipiscing elit. </sbb-card>
           </sbb-card>
         `);
       }),
