@@ -6,7 +6,6 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
-  visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
 import './expansion-panel.component.ts';
@@ -15,23 +14,17 @@ import '../expansion-panel-content.ts';
 import '../../icon.ts';
 
 describe(`sbb-expansion-panel`, () => {
-  let root: HTMLElement;
-
   const cases = {
     borderless: [false, true],
     disabled: [false, true],
     expanded: [false, true],
     color: ['white', 'milk'],
+    size: [null, 's', 'l'],
     emulateMedia: [
       { forcedColors: false, darkMode: false },
       { forcedColors: true, darkMode: false },
       { forcedColors: false, darkMode: true },
     ],
-  };
-
-  const sizeCases = {
-    size: ['s', 'l'],
-    expanded: [false, true],
   };
 
   const titleLevelCases = ['1', '4'];
@@ -44,27 +37,6 @@ describe(`sbb-expansion-panel`, () => {
   ];
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
-    // Size test cases
-    describeEach(sizeCases, ({ expanded, size }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(html`
-          <sbb-expansion-panel ?expanded=${expanded} size=${size}>
-            <sbb-expansion-panel-header icon-name="arrow-right-small">
-              Header
-            </sbb-expansion-panel-header>
-            <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
-          </sbb-expansion-panel>
-        `);
-      });
-
-      it(
-        visualDiffDefault.name,
-        visualDiffDefault.with((setup) => {
-          setup.withSnapshotElement(root);
-        }),
-      );
-    });
-
     // Title level test
     for (const titleLevel of titleLevelCases) {
       it(
@@ -104,7 +76,14 @@ describe(`sbb-expansion-panel`, () => {
     // Main test cases
     describeEach(
       cases,
-      ({ borderless, disabled, expanded, color, emulateMedia: { forcedColors, darkMode } }) => {
+      ({
+        borderless,
+        disabled,
+        expanded,
+        size,
+        color,
+        emulateMedia: { forcedColors, darkMode },
+      }) => {
         for (const state of [visualDiffDefault, visualDiffFocus, visualDiffHover]) {
           it(
             state.name,
@@ -115,6 +94,7 @@ describe(`sbb-expansion-panel`, () => {
                     ?borderless=${borderless}
                     ?disabled=${disabled}
                     ?expanded=${expanded}
+                    size=${size ?? nothing}
                     color=${color}
                   >
                     <sbb-expansion-panel-header icon-name="arrow-right-small">
@@ -137,6 +117,7 @@ describe(`sbb-expansion-panel`, () => {
                     ?borderless=${borderless}
                     ?disabled=${disabled}
                     ?expanded=${expanded}
+                    size=${size ?? nothing}
                     color=${color}
                   >
                     <sbb-expansion-panel-header icon-name="arrow-right-small">

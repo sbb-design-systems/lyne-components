@@ -33,11 +33,15 @@ $open-anim-opacity-to: 1;
 }
 
 :host([size='s']) {
-  --sbb-expansion-panel-title-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-expansion-panel-title-gap: var(--sbb-expansion-panel-title-gap-s);
 }
 
 :host([size='l']) {
-  --sbb-expansion-panel-title-gap: var(--sbb-spacing-fixed-4x);
+  --sbb-expansion-panel-title-gap: var(--sbb-expansion-panel-title-gap-l);
+}
+
+:host(:not([size])) {
+  --sbb-expansion-panel-title-gap: var(--sbb-expansion-panel-title-gap-default);
 }
 
 :host([disabled]) {

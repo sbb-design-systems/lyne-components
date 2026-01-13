@@ -8,12 +8,14 @@ $theme: 'standard' !default;
   --sbb-expansion-panel-border-radius: var(--sbb-border-radius-4x);
 
   // Vars which will be used by child components
-  --sbb-expansion-panel-title-gap: #{sbb.theme-pattern-select(
+  --sbb-expansion-panel-icon-size: var(--sbb-size-icon-ui-medium);
+  --sbb-expansion-panel-title-gap-s: var(--sbb-spacing-fixed-2x);
+  --sbb-expansion-panel-title-gap-l: var(--sbb-spacing-fixed-4x);
+  --sbb-expansion-panel-title-gap-default: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-spacing-fixed-4x),
         'lean': var(--sbb-spacing-fixed-2x),
       ),
       $theme
     )};
-  --sbb-expansion-panel-icon-size: var(--sbb-size-icon-ui-medium);
 }

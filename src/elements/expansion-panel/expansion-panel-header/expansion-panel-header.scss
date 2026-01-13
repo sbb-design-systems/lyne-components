@@ -5,15 +5,25 @@
 }
 
 :host(:state(size-s)) {
-  --sbb-expansion-panel-header-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-expansion-panel-header-padding-block: var(--sbb-spacing-fixed-3x);
-  --sbb-expansion-panel-header-padding-inline: var(--sbb-spacing-fixed-5x);
+  --sbb-expansion-panel-header-gap: var(--sbb-expansion-panel-header-gap-s);
+  --sbb-expansion-panel-header-padding-block: var(--sbb-expansion-panel-header-padding-block-s);
+  --sbb-expansion-panel-header-padding-inline: var(--sbb-expansion-panel-header-padding-inline-s);
 }
 
 :host(:state(size-l)) {
-  --sbb-expansion-panel-header-gap: var(--sbb-spacing-fixed-6x);
-  --sbb-expansion-panel-header-padding-block: var(--sbb-spacing-responsive-xs);
-  --sbb-expansion-panel-header-padding-inline: var(--sbb-spacing-fixed-6x);
+  --sbb-expansion-panel-header-gap: var(--sbb-expansion-panel-header-gap-l);
+  --sbb-expansion-panel-header-padding-block: var(--sbb-expansion-panel-header-padding-block-l);
+  --sbb-expansion-panel-header-padding-inline: var(--sbb-expansion-panel-header-padding-inline-l);
+}
+
+:host(:not(:state(size-s), :state(size-l))) {
+  --sbb-expansion-panel-header-gap: var(--sbb-expansion-panel-header-gap-default);
+  --sbb-expansion-panel-header-padding-block: var(
+    --sbb-expansion-panel-header-padding-block-default
+  );
+  --sbb-expansion-panel-header-padding-inline: var(
+    --sbb-expansion-panel-header-padding-inline-default
+  );
 }
 
 :host(:is(:disabled, [disabled-interactive])) {
