@@ -16,6 +16,8 @@ import style from './calendar-day.scss?lit&inline';
 
 /**
  * It displays a single day cell in the `sbb-calendar-enhanced` component.
+ *
+ * @slot - Use the unnamed slot to add some custom content to the day.
  */
 export
 @customElement('sbb-calendar-day')

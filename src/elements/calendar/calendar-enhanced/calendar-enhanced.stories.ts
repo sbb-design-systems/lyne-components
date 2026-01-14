@@ -1,5 +1,5 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { withActions } from 'storybook/actions/decorator';
@@ -16,26 +16,50 @@ import readme from './readme.md?raw';
 const today = new Date();
 today.setDate(today.getDate() >= 15 ? 8 : 18);
 
+const priceStyle = (greenBold: boolean): string => {
+  return `display: flex; flex-direction: column; justify-content: center; color: ${greenBold ? 'var(--sbb-color-green)' : 'var(--sbb-color-metal)'}; font-weight: ${greenBold ? 'bold' : 'initial'}`;
+};
+
 const monthChangedHandler = (e: SbbMonthChangeEvent): void => {
   const calendar = e.target as SbbCalendarEnhancedElement;
   Array.from(calendar.children).forEach((e) => calendar.removeChild(e));
   e.range?.map((day) => {
     const child = document.createElement('sbb-calendar-day');
     child.setAttribute('slot', day.value);
+    const price = document.createElement('span');
+    price.className = 'sbb-text-xxs';
+    price.textContent = +day.dayValue % 9 === 0 ? '99.-' : '123.-';
+    price.style = priceStyle(+day.dayValue % 9 === 0);
+    child.appendChild(price);
     calendar.appendChild(child);
   });
 };
 
-const createDaysTemplate = (numDays: number, year: number, month: number): TemplateResult => {
+const createPrice = (greenBold: boolean): TemplateResult => {
+  return html`
+    <span class="sbb-text-xxs" style=${priceStyle(greenBold)}>${greenBold ? '99.-' : '123.-'}</span>
+  `;
+};
+
+const createDaysTemplate = (
+  numDays: number,
+  year: number,
+  month: number,
+  withPrice: boolean,
+): TemplateResult => {
   return html`
     ${repeat(new Array(numDays), (_, index) => {
       const date = defaultDateAdapter.toIso8601(new Date(year, month - 1, index + 1));
-      return html` <sbb-calendar-day slot=${date}></sbb-calendar-day> `;
+      return html`
+        <sbb-calendar-day slot=${date}>
+          ${withPrice ? createPrice((index + 1) % 9 === 0) : nothing}
+        </sbb-calendar-day>
+      `;
     })}
   `;
 };
 
-const createDays = (wide: boolean): TemplateResult => {
+const createDays = (wide: boolean, withPrice: boolean): TemplateResult => {
   const numDays = defaultDateAdapter.getNumDaysInMonth(today);
   const year = defaultDateAdapter.getYear(today);
   const month = defaultDateAdapter.getMonth(today);
@@ -45,11 +69,11 @@ const createDays = (wide: boolean): TemplateResult => {
     const yearNextMonth = defaultDateAdapter.getYear(todayNextMonth);
     const nextMonth = defaultDateAdapter.getMonth(todayNextMonth);
     return html`
-      ${createDaysTemplate(numDays, year, month)}
-      ${createDaysTemplate(numDaysNextMonth, yearNextMonth, nextMonth)}
+      ${createDaysTemplate(numDays, year, month, withPrice)}
+      ${createDaysTemplate(numDaysNextMonth, yearNextMonth, nextMonth, withPrice)}
     `;
   } else {
-    return createDaysTemplate(numDays, year, month);
+    return createDaysTemplate(numDays, year, month, withPrice);
   }
 };
 
@@ -64,7 +88,15 @@ const getCalendarAttr = (min: number | string, max: number | string): Record<str
   return attr;
 };
 
-const Template = ({ min, max, multiple, selected, dateFilter, ...args }: Args): TemplateResult => {
+const Template = ({
+  min,
+  max,
+  multiple,
+  selected,
+  dateFilter,
+  withPrice,
+  ...args
+}: Args): TemplateResult => {
   if (selected) {
     if (multiple) {
       if (!Array.isArray(selected)) {
@@ -88,7 +120,7 @@ const Template = ({ min, max, multiple, selected, dateFilter, ...args }: Args): 
       ${sbbSpread(getCalendarAttr(min, max))}
       ${sbbSpread(args)}
       @monthchanged=${(e: SbbMonthChangeEvent) => monthChangedHandler(e)}
-      >${createDays(args.wide)}</sbb-calendar-enhanced
+      >${createDays(args.wide, withPrice)}</sbb-calendar-enhanced
     >
   `;
 };
@@ -189,6 +221,12 @@ const dateFilter: InputType = {
   },
 };
 
+const withPrice: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   wide,
   'week-numbers': weekNumbers,
@@ -199,6 +237,7 @@ const defaultArgTypes: ArgTypes = {
   max,
   dateFilter,
   view,
+  withPrice,
 };
 
 const defaultArgs: Args = {
@@ -208,12 +247,19 @@ const defaultArgs: Args = {
   view: view.options![0],
   'week-numbers': false,
   multiple: false,
+  withPrice: false,
 };
 
 export const Calendar: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs },
+};
+
+export const CalendarWithPrice: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, withPrice: true },
 };
 
 export const CalendarWithMinAndMax: StoryObj = {

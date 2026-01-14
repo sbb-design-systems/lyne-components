@@ -19,6 +19,8 @@ export class SbbMonthChangeEvent extends Event {
 
 /**
  * It displays a calendar when combined with `sbb-calendar-day`.
+ *
+ * @slot - Use the unnamed slot to add the `sbb-calendar-day` components for the desired month.
  */
 export
 @customElement('sbb-calendar-enhanced')

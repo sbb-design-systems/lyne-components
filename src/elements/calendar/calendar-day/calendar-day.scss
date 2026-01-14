@@ -22,7 +22,7 @@
 }
 
 :host(:state(selected)) {
-  --sbb-calendar-cell-selected-border: 3px solid var(--sbb-border-color-2);
+  --sbb-calendar-cell-selected-border: var(--sbb-border-width-1x) solid var(--sbb-border-color-2);
 }
 
 :host(:state(current)) {
@@ -38,9 +38,9 @@
     width: var(--sbb-calendar-cell-disabled-width);
     position: absolute;
     background-color: var(--sbb-calendar-cell-disabled-color);
-    top: 25%;
+    top: 33%;
     left: 50%;
-    transform: translate(-50%, -25%) rotate(-45deg);
+    transform: translate(-50%, -33%) rotate(-45deg);
   }
 }
 
