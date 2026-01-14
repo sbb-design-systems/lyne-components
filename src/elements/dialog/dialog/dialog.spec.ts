@@ -1021,7 +1021,7 @@ describe('sbb-dialog', () => {
 
       await openDialog(element);
 
-      const programmaticResult = { cancelled: true, reason: 'user-action' };
+      const programmaticResult = { reason: 'user-action' };
       element.close(programmaticResult);
       await closeSpy.calledOnce();
 
