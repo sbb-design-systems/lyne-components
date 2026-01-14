@@ -7,9 +7,14 @@ import { forceType } from '../core/decorators.ts';
 import { isZeroAnimationDuration } from '../core/dom.ts';
 import { forwardEvent } from '../core/eventing.ts';
 import { i18nCloseDialog } from '../core/i18n.ts';
+import type { SbbOverlayCloseEventDetails } from '../core/interfaces.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
-import { overlayRefs, SbbOverlayBaseElement } from './overlay-base-element.ts';
+import {
+  overlayRefs,
+  SbbOverlayBaseElement,
+  SbbOverlayCloseEvent,
+} from './overlay-base-element.ts';
 import style from './overlay.scss?lit&inline';
 
 import '../button/secondary-button.ts';
@@ -106,6 +111,24 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
       returnValue: this.returnValue,
       closeTarget: this.overlayCloseElement,
     });
+  }
+
+  protected override dispatchBeforeCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
+    /** @type {SbbOverlayCloseEvent} Emits whenever the component begins the closing transition. Can be canceled. */
+    return this.dispatchEvent(
+      new SbbOverlayCloseEvent('beforeclose', {
+        ...detail,
+        closeAttribute: this.closeAttribute,
+        cancelable: true,
+      }),
+    );
+  }
+
+  protected override dispatchCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
+    /** @type {SbbOverlayCloseEvent} Emits whenever the component is closed. */
+    return this.dispatchEvent(
+      new SbbOverlayCloseEvent('close', { ...detail, closeAttribute: this.closeAttribute }),
+    );
   }
 
   protected override render(): TemplateResult {

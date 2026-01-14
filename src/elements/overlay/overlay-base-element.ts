@@ -110,6 +110,11 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   protected abstract handleOpening(): void;
   protected abstract handleClosing(): void;
   protected abstract isZeroAnimationDuration(): boolean;
+  protected abstract override dispatchBeforeCloseEvent(
+    detail?: SbbOverlayCloseEventDetails,
+  ): boolean;
+
+  protected abstract override dispatchCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean;
 
   /** Opens the component. */
   public open(): void {
@@ -331,23 +336,5 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     } else if (event.animationName === 'close' && this.state === 'closing') {
       this.handleClosing();
     }
-  }
-
-  protected override dispatchBeforeCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
-    /** @type {CustomEvent<SbbOverlayCloseEventDetails>} Emits whenever the component begins the closing transition. Can be canceled. */
-    return this.dispatchEvent(
-      new SbbOverlayCloseEvent('beforeclose', {
-        ...detail,
-        closeAttribute: this.closeAttribute,
-        cancelable: true,
-      }),
-    );
-  }
-
-  protected override dispatchCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
-    /** @type {CustomEvent<SbbOverlayCloseEventDetails>} Emits whenever the component is closed. */
-    return this.dispatchEvent(
-      new SbbOverlayCloseEvent('close', { ...detail, closeAttribute: this.closeAttribute }),
-    );
   }
 }

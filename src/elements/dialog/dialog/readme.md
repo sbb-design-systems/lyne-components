@@ -129,12 +129,12 @@ an alternative element by listening to the `didClose` event.
 
 ## Events
 
-| Name          | Type                                       | Description                                                                  | Inherited From          |
-| ------------- | ------------------------------------------ | ---------------------------------------------------------------------------- | ----------------------- |
-| `beforeclose` | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `beforeopen`  | `Event`                                    | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `close`       | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
-| `open`        | `Event`                                    | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
+| Name          | Type                  | Description                                                                  | Inherited From          |
+| ------------- | --------------------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `SbbDialogCloseEvent` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event`               | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `SbbDialogCloseEvent` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event`               | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

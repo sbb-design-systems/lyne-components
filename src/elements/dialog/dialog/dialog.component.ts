@@ -5,8 +5,13 @@ import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import { isZeroAnimationDuration } from '../../core/dom.ts';
+import type { SbbOverlayCloseEventDetails } from '../../core/interfaces/overlay-close-details.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { overlayRefs, SbbOverlayBaseElement } from '../../overlay.ts';
+import {
+  overlayRefs,
+  SbbOverlayBaseElement,
+  SbbOverlayCloseEvent as SbbDialogCloseEvent,
+} from '../../overlay.ts';
 import type { SbbDialogContentElement } from '../dialog-content/dialog-content.component.ts';
 
 import style from './dialog.scss?lit&inline';
@@ -208,6 +213,24 @@ class SbbDialogElement extends SbbOverlayBaseElement {
 
   private _contentElement(): SbbDialogContentElement | null {
     return this.querySelector('sbb-dialog-content');
+  }
+
+  protected override dispatchBeforeCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
+    /** @type {SbbDialogCloseEvent} Emits whenever the component begins the closing transition. Can be canceled. */
+    return this.dispatchEvent(
+      new SbbDialogCloseEvent('beforeclose', {
+        ...detail,
+        closeAttribute: this.closeAttribute,
+        cancelable: true,
+      }),
+    );
+  }
+
+  protected override dispatchCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
+    /** @type {SbbDialogCloseEvent} Emits whenever the component is closed. */
+    return this.dispatchEvent(
+      new SbbDialogCloseEvent('close', { ...detail, closeAttribute: this.closeAttribute }),
+    );
   }
 
   protected override render(): TemplateResult {
