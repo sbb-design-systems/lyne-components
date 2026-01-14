@@ -48,13 +48,13 @@
     }
   }
 
-  .sbdocs-content {
-    max-width: var(--sbb-breakpoint-large-max) !important;
+  /* the doc viewer in storybook does not support dark mode. */
+  html:has(.sbdocs) {
+    color-scheme: light;
   }
 
-  .sbdocs-content summary {
-    /* the doc viewer in storybook does not have a dark mode. We force the font color to black */
-    color: var(--sbb-color-charcoal);
+  .sbdocs-content {
+    max-width: var(--sbb-breakpoint-large-max) !important;
   }
 
   .sb-show-main.sb-main-padded {
