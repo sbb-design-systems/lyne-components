@@ -30,7 +30,6 @@ class SbbCalendarDayElement extends SbbDisabledMixin(SbbButtonBaseElement) {
 
   @property()
   public override set slot(value: string) {
-    super.slot = value;
     const isToday = value === this.dateAdapter.toIso8601(this.dateAdapter.today());
     this.toggleState('current', isToday);
     this.internals.ariaCurrent = isToday ? 'date' : null;

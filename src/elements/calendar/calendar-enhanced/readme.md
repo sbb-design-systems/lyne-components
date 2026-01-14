@@ -69,9 +69,3 @@ The `sbb-calendar-enhanced` is a component . . .
 | ----------------- | ----------------------- | -------------------------------- | ---------------------- |
 | `currentViewDays` | `SbbMonthChangeEvent`   |                                  |                        |
 | `dateselected`    | `CustomEvent<T \| T[]>` | Event emitted on date selection. | SbbCalendarBaseElement |
-
-## Slots
-
-| Name | Description                                                                          |
-| ---- | ------------------------------------------------------------------------------------ |
-|      | Use the unnamed slot to add the `sbb-calendar-day` components for the desired month. |
