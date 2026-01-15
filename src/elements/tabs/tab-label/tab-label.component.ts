@@ -9,6 +9,7 @@ import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.ts
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 import type { SbbTitleLevel } from '../../title.ts';
+import { tabLabelCommonStyles } from '../common.ts';
 import type { SbbTabElement } from '../tab/tab.component.ts';
 import type { SbbTabChangedEventDetails, SbbTabGroupElement } from '../tab-group.ts';
 
@@ -27,7 +28,7 @@ class SbbTabLabelElement extends SbbDisabledMixin(
   SbbIconNameMixin(SbbElementInternalsMixin(LitElement)),
 ) {
   public static override role = 'tab';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, tabLabelCommonStyles, style];
 
   /** Whether the tab is selected. */
   private _selected: boolean = false;
@@ -171,7 +172,6 @@ class SbbTabLabelElement extends SbbDisabledMixin(
 
     /* eslint-disable lit/binding-positions */
     return html`
-      <div class="sbb-tab-label__wrapper">
         <${unsafeStatic(TAGNAME)} class="sbb-tab-label">
           <span class="sbb-tab-label__icon">
             ${this.renderIconSlot()}
@@ -179,11 +179,10 @@ class SbbTabLabelElement extends SbbDisabledMixin(
           <span class="sbb-tab-label__text">
             <slot></slot>
           </span>
-          <span class="sbb-tab-label__amount">
+          <p class="sbb-tab-label__amount">
             <slot name="amount">${this.amount}</slot>
-          </span>
+          </p>
         </${unsafeStatic(TAGNAME)}>
-      </div>
     `;
   }
 }

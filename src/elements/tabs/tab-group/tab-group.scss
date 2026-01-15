@@ -1,8 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
-
   --sbb-tab-group-animation-duration: 0s;
 }
 
@@ -13,12 +11,7 @@
   );
 }
 
-.sbb-tab-group {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .sbb-tab-group-content {
-  margin-block-start: var(--sbb-spacing-responsive-m);
+  margin-block-start: var(--sbb-tab-group-content-gap);
   transition: height var(--sbb-tab-group-animation-duration) var(--sbb-animation-easing);
 }
