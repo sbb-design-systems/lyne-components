@@ -1,45 +1,68 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
+The `sbb-calendar-enhanced` is a component that can be used to display a calendar with extra information for each day.
 
-The `sbb-calendar-enhanced` is a component . . .
+The component must be used in combination with slotted [sbb-calendar-day](/docs/elements-sbb-calendar-sbb-calendar-day--docs).
 
 ```html
-<sbb-calendar-enhanced></sbb-calendar-enhanced>
+<sbb-calendar-enhanced>
+  <sbb-calendar-day slot="2025-01-01"></sbb-calendar-day>
+  <sbb-calendar-day slot="2025-01-02"></sbb-calendar-day>
+  ...
+  <sbb-calendar-day slot="2025-01-31"></sbb-calendar-day>
+</sbb-calendar-enhanced>
 ```
+
+## Configuration
+
+The component shares the same functionalities of the [sbb-calendar](/docs/elements-sbb-calendar-sbb-calendar--docs),
+so please refer to its 'Configuration' section for information
+about the `dateSelected`, `min`, `max`, `dateFilter`, `week-numbers` and `multiple` properties.
 
 ## Slots
 
-> Describe slot naming and usage and provide an example of slotted content.
+The component create its own slots based on the month to be displayed; during initialization it is the current month,
+so for the first render the slotted `sbb-calendar-day`s must match those of the current month.
 
-## States
-
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
+For month changes, please refer to the "Events" section.
 
 ## Style
 
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
-
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
+The component shares the same style of the [sbb-calendar](/docs/elements-sbb-calendar-sbb-calendar--docs),
+so please refer to its 'Style' section for information about the `wide`, `orientation` and `view` properties.
 
 ## Events
 
-> Describe events triggered by the component and possibly how to get information from the payload.
+Each time the month changes due to user interaction with the previous/next month buttons,
+or via selecting a different year and then a month, a `monthchanged` event is emitted, typed as `SbbMonthChangeEvent`.
+
+The event has a `range: Day[]` property, which can be accessed to have information about the day to render.
+Consumers can listen to this event to dynamically create and slot the `sbb-calendar-day` of the chosen month.
+
+```html
+<sbb-calendar-enhanced @monthchanged="(e) => monthChangedHandler(e)">...</sbb-calendar-enhanced>
+```
+
+```ts
+function monthChangedHandler(e) {
+  const calendar = e.target;
+  // Remove slotted days to keep the DOM clean.
+  Array.from(calendar.children).forEach((e) => calendar.removeChild(e));
+  // Add the new days
+  e.range.map((day) => {
+    const child = document.createElement('sbb-calendar-day');
+    // The day.value property is the date in ISO8601 format,
+    // the correct one for the `sbb-calendar-day`'s slot property.
+    child.setAttribute('slot', day.value);
+    calendar.appendChild(child);
+  });
+}
+```
+
+As in the `sbb-calendar`, consumers can listen to the `dateselected` event to intercept the selected date, which can be read from `event.detail`.
 
 ## Keyboard interaction
 
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
-
-## Accessibility
-
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+The component shares the same interaction of the [sbb-calendar](/docs/elements-sbb-calendar-sbb-calendar--docs),
+so please refer to its 'Keyboard interaction' section for detailed information.
 
 <!-- Auto Generated Below -->
 
@@ -65,7 +88,7 @@ The `sbb-calendar-enhanced` is a component . . .
 
 ## Events
 
-| Name              | Type                    | Description                      | Inherited From         |
-| ----------------- | ----------------------- | -------------------------------- | ---------------------- |
-| `currentViewDays` | `SbbMonthChangeEvent`   |                                  |                        |
-| `dateselected`    | `CustomEvent<T \| T[]>` | Event emitted on date selection. | SbbCalendarBaseElement |
+| Name           | Type                    | Description                                                                                     | Inherited From         |
+| -------------- | ----------------------- | ----------------------------------------------------------------------------------------------- | ---------------------- |
+| `dateselected` | `CustomEvent<T \| T[]>` | Event emitted on date selection.                                                                | SbbCalendarBaseElement |
+| `monthchanged` | `SbbMonthChangeEvent`   | Emits when the month changes. The `range` property contains the days array of the chosen month. |                        |

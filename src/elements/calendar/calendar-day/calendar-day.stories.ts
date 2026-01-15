@@ -1,14 +1,17 @@
-import type { Args, Meta, StoryObj } from '@storybook/web-components-vite';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-
 import readme from './readme.md?raw';
-import './calendar-day.component.ts';
 
-const Template = (args: Args): TemplateResult =>
-  html`<sbb-calendar-day ${sbbSpread(args)}></sbb-calendar-day>`;
+import '../../card.ts';
+
+const Template = (): TemplateResult => html`
+  <sbb-card color="milk">
+    'sbb-calendar-day' should be used together with 'sbb-calendar-enhanced'. See
+    'sbb-calendar-enhanced' examples to see it in action.
+  </sbb-card>
+`;
 
 export const Default: StoryObj = {
   render: Template,

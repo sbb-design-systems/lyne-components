@@ -20,17 +20,19 @@ const priceStyle = (greenBold: boolean): string => {
   return `display: flex; flex-direction: column; justify-content: center; color: ${greenBold ? 'var(--sbb-color-green)' : 'var(--sbb-color-metal)'}; font-weight: ${greenBold ? 'bold' : 'initial'}`;
 };
 
-const monthChangedHandler = (e: SbbMonthChangeEvent): void => {
+const monthChangedHandler = (e: SbbMonthChangeEvent, withPrice: boolean): void => {
   const calendar = e.target as SbbCalendarEnhancedElement;
   Array.from(calendar.children).forEach((e) => calendar.removeChild(e));
   e.range?.map((day) => {
     const child = document.createElement('sbb-calendar-day');
     child.setAttribute('slot', day.value);
-    const price = document.createElement('span');
-    price.className = 'sbb-text-xxs';
-    price.textContent = +day.dayValue % 9 === 0 ? '99.-' : '123.-';
-    price.style = priceStyle(+day.dayValue % 9 === 0);
-    child.appendChild(price);
+    if (withPrice) {
+      const price = document.createElement('span');
+      price.className = 'sbb-text-xxs';
+      price.textContent = +day.dayValue % 9 === 0 ? '99.-' : '123.-';
+      price.style = priceStyle(+day.dayValue % 9 === 0);
+      child.appendChild(price);
+    }
     calendar.appendChild(child);
   });
 };
@@ -119,7 +121,7 @@ const Template = ({
       .dateFilter="${dateFilter}"
       ${sbbSpread(getCalendarAttr(min, max))}
       ${sbbSpread(args)}
-      @monthchanged=${(e: SbbMonthChangeEvent) => monthChangedHandler(e)}
+      @monthchanged=${(e: SbbMonthChangeEvent) => monthChangedHandler(e, withPrice)}
       >${createDays(args.wide, withPrice)}</sbb-calendar-enhanced
     >
   `;

@@ -18,9 +18,8 @@ export class SbbMonthChangeEvent extends Event {
 }
 
 /**
- * It displays a calendar when combined with `sbb-calendar-day`;
- * it renders a slot for every day of the month.
- *
+ * It displays a calendar when used in combination with `sbb-calendar-day`.
+ * Slotted days must match the rendered day view.
  */
 export
 @customElement('sbb-calendar-enhanced')
@@ -125,10 +124,16 @@ class SbbCalendarEnhancedElement<T extends Date = Date> extends SbbCalendarBaseE
   }
 
   private _emitMonthChanged(): void {
-    const currentViewDays = (this.wide ? [...this.weeks, ...this.nextMonthWeeks] : this.weeks)
+    // TODO: the name of this variable appears as event name in the readme. Maybe a CEM bug?
+    const monthchanged = (this.wide ? [...this.weeks, ...this.nextMonthWeeks] : this.weeks)
       .flat()
       .sort((a, b) => a.value.localeCompare(b.value));
-    this.dispatchEvent(new SbbMonthChangeEvent(currentViewDays));
+    /**
+     * @type {SbbMonthChangeEvent}
+     * Emits when the month changes.
+     * The `range` property contains the days array of the chosen month.
+     */
+    this.dispatchEvent(new SbbMonthChangeEvent(monthchanged));
   }
 }
 
