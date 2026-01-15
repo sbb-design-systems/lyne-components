@@ -120,12 +120,12 @@ an alternative element by listening to the `didClose` event.
 
 ## Methods
 
-| Name             | Privacy | Description                                                                 | Parameters                         | Return | Inherited From          |
-| ---------------- | ------- | --------------------------------------------------------------------------- | ---------------------------------- | ------ | ----------------------- |
-| `announceTitle`  | public  | Announce the accessibility label or dialog title for screen readers.        |                                    | `void` |                         |
-| `close`          | public  | Closes the component.                                                       | `result: any, target: HTMLElement` | `any`  | SbbOpenCloseBaseElement |
-| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |                                    | `void` | SbbOpenCloseBaseElement |
-| `open`           | public  | Opens the component.                                                        |                                    | `void` | SbbOpenCloseBaseElement |
+| Name             | Privacy | Description                                                                 | Parameters    | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ------------- | ------ | ----------------------- |
+| `announceTitle`  | public  | Announce the accessibility label or dialog title for screen readers.        |               | `void` |                         |
+| `close`          | public  | Closes the component.                                                       | `result: any` | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |               | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the component.                                                        |               | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
