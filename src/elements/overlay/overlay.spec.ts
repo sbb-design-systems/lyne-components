@@ -3,14 +3,13 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import type { SbbButtonElement } from '../button.ts';
 import { i18nDialog } from '../core/i18n.ts';
-import type { SbbOverlayCloseEventDetails } from '../core/interfaces.ts';
 import { sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 
 import { assignOverlayResult, SbbOverlayCloseEvent } from './overlay-base-element.ts';
 import { SbbOverlayElement } from './overlay.component.ts';
+
 import '../button.ts';
 import '../icon.ts';
 
@@ -143,35 +142,6 @@ describe('sbb-overlay', () => {
       expect(closeSpy.count).to.be.equal(1);
 
       expect(element).to.match(':state(state-closed)');
-    });
-
-    it('closes the overlay on close button click with linked form', async () => {
-      element = await fixture(html`
-        <div>
-          <form id="formid" method="dialog"></form>
-          <sbb-overlay id="my-overlay-3">
-            <p>Overlay content</p>
-            <sbb-button sbb-overlay-close type="submit" form="formid">Close</sbb-button>
-          </sbb-overlay>
-        </div>
-      `);
-
-      const overlay = element.querySelector('sbb-overlay')!;
-      const closeButton = element.querySelector<SbbButtonElement>('[type="submit"]')!;
-      const form = element.querySelector<HTMLFormElement>('form')!;
-      const beforeCloseSpy = new EventSpy<CustomEvent<SbbOverlayCloseEventDetails>>(
-        SbbOverlayElement.events.beforeclose,
-        overlay,
-      );
-
-      await openOverlay(overlay);
-
-      closeButton.click();
-      await waitForLitRender(element);
-
-      await beforeCloseSpy.calledOnce();
-
-      expect(beforeCloseSpy.firstEvent?.detail.returnValue).to.be.deep.equal(form);
     });
 
     it('closes the overlay on Esc key press', async () => {
@@ -527,6 +497,7 @@ describe('sbb-overlay', () => {
 
       const event = closeSpy.lastEvent as SbbOverlayCloseEvent;
       expect(event).to.be.instanceOf(SbbOverlayCloseEvent);
+      expect(event.result).to.deep.equal(programmaticResult);
       expect(event.detail.returnValue).to.deep.equal(programmaticResult);
       expect(event.closeTarget).to.be.null;
     });
@@ -556,6 +527,7 @@ describe('sbb-overlay', () => {
 
       const event = closeSpy.lastEvent as SbbOverlayCloseEvent;
       expect(event).to.be.instanceOf(SbbOverlayCloseEvent);
+      expect(event.result).to.deep.equal({ custom: 'result' });
       expect(event.detail.returnValue).to.deep.equal({ custom: 'result' });
       expect(event.closeTarget).to.equal(customTarget);
     });

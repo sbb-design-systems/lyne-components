@@ -113,21 +113,28 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
     });
   }
 
-  protected override dispatchBeforeCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
+  // TODO: remove parameter `detail`
+  protected override dispatchBeforeCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
     /** @type {SbbOverlayCloseEvent} Emits whenever the component begins the closing transition. Can be canceled. */
     return this.dispatchEvent(
       new SbbOverlayCloseEvent('beforeclose', {
-        ...detail,
-        closeAttribute: this.closeAttribute,
         cancelable: true,
+        closeAttribute: this.closeAttribute,
+        closeTarget: this.overlayCloseElement,
+        result: this.returnValue,
       }),
     );
   }
 
-  protected override dispatchCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
+  // TODO: remove parameter `detail`
+  protected override dispatchCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
     /** @type {SbbOverlayCloseEvent} Emits whenever the component is closed. */
     return this.dispatchEvent(
-      new SbbOverlayCloseEvent('close', { ...detail, closeAttribute: this.closeAttribute }),
+      new SbbOverlayCloseEvent('close', {
+        closeAttribute: this.closeAttribute,
+        closeTarget: this.overlayCloseElement,
+        result: this.returnValue,
+      }),
     );
   }
 

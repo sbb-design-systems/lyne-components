@@ -2,7 +2,7 @@ import { isServer, type PropertyDeclaration, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbFocusTrapController } from '../core/a11y.ts';
-import { type SbbButtonBaseElement, SbbOpenCloseBaseElement } from '../core/base-elements.ts';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
 import {
   SbbEscapableOverlayController,
   SbbInertController,
@@ -41,18 +41,22 @@ export class SbbOverlayCloseEvent<T = any> extends CustomEvent<SbbOverlayCloseEv
   public constructor(
     name: string,
     {
-      closeAttribute,
       cancelable,
-      ...detail
-    }: { closeAttribute: string; cancelable?: boolean } & SbbOverlayCloseEventDetails,
+      closeAttribute,
+      closeTarget,
+      result,
+    }: { cancelable?: boolean; closeAttribute: string; closeTarget?: HTMLElement; result?: any },
   ) {
-    super(name, { cancelable, detail });
+    // TODO: Remove detail and change base class to Event
+    super(name, { cancelable, detail: { returnValue: result, closeTarget } });
 
-    this.result = !detail.closeTarget
-      ? null
-      : (overlayResultMap.get(detail.closeTarget) ??
-        (detail.closeTarget.getAttribute(closeAttribute)?.trim() || null));
-    this.closeTarget = detail.closeTarget ?? null;
+    this.result =
+      result ??
+      (!closeTarget
+        ? null
+        : (overlayResultMap.get(closeTarget) ??
+          (closeTarget.getAttribute(closeAttribute)?.trim() || null)));
+    this.closeTarget = closeTarget ?? null;
   }
 }
 
@@ -91,10 +95,12 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
 
   // The last element which had focus before the component was opened.
   protected lastFocusedElement?: HTMLElement;
+  // TODO: rename to lastClosedTarget
   protected overlayCloseElement?: HTMLElement;
   protected openOverlayController?: AbortController;
   protected focusTrapController = new SbbFocusTrapController(this);
   protected scrollHandler = new SbbScrollHandler();
+  // TODO: rename to lastResult
   protected returnValue: any;
   protected language = new SbbLanguageController(this);
   protected inertController = new SbbInertController(this);
@@ -148,19 +154,21 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   }
 
   /** Closes the component. */
-  public close(result?: any, target?: HTMLElement): any {
+  public close(result?: any): void;
+  /** @deprecated */
+  public close(result?: any, target?: HTMLElement): void;
+  public close(result?: any, target?: HTMLElement): void {
+    this._close(result, target);
+  }
+
+  private _close(result: any, target: HTMLElement | undefined): void {
     if (this.state === 'closing' || this.state === 'closed') {
       return;
     }
 
     this.returnValue = result;
     this.overlayCloseElement = target;
-    const eventData: SbbOverlayCloseEventDetails = {
-      returnValue: this.returnValue,
-      closeTarget: this.overlayCloseElement,
-    };
-
-    if (!this.dispatchBeforeCloseEvent(eventData)) {
+    if (!this.dispatchBeforeCloseEvent()) {
       return;
     }
     this.state = 'closing';
@@ -296,13 +304,8 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
       return;
     }
 
-    // Check if the target is a submission element within a form and return the form, if present
-    const closestForm =
-      overlayCloseElement.getAttribute('type') === 'submit'
-        ? ((overlayCloseElement as HTMLButtonElement | SbbButtonBaseElement).form ?? null)
-        : null;
     if (overlayRefs.length) {
-      overlayRefs[overlayRefs.length - 1].close(closestForm, overlayCloseElement);
+      overlayRefs[overlayRefs.length - 1]._close(null, overlayCloseElement);
     }
   }
 

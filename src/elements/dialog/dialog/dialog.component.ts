@@ -215,21 +215,28 @@ class SbbDialogElement extends SbbOverlayBaseElement {
     return this.querySelector('sbb-dialog-content');
   }
 
-  protected override dispatchBeforeCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
+  // TODO: remove parameter `detail`
+  protected override dispatchBeforeCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
     /** @type {SbbDialogCloseEvent} Emits whenever the component begins the closing transition. Can be canceled. */
     return this.dispatchEvent(
       new SbbDialogCloseEvent('beforeclose', {
-        ...detail,
-        closeAttribute: this.closeAttribute,
         cancelable: true,
+        closeAttribute: this.closeAttribute,
+        closeTarget: this.overlayCloseElement,
+        result: this.returnValue,
       }),
     );
   }
 
-  protected override dispatchCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
+  // TODO: remove parameter `detail`
+  protected override dispatchCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
     /** @type {SbbDialogCloseEvent} Emits whenever the component is closed. */
     return this.dispatchEvent(
-      new SbbDialogCloseEvent('close', { ...detail, closeAttribute: this.closeAttribute }),
+      new SbbDialogCloseEvent('close', {
+        closeAttribute: this.closeAttribute,
+        closeTarget: this.overlayCloseElement,
+        result: this.returnValue,
+      }),
     );
   }
 
