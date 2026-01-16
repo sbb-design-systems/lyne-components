@@ -5,13 +5,23 @@ import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import { isZeroAnimationDuration } from '../../core/dom.ts';
+import type { SbbOverlayCloseEventDetails } from '../../core/interfaces/overlay-close-details.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { overlayRefs, SbbOverlayBaseElement } from '../../overlay.ts';
+import {
+  overlayRefs,
+  SbbOverlayBaseElement,
+  SbbOverlayCloseEvent as SbbDialogCloseEvent,
+} from '../../overlay.ts';
 import type { SbbDialogContentElement } from '../dialog-content/dialog-content.component.ts';
 
 import style from './dialog.scss?lit&inline';
 
 import '../../screen-reader-only.ts';
+
+export {
+  assignOverlayResult as assignDialogResult,
+  SbbOverlayCloseEvent as SbbDialogCloseEvent,
+} from '../../overlay/overlay-base-element.ts';
 
 let nextId = 0;
 
@@ -203,6 +213,31 @@ class SbbDialogElement extends SbbOverlayBaseElement {
 
   private _contentElement(): SbbDialogContentElement | null {
     return this.querySelector('sbb-dialog-content');
+  }
+
+  // TODO: remove parameter `detail`
+  protected override dispatchBeforeCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
+    /** @type {SbbDialogCloseEvent} Emits whenever the component begins the closing transition. Can be canceled. */
+    return this.dispatchEvent(
+      new SbbDialogCloseEvent('beforeclose', {
+        cancelable: true,
+        closeAttribute: this.closeAttribute,
+        closeTarget: this.overlayCloseElement,
+        result: this.returnValue,
+      }),
+    );
+  }
+
+  // TODO: remove parameter `detail`
+  protected override dispatchCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
+    /** @type {SbbDialogCloseEvent} Emits whenever the component is closed. */
+    return this.dispatchEvent(
+      new SbbDialogCloseEvent('close', {
+        closeAttribute: this.closeAttribute,
+        closeTarget: this.overlayCloseElement,
+        result: this.returnValue,
+      }),
+    );
   }
 
   protected override render(): TemplateResult {

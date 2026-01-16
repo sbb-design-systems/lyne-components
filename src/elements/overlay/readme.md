@@ -79,20 +79,20 @@ an alternative element by listening to the `didClose` event.
 
 ## Methods
 
-| Name             | Privacy | Description                                                                 | Parameters                         | Return | Inherited From          |
-| ---------------- | ------- | --------------------------------------------------------------------------- | ---------------------------------- | ------ | ----------------------- |
-| `close`          | public  | Closes the component.                                                       | `result: any, target: HTMLElement` | `any`  | SbbOpenCloseBaseElement |
-| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |                                    | `void` | SbbOpenCloseBaseElement |
-| `open`           | public  | Opens the component.                                                        |                                    | `void` | SbbOpenCloseBaseElement |
+| Name             | Privacy | Description                                                                 | Parameters    | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ------------- | ------ | ----------------------- |
+| `close`          | public  | Closes the component.                                                       | `result: any` | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |               | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the component.                                                        |               | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
-| Name          | Type                                       | Description                                                                  | Inherited From          |
-| ------------- | ------------------------------------------ | ---------------------------------------------------------------------------- | ----------------------- |
-| `beforeclose` | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `beforeopen`  | `Event`                                    | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `close`       | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
-| `open`        | `Event`                                    | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
+| Name          | Type                   | Description                                                                  | Inherited From          |
+| ------------- | ---------------------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `SbbOverlayCloseEvent` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event`                | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `SbbOverlayCloseEvent` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event`                | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

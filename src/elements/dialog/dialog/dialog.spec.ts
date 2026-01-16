@@ -10,7 +10,7 @@ import { sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
 import { SbbStepElement } from '../../stepper/step/step.component.ts';
 
-import { SbbDialogElement } from './dialog.component.ts';
+import { assignDialogResult, SbbDialogCloseEvent, SbbDialogElement } from './dialog.component.ts';
 
 import '../../autocomplete.ts';
 import '../../button.ts';
@@ -912,5 +912,154 @@ describe('sbb-dialog', () => {
     expect(document.activeElement).to.be.equal(button);
 
     element.remove();
+  });
+
+  describe('assignDialogResult and SbbDialogCloseEvent', () => {
+    let element: SbbDialogElement;
+
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-dialog>
+          <sbb-dialog-title>Result Dialog</sbb-dialog-title>
+          <sbb-dialog-content>
+            <button id="close-with-attribute-result" sbb-dialog-close="simple-result">
+              Close with attribute result
+            </button>
+            <button id="close-with-assigned-result" sbb-dialog-close>
+              Close with assigned result
+            </button>
+            <button id="close-without-result" sbb-dialog-close>Close without result</button>
+          </sbb-dialog-content>
+        </sbb-dialog>
+      `);
+    });
+
+    it('should emit SbbDialogCloseEvent with result from attribute', async () => {
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
+      const closeButton = element.querySelector<HTMLButtonElement>('#close-with-attribute-result')!;
+
+      await openDialog(element);
+
+      closeButton.click();
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbDialogCloseEvent;
+      expect(event).to.be.instanceOf(SbbDialogCloseEvent);
+      expect(event.result).to.equal('simple-result');
+      expect(event.closeTarget).to.equal(closeButton);
+    });
+
+    it('should emit SbbDialogCloseEvent with assigned result via assignDialogResult', async () => {
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
+      const closeButton = element.querySelector<HTMLButtonElement>('#close-with-assigned-result')!;
+
+      // Assign a complex result object
+      const complexResult = { success: true, data: { id: 123, name: 'Test' } };
+      assignDialogResult(closeButton, complexResult);
+
+      await openDialog(element);
+
+      closeButton.click();
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbDialogCloseEvent;
+      expect(event).to.be.instanceOf(SbbDialogCloseEvent);
+      expect(event.result).to.deep.equal(complexResult);
+      expect(event.closeTarget).to.equal(closeButton);
+    });
+
+    it('should prioritize assigned result over attribute result', async () => {
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
+      const closeButton = element.querySelector<HTMLButtonElement>('#close-with-attribute-result')!;
+
+      // Assign a result that should override the attribute
+      const overrideResult = { override: true };
+      assignDialogResult(closeButton, overrideResult);
+
+      await openDialog(element);
+
+      closeButton.click();
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbDialogCloseEvent;
+      expect(event).to.be.instanceOf(SbbDialogCloseEvent);
+      expect(event.result).to.deep.equal(overrideResult);
+      expect(event.result).not.to.equal('simple-result');
+    });
+
+    it('should emit SbbDialogCloseEvent with null result when no result is provided', async () => {
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
+      const closeButton = element.querySelector<HTMLButtonElement>('#close-without-result')!;
+
+      await openDialog(element);
+
+      closeButton.click();
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbDialogCloseEvent;
+      expect(event).to.be.instanceOf(SbbDialogCloseEvent);
+      expect(event.result).to.be.null;
+      expect(event.closeTarget).to.equal(closeButton);
+    });
+
+    it('should emit SbbDialogCloseEvent with null closeTarget when closed programmatically', async () => {
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
+
+      await openDialog(element);
+
+      element.close();
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbDialogCloseEvent;
+      expect(event).to.be.instanceOf(SbbDialogCloseEvent);
+      expect(event.result).to.be.null;
+      expect(event.closeTarget).to.be.null;
+    });
+
+    it('should emit SbbDialogCloseEvent with result when closed programmatically with result', async () => {
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
+
+      await openDialog(element);
+
+      const programmaticResult = { reason: 'user-action' };
+      element.close(programmaticResult);
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbDialogCloseEvent;
+      expect(event).to.be.instanceOf(SbbDialogCloseEvent);
+      expect(event.result).to.deep.equal(programmaticResult);
+      expect(event.detail.returnValue).to.deep.equal(programmaticResult);
+      expect(event.closeTarget).to.be.null;
+    });
+
+    it('should emit SbbDialogCloseEvent with null closeTarget when closed via Escape', async () => {
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
+
+      await openDialog(element);
+
+      await sendKeys({ press: 'Escape' });
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbDialogCloseEvent;
+      expect(event).to.be.instanceOf(SbbDialogCloseEvent);
+      expect(event.result).to.be.null;
+      expect(event.closeTarget).to.be.null;
+    });
+
+    it('should emit result with closeTarget when close() is called with target parameter', async () => {
+      const closeSpy = new EventSpy(SbbDialogElement.events.close, element);
+      const customTarget = element.querySelector<HTMLButtonElement>('#close-programmatically')!;
+
+      await openDialog(element);
+
+      element.close({ custom: 'result' }, customTarget);
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbDialogCloseEvent;
+      expect(event).to.be.instanceOf(SbbDialogCloseEvent);
+      expect(event.result).to.deep.equal({ custom: 'result' });
+      expect(event.detail.returnValue).to.deep.equal({ custom: 'result' });
+      expect(event.closeTarget).to.equal(customTarget);
+    });
   });
 });

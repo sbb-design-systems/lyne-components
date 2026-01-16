@@ -139,17 +139,21 @@ function renderTemplate(
     console.error(`(Inherited) events need jsdocs on class level! (${declaration.name})`);
   }
 
-  // Generic <T> types are filtered out from imports
-  const customEventTypes =
-    declaration.events
+  // Generic <T> types and Sbb* events are filtered out from imports
+  const customEventTypes = [
+    ...(declaration.events?.filter((e) => e.type.text.startsWith('Sbb')).map((e) => e.type.text) ??
+      []),
+    ...(declaration.events
       ?.filter(
         (e) =>
           e.type.text.startsWith('CustomEvent<') &&
           ['void', '{', 'File', 'T'].every((m) => !e.type.text.includes(`<${m}`)),
       )
-      .map((e) => e.type.text.substring(12).slice(0, -1))
-      .sort()
-      .filter((v, i, a) => a.indexOf(v) === i && v.length > 1) ?? [];
+      .map((e) => e.type.text.substring(12).slice(0, -1)) ?? []),
+  ]
+    .sort()
+    .filter((v, i, a) => a.indexOf(v) === i && v.length > 1);
+
   // If a type or interface needs to be imported, the custom elements analyzer will not detect/extract these,
   // and therefore we need to have a manual list of required types/interfaces.
   const interfaces = new Map<string, string>()
@@ -203,10 +207,10 @@ const ${patchClassName} = ${declaration.name} as typeof ${patchClassName}Type;
   for (const customEventType of customEventTypes) {
     const exportModule = exports.find((e) => e.name === customEventType);
     if (exportModule) {
-      if (!componentsImports.has(exportModule.declaration.module!)) {
-        componentsImports.set(exportModule.declaration.module!, [`type ${customEventType}`]);
+      if (!componentsImports.has(importPath!)) {
+        componentsImports.set(importPath!, [`type ${customEventType}`]);
       } else {
-        componentsImports.get(exportModule.declaration.module!)!.push(`type ${customEventType}`);
+        componentsImports.get(importPath!)!.push(`type ${customEventType}`);
       }
     } else if (interfaces.has(customEventType)) {
       const moduleName = interfaces.get(customEventType)!;
