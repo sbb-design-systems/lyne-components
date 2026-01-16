@@ -6,7 +6,6 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
-  visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
 import './expansion-panel.component.ts';
@@ -15,8 +14,6 @@ import '../expansion-panel-content.ts';
 import '../../icon.ts';
 
 describe(`sbb-expansion-panel`, () => {
-  let root: HTMLElement;
-
   const cases = {
     borderless: [false, true],
     disabled: [false, true],
@@ -29,11 +26,6 @@ describe(`sbb-expansion-panel`, () => {
     ],
   };
 
-  const sizeCases = {
-    size: ['s', 'l'],
-    expanded: [false, true],
-  };
-
   const titleLevelCases = ['1', '4'];
 
   const iconCases = [
@@ -43,24 +35,25 @@ describe(`sbb-expansion-panel`, () => {
     { name: 'slotted', icon: 'arrow-right-small', slotted: true, disabled: false },
   ];
 
+  const sizeCases = {
+    size: [undefined, 's', 'l'],
+    expanded: [false, true],
+  };
+
   describeViewports({ viewports: ['zero', 'large'] }, () => {
     // Size test cases
     describeEach(sizeCases, ({ expanded, size }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(html`
-          <sbb-expansion-panel ?expanded=${expanded} size=${size}>
-            <sbb-expansion-panel-header icon-name="arrow-right-small">
-              Header
-            </sbb-expansion-panel-header>
-            <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
-          </sbb-expansion-panel>
-        `);
-      });
-
       it(
         visualDiffDefault.name,
-        visualDiffDefault.with((setup) => {
-          setup.withSnapshotElement(root);
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
+            <sbb-expansion-panel ?expanded=${expanded} size=${size ?? nothing}>
+              <sbb-expansion-panel-header icon-name="arrow-right-small">
+                Header
+              </sbb-expansion-panel-header>
+              <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
+            </sbb-expansion-panel>
+          `);
         }),
       );
     });
@@ -105,33 +98,58 @@ describe(`sbb-expansion-panel`, () => {
     describeEach(
       cases,
       ({ borderless, disabled, expanded, color, emulateMedia: { forcedColors, darkMode } }) => {
-        beforeEach(async function () {
-          root = await visualRegressionFixture(
-            html`
-              <sbb-expansion-panel
-                ?borderless=${borderless}
-                ?disabled=${disabled}
-                ?expanded=${expanded}
-                color=${color}
-              >
-                <sbb-expansion-panel-header icon-name="arrow-right-small">
-                  Header
-                </sbb-expansion-panel-header>
-                <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
-              </sbb-expansion-panel>
-            `,
-            { forcedColors, darkMode },
-          );
-        });
-
         for (const state of [visualDiffDefault, visualDiffFocus, visualDiffHover]) {
           it(
             state.name,
-            state.with((setup) => {
-              setup.withSnapshotElement(root);
+            state.with(async (setup) => {
+              await setup.withFixture(
+                html`
+                  <sbb-expansion-panel
+                    ?borderless=${borderless}
+                    ?disabled=${disabled}
+                    ?expanded=${expanded}
+                    color=${color}
+                  >
+                    <sbb-expansion-panel-header icon-name="arrow-right-small">
+                      Header
+                    </sbb-expansion-panel-header>
+                    <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
+                  </sbb-expansion-panel>
+                `,
+                { forcedColors, darkMode },
+              );
             }),
           );
         }
+
+        it(
+          `nested default`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`
+                <sbb-expansion-panel
+                  ?borderless=${borderless}
+                  ?disabled=${disabled}
+                  ?expanded=${expanded}
+                  color=${color}
+                  size="s"
+                >
+                  <sbb-expansion-panel-header icon-name="arrow-right-small">
+                    Header
+                  </sbb-expansion-panel-header>
+                  <sbb-expansion-panel-content>
+                    Content
+                    <sbb-expansion-panel>
+                      <sbb-expansion-panel-header>Nested header</sbb-expansion-panel-header>
+                      <sbb-expansion-panel-content>Nested content</sbb-expansion-panel-content>
+                    </sbb-expansion-panel>
+                  </sbb-expansion-panel-content>
+                </sbb-expansion-panel>
+              `,
+              { forcedColors, darkMode },
+            );
+          }),
+        );
       },
     );
   });

@@ -68,7 +68,6 @@ snapshots["sbb-timetable-form renders DOM"] =
       <sbb-toggle
         name="departure-arrival"
         size="s"
-        style="--sbb-toggle-option-left: 0px; --sbb-toggle-option-right: 43px;"
       >
         <sbb-toggle-option
           checked=""
@@ -84,7 +83,7 @@ snapshots["sbb-timetable-form renders DOM"] =
           Arr
         </sbb-toggle-option>
       </sbb-toggle>
-      <div style="flex-grow: 1;">
+      <div>
       </div>
       <sbb-button
         size="m"
