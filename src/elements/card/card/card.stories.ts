@@ -118,7 +118,7 @@ const spacing: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['3x-xxs', 'xxxs-xxs', 'xxxs-s', '4x-xxs', 'xxs-xxs', 's-s', 'l-l'],
+  options: ['3x-xxs', 'xxxs-xxs', 'xxxs-s', '4x-xxs', 'xxs', 's', 'l'],
 };
 
 const hrefs = ['https://www.sbb.ch', 'https://github.com/sbb-design-systems/lyne-components'];
