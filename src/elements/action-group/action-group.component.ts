@@ -85,11 +85,7 @@ class SbbActionGroupElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    return html`
-      <div class="sbb-action-group">
-        <slot></slot>
-      </div>
-    `;
+    return html` <slot></slot> `;
   }
 }
 
