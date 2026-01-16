@@ -26,15 +26,13 @@ snapshots["sbb-alert-group renders DOM"] =
 /* end snapshot sbb-alert-group renders DOM */
 
 snapshots["sbb-alert-group renders Shadow DOM"] = 
-`<div class="sbb-alert-group">
-  <h3 class="sbb-alert-group__title">
-    <slot name="accessibility-title">
-      Disruptions
-    </slot>
-  </h3>
-  <slot>
+`<h3 class="sbb-alert-group__title">
+  <slot name="accessibility-title">
+    Disruptions
   </slot>
-</div>
+</h3>
+<slot>
+</slot>
 `;
 /* end snapshot sbb-alert-group renders Shadow DOM */
 
@@ -65,14 +63,12 @@ snapshots["sbb-alert-group renders with slotted DOM"] =
 /* end snapshot sbb-alert-group renders with slotted DOM */
 
 snapshots["sbb-alert-group renders with slotted Shadow DOM"] = 
-`<div class="sbb-alert-group">
-  <h3 class="sbb-alert-group__title">
-    <slot name="accessibility-title">
-    </slot>
-  </h3>
-  <slot>
+`<h3 class="sbb-alert-group__title">
+  <slot name="accessibility-title">
   </slot>
-</div>
+</h3>
+<slot>
+</slot>
 `;
 /* end snapshot sbb-alert-group renders with slotted Shadow DOM */
 

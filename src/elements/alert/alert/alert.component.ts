@@ -50,6 +50,11 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
     this.requestUpdate();
   });
 
+  public constructor() {
+    super();
+    this.addEventListener('animationend', (e: AnimationEvent) => this._onAnimationEnd(e));
+  }
+
   /** Open the alert. */
   public open(): void {
     this.state = 'opening';
@@ -150,35 +155,33 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-alert__transition-wrapper" @animationend=${this._onAnimationEnd}>
-        <!-- sub wrapper needed to properly support fade in animation -->
-        <div class="sbb-alert__transition-sub-wrapper">
-          <div class="sbb-alert">
-            <span class="sbb-alert__icon"> ${this.renderIconSlot()} </span>
-            <span class="sbb-alert__content">
-              <slot name="title" @slotchange=${this._configureTitle}></slot>
-              <p class="sbb-alert__content-slot">
-                <slot @slotchange=${this._handleSlotchange}></slot>
-              </p>
-            </span>
-            ${!this.readOnly
-              ? html`<span class="sbb-alert__close-button-wrapper">
-                  <sbb-divider
-                    orientation="vertical"
-                    ?negative=${this._isLightMode()}
-                    class="sbb-alert__close-button-divider"
-                  ></sbb-divider>
-                  <sbb-transparent-button
-                    ?negative=${this._isLightMode()}
-                    size=${this.size === 'l' ? 'm' : this.size}
-                    icon-name="cross-small"
-                    @click=${() => this.close()}
-                    aria-label=${i18nCloseAlert[this._language.current]}
-                    class="sbb-alert__close-button"
-                  ></sbb-transparent-button>
-                </span>`
-              : nothing}
-          </div>
+      <!-- sub wrapper needed to properly support fade in animation -->
+      <div class="sbb-alert__transition-wrapper">
+        <div class="sbb-alert">
+          <span class="sbb-alert__icon"> ${this.renderIconSlot()} </span>
+          <span class="sbb-alert__content">
+            <slot name="title" @slotchange=${this._configureTitle}></slot>
+            <p class="sbb-alert__content-slot">
+              <slot @slotchange=${this._handleSlotchange}></slot>
+            </p>
+          </span>
+          ${!this.readOnly
+            ? html`<span class="sbb-alert__close-button-wrapper">
+                <sbb-divider
+                  orientation="vertical"
+                  ?negative=${this._isLightMode()}
+                  class="sbb-alert__close-button-divider"
+                ></sbb-divider>
+                <sbb-transparent-button
+                  ?negative=${this._isLightMode()}
+                  size=${this.size === 'l' ? 'm' : this.size}
+                  icon-name="cross-small"
+                  @click=${() => this.close()}
+                  aria-label=${i18nCloseAlert[this._language.current]}
+                  class="sbb-alert__close-button"
+                ></sbb-transparent-button>
+              </span>`
+            : nothing}
         </div>
       </div>
     `;
