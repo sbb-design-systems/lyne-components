@@ -64,8 +64,6 @@ export function assignOverlayResult<T>(element: HTMLElement, result: T): void {
   overlayResultMap.set(element, result);
 }
 
-// Check if the target is a submission element within a form and return the form, if present
-
 // A global collection of existing overlays.
 export const overlayRefs: SbbOverlayBaseElement[] = [];
 
