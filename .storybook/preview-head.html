@@ -52,6 +52,15 @@
     max-width: var(--sbb-breakpoint-large-max) !important;
   }
 
+  .sbdocs-content summary {
+    /* the doc viewer in storybook does not have a dark mode. We force the font color to black. */
+    color: var(--sbb-color-charcoal);
+  }
+
+  .docs-story {
+    background-color: var(--sbb-background-color-1);
+  }
+
   .sb-show-main.sb-main-padded {
     padding: 2rem;
   }
