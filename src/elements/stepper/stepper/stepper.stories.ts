@@ -9,8 +9,8 @@ import type { SbbErrorElement } from '../../form-field.ts';
 import { SbbStepElement, type SbbStepValidateEventDetails } from '../step.ts';
 
 import readme from './readme.md?raw';
+import { SbbStepperElement } from './stepper.component.ts';
 
-import './stepper.component.ts';
 import '../step-label.ts';
 import '../../link/block-link-button.ts';
 import '../../button/button.ts';
@@ -447,7 +447,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbStepElement.events.validate],
+      handles: [SbbStepElement.events.validate, SbbStepperElement.events.selectionchange],
     },
     docs: {
       extractComponentDescription: () => readme,
