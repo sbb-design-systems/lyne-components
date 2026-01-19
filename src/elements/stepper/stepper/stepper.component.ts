@@ -34,30 +34,30 @@ const breakpointMap: Record<string, string> = {
   ultra: SbbMediaQueryBreakpointUltraAndAbove,
 };
 
-export class SbbStepperSelectionChangeEvent extends Event {
+export class SbbStepChangeEvent extends Event {
   /** The index of the newly selected step. */
   public readonly selectedIndex: number | null;
 
   /** The index of the previously selected step. */
-  public readonly previouslySelectedIndex: number | null;
+  public readonly previousIndex: number | null;
 
   /** The newly selected step element. */
   public readonly selectedStep: SbbStepElement | null;
 
   /** The previously selected step element. */
-  public readonly previouslySelectedStep: SbbStepElement | null;
+  public readonly previousStep: SbbStepElement | null;
 
   public constructor(
     selectedIndex: number | null,
-    previouslySelectedIndex: number | null,
+    previousIndex: number | null,
     selectedStep: SbbStepElement | null,
-    previouslySelectedStep: SbbStepElement | null,
+    previousStep: SbbStepElement | null,
   ) {
-    super('selectionchange', { bubbles: true, composed: true });
+    super('stepchange', { bubbles: true, composed: true });
     this.selectedIndex = selectedIndex;
-    this.previouslySelectedIndex = previouslySelectedIndex;
+    this.previousIndex = previousIndex;
     this.selectedStep = selectedStep;
-    this.previouslySelectedStep = previouslySelectedStep;
+    this.previousStep = previousStep;
   }
 }
 /**
@@ -65,14 +65,14 @@ export class SbbStepperSelectionChangeEvent extends Event {
  * @slot - Provide a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` to the stepper.
  * @slot step-label - Use this slot to provide an `sbb-step-label`.
  * @slot step - Use this slot to provide an `sbb-step`.
- * @event {SbbStepperSelectionChangeEvent} selectionchange - Emits whenever a step was changed.
+ * @event {SbbStepChangeEvent} stepchange - Emits whenever a step was changed.
  */
 export
 @customElement('sbb-stepper')
 class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
-    selectionchange: 'selectionchange',
+    stepchange: 'stepchange',
   } as const;
 
   /**
@@ -231,12 +231,7 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
 
     /** @internal only to provide double entry in docs. It is a public event! */
     this.dispatchEvent(
-      new SbbStepperSelectionChangeEvent(
-        this.selectedIndex,
-        currentIndex,
-        this.selected,
-        currentStep,
-      ),
+      new SbbStepChangeEvent(this.selectedIndex, currentIndex, this.selected, currentStep),
     );
 
     this._setMarkerSize();

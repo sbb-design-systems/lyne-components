@@ -77,7 +77,7 @@ Calling the `reset()` method on the `sbb-stepper` will reset the wrapping `form`
 
 Whenever a step switch is triggered, a `validate` event is emitted on the requested step and bubbles up to the stepper.
 The validate event can be canceled to prevent the step change.
-Every successful change of a step triggers the `selectionchange` event.
+Every successful change of a step triggers the `stepchange` event.
 
 ## Accessibility
 
@@ -125,9 +125,9 @@ Use an `aria-label` attribute to describe the purpose of the stepper. The `sbb-s
 
 ## Events
 
-| Name              | Type                             | Description                        | Inherited From |
-| ----------------- | -------------------------------- | ---------------------------------- | -------------- |
-| `selectionchange` | `SbbStepperSelectionChangeEvent` | Emits whenever a step was changed. |                |
+| Name         | Type                 | Description                        | Inherited From |
+| ------------ | -------------------- | ---------------------------------- | -------------- |
+| `stepchange` | `SbbStepChangeEvent` | Emits whenever a step was changed. |                |
 
 ## Slots
 
