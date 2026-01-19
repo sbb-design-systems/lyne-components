@@ -41,12 +41,60 @@ In order to show the overlay, you need to provide a trigger or call the `open()`
 </sbb-overlay>
 ```
 
-To dismiss the overlay, you need to call
-the `close(result?: any, target?: HTMLElement)` method, which will close the overlay element and
-emit a close event with an optional result as a payload.
+### Closing the overlay
 
-The component can also be dismissed by clicking on the close button, clicking on the backdrop, pressing the `Esc` key,
-or, if an element within the `sbb-overlay` has the `sbb-overlay-close` attribute, by clicking on it.
+The overlay can be closed in several ways:
+
+1. **Close button**: The overlay has a built-in close button that is always visible.
+
+2. **sbb-overlay-close attribute**: Add the `sbb-overlay-close` attribute to any element within the overlay
+   to close it when clicked. You can optionally provide a result value:
+
+   ```html
+   <sbb-overlay>
+     <p>Overlay content.</p>
+     <sbb-button sbb-overlay-close="cancel">Cancel</sbb-button>
+     <sbb-button sbb-overlay-close="confirm">Confirm</sbb-button>
+   </sbb-overlay>
+   ```
+
+   Alternatively, you can use the `assignOverlayResult()` helper to programmatically assign a complex result to an element:
+
+   ```js
+   import { assignOverlayResult } from '@sbb-esta/lyne-elements/overlay.js';
+
+   const confirmButton = document.querySelector('sbb-button');
+   assignOverlayResult(confirmButton, { action: 'confirm', otherProp: 'any value' });
+   ```
+
+3. **Escape key**: Pressing the `Esc` key will close the overlay.
+
+4. **Programmatically**: Call the `close(result?: any)` method on the `sbb-overlay` element.
+   This method closes the overlay and emits `beforeclose` and `close` events with the provided result as a payload.
+
+   ```js
+   const overlay = document.querySelector('sbb-overlay');
+   overlay.close({ confirmed: true });
+   ```
+
+### Handling close events
+
+When the overlay closes, it emits two events:
+
+- `beforeclose`: Emitted before the closing transition begins. This event is cancelable by calling `event.preventDefault()`.
+- `close`: Emitted after the overlay has fully closed.
+
+Both events are of type `SbbOverlayCloseEvent` and provide access to:
+
+- `result`: The result value passed to `close()`, assigned via `assignOverlayResult()`, or the value of the `sbb-overlay-close` attribute
+- `closeTarget`: The element that triggered the close action (e.g., the clicked button), or `null` if closed programmatically or via Escape key
+
+```js
+overlay.addEventListener('close', (event) => {
+  console.log('Result:', event.result);
+  console.log('Close target:', event.closeTarget);
+});
+```
 
 ## Accessibility
 

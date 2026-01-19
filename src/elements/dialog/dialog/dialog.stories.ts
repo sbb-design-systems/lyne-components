@@ -1,13 +1,11 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 import sampleImages from '../../core/images.ts';
-import type { SbbOverlayCloseEventDetails } from '../../core/interfaces.ts';
 import type { SbbTitleLevel } from '../../title.ts';
 
 import { SbbDialogElement } from './dialog.component.ts';
@@ -110,19 +108,6 @@ const dialogActions = (negative: boolean, includeCloseButton: boolean): Template
   </sbb-dialog-actions>
 `;
 
-const codeStyle: Args = {
-  padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
-  borderRadius: 'var(--sbb-border-radius-4x)',
-  backgroundColor: 'var(--sbb-background-color-3)',
-};
-
-const formStyle: Args = {
-  display: 'flex',
-  flexWrap: 'wrap',
-  alignItems: 'center',
-  gap: 'var(--sbb-spacing-fixed-4x)',
-};
-
 const dialogTitle = (level: SbbTitleLevel): TemplateResult => html`
   <sbb-dialog-title level=${level}>A describing title of the dialog</sbb-dialog-title>
 `;
@@ -180,54 +165,6 @@ const LongContentTemplate = ({ level, includeCloseButton, ...args }: Args): Temp
       the Rings: The Fellowship of the Ring, “Many Meetings” ${textBlock()}
     </sbb-dialog-content>
     ${dialogActions(args.negative, includeCloseButton)}
-  </sbb-dialog>
-`;
-
-const FormTemplate = ({ level, includeCloseButton, ...args }: Args): TemplateResult => html`
-  ${triggerButton('dialog-trigger')}
-  <div id="returned-value">
-    <sbb-card color="milk" style="margin-block-start: 1rem">
-      <div>Your message: <span id="returned-value-message">Hello 👋</span></div>
-      <div>Your favorite animal: <span id="returned-value-animal">Red Panda</span></div>
-    </sbb-card>
-  </div>
-  <sbb-dialog
-    trigger="dialog-trigger"
-    @beforeclose=${(event: CustomEvent<SbbOverlayCloseEventDetails>) => {
-      if (event.detail.returnValue) {
-        document.getElementById('returned-value-message')!.innerHTML =
-          `${event.detail.returnValue.message?.value}`;
-        document.getElementById('returned-value-animal')!.innerHTML =
-          `${event.detail.returnValue.animal?.value}`;
-      }
-    }}
-    ${sbbSpread(args)}
-  >
-    ${dialogTitle(level)}
-    ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
-    <sbb-dialog-content>
-      <div style="margin-block-end: var(--sbb-spacing-fixed-4x);">
-        Submit the form below to close the dialog box using the
-        <code style=${styleMap(codeStyle)}>close(result?: any, target?: HTMLElement)</code>
-        method and returning the form values to update the details.
-      </div>
-      <form style=${styleMap(formStyle)} @submit=${(e: SubmitEvent) => e.preventDefault()}>
-        <sbb-form-field error-space="none" size="m">
-          <label>Message</label>
-          <input placeholder="Your custom massage" value="Hello 👋" name="message" />
-        </sbb-form-field>
-        <sbb-form-field error-space="none" size="m">
-          <label>Favorite animal</label>
-          <select name="animal">
-            <option>Red Panda</option>
-            <option>Cheetah</option>
-            <option>Polar Bear</option>
-            <option>Elephant</option>
-          </select>
-        </sbb-form-field>
-        <sbb-button type="submit" size="m" sbb-dialog-close>Update details</sbb-button>
-      </form>
-    </sbb-dialog-content>
   </sbb-dialog>
 `;
 
@@ -356,12 +293,6 @@ export const AllowBackdropClick: StoryObj = {
 
 export const LongContent: StoryObj = {
   render: LongContentTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, includeCloseButton: true },
-};
-
-export const Form: StoryObj = {
-  render: FormTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, includeCloseButton: true },
 };
