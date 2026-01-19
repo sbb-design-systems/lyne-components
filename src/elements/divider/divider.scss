@@ -2,17 +2,23 @@
 
 :host {
   display: block;
+  height: 100%;
+
+  &::after {
+    content: '';
+    display: block;
+  }
 }
 
 :host([negative]) {
   --sbb-divider-color: var(--sbb-divider-color-negative);
 }
 
-:host(:is([orientation='horizontal'], :not([orientation]))) {
+:host(:is([orientation='horizontal'], :not([orientation])))::after {
   border-top: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
 }
 
-:host([orientation='vertical']) {
+:host([orientation='vertical'])::after {
   height: 100%;
   border-left: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
 }
