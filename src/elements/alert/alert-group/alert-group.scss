@@ -1,9 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-alert-group-gap: var(--sbb-spacing-fixed-3x);
-  --sbb-alert-group-border-radius: var(--sbb-border-radius-4x);
-
   display: flex;
   flex-direction: column;
   gap: var(--sbb-alert-group-gap);

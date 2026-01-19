@@ -155,7 +155,7 @@ class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBase
 
   protected override render(): TemplateResult {
     return html`
-      <!-- sub wrapper needed to properly support fade in animation -->
+      <!-- wrapper needed to properly support fade in animation -->
       <div class="sbb-alert__transition-wrapper">
         <div class="sbb-alert">
           <span class="sbb-alert__icon"> ${this.renderIconSlot()} </span>

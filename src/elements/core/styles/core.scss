@@ -20,6 +20,9 @@ $theme: 'standard' !default;
 @use '../../alert/alert/alert.global' as alert with (
   $theme: $theme
 );
+@use '../../alert/alert-group/alert-group.global' as alert-group with (
+  $theme: $theme
+);
 @use '../../card/card-badge/card-badge.global' as card-badge with (
   $theme: $theme
 );
@@ -69,6 +72,7 @@ $theme: 'standard' !default;
   @include sbb-css-tokens.base;
 
   @include alert.base;
+  @include alert-group.base;
   @include card.base;
   @include card-badge.base;
   @include panel-common.base;
