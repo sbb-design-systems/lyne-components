@@ -7,7 +7,7 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import { SbbStepElement } from '../step/step.component.ts';
 import type { SbbStepLabelElement } from '../step-label.ts';
 
-import { SbbStepperElement, SbbStepperSelectionChangeEvent } from './stepper.component.ts';
+import { SbbStepperElement, SbbStepChangeEvent } from './stepper.component.ts';
 
 import '../step-label.ts';
 import '../step.ts';
@@ -80,13 +80,13 @@ describe('sbb-stepper', () => {
     expect(stepLabelOne).to.match(':state(selected)');
   });
 
-  it('selects the correct step on label click and emits validate and selectionchange events', async () => {
+  it('selects the correct step on label click and emits validate and stepchange events', async () => {
     const stepLabelThree = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(3)',
     )!;
     const validate = new EventSpy(SbbStepElement.events.validate);
-    const selectionChangeSpy = new EventSpy<SbbStepperSelectionChangeEvent>(
-      SbbStepperElement.events.selectionchange,
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
       element,
     );
 
@@ -96,28 +96,28 @@ describe('sbb-stepper', () => {
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    await selectionChangeSpy.calledOnce();
-    expect(selectionChangeSpy.count).to.be.equal(1);
+    await stepChangeSpy.calledOnce();
+    expect(stepChangeSpy.count).to.be.equal(1);
 
-    const event = selectionChangeSpy.lastEvent;
-    expect(event).to.be.instanceOf(SbbStepperSelectionChangeEvent);
+    const event = stepChangeSpy.lastEvent;
+    expect(event).to.be.instanceOf(SbbStepChangeEvent);
     expect(event!.selectedIndex).to.be.equal(2);
-    expect(event!.previouslySelectedIndex).to.be.equal(0);
+    expect(event!.previousIndex).to.be.equal(0);
     expect(event!.selectedStep).to.be.equal(stepLabelThree.step);
-    expect(event!.previouslySelectedStep).to.be.equal(element.steps[0]);
+    expect(event!.previousStep).to.be.equal(element.steps[0]);
 
     expect(stepLabelThree).to.match(':state(selected)');
     expect(stepLabelThree.step).to.match(':state(selected)');
     expect(document.activeElement!.id).to.be.equal(stepLabelThree.id);
   });
 
-  it('selects the correct step via `selected` and emits validate and selectionchange events', async () => {
+  it('selects the correct step via `selected` and emits validate and stepchange events', async () => {
     const stepLabelThree = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(3)',
     )!;
     const validate = new EventSpy(SbbStepElement.events.validate);
-    const selectionChangeSpy = new EventSpy<SbbStepperSelectionChangeEvent>(
-      SbbStepperElement.events.selectionchange,
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
       element,
     );
     element.selected = stepLabelThree.step!;
@@ -125,28 +125,28 @@ describe('sbb-stepper', () => {
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    await selectionChangeSpy.calledOnce();
-    expect(selectionChangeSpy.count).to.be.equal(1);
+    await stepChangeSpy.calledOnce();
+    expect(stepChangeSpy.count).to.be.equal(1);
 
-    const event = selectionChangeSpy.lastEvent;
-    expect(event).to.be.instanceOf(SbbStepperSelectionChangeEvent);
+    const event = stepChangeSpy.lastEvent;
+    expect(event).to.be.instanceOf(SbbStepChangeEvent);
     expect(event!.selectedIndex).to.be.equal(2);
-    expect(event!.previouslySelectedIndex).to.be.equal(0);
+    expect(event!.previousIndex).to.be.equal(0);
     expect(event!.selectedStep).to.be.equal(stepLabelThree.step);
-    expect(event!.previouslySelectedStep).to.be.equal(element.steps[0]);
+    expect(event!.previousStep).to.be.equal(element.steps[0]);
 
     expect(stepLabelThree).to.match(':state(selected)');
     expect(stepLabelThree.step).to.match(':state(selected)');
     expect(document.activeElement!.id).not.to.be.equal(stepLabelThree.id);
   });
 
-  it('selects the correct step via `selectedIndex` and emits validate and selectionchange events', async () => {
+  it('selects the correct step via `selectedIndex` and emits validate and stepchange events', async () => {
     const stepLabelThree = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(3)',
     )!;
     const validate = new EventSpy(SbbStepElement.events.validate);
-    const selectionChangeSpy = new EventSpy<SbbStepperSelectionChangeEvent>(
-      SbbStepperElement.events.selectionchange,
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
       element,
     );
     element.selectedIndex = 2;
@@ -154,29 +154,29 @@ describe('sbb-stepper', () => {
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    await selectionChangeSpy.calledOnce();
-    expect(selectionChangeSpy.count).to.be.equal(1);
+    await stepChangeSpy.calledOnce();
+    expect(stepChangeSpy.count).to.be.equal(1);
 
-    const event = selectionChangeSpy.lastEvent;
-    expect(event).to.be.instanceOf(SbbStepperSelectionChangeEvent);
+    const event = stepChangeSpy.lastEvent;
+    expect(event).to.be.instanceOf(SbbStepChangeEvent);
     expect(event!.selectedIndex).to.be.equal(2);
-    expect(event!.previouslySelectedIndex).to.be.equal(0);
+    expect(event!.previousIndex).to.be.equal(0);
     expect(event!.selectedStep).to.be.equal(stepLabelThree.step);
-    expect(event!.previouslySelectedStep).to.be.equal(element.steps[0]);
+    expect(event!.previousStep).to.be.equal(element.steps[0]);
 
     expect(stepLabelThree).to.match(':state(selected)');
     expect(stepLabelThree.step).to.match(':state(selected)');
     expect(document.activeElement!.id).not.to.be.equal(stepLabelThree.id);
   });
 
-  it('selects the next step on [sbb-stepper-next] click and emits validate and selectionchange events', async () => {
+  it('selects the next step on [sbb-stepper-next] click and emits validate and stepchange events', async () => {
     const stepperNext = element.querySelector<HTMLElement>('[sbb-stepper-next]')!;
     const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(2)',
     )!;
     const validate = new EventSpy(SbbStepElement.events.validate);
-    const selectionChangeSpy = new EventSpy<SbbStepperSelectionChangeEvent>(
-      SbbStepperElement.events.selectionchange,
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
       element,
     );
     stepperNext.focus();
@@ -185,22 +185,22 @@ describe('sbb-stepper', () => {
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    await selectionChangeSpy.calledOnce();
-    expect(selectionChangeSpy.count).to.be.equal(1);
+    await stepChangeSpy.calledOnce();
+    expect(stepChangeSpy.count).to.be.equal(1);
 
-    const event = selectionChangeSpy.lastEvent;
-    expect(event).to.be.instanceOf(SbbStepperSelectionChangeEvent);
+    const event = stepChangeSpy.lastEvent;
+    expect(event).to.be.instanceOf(SbbStepChangeEvent);
     expect(event!.selectedIndex).to.be.equal(1);
-    expect(event!.previouslySelectedIndex).to.be.equal(0);
+    expect(event!.previousIndex).to.be.equal(0);
     expect(event!.selectedStep).to.be.equal(stepLabelTwo.step);
-    expect(event!.previouslySelectedStep).to.be.equal(element.steps[0]);
+    expect(event!.previousStep).to.be.equal(element.steps[0]);
 
     expect(stepLabelTwo).to.match(':state(selected)');
     expect(stepLabelTwo.step).to.match(':state(selected)');
     expect(document.activeElement!.id).to.be.equal(stepLabelTwo.id);
   });
 
-  it('selects the previous step on [sbb-stepper-previous] click and emits selectionchange event', async () => {
+  it('selects the previous step on [sbb-stepper-previous] click and emits stepchange event', async () => {
     const stepperNext = element.querySelector<HTMLElement>('[sbb-stepper-next]')!;
     const stepperPrevious = element.querySelector<HTMLElement>('[sbb-stepper-previous]')!;
     const stepLabelOne = element.querySelector<SbbStepLabelElement>(
@@ -221,22 +221,22 @@ describe('sbb-stepper', () => {
     expect(stepLabelTwo.step).to.match(':state(selected)');
     expect(document.activeElement!.id).to.be.equal(stepLabelTwo.id);
 
-    const selectionChangeSpy = new EventSpy<SbbStepperSelectionChangeEvent>(
-      SbbStepperElement.events.selectionchange,
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
       element,
     );
     stepperPrevious.click();
     await waitForLitRender(element);
 
-    await selectionChangeSpy.calledOnce();
-    expect(selectionChangeSpy.count).to.be.equal(1);
+    await stepChangeSpy.calledOnce();
+    expect(stepChangeSpy.count).to.be.equal(1);
 
-    const event = selectionChangeSpy.lastEvent;
-    expect(event).to.be.instanceOf(SbbStepperSelectionChangeEvent);
+    const event = stepChangeSpy.lastEvent;
+    expect(event).to.be.instanceOf(SbbStepChangeEvent);
     expect(event!.selectedIndex).to.be.equal(0);
-    expect(event!.previouslySelectedIndex).to.be.equal(1);
+    expect(event!.previousIndex).to.be.equal(1);
     expect(event!.selectedStep).to.be.equal(stepLabelOne.step);
-    expect(event!.previouslySelectedStep).to.be.equal(element.steps[1]);
+    expect(event!.previousStep).to.be.equal(element.steps[1]);
 
     expect(stepLabelOne).to.match(':state(selected)');
     expect(stepLabelOne.step).to.match(':state(selected)');
@@ -279,13 +279,13 @@ describe('sbb-stepper', () => {
     expect(stepLabelTwo.step).to.match(':state(selected)');
   });
 
-  it('does not switch to the next step if the validate is prevented and does not emit selectionchange', async () => {
+  it('does not switch to the next step if the validate is prevented and does not emit stepchange', async () => {
     const stepLabelThree = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(3)',
     )!;
     const validate = new EventSpy(SbbStepElement.events.validate);
-    const selectionChangeSpy = new EventSpy<SbbStepperSelectionChangeEvent>(
-      SbbStepperElement.events.selectionchange,
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
       element,
     );
     element.addEventListener(SbbStepElement.events.validate, (ev) => ev.preventDefault());
@@ -295,7 +295,7 @@ describe('sbb-stepper', () => {
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    expect(selectionChangeSpy.count).to.be.equal(0);
+    expect(stepChangeSpy.count).to.be.equal(0);
     expect(stepLabelThree).not.to.match(':state(selected)');
     expect(stepLabelThree.step).not.to.match(':state(selected)');
   });
@@ -421,27 +421,27 @@ describe('sbb-stepper', () => {
     );
   });
 
-  it('selects step on right arrow key pressed and emits selectionchange event', async () => {
+  it('selects step on right arrow key pressed and emits stepchange event', async () => {
     const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(2)',
     )!;
-    const selectionChangeSpy = new EventSpy<SbbStepperSelectionChangeEvent>(
-      SbbStepperElement.events.selectionchange,
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
       element,
     );
     await sendKeys({ press: tabKey });
     await sendKeys({ press: 'ArrowRight' });
     await waitForLitRender(element);
 
-    await selectionChangeSpy.calledOnce();
-    expect(selectionChangeSpy.count).to.be.equal(1);
+    await stepChangeSpy.calledOnce();
+    expect(stepChangeSpy.count).to.be.equal(1);
 
-    const event = selectionChangeSpy.lastEvent;
-    expect(event).to.be.instanceOf(SbbStepperSelectionChangeEvent);
+    const event = stepChangeSpy.lastEvent;
+    expect(event).to.be.instanceOf(SbbStepChangeEvent);
     expect(event!.selectedIndex).to.be.equal(1);
-    expect(event!.previouslySelectedIndex).to.be.equal(0);
+    expect(event!.previousIndex).to.be.equal(0);
     expect(event!.selectedStep).to.be.equal(stepLabelTwo.step);
-    expect(event!.previouslySelectedStep).to.be.equal(element.steps[0]);
+    expect(event!.previousStep).to.be.equal(element.steps[0]);
 
     expect(stepLabelTwo).to.match(':state(selected)');
     expect(stepLabelTwo.step).to.match(':state(selected)');
@@ -518,10 +518,10 @@ describe('sbb-stepper', () => {
     expect(stepLabels.every((l) => l.matches(`:state(size-${element.size})`))).to.be.true;
   });
 
-  describe('selectionchange event', () => {
-    it('should emit multiple selectionchange events when changing steps multiple times', async () => {
-      const selectionChangeSpy = new EventSpy<SbbStepperSelectionChangeEvent>(
-        SbbStepperElement.events.selectionchange,
+  describe('stepchange event', () => {
+    it('should emit multiple stepchange events when changing steps multiple times', async () => {
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
         element,
       );
       const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
@@ -535,26 +535,26 @@ describe('sbb-stepper', () => {
       stepLabelTwo.click();
       await waitForLitRender(element);
 
-      await selectionChangeSpy.calledOnce();
-      let event = selectionChangeSpy.events[0];
+      await stepChangeSpy.calledOnce();
+      let event = stepChangeSpy.events[0];
       expect(event.selectedIndex).to.be.equal(1);
-      expect(event.previouslySelectedIndex).to.be.equal(0);
+      expect(event.previousIndex).to.be.equal(0);
 
       // Change to step 3
       stepLabelThree.click();
       await waitForLitRender(element);
 
-      await selectionChangeSpy.calledTimes(2);
-      event = selectionChangeSpy.events[1];
+      await stepChangeSpy.calledTimes(2);
+      event = stepChangeSpy.events[1];
       expect(event.selectedIndex).to.be.equal(2);
-      expect(event.previouslySelectedIndex).to.be.equal(1);
+      expect(event.previousIndex).to.be.equal(1);
 
-      expect(selectionChangeSpy.count).to.be.equal(2);
+      expect(stepChangeSpy.count).to.be.equal(2);
     });
 
     it('should have correct event properties when changing from first to last step', async () => {
-      const selectionChangeSpy = new EventSpy<SbbStepperSelectionChangeEvent>(
-        SbbStepperElement.events.selectionchange,
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
         element,
       );
       const stepLabelThree = element.querySelector<SbbStepLabelElement>(
@@ -564,13 +564,13 @@ describe('sbb-stepper', () => {
       element.selectedIndex = 2;
       await waitForLitRender(element);
 
-      await selectionChangeSpy.calledOnce();
-      const event = selectionChangeSpy.lastEvent;
+      await stepChangeSpy.calledOnce();
+      const event = stepChangeSpy.lastEvent;
 
       expect(event!.selectedIndex).to.be.equal(2);
-      expect(event!.previouslySelectedIndex).to.be.equal(0);
+      expect(event!.previousIndex).to.be.equal(0);
       expect(event!.selectedStep).to.be.equal(stepLabelThree.step);
-      expect(event!.previouslySelectedStep).to.be.equal(element.steps[0]);
+      expect(event!.previousStep).to.be.equal(element.steps[0]);
     });
   });
 });

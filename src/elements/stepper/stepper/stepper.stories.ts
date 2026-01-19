@@ -447,7 +447,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbStepElement.events.validate, SbbStepperElement.events.selectionchange],
+      handles: [SbbStepElement.events.validate, SbbStepperElement.events.stepchange],
     },
     docs: {
       extractComponentDescription: () => readme,
