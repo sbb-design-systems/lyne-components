@@ -864,6 +864,8 @@ describe('sbb-dialog', () => {
 
       nestedDialog.style.setProperty('--sbb-dialog-animation-duration', '5ms');
 
+      await aTimeout(0);
+
       openButton.click();
       await openSpy.calledOnce();
 

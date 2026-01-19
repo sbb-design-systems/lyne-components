@@ -1,27 +1,18 @@
 @use '../core/styles' as sbb;
 
 :host {
-  --sbb-divider-color: var(--sbb-background-color-4);
-  --sbb-divider-border-width: var(--sbb-border-width-1x);
-
   display: block;
+}
+
+:host([negative]) {
+  --sbb-divider-color: var(--sbb-divider-color-negative);
+}
+
+:host(:is([orientation='horizontal'], :not([orientation]))) {
+  border-top: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
 }
 
 :host([orientation='vertical']) {
   height: 100%;
-}
-
-:host([negative]) {
-  --sbb-divider-color: var(--sbb-background-color-4-negative);
-}
-
-.sbb-divider {
-  :host([orientation='horizontal']) & {
-    border-top: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
-  }
-
-  :host([orientation='vertical']) & {
-    height: 100%;
-    border-left: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
-  }
+  border-left: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
 }
