@@ -4518,10 +4518,10 @@ eslint-plugin-storybook@10.1.11:
   dependencies:
     "@typescript-eslint/utils" "^8.8.1"
 
-eslint-plugin-yml@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-yml/-/eslint-plugin-yml-2.0.1.tgz#1f94a3cc6c065e426a5e355f49d939f260d68f2a"
-  integrity sha512-FogheImVP6dLeI0c1PP6v11ZXzYUxdgOIrBFE3JS0sz9yfMoUb3kFdLl+jPbv3APE3nq4wPWqO9FaKLvL72DrA==
+eslint-plugin-yml@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-yml/-/eslint-plugin-yml-3.0.0.tgz#bab13f68bb9d14f6e2db33d27587441c3a8c1452"
+  integrity sha512-kuAW6o3hlFHyF5p7TLon+AtvNWnsvRrb88pqywGMSCEqAP5d1gOMvNGgWLVlKHqmx5RbFhQLcxFDGmS4IU9DwA==
   dependencies:
     "@eslint/core" "^1.0.1"
     "@eslint/plugin-kit" "^0.5.1"
