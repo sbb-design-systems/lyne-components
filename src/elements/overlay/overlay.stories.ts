@@ -1,13 +1,11 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
-import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import sampleImages from '../core/images.ts';
-import type { SbbOverlayCloseEventDetails } from '../core/interfaces.ts';
 
 import { SbbOverlayElement } from './overlay.component.ts';
 import readme from './readme.md?raw';
@@ -67,19 +65,6 @@ const triggerButton = (triggerId: string): TemplateResult => html`
   <sbb-button size="m" id=${triggerId}>Open overlay</sbb-button>
 `;
 
-const codeStyle: Readonly<StyleInfo> = {
-  padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
-  borderRadius: 'var(--sbb-border-radius-4x)',
-  backgroundColor: 'var(--sbb-background-color-4)',
-};
-
-const formStyle: Readonly<StyleInfo> = {
-  display: 'flex',
-  flexWrap: 'wrap',
-  alignItems: 'center',
-  gap: 'var(--sbb-spacing-fixed-4x)',
-};
-
 const textBlock = (): TemplateResult => html`
   <sbb-card color="transparent-bordered" style="margin-block-start: 1rem">
     J.R.R. Tolkien, the mastermind behind Middle-earth's enchanting world, was born on January 3,
@@ -111,52 +96,6 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
       of blended word and melody. 'It is a song to Elbereth,'' said Bilbo. 'They will sing that, and
       other songs of the Blessed Realm, many times tonight. Come on!’ —J.R.R. Tolkien, The Lord of
       the Rings: The Fellowship of the Ring, “Many Meetings” ${textBlock()}
-    </div>
-  </sbb-overlay>
-`;
-
-const FormTemplate = (args: Args): TemplateResult => html`
-  ${triggerButton('overlay-trigger')}
-  <div id="returned-value">
-    <sbb-card color="milk" style="margin-block-start: var(--sbb-spacing-fixed-4x)">
-      <div>Your message: <span id="returned-value-message">Hello 👋</span></div>
-      <div>Your favorite animal: <span id="returned-value-animal">Red Panda</span></div>
-    </sbb-card>
-  </div>
-  <sbb-overlay
-    trigger="overlay-trigger"
-    @beforeclose=${(event: CustomEvent<SbbOverlayCloseEventDetails>) => {
-      if (event.detail.returnValue) {
-        document.getElementById('returned-value-message')!.innerHTML =
-          `${event.detail.returnValue.message?.value}`;
-        document.getElementById('returned-value-animal')!.innerHTML =
-          `${event.detail.returnValue.animal?.value}`;
-      }
-    }}
-    ${sbbSpread(args)}
-  >
-    <div class="overlay-content">
-      <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
-        Submit the form below to close the overlay box using the
-        <code style=${styleMap(codeStyle)}>close(result?: any, target?: HTMLElement)</code>
-        method and returning the form values to update the details.
-      </div>
-      <form style=${styleMap(formStyle)} @submit=${(e: SubmitEvent) => e.preventDefault()}>
-        <sbb-form-field error-space="none" size="m">
-          <label>Message</label>
-          <input placeholder="Your custom massage" value="Hello 👋" name="message" />
-        </sbb-form-field>
-        <sbb-form-field error-space="none" size="m">
-          <label>Favorite Animal</label>
-          <select name="animal">
-            <option>Red Panda</option>
-            <option>Cheetah</option>
-            <option>Polar Bear</option>
-            <option>Elephant</option>
-          </select>
-        </sbb-form-field>
-        <sbb-button type="submit" size="m" sbb-overlay-close> Update details </sbb-button>
-      </form>
     </div>
   </sbb-overlay>
 `;
@@ -202,12 +141,6 @@ export const Expanded: StoryObj = {
     ...basicArgs,
     expanded: true,
   },
-};
-
-export const Form: StoryObj = {
-  render: FormTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs },
 };
 
 export const Nested: StoryObj = {
