@@ -28,10 +28,8 @@ snapshots["sbb-action-group renders DOM"] =
 /* end snapshot sbb-action-group renders DOM */
 
 snapshots["sbb-action-group renders Shadow DOM"] = 
-`<div class="sbb-action-group">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-action-group renders Shadow DOM */
 
