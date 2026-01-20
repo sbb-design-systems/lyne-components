@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.1.0...v4.2.0) (2026-01-19)
+
+
+### Features
+
+* **sbb-dialog, sbb-overlay:** allow complex value as dialog close return value ([#4366](https://github.com/sbb-design-systems/lyne-components/issues/4366)) ([ce93537](https://github.com/sbb-design-systems/lyne-components/commit/ce935371c7e981c99e72de57fc4ac281466fe640))
+* **sbb-option-hint:** increase flexibility of content position ([#4374](https://github.com/sbb-design-systems/lyne-components/issues/4374)) ([5b00024](https://github.com/sbb-design-systems/lyne-components/commit/5b00024e3dad75ac458b88e9d4a4b3ab36ea99df)), closes [#4373](https://github.com/sbb-design-systems/lyne-components/issues/4373)
+* **sbb-stepper:** add stepchange event ([#4380](https://github.com/sbb-design-systems/lyne-components/issues/4380)) ([6ccb628](https://github.com/sbb-design-systems/lyne-components/commit/6ccb62844714a51445b4b29cfe8b5f26930d3344))
+
+
+### Documentation
+
+* support dark mode for collapsed doc sections ([#4367](https://github.com/sbb-design-systems/lyne-components/issues/4367)) ([44b9c48](https://github.com/sbb-design-systems/lyne-components/commit/44b9c486dbe2dd758e88f84ba97539182bd53a8d))
+
 ## [4.1.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.5...v4.1.0) (2026-01-13)
 
 

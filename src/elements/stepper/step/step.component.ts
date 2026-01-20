@@ -87,6 +87,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   /**
    * Selects and configures the step.
    * @internal
+   * TODO: @breaking-change: make protected
    */
   public select(): void {
     if (!this.hasUpdated || !this.label) {
@@ -99,6 +100,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   /**
    * Deselects and configures the step.
    * @internal
+   * TODO: @breaking-change: make protected
    */
   public deselect(): void {
     if (!this.label) {
@@ -111,8 +113,10 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   /**
    * Emits a validate event whenever step switch is triggered.
    * @internal
+   * TODO: @breaking-change: make protected
    */
   public validate(eventData: SbbStepValidateEventDetails): boolean {
+    // TODO: @breaking-change: Create a specific event type for this event.
     /**
      * @type {CustomEvent<SbbStepValidateEventDetails>}
      * The validate event is dispatched when a step change is triggered. Can be canceled to abort the step change.
@@ -130,6 +134,7 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
   /**
    * Configures the step.
    * @internal
+   * TODO: @breaking-change: make protected
    */
   public configure(stepperLoaded: boolean): void {
     if (stepperLoaded) {
