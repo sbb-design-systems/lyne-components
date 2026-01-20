@@ -7,9 +7,14 @@ import { forceType } from '../core/decorators.ts';
 import { isZeroAnimationDuration } from '../core/dom.ts';
 import { forwardEvent } from '../core/eventing.ts';
 import { i18nCloseDialog } from '../core/i18n.ts';
+import type { SbbOverlayCloseEventDetails } from '../core/interfaces.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
-import { overlayRefs, SbbOverlayBaseElement } from './overlay-base-element.ts';
+import {
+  overlayRefs,
+  SbbOverlayBaseElement,
+  SbbOverlayCloseEvent,
+} from './overlay-base-element.ts';
 import style from './overlay.scss?lit&inline';
 
 import '../button/secondary-button.ts';
@@ -78,8 +83,6 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
   protected handleOpening(): void {
     this.state = 'opened';
     this.inertController.activate();
-    this.escapableOverlayController.connect();
-    this.attachOpenOverlayEvents();
     this.focusTrapController.focusInitialElement();
     // Use timeout to read label after focused element
     setTimeout(() => this.setAriaLiveRefContent(this.accessibilityLabel));
@@ -108,6 +111,31 @@ class SbbOverlayElement extends SbbOverlayBaseElement {
       returnValue: this.returnValue,
       closeTarget: this.overlayCloseElement,
     });
+  }
+
+  // TODO: remove parameter `detail`
+  protected override dispatchBeforeCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
+    /** @type {SbbOverlayCloseEvent} Emits whenever the component begins the closing transition. Can be canceled. */
+    return this.dispatchEvent(
+      new SbbOverlayCloseEvent('beforeclose', {
+        cancelable: true,
+        closeAttribute: this.closeAttribute,
+        closeTarget: this.overlayCloseElement,
+        result: this.returnValue,
+      }),
+    );
+  }
+
+  // TODO: remove parameter `detail`
+  protected override dispatchCloseEvent(_detail?: SbbOverlayCloseEventDetails): boolean {
+    /** @type {SbbOverlayCloseEvent} Emits whenever the component is closed. */
+    return this.dispatchEvent(
+      new SbbOverlayCloseEvent('close', {
+        closeAttribute: this.closeAttribute,
+        closeTarget: this.overlayCloseElement,
+        result: this.returnValue,
+      }),
+    );
   }
 
   protected override render(): TemplateResult {

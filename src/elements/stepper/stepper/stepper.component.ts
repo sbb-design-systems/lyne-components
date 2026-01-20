@@ -33,16 +33,47 @@ const breakpointMap: Record<string, string> = {
   large: SbbMediaQueryBreakpointLargeAndAbove,
   ultra: SbbMediaQueryBreakpointUltraAndAbove,
 };
+
+export class SbbStepChangeEvent extends Event {
+  /** The index of the newly selected step. */
+  public readonly selectedIndex: number | null;
+
+  /** The index of the previously selected step. */
+  public readonly previousIndex: number | null;
+
+  /** The newly selected step element. */
+  public readonly selectedStep: SbbStepElement | null;
+
+  /** The previously selected step element. */
+  public readonly previousStep: SbbStepElement | null;
+
+  public constructor(
+    selectedIndex: number | null,
+    previousIndex: number | null,
+    selectedStep: SbbStepElement | null,
+    previousStep: SbbStepElement | null,
+  ) {
+    super('stepchange', { bubbles: true, composed: true });
+    this.selectedIndex = selectedIndex;
+    this.previousIndex = previousIndex;
+    this.selectedStep = selectedStep;
+    this.previousStep = previousStep;
+  }
+}
 /**
  * Provides a structured, step-by-step workflow for user interactions.
  * @slot - Provide a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` to the stepper.
  * @slot step-label - Use this slot to provide an `sbb-step-label`.
  * @slot step - Use this slot to provide an `sbb-step`.
+ * @event {SbbStepChangeEvent} stepchange - Emits whenever a step was changed.
  */
 export
 @customElement('sbb-stepper')
 class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static readonly events = {
+    stepchange: 'stepchange',
+  } as const;
 
   /**
    * If the sbb-stepper is used in a sbb-dialog, the marker on the selected element will not appear,
@@ -181,18 +212,28 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     if (!this._isValidStep(step)) {
       return;
     }
+    const currentIndex = this.selectedIndex;
+    const currentStep = this.selected;
     const validatePayload: SbbStepValidateEventDetails = {
-      currentIndex: this.selectedIndex,
-      currentStep: this.selected,
+      currentIndex,
+      currentStep,
       nextIndex: this.selectedIndex !== null ? this.selectedIndex + 1 : null,
       nextStep: this.selectedIndex !== null ? this.steps[this.selectedIndex + 1] : null,
     };
+
     if (this.selected && !this.selected.validate(validatePayload)) {
       return;
     }
+
     const current = this.selected;
     current?.deselect();
     step!.select();
+
+    /** @internal only to provide double entry in docs. It is a public event! */
+    this.dispatchEvent(
+      new SbbStepChangeEvent(this.selectedIndex, currentIndex, this.selected, currentStep),
+    );
+
     this._setMarkerSize();
     this._setStepperHeight(step);
     this._configureLinearMode();

@@ -1,5 +1,10 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbOrientation } from '../core/interfaces.ts';
@@ -9,7 +14,7 @@ import { boxSizingStyles } from '../core/styles.ts';
 import style from './divider.scss?lit&inline';
 
 /**
- * It displays a divider between sections.
+ * Displays a divider between sections.
  */
 export
 @customElement('sbb-divider')
@@ -29,7 +34,7 @@ class SbbDividerElement extends SbbNegativeMixin(SbbElementInternalsMixin(LitEle
   }
 
   protected override render(): TemplateResult {
-    return html` <div class="sbb-divider"></div> `;
+    return html`<div class="sbb-divider"></div> `;
   }
 }
 

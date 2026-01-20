@@ -93,7 +93,7 @@ In detail, the new classes implement:
 
 - the native component-related properties (`form`, `name`... for the button, `href`, `target`... for the link);
 - the interaction logic (like `click`, `keypress` and so on);
-- the accessibility attributes (like `role`);
+- the accessibility attributes/internals (like `role`);
 - the rendering of the wrapper tag with its attributes (`span` for the button, `a` for the link).
 
 These classes can be used as follows:
@@ -383,20 +383,20 @@ Properties/Attributes are automatically documented and can be inferred by the ID
 Instead of forwarding properties/content, use a `<slot>` (and/or a named slot
 `<slot name="example">`) to provide the possibility of directly assigning content/values.
 
-#### Use the `variant` property, if a component has more than one variant
+#### Create separate components, if a component has more than one variant
 
-Use `@property() variant: 'default' | 'etc'` to provide different design variants for a component.
+Class extensions is cheap and separating logic into separate classes
+improves readability and reduces complexity.
 
 #### Use the `negative` property, if a component has a color-negative specification
 
 Use `@property() negative: boolean` to provide a color negative design for a component.
 
-#### Handling aria attributes
+#### Handling aria attributes/element internals
 
 ID references, which are used commonly with aria attributes, cannot pass shadow DOM boundaries.
 Due to this, the host element of a web component should be enriched with the appropriate
-role and aria attributes and inner elements with the same semantic meaning should be assigned
-`role="presentation"`.
+role and aria attributes/element internals.
 
 This allows consumers to use the host element as the reference and also place ID references
 on it.
@@ -438,21 +438,26 @@ specific way when placed within a `<sbb-alert>`, etc.).
 teams have indicated that this will not be implemented:
 https://github.com/w3c/csswg-drafts/issues/1914)
 
-For this purpose we provide the `hostContext(selector: string, base: Element): Element | null`
-function, which returns the closest match or null, if no match is found.
-
-This can be used in the `connectedCallback()` (see
-[Lit Lifecycle](https://lit.dev/docs/components/lifecycle/)) method of a component,
-which should minimize the performance impact of this detection.
-
-**Usages of this functionality should be carefully considered. If a component has too many variants
-depending on the context, this should be discussed at design level. Also in many cases,
-`this.closest(selector)` can be used instead, which is far more performant. **
+For this purpose you can use the `SbbPropertyWatcherController`, which allows
+defining a resolver function for the element to match.
 
 ```ts
-connectedCallback() {
-  // Check if the current element is nested in either an `<a>` or `<button>` element.
-  this._isNestedInButtonAnchor = !!hostContext('a,button', this);
+public constructor() {
+  super();
+
+  this.addController(
+    new SbbPropertyWatcherController(
+      this,
+      () => this.closest<SbbFormFieldElement>('sbb-form-field'),
+      {
+        negative: (e) => {
+          this.negative = e.negative;
+          this.syncNegative();
+        },
+        borderless: (e) => this.toggleState('option-panel-origin-borderless', e.borderless),
+      },
+    ),
+  );
 }
 ```
 
@@ -473,7 +478,7 @@ Use CSS variables wherever possible.
 ```
 
 Define rules only once with CSS variables and change CSS variables conditionally.
-Also define CSS variables in :host.
+Also define CSS variables in the global component style file or :host.
 
 ```scss
 // Variables are for example purposes only and do not actually exist.

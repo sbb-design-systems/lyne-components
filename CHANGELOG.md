@@ -2,6 +2,51 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.1.0...v4.2.0) (2026-01-19)
+
+
+### Features
+
+* **sbb-dialog, sbb-overlay:** allow complex value as dialog close return value ([#4366](https://github.com/sbb-design-systems/lyne-components/issues/4366)) ([ce93537](https://github.com/sbb-design-systems/lyne-components/commit/ce935371c7e981c99e72de57fc4ac281466fe640))
+* **sbb-option-hint:** increase flexibility of content position ([#4374](https://github.com/sbb-design-systems/lyne-components/issues/4374)) ([5b00024](https://github.com/sbb-design-systems/lyne-components/commit/5b00024e3dad75ac458b88e9d4a4b3ab36ea99df)), closes [#4373](https://github.com/sbb-design-systems/lyne-components/issues/4373)
+* **sbb-stepper:** add stepchange event ([#4380](https://github.com/sbb-design-systems/lyne-components/issues/4380)) ([6ccb628](https://github.com/sbb-design-systems/lyne-components/commit/6ccb62844714a51445b4b29cfe8b5f26930d3344))
+
+
+### Documentation
+
+* support dark mode for collapsed doc sections ([#4367](https://github.com/sbb-design-systems/lyne-components/issues/4367)) ([44b9c48](https://github.com/sbb-design-systems/lyne-components/commit/44b9c486dbe2dd758e88f84ba97539182bd53a8d))
+
+## [4.1.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.5...v4.1.0) (2026-01-13)
+
+
+### Features
+
+* **sbb-tab-nav-bar:** initial implementation ([#4302](https://github.com/sbb-design-systems/lyne-components/issues/4302)) ([7bcdc18](https://github.com/sbb-design-systems/lyne-components/commit/7bcdc18a84e466fc89e34d00614c1386e4ca689d))
+
+
+### Bug Fixes
+
+* **sbb-dialog, sbb-overlay:** improve handling of nested dialogs and overlays ([#4352](https://github.com/sbb-design-systems/lyne-components/issues/4352)) ([bb5cbb8](https://github.com/sbb-design-systems/lyne-components/commit/bb5cbb863bf19c32fcef733282497ba8a661573e)), closes [#4323](https://github.com/sbb-design-systems/lyne-components/issues/4323)
+* **sbb-link, sbb-block-link:** remove unnecessary `user-select: none` ([#4361](https://github.com/sbb-design-systems/lyne-components/issues/4361)) ([4445e7e](https://github.com/sbb-design-systems/lyne-components/commit/4445e7ecb9c698ac71be6c9109917016007e69bc)), closes [#4355](https://github.com/sbb-design-systems/lyne-components/issues/4355)
+
+
+### Documentation
+
+* update coding standards ([#4357](https://github.com/sbb-design-systems/lyne-components/issues/4357)) ([8e1ea1b](https://github.com/sbb-design-systems/lyne-components/commit/8e1ea1b7e6ffb4909e766b69705f8572370feddd))
+
+
+### Code Refactoring
+
+* **sbb-popover:** support closing during opening ([#4354](https://github.com/sbb-design-systems/lyne-components/issues/4354)) ([cbfc6fa](https://github.com/sbb-design-systems/lyne-components/commit/cbfc6fa371d68486c8060a1169024eefeac2562d))
+
+## [4.0.5](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.4...v4.0.5) (2026-01-07)
+
+
+### Bug Fixes
+
+* **sbb-autocomplete, sbb-autocomplete-grid:** remove Enter as opening criteria ([#4349](https://github.com/sbb-design-systems/lyne-components/issues/4349)) ([631dc0d](https://github.com/sbb-design-systems/lyne-components/commit/631dc0dbab325b800883a4a01754a895bb22cb37))
+* **sbb-dialog, sbb-overlay:** prevent throwing if nested overlay gets removed from DOM ([#4347](https://github.com/sbb-design-systems/lyne-components/issues/4347)) ([097a577](https://github.com/sbb-design-systems/lyne-components/commit/097a577fc6d10b7de45446867a5ec1d5877e5c4c))
+
 ## [3.13.8](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.7...v3.13.8) (2026-01-07)
 
 

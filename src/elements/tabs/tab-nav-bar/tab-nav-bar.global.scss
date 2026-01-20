@@ -1,0 +1,10 @@
+@use '../../core/styles' as sbb;
+@use '../common/tab-label-common' as tab-label-common;
+
+$theme: 'standard' !default;
+
+@mixin rules {
+  sbb-tab-nav-bar .sbb-tab-amount {
+    @include tab-label-common.tab-label-amount;
+  }
+}

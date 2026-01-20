@@ -2,7 +2,7 @@ import { isServer, type PropertyDeclaration, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbFocusTrapController } from '../core/a11y.ts';
-import { type SbbButtonBaseElement, SbbOpenCloseBaseElement } from '../core/base-elements.ts';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
 import {
   SbbEscapableOverlayController,
   SbbInertController,
@@ -18,6 +18,51 @@ import {
   setAriaOverlayTriggerAttributes,
 } from '../core/overlay.ts';
 import type { SbbScreenReaderOnlyElement } from '../screen-reader-only.ts';
+
+const overlayResultMap = new WeakMap<HTMLElement, any>();
+
+export class SbbOverlayCloseEvent<T = any> extends CustomEvent<SbbOverlayCloseEventDetails> {
+  /**
+   * The result associated with the closed overlay.
+   * This is either the result assigned to the `closeTarget` via
+   * `assignOverlayResult` / `assignDialogResult` or the value of the
+   * corresponding close attribute on the `closeTarget`
+   * (e.g. sbb-overlay-close="my-result" or sbb-dialog-close="my-result").
+   */
+  public readonly result: T | null;
+
+  /**
+   * The element that was used to close the overlay/dialog, i.e. the element that the
+   * user clicked on that had the close attribute.
+   * Empty if closed programmatically or via Escape press.
+   */
+  public readonly closeTarget: HTMLElement | null;
+
+  public constructor(
+    name: string,
+    {
+      cancelable,
+      closeAttribute,
+      closeTarget,
+      result,
+    }: { cancelable?: boolean; closeAttribute: string; closeTarget?: HTMLElement; result?: any },
+  ) {
+    // TODO: Remove detail and change base class to Event
+    super(name, { cancelable, detail: { returnValue: result, closeTarget } });
+
+    this.result =
+      result ??
+      (!closeTarget
+        ? null
+        : (overlayResultMap.get(closeTarget) ??
+          (closeTarget.getAttribute(closeAttribute)?.trim() || null)));
+    this.closeTarget = closeTarget ?? null;
+  }
+}
+
+export function assignOverlayResult<T>(element: HTMLElement, result: T): void {
+  overlayResultMap.set(element, result);
+}
 
 // A global collection of existing overlays.
 export const overlayRefs: SbbOverlayBaseElement[] = [];
@@ -48,10 +93,12 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
 
   // The last element which had focus before the component was opened.
   protected lastFocusedElement?: HTMLElement;
+  // TODO: rename to lastClosedTarget
   protected overlayCloseElement?: HTMLElement;
-  protected openOverlayController!: AbortController;
+  protected openOverlayController?: AbortController;
   protected focusTrapController = new SbbFocusTrapController(this);
   protected scrollHandler = new SbbScrollHandler();
+  // TODO: rename to lastResult
   protected returnValue: any;
   protected language = new SbbLanguageController(this);
   protected inertController = new SbbInertController(this);
@@ -60,24 +107,31 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   private _ariaLiveRefToggle = false;
   private _ariaLiveRef?: SbbScreenReaderOnlyElement;
   private _triggerElement: HTMLElement | null = null;
-  private _triggerAbortController!: AbortController;
+  private _triggerAbortController?: AbortController;
 
   protected abstract closeAttribute: string;
   protected closeTag?: string;
   protected abstract handleOpening(): void;
   protected abstract handleClosing(): void;
   protected abstract isZeroAnimationDuration(): boolean;
+  protected abstract override dispatchBeforeCloseEvent(
+    detail?: SbbOverlayCloseEventDetails,
+  ): boolean;
+
+  protected abstract override dispatchCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean;
 
   /** Opens the component. */
   public open(): void {
-    if (this.state !== 'closed') {
+    if (
+      this.state === 'opening' ||
+      this.state === 'opened' ||
+      this._hasClosedParent() ||
+      !this.dispatchBeforeOpenEvent()
+    ) {
       return;
     }
-    this.lastFocusedElement = document.activeElement as HTMLElement;
 
-    if (!this.dispatchBeforeOpenEvent()) {
-      return;
-    }
+    this.lastFocusedElement = document.activeElement as HTMLElement;
 
     this.showPopover?.();
     this.state = 'opening';
@@ -86,8 +140,9 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     // Add this overlay to the global collection
     overlayRefs.push(this);
 
-    // Disable scrolling for content below the overlay
     this.scrollHandler.disableScroll();
+    this.escapableOverlayController.connect();
+    this.attachOpenOverlayEvents();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -97,19 +152,21 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
   }
 
   /** Closes the component. */
-  public close(result?: any, target?: HTMLElement): any {
-    if (this.state !== 'opened') {
+  public close(result?: any): void;
+  /** @deprecated */
+  public close(result?: any, target?: HTMLElement): void;
+  public close(result?: any, target?: HTMLElement): void {
+    this._close(result, target);
+  }
+
+  private _close(result: any, target: HTMLElement | undefined): void {
+    if (this.state === 'closing' || this.state === 'closed') {
       return;
     }
 
     this.returnValue = result;
     this.overlayCloseElement = target;
-    const eventData: SbbOverlayCloseEventDetails = {
-      returnValue: this.returnValue,
-      closeTarget: this.overlayCloseElement,
-    };
-
-    if (!this.dispatchBeforeCloseEvent(eventData)) {
+    if (!this.dispatchBeforeCloseEvent()) {
       return;
     }
     this.state = 'closing';
@@ -121,6 +178,18 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     if (this.isZeroAnimationDuration()) {
       this.handleClosing();
     }
+  }
+
+  /**
+   * Check if there is a parent dialog or overlay in the DOM that is closed.
+   * In this case, the overlay should not be opened because it would break the state.
+   * Not nested but stacked overlays are supported so this logic does not apply in this case.
+   */
+  private _hasClosedParent(): boolean {
+    const parentDialog =
+      this.parentElement?.closest<SbbOverlayBaseElement>('sbb-dialog, sbb-overlay');
+
+    return (parentDialog?.state === 'closed' || parentDialog?.state === 'closing') ?? false;
   }
 
   public override connectedCallback(): void {
@@ -233,13 +302,8 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
       return;
     }
 
-    // Check if the target is a submission element within a form and return the form, if present
-    const closestForm =
-      overlayCloseElement.getAttribute('type') === 'submit'
-        ? ((overlayCloseElement as HTMLButtonElement | SbbButtonBaseElement).form ?? null)
-        : null;
     if (overlayRefs.length) {
-      overlayRefs[overlayRefs.length - 1].close(closestForm, overlayCloseElement);
+      overlayRefs[overlayRefs.length - 1]._close(null, overlayCloseElement);
     }
   }
 
@@ -273,17 +337,5 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     } else if (event.animationName === 'close' && this.state === 'closing') {
       this.handleClosing();
     }
-  }
-
-  protected override dispatchBeforeCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
-    /** @type {CustomEvent<SbbOverlayCloseEventDetails>} Emits whenever the component begins the closing transition. Can be canceled. */
-    return this.dispatchEvent(
-      new CustomEvent<SbbOverlayCloseEventDetails>('beforeclose', { detail, cancelable: true }),
-    );
-  }
-
-  protected override dispatchCloseEvent(detail?: SbbOverlayCloseEventDetails): boolean {
-    /** @type {CustomEvent<SbbOverlayCloseEventDetails>} Emits whenever the component is closed. */
-    return this.dispatchEvent(new CustomEvent<SbbOverlayCloseEventDetails>('close', { detail }));
   }
 }

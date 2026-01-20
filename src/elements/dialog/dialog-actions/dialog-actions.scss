@@ -15,6 +15,7 @@
     content: '';
     display: block;
     position: absolute;
+    align-self: start;
     border-block-start: var(--sbb-border-width-1x) solid var(--sbb-dialog-actions-border-color);
     transition: border-color var(--sbb-animation-easing) var(--sbb-dialog-shadow-animation-duration);
     width: 100%;
