@@ -139,17 +139,26 @@ function renderTemplate(
     console.error(`(Inherited) events need jsdocs on class level! (${declaration.name})`);
   }
 
-  // Generic <T> types are filtered out from imports
-  const customEventTypes =
-    declaration.events
-      ?.filter(
-        (e) =>
-          e.type.text.startsWith('CustomEvent<') &&
-          ['void', '{', 'File', 'T'].every((m) => !e.type.text.includes(`<${m}`)),
-      )
-      .map((e) => e.type.text.substring(12).slice(0, -1))
+  let eventsImport: string[] = [];
+  if (declaration.events) {
+    const eventNames = declaration.events.map((e) => e.type.text);
+    // Generic <T> types are filtered out from imports
+    const customEventTypes =
+      eventNames
+        .filter(
+          (name) =>
+            name.startsWith('CustomEvent<') &&
+            ['void', '{', 'File', 'T'].every((m) => !name.includes(`<${m}`)),
+        )
+        .map((name) => name.substring(12).slice(0, -1)) ?? [];
+
+    // Events which extend Event must be added manually
+    const customEvents = eventNames.filter((name) => name === 'SbbMonthChangeEvent') ?? [];
+    eventsImport = [...customEventTypes, ...customEvents]
       .sort()
-      .filter((v, i, a) => a.indexOf(v) === i && v.length > 1) ?? [];
+      .filter((v, i, a) => a.indexOf(v) === i && v.length > 1);
+  }
+
   // If a type or interface needs to be imported, the custom elements analyzer will not detect/extract these,
   // and therefore we need to have a manual list of required types/interfaces.
   const interfaces = new Map<string, string>()
@@ -200,7 +209,7 @@ const ${patchClassName} = ${declaration.name} as typeof ${patchClassName}Type;
 `
     : '';
 
-  for (const customEventType of customEventTypes) {
+  for (const customEventType of eventsImport) {
     const exportModule = exports.find((e) => e.name === customEventType);
     if (exportModule) {
       if (!componentsImports.has(exportModule.declaration.module!)) {
