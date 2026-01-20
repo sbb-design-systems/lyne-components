@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import '../../../elements/action-group.ts';
 import '../../../elements/alert.ts';
@@ -129,10 +130,17 @@ const leanExampleTemplate = (): TemplateResult => html`
         <sbb-checkbox-panel>
           Label
           <span slot="subtext">Subtext</span>
-          <span slot="suffix" style="margin-inline-start: auto; display:flex; align-items:center;">
+          <span
+            slot="suffix"
+            style=${styleMap({
+              'margin-inline-start': 'auto',
+              display: 'flex',
+              'align-items': 'center',
+            })}
+          >
             <sbb-icon
               name="diamond-small"
-              style="margin-inline: var(--sbb-spacing-fixed-2x);"
+              style=${styleMap({ 'margin-inline': 'var(--sbb-spacing-fixed-2x)' })}
             ></sbb-icon>
             <span class="sbb-text-m sbb-text--bold"> CHF 40.00 </span>
           </span>
