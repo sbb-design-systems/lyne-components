@@ -21,7 +21,7 @@
   --sbb-breadcrumb-group-visibility: visible;
 }
 
-:host(:state(state)) {
+:host(:is(:state(state-collapsed), :state(state-manually-expanded))) {
   --sbb-breadcrumb-group-wrap: wrap;
 }
 
