@@ -30,8 +30,8 @@ $theme: 'standard' !default;
 @mixin base-forced-colors {
   // Use outline here to not influence content position.
   // Due to overflow hidden of inner elements it's placed on host.
-  outline: var(--sbb-border-width-1x) solid CanvasText;
-  border-radius: var(--sbb-alert-border-radius);
+  --sbb-alert-outline: var(--sbb-border-width-1x) solid CanvasText;
+  --sbb-alert-forced-color-border-radius: var(--sbb-alert-border-radius);
 }
 
 @mixin base-breakpoint-large {
