@@ -4,6 +4,10 @@
   display: block;
 }
 
+:host([orientation='vertical']) {
+  height: 100%;
+}
+
 :host([negative]) {
   --sbb-divider-color: var(--sbb-divider-color-negative);
 }
