@@ -13,21 +13,21 @@
   --sbb-card-border-radius: var(--sbb-border-radius-4x);
   --sbb-card-animation-easing: var(--sbb-animation-easing);
   --sbb-card-border-style: solid;
-  --sbb-card-padding-inline: #{functions.theme-pattern-select(
+  --sbb-card-padding-inline-default: #{functions.theme-pattern-select(
       (
         'standard': var(--sbb-spacing-responsive-s),
         'lean': var(--sbb-spacing-responsive-xxs),
       ),
       $theme
     )};
-  --sbb-card-padding-block: #{functions.theme-pattern-select(
+  --sbb-card-padding-block-default: #{functions.theme-pattern-select(
       (
         'standard': var(--sbb-spacing-responsive-xxxs),
         'lean': var(--sbb-spacing-fixed-3x),
       ),
       $theme
     )};
-  --sbb-card-with-badge-padding-block: #{functions.theme-pattern-select(
+  --sbb-card-with-badge-padding-block-default: #{functions.theme-pattern-select(
       (
         'standard': var(--sbb-spacing-fixed-6x) var(--sbb-spacing-responsive-xxxs),
         'lean': var(--sbb-spacing-fixed-6x) var(--sbb-spacing-fixed-3x),
@@ -85,6 +85,12 @@
 }
 
 // Card sizing
+@mixin card-variables--spacing-default {
+  --sbb-card-padding-block: var(--sbb-card-padding-block-default);
+  --sbb-card-with-badge-padding-block: var(--sbb-card-with-badge-padding-block-default);
+  --sbb-card-padding-inline: var(--sbb-card-padding-inline-default);
+}
+
 @mixin card-variables--spacing-3x-xxs {
   --sbb-card-padding-block: var(--sbb-spacing-fixed-3x);
   --sbb-card-with-badge-padding-block: var(--sbb-spacing-fixed-6x) var(--sbb-spacing-fixed-3x);

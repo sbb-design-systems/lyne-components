@@ -7,6 +7,7 @@
 
 :host {
   @include sbb.card;
+  @include sbb.card-variables--spacing-default;
 }
 
 // :where is needed for lower specificity
@@ -27,6 +28,11 @@
 // :where is needed for lower specificity
 :host(:where([color='transparent-bordered-dashed'])) {
   @include sbb.card-variables--transparent-bordered-dashed;
+}
+
+// :where is needed for lower specificity
+:host(:where(:not([color]))) {
+  @include sbb.card-variables--white;
 }
 
 :host(:state(has-active-action)) {
