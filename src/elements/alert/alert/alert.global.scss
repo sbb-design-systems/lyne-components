@@ -9,6 +9,7 @@ $theme: 'standard' !default;
   --sbb-alert-padding: var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xs);
   --sbb-alert-timing-function: ease-in;
   --sbb-alert-icon-size: #{sbb.px-to-rem-build(20)};
+  --sbb-alert-icon-size-l: var(--sbb-size-icon-ui-small);
   --sbb-alert-title-margin-block: 0;
   --sbb-alert-font-size: var(--sbb-text-font-size-s);
   --sbb-alert-gap: #{sbb.theme-pattern-select(
@@ -36,4 +37,9 @@ $theme: 'standard' !default;
 
 @mixin base-breakpoint-large {
   --sbb-alert-icon-size: #{sbb.px-to-rem-build(28)};
+  --sbb-alert-icon-size-l: #{sbb.px-to-rem-build(34)};
+}
+
+@mixin base-breakpoint-small {
+  --sbb-alert-close-button-divider-display: block;
 }

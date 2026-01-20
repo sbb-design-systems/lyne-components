@@ -158,6 +158,8 @@ $theme: 'standard' !default;
 
   @include mediaqueries.mq($from: small) {
     @include sbb-css-tokens.breakpoint-small;
+
+    @include alert.base-breakpoint-small;
   }
 
   @include mediaqueries.mq($from: large) {

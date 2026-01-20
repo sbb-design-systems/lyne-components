@@ -39,12 +39,8 @@ $open-anim-opacity-to: 1;
 }
 
 :host([size='l']) {
-  --sbb-alert-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-alert-icon-size: var(--sbb-alert-icon-size-l);
   --sbb-alert-title-margin-block: 0 var(--sbb-spacing-fixed-1x);
-
-  @include sbb.mq($from: large) {
-    --sbb-alert-icon-size: #{sbb.px-to-rem-build(34)};
-  }
 }
 
 :host(:not(:state(dark))) {
@@ -144,12 +140,8 @@ $open-anim-opacity-to: 1;
 }
 
 .sbb-alert__close-button-divider {
-  display: none;
-
-  @include sbb.mq($from: small) {
-    display: block;
-    height: calc(100% - (var(--sbb-spacing-fixed-1x) * 2));
-  }
+  display: var(--sbb-alert-close-button-divider-display, none);
+  height: calc(100% - (var(--sbb-spacing-fixed-1x) * 2));
 }
 
 @keyframes open {
