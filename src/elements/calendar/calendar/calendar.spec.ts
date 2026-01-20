@@ -94,10 +94,10 @@ describe(`sbb-calendar`, () => {
       let day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
       expect(await day.getAttribute('value')).to.be.equal('2023-01-01');
 
-      const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
+      const prevMonthButton: HTMLElement = element.shadowRoot!.querySelector(
         '#sbb-calendar__controls-previous',
       )!;
-      nextMonthButton.click();
+      prevMonthButton.click();
       await waitForLitRender(element);
 
       // this works because the first element from querySelector is the first day of the month; it's not valid in vertical

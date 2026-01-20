@@ -904,13 +904,13 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     // Gets the currently rendered table's cell;
     // they could be days, months or years based on the current selection view.
     // If `wide` is true, years are doubled in number and days are (roughly) doubled too, affecting the `index` calculation.
-    const cells: HTMLButtonElement[] = this.cells as HTMLButtonElement[];
-    const index: number = cells.findIndex((e: HTMLButtonElement) => e === event.target);
-    let nextEl: HTMLButtonElement;
+    const cells = this.cells;
+    const index: number = cells.findIndex((e) => e === event.target);
+    let nextEl: HTMLButtonElement | SbbCalendarDayElement;
     if (day) {
       nextEl = this._navigateByKeyboardDayView(event, index, cells, day);
     } else {
-      nextEl = this._navigateByKeyboard(event, index, cells);
+      nextEl = this._navigateByKeyboard(event, index, cells as HTMLButtonElement[]);
     }
     this.setTabIndexAndFocusKeyboardNavigation(nextEl);
   }
@@ -918,9 +918,9 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   private _navigateByKeyboardDayView(
     evt: KeyboardEvent,
     index: number,
-    cells: HTMLButtonElement[],
+    cells: (HTMLButtonElement | SbbCalendarDayElement)[],
     day: Day<T>,
-  ): HTMLButtonElement {
+  ): HTMLButtonElement | SbbCalendarDayElement {
     const arrowsOffset =
       this.orientation === 'horizontal'
         ? { leftRight: 1, upDown: DAYS_PER_ROW }
@@ -991,11 +991,11 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   }
 
   private _findDayArrows(
-    cells: HTMLButtonElement[],
+    cells: (HTMLButtonElement | SbbCalendarDayElement)[],
     index: number,
     date: T,
     delta: number,
-  ): HTMLButtonElement {
+  ): HTMLButtonElement | SbbCalendarDayElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.addCalendarDays(date, delta),
     );
@@ -1010,12 +1010,12 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   }
 
   private _findDayPageUpDown(
-    cells: HTMLButtonElement[],
+    cells: (HTMLButtonElement | SbbCalendarDayElement)[],
     index: number,
     day: Day<T>,
     delta: number,
     deltaIfDisabled: number,
-  ): HTMLButtonElement {
+  ): HTMLButtonElement | SbbCalendarDayElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.addCalendarDays(day.dateValue, delta),
     );
@@ -1030,11 +1030,11 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   }
 
   private _findDayFirst(
-    cells: HTMLButtonElement[],
+    cells: (HTMLButtonElement | SbbCalendarDayElement)[],
     index: number,
     day: Day<T>,
     date: number,
-  ): HTMLButtonElement {
+  ): HTMLButtonElement | SbbCalendarDayElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.createDate(+day.yearValue, +day.monthValue, date),
     );
@@ -1049,10 +1049,10 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   }
 
   private _findDayLast(
-    cells: HTMLButtonElement[],
+    cells: (HTMLButtonElement | SbbCalendarDayElement)[],
     index: number,
     firstNextMonth: T,
-  ): HTMLButtonElement {
+  ): HTMLButtonElement | SbbCalendarDayElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.addCalendarDays(firstNextMonth, -1),
     );

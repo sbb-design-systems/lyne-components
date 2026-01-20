@@ -29,24 +29,33 @@ class SbbCalendarEnhancedElement<T extends Date = Date> extends SbbCalendarBaseE
     monthchanged: 'monthchanged',
   } as const;
 
-  protected get cells(): SbbCalendarDayElement[] {
-    return Array.from(
-      this!.querySelectorAll('.sbb-calendar__cell') ?? [],
-    ) as SbbCalendarDayElement[];
+  protected get cells(): (HTMLButtonElement | SbbCalendarDayElement)[] {
+    return (
+      (this.calendarView === 'day'
+        ? Array.from(this!.querySelectorAll<SbbCalendarDayElement>('.sbb-calendar__cell'))
+        : Array.from(
+            this.shadowRoot!.querySelectorAll<HTMLButtonElement>('.sbb-calendar__cell'),
+          )) ?? []
+    );
   }
 
   protected setTabIndexAndFocusKeyboardNavigation(elementToFocus: SbbCalendarDayElement): void {
-    const activeEl: SbbCalendarDayElement = document.activeElement as SbbCalendarDayElement;
+    const activeEl =
+      this.calendarView === 'day'
+        ? (document.activeElement as SbbCalendarDayElement)
+        : (this.shadowRoot!.activeElement as HTMLButtonElement);
     if (elementToFocus !== activeEl) {
-      (elementToFocus as SbbCalendarDayElement).tabIndex = 0;
+      elementToFocus.tabIndex = 0;
       elementToFocus?.focus();
-      (activeEl as SbbCalendarDayElement).tabIndex = -1;
+      activeEl.tabIndex = -1;
     }
   }
 
   protected getFirstFocusable(): HTMLButtonElement | SbbCalendarDayElement | null {
     if (this.calendarView === 'day') {
-      const selectedOrCurrent = this.querySelector<SbbCalendarDayElement>(':state(selected)');
+      const selectedOrCurrent =
+        this.querySelector<SbbCalendarDayElement>(':state(selected)') ??
+        this.querySelector<SbbCalendarDayElement>(':state(current)');
       return selectedOrCurrent && !selectedOrCurrent.disabled
         ? selectedOrCurrent
         : this.getFirstFocusableDay();
