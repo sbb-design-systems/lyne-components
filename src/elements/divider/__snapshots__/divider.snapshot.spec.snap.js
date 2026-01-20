@@ -39,3 +39,21 @@ snapshots["sbb-divider renders A11y tree Firefox"] =
 `;
 /* end snapshot sbb-divider renders A11y tree Firefox */
 
+snapshots["sbb-divider renders Shadow DOM"] = 
+`<div class="sbb-divider">
+</div>
+`;
+/* end snapshot sbb-divider renders Shadow DOM */
+
+snapshots["sbb-divider renders horizontal Shadow DOM"] = 
+`<div class="sbb-divider">
+</div>
+`;
+/* end snapshot sbb-divider renders horizontal Shadow DOM */
+
+snapshots["sbb-divider renders vertical Shadow DOM"] = 
+`<div class="sbb-divider">
+</div>
+`;
+/* end snapshot sbb-divider renders vertical Shadow DOM */
+

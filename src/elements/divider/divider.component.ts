@@ -1,5 +1,10 @@
-import type { CSSResultGroup, PropertyValues } from 'lit';
-import { LitElement } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbOrientation } from '../core/interfaces.ts';
@@ -26,6 +31,10 @@ class SbbDividerElement extends SbbNegativeMixin(SbbElementInternalsMixin(LitEle
     if (changedProperties.has('orientation')) {
       this.internals.ariaOrientation = this.orientation;
     }
+  }
+
+  protected override render(): TemplateResult {
+    return html`<div class="sbb-divider"></div> `;
   }
 }
 
