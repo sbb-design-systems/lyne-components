@@ -116,7 +116,7 @@ class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    return html` <slot @slotchange=${this._handleSlotchange}></slot> `;
+    return html`<slot @slotchange=${this._handleSlotchange}></slot>`;
   }
 }
 
