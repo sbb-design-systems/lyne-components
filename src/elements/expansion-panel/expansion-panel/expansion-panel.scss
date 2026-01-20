@@ -147,7 +147,7 @@ $open-anim-opacity-to: 1;
 }
 
 .sbb-expansion-panel__content {
-  overflow: hidden;
+  min-height: 0;
 }
 
 @keyframes open {
