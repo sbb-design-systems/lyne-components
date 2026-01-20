@@ -34,6 +34,7 @@ class SbbActionGroupElement extends LitElement {
   /**
    * Overrides the behaviour of `orientation` property.
    */
+  // TODO: Needs a breaking change to work with the 'no-default-reflect' behavior
   @property({ attribute: 'horizontal-from', reflect: true })
   public accessor horizontalFrom: SbbHorizontalFrom = 'large';
 
@@ -85,11 +86,7 @@ class SbbActionGroupElement extends LitElement {
   }
 
   protected override render(): TemplateResult {
-    return html`
-      <div class="sbb-action-group">
-        <slot></slot>
-      </div>
-    `;
+    return html` <slot></slot> `;
   }
 }
 
