@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
-import { repeat } from 'lit/directives/repeat.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbCalendarEnhancedElement } from '../../calendar.ts';
 import { defaultDateAdapter } from '../../core/datetime.ts';
 import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
+import { createSlottedDays } from '../calendar-enhanced/calendar-enhanced.helper.ts';
 
 import { SbbCalendarDayElement } from './calendar-day.component.ts';
 import '../calendar-enhanced/calendar-enhanced.component.ts';
@@ -16,19 +16,13 @@ describe('sbb-calendar-day', () => {
   const elementInternals = elementInternalsSpy();
 
   const today = new Date();
-  const numDays = defaultDateAdapter.getNumDaysInMonth(today);
   const month = defaultDateAdapter.getMonth(today);
   const year = defaultDateAdapter.getYear(today);
   const currentDaySlotNameSelector = `sbb-calendar-day[slot="${defaultDateAdapter.toIso8601(today)}"]`;
 
   beforeEach(async () => {
     root = await fixture(html`
-      <sbb-calendar-enhanced>
-        ${repeat(new Array(numDays), (_, index) => {
-          const slotName = defaultDateAdapter.toIso8601(new Date(`${year}-${month}-${index + 1}`));
-          return html`<sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-        })}
-      </sbb-calendar-enhanced>
+      <sbb-calendar-enhanced> ${createSlottedDays(year, month)} </sbb-calendar-enhanced>
     `);
     todayElement = root.querySelector(currentDaySlotNameSelector)!;
   });

@@ -2,7 +2,22 @@ import { html, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
 import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
+
 import '../calendar-day/calendar-day.component.ts';
+import type {
+  SbbCalendarEnhancedElement,
+  SbbMonthChangeEvent,
+} from './calendar-enhanced.component.ts';
+
+export const monthChangedHandler = (e: SbbMonthChangeEvent): void => {
+  const calendar = e.target as SbbCalendarEnhancedElement;
+  Array.from(calendar.children).forEach((e) => calendar.removeChild(e));
+  e.range?.map((day) => {
+    const child = document.createElement('sbb-calendar-day');
+    child.setAttribute('slot', day.value);
+    calendar.appendChild(child);
+  });
+};
 
 export const createSlottedDays = (year: number, month: number): TemplateResult => {
   const daysInMonth = defaultDateAdapter.getNumDaysInMonth(

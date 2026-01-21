@@ -23,7 +23,7 @@ export class SbbMonthChangeEvent extends Event {
  */
 export
 @customElement('sbb-calendar-enhanced')
-class SbbCalendarEnhancedElement<T extends Date = Date> extends SbbCalendarBaseElement {
+class SbbCalendarEnhancedElement extends SbbCalendarBaseElement {
   public static override readonly events = {
     dateselected: 'dateselected',
     monthchanged: 'monthchanged',
@@ -105,8 +105,8 @@ class SbbCalendarEnhancedElement<T extends Date = Date> extends SbbCalendarBaseE
     this._emitMonthChanged();
   }
 
-  protected override createDayCells(week: Day<T>[], _: string): TemplateResult[] {
-    return week.map((day: Day<T>) => {
+  protected override createDayCells(week: Day[], _: string): TemplateResult[] {
+    return week.map((day: Day) => {
       return html`
         <td class="sbb-calendar__table-data">
           <slot
