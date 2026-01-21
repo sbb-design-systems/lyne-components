@@ -9,8 +9,7 @@ import {
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { isLean } from '../../core/dom.ts';
+import { SbbLanguageController, SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { i18nChipGroupInputDescription, i18nSelectionRequired } from '../../core/i18n.ts';
 import {
   type FormRestoreReason,
@@ -114,13 +113,6 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
     ? new MutationObserver(() => this._reactToInputChanges())
     : null;
 
-  /**
-   * Listens to the 'size' changes on the `sbb-form-field`.
-   */
-  private _formFieldAttributeObserver = !isServer
-    ? new MutationObserver(() => this._inheritSize())
-    : null;
-
   private _inputElement: HTMLInputElement | undefined;
   private _inputAbortController: AbortController | undefined;
   private _language = new SbbLanguageController(this);
@@ -134,6 +126,16 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
     );
 
     this.addEventListener?.('keydown', (ev) => this._onChipKeyDown(ev));
+
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-form-field'), {
+        size: (formField) => this._inheritSize(formField.size),
+        label: (formField) => {
+          console.log(!formField.label, formField.label);
+          this.toggleState('without-label', !formField.label);
+        },
+      }),
+    );
   }
 
   public override connectedCallback(): void {
@@ -230,17 +232,6 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
       this._inputAttributeObserver?.observe(this._inputElement, {
         attributes: true,
         attributeFilter: ['readonly', 'disabled'],
-      });
-    }
-
-    // Inherit size from the form-field and observe for changes
-    this._inheritSize();
-    this._formFieldAttributeObserver?.disconnect();
-    const formField = this.closest('sbb-form-field');
-    if (formField) {
-      this._formFieldAttributeObserver?.observe(formField, {
-        attributes: true,
-        attributeFilter: ['size'],
       });
     }
 
@@ -418,11 +409,11 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
     });
   }
 
-  private _inheritSize(): void {
+  private _inheritSize(size: SbbFormFieldElement['size']): void {
     if (this._previousSize) {
       this.internals.states.delete(`size-${this._previousSize}`);
     }
-    this._previousSize = this.closest('sbb-form-field')?.size ?? (isLean() ? 's' : 'm');
+    this._previousSize = size;
     if (this._previousSize) {
       this.internals.states.add(`size-${this._previousSize}`);
     }
