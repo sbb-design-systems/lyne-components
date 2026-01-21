@@ -1,9 +1,9 @@
-FROM ghcr.io/nginxinc/nginx-unprivileged:stable
+FROM nginxinc/nginx-unprivileged:stable
 
 LABEL org.opencontainers.image.source=https://github.com/sbb-design-systems/lyne-components
 
 # Copy nginx configuration
-COPY ./.github/default.conf /etc/nginx/conf.d/default.conf
+COPY ./dist/storybook-nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # Copy docs
 COPY ./dist/storybook /usr/share/nginx/html
