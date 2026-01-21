@@ -1,0 +1,39 @@
+@use '../../core/styles' as sbb;
+
+$icon-only: ':where(:state(slotted-icon), :state(has-icon-name)):not(:state(slotted))';
+
+:host {
+  --sbb-mini-button-gap: #{sbb.px-to-rem-build(2)};
+  --sbb-mini-button-padding-inline: var(--sbb-spacing-fixed-2x);
+  --sbb-mini-button-label-display: block;
+  --sbb-mini-button-label-height: var(--sbb-size-icon-ui-small);
+
+  @include sbb.if-forced-colors {
+    --sbb-mini-button-color: LinkText !important;
+  }
+}
+
+:host(#{$icon-only}) {
+  --sbb-mini-button-padding-inline: 0;
+  --sbb-mini-button-label-display: none;
+  --sbb-mini-button-label-height: unset;
+}
+
+.sbb-mini-button-link {
+  height: var(--sbb-mini-button-label-height);
+  gap: var(--sbb-mini-button-gap);
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--sbb-mini-button-padding-inline);
+}
+
+.sbb-mini-button__label {
+  @include sbb.ellipsis;
+
+  font-size: var(--sbb-text-font-size-xxs);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  display: var(--sbb-mini-button-label-display);
+  transition: translate var(--sbb-mini-button-transition-duration)
+    var(--sbb-mini-button-transition-easing-function);
+  translate: 0 var(--sbb-mini-button-translate-y-content-hover, 0);
+}
