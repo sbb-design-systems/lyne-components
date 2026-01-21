@@ -10,7 +10,7 @@ import {
 } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
-import { miniButtonStyle } from '../common.ts';
+import { miniButtonLabelStyle, miniButtonStyle } from '../common.ts';
 
 import style from './mini-button-link.scss?lit&inline';
 
@@ -26,7 +26,12 @@ export
 class SbbMiniButtonLinkElement extends SbbNegativeMixin(
   SbbIconNameMixin(SbbDisabledInteractiveMixin(SbbDisabledMixin(SbbLinkBaseElement))),
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle, style];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    miniButtonStyle,
+    miniButtonLabelStyle,
+    style,
+  ];
 
   protected override renderTemplate(): TemplateResult {
     return html`

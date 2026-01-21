@@ -8,8 +8,6 @@ import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 import { miniButtonStyle } from '../common.ts';
 
-import style from './mini-button.scss?lit&inline';
-
 /**
  * It displays an icon-only button enhanced with the SBB Design;
  * it's meant to be used mainly within the sbb-form-field in prefix/suffix slot
@@ -22,7 +20,7 @@ export
 class SbbMiniButtonElement extends SbbDisabledTabIndexActionMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbButtonBaseElement)),
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle];
 
   protected override renderTemplate(): TemplateResult {
     return html`
