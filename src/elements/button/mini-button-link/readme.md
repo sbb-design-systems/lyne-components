@@ -1,4 +1,4 @@
-The `sbb-mini-button-link` component provides the same functionality as a native icon-only `<button>` enhanced with the SBB Design.
+The `sbb-mini-button-link` component provides the same functionality as a native anchor tag enhanced with the SBB Design.
 It's mainly designed to be used within the `sbb-mini-button-group`.
 
 ```html

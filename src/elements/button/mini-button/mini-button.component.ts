@@ -6,7 +6,7 @@ import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
-import { miniButtonStyle } from '../common.ts';
+import { miniButtonLabelStyle, miniButtonStyle } from '../common.ts';
 
 /**
  * It displays an icon-only button enhanced with the SBB Design;
@@ -20,7 +20,11 @@ export
 class SbbMiniButtonElement extends SbbDisabledTabIndexActionMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbButtonBaseElement)),
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    miniButtonStyle,
+    miniButtonLabelStyle,
+  ];
 
   protected override renderTemplate(): TemplateResult {
     return html`
