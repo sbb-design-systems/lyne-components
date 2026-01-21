@@ -1,11 +1,10 @@
 import { expect } from '@open-wc/testing';
-import { repeat } from 'lit/directives/repeat.js';
 import { html } from 'lit/static-html.js';
 
-import { defaultDateAdapter } from '../../core/datetime.ts';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbCalendarEnhancedElement } from './calendar-enhanced.component.ts';
+import { createSlottedDays } from './calendar-enhanced.helper.ts';
 
 import './calendar-enhanced.component.ts';
 import '../calendar-day/calendar-day.component.ts';
@@ -17,10 +16,7 @@ describe(`sbb-calendar-enhanced`, () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-calendar-enhanced selected="2023-01-20">
-          ${repeat(new Array(31), (_, index) => {
-            const slotName = defaultDateAdapter.toIso8601(new Date(`2023-01-${index + 1}`));
-            return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-          })}
+          ${createSlottedDays(2023, 1)}
         </sbb-calendar-enhanced>`,
       );
     });

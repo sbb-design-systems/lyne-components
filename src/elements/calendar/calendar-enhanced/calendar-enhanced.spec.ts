@@ -1,6 +1,5 @@
 import { assert, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
-import { repeat } from 'lit/directives/repeat.js';
 import { html } from 'lit/static-html.js';
 import { type SinonStub, stub } from 'sinon';
 
@@ -19,6 +18,7 @@ import {
   type SbbMonthChangeEvent,
 } from './calendar-enhanced.component.ts';
 import '../calendar-day/calendar-day.component.ts';
+import { createSlottedDays } from './calendar-enhanced.helper.ts';
 
 describe('sbb-calendar-enhanced', () => {
   let element: SbbCalendarEnhancedElement;
@@ -87,10 +87,7 @@ describe('sbb-calendar-enhanced', () => {
           selected="2023-01-15"
           @monthchanged=${(e: SbbMonthChangeEvent) => monthChangedHandler(e)}
         >
-          ${repeat(new Array(31), (_, index) => {
-            const slotName = defaultDateAdapter.toIso8601(new Date(`2023-01-${index + 1}`));
-            return html`<sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-          })}
+          ${createSlottedDays(2023, 1)}
         </sbb-calendar-enhanced>
       `);
     });
@@ -344,12 +341,7 @@ describe('sbb-calendar-enhanced', () => {
 
       it('focuses current day', async () => {
         element = await fixture(
-          html` <sbb-calendar-enhanced>
-            ${repeat(new Array(31), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2023-10-${index + 1}`));
-              return html`<sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
-          </sbb-calendar-enhanced>`,
+          html` <sbb-calendar-enhanced> ${createSlottedDays(2023, 10)} </sbb-calendar-enhanced>`,
         );
 
         // Open year selection
@@ -688,10 +680,7 @@ describe('sbb-calendar-enhanced', () => {
           orientation="vertical"
           @monthchanged=${(e: SbbMonthChangeEvent) => monthChangedHandler(e)}
         >
-          ${repeat(new Array(31), (_, index) => {
-            const slotName = defaultDateAdapter.toIso8601(new Date(`2023-01-${index + 1}`));
-            return html`<sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-          })}
+          ${createSlottedDays(2023, 1)}
         </sbb-calendar-enhanced>`,
       );
     });
@@ -793,10 +782,7 @@ describe('sbb-calendar-enhanced', () => {
         orientation="vertical"
         @monthchanged=${(e: SbbMonthChangeEvent) => monthChangedHandler(e)}
       >
-        ${repeat(new Array(31), (_, index) => {
-          const slotName = defaultDateAdapter.toIso8601(new Date(`2023-01-${index + 1}`));
-          return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-        })}
+        ${createSlottedDays(2023, 1)}
       </sbb-calendar-enhanced>`,
     );
 
@@ -846,14 +832,7 @@ describe('sbb-calendar-enhanced', () => {
           wide
           @monthchanged=${(e: SbbMonthChangeEvent) => monthChangedHandler(e)}
         >
-          ${repeat(new Array(31), (_, index) => {
-            const slotName = defaultDateAdapter.toIso8601(new Date(`2023-01-${index + 1}`));
-            return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-          })}
-          ${repeat(new Array(28), (_, index) => {
-            const slotName = defaultDateAdapter.toIso8601(new Date(`2023-02-${index + 1}`));
-            return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-          })}
+          ${createSlottedDays(2023, 1)} ${createSlottedDays(2023, 2)}
         </sbb-calendar-enhanced>`,
       );
 
@@ -885,14 +864,7 @@ describe('sbb-calendar-enhanced', () => {
       await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
       element = await fixture(
         html` <sbb-calendar-enhanced selected="2024-11-20" min="2023-11-04" max="2026-12-31" wide>
-          ${repeat(new Array(30), (_, index) => {
-            const slotName = defaultDateAdapter.toIso8601(new Date(`2024-11-${index + 1}`));
-            return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-          })}
-          ${repeat(new Array(31), (_, index) => {
-            const slotName = defaultDateAdapter.toIso8601(new Date(`2024-12-${index + 1}`));
-            return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-          })}
+          ${createSlottedDays(2024, 11)} ${createSlottedDays(2024, 12)}
         </sbb-calendar-enhanced>`,
       );
 
@@ -937,14 +909,7 @@ describe('sbb-calendar-enhanced', () => {
       beforeEach(async () => {
         element = await fixture(
           html`<sbb-calendar-enhanced selected="2025-01-31" wide>
-            ${repeat(new Array(31), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-01-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
-            ${repeat(new Array(28), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-02-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
+            ${createSlottedDays(2025, 1)} ${createSlottedDays(2025, 2)}
           </sbb-calendar-enhanced>`,
         );
       });
@@ -1024,14 +989,7 @@ describe('sbb-calendar-enhanced', () => {
       beforeEach(async () => {
         element = await fixture(
           html`<sbb-calendar-enhanced selected="2025-01-29" orientation="vertical" wide>
-            ${repeat(new Array(31), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-01-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
-            ${repeat(new Array(28), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-02-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
+            ${createSlottedDays(2025, 1)} ${createSlottedDays(2025, 2)}
           </sbb-calendar-enhanced>`,
         );
       });
@@ -1106,10 +1064,7 @@ describe('sbb-calendar-enhanced', () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-calendar-enhanced selected="2023-01-15">
-          ${repeat(new Array(31), (_, index) => {
-            const slotName = defaultDateAdapter.toIso8601(new Date(`2025-01-${index + 1}`));
-            return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-          })}
+          ${createSlottedDays(2023, 1)}
         </sbb-calendar-enhanced>`,
       );
 
@@ -1232,10 +1187,7 @@ describe('sbb-calendar-enhanced', () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-calendar-enhanced selected="2025-01-22">
-          ${repeat(new Array(31), (_, index) => {
-            const slotName = defaultDateAdapter.toIso8601(new Date(`2025-01-${index + 1}`));
-            return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-          })}
+          ${createSlottedDays(2025, 1)}
         </sbb-calendar-enhanced>`,
       );
     });
@@ -1261,14 +1213,7 @@ describe('sbb-calendar-enhanced', () => {
       beforeEach(async () => {
         element = await fixture(
           html`<sbb-calendar-enhanced selected="2025-01-22" wide orientation="horizontal">
-            ${repeat(new Array(31), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-01-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
-            ${repeat(new Array(28), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-02-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
+            ${createSlottedDays(2025, 1)} ${createSlottedDays(2025, 2)}
           </sbb-calendar-enhanced>`,
         );
         element.dateFilter = (d: Date | null): boolean =>
@@ -1346,14 +1291,7 @@ describe('sbb-calendar-enhanced', () => {
       beforeEach(async () => {
         element = await fixture(
           html`<sbb-calendar-enhanced selected="2025-01-22" wide orientation="vertical">
-            ${repeat(new Array(31), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-01-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
-            ${repeat(new Array(28), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-02-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
+            ${createSlottedDays(2025, 1)} ${createSlottedDays(2025, 2)}
           </sbb-calendar-enhanced>`,
         );
         element.dateFilter = (d: Date | null): boolean =>
@@ -1435,10 +1373,7 @@ describe('sbb-calendar-enhanced', () => {
       it('renders', async () => {
         const calendar: SbbCalendarEnhancedElement = await fixture(
           html`<sbb-calendar-enhanced selected="2025-04-08" week-numbers>
-            ${repeat(new Array(30), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-04-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
+            ${createSlottedDays(2025, 4)}
           </sbb-calendar-enhanced>`,
         );
         // In horizontal variant, the first cell of each row is the one with the week number
@@ -1453,10 +1388,7 @@ describe('sbb-calendar-enhanced', () => {
       it('renders multiple', async () => {
         const calendar: SbbCalendarEnhancedElement = await fixture(
           html`<sbb-calendar-enhanced selected="2025-04-08" week-numbers multiple>
-            ${repeat(new Array(30), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-04-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
+            ${createSlottedDays(2025, 4)}
           </sbb-calendar-enhanced>`,
         );
         const selectedSpy = new EventSpy(SbbCalendarEnhancedElement.events.dateselected);
@@ -1548,15 +1480,8 @@ describe('sbb-calendar-enhanced', () => {
         await setViewport({ width: sbbBreakpointLargeMinPx, height: 1000 });
         const calendar: SbbCalendarEnhancedElement = await fixture(
           html`<sbb-calendar-enhanced selected="2025-04-08" wide week-numbers multiple>
-            ${repeat(new Array(30), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-04-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
-            ${repeat(new Array(31), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-05-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}</sbb-calendar-enhanced
-          >`,
+            ${createSlottedDays(2025, 4)} ${createSlottedDays(2025, 5)}
+          </sbb-calendar-enhanced>`,
         );
         const selectedSpy = new EventSpy(SbbCalendarEnhancedElement.events.dateselected);
 
@@ -1623,10 +1548,7 @@ describe('sbb-calendar-enhanced', () => {
       it('renders', async () => {
         const calendar: SbbCalendarEnhancedElement = await fixture(
           html`<sbb-calendar-enhanced selected="2025-04-08" orientation="vertical" week-numbers>
-            ${repeat(new Array(30), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-04-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
+            ${createSlottedDays(2025, 4)}
           </sbb-calendar-enhanced>
           ></sbb-calendar>`,
         );
@@ -1652,10 +1574,7 @@ describe('sbb-calendar-enhanced', () => {
             week-numbers
             multiple
           >
-            ${repeat(new Array(30), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-04-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
+            ${createSlottedDays(2025, 4)}
           </sbb-calendar-enhanced>`,
         );
         const selectedSpy = new EventSpy(SbbCalendarEnhancedElement.events.dateselected);
@@ -1758,14 +1677,7 @@ describe('sbb-calendar-enhanced', () => {
             multiple
             wide
           >
-            ${repeat(new Array(30), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-04-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
-            ${repeat(new Array(31), (_, index) => {
-              const slotName = defaultDateAdapter.toIso8601(new Date(`2025-05-${index + 1}`));
-              return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
-            })}
+            ${createSlottedDays(2025, 4)} ${createSlottedDays(2025, 5)}
           </sbb-calendar-enhanced>`,
         );
         const selectedSpy = new EventSpy(SbbCalendarEnhancedElement.events.dateselected);
