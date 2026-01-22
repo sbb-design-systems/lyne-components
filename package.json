@@ -130,7 +130,7 @@
     "prettier": "3.8.1",
     "react": "19.2.3",
     "rollup-plugin-postcss-lit": "2.2.0",
-    "sass": "1.97.2",
+    "sass": "1.97.3",
     "sinon": "21.0.1",
     "storybook": "10.2.0",
     "stylelint": "17.0.0",
