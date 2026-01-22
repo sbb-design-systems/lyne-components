@@ -17,7 +17,7 @@ const today = new Date();
 today.setDate(today.getDate() >= 15 ? 8 : 18);
 
 const priceStyle = (greenBold: boolean): string => {
-  return `display: flex; flex-direction: column; justify-content: center; color: ${greenBold ? 'var(--sbb-color-green)' : 'var(--sbb-color-metal)'}; font-weight: ${greenBold ? 'bold' : 'initial'}`;
+  return `display: flex; flex-direction: column; justify-content: center; ${greenBold ? 'color: var(--sbb-color-green); font-weight: bold;' : 'color: var(--sbb-color-metal);'}`;
 };
 
 const monthChangedHandler = (e: SbbMonthChangeEvent, withPrice: boolean): void => {

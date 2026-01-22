@@ -34,8 +34,8 @@ so please refer to its 'Style' section for information about the `wide`, `orient
 Each time the month changes due to user interaction with the previous/next month buttons,
 or via selecting a different year and then a month, a `monthchanged` event is emitted, typed as `SbbMonthChangeEvent`.
 
-The event has a `range: Day[]` property, which can be accessed to have information about the day to render.
-Consumers can listen to this event to dynamically create and slot the `sbb-calendar-day` of the chosen month.
+The event has a `range: Day[]` property, which can be accessed to have information about the days to render.
+Consumers can listen to this event to dynamically create and slot the `sbb-calendar-day`s of the chosen month.
 
 ```html
 <sbb-calendar-enhanced @monthchanged="(e) => monthChangedHandler(e)">...</sbb-calendar-enhanced>

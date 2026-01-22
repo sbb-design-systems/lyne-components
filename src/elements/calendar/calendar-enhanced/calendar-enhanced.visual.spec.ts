@@ -81,173 +81,173 @@ describe('sbb-calendar-enhanced', () => {
             }
           }
         }
+
+        for (const wide of [false, true]) {
+          describe(`wide=${wide}`, () => {
+            for (const content of [true, false]) {
+              it(
+                `width=dynamic content=${content}`,
+                visualDiffDefault.with(async (setup) => {
+                  await setup.withFixture(html`
+                    <sbb-calendar-enhanced
+                      style="width: 900px"
+                      orientation=${orientation}
+                      ?wide=${wide}
+                      .selected=${new Date(2023, 0, 20)}
+                    >
+                      ${repeat(new Array(31), (_, index) => {
+                        return createDay(
+                          defaultDateAdapter.toIso8601(new Date(`2023-01-${index + 1}`)),
+                          content,
+                        );
+                      })}
+                      ${wide
+                        ? repeat(new Array(28), (_, index) => {
+                            return createDay(
+                              defaultDateAdapter.toIso8601(new Date(`2023-02-${index + 1}`)),
+                              content,
+                            );
+                          })
+                        : nothing}
+                    </sbb-calendar-enhanced>
+                  `);
+                }),
+              );
+
+              it(
+                `width=full content=${content}`,
+                visualDiffFocus.with(async (setup) => {
+                  await setup.withFixture(html`
+                    <sbb-calendar-enhanced
+                      style="width: 100%"
+                      orientation=${orientation}
+                      ?wide=${wide}
+                      .selected=${new Date(2023, 0, 8)}
+                    >
+                      ${repeat(new Array(31), (_, index) => {
+                        return createDay(
+                          defaultDateAdapter.toIso8601(new Date(`2023-01-${index + 1}`)),
+                          content,
+                        );
+                      })}
+                      ${wide
+                        ? repeat(new Array(28), (_, index) => {
+                            return createDay(
+                              defaultDateAdapter.toIso8601(new Date(`2023-02-${index + 1}`)),
+                              content,
+                            );
+                          })
+                        : nothing}
+                    </sbb-calendar-enhanced>
+                  `);
+
+                  // Focus an element on the very right side. Should not be cut!
+                  setup
+                    .withStateElement(
+                      setup.stateElement.querySelector('sbb-calendar-day[slot="2023-01-08"]')!,
+                    )
+                    .withPostSetupAction(() => {
+                      setup.stateElement.tabIndex = 0;
+                    });
+                }),
+              );
+            }
+
+            for (const multiple of [false, true]) {
+              const selected = multiple
+                ? [new Date(2023, 0, 20), new Date(2023, 0, 21)]
+                : new Date(2023, 0, 20);
+              it(
+                `multiple=${multiple} weekNumbers=true`,
+                visualDiffDefault.with(async (setup) => {
+                  await setup.withFixture(html`
+                    <sbb-calendar-enhanced
+                      orientation=${orientation}
+                      ?multiple=${multiple}
+                      ?wide=${wide}
+                      .selected=${selected}
+                      week-numbers
+                    >
+                      ${repeat(new Array(31), (_, index) => {
+                        return createDay(
+                          defaultDateAdapter.toIso8601(new Date(`2023-01-${index + 1}`)),
+                        );
+                      })}
+                      ${wide
+                        ? repeat(new Array(28), (_, index) => {
+                            return createDay(
+                              defaultDateAdapter.toIso8601(new Date(`2023-02-${index + 1}`)),
+                            );
+                          })
+                        : nothing}
+                    </sbb-calendar-enhanced>
+                  `);
+                }),
+              );
+            }
+
+            for (const fn of filterFunctions) {
+              it(
+                `fn=${fn.name}`,
+                visualDiffDefault.with(async (setup) => {
+                  await setup.withFixture(html`
+                    <sbb-calendar-enhanced
+                      orientation=${orientation}
+                      ?wide=${wide}
+                      .min=${defaultDateAdapter.toIso8601(new Date(2023, 0, 13))}
+                      .max=${defaultDateAdapter.toIso8601(new Date(2023, 1, 17))}
+                      .selected=${new Date(2023, 0, 20)}
+                      .dateFilter=${fn.dateFilter}
+                    >
+                      ${repeat(new Array(31), (_, index) => {
+                        return createDay(
+                          defaultDateAdapter.toIso8601(new Date(`2023-01-${index + 1}`)),
+                        );
+                      })}
+                      ${wide
+                        ? repeat(new Array(28), (_, index) => {
+                            return createDay(
+                              defaultDateAdapter.toIso8601(new Date(`2023-02-${index + 1}`)),
+                            );
+                          })
+                        : nothing}
+                    </sbb-calendar-enhanced>
+                  `);
+                }),
+              );
+            }
+
+            for (const view of ['year', 'month']) {
+              it(
+                `view=${view}`,
+                visualDiffDefault.with(async (setup) => {
+                  await setup.withFixture(html`
+                    <sbb-calendar-enhanced
+                      orientation=${orientation}
+                      view=${view}
+                      ?wide=${wide}
+                      .selected=${new Date(2023, 0, 20)}
+                    >
+                      ${repeat(new Array(31), (_, index) => {
+                        return createDay(
+                          defaultDateAdapter.toIso8601(new Date(`2023-01-${index + 1}`)),
+                        );
+                      })}
+                      ${wide
+                        ? repeat(new Array(28), (_, index) => {
+                            return createDay(
+                              defaultDateAdapter.toIso8601(new Date(`2023-02-${index + 1}`)),
+                            );
+                          })
+                        : nothing}
+                    </sbb-calendar-enhanced>
+                  `);
+                }),
+              );
+            }
+          });
+        }
       });
-
-      for (const wide of [false, true]) {
-        describe(`orientation=${orientation} wide=${wide}`, () => {
-          for (const content of [true, false]) {
-            it(
-              `width=dynamic content=${content}`,
-              visualDiffDefault.with(async (setup) => {
-                await setup.withFixture(html`
-                  <sbb-calendar-enhanced
-                    style="width: 900px"
-                    orientation=${orientation}
-                    ?wide=${wide}
-                    .selected=${new Date(2023, 0, 20)}
-                  >
-                    ${repeat(new Array(31), (_, index) => {
-                      return createDay(
-                        defaultDateAdapter.toIso8601(new Date(`2023-01-${index + 1}`)),
-                        content,
-                      );
-                    })}
-                    ${wide
-                      ? repeat(new Array(28), (_, index) => {
-                          return createDay(
-                            defaultDateAdapter.toIso8601(new Date(`2023-02-${index + 1}`)),
-                            content,
-                          );
-                        })
-                      : nothing}
-                  </sbb-calendar-enhanced>
-                `);
-              }),
-            );
-
-            it(
-              `width=full content=${content}`,
-              visualDiffFocus.with(async (setup) => {
-                await setup.withFixture(html`
-                  <sbb-calendar-enhanced
-                    style="width: 100%"
-                    orientation=${orientation}
-                    ?wide=${wide}
-                    .selected=${new Date(2023, 0, 8)}
-                  >
-                    ${repeat(new Array(31), (_, index) => {
-                      return createDay(
-                        defaultDateAdapter.toIso8601(new Date(`2023-01-${index + 1}`)),
-                        content,
-                      );
-                    })}
-                    ${wide
-                      ? repeat(new Array(28), (_, index) => {
-                          return createDay(
-                            defaultDateAdapter.toIso8601(new Date(`2023-02-${index + 1}`)),
-                            content,
-                          );
-                        })
-                      : nothing}
-                  </sbb-calendar-enhanced>
-                `);
-
-                // Focus an element on the very right side. Should not be cut!
-                setup
-                  .withStateElement(
-                    setup.stateElement.querySelector('sbb-calendar-day[slot="2023-01-08"]')!,
-                  )
-                  .withPostSetupAction(() => {
-                    setup.stateElement.tabIndex = 0;
-                  });
-              }),
-            );
-          }
-
-          for (const multiple of [false, true]) {
-            const selected = multiple
-              ? [new Date(2023, 0, 20), new Date(2023, 0, 21)]
-              : new Date(2023, 0, 20);
-            it(
-              `multiple=${multiple} weekNumbers=true`,
-              visualDiffDefault.with(async (setup) => {
-                await setup.withFixture(html`
-                  <sbb-calendar-enhanced
-                    orientation=${orientation}
-                    ?multiple=${multiple}
-                    ?wide=${wide}
-                    .selected=${selected}
-                    week-numbers
-                  >
-                    ${repeat(new Array(31), (_, index) => {
-                      return createDay(
-                        defaultDateAdapter.toIso8601(new Date(`2023-01-${index + 1}`)),
-                      );
-                    })}
-                    ${wide
-                      ? repeat(new Array(28), (_, index) => {
-                          return createDay(
-                            defaultDateAdapter.toIso8601(new Date(`2023-02-${index + 1}`)),
-                          );
-                        })
-                      : nothing}
-                  </sbb-calendar-enhanced>
-                `);
-              }),
-            );
-          }
-
-          for (const fn of filterFunctions) {
-            it(
-              `fn=${fn.name}`,
-              visualDiffDefault.with(async (setup) => {
-                await setup.withFixture(html`
-                  <sbb-calendar-enhanced
-                    orientation=${orientation}
-                    ?wide=${wide}
-                    .min=${defaultDateAdapter.toIso8601(new Date(2023, 0, 13))}
-                    .max=${defaultDateAdapter.toIso8601(new Date(2023, 1, 17))}
-                    .selected=${new Date(2023, 0, 20)}
-                    .dateFilter=${fn.dateFilter}
-                  >
-                    ${repeat(new Array(31), (_, index) => {
-                      return createDay(
-                        defaultDateAdapter.toIso8601(new Date(`2023-01-${index + 1}`)),
-                      );
-                    })}
-                    ${wide
-                      ? repeat(new Array(28), (_, index) => {
-                          return createDay(
-                            defaultDateAdapter.toIso8601(new Date(`2023-02-${index + 1}`)),
-                          );
-                        })
-                      : nothing}
-                  </sbb-calendar-enhanced>
-                `);
-              }),
-            );
-          }
-
-          for (const view of ['year', 'month']) {
-            it(
-              `view=${view}`,
-              visualDiffDefault.with(async (setup) => {
-                await setup.withFixture(html`
-                  <sbb-calendar-enhanced
-                    orientation=${orientation}
-                    view=${view}
-                    ?wide=${wide}
-                    .selected=${new Date(2023, 0, 20)}
-                  >
-                    ${repeat(new Array(31), (_, index) => {
-                      return createDay(
-                        defaultDateAdapter.toIso8601(new Date(`2023-01-${index + 1}`)),
-                      );
-                    })}
-                    ${wide
-                      ? repeat(new Array(28), (_, index) => {
-                          return createDay(
-                            defaultDateAdapter.toIso8601(new Date(`2023-02-${index + 1}`)),
-                          );
-                        })
-                      : nothing}
-                  </sbb-calendar-enhanced>
-                `);
-              }),
-            );
-          }
-        });
-      }
     });
   }
 });
