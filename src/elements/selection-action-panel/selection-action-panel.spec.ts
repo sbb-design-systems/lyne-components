@@ -11,6 +11,7 @@ import { SbbSelectionActionPanelElement } from './selection-action-panel.compone
 
 import '../link/block-link-button.ts';
 import '../button/secondary-button.ts';
+import '../card/card-badge.ts';
 
 describe(`sbb-selection-action-panel`, () => {
   let elements: SbbSelectionActionPanelElement[];
@@ -219,6 +220,23 @@ describe(`sbb-selection-action-panel`, () => {
         await waitForLitRender(wrapper);
 
         expect(firstPanel).to.match(`:state(size-s)`);
+      });
+
+      it('panel should have aria-description if badge is used', async () => {
+        const tagSingle = unsafeStatic(`sbb-${inputType}-panel`);
+        /* eslint-disable lit/binding-positions */
+        const panel = await fixture(html`
+          <sbb-selection-action-panel>
+            <${tagSingle} value="Value one" size="m">Value one</${tagSingle}>
+            <sbb-secondary-button size="m" icon-name="arrow-right-small">
+            </sbb-secondary-button>
+            <sbb-card-badge>ab CHF 26.50</sbb-card-badge>
+          </sbb-selection-action-panel>
+        `);
+        /* eslint-enable lit/binding-positions */
+        firstInput = panel.querySelector(`sbb-${inputType}-panel`)!;
+        expect(firstInput.ariaDescription).not.to.be.null;
+        expect(firstInput.ariaDescription).to.be.equal('ab CHF 26.50');
       });
     });
   }

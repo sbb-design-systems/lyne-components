@@ -4,6 +4,7 @@ export const snapshots = {};
 snapshots["sbb-selection-action-panel renders DOM"] = 
 `<sbb-selection-action-panel>
   <sbb-checkbox-panel
+    aria-description="%"
     color="white"
     size="m"
     tabindex="0"
@@ -54,6 +55,7 @@ snapshots["sbb-selection-action-panel renders A11y tree Chrome"] =
     {
       "role": "checkbox",
       "name": "​ Value one Subtext",
+      "description": "%",
       "checked": false
     },
     {
@@ -78,7 +80,8 @@ snapshots["sbb-selection-action-panel renders A11y tree Firefox"] =
     },
     {
       "role": "checkbox",
-      "name": "​ Value one Subtext"
+      "name": "​ Value one Subtext",
+      "description": "%"
     },
     {
       "role": "button",

@@ -1,8 +1,11 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, queryAssignedElements } from 'lit/decorators.js';
 
+import type { SbbCardBadgeElement } from '../card.ts';
+import type { SbbCheckboxPanelElement } from '../checkbox/checkbox-panel/checkbox-panel.component.ts';
 import { SbbHydrationMixin, SbbSelectionPanelMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbRadioButtonPanelElement } from '../radio-button/radio-button-panel/radio-button-panel.component.ts';
 
 import style from './selection-action-panel.scss?lit&inline';
 
@@ -18,6 +21,12 @@ export
 class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
+  @queryAssignedElements({ slot: 'badge' })
+  private accessor _badgeElement!: SbbCardBadgeElement[];
+
+  @queryAssignedElements({ flatten: true })
+  private accessor _panelElement!: HTMLElement[];
+
   public override connectedCallback(): void {
     super.connectedCallback();
 
@@ -27,13 +36,26 @@ class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydration
     );
   }
 
+  private _handleSlotchange(): void {
+    if (this._badgeElement.length > 0) {
+      const badgeContent = this._badgeElement[0].innerText;
+      const panel = this._panelElement.find(
+        (panel) =>
+          panel.localName === 'sbb-radio-button-panel' || panel.localName === 'sbb-checkbox-panel',
+      ) as SbbCheckboxPanelElement | SbbRadioButtonPanelElement;
+      if (badgeContent && panel && !panel.ariaDescription) {
+        panel.ariaDescription = badgeContent;
+      }
+    }
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-selection-action-panel__badge">
-        <slot name="badge"></slot>
+        <slot name="badge" @slotchange=${this._handleSlotchange}></slot>
       </div>
       <div class="sbb-selection-action-panel">
-        <slot></slot>
+        <slot @slotchange=${this._handleSlotchange}></slot>
       </div>
     `;
   }
