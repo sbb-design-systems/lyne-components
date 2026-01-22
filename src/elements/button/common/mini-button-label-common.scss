@@ -15,7 +15,7 @@ $icon-only: ':where(:state(slotted-icon), :state(has-icon-name)):not(:state(slot
   --sbb-mini-button-label-height: unset;
 }
 
-.sbb-mini-button {
+.sbb-action-base {
   height: var(--sbb-mini-button-label-height);
   gap: var(--sbb-mini-button-gap);
   align-items: center;

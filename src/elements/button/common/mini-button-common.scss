@@ -88,6 +88,8 @@ $active: ':active, :state(active)';
   cursor: var(--sbb-mini-button-cursor, var(--sbb-cursor-pointer));
   transition: color var(--sbb-mini-button-transition-duration)
     var(--sbb-mini-button-transition-easing-function);
+  text-decoration: none;
+  outline: none;
 
   // Renders background in the background absolute to enable the hover animation
   &::before {
@@ -100,8 +102,11 @@ $active: ':active, :state(active)';
     transition-timing-function: var(--sbb-mini-button-transition-easing-function);
     transition-property: inset, background-color;
     border: var(--sbb-mini-button-border);
+  }
 
-    :host(:is(:state(focus-visible), :focus-visible)) & {
+  &:focus-visible,
+  :host(:is(:state(focus-visible), :focus-visible)) & {
+    &::before {
       @include sbb.focus-outline;
     }
   }
