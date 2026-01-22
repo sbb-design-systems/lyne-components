@@ -18,6 +18,10 @@
   }
 }
 
+:host(:not(:state(slotted-image))) {
+  --sbb-lead-container-image-overlap: 0;
+}
+
 .sbb-lead-container {
   padding-block: var(--sbb-lead-container-padding-block);
 }
