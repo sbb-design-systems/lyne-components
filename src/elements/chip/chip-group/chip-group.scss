@@ -2,6 +2,8 @@
 
 :host {
   --sbb-chip-group-input-min-width: #{sbb.px-to-rem-build(150)};
+  --_sbb-chip-group-margin-block-start-default: #{sbb.px-to-rem-build(2)};
+  --_sbb-chip-group-margin-block-start-default-large: #{sbb.px-to-rem-build(3.5)};
 
   max-width: 100%; // Needed for the ellipsis on chips to work
 }
@@ -23,10 +25,10 @@
 }
 
 :host(:is(:state(size-l), :state(size-m))) {
-  --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(2)} 0;
+  --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default) var(0);
 
   @include sbb.mq($from: large) {
-    --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(3.5)} 0;
+    --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default-large) var(0);
   }
 }
 
@@ -39,26 +41,32 @@
 }
 
 :host(:not(:state(without-label)):state(size-m):not(:state(empty))) {
-  --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(2)} #{sbb.px-to-rem-build(3.5)};
+  --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default)
+    var(--_sbb-chip-group-margin-block-start-default-large);
 
   @include sbb.mq($from: large) {
-    --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(3.5)} #{sbb.px-to-rem-build(3.5)};
+    --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default-large)
+      var(--_sbb-chip-group-margin-block-start-default-large);
   }
 }
 
 :host(:state(without-label):state(size-l):not(:state(empty))) {
-  --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(2)} #{sbb.px-to-rem-build(16)};
+  --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default)
+    #{sbb.px-to-rem-build(16)};
 
   @include sbb.mq($from: large) {
-    --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(3.5)} #{sbb.px-to-rem-build(20)};
+    --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default-large)
+      #{sbb.px-to-rem-build(20)};
   }
 }
 
 :host(:not(:state(without-label)):state(size-l):not(:state(empty))) {
-  --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(2)} #{sbb.px-to-rem-build(7.5)};
+  --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default)
+    #{sbb.px-to-rem-build(7.5)};
 
   @include sbb.mq($from: large) {
-    --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(3.5)} #{sbb.px-to-rem-build(7.5)};
+    --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default-large)
+      #{sbb.px-to-rem-build(7.5)};
   }
 }
 
