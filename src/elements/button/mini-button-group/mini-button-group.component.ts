@@ -25,7 +25,11 @@ class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   SbbNamedSlotListMixin<SbbMiniButtonElement, typeof LitElement>(LitElement),
 ) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
-  protected override readonly listChildLocalNames = ['sbb-mini-button', 'sbb-divider'];
+  protected override readonly listChildLocalNames = [
+    'sbb-mini-button',
+    'sbb-mini-button-link',
+    'sbb-divider',
+  ];
 
   /** This will be forwarded as aria-label to the list that contains the buttons. */
   @forceType()
@@ -48,7 +52,7 @@ class SbbMiniButtonGroupElement extends SbbNegativeMixin(
 
   private _proxyNegative(): void {
     this.querySelectorAll?.<SbbDividerElement | SbbMiniButtonElement>(
-      'sbb-divider, sbb-mini-button',
+      'sbb-divider, sbb-mini-button, sbb-mini-button-link',
     ).forEach((e) => (e.negative = this.negative));
   }
 

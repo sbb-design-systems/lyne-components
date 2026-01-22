@@ -1,6 +1,6 @@
 The `sbb-mini-button` component provides the same functionality as a native icon-only `<button>` enhanced with the SBB Design.
 It's mainly designed to be used within the [sbb-form-field](/docs/elements-sbb-form-field-sbb-form-field--docs)
-in the `prefix` or `suffix` slot.
+in the `prefix` or `suffix` slot or in the `sbb-mini-button-group`.
 
 ```html
 <sbb-mini-button icon-name="pen-small"></sbb-mini-button>
