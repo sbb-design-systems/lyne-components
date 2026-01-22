@@ -10,6 +10,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
 import { SbbLanguageController, SbbPropertyWatcherController } from '../../core/controllers.ts';
+import { isLean } from '../../core/dom/lean-context.ts';
 import { i18nChipGroupInputDescription, i18nSelectionRequired } from '../../core/i18n.ts';
 import {
   type FormRestoreReason,
@@ -129,7 +130,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
 
     this.addController(
       new SbbPropertyWatcherController(this, () => this.closest('sbb-form-field'), {
-        size: (formField) => this._inheritSize(formField.size),
+        size: (formField) => this._updateSize(formField.size),
         label: (formField) => this._updateLabelState(formField),
         hiddenLabel: (formField) => this._updateLabelState(formField),
       }),
@@ -235,6 +236,11 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
         attributes: true,
         attributeFilter: ['readonly', 'disabled'],
       });
+    }
+
+    // Inherit size from the form-field and observe for changes
+    if (!this._previousSize || !this.closest('sbb-form-field')) {
+      this._updateSize(isLean() ? 's' : 'm');
     }
 
     this.toggleState('empty', this.value.length === 0);
@@ -411,7 +417,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
     });
   }
 
-  private _inheritSize(size: SbbFormFieldElement['size']): void {
+  private _updateSize(size: SbbFormFieldElement['size']): void {
     if (this._previousSize) {
       this.internals.states.delete(`size-${this._previousSize}`);
     }
