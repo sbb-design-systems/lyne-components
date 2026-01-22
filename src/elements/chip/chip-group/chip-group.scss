@@ -15,15 +15,56 @@
 }
 
 :host(:state(without-label):state(size-s):not(:state(empty))) {
-  --sbb-chip-group-margin-block: 0 #{sbb.px-to-rem-build(5)};
+  --sbb-chip-group-margin-block: 0 #{sbb.px-to-rem-build(7)};
 
   @include sbb.mq($from: large) {
-    --sbb-chip-group-margin-block: 0 #{sbb.px-to-rem-build(3)};
+    --sbb-chip-group-margin-block: 0 #{sbb.px-to-rem-build(5)};
+  }
+}
+
+:host(:is(:state(size-l), :state(size-m))) {
+  --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(2)} 0;
+
+  @include sbb.mq($from: large) {
+    --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(3.5)} 0;
+  }
+}
+
+:host(:state(without-label):state(size-m):not(:state(empty))) {
+  --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(3)} #{sbb.px-to-rem-build(11)};
+
+  @include sbb.mq($from: large) {
+    --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(3)} #{sbb.px-to-rem-build(14)};
+  }
+}
+
+:host(:not(:state(without-label)):state(size-m):not(:state(empty))) {
+  --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(2)} #{sbb.px-to-rem-build(3.5)};
+
+  @include sbb.mq($from: large) {
+    --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(3.5)} #{sbb.px-to-rem-build(3.5)};
+  }
+}
+
+:host(:state(without-label):state(size-l):not(:state(empty))) {
+  --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(2)} #{sbb.px-to-rem-build(16)};
+
+  @include sbb.mq($from: large) {
+    --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(3.5)} #{sbb.px-to-rem-build(20)};
+  }
+}
+
+:host(:not(:state(without-label)):state(size-l):not(:state(empty))) {
+  --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(2)} #{sbb.px-to-rem-build(7.5)};
+
+  @include sbb.mq($from: large) {
+    --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(3.5)} #{sbb.px-to-rem-build(7.5)};
   }
 }
 
 ::slotted(input) {
   flex: 1 1 var(--sbb-chip-group-input-min-width);
+  max-height: #{sbb.px-to-rem-build(24)};
 }
 
 ::slotted(sbb-chip) {

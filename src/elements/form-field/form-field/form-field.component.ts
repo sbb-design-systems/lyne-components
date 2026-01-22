@@ -160,7 +160,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     return this._input;
   }
 
-  /** Reference to the slotted label */
+  /** Reference to the slotted label. */
   public get label(): HTMLLabelElement | null {
     return this._label;
   }

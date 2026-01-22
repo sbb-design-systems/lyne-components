@@ -130,12 +130,14 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
     this.addController(
       new SbbPropertyWatcherController(this, () => this.closest('sbb-form-field'), {
         size: (formField) => this._inheritSize(formField.size),
-        label: (formField) => {
-          console.log(!formField.label, formField.label);
-          this.toggleState('without-label', !formField.label);
-        },
+        label: (formField) => this._updateLabelState(formField),
+        hiddenLabel: (formField) => this._updateLabelState(formField),
       }),
     );
+  }
+
+  private _updateLabelState(formField: SbbFormFieldElement): void {
+    this.toggleState('without-label', !formField.label || formField.hiddenLabel);
   }
 
   public override connectedCallback(): void {

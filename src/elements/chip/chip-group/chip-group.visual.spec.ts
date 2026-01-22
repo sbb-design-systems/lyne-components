@@ -99,19 +99,33 @@ describe('sbb-chip-group', () => {
           await setup.withFixture(template({ size: size, disableLabel: true, chipCount: 1 }));
         }),
       );
+
+      it(
+        'hidden label',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template({ hiddenLabel: true }));
+        }),
+      );
+
+      it(
+        'hidden label three rows',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template({ hiddenLabel: true, chipCount: 7 }));
+        }),
+      );
+
+      it(
+        'three rows',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template({ chipCount: 7 }));
+        }),
+      );
     }
 
     it(
       'long chip',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ longLabel: true }), { maxWidth: '300px' });
-      }),
-    );
-
-    it(
-      'hidden label',
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template({ hiddenLabel: true }));
       }),
     );
 
