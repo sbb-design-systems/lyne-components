@@ -1,0 +1,7 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  @include sbb.if-forced-colors {
+    --sbb-mini-button-color: LinkText !important;
+  }
+}

@@ -9,3 +9,4 @@ export { default as buttonSecondaryStyle } from './common/secondary-button.scss?
 export { default as buttonAccentStyle } from './common/accent-button.scss?lit&inline';
 export { default as buttonTransparentStyle } from './common/transparent-button.scss?lit&inline';
 export { default as miniButtonStyle } from './common/mini-button-common.scss?lit&inline';
+export { default as miniButtonLabelStyle } from './common/mini-button-label-common.scss?lit&inline';

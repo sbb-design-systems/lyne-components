@@ -5,6 +5,7 @@ import type { Context } from 'mocha';
 
 import {
   fixture,
+  sbbBreakpointLargeMinPx,
   sbbBreakpointSmallMinPx,
   sbbBreakpointUltraMinPx,
   tabKey,
@@ -135,6 +136,31 @@ describe(`sbb-navigation-section`, () => {
     element.trigger = null;
     await waitForLitRender(element);
     expect(trigger.ariaHasPopup).to.be.null;
+  });
+
+  it('add and remove inert on navigation content when switching breakpoints', async function () {
+    // Flaky on Webkit
+    this.retries(3);
+
+    element.open();
+    await waitForLitRender(element);
+
+    await waitForCondition(() => element.matches(':state(state-opened)'));
+    expect(element).to.match(':state(state-opened)');
+
+    await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
+    await aTimeout(30);
+    expect(
+      root.shadowRoot!.querySelector<HTMLElement>('.sbb-navigation__content')!.inert,
+      'large viewport',
+    ).to.be.false;
+
+    await setViewport({ width: sbbBreakpointSmallMinPx, height: 600 });
+    await aTimeout(30);
+    expect(
+      root.shadowRoot!.querySelector<HTMLElement>('.sbb-navigation__content')!.inert,
+      'small viewport',
+    ).to.be.true;
   });
 
   describe('on desktop viewport', () => {

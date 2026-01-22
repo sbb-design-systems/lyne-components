@@ -18,7 +18,7 @@ import { SbbOpenCloseBaseElement } from '../../core/base-elements/open-close-bas
 import {
   SbbLanguageController,
   SbbMediaMatcherController,
-  SbbMediaQueryBreakpointLargeAndBelow,
+  SbbMediaQueryBreakpointSmallAndBelow,
 } from '../../core/controllers.ts';
 import { forceType, idReference, omitEmptyConverter } from '../../core/decorators.ts';
 import { isZeroAnimationDuration } from '../../core/dom.ts';
@@ -98,7 +98,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   private _focusTrapController = new SbbFocusTrapController(this);
   private _lastKeydownEvent: KeyboardEvent | null = null;
   private _mediaMatcherController = new SbbMediaMatcherController(this, {
-    [SbbMediaQueryBreakpointLargeAndBelow]: (matches) => {
+    [SbbMediaQueryBreakpointSmallAndBelow]: (matches) => {
       if (this.state !== 'closed') {
         this._setNavigationInert(matches);
       }
@@ -304,7 +304,7 @@ class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   }
 
   private _isBelowLarge(): boolean {
-    return this._mediaMatcherController.matches(SbbMediaQueryBreakpointLargeAndBelow) ?? false;
+    return this._mediaMatcherController.matches(SbbMediaQueryBreakpointSmallAndBelow) ?? false;
   }
 
   // Closes the navigation on "Esc" key pressed.
