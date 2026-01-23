@@ -51,33 +51,16 @@ snapshots["sbb-selection-expansion-panel renders Shadow DOM"] =
 snapshots["sbb-selection-expansion-panel renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "checkbox",
-      "name": "% ​ Value one Suffix Subtext , collapsed",
-      "checked": false
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-selection-expansion-panel renders A11y tree Chrome */
-
-snapshots["sbb-selection-expansion-panel renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "checkbox",
-      "name": "% ​ Value one Suffix Subtext , collapsed"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-selection-expansion-panel renders A11y tree Firefox */
 

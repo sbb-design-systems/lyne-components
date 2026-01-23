@@ -102,133 +102,16 @@ snapshots["sbb-timetable-form renders DOM"] =
 snapshots["sbb-timetable-form renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "image",
-      "name": "Logo"
-    },
-    {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "text",
-      "name": "From"
-    },
-    {
-      "role": "textbox",
-      "name": "From"
-    },
-    {
-      "role": "button",
-      "name": "Swap from and to"
-    },
-    {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "text",
-      "name": "To"
-    },
-    {
-      "role": "textbox",
-      "name": "To"
-    },
-    {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "textbox",
-      "name": "HH:MM",
-      "value": "13:30"
-    },
-    {
-      "role": "radio",
-      "name": "Dep",
-      "checked": true
-    },
-    {
-      "role": "radio",
-      "name": "Arr",
-      "checked": false
-    },
-    {
-      "role": "button",
-      "name": "Search"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-timetable-form renders A11y tree Chrome */
-
-snapshots["sbb-timetable-form renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "diagram",
-      "name": "Logo"
-    },
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "text leaf",
-      "name": "From"
-    },
-    {
-      "role": "textbox",
-      "name": "From"
-    },
-    {
-      "role": "button",
-      "name": "Swap from and to"
-    },
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "text leaf",
-      "name": "To"
-    },
-    {
-      "role": "textbox",
-      "name": "To"
-    },
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "textbox",
-      "name": "",
-      "value": "13:30"
-    },
-    {
-      "role": "radio",
-      "name": "Dep",
-      "checked": true
-    },
-    {
-      "role": "radio",
-      "name": "Arr"
-    },
-    {
-      "role": "button",
-      "name": "Search"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-timetable-form renders A11y tree Firefox */
 

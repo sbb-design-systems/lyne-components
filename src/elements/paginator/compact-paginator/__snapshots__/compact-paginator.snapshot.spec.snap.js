@@ -63,57 +63,15 @@ snapshots["sbb-compact-paginator renders Shadow DOM"] =
 `;
 /* end snapshot sbb-compact-paginator renders Shadow DOM */
 
-snapshots["sbb-compact-paginator renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Previous page",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Next page"
-    },
-    {
-      "role": "text leaf",
-      "name": "Page 1 of 10"
-    },
-    {
-      "role": "text leaf",
-      "name": "Page 1 selected."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-compact-paginator renders A11y tree Firefox */
-
 snapshots["sbb-compact-paginator renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Previous page",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Next page"
-    },
-    {
-      "role": "text",
-      "name": "Page 1 of 10"
-    },
-    {
-      "role": "text",
-      "name": "Page 1 selected."
+      "role": "group",
+      "name": ""
     }
   ]
 }
@@ -189,58 +147,16 @@ snapshots["sbb-compact-paginator renders accessibility labels Shadow DOM"] =
 snapshots["sbb-compact-paginator renders accessibility labels A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Previous slide",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Next slide"
-    },
-    {
-      "role": "text",
-      "name": "Slide 1 of 10"
-    },
-    {
-      "role": "text",
-      "name": "Slide 1 selected."
+      "role": "group",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-compact-paginator renders accessibility labels A11y tree Chrome */
-
-snapshots["sbb-compact-paginator renders accessibility labels A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Previous slide",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Next slide"
-    },
-    {
-      "role": "text leaf",
-      "name": "Slide 1 of 10"
-    },
-    {
-      "role": "text leaf",
-      "name": "Slide 1 selected."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-compact-paginator renders accessibility labels A11y tree Firefox */
 

@@ -62,40 +62,106 @@ snapshots["sbb-accordion renders Shadow DOM"] =
 snapshots["sbb-accordion renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Header 1"
-    },
-    {
-      "role": "button",
-      "name": "Header 2"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none",
+                      "children": [
+                        {
+                          "role": "button",
+                          "name": "Header 1",
+                          "invalid": false,
+                          "focusable": true,
+                          "expanded": false
+                        }
+                      ]
+                    },
+                    {
+                      "ignored": true,
+                      "role": "none",
+                      "children": [
+                        {
+                          "ignored": true,
+                          "role": "none",
+                          "children": [
+                            {
+                              "ignored": true,
+                              "role": "none"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none",
+                      "children": [
+                        {
+                          "role": "button",
+                          "name": "Header 2",
+                          "invalid": false,
+                          "focusable": true,
+                          "expanded": false
+                        }
+                      ]
+                    },
+                    {
+                      "ignored": true,
+                      "role": "none",
+                      "children": [
+                        {
+                          "ignored": true,
+                          "role": "none",
+                          "children": [
+                            {
+                              "ignored": true,
+                              "role": "none"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-accordion renders A11y tree Chrome */
-
-snapshots["sbb-accordion renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Header 1"
-    },
-    {
-      "role": "button",
-      "name": "Header 2"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-accordion renders A11y tree Firefox */
 

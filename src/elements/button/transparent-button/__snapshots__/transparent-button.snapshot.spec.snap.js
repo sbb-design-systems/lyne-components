@@ -58,32 +58,18 @@ snapshots["sbb-transparent-button renders a sbb-transparent-button with slotted 
 snapshots["sbb-transparent-button renders a sbb-transparent-button with slotted icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Label Text"
+      "name": "Label Text",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-transparent-button renders a sbb-transparent-button with slotted icon A11y tree Chrome */
-
-snapshots["sbb-transparent-button renders a sbb-transparent-button with slotted icon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Label Text"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-transparent-button renders a sbb-transparent-button with slotted icon A11y tree Firefox */
 

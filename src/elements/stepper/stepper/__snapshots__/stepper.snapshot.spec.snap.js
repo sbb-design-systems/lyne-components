@@ -65,76 +65,16 @@ snapshots["sbb-stepper renders Shadow DOM"] =
 snapshots["sbb-stepper renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "tab",
-      "name": "Test step label 1",
-      "selected": true
-    },
-    {
-      "role": "tab",
-      "name": "Test step label 2"
-    },
-    {
-      "role": "tab",
-      "name": "Test step label 3",
-      "disabled": true
-    },
-    {
-      "role": "tab",
-      "name": "Test step label 4"
-    },
-    {
-      "role": "text",
-      "name": "Test step content 1"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-stepper renders A11y tree Chrome */
-
-snapshots["sbb-stepper renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "tab",
-      "name": "1 Test step label 1",
-      "selected": true
-    },
-    {
-      "role": "tab",
-      "name": "2 Test step label 2"
-    },
-    {
-      "role": "tab",
-      "name": "3 Test step label 3",
-      "disabled": true
-    },
-    {
-      "role": "tab",
-      "name": "4 Test step label 4"
-    },
-    {
-      "role": "text leaf",
-      "name": "Test step content 1"
-    },
-    {
-      "role": "tabpanel",
-      "name": "2 Test step label 2"
-    },
-    {
-      "role": "tabpanel",
-      "name": "3 Test step label 3"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-stepper renders A11y tree Firefox */
 

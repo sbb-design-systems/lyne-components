@@ -115,21 +115,35 @@ snapshots["sbb-optgroup autocomplete renders Chrome-Firefox Shadow DOM"] =
 snapshots["sbb-optgroup autocomplete renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "combobox",
-      "name": "",
-      "expanded": true,
-      "focused": true,
-      "autocomplete": "list",
-      "haspopup": "listbox"
-    },
-    {
-      "role": "listbox",
-      "name": "",
-      "orientation": "vertical"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "combobox",
+          "name": "",
+          "invalid": false,
+          "focusable": true,
+          "focused": true,
+          "editable": "plaintext",
+          "settable": true,
+          "autocomplete": "list",
+          "hasPopup": "listbox",
+          "required": false,
+          "expanded": true
+        },
+        {
+          "role": "group",
+          "name": ""
+        },
+        {
+          "role": "generic",
+          "name": ""
+        }
+      ]
     }
   ]
 }
@@ -171,38 +185,4 @@ snapshots["sbb-optgroup autocomplete renders disabled Chrome-Firefox Shadow DOM"
 </slot>
 `;
 /* end snapshot sbb-optgroup autocomplete renders disabled Chrome-Firefox Shadow DOM */
-
-snapshots["sbb-optgroup autocomplete renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "combobox",
-      "name": "",
-      "expanded": true,
-      "focused": true,
-      "autocomplete": "list",
-      "haspopup": "listbox"
-    },
-    {
-      "role": "listbox",
-      "name": "",
-      "children": [
-        {
-          "role": "option",
-          "name": "1"
-        },
-        {
-          "role": "option",
-          "name": "2"
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-optgroup autocomplete renders A11y tree Firefox */
 

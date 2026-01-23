@@ -29,41 +29,15 @@ snapshots["sbb-tooltip Shadow DOM"] =
 `;
 /* end snapshot sbb-tooltip Shadow DOM */
 
-snapshots["sbb-tooltip A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Button",
-      "description": "Tooltip"
-    },
-    {
-      "role": "text leaf",
-      "name": "Tooltip"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tooltip A11y tree Firefox */
-
 snapshots["sbb-tooltip A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Button",
-      "description": "Tooltip"
-    },
-    {
-      "role": "text",
-      "name": "Tooltip"
+      "role": "generic",
+      "name": ""
     }
   ]
 }

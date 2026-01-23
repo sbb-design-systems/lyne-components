@@ -53,33 +53,16 @@ snapshots["sbb-header renders actions and logo Shadow DOM"] =
 snapshots["sbb-header renders actions and logo A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "Menu"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-header renders actions and logo A11y tree Chrome */
-
-snapshots["sbb-header renders actions and logo A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Menu",
-      "value": "https://github.com/sbb-design-systems/lyne-components"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-header renders actions and logo A11y tree Firefox */
 

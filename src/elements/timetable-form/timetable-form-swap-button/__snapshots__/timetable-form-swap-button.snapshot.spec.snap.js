@@ -27,32 +27,18 @@ snapshots["sbb-timetable-form-swap-button renders Shadow DOM"] =
 snapshots["sbb-timetable-form-swap-button renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Swap from and to"
+      "name": "Swap from and to",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-timetable-form-swap-button renders A11y tree Chrome */
-
-snapshots["sbb-timetable-form-swap-button renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Swap from and to"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-timetable-form-swap-button renders A11y tree Firefox */
 

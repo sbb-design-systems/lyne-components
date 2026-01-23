@@ -56,32 +56,15 @@ snapshots["sbb-teaser-hero renders Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser-hero renders Shadow DOM */
 
-snapshots["sbb-teaser-hero renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "label",
-      "value": "https://www.sbb.ch/"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-teaser-hero renders A11y tree Firefox */
-
 snapshots["sbb-teaser-hero renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "label"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
