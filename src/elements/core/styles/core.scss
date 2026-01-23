@@ -17,6 +17,9 @@ $theme: 'standard' !default;
 @use '../../breadcrumb/breadcrumb/breadcrumb.global' as breadcrumb with (
   $theme: $theme
 );
+@use '../../breadcrumb/breadcrumb-group/breadcrumb-group.global' as breadcrumb-group with (
+  $theme: $theme
+);
 @use '../../card/card/card.global' as card with (
   $theme: $theme
 );
@@ -72,6 +75,7 @@ $theme: 'standard' !default;
   @include sbb-css-tokens.base;
 
   @include breadcrumb.base;
+  @include breadcrumb-group.base;
   @include card.base;
   @include card-badge.base;
   @include panel-common.base;
