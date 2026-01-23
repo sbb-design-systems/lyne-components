@@ -2,8 +2,6 @@
 
 :host {
   display: flex;
-
-  --sbb-breadcrumb-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
 }
 
 @include sbb.hover-mq($hover: true) {
@@ -19,7 +17,6 @@
 .sbb-breadcrumb {
   --sbb-link-text-decoration-line: none;
 
-  @include sbb.text-xs--regular;
   @include sbb.link-base;
 
   display: flex;
@@ -29,10 +26,8 @@
   align-items: center;
   overflow: hidden;
   outline: none;
-
-  @include sbb.if-forced-colors {
-    --sbb-breadcrumb-color: ButtonText;
-  }
+  font-size: var(--sbb-breadcrumb-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 
   &:focus-visible {
     @include sbb.focus-outline;

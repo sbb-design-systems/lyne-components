@@ -1,0 +1,12 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-breadcrumb-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
+  --sbb-breadcrumb-font-size: var(--sbb-text-font-size-xs);
+}
+
+@mixin base-forced-colors {
+  --sbb-breadcrumb-color: ButtonText;
+}
