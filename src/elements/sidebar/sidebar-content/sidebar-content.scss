@@ -1,4 +1,4 @@
-@use '../../core/styles/index' as sbb;
+@use '../../core/styles' as sbb;
 
 :host {
   // The variables have to be set to `initial`. Otherwise, in nested containers,
