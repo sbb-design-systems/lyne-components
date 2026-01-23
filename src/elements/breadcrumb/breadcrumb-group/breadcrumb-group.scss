@@ -33,7 +33,6 @@
 
 #sbb-breadcrumb-ellipsis {
   @include sbb.button-reset;
-  @include sbb.text-xxs--regular;
 
   // line height and letter-spacing needed to match squares drawn in Figma.
   line-height: 0;
