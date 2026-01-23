@@ -5,35 +5,21 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: var(--sbb-spacing-fixed-2x);
+  column-gap: var(--sbb-spacing-fixed-2x);
   overflow: hidden;
   line-height: normal;
   color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
 
   // TIMO-44215
-  // decrease gap when three wide service-icons are combined
-  &:has(> :nth-child(4)) {
-    &:has(
-      [name='SILENCE'],
-      [name='SILENCE_ICON'],
-      [name='SILENCE_AREA_ICON'],
-      [name='BUSINESS'],
-      [name='BUSINESS_COMFORT'],
-      [name='BUSINESS_ICON']
-    ) {
-      gap: sbb-sr-functions.sr-px-to-rem(6);
+  // decrease column-gap when three wide service-icons are combined
+  &:has(:nth-child(n + 3 of .auto-width)) {
+    // adjustment for silence- and business-icons
+    &:has([name^='SILENCE'], [name^='BUSINESS']) {
+      column-gap: sbb-sr-functions.sr-px-to-rem(6);
 
-      &:has(
-        [name='BICYCLE'],
-        [name='BICYCLE_ICON'],
-        [name='BICYCLE_LOW'],
-        [name='BICYCLE_MIDDLE'],
-        [name='BICYCLE_HIGH'],
-        [name='BICYLCLE_LOW_ICON'],
-        [name='BICYCLE_MIDDLE_ICON'],
-        [name='BICYCLE_HIGH_ICON']
-      ) {
-        gap: sbb-sr-functions.sr-px-to-rem(3);
+      // bicycle icon only needs further adjustment when combined with silence- and business-icons
+      &:has([name^='BICYCLE']) {
+        column-gap: sbb-sr-functions.sr-px-to-rem(3);
       }
     }
   }
