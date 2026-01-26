@@ -98,7 +98,11 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElementInternalsMixi
     super();
 
     this._state = 'closed';
-    this.addEventListener?.('toggleexpanded', () => this._toggleExpanded());
+    this.addEventListener?.('toggleexpanded', (ev: Event) => {
+      if (ev.target === this._headerRef) {
+        this._toggleExpanded();
+      }
+    });
   }
 
   public override connectedCallback(): void {
@@ -218,15 +222,13 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElementInternalsMixi
 
     /* eslint-disable lit/binding-positions */
     return html`
-      <div class="sbb-expansion-panel">
-        <${unsafeStatic(TAGNAME)} class="sbb-expansion-panel__header">
-          <slot name="header" @slotchange=${this._handleSlotchange}></slot>
-        </${unsafeStatic(TAGNAME)}>
-        <div class="sbb-expansion-panel__content-wrapper" @animationend=${this._onAnimationEnd}>
-          <span class="sbb-expansion-panel__content">
-            <slot name="content" @slotchange=${this._handleSlotchange}></slot>
-          </span>
-        </div>
+      <${unsafeStatic(TAGNAME)} class="sbb-expansion-panel__header">
+        <slot name="header" @slotchange=${this._handleSlotchange}></slot>
+      </${unsafeStatic(TAGNAME)}>
+      <div class="sbb-expansion-panel__content-wrapper" @animationend=${this._onAnimationEnd}>
+        <span class="sbb-expansion-panel__content">
+          <slot name="content" @slotchange=${this._handleSlotchange}></slot>
+        </span>
       </div>
     `;
     /* eslint-enable lit/binding-positions */

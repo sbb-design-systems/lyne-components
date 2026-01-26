@@ -44,11 +44,7 @@ class SbbExpansionPanelContentElement extends SbbElementInternalsMixin(LitElemen
   }
 
   protected override render(): TemplateResult {
-    return html`
-      <div class="sbb-expansion-panel-content">
-        <slot></slot>
-      </div>
-    `;
+    return html` <slot></slot> `;
   }
 }
 

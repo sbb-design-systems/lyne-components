@@ -52,10 +52,8 @@ snapshots["sbb-accordion renders DOM"] =
 /* end snapshot sbb-accordion renders DOM */
 
 snapshots["sbb-accordion renders Shadow DOM"] = 
-`<div class="sbb-accordion">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-accordion renders Shadow DOM */
 
