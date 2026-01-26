@@ -61,39 +61,33 @@ snapshots["sbb-mini-calendar-month renders June Shadow DOM"] =
 `;
 /* end snapshot sbb-mini-calendar-month renders June Shadow DOM */
 
-snapshots["sbb-mini-calendar-month renders January A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "January 1, 2025"
-    },
-    {
-      "role": "text leaf",
-      "name": "Jan."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-mini-calendar-month renders January A11y tree Firefox */
-
 snapshots["sbb-mini-calendar-month renders January A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "January 1, 2025"
-    },
-    {
-      "role": "text",
-      "name": "Jan."
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "button",
+              "name": "January 1, 2025",
+              "invalid": false,
+              "focusable": true
+            }
+          ]
+        },
+        {
+          "role": "generic",
+          "name": ""
+        }
+      ]
     }
   ]
 }

@@ -16,20 +16,16 @@ snapshots["sbb-screen-reader-only renders Shadow DOM"] =
 snapshots["sbb-screen-reader-only renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "generic",
+      "name": ""
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-screen-reader-only renders A11y tree Chrome */
-
-snapshots["sbb-screen-reader-only renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-screen-reader-only renders A11y tree Firefox */
 

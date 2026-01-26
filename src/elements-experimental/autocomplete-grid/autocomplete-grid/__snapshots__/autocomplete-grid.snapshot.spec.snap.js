@@ -127,43 +127,29 @@ snapshots["sbb-autocomplete-grid Safari Shadow DOM"] =
 `;
 /* end snapshot sbb-autocomplete-grid Safari Shadow DOM */
 
-snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "combobox",
-      "name": "",
-      "autocomplete": "list",
-      "haspopup": "grid"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid Chrome-Firefox A11y tree Firefox */
-
 snapshots["sbb-autocomplete-grid Chrome-Firefox A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "combobox",
-      "name": "",
-      "autocomplete": "list",
-      "haspopup": "grid"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        }
+      ]
     }
   ]
 }

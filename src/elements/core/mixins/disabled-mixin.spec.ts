@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
-import { a11ySnapshot } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbButtonBaseElement } from '../base-elements.ts';
-import { fixture } from '../testing/private.ts';
+import { isChromium } from '../dom.ts';
+import { a11yTreeSnapshot, fixture, type A11yNode } from '../testing/private.ts';
 import { waitForLitRender } from '../testing.ts';
 
 import { SbbDisabledMixin, SbbDisabledTabIndexActionMixin } from './disabled-mixin.ts';
@@ -23,28 +23,32 @@ class SbbDisabledTestElement extends SbbDisabledTabIndexActionMixin(
 describe(`SbbDisabledMixin`, () => {
   let element: SbbDisabledTestElement;
 
-  async function getA11ySnapshot(): Promise<{ disabled: boolean }> {
-    return (await a11ySnapshot({ selector: 'sbb-disabled-test' })) as unknown as {
-      disabled: boolean;
-    };
+  async function getA11ySnapshot(): Promise<A11yNode> {
+    return await a11yTreeSnapshot({ selector: 'sbb-disabled-test' });
   }
 
   async function assertDisabled(element: SbbDisabledTestElement): Promise<void> {
     expect(element.tabIndex).to.be.equal(-1);
     expect(element).not.to.have.attribute('tabindex');
-    expect((await getA11ySnapshot()).disabled).to.be.true;
+    if (isChromium) {
+      expect((await getA11ySnapshot()).disabled).to.be.true;
+    }
   }
 
   async function assertEnabled(element: SbbDisabledTestElement): Promise<void> {
     expect(element.tabIndex).to.be.equal(0);
     expect(element).to.have.attribute('tabindex', '0');
-    expect((await getA11ySnapshot()).disabled).to.be.undefined;
+    if (isChromium) {
+      expect((await getA11ySnapshot()).disabled).to.be.undefined;
+    }
   }
 
   async function assertDisabledInteractive(element: SbbDisabledTestElement): Promise<void> {
     expect(element.tabIndex).to.be.equal(0);
     expect(element).to.have.attribute('tabindex', '0');
-    expect((await getA11ySnapshot()).disabled).to.be.true;
+    if (isChromium) {
+      expect((await getA11ySnapshot()).disabled).to.be.true;
+    }
   }
 
   describe('disabled initially', () => {

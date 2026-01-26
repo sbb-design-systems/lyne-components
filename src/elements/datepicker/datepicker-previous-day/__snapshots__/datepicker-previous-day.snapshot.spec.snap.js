@@ -39,13 +39,14 @@ snapshots["sbb-datepicker-previous-day renders with connected date input Shadow 
 snapshots["sbb-datepicker-previous-day renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
       "name": "",
-      "disabled": true
+      "disabled": true,
+      "invalid": false
     }
   ]
 }
@@ -53,62 +54,19 @@ snapshots["sbb-datepicker-previous-day renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-datepicker-previous-day renders A11y tree Chrome */
 
-snapshots["sbb-datepicker-previous-day renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker-previous-day renders A11y tree Firefox */
-
 snapshots["sbb-datepicker-previous-day renders with connected date input A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Change to the previous day, currently selected December 31, 2022."
-    },
-    {
-      "role": "textbox",
-      "name": "DD.MM.YYYY",
-      "value": "Sa, 31.12.2022"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-datepicker-previous-day renders with connected date input A11y tree Chrome */
-
-snapshots["sbb-datepicker-previous-day renders with connected date input A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Change to the previous day, currently selected December 31, 2022."
-    },
-    {
-      "role": "textbox",
-      "name": "",
-      "value": "Sa, 31.12.2022"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker-previous-day renders with connected date input A11y tree Firefox */
 

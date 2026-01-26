@@ -79,31 +79,17 @@ snapshots["sbb-autocomplete-grid-optgroup renders Chrome-Firefox Shadow DOM"] =
 `;
 /* end snapshot sbb-autocomplete-grid-optgroup renders Chrome-Firefox Shadow DOM */
 
-snapshots["sbb-autocomplete-grid-optgroup A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Option 1"
-    },
-    {
-      "role": "text leaf",
-      "name": "Option 2"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-optgroup A11y tree Firefox */
-
 snapshots["sbb-autocomplete-grid-optgroup A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "group",
+      "name": "Group"
+    }
+  ]
 }
 </p>
 `;

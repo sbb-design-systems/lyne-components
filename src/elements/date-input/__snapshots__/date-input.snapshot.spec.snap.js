@@ -38,34 +38,24 @@ snapshots["sbb-date-input renders Firefox Shadow DOM"] =
 snapshots["sbb-date-input renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "textbox",
       "name": "DD.MM.YYYY",
-      "value": "We, 11.12.2024"
+      "value": "We, 11.12.2024",
+      "invalid": false,
+      "focusable": true,
+      "editable": "plaintext",
+      "settable": true,
+      "multiline": false,
+      "readonly": false,
+      "required": false
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-date-input renders A11y tree Chrome */
-
-snapshots["sbb-date-input renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "textbox",
-      "name": "",
-      "value": "We, 11.12.2024"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-date-input renders A11y tree Firefox */
 

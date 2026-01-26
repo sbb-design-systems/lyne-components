@@ -125,32 +125,45 @@ snapshots["sbb-expansion-panel renders with level set Shadow DOM"] =
 snapshots["sbb-expansion-panel renders with level set A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Header"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "heading",
+              "name": "Header",
+              "level": 4
+            },
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-expansion-panel renders with level set A11y tree Chrome */
-
-snapshots["sbb-expansion-panel renders with level set A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Header"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-expansion-panel renders with level set A11y tree Firefox */
 

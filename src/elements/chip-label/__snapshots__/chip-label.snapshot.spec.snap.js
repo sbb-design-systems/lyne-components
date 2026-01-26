@@ -24,32 +24,28 @@ snapshots["sbb-chip-label renders Shadow DOM"] =
 snapshots["sbb-chip-label renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Label"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "StaticText",
+              "name": "Label"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-chip-label renders A11y tree Chrome */
-
-snapshots["sbb-chip-label renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-chip-label renders A11y tree Firefox */
 
