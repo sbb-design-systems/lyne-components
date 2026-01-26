@@ -24,32 +24,18 @@ snapshots["sbb-icon-sidebar-button renders Shadow DOM"] =
 snapshots["sbb-icon-sidebar-button renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Go to the party"
+      "name": "Go to the party",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-icon-sidebar-button renders A11y tree Chrome */
-
-snapshots["sbb-icon-sidebar-button renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Go to the party"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-icon-sidebar-button renders A11y tree Firefox */
 

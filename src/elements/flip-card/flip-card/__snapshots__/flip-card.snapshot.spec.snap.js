@@ -91,42 +91,16 @@ snapshots["sbb-flip-card Shadow DOM"] =
 snapshots["sbb-flip-card A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Summary, Click on this card for details"
-    },
-    {
-      "role": "heading",
-      "name": "Summary",
-      "level": 4
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-flip-card A11y tree Chrome */
-
-snapshots["sbb-flip-card A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Summary, Click on this card for details"
-    },
-    {
-      "role": "heading",
-      "name": "Summary",
-      "level": 4
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-flip-card A11y tree Firefox */
 

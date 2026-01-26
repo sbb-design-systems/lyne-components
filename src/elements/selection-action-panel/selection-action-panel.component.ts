@@ -44,7 +44,7 @@ class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydration
           panel.localName === 'sbb-radio-button-panel' || panel.localName === 'sbb-checkbox-panel',
       ) as SbbCheckboxPanelElement | SbbRadioButtonPanelElement;
       if (badgeContent && panel && !panel.ariaDescription) {
-        panel.ariaDetailsElements = [badgeContent];
+        panel.ariaDescribedByElements = [badgeContent];
       }
     }
   }

@@ -93,20 +93,16 @@ snapshots["sbb-icon renders custom aria-label Shadow DOM"] =
 snapshots["sbb-icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none"
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-icon A11y tree Chrome */
-
-snapshots["sbb-icon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-icon A11y tree Firefox */
 

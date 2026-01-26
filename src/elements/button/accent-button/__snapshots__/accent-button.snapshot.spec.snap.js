@@ -58,32 +58,18 @@ snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon Shado
 snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Label Text"
+      "name": "Label Text",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-accent-button renders a sbb-accent-button with slotted icon A11y tree Chrome */
-
-snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Label Text"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-accent-button renders a sbb-accent-button with slotted icon A11y tree Firefox */
 

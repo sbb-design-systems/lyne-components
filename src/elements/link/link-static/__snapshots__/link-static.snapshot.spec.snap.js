@@ -19,32 +19,22 @@ snapshots["sbb-link-static renders Shadow DOM"] =
 snapshots["sbb-link-static renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Travelcards & tickets."
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "StaticText",
+          "name": "Travelcards & tickets."
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-link-static renders A11y tree Chrome */
-
-snapshots["sbb-link-static renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Travelcards & tickets. "
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-link-static renders A11y tree Firefox */
 

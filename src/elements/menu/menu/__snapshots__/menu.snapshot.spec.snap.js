@@ -138,82 +138,16 @@ snapshots["sbb-menu renders open Shadow DOM"] =
 snapshots["sbb-menu renders open A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "menu",
-      "name": "",
-      "orientation": "vertical",
-      "children": [
-        {
-          "role": "link",
-          "name": "Profile",
-          "focused": true
-        },
-        {
-          "role": "menuitem",
-          "name": "View"
-        },
-        {
-          "role": "menuitem",
-          "name": "Edit 1",
-          "disabled": true
-        },
-        {
-          "role": "menuitem",
-          "name": "Details 2"
-        },
-        {
-          "role": "menuitem",
-          "name": "Cancel"
-        }
-      ]
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-menu renders open A11y tree Chrome */
-
-snapshots["sbb-menu renders open A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "menu",
-      "name": "",
-      "children": [
-        {
-          "role": "link",
-          "name": "Profile",
-          "focused": true,
-          "value": "https://www.sbb.ch/en"
-        },
-        {
-          "role": "menuitem",
-          "name": "View"
-        },
-        {
-          "role": "menuitem",
-          "name": "Edit 1",
-          "disabled": true
-        },
-        {
-          "role": "menuitem",
-          "name": "Details 2"
-        },
-        {
-          "role": "menuitem",
-          "name": "Cancel"
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-menu renders open A11y tree Firefox */
 

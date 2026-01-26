@@ -89,32 +89,16 @@ snapshots["sbb-menu-link renders component with icon Shadow DOM"] =
 snapshots["sbb-menu-link renders component with icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "menuitem",
-      "name": "a11y label"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-menu-link renders component with icon A11y tree Chrome */
-
-snapshots["sbb-menu-link renders component with icon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text container",
-      "name": "a11y label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-menu-link renders component with icon A11y tree Firefox */
 

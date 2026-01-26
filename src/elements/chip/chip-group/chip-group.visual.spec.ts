@@ -23,23 +23,30 @@ const template = (
     hiddenLabel: boolean;
     floatingLabel: boolean;
     size: SbbFormFieldElement['size'];
+    disableLabel: boolean;
+    chipCount: number;
   }> = {},
-): TemplateResult => html`
-  <sbb-form-field
-    ?negative=${args.negative}
-    ?hidden-label=${args.hiddenLabel}
-    ?floating-label=${args.floatingLabel}
-    size=${args.size ?? 'm'}
-  >
-    <label>Label</label>
-    <sbb-chip-group name="chip-group-1">
-      <sbb-chip value="chip 1"></sbb-chip>
-      <sbb-chip value="chip 2"></sbb-chip>
-      <sbb-chip value=${args.longLabel ? longLabel : 'chip 3'}></sbb-chip>
-      <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
-    </sbb-chip-group>
-  </sbb-form-field>
-`;
+): TemplateResult => {
+  const chipCount = args.chipCount ?? 3;
+  return html`
+    <sbb-form-field
+      ?negative=${args.negative}
+      ?hidden-label=${args.hiddenLabel}
+      ?floating-label=${args.floatingLabel}
+      size=${args.size ?? 'm'}
+    >
+      ${!args.disableLabel ? html`<label>Label</label>` : ``}
+      <sbb-chip-group name="chip-group-1">
+        ${Array.from({ length: chipCount }, (_, i) => {
+          const isLast = i === chipCount - 1;
+          const value = isLast && args.longLabel ? longLabel : `chip ${i + 1}`;
+          return html`<sbb-chip value=${value}></sbb-chip>`;
+        })}
+        <input placeholder="Placeholder" ?disabled=${args.disabled} ?readonly=${args.readonly} />
+      </sbb-chip-group>
+    </sbb-form-field>
+  `;
+};
 
 describe('sbb-chip-group', () => {
   describeViewports({ viewports: ['zero', 'large'] }, () => {
@@ -85,19 +92,40 @@ describe('sbb-chip-group', () => {
           });
         }),
       );
+
+      it(
+        `size=${size} without label`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template({ size: size, disableLabel: true, chipCount: 1 }));
+        }),
+      );
+
+      it(
+        'hidden label',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template({ hiddenLabel: true }));
+        }),
+      );
+
+      it(
+        'hidden label three rows',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template({ hiddenLabel: true, chipCount: 7 }));
+        }),
+      );
+
+      it(
+        'three rows',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template({ chipCount: 7 }));
+        }),
+      );
     }
 
     it(
       'long chip',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ longLabel: true }), { maxWidth: '300px' });
-      }),
-    );
-
-    it(
-      'hidden label',
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template({ hiddenLabel: true }));
       }),
     );
 

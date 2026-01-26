@@ -112,56 +112,36 @@ snapshots["sbb-navigation-list should render named slots if data-ssr-child-count
 snapshots["sbb-navigation-list renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Tickets & Offers"
-    },
-    {
-      "role": "button",
-      "name": "Vacations & Recreation"
-    },
-    {
-      "role": "button",
-      "name": "Travel information"
-    },
-    {
-      "role": "button",
-      "name": "Help & Contact"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none"
+            }
+          ]
+        },
+        {
+          "role": "list",
+          "name": ""
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-navigation-list renders A11y tree Chrome */
-
-snapshots["sbb-navigation-list renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Tickets & Offers"
-    },
-    {
-      "role": "button",
-      "name": "Vacations & Recreation"
-    },
-    {
-      "role": "button",
-      "name": "Travel information"
-    },
-    {
-      "role": "button",
-      "name": "Help & Contact"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-navigation-list renders A11y tree Firefox */
 

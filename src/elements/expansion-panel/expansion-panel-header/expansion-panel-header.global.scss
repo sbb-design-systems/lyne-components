@@ -1,0 +1,41 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-expansion-panel-header-cursor: var(--sbb-cursor-pointer);
+  --sbb-expansion-panel-header-font-size: var(--sbb-text-font-size-l);
+  --sbb-expansion-panel-header-text-color: var(--sbb-color-2);
+  --sbb-expansion-panel-header-justify-content: space-between;
+  --sbb-expansion-panel-header-gap-s: var(--sbb-spacing-fixed-2x);
+  --sbb-expansion-panel-header-gap-l: var(--sbb-spacing-fixed-6x);
+  --sbb-expansion-panel-header-gap-default: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-expansion-panel-header-gap-l),
+        'lean': var(--sbb-expansion-panel-header-gap-s),
+      ),
+      $theme
+    )};
+  --sbb-expansion-panel-header-padding-block-s: var(--sbb-spacing-fixed-3x);
+  --sbb-expansion-panel-header-padding-block-l: var(--sbb-spacing-responsive-xs);
+  --sbb-expansion-panel-header-padding-block-default: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-expansion-panel-header-padding-block-l),
+        'lean': var(--sbb-expansion-panel-header-padding-block-s),
+      ),
+      $theme
+    )};
+  --sbb-expansion-panel-header-padding-inline-s: var(--sbb-spacing-fixed-5x);
+  --sbb-expansion-panel-header-padding-inline-l: var(--sbb-spacing-fixed-6x);
+  --sbb-expansion-panel-header-padding-inline-default: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-expansion-panel-header-padding-inline-l),
+        'lean': var(--sbb-expansion-panel-header-padding-inline-s),
+      ),
+      $theme
+    )};
+}
+
+@mixin base-forced-colors {
+  --sbb-expansion-panel-header-text-color: ButtonText;
+}

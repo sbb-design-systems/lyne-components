@@ -4,7 +4,7 @@ export const snapshots = {};
 snapshots["sbb-selection-action-panel renders DOM"] = 
 `<sbb-selection-action-panel>
   <sbb-checkbox-panel
-    aria-description="%"
+    aria-describedby=""
     color="white"
     size="m"
     tabindex="0"
@@ -45,21 +45,11 @@ snapshots["sbb-selection-action-panel renders Shadow DOM"] =
 snapshots["sbb-selection-action-panel renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "%"
-    },
-    {
-      "role": "checkbox",
-      "name": "​ Value one Subtext",
-      "description": "%",
-      "checked": false
-    },
-    {
-      "role": "button",
+      "role": "generic",
       "name": ""
     }
   ]
@@ -67,29 +57,4 @@ snapshots["sbb-selection-action-panel renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-selection-action-panel renders A11y tree Chrome */
-
-snapshots["sbb-selection-action-panel renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "%"
-    },
-    {
-      "role": "checkbox",
-      "name": "​ Value one Subtext",
-      "description": "%"
-    },
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-selection-action-panel renders A11y tree Firefox */
 

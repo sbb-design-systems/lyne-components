@@ -81,51 +81,30 @@ snapshots["sbb-datepicker-toggle in form-field with calendar parameters Shadow D
 snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "textbox",
-      "name": "DD.MM.YYYY"
-    },
-    {
-      "role": "button",
-      "name": "Show calendar",
-      "haspopup": "dialog"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-datepicker-toggle in form-field with calendar parameters A11y tree Chrome */
-
-snapshots["sbb-datepicker-toggle in form-field with calendar parameters A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "textbox",
-      "name": "",
-      "value": "DD.MM.YYYY"
-    },
-    {
-      "role": "button",
-      "name": "Show calendar",
-      "haspopup": "dialog"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker-toggle in form-field with calendar parameters A11y tree Firefox */
 

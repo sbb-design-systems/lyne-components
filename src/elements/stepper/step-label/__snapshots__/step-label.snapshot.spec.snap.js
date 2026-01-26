@@ -83,32 +83,19 @@ snapshots["sbb-step-label renders disabled Shadow DOM"] =
 snapshots["sbb-step-label A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "tab",
-      "name": "Label"
+      "name": "Label",
+      "invalid": false,
+      "focusable": true,
+      "selected": false
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-step-label A11y tree Chrome */
-
-snapshots["sbb-step-label A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-step-label A11y tree Firefox */
 

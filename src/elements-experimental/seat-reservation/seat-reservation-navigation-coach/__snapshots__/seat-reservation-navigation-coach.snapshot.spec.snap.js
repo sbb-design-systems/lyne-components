@@ -44,50 +44,66 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shad
 snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces.",
-      "description": "Available services: Bike area,Quiet zone"
-    },
-    {
-      "role": "text",
-      "name": "Available services: Bike area,Quiet zone"
-    },
-    {
-      "role": "text",
-      "name": "Available services:Bike area, Quiet zone"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "button",
+          "name": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces.",
+          "description": "Available services: Bike area,Quiet zone",
+          "invalid": false,
+          "focusable": true,
+          "describedby": "nav-coach-service-descriptions-0"
+        },
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "role": "generic",
+                  "name": ""
+                },
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none"
+                    }
+                  ]
+                },
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-seat-reservation-navigation-coach renders a navigation coach A11y tree Chrome */
-
-snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces.",
-      "description": "Available services: Bike area,Quiet zone"
-    },
-    {
-      "role": "text leaf",
-      "name": "Available services: Bike area,Quiet zone"
-    },
-    {
-      "role": "text leaf",
-      "name": "Available services:Bike area, Quiet zone"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-seat-reservation-navigation-coach renders a navigation coach A11y tree Firefox */
 

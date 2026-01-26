@@ -272,110 +272,18 @@ snapshots["sbb-timetable-row renders loading state Shadow DOM"] =
 snapshots["sbb-timetable-row renders defaultTrip A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Departure: 11:08, Train, IR 37, Direction Basel SBB, Arrival: 12:13, Travel time 1 Hour 15 Minutes,"
-    },
-    {
-      "role": "text",
-      "name": "Train"
-    },
-    {
-      "role": "text",
-      "name": "  "
-    },
-    {
-      "role": "text",
-      "name": "Direction Basel SBB"
-    },
-    {
-      "role": "text",
-      "name": "Departure"
-    },
-    {
-      "role": "text",
-      "name": ": "
-    },
-    {
-      "role": "text",
-      "name": "11:08"
-    },
-    {
-      "role": "text",
-      "name": "Arrival"
-    },
-    {
-      "role": "text",
-      "name": ": "
-    },
-    {
-      "role": "text",
-      "name": "12:13"
-    },
-    {
-      "role": "text",
-      "name": "Travel time 1 Hour 15 Minutes"
+      "role": "rowgroup",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-timetable-row renders defaultTrip A11y tree Chrome */
-
-snapshots["sbb-timetable-row renders defaultTrip A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Departure: 11:08, Train, IR 37, Direction Basel SBB, Arrival: 12:13, Travel time 1 Hour 15 Minutes,"
-    },
-    {
-      "role": "text leaf",
-      "name": "Train"
-    },
-    {
-      "role": "text leaf",
-      "name": "Direction Basel SBB"
-    },
-    {
-      "role": "text leaf",
-      "name": "Departure"
-    },
-    {
-      "role": "text leaf",
-      "name": ": "
-    },
-    {
-      "role": "text leaf",
-      "name": "11:08"
-    },
-    {
-      "role": "text leaf",
-      "name": "Arrival"
-    },
-    {
-      "role": "text leaf",
-      "name": ": "
-    },
-    {
-      "role": "text leaf",
-      "name": "12:13"
-    },
-    {
-      "role": "text leaf",
-      "name": "Travel time 1 Hour 15 Minutes"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-timetable-row renders defaultTrip A11y tree Firefox */
 
 snapshots["sbb-timetable-row renders trip with access leg DOM"] = 
 `<sbb-timetable-row role="rowgroup">

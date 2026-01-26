@@ -64,8 +64,15 @@ snapshots["sbb-option autocomplete renders disabled Shadow DOM"] =
 snapshots["sbb-option selected Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "option",
+      "name": "",
+      "selected": true
+    }
+  ]
 }
 </p>
 `;
@@ -84,8 +91,16 @@ snapshots["sbb-option selected Firefox"] =
 snapshots["sbb-option disabled Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "option",
+      "name": "",
+      "disabled": true,
+      "selected": false
+    }
+  ]
 }
 </p>
 `;

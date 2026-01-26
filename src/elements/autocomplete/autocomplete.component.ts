@@ -95,7 +95,9 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
     this.activeOption.setActive(true);
     this.triggerElement?.setAttribute('aria-activedescendant', this.activeOption.id);
     this.activeOption.scrollIntoView({ block: 'nearest' });
-    if (this.autoSelectActiveOption) {
+
+    // If 'autoSelectActiveOption' and is triggered from a keyboard event
+    if (this.autoSelectActiveOption && event) {
       this.onOptionArrowsSelected(this.activeOption);
     }
   }
