@@ -1,23 +1,28 @@
 @use '../../core/styles/index' as sbb;
 
 :host {
-  --sbb-chip-background-color: var(--sbb-background-color-3);
-  --sbb-chip-border: var(--sbb-border-width-1x) solid var(--sbb-chip-border-color);
-  --sbb-chip-border-color: var(--sbb-border-color-4-inverted);
-  --sbb-chip-border-radius: var(--sbb-border-radius-2x);
-  --sbb-chip-color: light-dark(var(--sbb-color-granite), var(--sbb-color-cloud));
-  --sbb-chip-color-hover: var(--sbb-color-2);
-  --sbb-chip-background-color-active: var(--sbb-background-color-1);
-  --sbb-chip-background-color-hover: var(--sbb-background-color-1);
-  --sbb-chip-height: #{sbb.px-to-rem-build(24)};
-  --sbb-chip-label-padding-inline: var(--sbb-spacing-fixed-2x);
   --sbb-chip-transition-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
 
-  outline: none !important;
-  display: inline-block;
+  display: inline-flex;
+  align-items: stretch;
+  background-color: var(--sbb-chip-background-color);
+  border-radius: var(--sbb-chip-border-radius);
+  color: var(--sbb-chip-color);
+  height: var(--sbb-chip-height);
+}
+
+:host(:focus) {
+  @include sbb.focus-outline;
+
+  // Outline overlaps the border
+  --sbb-focus-outline-offset: #{sbb.px-to-rem-build(-1)};
+
+  // Basically the focus-outline mixin is made for use with focus-visible.
+  // As we use it here with :focus, we have to ensure that the outline is not overridden when mouse or touch is in use.
+  --sbb-focus-outline-style: initial;
 }
 
 :host([negative]) {
@@ -28,26 +33,6 @@
   --sbb-chip-background-color-active: var(--sbb-background-color-1-negative);
   --sbb-chip-background-color-hover: var(--sbb-background-color-1-negative);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-}
-
-.sbb-chip {
-  background-color: var(--sbb-chip-background-color);
-  border-radius: var(--sbb-chip-border-radius);
-  color: var(--sbb-chip-color);
-  display: flex;
-  align-items: stretch;
-  height: var(--sbb-chip-height);
-
-  :host(:focus) & {
-    @include sbb.focus-outline;
-
-    // Outline overlaps the border
-    --sbb-focus-outline-offset: #{sbb.px-to-rem-build(-1)};
-
-    // Basically the focus-outline mixin is made for use with focus-visible.
-    // As we use it here with :focus, we have to ensure that the outline is not overridden when mouse or touch is in use.
-    --sbb-focus-outline-style: initial;
-  }
 }
 
 .sbb-chip__label-wrapper {
@@ -67,10 +52,11 @@
 }
 
 .sbb-chip__label {
-  @include sbb.text-xxs--regular;
   @include sbb.ellipsis;
 
   display: inline-block;
+  font-size: var(--sbb-chip-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   transition: transform var(--sbb-chip-transition-duration) var(--sbb-animation-easing);
 }
 

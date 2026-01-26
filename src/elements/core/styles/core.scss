@@ -17,6 +17,9 @@ $theme: 'standard' !default;
 @use '../../card/card/card.global' as card with (
   $theme: $theme
 );
+@use '../../chip/chip/chip.global' as chip with (
+  $theme: $theme
+);
 @use '../../card/card-badge/card-badge.global' as card-badge with (
   $theme: $theme
 );
@@ -70,6 +73,7 @@ $theme: 'standard' !default;
 
   @include card.base;
   @include card-badge.base;
+  @include chip.base;
   @include panel-common.base;
   @include checkbox.base;
   @include checkbox-group.base;
