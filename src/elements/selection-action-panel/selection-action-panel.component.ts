@@ -38,13 +38,13 @@ class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydration
 
   private _handleSlotchange(): void {
     if (this._badgeElements.length > 0) {
-      const badgeContent = this._badgeElements[0].innerText;
+      const badgeContent = this._badgeElements[0];
       const panel = this._panelElements.find(
         (panel) =>
           panel.localName === 'sbb-radio-button-panel' || panel.localName === 'sbb-checkbox-panel',
       ) as SbbCheckboxPanelElement | SbbRadioButtonPanelElement;
       if (badgeContent && panel && !panel.ariaDescription) {
-        panel.ariaDescription = badgeContent;
+        panel.ariaDetailsElements = [badgeContent];
       }
     }
   }
