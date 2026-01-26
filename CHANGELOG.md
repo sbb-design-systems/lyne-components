@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.2.0...v4.3.0) (2026-01-26)
+
+
+### Features
+
+* **sbb-mini-button-link:** add link variant of sbb-mini-button ([#4396](https://github.com/sbb-design-systems/lyne-components/issues/4396)) ([7b726e7](https://github.com/sbb-design-systems/lyne-components/commit/7b726e7e7feef3b45d7b9186096d00bed8977d55))
+
+
+### Bug Fixes
+
+* **sbb-autocomplete:** 'auto-select-active-option' only acts on user interaction ([#4413](https://github.com/sbb-design-systems/lyne-components/issues/4413)) ([e4c235e](https://github.com/sbb-design-systems/lyne-components/commit/e4c235eb31cdc3336cccb23a9c88773f4017b106))
+* **sbb-breadcrumb-group:** allow wrapping ([#4391](https://github.com/sbb-design-systems/lyne-components/issues/4391)) ([33dd3b8](https://github.com/sbb-design-systems/lyne-components/commit/33dd3b88a244a0f3d378e330a35309b02382282e))
+* **sbb-chip-group:** improve spacing when no label was slotted ([#4401](https://github.com/sbb-design-systems/lyne-components/issues/4401)) ([307c110](https://github.com/sbb-design-systems/lyne-components/commit/307c110fcabaa3c6eb59f60eb15c7470840a1c14))
+* **sbb-navigation:** fix inert state for large breakpoint ([#4403](https://github.com/sbb-design-systems/lyne-components/issues/4403)) ([8421d51](https://github.com/sbb-design-systems/lyne-components/commit/8421d519f50e54a5c798838beedb5995366eed20))
+
+
+### Code Refactoring
+
+* **sbb-action-group:** css refactoring ([#4368](https://github.com/sbb-design-systems/lyne-components/issues/4368)) ([966b907](https://github.com/sbb-design-systems/lyne-components/commit/966b9076d59f64614b046e3395fbc69272d6ea10))
+* **sbb-divider:** css refactoring ([#4384](https://github.com/sbb-design-systems/lyne-components/issues/4384)) ([ec92cce](https://github.com/sbb-design-systems/lyne-components/commit/ec92cced7819d6a7d4d9cce95e28d49ed2ebadfe))
+* **sbb-expansion-panel:** css refactoring ([#4351](https://github.com/sbb-design-systems/lyne-components/issues/4351)) ([1e6f945](https://github.com/sbb-design-systems/lyne-components/commit/1e6f945d3346c100061dde2c43dc9ba087760709))
+
 ## [4.2.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.1.0...v4.2.0) (2026-01-19)
 
 
