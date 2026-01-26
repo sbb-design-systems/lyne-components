@@ -319,48 +319,30 @@ snapshots["sbb-form-field renders select with optional flag and borderless Shado
 snapshots["sbb-form-field A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "text",
-      "name": "Fill input"
-    },
-    {
-      "role": "textbox",
-      "name": "Fill input"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-form-field A11y tree Chrome */
-
-snapshots["sbb-form-field A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "text leaf",
-      "name": "Fill input"
-    },
-    {
-      "role": "textbox",
-      "name": "Fill input"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-form-field A11y tree Firefox */
 

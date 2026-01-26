@@ -24,20 +24,16 @@ snapshots["sbb-step renders Shadow DOM"] =
 snapshots["sbb-step renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "tabpanel",
+      "name": ""
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-step renders A11y tree Chrome */
-
-snapshots["sbb-step renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-step renders A11y tree Firefox */
 

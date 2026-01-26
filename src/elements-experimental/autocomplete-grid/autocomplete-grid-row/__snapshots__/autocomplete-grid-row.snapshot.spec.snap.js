@@ -28,34 +28,14 @@ snapshots["sbb-autocomplete-grid-row renders Shadow DOM"] =
 `;
 /* end snapshot sbb-autocomplete-grid-row renders Shadow DOM */
 
-snapshots["sbb-autocomplete-grid-row A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Option 1"
-    },
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-row A11y tree Firefox */
-
 snapshots["sbb-autocomplete-grid-row A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
+      "role": "row",
       "name": ""
     }
   ]

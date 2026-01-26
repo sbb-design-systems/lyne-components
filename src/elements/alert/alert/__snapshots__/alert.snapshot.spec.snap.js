@@ -156,92 +156,86 @@ snapshots["sbb-alert A11y tree Chrome"] =
 `;
 /* end snapshot sbb-alert A11y tree Chrome */
 
-snapshots["sbb-alert A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Interruption",
-      "level": 3
-    },
-    {
-      "role": "text leaf",
-      "name": "Alert content "
-    },
-    {
-      "role": "link",
-      "name": "Find out more",
-      "value": "https://www.sbb.ch/"
-    },
-    {
-      "role": "button",
-      "name": "Close message"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-alert A11y tree Firefox */
-
 snapshots["sbb-alert should render customized properties A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "heading",
-      "name": "Interruption",
-      "level": 2
-    },
-    {
-      "role": "text",
-      "name": "Alert content Alert content "
-    },
-    {
-      "role": "link",
-      "name": "Find out more"
-    },
-    {
-      "role": "button",
-      "name": "Close message"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none",
+                      "children": [
+                        {
+                          "ignored": true,
+                          "role": "none"
+                        }
+                      ]
+                    },
+                    {
+                      "ignored": true,
+                      "role": "none",
+                      "children": [
+                        {
+                          "role": "heading",
+                          "name": "Interruption",
+                          "level": 2
+                        },
+                        {
+                          "role": "StaticText",
+                          "name": "Alert content Alert content "
+                        },
+                        {
+                          "role": "generic",
+                          "name": ""
+                        }
+                      ]
+                    },
+                    {
+                      "ignored": true,
+                      "role": "none",
+                      "children": [
+                        {
+                          "role": "separator",
+                          "name": "",
+                          "settable": true,
+                          "orientation": "vertical"
+                        },
+                        {
+                          "role": "button",
+                          "name": "Close message",
+                          "invalid": false,
+                          "focusable": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-alert should render customized properties A11y tree Chrome */
-
-snapshots["sbb-alert should render customized properties A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Interruption",
-      "level": 2
-    },
-    {
-      "role": "text leaf",
-      "name": "Alert content Alert content "
-    },
-    {
-      "role": "link",
-      "name": "Find out more",
-      "value": "https://www.sbb.ch/"
-    },
-    {
-      "role": "button",
-      "name": "Close message"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-alert should render customized properties A11y tree Firefox */
 

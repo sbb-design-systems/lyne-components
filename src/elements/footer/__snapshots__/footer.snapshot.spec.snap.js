@@ -26,34 +26,22 @@ snapshots["sbb-footer renders Shadow DOM"] =
 snapshots["sbb-footer renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "heading",
-      "name": "Footer",
-      "level": 1
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "contentinfo",
+          "name": ""
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-footer renders A11y tree Chrome */
-
-snapshots["sbb-footer renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Footer",
-      "level": 1
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-footer renders A11y tree Firefox */
 

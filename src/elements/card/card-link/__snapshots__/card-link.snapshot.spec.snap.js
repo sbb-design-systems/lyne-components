@@ -36,41 +36,16 @@ snapshots["sbb-card-link renders Shadow DOM"] =
 snapshots["sbb-card-link renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "Follow me . Link target opens in a new window."
-    },
-    {
-      "role": "text",
-      "name": "Content text"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-card-link renders A11y tree Chrome */
-
-snapshots["sbb-card-link renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Follow me . Link target opens in a new window.",
-      "value": "https://github.com/sbb-design-systems/lyne-components"
-    },
-    {
-      "role": "text leaf",
-      "name": "Content text "
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-card-link renders A11y tree Firefox */
 

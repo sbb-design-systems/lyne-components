@@ -83,12 +83,14 @@ snapshots["sbb-radio-button-panel renders checked Shadow DOM"] =
 snapshots["sbb-radio-button-panel renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "radio",
       "name": "Label Suffix Subtext",
+      "invalid": false,
+      "focusable": true,
       "checked": false
     }
   ]
@@ -97,31 +99,17 @@ snapshots["sbb-radio-button-panel renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-radio-button-panel renders A11y tree Chrome */
 
-snapshots["sbb-radio-button-panel renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "Label Suffix Subtext"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-radio-button-panel renders A11y tree Firefox */
-
 snapshots["sbb-radio-button-panel renders checked A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "radio",
       "name": "Label Suffix Subtext",
+      "invalid": false,
+      "focusable": true,
       "checked": true
     }
   ]
@@ -130,33 +118,17 @@ snapshots["sbb-radio-button-panel renders checked A11y tree Chrome"] =
 `;
 /* end snapshot sbb-radio-button-panel renders checked A11y tree Chrome */
 
-snapshots["sbb-radio-button-panel renders checked A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "Label Suffix Subtext",
-      "checked": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-radio-button-panel renders checked A11y tree Firefox */
-
 snapshots["sbb-radio-button-panel renders disabled - A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "radio",
       "name": "Label",
       "disabled": true,
+      "invalid": false,
       "checked": false
     }
   ]
@@ -165,56 +137,22 @@ snapshots["sbb-radio-button-panel renders disabled - A11y tree Chrome"] =
 `;
 /* end snapshot sbb-radio-button-panel renders disabled - A11y tree Chrome */
 
-snapshots["sbb-radio-button-panel renders disabled - A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "Label",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-radio-button-panel renders disabled - A11y tree Firefox */
-
 snapshots["sbb-radio-button-panel renders required - A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "radio",
       "name": "",
-      "checked": false,
-      "invalid": "true"
+      "invalid": true,
+      "focusable": true,
+      "checked": false
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-radio-button-panel renders required - A11y tree Chrome */
-
-snapshots["sbb-radio-button-panel renders required - A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "",
-      "required": true,
-      "invalid": "true"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-radio-button-panel renders required - A11y tree Firefox */
 

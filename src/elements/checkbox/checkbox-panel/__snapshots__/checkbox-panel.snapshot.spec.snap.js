@@ -196,12 +196,14 @@ snapshots["sbb-checkbox-panel renders unchecked disabled Shadow DOM"] =
 snapshots["sbb-checkbox-panel Unchecked - A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "checkbox",
       "name": "​ Label",
+      "invalid": false,
+      "focusable": true,
       "checked": false
     }
   ]
@@ -213,12 +215,14 @@ snapshots["sbb-checkbox-panel Unchecked - A11y tree Chrome"] =
 snapshots["sbb-checkbox-panel Checked - A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "checkbox",
       "name": "​ Label",
+      "invalid": false,
+      "focusable": true,
       "checked": true
     }
   ]
@@ -226,37 +230,4 @@ snapshots["sbb-checkbox-panel Checked - A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-checkbox-panel Checked - A11y tree Chrome */
-
-snapshots["sbb-checkbox-panel Unchecked - A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "checkbox",
-      "name": "​ Label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-checkbox-panel Unchecked - A11y tree Firefox */
-
-snapshots["sbb-checkbox-panel Checked - A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "checkbox",
-      "name": "​ Label",
-      "checked": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-checkbox-panel Checked - A11y tree Firefox */
 

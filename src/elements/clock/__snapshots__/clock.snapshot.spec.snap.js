@@ -50,20 +50,22 @@ snapshots["sbb-clock renders with fixed time Shadow DOM"] =
 snapshots["sbb-clock renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        }
+      ]
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-clock renders A11y tree Chrome */
-
-snapshots["sbb-clock renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-clock renders A11y tree Firefox */
 

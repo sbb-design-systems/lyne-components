@@ -96,40 +96,26 @@ snapshots["sbb-mini-button-group renders negative Shadow DOM"] =
 snapshots["sbb-mini-button-group renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": ""
-    },
-    {
-      "role": "button",
-      "name": ""
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "list",
+          "name": "Group label"
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-mini-button-group renders A11y tree Chrome */
-
-snapshots["sbb-mini-button-group renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": ""
-    },
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-mini-button-group renders A11y tree Firefox */
 

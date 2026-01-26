@@ -105,32 +105,18 @@ snapshots["sbb-expansion-panel-header renders with slotted icon Shadow DOM"] =
 snapshots["sbb-expansion-panel-header renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Header"
+      "name": "Header",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-expansion-panel-header renders A11y tree Chrome */
-
-snapshots["sbb-expansion-panel-header renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Header"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-expansion-panel-header renders A11y tree Firefox */
 
