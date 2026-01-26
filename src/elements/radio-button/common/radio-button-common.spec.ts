@@ -1,24 +1,16 @@
 import { aTimeout, expect } from '@open-wc/testing';
-import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
+import { sendKeys } from '@web/test-runner-commands';
 import { html, unsafeStatic } from 'lit/static-html.js';
-import type { Context } from 'mocha';
 
 import { isChromium, isWebkit } from '../../core/dom.ts';
 import { radioButtonRegistry } from '../../core/mixins.ts';
-import { fixture } from '../../core/testing/private.ts';
+import { a11yTreeSnapshot, fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
 import type { SbbRadioButtonElement } from '../radio-button.ts';
 
 import '../radio-button.ts';
 import '../radio-button-panel.ts';
-
-interface RadioButtonAccessibilitySnapshot {
-  checked: boolean;
-  role: string;
-  disabled: boolean;
-  required: boolean;
-}
 
 describe(`sbb-radio-button-common`, () => {
   ['sbb-radio-button', 'sbb-radio-button-panel'].forEach((selector) => {
@@ -168,81 +160,63 @@ describe(`sbb-radio-button-common`, () => {
         expect(element).to.match(':invalid');
       });
 
-      it('should reflect aria-required false', async () => {
-        const snapshot = (await a11ySnapshot({
-          selector,
-        })) as unknown as RadioButtonAccessibilitySnapshot;
+      if (isChromium) {
+        it('should reflect aria-required false', async () => {
+          const snapshot = await a11yTreeSnapshot({ selector });
 
-        expect(snapshot.required).to.be.undefined;
-      });
+          expect(snapshot.required).to.be.undefined;
+        });
 
-      it('should reflect accessibility tree setting required attribute to true', async function (this: Context) {
-        // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
-        this.retries(3);
+        // required is currently not supported by CDPSession a11y info
+        it.skip('should reflect accessibility tree setting required attribute to true', async () => {
+          element.toggleAttribute('required', true);
+          await waitForLitRender(element);
 
-        element.toggleAttribute('required', true);
-        await waitForLitRender(element);
+          const snapshot = await a11yTreeSnapshot({ selector });
 
-        const snapshot = (await a11ySnapshot({
-          selector,
-        })) as unknown as RadioButtonAccessibilitySnapshot;
-
-        // TODO: Recheck if it is working in Chromium
-        if (!isChromium) {
           expect(snapshot.required).to.be.true;
-        }
-      });
+        });
 
-      it('should reflect accessibility tree setting required attribute to false', async function (this: Context) {
-        // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
-        this.retries(3);
+        it('should reflect accessibility tree setting required attribute to false', async () => {
+          element.toggleAttribute('required', true);
+          await waitForLitRender(element);
 
-        element.toggleAttribute('required', true);
-        await waitForLitRender(element);
+          element.removeAttribute('required');
+          await waitForLitRender(element);
 
-        element.removeAttribute('required');
-        await waitForLitRender(element);
+          const snapshot = await a11yTreeSnapshot({
+            selector,
+          });
 
-        const snapshot = (await a11ySnapshot({
-          selector,
-        })) as unknown as RadioButtonAccessibilitySnapshot;
+          expect(snapshot.required).not.to.be.ok;
+        });
 
-        expect(snapshot.required).not.to.be.ok;
-      });
+        // required is currently not supported by CDPSession a11y info
+        it.skip('should reflect accessibility tree setting required property to true', async () => {
+          element.required = true;
+          await waitForLitRender(element);
 
-      it('should reflect accessibility tree setting required property to true', async function (this: Context) {
-        // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
-        this.retries(3);
+          const snapshot = await a11yTreeSnapshot({
+            selector,
+          });
 
-        element.required = true;
-        await waitForLitRender(element);
-
-        const snapshot = (await a11ySnapshot({
-          selector,
-        })) as unknown as RadioButtonAccessibilitySnapshot;
-
-        // TODO: Recheck if it is working in Chromium
-        if (!isChromium) {
           expect(snapshot.required).to.be.true;
-        }
-      });
+        });
 
-      it('should reflect accessibility tree setting required property to false', async function (this: Context) {
-        // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
-        this.retries(3);
+        it('should reflect accessibility tree setting required property to false', async () => {
+          element.required = true;
+          await waitForLitRender(element);
 
-        element.required = true;
-        await waitForLitRender(element);
+          element.required = false;
+          await waitForLitRender(element);
 
-        element.required = false;
-        await waitForLitRender(element);
+          const snapshot = await a11yTreeSnapshot({
+            selector,
+          });
 
-        const snapshot = (await a11ySnapshot({
-          selector,
-        })) as unknown as RadioButtonAccessibilitySnapshot;
-
-        expect(snapshot.required).not.to.be.ok;
-      });
+          expect(snapshot.required).not.to.be.ok;
+        });
+      }
 
       it('should restore form state on formStateRestoreCallback()', async () => {
         // Mimic tab restoration. Does not test the full cycle as we can not set the browser in the required state.

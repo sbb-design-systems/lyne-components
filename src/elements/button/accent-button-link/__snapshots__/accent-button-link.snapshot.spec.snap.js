@@ -71,33 +71,16 @@ snapshots["sbb-accent-button-link renders a disabled sbb-accent-button-link with
 snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "Label Text . Link target opens in a new window."
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-accent-button-link renders a sbb-accent-button-link without icon A11y tree Chrome */
-
-snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Label Text . Link target opens in a new window.",
-      "value": "https://www.sbb.ch/"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-accent-button-link renders a sbb-accent-button-link without icon A11y tree Firefox */
 

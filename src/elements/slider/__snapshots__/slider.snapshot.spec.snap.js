@@ -185,21 +185,12 @@ snapshots["sbb-slider renders readonly Shadow DOM"] =
 snapshots["sbb-slider renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Label"
-    },
-    {
-      "role": "slider",
-      "name": "Label",
-      "valuetext": "",
-      "valuemin": 0,
-      "valuemax": 100,
-      "orientation": "horizontal",
-      "value": 1
+      "role": "generic",
+      "name": ""
     }
   ]
 }
@@ -210,17 +201,20 @@ snapshots["sbb-slider renders A11y tree Chrome"] =
 snapshots["sbb-slider renders with properties A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "slider",
       "name": "",
-      "valuetext": "",
+      "value": 100,
+      "invalid": false,
+      "focusable": true,
+      "settable": true,
+      "orientation": "horizontal",
       "valuemin": 0,
       "valuemax": 500,
-      "orientation": "horizontal",
-      "value": 100
+      "valuetext": ""
     }
   ]
 }
@@ -231,18 +225,19 @@ snapshots["sbb-slider renders with properties A11y tree Chrome"] =
 snapshots["sbb-slider renders disabled A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "slider",
       "name": "",
-      "valuetext": "",
+      "value": 100,
       "disabled": true,
+      "invalid": false,
+      "orientation": "horizontal",
       "valuemin": 0,
       "valuemax": 500,
-      "orientation": "horizontal",
-      "value": 100
+      "valuetext": ""
     }
   ]
 }
@@ -253,100 +248,25 @@ snapshots["sbb-slider renders disabled A11y tree Chrome"] =
 snapshots["sbb-slider renders readonly A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "slider",
       "name": "",
-      "valuetext": "",
+      "value": 100,
+      "invalid": false,
+      "focusable": true,
+      "orientation": "horizontal",
       "valuemin": 0,
       "valuemax": 500,
-      "orientation": "horizontal",
-      "value": 100
+      "valuetext": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-slider renders readonly A11y tree Chrome */
-
-snapshots["sbb-slider renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Label"
-    },
-    {
-      "role": "slider",
-      "name": "Label",
-      "valuetext": "1",
-      "value": "1"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-slider renders A11y tree Firefox */
-
-snapshots["sbb-slider renders with properties A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "slider",
-      "name": "",
-      "valuetext": "100",
-      "value": "100"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-slider renders with properties A11y tree Firefox */
-
-snapshots["sbb-slider renders disabled A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "slider",
-      "name": "",
-      "valuetext": "100",
-      "disabled": true,
-      "value": "100"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-slider renders disabled A11y tree Firefox */
-
-snapshots["sbb-slider renders readonly A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "slider",
-      "name": "",
-      "valuetext": "100",
-      "value": "100"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-slider renders readonly A11y tree Firefox */
 
 snapshots["sbb-slider renders in form DOM"] = 
 `<sbb-slider
@@ -392,54 +312,16 @@ snapshots["sbb-slider renders in form Shadow DOM"] =
 snapshots["sbb-slider renders in form A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "slider",
-      "name": "",
-      "valuetext": "",
-      "valuemin": 0,
-      "valuemax": 10,
-      "orientation": "horizontal",
-      "value": 1
-    },
-    {
-      "role": "slider",
-      "name": "",
-      "valuetext": "",
-      "valuemin": 0,
-      "valuemax": 10,
-      "orientation": "horizontal",
-      "value": 1
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-slider renders in form A11y tree Chrome */
-
-snapshots["sbb-slider renders in form A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "slider",
-      "name": "",
-      "valuetext": "1",
-      "value": "1"
-    },
-    {
-      "role": "slider",
-      "name": "",
-      "valuetext": "1",
-      "value": "1"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-slider renders in form A11y tree Firefox */
 

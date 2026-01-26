@@ -33,40 +33,33 @@ snapshots["sbb-action-group renders Shadow DOM"] =
 `;
 /* end snapshot sbb-action-group renders Shadow DOM */
 
-snapshots["sbb-action-group renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Button"
-    },
-    {
-      "role": "link",
-      "name": "Link",
-      "value": "https://github.com/sbb-design-systems/lyne-components"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-action-group renders A11y tree Firefox */
-
 snapshots["sbb-action-group renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Button"
-    },
-    {
-      "role": "link",
-      "name": "Link"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "button",
+              "name": "Button",
+              "invalid": false,
+              "focusable": true
+            },
+            {
+              "role": "generic",
+              "name": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -69,7 +69,7 @@ describe(`sbb-train-wagon`, () => {
     await waitForLitRender(element);
 
     // Select all accessibility relevant text parts
-    // The alternative of a11ySnapshot() does not work as the list title can't be extracted reliable.
+    // The alternative of a11yTreeSnapshot() does not work as the list title can't be extracted reliable.
     return Array.from(
       element.shadowRoot!.querySelectorAll<HTMLElement>(
         '[aria-label]:not(.sbb-train-wagon__attribute-icon-list), sbb-timetable-occupancy-icon, .sbb-screen-reader-only',

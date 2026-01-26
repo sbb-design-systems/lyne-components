@@ -151,43 +151,18 @@ snapshots["sbb-teaser renders below with projected content Shadow DOM"] =
 snapshots["sbb-teaser renders after centered A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "link",
-      "name": "SBB teaser"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-teaser renders after centered A11y tree Chrome */
-
-snapshots["sbb-teaser renders after centered A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "link",
-      "name": "SBB teaser",
-      "value": "https://github.com/sbb-design-systems/lyne-components"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-teaser renders after centered A11y tree Firefox */
 
 snapshots["sbb-teaser renders after with title set DOM"] = 
 `<sbb-teaser

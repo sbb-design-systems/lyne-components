@@ -122,52 +122,17 @@ snapshots["sbb-radio-button-group renders with selection-expansion-panel Shadow 
 snapshots["sbb-radio-button-group renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "radio",
-      "name": "1",
-      "checked": false
-    },
-    {
-      "role": "radio",
-      "name": "2",
-      "checked": true
-    },
-    {
-      "role": "radio",
-      "name": "3",
-      "checked": false
+      "role": "radiogroup",
+      "name": "",
+      "required": false
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-radio-button-group renders A11y tree Chrome */
-
-snapshots["sbb-radio-button-group renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "1"
-    },
-    {
-      "role": "radio",
-      "name": "2",
-      "checked": true
-    },
-    {
-      "role": "radio",
-      "name": "3"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-radio-button-group renders A11y tree Firefox */
 

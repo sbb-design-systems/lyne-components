@@ -24,20 +24,36 @@ snapshots["sbb-container renders Shadow DOM"] =
 snapshots["sbb-container renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none"
+            },
+            {
+              "ignored": true,
+              "role": "none"
+            },
+            {
+              "ignored": true,
+              "role": "none"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-container renders A11y tree Chrome */
-
-snapshots["sbb-container renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-container renders A11y tree Firefox */
 

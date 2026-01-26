@@ -212,13 +212,21 @@ snapshots["sbb-select renders Chrome-Firefox Shadow DOM"] =
 snapshots["sbb-select renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "combobox",
       "name": "",
-      "haspopup": "listbox"
+      "focusable": true,
+      "hasPopup": "listbox",
+      "required": false,
+      "expanded": false
+    },
+    {
+      "role": "generic",
+      "name": "",
+      "invalid": false
     }
   ]
 }
@@ -260,17 +268,11 @@ snapshots["sbb-select renders multiple Chrome-Firefox Shadow DOM"] =
 >
   <div class="sbb-select__gap-fix">
     <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="left"
-      >
+      <div class="sbb-gap-fix-corner">
       </div>
     </div>
     <div class="sbb-gap-fix-wrapper">
-      <div
-        class="sbb-gap-fix-corner"
-        id="right"
-      >
+      <div class="sbb-gap-fix-corner">
       </div>
     </div>
   </div>
@@ -279,7 +281,6 @@ snapshots["sbb-select renders multiple Chrome-Firefox Shadow DOM"] =
       <div
         aria-multiselectable=""
         class="sbb-select__options"
-        id="sbb-select-5"
         role="listbox"
         tabindex="-1"
       >
@@ -295,51 +296,25 @@ snapshots["sbb-select renders multiple Chrome-Firefox Shadow DOM"] =
 snapshots["sbb-select renders multiple A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "combobox",
       "name": "",
-      "haspopup": "listbox"
+      "focusable": true,
+      "hasPopup": "listbox",
+      "required": false,
+      "expanded": false
+    },
+    {
+      "role": "generic",
+      "name": "",
+      "invalid": false
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-select renders multiple A11y tree Chrome */
-
-snapshots["sbb-select renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "combobox",
-      "name": "",
-      "haspopup": "listbox"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-select renders A11y tree Firefox */
-
-snapshots["sbb-select renders multiple A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "combobox",
-      "name": "",
-      "haspopup": "listbox"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-select renders multiple A11y tree Firefox */
 

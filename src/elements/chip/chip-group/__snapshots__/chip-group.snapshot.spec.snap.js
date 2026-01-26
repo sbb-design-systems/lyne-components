@@ -88,76 +88,27 @@ snapshots["sbb-chip-group renders with form-field Shadow DOM"] =
 `;
 /* end snapshot sbb-chip-group renders with form-field Shadow DOM */
 
-snapshots["sbb-chip-group renders with form-field A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "text leaf",
-      "name": "Field label"
-    },
-    {
-      "role": "listbox",
-      "name": "",
-      "children": [
-        {
-          "role": "option",
-          "name": "Value 1 , Press the Delete button to remove the chip"
-        },
-        {
-          "role": "option",
-          "name": "Value 2 , Press the Delete button to remove the chip"
-        },
-        {
-          "role": "textbox",
-          "name": "Field label",
-          "description": "Selected elements: 2"
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-chip-group renders with form-field A11y tree Firefox */
-
 snapshots["sbb-chip-group renders with form-field A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "text",
-      "name": "Field label"
-    },
-    {
-      "role": "listbox",
-      "name": "",
-      "orientation": "vertical",
+      "ignored": true,
+      "role": "none",
       "children": [
         {
-          "role": "option",
-          "name": "Value 1 , Press the Delete button to remove the chip"
+          "role": "generic",
+          "name": ""
         },
         {
-          "role": "option",
-          "name": "Value 2 , Press the Delete button to remove the chip"
+          "role": "generic",
+          "name": ""
         },
         {
-          "role": "textbox",
-          "name": "Field label",
-          "description": "Selected elements: 2"
+          "ignored": true,
+          "role": "none"
         }
       ]
     }

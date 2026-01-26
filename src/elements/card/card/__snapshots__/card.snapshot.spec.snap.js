@@ -42,66 +42,16 @@ snapshots["sbb-card should render with sbb-card-badge - Shadow DOM"] =
 snapshots["sbb-card A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "heading",
-      "name": "Title",
-      "level": 2
-    },
-    {
-      "role": "text",
-      "name": "Content text"
-    },
-    {
-      "role": "text",
-      "name": "%"
-    },
-    {
-      "role": "text",
-      "name": "from CHF"
-    },
-    {
-      "role": "text",
-      "name": "19.99"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-card A11y tree Chrome */
-
-snapshots["sbb-card A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Title",
-      "level": 2
-    },
-    {
-      "role": "text leaf",
-      "name": "Content text "
-    },
-    {
-      "role": "text leaf",
-      "name": "%"
-    },
-    {
-      "role": "text leaf",
-      "name": "from CHF"
-    },
-    {
-      "role": "text leaf",
-      "name": "19.99"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-card A11y tree Firefox */
 

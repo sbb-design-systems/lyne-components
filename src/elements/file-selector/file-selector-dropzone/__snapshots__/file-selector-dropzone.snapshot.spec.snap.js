@@ -49,51 +49,43 @@ snapshots["sbb-file-selector-dropzone renders Shadow DOM"] =
 snapshots["sbb-file-selector-dropzone renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Drag & Drop your file here"
-    },
-    {
-      "role": "text",
-      "name": "Choose a file"
-    },
-    {
-      "role": "button",
-      "name": "Drag & Drop your file here Choose a file",
-      "value": "No file chosen"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "role": "LabelText",
+                  "name": ""
+                }
+              ]
+            },
+            {
+              "role": "status",
+              "name": "",
+              "live": "polite",
+              "atomic": true,
+              "relevant": "additions text"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-file-selector-dropzone renders A11y tree Chrome */
-
-snapshots["sbb-file-selector-dropzone renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Drag & Drop your file here"
-    },
-    {
-      "role": "text leaf",
-      "name": "Choose a file"
-    },
-    {
-      "role": "button",
-      "name": "Drag & Drop your file here Choose a file Browse… …"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-file-selector-dropzone renders A11y tree Firefox */
 
 snapshots["sbb-file-selector-dropzone renders multiple DOM"] = 
 `<sbb-file-selector-dropzone
@@ -147,49 +139,41 @@ snapshots["sbb-file-selector-dropzone renders multiple Shadow DOM"] =
 snapshots["sbb-file-selector-dropzone renders multiple A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Drag & Drop your files here"
-    },
-    {
-      "role": "text",
-      "name": "Choose files"
-    },
-    {
-      "role": "button",
-      "name": "Drag & Drop your files here Choose files",
-      "value": "No file chosen"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "role": "LabelText",
+                  "name": ""
+                }
+              ]
+            },
+            {
+              "role": "status",
+              "name": "",
+              "live": "polite",
+              "atomic": true,
+              "relevant": "additions text"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-file-selector-dropzone renders multiple A11y tree Chrome */
-
-snapshots["sbb-file-selector-dropzone renders multiple A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Drag & Drop your files here"
-    },
-    {
-      "role": "text leaf",
-      "name": "Choose files"
-    },
-    {
-      "role": "button",
-      "name": "Drag & Drop your files here Choose files Browse… …"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-file-selector-dropzone renders multiple A11y tree Firefox */
 

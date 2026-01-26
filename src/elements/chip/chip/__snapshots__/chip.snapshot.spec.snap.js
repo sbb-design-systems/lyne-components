@@ -92,45 +92,17 @@ snapshots["sbb-chip renders disabled Shadow DOM"] =
 `;
 /* end snapshot sbb-chip renders disabled Shadow DOM */
 
-snapshots["sbb-chip renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text container",
-      "name": "",
-      "children": [
-        {
-          "role": "text leaf",
-          "name": "Value"
-        },
-        {
-          "role": "text leaf",
-          "name": ", "
-        },
-        {
-          "role": "text leaf",
-          "name": "Press the Delete button to remove the chip"
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-chip renders A11y tree Firefox */
-
 snapshots["sbb-chip renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "option",
-      "name": "Value , Press the Delete button to remove the chip"
+      "name": "Value , Press the Delete button to remove the chip",
+      "focusable": true,
+      "selected": false
     }
   ]
 }
@@ -138,45 +110,17 @@ snapshots["sbb-chip renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-chip renders A11y tree Chrome */
 
-snapshots["sbb-chip renders with label A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text container",
-      "name": "",
-      "children": [
-        {
-          "role": "text leaf",
-          "name": "Value label"
-        },
-        {
-          "role": "text leaf",
-          "name": ", "
-        },
-        {
-          "role": "text leaf",
-          "name": "Press the Delete button to remove the chip"
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-chip renders with label A11y tree Firefox */
-
 snapshots["sbb-chip renders with label A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "option",
-      "name": "Value label , Press the Delete button to remove the chip"
+      "name": "Value label , Press the Delete button to remove the chip",
+      "focusable": true,
+      "selected": false
     }
   ]
 }
@@ -187,48 +131,17 @@ snapshots["sbb-chip renders with label A11y tree Chrome"] =
 snapshots["sbb-chip renders disabled A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Value"
-    },
-    {
-      "role": "text",
-      "name": ", "
-    },
-    {
-      "role": "text",
-      "name": "Press the Delete button to remove the chip"
+      "role": "option",
+      "name": "Value , Press the Delete button to remove the chip",
+      "selected": false
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-chip renders disabled A11y tree Chrome */
-
-snapshots["sbb-chip renders disabled A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Value"
-    },
-    {
-      "role": "text leaf",
-      "name": ", "
-    },
-    {
-      "role": "text leaf",
-      "name": "Press the Delete button to remove the chip"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-chip renders disabled A11y tree Firefox */
 

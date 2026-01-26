@@ -72,75 +72,80 @@ snapshots["sbb-tab-group renders Shadow DOM"] =
 `;
 /* end snapshot sbb-tab-group renders Shadow DOM */
 
-snapshots["sbb-tab-group renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "tab",
-      "name": "Test tab label 1",
-      "selected": true
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 2"
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 3"
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 4"
-    },
-    {
-      "role": "tabpanel",
-      "name": "",
-      "children": [
-        {
-          "role": "text leaf",
-          "name": "Test tab content 1 "
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tab-group renders A11y tree Firefox */
-
 snapshots["sbb-tab-group renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "tab",
-      "name": "Test tab label 1",
-      "selected": true
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 2"
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 3"
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 4"
-    },
-    {
-      "role": "tabpanel",
-      "name": "",
+      "ignored": true,
+      "role": "none",
       "children": [
         {
-          "role": "text",
-          "name": "Test tab content 1"
+          "role": "tablist",
+          "name": "",
+          "multiselectable": false,
+          "orientation": "horizontal"
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "tabpanel",
+              "name": "",
+              "focusable": true
+            },
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     }

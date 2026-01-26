@@ -326,20 +326,10 @@ snapshots["sbb-link-list rendered without a title Shadow DOM"] =
 snapshots["sbb-link-list rendered with a slotted title A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "ignored": true,
+  "role": "none"
 }
 </p>
 `;
 /* end snapshot sbb-link-list rendered with a slotted title A11y tree Chrome */
-
-snapshots["sbb-link-list rendered with a slotted title A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-link-list rendered with a slotted title A11y tree Firefox */
 

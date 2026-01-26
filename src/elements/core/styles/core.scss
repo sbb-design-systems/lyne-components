@@ -38,6 +38,17 @@ $theme: 'standard' !default;
 @use '../../divider/divider.global' as divider with (
   $theme: $theme
 );
+@use '../../expansion-panel/expansion-panel/expansion-panel.global' as expansion-panel with (
+  $theme: $theme
+);
+@use '../../expansion-panel/expansion-panel-content/expansion-panel-content.global' as
+  expansion-panel-content with (
+  $theme: $theme
+);
+@use '../../expansion-panel/expansion-panel-header/expansion-panel-header.global' as
+  expansion-panel-header with (
+  $theme: $theme
+);
 @use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
   $theme: $theme
 );
@@ -79,6 +90,9 @@ $theme: 'standard' !default;
   @include checkbox-group.base;
   @include checkbox-common.base;
   @include divider.base;
+  @include expansion-panel.base;
+  @include expansion-panel-content.base;
+  @include expansion-panel-header.base;
   @include radio-button-common.base;
   @include radio-button-group.base;
   @include selection-action-panel.base;
@@ -92,6 +106,7 @@ $theme: 'standard' !default;
 
     @include card.base-forced-colors;
     @include card-badge.base-forced-colors;
+    @include expansion-panel-header.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
     @include radio-button-common.base-forced-colors;
   }

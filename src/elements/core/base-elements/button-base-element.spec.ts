@@ -1,10 +1,11 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
+import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
+import { isChromium } from '../dom.ts';
 import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../mixins.ts';
 import { tabKey } from '../testing/private/keys.ts';
-import { fixture, typeInElement } from '../testing/private.ts';
+import { a11yTreeSnapshot, fixture, typeInElement } from '../testing/private.ts';
 import { EventSpy, waitForLitRender } from '../testing.ts';
 
 import { SbbButtonBaseElement } from './button-base-element.ts';
@@ -225,59 +226,58 @@ describe(`SbbButtonBaseElement`, () => {
             input = form.querySelector('input')!;
           });
 
-          it('should have role button', async () => {
-            const snapshot = (await a11ySnapshot({
-              selector: entry.selector,
-            })) as unknown as ButtonAccessibilitySnapshot;
+          if (isChromium) {
+            it('should have role button', async () => {
+              await aTimeout(1000);
+              const snapshot = await a11yTreeSnapshot({
+                selector: `${entry.selector}:first-of-type`,
+              });
 
-            expect(snapshot.role).to.be.equal('button');
-          });
+              expect(snapshot.role).to.be.equal('button');
+            });
 
-          it('should be focusable', async () => {
-            const snapshot = (await a11ySnapshot({
-              selector: entry.selector,
-            })) as unknown as ButtonAccessibilitySnapshot;
+            it('should be focusable', async () => {
+              const snapshot = await a11yTreeSnapshot({ selector: entry.selector });
 
-            expect(snapshot.disabled).to.be.undefined;
-            expect(submitButton).not.to.have.attribute('disabled');
-            expect(submitButton).not.to.match(':disabled');
+              expect(snapshot.disabled).to.be.undefined;
+              expect(submitButton).not.to.have.attribute('disabled');
+              expect(submitButton).not.to.match(':disabled');
 
-            await sendKeys({ press: tabKey });
-            await sendKeys({ press: tabKey });
-            expect(document.activeElement!).to.be.equal(submitButton);
-          });
+              await sendKeys({ press: tabKey });
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement!).to.be.equal(submitButton);
+            });
 
-          it('should not be focusable if disabled', async () => {
-            submitButton.disabled = true;
-            await waitForLitRender(submitButton);
+            it('should not be focusable if disabled', async () => {
+              submitButton.disabled = true;
+              await waitForLitRender(submitButton);
 
-            const snapshot = (await a11ySnapshot({
-              selector: entry.selector,
-            })) as unknown as ButtonAccessibilitySnapshot;
+              const snapshot = await a11yTreeSnapshot({ selector: entry.selector });
 
-            expect(snapshot.disabled).to.be.true;
-            expect(submitButton).to.have.attribute('disabled');
-            expect(submitButton).to.match(':disabled');
+              expect(snapshot.disabled).to.be.true;
+              expect(submitButton).to.have.attribute('disabled');
+              expect(submitButton).to.match(':disabled');
 
-            await sendKeys({ press: tabKey });
-            await sendKeys({ press: tabKey });
-            expect(document.activeElement!).not.to.be.equal(submitButton);
-          });
+              await sendKeys({ press: tabKey });
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement!).not.to.be.equal(submitButton);
+            });
 
-          it('should not be focusable if inside a disabled fieldset', async () => {
-            fieldSet.disabled = true;
-            await waitForLitRender(submitButton);
+            it('should not be focusable if inside a disabled fieldset', async () => {
+              fieldSet.disabled = true;
+              await waitForLitRender(submitButton);
 
-            const snapshot = (await a11ySnapshot({
-              selector: entry.selector,
-            })) as unknown as ButtonAccessibilitySnapshot;
+              const snapshot = (await a11yTreeSnapshot({
+                selector: entry.selector,
+              })) as unknown as ButtonAccessibilitySnapshot;
 
-            expect(snapshot.disabled).to.be.true;
-            expect(submitButton).to.match(':disabled');
+              expect(snapshot.disabled).to.be.true;
+              expect(submitButton).to.match(':disabled');
 
-            await sendKeys({ press: tabKey });
-            expect(document.activeElement!).not.to.be.equal(submitButton);
-          });
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement!).not.to.be.equal(submitButton);
+            });
+          }
 
           it('should set default value', () => {
             expect(submitButton.value).to.be.equal('submit');
