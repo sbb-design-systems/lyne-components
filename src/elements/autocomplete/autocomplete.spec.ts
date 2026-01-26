@@ -438,6 +438,9 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(2);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
 
       it('should clear input if user navigates with keyboard without selecting any option', async () => {
@@ -452,6 +455,9 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(0);
         expect(inputEventSpy.count).to.be.equal(0);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
 
       it('should clear input if user types and navigates without selecting any option', async () => {
@@ -468,6 +474,9 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(2);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
 
       it('should not clear input with mouse selection', async () => {
@@ -493,6 +502,9 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('2');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(1);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
 
       it('should not clear input with keyboard selection', async () => {
@@ -515,6 +527,9 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('1');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(1);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
 
       it('should not clear input if user select than opens and closes the panel', async () => {
@@ -566,6 +581,9 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(2);
         expect(inputEventSpy.count).to.be.equal(3);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
     });
 
