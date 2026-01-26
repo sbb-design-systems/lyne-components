@@ -9,10 +9,8 @@ snapshots["sbb-expansion-panel-content renders DOM"] =
 /* end snapshot sbb-expansion-panel-content renders DOM */
 
 snapshots["sbb-expansion-panel-content renders Shadow DOM"] = 
-`<div class="sbb-expansion-panel-content">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-expansion-panel-content renders Shadow DOM */
 
