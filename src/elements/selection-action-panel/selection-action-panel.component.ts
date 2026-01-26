@@ -22,10 +22,10 @@ class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydration
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   @queryAssignedElements({ slot: 'badge' })
-  private accessor _badgeElement!: SbbCardBadgeElement[];
+  private accessor _badgeElements!: SbbCardBadgeElement[];
 
   @queryAssignedElements({ flatten: true })
-  private accessor _panelElement!: HTMLElement[];
+  private accessor _panelElements!: HTMLElement[];
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -37,9 +37,9 @@ class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydration
   }
 
   private _handleSlotchange(): void {
-    if (this._badgeElement.length > 0) {
-      const badgeContent = this._badgeElement[0].innerText;
-      const panel = this._panelElement.find(
+    if (this._badgeElements.length > 0) {
+      const badgeContent = this._badgeElements[0].innerText;
+      const panel = this._panelElements.find(
         (panel) =>
           panel.localName === 'sbb-radio-button-panel' || panel.localName === 'sbb-checkbox-panel',
       ) as SbbCheckboxPanelElement | SbbRadioButtonPanelElement;
