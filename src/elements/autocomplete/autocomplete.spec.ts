@@ -13,6 +13,8 @@ import { SbbOptionElement } from '../option.ts';
 
 import { SbbAutocompleteElement } from './autocomplete.component.ts';
 
+// TODO: Create a 'sbb-autocomplete-base.spec' that factorize tests between the 'autocomplete' and the 'autocomplete-grid'
+
 describe(`sbb-autocomplete`, () => {
   let element: SbbAutocompleteElement, formField: SbbFormFieldElement, input: HTMLInputElement;
 
@@ -411,6 +413,31 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('2');
         expect(changeEventSpy.count).to.be.equal(2);
         expect(inputAutocompleteSpy.count).to.be.equal(2);
+      });
+
+      it('should not select if "autoActiveFirstOption"', async () => {
+        const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+        element.autoActiveFirstOption = true;
+        await waitForLitRender(element);
+        const optOne = element.querySelector<SbbOptionElement>('#option-1');
+        const optTwo = element.querySelector<SbbOptionElement>('#option-2');
+
+        input.focus();
+        await openSpy.calledOnce();
+        expect(openSpy.count).to.be.equal(1);
+
+        // Should not select if the option is active because of the 'autoActiveFirstOption'
+        expect(optOne).to.match(':state(active)');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(input.value).to.be.equal('');
+
+        // Instead, user interactions should
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+        expect(optOne).not.to.match(':state(active)');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(optTwo).to.match(':state(active)');
+        expect(optTwo).to.have.attribute('selected');
       });
     });
 

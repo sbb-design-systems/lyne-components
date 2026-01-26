@@ -465,6 +465,72 @@ describe(`sbb-autocomplete-grid`, () => {
       });
     });
 
+    describe('autoSelectActiveOption', () => {
+      beforeEach(async () => {
+        element.autoSelectActiveOption = true;
+        await waitForLitRender(element);
+      });
+
+      it('should open and select with arrow keys only', async () => {
+        const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+        const changeEventSpy = new EventSpy('change', input);
+        const inputAutocompleteSpy = new EventSpy('inputAutocomplete', input);
+        const optOne = element.querySelector<SbbAutocompleteGridOptionElement>('#option-1');
+        const optTwo = element.querySelector<SbbAutocompleteGridOptionElement>('#option-2');
+
+        input.focus();
+        await openSpy.calledOnce();
+        expect(openSpy.count).to.be.equal(1);
+
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+        expect(optOne).to.match(':state(active)');
+        expect(optOne).to.have.attribute('selected');
+        expect(input).to.have.attribute('aria-activedescendant', 'option-1');
+        expect(input).to.have.attribute('aria-expanded', 'true');
+        expect(input.value).to.be.equal('1');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
+
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+        expect(optOne).not.to.match(':state(active)');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(optTwo).to.match(':state(active)');
+        expect(optTwo).to.have.attribute('selected');
+        expect(input).to.have.attribute('aria-activedescendant', 'option-2');
+        expect(input).to.have.attribute('aria-expanded', 'true');
+        expect(input.value).to.be.equal('2');
+        expect(changeEventSpy.count).to.be.equal(2);
+        expect(inputAutocompleteSpy.count).to.be.equal(2);
+      });
+
+      it('should not select if "autoActiveFirstOption"', async () => {
+        const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+        element.autoActiveFirstOption = true;
+        await waitForLitRender(element);
+        const optOne = element.querySelector<SbbAutocompleteGridOptionElement>('#option-1');
+        const optTwo = element.querySelector<SbbAutocompleteGridOptionElement>('#option-2');
+
+        input.focus();
+        await openSpy.calledOnce();
+        expect(openSpy.count).to.be.equal(1);
+
+        // Should not select if the option is active because of the 'autoActiveFirstOption'
+        expect(optOne).to.match(':state(active)');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(input.value).to.be.equal('');
+
+        // Instead, user interactions should
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+        expect(optOne).not.to.match(':state(active)');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(optTwo).to.match(':state(active)');
+        expect(optTwo).to.have.attribute('selected');
+      });
+    });
+
     it('should not close on disabled option click', async () => {
       const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
       const optOne = element.querySelector<SbbAutocompleteGridOptionElement>('#option-1')!;
