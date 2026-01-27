@@ -115,13 +115,16 @@ const withBackgroundDecorator = makeDecorator({
 });
 
 const breakpoints = Object.entries({
-  zero: SbbBreakpointZeroMin,
-  small: SbbBreakpointSmallMin,
-  large: SbbBreakpointLargeMin,
-  ultra: SbbBreakpointUltraMin,
+  zero: { width: SbbBreakpointZeroMin, height: '640px' },
+  small: { width: SbbBreakpointSmallMin, height: '800px' },
+  large: { width: SbbBreakpointLargeMin, height: '768px' },
+  ultra: { width: SbbBreakpointUltraMin, height: '900px' },
 })
-  .map(([key, value]) => ({ key: key, value: parseFloat(value) * 16 }))
-  .sort((a, b) => a.value - b.value);
+  .map(([key, value]) => ({
+    key: key,
+    value: { width: parseFloat(value.width) * 16, height: value.height },
+  }))
+  .sort((a, b) => a.value.width - b.value.width);
 
 const breakpointNames: Record<string, number> = breakpoints.reduce(
   (current, next) => Object.assign(current, { [next.key]: next.value }),
@@ -133,8 +136,8 @@ const storybookViewports = breakpoints.reduce(
       [next.key]: {
         name: `Breakpoint ${next.key}`,
         styles: {
-          width: `${next.value || 360}px`,
-          height: '',
+          width: `${next.value.width || 360}px`,
+          height: next.value.height,
         },
       },
     }),
@@ -236,7 +239,7 @@ export default {
           { value: 'standard', title: 'standard', icon: 'photo' },
           { value: 'off-brand', title: 'off-brand', icon: 'paintbrush' },
           { value: 'safety', title: 'safety', icon: 'alert' },
-          ...(isDev() ? [{ value: 'lean', title: 'lean', icon: 'grow' }] : []),
+          ...(isDev() ? [{ value: 'lean', title: 'lean', icon: 'grow' as const }] : []),
         ],
         // Change title based on selected value
         dynamicTitle: true,
