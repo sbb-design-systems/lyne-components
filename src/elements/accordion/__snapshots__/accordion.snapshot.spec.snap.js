@@ -80,18 +80,18 @@ snapshots["sbb-accordion renders A11y tree Chrome"] =
                   "role": "none",
                   "children": [
                     {
-                      "ignored": true,
-                      "role": "none",
-                      "children": [
-                        {
-                          "role": "button",
-                          "name": "Header 1",
-                          "invalid": false,
-                          "focusable": true,
-                          "expanded": false
-                        }
-                      ]
-                    },
+                      "role": "button",
+                      "name": "Header 1",
+                      "invalid": false,
+                      "focusable": true,
+                      "expanded": false
+                    }
+                  ]
+                },
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
                     {
                       "ignored": true,
                       "role": "none",
@@ -121,18 +121,18 @@ snapshots["sbb-accordion renders A11y tree Chrome"] =
                   "role": "none",
                   "children": [
                     {
-                      "ignored": true,
-                      "role": "none",
-                      "children": [
-                        {
-                          "role": "button",
-                          "name": "Header 2",
-                          "invalid": false,
-                          "focusable": true,
-                          "expanded": false
-                        }
-                      ]
-                    },
+                      "role": "button",
+                      "name": "Header 2",
+                      "invalid": false,
+                      "focusable": true,
+                      "expanded": false
+                    }
+                  ]
+                },
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
                     {
                       "ignored": true,
                       "role": "none",
