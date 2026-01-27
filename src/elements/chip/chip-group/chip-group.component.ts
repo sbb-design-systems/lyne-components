@@ -438,11 +438,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   }
 
   protected override render(): TemplateResult {
-    return html`
-      <div class="sbb-chip-group">
-        <slot @slotchange=${this._setupComponent}></slot>
-      </div>
-    `;
+    return html` <slot @slotchange=${this._setupComponent}></slot> `;
   }
 }
 
