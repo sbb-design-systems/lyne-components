@@ -4,7 +4,7 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--sbb-spacing-fixed-1x);
+  gap: var(--sbb-chip-group-gap);
   align-items: center;
   margin-block: var(--sbb-chip-group-margin-block);
 }

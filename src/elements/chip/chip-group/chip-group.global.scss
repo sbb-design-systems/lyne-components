@@ -3,9 +3,10 @@
 $theme: 'standard' !default;
 
 @mixin base {
-  --sbb-chip-group-input-min-width: #{sbb.px-to-rem-build(150)};
   --_sbb-chip-group-margin-block-start-default: #{sbb.px-to-rem-build(2)};
   --_sbb-chip-group-margin-block-start-default-large: #{sbb.px-to-rem-build(3.5)};
+  --sbb-chip-group-gap: var(--sbb-spacing-fixed-1x);
+  --sbb-chip-group-input-min-width: #{sbb.px-to-rem-build(150)};
   --sbb-chip-group-margin-block: #{sbb.theme-pattern-select(
       (
         'standard': var(--_sbb-chip-group-margin-block-start-default-large) 0,
