@@ -21,14 +21,8 @@ snapshots["sbb-expansion-panel-content renders A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "ignored": true,
-      "role": "none",
-      "children": [
-        {
-          "role": "generic",
-          "name": ""
-        }
-      ]
+      "role": "generic",
+      "name": ""
     }
   ]
 }
