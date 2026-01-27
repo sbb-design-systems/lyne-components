@@ -222,7 +222,7 @@ describe(`sbb-selection-action-panel`, () => {
         expect(firstPanel).to.match(`:state(size-s)`);
       });
 
-      it('panel should have aria-description if badge is used', async () => {
+      it('panel should have ariaDescribedByElements set if badge is used', async () => {
         const tagSingle = unsafeStatic(`sbb-${inputType}-panel`);
         /* eslint-disable lit/binding-positions */
         const panel = await fixture(html`
@@ -233,10 +233,12 @@ describe(`sbb-selection-action-panel`, () => {
             <sbb-card-badge>ab CHF 26.50</sbb-card-badge>
           </sbb-selection-action-panel>
         `);
+        const badge = panel.querySelector(`sbb-card-badge`)!;
         /* eslint-enable lit/binding-positions */
         firstInput = panel.querySelector(`sbb-${inputType}-panel`)!;
-        expect(firstInput.ariaDescription).not.to.be.null;
-        expect(firstInput.ariaDescription).to.be.equal('ab CHF 26.50');
+        expect(firstInput.ariaDescribedByElements).not.to.be.null;
+        expect(firstInput.ariaDescribedByElements!.length).to.be.equal(1);
+        expect(firstInput.ariaDescribedByElements![0]).to.be.equal(badge);
       });
     });
   }
