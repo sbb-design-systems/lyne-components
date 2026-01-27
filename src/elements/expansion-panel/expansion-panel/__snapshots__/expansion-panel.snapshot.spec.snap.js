@@ -133,14 +133,14 @@ snapshots["sbb-expansion-panel renders with level set A11y tree Chrome"] =
       "role": "none",
       "children": [
         {
+          "role": "heading",
+          "name": "Header",
+          "level": 4
+        },
+        {
           "ignored": true,
           "role": "none",
           "children": [
-            {
-              "role": "heading",
-              "name": "Header",
-              "level": 4
-            },
             {
               "ignored": true,
               "role": "none",
