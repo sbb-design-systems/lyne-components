@@ -1,0 +1,56 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-chip-group-input-min-width: #{sbb.px-to-rem-build(150)};
+  --_sbb-chip-group-margin-block-start-default: #{sbb.px-to-rem-build(2)};
+  --_sbb-chip-group-margin-block-start-default-large: #{sbb.px-to-rem-build(3.5)};
+  --sbb-chip-group-margin-block: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--_sbb-chip-group-margin-block-start-default-large) 0,
+        'lean': 0,
+      ),
+      $theme
+    )};
+  --sbb-chip-group-margin-block-no-label-not-empty: #{sbb.theme-pattern-select(
+      (
+        'standard': #{sbb.px-to-rem-build(3)} #{sbb.px-to-rem-build(11)},
+        'lean': 0 #{sbb.px-to-rem-build(7)},
+      ),
+      $theme
+    )};
+  --sbb-chip-group-margin-block-with-label-not-empty: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--_sbb-chip-group-margin-block-start-default)
+          var(--_sbb-chip-group-margin-block-start-default-large),
+        'lean': #{sbb.px-to-rem-build(6)} #{sbb.px-to-rem-build(5)},
+      ),
+      $theme
+    )};
+}
+
+@mixin base-breakpoint-large {
+  --sbb-chip-group-margin-block: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--_sbb-chip-group-margin-block-start-default-large) 0,
+        'lean': 0,
+      ),
+      $theme
+    )};
+  --sbb-chip-group-margin-block-no-label-not-empty: #{sbb.theme-pattern-select(
+      (
+        'standard': #{sbb.px-to-rem-build(3)} #{sbb.px-to-rem-build(14)},
+        'lean': 0 #{sbb.px-to-rem-build(5)},
+      ),
+      $theme
+    )};
+  --sbb-chip-group-margin-block-with-label-not-empty: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--_sbb-chip-group-margin-block-start-default-large)
+          var(--_sbb-chip-group-margin-block-start-default-large),
+        'lean': #{sbb.px-to-rem-build(5)} #{sbb.px-to-rem-build(3)},
+      ),
+      $theme
+    )};
+}

@@ -20,6 +20,9 @@ $theme: 'standard' !default;
 @use '../../chip/chip/chip.global' as chip with (
   $theme: $theme
 );
+@use '../../chip/chip-group/chip-group.global' as chip-group with (
+  $theme: $theme
+);
 @use '../../card/card-badge/card-badge.global' as card-badge with (
   $theme: $theme
 );
@@ -85,6 +88,7 @@ $theme: 'standard' !default;
   @include card.base;
   @include card-badge.base;
   @include chip.base;
+  @include chip-group.base;
   @include panel-common.base;
   @include checkbox.base;
   @include checkbox-group.base;
@@ -176,6 +180,8 @@ $theme: 'standard' !default;
 
   @include mediaqueries.mq($from: large) {
     @include sbb-css-tokens.breakpoint-large;
+
+    @include chip-group.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage
