@@ -64,7 +64,7 @@ jobs:
       - name: 'Release: Determine npm tag'
         if: ${{ steps.release.outputs.release_created }}
         id: npm_tag
-        run: echo "npm_tag=$([[ "${{ steps.version.outputs.version }}" == *"-"* ]] && echo "next" || echo "latest")" >> $GITHUB_OUTPUT
+        run: echo "npm_tag=$([[ "${{ steps.version.outputs.version }}" == *"-"* ]] && echo "next" || echo "v3-latest")" >> $GITHUB_OUTPUT
 
       - name: 'Release: Publish @sbb-esta/lyne-elements'
         if: ${{ steps.release.outputs.release_created }}
@@ -99,10 +99,6 @@ jobs:
             --preserve-path /usr/share/nginx/html \
             --include-new false
           docker push ${{ env.IMAGE_REPO_DOCS }}:$VERSION
-          if [[ $VERSION != *"-"* ]]; then
-            docker tag ${{ env.IMAGE_REPO_DOCS }}:$VERSION ${{ env.IMAGE_REPO_DOCS }}:latest
-            docker push ${{ env.IMAGE_REPO_DOCS }}:latest
-          fi
           docker image list
         env:
           DOCKER_BUILDKIT: 1
