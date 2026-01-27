@@ -113,7 +113,7 @@
     "eslint-plugin-import-x": "4.16.1",
     "eslint-plugin-lit": "2.1.1",
     "eslint-plugin-react": "7.37.5",
-    "eslint-plugin-storybook": "10.2.0",
+    "eslint-plugin-storybook": "10.2.1",
     "eslint-plugin-yml": "3.0.0",
     "globals": "17.1.0",
     "husky": "9.1.7",
