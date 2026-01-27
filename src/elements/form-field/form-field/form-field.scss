@@ -420,6 +420,7 @@
 .sbb-form-field__error {
   display: flex;
   min-height: var(--sbb-form-field-error-min-height);
+  flex-direction: column;
   margin-block-start: var(
     --sbb-form-field-error-padding-block-start-override,
     var(--sbb-form-field-error-padding-block-start)
