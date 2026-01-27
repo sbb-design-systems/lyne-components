@@ -1,6 +1,7 @@
 @use '../../core/styles' as sbb;
 
 :host {
+  --sbb-chip-border: var(--sbb-border-width-1x) solid var(--sbb-chip-border-color);
   --sbb-chip-transition-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
