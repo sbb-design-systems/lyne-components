@@ -1,4 +1,4 @@
-import { aTimeout, expect } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { executeServerCommand } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
@@ -24,7 +24,6 @@ let nextId = 0;
  * and create a html wrapper in order to use the `equalSnapshot` function.
  */
 async function a11yTreeEqualSnapshot(): Promise<void> {
-  await aTimeout(500);
   const currentFixture = Array.from(document.body.children)
     .filter((child) => child.localName === 'div' && child.classList.length === 0)
     .at(-1)!;
