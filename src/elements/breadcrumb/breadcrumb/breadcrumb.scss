@@ -2,37 +2,32 @@
 
 :host {
   display: flex;
-
-  --sbb-breadcrumb-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
 }
 
 @include sbb.hover-mq($hover: true) {
   :host(:hover) {
-    --sbb-breadcrumb-color: light-dark(var(--sbb-color-charcoal), var(--sbb-color-smoke));
+    --sbb-breadcrumb-color: var(--sbb-breadcrumb-color-hover);
   }
 }
 
 :host(:is(:active, :state(active))) {
-  --sbb-breadcrumb-color: light-dark(var(--sbb-color-anthracite), var(--sbb-color-cloud));
+  --sbb-breadcrumb-color: var(--sbb-breadcrumb-color-active);
 }
 
 .sbb-breadcrumb {
   --sbb-link-text-decoration-line: none;
 
-  @include sbb.text-xs--regular;
   @include sbb.link-base;
 
   display: flex;
   cursor: var(--sbb-cursor-pointer);
-  gap: var(--sbb-spacing-fixed-2x);
+  gap: var(--sbb-breadcrumb-gap);
   color: var(--sbb-breadcrumb-color);
   align-items: center;
   overflow: hidden;
   outline: none;
-
-  @include sbb.if-forced-colors {
-    --sbb-breadcrumb-color: ButtonText;
-  }
+  font-size: var(--sbb-breadcrumb-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 
   &:focus-visible {
     @include sbb.focus-outline;
