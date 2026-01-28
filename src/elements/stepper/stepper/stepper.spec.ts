@@ -300,6 +300,34 @@ describe('sbb-stepper', () => {
     expect(stepLabelThree.step).not.to.match(':state(selected)');
   });
 
+  it('does not select a disabled step-label on click', async () => {
+    const stepLabelOne = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(1)',
+    )!;
+    const stepLabelFour = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(4)',
+    )!;
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
+      element,
+    );
+
+    // Step 4 is already disabled in the fixture
+    expect(stepLabelFour.disabled).to.be.true;
+    expect(stepLabelFour).to.have.attribute('disabled');
+    expect(stepLabelOne).to.match(':state(selected)');
+
+    // Click on the disabled step label
+    stepLabelFour.click();
+    await waitForLitRender(element);
+
+    // No step change should have occurred
+    expect(stepChangeSpy.count).to.be.equal(0);
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelFour).not.to.match(':state(selected)');
+    expect(stepLabelFour.step).not.to.match(':state(selected)');
+  });
+
   it('should keep last step disabled in non-linear stepper when switching from first to second step', async () => {
     element = await fixture(html`
       <sbb-stepper>
@@ -337,6 +365,27 @@ describe('sbb-stepper', () => {
     expect(stepLabelFour).to.match(':state(disabled)');
     expect(stepLabelFour).to.have.attribute('disabled');
     expect(stepLabelFour.disabled).to.be.true;
+  });
+
+  it('should return correct step when step is slotted after step label dynamically', async () => {
+    const existingStepLabel = document.createElement('sbb-step-label')!;
+    element = document.createElement('sbb-stepper');
+    element.appendChild(existingStepLabel);
+
+    document.body.appendChild(element);
+
+    // Initially, label.step should be null since no step is slotted after it
+    expect(existingStepLabel.step).to.be.null;
+
+    // Dynamically add a step after the label
+    const newStep = document.createElement('sbb-step');
+    existingStepLabel.insertAdjacentElement('afterend', newStep);
+    await waitForLitRender(element);
+
+    // After adding the step, label.step should return the correct step
+    expect(existingStepLabel.step).to.equal(newStep);
+
+    element.remove();
   });
 
   it('resets the single form wrapping the stepper and returns to the first step', async () => {

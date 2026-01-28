@@ -202,7 +202,7 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     }
   }
 
-  private _isValidStep(step: SbbStepElement | null): boolean {
+  private _isValidStep(step: SbbStepElement | null): step is SbbStepElement {
     if (step) {
       customElements.upgrade(step);
       if (step.label) {
@@ -246,7 +246,7 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
 
     const current = this.selected;
     current?.deselect();
-    step!.select();
+    step.select();
 
     /** @internal only to provide double entry in docs. It is a public event! */
     this.dispatchEvent(
@@ -318,12 +318,10 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
   private _configure(): void {
     const steps = this.steps;
     steps.forEach((s) => s.configure(this._loaded));
+
     steps
-      .filter((s) => s.label)
-      .map((s) => s.label!)
-      .forEach((label, i, array) => {
-        label.configure(i + 1, array.length, this._loaded);
-      });
+      .map((s) => s.label)
+      .forEach((label, i, array) => label?.configure(i + 1, array.length, this._loaded));
     this._select(this.selected || this._enabledSteps[0]);
   }
 
@@ -388,6 +386,7 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     super.firstUpdated(changedProperties);
     this.updateComplete.then(() => {
       this._loaded = true;
+      this._configure();
       this.selectedIndex = this.linear ? 0 : Number(this.getAttribute('selected-index')) || 0;
       this._observer.observe(this);
       this._checkOrientation();
