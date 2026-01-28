@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.3.0...v4.3.1) (2026-01-28)
+
+
+### Bug Fixes
+
+* **sbb-form-field:** allow multiple errors displayed stacked ([#4426](https://github.com/sbb-design-systems/lyne-components/issues/4426)) ([8495097](https://github.com/sbb-design-systems/lyne-components/commit/8495097841223d3fd239867908e69b182cc3e0b4))
+
+
+### Documentation
+
+* **storybook:** add height to viewport presets ([#4421](https://github.com/sbb-design-systems/lyne-components/issues/4421)) ([f5d40a3](https://github.com/sbb-design-systems/lyne-components/commit/f5d40a31daa1d607f03bfbd99d8834d6b6ca64ba))
+
+
+### Code Refactoring
+
+* **sbb-clock:** css refactoring ([#4435](https://github.com/sbb-design-systems/lyne-components/issues/4435)) ([b85b0c8](https://github.com/sbb-design-systems/lyne-components/commit/b85b0c8fa2e9ed07686b3f170f4692269eec307f))
+
 ## [4.3.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.2.0...v4.3.0) (2026-01-26)
 
 
