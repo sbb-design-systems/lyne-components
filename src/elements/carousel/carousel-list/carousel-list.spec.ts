@@ -123,6 +123,7 @@ describe('sbb-carousel-list', () => {
 
       // Scroll event should still be detected after reconnection
       element.scrollBy({ left: 320 });
+      await aTimeout(30);
       await beforeShowSpy.calledTimes(2);
       expect(beforeShowSpy.count).to.be.equal(2);
       await showSpy.calledTimes(2);
