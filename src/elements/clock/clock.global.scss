@@ -1,0 +1,9 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-clock-seconds-hand-color: var(--sbb-color-brand);
+  --sbb-clock-face-color: var(--sbb-color-1);
+  --sbb-clock-background-color: var(--sbb-background-color-1);
+}
