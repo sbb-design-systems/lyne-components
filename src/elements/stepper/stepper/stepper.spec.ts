@@ -7,7 +7,7 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import { SbbStepElement } from '../step/step.component.ts';
 import type { SbbStepLabelElement } from '../step-label.ts';
 
-import { SbbStepperElement, SbbStepChangeEvent } from './stepper.component.ts';
+import { SbbStepChangeEvent, SbbStepperElement } from './stepper.component.ts';
 
 import '../step-label.ts';
 import '../step.ts';
@@ -298,6 +298,45 @@ describe('sbb-stepper', () => {
     expect(stepChangeSpy.count).to.be.equal(0);
     expect(stepLabelThree).not.to.match(':state(selected)');
     expect(stepLabelThree.step).not.to.match(':state(selected)');
+  });
+
+  it('should keep last step disabled in non-linear stepper when switching from first to second step', async () => {
+    element = await fixture(html`
+      <sbb-stepper>
+        <sbb-step-label>Step 1</sbb-step-label>
+        <sbb-step>Step one content.</sbb-step>
+
+        <sbb-step-label>Step 2</sbb-step-label>
+        <sbb-step>Step two content.</sbb-step>
+
+        <sbb-step-label>Step 3</sbb-step-label>
+        <sbb-step>Step three content.</sbb-step>
+
+        <sbb-step-label>Step 4</sbb-step-label>
+        <sbb-step>Step four content.</sbb-step>
+      </sbb-stepper>
+    `);
+
+    const labels = element.querySelectorAll('sbb-step-label');
+    const stepLabelOne = labels[0];
+    const stepLabelTwo = labels[1];
+    const stepLabelFour = labels[3];
+
+    expect(stepLabelOne).to.match(':state(selected)');
+
+    stepLabelFour.disabled = true;
+    await waitForLitRender(element);
+    expect(stepLabelFour.disabled).to.be.true;
+    expect(stepLabelFour).to.have.attribute('disabled');
+    expect(stepLabelFour).to.match(':state(disabled)');
+
+    element.next();
+    await waitForLitRender(element);
+
+    expect(stepLabelTwo).to.match(':state(selected)');
+    expect(stepLabelFour).to.match(':state(disabled)');
+    expect(stepLabelFour).to.have.attribute('disabled');
+    expect(stepLabelFour.disabled).to.be.true;
   });
 
   it('resets the single form wrapping the stepper and returns to the first step', async () => {
