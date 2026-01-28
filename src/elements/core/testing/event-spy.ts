@@ -48,7 +48,7 @@ export class EventSpy<T extends Event> {
   public calledTimes(count: number, timeout = 2000): Promise<T> {
     if (this.count > count) {
       return Promise.reject(
-        `Event has been emitted more than expected (expected ${count}, actual ${this.count}`,
+        `Event '${this._event}' has been emitted more than expected (expected ${count}, actual ${this.count}`,
       );
     } else if (this.count === count) {
       return Promise.resolve(this.events[count - 1]);
@@ -80,7 +80,10 @@ export class EventSpy<T extends Event> {
     timeout: number,
   ): Promise<T> {
     const clearTimeoutId = setTimeout(
-      () => promiseWithExecutor.reject(`awaiting calledTimes(${count}) results in timeout`),
+      () =>
+        promiseWithExecutor.reject(
+          `awaiting calledTimes(${count}) for event '${this._event}' results in timeout`,
+        ),
       timeout,
     );
     promiseWithExecutor.promise.then(() => clearTimeout(clearTimeoutId));

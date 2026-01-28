@@ -41,56 +41,28 @@ snapshots["sbb-table-wrapper renders Shadow DOM"] =
 snapshots["sbb-table-wrapper renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Col 1"
-    },
-    {
-      "role": "text",
-      "name": "Col 2"
-    },
-    {
-      "role": "text",
-      "name": "Data 1"
-    },
-    {
-      "role": "text",
-      "name": "Data 2"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "table",
+              "name": "Table caption"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-table-wrapper renders A11y tree Chrome */
-
-snapshots["sbb-table-wrapper renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Col 1"
-    },
-    {
-      "role": "text leaf",
-      "name": "Col 2"
-    },
-    {
-      "role": "text leaf",
-      "name": "Data 1"
-    },
-    {
-      "role": "text leaf",
-      "name": "Data 2"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-table-wrapper renders A11y tree Firefox */
 

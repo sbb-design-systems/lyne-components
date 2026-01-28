@@ -21,8 +21,8 @@ snapshots["sbb-sidebar-title renders Shadow DOM"] =
 snapshots["sbb-sidebar-title renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "heading",
@@ -34,21 +34,4 @@ snapshots["sbb-sidebar-title renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-sidebar-title renders A11y tree Chrome */
-
-snapshots["sbb-sidebar-title renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Title",
-      "level": 2
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-sidebar-title renders A11y tree Firefox */
 

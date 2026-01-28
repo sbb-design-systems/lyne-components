@@ -95,39 +95,18 @@ snapshots["sbb-tab-label renders an H1 heading tag if the provided level is grea
 snapshots["sbb-tab-label A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "tab",
-      "name": "Tab title"
+      "name": "Tab title",
+      "focusable": true,
+      "selected": false
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-tab-label A11y tree Chrome */
-
-snapshots["sbb-tab-label A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text container",
-      "name": "",
-      "children": [
-        {
-          "role": "heading",
-          "name": "Tab title",
-          "level": 1
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tab-label A11y tree Firefox */
 

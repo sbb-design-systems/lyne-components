@@ -721,120 +721,16 @@ snapshots["sbb-paginator renders with options and accessibility labels Safari Sh
 snapshots["sbb-paginator renders with options and accessibility labels A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Previous slide"
-    },
-    {
-      "role": "button",
-      "name": "Next slide"
-    },
-    {
-      "role": "button",
-      "name": "Slide 1"
-    },
-    {
-      "role": "button",
-      "name": "Slide 2"
-    },
-    {
-      "role": "button",
-      "name": "Slide 3"
-    },
-    {
-      "role": "button",
-      "name": "Slide 4"
-    },
-    {
-      "role": "button",
-      "name": "Slide 5"
-    },
-    {
-      "role": "text",
-      "name": "Items per slide"
-    },
-    {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "combobox",
-      "name": "Items per slide",
-      "haspopup": "listbox",
-      "value": "10"
-    },
-    {
-      "role": "text",
-      "name": "Slide 3 selected."
+      "role": "group",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-paginator renders with options and accessibility labels A11y tree Chrome */
-
-snapshots["sbb-paginator renders with options and accessibility labels A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Previous slide"
-    },
-    {
-      "role": "button",
-      "name": "Next slide"
-    },
-    {
-      "role": "button",
-      "name": "Slide 1"
-    },
-    {
-      "role": "button",
-      "name": "Slide 2"
-    },
-    {
-      "role": "button",
-      "name": "Slide 3"
-    },
-    {
-      "role": "button",
-      "name": "Slide 4"
-    },
-    {
-      "role": "button",
-      "name": "Slide 5"
-    },
-    {
-      "role": "text leaf",
-      "name": "Items per slide"
-    },
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "combobox",
-      "name": "Items per slide",
-      "haspopup": "listbox",
-      "value": "10"
-    },
-    {
-      "role": "text container",
-      "name": "Items per slide"
-    },
-    {
-      "role": "text leaf",
-      "name": "Slide 3 selected."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-paginator renders with options and accessibility labels A11y tree Firefox */
 

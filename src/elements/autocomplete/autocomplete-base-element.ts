@@ -428,8 +428,11 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.triggerElement.addEventListener(
       'input',
       (event) => {
-        this.open();
         const value: string = (event.target as HTMLInputElement).value;
+
+        if (value) {
+          this.open();
+        }
         this._highlightOptions(value);
         this._lastUserInput = value;
       },

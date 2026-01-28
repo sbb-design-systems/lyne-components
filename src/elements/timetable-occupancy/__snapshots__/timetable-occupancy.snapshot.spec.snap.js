@@ -149,48 +149,16 @@ snapshots["sbb-timetable-occupancy renders only second class wagon Shadow DOM"] 
 snapshots["sbb-timetable-occupancy renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "First Class."
-    },
-    {
-      "role": "text",
-      "name": "Second Class."
+      "role": "list",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-timetable-occupancy renders A11y tree Chrome */
-
-snapshots["sbb-timetable-occupancy renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "First Class."
-    },
-    {
-      "role": "img",
-      "name": "Very high occupancy expected"
-    },
-    {
-      "role": "text leaf",
-      "name": "Second Class."
-    },
-    {
-      "role": "img",
-      "name": "Very high occupancy expected"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-timetable-occupancy renders A11y tree Firefox */
 

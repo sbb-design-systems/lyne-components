@@ -1,10 +1,9 @@
 import { expect } from '@open-wc/testing';
-import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
+import { sendKeys } from '@web/test-runner-commands';
 import { html, unsafeStatic } from 'lit/static-html.js';
-import type { Context } from 'mocha';
 
 import { isChromium, isFirefox } from '../../core/dom.ts';
-import { fixture } from '../../core/testing/private.ts';
+import { a11yTreeSnapshot, fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
 import type { SbbVisualCheckboxElement } from '../../visual-checkbox.ts';
 import type { SbbCheckboxPanelElement } from '../checkbox-panel.ts';
@@ -12,13 +11,6 @@ import type { SbbCheckboxElement } from '../checkbox.ts';
 
 import '../checkbox.ts';
 import '../checkbox-panel.ts';
-
-interface CheckboxAccessibilitySnapshot {
-  checked: boolean;
-  role: string;
-  disabled: boolean;
-  required: boolean;
-}
 
 describe(`sbb-checkbox-common`, () => {
   ['sbb-checkbox', 'sbb-checkbox-panel'].forEach((selector) => {
@@ -172,81 +164,59 @@ describe(`sbb-checkbox-common`, () => {
           expect(element).to.match(':invalid');
         });
 
-        it('should reflect aria-required false', async () => {
-          const snapshot = (await a11ySnapshot({
-            selector: selector,
-          })) as unknown as CheckboxAccessibilitySnapshot;
+        if (isChromium) {
+          it('should reflect aria-required false', async () => {
+            const snapshot = await a11yTreeSnapshot({ selector });
 
-          expect(snapshot.required).to.be.undefined;
-        });
+            expect(snapshot.required).to.be.undefined;
+          });
 
-        it('should reflect accessibility tree setting required attribute to true', async function (this: Context) {
-          // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
-          this.retries(3);
+          // required is currently not supported by CDPSession a11y info
+          it.skip('should reflect accessibility tree setting required attribute to true', async () => {
+            element.toggleAttribute('required', true);
+            await waitForLitRender(element);
 
-          element.toggleAttribute('required', true);
-          await waitForLitRender(element);
+            const snapshot = await a11yTreeSnapshot({ selector });
 
-          const snapshot = (await a11ySnapshot({
-            selector: selector,
-          })) as unknown as CheckboxAccessibilitySnapshot;
-
-          // TODO: Recheck if it is working in Chromium
-          if (!isChromium) {
             expect(snapshot.required).to.be.true;
-          }
-        });
+          });
 
-        it('should reflect accessibility tree setting required attribute to false', async function (this: Context) {
-          // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
-          this.retries(3);
+          // required is currently not supported by CDPSession a11y info
+          it.skip('should reflect accessibility tree setting required attribute to false', async () => {
+            element.toggleAttribute('required', true);
+            await waitForLitRender(element);
 
-          element.toggleAttribute('required', true);
-          await waitForLitRender(element);
+            element.removeAttribute('required');
+            await waitForLitRender(element);
 
-          element.removeAttribute('required');
-          await waitForLitRender(element);
+            const snapshot = await a11yTreeSnapshot({ selector });
 
-          const snapshot = (await a11ySnapshot({
-            selector: selector,
-          })) as unknown as CheckboxAccessibilitySnapshot;
+            expect(snapshot.required).not.to.be.ok;
+          });
 
-          expect(snapshot.required).not.to.be.ok;
-        });
+          // required is currently not supported by CDPSession a11y info
+          it.skip('should reflect accessibility tree setting required property to true', async () => {
+            element.required = true;
+            await waitForLitRender(element);
 
-        it('should reflect accessibility tree setting required property to true', async function (this: Context) {
-          // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
-          this.retries(3);
+            const snapshot = await a11yTreeSnapshot({ selector });
 
-          element.required = true;
-          await waitForLitRender(element);
-
-          const snapshot = (await a11ySnapshot({
-            selector: selector,
-          })) as unknown as CheckboxAccessibilitySnapshot;
-
-          // TODO: Recheck if it is working in Chromium
-          if (!isChromium) {
             expect(snapshot.required).to.be.true;
-          }
-        });
+          });
 
-        it('should reflect accessibility tree setting required property to false', async function (this: Context) {
-          // On Firefox sometimes a11ySnapshot fails. Retrying three times should stabilize the build.
-          this.retries(3);
+          // required is currently not supported by CDPSession a11y info
+          it.skip('should reflect accessibility tree setting required property to false', async () => {
+            element.required = true;
+            await waitForLitRender(element);
 
-          element.required = true;
-          await waitForLitRender(element);
+            element.required = false;
+            await waitForLitRender(element);
 
-          element.required = false;
-          await waitForLitRender(element);
+            const snapshot = await a11yTreeSnapshot({ selector });
 
-          const snapshot = (await a11ySnapshot({
-            selector: selector,
-          })) as unknown as CheckboxAccessibilitySnapshot;
-
-          expect(snapshot.required).not.to.be.ok;
-        });
+            expect(snapshot.required).not.to.be.ok;
+          });
+        }
 
         it('should restore form state on formStateRestoreCallback()', async () => {
           // Mimic tab restoration. Does not test the full cycle as we can not set the browser in the required state.
@@ -345,16 +315,16 @@ describe(`sbb-checkbox-common`, () => {
         assertions.indeterminateProperty,
       );
 
-      const snapshot = (await a11ySnapshot({
-        selector: element.localName,
-      })) as unknown as CheckboxAccessibilitySnapshot;
+      if (isChromium) {
+        const snapshot = await a11yTreeSnapshot({ selector: element.localName });
 
-      expect(snapshot.role).to.equal('checkbox');
-      expect(element.type).to.be.equal('checkbox');
+        expect(snapshot.role).to.equal('checkbox');
+        expect(element.type).to.be.equal('checkbox');
 
-      expect(snapshot.checked, `ariaChecked in ${JSON.stringify(snapshot)}`).to.be.equal(
-        isFirefox && assertions.ariaChecked === false ? undefined : assertions.ariaChecked,
-      );
+        expect(snapshot.checked, `ariaChecked in ${JSON.stringify(snapshot)}`).to.be.equal(
+          isFirefox && assertions.ariaChecked === false ? undefined : assertions.ariaChecked,
+        );
+      }
 
       expect(inputSpy.count, `'input' event`).to.be.equal(assertions.inputEventCount);
       expect(changeSpy.count, `'change' event`).to.be.equal(assertions.changeEventCount);
@@ -678,12 +648,13 @@ describe(`sbb-checkbox-common`, () => {
                 expect(element).not.to.match(':disabled');
               }
 
-              const snapshot = (await a11ySnapshot({
-                selector: element.localName,
-              })) as unknown as CheckboxAccessibilitySnapshot;
-              expect(snapshot.disabled, `ariaDisabled in ${JSON.stringify(snapshot)}`).to.be.equal(
-                assertions.ariaDisabled,
-              );
+              if (isChromium) {
+                const snapshot = await a11yTreeSnapshot({ selector: element.localName });
+                expect(
+                  snapshot.disabled,
+                  `ariaDisabled in ${JSON.stringify(snapshot)}`,
+                ).to.be.equal(assertions.ariaDisabled);
+              }
 
               element.focus();
               if (assertions.focusable) {

@@ -13,6 +13,8 @@ import { SbbOptionElement } from '../option.ts';
 
 import { SbbAutocompleteElement } from './autocomplete.component.ts';
 
+// TODO: Create a 'sbb-autocomplete-base.spec' that factorize tests between the 'autocomplete' and the 'autocomplete-grid'
+
 describe(`sbb-autocomplete`, () => {
   let element: SbbAutocompleteElement, formField: SbbFormFieldElement, input: HTMLInputElement;
 
@@ -412,6 +414,31 @@ describe(`sbb-autocomplete`, () => {
         expect(changeEventSpy.count).to.be.equal(2);
         expect(inputAutocompleteSpy.count).to.be.equal(2);
       });
+
+      it('should not select if "autoActiveFirstOption"', async () => {
+        const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+        element.autoActiveFirstOption = true;
+        await waitForLitRender(element);
+        const optOne = element.querySelector<SbbOptionElement>('#option-1');
+        const optTwo = element.querySelector<SbbOptionElement>('#option-2');
+
+        input.focus();
+        await openSpy.calledOnce();
+        expect(openSpy.count).to.be.equal(1);
+
+        // Should not select if the option is active because of the 'autoActiveFirstOption'
+        expect(optOne).to.match(':state(active)');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(input.value).to.be.equal('');
+
+        // Instead, user interactions should
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+        expect(optOne).not.to.match(':state(active)');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(optTwo).to.match(':state(active)');
+        expect(optTwo).to.have.attribute('selected');
+      });
     });
 
     describe('requireSelection', () => {
@@ -438,6 +465,9 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(2);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
 
       it('should clear input if user navigates with keyboard without selecting any option', async () => {
@@ -452,6 +482,9 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(0);
         expect(inputEventSpy.count).to.be.equal(0);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
 
       it('should clear input if user types and navigates without selecting any option', async () => {
@@ -468,6 +501,9 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(2);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
 
       it('should not clear input with mouse selection', async () => {
@@ -493,6 +529,9 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('2');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(1);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
 
       it('should not clear input with keyboard selection', async () => {
@@ -515,6 +554,9 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('1');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(1);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
 
       it('should not clear input if user select than opens and closes the panel', async () => {
@@ -566,6 +608,9 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(2);
         expect(inputEventSpy.count).to.be.equal(3);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
     });
 
@@ -803,7 +848,7 @@ describe(`sbb-autocomplete`, () => {
     describe('interrupting opening and closing with non-zero animation duration', () => {
       beforeEach(() => {
         (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
-        element.style.setProperty('--sbb-options-panel-animation-duration', '5ms');
+        element.style.setProperty('--sbb-options-panel-animation-duration', '100ms');
       });
 
       it('should close autocomplete when closing during opening', async function (this: Context) {
@@ -813,7 +858,7 @@ describe(`sbb-autocomplete`, () => {
         const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
 
         element.open();
-        await aTimeout(1);
+        await waitForLitRender(element);
         expect(element).to.match(':state(state-opening)');
         element.close();
 
@@ -828,7 +873,7 @@ describe(`sbb-autocomplete`, () => {
         const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
 
         element.open();
-        await aTimeout(1);
+        await waitForLitRender(element);
         expect(element).to.match(':state(state-opening)');
         await sendKeys({ press: 'Escape' });
 
@@ -843,7 +888,7 @@ describe(`sbb-autocomplete`, () => {
         const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
 
         input.focus();
-        await aTimeout(1);
+        await waitForLitRender(element);
         expect(element).to.match(':state(state-opening)');
         await sendKeys({ press: tabKey });
 
@@ -861,7 +906,7 @@ describe(`sbb-autocomplete`, () => {
         await openSpy.calledOnce();
 
         element.close();
-        await aTimeout(1);
+        await waitForLitRender(element);
         expect(element).to.match(':state(state-closing)');
         element.open();
 
@@ -879,7 +924,7 @@ describe(`sbb-autocomplete`, () => {
         await openSpy.calledOnce();
 
         element.close();
-        await aTimeout(1);
+        await waitForLitRender(element);
         expect(element).to.match(':state(state-closing)');
         await sendKeys({ press: 'ArrowDown' });
 

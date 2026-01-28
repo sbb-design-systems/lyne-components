@@ -80,58 +80,53 @@ snapshots["sbb-message renders without optional slots Shadow DOM"] =
 snapshots["sbb-message renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "heading",
-      "name": "Title.",
-      "level": 3
-    },
-    {
-      "role": "text",
-      "name": "Subtitle."
-    },
-    {
-      "role": "text",
-      "name": "Error code: 0001"
-    },
-    {
-      "role": "button",
-      "name": ""
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "role": "generic",
+                  "name": ""
+                }
+              ]
+            },
+            {
+              "role": "heading",
+              "name": "Title.",
+              "level": 3
+            },
+            {
+              "role": "paragraph",
+              "name": ""
+            },
+            {
+              "role": "paragraph",
+              "name": ""
+            },
+            {
+              "role": "button",
+              "name": "",
+              "invalid": false,
+              "focusable": true
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-message renders A11y tree Chrome */
-
-snapshots["sbb-message renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Title.",
-      "level": 3
-    },
-    {
-      "role": "text leaf",
-      "name": "Subtitle."
-    },
-    {
-      "role": "text leaf",
-      "name": "Error code: 0001"
-    },
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-message renders A11y tree Firefox */
 

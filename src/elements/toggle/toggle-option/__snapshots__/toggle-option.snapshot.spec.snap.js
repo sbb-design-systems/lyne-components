@@ -92,12 +92,13 @@ snapshots["sbb-toggle-option renders unchecked disabled Shadow DOM"] =
 snapshots["sbb-toggle-option renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "radio",
       "name": "",
+      "focusable": true,
       "checked": true
     }
   ]
@@ -109,12 +110,13 @@ snapshots["sbb-toggle-option renders A11y tree Chrome"] =
 snapshots["sbb-toggle-option renders unchecked A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "radio",
       "name": "",
+      "focusable": true,
       "checked": false
     }
   ]
@@ -126,13 +128,14 @@ snapshots["sbb-toggle-option renders unchecked A11y tree Chrome"] =
 snapshots["sbb-toggle-option renders checked disabled A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "radio",
       "name": "",
       "disabled": true,
+      "focusable": true,
       "checked": true
     }
   ]
@@ -144,13 +147,14 @@ snapshots["sbb-toggle-option renders checked disabled A11y tree Chrome"] =
 snapshots["sbb-toggle-option renders unchecked disabled A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "radio",
       "name": "",
       "disabled": true,
+      "focusable": true,
       "checked": false
     }
   ]
@@ -158,72 +162,4 @@ snapshots["sbb-toggle-option renders unchecked disabled A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-toggle-option renders unchecked disabled A11y tree Chrome */
-
-snapshots["sbb-toggle-option renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "",
-      "checked": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-option renders A11y tree Firefox */
-
-snapshots["sbb-toggle-option renders unchecked A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-option renders unchecked A11y tree Firefox */
-
-snapshots["sbb-toggle-option renders checked disabled A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "",
-      "disabled": true,
-      "checked": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-option renders checked disabled A11y tree Firefox */
-
-snapshots["sbb-toggle-option renders unchecked disabled A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-option renders unchecked disabled A11y tree Firefox */
 

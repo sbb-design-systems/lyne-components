@@ -65,7 +65,7 @@ describe(`sbb-select`, () => {
       });
 
       it('Shadow DOM', async () => {
-        await expect(elem).shadowDom.to.be.equalSnapshot();
+        await expect(elem).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
     });
 

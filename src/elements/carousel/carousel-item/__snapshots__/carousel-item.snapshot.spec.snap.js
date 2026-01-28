@@ -31,31 +31,16 @@ snapshots["sbb-carousel-item renders with sbb-image Shadow DOM"] =
 `;
 /* end snapshot sbb-carousel-item renders with sbb-image Shadow DOM */
 
-snapshots["sbb-carousel-item renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "img",
-      "name": "SBB image"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-carousel-item renders A11y tree Firefox */
-
 snapshots["sbb-carousel-item renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "image",
-      "name": "SBB image"
+      "role": "group",
+      "name": "",
+      "roledescription": "slide"
     }
   ]
 }
@@ -63,31 +48,16 @@ snapshots["sbb-carousel-item renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-carousel-item renders A11y tree Chrome */
 
-snapshots["sbb-carousel-item renders with sbb-image A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "img",
-      "name": "SBB image"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-carousel-item renders with sbb-image A11y tree Firefox */
-
 snapshots["sbb-carousel-item renders with sbb-image A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "image",
-      "name": "SBB image"
+      "role": "group",
+      "name": "",
+      "roledescription": "slide"
     }
   ]
 }

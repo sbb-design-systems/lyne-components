@@ -87,12 +87,14 @@ snapshots["sbb-button renders a sbb-button in loading state Shadow DOM"] =
 snapshots["sbb-button renders a sbb-button with slotted icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Label Text"
+      "name": "Label Text",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
@@ -100,53 +102,23 @@ snapshots["sbb-button renders a sbb-button with slotted icon A11y tree Chrome"] 
 `;
 /* end snapshot sbb-button renders a sbb-button with slotted icon A11y tree Chrome */
 
-snapshots["sbb-button renders a sbb-button with slotted icon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Label Text"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-button renders a sbb-button with slotted icon A11y tree Firefox */
-
 snapshots["sbb-button renders a sbb-button in loading state A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
       "name": "Loading Button",
-      "disabled": true
+      "disabled": true,
+      "invalid": false,
+      "focusable": true,
+      "busy": 1
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-button renders a sbb-button in loading state A11y tree Chrome */
-
-snapshots["sbb-button renders a sbb-button in loading state A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Loading Button",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-button renders a sbb-button in loading state A11y tree Firefox */
 

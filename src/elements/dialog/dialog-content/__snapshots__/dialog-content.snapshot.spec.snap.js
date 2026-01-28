@@ -17,32 +17,16 @@ snapshots["sbb-dialog-content renders Shadow DOM"] =
 snapshots["sbb-dialog-content renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Content"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-dialog-content renders A11y tree Chrome */
-
-snapshots["sbb-dialog-content renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Content"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-dialog-content renders A11y tree Firefox */
 

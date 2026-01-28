@@ -73,49 +73,15 @@ snapshots["sbb-dialog renders an open dialog with close button negative Shadow D
 `;
 /* end snapshot sbb-dialog renders an open dialog with close button negative Shadow DOM */
 
-snapshots["sbb-dialog renders an open dialog A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Title",
-      "level": 2
-    },
-    {
-      "role": "text leaf",
-      "name": "Content"
-    },
-    {
-      "role": "text leaf",
-      "name": "Dialog, Title "
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-dialog renders an open dialog A11y tree Firefox */
-
 snapshots["sbb-dialog renders an open dialog A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "heading",
-      "name": "Title",
-      "level": 2
-    },
-    {
-      "role": "text",
-      "name": "Content"
-    },
-    {
-      "role": "text",
-      "name": "Dialog, Title "
+      "role": "group",
+      "name": ""
     }
   ]
 }
@@ -123,59 +89,15 @@ snapshots["sbb-dialog renders an open dialog A11y tree Chrome"] =
 `;
 /* end snapshot sbb-dialog renders an open dialog A11y tree Chrome */
 
-snapshots["sbb-dialog renders an open dialog with close button negative A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Title",
-      "level": 2
-    },
-    {
-      "role": "button",
-      "name": "Close secondary window",
-      "focused": true
-    },
-    {
-      "role": "text leaf",
-      "name": "Content"
-    },
-    {
-      "role": "text leaf",
-      "name": "Dialog, Title "
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-dialog renders an open dialog with close button negative A11y tree Firefox */
-
 snapshots["sbb-dialog renders an open dialog with close button negative A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "heading",
-      "name": "Title",
-      "level": 2
-    },
-    {
-      "role": "button",
-      "name": "Close secondary window",
-      "focused": true
-    },
-    {
-      "role": "text",
-      "name": "Content"
-    },
-    {
-      "role": "text",
-      "name": "Dialog, Title "
+      "role": "group",
+      "name": ""
     }
   ]
 }

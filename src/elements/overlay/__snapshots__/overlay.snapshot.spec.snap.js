@@ -46,42 +46,16 @@ snapshots["sbb-overlay renders Shadow DOM"] =
 snapshots["sbb-overlay renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Close secondary window",
-      "focused": true
-    },
-    {
-      "role": "text",
-      "name": "Dialog "
+      "role": "group",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-overlay renders A11y tree Chrome */
-
-snapshots["sbb-overlay renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Close secondary window",
-      "focused": true
-    },
-    {
-      "role": "text leaf",
-      "name": "Dialog "
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-overlay renders A11y tree Firefox */
 
