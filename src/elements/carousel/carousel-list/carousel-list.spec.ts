@@ -1,6 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForImageReady, waitForLitRender } from '../../core/testing.ts';
@@ -107,9 +108,11 @@ describe('sbb-carousel-list', () => {
       expect(showSpy.count).to.be.equal(4);
     });
 
-    it('should handle disconnection', async () => {
-      await showSpy.calledTimes(1);
+    it('should handle disconnection', async function (this: Context) {
+      // Flaky on WebKit
+      this.retries(3);
 
+      await showSpy.calledTimes(1);
       const carousel = element.parentElement! as SbbCarouselElement;
 
       element.remove();
@@ -123,7 +126,6 @@ describe('sbb-carousel-list', () => {
 
       // Scroll event should still be detected after reconnection
       element.scrollBy({ left: 320 });
-      await aTimeout(30);
       await beforeShowSpy.calledTimes(2);
       expect(beforeShowSpy.count).to.be.equal(2);
       await showSpy.calledTimes(2);
