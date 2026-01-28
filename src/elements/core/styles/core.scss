@@ -17,6 +17,12 @@ $theme: 'standard' !default;
 @use '../../card/card/card.global' as card with (
   $theme: $theme
 );
+@use '../../alert/alert/alert.global' as alert with (
+  $theme: $theme
+);
+@use '../../alert/alert-group/alert-group.global' as alert-group with (
+  $theme: $theme
+);
 @use '../../card/card-badge/card-badge.global' as card-badge with (
   $theme: $theme
 );
@@ -82,6 +88,8 @@ $theme: 'standard' !default;
   // Grab CSS vars defined by `@sbb-esta/lyne-design-tokens` package
   @include sbb-css-tokens.base;
 
+  @include alert.base;
+  @include alert-group.base;
   @include card.base;
   @include card-badge.base;
   @include panel-common.base;
@@ -104,6 +112,7 @@ $theme: 'standard' !default;
   @include a11y.if-forced-colors {
     @include sbb-css-tokens.forced-colors;
 
+    @include alert.base-forced-colors;
     @include card.base-forced-colors;
     @include card-badge.base-forced-colors;
     @include expansion-panel-header.base-forced-colors;
@@ -172,10 +181,14 @@ $theme: 'standard' !default;
 
   @include mediaqueries.mq($from: small) {
     @include sbb-css-tokens.breakpoint-small;
+
+    @include alert.base-breakpoint-small;
   }
 
   @include mediaqueries.mq($from: large) {
     @include sbb-css-tokens.breakpoint-large;
+
+    @include alert.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage

@@ -7,32 +7,16 @@ $open-anim-opacity-from: 0;
 $open-anim-opacity-to: 1;
 
 :host {
-  display: block;
-
-  --sbb-alert-background-color: var(--sbb-background-color-1-inverted);
-  --sbb-alert-border-radius: var(--sbb-border-radius-4x);
-  --sbb-alert-color: light-dark(var(--sbb-color-aluminium), var(--sbb-color-anthracite));
-  --sbb-alert-padding: var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xs);
-  --sbb-alert-icon-size: #{sbb.px-to-rem-build(20)};
-  --sbb-alert-close-icon-margin: var(--sbb-spacing-responsive-xxs);
-  --sbb-alert-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs);
   --sbb-alert-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
-  --sbb-alert-timing-function: ease-in;
-  --sbb-alert-title-margin-block: 0;
 
-  @include sbb.mq($from: large) {
-    --sbb-alert-icon-size: #{sbb.px-to-rem-build(28)};
-  }
-
-  @include sbb.if-forced-colors {
-    // Use outline here to not influence content position.
-    // Due to overflow hidden of inner elements it's placed on host.
-    outline: var(--sbb-border-width-1x) solid CanvasText;
-    border-radius: var(--sbb-alert-border-radius);
-  }
+  display: grid;
+  grid-template-rows: #{$open-anim-rows-from};
+  opacity: #{$open-anim-opacity-from};
+  border-radius: var(--sbb-alert-forced-color-border-radius);
+  outline: var(--sbb-alert-outline);
 }
 
 // By default, the open animation is disabled
@@ -49,55 +33,48 @@ $open-anim-opacity-to: 1;
   --sbb-alert-close-icon-margin: var(--sbb-spacing-responsive-xxxs);
 }
 
-:host([size='l']) {
-  --sbb-alert-icon-size: var(--sbb-size-icon-ui-small);
-  --sbb-alert-title-margin-block: 0 var(--sbb-spacing-fixed-1x);
+:host([size='m']) {
+  --sbb-alert-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs);
+  --sbb-alert-close-icon-margin: var(--sbb-spacing-responsive-xxs);
+}
 
-  @include sbb.mq($from: large) {
-    --sbb-alert-icon-size: #{sbb.px-to-rem-build(34)};
-  }
+:host([size='l']) {
+  --sbb-alert-icon-size: var(--sbb-alert-icon-size-l);
+  --sbb-alert-title-margin-block: 0 var(--sbb-spacing-fixed-1x);
 }
 
 :host(:not(:state(dark))) {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
-.sbb-alert__transition-wrapper {
-  display: grid;
-  grid-template-rows: #{$open-anim-rows-from};
-  opacity: #{$open-anim-opacity-from};
+:host(:is(:state(state-opened), :state(state-closing))) {
+  grid-template-rows: #{$open-anim-rows-to};
+  opacity: #{$open-anim-opacity-to};
+}
 
-  :host(:is(:state(state-opened), :state(state-closing))) & {
-    grid-template-rows: #{$open-anim-rows-to};
-    opacity: #{$open-anim-opacity-to};
-  }
+:host(:state(state-opening)) {
+  animation-name: open, open-opacity;
+  animation-fill-mode: forwards;
+  animation-duration: var(--sbb-alert-animation-duration);
+  animation-timing-function: var(--sbb-alert-timing-function);
+  animation-delay: 0s, var(--sbb-alert-animation-duration);
+}
 
-  :host(:state(state-opening)) & {
-    animation-name: open, open-opacity;
-    animation-fill-mode: forwards;
-    animation-duration: var(--sbb-alert-animation-duration);
-    animation-timing-function: var(--sbb-alert-timing-function);
-    animation-delay: 0s, var(--sbb-alert-animation-duration);
-  }
-
-  :host(:state(state-closing)) & {
-    animation: {
-      name: close-opacity, close;
-      fill-mode: forwards;
-      duration: var(--sbb-alert-animation-duration);
-      timing-function: var(--sbb-alert-timing-function);
-      delay: 0s, var(--sbb-disable-animation-duration, var(--sbb-animation-duration-2x));
-    }
+:host(:state(state-closing)) {
+  animation: {
+    name: close-opacity, close;
+    fill-mode: forwards;
+    duration: var(--sbb-alert-animation-duration);
+    timing-function: var(--sbb-alert-timing-function);
+    delay: 0s, var(--sbb-disable-animation-duration, var(--sbb-animation-duration-2x));
   }
 }
 
-.sbb-alert__transition-sub-wrapper {
+.sbb-alert__transition-wrapper {
   overflow: hidden;
 }
 
 .sbb-alert {
-  @include sbb.text-s--regular;
-
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
@@ -108,6 +85,8 @@ $open-anim-opacity-to: 1;
   color: var(--sbb-alert-color);
   background-color: var(--sbb-alert-background-color);
   border-radius: var(--sbb-alert-border-radius);
+  font-size: var(--sbb-alert-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 
   @include sbb.mq($from: small) {
     grid-template-columns: auto 1fr auto;
@@ -161,12 +140,8 @@ $open-anim-opacity-to: 1;
 }
 
 .sbb-alert__close-button-divider {
-  display: none;
-
-  @include sbb.mq($from: small) {
-    display: block;
-    height: calc(100% - (var(--sbb-spacing-fixed-1x) * 2));
-  }
+  display: var(--sbb-alert-close-button-divider-display, none);
+  height: calc(100% - (var(--sbb-spacing-fixed-1x) * 2));
 }
 
 @keyframes open {
