@@ -91,7 +91,7 @@ const basicArgs: Args = {
   disabledInput: false,
 };
 
-const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
+const cardBadge = (): TemplateResult => html`<sbb-card-badge>ab CHF 26.50</sbb-card-badge>`;
 
 const subtext = (): TemplateResult => html` <span slot="subtext">Subtext</span>`;
 

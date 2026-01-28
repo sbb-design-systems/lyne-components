@@ -27,10 +27,19 @@ describe(`sbb-selection-action-panel`, () => {
     disabled: [false, true],
   };
 
+  const forcedColorsMode = {
+    emulateMedia: [
+      { forcedColors: false, darkMode: true },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: true, darkMode: true },
+    ],
+  };
+
   type ParamsType = { [K in keyof typeof cases]: (typeof cases)[K][number] } & {
     value?: string;
     size: SbbCheckboxSize;
   };
+
   const withCheckboxPanel = (params: Partial<ParamsType>): TemplateResult => html`
     <sbb-selection-action-panel>
       <sbb-checkbox-panel
@@ -157,6 +166,21 @@ describe(`sbb-selection-action-panel`, () => {
             `);
           }),
         );
+
+        describeEach(forcedColorsMode, ({ emulateMedia: { forcedColors, darkMode } }) => {
+          it(
+            visualDiffDefault.name,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                input === 'checkbox' ? withCheckboxPanel({}) : withRadioPanel({}),
+                {
+                  darkMode,
+                  forcedColors,
+                },
+              );
+            }),
+          );
+        });
       });
 
       describe('checkbox-group', () => {

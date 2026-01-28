@@ -40,6 +40,22 @@
   --sbb-selection-action-panel-border-color: transparent;
 }
 
+:host(:not(:state(with-expansion-panel))) {
+  // For high contrast mode we need a real border, but only without an outer expansion-panel
+  @include sbb.if-forced-colors {
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border: var(--sbb-selection-panel-border-width-default) solid
+        var(--sbb-selection-panel-border-color-default);
+      border-radius: var(--sbb-selection-panel-border-radius);
+    }
+  }
+}
+
 ::slotted(:is(sbb-checkbox-panel, sbb-radio-button-panel)) {
   flex: auto;
 }

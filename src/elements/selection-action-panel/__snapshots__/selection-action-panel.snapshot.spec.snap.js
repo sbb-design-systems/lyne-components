@@ -4,6 +4,7 @@ export const snapshots = {};
 snapshots["sbb-selection-action-panel renders DOM"] = 
 `<sbb-selection-action-panel>
   <sbb-checkbox-panel
+    aria-describedby=""
     color="white"
     size="m"
     tabindex="0"
