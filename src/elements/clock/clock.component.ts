@@ -334,30 +334,28 @@ class SbbClockElement extends SbbElementInternalsMixin(LitElement) {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-clock">
-        <span class="sbb-clock__face" .innerHTML=${clockFaceSVG}></span>
-        <span
-          class="sbb-clock__hand-hours"
-          .innerHTML=${clockHandleHoursSVG}
-          ${ref((e?: Element): void => {
-            this._clockHandHours = e as HTMLSpanElement;
-          })}
-        ></span>
-        <span
-          class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition"
-          .innerHTML=${clockHandleMinutesSVG}
-          ${ref((el?: Element): void => {
-            this._clockHandMinutes = el as HTMLSpanElement;
-          })}
-        ></span>
-        <span
-          class="sbb-clock__hand-seconds"
-          .innerHTML=${clockHandleSecondsSVG}
-          ${ref((el?: Element): void => {
-            this._clockHandSeconds = el as HTMLSpanElement;
-          })}
-        ></span>
-      </div>
+      <span class="sbb-clock__face" .innerHTML=${clockFaceSVG}></span>
+      <span
+        class="sbb-clock__hand-hours"
+        .innerHTML=${clockHandleHoursSVG}
+        ${ref((e?: Element): void => {
+          this._clockHandHours = e as HTMLSpanElement;
+        })}
+      ></span>
+      <span
+        class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition"
+        .innerHTML=${clockHandleMinutesSVG}
+        ${ref((el?: Element): void => {
+          this._clockHandMinutes = el as HTMLSpanElement;
+        })}
+      ></span>
+      <span
+        class="sbb-clock__hand-seconds"
+        .innerHTML=${clockHandleSecondsSVG}
+        ${ref((el?: Element): void => {
+          this._clockHandSeconds = el as HTMLSpanElement;
+        })}
+      ></span>
     `;
   }
 }
