@@ -438,7 +438,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   }
 
   protected override render(): TemplateResult {
-    return html` <slot @slotchange=${this._setupComponent}></slot> `;
+    return html`<slot @slotchange=${this._setupComponent}></slot>`;
   }
 }
 
