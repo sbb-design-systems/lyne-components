@@ -4,9 +4,13 @@ $theme: 'standard' !default;
 
 @mixin base {
   --sbb-breadcrumb-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
+  --sbb-breadcrumb-color-hover: light-dark(var(--sbb-color-charcoal), var(--sbb-color-smoke));
+  --sbb-breadcrumb-color-active: light-dark(var(--sbb-color-anthracite), var(--sbb-color-cloud));
   --sbb-breadcrumb-font-size: var(--sbb-text-font-size-xs);
+  --sbb-breadcrumb-gap: var(--sbb-spacing-fixed-2x);
 }
 
 @mixin base-forced-colors {
   --sbb-breadcrumb-color: ButtonText;
+  --sbb-breadcrumb-color-active: Highlight;
 }
