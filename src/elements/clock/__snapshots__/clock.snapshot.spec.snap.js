@@ -8,16 +8,14 @@ snapshots["sbb-clock renders DOM"] =
 /* end snapshot sbb-clock renders DOM */
 
 snapshots["sbb-clock renders Shadow DOM"] = 
-`<div class="sbb-clock">
-  <span class="sbb-clock__face">
-  </span>
-  <span class="sbb-clock__hand-hours">
-  </span>
-  <span class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition">
-  </span>
-  <span class="sbb-clock__hand-seconds">
-  </span>
-</div>
+`<span class="sbb-clock__face">
+</span>
+<span class="sbb-clock__hand-hours">
+</span>
+<span class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition">
+</span>
+<span class="sbb-clock__hand-seconds">
+</span>
 `;
 /* end snapshot sbb-clock renders Shadow DOM */
 
@@ -31,19 +29,17 @@ snapshots["sbb-clock renders with fixed time DOM"] =
 /* end snapshot sbb-clock renders with fixed time DOM */
 
 snapshots["sbb-clock renders with fixed time Shadow DOM"] = 
-`<div class="sbb-clock">
-  <span class="sbb-clock__face">
-  </span>
-  <span class="sbb-clock__hand-hours sbb-clock__hand-hours--initial-hour">
-  </span>
-  <span
-    class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition"
-    style="transform: rotateZ(180deg);"
-  >
-  </span>
-  <span class="sbb-clock__hand-seconds sbb-clock__hand-seconds--initial-minute">
-  </span>
-</div>
+`<span class="sbb-clock__face">
+</span>
+<span class="sbb-clock__hand-hours sbb-clock__hand-hours--initial-hour">
+</span>
+<span
+  class="sbb-clock__hand-minutes sbb-clock__hand-minutes--no-transition"
+  style="transform: rotateZ(180deg);"
+>
+</span>
+<span class="sbb-clock__hand-seconds sbb-clock__hand-seconds--initial-minute">
+</span>
 `;
 /* end snapshot sbb-clock renders with fixed time Shadow DOM */
 
@@ -54,14 +50,8 @@ snapshots["sbb-clock renders A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "ignored": true,
-      "role": "none",
-      "children": [
-        {
-          "role": "generic",
-          "name": ""
-        }
-      ]
+      "role": "generic",
+      "name": ""
     }
   ]
 }

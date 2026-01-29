@@ -848,7 +848,7 @@ describe(`sbb-autocomplete`, () => {
     describe('interrupting opening and closing with non-zero animation duration', () => {
       beforeEach(() => {
         (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
-        element.style.setProperty('--sbb-options-panel-animation-duration', '5ms');
+        element.style.setProperty('--sbb-options-panel-animation-duration', '100ms');
       });
 
       it('should close autocomplete when closing during opening', async function (this: Context) {
@@ -858,7 +858,7 @@ describe(`sbb-autocomplete`, () => {
         const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
 
         element.open();
-        await aTimeout(1);
+        await waitForLitRender(element);
         expect(element).to.match(':state(state-opening)');
         element.close();
 
@@ -873,7 +873,7 @@ describe(`sbb-autocomplete`, () => {
         const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
 
         element.open();
-        await aTimeout(1);
+        await waitForLitRender(element);
         expect(element).to.match(':state(state-opening)');
         await sendKeys({ press: 'Escape' });
 
@@ -888,7 +888,7 @@ describe(`sbb-autocomplete`, () => {
         const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
 
         input.focus();
-        await aTimeout(1);
+        await waitForLitRender(element);
         expect(element).to.match(':state(state-opening)');
         await sendKeys({ press: tabKey });
 
@@ -906,7 +906,7 @@ describe(`sbb-autocomplete`, () => {
         await openSpy.calledOnce();
 
         element.close();
-        await aTimeout(1);
+        await waitForLitRender(element);
         expect(element).to.match(':state(state-closing)');
         element.open();
 
@@ -924,7 +924,7 @@ describe(`sbb-autocomplete`, () => {
         await openSpy.calledOnce();
 
         element.close();
-        await aTimeout(1);
+        await waitForLitRender(element);
         expect(element).to.match(':state(state-closing)');
         await sendKeys({ press: 'ArrowDown' });
 
