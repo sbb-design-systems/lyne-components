@@ -36,6 +36,6 @@ export const createSlottedDays = (year: number, month: number): TemplateResult =
   );
   return html`${repeat(new Array(daysInMonth), (_, index) => {
     const slotName = defaultDateAdapter.toIso8601(new Date(`${year}-${month}-${index + 1}`));
-    return html` <sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
+    return html`<sbb-calendar-day slot=${slotName}></sbb-calendar-day>`;
   })}`;
 };
