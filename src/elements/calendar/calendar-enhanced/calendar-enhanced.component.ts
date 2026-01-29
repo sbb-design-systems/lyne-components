@@ -5,15 +5,15 @@ import type { SbbCalendarDayElement } from '../calendar-day/calendar-day.compone
 import { type Day, SbbCalendarBaseElement } from '../calendar.ts';
 
 export class SbbMonthChangeEvent extends Event {
-  private _range: Day[] | null;
+  private readonly _range: readonly Day[];
 
-  public get range(): Day[] | null {
+  public get range(): readonly Day[] {
     return this._range;
   }
 
-  public constructor(range: Day[] | null) {
+  public constructor(range: readonly Day[]) {
     super('monthchange', { bubbles: true, composed: true });
-    this._range = range;
+    this._range = Object.freeze(range || []);
   }
 }
 
