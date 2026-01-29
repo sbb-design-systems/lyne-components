@@ -32,6 +32,9 @@ $theme: 'standard' !default;
 @use '../../checkbox/common/checkbox-common.global' as checkbox-common with (
   $theme: $theme
 );
+@use '../../clock/clock.global' as clock with (
+  $theme: $theme
+);
 @use '../../divider/divider.global' as divider with (
   $theme: $theme
 );
@@ -85,6 +88,7 @@ $theme: 'standard' !default;
   @include checkbox.base;
   @include checkbox-group.base;
   @include checkbox-common.base;
+  @include clock.base;
   @include divider.base;
   @include expansion-panel.base;
   @include expansion-panel-content.base;
