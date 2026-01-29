@@ -1,8 +1,11 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import type { SbbCardBadgeElement } from '../card.ts';
+import type { SbbCheckboxPanelElement } from '../checkbox/checkbox-panel.ts';
 import { SbbHydrationMixin, SbbSelectionPanelMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbRadioButtonPanelElement } from '../radio-button/radio-button-panel.ts';
 
 import style from './selection-action-panel.scss?lit&inline';
 
@@ -27,13 +30,32 @@ class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydration
     );
   }
 
+  private _handleSlotchange(): void {
+    const badgeElements = (this.shadowRoot!.querySelector<HTMLSlotElement>(
+      'slot[name="badge"]',
+    )?.assignedElements() ?? []) as SbbCardBadgeElement[];
+    const panelElements =
+      this.shadowRoot!.querySelector<HTMLSlotElement>('slot:not([name])')?.assignedElements({
+        flatten: true,
+      }) ?? [];
+    if (badgeElements.length > 0) {
+      const panel = panelElements.find(
+        (panel) =>
+          panel.localName === 'sbb-radio-button-panel' || panel.localName === 'sbb-checkbox-panel',
+      ) as SbbCheckboxPanelElement | SbbRadioButtonPanelElement;
+      if (panel && !panel.ariaDescription) {
+        panel.ariaDescribedByElements = badgeElements;
+      }
+    }
+  }
+
   protected override render(): TemplateResult {
     return html`
       <div class="sbb-selection-action-panel__badge">
-        <slot name="badge"></slot>
+        <slot name="badge" @slotchange=${this._handleSlotchange}></slot>
       </div>
       <div class="sbb-selection-action-panel">
-        <slot></slot>
+        <slot @slotchange=${this._handleSlotchange}></slot>
       </div>
     `;
   }

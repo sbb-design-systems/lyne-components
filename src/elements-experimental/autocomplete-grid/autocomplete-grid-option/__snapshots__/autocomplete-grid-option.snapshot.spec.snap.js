@@ -63,26 +63,19 @@ snapshots["sbb-autocomplete-grid-option renders disabled Shadow DOM"] =
 snapshots["sbb-autocomplete-grid-option A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-option A11y tree Chrome */
-
-snapshots["sbb-autocomplete-grid-option A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text leaf",
-      "name": "Option 1"
+      "role": "gridcell",
+      "name": "Option 1",
+      "readonly": false,
+      "required": false,
+      "selected": false
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-autocomplete-grid-option A11y tree Firefox */
+/* end snapshot sbb-autocomplete-grid-option A11y tree Chrome */
 

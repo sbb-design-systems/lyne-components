@@ -9,7 +9,6 @@ import {
   type TestRunnerCoreConfig,
   type TestRunnerGroupConfig,
 } from '@web/test-runner';
-import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
 import {
   type PlaywrightLauncherArgs,
   playwrightLauncher,
@@ -19,6 +18,7 @@ import { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugi
 import { initCompiler } from 'sass';
 
 import {
+  a11yTreePlugin,
   configureRemotePlaywrightBrowser,
   minimalReporter,
   patchedSummaryReporter,
@@ -200,7 +200,7 @@ export default {
   browsers: browsers,
   concurrentBrowsers: 3,
   plugins: [
-    a11ySnapshotPlugin(),
+    a11yTreePlugin(),
     litSsrPlugin({
       workerInitModules: [
         './tools/node-esm-hook/register-hooks.ts',

@@ -14,6 +14,12 @@ $theme: 'standard' !default;
 @use './mixins/scrollbar';
 @use './mixins/typo';
 
+@use '../../breadcrumb/breadcrumb/breadcrumb.global' as breadcrumb with (
+  $theme: $theme
+);
+@use '../../breadcrumb/breadcrumb-group/breadcrumb-group.global' as breadcrumb-group with (
+  $theme: $theme
+);
 @use '../../card/card/card.global' as card with (
   $theme: $theme
 );
@@ -32,7 +38,21 @@ $theme: 'standard' !default;
 @use '../../checkbox/common/checkbox-common.global' as checkbox-common with (
   $theme: $theme
 );
+@use '../../clock/clock.global' as clock with (
+  $theme: $theme
+);
 @use '../../divider/divider.global' as divider with (
+  $theme: $theme
+);
+@use '../../expansion-panel/expansion-panel/expansion-panel.global' as expansion-panel with (
+  $theme: $theme
+);
+@use '../../expansion-panel/expansion-panel-content/expansion-panel-content.global' as
+  expansion-panel-content with (
+  $theme: $theme
+);
+@use '../../expansion-panel/expansion-panel-header/expansion-panel-header.global' as
+  expansion-panel-header with (
   $theme: $theme
 );
 @use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
@@ -68,13 +88,19 @@ $theme: 'standard' !default;
   // Grab CSS vars defined by `@sbb-esta/lyne-design-tokens` package
   @include sbb-css-tokens.base;
 
+  @include breadcrumb.base;
+  @include breadcrumb-group.base;
   @include card.base;
   @include card-badge.base;
   @include panel-common.base;
   @include checkbox.base;
   @include checkbox-group.base;
   @include checkbox-common.base;
+  @include clock.base;
   @include divider.base;
+  @include expansion-panel.base;
+  @include expansion-panel-content.base;
+  @include expansion-panel-header.base;
   @include radio-button-common.base;
   @include radio-button-group.base;
   @include selection-action-panel.base;
@@ -86,8 +112,10 @@ $theme: 'standard' !default;
   @include a11y.if-forced-colors {
     @include sbb-css-tokens.forced-colors;
 
+    @include breadcrumb.base-forced-colors;
     @include card.base-forced-colors;
     @include card-badge.base-forced-colors;
+    @include expansion-panel-header.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
     @include radio-button-common.base-forced-colors;
   }

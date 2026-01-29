@@ -862,7 +862,7 @@ describe('sbb-dialog', () => {
 
       (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
 
-      nestedDialog.style.setProperty('--sbb-dialog-animation-duration', '5ms');
+      nestedDialog.style.setProperty('--sbb-dialog-animation-duration', '100ms');
 
       await aTimeout(0);
 
@@ -870,8 +870,10 @@ describe('sbb-dialog', () => {
       await openSpy.calledOnce();
 
       nestedOpenButton.click();
+      await waitForLitRender(dialog);
       expect(nestedDialog).to.match(':state(state-opening)');
       await sendKeys({ press: 'Escape' });
+      await waitForLitRender(dialog);
       expect(nestedDialog).to.match(':state(state-closing)');
       await nestedCloseSpy.calledOnce();
 

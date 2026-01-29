@@ -6,6 +6,7 @@ export * from './button/secondary-button.ts';
 export * from './button/accent-button.ts';
 export * from './button/transparent-button.ts';
 export * from './button/mini-button.ts';
+export * from './button/mini-button-link.ts';
 export * from './button/mini-button-group.ts';
 export * from './button/button-link.ts';
 export * from './button/secondary-button-link.ts';

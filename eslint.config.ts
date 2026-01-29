@@ -2,7 +2,7 @@ import eslint from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import { flatConfigs } from 'eslint-plugin-import-x';
 import * as eslintPluginLit from 'eslint-plugin-lit';
-import eslintPluginYml from 'eslint-plugin-yml';
+import { configs as eslintPluginYmlConfig } from 'eslint-plugin-yml';
 import globals from 'globals';
 import { configs } from 'typescript-eslint';
 
@@ -37,8 +37,8 @@ export default [
     ignores,
   },
   ...configs.recommended,
-  ...eslintPluginYml.configs['flat/standard'],
-  ...eslintPluginYml.configs['flat/prettier'],
+  ...eslintPluginYmlConfig['flat/standard'],
+  ...eslintPluginYmlConfig['flat/prettier'],
   flatConfigs.recommended,
   flatConfigs.typescript,
   eslintPluginLit.configs['flat/recommended'],

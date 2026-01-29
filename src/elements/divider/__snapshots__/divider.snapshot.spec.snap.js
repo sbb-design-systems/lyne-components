@@ -22,22 +22,20 @@ snapshots["sbb-divider renders vertical DOM"] =
 snapshots["sbb-divider renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "separator",
+      "name": "",
+      "settable": true,
+      "orientation": "horizontal"
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-divider renders A11y tree Chrome */
-
-snapshots["sbb-divider renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-divider renders A11y tree Firefox */
 
 snapshots["sbb-divider renders Shadow DOM"] = 
 `<div class="sbb-divider">

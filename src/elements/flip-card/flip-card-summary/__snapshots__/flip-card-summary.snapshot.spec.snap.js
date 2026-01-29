@@ -47,34 +47,39 @@ snapshots["sbb-flip-card-summary Shadow DOM"] =
 snapshots["sbb-flip-card-summary A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "heading",
-      "name": "Summary",
-      "level": 4
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "heading",
+          "name": "Summary",
+          "level": 4
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "role": "generic",
+                  "name": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-flip-card-summary A11y tree Chrome */
-
-snapshots["sbb-flip-card-summary A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Summary",
-      "level": 4
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-flip-card-summary A11y tree Firefox */
 

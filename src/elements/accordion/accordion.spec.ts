@@ -83,13 +83,13 @@ describe(`sbb-accordion`, () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
     expect(
-      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel__header')!.localName,
     ).to.be.equal('h4');
     expect(
-      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel__header')!.localName,
     ).to.be.equal('h4');
     expect(
-      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel__header')!.localName,
     ).to.be.equal('h4');
   });
 
@@ -99,13 +99,13 @@ describe(`sbb-accordion`, () => {
     const panels = Array.from(element.querySelectorAll('sbb-expansion-panel'));
     expect(panels.length).to.be.equal(3);
     expect(
-      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+      panels[0].shadowRoot!.querySelector('.sbb-expansion-panel__header')!.localName,
     ).to.be.equal('h6');
     expect(
-      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+      panels[1].shadowRoot!.querySelector('.sbb-expansion-panel__header')!.localName,
     ).to.be.equal('h6');
     expect(
-      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel')!.firstElementChild!.localName,
+      panels[2].shadowRoot!.querySelector('.sbb-expansion-panel__header')!.localName,
     ).to.be.equal('h6');
   });
 

@@ -33,7 +33,7 @@
   --sbb-mini-button-group-padding-inline: var(--sbb-spacing-fixed-4x);
 }
 
-::slotted(:is(sbb-mini-button, sbb-divider)) {
+::slotted(:is(sbb-mini-button, sbb-mini-button-link, sbb-divider)) {
   display: flex;
 }
 

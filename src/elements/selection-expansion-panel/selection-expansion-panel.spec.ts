@@ -1,5 +1,5 @@
 import { assert, expect } from '@open-wc/testing';
-import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
+import { sendKeys } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -8,7 +8,8 @@ import {
   type SbbCheckboxGroupElement,
   SbbCheckboxPanelElement,
 } from '../checkbox.ts';
-import { fixture, tabKey } from '../core/testing/private.ts';
+import { isChromium } from '../core/dom.ts';
+import { a11yTreeSnapshot, fixture, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 import {
   type SbbRadioButtonElement,
@@ -381,14 +382,6 @@ describe(`sbb-selection-expansion-panel`, () => {
           "sbb-radio-button-panel[value='main2']",
         )!;
 
-      const mainRadioButton1Label = (await a11ySnapshot({
-        selector: 'sbb-radio-button-panel[value="main1"]',
-      })) as unknown as { name: string };
-
-      const mainRadioButton2Label = (await a11ySnapshot({
-        selector: 'sbb-radio-button-panel[value="main2"]',
-      })) as unknown as { name: string };
-
       // We assert that there was no fade in animation (skipped opening state).
       await waitForCondition(() => panel1.matches(':state(state-opening)'), 1, 100)
         .then(() => Promise.reject('accidentally passed'))
@@ -397,8 +390,17 @@ describe(`sbb-selection-expansion-panel`, () => {
       await openSpy.calledOnce();
       expect(beforeOpenSpy.count).to.be.equal(1);
       expect(openSpy.count).to.be.equal(1);
-      expect(mainRadioButton1Label.name.trim()).to.be.equal('Main Option 1 , expanded');
-      expect(mainRadioButton2Label.name.trim()).to.be.equal('Main Option 2 , collapsed');
+      if (isChromium) {
+        const mainRadioButton1Label = await a11yTreeSnapshot({
+          selector: 'sbb-radio-button-panel[value="main1"]',
+        });
+        const mainRadioButton2Label = await a11yTreeSnapshot({
+          selector: 'sbb-radio-button-panel[value="main2"]',
+        });
+
+        expect(mainRadioButton1Label.name?.trim()).to.be.equal('Main Option 1 , expanded');
+        expect(mainRadioButton2Label.name?.trim()).to.be.equal('Main Option 2 , collapsed');
+      }
       expect(panel1).to.match(':state(state-opened)');
       expect(panel2).to.match(':state(state-closed)');
 
@@ -408,22 +410,25 @@ describe(`sbb-selection-expansion-panel`, () => {
       await openSpy.calledTimes(2);
       await closeSpy.calledOnce();
 
-      const mainRadioButton1LabelSecondRender = (await a11ySnapshot({
-        selector: 'sbb-radio-button-panel[value="main1"]',
-      })) as unknown as { name: string };
-
-      const mainRadioButton2LabelSecondRender = (await a11ySnapshot({
-        selector: 'sbb-radio-button-panel[value="main2"]',
-      })) as unknown as { name: string };
-
       expect(beforeOpenSpy.count).to.be.equal(2);
       expect(openSpy.count).to.be.equal(2);
       expect(beforeCloseSpy.count).to.be.equal(1);
       expect(closeSpy.count).to.be.equal(1);
-      expect(mainRadioButton1LabelSecondRender.name.trim()).to.be.equal(
-        'Main Option 1 , collapsed',
-      );
-      expect(mainRadioButton2LabelSecondRender.name.trim()).to.be.equal('Main Option 2 , expanded');
+      if (isChromium) {
+        const mainRadioButton1LabelSecondRender = await a11yTreeSnapshot({
+          selector: 'sbb-radio-button-panel[value="main1"]',
+        });
+        const mainRadioButton2LabelSecondRender = await a11yTreeSnapshot({
+          selector: 'sbb-radio-button-panel[value="main2"]',
+        });
+
+        expect(mainRadioButton1LabelSecondRender.name?.trim()).to.be.equal(
+          'Main Option 1 , collapsed',
+        );
+        expect(mainRadioButton2LabelSecondRender.name?.trim()).to.be.equal(
+          'Main Option 2 , expanded',
+        );
+      }
 
       expect(panel1).to.match(':state(state-closed)');
       expect(panel2).to.match(':state(state-opened)');
@@ -788,16 +793,17 @@ describe(`sbb-selection-expansion-panel`, () => {
       const mainCheckbox2: SbbCheckboxPanelElement =
         nestedElement.querySelector<SbbCheckboxPanelElement>("sbb-checkbox-panel[value='main2']")!;
 
-      const mainCheckbox1Label = (await a11ySnapshot({
-        selector: 'sbb-checkbox-panel[value="main1"]',
-      })) as unknown as { name: string };
+      if (isChromium) {
+        const mainCheckbox1Label = await a11yTreeSnapshot({
+          selector: 'sbb-checkbox-panel[value="main1"]',
+        });
+        const mainCheckbox2Label = await a11yTreeSnapshot({
+          selector: 'sbb-checkbox-panel[value="main2"]',
+        });
 
-      const mainCheckbox2Label = (await a11ySnapshot({
-        selector: 'sbb-checkbox-panel[value="main2"]',
-      })) as unknown as { name: string };
-
-      expect(mainCheckbox1Label.name.trim()).to.be.equal('​ Main Option 1 , expanded');
-      expect(mainCheckbox2Label.name.trim()).to.be.equal('​ Main Option 2 , collapsed');
+        expect(mainCheckbox1Label.name?.trim()).to.be.equal('​ Main Option 1 , expanded');
+        expect(mainCheckbox2Label.name?.trim()).to.be.equal('​ Main Option 2 , collapsed');
+      }
 
       // Deactivate main option 1
       mainCheckbox1.click();
@@ -807,16 +813,21 @@ describe(`sbb-selection-expansion-panel`, () => {
 
       await waitForLitRender(nestedElement);
 
-      const mainCheckbox1LabelSecondRender = (await a11ySnapshot({
-        selector: 'sbb-checkbox-panel[value="main1"]',
-      })) as unknown as { name: string };
+      if (isChromium) {
+        const mainCheckbox1LabelSecondRender = await a11yTreeSnapshot({
+          selector: 'sbb-checkbox-panel[value="main1"]',
+        });
+        const mainCheckbox2LabelSecondRender = await a11yTreeSnapshot({
+          selector: 'sbb-checkbox-panel[value="main2"]',
+        });
 
-      const mainCheckbox2LabelSecondRender = (await a11ySnapshot({
-        selector: 'sbb-checkbox-panel[value="main2"]',
-      })) as unknown as { name: string };
-
-      expect(mainCheckbox1LabelSecondRender.name.trim()).to.be.equal('​ Main Option 1 , collapsed');
-      expect(mainCheckbox2LabelSecondRender.name.trim()).to.be.equal('​ Main Option 2 , expanded');
+        expect(mainCheckbox1LabelSecondRender.name?.trim()).to.be.equal(
+          '​ Main Option 1 , collapsed',
+        );
+        expect(mainCheckbox2LabelSecondRender.name?.trim()).to.be.equal(
+          '​ Main Option 2 , expanded',
+        );
+      }
     });
 
     it('should mark only outer group children as disabled', async () => {

@@ -81,68 +81,30 @@ snapshots["sbb-datepicker renders Shadow DOM"] =
 snapshots["sbb-datepicker renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "button",
-      "name": "Change to the previous day, currently selected December 20, 2021."
-    },
-    {
-      "role": "textbox",
-      "name": "DD.MM.YYYY",
-      "value": "Mo, 20.12.2021"
-    },
-    {
-      "role": "button",
-      "name": "Show calendar",
-      "haspopup": "dialog"
-    },
-    {
-      "role": "button",
-      "name": "Change to the next day, currently selected December 20, 2021."
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-datepicker renders A11y tree Chrome */
-
-snapshots["sbb-datepicker renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "button",
-      "name": "Change to the previous day, currently selected December 20, 2021."
-    },
-    {
-      "role": "textbox",
-      "name": "",
-      "value": "Mo, 20.12.2021"
-    },
-    {
-      "role": "button",
-      "name": "Show calendar",
-      "haspopup": "dialog"
-    },
-    {
-      "role": "button",
-      "name": "Change to the next day, currently selected December 20, 2021."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker renders A11y tree Firefox */
 

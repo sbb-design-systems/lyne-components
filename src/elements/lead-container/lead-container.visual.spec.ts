@@ -135,6 +135,16 @@ describe(`sbb-lead-container`, () => {
         }),
       );
     }
+
+    it(
+      'without image',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          leadContainerTemplate(() => html``),
+          wrapperStyles,
+        );
+      }),
+    );
   });
 
   describeViewports({ viewports: ['large'] }, () => {
