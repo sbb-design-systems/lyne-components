@@ -165,10 +165,10 @@ $intersector-overlapping: 1px;
     transition: box-shadow var(--_sbb-sticky-bar-background-animation-duration)
       var(--sbb-sticky-bar-animation-easing);
     clip-path: polygon(
-      -50% calc(-1 * var(--sbb-shadow-elevation-level-11-shadow-1-blur)),
+      -100% calc(-1 * var(--sbb-shadow-elevation-level-11-shadow-1-blur)),
       150% calc(-1 * var(--sbb-shadow-elevation-level-11-shadow-1-blur)),
-      150% 50%,
-      -50% 50%
+      150% 100%,
+      -100% 100%
     );
 
     :host(:state(sticking):not(:state(state-unsticky))) & {
