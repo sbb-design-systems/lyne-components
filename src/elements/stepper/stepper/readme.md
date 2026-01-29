@@ -107,7 +107,7 @@ Use an `aria-label` attribute to describe the purpose of the stepper. The `sbb-s
 
 | Name             | Attribute         | Privacy | Type                        | Default            | Description                                                                       |
 | ---------------- | ----------------- | ------- | --------------------------- | ------------------ | --------------------------------------------------------------------------------- |
-| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| null` | `null`             | Overrides the behaviour of `orientation` property.                                |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| null` | `null`             | Overrides the behavior of `orientation` property.                                 |
 | `linear`         | `linear`          | public  | `boolean`                   | `false`            | If set to true, only the current and previous labels can be clicked and selected. |
 | `orientation`    | `orientation`     | public  | `SbbOrientation`            | `'horizontal'`     | Steps orientation, either horizontal or vertical.                                 |
 | `selected`       | -                 | public  | `SbbStepElement \| null`    |                    | The currently selected step.                                                      |
