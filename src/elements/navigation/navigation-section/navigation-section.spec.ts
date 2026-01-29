@@ -149,14 +149,14 @@ describe(`sbb-navigation-section`, () => {
     expect(element).to.match(':state(state-opened)');
 
     await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
-    await aTimeout(30);
+    await aTimeout(200);
     expect(
       root.shadowRoot!.querySelector<HTMLElement>('.sbb-navigation__content')!.inert,
       'large viewport',
     ).to.be.false;
 
     await setViewport({ width: sbbBreakpointSmallMinPx, height: 600 });
-    await aTimeout(30);
+    await aTimeout(200);
     expect(
       root.shadowRoot!.querySelector<HTMLElement>('.sbb-navigation__content')!.inert,
       'small viewport',
@@ -301,6 +301,8 @@ describe(`sbb-navigation-section`, () => {
 
     // Start on mobile
     await setViewport({ width: sbbBreakpointSmallMinPx, height: 400 });
+    await aTimeout(200);
+
     element.open();
     await waitForCondition(() => element.matches(':state(state-opened)'));
 
