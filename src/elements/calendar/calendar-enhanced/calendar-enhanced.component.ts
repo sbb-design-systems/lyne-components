@@ -32,7 +32,7 @@ class SbbCalendarEnhancedElement extends SbbCalendarBaseElement {
   protected get cells(): (HTMLButtonElement | SbbCalendarDayElement)[] {
     return (
       (this.calendarView === 'day'
-        ? Array.from(this!.querySelectorAll<SbbCalendarDayElement>('.sbb-calendar__cell'))
+        ? Array.from(this!.querySelectorAll<SbbCalendarDayElement>('sbb-calendar-day'))
         : Array.from(
             this.shadowRoot!.querySelectorAll<HTMLButtonElement>('.sbb-calendar__cell'),
           )) ?? []
@@ -71,7 +71,7 @@ class SbbCalendarEnhancedElement extends SbbCalendarBaseElement {
 
   protected getFirstFocusableDay(): SbbCalendarDayElement | null {
     const daysInView: SbbCalendarDayElement[] = Array.from(
-      this.querySelectorAll('.sbb-calendar__cell:not([disabled])'),
+      this.querySelectorAll('sbb-calendar-day:not([disabled])'),
     );
     if (!daysInView || daysInView.length === 0) {
       return null;
@@ -81,8 +81,8 @@ class SbbCalendarEnhancedElement extends SbbCalendarBaseElement {
   }
 
   protected setTabIndex(): void {
-    Array.from(this.querySelectorAll('.sbb-calendar__cell[tabindex="0"]') ?? []).forEach(
-      (day) => ((day as SbbCalendarDayElement).tabIndex = -1),
+    Array.from(this.querySelectorAll('[tabindex="0"]') ?? []).forEach(
+      (day) => ((day as SbbCalendarDayElement | HTMLButtonElement).tabIndex = -1),
     );
     const firstFocusable = this.getFirstFocusable();
     if (firstFocusable) {

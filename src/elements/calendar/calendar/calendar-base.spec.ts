@@ -30,7 +30,7 @@ const getActiveElementValue = (element: SbbCalendarBaseElement): string | null =
 
 const getWaitFromTransitionQuery = (element: SbbCalendarBaseElement): NodeListOf<any> => {
   if (element instanceof SbbCalendarEnhancedElement) {
-    return element.querySelectorAll('.sbb-calendar__cell');
+    return element.querySelectorAll('sbb-calendar-day');
   } else {
     return element.shadowRoot!.querySelectorAll('.sbb-calendar__cell');
   }

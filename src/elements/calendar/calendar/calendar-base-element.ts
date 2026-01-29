@@ -1530,17 +1530,12 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
       const isOutOfRange = !this._isDayInRange(day.value);
       const isFilteredOut = !this._dateFilter(this._dateAdapter.deserialize(day.value)!);
       const isToday = day.value === today;
-      let selected: boolean;
-      if (this.multiple) {
-        selected =
-          (this._selected as T[]).find(
+      const selected = this.multiple
+        ? (this._selected as T[]).find(
             (selDay: T) => this._dateAdapter.compareDate(day.dateValue, selDay) === 0,
-          ) !== undefined;
-      } else {
-        selected =
-          !!this._selected &&
+          ) !== undefined
+        : !!this._selected &&
           this._dateAdapter.compareDate(day.dateValue, this._selected as T) === 0;
-      }
       return html`
         <td
           class=${classMap({

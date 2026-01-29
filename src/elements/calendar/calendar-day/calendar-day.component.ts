@@ -7,7 +7,6 @@ import { readConfig } from '../../core/config/config.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import type { DateAdapter } from '../../core/datetime/date-adapter.ts';
 import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
-import { hostAttributes } from '../../core/decorators/host-attributes.ts';
 import { SbbDisabledMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCalendarEnhancedElement } from '../calendar-enhanced/calendar-enhanced.component.ts';
@@ -21,9 +20,6 @@ import style from './calendar-day.scss?lit&inline';
  */
 export
 @customElement('sbb-calendar-day')
-@hostAttributes({
-  class: 'sbb-calendar__cell',
-})
 class SbbCalendarDayElement extends SbbDisabledMixin(SbbButtonBaseElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected dateAdapter: DateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
@@ -48,21 +44,16 @@ class SbbCalendarDayElement extends SbbDisabledMixin(SbbButtonBaseElement) {
         min: (component) => this._setInternalState(component),
         max: (component) => this._setInternalState(component),
         selected: (component) => {
-          let selected;
-          if (component.multiple) {
-            selected =
-              (component.selected as Date[]).find(
+          const selected = component.multiple
+            ? (component.selected as Date[]).find(
                 (selDay) =>
                   this.dateAdapter.compareDate(this.dateAdapter.parse(this.slot), selDay) === 0,
-              ) !== undefined;
-          } else {
-            selected =
-              !!component.selected &&
+              ) !== undefined
+            : !!component.selected &&
               this.dateAdapter.compareDate(
                 this.dateAdapter.parse(this.slot),
                 component.selected,
               ) === 0;
-          }
           this.toggleState('selected', selected);
           this.internals.ariaPressed = String(selected);
         },

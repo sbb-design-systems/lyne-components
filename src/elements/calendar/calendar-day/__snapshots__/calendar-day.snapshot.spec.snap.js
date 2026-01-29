@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-calendar-day renders DOM"] = 
 `<sbb-calendar-day
-  class="sbb-calendar__cell"
   sbb-popover-close=""
   slot="2025-01-01"
   tabindex="-1"
@@ -28,41 +27,8 @@ snapshots["sbb-calendar-day renders Shadow DOM"] =
 `;
 /* end snapshot sbb-calendar-day renders Shadow DOM */
 
-snapshots["sbb-calendar-day renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "January 1, 2025"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-calendar-day renders A11y tree Chrome */
-
-snapshots["sbb-calendar-day renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "January 1, 2025"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-calendar-day renders A11y tree Firefox */
-
 snapshots["sbb-calendar-day renders with content DOM"] = 
 `<sbb-calendar-day
-  class="sbb-calendar__cell"
   sbb-popover-close=""
   slot="2025-01-01"
   tabindex="-1"
@@ -90,35 +56,39 @@ snapshots["sbb-calendar-day renders with content Shadow DOM"] =
 `;
 /* end snapshot sbb-calendar-day renders with content Shadow DOM */
 
-snapshots["sbb-calendar-day renders with content A11y tree Chrome"] = 
+snapshots["sbb-calendar-day renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "January 1, 2025"
+      "name": "January 1, 2025",
+      "invalid": false,
+      "focusable": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-calendar-day renders A11y tree Chrome */
+
+snapshots["sbb-calendar-day renders with content A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "button",
+      "name": "January 1, 2025",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-calendar-day renders with content A11y tree Chrome */
-
-snapshots["sbb-calendar-day renders with content A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "January 1, 2025"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-calendar-day renders with content A11y tree Firefox */
 
