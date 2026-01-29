@@ -498,5 +498,18 @@ describe(`sbb-form-field`, () => {
     describe(`forcedColors=true`, () => {
       testFormField({ forcedColors: true, darkMode: false });
     });
+
+    it(
+      'multiple errors',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-form-field>
+            <input type="number" value="2" minlength="4" required />
+            <sbb-error>This is required field</sbb-error>
+            <sbb-error>Minimum length is 4 characters</sbb-error>
+          </sbb-form-field>`,
+        );
+      }),
+    );
   });
 });
