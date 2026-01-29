@@ -53,7 +53,7 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     super();
     this.addEventListener?.('click', () => {
       const stepper = this.stepper;
-      if (stepper && this.step && !this.matches(':state(disabled)')) {
+      if (stepper && this.step) {
         stepper.selected = this.step;
       }
     });
