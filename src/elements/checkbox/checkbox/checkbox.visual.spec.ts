@@ -88,5 +88,12 @@ describe('sbb-checkbox', () => {
         }
       });
     }
+
+    it(
+      `without label`,
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(html`<sbb-checkbox></sbb-checkbox>`);
+      }),
+    );
   });
 });
