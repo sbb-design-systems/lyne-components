@@ -14,9 +14,9 @@ import type {
  * dynamically removes the previous slotted days and adds the correct one based on the SbbMonthChangeEvent's Day[] range.
  * @param event The SbbMonthChangeEvent emitted from the SbbCalendarEnhancedElement
  */
-export const monthChangedHandler = (event: SbbMonthChangeEvent): void => {
+export const monthChangeHandler = (event: SbbMonthChangeEvent): void => {
   const calendar = event.target as SbbCalendarEnhancedElement;
-  Array.from(calendar.children).forEach((e) => calendar.removeChild(e));
+  Array.from(calendar.children).forEach((e) => e.remove());
   event.range?.map((day) => {
     const child = document.createElement('sbb-calendar-day');
     child.setAttribute('slot', day.value);

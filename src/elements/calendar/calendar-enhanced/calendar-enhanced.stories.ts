@@ -20,9 +20,9 @@ const priceStyle = (greenBold: boolean): string => {
   return `display: flex; flex-direction: column; justify-content: center; ${greenBold ? 'color: var(--sbb-color-green); font-weight: bold;' : 'color: var(--sbb-color-metal);'}`;
 };
 
-const monthChangedHandler = (e: SbbMonthChangeEvent, withPrice: boolean): void => {
+const monthChangeHandler = (e: SbbMonthChangeEvent, withPrice: boolean): void => {
   const calendar = e.target as SbbCalendarEnhancedElement;
-  Array.from(calendar.children).forEach((e) => calendar.removeChild(e));
+  Array.from(calendar.children).forEach((e) => e.remove());
   e.range?.map((day) => {
     const child = document.createElement('sbb-calendar-day');
     child.setAttribute('slot', day.value);
@@ -121,7 +121,7 @@ const Template = ({
       .dateFilter="${dateFilter}"
       ${sbbSpread(getCalendarAttr(min, max))}
       ${sbbSpread(args)}
-      @monthchanged=${(e: SbbMonthChangeEvent) => monthChangedHandler(e, withPrice)}
+      @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e, withPrice)}
       >${createDays(args.wide, withPrice)}</sbb-calendar-enhanced
     >
   `;
@@ -374,7 +374,7 @@ const meta: Meta = {
     actions: {
       handles: [
         SbbCalendarEnhancedElement.events.dateselected,
-        SbbCalendarEnhancedElement.events.monthchanged,
+        SbbCalendarEnhancedElement.events.monthchange,
       ],
     },
     docs: {

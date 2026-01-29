@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbCalendarEnhancedElement } from './calendar-enhanced.component.ts';
-import { createSlottedDays } from './calendar-enhanced.helper.ts';
+import { createSlottedDays } from './calendar-enhanced.helper.private.ts';
 
 import './calendar-enhanced.component.ts';
 import '../calendar-day/calendar-day.component.ts';

@@ -23,7 +23,7 @@ import {
   SbbCalendarEnhancedElement,
   type SbbMonthChangeEvent,
 } from './calendar-enhanced.component.ts';
-import { createSlottedDays, monthChangedHandler } from './calendar-enhanced.helper.ts';
+import { createSlottedDays, monthChangeHandler } from './calendar-enhanced.helper.private.ts';
 
 import '../calendar-day/calendar-day.component.ts';
 
@@ -56,7 +56,7 @@ describe('sbb-calendar-enhanced', () => {
       element = await fixture(html`
         <sbb-calendar-enhanced
           selected="2023-01-15"
-          @monthchanged=${(e: SbbMonthChangeEvent) => monthChangedHandler(e)}
+          @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e)}
         >
           ${createSlottedDays(2023, 1)}
         </sbb-calendar-enhanced>
@@ -236,7 +236,7 @@ describe('sbb-calendar-enhanced', () => {
         html`<sbb-calendar-enhanced
           selected="2023-01-15"
           orientation="vertical"
-          @monthchanged=${(e: SbbMonthChangeEvent) => monthChangedHandler(e)}
+          @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e)}
         >
           ${createSlottedDays(2023, 1)}
         </sbb-calendar-enhanced>`,
@@ -255,7 +255,7 @@ describe('sbb-calendar-enhanced', () => {
         min="2023-01-09"
         max="2023-01-29"
         orientation="vertical"
-        @monthchanged=${(e: SbbMonthChangeEvent) => monthChangedHandler(e)}
+        @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e)}
       >
         ${createSlottedDays(2023, 1)}
       </sbb-calendar-enhanced>`,

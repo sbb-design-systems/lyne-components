@@ -71,7 +71,7 @@ class SbbCalendarDayElement extends SbbDisabledMixin(SbbButtonBaseElement) {
     const isFilteredOut = !this._isFilteredOut(component.dateFilter);
     const isOutOfRange = !this._isDayInRange(component.min, component.max, this.slot);
     this.disabled = isFilteredOut || isOutOfRange;
-    this.internals.ariaDisabled = String(isFilteredOut || isOutOfRange);
+    this.internals.ariaDisabled = String(this.disabled);
     this.toggleState('crossed-out', isFilteredOut && !isOutOfRange);
   }
 

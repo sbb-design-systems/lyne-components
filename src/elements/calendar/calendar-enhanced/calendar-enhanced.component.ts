@@ -12,7 +12,7 @@ export class SbbMonthChangeEvent extends Event {
   }
 
   public constructor(range: Day[] | null) {
-    super('monthchanged', { bubbles: true, composed: true });
+    super('monthchange', { bubbles: true, composed: true });
     this._range = range;
   }
 }
@@ -26,7 +26,7 @@ export
 class SbbCalendarEnhancedElement extends SbbCalendarBaseElement {
   public static override readonly events = {
     dateselected: 'dateselected',
-    monthchanged: 'monthchanged',
+    monthchange: 'monthchange',
   } as const;
 
   protected get cells(): (HTMLButtonElement | SbbCalendarDayElement)[] {
@@ -92,17 +92,17 @@ class SbbCalendarEnhancedElement extends SbbCalendarBaseElement {
 
   protected override resetCalendarView(initTransition: boolean): void {
     super.resetCalendarView(initTransition);
-    this._emitMonthChanged();
+    this._emitMonthChange();
   }
 
   protected override goToDifferentMonth(months: number): void {
     super.goToDifferentMonth(months);
-    this._emitMonthChanged();
+    this._emitMonthChange();
   }
 
   protected override onMonthSelection(month: number, year: number): void {
     super.onMonthSelection(month, year);
-    this._emitMonthChanged();
+    this._emitMonthChange();
   }
 
   protected override createDayCells(week: Day[], _: string): TemplateResult[] {
@@ -132,10 +132,10 @@ class SbbCalendarEnhancedElement extends SbbCalendarBaseElement {
     this.setTabIndex();
   }
 
-  private _emitMonthChanged(): void {
+  private _emitMonthChange(): void {
     // FIXME: the name of this variable appears as event name in the readme.
     //  Maybe a CEM bug? it should take the name of the event from the SbbMonthChangeEvent constructor
-    const monthchanged = (this.wide ? [...this.weeks, ...this.nextMonthWeeks] : this.weeks)
+    const monthchange = (this.wide ? [...this.weeks, ...this.nextMonthWeeks] : this.weeks)
       .flat()
       .sort((a, b) => a.value.localeCompare(b.value));
     /**
@@ -143,7 +143,7 @@ class SbbCalendarEnhancedElement extends SbbCalendarBaseElement {
      * Emits when the month changes.
      * The `range` property contains the days array of the chosen month.
      */
-    this.dispatchEvent(new SbbMonthChangeEvent(monthchanged));
+    this.dispatchEvent(new SbbMonthChangeEvent(monthchange));
   }
 }
 
@@ -153,6 +153,6 @@ declare global {
     'sbb-calendar-enhanced': SbbCalendarEnhancedElement;
   }
   interface HTMLElementEventMap {
-    monthchanged: SbbMonthChangeEvent;
+    monthchange: SbbMonthChangeEvent;
   }
 }

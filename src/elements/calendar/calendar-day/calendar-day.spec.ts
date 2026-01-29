@@ -5,7 +5,7 @@ import { SbbCalendarEnhancedElement } from '../../calendar.ts';
 import { defaultDateAdapter } from '../../core/datetime.ts';
 import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
-import { createSlottedDays } from '../calendar-enhanced/calendar-enhanced.helper.ts';
+import { createSlottedDays } from '../calendar-enhanced/calendar-enhanced.helper.private.ts';
 
 import { SbbCalendarDayElement } from './calendar-day.component.ts';
 import '../calendar-enhanced/calendar-enhanced.component.ts';

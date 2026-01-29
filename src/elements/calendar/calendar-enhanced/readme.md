@@ -32,20 +32,20 @@ so please refer to its 'Style' section for information about the `wide`, `orient
 ## Events
 
 Each time the month changes due to user interaction with the previous/next month buttons,
-or via selecting a different year and then a month, a `monthchanged` event is emitted, typed as `SbbMonthChangeEvent`.
+or via selecting a different year and then a month, a `monthchange` event is emitted, typed as `SbbMonthChangeEvent`.
 
 The event has a `range: Day[]` property, which can be accessed to have information about the days to render.
 Consumers can listen to this event to dynamically create and slot the `sbb-calendar-day`s of the chosen month.
 
 ```html
-<sbb-calendar-enhanced @monthchanged="(e) => monthChangedHandler(e)">...</sbb-calendar-enhanced>
+<sbb-calendar-enhanced @monthchange="(e) => monthChangeHandler(e)">...</sbb-calendar-enhanced>
 ```
 
 ```ts
-function monthChangedHandler(e) {
+function monthChangeHandler(e) {
   const calendar = e.target;
   // Remove slotted days to keep the DOM clean.
-  Array.from(calendar.children).forEach((e) => calendar.removeChild(e));
+  Array.from(calendar.children).forEach((e) => e.remove());
   // Add the new days
   e.range.map((day) => {
     const child = document.createElement('sbb-calendar-day');
@@ -91,4 +91,4 @@ so please refer to its 'Keyboard interaction' section for detailed information.
 | Name           | Type                    | Description                                                                                     | Inherited From         |
 | -------------- | ----------------------- | ----------------------------------------------------------------------------------------------- | ---------------------- |
 | `dateselected` | `CustomEvent<T \| T[]>` | Event emitted on date selection.                                                                | SbbCalendarBaseElement |
-| `monthchanged` | `SbbMonthChangeEvent`   | Emits when the month changes. The `range` property contains the days array of the chosen month. |                        |
+| `monthchange`  | `SbbMonthChangeEvent`   | Emits when the month changes. The `range` property contains the days array of the chosen month. |                        |
