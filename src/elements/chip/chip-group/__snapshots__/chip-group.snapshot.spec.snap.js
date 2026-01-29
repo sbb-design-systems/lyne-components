@@ -13,10 +13,8 @@ snapshots["sbb-chip-group renders DOM"] =
 /* end snapshot sbb-chip-group renders DOM */
 
 snapshots["sbb-chip-group renders Shadow DOM"] = 
-`<div class="sbb-chip-group">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-chip-group renders Shadow DOM */
 

@@ -1,0 +1,16 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-chip-background-color: var(--sbb-background-color-3);
+  --sbb-chip-background-color-active: var(--sbb-background-color-1);
+  --sbb-chip-background-color-hover: var(--sbb-background-color-1);
+  --sbb-chip-border-color: var(--sbb-border-color-4-inverted);
+  --sbb-chip-border-radius: var(--sbb-border-radius-2x);
+  --sbb-chip-color: light-dark(var(--sbb-color-granite), var(--sbb-color-cloud));
+  --sbb-chip-color-hover: var(--sbb-color-2);
+  --sbb-chip-font-size: var(--sbb-text-font-size-xxs);
+  --sbb-chip-height: #{sbb.px-to-rem-build(24)};
+  --sbb-chip-label-padding-inline: var(--sbb-spacing-fixed-2x);
+}

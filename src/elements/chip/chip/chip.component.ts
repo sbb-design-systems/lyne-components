@@ -75,21 +75,19 @@ class SbbChipElement<T = string> extends SbbNegativeMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-chip">
-        <div class="sbb-chip__label-wrapper">
-          <span class="sbb-chip__label">
-            <slot>${this.value ?? ''}</slot>
-          </span>
-        </div>
-        <sbb-mini-button
-          aria-hidden="true"
-          class="sbb-chip__delete"
-          icon-name="cross-tiny-small"
-          @click=${this._handleDeleteButtonClick}
-        >
-        </sbb-mini-button>
-        <sbb-screen-reader-only>, ${i18nChipDelete[this._language.current]}</sbb-screen-reader-only>
+      <div class="sbb-chip__label-wrapper">
+        <span class="sbb-chip__label">
+          <slot>${this.value ?? ''}</slot>
+        </span>
       </div>
+      <sbb-mini-button
+        aria-hidden="true"
+        class="sbb-chip__delete"
+        icon-name="cross-tiny-small"
+        @click=${this._handleDeleteButtonClick}
+      >
+      </sbb-mini-button>
+      <sbb-screen-reader-only>, ${i18nChipDelete[this._language.current]}</sbb-screen-reader-only>
     `;
   }
 }
