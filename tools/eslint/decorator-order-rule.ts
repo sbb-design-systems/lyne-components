@@ -8,7 +8,6 @@ const accessorDecoratorOrder = [
   'property',
   'state',
   'getOverride',
-  'queryAssignedElements',
 ];
 const getDecoratorName = (node: TSESTree.Decorator): string =>
   node.expression.type === 'CallExpression'

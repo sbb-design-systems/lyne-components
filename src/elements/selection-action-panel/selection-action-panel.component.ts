@@ -1,5 +1,5 @@
 import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
-import { customElement, queryAssignedElements } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 
 import type { SbbCardBadgeElement } from '../card.ts';
 import type { SbbCheckboxPanelElement } from '../checkbox/checkbox-panel.ts';
@@ -21,12 +21,6 @@ export
 class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydrationMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
-  @queryAssignedElements({ slot: 'badge' })
-  private accessor _badgeElements!: SbbCardBadgeElement[];
-
-  @queryAssignedElements({ flatten: true })
-  private accessor _panelElements!: HTMLElement[];
-
   public override connectedCallback(): void {
     super.connectedCallback();
 
@@ -37,14 +31,20 @@ class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydration
   }
 
   private _handleSlotchange(): void {
-    if (this._badgeElements.length > 0) {
-      const badgeContent = this._badgeElements[0];
-      const panel = this._panelElements.find(
+    const badgeElements = (this.shadowRoot!.querySelector<HTMLSlotElement>(
+      'slot[name="badge"]',
+    )?.assignedElements() ?? []) as SbbCardBadgeElement[];
+    const panelElements =
+      this.shadowRoot!.querySelector<HTMLSlotElement>('slot:not([name])')?.assignedElements({
+        flatten: true,
+      }) ?? [];
+    if (badgeElements.length > 0) {
+      const panel = panelElements.find(
         (panel) =>
           panel.localName === 'sbb-radio-button-panel' || panel.localName === 'sbb-checkbox-panel',
       ) as SbbCheckboxPanelElement | SbbRadioButtonPanelElement;
-      if (badgeContent && panel && !panel.ariaDescription) {
-        panel.ariaDescribedByElements = [badgeContent];
+      if (panel && !panel.ariaDescription) {
+        panel.ariaDescribedByElements = badgeElements;
       }
     }
   }
