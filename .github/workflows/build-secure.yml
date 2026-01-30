@@ -46,7 +46,7 @@ jobs:
       - name: Remove files with forbidden extensions
         run: node ./scripts/clean-docs-files.ts
       - name: Calculate CSP hash for preview docs
-        run: node ./scripts/calculate-csp-hash.ts
+        run: yarn build nginx-conf
 
       - name: Create size check
         uses: actions/github-script@v8
