@@ -22,7 +22,7 @@ const getActiveElementText: () => string = () =>
 
 const getActiveElementValue = (element: SbbCalendarBaseElement): string | null => {
   if (element instanceof SbbCalendarEnhancedElement) {
-    return (document.activeElement as SbbCalendarDayElement).value;
+    return defaultDateAdapter.toIso8601((document.activeElement as SbbCalendarDayElement).value!);
   } else {
     return document.activeElement!.shadowRoot!.activeElement!.getAttribute('value');
   }
@@ -283,7 +283,9 @@ describe('sbb-calendar-base', async () => {
             getDaysCellsQuery(element),
           );
           expect(dayCells.length).to.be.equal(31);
-          expect(dayCells[0].value).to.be.equal('2023-01-01');
+          expect(defaultDateAdapter.toIso8601(new Date(dayCells[0].value!))).to.be.equal(
+            '2023-01-01',
+          );
         });
 
         it('reset view if day is not selected when year/month are changed', async () => {
@@ -310,7 +312,9 @@ describe('sbb-calendar-base', async () => {
           await waitForTransition(element);
           const dayCells = Array.from(getDaysCellsQuery(element));
           expect(dayCells.length).to.be.equal(30);
-          expect(dayCells[0].value).to.be.equal('2030-09-01');
+          expect(defaultDateAdapter.toIso8601(new Date(dayCells[0].value!))).to.be.equal(
+            '2030-09-01',
+          );
 
           // Without selecting a day, change to the year view
           yearSelectionButton.click();
@@ -324,7 +328,9 @@ describe('sbb-calendar-base', async () => {
           // We expect to be in the month of the selected day (Dec 2023)
           const dayCells2 = Array.from(getDaysCellsQuery(element));
           expect(dayCells2.length).to.be.equal(31);
-          expect(dayCells2[0].value).to.be.equal('2023-01-01');
+          expect(defaultDateAdapter.toIso8601(new Date(dayCells2[0].value!))).to.be.equal(
+            '2023-01-01',
+          );
         });
 
         it('does not create horizontal scrollbar when calendar is 100% width in overflow container', async () => {

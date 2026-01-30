@@ -457,36 +457,8 @@ snapshots["sbb-calendar-enhanced renders A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "ignored": true,
-      "role": "none",
-      "children": [
-        {
-          "ignored": true,
-          "role": "none",
-          "children": [
-            {
-              "role": "generic",
-              "name": ""
-            },
-            {
-              "ignored": true,
-              "role": "none",
-              "children": [
-                {
-                  "ignored": true,
-                  "role": "none",
-                  "children": [
-                    {
-                      "role": "table",
-                      "name": ""
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      "role": "generic",
+      "name": ""
     }
   ]
 }

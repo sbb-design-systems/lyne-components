@@ -39,6 +39,30 @@ class SbbCalendarEnhancedElement extends SbbCalendarBaseElement {
     );
   }
 
+  public constructor() {
+    super();
+    this.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).localName === 'sbb-calendar-day') {
+        this.selectDate((e.target as SbbCalendarDayElement).value!);
+      }
+    });
+    this.addEventListener('keydown', (e) => {
+      if ((e.target as HTMLElement).localName === 'sbb-calendar-day') {
+        this.handleKeyboardEvent(e, this.mapDateToDay((e.target as SbbCalendarDayElement).value!));
+      }
+    });
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+    this.shadowRoot?.addEventListener('slotchange', this._onSlotChange, { capture: true });
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.shadowRoot?.removeEventListener('slotchange', this._onSlotChange, { capture: true });
+  }
+
   protected setTabIndexAndFocusKeyboardNavigation(elementToFocus: SbbCalendarDayElement): void {
     const activeEl =
       this.calendarView === 'day'
@@ -109,28 +133,15 @@ class SbbCalendarEnhancedElement extends SbbCalendarBaseElement {
     return week.map((day: Day) => {
       return html`
         <td class="sbb-calendar__table-data">
-          <slot
-            name=${day.value}
-            @slotchange=${(e: Event) => this._handleSlotChange(e, day)}
-          ></slot>
+          <slot name=${day.value}></slot>
         </td>
       `;
     });
   }
 
-  private _handleSlotChange(e: Event, day: Day): void {
-    const calendarDay = (e.target as HTMLSlotElement)
-      .assignedElements()
-      .find((e): e is SbbCalendarDayElement => e.localName === 'sbb-calendar-day');
-    if (calendarDay) {
-      calendarDay.value = day.value;
-      calendarDay.addEventListener('click', () => this.selectDate(day.dateValue));
-      calendarDay.addEventListener('keydown', (evt: KeyboardEvent) =>
-        this.handleKeyboardEvent(evt, day),
-      );
-    }
+  private _onSlotChange = (): void => {
     this.setTabIndex();
-  }
+  };
 
   private _emitMonthChange(): void {
     // FIXME: the name of this variable appears as event name in the readme
