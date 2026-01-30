@@ -133,8 +133,9 @@ class SbbCalendarEnhancedElement extends SbbCalendarBaseElement {
   }
 
   private _emitMonthChange(): void {
-    // FIXME: the name of this variable appears as event name in the readme.
-    //  Maybe a CEM bug? it should take the name of the event from the SbbMonthChangeEvent constructor
+    // FIXME: the name of this variable appears as event name in the readme
+    //  due to a bug in the custom-element-manifest library.
+    //  https://github.com/open-wc/custom-elements-manifest/issues/149
     const monthchange = (this.wide ? [...this.weeks, ...this.nextMonthWeeks] : this.weeks)
       .flat()
       .sort((a, b) => a.value.localeCompare(b.value));
