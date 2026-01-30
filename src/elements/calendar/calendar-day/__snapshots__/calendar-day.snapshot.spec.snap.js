@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-calendar-day renders DOM"] = 
 `<sbb-calendar-day
-  sbb-popover-close=""
   slot="2025-01-01"
   tabindex="-1"
 >
@@ -29,7 +28,6 @@ snapshots["sbb-calendar-day renders Shadow DOM"] =
 
 snapshots["sbb-calendar-day renders with content DOM"] = 
 `<sbb-calendar-day
-  sbb-popover-close=""
   slot="2025-01-01"
   tabindex="-1"
 >
