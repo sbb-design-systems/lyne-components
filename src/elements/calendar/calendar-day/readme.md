@@ -26,6 +26,9 @@ Styling the content is on consumer side.
 </sbb-calendar-day>
 ```
 
+If the [sbb-calendar-enhanced](/docs/elements-sbb-calendar-sbb-calendar-enhanced--docs) is used in a popover, similarly to the `sbb-datepicker`,
+consumers could add the `sbb-popover-close` attribute on the component to close the popover when a `sbb-calendar-day` is clicked.
+
 ## States
 
 The component has a `current` state, which is set if the slot name matches the current day.

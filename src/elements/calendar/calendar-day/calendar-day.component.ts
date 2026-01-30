@@ -96,7 +96,6 @@ class SbbCalendarDayElement<T = Date> extends SbbDisabledMixin(SbbButtonLikeBase
   public override connectedCallback(): void {
     super.connectedCallback();
     this.tabIndex = -1;
-    this.toggleAttribute('sbb-popover-close', true);
   }
 
   private _setInternalState(component: SbbCalendarEnhancedElement): void {
