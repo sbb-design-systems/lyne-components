@@ -607,17 +607,12 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   }
 
   /** Checks if date is within the min-max range. */
-  private _isDayInRange(date: string): boolean {
+  private _isDayInRange(dateString: string): boolean {
     if (!this.min && !this.max) {
       return true;
     }
-    const isBeforeMin: boolean =
-      this._dateAdapter.isValid(this.min) &&
-      this._dateAdapter.compareDate(this.min!, this._dateAdapter.deserialize(date)!) > 0;
-    const isAfterMax: boolean =
-      this._dateAdapter.isValid(this.max) &&
-      this._dateAdapter.compareDate(this.max!, this._dateAdapter.deserialize(date)!) < 0;
-    return !(isBeforeMin || isAfterMax);
+    const date = this._dateAdapter.deserialize(dateString)!;
+    return this._dateAdapter.sameDate(date, this._dateAdapter.clampDate(date, this.min, this.max));
   }
 
   /** Checks if date is within the min-max range in month view. */

@@ -79,17 +79,12 @@ class SbbCalendarDayElement extends SbbDisabledMixin(SbbButtonBaseElement) {
     return dateFilter?.(this.dateAdapter.deserialize(this.slot)!) ?? true;
   }
 
-  private _isDayInRange(min: Date | null, max: Date | null, date: string): boolean {
+  private _isDayInRange(min: Date | null, max: Date | null, dateString: string): boolean {
     if (!min && !max) {
       return true;
     }
-    const isBeforeMin: boolean =
-      this.dateAdapter.isValid(min) &&
-      this.dateAdapter.compareDate(min!, this.dateAdapter.deserialize(date)!) > 0;
-    const isAfterMax: boolean =
-      this.dateAdapter.isValid(max) &&
-      this.dateAdapter.compareDate(max!, this.dateAdapter.deserialize(date)!) < 0;
-    return !(isBeforeMin || isAfterMax);
+    const date = this.dateAdapter.deserialize(dateString);
+    return this.dateAdapter.sameDate(date, this.dateAdapter.clampDate(date, min, max));
   }
 
   protected override renderTemplate(): TemplateResult {
