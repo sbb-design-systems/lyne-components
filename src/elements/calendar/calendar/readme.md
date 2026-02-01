@@ -157,12 +157,12 @@ For accessibility purposes, the component is rendered as a native table element 
 
 ## Methods
 
-| Name            | Privacy | Description                                                         | Parameters | Return | Inherited From |
-| --------------- | ------- | ------------------------------------------------------------------- | ---------- | ------ | -------------- |
-| `resetPosition` | public  | Resets the active month according to the new state of the calendar. |            | `void` |                |
+| Name            | Privacy | Description                                                         | Parameters | Return | Inherited From         |
+| --------------- | ------- | ------------------------------------------------------------------- | ---------- | ------ | ---------------------- |
+| `resetPosition` | public  | Resets the active month according to the new state of the calendar. |            | `void` | SbbCalendarBaseElement |
 
 ## Events
 
-| Name           | Type                    | Description                      | Inherited From |
-| -------------- | ----------------------- | -------------------------------- | -------------- |
-| `dateselected` | `CustomEvent<T \| T[]>` | Event emitted on date selection. |                |
+| Name           | Type                    | Description                      | Inherited From         |
+| -------------- | ----------------------- | -------------------------------- | ---------------------- |
+| `dateselected` | `CustomEvent<T \| T[]>` | Event emitted on date selection. | SbbCalendarBaseElement |
