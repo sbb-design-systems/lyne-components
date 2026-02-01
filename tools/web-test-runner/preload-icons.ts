@@ -92,6 +92,7 @@ const preloadIconList = [
   'sa-bz',
   'sa-cc',
   'sa-ci',
+  'sa-fl',
   'sa-fz',
   'sa-nf',
   'sa-r',

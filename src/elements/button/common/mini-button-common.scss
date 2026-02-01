@@ -118,4 +118,10 @@ sbb-icon {
   transition: translate var(--sbb-mini-button-transition-duration)
     var(--sbb-mini-button-transition-easing-function);
   translate: 0 var(--sbb-mini-button-translate-y-content-hover, #{sbb.px-to-rem-build(0)});
+
+  // Ensure minimum size for icons
+  min-width: var(--sbb-size-icon-ui-small);
+  min-height: var(--sbb-size-icon-ui-small);
+  align-items: center;
+  justify-content: center;
 }
