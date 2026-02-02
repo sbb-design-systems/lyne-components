@@ -12,11 +12,11 @@ export
 class SbbCalendarElement extends SbbCalendarBaseElement {
   protected get cells(): (HTMLButtonElement | SbbCalendarDayElement)[] {
     return (
-      Array.from(
-        this.shadowRoot!.querySelectorAll<HTMLButtonElement | SbbCalendarDayElement>(
-          '.sbb-calendar__cell',
-        ),
-      ) ?? []
+      (this.calendarView === 'day'
+        ? Array.from(this.shadowRoot!.querySelectorAll<SbbCalendarDayElement>('sbb-calendar-day'))
+        : Array.from(
+            this.shadowRoot!.querySelectorAll<HTMLButtonElement>('.sbb-calendar__cell'),
+          )) ?? []
     );
   }
 
@@ -41,13 +41,13 @@ class SbbCalendarElement extends SbbCalendarBaseElement {
   /**
    * In `day` view in `vertical` orientation,
    * if the first of the month is not a Monday, it is not the first rendered element in the table,
-   * so `this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])')` will return a wrong value.
+   * so `this.shadowRoot!.querySelector('sbb-calendar-day:not([disabled])')` will return a wrong value.
    *
    * To solve this, the element with the lowest `value` is taken (ISO String are ordered).
    */
   protected getFirstFocusableDay(): SbbCalendarDayElement | null {
     const daysInView: SbbCalendarDayElement[] = Array.from(
-      this.shadowRoot!.querySelectorAll('.sbb-calendar__cell:not([disabled])'),
+      this.shadowRoot!.querySelectorAll('sbb-calendar-day:not([disabled])'),
     );
     if (!daysInView || daysInView.length === 0) {
       return null;
@@ -55,7 +55,7 @@ class SbbCalendarElement extends SbbCalendarBaseElement {
       const firstElement = daysInView
         .map((e: SbbCalendarDayElement): string => this.dateAdapter.toIso8601(e.value!))
         .sort()[0];
-      return this.shadowRoot!.querySelector(`.sbb-calendar__cell[slot="${firstElement}"]`);
+      return this.shadowRoot!.querySelector(`sbb-calendar-day[slot="${firstElement}"]`);
     }
   }
 
@@ -71,9 +71,10 @@ class SbbCalendarElement extends SbbCalendarBaseElement {
   }
 
   protected setTabIndex(): void {
-    Array.from(
-      this.shadowRoot!.querySelectorAll('.sbb-calendar__cell[tabindex="0"]') ?? [],
-    ).forEach((day) => ((day as HTMLElement).tabIndex = -1));
+    const query = this.calendarView === 'day' ? 'sbb-calendar-day' : '.sbb-calendar__cell';
+    Array.from(this.shadowRoot!.querySelectorAll(`${query}[tabindex="0"]`) ?? []).forEach(
+      (day) => ((day as HTMLElement).tabIndex = -1),
+    );
     const firstFocusable = this.getFirstFocusable();
     if (firstFocusable) {
       firstFocusable.tabIndex = 0;

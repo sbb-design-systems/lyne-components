@@ -123,7 +123,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-01"
                 tabindex="-1"
@@ -134,7 +133,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
           <tr>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-02"
                 tabindex="-1"
@@ -143,7 +141,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-03"
                 tabindex="-1"
@@ -152,7 +149,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-04"
                 tabindex="-1"
@@ -161,7 +157,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-05"
                 tabindex="-1"
@@ -170,7 +165,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-06"
                 tabindex="-1"
@@ -179,7 +173,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-07"
                 tabindex="-1"
@@ -188,7 +181,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-08"
                 tabindex="-1"
@@ -199,7 +191,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
           <tr>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-09"
                 tabindex="-1"
@@ -208,7 +199,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-10"
                 tabindex="-1"
@@ -217,7 +207,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-11"
                 tabindex="-1"
@@ -226,7 +215,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-12"
                 tabindex="-1"
@@ -235,7 +223,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-13"
                 tabindex="-1"
@@ -244,7 +231,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-14"
                 tabindex="-1"
@@ -253,7 +239,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-15"
                 tabindex="-1"
@@ -264,7 +249,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
           <tr>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-16"
                 tabindex="-1"
@@ -273,7 +257,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-17"
                 tabindex="-1"
@@ -282,7 +265,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-18"
                 tabindex="-1"
@@ -291,7 +273,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-19"
                 tabindex="-1"
@@ -300,7 +281,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-20"
                 tabindex="0"
@@ -309,7 +289,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-21"
                 tabindex="-1"
@@ -318,7 +297,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-22"
                 tabindex="-1"
@@ -329,7 +307,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
           <tr>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-23"
                 tabindex="-1"
@@ -338,7 +315,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-24"
                 tabindex="-1"
@@ -347,7 +323,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-25"
                 tabindex="-1"
@@ -356,7 +331,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-26"
                 tabindex="-1"
@@ -365,7 +339,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-27"
                 tabindex="-1"
@@ -374,7 +347,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-28"
                 tabindex="-1"
@@ -383,7 +355,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-29"
                 tabindex="-1"
@@ -394,7 +365,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
           <tr>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-30"
                 tabindex="-1"
@@ -403,7 +373,6 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-31"
                 tabindex="-1"
@@ -427,6 +396,50 @@ snapshots["sbb-calendar renders vertical DOM"] =
 </sbb-calendar>
 `;
 /* end snapshot sbb-calendar renders vertical DOM */
+
+snapshots["sbb-calendar renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "generic",
+              "name": ""
+            },
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "role": "table",
+                      "name": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-calendar renders A11y tree Chrome */
 
 snapshots["sbb-calendar renders vertical Shadow DOM"] = 
 `<div class="sbb-calendar__wrapper">
@@ -479,7 +492,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-02"
                 tabindex="-1"
@@ -488,7 +500,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-09"
                 tabindex="-1"
@@ -497,7 +508,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-16"
                 tabindex="-1"
@@ -506,7 +516,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-23"
                 tabindex="-1"
@@ -515,7 +524,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-30"
                 tabindex="-1"
@@ -536,7 +544,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-03"
                 tabindex="-1"
@@ -545,7 +552,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-10"
                 tabindex="-1"
@@ -554,7 +560,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-17"
                 tabindex="-1"
@@ -563,7 +568,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-24"
                 tabindex="-1"
@@ -572,7 +576,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-31"
                 tabindex="-1"
@@ -593,7 +596,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-04"
                 tabindex="-1"
@@ -602,7 +604,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-11"
                 tabindex="-1"
@@ -611,7 +612,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-18"
                 tabindex="-1"
@@ -620,7 +620,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-25"
                 tabindex="-1"
@@ -641,7 +640,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-05"
                 tabindex="-1"
@@ -650,7 +648,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-12"
                 tabindex="-1"
@@ -659,7 +656,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-19"
                 tabindex="-1"
@@ -668,7 +664,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-26"
                 tabindex="-1"
@@ -689,7 +684,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-06"
                 tabindex="-1"
@@ -698,7 +692,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-13"
                 tabindex="-1"
@@ -707,7 +700,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-20"
                 tabindex="0"
@@ -716,7 +708,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-27"
                 tabindex="-1"
@@ -737,7 +728,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-07"
                 tabindex="-1"
@@ -746,7 +736,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-14"
                 tabindex="-1"
@@ -755,7 +744,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-21"
                 tabindex="-1"
@@ -764,7 +752,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-28"
                 tabindex="-1"
@@ -783,7 +770,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-01"
                 tabindex="-1"
@@ -792,7 +778,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-08"
                 tabindex="-1"
@@ -801,7 +786,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-15"
                 tabindex="-1"
@@ -810,7 +794,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-22"
                 tabindex="-1"
@@ -819,7 +802,6 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-29"
                 tabindex="-1"
@@ -844,50 +826,6 @@ snapshots["sbb-calendar renders multiple DOM"] =
 </sbb-calendar>
 `;
 /* end snapshot sbb-calendar renders multiple DOM */
-
-snapshots["sbb-calendar renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "generic",
-  "name": "Fixture Container",
-  "children": [
-    {
-      "ignored": true,
-      "role": "none",
-      "children": [
-        {
-          "ignored": true,
-          "role": "none",
-          "children": [
-            {
-              "role": "generic",
-              "name": ""
-            },
-            {
-              "ignored": true,
-              "role": "none",
-              "children": [
-                {
-                  "ignored": true,
-                  "role": "none",
-                  "children": [
-                    {
-                      "role": "table",
-                      "name": ""
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-calendar renders A11y tree Chrome */
 
 snapshots["sbb-calendar renders multiple Shadow DOM"] = 
 `<div class="sbb-calendar__wrapper">
@@ -1002,7 +940,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-01"
                 tabindex="-1"
@@ -1013,7 +950,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
           <tr>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-02"
                 tabindex="-1"
@@ -1022,7 +958,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-03"
                 tabindex="-1"
@@ -1031,7 +966,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-04"
                 tabindex="-1"
@@ -1040,7 +974,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-05"
                 tabindex="-1"
@@ -1049,7 +982,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-06"
                 tabindex="-1"
@@ -1058,7 +990,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-07"
                 tabindex="-1"
@@ -1067,7 +998,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-08"
                 tabindex="-1"
@@ -1078,7 +1008,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
           <tr>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-09"
                 tabindex="-1"
@@ -1087,7 +1016,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-10"
                 tabindex="-1"
@@ -1096,7 +1024,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-11"
                 tabindex="-1"
@@ -1105,7 +1032,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-12"
                 tabindex="-1"
@@ -1114,7 +1040,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-13"
                 tabindex="-1"
@@ -1123,7 +1048,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-14"
                 tabindex="-1"
@@ -1132,7 +1056,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-15"
                 tabindex="-1"
@@ -1143,7 +1066,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
           <tr>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-16"
                 tabindex="-1"
@@ -1152,7 +1074,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-17"
                 tabindex="-1"
@@ -1161,7 +1082,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-18"
                 tabindex="-1"
@@ -1170,7 +1090,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-19"
                 tabindex="-1"
@@ -1179,7 +1098,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-20"
                 tabindex="0"
@@ -1188,7 +1106,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-21"
                 tabindex="-1"
@@ -1197,7 +1114,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-22"
                 tabindex="-1"
@@ -1208,7 +1124,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
           <tr>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-23"
                 tabindex="-1"
@@ -1217,7 +1132,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-24"
                 tabindex="-1"
@@ -1226,7 +1140,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-25"
                 tabindex="-1"
@@ -1235,7 +1148,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-26"
                 tabindex="-1"
@@ -1244,7 +1156,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-27"
                 tabindex="-1"
@@ -1253,7 +1164,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-28"
                 tabindex="-1"
@@ -1262,7 +1172,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-29"
                 tabindex="-1"
@@ -1273,7 +1182,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
           <tr>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-30"
                 tabindex="-1"
@@ -1282,7 +1190,6 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-31"
                 tabindex="-1"
@@ -1441,7 +1348,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-01"
                 tabindex="-1"
@@ -1460,7 +1366,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-02"
                 tabindex="-1"
@@ -1469,7 +1374,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-03"
                 tabindex="-1"
@@ -1478,7 +1382,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-04"
                 tabindex="-1"
@@ -1487,7 +1390,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-05"
                 tabindex="-1"
@@ -1496,7 +1398,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-06"
                 tabindex="-1"
@@ -1505,7 +1406,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-07"
                 tabindex="-1"
@@ -1514,7 +1414,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-08"
                 tabindex="-1"
@@ -1533,7 +1432,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-09"
                 tabindex="-1"
@@ -1542,7 +1440,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-10"
                 tabindex="-1"
@@ -1551,7 +1448,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-11"
                 tabindex="-1"
@@ -1560,7 +1456,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-12"
                 tabindex="-1"
@@ -1569,7 +1464,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-13"
                 tabindex="-1"
@@ -1578,7 +1472,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-14"
                 tabindex="-1"
@@ -1587,7 +1480,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-15"
                 tabindex="-1"
@@ -1606,7 +1498,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-16"
                 tabindex="-1"
@@ -1615,7 +1506,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-17"
                 tabindex="-1"
@@ -1624,7 +1514,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-18"
                 tabindex="-1"
@@ -1633,7 +1522,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-19"
                 tabindex="-1"
@@ -1642,7 +1530,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-20"
                 tabindex="0"
@@ -1651,7 +1538,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-21"
                 tabindex="-1"
@@ -1660,7 +1546,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-22"
                 tabindex="-1"
@@ -1679,7 +1564,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-23"
                 tabindex="-1"
@@ -1688,7 +1572,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-24"
                 tabindex="-1"
@@ -1697,7 +1580,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-25"
                 tabindex="-1"
@@ -1706,7 +1588,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-26"
                 tabindex="-1"
@@ -1715,7 +1596,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-27"
                 tabindex="-1"
@@ -1724,7 +1604,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-28"
                 tabindex="-1"
@@ -1733,7 +1612,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-29"
                 tabindex="-1"
@@ -1752,7 +1630,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-30"
                 tabindex="-1"
@@ -1761,7 +1638,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-31"
                 tabindex="-1"
@@ -1850,7 +1726,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-01"
                 tabindex="-1"
@@ -1859,7 +1734,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-02"
                 tabindex="-1"
@@ -1868,7 +1742,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-03"
                 tabindex="-1"
@@ -1877,7 +1750,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-04"
                 tabindex="-1"
@@ -1886,7 +1758,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-05"
                 tabindex="-1"
@@ -1905,7 +1776,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-06"
                 tabindex="-1"
@@ -1914,7 +1784,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-07"
                 tabindex="-1"
@@ -1923,7 +1792,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-08"
                 tabindex="-1"
@@ -1932,7 +1800,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-09"
                 tabindex="-1"
@@ -1941,7 +1808,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-10"
                 tabindex="-1"
@@ -1950,7 +1816,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-11"
                 tabindex="-1"
@@ -1959,7 +1824,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-12"
                 tabindex="-1"
@@ -1978,7 +1842,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-13"
                 tabindex="-1"
@@ -1987,7 +1850,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-14"
                 tabindex="-1"
@@ -1996,7 +1858,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-15"
                 tabindex="-1"
@@ -2005,7 +1866,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-16"
                 tabindex="-1"
@@ -2014,7 +1874,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-17"
                 tabindex="-1"
@@ -2023,7 +1882,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-18"
                 tabindex="-1"
@@ -2032,7 +1890,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-19"
                 tabindex="-1"
@@ -2051,7 +1908,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-20"
                 tabindex="-1"
@@ -2060,7 +1916,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-21"
                 tabindex="-1"
@@ -2069,7 +1924,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-22"
                 tabindex="-1"
@@ -2078,7 +1932,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-23"
                 tabindex="-1"
@@ -2087,7 +1940,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-24"
                 tabindex="-1"
@@ -2096,7 +1948,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-25"
                 tabindex="-1"
@@ -2105,7 +1956,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-26"
                 tabindex="-1"
@@ -2124,7 +1974,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-27"
                 tabindex="-1"
@@ -2133,7 +1982,6 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-28"
                 tabindex="-1"
@@ -2274,7 +2122,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-02"
                 tabindex="-1"
@@ -2283,7 +2130,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-09"
                 tabindex="-1"
@@ -2292,7 +2138,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-16"
                 tabindex="-1"
@@ -2301,7 +2146,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-23"
                 tabindex="-1"
@@ -2310,7 +2154,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-30"
                 tabindex="-1"
@@ -2331,7 +2174,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-03"
                 tabindex="-1"
@@ -2340,7 +2182,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-10"
                 tabindex="-1"
@@ -2349,7 +2190,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-17"
                 tabindex="-1"
@@ -2358,7 +2198,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-24"
                 tabindex="-1"
@@ -2367,7 +2206,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-31"
                 tabindex="-1"
@@ -2388,7 +2226,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-04"
                 tabindex="-1"
@@ -2397,7 +2234,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-11"
                 tabindex="-1"
@@ -2406,7 +2242,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-18"
                 tabindex="-1"
@@ -2415,7 +2250,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-25"
                 tabindex="-1"
@@ -2436,7 +2270,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-05"
                 tabindex="-1"
@@ -2445,7 +2278,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-12"
                 tabindex="-1"
@@ -2454,7 +2286,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-19"
                 tabindex="-1"
@@ -2463,7 +2294,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-26"
                 tabindex="-1"
@@ -2484,7 +2314,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-06"
                 tabindex="-1"
@@ -2493,7 +2322,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-13"
                 tabindex="-1"
@@ -2502,7 +2330,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-20"
                 tabindex="0"
@@ -2511,7 +2338,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-27"
                 tabindex="-1"
@@ -2532,7 +2358,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-07"
                 tabindex="-1"
@@ -2541,7 +2366,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-14"
                 tabindex="-1"
@@ -2550,7 +2374,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-21"
                 tabindex="-1"
@@ -2559,7 +2382,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-28"
                 tabindex="-1"
@@ -2578,7 +2400,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-01"
                 tabindex="-1"
@@ -2587,7 +2408,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-08"
                 tabindex="-1"
@@ -2596,7 +2416,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-15"
                 tabindex="-1"
@@ -2605,7 +2424,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-22"
                 tabindex="-1"
@@ -2614,7 +2432,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-01-29"
                 tabindex="-1"
@@ -2675,7 +2492,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-06"
                 tabindex="-1"
@@ -2684,7 +2500,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-13"
                 tabindex="-1"
@@ -2693,7 +2508,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-20"
                 tabindex="-1"
@@ -2702,7 +2516,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-27"
                 tabindex="-1"
@@ -2715,7 +2528,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-07"
                 tabindex="-1"
@@ -2724,7 +2536,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-14"
                 tabindex="-1"
@@ -2733,7 +2544,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-21"
                 tabindex="-1"
@@ -2742,7 +2552,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-28"
                 tabindex="-1"
@@ -2753,7 +2562,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
           <tr>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-01"
                 tabindex="-1"
@@ -2762,7 +2570,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-08"
                 tabindex="-1"
@@ -2771,7 +2578,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-15"
                 tabindex="-1"
@@ -2780,7 +2586,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-22"
                 tabindex="-1"
@@ -2791,7 +2596,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
           <tr>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-02"
                 tabindex="-1"
@@ -2800,7 +2604,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-09"
                 tabindex="-1"
@@ -2809,7 +2612,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-16"
                 tabindex="-1"
@@ -2818,7 +2620,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-23"
                 tabindex="-1"
@@ -2829,7 +2630,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
           <tr>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-03"
                 tabindex="-1"
@@ -2838,7 +2638,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-10"
                 tabindex="-1"
@@ -2847,7 +2646,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-17"
                 tabindex="-1"
@@ -2856,7 +2654,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-24"
                 tabindex="-1"
@@ -2867,7 +2664,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
           <tr>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-04"
                 tabindex="-1"
@@ -2876,7 +2672,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-11"
                 tabindex="-1"
@@ -2885,7 +2680,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-18"
                 tabindex="-1"
@@ -2894,7 +2688,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-25"
                 tabindex="-1"
@@ -2905,7 +2698,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
           <tr>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-05"
                 tabindex="-1"
@@ -2914,7 +2706,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-12"
                 tabindex="-1"
@@ -2923,7 +2714,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-19"
                 tabindex="-1"
@@ -2932,7 +2722,6 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td>
               <sbb-calendar-day
-                class="sbb-calendar__cell"
                 sbb-popover-close=""
                 slot="2023-02-26"
                 tabindex="-1"

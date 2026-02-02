@@ -106,7 +106,6 @@ class SbbCalendarDayElement<T extends Date = Date> extends SbbDisabledMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.classList.add('sbb-calendar__cell');
     this.tabIndex = -1;
   }
 

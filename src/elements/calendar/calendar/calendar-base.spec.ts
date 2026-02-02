@@ -34,7 +34,9 @@ const getWaitFromTransitionQuery = (element: SbbCalendarBaseElement): NodeListOf
   if (element instanceof SbbCalendarEnhancedElement) {
     return element.querySelectorAll('sbb-calendar-day');
   } else {
-    return element.shadowRoot!.querySelectorAll('.sbb-calendar__cell');
+    return element['calendarView'] === 'day'
+      ? element.shadowRoot!.querySelectorAll('sbb-calendar-day')
+      : element.shadowRoot!.querySelectorAll('.sbb-calendar__cell');
   }
 };
 
