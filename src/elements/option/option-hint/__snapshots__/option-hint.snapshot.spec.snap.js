@@ -9,14 +9,12 @@ snapshots["sbb-option-hint renders DOM"] =
 /* end snapshot sbb-option-hint renders DOM */
 
 snapshots["sbb-option-hint renders Shadow DOM"] = 
-`<div class="sbb-option-hint__wrapper">
-  <div class="sbb-optgroup__icon-space">
-  </div>
-  <span class="sbb-option-hint">
-    <slot>
-    </slot>
-  </span>
+`<div class="sbb-optgroup__icon-space">
 </div>
+<span class="sbb-option-hint">
+  <slot>
+  </slot>
+</span>
 `;
 /* end snapshot sbb-option-hint renders Shadow DOM */
 
@@ -32,17 +30,15 @@ snapshots["sbb-option-hint renders A11y tree Chrome"] =
       "children": [
         {
           "ignored": true,
+          "role": "none"
+        },
+        {
+          "ignored": true,
           "role": "none",
           "children": [
             {
-              "ignored": true,
-              "role": "none",
-              "children": [
-                {
-                  "role": "StaticText",
-                  "name": "Hint"
-                }
-              ]
+              "role": "StaticText",
+              "name": "Hint"
             }
           ]
         }

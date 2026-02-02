@@ -50,6 +50,15 @@ $theme: 'standard' !default;
   expansion-panel-header with (
   $theme: $theme
 );
+@use '../../option/option/option.global' as option with (
+  $theme: $theme
+);
+@use '../../option/option-hint/option-hint.global' as option-hint with (
+  $theme: $theme
+);
+@use '../../option/optgroup/optgroup.global' as optgroup with (
+  $theme: $theme
+);
 @use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
   $theme: $theme
 );
@@ -94,6 +103,9 @@ $theme: 'standard' !default;
   @include expansion-panel.base;
   @include expansion-panel-content.base;
   @include expansion-panel-header.base;
+  @include option.base;
+  @include option-hint.base;
+  @include optgroup.base;
   @include overlay.options-panel-overlay-variables--global($theme);
   @include radio-button-common.base;
   @include radio-button-group.base;
