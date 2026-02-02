@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 
 import { SbbButtonLikeBaseElement } from '../../core/base-elements.ts';
 import { readConfig } from '../../core/config/config.ts';
@@ -13,6 +13,8 @@ import {
   SbbDisabledMixin,
 } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbCalendarBaseElement } from '../calendar/calendar-base-element.ts';
+import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
 import type { SbbCalendarEnhancedElement } from '../calendar-enhanced/calendar-enhanced.component.ts';
 
 import style from './calendar-day.scss?lit&inline';
@@ -24,7 +26,9 @@ import style from './calendar-day.scss?lit&inline';
  */
 export
 @customElement('sbb-calendar-day')
-class SbbCalendarDayElement<T = Date> extends SbbDisabledMixin(SbbButtonLikeBaseElement) {
+class SbbCalendarDayElement<T extends Date = Date> extends SbbDisabledMixin(
+  SbbButtonLikeBaseElement,
+) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected dateAdapter: DateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
@@ -38,6 +42,10 @@ class SbbCalendarDayElement<T = Date> extends SbbDisabledMixin(SbbButtonLikeBase
       this.toggleState('current', isToday);
       this.internals.ariaCurrent = isToday ? 'date' : null;
       this.internals.ariaLabel = this.dateAdapter.getAccessibilityFormatDate(value);
+      if (this._parent) {
+        this._setDisabledFilteredState(this._parent);
+        this._setSelectedState(this._parent);
+      }
     }
   }
   public override get slot(): string {
@@ -51,29 +59,32 @@ class SbbCalendarDayElement<T = Date> extends SbbDisabledMixin(SbbButtonLikeBase
   public set value(value: T | null) {
     this._value = value;
   }
-  private _value: T | null = null;
+  @state() private accessor _value: T | null = null;
+
+  /**
+   * The component is meant to be used within the `sbb-calendar` or slotted in the `sbb-calendar-enhanced`
+   */
+  private get _parent(): SbbCalendarBaseElement | null {
+    const calendarEnhancedParent =
+      this.closest?.<SbbCalendarEnhancedElement>('sbb-calendar-enhanced');
+    if (calendarEnhancedParent) {
+      return calendarEnhancedParent;
+    }
+    const root = this.getRootNode?.();
+    if (root && root instanceof ShadowRoot && root.host.localName === 'sbb-calendar') {
+      return root.host as SbbCalendarElement;
+    }
+    return null;
+  }
 
   public constructor() {
     super();
     this.addController(
-      new SbbPropertyWatcherController(this, () => this.closest('sbb-calendar-enhanced'), {
-        dateFilter: (component) => this._setInternalState(component),
-        min: (component) => this._setInternalState(component),
-        max: (component) => this._setInternalState(component),
-        selected: (component) => {
-          const selected = component.multiple
-            ? (component.selected as Date[]).find(
-                (selDay) =>
-                  this.dateAdapter.compareDate(this.dateAdapter.parse(this.slot), selDay) === 0,
-              ) !== undefined
-            : !!component.selected &&
-              this.dateAdapter.compareDate(
-                this.dateAdapter.parse(this.slot),
-                component.selected,
-              ) === 0;
-          this.toggleState('selected', selected);
-          this.internals.ariaPressed = String(selected);
-        },
+      new SbbPropertyWatcherController(this, () => this._parent, {
+        dateFilter: (component) => this._setDisabledFilteredState(component),
+        min: (component) => this._setDisabledFilteredState(component),
+        max: (component) => this._setDisabledFilteredState(component),
+        selected: (component) => this._setSelectedState(component),
       }),
     );
   }
@@ -95,10 +106,21 @@ class SbbCalendarDayElement<T = Date> extends SbbDisabledMixin(SbbButtonLikeBase
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    this.classList.add('sbb-calendar__cell');
     this.tabIndex = -1;
   }
 
-  private _setInternalState(component: SbbCalendarEnhancedElement): void {
+  private _setSelectedState(component: SbbCalendarBaseElement): void {
+    const selected = component.multiple
+      ? (component.selected as Date[]).find(
+          (selDay) => this.dateAdapter.compareDate(this.value, selDay) === 0,
+        ) !== undefined
+      : !!component.selected && this.dateAdapter.compareDate(this.value, component.selected) === 0;
+    this.toggleState('selected', selected);
+    this.internals.ariaPressed = String(selected);
+  }
+
+  private _setDisabledFilteredState(component: SbbCalendarBaseElement): void {
     const isFilteredOut = !this._isFilteredOut(component.dateFilter);
     const isOutOfRange = !this._isDayInRange(component.min, component.max);
     this.disabled = isFilteredOut || isOutOfRange;
@@ -107,7 +129,7 @@ class SbbCalendarDayElement<T = Date> extends SbbDisabledMixin(SbbButtonLikeBase
   }
 
   private _isFilteredOut(dateFilter: ((date: Date | null) => boolean) | null): boolean {
-    return dateFilter?.(this.dateAdapter.deserialize(this.slot)!) ?? true;
+    return dateFilter?.(this.value) ?? true;
   }
 
   private _isDayInRange(min: Date | null, max: Date | null): boolean {

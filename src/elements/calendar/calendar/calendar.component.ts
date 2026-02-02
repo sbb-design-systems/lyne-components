@@ -1,5 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 
+import type { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
+
 import { SbbCalendarBaseElement } from './calendar-base-element.ts';
 
 /**
@@ -8,22 +10,32 @@ import { SbbCalendarBaseElement } from './calendar-base-element.ts';
 export
 @customElement('sbb-calendar')
 class SbbCalendarElement extends SbbCalendarBaseElement {
-  protected get cells(): HTMLButtonElement[] {
-    return Array.from(
-      this.shadowRoot!.querySelectorAll('.sbb-calendar__cell') ?? [],
-    ) as HTMLButtonElement[];
+  protected get cells(): (HTMLButtonElement | SbbCalendarDayElement)[] {
+    return (
+      Array.from(
+        this.shadowRoot!.querySelectorAll<HTMLButtonElement | SbbCalendarDayElement>(
+          '.sbb-calendar__cell',
+        ),
+      ) ?? []
+    );
   }
 
-  protected getFirstFocusable(): HTMLButtonElement | null {
-    const selectedOrCurrent =
-      this.shadowRoot!.querySelector<HTMLButtonElement>('.sbb-calendar__selected') ??
-      this.shadowRoot!.querySelector<HTMLButtonElement>('.sbb-calendar__cell-current');
-
-    return selectedOrCurrent && !selectedOrCurrent.disabled
-      ? selectedOrCurrent
-      : this.calendarView === 'day'
-        ? this.getFirstFocusableDay()
-        : this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])');
+  protected getFirstFocusable(): SbbCalendarDayElement | HTMLButtonElement | null {
+    if (this.calendarView === 'day') {
+      const selectedOrCurrent =
+        this.shadowRoot!.querySelector<SbbCalendarDayElement>(':state(selected)') ??
+        this.shadowRoot!.querySelector<SbbCalendarDayElement>(':state(current)');
+      return selectedOrCurrent && !selectedOrCurrent.disabled
+        ? selectedOrCurrent
+        : this.getFirstFocusableDay();
+    } else {
+      const selectedOrCurrent = this.shadowRoot?.querySelector<HTMLButtonElement>(
+        '.sbb-calendar__cell-current',
+      );
+      return selectedOrCurrent && !selectedOrCurrent.disabled
+        ? selectedOrCurrent
+        : this.shadowRoot!.querySelector<HTMLButtonElement>('.sbb-calendar__cell:not([disabled])');
+    }
   }
 
   /**
@@ -33,24 +45,28 @@ class SbbCalendarElement extends SbbCalendarBaseElement {
    *
    * To solve this, the element with the lowest `value` is taken (ISO String are ordered).
    */
-  protected getFirstFocusableDay(): HTMLButtonElement | null {
-    const daysInView: HTMLButtonElement[] = Array.from(
+  protected getFirstFocusableDay(): SbbCalendarDayElement | null {
+    const daysInView: SbbCalendarDayElement[] = Array.from(
       this.shadowRoot!.querySelectorAll('.sbb-calendar__cell:not([disabled])'),
     );
     if (!daysInView || daysInView.length === 0) {
       return null;
     } else {
-      const firstElement = daysInView.map((e: HTMLButtonElement): string => e.value).sort()[0];
-      return this.shadowRoot!.querySelector(`.sbb-calendar__cell[value="${firstElement}"]`);
+      const firstElement = daysInView
+        .map((e: SbbCalendarDayElement): string => this.dateAdapter.toIso8601(e.value!))
+        .sort()[0];
+      return this.shadowRoot!.querySelector(`.sbb-calendar__cell[slot="${firstElement}"]`);
     }
   }
 
-  protected setTabIndexAndFocusKeyboardNavigation(elementToFocus: HTMLButtonElement): void {
-    const activeEl: HTMLButtonElement = this.shadowRoot!.activeElement as HTMLButtonElement;
+  protected setTabIndexAndFocusKeyboardNavigation(
+    elementToFocus: SbbCalendarDayElement | HTMLButtonElement,
+  ): void {
+    const activeEl = this.shadowRoot!.activeElement as HTMLButtonElement | SbbCalendarDayElement;
     if (elementToFocus !== activeEl) {
-      (elementToFocus as HTMLButtonElement).tabIndex = 0;
+      elementToFocus.tabIndex = 0;
       elementToFocus?.focus();
-      (activeEl as HTMLButtonElement).tabIndex = -1;
+      activeEl.tabIndex = -1;
     }
   }
 

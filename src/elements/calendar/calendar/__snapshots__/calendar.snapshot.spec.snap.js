@@ -121,450 +121,294 @@ snapshots["sbb-calendar renders Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 1, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-01"
                 tabindex="-1"
-                type="button"
-                value="2023-01-01"
               >
-                1
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 2, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-02"
                 tabindex="-1"
-                type="button"
-                value="2023-01-02"
               >
-                2
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 3, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-03"
                 tabindex="-1"
-                type="button"
-                value="2023-01-03"
               >
-                3
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-current="date"
-                aria-disabled="false"
-                aria-label="January 4, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__cell-current sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-04"
                 tabindex="-1"
-                type="button"
-                value="2023-01-04"
               >
-                4
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 5, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-05"
                 tabindex="-1"
-                type="button"
-                value="2023-01-05"
               >
-                5
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 6, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-06"
                 tabindex="-1"
-                type="button"
-                value="2023-01-06"
               >
-                6
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 7, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-07"
                 tabindex="-1"
-                type="button"
-                value="2023-01-07"
               >
-                7
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 8, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-08"
                 tabindex="-1"
-                type="button"
-                value="2023-01-08"
               >
-                8
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 9, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-09"
                 tabindex="-1"
-                type="button"
-                value="2023-01-09"
               >
-                9
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 10, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-10"
                 tabindex="-1"
-                type="button"
-                value="2023-01-10"
               >
-                10
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 11, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-11"
                 tabindex="-1"
-                type="button"
-                value="2023-01-11"
               >
-                11
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 12, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-12"
                 tabindex="-1"
-                type="button"
-                value="2023-01-12"
               >
-                12
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 13, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-13"
                 tabindex="-1"
-                type="button"
-                value="2023-01-13"
               >
-                13
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 14, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-14"
                 tabindex="-1"
-                type="button"
-                value="2023-01-14"
               >
-                14
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 15, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-15"
                 tabindex="-1"
-                type="button"
-                value="2023-01-15"
               >
-                15
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 16, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-16"
                 tabindex="-1"
-                type="button"
-                value="2023-01-16"
               >
-                16
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 17, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-17"
                 tabindex="-1"
-                type="button"
-                value="2023-01-17"
               >
-                17
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 18, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-18"
                 tabindex="-1"
-                type="button"
-                value="2023-01-18"
               >
-                18
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 19, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-19"
                 tabindex="-1"
-                type="button"
-                value="2023-01-19"
               >
-                19
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data sbb-calendar__table-data-selected">
-              <button
-                aria-disabled="false"
-                aria-label="January 20, 2023"
-                aria-pressed="true"
-                class="sbb-calendar__cell sbb-calendar__day sbb-calendar__selected"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-20"
                 tabindex="0"
-                type="button"
-                value="2023-01-20"
               >
-                20
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 21, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-21"
                 tabindex="-1"
-                type="button"
-                value="2023-01-21"
               >
-                21
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 22, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-22"
                 tabindex="-1"
-                type="button"
-                value="2023-01-22"
               >
-                22
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 23, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-23"
                 tabindex="-1"
-                type="button"
-                value="2023-01-23"
               >
-                23
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 24, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-24"
                 tabindex="-1"
-                type="button"
-                value="2023-01-24"
               >
-                24
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 25, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-25"
                 tabindex="-1"
-                type="button"
-                value="2023-01-25"
               >
-                25
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 26, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-26"
                 tabindex="-1"
-                type="button"
-                value="2023-01-26"
               >
-                26
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 27, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-27"
                 tabindex="-1"
-                type="button"
-                value="2023-01-27"
               >
-                27
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 28, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-28"
                 tabindex="-1"
-                type="button"
-                value="2023-01-28"
               >
-                28
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 29, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-29"
                 tabindex="-1"
-                type="button"
-                value="2023-01-29"
               >
-                29
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 30, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-30"
                 tabindex="-1"
-                type="button"
-                value="2023-01-30"
               >
-                30
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 31, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-31"
                 tabindex="-1"
-                type="button"
-                value="2023-01-31"
               >
-                31
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
         </tbody>
@@ -633,75 +477,50 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 2, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-02"
                 tabindex="-1"
-                type="button"
-                value="2023-01-02"
               >
-                2
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 9, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-09"
                 tabindex="-1"
-                type="button"
-                value="2023-01-09"
               >
-                9
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 16, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-16"
                 tabindex="-1"
-                type="button"
-                value="2023-01-16"
               >
-                16
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 23, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-23"
                 tabindex="-1"
-                type="button"
-                value="2023-01-23"
               >
-                23
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 30, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-30"
                 tabindex="-1"
-                type="button"
-                value="2023-01-30"
               >
-                30
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -715,75 +534,50 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 3, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-03"
                 tabindex="-1"
-                type="button"
-                value="2023-01-03"
               >
-                3
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 10, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-10"
                 tabindex="-1"
-                type="button"
-                value="2023-01-10"
               >
-                10
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 17, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-17"
                 tabindex="-1"
-                type="button"
-                value="2023-01-17"
               >
-                17
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 24, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-24"
                 tabindex="-1"
-                type="button"
-                value="2023-01-24"
               >
-                24
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 31, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-31"
                 tabindex="-1"
-                type="button"
-                value="2023-01-31"
               >
-                31
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -797,62 +591,41 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-current="date"
-                aria-disabled="false"
-                aria-label="January 4, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__cell-current sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-04"
                 tabindex="-1"
-                type="button"
-                value="2023-01-04"
               >
-                4
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 11, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-11"
                 tabindex="-1"
-                type="button"
-                value="2023-01-11"
               >
-                11
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 18, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-18"
                 tabindex="-1"
-                type="button"
-                value="2023-01-18"
               >
-                18
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 25, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-25"
                 tabindex="-1"
-                type="button"
-                value="2023-01-25"
               >
-                25
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -866,61 +639,41 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 5, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-05"
                 tabindex="-1"
-                type="button"
-                value="2023-01-05"
               >
-                5
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 12, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-12"
                 tabindex="-1"
-                type="button"
-                value="2023-01-12"
               >
-                12
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 19, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-19"
                 tabindex="-1"
-                type="button"
-                value="2023-01-19"
               >
-                19
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 26, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-26"
                 tabindex="-1"
-                type="button"
-                value="2023-01-26"
               >
-                26
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -934,61 +687,41 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 6, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-06"
                 tabindex="-1"
-                type="button"
-                value="2023-01-06"
               >
-                6
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 13, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-13"
                 tabindex="-1"
-                type="button"
-                value="2023-01-13"
               >
-                13
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data sbb-calendar__table-data-selected">
-              <button
-                aria-disabled="false"
-                aria-label="January 20, 2023"
-                aria-pressed="true"
-                class="sbb-calendar__cell sbb-calendar__day sbb-calendar__selected"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-20"
                 tabindex="0"
-                type="button"
-                value="2023-01-20"
               >
-                20
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 27, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-27"
                 tabindex="-1"
-                type="button"
-                value="2023-01-27"
               >
-                27
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -1002,61 +735,41 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 7, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-07"
                 tabindex="-1"
-                type="button"
-                value="2023-01-07"
               >
-                7
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 14, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-14"
                 tabindex="-1"
-                type="button"
-                value="2023-01-14"
               >
-                14
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 21, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-21"
                 tabindex="-1"
-                type="button"
-                value="2023-01-21"
               >
-                21
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 28, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-28"
                 tabindex="-1"
-                type="button"
-                value="2023-01-28"
               >
-                28
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -1068,75 +781,50 @@ snapshots["sbb-calendar renders vertical Shadow DOM"] =
                 S
               </span>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 1, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-01"
                 tabindex="-1"
-                type="button"
-                value="2023-01-01"
               >
-                1
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 8, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-08"
                 tabindex="-1"
-                type="button"
-                value="2023-01-08"
               >
-                8
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 15, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-15"
                 tabindex="-1"
-                type="button"
-                value="2023-01-15"
               >
-                15
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 22, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-22"
                 tabindex="-1"
-                type="button"
-                value="2023-01-22"
               >
-                22
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 29, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-29"
                 tabindex="-1"
-                type="button"
-                value="2023-01-29"
               >
-                29
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
         </tbody>
@@ -1156,6 +844,50 @@ snapshots["sbb-calendar renders multiple DOM"] =
 </sbb-calendar>
 `;
 /* end snapshot sbb-calendar renders multiple DOM */
+
+snapshots["sbb-calendar renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "generic",
+              "name": ""
+            },
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "role": "table",
+                      "name": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-calendar renders A11y tree Chrome */
 
 snapshots["sbb-calendar renders multiple Shadow DOM"] = 
 `<div class="sbb-calendar__wrapper">
@@ -1268,450 +1000,294 @@ snapshots["sbb-calendar renders multiple Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 1, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-01"
                 tabindex="-1"
-                type="button"
-                value="2023-01-01"
               >
-                1
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 2, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-02"
                 tabindex="-1"
-                type="button"
-                value="2023-01-02"
               >
-                2
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 3, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-03"
                 tabindex="-1"
-                type="button"
-                value="2023-01-03"
               >
-                3
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-current="date"
-                aria-disabled="false"
-                aria-label="January 4, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__cell-current sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-04"
                 tabindex="-1"
-                type="button"
-                value="2023-01-04"
               >
-                4
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 5, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-05"
                 tabindex="-1"
-                type="button"
-                value="2023-01-05"
               >
-                5
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 6, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-06"
                 tabindex="-1"
-                type="button"
-                value="2023-01-06"
               >
-                6
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 7, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-07"
                 tabindex="-1"
-                type="button"
-                value="2023-01-07"
               >
-                7
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 8, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-08"
                 tabindex="-1"
-                type="button"
-                value="2023-01-08"
               >
-                8
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 9, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-09"
                 tabindex="-1"
-                type="button"
-                value="2023-01-09"
               >
-                9
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 10, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-10"
                 tabindex="-1"
-                type="button"
-                value="2023-01-10"
               >
-                10
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 11, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-11"
                 tabindex="-1"
-                type="button"
-                value="2023-01-11"
               >
-                11
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 12, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-12"
                 tabindex="-1"
-                type="button"
-                value="2023-01-12"
               >
-                12
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 13, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-13"
                 tabindex="-1"
-                type="button"
-                value="2023-01-13"
               >
-                13
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 14, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-14"
                 tabindex="-1"
-                type="button"
-                value="2023-01-14"
               >
-                14
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 15, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-15"
                 tabindex="-1"
-                type="button"
-                value="2023-01-15"
               >
-                15
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 16, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-16"
                 tabindex="-1"
-                type="button"
-                value="2023-01-16"
               >
-                16
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 17, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-17"
                 tabindex="-1"
-                type="button"
-                value="2023-01-17"
               >
-                17
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 18, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-18"
                 tabindex="-1"
-                type="button"
-                value="2023-01-18"
               >
-                18
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 19, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-19"
                 tabindex="-1"
-                type="button"
-                value="2023-01-19"
               >
-                19
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data sbb-calendar__table-data-selected">
-              <button
-                aria-disabled="false"
-                aria-label="January 20, 2023"
-                aria-pressed="true"
-                class="sbb-calendar__cell sbb-calendar__day sbb-calendar__selected"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-20"
                 tabindex="0"
-                type="button"
-                value="2023-01-20"
               >
-                20
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 21, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-21"
                 tabindex="-1"
-                type="button"
-                value="2023-01-21"
               >
-                21
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 22, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-22"
                 tabindex="-1"
-                type="button"
-                value="2023-01-22"
               >
-                22
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 23, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-23"
                 tabindex="-1"
-                type="button"
-                value="2023-01-23"
               >
-                23
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 24, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-24"
                 tabindex="-1"
-                type="button"
-                value="2023-01-24"
               >
-                24
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 25, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-25"
                 tabindex="-1"
-                type="button"
-                value="2023-01-25"
               >
-                25
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 26, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-26"
                 tabindex="-1"
-                type="button"
-                value="2023-01-26"
               >
-                26
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 27, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-27"
                 tabindex="-1"
-                type="button"
-                value="2023-01-27"
               >
-                27
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 28, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-28"
                 tabindex="-1"
-                type="button"
-                value="2023-01-28"
               >
-                28
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 29, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-29"
                 tabindex="-1"
-                type="button"
-                value="2023-01-29"
               >
-                29
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 30, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-30"
                 tabindex="-1"
-                type="button"
-                value="2023-01-30"
               >
-                30
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 31, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-31"
                 tabindex="-1"
-                type="button"
-                value="2023-01-31"
               >
-                31
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
         </tbody>
@@ -1863,19 +1439,14 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 1, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-01"
                 tabindex="-1"
-                type="button"
-                value="2023-01-01"
               >
-                1
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -1887,104 +1458,68 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
                 1
               </span>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 2, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-02"
                 tabindex="-1"
-                type="button"
-                value="2023-01-02"
               >
-                2
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 3, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-03"
                 tabindex="-1"
-                type="button"
-                value="2023-01-03"
               >
-                3
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-current="date"
-                aria-disabled="false"
-                aria-label="January 4, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__cell-current sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-04"
                 tabindex="-1"
-                type="button"
-                value="2023-01-04"
               >
-                4
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 5, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-05"
                 tabindex="-1"
-                type="button"
-                value="2023-01-05"
               >
-                5
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 6, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-06"
                 tabindex="-1"
-                type="button"
-                value="2023-01-06"
               >
-                6
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 7, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-07"
                 tabindex="-1"
-                type="button"
-                value="2023-01-07"
               >
-                7
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 8, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-08"
                 tabindex="-1"
-                type="button"
-                value="2023-01-08"
               >
-                8
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -1996,103 +1531,68 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
                 2
               </span>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 9, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-09"
                 tabindex="-1"
-                type="button"
-                value="2023-01-09"
               >
-                9
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 10, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-10"
                 tabindex="-1"
-                type="button"
-                value="2023-01-10"
               >
-                10
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 11, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-11"
                 tabindex="-1"
-                type="button"
-                value="2023-01-11"
               >
-                11
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 12, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-12"
                 tabindex="-1"
-                type="button"
-                value="2023-01-12"
               >
-                12
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 13, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-13"
                 tabindex="-1"
-                type="button"
-                value="2023-01-13"
               >
-                13
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 14, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-14"
                 tabindex="-1"
-                type="button"
-                value="2023-01-14"
               >
-                14
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 15, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-15"
                 tabindex="-1"
-                type="button"
-                value="2023-01-15"
               >
-                15
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -2104,103 +1604,68 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
                 3
               </span>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 16, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-16"
                 tabindex="-1"
-                type="button"
-                value="2023-01-16"
               >
-                16
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 17, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-17"
                 tabindex="-1"
-                type="button"
-                value="2023-01-17"
               >
-                17
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 18, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-18"
                 tabindex="-1"
-                type="button"
-                value="2023-01-18"
               >
-                18
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 19, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-19"
                 tabindex="-1"
-                type="button"
-                value="2023-01-19"
               >
-                19
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data sbb-calendar__table-data-selected">
-              <button
-                aria-disabled="false"
-                aria-label="January 20, 2023"
-                aria-pressed="true"
-                class="sbb-calendar__cell sbb-calendar__day sbb-calendar__selected"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-20"
                 tabindex="0"
-                type="button"
-                value="2023-01-20"
               >
-                20
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 21, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-21"
                 tabindex="-1"
-                type="button"
-                value="2023-01-21"
               >
-                21
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 22, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-22"
                 tabindex="-1"
-                type="button"
-                value="2023-01-22"
               >
-                22
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -2212,103 +1677,68 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
                 4
               </span>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 23, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-23"
                 tabindex="-1"
-                type="button"
-                value="2023-01-23"
               >
-                23
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 24, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-24"
                 tabindex="-1"
-                type="button"
-                value="2023-01-24"
               >
-                24
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 25, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-25"
                 tabindex="-1"
-                type="button"
-                value="2023-01-25"
               >
-                25
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 26, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-26"
                 tabindex="-1"
-                type="button"
-                value="2023-01-26"
               >
-                26
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 27, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-27"
                 tabindex="-1"
-                type="button"
-                value="2023-01-27"
               >
-                27
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 28, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-28"
                 tabindex="-1"
-                type="button"
-                value="2023-01-28"
               >
-                28
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 29, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-29"
                 tabindex="-1"
-                type="button"
-                value="2023-01-29"
               >
-                29
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -2320,33 +1750,23 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
                 5
               </span>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 30, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-30"
                 tabindex="-1"
-                type="button"
-                value="2023-01-30"
               >
-                30
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 31, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-31"
                 tabindex="-1"
-                type="button"
-                value="2023-01-31"
               >
-                31
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
         </tbody>
@@ -2428,75 +1848,50 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 1, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-01"
                 tabindex="-1"
-                type="button"
-                value="2023-02-01"
               >
-                1
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 2, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-02"
                 tabindex="-1"
-                type="button"
-                value="2023-02-02"
               >
-                2
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 3, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-03"
                 tabindex="-1"
-                type="button"
-                value="2023-02-03"
               >
-                3
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 4, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-04"
                 tabindex="-1"
-                type="button"
-                value="2023-02-04"
               >
-                4
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 5, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-05"
                 tabindex="-1"
-                type="button"
-                value="2023-02-05"
               >
-                5
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -2508,103 +1903,68 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
                 6
               </span>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 6, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-06"
                 tabindex="-1"
-                type="button"
-                value="2023-02-06"
               >
-                6
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 7, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-07"
                 tabindex="-1"
-                type="button"
-                value="2023-02-07"
               >
-                7
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 8, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-08"
                 tabindex="-1"
-                type="button"
-                value="2023-02-08"
               >
-                8
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 9, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-09"
                 tabindex="-1"
-                type="button"
-                value="2023-02-09"
               >
-                9
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 10, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-10"
                 tabindex="-1"
-                type="button"
-                value="2023-02-10"
               >
-                10
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 11, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-11"
                 tabindex="-1"
-                type="button"
-                value="2023-02-11"
               >
-                11
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 12, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-12"
                 tabindex="-1"
-                type="button"
-                value="2023-02-12"
               >
-                12
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -2616,103 +1976,68 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
                 7
               </span>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 13, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-13"
                 tabindex="-1"
-                type="button"
-                value="2023-02-13"
               >
-                13
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 14, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-14"
                 tabindex="-1"
-                type="button"
-                value="2023-02-14"
               >
-                14
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 15, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-15"
                 tabindex="-1"
-                type="button"
-                value="2023-02-15"
               >
-                15
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 16, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-16"
                 tabindex="-1"
-                type="button"
-                value="2023-02-16"
               >
-                16
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 17, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-17"
                 tabindex="-1"
-                type="button"
-                value="2023-02-17"
               >
-                17
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 18, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-18"
                 tabindex="-1"
-                type="button"
-                value="2023-02-18"
               >
-                18
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 19, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-19"
                 tabindex="-1"
-                type="button"
-                value="2023-02-19"
               >
-                19
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -2724,103 +2049,68 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
                 8
               </span>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 20, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-20"
                 tabindex="-1"
-                type="button"
-                value="2023-02-20"
               >
-                20
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 21, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-21"
                 tabindex="-1"
-                type="button"
-                value="2023-02-21"
               >
-                21
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 22, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-22"
                 tabindex="-1"
-                type="button"
-                value="2023-02-22"
               >
-                22
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 23, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-23"
                 tabindex="-1"
-                type="button"
-                value="2023-02-23"
               >
-                23
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 24, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-24"
                 tabindex="-1"
-                type="button"
-                value="2023-02-24"
               >
-                24
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 25, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-25"
                 tabindex="-1"
-                type="button"
-                value="2023-02-25"
               >
-                25
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 26, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-26"
                 tabindex="-1"
-                type="button"
-                value="2023-02-26"
               >
-                26
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -2832,33 +2122,23 @@ snapshots["sbb-calendar renders horizontal wide with week numbers Shadow DOM"] =
                 9
               </span>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 27, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-27"
                 tabindex="-1"
-                type="button"
-                value="2023-02-27"
               >
-                27
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 28, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-28"
                 tabindex="-1"
-                type="button"
-                value="2023-02-28"
               >
-                28
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
         </tbody>
@@ -2992,75 +2272,50 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 2, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-02"
                 tabindex="-1"
-                type="button"
-                value="2023-01-02"
               >
-                2
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 9, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-09"
                 tabindex="-1"
-                type="button"
-                value="2023-01-09"
               >
-                9
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 16, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-16"
                 tabindex="-1"
-                type="button"
-                value="2023-01-16"
               >
-                16
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 23, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-23"
                 tabindex="-1"
-                type="button"
-                value="2023-01-23"
               >
-                23
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 30, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-30"
                 tabindex="-1"
-                type="button"
-                value="2023-01-30"
               >
-                30
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -3074,75 +2329,50 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 3, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-03"
                 tabindex="-1"
-                type="button"
-                value="2023-01-03"
               >
-                3
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 10, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-10"
                 tabindex="-1"
-                type="button"
-                value="2023-01-10"
               >
-                10
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 17, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-17"
                 tabindex="-1"
-                type="button"
-                value="2023-01-17"
               >
-                17
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 24, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-24"
                 tabindex="-1"
-                type="button"
-                value="2023-01-24"
               >
-                24
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 31, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-31"
                 tabindex="-1"
-                type="button"
-                value="2023-01-31"
               >
-                31
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -3156,62 +2386,41 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-current="date"
-                aria-disabled="false"
-                aria-label="January 4, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__cell-current sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-04"
                 tabindex="-1"
-                type="button"
-                value="2023-01-04"
               >
-                4
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 11, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-11"
                 tabindex="-1"
-                type="button"
-                value="2023-01-11"
               >
-                11
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 18, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-18"
                 tabindex="-1"
-                type="button"
-                value="2023-01-18"
               >
-                18
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 25, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-25"
                 tabindex="-1"
-                type="button"
-                value="2023-01-25"
               >
-                25
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -3225,61 +2434,41 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 5, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-05"
                 tabindex="-1"
-                type="button"
-                value="2023-01-05"
               >
-                5
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 12, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-12"
                 tabindex="-1"
-                type="button"
-                value="2023-01-12"
               >
-                12
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 19, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-19"
                 tabindex="-1"
-                type="button"
-                value="2023-01-19"
               >
-                19
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 26, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-26"
                 tabindex="-1"
-                type="button"
-                value="2023-01-26"
               >
-                26
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -3293,61 +2482,41 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 6, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-06"
                 tabindex="-1"
-                type="button"
-                value="2023-01-06"
               >
-                6
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 13, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-13"
                 tabindex="-1"
-                type="button"
-                value="2023-01-13"
               >
-                13
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data sbb-calendar__table-data-selected">
-              <button
-                aria-disabled="false"
-                aria-label="January 20, 2023"
-                aria-pressed="true"
-                class="sbb-calendar__cell sbb-calendar__day sbb-calendar__selected"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-20"
                 tabindex="0"
-                type="button"
-                value="2023-01-20"
               >
-                20
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 27, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-27"
                 tabindex="-1"
-                type="button"
-                value="2023-01-27"
               >
-                27
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -3361,61 +2530,41 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 7, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-07"
                 tabindex="-1"
-                type="button"
-                value="2023-01-07"
               >
-                7
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 14, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-14"
                 tabindex="-1"
-                type="button"
-                value="2023-01-14"
               >
-                14
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 21, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-21"
                 tabindex="-1"
-                type="button"
-                value="2023-01-21"
               >
-                21
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 28, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-28"
                 tabindex="-1"
-                type="button"
-                value="2023-01-28"
               >
-                28
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
@@ -3427,75 +2576,50 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
                 S
               </span>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 1, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-01"
                 tabindex="-1"
-                type="button"
-                value="2023-01-01"
               >
-                1
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 8, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-08"
                 tabindex="-1"
-                type="button"
-                value="2023-01-08"
               >
-                8
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 15, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-15"
                 tabindex="-1"
-                type="button"
-                value="2023-01-15"
               >
-                15
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 22, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-22"
                 tabindex="-1"
-                type="button"
-                value="2023-01-22"
               >
-                22
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="January 29, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-01-29"
                 tabindex="-1"
-                type="button"
-                value="2023-01-29"
               >
-                29
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
         </tbody>
@@ -3549,411 +2673,271 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
           <tr>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 6, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-06"
                 tabindex="-1"
-                type="button"
-                value="2023-02-06"
               >
-                6
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 13, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-13"
                 tabindex="-1"
-                type="button"
-                value="2023-02-13"
               >
-                13
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 20, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-20"
                 tabindex="-1"
-                type="button"
-                value="2023-02-20"
               >
-                20
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 27, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-27"
                 tabindex="-1"
-                type="button"
-                value="2023-02-27"
               >
-                27
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 7, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-07"
                 tabindex="-1"
-                type="button"
-                value="2023-02-07"
               >
-                7
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 14, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-14"
                 tabindex="-1"
-                type="button"
-                value="2023-02-14"
               >
-                14
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 21, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-21"
                 tabindex="-1"
-                type="button"
-                value="2023-02-21"
               >
-                21
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 28, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-28"
                 tabindex="-1"
-                type="button"
-                value="2023-02-28"
               >
-                28
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 1, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-01"
                 tabindex="-1"
-                type="button"
-                value="2023-02-01"
               >
-                1
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 8, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-08"
                 tabindex="-1"
-                type="button"
-                value="2023-02-08"
               >
-                8
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 15, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-15"
                 tabindex="-1"
-                type="button"
-                value="2023-02-15"
               >
-                15
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 22, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-22"
                 tabindex="-1"
-                type="button"
-                value="2023-02-22"
               >
-                22
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 2, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-02"
                 tabindex="-1"
-                type="button"
-                value="2023-02-02"
               >
-                2
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 9, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-09"
                 tabindex="-1"
-                type="button"
-                value="2023-02-09"
               >
-                9
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 16, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-16"
                 tabindex="-1"
-                type="button"
-                value="2023-02-16"
               >
-                16
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 23, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-23"
                 tabindex="-1"
-                type="button"
-                value="2023-02-23"
               >
-                23
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 3, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-03"
                 tabindex="-1"
-                type="button"
-                value="2023-02-03"
               >
-                3
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 10, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-10"
                 tabindex="-1"
-                type="button"
-                value="2023-02-10"
               >
-                10
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 17, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-17"
                 tabindex="-1"
-                type="button"
-                value="2023-02-17"
               >
-                17
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 24, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-24"
                 tabindex="-1"
-                type="button"
-                value="2023-02-24"
               >
-                24
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 4, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-04"
                 tabindex="-1"
-                type="button"
-                value="2023-02-04"
               >
-                4
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 11, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-11"
                 tabindex="-1"
-                type="button"
-                value="2023-02-11"
               >
-                11
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 18, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-18"
                 tabindex="-1"
-                type="button"
-                value="2023-02-18"
               >
-                18
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 25, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-25"
                 tabindex="-1"
-                type="button"
-                value="2023-02-25"
               >
-                25
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 5, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-05"
                 tabindex="-1"
-                type="button"
-                value="2023-02-05"
               >
-                5
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 12, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-12"
                 tabindex="-1"
-                type="button"
-                value="2023-02-12"
               >
-                12
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 19, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-19"
                 tabindex="-1"
-                type="button"
-                value="2023-02-19"
               >
-                19
-              </button>
+              </sbb-calendar-day>
             </td>
-            <td class="sbb-calendar__table-data">
-              <button
-                aria-disabled="false"
-                aria-label="February 26, 2023"
-                aria-pressed="false"
-                class="sbb-calendar__cell sbb-calendar__day"
+            <td>
+              <sbb-calendar-day
+                class="sbb-calendar__cell"
                 sbb-popover-close=""
+                slot="2023-02-26"
                 tabindex="-1"
-                type="button"
-                value="2023-02-26"
               >
-                26
-              </button>
+              </sbb-calendar-day>
             </td>
           </tr>
         </tbody>
@@ -3963,48 +2947,4 @@ snapshots["sbb-calendar renders vertical wide with week numbers Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-calendar renders vertical wide with week numbers Shadow DOM */
-
-snapshots["sbb-calendar renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "generic",
-  "name": "Fixture Container",
-  "children": [
-    {
-      "ignored": true,
-      "role": "none",
-      "children": [
-        {
-          "ignored": true,
-          "role": "none",
-          "children": [
-            {
-              "role": "generic",
-              "name": ""
-            },
-            {
-              "ignored": true,
-              "role": "none",
-              "children": [
-                {
-                  "ignored": true,
-                  "role": "none",
-                  "children": [
-                    {
-                      "role": "table",
-                      "name": ""
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-calendar renders A11y tree Chrome */
 

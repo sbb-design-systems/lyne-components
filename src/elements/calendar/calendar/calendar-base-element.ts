@@ -44,6 +44,7 @@ import type { SbbOrientation } from '../../core/interfaces.ts';
 import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
+import '../calendar-day/calendar-day.component.ts';
 
 import style from './calendar.scss?lit&inline';
 
@@ -1294,7 +1295,6 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     weekNumbers: number[],
     isWideNextMonth: boolean = false,
   ): TemplateResult {
-    const today: string = this.dateAdapter.toIso8601(this.dateAdapter.today());
     const weeksForSelectMultipleWeekNumbers: Day<T>[] = (
       this._wide
         ? [...this.weeks, ...this.nextMonthWeeks]
@@ -1379,7 +1379,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
                   ${[...Array(firstRowOffset).keys()].map(
                     () => html`<td class="sbb-calendar__table-data"></td>`,
                   )}
-                  ${this.createDayCells(week, today)}
+                  ${this.createDayCells(week)}
                 </tr>
               `;
             }
@@ -1412,7 +1412,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
                       </td>
                     `
                   : nothing}
-                ${this.createDayCells(week, today)}
+                ${this.createDayCells(week)}
               </tr>
             `;
           })}
@@ -1427,7 +1427,6 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
     weekNumbers: number[],
     nextMonthActiveDate?: T,
   ): TemplateResult {
-    const today: string = this.dateAdapter.toIso8601(this.dateAdapter.today());
     const weekOffset = this.dateAdapter.getFirstWeekOffset(nextMonthActiveDate ?? this._activeDate);
     const weeksForSelectMultipleWeekNumbers: Day<T>[] = (
       this._wide
@@ -1510,7 +1509,7 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
                 ${rowIndex < weekOffset
                   ? html`<td class="sbb-calendar__table-data"></td>`
                   : nothing}
-                ${this.createDayCells(week, today)}
+                ${this.createDayCells(week)}
               </tr>
             `;
           })}
@@ -1520,46 +1519,16 @@ export abstract class SbbCalendarBaseElement<T = Date> extends SbbHydrationMixin
   }
 
   /** Creates the cells for the daily view. */
-  protected createDayCells(week: Day<T>[], today: string): TemplateResult[] {
+  protected createDayCells(week: Day<T>[]): TemplateResult[] {
     return week.map((day: Day<T>) => {
-      const isOutOfRange = !this._isDayInRange(day.value);
-      const isFilteredOut = !this._dateFilter(this.dateAdapter.deserialize(day.value)!);
-      const isToday = day.value === today;
-      const selected = this.multiple
-        ? (this._selected as T[]).find(
-            (selDay: T) => this.dateAdapter.compareDate(day.dateValue, selDay) === 0,
-          ) !== undefined
-        : !!this._selected &&
-          this.dateAdapter.compareDate(day.dateValue, this._selected as T) === 0;
       return html`
-        <td
-          class=${classMap({
-            'sbb-calendar__table-data': true,
-            'sbb-calendar__table-data-selected': selected,
-          })}
-        >
-          <button
-            class=${classMap({
-              'sbb-calendar__cell': true,
-              'sbb-calendar__day': true,
-              'sbb-calendar__cell-current': isToday,
-              'sbb-calendar__selected': selected,
-              'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
-            })}
+        <td>
+          <sbb-calendar-day
+            slot=${day.value}
             @click=${() => this.selectDate(day.dateValue)}
-            ?disabled=${isOutOfRange || isFilteredOut}
-            value=${day.value}
-            type="button"
-            aria-label=${this.dateAdapter.getAccessibilityFormatDate(day.value)}
-            aria-pressed=${selected}
-            aria-disabled=${isOutOfRange || isFilteredOut}
-            aria-current=${isToday ? 'date' : nothing}
-            tabindex="-1"
             @keydown=${(evt: KeyboardEvent) => this.handleKeyboardEvent(evt, day)}
             sbb-popover-close
-          >
-            ${day.dayValue}
-          </button>
+          ></sbb-calendar-day>
         </td>
       `;
     });

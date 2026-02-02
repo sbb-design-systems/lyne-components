@@ -24,7 +24,9 @@ const getActiveElementValue = (element: SbbCalendarBaseElement): string | null =
   if (element instanceof SbbCalendarEnhancedElement) {
     return defaultDateAdapter.toIso8601((document.activeElement as SbbCalendarDayElement).value!);
   } else {
-    return document.activeElement!.shadowRoot!.activeElement!.getAttribute('value');
+    return defaultDateAdapter.toIso8601(
+      (document.activeElement!.shadowRoot!.activeElement as SbbCalendarDayElement)!.value!,
+    );
   }
 };
 
@@ -36,13 +38,11 @@ const getWaitFromTransitionQuery = (element: SbbCalendarBaseElement): NodeListOf
   }
 };
 
-const getDaysCellsQuery = (
-  element: SbbCalendarBaseElement,
-): NodeListOf<SbbCalendarDayElement | HTMLButtonElement> => {
+const getDaysCellsQuery = (element: SbbCalendarBaseElement): NodeListOf<SbbCalendarDayElement> => {
   if (element instanceof SbbCalendarEnhancedElement) {
     return element.querySelectorAll<SbbCalendarDayElement>('sbb-calendar-day');
   } else {
-    return element.shadowRoot!.querySelectorAll<HTMLButtonElement>('.sbb-calendar__day');
+    return element.shadowRoot!.querySelectorAll<SbbCalendarDayElement>('sbb-calendar-day');
   }
 };
 

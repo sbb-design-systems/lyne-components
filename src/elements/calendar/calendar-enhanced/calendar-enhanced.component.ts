@@ -63,7 +63,9 @@ class SbbCalendarEnhancedElement extends SbbCalendarBaseElement {
     this.shadowRoot?.removeEventListener('slotchange', this._onSlotChange, { capture: true });
   }
 
-  protected setTabIndexAndFocusKeyboardNavigation(elementToFocus: SbbCalendarDayElement): void {
+  protected setTabIndexAndFocusKeyboardNavigation(
+    elementToFocus: SbbCalendarDayElement | HTMLButtonElement,
+  ): void {
     const activeEl =
       this.calendarView === 'day'
         ? (document.activeElement as SbbCalendarDayElement)
@@ -75,7 +77,7 @@ class SbbCalendarEnhancedElement extends SbbCalendarBaseElement {
     }
   }
 
-  protected getFirstFocusable(): HTMLButtonElement | SbbCalendarDayElement | null {
+  protected getFirstFocusable(): SbbCalendarDayElement | HTMLButtonElement | null {
     if (this.calendarView === 'day') {
       const selectedOrCurrent =
         this.querySelector<SbbCalendarDayElement>(':state(selected)') ??
@@ -105,7 +107,7 @@ class SbbCalendarEnhancedElement extends SbbCalendarBaseElement {
   }
 
   protected setTabIndex(): void {
-    Array.from(this.querySelectorAll('[tabindex="0"]') ?? []).forEach(
+    Array.from(this.querySelectorAll('.sbb-calendar__cell[tabindex="0"]') ?? []).forEach(
       (day) => ((day as SbbCalendarDayElement | HTMLButtonElement).tabIndex = -1),
     );
     const firstFocusable = this.getFirstFocusable();
@@ -129,7 +131,7 @@ class SbbCalendarEnhancedElement extends SbbCalendarBaseElement {
     this._emitMonthChange();
   }
 
-  protected override createDayCells(week: Day[], _: string): TemplateResult[] {
+  protected override createDayCells(week: Day[]): TemplateResult[] {
     return week.map((day: Day) => {
       return html`
         <td class="sbb-calendar__table-data">

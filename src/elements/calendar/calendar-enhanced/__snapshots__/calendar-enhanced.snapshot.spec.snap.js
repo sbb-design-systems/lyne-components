@@ -7,156 +7,187 @@ snapshots["sbb-calendar-enhanced renders DOM"] =
   selected="2023-01-20"
 >
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-01"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-02"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-03"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-04"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-05"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-06"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-07"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-08"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-09"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-10"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-11"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-12"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-13"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-14"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-15"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-16"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-17"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-18"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-19"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-20"
     tabindex="0"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-21"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-22"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-23"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-24"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-25"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-26"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-27"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-28"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-29"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-30"
     tabindex="-1"
   >
   </sbb-calendar-day>
   <sbb-calendar-day
+    class="sbb-calendar__cell"
     slot="2023-01-31"
     tabindex="-1"
   >
