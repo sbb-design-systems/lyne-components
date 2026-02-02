@@ -116,7 +116,6 @@ const imageHelperGetBreakpoints = (
 };
 
 const eventListenerOptions = {
-  once: true,
   passive: true,
 };
 
@@ -365,17 +364,6 @@ class SbbImageElement extends SbbElementInternalsMixin(LitElement) {
     this._addFocusAbilityToLinksInCaption();
   }
 
-  protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-
-    // We need to wait until the update is complete to check whether the image has already been completely loaded.
-    this.updateComplete.then(() => {
-      if (this.complete) {
-        this.internals.states.add('loaded');
-      }
-    });
-  }
-
   private _logPerformanceMarks(): void {
     if (this.performanceMark) {
       performance.clearMarks(this.performanceMark);
@@ -522,7 +510,7 @@ class SbbImageElement extends SbbElementInternalsMixin(LitElement) {
     this._logPerformanceMarks();
     this.internals.states.add('loaded');
 
-    /** Emits when the image has been loaded. */
+    /** Emits each time the image loads. */
     this.dispatchEvent(new Event('load'));
   }
 

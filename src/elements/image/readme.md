@@ -109,7 +109,7 @@ Use the `sbb-image-${ratio}` utility classes to set the image aspect ratio.
 | Name    | Type    | Description                                     | Inherited From |
 | ------- | ------- | ----------------------------------------------- | -------------- |
 | `error` | `Event` | Emits when the image loading ended in an error. |                |
-| `load`  | `Event` | Emits when the image has been loaded.           |                |
+| `load`  | `Event` | Emits each time the image loads.                |                |
 
 ## CSS Properties
 
