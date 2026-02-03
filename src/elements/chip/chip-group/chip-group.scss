@@ -9,6 +9,10 @@
   margin-block: var(--sbb-chip-group-margin-block);
 }
 
+:host(:is(:state(size-s), :state(empty))) {
+  --sbb-chip-group-margin-block: 0;
+}
+
 :host(:state(size-s):not(:state(empty))) {
   --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(6)} #{sbb.px-to-rem-build(5)};
 
