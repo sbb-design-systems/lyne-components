@@ -9,6 +9,7 @@ import type { Parameters, StoryContext } from 'storybook/internal/types';
 import { makeDecorator } from 'storybook/preview-api';
 
 import '../src/elements/core/styles/standard-theme.scss';
+import '../src/elements-experimental/core/styles/standard-theme.scss';
 
 import leanTheme from '../src/elements/core/styles/lean-theme.scss?inline';
 import offBrandTheme from '../src/elements/core/styles/off-brand-theme.scss?inline';
