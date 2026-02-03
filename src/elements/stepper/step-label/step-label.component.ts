@@ -51,9 +51,10 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
 
   public constructor() {
     super();
+
     this.addEventListener?.('click', () => {
       const stepper = this.stepper;
-      if (stepper && this.step) {
+      if (stepper && this.step && this._isNotDeactivatedByLinearMode(this.step)) {
         stepper.selected = this.step;
       }
     });
@@ -79,6 +80,15 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
         },
       }),
     );
+  }
+
+  private _isNotDeactivatedByLinearMode(step: SbbStepElement): boolean {
+    const stepper = this.stepper;
+    if (stepper?.linear && stepper.selectedIndex !== null) {
+      const index = stepper.steps.indexOf(step);
+      return index < stepper.selectedIndex || index === stepper.selectedIndex + 1;
+    }
+    return true;
   }
 
   public override connectedCallback(): void {
