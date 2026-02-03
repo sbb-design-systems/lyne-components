@@ -314,7 +314,7 @@ describe('sbb-stepper', () => {
 
     // Step 4 is already disabled in the fixture
     expect(stepLabelFour.disabled).to.be.true;
-    expect(stepLabelFour).to.have.attribute('user-disabled');
+    expect(stepLabelFour).to.have.attribute('disabled');
     expect(stepLabelOne).to.match(':state(selected)');
 
     // Click on the disabled step label
@@ -355,15 +355,15 @@ describe('sbb-stepper', () => {
     stepLabelFour.disabled = true;
     await waitForLitRender(element);
     expect(stepLabelFour.disabled).to.be.true;
-    expect(stepLabelFour).to.have.attribute('user-disabled');
-    expect(stepLabelFour).to.match(':state(disabled)');
+    expect(stepLabelFour).to.have.attribute('disabled');
+    expect(stepLabelFour).to.match(':state(user-disabled)');
 
     element.next();
     await waitForLitRender(element);
 
     expect(stepLabelTwo).to.match(':state(selected)');
-    expect(stepLabelFour).to.match(':state(disabled)');
-    expect(stepLabelFour).to.have.attribute('user-disabled');
+    expect(stepLabelFour).to.match(':state(user-disabled)');
+    expect(stepLabelFour).to.have.attribute('disabled');
     expect(stepLabelFour.disabled).to.be.true;
   });
 

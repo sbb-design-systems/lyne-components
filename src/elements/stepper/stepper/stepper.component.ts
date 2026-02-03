@@ -362,7 +362,7 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
 
       step.label.disable(
         (this.linear && index > this.selectedIndex!) ||
-          (!this.linear && step.label.matches(':state(disabled)')),
+          (!this.linear && step.label.matches(':state(user-disabled)')),
       );
     });
   }
