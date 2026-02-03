@@ -206,7 +206,7 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     }
   }
 
-  private _isValidStep(step: SbbStepElement | null): step is SbbStepElement {
+  private _isSelectable(step: SbbStepElement | null): step is SbbStepElement {
     if (step) {
       customElements.upgrade(step);
       if (step.label) {
@@ -222,7 +222,7 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
   }
 
   private _select(step: SbbStepElement | null): void {
-    if (!this._isValidStep(step) || step === this.selected) {
+    if (!this._isSelectable(step) || step === this.selected) {
       return;
     }
     const currentIndex = this.selectedIndex;
