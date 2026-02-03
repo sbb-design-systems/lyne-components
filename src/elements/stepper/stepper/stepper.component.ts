@@ -127,10 +127,12 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     if (this._loaded) {
       this._select(step);
     }
+    this._requestedSelected = step;
   }
   public get selected(): SbbStepElement | null {
     return this.querySelector?.<SbbStepElement>('sbb-step:state(selected)') ?? null;
   }
+  private _requestedSelected: SbbStepElement | null = null;
 
   /** The currently selected step index. */
   @property({ attribute: 'selected-index', type: Number })
@@ -138,10 +140,12 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     if (this._loaded && index !== null) {
       this._select(this.steps[index]);
     }
+    this._requestedSelectedIndex = index;
   }
   public get selectedIndex(): number | null {
     return this.selected ? this.steps.indexOf(this.selected) : null;
   }
+  private _requestedSelectedIndex: number | null = null;
 
   /** The steps of the stepper. */
   public get steps(): SbbStepElement[] {
@@ -202,7 +206,7 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     }
   }
 
-  private _isValidStep(step: SbbStepElement | null): step is SbbStepElement {
+  private _isSelectable(step: SbbStepElement | null): step is SbbStepElement {
     if (step) {
       customElements.upgrade(step);
       if (step.label) {
@@ -211,24 +215,14 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
           return false;
         }
       }
+      return true;
     } else {
       return false;
     }
-
-    if (this.linear && !this.selected) {
-      return step === this.steps[0];
-    }
-
-    if (this.linear && this.selectedIndex !== null) {
-      const index = this.steps.indexOf(step);
-      return index < this.selectedIndex || index === this.selectedIndex + 1;
-    }
-
-    return true;
   }
 
   private _select(step: SbbStepElement | null): void {
-    if (!this._isValidStep(step)) {
+    if (!this._isSelectable(step) || step === this.selected) {
       return;
     }
     const currentIndex = this.selectedIndex;
@@ -385,7 +379,15 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     this.updateComplete.then(() => {
       this._loaded = true;
       this._configure();
-      this.selectedIndex = this.linear ? 0 : Number(this.getAttribute('selected-index')) || 0;
+
+      if (this._requestedSelected && this.steps.indexOf(this._requestedSelected) !== -1) {
+        this.selectedIndex = this.steps.indexOf(this._requestedSelected);
+      } else if (this._requestedSelectedIndex) {
+        this.selectedIndex = this._requestedSelectedIndex;
+      } else {
+        this.selectedIndex = 0;
+      }
+
       this._observer.observe(this);
       this._checkOrientation();
       // Remove disable-animation state after component init
