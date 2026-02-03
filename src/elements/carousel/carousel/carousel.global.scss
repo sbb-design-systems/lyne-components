@@ -1,0 +1,9 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-carousel-background-color: var(--sbb-background-color-1);
+  --sbb-carousel-border-radius: var(--sbb-border-radius-4x);
+  --sbb-carousel-paginator-padding: var(--sbb-spacing-responsive-xs);
+}
