@@ -27,8 +27,8 @@ export const monthChangeHandler = (event: SbbMonthChangeEvent): void => {
 /**
  * Used in stories and tests to emulate the consumer's behavior;
  * dynamically slots the correct days based on the initial year and month.
- * * * @param {number} year - The year used to calculate the number of days.
- *  * @param {number} month - The month used to calculate the number of days.
+ * @param {number} year - The year used to calculate the number of days.
+ * @param {number} month - The month used to calculate the number of days.
  */
 export const createSlottedDays = (year: number, month: number): TemplateResult => {
   const daysInMonth = defaultDateAdapter.getNumDaysInMonth(

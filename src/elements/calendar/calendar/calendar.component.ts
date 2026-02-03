@@ -73,7 +73,7 @@ class SbbCalendarElement extends SbbCalendarBaseElement {
   protected setTabIndex(): void {
     const query = this.calendarView === 'day' ? 'sbb-calendar-day' : '.sbb-calendar__cell';
     Array.from(this.shadowRoot!.querySelectorAll(`${query}[tabindex="0"]`) ?? []).forEach(
-      (day) => ((day as HTMLElement).tabIndex = -1),
+      (day) => ((day as HTMLButtonElement | SbbCalendarDayElement).tabIndex = -1),
     );
     const firstFocusable = this.getFirstFocusable();
     if (firstFocusable) {
