@@ -26,6 +26,10 @@
   justify-content: var(--sbb-checkbox-label-icon-justify-content);
   flex-grow: var(--sbb-checkbox-label-icon-flex-grow);
   gap: var(--sbb-checkbox-label-gap);
+
+  :host(:not(:state(slotted), :state(slotted-icon), :state(has-icon-name))) & {
+    display: none;
+  }
 }
 
 sbb-icon,
