@@ -3,8 +3,8 @@ import {
   type CSSResultGroup,
   html,
   LitElement,
-  type TemplateResult,
   type PropertyValues,
+  type TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -98,7 +98,7 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
   @property({ type: Boolean })
   public accessor linear: boolean = false;
 
-  /** Overrides the behaviour of `orientation` property. */
+  /** Overrides the behavior of `orientation` property. */
   @property({ attribute: 'horizontal-from', reflect: true })
   public set horizontalFrom(value: SbbHorizontalFrom | null) {
     this._horizontalFrom = value && breakpointMap[value] ? value : null;
@@ -145,11 +145,22 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
 
   /** The steps of the stepper. */
   public get steps(): SbbStepElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-step') ?? []);
+    const steps: SbbStepElement[] = [];
+    this.querySelectorAll?.('sbb-step').forEach((step) => {
+      customElements.upgrade(step);
+      steps.push(step);
+    });
+    return steps;
   }
 
   private get _enabledSteps(): SbbStepElement[] {
-    return this.steps.filter((s) => !s.label?.hasAttribute('disabled'));
+    return this.steps.filter((s) => {
+      if (s.label) {
+        customElements.upgrade(s.label);
+        return !s.label.disabled;
+      }
+      return false;
+    });
   }
 
   private _loaded: boolean = false;
@@ -191,8 +202,16 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     }
   }
 
-  private _isValidStep(step: SbbStepElement | null): boolean {
-    if (!step || (!this.linear && step.label?.hasAttribute('disabled'))) {
+  private _isValidStep(step: SbbStepElement | null): step is SbbStepElement {
+    if (step) {
+      customElements.upgrade(step);
+      if (step.label) {
+        customElements.upgrade(step.label);
+        if (!this.linear && step.label.disabled) {
+          return false;
+        }
+      }
+    } else {
       return false;
     }
 
@@ -227,7 +246,7 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
 
     const current = this.selected;
     current?.deselect();
-    step!.select();
+    step.select();
 
     /** @internal only to provide double entry in docs. It is a public event! */
     this.dispatchEvent(
@@ -297,14 +316,10 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
   }
 
   private _configure(): void {
-    const steps = this.steps;
-    steps.forEach((s) => s.configure(this._loaded));
-    steps
-      .filter((s) => s.label)
-      .map((s) => s.label!)
-      .forEach((label, i, array) => {
-        label.configure(i + 1, array.length, this._loaded);
-      });
+    this.steps.forEach((step, i, array) => {
+      step.configure(this._loaded);
+      step.label?.configure(i + 1, array.length, this._loaded);
+    });
     this._select(this.selected || this._enabledSteps[0]);
   }
 
@@ -340,10 +355,14 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
 
   private _configureLinearMode(): void {
     this.steps.forEach((step, index) => {
-      step.label?.toggleAttribute(
-        'disabled',
+      if (!step.label) {
+        return;
+      }
+      customElements.upgrade(step.label);
+
+      step.label.disable(
         (this.linear && index > this.selectedIndex!) ||
-          (!this.linear && step.label.matches(':state(disabled)')),
+          (!this.linear && step.label.matches(':state(user-disabled)')),
       );
     });
   }
@@ -365,6 +384,7 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     super.firstUpdated(changedProperties);
     this.updateComplete.then(() => {
       this._loaded = true;
+      this._configure();
       this.selectedIndex = this.linear ? 0 : Number(this.getAttribute('selected-index')) || 0;
       this._observer.observe(this);
       this._checkOrientation();
