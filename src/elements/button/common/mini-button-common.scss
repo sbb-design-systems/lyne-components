@@ -120,8 +120,8 @@ sbb-icon {
   translate: 0 var(--sbb-mini-button-translate-y-content-hover, #{sbb.px-to-rem-build(0)});
 
   // Ensure minimum size for icons
-  min-width: var(--sbb-size-icon-ui-small);
-  min-height: var(--sbb-size-icon-ui-small);
+  min-width: var(--_sbb-mini-button-image-size, var(--sbb-size-icon-ui-small));
+  min-height: var(--_sbb-mini-button-image-size, var(--sbb-size-icon-ui-small));
   align-items: center;
   justify-content: center;
 }
