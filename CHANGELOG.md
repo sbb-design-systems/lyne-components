@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.3.0...v4.3.1) (2026-02-03)
+
+
+### Bug Fixes
+
+* **sbb-checkbox:** avoid reserving space without label ([#4437](https://github.com/sbb-design-systems/lyne-components/issues/4437)) ([b17b248](https://github.com/sbb-design-systems/lyne-components/commit/b17b248741dae6fa3137a28f2ab23ecef7de8e71))
+* **sbb-form-field:** allow multiple errors displayed stacked ([#4426](https://github.com/sbb-design-systems/lyne-components/issues/4426)) ([8495097](https://github.com/sbb-design-systems/lyne-components/commit/8495097841223d3fd239867908e69b182cc3e0b4))
+* **sbb-mini-button:** support small icons ([#4440](https://github.com/sbb-design-systems/lyne-components/issues/4440)) ([c060a2a](https://github.com/sbb-design-systems/lyne-components/commit/c060a2a30c68a78113d7151e762a4c5a823453c1))
+* **sbb-selection-action-panel:** accessibility issues ([#4404](https://github.com/sbb-design-systems/lyne-components/issues/4404)) ([cc7939b](https://github.com/sbb-design-systems/lyne-components/commit/cc7939b21dde6f335ee5e434091562f08dc2cb2a))
+* **sbb-stepper:** fix disabling mechanism ([#4436](https://github.com/sbb-design-systems/lyne-components/issues/4436)) ([82f0b3b](https://github.com/sbb-design-systems/lyne-components/commit/82f0b3bd2bc7b6ddbd96f01c0d292a51ccaf8118))
+* **sbb-stepper:** respect initially configured properties ([#4449](https://github.com/sbb-design-systems/lyne-components/issues/4449)) ([058ee43](https://github.com/sbb-design-systems/lyne-components/commit/058ee43e794021f59183adc4dd5b0c3df795acfd))
+* **sbb-toggle:** allow Space to toggle state ([#4445](https://github.com/sbb-design-systems/lyne-components/issues/4445)) ([39dee56](https://github.com/sbb-design-systems/lyne-components/commit/39dee56b854efeea41174a915cfdcf35aeb2d391))
+
+
+### Documentation
+
+* **storybook:** add height to viewport presets ([#4421](https://github.com/sbb-design-systems/lyne-components/issues/4421)) ([f5d40a3](https://github.com/sbb-design-systems/lyne-components/commit/f5d40a31daa1d607f03bfbd99d8834d6b6ca64ba))
+
+
+### Code Refactoring
+
+* **sbb-breadcrumb:** css refactoring ([#4409](https://github.com/sbb-design-systems/lyne-components/issues/4409)) ([0c72cd1](https://github.com/sbb-design-systems/lyne-components/commit/0c72cd15798d353787309d99bbba3b5af6bdaeec))
+* **sbb-clock:** css refactoring ([#4435](https://github.com/sbb-design-systems/lyne-components/issues/4435)) ([b85b0c8](https://github.com/sbb-design-systems/lyne-components/commit/b85b0c8fa2e9ed07686b3f170f4692269eec307f))
+
 ## [3.13.9](https://github.com/sbb-design-systems/lyne-components/compare/v3.13.8...v3.13.9) (2026-01-27)
 
 
