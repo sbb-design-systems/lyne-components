@@ -316,12 +316,10 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
   }
 
   private _configure(): void {
-    const steps = this.steps;
-    steps.forEach((s) => s.configure(this._loaded));
-
-    steps
-      .map((s) => s.label)
-      .forEach((label, i, array) => label?.configure(i + 1, array.length, this._loaded));
+    this.steps.forEach((step, i, array) => {
+      step.configure(this._loaded);
+      step.label?.configure(i + 1, array.length, this._loaded);
+    });
     this._select(this.selected || this._enabledSteps[0]);
   }
 

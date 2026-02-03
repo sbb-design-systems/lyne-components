@@ -40,7 +40,7 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
 
     // We additionally keep track of the `disabled` state to preserve the user configured disabled state
     // of step labels in case of switching between linear and non-linear mode.
-    this.toggleState('disabled', value);
+    this.toggleState('user-disabled', value);
   }
   public override get disabled(): boolean {
     return super.disabled;
