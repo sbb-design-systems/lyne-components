@@ -82,6 +82,9 @@
   --sbb-icon-svg-width: calc(var(--sbb-size-icon-ui-small) - var(--sbb-border-width-1x) * 2);
   --sbb-icon-svg-height: calc(var(--sbb-size-icon-ui-small) - var(--sbb-border-width-1x) * 2);
 
+  // Invalidate minimum icon size as in the chip context, the icon has to be smaller than usual.
+  --_sbb-mini-button-image-size: ;
+
   border: var(--sbb-chip-border);
   border-radius: 0 var(--sbb-chip-border-radius) var(--sbb-chip-border-radius) 0;
 
