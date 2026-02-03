@@ -23,6 +23,9 @@ $theme: 'standard' !default;
 @use '../../card/card/card.global' as card with (
   $theme: $theme
 );
+@use '../../calendar/calendar/calendar.global' as calendar with (
+  $theme: $theme
+);
 @use '../../card/card-badge/card-badge.global' as card-badge with (
   $theme: $theme
 );
@@ -90,6 +93,7 @@ $theme: 'standard' !default;
 
   @include breadcrumb.base;
   @include breadcrumb-group.base;
+  @include calendar.base;
   @include card.base;
   @include card-badge.base;
   @include panel-common.base;
