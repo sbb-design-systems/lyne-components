@@ -51,9 +51,21 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
 
   public constructor() {
     super();
+
+    function isNotDeactivatedByLinearMode(
+      step: SbbStepElement,
+      stepper: SbbStepperElement,
+    ): boolean {
+      if (stepper?.linear && stepper.selectedIndex !== null) {
+        const index = stepper.steps.indexOf(step);
+        return index < stepper.selectedIndex || index === stepper.selectedIndex + 1;
+      }
+      return true;
+    }
+
     this.addEventListener?.('click', () => {
       const stepper = this.stepper;
-      if (stepper && this.step) {
+      if (stepper && this.step && isNotDeactivatedByLinearMode(this.step, stepper)) {
         stepper.selected = this.step;
       }
     });

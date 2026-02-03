@@ -388,6 +388,197 @@ describe('sbb-stepper', () => {
     element.remove();
   });
 
+  describe('initial step selection logic', () => {
+    it('should select first step (index 0) by default when no initial selection is set', async () => {
+      element = await fixture(html`
+        <sbb-stepper>
+          <sbb-step-label>Step 1</sbb-step-label>
+          <sbb-step>Step one content.</sbb-step>
+
+          <sbb-step-label>Step 2</sbb-step-label>
+          <sbb-step>Step two content.</sbb-step>
+
+          <sbb-step-label>Step 3</sbb-step-label>
+          <sbb-step>Step three content.</sbb-step>
+        </sbb-stepper>
+      `);
+
+      expect(element.selectedIndex).to.be.equal(0);
+      expect(element.selected).to.be.equal(element.querySelector('sbb-step'));
+    });
+
+    it('should select step when selectedIndex is set before component is loaded', async () => {
+      element = document.createElement('sbb-stepper');
+      element.setAttribute('selected-index', '1');
+
+      const stepLabel1 = document.createElement('sbb-step-label');
+      const step1 = document.createElement('sbb-step');
+
+      const stepLabel2 = document.createElement('sbb-step-label');
+      const step2 = document.createElement('sbb-step');
+
+      element.appendChild(stepLabel1);
+      element.appendChild(step1);
+      element.appendChild(stepLabel2);
+      element.appendChild(step2);
+
+      document.body.appendChild(element);
+      await waitForLitRender(element);
+
+      expect(element.selectedIndex).to.be.equal(1);
+      expect(element.selected).to.be.equal(step2);
+
+      element.remove();
+    });
+
+    it('should select step when selected property is set before component is loaded', async () => {
+      element = document.createElement('sbb-stepper');
+
+      const stepLabel1 = document.createElement('sbb-step-label');
+      const step1 = document.createElement('sbb-step');
+
+      const stepLabel2 = document.createElement('sbb-step-label');
+      const step2 = document.createElement('sbb-step');
+
+      element.appendChild(stepLabel1);
+      element.appendChild(step1);
+      element.appendChild(stepLabel2);
+      element.appendChild(step2);
+
+      // Set selected before appending to DOM
+      element.selected = step2;
+
+      document.body.appendChild(element);
+      await waitForLitRender(element);
+
+      expect(element.selectedIndex).to.be.equal(1);
+      expect(element.selected).to.be.equal(step2);
+
+      element.remove();
+    });
+
+    it('should prioritize selected property over selectedIndex when both are set', async () => {
+      element = document.createElement('sbb-stepper');
+      element.setAttribute('selected-index', '1');
+
+      const stepLabel1 = document.createElement('sbb-step-label');
+      const step1 = document.createElement('sbb-step');
+
+      const stepLabel2 = document.createElement('sbb-step-label');
+      const step2 = document.createElement('sbb-step');
+
+      const stepLabel3 = document.createElement('sbb-step-label');
+      const step3 = document.createElement('sbb-step');
+
+      element.appendChild(stepLabel1);
+      element.appendChild(step1);
+      element.appendChild(stepLabel2);
+      element.appendChild(step2);
+      element.appendChild(stepLabel3);
+      element.appendChild(step3);
+
+      // Set selected property (should have priority)
+      element.selected = step3;
+
+      document.body.appendChild(element);
+      await waitForLitRender(element);
+
+      // Should select step3 (index 2) instead of step1 (index 1)
+      expect(element.selectedIndex).to.be.equal(2);
+      expect(element.selected).to.be.equal(step3);
+
+      element.remove();
+    });
+  });
+
+  describe('initial step selection logic in linear mode', () => {
+    it('should select step when selectedIndex is set before component is loaded', async () => {
+      element = document.createElement('sbb-stepper');
+      element.setAttribute('linear', '');
+      element.setAttribute('selected-index', '1');
+
+      const stepLabel1 = document.createElement('sbb-step-label');
+      const step1 = document.createElement('sbb-step');
+
+      const stepLabel2 = document.createElement('sbb-step-label');
+      const step2 = document.createElement('sbb-step');
+
+      element.appendChild(stepLabel1);
+      element.appendChild(step1);
+      element.appendChild(stepLabel2);
+      element.appendChild(step2);
+
+      document.body.appendChild(element);
+      await waitForLitRender(element);
+
+      expect(element.selectedIndex).to.be.equal(1);
+      expect(element.selected).to.be.equal(step2);
+
+      element.remove();
+    });
+
+    it('should select step when selected property is set before component is loaded', async () => {
+      element = document.createElement('sbb-stepper');
+      element.linear = true;
+
+      const stepLabel1 = document.createElement('sbb-step-label');
+      const step1 = document.createElement('sbb-step');
+
+      const stepLabel2 = document.createElement('sbb-step-label');
+      const step2 = document.createElement('sbb-step');
+
+      element.appendChild(stepLabel1);
+      element.appendChild(step1);
+      element.appendChild(stepLabel2);
+      element.appendChild(step2);
+
+      // Set selected before appending to DOM
+      element.selected = step2;
+
+      document.body.appendChild(element);
+      await waitForLitRender(element);
+
+      expect(element.selectedIndex).to.be.equal(1);
+      expect(element.selected).to.be.equal(step2);
+
+      element.remove();
+    });
+
+    it('should prioritize selected property over selectedIndex when both are set', async () => {
+      element = document.createElement('sbb-stepper');
+      element.linear = true;
+      element.setAttribute('selected-index', '1');
+
+      const stepLabel1 = document.createElement('sbb-step-label');
+      const step1 = document.createElement('sbb-step');
+
+      const stepLabel2 = document.createElement('sbb-step-label');
+      const step2 = document.createElement('sbb-step');
+
+      const stepLabel3 = document.createElement('sbb-step-label');
+      const step3 = document.createElement('sbb-step');
+
+      element.appendChild(stepLabel1);
+      element.appendChild(step1);
+      element.appendChild(stepLabel2);
+      element.appendChild(step2);
+      element.appendChild(stepLabel3);
+      element.appendChild(step3);
+
+      // Set selected property (should have priority)
+      element.selected = step3;
+
+      document.body.appendChild(element);
+      await waitForLitRender(element);
+
+      // Should select step3 (index 2) instead of step1 (index 1)
+      expect(element.selectedIndex).to.be.equal(2);
+      expect(element.selected).to.be.equal(step3);
+
+      element.remove();
+    });
+  });
+
   it('resets the single form wrapping the stepper and returns to the first step', async () => {
     element = await fixture(html`
       <form>
@@ -593,6 +784,49 @@ describe('sbb-stepper', () => {
 
     expect(stepLabelThree).to.match(':state(selected)');
     expect(stepLabelThree.step).to.match(':state(selected)');
+  });
+
+  it('does not trigger event on arrow right key in linear mode when on first step', async () => {
+    element = await fixture(html`
+      <sbb-stepper linear>
+        <sbb-step-label>Step 1</sbb-step-label>
+        <sbb-step>Step one content.</sbb-step>
+
+        <sbb-step-label>Step 2</sbb-step-label>
+        <sbb-step>Step two content.</sbb-step>
+
+        <sbb-step-label>Step 3</sbb-step-label>
+        <sbb-step>Step three content.</sbb-step>
+      </sbb-stepper>
+    `);
+
+    const stepLabelOne = element.querySelector<SbbStepLabelElement>('sbb-step-label')!;
+
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
+      element,
+    );
+
+    // We are on step 1 (index 0), which is the current step
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(element.selectedIndex).to.be.equal(0);
+    expect(element.linear).to.be.true;
+
+    // Focus the stepper (focus on first step label)
+    stepLabelOne.focus();
+    expect(document.activeElement).to.equal(stepLabelOne);
+
+    // Press arrow right - should NOT navigate to step 2 in linear mode
+    // because in linear mode, only the current step is enabled (index > selectedIndex are disabled)
+    await sendKeys({ press: 'ArrowRight' });
+    await waitForLitRender(element);
+
+    // No event should be triggered
+    expect(stepChangeSpy.count).to.be.equal(0);
+
+    // Should still be on step 1
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(element.selectedIndex).to.be.equal(0);
   });
 
   it('proxy size to step children', async () => {
