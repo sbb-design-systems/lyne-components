@@ -14,6 +14,12 @@ $theme: 'standard' !default;
 @use './mixins/scrollbar';
 @use './mixins/typo';
 
+@use '../../breadcrumb/breadcrumb/breadcrumb.global' as breadcrumb with (
+  $theme: $theme
+);
+@use '../../breadcrumb/breadcrumb-group/breadcrumb-group.global' as breadcrumb-group with (
+  $theme: $theme
+);
 @use '../../card/card/card.global' as card with (
   $theme: $theme
 );
@@ -88,6 +94,8 @@ $theme: 'standard' !default;
   // Grab CSS vars defined by `@sbb-esta/lyne-design-tokens` package
   @include sbb-css-tokens.base;
 
+  @include breadcrumb.base;
+  @include breadcrumb-group.base;
   @include card.base;
   @include card-badge.base;
   @include chip.base;
@@ -112,6 +120,7 @@ $theme: 'standard' !default;
   @include a11y.if-forced-colors {
     @include sbb-css-tokens.forced-colors;
 
+    @include breadcrumb.base-forced-colors;
     @include card.base-forced-colors;
     @include card-badge.base-forced-colors;
     @include expansion-panel-header.base-forced-colors;

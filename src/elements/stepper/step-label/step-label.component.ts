@@ -35,6 +35,17 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     return this.closest('sbb-stepper');
   }
 
+  public override set disabled(value: boolean) {
+    super.disabled = value;
+
+    // We additionally keep track of the `disabled` state to preserve the user configured disabled state
+    // of step labels in case of switching between linear and non-linear mode.
+    this.toggleState('user-disabled', value);
+  }
+  public override get disabled(): boolean {
+    return super.disabled;
+  }
+
   private _previousOrientation?: string;
   private _previousSize?: string;
 
@@ -77,9 +88,6 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     this.internals.ariaSelected = 'false';
     this.tabIndex = -1;
     this._assignStep();
-    // The `disabled` state is used to preserve the initial disabled state of
-    // step labels in case of switching from linear to non-linear mode.
-    this.toggleState('disabled', this.hasAttribute('disabled'));
   }
 
   /**
@@ -130,6 +138,15 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
       this.internals.ariaControlsElements,
       this._step,
     );
+  }
+
+  /**
+   * @internal
+   * Disables the step label and avoids setting the `disabled` state to preserve the initial
+   * disabled state in case of switching between linear and non-linear mode.
+   */
+  public disable(value: boolean): void {
+    super.disabled = value;
   }
 
   protected override render(): TemplateResult {

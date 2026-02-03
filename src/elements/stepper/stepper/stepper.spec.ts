@@ -7,7 +7,7 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import { SbbStepElement } from '../step/step.component.ts';
 import type { SbbStepLabelElement } from '../step-label.ts';
 
-import { SbbStepperElement, SbbStepChangeEvent } from './stepper.component.ts';
+import { SbbStepChangeEvent, SbbStepperElement } from './stepper.component.ts';
 
 import '../step-label.ts';
 import '../step.ts';
@@ -298,6 +298,94 @@ describe('sbb-stepper', () => {
     expect(stepChangeSpy.count).to.be.equal(0);
     expect(stepLabelThree).not.to.match(':state(selected)');
     expect(stepLabelThree.step).not.to.match(':state(selected)');
+  });
+
+  it('does not select a disabled step-label on click', async () => {
+    const stepLabelOne = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(1)',
+    )!;
+    const stepLabelFour = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(4)',
+    )!;
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
+      element,
+    );
+
+    // Step 4 is already disabled in the fixture
+    expect(stepLabelFour.disabled).to.be.true;
+    expect(stepLabelFour).to.have.attribute('disabled');
+    expect(stepLabelOne).to.match(':state(selected)');
+
+    // Click on the disabled step label
+    stepLabelFour.click();
+    await waitForLitRender(element);
+
+    // No step change should have occurred
+    expect(stepChangeSpy.count).to.be.equal(0);
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelFour).not.to.match(':state(selected)');
+    expect(stepLabelFour.step).not.to.match(':state(selected)');
+  });
+
+  it('should keep last step disabled in non-linear stepper when switching from first to second step', async () => {
+    element = await fixture(html`
+      <sbb-stepper>
+        <sbb-step-label>Step 1</sbb-step-label>
+        <sbb-step>Step one content.</sbb-step>
+
+        <sbb-step-label>Step 2</sbb-step-label>
+        <sbb-step>Step two content.</sbb-step>
+
+        <sbb-step-label>Step 3</sbb-step-label>
+        <sbb-step>Step three content.</sbb-step>
+
+        <sbb-step-label>Step 4</sbb-step-label>
+        <sbb-step>Step four content.</sbb-step>
+      </sbb-stepper>
+    `);
+
+    const labels = element.querySelectorAll('sbb-step-label');
+    const stepLabelOne = labels[0];
+    const stepLabelTwo = labels[1];
+    const stepLabelFour = labels[3];
+
+    expect(stepLabelOne).to.match(':state(selected)');
+
+    stepLabelFour.disabled = true;
+    await waitForLitRender(element);
+    expect(stepLabelFour.disabled).to.be.true;
+    expect(stepLabelFour).to.have.attribute('disabled');
+    expect(stepLabelFour).to.match(':state(user-disabled)');
+
+    element.next();
+    await waitForLitRender(element);
+
+    expect(stepLabelTwo).to.match(':state(selected)');
+    expect(stepLabelFour).to.match(':state(user-disabled)');
+    expect(stepLabelFour).to.have.attribute('disabled');
+    expect(stepLabelFour.disabled).to.be.true;
+  });
+
+  it('should return correct step when step is slotted after step label dynamically', async () => {
+    const existingStepLabel = document.createElement('sbb-step-label')!;
+    element = document.createElement('sbb-stepper');
+    element.appendChild(existingStepLabel);
+
+    document.body.appendChild(element);
+
+    // Initially, label.step should be null since no step is slotted after it
+    expect(existingStepLabel.step).to.be.null;
+
+    // Dynamically add a step after the label
+    const newStep = document.createElement('sbb-step');
+    existingStepLabel.insertAdjacentElement('afterend', newStep);
+    await waitForLitRender(element);
+
+    // After adding the step, label.step should return the correct step
+    expect(existingStepLabel.step).to.equal(newStep);
+
+    element.remove();
   });
 
   it('resets the single form wrapping the stepper and returns to the first step', async () => {
