@@ -510,7 +510,7 @@ class SbbImageElement extends SbbElementInternalsMixin(LitElement) {
     this._logPerformanceMarks();
     this.internals.states.add('loaded');
 
-    /** Emits each time the image loads. */
+    /** Emits each time an image loads. E.g. loading image for a different viewport, triggers the load event again. */
     this.dispatchEvent(new Event('load'));
   }
 

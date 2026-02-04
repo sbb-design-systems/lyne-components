@@ -77,4 +77,44 @@ describe(`sbb-image`, () => {
     expect(loadSpy).not.to.have.been.called;
     expect(errorSpy).to.have.been.called;
   });
+
+  it('should load image with single size', async () => {
+    const loadSpy = spy();
+    const errorSpy = spy();
+    const imageConfig = `{
+        "breakpoints": [
+          {
+            "image": {
+              "height": 180,
+              "width": 320
+            },
+            "mediaQueries": [
+              {
+                "conditionFeature": "max-width",
+                "conditionFeatureValue": {
+                  "lyneDesignToken": true,
+                  "value": "sbb-breakpoint-zero-max"
+                },
+                "conditionOperator": false
+              }
+            ]
+          }
+        ]
+      }`;
+
+    const image: SbbImageElement = await fixture(
+      html`<sbb-image
+        image-src=${imageUrl}
+        @load=${(e: Event) => loadSpy(e)}
+        @error=${(e: Event) => errorSpy(e)}
+        picture-sizes-config=${imageConfig}
+      ></sbb-image>`,
+    );
+
+    await waitForCondition(() => loadSpy.called);
+
+    expect(loadSpy).to.have.been.called;
+    expect(errorSpy).not.to.have.been.called;
+    expect(image.complete).to.be.true;
+  });
 });
