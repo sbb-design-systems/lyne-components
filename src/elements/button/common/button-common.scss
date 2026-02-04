@@ -108,6 +108,15 @@ $active: ':active, :state(active), [loading]';
   --sbb-button-color-disabled-text: var(--sbb-color-aluminium);
 }
 
+:host([size='l']) {
+  --sbb-button-min-height: var(--sbb-size-element-m);
+  --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
+
+  @include sbb.mq($from: large) {
+    --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
+  }
+}
+
 :host([size='m']) {
   --sbb-button-min-height: var(--sbb-size-element-s);
   --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);

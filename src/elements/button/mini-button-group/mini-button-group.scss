@@ -2,15 +2,6 @@
 
 :host {
   display: block;
-
-  --sbb-mini-button-group-background: var(--sbb-background-color-1);
-  --sbb-mini-button-group-border-color: var(--sbb-border-color-4-inverted);
-  --sbb-mini-button-group-border-width: var(--sbb-border-width-2x);
-  --sbb-mini-button-group-border: var(--sbb-mini-button-group-border-width) solid
-    var(--sbb-mini-button-group-border-color);
-  --sbb-mini-button-group-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-mini-button-group-min-height: var(--sbb-size-element-s);
-  --sbb-mini-button-group-padding-inline: var(--sbb-spacing-fixed-3x);
 }
 
 :host([negative]) {
@@ -22,6 +13,11 @@
 :host([size='s']) {
   --sbb-mini-button-group-min-height: var(--sbb-size-element-xs);
   --sbb-mini-button-group-padding-inline: var(--sbb-spacing-fixed-2x);
+}
+
+:host([size='m']) {
+  --sbb-mini-button-group-min-height: var(--sbb-size-element-s);
+  --sbb-mini-button-group-padding-inline: var(--sbb-spacing-fixed-3x);
 }
 
 :host([size='l']) {
@@ -40,9 +36,8 @@
 ::slotted(sbb-divider) {
   --sbb-divider-border-width: var(--sbb-border-width-1x);
 
-  padding-block: var(--sbb-spacing-fixed-1x);
-  padding-inline: var(--sbb-spacing-fixed-1x);
-  height: var(--sbb-size-icon-ui-small);
+  padding: var(--sbb-mini-button-group-divider-padding);
+  height: var(--sbb-mini-button-group-divider-height);
 }
 
 .sbb-mini-button-group {
@@ -56,7 +51,7 @@
   min-height: var(--sbb-mini-button-group-min-height);
   background-color: var(--sbb-mini-button-group-background);
   border: var(--sbb-mini-button-group-border);
-  border-radius: var(--sbb-border-radius-infinity);
+  border-radius: var(--sbb-mini-button-group-border-radius);
   padding-inline: calc(
     var(--sbb-mini-button-group-padding-inline) - var(--sbb-mini-button-group-border-width)
   );

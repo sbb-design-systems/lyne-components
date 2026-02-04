@@ -20,6 +20,9 @@ $theme: 'standard' !default;
 @use '../../breadcrumb/breadcrumb-group/breadcrumb-group.global' as breadcrumb-group with (
   $theme: $theme
 );
+@use '../../button/mini-button-group/mini-button-group.global' as mini-button-group with (
+  $theme: $theme
+);
 @use '../../card/card/card.global' as card with (
   $theme: $theme
 );
@@ -90,6 +93,7 @@ $theme: 'standard' !default;
 
   @include breadcrumb.base;
   @include breadcrumb-group.base;
+  @include mini-button-group.base;
   @include card.base;
   @include card-badge.base;
   @include panel-common.base;
