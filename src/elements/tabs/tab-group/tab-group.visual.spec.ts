@@ -46,6 +46,7 @@ describe(`sbb-tab-group`, () => {
               >
                 Tab title two
               </sbb-tab-label>
+              <sbb-tab></sbb-tab>
 
               <sbb-tab-label
                 disabled
@@ -54,12 +55,15 @@ describe(`sbb-tab-group`, () => {
               >
                 Tab title three
               </sbb-tab-label>
+              <sbb-tab></sbb-tab>
+
               <sbb-tab-label
                 amount=${numbersAndIcons ? 16 : nothing}
                 icon-name=${numbersAndIcons ? 'face-smiling-small' : nothing}
               >
                 Tab title four
               </sbb-tab-label>
+              <sbb-tab></sbb-tab>
             </sbb-tab-group>
           `);
         }),
@@ -82,13 +86,17 @@ describe(`sbb-tab-group`, () => {
             </sbb-tab>
 
             <sbb-tab-label amount="16" icon-name="swisspass-small"> Tab title two </sbb-tab-label>
+            <sbb-tab></sbb-tab>
 
             <sbb-tab-label disabled amount="16" icon-name="train-small">
               Tab title three
             </sbb-tab-label>
+            <sbb-tab></sbb-tab>
+
             <sbb-tab-label amount="16" icon-name="face-smiling-small">
               Tab title four
             </sbb-tab-label>
+            <sbb-tab></sbb-tab>
           </sbb-tab-group>
         `);
       }),
@@ -132,6 +140,33 @@ describe(`sbb-tab-group`, () => {
                   </article>
                 </sbb-tab>
               </sbb-tab-group>
+            </sbb-tab>
+          </sbb-tab-group>
+        `);
+      }),
+    );
+
+    it(
+      'fixed height',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-tab-group style="height: 400px;" class="sbb-tab-group-fixed-height">
+            <sbb-tab-label>Tab title</sbb-tab-label>
+            <sbb-tab>
+              <article>
+                Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean
+                euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl
+                rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi
+                proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
+                Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean
+                euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl
+                rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi
+                proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
+                Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean
+                euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl
+                rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi
+                proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue.
+              </article>
             </sbb-tab>
           </sbb-tab-group>
         `);

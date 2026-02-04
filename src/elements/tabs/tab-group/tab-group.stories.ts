@@ -177,6 +177,26 @@ const DynamicTemplate = ({ size, label, ...args }: Args): TemplateResult => html
   >
 `;
 
+const FixedHeightTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
+  <sbb-tab-group
+    class="sbb-tab-group-fixed-height"
+    style="height: 400px;"
+    size=${size}
+    @tabchange=${(e: CustomEvent<SbbTabChangedEventDetails>) => changeEventHandler(e)}
+  >
+    ${firstTabTitle(label, args)} ${tabPanelOne()}
+
+    <sbb-tab-label>Tab title two</sbb-tab-label>
+    ${tabPanelTwo()}
+
+    <sbb-tab-label ?disabled=${true}>Tab title three</sbb-tab-label>
+    <sbb-tab>I was disabled.</sbb-tab>
+
+    <sbb-tab-label>Tab title four</sbb-tab-label>
+    ${tabPanelFour()}
+  </sbb-tab-group>
+`;
+
 const label: InputType = {
   control: {
     type: 'text',
@@ -280,6 +300,15 @@ export const ContentOnActiveEvent: StoryObj = {
   render: DynamicTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
+};
+
+export const FixedHeight: StoryObj = {
+  render: FixedHeightTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+  parameters: {
+    backgroundColor: () => 'var(--sbb-background-color-3)',
+  },
 };
 
 const meta: Meta = {

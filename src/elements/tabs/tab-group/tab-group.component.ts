@@ -34,6 +34,7 @@ export type SbbTabChangedEventDetails = {
  *
  * @slot - Use the unnamed slot to add content to the `sbb-tab-group` via `sbb-tab-label` and `sbb-tab` instances.
  * @event {CustomEvent<SbbTabChangedEventDetails>} tabchange - The tabchange event is dispatched when a tab is selected.
+ * @csspart content - The container element that wraps the tab content.
  */
 export
 @customElement('sbb-tab-group')
@@ -214,6 +215,7 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
       </div>
       <div
         class="sbb-tab-group-content"
+        part="content"
         ${ref((el?: Element) => (this._tabContentElement = el as HTMLElement))}
       >
         <slot @slotchange=${throttle(this._onContentSlotChange, 150)}></slot>
