@@ -64,31 +64,19 @@ $active: ':active, :state(active), [loading]';
 }
 
 :host([size='l']) {
-  --sbb-button-min-height: var(--sbb-size-element-m);
-  --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
-
-  @include sbb.mq($from: large) {
-    --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
-  }
+  --sbb-button-min-height: var(--sbb-button-min-height-size-l);
+  --sbb-button-padding-inline: var(--sbb-button-padding-inline-size-l);
 }
 
 :host([size='m']) {
-  --sbb-button-min-height: var(--sbb-size-element-s);
-  --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
-
-  @include sbb.mq($from: large) {
-    --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
-  }
+  --sbb-button-min-height: var(--sbb-button-min-height-size-m);
+  --sbb-button-padding-inline: var(--sbb-button-padding-inline-size-m);
 }
 
 :host([size='s']) {
-  --sbb-button-min-height: var(--sbb-size-element-xs);
-  --sbb-button-padding-inline: var(--sbb-spacing-fixed-4x);
+  --sbb-button-min-height: var(--sbb-button-min-height-size-s);
+  --sbb-button-padding-inline: var(--sbb-button-padding-inline-size-s);
   --sbb-button-gap: var(--sbb-spacing-fixed-1x);
-
-  @include sbb.mq($from: large) {
-    --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
-  }
 }
 
 :host(#{$icon-only}) {

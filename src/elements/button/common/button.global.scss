@@ -14,12 +14,36 @@ $theme: 'standard' !default;
     var(--sbb-color-granite),
     var(--sbb-color-aluminium)
   );
-  --sbb-button-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-button-gap: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-2x),
+        'lean': var(--sbb-spacing-fixed-1x),
+      ),
+      $theme
+    )};
   --sbb-button-loading-border-width: var(--sbb-border-width-3x);
   --sbb-button-loading-delay: 300ms;
-  --sbb-button-min-height: var(--sbb-size-element-m);
+  --sbb-button-min-height-size-l: var(--sbb-size-element-m);
+  --sbb-button-min-height-size-m: var(--sbb-size-element-s);
+  --sbb-button-min-height-size-s: var(--sbb-size-element-xs);
+  --sbb-button-min-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-button-min-height-size-l),
+        'lean': var(--sbb-button-min-height-size-s),
+      ),
+      $theme
+    )};
   --sbb-button-padding-block-min: var(--sbb-spacing-fixed-1x);
-  --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
+  --sbb-button-padding-inline-size-l: var(--sbb-spacing-fixed-8x);
+  --sbb-button-padding-inline-size-m: var(--sbb-spacing-fixed-5x);
+  --sbb-button-padding-inline-size-s: var(--sbb-spacing-fixed-4x);
+  --sbb-button-padding-inline: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-button-padding-inline-size-l),
+        'lean': var(--sbb-button-padding-inline-size-s),
+      ),
+      $theme
+    )};
   --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-offset-y);
   --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
   --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-blur);
@@ -28,7 +52,9 @@ $theme: 'standard' !default;
 }
 
 @mixin base-breakpoint-large {
-  --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
+  --sbb-button-padding-inline-size-l: var(--sbb-spacing-fixed-10x);
+  --sbb-button-padding-inline-size-m: var(--sbb-spacing-fixed-8x);
+  --sbb-button-padding-inline-size-s: var(--sbb-spacing-fixed-5x);
 }
 
 @mixin base-forced-colors {
