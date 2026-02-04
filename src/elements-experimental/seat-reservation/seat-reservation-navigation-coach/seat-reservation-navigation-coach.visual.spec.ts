@@ -1,12 +1,6 @@
-import {
-  describeEach,
-  describeViewports,
-  visualDiffDefault,
-  visualDiffHover,
-  visualRegressionFixture,
-} from '@sbb-esta/lyne-elements/core/testing/private.js';
+import { describeViewports } from '@sbb-esta/lyne-elements/core/testing/private.js';
+
 import './seat-reservation-navigation-coach.component.ts';
-import { html } from 'lit';
 
 describe('sbb-seat-reservation-navigation-coach', () => {
   let root: HTMLElement;

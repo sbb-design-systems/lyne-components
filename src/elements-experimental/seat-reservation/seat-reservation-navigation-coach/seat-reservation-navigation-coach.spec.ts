@@ -26,7 +26,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     await expect(element).to.be.accessible();
   });
 
-  it('should have a button', async () => {
+  it('should have a button', () => {
     const el = element.shadowRoot?.querySelector('.sbb-sr-navigation__ctrl-button');
     assert.instanceOf(el, HTMLButtonElement);
   });
@@ -125,7 +125,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   it('should not be hovered', async () => {
     element.hovered = false;
     await waitForLitRender(element);
-    const el = element.shadowRoot?.querySelector('.sbb-sr-navigation__item-coach--hovred');
+    const el = element.shadowRoot?.querySelector('.sbb-sr-navigation__item-coach--hovered');
     assert.isNull(el);
   });
 
@@ -208,21 +208,25 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   });
 
   it('should dispatch click event on pressing Enter', async () => {
+    const btn = element.shadowRoot?.querySelector(
+      '.sbb-sr-navigation__ctrl-button',
+    ) as HTMLButtonElement;
+
     const changeSpy = new EventSpy('click');
-
-    element.focused = true;
-
     await waitForLitRender(element);
+    btn.focus();
     await sendKeys({ press: 'Enter' });
     expect(changeSpy.count).to.be.greaterThan(0);
   });
 
   it('should dispatch click event on pressing Space', async () => {
+    const btn = element.shadowRoot?.querySelector(
+      '.sbb-sr-navigation__ctrl-button',
+    ) as HTMLButtonElement;
+
     const changeSpy = new EventSpy('click');
-
-    element.focused = true;
-
     await waitForLitRender(element);
+    btn.focus();
     await sendKeys({ press: ' ' });
     expect(changeSpy.count).to.be.greaterThan(0);
   });
