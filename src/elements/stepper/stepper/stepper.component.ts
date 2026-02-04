@@ -3,8 +3,8 @@ import {
   type CSSResultGroup,
   html,
   LitElement,
-  type TemplateResult,
   type PropertyValues,
+  type TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -98,7 +98,7 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
   @property({ type: Boolean })
   public accessor linear: boolean = false;
 
-  /** Overrides the behaviour of `orientation` property. */
+  /** Overrides the behavior of `orientation` property. */
   @property({ attribute: 'horizontal-from', reflect: true })
   public set horizontalFrom(value: SbbHorizontalFrom | null) {
     this._horizontalFrom = value && breakpointMap[value] ? value : null;
@@ -127,10 +127,12 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     if (this._loaded) {
       this._select(step);
     }
+    this._requestedSelected = step;
   }
   public get selected(): SbbStepElement | null {
     return this.querySelector?.<SbbStepElement>('sbb-step:state(selected)') ?? null;
   }
+  private _requestedSelected: SbbStepElement | null = null;
 
   /** The currently selected step index. */
   @property({ attribute: 'selected-index', type: Number })
@@ -138,18 +140,31 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     if (this._loaded && index !== null) {
       this._select(this.steps[index]);
     }
+    this._requestedSelectedIndex = index;
   }
   public get selectedIndex(): number | null {
     return this.selected ? this.steps.indexOf(this.selected) : null;
   }
+  private _requestedSelectedIndex: number | null = null;
 
   /** The steps of the stepper. */
   public get steps(): SbbStepElement[] {
-    return Array.from(this.querySelectorAll?.('sbb-step') ?? []);
+    const steps: SbbStepElement[] = [];
+    this.querySelectorAll?.('sbb-step').forEach((step) => {
+      customElements.upgrade(step);
+      steps.push(step);
+    });
+    return steps;
   }
 
   private get _enabledSteps(): SbbStepElement[] {
-    return this.steps.filter((s) => !s.label?.hasAttribute('disabled'));
+    return this.steps.filter((s) => {
+      if (s.label) {
+        customElements.upgrade(s.label);
+        return !s.label.disabled;
+      }
+      return false;
+    });
   }
 
   private _loaded: boolean = false;
@@ -191,25 +206,23 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     }
   }
 
-  private _isValidStep(step: SbbStepElement | null): boolean {
-    if (!step || (!this.linear && step.label?.hasAttribute('disabled'))) {
+  private _isSelectable(step: SbbStepElement | null): step is SbbStepElement {
+    if (step) {
+      customElements.upgrade(step);
+      if (step.label) {
+        customElements.upgrade(step.label);
+        if (!this.linear && step.label.disabled) {
+          return false;
+        }
+      }
+      return true;
+    } else {
       return false;
     }
-
-    if (this.linear && !this.selected) {
-      return step === this.steps[0];
-    }
-
-    if (this.linear && this.selectedIndex !== null) {
-      const index = this.steps.indexOf(step);
-      return index < this.selectedIndex || index === this.selectedIndex + 1;
-    }
-
-    return true;
   }
 
   private _select(step: SbbStepElement | null): void {
-    if (!this._isValidStep(step)) {
+    if (!this._isSelectable(step) || step === this.selected) {
       return;
     }
     const currentIndex = this.selectedIndex;
@@ -227,7 +240,7 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
 
     const current = this.selected;
     current?.deselect();
-    step!.select();
+    step.select();
 
     /** @internal only to provide double entry in docs. It is a public event! */
     this.dispatchEvent(
@@ -297,14 +310,10 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
   }
 
   private _configure(): void {
-    const steps = this.steps;
-    steps.forEach((s) => s.configure(this._loaded));
-    steps
-      .filter((s) => s.label)
-      .map((s) => s.label!)
-      .forEach((label, i, array) => {
-        label.configure(i + 1, array.length, this._loaded);
-      });
+    this.steps.forEach((step, i, array) => {
+      step.configure(this._loaded);
+      step.label?.configure(i + 1, array.length, this._loaded);
+    });
     this._select(this.selected || this._enabledSteps[0]);
   }
 
@@ -340,10 +349,14 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
 
   private _configureLinearMode(): void {
     this.steps.forEach((step, index) => {
-      step.label?.toggleAttribute(
-        'disabled',
+      if (!step.label) {
+        return;
+      }
+      customElements.upgrade(step.label);
+
+      step.label.disable(
         (this.linear && index > this.selectedIndex!) ||
-          (!this.linear && step.label.matches(':state(disabled)')),
+          (!this.linear && step.label.matches(':state(user-disabled)')),
       );
     });
   }
@@ -365,7 +378,16 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     super.firstUpdated(changedProperties);
     this.updateComplete.then(() => {
       this._loaded = true;
-      this.selectedIndex = this.linear ? 0 : Number(this.getAttribute('selected-index')) || 0;
+      this._configure();
+
+      if (this._requestedSelected && this.steps.indexOf(this._requestedSelected) !== -1) {
+        this.selectedIndex = this.steps.indexOf(this._requestedSelected);
+      } else if (this._requestedSelectedIndex) {
+        this.selectedIndex = this._requestedSelectedIndex;
+      } else {
+        this.selectedIndex = 0;
+      }
+
       this._observer.observe(this);
       this._checkOrientation();
       // Remove disable-animation state after component init
