@@ -65,7 +65,10 @@ snapshots["sbb-tab-group renders Shadow DOM"] =
   <slot name="tab-bar">
   </slot>
 </div>
-<div class="sbb-tab-group-content">
+<div
+  class="sbb-tab-group-content"
+  part="content"
+>
   <slot>
   </slot>
 </div>
