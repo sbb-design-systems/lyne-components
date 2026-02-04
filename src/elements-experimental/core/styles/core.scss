@@ -1,7 +1,6 @@
 $theme: 'standard' !default;
 
 @use 'sass:string';
-@use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
 @use '../../autocomplete-grid/autocomplete-grid-row/autocomplete-grid-row.global' as
   autocomplete-grid-row with (

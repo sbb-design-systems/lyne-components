@@ -63,6 +63,10 @@ const renderStyles = (): string =>
   stylesCompiler.compile('./src/elements/core/styles/standard-theme.scss', {
     loadPaths: ['.', './node_modules/'],
   }).css;
+const renderExperimentalStyles = (): string =>
+  stylesCompiler.compile('./src/elements-experimental/core/styles/standard-theme.scss', {
+    loadPaths: ['.', './node_modules/'],
+  }).css;
 
 const browsers =
   cliArgs.ci || cliArgs['all-browsers']
@@ -123,6 +127,9 @@ const testRunnerHtml = (
     <link rel="modulepreload" href="/src/elements/core/testing/private/test-setup.ts" />
     <style type="text/css">
       ${renderStyles()}
+    </style>
+    <style type="text/css">
+      ${renderExperimentalStyles()}
     </style>
     <script type="module">
       globalThis.disableAnimation = true;

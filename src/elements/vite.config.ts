@@ -15,6 +15,7 @@ import {
   generateRootEntryPoint,
   resolveEntryPoints,
   stateTransform,
+  elementsSheets,
 } from '../../tools/vite/index.ts';
 import rootConfig from '../../vite.config.ts';
 
@@ -74,7 +75,7 @@ export default defineConfig((config) =>
             }),
             copyAssets(['_index.scss', '../../README.md']),
             copySass('core/styles'),
-            typography(),
+            typography(elementsSheets),
             verifyEntryPoints(),
           ]
         : []),

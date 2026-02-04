@@ -13,10 +13,24 @@ import {
   verifyEntryPoints,
   resolveEntryPoints,
   stateTransform,
+  copySass,
+  typography,
+  elementsExperimentalSheets,
 } from '../../tools/vite/index.ts';
 import rootConfig from '../../vite.config.ts';
 
 const packageRoot = new URL('.', import.meta.url);
+const buildStyleExports = (fileNames: string[]): Record<string, { style: string }> =>
+  fileNames.reduce(
+    (obj, fileName) => ({
+      ...obj,
+      [`./${fileName}`]: {
+        style: `./${fileName}`,
+        default: `./${fileName}`,
+      },
+    }),
+    {},
+  );
 
 export default defineConfig((config) =>
   mergeConfig(rootConfig, <UserConfig>{
@@ -34,9 +48,17 @@ export default defineConfig((config) =>
                   types: './index.d.ts',
                   default: './index.js',
                 },
+                ...buildStyleExports([
+                  'core.css',
+                  'off-brand-theme.css',
+                  'safety-theme.css',
+                  'standard-theme.css',
+                ]),
               },
             }),
             copyAssets(['../../README.md']),
+            copySass('core/styles'),
+            typography(elementsExperimentalSheets),
             verifyEntryPoints(),
           ]
         : []),
