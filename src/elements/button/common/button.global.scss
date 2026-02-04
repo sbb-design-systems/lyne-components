@@ -1,0 +1,51 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-button-box-shadow: transparent 0 0;
+  --sbb-button-border-radius: var(--sbb-border-radius-infinity);
+  --sbb-button-border-width: var(--sbb-border-width-2x);
+  --sbb-button-border-disabled-style: dashed;
+  --sbb-button-border-disabled-width: var(--sbb-border-width-1x);
+  --sbb-button-color-disabled-background: var(--sbb-background-color-3);
+  --sbb-button-color-disabled-border: var(--sbb-border-color-5);
+  --sbb-button-color-disabled-text: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-aluminium)
+  );
+  --sbb-button-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-button-loading-border-width: var(--sbb-border-width-3x);
+  --sbb-button-loading-delay: 300ms;
+  --sbb-button-min-height: var(--sbb-size-element-m);
+  --sbb-button-padding-block-min: var(--sbb-spacing-fixed-1x);
+  --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
+  --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-offset-y);
+  --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
+  --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-blur);
+  --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-2-blur);
+  --sbb-button-transition-easing-function: var(--sbb-animation-easing);
+}
+
+@mixin base-breakpoint-large {
+  --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
+}
+
+@mixin base-forced-colors {
+  --sbb-button-color-default-border: CanvasText !important;
+  --sbb-button-color-active-border: Highlight !important;
+  --sbb-button-color-default-background: Canvas !important;
+  --sbb-button-color-hover-background: Canvas !important;
+  --sbb-button-color-active-background: Canvas !important;
+  --sbb-button-color-disabled-background: Canvas !important;
+  --sbb-button-color-disabled-text: GrayText !important;
+  --sbb-button-color-loading-border: Highlight !important;
+
+  // For static cases, button and link roles will override it.
+  --sbb-button-color-default-text: CanvasText !important;
+  --sbb-button-color-hover-text: CanvasText !important;
+  --sbb-button-color-active-text: CanvasText !important;
+
+  // Calculated and private variables
+  --sbb-button-border-overlap-fix: 0rem;
+}

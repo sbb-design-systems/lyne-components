@@ -20,6 +20,9 @@ $theme: 'standard' !default;
 @use '../../breadcrumb/breadcrumb-group/breadcrumb-group.global' as breadcrumb-group with (
   $theme: $theme
 );
+@use '../../button/common/button.global' as button with (
+  $theme: $theme
+);
 @use '../../button/mini-button-group/mini-button-group.global' as mini-button-group with (
   $theme: $theme
 );
@@ -93,6 +96,7 @@ $theme: 'standard' !default;
 
   @include breadcrumb.base;
   @include breadcrumb-group.base;
+  @include button.base;
   @include mini-button-group.base;
   @include card.base;
   @include card-badge.base;
@@ -117,6 +121,7 @@ $theme: 'standard' !default;
     @include sbb-css-tokens.forced-colors;
 
     @include breadcrumb.base-forced-colors;
+    @include button.base-forced-colors;
     @include card.base-forced-colors;
     @include card-badge.base-forced-colors;
     @include expansion-panel-header.base-forced-colors;
@@ -189,6 +194,8 @@ $theme: 'standard' !default;
 
   @include mediaqueries.mq($from: large) {
     @include sbb-css-tokens.breakpoint-large;
+
+    @include button.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage
