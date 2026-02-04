@@ -456,8 +456,10 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   }
 
   public override disconnectedCallback(): void {
+    // Take back the trigger element previously moved to the light DOM.
+    // Due to timing issues, this needs to be done before calling super.disconnectedCallback().
+    this.prepend(this._triggerElement);
     super.disconnectedCallback();
-    this.prepend(this._triggerElement); // Take back the trigger element previously moved to the light DOM
     this._openPanelEventsController?.abort();
   }
 

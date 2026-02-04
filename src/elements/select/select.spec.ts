@@ -770,6 +770,45 @@ describe(`sbb-select`, () => {
         expect(element.isOpen).to.be.true;
       });
     });
+
+    it('should work correctly after removing from DOM and re-adding', async () => {
+      // Set initial value
+      element.value = '2';
+      await waitForLitRender(element);
+
+      // Check initial state
+      expect(element.value).to.be.equal('2');
+      expect(secondOption.selected).to.be.true;
+      expect(root.querySelector<SbbSelectElement>('.sbb-select-trigger')!).to.exist;
+
+      // Remove from DOM
+      element.remove();
+      await waitForLitRender(root);
+
+      expect(root.querySelector<SbbSelectElement>('.sbb-select-trigger')!).not.to.exist;
+
+      // Re-add to DOM
+      root.insertBefore(element, root.firstElementChild);
+      await waitForLitRender(root);
+
+      // Verify element is back
+      const reAddedElement = root.querySelector<SbbSelectElement>('sbb-select')!;
+      expect(reAddedElement).to.exist;
+      expect(reAddedElement).to.equal(element);
+      expect(root.querySelector<SbbSelectElement>('.sbb-select-trigger')!).to.exist;
+
+      // Check that value is preserved
+      expect(reAddedElement.value).to.be.equal('2');
+      expect(secondOption.selected).to.be.true;
+
+      // Check that select can be opened
+      const openSpy = new EventSpy(SbbSelectElement.events.open, reAddedElement);
+      reAddedElement.open();
+      await waitForLitRender(reAddedElement);
+
+      await openSpy.calledOnce();
+      expect(reAddedElement.isOpen).to.be.true;
+    });
   });
 
   describe('form association', () => {
