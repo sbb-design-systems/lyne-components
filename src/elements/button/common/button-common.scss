@@ -40,6 +40,25 @@ $active: ':active, :state(active), [loading]';
   // We used px unit as it is not relative to anything.
   --_border: calc(var(--sbb-button-border-width) + var(--sbb-button-border-overlap-fix, 1px)) solid
     var(--_border-color);
+
+  @include sbb.if-forced-colors {
+    --sbb-button-color-default-border: CanvasText !important;
+    --sbb-button-color-active-border: Highlight !important;
+    --sbb-button-color-default-background: Canvas !important;
+    --sbb-button-color-hover-background: Canvas !important;
+    --sbb-button-color-active-background: Canvas !important;
+    --sbb-button-color-disabled-background: Canvas !important;
+    --sbb-button-color-disabled-text: GrayText !important;
+    --sbb-button-color-loading-border: Highlight !important;
+
+    // For static cases, button and link roles will override it.
+    --sbb-button-color-default-text: CanvasText !important;
+    --sbb-button-color-hover-text: CanvasText !important;
+    --sbb-button-color-active-text: CanvasText !important;
+
+    // Calculated and private variables
+    --sbb-button-border-overlap-fix: 0rem;
+  }
 }
 
 :host(:state(button)) {

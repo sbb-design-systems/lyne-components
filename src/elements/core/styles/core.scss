@@ -129,7 +129,6 @@ $theme: 'standard' !default;
     @include sbb-css-tokens.forced-colors;
 
     @include breadcrumb.base-forced-colors;
-    @include button.base-forced-colors;
     @include card.base-forced-colors;
     @include card-badge.base-forced-colors;
     @include expansion-panel-header.base-forced-colors;
