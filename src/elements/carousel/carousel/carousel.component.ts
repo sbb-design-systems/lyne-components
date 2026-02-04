@@ -157,10 +157,12 @@ class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
 
   protected override render(): TemplateResult {
     return html`
-      <sbb-screen-reader-only id="sbb-carousel-arrows-navigation-hint"
-        >${i18nCarouselArrowsNavigationHint[this._language.current]}</sbb-screen-reader-only
-      >
-      <slot @slotchange=${this._handleSlotchange}></slot>
+      <div class="sbb-carousel">
+        <sbb-screen-reader-only id="sbb-carousel-arrows-navigation-hint"
+          >${i18nCarouselArrowsNavigationHint[this._language.current]}</sbb-screen-reader-only
+        >
+        <slot @slotchange=${this._handleSlotchange}></slot>
+      </div>
     `;
   }
 }

@@ -1,11 +1,7 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--sbb-carousel-background-color);
+  display: inline-block;
   overflow: hidden;
   border-radius: var(--sbb-carousel-border-radius) var(--sbb-carousel-border-radius) 0 0;
 }
@@ -17,6 +13,14 @@
 
 :host(:not([shadow])) ::slotted(sbb-carousel-list) {
   --sbb-carousel-inherit-border-radius: var(--sbb-carousel-border-radius);
+}
+
+.sbb-carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--sbb-carousel-background-color);
 }
 
 ::slotted(sbb-compact-paginator) {

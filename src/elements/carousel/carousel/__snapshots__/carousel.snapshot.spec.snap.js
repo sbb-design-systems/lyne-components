@@ -37,11 +37,13 @@ snapshots["sbb-carousel renders DOM"] =
 /* end snapshot sbb-carousel renders DOM */
 
 snapshots["sbb-carousel renders Shadow DOM"] = 
-`<sbb-screen-reader-only id="sbb-carousel-arrows-navigation-hint">
-  Carousel - Use the arrow keys in interaction mode to navigate through the slides
-</sbb-screen-reader-only>
-<slot>
-</slot>
+`<div class="sbb-carousel">
+  <sbb-screen-reader-only id="sbb-carousel-arrows-navigation-hint">
+    Carousel - Use the arrow keys in interaction mode to navigate through the slides
+  </sbb-screen-reader-only>
+  <slot>
+  </slot>
+</div>
 `;
 /* end snapshot sbb-carousel renders Shadow DOM */
 
