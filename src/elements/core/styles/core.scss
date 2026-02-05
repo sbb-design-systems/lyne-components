@@ -20,7 +20,7 @@ $theme: 'standard' !default;
 @use '../../breadcrumb/breadcrumb-group/breadcrumb-group.global' as breadcrumb-group with (
   $theme: $theme
 );
-@use '../../button/common/button.global' as button with (
+@use '../../button/common/button-common.global' as button with (
   $theme: $theme
 );
 @use '../../button/mini-button-group/mini-button-group.global' as mini-button-group with (
