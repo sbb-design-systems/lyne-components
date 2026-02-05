@@ -4,6 +4,7 @@ import { describeViewports, visualDiffDefault } from '../core/testing/private.ts
 import { waitForImageReady } from '../core/testing.ts';
 
 import './image.component.ts';
+import '../chip-label/chip-label.component.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 const transparentImageUrl = import.meta.resolve('../core/testing/assets/transparent-image.png');
@@ -173,6 +174,60 @@ describe(`sbb-image`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`<sbb-image skip-lqip image-src=${imageUrl} class="sbb-image-1-1"></sbb-image>`,
+        );
+
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
+      }),
+    );
+
+    it(
+      'with chip label',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<figure class="sbb-figure" style="width: 200px; height: 300px">
+            <sbb-image image-src=${imageUrl}></sbb-image>
+            <sbb-chip-label class="sbb-figure-overlap-start-start">AI content</sbb-chip-label>
+          </figure>`,
+        );
+
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
+      }),
+    );
+
+    it(
+      'with multiple chip labels',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<figure class="sbb-figure">
+            <sbb-image image-src=${imageUrl}></sbb-image>
+            <div class="sbb-figure-overlap-end-end">
+              <sbb-chip-label>AI generated</sbb-chip-label>
+              <sbb-chip-label>Paid content</sbb-chip-label>
+            </div>
+          </figure>`,
+        );
+
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
+      }),
+    );
+
+    it(
+      'with multiple chip labels narrow',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<figure class="sbb-figure" style="width: 200px; height: 300px">
+            <sbb-image image-src=${imageUrl}></sbb-image>
+            <div class="sbb-figure-overlap-end-end">
+              <sbb-chip-label>AI generated</sbb-chip-label>
+              <sbb-chip-label>Paid content</sbb-chip-label>
+            </div>
+          </figure>`,
         );
 
         setup.withPostSetupAction(
