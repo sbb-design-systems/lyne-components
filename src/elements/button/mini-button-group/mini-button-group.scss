@@ -50,7 +50,9 @@
   width: fit-content;
   min-height: var(--sbb-mini-button-group-min-height);
   background-color: var(--sbb-mini-button-group-background);
-  border: var(--sbb-mini-button-group-border);
+  border-width: var(--sbb-mini-button-group-border-width);
+  border-style: solid;
+  border-color: var(--sbb-mini-button-group-border-color);
   border-radius: var(--sbb-mini-button-group-border-radius);
   padding-inline: calc(
     var(--sbb-mini-button-group-padding-inline) - var(--sbb-mini-button-group-border-width)
