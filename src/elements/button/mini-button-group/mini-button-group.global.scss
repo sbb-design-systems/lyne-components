@@ -10,8 +10,20 @@ $theme: 'standard' !default;
     var(--sbb-mini-button-group-border-color);
   --sbb-mini-button-group-border-radius: var(--sbb-border-radius-infinity);
   --sbb-mini-button-group-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-mini-button-group-min-height: var(--sbb-size-element-s);
-  --sbb-mini-button-group-padding-inline: var(--sbb-spacing-fixed-3x);
+  --sbb-mini-button-group-min-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-size-element-s),
+        'lean': var(--sbb-size-element-xs),
+      ),
+      $theme
+    )};
+  --sbb-mini-button-group-padding-inline: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-3x),
+        'lean': var(--sbb-spacing-fixed-2x),
+      ),
+      $theme
+    )};
   --sbb-mini-button-group-divider-height: var(--sbb-size-icon-ui-small);
   --sbb-mini-button-group-divider-padding: var(--sbb-spacing-fixed-1x);
 }
