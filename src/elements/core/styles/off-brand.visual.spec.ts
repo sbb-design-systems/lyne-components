@@ -76,9 +76,9 @@ describe(`sbb-off-brand`, () => {
           `form elements`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
-              html`<sbb-radio-button checked></sbb-radio-button><br />
-                <sbb-checkbox checked></sbb-checkbox><br />
-                <sbb-toggle-check checked></sbb-toggle-check><br />
+              html`<sbb-radio-button checked>Label</sbb-radio-button><br />
+                <sbb-checkbox checked>Label</sbb-checkbox><br />
+                <sbb-toggle-check checked>Label</sbb-toggle-check><br />
                 <sbb-slider></sbb-slider> `,
               {
                 darkMode,
