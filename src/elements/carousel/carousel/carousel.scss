@@ -1,16 +1,13 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-carousel-border-radius: var(--sbb-border-radius-4x);
-  --sbb-carousel-background-color: var(--sbb-background-color-1);
-
   display: inline-block;
   overflow: hidden;
   border-radius: var(--sbb-carousel-border-radius) var(--sbb-carousel-border-radius) 0 0;
 }
 
 :host([shadow]) {
-  box-shadow: var(--sbb-box-shadow-level-9-hard);
+  box-shadow: var(--sbb-carousel-box-shadow);
   border-radius: var(--sbb-carousel-border-radius);
 }
 
@@ -27,5 +24,5 @@
 }
 
 ::slotted(sbb-compact-paginator) {
-  padding: var(--sbb-spacing-responsive-xs);
+  padding: var(--sbb-carousel-paginator-padding);
 }
