@@ -1,5 +1,6 @@
 @use './typo';
 
+// TODO(breaking-change): check which mixins can be inlined
 @mixin figure {
   display: grid;
   grid-template-rows: auto;
