@@ -1,0 +1,5 @@
+$theme: 'standard' !default;
+
+@use './core' with (
+  $theme: $theme
+);

@@ -1,23 +1,14 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
-
-  --sbb-option-hint-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
-  --sbb-option-hint-column-gap: var(--sbb-spacing-responsive-xxxs);
-  --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-2x);
-  --sbb-option-hint-padding-inline: var(--sbb-spacing-responsive-xxxs);
-}
-
-:host([negative]) {
-  --sbb-option-hint-color: var(--sbb-color-5);
-}
-
-.sbb-option-hint__wrapper {
   display: flex;
   column-gap: var(--sbb-option-hint-column-gap);
   padding-inline: var(--sbb-option-hint-padding-inline);
   padding-block-end: var(--sbb-option-hint-padding-block-end);
+}
+
+:host([negative]) {
+  --sbb-option-hint-color: var(--sbb-color-5);
 }
 
 .sbb-optgroup__icon-space {
@@ -27,8 +18,8 @@
 }
 
 .sbb-option-hint {
-  @include sbb.text-xxs--regular;
-
+  font-size: var(--sbb-option-hint-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   color: var(--sbb-option-hint-color);
   -webkit-text-fill-color: var(--sbb-option-hint-color);
   flex-grow: 1;
