@@ -88,7 +88,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             @scroll=${() => this.coachAreaScrollend()}
             id="sbb-sr__wrapper-scrollarea"
             class="sbb-sr__wrapper-scrollarea"
-            tabindex="-1"
+            tabindex="0"
           >
             <div id="sbb-sr__parent-area" class="sbb-sr__parent">
               <ul

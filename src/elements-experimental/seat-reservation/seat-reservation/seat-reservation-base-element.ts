@@ -216,7 +216,7 @@ export class SeatReservationBaseElement extends LitElement {
         this.currSelectedCoachIndex != -1 ? this.currSelectedCoachIndex - 1 : 0;
     } else if (
       btnDirection == 'DIRECTION_RIGHT' &&
-      navigateToCoachIndex < this.seatReservations[this.currSelectedDeckIndex].coachItems.length - 1
+      navigateToCoachIndex < this.seatReservations[this.currSelectedDeckIndex]?.coachItems.length - 1
     ) {
       navigateToCoachIndex =
         this.currSelectedCoachIndex != -1 ? this.currSelectedCoachIndex + 1 : 0;
@@ -1431,36 +1431,38 @@ export class SeatReservationBaseElement extends LitElement {
    *    - whether there is a driver area left or right
    * */
   private _prepareNavigationCoachData(): void {
-    const lowerDeck: CoachItem[] =
-      this.seatReservations[this.seatReservations.length - 1].coachItems;
+    if (this.seatReservations) {
+      const lowerDeck: CoachItem[] =
+        this.seatReservations[this.seatReservations.length - 1].coachItems;
 
-    this.coachNavData = [];
+      this.coachNavData = [];
 
-    lowerDeck.forEach((coach, index) => {
-      const travelClasses: PlaceTravelClass[] = [];
-      const propertyIds: string[] = [];
-      const places: Place[] = [];
+      lowerDeck.forEach((coach, index) => {
+        const travelClasses: PlaceTravelClass[] = [];
+        const propertyIds: string[] = [];
+        const places: Place[] = [];
 
-      // Collect all important navigation data to be rendered
-      this.seatReservations
-        .map((sr) => {
-          return sr.coachItems[index];
-        })
-        .forEach((coach: CoachItem) => {
-          travelClasses.push(...coach.travelClass);
-          propertyIds.push(...(coach.propertyIds ? coach.propertyIds : []));
-          places.push(...(coach.places ? coach.places : []));
+        // Collect all important navigation data to be rendered
+        this.seatReservations
+          .map((sr) => {
+            return sr.coachItems[index];
+          })
+          .forEach((coach: CoachItem) => {
+            travelClasses.push(...coach.travelClass);
+            propertyIds.push(...(coach.propertyIds ? coach.propertyIds : []));
+            places.push(...(coach.places ? coach.places : []));
+          });
+
+        this.coachNavData.push({
+          id: coach.id,
+          travelClass: this._prepareTravelClassNavigation(travelClasses),
+          propertyIds: this._prepareServiceIconsNavigation(propertyIds),
+          isDriverArea: coach.places ? coach.places.length === 0 : true,
+          driverAreaSide: this._prepareDriverAreaSideNavigation(coach),
+          freePlaces: this.getAvailableFreePlacesNumFromCoach(places),
         });
-
-      this.coachNavData.push({
-        id: coach.id,
-        travelClass: this._prepareTravelClassNavigation(travelClasses),
-        propertyIds: this._prepareServiceIconsNavigation(propertyIds),
-        isDriverArea: coach.places ? coach.places.length === 0 : true,
-        driverAreaSide: this._prepareDriverAreaSideNavigation(coach),
-        freePlaces: this.getAvailableFreePlacesNumFromCoach(places),
       });
-    });
+    }
   }
 
   private _prepareTravelClassNavigation(travelClasses: PlaceTravelClass[]): PlaceTravelClass {
@@ -1522,32 +1524,34 @@ export class SeatReservationBaseElement extends LitElement {
   };
 
   private _prepareCoachWidthAndGapCalculations(): void {
-    const coachItems: CoachItem[] =
-      this.seatReservations[this.seatReservations.length - 1]?.coachItems;
+    if (this.seatReservations) {
+      const coachItems: CoachItem[] =
+        this.seatReservations[this.seatReservations.length - 1]?.coachItems;
 
-    coachItems?.forEach((coachItem: CoachItem) => {
-      const hasOverhangingPlaces = this._isOverhangingElementsPresent(
-        coachItem.dimension.w,
-        coachItem.places,
-      );
+      coachItems?.forEach((coachItem: CoachItem) => {
+        const hasOverhangingPlaces = this._isOverhangingElementsPresent(
+          coachItem.dimension.w,
+          coachItem.places,
+        );
 
-      //Must  be done also for graphical elements, as they can also protrude the coach border
-      // Check only graphical elements that are not area elements
-      const filteredElements = coachItem.graphicElements?.filter(
-        (e) => e.icon && !this.notAreaElements.includes(e.icon),
-      );
+        //Must  be done also for graphical elements, as they can also protrude the coach border
+        // Check only graphical elements that are not area elements
+        const filteredElements = coachItem.graphicElements?.filter(
+          (e) => e.icon && !this.notAreaElements.includes(e.icon),
+        );
 
-      const hasOverhangingGraphicAreas = this._isOverhangingElementsPresent(
-        coachItem.dimension.w,
-        filteredElements,
-      );
+        const hasOverhangingGraphicAreas = this._isOverhangingElementsPresent(
+          coachItem.dimension.w,
+          filteredElements,
+        );
 
-      this.overHangingElementInformation.push({
-        coachId: coachItem.id,
-        overhangingPlaces: hasOverhangingPlaces,
-        overhangingGraphicAreas: hasOverhangingGraphicAreas,
+        this.overHangingElementInformation.push({
+          coachId: coachItem.id,
+          overhangingPlaces: hasOverhangingPlaces,
+          overhangingGraphicAreas: hasOverhangingGraphicAreas,
+        });
       });
-    });
+    }
   }
 
   /**

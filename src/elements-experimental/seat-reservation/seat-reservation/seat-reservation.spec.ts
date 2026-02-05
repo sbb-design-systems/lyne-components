@@ -88,19 +88,22 @@ describe(`sbb-seat-reservation`, () => {
     const areaElement: SbbSeatReservationAreaElement | null =
       element.shadowRoot!.querySelector<SbbSeatReservationAreaElement>('sbb-seat-reservation-area');
 
+    //aria-expanded to check if it is closed
+    expect(areaElement).to.have.attribute('aria-expanded', 'false');
+
     const popover = element.shadowRoot!.querySelector<SbbPopoverElement>(
       'sbb-popover[trigger="' + areaElement?.id + '"]',
     );
 
     // assert that popover is found corresponding to the area element
     assert.instanceOf(popover, SbbPopoverElement);
-    expect(popover).to.have.attribute('data-state', 'closed');
 
     const openSpy = new EventSpy(SbbPopoverElement.events.open, popover);
     popover?.open();
 
     await expect(openSpy.count).to.be.equal(1);
-    expect(popover).to.have.attribute('data-state', 'opened');
+    //aria-expanded to check if it is open
+    expect(areaElement).to.have.attribute('aria-expanded', 'true');
   });
 });
 
@@ -116,7 +119,7 @@ const getServiceIconCount = (coach: HTMLElement): number => {
   );
 };
 
-describe(`sbb-seat-reservation`, () => {
+describe(`sbb-seat-reservation navigation`, () => {
   let btnRight: SbbSecondaryButtonElement;
 
   beforeEach(async () => {
@@ -136,8 +139,6 @@ describe(`sbb-seat-reservation`, () => {
 
   it('should have a first-tab-element btnRight with disabled-interactive attr; no selectable coach in front', async () => {
     expect(btnRight).not.to.be.null;
-    console.log('btnRight', btnRight);
-    console.log('btnRight attributes', btnRight?.getAttribute('icon-name'));
     expect(btnRight?.hasAttribute('disabled-interactive')).to.be.true;
   });
 
