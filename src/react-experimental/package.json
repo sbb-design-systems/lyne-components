@@ -9,6 +9,7 @@
     "react"
   ],
   "type": "module",
+  "exports": {},
   "peerDependencies": {
     "@sbb-esta/lyne-elements": "0.0.0-PLACEHOLDER",
     "@sbb-esta/lyne-elements-experimental": "0.0.0-PLACEHOLDER",
