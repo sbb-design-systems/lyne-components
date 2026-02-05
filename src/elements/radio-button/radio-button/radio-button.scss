@@ -1,7 +1,7 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: inline-block;
+  display: block;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
@@ -9,11 +9,6 @@
 }
 
 .sbb-radio-button {
-  // Avoids unwanted space displayed
-  @include sbb.zero-width-space;
-
-  display: flex;
-
   :host(:focus-visible) & {
     @include sbb.focus-outline;
 
