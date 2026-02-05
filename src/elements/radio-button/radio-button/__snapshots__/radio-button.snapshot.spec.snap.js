@@ -8,6 +8,7 @@ snapshots["sbb-radio-button renders DOM"] =
   tabindex="0"
   value="radio-value"
 >
+  Label
 </sbb-radio-button>
 `;
 /* end snapshot sbb-radio-button renders DOM */
@@ -30,7 +31,7 @@ snapshots["sbb-radio-button renders A11y tree Chrome"] =
   "children": [
     {
       "role": "radio",
-      "name": "",
+      "name": "Label",
       "invalid": false,
       "focusable": true,
       "checked": false
@@ -49,7 +50,7 @@ snapshots["sbb-radio-button renders checked - A11y tree Chrome"] =
   "children": [
     {
       "role": "radio",
-      "name": "",
+      "name": "Label",
       "invalid": false,
       "focusable": true,
       "checked": true
@@ -68,7 +69,7 @@ snapshots["sbb-radio-button renders disabled - A11y tree Chrome"] =
   "children": [
     {
       "role": "radio",
-      "name": "",
+      "name": "Label",
       "disabled": true,
       "invalid": false,
       "checked": false
@@ -87,7 +88,7 @@ snapshots["sbb-radio-button renders required - A11y tree Chrome"] =
   "children": [
     {
       "role": "radio",
-      "name": "",
+      "name": "Label",
       "invalid": true,
       "focusable": true,
       "checked": false

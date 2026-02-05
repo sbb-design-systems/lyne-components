@@ -120,10 +120,10 @@ Use the `sbb-image-${ratio}` utility classes to set the image aspect ratio.
 
 ## Events
 
-| Name    | Type    | Description                                     | Inherited From |
-| ------- | ------- | ----------------------------------------------- | -------------- |
-| `error` | `Event` | Emits when the image loading ended in an error. |                |
-| `load`  | `Event` | Emits when the image has been loaded.           |                |
+| Name    | Type    | Description                                                                                                 | Inherited From |
+| ------- | ------- | ----------------------------------------------------------------------------------------------------------- | -------------- |
+| `error` | `Event` | Emits when the image loading ended in an error.                                                             |                |
+| `load`  | `Event` | Emits each time an image loads. E.g. loading image for a different viewport, triggers the load event again. |                |
 
 ## CSS Properties
 
