@@ -66,6 +66,15 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
   @property({ attribute: 'initial-selected-index', type: Number })
   public accessor initialSelectedIndex: number = 0;
 
+  /**
+   * If set to true, the `sbb-tab` elements take 100% height of the `sbb-tab-group`.
+   * It enables controlling the height on the `sbb-tab-group` element.
+   * The content becomes scrollable on overflow.
+   */
+  @forceType()
+  @property({ attribute: 'fixed-height', type: Boolean, reflect: true })
+  public accessor fixedHeight: boolean = false;
+
   /** Gets the slotted `sbb-tab-label`s. */
   public get labels(): SbbTabLabelElement[] {
     /**

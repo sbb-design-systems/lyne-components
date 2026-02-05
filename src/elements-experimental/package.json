@@ -9,6 +9,12 @@
     "storybook"
   ],
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    }
+  },
   "customElements": "custom-elements.json",
   "peerDependencies": {
     "@sbb-esta/lyne-elements": "0.0.0-PLACEHOLDER"

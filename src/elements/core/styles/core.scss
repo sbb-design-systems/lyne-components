@@ -38,6 +38,9 @@ $theme: 'standard' !default;
 @use '../../card/card-badge/card-badge.global' as card-badge with (
   $theme: $theme
 );
+@use '../../carousel/carousel/carousel.global' as carousel with (
+  $theme: $theme
+);
 @use '../../core/mixins/panel-common.global' as panel-common with (
   $theme: $theme
 );
@@ -106,6 +109,7 @@ $theme: 'standard' !default;
   @include mini-button-group.base;
   @include card.base;
   @include card-badge.base;
+  @include carousel.base;
   @include chip.base;
   @include chip-group.base;
   @include panel-common.base;

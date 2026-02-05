@@ -678,6 +678,44 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/retry/-/retry-0.4.3.tgz#c2b9d2e374ee62c586d3adbea87199b1d7a7a6ba"
   integrity sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==
 
+"@inquirer/ansi@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@inquirer/ansi/-/ansi-2.0.3.tgz#3c4c5b587894278996c2750db83d89fb547b796b"
+  integrity sha512-g44zhR3NIKVs0zUesa4iMzExmZpLUdTLRMCStqX3GE5NT6VkPcxQGJ+uC8tDgBUC/vB1rUhUd55cOf++4NZcmw==
+
+"@inquirer/checkbox@5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@inquirer/checkbox/-/checkbox-5.0.4.tgz#813e8fd64c5f9ce064e4a6517a1fcc4524d2cf05"
+  integrity sha512-DrAMU3YBGMUAp6ArwTIp/25CNDtDbxk7UjIrrtM25JVVrlVYlVzHh5HR1BDFu9JMyUoZ4ZanzeaHqNDttf3gVg==
+  dependencies:
+    "@inquirer/ansi" "^2.0.3"
+    "@inquirer/core" "^11.1.1"
+    "@inquirer/figures" "^2.0.3"
+    "@inquirer/type" "^4.0.3"
+
+"@inquirer/core@^11.1.1":
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/@inquirer/core/-/core-11.1.1.tgz#7cf708b350f9e73b01ccb4b61ecf3016d3de1b0d"
+  integrity sha512-hV9o15UxX46OyQAtaoMqAOxGR8RVl1aZtDx1jHbCtSJy1tBdTfKxLPKf7utsE4cRy4tcmCQ4+vdV+ca+oNxqNA==
+  dependencies:
+    "@inquirer/ansi" "^2.0.3"
+    "@inquirer/figures" "^2.0.3"
+    "@inquirer/type" "^4.0.3"
+    cli-width "^4.1.0"
+    mute-stream "^3.0.0"
+    signal-exit "^4.1.0"
+    wrap-ansi "^9.0.2"
+
+"@inquirer/figures@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@inquirer/figures/-/figures-2.0.3.tgz#9d0cd242fbdb4ed8f1f52836a977eb7071e6c512"
+  integrity sha512-y09iGt3JKoOCBQ3w4YrSJdokcD8ciSlMIWsD+auPu+OZpfxLuyz+gICAQ6GCBOmJJt4KEQGHuZSVff2jiNOy7g==
+
+"@inquirer/type@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@inquirer/type/-/type-4.0.3.tgz#219b8c29afe366067f90705d156d1b395c9e2af0"
+  integrity sha512-cKZN7qcXOpj1h+1eTTcGDVLaBIHNMT1Rz9JqJP5MnEJ0JhgVWllx7H/tahUp5YEK1qaByH2Itb8wLG/iScD5kw==
+
 "@isaacs/balanced-match@^4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@isaacs/balanced-match/-/balanced-match-4.0.1.tgz#3081dadbc3460661b751e7591d7faea5df39dd29"
@@ -3468,6 +3506,11 @@ cli-truncate@^5.0.0:
   dependencies:
     slice-ansi "^7.1.0"
     string-width "^8.0.0"
+
+cli-width@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-4.1.0.tgz#42daac41d3c254ef38ad8ac037672130173691c5"
+  integrity sha512-ouuZd4/dm2Sw5Gmqy6bGyNNNe1qt9RpmxveLSO7KcgsTnU7RXfsw+/bukWGo1abgBiMAic068rclZsO4IWmmxQ==
 
 cliui@^6.0.0:
   version "6.0.0"
@@ -7006,6 +7049,11 @@ muggle-string@^0.4.1:
   resolved "https://registry.yarnpkg.com/muggle-string/-/muggle-string-0.4.1.tgz#3b366bd43b32f809dc20659534dd30e7c8a0d328"
   integrity sha512-VNTrAak/KhO2i8dqqnqnAHOa3cYBwXEZe9h+D5h/1ZqFSTEFHdM65lR7RoIqq3tBBYavsOXV84NoHXZ0AkPyqQ==
 
+mute-stream@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-3.0.0.tgz#cd8014dd2acb72e1e91bb67c74f0019e620ba2d1"
+  integrity sha512-dkEJPVvun4FryqBmZ5KhDo0K9iDXAwn08tMLDinNdRBNPcYEDiWYysLcc6k3mjTMlbP9KyylvRpd4wFtwrT9rw==
+
 mutexify@^1.1.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/mutexify/-/mutexify-1.4.0.tgz#b7f4ac0273c81824b840887c6a6e0bfab14bbe94"
@@ -9586,7 +9634,7 @@ wrap-ansi@^7.0.0:
     string-width "^4.1.0"
     strip-ansi "^6.0.0"
 
-wrap-ansi@^9.0.0:
+wrap-ansi@^9.0.0, wrap-ansi@^9.0.2:
   version "9.0.2"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-9.0.2.tgz#956832dea9494306e6d209eb871643bb873d7c98"
   integrity sha512-42AtmgqjV+X1VpdOfyTGOYRi0/zsoLqtXQckTmqTeybT+BDIbM/Guxo7x3pE2vtpr1ok6xRqM9OpBe+Jyoqyww==
