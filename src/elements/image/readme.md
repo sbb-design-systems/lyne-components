@@ -63,11 +63,11 @@ In order to place multiple `<sbb-chip-label>`s, a wrapping div can be used:
 
 Use the `sbb-image-border-radius-${value}` utility classes to set the image border radius.
 
-| Border Radius | CSS class           |
-| ------------- | ------------------- |
-| `default`     | `sbb-image-default` |
-| `none`        | `sbb-image-none`    |
-| `round`       | `sbb-image-round`   |
+| Border radius | CSS class                         |
+| ------------- | --------------------------------- |
+| `default`     | `sbb-image-border-radius-default` |
+| `none`        | `sbb-image-border-radius-none`    |
+| `round`       | `sbb-image-border-radius-round`   |
 
 ```html
 <sbb-image class="sbb-image-border-radius-none"></sbb-image>
