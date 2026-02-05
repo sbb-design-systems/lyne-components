@@ -14,7 +14,7 @@
 }
 
 .sbb-tab-group-content {
-  :host(.sbb-tab-group-fixed-height) & {
+  :host([fixed-height]) & {
     @include sbb.scrollbar;
 
     height: 100%;

@@ -150,7 +150,7 @@ describe(`sbb-tab-group`, () => {
       'fixed height',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-tab-group style="height: 400px;" class="sbb-tab-group-fixed-height">
+          <sbb-tab-group fixed-height style="height: 400px;">
             <sbb-tab-label>Tab title</sbb-tab-label>
             <sbb-tab>
               <article>

@@ -179,7 +179,7 @@ const DynamicTemplate = ({ size, label, ...args }: Args): TemplateResult => html
 
 const FixedHeightTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
   <sbb-tab-group
-    class="sbb-tab-group-fixed-height"
+    fixed-height
     style="height: 400px;"
     size=${size}
     @tabchange=${(e: CustomEvent<SbbTabChangedEventDetails>) => changeEventHandler(e)}
