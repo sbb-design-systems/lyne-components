@@ -45,6 +45,20 @@ In that case, the `sbb-figure-overlap-image` CSS class needs to be set on the im
 </figure>
 ```
 
+** Multiple `<sbb-chip-label>`s **
+
+In order to place multiple `<sbb-chip-label>`s, a wrapping div can be used:
+
+```html
+<figure class="sbb-figure">
+  <sbb-image ...></sbb-image>
+  <div class="sbb-figure-overlap-end-end">
+    <sbb-chip-label>AI generated</sbb-chip-label>
+    <sbb-chip-label>Paid content</sbb-chip-label>
+  </div>
+</figure>
+```
+
 ### Utility classes
 
 Use the `sbb-image-border-radius-${value}` utility classes to set the image border radius.

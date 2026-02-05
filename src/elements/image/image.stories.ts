@@ -46,6 +46,16 @@ const WithChipTemplate = ({ chipPosition, ...args }: Args): TemplateResult => ht
   </figure>
 `;
 
+const WithMultipleChipsTemplate = ({ chipPosition, ...args }: Args): TemplateResult => html`
+  <figure class="sbb-figure">
+    ${ImageTemplate(args)}
+    <div class="sbb-figure-overlap-${chipPosition}">
+      <sbb-chip-label>AI generated</sbb-chip-label>
+      <sbb-chip-label>Paid content</sbb-chip-label>
+    </div>
+  </figure>
+`;
+
 const imageSrc: InputType = {
   control: {
     type: 'select',
@@ -222,6 +232,12 @@ export const SkipLqip: StoryObj = {
 
 export const WithChip: StoryObj = {
   render: WithChipTemplate,
+  argTypes: { ...defaultArgTypes, chipPosition },
+  args: { ...defaultArgs, chipPosition: chipPosition.options![0] },
+};
+
+export const WithMultipleChips: StoryObj = {
+  render: WithMultipleChipsTemplate,
   argTypes: { ...defaultArgTypes, chipPosition },
   args: { ...defaultArgs, chipPosition: chipPosition.options![0] },
 };

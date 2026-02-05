@@ -23,15 +23,20 @@
 }
 
 @mixin figure-overlap-base {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-1x);
+  flex-wrap: wrap;
+  margin: var(--sbb-spacing-responsive-xxxs);
+
   // Chips or other image overlaying element should stay in light mode as the image stays in light mode as well.
   color-scheme: only light;
   position: relative;
   order: 1; // Alternative to z-index
   grid-row: 1;
   grid-column: 1;
-  margin: var(--sbb-spacing-responsive-xxxs);
 }
 
 @mixin figure-overlap($row-alignment, $column-alignment) {
   place-self: #{$row-alignment} #{$column-alignment};
+  justify-content: #{$column-alignment};
 }
