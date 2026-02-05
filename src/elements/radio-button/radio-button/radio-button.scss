@@ -9,6 +9,11 @@
 }
 
 .sbb-radio-button {
+  // Avoids unwanted space displayed
+  @include sbb.zero-width-space;
+
+  display: flex;
+
   :host(:focus-visible) & {
     @include sbb.focus-outline;
 
