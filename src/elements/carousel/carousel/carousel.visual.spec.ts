@@ -98,9 +98,9 @@ describe('sbb-carousel', () => {
 
             setup.withPostSetupAction(async () => {
               await Promise.all(
-                Array.from(setup.snapshotElement.querySelectorAll<HTMLImageElement>('img')).map(
-                  (el) => waitForImageReady(el),
-                ),
+                Array.from(
+                  setup.snapshotElement.querySelectorAll<HTMLImageElement>('sbb-image'),
+                ).map((el) => waitForImageReady(el)),
               );
               setup.snapshotElement
                 .querySelectorAll('sbb-carousel-item')[0]!
