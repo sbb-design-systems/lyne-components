@@ -111,6 +111,10 @@
 
   --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-position-color);
 
+  @include a11y.if-forced-colors {
+    --sbb-pearl-chain-position-color: Highlight;
+  }
+
   @keyframes pearl-chain-bullet-position-pulse {
     0% {
       box-shadow: 0 0 0 0 var(--sbb-pearl-chain-position-color);
