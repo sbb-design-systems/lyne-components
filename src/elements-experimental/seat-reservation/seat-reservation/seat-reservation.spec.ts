@@ -119,39 +119,41 @@ const getServiceIconCount = (coach: HTMLElement): number => {
   );
 };
 
-describe(`sbb-seat-reservation navigation`, () => {
-  let btnRight: SbbSecondaryButtonElement;
+describe('sbb-seat-reservation navigation', () => {
+  let btn: SbbSecondaryButtonElement;
 
   beforeEach(async () => {
     element = await fixture(
-      html`<sbb-seat-reservation
-        .seatReservations=${dataFull}
-        max-seat-reservations="4"
-        has-navigation
-        base-grid-size="16"
-      ></sbb-seat-reservation>`,
+      html`
+        <sbb-seat-reservation
+          .seatReservations=${dataFull}
+          max-seat-reservations="4"
+          has-navigation
+          base-grid-size="16"
+        ></sbb-seat-reservation>`,
     );
 
-    btnRight = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
-      '#sbb-sr-navigation__wrapper-button-direction--right',
+    btn = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
+      '#sbb-sr-navigation__wrapper-button-direction--left',
     ) as SbbSecondaryButtonElement;
   });
 
-  it('should have a first-tab-element btnRight with disabled-interactive attr; no selectable coach in front', async () => {
-    expect(btnRight).not.to.be.null;
-    expect(btnRight?.hasAttribute('disabled-interactive')).to.be.true;
+  it('should have a first navigation btn with disabled-interactive attr; no selectable coach in front', async () => {
+    expect(btn).not.to.be.null;
+    expect(btn?.hasAttribute('disabled-interactive')).to.be.true;
+    expect(btn?.hasAttribute('disabled')).to.be.true;
   });
 
-  it('should have no clickable first-tab-element btnRight; no selectable coach in front', async () => {
+  it('should have no clickable first navigation btn; no selectable coach in front', async () => {
     const clickSpy = new EventSpy('click');
-    btnRight.click();
+    btn.click();
     await expect(clickSpy.count).to.be.equal(0);
   });
 
-  it('should stop propagating click if first-tab-element btnRight is not clickable', async () => {
+  it('should stop propagating click if first navigation btn is not clickable', async () => {
     const clickSpy = new EventSpy('click');
-    btnRight.click();
-    btnRight.dispatchEvent(new PointerEvent('click'));
+    btn.click();
+    btn.dispatchEvent(new PointerEvent('click'));
     expect(clickSpy.count).not.to.be.greaterThan(0);
   });
 
@@ -165,21 +167,22 @@ describe(`sbb-seat-reservation navigation`, () => {
     });
   });
 
-  describe('sbb-seat-reservation navigation first-tab-element with preselected coach', () => {
+  describe('sbb-seat-reservation navigation first navigation btn with preselected coach', () => {
     const TIMEOUT_NAVIGATION: number = 1000;
-    let btnLeft: SbbSecondaryButtonElement;
+    let btn: SbbSecondaryButtonElement;
 
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-seat-reservation
-          .seatReservations=${dataFull}
-          max-seat-reservations="4"
-          has-navigation
-          base-grid-size="16"
-        ></sbb-seat-reservation>`,
+        html`
+          <sbb-seat-reservation
+            .seatReservations=${dataFull}
+            max-seat-reservations="4"
+            has-navigation
+            base-grid-size="16"
+          ></sbb-seat-reservation>`,
       );
 
-      btnLeft = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
+      btn = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
         '#sbb-sr-navigation__wrapper-button-direction--left',
       ) as SbbSecondaryButtonElement;
 
@@ -188,39 +191,41 @@ describe(`sbb-seat-reservation navigation`, () => {
       await aTimeout(TIMEOUT_NAVIGATION); // wait until navigation is re-rendered (takes a lot of time :/)
     });
 
-    it('should not have a first-tab-element btnLeft with disabled-interactive attr; selectable coaches are in front', async () => {
-      expect(btnLeft).not.to.be.null;
-      expect(btnLeft?.hasAttribute('disabled-interactive')).to.be.false;
+    it('should NOT have a first navigation btn with disabled-interactive attr; selectable coaches are in front', async () => {
+      expect(btn).not.to.be.null;
+      expect(btn?.hasAttribute('disabled-interactive')).to.be.false;
+      expect(btn?.hasAttribute('disabled')).to.be.false;
     });
 
-    it('should have clickable first-tab-element btnLeft; selectable coaches in front', async () => {
+    it('should have clickable first navigation btn; selectable coaches in front', async () => {
       const clickSpy = new EventSpy('click');
-      btnLeft.click();
+      btn.click();
       expect(clickSpy.count).to.be.greaterThan(0);
     });
 
-    it('should propagate click if first-tab-element btnLeft is clickable; selectable coaches in front', async () => {
+    it('should propagate click if first navigation btn is clickable; selectable coaches in front', async () => {
       const clickSpy = new EventSpy('click');
-      btnLeft.click();
-      btnLeft.dispatchEvent(new PointerEvent('click'));
+      btn.click();
+      btn.dispatchEvent(new PointerEvent('click'));
       await aTimeout(0); // wait for event propagation
       expect(clickSpy.count).to.be.greaterThan(0);
     });
   });
 
-  describe('sbb-seat-reservation navigation last-tab-element with preselected coach', () => {
+  describe('sbb-seat-reservation navigation last navigation btn with preselected coach', () => {
     const TIMEOUT_NAVIGATION: number = 1000;
     let btn: SbbSecondaryButtonElement;
     const maxCoachesInTrain = dataFull[0].coachItems.length - 1;
 
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-seat-reservation
-          .seatReservations=${dataFull}
-          max-seat-reservations="4"
-          has-navigation
-          base-grid-size="16"
-        ></sbb-seat-reservation>`,
+        html`
+          <sbb-seat-reservation
+            .seatReservations=${dataFull}
+            max-seat-reservations="4"
+            has-navigation
+            base-grid-size="16"
+          ></sbb-seat-reservation>`,
       );
 
       btn = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
@@ -232,7 +237,8 @@ describe(`sbb-seat-reservation navigation`, () => {
       await aTimeout(TIMEOUT_NAVIGATION); // wait until navigation is re-rendered (takes a lot of time :/)
     });
 
-    it('should have a clickable last-tab-element btnRight even if there are no selectable coaches behind because last coach is selected', async () => {
+    it('should have a clickable last navigation btn even if there are no selectable coaches behind because last coach is selected', async () => {
+      // TODO clarify if last btn should be disabled if last coach is selected
       const clickSpy = new EventSpy('click');
       btn.click();
       expect(clickSpy.count).to.be.greaterThan(0);
@@ -242,13 +248,14 @@ describe(`sbb-seat-reservation navigation`, () => {
   describe('sbb-seat-reservation with different place control states including restricted reservations set to 1', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-seat-reservation
-          .seatReservations=${dataFull}
-          max-seat-reservations="1"
-          max-bicycle-reservations="1"
-          has-navigation
-          base-grid-size="16"
-        ></sbb-seat-reservation>`,
+        html`
+          <sbb-seat-reservation
+            .seatReservations=${dataFull}
+            max-seat-reservations="1"
+            max-bicycle-reservations="1"
+            has-navigation
+            base-grid-size="16"
+          ></sbb-seat-reservation>`,
       );
 
       await waitForLitRender(element);
@@ -355,7 +362,7 @@ describe(`sbb-seat-reservation navigation`, () => {
 
     it('should not allow selectplace on restricted or allocated seats', async () => {
       const selectPlaceEvent = new EventSpy(
-        (window as any).SbbSeatReservationPlaceControlElement.events.selectplace,
+        SbbSeatReservationPlaceControlElement.events.selectplace,
         null,
         {
           capture: true,
@@ -400,14 +407,15 @@ describe(`sbb-seat-reservation navigation`, () => {
   describe('sbb-seat-reservation blocks every click action with prevent-place-click', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-seat-reservation
-          .seatReservations=${dataFull}
-          max-seat-reservations="20"
-          max-bicycle-reservations="20"
-          has-navigation
-          prevent-place-click
-          base-grid-size="16"
-        ></sbb-seat-reservation>`,
+        html`
+          <sbb-seat-reservation
+            .seatReservations=${dataFull}
+            max-seat-reservations="20"
+            max-bicycle-reservations="20"
+            has-navigation
+            prevent-place-click
+            base-grid-size="16"
+          ></sbb-seat-reservation>`,
       );
 
       await waitForLitRender(element);
@@ -415,7 +423,7 @@ describe(`sbb-seat-reservation navigation`, () => {
 
     it('should not allow selectplace on any seat', async () => {
       const selectPlaceEvent = new EventSpy(
-        (window as any).SbbSeatReservationPlaceControlElement.events.selectplace,
+        SbbSeatReservationPlaceControlElement.events.selectplace,
         null,
         {
           capture: true,
@@ -438,7 +446,8 @@ describe(`sbb-seat-reservation navigation`, () => {
 
   describe('sbb-seat-reservation data errors', () => {
     beforeEach(async () => {
-      element = await fixture(html`<sbb-seat-reservation></sbb-seat-reservation>`);
+      element = await fixture(html`
+        <sbb-seat-reservation></sbb-seat-reservation>`);
     });
 
     it('should work without throwing errors if no data is available', async () => {
@@ -451,3 +460,4 @@ describe(`sbb-seat-reservation navigation`, () => {
     });
   });
 });
+
