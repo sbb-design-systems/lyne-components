@@ -1,4 +1,6 @@
 /**
  * @entrypoint
  */
-export * from './calendar/calendar.component.ts';
+export * from './calendar/calendar.ts';
+export * from './calendar/calendar-enhanced.ts';
+export * from './calendar/calendar-day.ts';
