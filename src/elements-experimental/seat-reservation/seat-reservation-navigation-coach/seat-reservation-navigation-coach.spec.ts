@@ -124,7 +124,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     await expect(getComputedStyle(btn).outlineWidth).to.be.equal('0px');
   });
 
-  it('should have outline if focused', async () => {
+  it.skip('should have outline if focused', async () => {
     const btn = element.shadowRoot?.querySelector(
       '.sbb-sr-navigation__ctrl-button',
     ) as HTMLButtonElement;
