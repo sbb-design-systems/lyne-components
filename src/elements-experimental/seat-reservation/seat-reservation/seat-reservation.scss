@@ -1,6 +1,6 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 @use '../common/styles/seat-reservation-mixins' as sbb-sr-mixins;
-@use '../common/styles/seat-reservation-functions' as sbb-sr-functios;
+@use '../common/styles/seat-reservation-functions' as sbb-sr-functions;
 
 // Maximum responsive navigation width, consists of the maximum navigation extent minus 2x nav direction buttons 96px and 8px padding.
 $max-coach-navigation-width: calc(960px - 96px - 8px);
@@ -32,7 +32,7 @@ $scrollbar-height: 16px;
   @include sbb.popover-reset;
 
   .sbb-sr-popover {
-    margin-block: sbb-sr-functios.sr-px-to-rem(4);
+    margin-block: sbb-sr-functions.sr-px-to-rem(4);
   }
 }
 
@@ -45,11 +45,11 @@ $scrollbar-height: 16px;
   .sbb-sr__component {
     flex-direction: row-reverse;
     justify-content: flex-end;
-    gap: sbb-sr-functios.sr-px-to-rem(22);
+    gap: sbb-sr-functions.sr-px-to-rem(22);
     height: inherit;
 
     @include sbb.mq($from: small) {
-      gap: sbb-sr-functios.sr-px-to-rem(54);
+      gap: sbb-sr-functions.sr-px-to-rem(54);
     }
 
     nav.sbb-sr-navigation,
@@ -58,15 +58,15 @@ $scrollbar-height: 16px;
     }
 
     nav.sbb-sr-navigation {
-      padding: sbb-sr-functios.sr-px-to-rem(16) 0;
+      padding: sbb-sr-functions.sr-px-to-rem(16) 0;
 
       .sbb-sr__navigation-control-button {
-        left: sbb-sr-functios.sr-px-to-rem(1);
+        left: sbb-sr-functions.sr-px-to-rem(1);
         top: 0;
         rotate: 90deg;
 
         @include sbb.mq($from: large) {
-          left: sbb-sr-functios.sr-px-to-rem(-1);
+          left: sbb-sr-functions.sr-px-to-rem(-1);
         }
       }
 
@@ -75,7 +75,7 @@ $scrollbar-height: 16px;
 
         // Padding needs to visual focus-visible style for nav button inside overflow content,
         // otherwise focus-visible style is cutted.
-        padding: sbb-sr-functios.sr-px-to-rem($coach-navigation-padding);
+        padding: sbb-sr-functions.sr-px-to-rem($coach-navigation-padding);
         overflow: hidden scroll;
       }
     }
@@ -87,13 +87,13 @@ $scrollbar-height: 16px;
 
     .sbb-sr__wrapper-deck-labels {
       flex-direction: column-reverse;
-      width: sbb-sr-functios.sr-px-to-rem($coach-grid-width);
+      width: sbb-sr-functions.sr-px-to-rem($coach-grid-width);
       height: initial;
 
       b {
-        inline-size: calc(50% - sbb-sr-functios.sr-px-to-rem(16));
-        block-size: sbb-sr-functios.sr-px-to-rem(20);
-        margin-bottom: sbb-sr-functios.sr-px-to-rem(16);
+        inline-size: calc(50% - sbb-sr-functions.sr-px-to-rem(16));
+        block-size: sbb-sr-functions.sr-px-to-rem(20);
+        margin-bottom: sbb-sr-functions.sr-px-to-rem(16);
         rotate: initial;
         writing-mode: initial;
       }
@@ -102,7 +102,7 @@ $scrollbar-height: 16px;
 
   // VERTICAL MODE - SEATMAP SCROLL AREA
   .sbb-sr__wrapper-scrollarea {
-    width: sbb-sr-functios.sr-px-to-rem($coach-grid-width);
+    width: sbb-sr-functions.sr-px-to-rem($coach-grid-width);
     height: 100%;
     overflow: hidden scroll;
 
@@ -116,12 +116,12 @@ $scrollbar-height: 16px;
 // END - Vertical mode
 
 .sbb-sr-navigation {
-  gap: sbb-sr-functios.sr-px-to-rem(3);
+  gap: sbb-sr-functions.sr-px-to-rem(3);
 }
 
 .sbb-sr-navigation .sbb-sr__navigation-control-button {
   position: relative;
-  top: sbb-sr-functios.sr-px-to-rem(2);
+  top: sbb-sr-functions.sr-px-to-rem(2);
 
   @include sbb.mq($from: large) {
     top: 0;
@@ -131,7 +131,7 @@ $scrollbar-height: 16px;
 .sbb-sr__component {
   display: flex;
   flex-direction: column;
-  gap: calc(sbb-sr-functios.sr-px-to-rem(64) - $scrollbar-height);
+  gap: calc(sbb-sr-functions.sr-px-to-rem(64) - $scrollbar-height);
 }
 
 // NAVIGATION NEW
@@ -152,8 +152,8 @@ $scrollbar-height: 16px;
 
   display: flex;
   flex-wrap: nowrap;
-  gap: sbb-sr-functios.sr-px-to-rem(4);
-  padding: sbb-sr-functios.sr-px-to-rem(6) sbb-sr-functios.sr-px-to-rem(5) 0;
+  gap: sbb-sr-functions.sr-px-to-rem(4);
+  padding: sbb-sr-functions.sr-px-to-rem(6) sbb-sr-functions.sr-px-to-rem(5) 0;
   max-width: $max-coach-navigation-width;
 
   // Set sbb scrollbar transparent by default
@@ -174,16 +174,16 @@ $scrollbar-height: 16px;
   .sbb-sr__wrapper-deck-labels {
     display: flex;
     justify-content: space-between;
-    height: sbb-sr-functios.sr-px-to-rem(var(--sbb-seat-reservation-height));
+    height: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-height));
     writing-mode: vertical-lr;
 
     b {
-      height: calc(50% - sbb-sr-functios.sr-px-to-rem(16));
-      width: sbb-sr-functios.sr-px-to-rem(20);
+      height: calc(50% - sbb-sr-functions.sr-px-to-rem(16));
+      width: sbb-sr-functions.sr-px-to-rem(20);
       margin-block-end: 16px;
       rotate: 180deg;
       text-align: center;
-      line-height: sbb-sr-functios.sr-px-to-rem(20);
+      line-height: sbb-sr-functions.sr-px-to-rem(20);
     }
   }
 }
@@ -192,7 +192,7 @@ $scrollbar-height: 16px;
   @include sbb.scrollbar;
 
   overflow: scroll hidden;
-  padding-block: sbb-sr-functios.sr-px-to-rem(8) sbb-sr-functios.sr-px-to-rem(16);
+  padding-block: sbb-sr-functions.sr-px-to-rem(8) sbb-sr-functions.sr-px-to-rem(16);
 
   .sbb-sr__parent {
     display: flex;
@@ -209,7 +209,7 @@ $scrollbar-height: 16px;
 }
 
 .sbb-sr__list-decks--gap {
-  gap: sbb-sr-functios.sr-px-to-rem(48);
+  gap: sbb-sr-functions.sr-px-to-rem(48);
 }
 
 .sbb-sr__list-item-deck {
@@ -220,7 +220,12 @@ $scrollbar-height: 16px;
   @include sbb.list-reset;
 
   display: flex;
-  gap: sbb-sr-functios.sr-px-to-rem(4);
+  gap: sbb-sr-functions.sr-px-to-rem(4);
+}
+
+// If there are overhanging elements we need to increase the gap between coaches
+.sbb-sr__list-decks:has(.sbb-sr-coach-has-overhanging-elements) .sbb-sr__list-coaches {
+  gap: sbb-sr-functions.sr-px-to-rem(8);
 }
 
 .sbb-sr__item-coach {

@@ -26,7 +26,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     await expect(element).to.be.accessible();
   });
 
-  it('should have a button', async () => {
+  it('should have a button', () => {
     const el = element.shadowRoot?.querySelector('.sbb-sr-navigation__ctrl-button');
     assert.instanceOf(el, HTMLButtonElement);
   });
@@ -104,9 +104,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   it('should be selected', async () => {
     element.selected = true;
     await waitForLitRender(element);
-
     const el = element.shadowRoot?.querySelector('.sbb-sr-navigation__item-coach--selected');
-
     assert.instanceOf(el, HTMLDivElement);
   });
 
@@ -126,17 +124,18 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     await expect(getComputedStyle(btn).outlineWidth).to.be.equal('0px');
   });
 
-  /*it('should have outline if focused', async () => {
+  it.skip('should have outline if focused', async () => {
     const btn = element.shadowRoot?.querySelector(
       '.sbb-sr-navigation__ctrl-button',
     ) as HTMLButtonElement;
 
     await expect(getComputedStyle(btn).outlineWidth).to.be.equal('0px');
 
-    btn.focus();
+    element.focused = true;
 
+    await waitForLitRender(element);
     await expect(getComputedStyle(btn).outlineWidth).to.be.equal('1px');
-  });*/
+  });
 
   it('should not render first-class span element for SECOND', async () => {
     element.setAttribute('travel-class', '["SECOND"]');
@@ -154,7 +153,6 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     assert.instanceOf(el, HTMLSpanElement);
   });
 
-  /*
   it('should render a coach which is the first one in the navigation', async () => {
     element.first = true;
 
@@ -184,7 +182,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     await expect(getComputedStyle(btn).borderStartEndRadius).to.be.equal('16px');
     await expect(getComputedStyle(btn).borderEndEndRadius).to.be.equal('16px');
   });
-  */
+
   it('should call @selectcoach on interaction', async () => {
     const selectSpy = new EventSpy('selectcoach');
     const btn = element.shadowRoot?.querySelector(
@@ -202,6 +200,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     ) as HTMLButtonElement;
 
     const changeSpy = new EventSpy('click');
+    await waitForLitRender(element);
     btn.focus();
     await sendKeys({ press: 'Enter' });
     expect(changeSpy.count).to.be.greaterThan(0);
@@ -213,6 +212,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     ) as HTMLButtonElement;
 
     const changeSpy = new EventSpy('click');
+    await waitForLitRender(element);
     btn.focus();
     await sendKeys({ press: ' ' });
     expect(changeSpy.count).to.be.greaterThan(0);
