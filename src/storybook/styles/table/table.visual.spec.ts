@@ -150,5 +150,16 @@ describe(`table`, () => {
         );
       }
     });
+
+    it(
+      'without header',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <table class="sbb-table">
+            ${body()}
+          </table>
+        `);
+      }),
+    );
   });
 });

@@ -28,10 +28,8 @@
     & > tr {
       @include table-header-row;
 
-      &:first-of-type {
-        & > th {
-          border-block-start: var(--sbb-table-border);
-        }
+      &:first-of-type > th {
+        border-block-start: var(--sbb-table-border);
       }
 
       & > th {
@@ -59,18 +57,23 @@
   caption {
     @include table-caption;
   }
+
+  &:not(:has(thead)) tbody > tr:first-of-type > td {
+    border-block-start: var(--sbb-table-border);
+  }
 }
 
 @mixin table-header-row {
   // If there is more than one header row, only the last one has the bottom border
   &:last-of-type > th {
-    border-bottom: var(--sbb-table-border);
+    border-block-end: var(--sbb-table-border);
   }
 }
 
 @mixin table-header-cell {
-  @include typo.text-xs--bold;
-
+  font-size: var(--sbb-table-header-cell-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  font-weight: bold;
   background-color: var(--sbb-table-background-color);
   border-inline-end: var(--sbb-table-border);
   padding-block: var(--sbb-table-header-padding-block);
@@ -79,8 +82,8 @@
 }
 
 @mixin table-data-cell {
-  @include typo.text-s--regular;
-
+  font-size: var(--sbb-table-data-cell-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   background-color: var(--sbb-table-background-color);
   border-block-end: var(--sbb-table-border);
   border-inline-end: var(--sbb-table-border);
@@ -89,10 +92,11 @@
 }
 
 @mixin table-caption {
-  @include typo.text-xs--regular;
-
   // Workaround for storybook. It crashes if 'light-dark' is used as a 'var' fallback
   --sbb-table-caption-color-fallback: light-dark(var(--sbb-color-granite), var(--sbb-color-cement));
+
+  font-size: var(--sbb-text-font-size-xs);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 
   // Defaults are needed for cases where the caption is used outside a table
   color: var(--sbb-table-caption-color, var(--sbb-table-caption-color-fallback));
@@ -129,6 +133,8 @@
 }
 
 @mixin table--m {
+  --sbb-table-header-cell-font-size: var(--sbb-text-font-size-xs);
+  --sbb-table-data-cell-font-size: var(--sbb-text-font-size-s);
   --sbb-table-header-padding-block: var(--sbb-spacing-fixed-3x);
   --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-4x);
   --sbb-table-cell-padding-block: var(--sbb-spacing-responsive-xxxs);
@@ -136,25 +142,21 @@
 }
 
 @mixin table--s {
+  --sbb-table-header-cell-font-size: var(--sbb-text-font-size-xs);
+  --sbb-table-data-cell-font-size: var(--sbb-text-font-size-xs);
   --sbb-table-header-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-2x);
   --sbb-table-cell-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-2x);
-
-  tbody > tr > td {
-    @include typo.text-xs--regular;
-  }
 }
 
 @mixin table--xs {
+  --sbb-table-header-cell-font-size: var(--sbb-text-font-size-xs);
+  --sbb-table-data-cell-font-size: var(--sbb-text-font-size-xs);
   --sbb-table-header-padding-block: 0;
   --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-1x);
   --sbb-table-cell-padding-block: 0;
   --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-1x);
-
-  tbody > tr > td {
-    @include typo.text-xs--regular;
-  }
 }
 
 @mixin table--theme-iron {
