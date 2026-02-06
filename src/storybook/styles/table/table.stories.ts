@@ -133,6 +133,21 @@ const Template = (args: Args): TemplateResult => html`
   </table>
 `;
 
+const WithoutHeaderTemplate = (args: Args): TemplateResult => html`
+  <table
+    class=${classMap({
+      'sbb-table--negative': args.negative,
+      'sbb-table-xs': args.size === 'xs',
+      'sbb-table-s': args.size === 's',
+      'sbb-table-m': args.size === 'm',
+      'sbb-table--unstriped': !args.striped,
+      'sbb-table--theme-iron': args['color-theme'] === 'iron',
+    })}
+  >
+    ${caption()} ${body()}
+  </table>
+`;
+
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -165,6 +180,12 @@ export const IronTheme: StoryObj = {
 
 export const WithFilters: StoryObj = {
   render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, 'inline-filters': true, size: 's' },
+};
+
+export const WithoutHeader: StoryObj = {
+  render: WithoutHeaderTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'inline-filters': true, size: 's' },
 };
