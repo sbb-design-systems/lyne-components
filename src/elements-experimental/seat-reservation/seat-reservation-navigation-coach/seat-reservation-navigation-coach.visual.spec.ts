@@ -1,4 +1,11 @@
-import { describeViewports } from '@sbb-esta/lyne-elements/core/testing/private.js';
+import {
+  describeEach,
+  describeViewports,
+  visualDiffDefault,
+  visualDiffHover,
+  visualRegressionFixture,
+} from '@sbb-esta/lyne-elements/core/testing/private.js';
+import { html } from 'lit';
 
 import './seat-reservation-navigation-coach.component.ts';
 
