@@ -12,23 +12,6 @@ The dialog should always consist of a title and content. Optionally, a close but
 </sbb-dialog>
 ```
 
-## Close button
-
-The close button can optionally be slotted into the `<sbb-dialog>`. Refer to the Accessibility section to check
-how to use the close button effectively.
-
-```html
-<sbb-dialog>
-  <sbb-dialog-title>Title</sbb-dialog-title>
-  <sbb-dialog-close-button></sbb-dialog-close-button>
-  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
-  <sbb-dialog-actions>
-    <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
-    <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
-  </sbb-dialog-actions>
-</sbb-dialog>
-```
-
 ## Slots
 
 Consumers don't need to directly assign any slots; the dedicated components take care of assigning the correct slot.
@@ -62,12 +45,75 @@ or the `open()` method on the `sbb-dialog` component can be called.
 </sbb-dialog>
 ```
 
-To dismiss the dialog, you need to call
-the `close(result?: any, target?: HTMLElement)` method, which will close the dialog element and
-emit a close event with an optional result as a payload.
+### Closing the dialog
 
-The component can be dismissed by clicking on the backdrop, pressing the `Esc` key or clicking the slotted `sbb-dialog-close-button`.
-Alternatively, if an element within the `sbb-dialog` has the `sbb-dialog-close` attribute, it can be dismissed by clicking on that element.
+The dialog can be closed in several ways:
+
+1. **Close button**: Add an `<sbb-dialog-close-button>` component to provide a dedicated close button.
+   This is recommended for dialogs with complex content.
+
+   ```html
+   <sbb-dialog>
+     <sbb-dialog-title>Title</sbb-dialog-title>
+     <sbb-dialog-close-button></sbb-dialog-close-button>
+     <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+   </sbb-dialog>
+   ```
+
+2. **sbb-dialog-close attribute**: Add the `sbb-dialog-close` attribute to any element within the dialog
+   (typically buttons in the actions section) to close the dialog when clicked. You can optionally provide a result value:
+
+   ```html
+   <sbb-dialog>
+     <sbb-dialog-title>Title</sbb-dialog-title>
+     <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+     <sbb-dialog-actions>
+       <sbb-secondary-button sbb-dialog-close="cancel">Cancel</sbb-secondary-button>
+       <sbb-button sbb-dialog-close="confirm">Confirm</sbb-button>
+     </sbb-dialog-actions>
+   </sbb-dialog>
+   ```
+
+   Alternatively, you can use the `assignDialogResult()` helper to programmatically assign a complex result to an element:
+
+   ```js
+   import { assignDialogResult } from '@sbb-esta/lyne-elements/dialog.js';
+
+   const confirmButton = document.querySelector('sbb-button');
+   assignDialogResult(confirmButton, { action: 'confirm', otherProp: 'any value' });
+   ```
+
+3. **Backdrop click**: By default, clicking on the backdrop will close the dialog.
+   This behavior can be disabled by setting `backdrop-action="none"`.
+
+4. **Escape key**: Pressing the `Esc` key will close the dialog.
+
+5. **Programmatically**: Call the `close(result?: any)` method on the `sbb-dialog` element.
+   This method closes the dialog and emits `beforeclose` and `close` events with the provided result as a payload.
+
+   ```js
+   const dialog = document.querySelector('sbb-dialog');
+   dialog.close({ confirmed: true });
+   ```
+
+### Handling close events
+
+When the dialog closes, it emits two events:
+
+- `beforeclose`: Emitted before the closing transition begins. This event is cancelable by calling `event.preventDefault()`.
+- `close`: Emitted after the dialog has fully closed.
+
+Both events are of type `SbbDialogCloseEvent` and provide access to:
+
+- `result`: The result value passed to `close()`, assigned via `assignDialogResult()`, or the value of the `sbb-dialog-close` attribute
+- `closeTarget`: The element that triggered the close action (e.g., the clicked button), or `null` if closed programmatically or via Escape key
+
+```js
+dialog.addEventListener('close', (event) => {
+  console.log('Result:', event.result);
+  console.log('Close target:', event.closeTarget);
+});
+```
 
 ## Style
 
@@ -120,21 +166,21 @@ an alternative element by listening to the `didClose` event.
 
 ## Methods
 
-| Name             | Privacy | Description                                                                 | Parameters                         | Return | Inherited From          |
-| ---------------- | ------- | --------------------------------------------------------------------------- | ---------------------------------- | ------ | ----------------------- |
-| `announceTitle`  | public  | Announce the accessibility label or dialog title for screen readers.        |                                    | `void` |                         |
-| `close`          | public  | Closes the component.                                                       | `result: any, target: HTMLElement` | `any`  | SbbOpenCloseBaseElement |
-| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |                                    | `void` | SbbOpenCloseBaseElement |
-| `open`           | public  | Opens the component.                                                        |                                    | `void` | SbbOpenCloseBaseElement |
+| Name             | Privacy | Description                                                                 | Parameters    | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ------------- | ------ | ----------------------- |
+| `announceTitle`  | public  | Announce the accessibility label or dialog title for screen readers.        |               | `void` |                         |
+| `close`          | public  | Closes the component.                                                       | `result: any` | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |               | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the component.                                                        |               | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
-| Name          | Type                                       | Description                                                                  | Inherited From          |
-| ------------- | ------------------------------------------ | ---------------------------------------------------------------------------- | ----------------------- |
-| `beforeclose` | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `beforeopen`  | `Event`                                    | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `close`       | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
-| `open`        | `Event`                                    | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
+| Name          | Type                  | Description                                                                  | Inherited From          |
+| ------------- | --------------------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `SbbDialogCloseEvent` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event`               | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `SbbDialogCloseEvent` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event`               | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

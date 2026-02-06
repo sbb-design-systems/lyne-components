@@ -28,7 +28,7 @@ const value: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
@@ -37,7 +37,7 @@ const disabled: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
@@ -46,7 +46,7 @@ const readonly: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
@@ -55,7 +55,7 @@ const required: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
@@ -64,7 +64,7 @@ const form: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
@@ -73,7 +73,7 @@ const min: InputType = {
     type: 'date',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
@@ -82,16 +82,7 @@ const max: InputType = {
     type: 'date',
   },
   table: {
-    category: 'Input datepicker attribute',
-  },
-};
-
-const wide: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
@@ -116,13 +107,22 @@ const dateFilter: InputType = {
     },
   },
   table: {
-    category: 'Datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
 const ariaLabel: InputType = {
   control: {
     type: 'text',
+  },
+  table: {
+    category: 'date-input attribute',
+  },
+};
+
+const wide: InputType = {
+  control: {
+    type: 'boolean',
   },
   table: {
     category: 'Datepicker attribute',

@@ -166,54 +166,12 @@ To initially connect the custom form control and to update the state, whenever
 one of the property of the interface changes, the `SbbFormFieldControlEvent`
 needs to be dispatched on the `<sbb-form-field>` instance.
 
-### Example Angular
+### Angular
 
-NOTE: We plan to provide an easier integration for `@sbb-esta/lyne-angular`.
-This example will be adapted once that is available.
+In `@sbb-esta/lyne-angular` we have an adaption layer to easily define a custom form control.
+Please consume the documentation of `@sbb-esta/lyne-angular` for an example.
 
-```ts
-import { Component, ElementRef, booleanAttribute, OnChanges, SimpleChanges } from '@angular/core';
-import { SbbFormFieldElementControl, SbbFormFieldControlEvent } from '@sbb-esta/lyne-elements/form-field.js';
-
-let nextId = 0;
-
-@Component({
-  selector: 'my-form-control',
-  templateUrl: './my-form-control.html',
-  styleUrl: './my-form-control.scss',
-  host: {
-    '[tabindex]': '0',
-    '[id]': 'id',
-  },
-})
-export class MyFormControl implements SbbFormFieldElementControl, OnChanges {
-  private element = inject(ElementRef<HTMLElement>);
-
-  @Input() id = `my-form-control-${nextId++}`;
-
-  @Input({ transform: booleanAttribute }) readOnly = false;
-
-  @Input({ transform: booleanAttribute }) disabled = false;
-
-  get empty() {
-    return <Logic to determine whether the control is empty>
-  }
-
-  onContainerClick(event: MouseEvent): void {
-    this.element.focus();
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    this.dispatchChange();
-  }
-
-  private dispatchChange(): void {
-    this.element.closest('sbb-form-field')?.dispatchEvent(new SbbFormFieldControlEvent(this));
-  }
-}
-```
-
-### Generic example
+### Example
 
 If you are using another framework, or you are using an existing library
 that you need to connect, you can write the integration yourself.
@@ -273,6 +231,7 @@ to the form element's `ariaErrorMessageElements` property (or `aria-errormessage
 | `floatingLabel` | `floating-label` | public  | `boolean`                                                      | `false`            | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 |
 | `hiddenLabel`   | `hidden-label`   | public  | `boolean`                                                      | `false`            | Whether to visually hide the label. If hidden, screen readers will still read it.                                                                                     |
 | `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| null` |                    | Returns the input element.                                                                                                                                            |
+| `label`         | -                | public  | `HTMLLabelElement \| null`                                     |                    | Reference to the slotted label.                                                                                                                                       |
 | `negative`      | `negative`       | public  | `boolean`                                                      | `false`            | Negative coloring variant flag.                                                                                                                                       |
 | `optional`      | `optional`       | public  | `boolean`                                                      | `false`            | Indicates whether the input is optional.                                                                                                                              |
 | `size`          | `size`           | public  | `'l' \| 'm' \| 's'`                                            | `'m' / 's' (lean)` | Size variant, either l, m or s.                                                                                                                                       |

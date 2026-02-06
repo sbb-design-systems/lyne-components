@@ -14,6 +14,7 @@ import {
   ɵstateController,
 } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
+import { tabGroupCommonStyles } from '../common.ts';
 import type { SbbTabLabelElement } from '../tab-label.ts';
 import type { SbbTabElement } from '../tab.ts';
 
@@ -37,7 +38,7 @@ export type SbbTabChangedEventDetails = {
 export
 @customElement('sbb-tab-group')
 class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitElement)) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, tabGroupCommonStyles, style];
   public static readonly events = {
     tabchange: 'tabchange',
   } as const;
@@ -47,7 +48,7 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
   private _tabGroupResizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,
-    callback: (entries) => this._onTabGroupElementResize(entries),
+    callback: () => this._onTabGroupElementResize(),
   });
 
   /**
@@ -64,6 +65,15 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
   @forceType()
   @property({ attribute: 'initial-selected-index', type: Number })
   public accessor initialSelectedIndex: number = 0;
+
+  /**
+   * If set to true, the `sbb-tab` elements take 100% height of the `sbb-tab-group`.
+   * It enables controlling the height on the `sbb-tab-group` element.
+   * The content becomes scrollable on overflow.
+   */
+  @forceType()
+  @property({ attribute: 'fixed-height', type: Boolean, reflect: true })
+  public accessor fixedHeight: boolean = false;
 
   /** Gets the slotted `sbb-tab-label`s. */
   public get labels(): SbbTabLabelElement[] {
@@ -163,20 +173,16 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
     this._enabledTabs()[0]?.activate();
   }
 
-  private _onTabGroupElementResize(entries: ResizeObserverEntry[]): void {
-    for (const entry of entries) {
-      const labelElements = (
-        entry.target.firstElementChild as HTMLSlotElement
-      ).assignedElements() as SbbTabLabelElement[];
+  private _onTabGroupElementResize(): void {
+    const tabLabels = this.labels;
+    tabLabels.forEach((tabLabel) => {
+      ɵstateController(tabLabel)?.toggle(
+        'has-divider',
+        tabLabel === tabLabels[0] || tabLabel.offsetLeft === tabLabels[0].offsetLeft,
+      );
+    });
 
-      for (const tabLabel of labelElements) {
-        ɵstateController(tabLabel)?.toggle(
-          'has-divider',
-          tabLabel === labelElements[0] || tabLabel.offsetLeft === labelElements[0].offsetLeft,
-        );
-        this.style.setProperty('--sbb-tab-group-width', `${this._tabGroupElement.clientWidth}px`);
-      }
-    }
+    this.style.setProperty('--sbb-tab-group-width', `${this._tabGroupElement.clientWidth}px`);
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {

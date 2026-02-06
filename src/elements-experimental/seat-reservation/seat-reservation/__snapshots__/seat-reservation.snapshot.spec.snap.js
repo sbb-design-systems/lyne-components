@@ -81,60 +81,49 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
 snapshots["sbb-seat-reservation renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Start Graphic Seat Reservation",
-      "disabled": true
-    },
-    {
-      "role": "list",
-      "name": "Seat reservation navigation"
-    },
-    {
-      "role": "button",
-      "name": "Exit Graphic Seat Reservation",
-      "disabled": true
-    },
-    {
-      "role": "generic",
-      "name": ""
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "role": "navigation",
+                  "name": ""
+                }
+              ]
+            },
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none"
+                },
+                {
+                  "role": "generic",
+                  "name": "",
+                  "focusable": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-seat-reservation renders A11y tree Chrome */
-
-snapshots["sbb-seat-reservation renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Start Graphic Seat Reservation",
-      "disabled": true
-    },
-    {
-      "role": "list",
-      "name": "Seat reservation navigation"
-    },
-    {
-      "role": "button",
-      "name": "Exit Graphic Seat Reservation",
-      "disabled": true
-    },
-    {
-      "role": "section",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-seat-reservation renders A11y tree Firefox */
 

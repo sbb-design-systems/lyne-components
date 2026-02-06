@@ -3,13 +3,13 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import type { SbbButtonElement } from '../button.ts';
 import { i18nDialog } from '../core/i18n.ts';
-import type { SbbOverlayCloseEventDetails } from '../core/interfaces.ts';
 import { sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 
+import { assignOverlayResult, SbbOverlayCloseEvent } from './overlay-base-element.ts';
 import { SbbOverlayElement } from './overlay.component.ts';
+
 import '../button.ts';
 import '../icon.ts';
 
@@ -142,35 +142,6 @@ describe('sbb-overlay', () => {
       expect(closeSpy.count).to.be.equal(1);
 
       expect(element).to.match(':state(state-closed)');
-    });
-
-    it('closes the overlay on close button click with linked form', async () => {
-      element = await fixture(html`
-        <div>
-          <form id="formid" method="dialog"></form>
-          <sbb-overlay id="my-overlay-3">
-            <p>Overlay content</p>
-            <sbb-button sbb-overlay-close type="submit" form="formid">Close</sbb-button>
-          </sbb-overlay>
-        </div>
-      `);
-
-      const overlay = element.querySelector('sbb-overlay')!;
-      const closeButton = element.querySelector<SbbButtonElement>('[type="submit"]')!;
-      const form = element.querySelector<HTMLFormElement>('form')!;
-      const beforeCloseSpy = new EventSpy<CustomEvent<SbbOverlayCloseEventDetails>>(
-        SbbOverlayElement.events.beforeclose,
-        overlay,
-      );
-
-      await openOverlay(overlay);
-
-      closeButton.click();
-      await waitForLitRender(element);
-
-      await beforeCloseSpy.calledOnce();
-
-      expect(beforeCloseSpy.firstEvent?.detail.returnValue).to.be.deep.equal(form);
     });
 
     it('closes the overlay on Esc key press', async () => {
@@ -413,6 +384,152 @@ describe('sbb-overlay', () => {
       await sendKeys({ press: 'Escape' });
       expect(element.isOpen).to.be.false;
       expect(document.activeElement).not.to.be.equal(trigger);
+    });
+  });
+
+  describe('assignOverlayResult and SbbOverlayCloseEvent', () => {
+    let element: SbbOverlayElement;
+
+    beforeEach(async () => {
+      element = await fixture(html`
+        <sbb-overlay>
+          <button id="close-with-attribute-result" sbb-overlay-close="simple-result">
+            Close with attribute result
+          </button>
+          <button id="close-with-assigned-result" sbb-overlay-close>
+            Close with assigned result
+          </button>
+          <button id="close-without-result" sbb-overlay-close>Close without result</button>
+        </sbb-overlay>
+      `);
+    });
+
+    it('should emit SbbOverlayCloseEvent with result from attribute', async () => {
+      const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
+      const closeButton = element.querySelector<HTMLButtonElement>('#close-with-attribute-result')!;
+
+      await openOverlay(element);
+
+      closeButton.click();
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbOverlayCloseEvent;
+      expect(event).to.be.instanceOf(SbbOverlayCloseEvent);
+      expect(event.result).to.equal('simple-result');
+      expect(event.closeTarget).to.equal(closeButton);
+    });
+
+    it('should emit SbbOverlayCloseEvent with assigned result via assignOverlayResult', async () => {
+      const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
+      const closeButton = element.querySelector<HTMLButtonElement>('#close-with-assigned-result')!;
+
+      // Assign a complex result object
+      const complexResult = { success: true, data: { id: 123, name: 'Test' } };
+      assignOverlayResult(closeButton, complexResult);
+
+      await openOverlay(element);
+
+      closeButton.click();
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbOverlayCloseEvent;
+      expect(event).to.be.instanceOf(SbbOverlayCloseEvent);
+      expect(event.result).to.deep.equal(complexResult);
+      expect(event.closeTarget).to.equal(closeButton);
+    });
+
+    it('should prioritize assigned result over attribute result', async () => {
+      const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
+      const closeButton = element.querySelector<HTMLButtonElement>('#close-with-attribute-result')!;
+
+      // Assign a result that should override the attribute
+      const overrideResult = { override: true };
+      assignOverlayResult(closeButton, overrideResult);
+
+      await openOverlay(element);
+
+      closeButton.click();
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbOverlayCloseEvent;
+      expect(event).to.be.instanceOf(SbbOverlayCloseEvent);
+      expect(event.result).to.deep.equal(overrideResult);
+      expect(event.result).not.to.equal('simple-result');
+    });
+
+    it('should emit SbbOverlayCloseEvent with null result when no result is provided', async () => {
+      const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
+      const closeButton = element.querySelector<HTMLButtonElement>('#close-without-result')!;
+
+      await openOverlay(element);
+
+      closeButton.click();
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbOverlayCloseEvent;
+      expect(event).to.be.instanceOf(SbbOverlayCloseEvent);
+      expect(event.result).to.be.null;
+      expect(event.closeTarget).to.equal(closeButton);
+    });
+
+    it('should emit SbbOverlayCloseEvent with null closeTarget when closed programmatically', async () => {
+      const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
+
+      await openOverlay(element);
+
+      element.close();
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbOverlayCloseEvent;
+      expect(event).to.be.instanceOf(SbbOverlayCloseEvent);
+      expect(event.result).to.be.null;
+      expect(event.closeTarget).to.be.null;
+    });
+
+    it('should emit SbbOverlayCloseEvent with result when closed programmatically with result', async () => {
+      const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
+
+      await openOverlay(element);
+
+      const programmaticResult = { reason: 'user-action' };
+      element.close(programmaticResult);
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbOverlayCloseEvent;
+      expect(event).to.be.instanceOf(SbbOverlayCloseEvent);
+      expect(event.result).to.deep.equal(programmaticResult);
+      expect(event.detail.returnValue).to.deep.equal(programmaticResult);
+      expect(event.closeTarget).to.be.null;
+    });
+
+    it('should emit SbbOverlayCloseEvent with null closeTarget when closed via Escape', async () => {
+      const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
+
+      await openOverlay(element);
+
+      await sendKeys({ press: 'Escape' });
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbOverlayCloseEvent;
+      expect(event).to.be.instanceOf(SbbOverlayCloseEvent);
+      expect(event.result).to.be.null;
+      expect(event.closeTarget).to.be.null;
+    });
+
+    it('should emit result with closeTarget when close() is called with target parameter', async () => {
+      const closeSpy = new EventSpy(SbbOverlayElement.events.close, element);
+      const customTarget = element.querySelector<HTMLButtonElement>('#close-programmatically')!;
+
+      await openOverlay(element);
+
+      element.close({ custom: 'result' }, customTarget);
+      await closeSpy.calledOnce();
+
+      const event = closeSpy.lastEvent as SbbOverlayCloseEvent;
+      expect(event).to.be.instanceOf(SbbOverlayCloseEvent);
+      expect(event.result).to.deep.equal({ custom: 'result' });
+      expect(event.detail.returnValue).to.deep.equal({ custom: 'result' });
+      expect(event.closeTarget).to.equal(customTarget);
     });
   });
 });

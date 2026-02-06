@@ -66,7 +66,6 @@
   text-decoration-line: var(--sbb-link-text-decoration-line, underline);
   text-decoration-thickness: #{functions.px-to-rem-build(1)};
   text-underline-offset: 0.3125em; // 5px
-  user-select: none;
 
   @include a11y.if-forced-colors {
     text-decoration: underline;

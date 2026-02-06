@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.ts';
+import { interactivityChecker } from '../../core/a11y.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import {
@@ -228,20 +228,29 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(
       return;
     }
 
-    if (isArrowKeyPressed(evt)) {
-      const checked: number = enabledToggleOptions.findIndex(
-        (toggleOption: SbbToggleOptionElement<T>) => toggleOption.checked,
-      );
-      const nextIndex: number = getNextElementIndex(evt, checked, enabledToggleOptions.length);
-      if (!enabledToggleOptions[nextIndex].checked) {
-        enabledToggleOptions[nextIndex].checked = true;
-        enabledToggleOptions[nextIndex].focus();
-        enabledToggleOptions[nextIndex].dispatchEvent(
-          new InputEvent('input', { bubbles: true, composed: true }),
-        );
-      }
+    const options = this.options;
+    const isRtl = this.matches(':dir(rtl)');
+    const currentIndex = options.findIndex((option) => option.checked) ?? options[0];
+    const availableOptions = options
+      .slice(currentIndex + 1)
+      .concat(options.slice(0, currentIndex))
+      .filter((o) => !o.disabled && interactivityChecker.isVisible(o));
+    if (!isRtl ? evt.key === ' ' || evt.key === 'ArrowRight' : evt.key === 'ArrowLeft') {
+      this._selectAndFocusOption(availableOptions[0]);
+      evt.preventDefault();
+    } else if (isRtl ? evt.key === ' ' || evt.key === 'ArrowRight' : evt.key === 'ArrowLeft') {
+      this._selectAndFocusOption(availableOptions.at(-1));
       evt.preventDefault();
     }
+  }
+
+  private _selectAndFocusOption(option: SbbToggleOptionElement<T> | undefined): void {
+    if (!option || option.disabled || option.checked) {
+      return;
+    }
+    option.checked = true;
+    option.focus();
+    option.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
   }
 
   protected override render(): TemplateResult {

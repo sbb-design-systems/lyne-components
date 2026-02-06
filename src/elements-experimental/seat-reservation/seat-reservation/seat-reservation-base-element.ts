@@ -1313,6 +1313,10 @@ export class SeatReservationBaseElement extends LitElement {
    * that have the state SELECTED within the seatReservation object
    */
   private _initSeatReservationPlaceSelection(): void {
+    // Reset place selections
+    this.selectedSeatReservationPlaces.seats = [];
+    this.selectedSeatReservationPlaces.bicycles = [];
+
     this.seatReservations?.forEach((seatReservation: SeatReservation, coachDeckIndex: number) =>
       seatReservation.coachItems.map((coach: CoachItem, coachIndex: number) => {
         coach.places

@@ -1,19 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-breadcrumb-group-wrap: nowrap;
-  --sbb-breadcrumb-group-visibility: hidden;
-  --sbb-breadcrumb-group-ellipsis-color: light-dark(
-    var(--sbb-color-granite),
-    var(--sbb-color-cloud)
-  );
-  --sbb-breadcrumb-group-ellipsis-background-color: transparent;
-  --sbb-breadcrumb-group-ellipsis-border-width: var(--sbb-border-width-1x);
-  --sbb-breadcrumb-group-ellipsis-border-color: light-dark(
-    var(--sbb-color-silver),
-    var(--sbb-color-anthracite)
-  );
-
   display: block;
 }
 
@@ -21,7 +8,7 @@
   --sbb-breadcrumb-group-visibility: visible;
 }
 
-:host(:state(state)) {
+:host(:is(:state(state-collapsed), :state(state-manually-expanded))) {
   --sbb-breadcrumb-group-wrap: wrap;
 }
 

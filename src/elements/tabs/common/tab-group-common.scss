@@ -1,0 +1,28 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+:host(:not([size])) {
+  --sbb-tab-group-content-gap: var(--sbb-tab-group-content-gap-default);
+}
+
+:host([size='s']) {
+  --sbb-tab-group-content-gap: var(--sbb-tab-group-content-gap-size-s);
+}
+
+:host([size='l']) {
+  --sbb-tab-group-content-gap: var(--sbb-tab-group-content-gap-size-l);
+}
+
+:host([size='xl']) {
+  --sbb-tab-group-content-gap: var(--sbb-tab-group-content-gap-size-xl);
+}
+
+.sbb-tab-group,
+.sbb-tab-nav-bar {
+  display: flex;
+  flex-wrap: wrap;
+}

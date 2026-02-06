@@ -23,10 +23,8 @@ $open-anim-height-to: calc(
   --sbb-notification-border-width: var(--sbb-border-width-1x);
   --sbb-notification-border: var(--sbb-notification-border-width) solid
     var(--sbb-notification-type-color);
-  --sbb-notification-base-radius: var(--sbb-border-radius-4x);
-  --sbb-notification-border-radius: calc(var(--sbb-notification-base-radius) / 2)
-    var(--sbb-notification-base-radius) var(--sbb-notification-base-radius)
-    calc(var(--sbb-notification-base-radius) / 2);
+  --sbb-notification-base-border-radius: var(--sbb-border-radius-4x);
+  --sbb-notification-border-radius-start: calc(var(--sbb-notification-base-border-radius) / 2);
   --sbb-notification-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
@@ -105,13 +103,15 @@ $open-anim-height-to: calc(
 .sbb-notification__wrapper {
   position: relative;
   inset-inline-start: calc(
-    var(--sbb-notification-base-radius) - var(--sbb-notification-border-width)
+    var(--sbb-notification-base-border-radius) - var(--sbb-notification-border-width)
   );
   width: calc(
-    100% - calc(var(--sbb-notification-base-radius) - var(--sbb-notification-border-width))
+    100% - calc(var(--sbb-notification-base-border-radius) - var(--sbb-notification-border-width))
   );
   border: var(--sbb-notification-border);
-  border-radius: var(--sbb-notification-border-radius);
+  border-radius: var(--sbb-notification-border-radius-start)
+    var(--sbb-notification-base-border-radius) var(--sbb-notification-base-border-radius)
+    var(--sbb-notification-border-radius-start);
   opacity: #{$open-anim-opacity-from};
   max-height: #{$open-anim-height-from};
   margin: #{$open-anim-margin-from};
@@ -119,11 +119,12 @@ $open-anim-height-to: calc(
   &::before {
     content: '';
     position: absolute;
-    inset: calc(var(--sbb-notification-border-width) * -1) var(--sbb-notification-base-radius)
-      calc(var(--sbb-notification-border-width) * -1) calc(var(--sbb-notification-base-radius) * -1);
+    inset: calc(var(--sbb-notification-border-width) * -1)
+      var(--sbb-notification-base-border-radius) calc(var(--sbb-notification-border-width) * -1)
+      calc(var(--sbb-notification-base-border-radius) * -1);
     background-color: var(--sbb-notification-type-color);
     border: var(--sbb-notification-border);
-    border-radius: var(--sbb-notification-base-radius);
+    border-radius: var(--sbb-notification-base-border-radius);
   }
 
   :host(:is(:state(state-opened), :state(state-closing))) & {
@@ -162,7 +163,10 @@ $open-anim-height-to: calc(
   padding-block: var(--sbb-notification-padding-block);
   padding-inline: var(--sbb-notification-padding-inline);
   color: var(--sbb-notification-color);
-  border-radius: var(--sbb-notification-border-radius);
+  border-radius: var(--sbb-notification-border-radius-start)
+    calc(var(--sbb-notification-base-border-radius) - var(--sbb-notification-border-width))
+    calc(var(--sbb-notification-base-border-radius) - var(--sbb-notification-border-width))
+    var(--sbb-notification-border-radius-start);
   overflow: hidden;
   background-color: var(--sbb-notification-background-color);
 

@@ -133,7 +133,7 @@ jobs:
 
       - name: Build visual-regression-app
         if: github.ref == 'refs/heads/main'
-        run: yarn build:visual-regression-app
+        run: yarn build visual-regression-app
       - uses: ./.github/actions/setup-mint
         if: github.ref == 'refs/heads/main'
       - name: Build and push visual regression baseline

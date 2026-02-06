@@ -5,6 +5,7 @@ import { html, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common.ts';
@@ -376,53 +377,59 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     coachIndex: number,
     deckIndex: number,
     placeCoachDeckIndex: number,
-  ): TemplateResult[] | null {
+  ): TemplateResult | null {
     //Sorts each place by its ascending x coordinate
     places.sort(
       (placeA: Place, placeB: Place) => Number(placeA.position.x) - Number(placeB.position.x),
     );
 
-    return places?.map((place: Place, index: number) => {
-      const calculatedDimension = this.getCalculatedDimension(place.dimension);
-      const calculatedPosition = this.getCalculatedPosition(place.position);
-      const rotation = place.rotation || 0;
-      const textRotation = this.alignVertical ? -90 : 0;
-      const placeId = this.getPlaceElementId(deckIndex, coachIndex, place.number);
-      return html`
-        <td
-          id="cell-${deckIndex}-${coachIndex}-${place.position.y}-${index}"
-          class="graphical-element"
-        >
-          <sbb-seat-reservation-place-control
-            style=${styleMap({
-              '--sbb-seat-reservation-place-control-text-scale-value': Math.min(
-                calculatedDimension.w,
-                calculatedDimension.h,
-              ),
-              '--sbb-seat-reservation-place-control-width': calculatedDimension.w,
-              '--sbb-seat-reservation-place-control-height': calculatedDimension.h,
-              '--sbb-seat-reservation-place-control-top': calculatedPosition.y,
-              '--sbb-seat-reservation-place-control-left': calculatedPosition.x,
-              '--sbb-seat-reservation-place-control-rotation': rotation,
-              '--sbb-seat-reservation-place-control-text-rotation': textRotation,
-            })}
-            @selectplace=${(selectPlaceEvent: CustomEvent<PlaceSelection>) =>
-              this._onSelectPlace(selectPlaceEvent)}
-            exportparts="sbb-sr-place-part"
-            id=${placeId}
-            class="seat-reservation-place-control"
-            text=${place.number}
-            type=${place.type}
-            state=${place.state}
-            coach-index=${coachIndex}
-            deck-index=${placeCoachDeckIndex}
-            data-deck-index=${deckIndex}
-            .propertyIds=${place.propertyIds}
-            .preventClick=${this.preventPlaceClick}
-          ></sbb-seat-reservation-place-control>
-        </td>
-      `;
-    });
+    // For rendering the places within a td element, here we use repeat directive for better performance for reusing elements (track by id).
+    const trackPlaceId = coachIndex + '-' + placeCoachDeckIndex;
+    return html`${repeat(
+      places,
+      (place) => trackPlaceId + '-' + place.number,
+      (place, index) => {
+        const calculatedDimension = this.getCalculatedDimension(place.dimension);
+        const calculatedPosition = this.getCalculatedPosition(place.position);
+        const rotation = place.rotation || 0;
+        const textRotation = this.alignVertical ? -90 : 0;
+        const placeId = this.getPlaceElementId(deckIndex, coachIndex, place.number);
+        return html`
+          <td
+            id="cell-${deckIndex}-${coachIndex}-${place.position.y}-${index}"
+            class="graphical-element"
+          >
+            <sbb-seat-reservation-place-control
+              style=${styleMap({
+                '--sbb-seat-reservation-place-control-text-scale-value': Math.min(
+                  calculatedDimension.w,
+                  calculatedDimension.h,
+                ),
+                '--sbb-seat-reservation-place-control-width': calculatedDimension.w,
+                '--sbb-seat-reservation-place-control-height': calculatedDimension.h,
+                '--sbb-seat-reservation-place-control-top': calculatedPosition.y,
+                '--sbb-seat-reservation-place-control-left': calculatedPosition.x,
+                '--sbb-seat-reservation-place-control-rotation': rotation,
+                '--sbb-seat-reservation-place-control-text-rotation': textRotation,
+              })}
+              @selectplace=${(selectPlaceEvent: CustomEvent<PlaceSelection>) =>
+                this._onSelectPlace(selectPlaceEvent)}
+              exportparts="sbb-sr-place-part"
+              id=${placeId}
+              class="seat-reservation-place-control"
+              text=${place.number}
+              type=${place.type}
+              state=${place.state}
+              coach-index=${coachIndex}
+              deck-index=${placeCoachDeckIndex}
+              data-deck-index=${deckIndex}
+              .propertyIds=${place.propertyIds}
+              .preventClick=${this.preventPlaceClick}
+            ></sbb-seat-reservation-place-control>
+          </td>
+        `;
+      },
+    )}`;
   }
 
   private _getRenderedGraphicalElements(

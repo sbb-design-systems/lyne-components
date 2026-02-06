@@ -1,7 +1,11 @@
-@use '../../core/styles/index' as sbb;
+@use '../../core/styles' as sbb;
 
 :host {
   display: flex;
   scroll-snap-align: start;
   flex-shrink: 0;
+}
+
+::slotted(sbb-image) {
+  border-radius: unset;
 }

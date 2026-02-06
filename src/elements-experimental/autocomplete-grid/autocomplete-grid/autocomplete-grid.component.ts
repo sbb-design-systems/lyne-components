@@ -25,6 +25,8 @@ const ariaRoleOnHost = isSafari;
  * @cssprop [--sbb-autocomplete-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
+ * @cssprop [--sbb-options-panel-max-height] - Maximum height of the options panel.
+ * If the calculated remaining space is smaller, the value gets ignored.
  */
 export
 @customElement('sbb-autocomplete-grid')
@@ -60,15 +62,10 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
   }
 
   protected openedPanelKeyboardInteraction(event: KeyboardEvent): void {
-    if (this.state !== 'opened') {
+    if (!this.isOpen) {
       return;
     }
-
     switch (event.key) {
-      case 'Tab':
-        this.close();
-        break;
-
       case 'Enter':
         this.selectByKeyboard(event);
         break;
@@ -93,18 +90,21 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
    * would always return a `SbbAutocompleteGridButtonElement`.
    */
   protected selectByKeyboard(event: KeyboardEvent): void {
-    event.preventDefault();
+    if (this.activeOption) {
+      // We are currently selecting an option and therefore the Enter press shouldn't trigger a form submit
+      event.preventDefault();
 
-    if (this._activeColumnIndex !== 0) {
-      this.activeOption
-        ?.closest('sbb-autocomplete-grid-row')
-        ?.querySelectorAll('sbb-autocomplete-grid-button')
-        [
-          // We ignore the option in the selector. Therefore, we have to shift the activeColumnIndex by one.
-          this._activeColumnIndex - 1
-        ]?.click();
-    } else {
-      this.activeOption?.['selectViaUserInteraction'](true);
+      if (this._activeColumnIndex !== 0) {
+        this.activeOption
+          .closest('sbb-autocomplete-grid-row')
+          ?.querySelectorAll('sbb-autocomplete-grid-button')
+          [
+            // We ignore the option in the selector. Therefore, we have to shift the activeColumnIndex by one.
+            this._activeColumnIndex - 1
+          ]?.click();
+      } else {
+        this.activeOption['selectViaUserInteraction'](true);
+      }
     }
   }
 
@@ -134,7 +134,9 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
     this.activeOption.setActive(true);
     this.triggerElement?.setAttribute('aria-activedescendant', this.activeOption.id);
     this.activeOption.scrollIntoView({ block: 'nearest' });
-    if (this.autoSelectActiveOption) {
+
+    // If 'autoSelectActiveOption' and is triggered from a keyboard event
+    if (this.autoSelectActiveOption && event) {
       this.onOptionArrowsSelected(this.activeOption);
     }
   }

@@ -11,6 +11,7 @@ import { SbbSelectionActionPanelElement } from './selection-action-panel.compone
 
 import '../link/block-link-button.ts';
 import '../button/secondary-button.ts';
+import '../card/card-badge.ts';
 
 describe(`sbb-selection-action-panel`, () => {
   let elements: SbbSelectionActionPanelElement[];
@@ -219,6 +220,25 @@ describe(`sbb-selection-action-panel`, () => {
         await waitForLitRender(wrapper);
 
         expect(firstPanel).to.match(`:state(size-s)`);
+      });
+
+      it('panel should have ariaDescribedByElements set if badge is used', async () => {
+        const tagSingle = unsafeStatic(`sbb-${inputType}-panel`);
+        /* eslint-disable lit/binding-positions */
+        const panel = await fixture(html`
+          <sbb-selection-action-panel>
+            <${tagSingle} value="Value one" size="m">Value one</${tagSingle}>
+            <sbb-secondary-button size="m" icon-name="arrow-right-small">
+            </sbb-secondary-button>
+            <sbb-card-badge>ab CHF 26.50</sbb-card-badge>
+          </sbb-selection-action-panel>
+        `);
+        const badge = panel.querySelector(`sbb-card-badge`)!;
+        /* eslint-enable lit/binding-positions */
+        firstInput = panel.querySelector(`sbb-${inputType}-panel`)!;
+        expect(firstInput.ariaDescribedByElements).not.to.be.null;
+        expect(firstInput.ariaDescribedByElements!.length).to.be.equal(1);
+        expect(firstInput.ariaDescribedByElements![0]).to.be.equal(badge);
       });
     });
   }

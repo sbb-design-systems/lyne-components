@@ -68,48 +68,46 @@ snapshots["sbb-timetable-form-field renders Shadow DOM"] =
 snapshots["sbb-timetable-form-field renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "text",
-      "name": "From"
-    },
-    {
-      "role": "textbox",
-      "name": "From"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none"
+            }
+          ]
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "generic",
+              "name": ""
+            },
+            {
+              "role": "generic",
+              "name": ""
+            },
+            {
+              "ignored": true,
+              "role": "none"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-timetable-form-field renders A11y tree Chrome */
-
-snapshots["sbb-timetable-form-field renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "text leaf",
-      "name": "From"
-    },
-    {
-      "role": "textbox",
-      "name": "From"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-timetable-form-field renders A11y tree Firefox */
 

@@ -61,51 +61,16 @@ snapshots["sbb-breadcrumb-group renders Shadow DOM"] =
 snapshots["sbb-breadcrumb-group renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
+      "role": "navigation",
       "name": ""
-    },
-    {
-      "role": "link",
-      "name": "One"
-    },
-    {
-      "role": "link",
-      "name": "Two"
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-breadcrumb-group renders A11y tree Chrome */
-
-snapshots["sbb-breadcrumb-group renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "",
-      "value": "https://example.com/"
-    },
-    {
-      "role": "link",
-      "name": "One",
-      "value": "https://example.com/one"
-    },
-    {
-      "role": "link",
-      "name": "Two",
-      "value": "https://example.com/one"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-breadcrumb-group renders A11y tree Firefox */
 

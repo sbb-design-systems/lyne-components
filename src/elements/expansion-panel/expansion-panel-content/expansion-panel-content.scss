@@ -1,16 +1,28 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-expansion-panel-content-padding-inline: var(--sbb-spacing-fixed-6x);
   --sbb-expansion-panel-content-padding-inline-start: var(
     --sbb-expansion-panel-content-padding-inline
   );
 
   display: block;
+  padding-block-end: var(--sbb-expansion-panel-content-padding-block-end);
+  padding-inline: var(--sbb-expansion-panel-content-padding-inline-start)
+    var(--sbb-expansion-panel-content-padding-inline);
 }
 
 :host(:state(size-s)) {
-  --sbb-expansion-panel-content-padding-inline: var(--sbb-spacing-fixed-5x);
+  --sbb-expansion-panel-content-padding-inline: var(--sbb-expansion-panel-content-padding-inline-s);
+}
+
+:host(:state(size-l)) {
+  --sbb-expansion-panel-content-padding-inline: var(--sbb-expansion-panel-content-padding-inline-l);
+}
+
+:host(:not(:state(size-s), :state(size-l))) {
+  --sbb-expansion-panel-content-padding-inline: var(
+    --sbb-expansion-panel-content-padding-inline-default
+  );
 }
 
 :host(:state(icon-space)) {
@@ -22,12 +34,6 @@
         var(--sbb-expansion-panel-title-gap)
     );
   }
-}
-
-.sbb-expansion-panel-content {
-  padding-block-end: var(--sbb-spacing-responsive-s);
-  padding-inline: var(--sbb-expansion-panel-content-padding-inline-start)
-    var(--sbb-expansion-panel-content-padding-inline);
 }
 
 ::slotted(:is(p, sbb-title):first-child) {

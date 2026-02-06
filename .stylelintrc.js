@@ -55,7 +55,5 @@ export default {
     'number-max-precision': 12,
     'value-no-vendor-prefix': [true, { ignoreValues: ['box'] }],
     'no-duplicate-selectors': null,
-    // TODO: re-activate after https://github.com/stylelint-scss/stylelint-scss/pull/1213 was merged and released
-    'scss/dollar-variable-no-missing-interpolation': null,
   },
 };

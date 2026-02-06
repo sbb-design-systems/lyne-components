@@ -46,7 +46,19 @@ class SbbBreadcrumbGroupElement extends SbbElementInternalsMixin(
 
   /** The state of the breadcrumb group. */
   @state()
-  private accessor _state: 'collapsed' | 'manually-expanded' | null = null;
+  private set _state(state: 'collapsed' | 'manually-expanded' | null) {
+    if (this._stateInternal) {
+      this.internals.states.delete(`state-${this._stateInternal}`);
+    }
+    this._stateInternal = state;
+    if (this._stateInternal) {
+      this.internals.states.add(`state-${this._stateInternal}`);
+    }
+  }
+  private get _state(): 'collapsed' | 'manually-expanded' | null {
+    return this._stateInternal;
+  }
+  private _stateInternal: 'collapsed' | 'manually-expanded' | null = null;
 
   private _resizeObserver = new ResizeController(this, {
     target: null,

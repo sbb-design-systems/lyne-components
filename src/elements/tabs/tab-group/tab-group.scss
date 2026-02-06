@@ -1,9 +1,9 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
-
   --sbb-tab-group-animation-duration: 0s;
+
+  gap: var(--sbb-tab-group-content-gap);
 }
 
 :host(:state(initialized)) {
@@ -13,12 +13,13 @@
   );
 }
 
-.sbb-tab-group {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .sbb-tab-group-content {
-  margin-block-start: var(--sbb-spacing-responsive-m);
+  :host([fixed-height]) & {
+    @include sbb.scrollbar;
+
+    height: 100%;
+    overflow: auto;
+  }
+
   transition: height var(--sbb-tab-group-animation-duration) var(--sbb-animation-easing);
 }

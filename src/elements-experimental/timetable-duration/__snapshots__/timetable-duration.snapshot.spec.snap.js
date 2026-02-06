@@ -30,11 +30,11 @@ snapshots["sbb-timetable-duration renders Shadow DOM"] =
 snapshots["sbb-timetable-duration renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
+      "role": "paragraph",
       "name": "3 Hours 12 Minutes."
     }
   ]
@@ -42,20 +42,4 @@ snapshots["sbb-timetable-duration renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-timetable-duration renders A11y tree Chrome */
-
-snapshots["sbb-timetable-duration renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "3 Hours 12 Minutes."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-timetable-duration renders A11y tree Firefox */
 

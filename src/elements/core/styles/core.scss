@@ -14,10 +14,25 @@ $theme: 'standard' !default;
 @use './mixins/scrollbar';
 @use './mixins/typo';
 
+@use '../../breadcrumb/breadcrumb/breadcrumb.global' as breadcrumb with (
+  $theme: $theme
+);
+@use '../../breadcrumb/breadcrumb-group/breadcrumb-group.global' as breadcrumb-group with (
+  $theme: $theme
+);
 @use '../../card/card/card.global' as card with (
   $theme: $theme
 );
+@use '../../chip/chip/chip.global' as chip with (
+  $theme: $theme
+);
+@use '../../chip/chip-group/chip-group.global' as chip-group with (
+  $theme: $theme
+);
 @use '../../card/card-badge/card-badge.global' as card-badge with (
+  $theme: $theme
+);
+@use '../../carousel/carousel/carousel.global' as carousel with (
   $theme: $theme
 );
 @use '../../core/mixins/panel-common.global' as panel-common with (
@@ -30,6 +45,23 @@ $theme: 'standard' !default;
   $theme: $theme
 );
 @use '../../checkbox/common/checkbox-common.global' as checkbox-common with (
+  $theme: $theme
+);
+@use '../../clock/clock.global' as clock with (
+  $theme: $theme
+);
+@use '../../divider/divider.global' as divider with (
+  $theme: $theme
+);
+@use '../../expansion-panel/expansion-panel/expansion-panel.global' as expansion-panel with (
+  $theme: $theme
+);
+@use '../../expansion-panel/expansion-panel-content/expansion-panel-content.global' as
+  expansion-panel-content with (
+  $theme: $theme
+);
+@use '../../expansion-panel/expansion-panel-header/expansion-panel-header.global' as
+  expansion-panel-header with (
   $theme: $theme
 );
 @use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
@@ -45,6 +77,15 @@ $theme: 'standard' !default;
   with (
   $theme: $theme
 );
+@use '../../tabs/common/tab-group-common.global' as tab-group-common with (
+  $theme: $theme
+);
+@use '../../tabs/common/tab-label-common.global' as tab-label-common with (
+  $theme: $theme
+);
+@use '../../tabs/tab-nav-bar/tab-nav-bar.global' as tab-nav-bar with (
+  $theme: $theme
+);
 @use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
   $theme: $theme
 );
@@ -56,23 +97,37 @@ $theme: 'standard' !default;
   // Grab CSS vars defined by `@sbb-esta/lyne-design-tokens` package
   @include sbb-css-tokens.base;
 
+  @include breadcrumb.base;
+  @include breadcrumb-group.base;
   @include card.base;
   @include card-badge.base;
+  @include carousel.base;
+  @include chip.base;
+  @include chip-group.base;
   @include panel-common.base;
   @include checkbox.base;
   @include checkbox-group.base;
   @include checkbox-common.base;
+  @include clock.base;
+  @include divider.base;
+  @include expansion-panel.base;
+  @include expansion-panel-content.base;
+  @include expansion-panel-header.base;
   @include radio-button-common.base;
   @include radio-button-group.base;
   @include selection-action-panel.base;
   @include selection-expansion-panel.base;
+  @include tab-group-common.base;
+  @include tab-label-common.base;
   @include visual-checkbox.base;
 
   @include a11y.if-forced-colors {
     @include sbb-css-tokens.forced-colors;
 
+    @include breadcrumb.base-forced-colors;
     @include card.base-forced-colors;
     @include card-badge.base-forced-colors;
+    @include expansion-panel-header.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
     @include radio-button-common.base-forced-colors;
   }
@@ -143,6 +198,8 @@ $theme: 'standard' !default;
   @include mediaqueries.mq($from: large) {
     @include sbb-css-tokens.breakpoint-large;
 
+    @include chip-group.base-breakpoint-large;
+
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage
     @if not string.index($theme, 'lean') {
@@ -168,6 +225,9 @@ $theme: 'standard' !default;
 }
 
 @include font-face.font-declarations;
+
+// Components global styles
+@include tab-nav-bar.rules;
 
 // TODO: discuss where to add these classes
 .sbb-dark {
@@ -656,7 +716,7 @@ sbb-dialog-content {
   // If there is a title, remove top spacing for the content
   sbb-dialog:has(> sbb-dialog-title) > &,
   sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title) > * > & {
-    padding-block-start: 0;
+    padding-block-start: var(--sbb-spacing-fixed-1x);
   }
 
   // Set the negative scrollbar colors for dialog content when dialog is negative

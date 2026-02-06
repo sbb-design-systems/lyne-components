@@ -23,32 +23,18 @@ snapshots["sbb-autocomplete-grid-cell renders Shadow DOM"] =
 snapshots["sbb-autocomplete-grid-cell A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": ""
+      "role": "gridcell",
+      "name": "",
+      "readonly": false,
+      "required": false
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-autocomplete-grid-cell A11y tree Chrome */
-
-snapshots["sbb-autocomplete-grid-cell A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-cell A11y tree Firefox */
 

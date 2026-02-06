@@ -1,5 +1,6 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
+import { repeat } from 'lit/directives/repeat.js';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
@@ -35,6 +36,7 @@ describe(`sbb-select`, () => {
             <sbb-option id="option-2" value="2">Second</sbb-option>
             <sbb-option id="option-3" value="3">Third</sbb-option>
           </sbb-select>
+          <button>Other button to focus</button>
         </div>
       `);
       element = root.querySelector<SbbSelectElement>('sbb-select')!;
@@ -677,6 +679,135 @@ describe(`sbb-select`, () => {
       expect(option2.selected, 'option 2 to be selected').to.be.true;
       expect(element.value).to.be.equal('2');
       expect(element.getDisplayValue()).to.be.equal('Second');
+    });
+
+    describe('interrupting opening and closing with non-zero animation duration', () => {
+      beforeEach(() => {
+        (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+        element.style.setProperty('--sbb-options-panel-animation-duration', '100ms');
+      });
+
+      it('should close when closing during opening', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
+        const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+        element.open();
+        await waitForLitRender(element);
+        expect(element).to.match(':state(state-opening)');
+        element.close();
+
+        await closeSpy.calledOnce();
+        expect(element.isOpen).to.be.false;
+      });
+
+      it('should close when closing during opening with Escape key', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
+        const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+        element.open();
+        await waitForLitRender(element);
+        expect(element).to.match(':state(state-opening)');
+        await sendKeys({ press: 'Escape' });
+
+        await closeSpy.calledOnce();
+        expect(element.isOpen).to.be.false;
+      });
+
+      it('should close when closing during opening with Tab key', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
+        const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+        element.focus();
+        await sendKeys({ press: 'Space' });
+        await waitForLitRender(element);
+        expect(element).to.match(':state(state-opening)');
+        await sendKeys({ press: tabKey });
+
+        await closeSpy.calledOnce();
+        expect(element.isOpen).to.be.false;
+      });
+
+      it('should open again when opening during closing', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
+        const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+
+        element.open();
+        await openSpy.calledOnce();
+
+        element.close();
+        await waitForLitRender(element);
+        expect(element).to.match(':state(state-closing)');
+        element.open();
+
+        await openSpy.calledTimes(2);
+        expect(element.isOpen).to.be.true;
+      });
+
+      it('should open again when opening during closing by arrow press', async function (this: Context) {
+        // Flaky on WebKit
+        this.retries(3);
+
+        const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+
+        element.focus();
+        await sendKeys({ press: 'Space' });
+        await openSpy.calledOnce();
+
+        element.close();
+        await waitForLitRender(element);
+        expect(element).to.match(':state(state-closing)');
+        await sendKeys({ press: 'ArrowDown' });
+
+        await openSpy.calledTimes(2);
+        expect(element.isOpen).to.be.true;
+      });
+    });
+
+    it('should work correctly after removing from DOM and re-adding', async () => {
+      // Set initial value
+      element.value = '2';
+      await waitForLitRender(element);
+
+      // Check initial state
+      expect(element.value).to.be.equal('2');
+      expect(secondOption.selected).to.be.true;
+      expect(root.querySelector<SbbSelectElement>('.sbb-select-trigger')!).to.exist;
+
+      // Remove from DOM
+      element.remove();
+      await waitForLitRender(root);
+
+      expect(root.querySelector<SbbSelectElement>('.sbb-select-trigger')!).not.to.exist;
+
+      // Re-add to DOM
+      root.insertBefore(element, root.firstElementChild);
+      await waitForLitRender(root);
+
+      // Verify element is back
+      const reAddedElement = root.querySelector<SbbSelectElement>('sbb-select')!;
+      expect(reAddedElement).to.exist;
+      expect(reAddedElement).to.equal(element);
+      expect(root.querySelector<SbbSelectElement>('.sbb-select-trigger')!).to.exist;
+
+      // Check that value is preserved
+      expect(reAddedElement.value).to.be.equal('2');
+      expect(secondOption.selected).to.be.true;
+
+      // Check that select can be opened
+      const openSpy = new EventSpy(SbbSelectElement.events.open, reAddedElement);
+      reAddedElement.open();
+      await waitForLitRender(reAddedElement);
+
+      await openSpy.calledOnce();
+      expect(reAddedElement.isOpen).to.be.true;
     });
   });
 
@@ -1509,5 +1640,34 @@ describe(`sbb-select`, () => {
       expect(element.value).to.be.equal('2');
       expect(element.getDisplayValue()).to.be.equal('Second');
     });
+  });
+
+  it('should handle focus when options are in a scroll area', async () => {
+    const formField = await fixture(html`
+      <sbb-form-field>
+        <sbb-select placeholder="Placeholder">
+          ${repeat(
+            new Array(30),
+            (_, index) => html`<sbb-option value="option-${index}">Option ${index}</sbb-option>`,
+          )}
+        </sbb-select>
+      </sbb-form-field>
+      <input id="after-select" />
+    `);
+    element = formField.querySelector<SbbSelectElement>('sbb-select')!;
+
+    element.focus();
+    element.open();
+    expect(document.activeElement).to.be.equal(element.inputElement);
+    expect(element.isOpen, 'isOpen').to.be.true;
+
+    // In real browser, the focus would land in the scroll area of the options panel.
+    // In Headless mode, this doesn't seem to happen.
+    // Due to this fact, this test would also be green without the fix (tabindex=0).
+    // We keep the test for consistency.
+    await sendKeys({ press: tabKey });
+    expect(document.activeElement).to.be.equal(
+      formField.parentElement!.querySelector<HTMLInputElement>('input#after-select'),
+    );
   });
 });

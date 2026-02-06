@@ -31,35 +31,18 @@ snapshots["sbb-link renders Shadow DOM"] =
 snapshots["sbb-link renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "Travelcards & tickets. . Link target opens in a new window."
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-link renders A11y tree Chrome */
-
-snapshots["sbb-link renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Travelcards & tickets. . Link target opens in a new window.",
-      "value": "https://sbb.ch/"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-link renders A11y tree Firefox */
 
 snapshots["sbb-link reflects properties DOM"] = 
 `<sbb-link
@@ -94,33 +77,16 @@ snapshots["sbb-link reflects properties Shadow DOM"] =
 snapshots["sbb-link reflects properties A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "Travelcards & tickets. . Link target opens in a new window."
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-link reflects properties A11y tree Chrome */
-
-snapshots["sbb-link reflects properties A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Travelcards & tickets. . Link target opens in a new window.",
-      "value": "https://sbb.ch/"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-link reflects properties A11y tree Firefox */
 

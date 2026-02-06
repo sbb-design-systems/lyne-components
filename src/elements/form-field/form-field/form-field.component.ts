@@ -160,6 +160,11 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     return this._input;
   }
 
+  /** Reference to the slotted label. */
+  public get label(): HTMLLabelElement | null {
+    return this._label;
+  }
+
   private _language = new SbbLanguageController(this);
 
   /**
@@ -553,7 +558,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
 
   private _syncNegative(): void {
     this.querySelectorAll?.(
-      'sbb-error,sbb-mini-button,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group',
+      'sbb-error,sbb-mini-button,sbb-mini-button-link,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group',
     ).forEach((element) => element.toggleAttribute('negative', this.negative));
   }
 

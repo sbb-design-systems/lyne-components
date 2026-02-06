@@ -176,61 +176,16 @@ snapshots["sbb-skiplink-list renders with title Shadow DOM"] =
 snapshots["sbb-skiplink-list renders with title A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "heading",
-      "name": "Skip to",
-      "level": 3
-    },
-    {
-      "role": "link",
-      "name": "Link 1"
-    },
-    {
-      "role": "link",
-      "name": "Link 2"
-    },
-    {
-      "role": "link",
-      "name": "Link 3"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-skiplink-list renders with title A11y tree Chrome */
-
-snapshots["sbb-skiplink-list renders with title A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Skip to",
-      "level": 3
-    },
-    {
-      "role": "link",
-      "name": "Link 1",
-      "value": "https://www.sbb.ch/"
-    },
-    {
-      "role": "link",
-      "name": "Link 2",
-      "value": "https://www.sbb.ch/"
-    },
-    {
-      "role": "link",
-      "name": "Link 3",
-      "value": "https://www.sbb.ch/"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-skiplink-list renders with title A11y tree Firefox */
 

@@ -70,8 +70,8 @@ snapshots["sbb-journey-header renders H1 L-sized round-trip negative Shadow DOM"
 snapshots["sbb-journey-header renders H1 L-sized round-trip negative A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "heading",
@@ -83,21 +83,4 @@ snapshots["sbb-journey-header renders H1 L-sized round-trip negative A11y tree C
 </p>
 `;
 /* end snapshot sbb-journey-header renders H1 L-sized round-trip negative A11y tree Chrome */
-
-snapshots["sbb-journey-header renders H1 L-sized round-trip negative A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Connection from B to C and back to B.",
-      "level": 1
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-journey-header renders H1 L-sized round-trip negative A11y tree Firefox */
 
