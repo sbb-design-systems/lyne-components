@@ -216,7 +216,8 @@ export class SeatReservationBaseElement extends LitElement {
         this.currSelectedCoachIndex != -1 ? this.currSelectedCoachIndex - 1 : 0;
     } else if (
       btnDirection == 'DIRECTION_RIGHT' &&
-      navigateToCoachIndex < this.seatReservations[this.currSelectedDeckIndex]?.coachItems.length - 1
+      navigateToCoachIndex <
+        this.seatReservations[this.currSelectedDeckIndex]?.coachItems.length - 1
     ) {
       navigateToCoachIndex =
         this.currSelectedCoachIndex != -1 ? this.currSelectedCoachIndex + 1 : 0;
