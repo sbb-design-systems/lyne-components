@@ -29,4 +29,8 @@ if (isServer) {
   }
 
   setupIconConfig();
+
+  if (typeof Temporal !== 'object') {
+    await import('temporal-polyfill/global');
+  }
 }
