@@ -80,6 +80,7 @@
   display: flex;
   align-items: flex-start;
   overflow: hidden;
+  min-height: calc(var(--sbb-radio-button-font-size) * var(--sbb-typo-line-height-text));
 
   &::before,
   &::after {
