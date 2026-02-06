@@ -7,7 +7,7 @@ import { html } from 'lit/static-html.js';
 
 import { mapRawDataToSeatReservation, type SeatReservation } from '../common.ts';
 import type { SbbSeatReservationAreaElement } from '../seat-reservation-area/seat-reservation-area.component.ts';
-import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
+import { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
 
 import { SbbSeatReservationElement } from './seat-reservation.component.ts';
 
@@ -119,18 +119,17 @@ const getServiceIconCount = (coach: HTMLElement): number => {
   );
 };
 
-describe('sbb-seat-reservation navigation', () => {
+describe(`sbb-seat-reservation`, () => {
   let btn: SbbSecondaryButtonElement;
 
   beforeEach(async () => {
     element = await fixture(
-      html`
-        <sbb-seat-reservation
-          .seatReservations=${dataFull}
-          max-seat-reservations="4"
-          has-navigation
-          base-grid-size="16"
-        ></sbb-seat-reservation>`,
+      html` <sbb-seat-reservation
+        .seatReservations=${dataFull}
+        max-seat-reservations="4"
+        has-navigation
+        base-grid-size="16"
+      ></sbb-seat-reservation>`,
     );
 
     btn = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
@@ -173,13 +172,12 @@ describe('sbb-seat-reservation navigation', () => {
 
     beforeEach(async () => {
       element = await fixture(
-        html`
-          <sbb-seat-reservation
-            .seatReservations=${dataFull}
-            max-seat-reservations="4"
-            has-navigation
-            base-grid-size="16"
-          ></sbb-seat-reservation>`,
+        html` <sbb-seat-reservation
+          .seatReservations=${dataFull}
+          max-seat-reservations="4"
+          has-navigation
+          base-grid-size="16"
+        ></sbb-seat-reservation>`,
       );
 
       btn = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
@@ -219,13 +217,12 @@ describe('sbb-seat-reservation navigation', () => {
 
     beforeEach(async () => {
       element = await fixture(
-        html`
-          <sbb-seat-reservation
-            .seatReservations=${dataFull}
-            max-seat-reservations="4"
-            has-navigation
-            base-grid-size="16"
-          ></sbb-seat-reservation>`,
+        html` <sbb-seat-reservation
+          .seatReservations=${dataFull}
+          max-seat-reservations="4"
+          has-navigation
+          base-grid-size="16"
+        ></sbb-seat-reservation>`,
       );
 
       btn = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
@@ -248,14 +245,13 @@ describe('sbb-seat-reservation navigation', () => {
   describe('sbb-seat-reservation with different place control states including restricted reservations set to 1', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`
-          <sbb-seat-reservation
-            .seatReservations=${dataFull}
-            max-seat-reservations="1"
-            max-bicycle-reservations="1"
-            has-navigation
-            base-grid-size="16"
-          ></sbb-seat-reservation>`,
+        html` <sbb-seat-reservation
+          .seatReservations=${dataFull}
+          max-seat-reservations="1"
+          max-bicycle-reservations="1"
+          has-navigation
+          base-grid-size="16"
+        ></sbb-seat-reservation>`,
       );
 
       await waitForLitRender(element);
@@ -407,15 +403,14 @@ describe('sbb-seat-reservation navigation', () => {
   describe('sbb-seat-reservation blocks every click action with prevent-place-click', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`
-          <sbb-seat-reservation
-            .seatReservations=${dataFull}
-            max-seat-reservations="20"
-            max-bicycle-reservations="20"
-            has-navigation
-            prevent-place-click
-            base-grid-size="16"
-          ></sbb-seat-reservation>`,
+        html` <sbb-seat-reservation
+          .seatReservations=${dataFull}
+          max-seat-reservations="20"
+          max-bicycle-reservations="20"
+          has-navigation
+          prevent-place-click
+          base-grid-size="16"
+        ></sbb-seat-reservation>`,
       );
 
       await waitForLitRender(element);
@@ -446,8 +441,7 @@ describe('sbb-seat-reservation navigation', () => {
 
   describe('sbb-seat-reservation data errors', () => {
     beforeEach(async () => {
-      element = await fixture(html`
-        <sbb-seat-reservation></sbb-seat-reservation>`);
+      element = await fixture(html` <sbb-seat-reservation></sbb-seat-reservation>`);
     });
 
     it('should work without throwing errors if no data is available', async () => {
@@ -460,4 +454,3 @@ describe('sbb-seat-reservation navigation', () => {
     });
   });
 });
-
