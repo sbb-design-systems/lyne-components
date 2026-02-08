@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.4.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.3.1...v4.4.0) (2026-02-08)
+
+
+### Features
+
+* **sbb-image:** support placing multiple chip labels ([#4460](https://github.com/sbb-design-systems/lyne-components/issues/4460)) ([7bfe437](https://github.com/sbb-design-systems/lyne-components/commit/7bfe4373eaf5a0bcf415bb8b709ebedf42012cc8)), closes [#4451](https://github.com/sbb-design-systems/lyne-components/issues/4451)
+* **sbb-tab-group:** add `fixedHeight` property to enable full height tabs ([#4457](https://github.com/sbb-design-systems/lyne-components/issues/4457)) ([0446da4](https://github.com/sbb-design-systems/lyne-components/commit/0446da4c06605cd2159928e52167533934cd685c))
+
+
+### Bug Fixes
+
+* **sbb-image:** make load event behave like native image ([#4442](https://github.com/sbb-design-systems/lyne-components/issues/4442)) ([084ea29](https://github.com/sbb-design-systems/lyne-components/commit/084ea2916ea32964780fdb1ccfcc7aa34af2b6fa))
+* **sbb-radio-button:** avoid reserving space without label ([#4458](https://github.com/sbb-design-systems/lyne-components/issues/4458)) ([4f87a8b](https://github.com/sbb-design-systems/lyne-components/commit/4f87a8bcfd73e1fd04abc22b692140c6ad99c5dd))
+* **sbb-select:** avoid displaying `undefined` entry in select ([#4453](https://github.com/sbb-design-systems/lyne-components/issues/4453)) ([0a4a026](https://github.com/sbb-design-systems/lyne-components/commit/0a4a0268c429f46007b1e6046e1b16addd1a419e)), closes [#4444](https://github.com/sbb-design-systems/lyne-components/issues/4444)
+
+
+### Code Refactoring
+
+* **sbb-carousel:** css refactoring ([#4450](https://github.com/sbb-design-systems/lyne-components/issues/4450)) ([c5a3ca1](https://github.com/sbb-design-systems/lyne-components/commit/c5a3ca165a9fcf0fed1548634aca747b7ac879ea))
+* **sbb-chip, sbb-chip-group:** css refactoring ([#4422](https://github.com/sbb-design-systems/lyne-components/issues/4422)) ([28e54f8](https://github.com/sbb-design-systems/lyne-components/commit/28e54f8bb65956ca20fb4a0d2f870994a6c53c08))
+
 ## [4.3.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.3.0...v4.3.1) (2026-02-03)
 
 
