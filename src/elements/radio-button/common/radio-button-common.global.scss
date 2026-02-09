@@ -3,6 +3,7 @@
 $theme: 'standard' !default;
 
 @mixin base {
+  --sbb-radio-button-label-gap: var(--sbb-spacing-fixed-2x);
   --sbb-radio-button-label-color: var(--sbb-color-3);
   --sbb-radio-button-background-color: var(--sbb-background-color-1);
   --sbb-radio-button-border-width: var(--sbb-border-width-1x);
