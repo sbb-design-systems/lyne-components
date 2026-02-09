@@ -249,4 +249,9 @@ describe('TemporalDateAdapter', () => {
       ),
     ).to.be.equal('15 août 2018');
   });
+
+  it('should convert to ISO8601 format', () => {
+    const date = Temporal.PlainDate.from({ year: 2023, month: 9, day: 15 });
+    expect(dateAdapter.toIso8601(date)).to.be.equal('2023-09-15');
+  });
 });

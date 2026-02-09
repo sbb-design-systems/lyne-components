@@ -37,6 +37,7 @@ export class TemporalDateAdapter extends DateAdapter<Temporal.PlainDate> {
   /** Gets the day of the week of the input date. */
   public getDayOfWeek(date: Temporal.PlainDate): number {
     // Our expectation is 0 = Sunday but Temporal.PlainDate.dayOfWeek returns 7 = Sunday
+    // TODO: Remove this with a future release.
     return date.dayOfWeek % 7;
   }
 
@@ -167,6 +168,7 @@ export class TemporalDateAdapter extends DateAdapter<Temporal.PlainDate> {
   }
 
   public override invalid(): Temporal.PlainDate {
+    // It is not possible to create an invalid Temporal.PlainDate, so we return null.
     return null!;
   }
 
