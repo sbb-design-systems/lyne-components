@@ -1,7 +1,7 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.ts';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbCalendarElement } from './calendar.component.ts';
 

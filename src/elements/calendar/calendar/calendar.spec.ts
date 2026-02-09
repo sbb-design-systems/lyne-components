@@ -3,24 +3,38 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { type SinonStub, stub } from 'sinon';
 
-import type { SbbSecondaryButtonElement } from '../button/secondary-button.ts';
-import { defaultDateAdapter } from '../core/datetime.ts';
-import { fixture, sbbBreakpointLargeMinPx } from '../core/testing/private.ts';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
+import type { SbbSecondaryButtonElement } from '../../button/secondary-button.ts';
+import { defaultDateAdapter } from '../../core/datetime.ts';
+import {
+  elementInternalsSpy,
+  fixture,
+  sbbBreakpointLargeMinPx,
+} from '../../core/testing/private.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import type { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 
 import { SbbCalendarElement } from './calendar.component.ts';
 
-import '../button.ts';
+import '../../button.ts';
 
 describe(`sbb-calendar`, () => {
+  const elementInternals = elementInternalsSpy();
   let element: SbbCalendarElement;
   let todayStub: SinonStub;
   let today: Date | null = null;
 
   const getActiveElementValue: () => string | null = () =>
-    document.activeElement!.shadowRoot!.activeElement!.getAttribute('value');
+    defaultDateAdapter.toIso8601(
+      (document.activeElement!.shadowRoot!.activeElement as SbbCalendarDayElement)!.value!,
+    );
   const getActiveElementText: () => string = () =>
     (document.activeElement!.shadowRoot!.activeElement as HTMLElement).innerText;
+
+  const getWaitFromTransitionQuery = (element: SbbCalendarElement): NodeListOf<any> => {
+    return element['_calendarView'] === 'day'
+      ? element.shadowRoot!.querySelectorAll('sbb-calendar-day')
+      : element.shadowRoot!.querySelectorAll('.sbb-calendar__cell');
+  };
 
   const waitForTransition = async (): Promise<void> => {
     // Wait for the transition to be over
@@ -29,9 +43,7 @@ describe(`sbb-calendar`, () => {
     await waitForLitRender(element);
 
     // Wait for the new table to be rendered completely
-    await waitForCondition(
-      () => Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__cell')).length > 0,
-    );
+    await waitForCondition(() => Array.from(getWaitFromTransitionQuery(element)).length > 0);
   };
 
   const goToNextView = async (element: SbbCalendarElement): Promise<void> => {
@@ -71,13 +83,15 @@ describe(`sbb-calendar`, () => {
     });
 
     it('highlights current day', async () => {
-      const currentDayButton = element.shadowRoot!.querySelector('button[value="2023-01-10"]');
-      expect(currentDayButton).to.have.class('sbb-calendar__cell-current');
+      const currentDayButton = element.shadowRoot!.querySelector(
+        'sbb-calendar-day[slot="2023-01-10"]',
+      );
+      expect(currentDayButton).to.match(':state(current)');
     });
 
     it('renders and navigates to next month', async () => {
-      let day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('value')).to.be.equal('2023-01-01');
+      let day = element.shadowRoot!.querySelector('sbb-calendar-day')!;
+      expect(await day.getAttribute('slot')).to.be.equal('2023-01-01');
 
       const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
         '#sbb-calendar__controls-next',
@@ -86,31 +100,31 @@ describe(`sbb-calendar`, () => {
       await waitForLitRender(element);
 
       // this works because the first element from querySelector is the first day of the month; it's not valid in vertical
-      day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('value')).to.be.equal('2023-02-01');
+      day = element.shadowRoot!.querySelector('sbb-calendar-day')!;
+      expect(await day.getAttribute('slot')).to.be.equal('2023-02-01');
     });
 
     it('renders and navigates to previous month', async () => {
-      let day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('value')).to.be.equal('2023-01-01');
+      let day = element.shadowRoot!.querySelector('sbb-calendar-day')!;
+      expect(await day.getAttribute('slot')).to.be.equal('2023-01-01');
 
-      const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
+      const prevMonthButton: HTMLElement = element.shadowRoot!.querySelector(
         '#sbb-calendar__controls-previous',
       )!;
-      nextMonthButton.click();
+      prevMonthButton.click();
       await waitForLitRender(element);
 
       // this works because the first element from querySelector is the first day of the month; it's not valid in vertical
-      day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('value')).to.be.equal('2022-12-01');
+      day = element.shadowRoot!.querySelector('sbb-calendar-day')!;
+      expect(await day.getAttribute('slot')).to.be.equal('2022-12-01');
     });
 
     it('sets max and next month button gets disabled', async () => {
       element.max = new Date('2023-01-29');
       await waitForLitRender(element);
 
-      let day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('value')).to.be.equal('2023-01-01');
+      let day = element.shadowRoot!.querySelector('sbb-calendar-day')!;
+      expect(await day.getAttribute('slot')).to.be.equal('2023-01-01');
 
       const nextMonthButton: HTMLElement = element.shadowRoot!.querySelector(
         '#sbb-calendar__controls-next',
@@ -120,16 +134,16 @@ describe(`sbb-calendar`, () => {
       await waitForLitRender(element);
 
       // this works because the first element from querySelector is the first day of the month; it's not valid in vertical
-      day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('value')).to.be.equal('2023-01-01');
+      day = element.shadowRoot!.querySelector('sbb-calendar-day')!;
+      expect(await day.getAttribute('slot')).to.be.equal('2023-01-01');
     });
 
     it('sets min and previous month button gets disabled', async () => {
       element.min = new Date('2023-01-15');
       await waitForLitRender(element);
 
-      let day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('value')).to.be.equal('2023-01-01');
+      let day = element.shadowRoot!.querySelector('sbb-calendar-day')!;
+      expect(await day.getAttribute('slot')).to.be.equal('2023-01-01');
 
       const nextMonthButton = element.shadowRoot!.querySelector(
         '#sbb-calendar__controls-previous',
@@ -139,25 +153,25 @@ describe(`sbb-calendar`, () => {
       await waitForLitRender(element);
 
       // this works because the first element from querySelector is the first day of the month; it's not valid in vertical
-      day = element.shadowRoot!.querySelector('.sbb-calendar__day') as HTMLButtonElement;
-      expect(await day.getAttribute('value')).to.be.equal('2023-01-01');
+      day = element.shadowRoot!.querySelector('sbb-calendar-day')!;
+      expect(await day.getAttribute('slot')).to.be.equal('2023-01-01');
     });
 
     it('selects a different date', async () => {
       const selectedSpy = new EventSpy(SbbCalendarElement.events.dateselected);
-      const selectedDate = element.shadowRoot!.querySelector('button[value="2023-01-15"]');
+      const selectedDate = element.shadowRoot!.querySelector('sbb-calendar-day[slot="2023-01-15"]');
 
-      expect(selectedDate).to.have.class('sbb-calendar__selected');
+      expect(selectedDate).to.match(':state(selected)');
 
       const newSelectedDate = element.shadowRoot!.querySelector(
-        'button[value="2023-01-18"]',
+        'sbb-calendar-day[slot="2023-01-18"]',
       ) as HTMLElement;
-      expect(newSelectedDate).not.to.have.class('sbb-calendar__selected');
+      expect(newSelectedDate).not.to.match(':state(selected)');
       newSelectedDate.click();
       await selectedSpy.calledOnce();
 
-      expect(selectedDate).not.to.have.class('sbb-calendar__selected');
-      expect(newSelectedDate).to.have.class('sbb-calendar__selected');
+      expect(selectedDate).not.to.match(':state(selected)');
+      expect(newSelectedDate).to.match(':state(selected)');
       expect(selectedSpy.count).to.be.greaterThan(0);
     });
 
@@ -167,13 +181,15 @@ describe(`sbb-calendar`, () => {
       element.max = new Date('2023-01-29');
       await waitForLitRender(element);
 
-      const day = element.shadowRoot!.querySelector('button[value="2023-01-30"]') as HTMLElement;
+      const day = element.shadowRoot!.querySelector(
+        'sbb-calendar-day[slot="2023-01-30"]',
+      ) as HTMLElement;
       expect(day).to.have.attribute('disabled');
-      expect(day).not.to.have.class('sbb-calendar__selected');
+      expect(day).not.to.match(':state(selected)');
       day.click();
       await waitForLitRender(element);
 
-      expect(day).not.to.have.class('sbb-calendar__selected');
+      expect(day).not.to.match(':state(selected)');
       expect(selectedSpy.count).not.to.be.greaterThan(0);
     });
 
@@ -252,9 +268,11 @@ describe(`sbb-calendar`, () => {
 
       await waitForTransition();
 
-      const dayCells = Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__day'));
+      const dayCells: SbbCalendarDayElement[] = Array.from(
+        element.shadowRoot!.querySelectorAll<SbbCalendarDayElement>('sbb-calendar-day'),
+      );
       expect(dayCells.length).to.be.equal(31);
-      expect((dayCells[0] as HTMLButtonElement).value).to.be.equal('2023-01-01');
+      expect(defaultDateAdapter.toIso8601(new Date(dayCells[0].value!))).to.be.equal('2023-01-01');
     });
 
     it('reset view if day is not selected when year/month are changed', async () => {
@@ -280,9 +298,11 @@ describe(`sbb-calendar`, () => {
       await waitForLitRender(element);
       await waitForTransition();
 
-      const dayCells = Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__day'));
+      const dayCells = Array.from(
+        element.shadowRoot!.querySelectorAll<SbbCalendarDayElement>('sbb-calendar-day'),
+      );
       expect(dayCells.length).to.be.equal(30);
-      expect((dayCells[0] as HTMLButtonElement).value).to.be.equal('2030-09-01');
+      expect(defaultDateAdapter.toIso8601(new Date(dayCells[0].value!))).to.be.equal('2030-09-01');
 
       // Without selecting a day, change to the year view
       yearSelectionButton.click();
@@ -294,9 +314,11 @@ describe(`sbb-calendar`, () => {
       monthSelection.click();
       await waitForTransition();
       // We expect to be in the month of the selected day (Dec 2023)
-      const dayCells2 = Array.from(element.shadowRoot!.querySelectorAll('.sbb-calendar__day'));
+      const dayCells2 = Array.from(
+        element.shadowRoot!.querySelectorAll<SbbCalendarDayElement>('sbb-calendar-day'),
+      );
       expect(dayCells2.length).to.be.equal(31);
-      expect((dayCells2[0] as HTMLButtonElement).value).to.be.equal('2023-01-01');
+      expect(defaultDateAdapter.toIso8601(new Date(dayCells2[0].value!))).to.be.equal('2023-01-01');
     });
 
     describe('focusing', () => {
@@ -338,8 +360,9 @@ describe(`sbb-calendar`, () => {
         october2023Button.click();
         await waitForTransition();
 
-        const selectedDayButton =
-          element.shadowRoot!.querySelector<HTMLButtonElement>('[value="2023-10-15"]')!;
+        const selectedDayButton = element.shadowRoot!.querySelector<SbbCalendarDayElement>(
+          'sbb-calendar-day[slot="2023-10-15"]',
+        )!;
 
         expect(document.activeElement!.shadowRoot!.activeElement).to.be.equal(selectedDayButton);
       });
@@ -376,8 +399,9 @@ describe(`sbb-calendar`, () => {
         october2023Button.click();
         await waitForTransition();
 
-        const selectedDayButton =
-          element.shadowRoot!.querySelector<HTMLButtonElement>('[value="2023-10-15"]')!;
+        const selectedDayButton = element.shadowRoot!.querySelector<SbbCalendarDayElement>(
+          'sbb-calendar-day[slot="2023-10-15"]',
+        )!;
 
         expect(document.activeElement!.shadowRoot!.activeElement).to.be.equal(selectedDayButton);
       });
@@ -413,8 +437,9 @@ describe(`sbb-calendar`, () => {
         january2024Button.click();
         await waitForTransition();
 
-        const selectedDayButton =
-          element.shadowRoot!.querySelector<HTMLButtonElement>('[value="2024-01-01"]')!;
+        const selectedDayButton = element.shadowRoot!.querySelector<SbbCalendarDayElement>(
+          'sbb-calendar-day[slot="2024-01-01"]',
+        )!;
 
         expect(document.activeElement!.shadowRoot!.activeElement).to.be.equal(selectedDayButton);
       });
@@ -742,22 +767,30 @@ describe(`sbb-calendar`, () => {
     );
     expect(buttonNextDay).to.have.attribute('disabled');
 
-    const emptyCells = page.shadowRoot!.querySelectorAll('td:not(:has(> button))');
+    const emptyCells = page.shadowRoot!.querySelectorAll('td:not(:has(> sbb-calendar-day))');
     expect(emptyCells.length).to.be.equal(6);
 
-    const lastDisabledMinDate = page.shadowRoot!.querySelector("[value='2023-01-08']");
+    const lastDisabledMinDate = page.shadowRoot!.querySelector<SbbCalendarDayElement>(
+      "sbb-calendar-day[slot='2023-01-08']",
+    )!;
     expect(lastDisabledMinDate).to.have.attribute('disabled');
-    expect(lastDisabledMinDate).to.have.attribute('aria-disabled', 'true');
-    const firstNotDisabledMinDate = page.shadowRoot!.querySelector("[value='2023-01-09']");
+    expect(elementInternals.get(lastDisabledMinDate)?.ariaDisabled).to.be.equal('true');
+    const firstNotDisabledMinDate = page.shadowRoot!.querySelector<SbbCalendarDayElement>(
+      "sbb-calendar-day[slot='2023-01-09']",
+    )!;
     expect(firstNotDisabledMinDate).not.to.have.attribute('disabled');
-    expect(firstNotDisabledMinDate).to.have.attribute('aria-disabled', 'false');
+    expect(elementInternals.get(firstNotDisabledMinDate)?.ariaDisabled).to.be.equal('false');
 
-    const lastNotDisabledMaxDate = page.shadowRoot!.querySelector("[value='2023-01-29']");
+    const lastNotDisabledMaxDate = page.shadowRoot!.querySelector<SbbCalendarDayElement>(
+      "sbb-calendar-day[slot='2023-01-29']",
+    )!;
     expect(lastNotDisabledMaxDate).not.to.have.attribute('disabled');
-    expect(lastNotDisabledMaxDate).to.have.attribute('aria-disabled', 'false');
-    const firstDisabledMaxDate = page.shadowRoot!.querySelector("[value='2023-01-30']");
+    expect(elementInternals.get(lastNotDisabledMaxDate)?.ariaDisabled).to.be.equal('false');
+    const firstDisabledMaxDate = page.shadowRoot!.querySelector<SbbCalendarDayElement>(
+      "sbb-calendar-day[slot='2023-01-30']",
+    )!;
     expect(firstDisabledMaxDate).to.have.attribute('disabled');
-    expect(firstDisabledMaxDate).to.have.attribute('aria-disabled', 'true');
+    expect(elementInternals.get(firstDisabledMaxDate)?.ariaDisabled).to.be.equal('true');
   });
 
   describe('wide horizontal', () => {
@@ -1371,8 +1404,8 @@ describe(`sbb-calendar`, () => {
         expect(selectedDates[10].toDateString()).to.be.equal('Sun Apr 13 2025');
 
         // Click on a single day to add it
-        const thirdRowButtons = rows[2].querySelectorAll('button');
-        thirdRowButtons[6].click();
+        const thirdRowButtons = rows[2].querySelectorAll<SbbCalendarDayElement>('sbb-calendar-day');
+        thirdRowButtons[5].click();
         await selectedSpy.calledTimes(7);
         selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
         expect(selectedDates.length).to.be.equal(12);
@@ -1380,8 +1413,9 @@ describe(`sbb-calendar`, () => {
         expect(selectedDates[11].toDateString()).to.be.equal('Sat Apr 19 2025');
 
         // Click on a single day to remove it
-        const secondRowButtons = rows[1].querySelectorAll('button');
-        secondRowButtons[2].click();
+        const secondRowButtons =
+          rows[1].querySelectorAll<SbbCalendarDayElement>('sbb-calendar-day');
+        secondRowButtons[1].click();
         await selectedSpy.calledTimes(8);
         selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
         expect(selectedDates.length).to.be.equal(11);
@@ -1561,8 +1595,8 @@ describe(`sbb-calendar`, () => {
         expect(selectedDates[10].toDateString()).to.be.equal('Sun Apr 13 2025');
 
         // Click on a single day to add it
-        const thirdRowButtons = rows[2].querySelectorAll('button');
-        thirdRowButtons[5].click();
+        const thirdRowButtons = rows[2].querySelectorAll<SbbCalendarDayElement>('sbb-calendar-day');
+        thirdRowButtons[4].click();
         await selectedSpy.calledTimes(7);
         selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
         expect(selectedDates.length).to.be.equal(12);
@@ -1571,8 +1605,9 @@ describe(`sbb-calendar`, () => {
         expect(selectedDates[11].toDateString()).to.be.equal('Wed Apr 30 2025');
 
         // Click on a single day to remove it
-        const secondRowButtons = rows[1].querySelectorAll('button');
-        secondRowButtons[2].click();
+        const secondRowButtons =
+          rows[1].querySelectorAll<SbbCalendarDayElement>('sbb-calendar-day');
+        secondRowButtons[1].click();
         await selectedSpy.calledTimes(8);
         selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
         expect(selectedDates.length).to.be.equal(11);

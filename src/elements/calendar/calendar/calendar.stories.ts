@@ -4,8 +4,8 @@ import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import { defaultDateAdapter } from '../core/datetime.ts';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import { defaultDateAdapter } from '../../core/datetime.ts';
 
 import { SbbCalendarElement } from './calendar.component.ts';
 import readme from './readme.md?raw';
@@ -288,7 +288,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-calendar',
+  title: 'elements/sbb-calendar/sbb-calendar',
 };
 
 export default meta;
