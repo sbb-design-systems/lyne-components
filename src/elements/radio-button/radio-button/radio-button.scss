@@ -8,16 +8,14 @@
   outline: none !important;
 }
 
+:host(:not(:state(slotted), :state(slotted-icon), :state(has-icon-name))) {
+  --sbb-radio-button-label-gap: 0;
+}
+
 .sbb-radio-button {
   :host(:focus-visible) & {
     @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
-  }
-}
-
-.sbb-radio-button__label-slot::before {
-  :host(:not(:state(slotted), :state(slotted-icon), :state(has-icon-name))) & {
-    margin-inline-end: 0;
   }
 }
