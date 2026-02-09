@@ -37,11 +37,6 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
     return Array.from(this.querySelectorAll?.<SbbOptionElement<T>>('sbb-option') ?? []);
   }
 
-  public constructor() {
-    super();
-    this.addEventListener?.('optionselected', (e: Event) => this.onOptionSelected(e));
-  }
-
   protected syncNegative(): void {
     this.querySelectorAll?.<SbbDividerElement | SbbOptionHintElement>(
       'sbb-divider, sbb-option-hint',
@@ -96,9 +91,14 @@ class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
     this.triggerElement?.setAttribute('aria-activedescendant', this.activeOption.id);
     this.activeOption.scrollIntoView({ block: 'nearest' });
 
+    // Moving the active option should not move the input cursor (caret)
+    if (event) {
+      event.preventDefault();
+    }
+
     // If 'autoSelectActiveOption' and is triggered from a keyboard event
     if (this.autoSelectActiveOption && event) {
-      this.onOptionArrowsSelected(this.activeOption);
+      this.setPendingSelection(this.activeOption);
     }
   }
 
