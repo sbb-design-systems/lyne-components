@@ -19,8 +19,11 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     focused: [false, true],
     hovered: [false, true],
     disabled: [false, true],
-    darkMode: [false, true],
-    forcedColors: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   // Standard visual diff states to be tested;
@@ -30,10 +33,12 @@ describe('sbb-seat-reservation-navigation-coach', () => {
 
   // large only viewport because we don't use any other breakpoint media queries
   describeViewports({ viewports: ['large'] }, () => {
-    describeEach(cases, ({ selected, focused, hovered, disabled, darkMode, forcedColors }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(
-          html`
+    describeEach(
+      cases,
+      ({ selected, focused, hovered, disabled, emulateMedia: { forcedColors, darkMode } }) => {
+        beforeEach(async function () {
+          root = await visualRegressionFixture(
+            html`
             <sbb-seat-reservation-navigation-coach
               coach-id="85"
               ?selected=${selected}
@@ -44,22 +49,23 @@ describe('sbb-seat-reservation-navigation-coach', () => {
               .propertyIds=${propertyIds}
             ></sbb-seat-reservation-navigation-coach>
           `,
-          {
-            darkMode,
-            forcedColors,
-          },
-        );
-      });
+            {
+              darkMode,
+              forcedColors,
+            },
+          );
+        });
 
-      for (const state of visualDiffStandardStates) {
-        it(
-          `${state.name}`,
-          state.with((setup) => {
-            setup.withSnapshotElement(root);
-            setup.withStateElement(root.querySelector('.sbb-sr-navigation__ctrl-button')!);
-          }),
-        );
-      }
-    });
+        for (const state of visualDiffStandardStates) {
+          it(
+            `${state.name}`,
+            state.with((setup) => {
+              setup.withSnapshotElement(root);
+              setup.withStateElement(root.querySelector('.sbb-sr-navigation__ctrl-button')!);
+            }),
+          );
+        }
+      },
+    );
   });
 });

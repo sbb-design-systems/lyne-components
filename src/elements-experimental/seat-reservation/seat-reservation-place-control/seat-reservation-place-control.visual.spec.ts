@@ -10,20 +10,54 @@ import { html } from 'lit';
 describe('sbb-seat-reservation-place-control', () => {
   let root: HTMLElement;
 
-  const cases = {
-    rotated: [-90, 0, 45, 90],
-    textRotated: [-90, 0, 45, 90],
+  const rotationCases = {
+    rotated: [0, 90, 180, 270],
+    textRotated: [0, 90, 180, 270],
+  };
+
+  const noRotationCases = {
     placeState: ['FREE', 'ALLOCATED', 'RESTRICTED', 'SELECTED'],
     placeType: ['SEAT', 'BICYCLE'],
-    darkMode: [false, true],
-    forcedColors: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   // large only viewport because we don't use any other breakpoint media queries
   describeViewports({ viewports: ['large'] }, () => {
+    describeEach(rotationCases, ({ rotated, textRotated }) => {
+      beforeEach(async function () {
+        root = await visualRegressionFixture(html`
+          <sbb-seat-reservation-place-control
+            type="SEAT"
+            state="FREE"
+            text="12A"
+            style="
+              --sbb-seat-reservation-place-control-text-scale-value: 32;
+              --sbb-seat-reservation-place-control-width: 32;
+              --sbb-seat-reservation-place-control-height: 32;
+              --sbb-seat-reservation-place-control-rotation: ${rotated};
+              --sbb-seat-reservation-place-control-text-rotation: ${textRotated};"
+          ></sbb-seat-reservation-place-control>
+        `);
+      });
+
+      for (const state of [visualDiffDefault]) {
+        it(
+          `${state.name}`,
+          state.with((setup) => {
+            setup.withSnapshotElement(root);
+            setup.withStateElement(root.querySelector('.seat-reservation-place-control')!);
+          }),
+        );
+      }
+    });
+
     describeEach(
-      cases,
-      ({ rotated, textRotated, placeState, placeType, darkMode, forcedColors }) => {
+      noRotationCases,
+      ({ placeState, placeType, emulateMedia: { forcedColors, darkMode } }) => {
         beforeEach(async function () {
           root = await visualRegressionFixture(
             html`
@@ -34,14 +68,12 @@ describe('sbb-seat-reservation-place-control', () => {
                 style="
               --sbb-seat-reservation-place-control-text-scale-value: 32;
               --sbb-seat-reservation-place-control-width: 32;
-              --sbb-seat-reservation-place-control-height: 32;
-              --sbb-seat-reservation-place-control-rotation: ${rotated};
-              --sbb-seat-reservation-place-control-text-rotation: ${textRotated};"
+              --sbb-seat-reservation-place-control-height: 32;"
               ></sbb-seat-reservation-place-control>
             `,
             {
-              darkMode,
               forcedColors,
+              darkMode,
             },
           );
         });

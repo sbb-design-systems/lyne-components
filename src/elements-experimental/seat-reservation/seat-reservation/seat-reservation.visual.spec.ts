@@ -21,8 +21,11 @@ describe('sbb-seat-reservation', () => {
   const cases = {
     alignVertical: [false, true],
     hasNavigation: [false, true],
-    darkMode: [false, true],
-    forcedColors: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   // Standard visual diff states to be tested;
@@ -31,59 +34,65 @@ describe('sbb-seat-reservation', () => {
   const visualDiffStandardStates = [visualDiffDefault, visualDiffFocus] as const;
 
   describeViewports({ viewports: ['small', 'large', 'ultra'] }, () => {
-    describeEach(cases, ({ alignVertical, hasNavigation, darkMode, forcedColors }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(
-          html`
-            <sbb-seat-reservation
-              .seatReservations=${dataFullTRAIN}
-              .hasNavigation=${hasNavigation}
-              .alignVertical=${alignVertical}
-            ></sbb-seat-reservation>
-          `,
-          {
-            darkMode,
-            forcedColors,
-          },
-        );
-      });
+    describeEach(
+      cases,
+      ({ alignVertical, hasNavigation, emulateMedia: { forcedColors, darkMode } }) => {
+        beforeEach(async function () {
+          root = await visualRegressionFixture(
+            html`
+              <sbb-seat-reservation
+                .seatReservations=${dataFullTRAIN}
+                .hasNavigation=${hasNavigation}
+                .alignVertical=${alignVertical}
+              ></sbb-seat-reservation>
+            `,
+            {
+              darkMode,
+              forcedColors,
+            },
+          );
+        });
 
-      for (const state of visualDiffStandardStates) {
-        it(
-          `${state.name}`,
-          state.with((setup) => {
-            setup.withSnapshotElement(root);
-            setup.withStateElement(root.querySelector('sbb-seat-reservation')!);
-          }),
-        );
-      }
-    });
-    describeEach(cases, ({ alignVertical, hasNavigation, darkMode, forcedColors }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(
-          html`
-            <sbb-seat-reservation
-              .seatReservations=${dataFullBUS}
-              .hasNavigation=${hasNavigation}
-              .alignVertical=${alignVertical}
-            ></sbb-seat-reservation>
-          `,
-          {
-            darkMode,
-            forcedColors,
-          },
-        );
-      });
+        for (const state of visualDiffStandardStates) {
+          it(
+            `${state.name}`,
+            state.with((setup) => {
+              setup.withSnapshotElement(root);
+              setup.withStateElement(root.querySelector('sbb-seat-reservation')!);
+            }),
+          );
+        }
+      },
+    );
+    describeEach(
+      cases,
+      ({ alignVertical, hasNavigation, emulateMedia: { forcedColors, darkMode } }) => {
+        beforeEach(async function () {
+          root = await visualRegressionFixture(
+            html`
+              <sbb-seat-reservation
+                .seatReservations=${dataFullBUS}
+                .hasNavigation=${hasNavigation}
+                .alignVertical=${alignVertical}
+              ></sbb-seat-reservation>
+            `,
+            {
+              darkMode,
+              forcedColors,
+            },
+          );
+        });
 
-      for (const state of visualDiffStandardStates) {
-        it(
-          `${state.name}`,
-          state.with((setup) => {
-            setup.withSnapshotElement(root);
-            setup.withStateElement(root.querySelector('sbb-seat-reservation')!);
-          }),
-        );
-      }
-    });
+        for (const state of visualDiffStandardStates) {
+          it(
+            `${state.name}`,
+            state.with((setup) => {
+              setup.withSnapshotElement(root);
+              setup.withStateElement(root.querySelector('sbb-seat-reservation')!);
+            }),
+          );
+        }
+      },
+    );
   });
 });

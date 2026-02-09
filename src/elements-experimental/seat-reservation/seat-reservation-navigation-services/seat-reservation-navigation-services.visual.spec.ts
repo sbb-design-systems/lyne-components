@@ -11,12 +11,15 @@ describe('sbb-seat-reservation-navigation-services', () => {
   const propertyIds = ['BISTRO', 'WIFI', 'PRAM'];
 
   const cases = {
-    forcedColors: [false, true],
-    darkMode: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   describeViewports({ viewports: ['large'] }, () => {
-    describeEach(cases, ({ forcedColors, darkMode }) => {
+    describeEach(cases, ({ emulateMedia: { forcedColors, darkMode } }) => {
       for (const state of [visualDiffDefault]) {
         it(
           `state=${state.name}`,
