@@ -1,4 +1,5 @@
 import { assert, expect, fixture } from '@open-wc/testing';
+import { isWebkit } from '@sbb-esta/lyne-elements/core/dom/platform.js';
 import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
@@ -26,7 +27,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     await expect(element).to.be.accessible();
   });
 
-  it('should have a button', async () => {
+  it('should have a button', () => {
     const el = element.shadowRoot?.querySelector('.sbb-sr-navigation__ctrl-button');
     assert.instanceOf(el, HTMLButtonElement);
   });
@@ -104,9 +105,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   it('should be selected', async () => {
     element.selected = true;
     await waitForLitRender(element);
-
     const el = element.shadowRoot?.querySelector('.sbb-sr-navigation__item-coach--selected');
-
     assert.instanceOf(el, HTMLDivElement);
   });
 
@@ -117,26 +116,29 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     assert.isNull(el);
   });
 
-  // TODO: Check logic
-  it.skip('should have no outline if not focused', async () => {
-    const btn = element.shadowRoot?.querySelector(
-      '.sbb-sr-navigation__ctrl-button',
-    ) as HTMLButtonElement;
+  //webkit is flaky in testing outline styles
+  if (!isWebkit) {
+    it('should have no outline if not focused', async () => {
+      const btn = element.shadowRoot?.querySelector(
+        '.sbb-sr-navigation__ctrl-button',
+      ) as HTMLButtonElement;
 
-    await expect(getComputedStyle(btn).outlineWidth).to.be.equal('0px');
-  });
+      await expect(getComputedStyle(btn).outlineWidth).to.be.equal('0px');
+    });
 
-  /*it('should have outline if focused', async () => {
-    const btn = element.shadowRoot?.querySelector(
-      '.sbb-sr-navigation__ctrl-button',
-    ) as HTMLButtonElement;
+    it('should have outline if focused', async () => {
+      const btn = element.shadowRoot?.querySelector(
+        '.sbb-sr-navigation__ctrl-button',
+      ) as HTMLButtonElement;
 
-    await expect(getComputedStyle(btn).outlineWidth).to.be.equal('0px');
+      await expect(getComputedStyle(btn).outlineWidth).to.be.equal('0px');
 
-    btn.focus();
+      element.focused = true;
 
-    await expect(getComputedStyle(btn).outlineWidth).to.be.equal('1px');
-  });*/
+      await waitForLitRender(element);
+      await expect(getComputedStyle(btn).outlineWidth).to.be.equal('1px');
+    });
+  }
 
   it('should not render first-class span element for SECOND', async () => {
     element.setAttribute('travel-class', '["SECOND"]');
@@ -154,7 +156,6 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     assert.instanceOf(el, HTMLSpanElement);
   });
 
-  /*
   it('should render a coach which is the first one in the navigation', async () => {
     element.first = true;
 
@@ -184,7 +185,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     await expect(getComputedStyle(btn).borderStartEndRadius).to.be.equal('16px');
     await expect(getComputedStyle(btn).borderEndEndRadius).to.be.equal('16px');
   });
-  */
+
   it('should call @selectcoach on interaction', async () => {
     const selectSpy = new EventSpy('selectcoach');
     const btn = element.shadowRoot?.querySelector(
@@ -202,6 +203,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     ) as HTMLButtonElement;
 
     const changeSpy = new EventSpy('click');
+    await waitForLitRender(element);
     btn.focus();
     await sendKeys({ press: 'Enter' });
     expect(changeSpy.count).to.be.greaterThan(0);
@@ -213,6 +215,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     ) as HTMLButtonElement;
 
     const changeSpy = new EventSpy('click');
+    await waitForLitRender(element);
     btn.focus();
     await sendKeys({ press: ' ' });
     expect(changeSpy.count).to.be.greaterThan(0);
