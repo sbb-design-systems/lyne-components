@@ -23,6 +23,9 @@ $theme: 'standard' !default;
 @use '../../button/common/button-common.global' as button with (
   $theme: $theme
 );
+@use '../../button/common/mini-button-common.global' as mini-button with (
+  $theme: $theme
+);
 @use '../../button/mini-button-group/mini-button-group.global' as mini-button-group with (
   $theme: $theme
 );
@@ -106,6 +109,7 @@ $theme: 'standard' !default;
   @include breadcrumb.base;
   @include breadcrumb-group.base;
   @include button.base;
+  @include mini-button.base;
   @include mini-button-group.base;
   @include card.base;
   @include card-badge.base;
