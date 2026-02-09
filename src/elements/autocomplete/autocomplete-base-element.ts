@@ -308,6 +308,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.close();
   }
 
+  /** @deprecated */
+  protected onOptionArrowsSelected(_activeOption: SbbOptionBaseElement<T>): void {}
+
   /**
    * A 'pending selection' sets the option value in the input element without emitting events.
    * A 'pending selection' is confirmed when the panel closes. Any other user interaction
