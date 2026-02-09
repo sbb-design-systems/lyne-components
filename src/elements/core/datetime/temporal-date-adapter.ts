@@ -1,3 +1,5 @@
+/// <reference types="temporal-polyfill/global" />
+
 import { SbbLanguageController } from '../controllers.ts';
 
 import { DateAdapter } from './date-adapter.ts';
@@ -10,35 +12,43 @@ import { DateAdapter } from './date-adapter.ts';
 const ISO_8601_REGEX =
   /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 
-export class NativeDateAdapter extends DateAdapter<Date> {
+if (typeof Temporal !== 'object') {
+  throw new Error(
+    'Temporal is not available in the current environment. Please make sure to include the temporal polyfill.',
+  );
+}
+
+export class TemporalDateAdapter extends DateAdapter<Temporal.PlainDate> {
   /** Gets the year of the input date. */
-  public getYear(date: Date): number {
-    return date.getFullYear();
+  public getYear(date: Temporal.PlainDate): number {
+    return date.year;
   }
 
   /** Gets the month of the input date. */
-  public getMonth(date: Date): number {
-    return date.getMonth() + 1;
+  public getMonth(date: Temporal.PlainDate): number {
+    return date.month;
   }
 
   /** Gets the day of the input date. */
-  public getDate(date: Date): number {
-    return date.getDate();
+  public getDate(date: Temporal.PlainDate): number {
+    return date.day;
   }
 
   /** Gets the day of the week of the input date. */
-  public getDayOfWeek(date: Date): number {
-    return date.getDay();
+  public getDayOfWeek(date: Temporal.PlainDate): number {
+    // Our expectation is 0 = Sunday but Temporal.PlainDate.dayOfWeek returns 7 = Sunday
+    // TODO: Remove this with a future release.
+    return date.dayOfWeek % 7;
   }
 
   /** Gets the date in the local format. */
-  public getAccessibilityFormatDate(date: Date | string): string {
+  public getAccessibilityFormatDate(date: Temporal.PlainDate | string): string {
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     };
-    return new Intl.DateTimeFormat(SbbLanguageController.current, options).format(new Date(date));
+    return this.deserialize(date)!.toLocaleString(SbbLanguageController.current, options);
   }
 
   /**
@@ -48,13 +58,17 @@ export class NativeDateAdapter extends DateAdapter<Date> {
    */
   public getMonthNames(style: 'long' | 'short' | 'narrow'): string[] {
     const formatter = new Intl.DateTimeFormat(SbbLanguageController.current, { month: style });
-    return this._range(12, (i) => formatter.format(new Date(2017, i, 1)));
+    return this._range(12, (i) =>
+      formatter.format(Temporal.PlainDate.from({ year: 2017, month: i + 1, day: 1 })),
+    );
   }
 
   /** Creates a string array with length = 31, filled with the days in a month, starting from 1. */
   public getDateNames(): string[] {
     const formatter = new Intl.DateTimeFormat(SbbLanguageController.current, { day: 'numeric' });
-    return this._range(31, (i) => formatter.format(new Date(2017, 0, i + 1)));
+    return this._range(31, (i) =>
+      formatter.format(Temporal.PlainDate.from({ year: 2017, month: 1, day: i + 1 })),
+    );
   }
 
   /**
@@ -64,7 +78,9 @@ export class NativeDateAdapter extends DateAdapter<Date> {
    */
   public getDayOfWeekNames(style: 'long' | 'short' | 'narrow'): string[] {
     const formatter = new Intl.DateTimeFormat(SbbLanguageController.current, { weekday: style });
-    return this._range(7, (i) => formatter.format(new Date(2017, 0, i + 1)));
+    return this._range(7, (i) =>
+      formatter.format(Temporal.PlainDate.from({ year: 2017, month: 1, day: i + 1 })),
+    );
   }
 
   /** Defines which is the first day of the week (0: sunday; 1: monday; etc.). */
@@ -73,46 +89,44 @@ export class NativeDateAdapter extends DateAdapter<Date> {
   }
 
   /** Calculates the number of days in a month given the year and the month. */
-  public getNumDaysInMonth(date: Date): number {
-    return this.getDate(this._createDateWithOverflow(this.getYear(date), this.getMonth(date), 0));
+  public getNumDaysInMonth(date: Temporal.PlainDate): number {
+    return date.daysInMonth;
   }
 
   /** Creates today's date. */
-  public today(): Date {
-    return new Date(new Date().setHours(0, 0, 0, 0));
+  public today(): Temporal.PlainDate {
+    return Temporal.Now.plainDateISO();
   }
 
   /** Creates a new date, given day, month and year; the method doesn't allow date's overflow. */
-  public createDate(year: number, month: number, day: number): Date {
-    // Check for invalid month and date (except upper bound on date which we have to check after creating the Date).
+  public createDate(year: number, month: number, day: number): Temporal.PlainDate {
+    // Check for invalid month and date (except upper bound on date which we have to check after creating the Temporal.PlainDate).
     if (month < 1 || month > 12) {
       throw Error(`Invalid month "${month}". Month has to be between 1 and 12.`);
     } else if (day < 1) {
       throw Error(`Invalid day "${day}". Day has to be greater than 0.`);
     }
 
-    const result = this._createDateWithOverflow(year, month - 1, day);
-    // Check that the date wasn't above the upper bound for the month, causing the month to overflow
-    if (result.getMonth() + 1 !== month) {
-      throw Error(`Invalid day "${day}" for month "${month}".`);
+    try {
+      return Temporal.PlainDate.from({ year, month, day: day }, { overflow: 'reject' });
+    } catch {
+      throw Error(`Invalid date "${day}" for month with index "${month}".`);
     }
-
-    return result;
   }
 
-  /** Checks whether the given `obj` is a Date. */
+  /** Checks whether the given `obj` is a Temporal.PlainDate. */
   public isDateInstance(obj: any): boolean {
-    return obj instanceof Date;
+    return obj instanceof Temporal.PlainDate;
   }
 
-  /** Checks whether the given `date` is a valid Date. */
-  public isValid(date: Date | null | undefined): date is Date {
-    return !!date && !isNaN(date.valueOf());
+  /** Checks whether the given `date` is a valid Temporal.PlainDate. */
+  public isValid(date: Temporal.PlainDate | null | undefined): date is Temporal.PlainDate {
+    return this.isDateInstance(date);
   }
 
   /** Creates a new date by cloning the given one. */
-  public clone(date: Date): Date {
-    return new Date(date.valueOf());
+  public clone(date: Temporal.PlainDate): Temporal.PlainDate {
+    return Temporal.PlainDate.from(date);
   }
 
   /**
@@ -120,45 +134,46 @@ export class NativeDateAdapter extends DateAdapter<Date> {
    * @param date The starting date.
    * @param years The number of years to add.
    */
-  public addCalendarYears(date: Date, years: number): Date {
-    return this.addCalendarMonths(date, years * 12);
+  public addCalendarYears(date: Temporal.PlainDate, years: number): Temporal.PlainDate {
+    return date.add({ years });
   }
 
   /**
    * Creates a new date adding the number of provided `months` to the provided `date`.
    * If the calculated month has fewer days than the original one, the date is set to the last day of the month.
-   * E.g., with `date` = new Date(2022, 0, 31) and `months` = 1, it returns new Date(2022, 1, 28).
+   * E.g., with `date` = new Temporal.PlainDate(2022, 0, 31) and `months` = 1, it returns new Temporal.PlainDate(2022, 1, 28).
    */
-  public addCalendarMonths(date: Date, months: number): Date {
-    const targetMonth = date.getMonth() + months;
-    const dateWithCorrectMonth = new Date(date.getFullYear(), targetMonth, 1, 0, 0, 0, 0);
-    const daysInMonth = this.getNumDaysInMonth(dateWithCorrectMonth);
-    // Adapt the last day of month for shorter months
-    return new Date(this.clone(date).setMonth(targetMonth, Math.min(daysInMonth, date.getDate())));
+  public addCalendarMonths(date: Temporal.PlainDate, months: number): Temporal.PlainDate {
+    return date.add({ months });
   }
 
   /** Creates a new date by adding the number of provided `days` to the provided `date`. */
-  public addCalendarDays(date: Date, days: number): Date {
-    const targetDay = date.getDate() + days;
-    return new Date(date.getFullYear(), date.getMonth(), targetDay, 0, 0, 0, 0);
+  public addCalendarDays(date: Temporal.PlainDate, days: number): Temporal.PlainDate {
+    return date.add({ days });
   }
 
-  /** Creates a Date from a valid input (Date or ISO string). */
-  public override deserialize(date: Date | string | null | undefined): Date | null {
+  /** Creates a Temporal.PlainDate from a valid input (Temporal.PlainDate or ISO string). */
+  public override deserialize(
+    date: Temporal.PlainDate | string | null | undefined,
+  ): Temporal.PlainDate | null {
     if (typeof date === 'string') {
       if (!date) {
         return null;
       } else if (ISO_8601_REGEX.test(date)) {
-        // The `Date` constructor accepts formats other than ISO 8601, so we need to make sure the
-        // string is the right format first.
-        return this.getValidDateOrNull(new Date(date.includes('T') ? date : date + 'T00:00:00'));
+        // `Temporal.PlainDate.from` only accepts ISO 8601 date strings without time components.
+        return this.getValidDateOrNull(Temporal.PlainDate.from(date.split('T')[0]));
       }
     }
     return super.deserialize(date);
   }
 
-  public override invalid(): Date {
-    return new Date(NaN);
+  public override invalid(): Temporal.PlainDate {
+    // It is not possible to create an invalid Temporal.PlainDate, so we return null.
+    return null!;
+  }
+
+  public override toIso8601(date: Temporal.PlainDate): string {
+    return date.toJSON();
   }
 
   /**
@@ -169,17 +184,6 @@ export class NativeDateAdapter extends DateAdapter<Date> {
   private _range<T>(length: number, valueFunction: (index: number) => T): T[] {
     return Array.from({ length }).map((_, i) => valueFunction(i));
   }
-
-  /** Creates a date but allows the month and date to overflow. */
-  private _createDateWithOverflow(year: number, month: number, date: number): Date {
-    const result = new Date(year, month, date);
-    // We need to correct for the fact that JS native Date treats years in range [0, 99] as
-    // abbreviations for 19xx.
-    if (year >= 0 && year < 100) {
-      result.setFullYear(this.getYear(result) - 1900);
-    }
-    return result;
-  }
 }
 
-export const defaultDateAdapter = new NativeDateAdapter();
+export const temporalDateAdapter = new TemporalDateAdapter();
