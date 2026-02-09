@@ -126,6 +126,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   protected abstract overlayId: string;
   protected abstract panelRole: string;
   protected activeOption: SbbOptionBaseElement<T> | null = null;
+  protected pendingAutoSelectedOption: SbbOptionBaseElement<T> | null = null;
   private _originResizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,
@@ -159,7 +160,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
   public constructor() {
     super();
-
+    this.addEventListener?.('optionselected', (e: Event) => this.onOptionSelected(e));
     this.addController(
       new SbbPropertyWatcherController(
         this,
@@ -220,6 +221,12 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   public close(): void {
     if (this.state === 'closing' || this.state === 'closed' || !this.dispatchBeforeCloseEvent()) {
       return;
+    }
+
+    // A 'pending selection' is confirmed on panel close
+    if (this.pendingAutoSelectedOption) {
+      this.pendingAutoSelectedOption.selected = true;
+      this._setValueAndDispatchEvents(this.pendingAutoSelectedOption);
     }
 
     this.state = 'closing';
@@ -301,10 +308,14 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.close();
   }
 
-  /** When an option is selected, update the input value and close the autocomplete. */
-  protected onOptionArrowsSelected(activeOption: SbbOptionBaseElement<T>): void {
-    activeOption.selected = true;
-    this._setValueAndDispatchEvents(activeOption);
+  /**
+   * A 'pending selection' sets the option value in the input element without emitting events.
+   * A 'pending selection' is confirmed when the panel closes. Any other user interaction
+   * will reset the pending value.
+   */
+  protected setPendingSelection(activeOption: SbbOptionBaseElement<T>): void {
+    this.pendingAutoSelectedOption = activeOption;
+    this._setInputValue(activeOption);
   }
 
   private _setValueAndDispatchEvents(selectedOption: SbbOptionBaseElement<T>): void {
@@ -312,16 +323,10 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.options
       .filter((option) => option.id !== selectedOption.id && option.selected)
       .forEach((option) => (option.selected = false));
+    this.pendingAutoSelectedOption = null;
 
     if (this.triggerElement) {
-      // Given a value, returns the string that should be shown within the input.
-      const toDisplay = this.displayWith?.(selectedOption.value as T) ?? selectedOption.value;
-
-      // Set the option value
-      // In order to support React onChange event, we have to get the setter and call it.
-      // https://github.com/facebook/react/issues/11600#issuecomment-345813130
-      const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
-      setValue.call(this.triggerElement, toDisplay);
+      this._setInputValue(selectedOption);
 
       // Manually trigger the change events
       this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
@@ -338,6 +343,22 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       );
       this.triggerElement.focus();
     }
+  }
+
+  /** Set the option value within the input element */
+  private _setInputValue(option: SbbOptionBaseElement<T>): void {
+    if (!this.triggerElement) {
+      return;
+    }
+
+    // Given a value, returns the string that should be shown within the input.
+    const toDisplay = this.displayWith?.(option.value as T) ?? option.value;
+
+    // Set the option value
+    // In order to support React onChange event, we have to get the setter and call it.
+    // https://github.com/facebook/react/issues/11600#issuecomment-345813130
+    const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
+    setValue.call(this.triggerElement, toDisplay);
   }
 
   private _handleSlotchange(): void {
@@ -435,6 +456,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
         }
         this._highlightOptions(value);
         this._lastUserInput = value;
+        this.pendingAutoSelectedOption = null;
       },
       { signal: this._triggerAbortController.signal },
     );
