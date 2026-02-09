@@ -226,6 +226,7 @@ export class SbbOverlayPositionController implements ReactiveController {
     );
     this._overlay.style.setProperty('--sbb-overlay-controller-trigger-width', `${triggerWidth}px`);
 
+    // eslint-disable-next-line no-useless-assignment
     let result: ReturnType<typeof this._getOptimalPosition> = { left: 0, top: 0, position: '' };
     let firstPosition: ReturnType<typeof this._getOptimalPosition> | undefined = undefined;
     for (const position of positions) {
