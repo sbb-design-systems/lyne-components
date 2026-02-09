@@ -96,6 +96,7 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
 
   @forceType()
   @property()
+  // eslint-disable-next-line no-useless-assignment
   public accessor name: string = `sbb-radio-button-group-${++nextId}`;
 
   /**
