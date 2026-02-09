@@ -55,7 +55,7 @@ describe('sbb-seat-reservation', () => {
 
         for (const state of visualDiffStandardStates) {
           it(
-            `${state.name}`,
+            `Train ${state.name}`,
             state.with((setup) => {
               setup.withSnapshotElement(root);
               setup.withStateElement(root.querySelector('sbb-seat-reservation')!);
@@ -85,7 +85,7 @@ describe('sbb-seat-reservation', () => {
 
         for (const state of visualDiffStandardStates) {
           it(
-            `${state.name}`,
+            `Bus ${state.name}`,
             state.with((setup) => {
               setup.withSnapshotElement(root);
               setup.withStateElement(root.querySelector('sbb-seat-reservation')!);
