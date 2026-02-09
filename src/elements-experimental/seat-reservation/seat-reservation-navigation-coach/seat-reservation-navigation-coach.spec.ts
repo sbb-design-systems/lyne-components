@@ -115,8 +115,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     assert.isNull(el);
   });
 
-  // TODO: Check logic
-  it.skip('should have no outline if not focused', async () => {
+  it('should have no outline if not focused', async () => {
     const btn = element.shadowRoot?.querySelector(
       '.sbb-sr-navigation__ctrl-button',
     ) as HTMLButtonElement;
@@ -124,7 +123,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     await expect(getComputedStyle(btn).outlineWidth).to.be.equal('0px');
   });
 
-  it.skip('should have outline if focused', async () => {
+  it('should have outline if focused', async () => {
     const btn = element.shadowRoot?.querySelector(
       '.sbb-sr-navigation__ctrl-button',
     ) as HTMLButtonElement;
