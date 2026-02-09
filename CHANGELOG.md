@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.4.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.3.1...v4.4.0) (2026-02-09)
+
+
+### Features
+
+* implement TemporalDateAdapter ([#4469](https://github.com/sbb-design-systems/lyne-components/issues/4469)) ([7a9b856](https://github.com/sbb-design-systems/lyne-components/commit/7a9b856730aeb280423bbf6feebde5aa8e48a04d))
+* **sbb-autocomplete, sbb-autocomplete-grid:** enhance 'auto-select-active-option' behavior ([#4476](https://github.com/sbb-design-systems/lyne-components/issues/4476)) ([d3a376f](https://github.com/sbb-design-systems/lyne-components/commit/d3a376f477f12301df738e6242075b8e29d179fd))
+* **sbb-image:** support placing multiple chip labels ([#4460](https://github.com/sbb-design-systems/lyne-components/issues/4460)) ([7bfe437](https://github.com/sbb-design-systems/lyne-components/commit/7bfe4373eaf5a0bcf415bb8b709ebedf42012cc8)), closes [#4451](https://github.com/sbb-design-systems/lyne-components/issues/4451)
+* **sbb-tab-group:** add `fixedHeight` property to enable full height tabs ([#4457](https://github.com/sbb-design-systems/lyne-components/issues/4457)) ([0446da4](https://github.com/sbb-design-systems/lyne-components/commit/0446da4c06605cd2159928e52167533934cd685c))
+
+
+### Bug Fixes
+
+* **sbb-image:** make load event behave like native image ([#4442](https://github.com/sbb-design-systems/lyne-components/issues/4442)) ([084ea29](https://github.com/sbb-design-systems/lyne-components/commit/084ea2916ea32964780fdb1ccfcc7aa34af2b6fa))
+* **sbb-radio-button:** avoid reserving space without label ([#4458](https://github.com/sbb-design-systems/lyne-components/issues/4458)) ([4f87a8b](https://github.com/sbb-design-systems/lyne-components/commit/4f87a8bcfd73e1fd04abc22b692140c6ad99c5dd))
+* **sbb-seat-reservation:** avoid protruding elements and fix overview problem ([#4468](https://github.com/sbb-design-systems/lyne-components/issues/4468)) ([420b3fc](https://github.com/sbb-design-systems/lyne-components/commit/420b3fc8a10d37073e2de8827cadcb0c8d48e2b4))
+* **sbb-select:** avoid displaying `undefined` entry in select ([#4453](https://github.com/sbb-design-systems/lyne-components/issues/4453)) ([0a4a026](https://github.com/sbb-design-systems/lyne-components/commit/0a4a0268c429f46007b1e6046e1b16addd1a419e)), closes [#4444](https://github.com/sbb-design-systems/lyne-components/issues/4444)
+* **sbb-table:** support tables without header ([#4466](https://github.com/sbb-design-systems/lyne-components/issues/4466)) ([4708e27](https://github.com/sbb-design-systems/lyne-components/commit/4708e271e77219a32de1f4f4a0de067e9ad97c44))
+
+
+### Code Refactoring
+
+* **sbb-carousel:** css refactoring ([#4450](https://github.com/sbb-design-systems/lyne-components/issues/4450)) ([c5a3ca1](https://github.com/sbb-design-systems/lyne-components/commit/c5a3ca165a9fcf0fed1548634aca747b7ac879ea))
+* **sbb-chip, sbb-chip-group:** css refactoring ([#4422](https://github.com/sbb-design-systems/lyne-components/issues/4422)) ([28e54f8](https://github.com/sbb-design-systems/lyne-components/commit/28e54f8bb65956ca20fb4a0d2f870994a6c53c08))
+* **sbb-radio-button:** expose gap variable ([#4462](https://github.com/sbb-design-systems/lyne-components/issues/4462)) ([16990af](https://github.com/sbb-design-systems/lyne-components/commit/16990af86dd5f31a7183c3cb30d5460c761ac5cf))
+
 ## [4.3.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.3.0...v4.3.1) (2026-02-03)
 
 
