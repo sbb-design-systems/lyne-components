@@ -26,6 +26,8 @@
 @mixin figure-overlap-base {
   display: flex;
   gap: var(--sbb-spacing-fixed-1x);
+  flex-wrap: wrap;
+  align-content: center;
   margin: var(--sbb-spacing-responsive-xxxs);
 
   // Chips or other image overlaying element should stay in light mode as the image stays in light mode as well.
