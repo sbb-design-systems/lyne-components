@@ -3,9 +3,9 @@
 :host {
   display: inline-flex;
 
-  @include sbb.chip-label-rules;
   @include sbb.chip-label-variables--color-milk;
   @include sbb.chip-label-variables--size-xxs;
+  @include sbb.chip-label-rules;
 }
 
 :host([color='charcoal']) {
