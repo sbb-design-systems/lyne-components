@@ -1,22 +1,25 @@
-/*import {
+import {
   describeEach,
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '@sbb-esta/lyne-elements/core/testing/private.js';*/
+} from '@sbb-esta/lyne-elements/core/testing/private.js';
 import './seat-reservation-navigation-services.component.ts';
-//import { html } from 'lit';
+import { html } from 'lit';
 
 describe('sbb-seat-reservation-navigation-services', () => {
-  /*const propertyIds = ['BISTRO', 'WIFI', 'PRAM'];
+  const propertyIds = ['BISTRO', 'WIFI', 'PRAM'];
 
   const cases = {
-    forcedColors: [false, true],
-    darkMode: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   describeViewports({ viewports: ['large'] }, () => {
-    describeEach(cases, ({ forcedColors, darkMode }) => {
+    describeEach(cases, ({ emulateMedia: { forcedColors, darkMode } }) => {
       for (const state of [visualDiffDefault]) {
         it(
           `state=${state.name}`,
@@ -36,5 +39,5 @@ describe('sbb-seat-reservation-navigation-services', () => {
         );
       }
     });
-  });*/
+  });
 });

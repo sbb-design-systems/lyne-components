@@ -293,6 +293,25 @@ describe(`sbb-toggle`, () => {
 
       expect(firstOption).to.have.attribute('checked');
     });
+
+    it('selects option on Space key pressed', async () => {
+      const changeSpy = new EventSpy('change');
+      const inputSpy = new EventSpy('input');
+
+      firstOption.focus();
+      await waitForLitRender(firstOption);
+      await sendKeys({ press: ' ' });
+      await waitForLitRender(element);
+
+      expect(secondOption).to.have.attribute('checked');
+      await changeSpy.calledOnce();
+      await inputSpy.calledOnce();
+
+      await sendKeys({ press: ' ' });
+      await waitForLitRender(firstOption);
+
+      expect(firstOption).to.have.attribute('checked');
+    });
   });
 
   describe('form association', () => {

@@ -21,10 +21,8 @@ snapshots["sbb-checkbox should render unchecked Shadow DOM"] =
         </sbb-visual-checkbox>
       </span>
       <span class="sbb-checkbox__label">
-        <span class="sbb-checkbox__label--text">
-          <slot>
-          </slot>
-        </span>
+        <slot>
+        </slot>
         <slot name="icon">
         </slot>
       </span>
@@ -58,10 +56,8 @@ snapshots["sbb-checkbox should render checked Shadow DOM"] =
         </sbb-visual-checkbox>
       </span>
       <span class="sbb-checkbox__label">
-        <span class="sbb-checkbox__label--text">
-          <slot>
-          </slot>
-        </span>
+        <slot>
+        </slot>
         <slot name="icon">
         </slot>
       </span>
@@ -95,10 +91,8 @@ snapshots["sbb-checkbox should render indeterminate Shadow DOM"] =
         </sbb-visual-checkbox>
       </span>
       <span class="sbb-checkbox__label">
-        <span class="sbb-checkbox__label--text">
-          <slot>
-          </slot>
-        </span>
+        <slot>
+        </slot>
         <slot name="icon">
         </slot>
       </span>
@@ -132,10 +126,8 @@ snapshots["sbb-checkbox should render unchecked disabled Shadow DOM"] =
         </sbb-visual-checkbox>
       </span>
       <span class="sbb-checkbox__label">
-        <span class="sbb-checkbox__label--text">
-          <slot>
-          </slot>
-        </span>
+        <slot>
+        </slot>
         <slot name="icon">
         </slot>
       </span>

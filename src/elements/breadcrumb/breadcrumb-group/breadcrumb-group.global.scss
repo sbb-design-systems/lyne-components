@@ -1,0 +1,18 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-breadcrumb-group-wrap: nowrap;
+  --sbb-breadcrumb-group-visibility: hidden;
+  --sbb-breadcrumb-group-ellipsis-color: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-cloud)
+  );
+  --sbb-breadcrumb-group-ellipsis-background-color: transparent;
+  --sbb-breadcrumb-group-ellipsis-border-width: var(--sbb-border-width-1x);
+  --sbb-breadcrumb-group-ellipsis-border-color: light-dark(
+    var(--sbb-color-silver),
+    var(--sbb-color-anthracite)
+  );
+}
