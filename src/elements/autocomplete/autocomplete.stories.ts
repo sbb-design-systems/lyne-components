@@ -555,6 +555,7 @@ const meta: Meta = {
         SbbAutocompleteElement.events.close,
         SbbAutocompleteElement.events.beforeclose,
         'change',
+        'input',
         SbbOptionElement.events.optionselected,
       ],
     },
