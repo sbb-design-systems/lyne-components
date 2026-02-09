@@ -861,7 +861,7 @@ describe(`sbb-autocomplete-grid`, () => {
 
         const closeSpy = new EventSpy(SbbAutocompleteGridElement.events.close, element);
 
-        element.open();
+        input.focus();
         await waitForLitRender(element);
         expect(element).to.match(':state(state-opening)');
         await sendKeys({ press: 'Escape' });

@@ -943,7 +943,7 @@ describe(`sbb-autocomplete`, () => {
 
         const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
 
-        element.open();
+        input.focus();
         await waitForLitRender(element);
         expect(element).to.match(':state(state-opening)');
         await sendKeys({ press: 'Escape' });
