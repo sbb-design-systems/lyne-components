@@ -176,9 +176,10 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       >
         ${this._getBtnInformation(currServiceClassNumber)}
       </button>
-      <sbb-screen-reader-only id="nav-coach-service-descriptions-${this.index}"
-        >${ariaDescriptionCoachServices}</sbb-screen-reader-only
-      >`;
+      <sbb-screen-reader-only id="nav-coach-service-descriptions-${this.index}">
+        ${ariaDescriptionCoachServices}
+        ${!this.showTitleInfo ? titleDescriptionNavCoachButton : nothing}
+      </sbb-screen-reader-only>`;
   }
 
   private _getBtnInformation(serviceClassNumber: number | null): TemplateResult | null {
@@ -249,9 +250,10 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     if (this.propertyIds.length) {
       ariaDescription =
         getI18nSeatReservation('COACH_AVAILABLE_SERVICES', this._language.current) + ': ';
-      ariaDescription += this.propertyIds
-        .map((propertyId) => getI18nSeatReservation(propertyId, this._language.current))
-        .join();
+      ariaDescription +=
+        this.propertyIds
+          .map((propertyId) => getI18nSeatReservation(propertyId, this._language.current))
+          .join() + '.';
     }
     return ariaDescription;
   }

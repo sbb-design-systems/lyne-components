@@ -124,6 +124,7 @@ const trainLayersArgs: Args = {
   'base-grid-size': 16,
   height: null,
   'prevent-place-click': false,
+  'show-title-info': false,
 };
 
 export const TrainDecks: StoryObj = {
@@ -152,6 +153,7 @@ const trainDecksDiff: Args = {
   'base-grid-size': 16,
   height: null,
   'prevent-place-click': false,
+  'show-title-info': false,
 };
 export const TrainDifferentDecks: StoryObj = {
   render: Template,
@@ -167,6 +169,7 @@ const trainGirunoArgs: Args = {
   'base-grid-size': 16,
   height: null,
   'prevent-place-click': false,
+  'show-title-info': false,
 };
 
 export const TrainGiruno: StoryObj = {
@@ -182,6 +185,7 @@ const busArgs: Args = {
   'max-seat-reservations': 4,
   'align-vertical': false,
   'prevent-place-click': false,
+  'show-title-info': false,
 };
 
 export const Bus: StoryObj = {

@@ -68,6 +68,8 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   @property({ type: Boolean, reflect: true, useDefault: true })
   public accessor showTitleInfo: boolean = false;
 
+  private _optionalScreenreaderInfo: string = '';
+
   private _language = new SbbLanguageController(this);
 
   public constructor() {
@@ -108,9 +110,12 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
     const inverseRotationPlaceCheckIcon = Number(textRotation) - Number(rotation);
     const disabledClass = this.preventClick ? 'sbb-reservation-place-control--disabled' : null;
 
-    // only set title to the SbbButtonBaseElement if requested
+    // only set title to the SbbButtonBaseElement if requested; otherwise provide the title
+    // information to screen readers via an additional element
     if (this.showTitleInfo) {
       this.title = this._getTitleDescriptionPlace();
+    } else {
+      this._optionalScreenreaderInfo = this._getTitleDescriptionPlace();
     }
 
     this.tabIndex = -1;
@@ -133,6 +138,11 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
         <span ${this.text ?? nothing} class="sbb-sr-place-ctrl__text" aria-hidden="true"
           >${text}</span
         >
+        ${!this.showTitleInfo
+          ? html`<sbb-screen-reader-only id="${this.id}"
+              >${this._optionalScreenreaderInfo}</sbb-screen-reader-only
+            >`
+          : nothing}
       </div>
     `;
   }
