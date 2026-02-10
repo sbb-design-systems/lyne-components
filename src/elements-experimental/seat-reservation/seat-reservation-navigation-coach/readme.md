@@ -53,6 +53,7 @@ The purpose of this component is to be used in the main [sbb-reservation-navigat
 | `nativeFocusActive` | `nativeFocusActive`   | public  | `boolean`                 | `true`                      | Native focus for this navigation coach is also set when the focused property is changed              |
 | `propertyIds`       | `property-ids`        | public  | `string[]`                | `[]`                        | Coach service property ids, which are used to display the services in the navigation                 |
 | `selected`          | `selected`            | public  | `boolean`                 | `false`                     | Select coach property                                                                                |
+| `showTitleInfo`     | `showTitleInfo`       | public  | `boolean`                 | `false`                     | Disable the mouse over title information                                                             |
 | `travelClass`       | `travel-class`        | public  | `PlaceTravelClass[]`      | `['ANY_CLASS']`             | Travel class of the coach                                                                            |
 | `vertical`          | `vertical`            | public  | `boolean`                 | `false`                     | If the coach navigation should be displayed vertically                                               |
 

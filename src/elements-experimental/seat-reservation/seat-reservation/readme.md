@@ -248,18 +248,18 @@ their current position within the reservation area.
 
 ## Properties
 
-| Name                     | Attribute                  | Privacy | Type                | Default | Description                                                     |
-|--------------------------| -------------------------- | ------- | ------------------- |---------|-----------------------------------------------------------------|
-| `alignVertical`          | `align-vertical`           | public  | `boolean`           | `false` | The seat reservation area is aligned vertically                 |
-| `baseGridSize`           | `base-grid-size`           | public  | `number`            | `16`    | The seat reservation area's base grid size                      |
-| `hasNavigation`          | `has-navigation`           | public  | `boolean`           | `true`  | The seat reservation navigation can be toggled by this property |
-| `height`                 | `height`                   | public  | `number`            | `null!` | The seat reservation area's width                               |
-| `maxBicycleReservations` | `max-bicycle-reservations` | public  | `number`            | `-1`    | Maximal number of possible clickable bicycle places             |
-| `maxSeatReservations`    | `max-seat-reservations`    | public  | `number`            | `-1`    | Maximal number of possible clickable seats                      |
-| `preselectCoachIndex`    | `preselect-coach-index`    | public  | `number`            | `-1`    |                                                                 |
-| `preventPlaceClick`      | `prevent-place-click`      | public  | `boolean`           | `false` | Any click functionality is prevented                            |
-| `seatReservations`       | `seat-reservations`        | public  | `SeatReservation[]` | `null!` | The seat reservations array contains all coaches and places     |
-| `showTitleInfo`          | `show-title-info`          | public  | `boolean`           | `false` | Mouseover information visibility can be toggled                 |
+| Name                     | Attribute                  | Privacy | Type                | Default | Description                                                                        |
+| ------------------------ | -------------------------- | ------- | ------------------- | ------- | ---------------------------------------------------------------------------------- |
+| `alignVertical`          | `align-vertical`           | public  | `boolean`           | `false` | The seat reservation area is aligned vertically                                    |
+| `baseGridSize`           | `base-grid-size`           | public  | `number`            | `16`    | The seat reservation area's base grid size                                         |
+| `hasNavigation`          | `has-navigation`           | public  | `boolean`           | `true`  | The seat reservation navigation can be toggled by this property                    |
+| `height`                 | `height`                   | public  | `number`            | `null!` | The seat reservation area's width                                                  |
+| `maxBicycleReservations` | `max-bicycle-reservations` | public  | `number`            | `-1`    | Maximal number of possible clickable bicycle places                                |
+| `maxSeatReservations`    | `max-seat-reservations`    | public  | `number`            | `-1`    | Maximal number of possible clickable seats                                         |
+| `preselectCoachIndex`    | `preselect-coach-index`    | public  | `number`            | `-1`    |                                                                                    |
+| `preventPlaceClick`      | `prevent-place-click`      | public  | `boolean`           | `false` | Any click functionality is prevented                                               |
+| `seatReservations`       | `seat-reservations`        | public  | `SeatReservation[]` | `null!` | The seat reservations array contains all coaches and places                        |
+| `showTitleInfo`          | `show-title-info`          | public  | `boolean`           | `false` | The seat reservation navigations title information can be toggled by this property |
 
 ## Events
 
