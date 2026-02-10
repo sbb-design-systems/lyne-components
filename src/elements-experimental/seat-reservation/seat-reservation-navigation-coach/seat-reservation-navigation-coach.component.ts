@@ -94,6 +94,11 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ type: Boolean, reflect: true, useDefault: true })
   public accessor vertical: boolean = false;
 
+  /** Disable the mouse over title information */
+  @forceType()
+  @property({ type: Boolean, reflect: true, useDefault: true })
+  public accessor showTitleInfo: boolean = false;
+
   private _language = new SbbLanguageController(this);
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -145,6 +150,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
           ? html`<sbb-seat-reservation-navigation-services
               ?vertical="${this.vertical}"
               .propertyIds="${this.propertyIds}"
+              ?showTitleInfo="${this.showTitleInfo}"
             ></sbb-seat-reservation-navigation-services>`
           : nothing}
       </div>
@@ -164,7 +170,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
           'sbb-sr-navigation-driver-area': this.driverArea,
         })}"
         ?disabled="${this.disable}"
-        title="${titleDescriptionNavCoachButton}"
+        title="${this.showTitleInfo ? titleDescriptionNavCoachButton : nothing}"
         type="button"
         aria-describedby="nav-coach-service-descriptions-${this.index}"
       >

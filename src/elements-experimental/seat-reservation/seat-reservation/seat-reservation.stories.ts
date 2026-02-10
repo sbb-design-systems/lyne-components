@@ -82,6 +82,7 @@ const defaultArgs: Args = {
   'base-grid-size': 16,
   height: null,
   'prevent-place-click': false,
+  'show-title-info': false,
 };
 
 const Template = ({ seatReservations, ...args }: Args): TemplateResult =>
