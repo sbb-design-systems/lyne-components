@@ -73,13 +73,13 @@ class SbbCalendarDayElement<T extends Date = Date> extends SbbDisabledMixin(
   }
 
   /**
-   * Intentionally empty, as buttons are not targeted by form reset
+   * Intentionally empty, as buttons are not targeted by form reset.
    * @internal
    */
   public override formResetCallback(): void {}
 
   /**
-   * Intentionally empty, as buttons are not targeted by form restore
+   * Intentionally empty, as buttons are not targeted by form restore.
    * @internal
    */
   public override formStateRestoreCallback(
@@ -93,12 +93,13 @@ class SbbCalendarDayElement<T extends Date = Date> extends SbbDisabledMixin(
   }
 
   /**
-   * The component is meant to be used within the `sbb-calendar` or slotted in the `sbb-calendar-enhanced`
+   * The component is used as default day cell within the `sbb-calendar`,
+   * or,if extra content is need, it can be slotted.
    */
   private _getParent(): SbbCalendarElement | null {
-    const calendarEnhancedParent = this.closest?.<SbbCalendarElement>('sbb-calendar');
-    if (calendarEnhancedParent) {
-      return calendarEnhancedParent;
+    const calendarParent = this.closest?.<SbbCalendarElement>('sbb-calendar');
+    if (calendarParent) {
+      return calendarParent;
     }
     const root = this.getRootNode?.();
     if (root && root instanceof ShadowRoot && root.host.localName === 'sbb-calendar') {

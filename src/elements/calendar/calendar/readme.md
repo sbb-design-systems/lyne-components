@@ -7,6 +7,66 @@ it can be used on its own.
 <sbb-calendar></sbb-calendar>
 ```
 
+## Slots and day customization
+
+The component uses the [sbb-calendar-day](/docs/elements-sbb-calendar-sbb-calendar-day--docs) component
+to render day cells.
+
+Consumers can override this behavior by slotting their own customized `sbb-calendar-day`,
+mainly if some extra content is needed.
+
+The `sbb-calendar` create its own slots based on the month to be displayed;
+during initialization, the month is the current one (if there's no `selected` date)
+so for the first render the slotted `sbb-calendar-days` must match that month.
+For `wide` mode, also the following one must be taken into account.
+
+Each time the month changes due to user interaction with the previous/next month buttons,
+or via selecting a different year and then a month, a `monthchange` event is emitted, typed as `SbbMonthChangeEvent`.
+The event has a `range: Day[]` property, which can be accessed to have information about the days to render.
+Consumers can listen to this event to dynamically create and slot the `sbb-calendar-day`s of the chosen month.
+
+```css
+/* Custom CSS for the extra content */
+.my-custom-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--sbb-color-metal);
+}
+```
+
+```html
+<!-- Slot days based on the current date, or the selected one if available.-->
+<sbb-calendar-enhanced selected="2025-01-15" @monthchange="(e) => monthChangeHandler(e)">
+  <sbb-calendar-day slot="2025-01-01">
+    <span class="sbb-text-xxs my-custom-content"> 19.99 </span>
+  </sbb-calendar-day>
+  <sbb-calendar-day slot="2025-01-02">
+    <span class="sbb-text-xxs my-custom-content"> 9.99 </span>
+  </sbb-calendar-day>
+  ...
+  <sbb-calendar-day slot="2025-01-31">
+    <span class="sbb-text-xxs my-custom-content"> 99.99 </span>
+  </sbb-calendar-day>
+</sbb-calendar-enhanced>
+```
+
+```ts
+function monthChangeHandler(e: SbbMonthChangeEvent): void {
+  const calendar = e.target;
+  // Remove slotted days to keep the DOM clean.
+  Array.from(calendar.children).forEach((e) => e.remove());
+  // Add the new days
+  e.range.map((day) => {
+    const child = document.createElement('sbb-calendar-day');
+    // The day.value property is the date in ISO8601 format,
+    // the correct one for the `sbb-calendar-day`'s slot property.
+    child.setAttribute('slot', day.value);
+    calendar.appendChild(child);
+  });
+}
+```
+
 ## Configuration
 
 It's possible to set a date using the `dateSelected` property. Also, it's possible to place limits on the selection
@@ -101,6 +161,8 @@ so on the left side in `horizontal` and on top in `vertical`.
 
 Consumers can listen to the `dateselected` event on the `sbb-calendar` component to intercept the selected date
 which can be read from `event.detail`.
+Check the [Slot and day customization](docs/elements-sbb-calendar-sbb-calendar--docs#slots-and-day-customization) paragraph
+for more information about the `monthchange` event.
 
 ## Keyboard interaction
 
@@ -167,3 +229,9 @@ For accessibility purposes, the component is rendered as a native table element 
 | -------------- | ----------------------- | ----------------------------------------------------------------------------------------------- | -------------- |
 | `dateselected` | `CustomEvent<T \| T[]>` | Event emitted on date selection.                                                                |                |
 | `monthchange`  | `SbbMonthChangeEvent`   | Emits when the month changes. The `range` property contains the days array of the chosen month. |                |
+
+## Slots
+
+| Name | Description                                                         |
+| ---- | ------------------------------------------------------------------- |
+|      | Use the unnamed slot to add customized `sbb-calendar-day` elements. |

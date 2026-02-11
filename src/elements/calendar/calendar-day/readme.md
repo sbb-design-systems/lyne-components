@@ -1,10 +1,12 @@
-The `sbb-calendar-day` is a component used to display a customizable day button
-inside a [sbb-calendar-enhanced](/docs/elements-sbb-calendar-sbb-calendar-enhanced--docs).
+The `sbb-calendar-day` is a component used to display a day button
+inside the [sbb-calendar](/docs/elements-sbb-calendar-sbb-calendar--docs).
 The slot name is mandatory, and it requires a date in ISO8601 format (e.g. 2025-01-01).
 
 ```html
 <sbb-calendar-day slot="2025-01-01"></sbb-calendar-day>
 ```
+
+If extra content is needed, consumers can customize the component and slot it in the `sbb-calendar`.
 
 ## Slots
 
@@ -26,14 +28,11 @@ Styling the content is on consumer side.
 </sbb-calendar-day>
 ```
 
-If the [sbb-calendar-enhanced](/docs/elements-sbb-calendar-sbb-calendar-enhanced--docs) is used in a popover, similarly to the `sbb-datepicker`,
-consumers could add the `sbb-popover-close` attribute on the component to close the popover when a `sbb-calendar-day` is clicked.
-
 ## States
 
 The component has a `current` state, which is set if the slot name matches the current day.
 
-Also, it has other states based on the properties of the parent `sbb-calendar-enhanced`.
+Also, it has other states based on the properties of the parent `sbb-calendar`.
 The disabled and the crossed-out states are based on the value of the `min`, `max` and `dateFilter` properties,
 while the selected matches the parent `selected` properties, including the multiple variant.
 

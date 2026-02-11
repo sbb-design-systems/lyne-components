@@ -127,6 +127,8 @@ export type CalendarView = 'day' | 'month' | 'year';
 
 /**
  * It displays a calendar which allows choosing a date.
+ *
+ * @slot - Use the unnamed slot to add customized `sbb-calendar-day` elements.
  */
 export
 @customElement('sbb-calendar')
