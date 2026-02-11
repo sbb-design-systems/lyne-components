@@ -1,12 +1,12 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
-import { nothing, type TemplateResult } from 'lit';
+import { type TemplateResult } from 'lit';
 import { html } from 'lit';
-import { repeat } from 'lit/directives/repeat.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 import { defaultDateAdapter } from '../../core/datetime.ts';
+import { createSlottedDays, priceStyle } from '../calendar-day/calendar-day.helper.private.ts';
 
 import type { SbbMonthChangeEvent } from './calendar.component.ts';
 import { SbbCalendarElement } from './calendar.component.ts';
@@ -14,16 +14,6 @@ import readme from './readme.md?raw';
 
 const today = new Date();
 today.setDate(today.getDate() >= 15 ? 8 : 18);
-
-const priceStyle = (greenBold: boolean): string => {
-  return `display: flex; flex-direction: column; justify-content: center; ${greenBold ? 'color: var(--sbb-color-green); font-weight: bold;' : 'color: var(--sbb-color-metal);'}`;
-};
-
-const createPrice = (greenBold: boolean): TemplateResult => {
-  return html`
-    <span class="sbb-text-xxs" style=${priceStyle(greenBold)}>${greenBold ? '99.-' : '123.-'}</span>
-  `;
-};
 
 const monthChangeHandler = (e: SbbMonthChangeEvent, withPrice: boolean): void => {
   const calendar = e.target as SbbCalendarElement;
@@ -42,39 +32,19 @@ const monthChangeHandler = (e: SbbMonthChangeEvent, withPrice: boolean): void =>
   });
 };
 
-const createDaysTemplate = (
-  numDays: number,
-  year: number,
-  month: number,
-  withPrice: boolean,
-): TemplateResult => {
-  return html`
-    ${repeat(new Array(numDays), (_, index) => {
-      const date = defaultDateAdapter.toIso8601(new Date(year, month - 1, index + 1));
-      return html`
-        <sbb-calendar-day slot=${date}>
-          ${withPrice ? createPrice((index + 1) % 9 === 0) : nothing}
-        </sbb-calendar-day>
-      `;
-    })}
-  `;
-};
-
 const createDays = (wide: boolean, withPrice: boolean): TemplateResult => {
-  const numDays = defaultDateAdapter.getNumDaysInMonth(today);
   const year = defaultDateAdapter.getYear(today);
   const month = defaultDateAdapter.getMonth(today);
   if (wide) {
     const todayNextMonth = defaultDateAdapter.addCalendarMonths(today, 1);
-    const numDaysNextMonth = defaultDateAdapter.getNumDaysInMonth(todayNextMonth);
     const yearNextMonth = defaultDateAdapter.getYear(todayNextMonth);
     const nextMonth = defaultDateAdapter.getMonth(todayNextMonth);
     return html`
-      ${createDaysTemplate(numDays, year, month, withPrice)}
-      ${createDaysTemplate(numDaysNextMonth, yearNextMonth, nextMonth, withPrice)}
+      ${createSlottedDays(year, month, withPrice)}
+      ${createSlottedDays(yearNextMonth, nextMonth, withPrice)}
     `;
   } else {
-    return createDaysTemplate(numDays, year, month, withPrice);
+    return createSlottedDays(year, month, withPrice);
   }
 };
 
@@ -122,7 +92,7 @@ const EnhancedTemplate = ({
   multiple,
   selected,
   dateFilter,
-  withPrice = false,
+  withPrice,
   ...args
 }: Args): TemplateResult => {
   if (selected) {
@@ -249,6 +219,13 @@ const dateFilter: InputType = {
   },
 };
 
+const withPrice: InputType = {
+  control: 'boolean',
+  table: {
+    category: 'Enhanced',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   wide,
   'week-numbers': weekNumbers,
@@ -259,6 +236,7 @@ const defaultArgTypes: ArgTypes = {
   max,
   dateFilter,
   view,
+  withPrice,
 };
 
 const defaultArgs: Args = {
@@ -268,16 +246,11 @@ const defaultArgs: Args = {
   view: view.options![0],
   'week-numbers': false,
   multiple: false,
+  withPrice: false,
 };
 
 export const Calendar: StoryObj = {
   render: Template,
-  argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs },
-};
-
-export const CalendarEnhanced: StoryObj = {
-  render: EnhancedTemplate,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs },
 };
@@ -384,6 +357,42 @@ export const CalendarVerticalWideWeekNumbersMultiple: StoryObj = {
     multiple: true,
     selected: [today],
   },
+};
+
+export const CalendarEnhanced: StoryObj = {
+  render: EnhancedTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs },
+};
+
+export const CalendarEnhancedExtraContent: StoryObj = {
+  render: EnhancedTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, withPrice: true },
+};
+
+export const CalendarEnhancedVertical: StoryObj = {
+  render: EnhancedTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, orientation: orientation.options![1] },
+};
+
+export const CalendarEnhancedWide: StoryObj = {
+  render: EnhancedTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, wide: true },
+};
+
+export const CalendarEnhancedWideWeekNumbers: StoryObj = {
+  render: EnhancedTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, wide: true, 'week-numbers': true },
+};
+
+export const CalendarEnhancedWideWeekNumbersMultiple: StoryObj = {
+  render: EnhancedTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, wide: true, 'week-numbers': true, multiple: true, selected: [today] },
 };
 
 const meta: Meta = {
