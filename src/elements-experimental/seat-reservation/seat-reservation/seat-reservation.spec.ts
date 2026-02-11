@@ -457,7 +457,7 @@ describe(`sbb-seat-reservation`, () => {
       ) as HTMLElement;
 
       expect(placeControl).not.to.be.null;
-      expect(placeControl).attribute('title').to.be.null;
+      expect(placeControl).to.not.have.attribute('title');
     });
   });
 });
