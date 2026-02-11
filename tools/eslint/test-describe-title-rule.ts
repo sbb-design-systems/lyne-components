@@ -6,7 +6,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
       ['Program > ExpressionStatement > CallExpression > Identifier[name="describe"]'](
         node: TSESTree.Identifier,
       ) {
-        const fileName = context.getFilename();
+        const fileName = context.filename;
         const expression = node.parent as TSESTree.CallExpression;
         const expressionArguments = expression.arguments;
         const componentName = fileName.match(/.*\/([^.]+).*\.spec\.ts$/)?.[1];
@@ -24,7 +24,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
          * @param node
          */
         function getTemplateLiteralRawString(node: TSESTree.TemplateLiteral): string {
-          return context.getSourceCode().text.substring(node.range[0] + 1, node.range[1] - 1);
+          return context.sourceCode.text.substring(node.range[0] + 1, node.range[1] - 1);
         }
 
         const currentTitle =

@@ -834,8 +834,11 @@ function buildNginxConfig(pkg: PackageBuilder): void {
     .join(' ');
 
   const configTemplate = readFileSync(join(projectRoot, '.github/default.conf'), 'utf8');
+  // This is intentionally not the same directory as the docs output
+  const configTarget = join(`${pkg.outDir}-nginx`, 'default.conf');
+  mkdirSync(dirname(configTarget), { recursive: true });
   writeFileSync(
-    join(pkg.outDir, 'default.conf'),
+    configTarget,
     configTemplate.replace(`script-src 'self';`, `script-src 'self' ${scriptHash};`),
     'utf8',
   );
