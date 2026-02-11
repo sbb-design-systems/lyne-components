@@ -1,11 +1,7 @@
 @use '../core/styles' as sbb;
 
 :host {
-  display: inline-flex;
-
-  @include sbb.chip-label-variables--color-milk;
-  @include sbb.chip-label-variables--size-xxs;
-  @include sbb.chip-label-rules;
+  display: inline-block;
 }
 
 :host([color='charcoal']) {
@@ -26,6 +22,12 @@
 
 :host([size='s']) {
   @include sbb.chip-label-variables--size-s;
+}
+
+.sbb-chip-label {
+  @include sbb.chip-label-rules;
+
+  display: flex;
 }
 
 .sbb-chip__text-wrapper {
