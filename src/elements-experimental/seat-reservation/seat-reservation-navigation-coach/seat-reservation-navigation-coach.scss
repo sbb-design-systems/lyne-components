@@ -227,6 +227,11 @@ $disabled: '[disabled], :disabled';
 
   @include sbb.if-forced-colors {
     color: var(--sbb-color-milk);
+
+    .sbb-sr-navigation__item-coach-travelclass {
+      border: solid 1px;
+      border-radius: var(--sbb-border-radius-1x);
+    }
   }
 }
 

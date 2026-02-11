@@ -137,6 +137,29 @@ $disabled: '.sbb-reservation-place-control--disabled';
 @include sbb-sr-mixins.rotate-dom-part(svg-place);
 
 .sbb-sr-place-ctrl {
+  @include sbb.if-forced-colors {
+    &--state-free {
+      ::part(svg-place) {
+        fill: black !important;
+      }
+
+      ::part(svg-backrest) {
+        fill: white !important;
+      }
+    }
+
+    &--state-allocated,
+    &--state-restricted {
+      ::part(svg-place) {
+        fill: black !important;
+      }
+
+      ::part(svg-backrest) {
+        fill: var(--sbb-color-smoke) !important;
+      }
+    }
+  }
+
   $root: &;
 
   width: max-content;
