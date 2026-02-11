@@ -163,7 +163,8 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       this._getTitleDescriptionNavCoachButton(currServiceClassNumber);
     const ariaDescriptionCoachServices = this._getAriaDescriptionCoachServices();
 
-    return html` <button
+    return html`
+      <button
         @click=${() => this._selectNavCoach(this.index)}
         class="${classMap({
           'sbb-sr-navigation__ctrl-button': true,
@@ -175,11 +176,12 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
         aria-describedby="nav-coach-service-descriptions-${this.index}"
       >
         ${this._getBtnInformation(currServiceClassNumber)}
+        <sbb-screen-reader-only id="nav-coach-service-descriptions-${this.index}">
+          ${ariaDescriptionCoachServices}
+          ${!this.showTitleInfo ? titleDescriptionNavCoachButton : nothing}
+        </sbb-screen-reader-only>
       </button>
-      <sbb-screen-reader-only id="nav-coach-service-descriptions-${this.index}">
-        ${ariaDescriptionCoachServices}
-        ${!this.showTitleInfo ? titleDescriptionNavCoachButton : nothing}
-      </sbb-screen-reader-only>`;
+    `;
   }
 
   private _getBtnInformation(serviceClassNumber: number | null): TemplateResult | null {
