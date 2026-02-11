@@ -130,10 +130,13 @@ export type CalendarView = 'day' | 'month' | 'year';
  */
 export
 @customElement('sbb-calendar')
-class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
+class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
+  SbbElementInternalsMixin(LitElement),
+) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     dateselected: 'dateselected',
+    monthchange: 'monthchange',
   } as const;
 
   /** If set to true, two months are displayed */
@@ -273,11 +276,17 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
   /** An array containing the weeks' numbers for the next month in wide mode. */
   private _nextMonthWeekNumbers!: number[];
 
+  private _enhancedVariant: boolean = false;
+
   /** A list of buttons corresponding to days, months or years depending on the view. */
   private get _cells(): (HTMLButtonElement | SbbCalendarDayElement)[] {
     return (
       (this._calendarView === 'day'
-        ? Array.from(this.shadowRoot!.querySelectorAll<SbbCalendarDayElement>('sbb-calendar-day'))
+        ? Array.from(
+            this._getRootForQuerySelector().querySelectorAll<SbbCalendarDayElement>(
+              'sbb-calendar-day',
+            ),
+          )
         : Array.from(
             this.shadowRoot!.querySelectorAll<HTMLButtonElement>('.sbb-calendar__cell'),
           )) ?? []
@@ -317,6 +326,23 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
     // For shadow DOM compatibility we need to track this programmatically.
     this.addEventListener('focusin', () => (this._containingFocus = true));
     this.addEventListener('focusout', () => (this._containingFocus = false));
+    this.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).localName === 'sbb-calendar-day') {
+        this._selectDate((e.target as SbbCalendarDayElement).value! as T);
+      }
+    });
+    this.addEventListener('keydown', (e) => {
+      if ((e.target as HTMLElement).localName === 'sbb-calendar-day') {
+        this._handleKeyboardEvent(
+          e,
+          this.mapDateToDay((e.target as SbbCalendarDayElement).value! as T),
+        );
+      }
+    });
+  }
+
+  private _getRootForQuerySelector(): this | ShadowRoot {
+    return this._enhancedVariant ? this : this.shadowRoot!;
   }
 
   private _dateFilter(date: T): boolean {
@@ -332,6 +358,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
   public override connectedCallback(): void {
     super.connectedCallback();
     this.resetPosition();
+    this.shadowRoot?.addEventListener('slotchange', this._onSlotChange, { capture: true });
+  }
+
+  public override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.shadowRoot?.removeEventListener('slotchange', this._onSlotChange, { capture: true });
   }
 
   /** @internal */
@@ -368,6 +400,14 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
     // We need to call `_focusCell()` method explicitly to correctly set the focus.
     this._focusCell();
   }
+
+  private _onSlotChange = (): void => {
+    // fixme handle case of removal of all days
+    if (!this._enhancedVariant) {
+      this._enhancedVariant = true;
+    }
+    this._setTabIndex();
+  };
 
   /**
    * The `_selected` state should be adapted when the `multiple` property changes:
@@ -769,6 +809,21 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
     );
   }
 
+  private _emitMonthChange(): void {
+    // FIXME: the name of this variable appears as event name in the readme
+    //  due to a bug in the custom-elements-manifest library.
+    //  https://github.com/open-wc/custom-elements-manifest/issues/149
+    const monthchange = (this.wide ? [...this._weeks, ...this._nextMonthWeeks] : this._weeks)
+      .flat()
+      .sort((a, b) => a.value.localeCompare(b.value));
+    /**
+     * @type {SbbMonthChangeEvent}
+     * Emits when the month changes.
+     * The `range` property contains the days array of the chosen month.
+     */
+    this.dispatchEvent(new SbbMonthChangeEvent(monthchange));
+  }
+
   /**
    * In case of multiple selection, newly added days must be added to the existing ones, without duplication.
    * If the days to add are exactly the same as the selected ones, the set must be emptied.
@@ -815,6 +870,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
   /** Goes to the month identified by the shift. */
   private _goToDifferentMonth(months: number): void {
     this._init(this._dateAdapter.addCalendarMonths(this._activeDate, months));
+    this._emitMonthChange();
   }
 
   private _goToDifferentYear(years: number): void {
@@ -902,16 +958,16 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
   }
 
   private _handleTableBlur(eventTarget: HTMLElement): void {
-    if (eventTarget?.localName !== 'button') {
+    if (eventTarget?.localName !== 'sbb-calendar-day') {
       this._setTabIndex();
     }
   }
 
   private _setTabIndex(): void {
     const query = this._calendarView === 'day' ? 'sbb-calendar-day' : '.sbb-calendar__cell';
-    Array.from(this.shadowRoot!.querySelectorAll(`${query}[tabindex="0"]`) ?? []).forEach(
-      (day) => ((day as HTMLButtonElement | SbbCalendarDayElement).tabIndex = -1),
-    );
+    Array.from(
+      this._getRootForQuerySelector().querySelectorAll(`${query}[tabindex="0"]`) ?? [],
+    ).forEach((day) => ((day as HTMLButtonElement | SbbCalendarDayElement).tabIndex = -1));
     const firstFocusable = this._getFirstFocusable();
     if (firstFocusable) {
       firstFocusable.tabIndex = 0;
@@ -920,10 +976,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
 
   /** Get the element in the calendar to assign focus. */
   private _getFirstFocusable(): SbbCalendarDayElement | HTMLButtonElement | null {
+    const root = this._getRootForQuerySelector();
     if (this._calendarView === 'day') {
       const selectedOrCurrent =
-        this.shadowRoot!.querySelector<SbbCalendarDayElement>(':state(selected)') ??
-        this.shadowRoot!.querySelector<SbbCalendarDayElement>(':state(current)');
+        root.querySelector<SbbCalendarDayElement>(':state(selected)') ??
+        root.querySelector<SbbCalendarDayElement>(':state(current)');
       return selectedOrCurrent && !selectedOrCurrent.disabled
         ? selectedOrCurrent
         : this._getFirstFocusableDay();
@@ -946,7 +1003,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
    */
   private _getFirstFocusableDay(): SbbCalendarDayElement | null {
     const daysInView: SbbCalendarDayElement[] = Array.from(
-      this.shadowRoot!.querySelectorAll('sbb-calendar-day:not([disabled])'),
+      this._getRootForQuerySelector().querySelectorAll('sbb-calendar-day:not([disabled])'),
     );
     if (!daysInView || daysInView.length === 0) {
       return null;
@@ -954,7 +1011,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
       const firstElement = daysInView
         .map((e: SbbCalendarDayElement): string => this._dateAdapter.toIso8601(e.value! as T))
         .sort()[0];
-      return this.shadowRoot!.querySelector(`sbb-calendar-day[slot="${firstElement}"]`);
+      return this._getRootForQuerySelector().querySelector(
+        `sbb-calendar-day[slot="${firstElement}"]`,
+      );
     }
   }
 
@@ -973,7 +1032,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
     } else {
       nextEl = this._navigateByKeyboard(event, index, cells as HTMLButtonElement[]);
     }
-    const activeEl = this.shadowRoot!.activeElement as HTMLButtonElement | SbbCalendarDayElement;
+    const activeEl = (this._enhancedVariant ? document : this.shadowRoot!).activeElement as
+      | HTMLButtonElement
+      | SbbCalendarDayElement;
     if (nextEl !== activeEl) {
       nextEl.tabIndex = 0;
       nextEl?.focus();
@@ -1248,6 +1309,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
     return !days[nextIndex].disabled
       ? days[nextIndex]
       : this._findNext(days, nextIndex, -verticalOffset);
+  }
+
+  private _resetCalendarViewAndEmitMonthChange(initTransition = false): void {
+    this._resetCalendarView(initTransition);
+    this._emitMonthChange();
   }
 
   private _resetCalendarView(initTransition = false): void {
@@ -1589,12 +1655,14 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
     return week.map((day: Day<T>) => {
       return html`
         <td>
-          <sbb-calendar-day
-            slot=${day.value}
-            @click=${() => this._selectDate(day.dateValue)}
-            @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, day)}
-            sbb-popover-close
-          ></sbb-calendar-day>
+          <slot name=${day.value}>
+            <sbb-calendar-day
+              slot=${day.value}
+              @click=${() => this._selectDate(day.dateValue)}
+              @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, day)}
+              sbb-popover-close
+            ></sbb-calendar-day>
+          </slot>
         </td>
       `;
     });
@@ -1634,7 +1702,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
         id="sbb-calendar__month-selection"
         class="sbb-calendar__controls-change-date"
         aria-label=${`${i18nCalendarDateSelection[this._language.current]} ${this._chosenYear}`}
-        @click=${() => this._resetCalendarView(true)}
+        @click=${() => this._resetCalendarViewAndEmitMonthChange(true)}
       >
         ${this._chosenYear} ${this._wide ? ` - ${this._chosenYear! + 1}` : nothing}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>
@@ -1734,6 +1802,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
       ),
     );
     this._startTableTransition();
+    this._emitMonthChange();
   }
 
   /** Render the view for the year selection. */
@@ -1792,7 +1861,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
         id="sbb-calendar__year-selection"
         class="sbb-calendar__controls-change-date"
         aria-label="${i18nCalendarDateSelection[this._language.current]} ${yearLabel}"
-        @click=${() => this._resetCalendarView(true)}
+        @click=${() => this._resetCalendarViewAndEmitMonthChange(true)}
       >
         ${yearLabel}
         <sbb-icon name="chevron-small-up-small"></sbb-icon>

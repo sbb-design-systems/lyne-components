@@ -1,14 +1,82 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 import { defaultDateAdapter } from '../../core/datetime.ts';
 
+import type { SbbMonthChangeEvent } from './calendar.component.ts';
 import { SbbCalendarElement } from './calendar.component.ts';
 import readme from './readme.md?raw';
+
+const today = new Date();
+today.setDate(today.getDate() >= 15 ? 8 : 18);
+
+const priceStyle = (greenBold: boolean): string => {
+  return `display: flex; flex-direction: column; justify-content: center; ${greenBold ? 'color: var(--sbb-color-green); font-weight: bold;' : 'color: var(--sbb-color-metal);'}`;
+};
+
+const createPrice = (greenBold: boolean): TemplateResult => {
+  return html`
+    <span class="sbb-text-xxs" style=${priceStyle(greenBold)}>${greenBold ? '99.-' : '123.-'}</span>
+  `;
+};
+
+const monthChangeHandler = (e: SbbMonthChangeEvent, withPrice: boolean): void => {
+  const calendar = e.target as SbbCalendarElement;
+  Array.from(calendar.children).forEach((e) => e.remove());
+  e.range?.map((day) => {
+    const child = document.createElement('sbb-calendar-day');
+    child.setAttribute('slot', day.value);
+    if (withPrice) {
+      const price = document.createElement('span');
+      price.className = 'sbb-text-xxs';
+      price.textContent = +day.dayValue % 9 === 0 ? '99.-' : '123.-';
+      price.style = priceStyle(+day.dayValue % 9 === 0);
+      child.appendChild(price);
+    }
+    calendar.appendChild(child);
+  });
+};
+
+const createDaysTemplate = (
+  numDays: number,
+  year: number,
+  month: number,
+  withPrice: boolean,
+): TemplateResult => {
+  return html`
+    ${repeat(new Array(numDays), (_, index) => {
+      const date = defaultDateAdapter.toIso8601(new Date(year, month - 1, index + 1));
+      return html`
+        <sbb-calendar-day slot=${date}>
+          ${withPrice ? createPrice((index + 1) % 9 === 0) : nothing}
+        </sbb-calendar-day>
+      `;
+    })}
+  `;
+};
+
+const createDays = (wide: boolean, withPrice: boolean): TemplateResult => {
+  const numDays = defaultDateAdapter.getNumDaysInMonth(today);
+  const year = defaultDateAdapter.getYear(today);
+  const month = defaultDateAdapter.getMonth(today);
+  if (wide) {
+    const todayNextMonth = defaultDateAdapter.addCalendarMonths(today, 1);
+    const numDaysNextMonth = defaultDateAdapter.getNumDaysInMonth(todayNextMonth);
+    const yearNextMonth = defaultDateAdapter.getYear(todayNextMonth);
+    const nextMonth = defaultDateAdapter.getMonth(todayNextMonth);
+    return html`
+      ${createDaysTemplate(numDays, year, month, withPrice)}
+      ${createDaysTemplate(numDaysNextMonth, yearNextMonth, nextMonth, withPrice)}
+    `;
+  } else {
+    return createDaysTemplate(numDays, year, month, withPrice);
+  }
+};
 
 const getCalendarAttr = (min: number | string, max: number | string): Record<string, string> => {
   const attr: Record<string, string> = {};
@@ -45,6 +113,43 @@ const Template = ({ min, max, multiple, selected, dateFilter, ...args }: Args): 
       ${sbbSpread(getCalendarAttr(min, max))}
       ${sbbSpread(args)}
     ></sbb-calendar>
+  `;
+};
+
+const EnhancedTemplate = ({
+  min,
+  max,
+  multiple,
+  selected,
+  dateFilter,
+  withPrice = false,
+  ...args
+}: Args): TemplateResult => {
+  if (selected) {
+    if (multiple) {
+      if (!Array.isArray(selected)) {
+        selected = [new Date(selected)];
+      } else {
+        selected = selected.map((e) => new Date(e));
+      }
+    } else {
+      if (Array.isArray(selected)) {
+        selected = new Date(selected[0]);
+      } else {
+        selected = new Date(selected);
+      }
+    }
+  }
+  return html`
+    <sbb-calendar
+      ?multiple=${multiple}
+      .selected=${selected}
+      .dateFilter="${dateFilter}"
+      ${sbbSpread(getCalendarAttr(min, max))}
+      ${sbbSpread(args)}
+      @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e, withPrice)}
+      >${createDays(args.wide, withPrice)}</sbb-calendar
+    >
   `;
 };
 
@@ -156,9 +261,6 @@ const defaultArgTypes: ArgTypes = {
   view,
 };
 
-const today = new Date();
-today.setDate(today.getDate() >= 15 ? 8 : 18);
-
 const defaultArgs: Args = {
   wide: false,
   orientation: orientation.options![0],
@@ -170,6 +272,12 @@ const defaultArgs: Args = {
 
 export const Calendar: StoryObj = {
   render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs },
+};
+
+export const CalendarEnhanced: StoryObj = {
+  render: EnhancedTemplate,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs },
 };
@@ -282,7 +390,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbCalendarElement.events.dateselected],
+      handles: [SbbCalendarElement.events.dateselected, SbbCalendarElement.events.monthchange],
     },
     docs: {
       extractComponentDescription: () => readme,
