@@ -44,7 +44,6 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
   } as const;
 
   private _tabGroupElement!: HTMLElement;
-  private _tabContentElement!: HTMLElement;
   private _tabGroupResizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,
@@ -209,7 +208,7 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
    * @internal
    */
   protected setTabContentHeight(contentHeight: number): void {
-    this._tabContentElement.style.height = `${contentHeight}px`;
+    this.style.setProperty('--sbb-tab-content-height', `${contentHeight}px`);
   }
 
   protected override render(): TemplateResult {
@@ -221,10 +220,7 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
       >
         <slot name="tab-bar" @slotchange=${this._onLabelSlotChange}></slot>
       </div>
-      <div
-        class="sbb-tab-group-content"
-        ${ref((el?: Element) => (this._tabContentElement = el as HTMLElement))}
-      >
+      <div class="sbb-tab-group-content">
         <slot @slotchange=${throttle(this._onContentSlotChange, 150)}></slot>
       </div>
     `;
