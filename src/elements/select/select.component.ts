@@ -151,8 +151,8 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
-  private _originElement!: HTMLElement;
-  private _triggerElement!: HTMLElement;
+  private _originElement: HTMLElement | null = null;
+  private _triggerElement: HTMLElement | null = null;
   private _openPanelEventsController?: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _overlayId = `sbb-select-${++nextId}`;
@@ -168,8 +168,8 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
    * The 'combobox' input element
    * @internal
    */
-  public get inputElement(): HTMLElement {
-    return this._triggerElement;
+  public get inputElement(): HTMLElement | null {
+    return this._triggerElement ?? null;
   }
 
   /** Returns all SbbOptionElements from this sbb-select instance. */
@@ -458,7 +458,9 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   public override disconnectedCallback(): void {
     // Take back the trigger element previously moved to the light DOM.
     // Due to timing issues, this needs to be done before calling super.disconnectedCallback().
-    this.prepend(this._triggerElement);
+    if (this._triggerElement) {
+      this.prepend(this._triggerElement);
+    }
     super.disconnectedCallback();
     this._openPanelEventsController?.abort();
   }
@@ -558,10 +560,15 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
    */
   private _setupTrigger(): void {
     // Move the trigger before the sbb-select
-    this.parentElement!.insertBefore?.(this._triggerElement, this);
+    if (this.parentElement && this._triggerElement) {
+      this.parentElement.insertBefore?.(this._triggerElement, this);
+    }
   }
 
   private _setOverlayPosition(): void {
+    if (!this._originElement) {
+      return;
+    }
     setOverlayPosition(
       this._overlay,
       this._originElement,
@@ -583,7 +590,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this._triggerElement.setAttribute('aria-expanded', 'true');
+    this._triggerElement?.setAttribute('aria-expanded', 'true');
     if (this._originElement) {
       this._originResizeObserver.observe(this._originElement);
     }
@@ -593,7 +600,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _handleClosing(): void {
     this.state = 'closed';
     this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.hidePopover?.();
-    this._triggerElement.setAttribute('aria-expanded', 'false');
+    this._triggerElement?.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
     this._optionContainer.scrollTop = 0;
     this._escapableOverlayController.disconnect();
@@ -829,7 +836,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
     if (setActiveDescendant) {
-      this._triggerElement.setAttribute('aria-activedescendant', nextActiveOption.id);
+      this._triggerElement?.setAttribute('aria-activedescendant', nextActiveOption.id);
     }
 
     // Reset the previous
@@ -856,7 +863,7 @@ class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       activeElement.setActive(false);
     }
     this._activeItemIndex = -1;
-    this._triggerElement.removeAttribute('aria-activedescendant');
+    this._triggerElement?.removeAttribute('aria-activedescendant');
   }
 
   // Check if the pointerdown event target is triggered on the menu.
