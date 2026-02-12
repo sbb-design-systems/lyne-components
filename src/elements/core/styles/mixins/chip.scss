@@ -41,8 +41,6 @@
 }
 
 @mixin chip-label-rules {
-  @include typo.text;
-
   // We need an even value to make it work smoothly in Safari
   line-height: 2;
   display: inline-flex;
@@ -57,6 +55,7 @@
   border-radius: var(--sbb-border-radius-infinity);
   color: var(--sbb-chip-label-color);
   font-size: var(--sbb-chip-label-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 
   // Overflow hidden needed because line-height can be taller than height which can cause weird layout shifting
   overflow: hidden;
