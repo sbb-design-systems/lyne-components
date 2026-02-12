@@ -7,12 +7,13 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import images from '../core/images.ts';
 
-import placeholderImage from './assets/placeholder.png';
 import readme from './readme.md?raw';
 import '../chip-label.ts';
 import '../image.ts';
 import '../title.ts';
 import './teaser.component.ts';
+
+const placeholderImage = new URL('./assets/placeholder.png?url', import.meta.url).href;
 
 const loremIpsum: string = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
 invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
