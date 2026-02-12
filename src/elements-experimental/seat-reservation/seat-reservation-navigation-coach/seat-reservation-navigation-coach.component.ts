@@ -250,7 +250,8 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     if (this.propertyIds.length) {
       ariaDescription =
         getI18nSeatReservation('COACH_AVAILABLE_SERVICES', this._language.current) + ': ';
-      ariaDescription += this.propertyIds
+      ariaDescription +=
+        this.propertyIds
           .map((propertyId) => getI18nSeatReservation(propertyId, this._language.current))
           .join() + '.';
     }
