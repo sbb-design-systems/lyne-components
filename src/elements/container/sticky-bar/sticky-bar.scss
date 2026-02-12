@@ -8,10 +8,6 @@ $intersector-overlapping: 1px;
 // but not considering the real sticking state.
 
 :host {
-  --sbb-sticky-bar-position: sticky;
-  --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xs);
-  --sbb-sticky-bar-border-radius: var(--sbb-border-radius-8x);
-  --sbb-sticky-bar-animation-easing: var(--sbb-animation-easing);
   --sbb-sticky-bar-fade-in-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-5x)
@@ -24,14 +20,9 @@ $intersector-overlapping: 1px;
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
   );
-  --sbb-sticky-bar-slide-vertically-animation-easing: ease-out;
-  --sbb-sticky-bar-slide-vertically-animation-delay: 0s;
-  --sbb-sticky-bar-slide-vertically-animation-name: unset;
   --_sbb-sticky-bar-background-animation-duration: var(
     --sbb-sticky-bar-fade-out-animation-duration
   );
-  --_sbb-sticky-bar-intersector-background-color: transparent;
-  --_sbb-sticky-bar-forced-colors-border: none;
 
   // Display contents needed to get the sticky bar sticky.
   display: contents;
@@ -39,6 +30,10 @@ $intersector-overlapping: 1px;
 
 :host([size='s']) {
   --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xxxs);
+}
+
+:host([size='m']) {
+  --sbb-sticky-bar-padding-block: var(--sbb-spacing-responsive-xs);
 }
 
 :host(:state(sticking):not(:state(state-unsticky))) {
@@ -143,7 +138,7 @@ $intersector-overlapping: 1px;
       var(--sbb-sticky-bar-animation-easing);
 
     // Display a border on high contrast mode.
-    border: var(--_sbb-sticky-bar-forced-colors-border);
+    border: var(--_sbb-sticky-bar-forced-colors-border, none);
   }
 }
 
@@ -195,7 +190,7 @@ $intersector-overlapping: 1px;
     position: absolute;
     width: 100%;
     height: calc(var(--sbb-sticky-bar-bottom-overlapping-height, 0) + $intersector-overlapping);
-    background-color: var(--_sbb-sticky-bar-intersector-background-color);
+    background-color: var(--_sbb-sticky-bar-intersector-background-color, transparent);
     pointer-events: none;
     transition: background-color var(--_sbb-sticky-bar-background-animation-duration)
       var(--sbb-sticky-bar-animation-easing);
