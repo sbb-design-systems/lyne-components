@@ -23,6 +23,7 @@ import type {
   SeatReservationPlaceSelection,
   SeatReservationSelectedCoach,
   SeatReservationSelectedPlaces,
+  TravelDirection,
 } from '../common.ts';
 import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
 
@@ -57,6 +58,10 @@ export class SeatReservationBaseElement extends LitElement {
   /** The seat reservations array contains all coaches and places */
   @property({ attribute: 'seat-reservations', type: Array })
   public accessor seatReservations: SeatReservation[] = null!;
+
+  /** Displays an arrow showing what direction does train drive*/
+  @property({ attribute: 'travel-direction', type: String })
+  public accessor travelDirection: TravelDirection = 'UNDEFINED';
 
   /** The seat reservation navigation can be toggled by this property */
   @forceType()

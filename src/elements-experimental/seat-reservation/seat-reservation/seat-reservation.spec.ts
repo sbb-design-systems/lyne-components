@@ -461,3 +461,81 @@ describe(`sbb-seat-reservation`, () => {
     });
   });
 });
+
+describe(`sbb-seat-reservation`, () => {
+  function hasNoTravelDirectionWrapper(): void {
+    const travelDirectionWrapper = element.shadowRoot!.querySelector<HTMLDivElement>(
+      '.sbb-sr-travel-direction-wrapper',
+    );
+    expect(travelDirectionWrapper).to.be.null;
+  }
+
+  function hasTravelDirectionWrapper(dataAttrValue: string): void {
+    const travelDirectionWrapper = element.shadowRoot!.querySelector<HTMLDivElement>(
+      '.sbb-sr-travel-direction-wrapper',
+    );
+    expect(travelDirectionWrapper).not.to.be.null;
+    expect(travelDirectionWrapper).to.have.attribute('data-travel-direction', dataAttrValue);
+  }
+
+  function getRotateValueOfArrowIcon(): string {
+    const arrowIcon = element.shadowRoot!.querySelector<HTMLElement>(
+      'sbb-icon[name="arrow-left-small"]',
+    );
+    expect(arrowIcon).not.to.be.null;
+
+    const rotateVal = window.getComputedStyle(arrowIcon!).getPropertyValue('rotate');
+    return rotateVal == 'none' ? '0' : rotateVal.replace('deg', '').trim();
+  }
+
+  beforeEach(async () => {
+    element = await fixture(
+      html`<sbb-seat-reservation .seatReservations=${dataFull}></sbb-seat-reservation>`,
+    );
+    await waitForLitRender(element);
+  });
+
+  it('should not be shown per default', async () => {
+    hasNoTravelDirectionWrapper();
+  });
+
+  it('should not be shown, when UNDEFINED is given', async () => {
+    element.travelDirection = 'UNDEFINED';
+    hasNoTravelDirectionWrapper();
+  });
+
+  it('should be shown and have arrow icon showing left, when LEFT is given in horizontal mode', async () => {
+    element.travelDirection = 'LEFT';
+    await waitForLitRender(element);
+    hasTravelDirectionWrapper('LEFT');
+    await expect(getRotateValueOfArrowIcon()).to.equal('0');
+  });
+
+  it('should be shown and have arrow icon showing right, when RIGHT is given in horizontal mode', async () => {
+    element.travelDirection = 'RIGHT';
+    await waitForLitRender(element);
+    hasTravelDirectionWrapper('RIGHT');
+    await expect(getRotateValueOfArrowIcon()).to.equal('180');
+
+    const travelDirectionlabel = element.shadowRoot!.querySelector<HTMLDivElement>(
+      '.sbb-sr__travel-direction--label',
+    );
+    expect(travelDirectionlabel).not.to.be.null;
+  });
+
+  it('should be shown and have arrow icon showing up, when LEFT is given in vertical mode', async () => {
+    element.travelDirection = 'LEFT';
+    element.alignVertical = true;
+    await waitForLitRender(element);
+    hasTravelDirectionWrapper('LEFT');
+    await expect(getRotateValueOfArrowIcon()).to.equal('90');
+  });
+
+  it('should be shown and have arrow icon showing down, when RIGHT is given in vertical mode', async () => {
+    element.travelDirection = 'RIGHT';
+    element.alignVertical = true;
+    await waitForLitRender(element);
+    hasTravelDirectionWrapper('RIGHT');
+    await expect(getRotateValueOfArrowIcon()).to.equal('270');
+  });
+});

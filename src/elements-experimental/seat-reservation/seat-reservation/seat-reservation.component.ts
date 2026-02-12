@@ -78,6 +78,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _initVehicleSeatReservationConstruction(): void {
     this._coachesHtmlTemplate = html`
+      ${this._renderTravelDirection()}
       <div class="sbb-sr__component">
         ${this._renderNavigation()}
         <div
@@ -164,6 +165,25 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         .disabledInteractive="${btnDisabled || nothing}"
         .disabled="${btnDisabled || nothing}"
       ></sbb-secondary-button>
+    </div>`;
+  }
+
+  private _renderTravelDirection(): TemplateResult | null {
+    if (!this.travelDirection || this.travelDirection === 'UNDEFINED') return null;
+
+    const labelText = getI18nSeatReservation(
+      'SEAT_RESERVATION_TRAVEL_DIRECTION',
+      this._language.current,
+    );
+
+    return html`<div
+      class="sbb-sr-travel-direction-wrapper"
+      data-travel-direction="${this.travelDirection}"
+    >
+      <div class="sbb-sr__travel-direction--arrow">
+        <sbb-icon slot="icon" name="arrow-left-small"></sbb-icon>
+      </div>
+      <div class="sbb-sr__travel-direction--label" aria-label="${labelText}">${labelText}</div>
     </div>`;
   }
 
