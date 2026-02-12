@@ -163,25 +163,23 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       this._getTitleDescriptionNavCoachButton(currServiceClassNumber);
     const ariaDescriptionCoachServices = this._getAriaDescriptionCoachServices();
 
-    return html`
-      <button
-        @click=${() => this._selectNavCoach(this.index)}
-        class="${classMap({
-          'sbb-sr-navigation__ctrl-button': true,
-          'sbb-sr-navigation-driver-area': this.driverArea,
-        })}"
-        ?disabled="${this.disable}"
-        title="${this.showTitleInfo ? titleDescriptionNavCoachButton : nothing}"
-        type="button"
-        aria-describedby="nav-coach-service-descriptions-${this.index}"
-      >
-        ${this._getBtnInformation(currServiceClassNumber)}
-        <sbb-screen-reader-only id="nav-coach-service-descriptions-${this.index}">
-          ${ariaDescriptionCoachServices}
-          ${!this.showTitleInfo ? titleDescriptionNavCoachButton : nothing}
-        </sbb-screen-reader-only>
-      </button>
-    `;
+    return html` <button
+      @click=${() => this._selectNavCoach(this.index)}
+      class="${classMap({
+        'sbb-sr-navigation__ctrl-button': true,
+        'sbb-sr-navigation-driver-area': this.driverArea,
+      })}"
+      ?disabled="${this.disable}"
+      title="${this.showTitleInfo ? titleDescriptionNavCoachButton : nothing}"
+      type="button"
+      aria-describedby="nav-coach-service-descriptions-${this.index}"
+    >
+      ${this._getBtnInformation(currServiceClassNumber)}
+      <sbb-screen-reader-only id="nav-coach-service-descriptions-${this.index}">
+        ${ariaDescriptionCoachServices ? html`<div>${ariaDescriptionCoachServices}</div>` : nothing}
+        ${!this.showTitleInfo ? html`<div>${titleDescriptionNavCoachButton}</div>` : nothing}
+      </sbb-screen-reader-only>
+    </button>`;
   }
 
   private _getBtnInformation(serviceClassNumber: number | null): TemplateResult | null {
@@ -252,8 +250,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     if (this.propertyIds.length) {
       ariaDescription =
         getI18nSeatReservation('COACH_AVAILABLE_SERVICES', this._language.current) + ': ';
-      ariaDescription +=
-        this.propertyIds
+      ariaDescription += this.propertyIds
           .map((propertyId) => getI18nSeatReservation(propertyId, this._language.current))
           .join() + '.';
     }
