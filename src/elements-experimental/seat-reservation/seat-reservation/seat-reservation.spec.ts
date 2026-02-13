@@ -432,4 +432,28 @@ describe(`sbb-seat-reservation`, () => {
       expect(() => element.focus()).to.not.throw();
     });
   });
+
+  describe('sbb-seat-reservation place control checks', () => {
+    it('should have a title in the seat-reservation-place-control element if showTitleInfo = true', async () => {
+      element.showTitleInfo = true;
+      await waitForLitRender(element);
+
+      const placeControl = element.shadowRoot?.querySelector(
+        '#seat-reservation__place-button-0-0-45',
+      ) as HTMLElement;
+
+      expect(placeControl).not.to.be.null;
+      expect(placeControl).attribute('title').not.to.be.empty;
+      expect(placeControl).attribute('title').to.contain('Seat 45 is available');
+    });
+
+    it('should not have a title in the seat-reservation-place-control element if showTitleInfo = false per default', async () => {
+      const placeControl = element.shadowRoot?.querySelector(
+        '#seat-reservation__place-button-0-0-45',
+      ) as HTMLElement;
+
+      expect(placeControl).not.to.be.null;
+      expect(placeControl).to.not.have.attribute('title');
+    });
+  });
 });

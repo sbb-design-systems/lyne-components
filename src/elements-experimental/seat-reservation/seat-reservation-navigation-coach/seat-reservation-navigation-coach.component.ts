@@ -94,6 +94,11 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   @property({ type: Boolean, reflect: true, useDefault: true })
   public accessor vertical: boolean = false;
 
+  /** Disable the mouse over title information */
+  @forceType()
+  @property({ type: Boolean })
+  public accessor showTitleInfo: boolean = false;
+
   private _language = new SbbLanguageController(this);
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
@@ -145,6 +150,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
           ? html`<sbb-seat-reservation-navigation-services
               ?vertical="${this.vertical}"
               .propertyIds="${this.propertyIds}"
+              ?showTitleInfo="${this.showTitleInfo}"
             ></sbb-seat-reservation-navigation-services>`
           : nothing}
       </div>
@@ -158,21 +164,22 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     const ariaDescriptionCoachServices = this._getAriaDescriptionCoachServices();
 
     return html` <button
-        @click=${() => this._selectNavCoach(this.index)}
-        class="${classMap({
-          'sbb-sr-navigation__ctrl-button': true,
-          'sbb-sr-navigation-driver-area': this.driverArea,
-        })}"
-        ?disabled="${this.disable}"
-        title="${titleDescriptionNavCoachButton}"
-        type="button"
-        aria-describedby="nav-coach-service-descriptions-${this.index}"
-      >
-        ${this._getBtnInformation(currServiceClassNumber)}
-      </button>
-      <sbb-screen-reader-only id="nav-coach-service-descriptions-${this.index}"
-        >${ariaDescriptionCoachServices}</sbb-screen-reader-only
-      >`;
+      @click=${() => this._selectNavCoach(this.index)}
+      class="${classMap({
+        'sbb-sr-navigation__ctrl-button': true,
+        'sbb-sr-navigation-driver-area': this.driverArea,
+      })}"
+      ?disabled="${this.disable}"
+      title="${this.showTitleInfo ? titleDescriptionNavCoachButton : nothing}"
+      type="button"
+      aria-describedby="nav-coach-service-descriptions-${this.index}"
+    >
+      ${this._getBtnInformation(currServiceClassNumber)}
+      <sbb-screen-reader-only id="nav-coach-service-descriptions-${this.index}">
+        ${!this.showTitleInfo ? html`<div>${titleDescriptionNavCoachButton}</div>` : nothing}
+        ${ariaDescriptionCoachServices ? html`<div>${ariaDescriptionCoachServices}</div>` : nothing}
+      </sbb-screen-reader-only>
+    </button>`;
   }
 
   private _getBtnInformation(serviceClassNumber: number | null): TemplateResult | null {
@@ -243,9 +250,10 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     if (this.propertyIds.length) {
       ariaDescription =
         getI18nSeatReservation('COACH_AVAILABLE_SERVICES', this._language.current) + ': ';
-      ariaDescription += this.propertyIds
-        .map((propertyId) => getI18nSeatReservation(propertyId, this._language.current))
-        .join();
+      ariaDescription +=
+        this.propertyIds
+          .map((propertyId) => getI18nSeatReservation(propertyId, this._language.current))
+          .join() + '.';
     }
     return ariaDescription;
   }

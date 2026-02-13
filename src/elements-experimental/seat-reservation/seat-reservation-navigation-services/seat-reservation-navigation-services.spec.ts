@@ -15,37 +15,62 @@ describe('sbb-seat-reservation-navigation-services', () => {
     await waitForLitRender(element);
   });
 
-  it('renders', async () => {
-    assert.instanceOf(element, SbbSeatReservationNavigationServicesElement);
+  describe('SeatReservationNavigationServices', () => {
+    it('renders', async () => {
+      assert.instanceOf(element, SbbSeatReservationNavigationServicesElement);
+    });
+
+    it('should be accessible', async () => {
+      await expect(element).to.be.accessible();
+    });
+
+    it('should render no element without any property-ids', async () => {
+      const autoWidthElements = element.shadowRoot?.querySelectorAll('.auto-width');
+      assert.equal(autoWidthElements?.length, 0);
+    });
+
+    it('should render one element with class "auto-width" when property-ids is ["BISTRO"]', async () => {
+      element.setAttribute('property-ids', '["BISTRO"]');
+      await waitForLitRender(element);
+      const autoWidthElements = element.shadowRoot?.querySelectorAll('.auto-width');
+      assert.equal(autoWidthElements?.length, 1);
+    });
+
+    it('should render 3 elements with class "auto-width when property-ids is ["BISTRO", "WIFI", "BICYCLE"]"', async () => {
+      element.setAttribute('property-ids', '["BISTRO", "WIFI", "BICYCLE"]');
+      await waitForLitRender(element);
+      const autoWidthElements = element.shadowRoot?.querySelectorAll('.auto-width');
+      assert.equal(autoWidthElements?.length, 3);
+    });
+
+    it('should render the service label description in the sbb-screen-reader-only element', async () => {
+      element.setAttribute('property-ids', '["BISTRO"]');
+      await waitForLitRender(element);
+      const screenReaderOnlyElement = element.shadowRoot?.querySelector('sbb-screen-reader-only');
+      expect(screenReaderOnlyElement?.innerHTML).to.include('Bistro');
+    });
   });
 
-  it('should be accessible', async () => {
-    await expect(element).to.be.accessible();
-  });
+  describe('sbb-seat-reservation-navigation-services - title information', () => {
+    it('should include title information in the sbb-seat-reservation-graphic elements because of showTitleInfo is set to true', async () => {
+      element.setAttribute('property-ids', '["BISTRO"]');
+      element.showTitleInfo = true;
+      await waitForLitRender(element);
 
-  it('should render no element without any property-ids', async () => {
-    const autoWidthElements = element.shadowRoot?.querySelectorAll('.auto-width');
-    assert.equal(autoWidthElements?.length, 0);
-  });
+      const autoWidthElements = element.shadowRoot?.querySelectorAll('.auto-width');
+      expect(autoWidthElements).not.to.be.null;
+      expect(autoWidthElements?.[0].getAttribute('title')).not.to.be.null;
+      await expect(autoWidthElements?.[0].getAttribute('title')).to.equal('Bistro');
+    });
 
-  it('should render one element with class "auto-width" when property-ids is ["BISTRO"]', async () => {
-    element.setAttribute('property-ids', '["BISTRO"]');
-    await waitForLitRender(element);
-    const autoWidthElements = element.shadowRoot?.querySelectorAll('.auto-width');
-    assert.equal(autoWidthElements?.length, 1);
-  });
+    it('should not include title information in any sbb-seat-reservation-graphic element because of showTitleInfo is set to false', async () => {
+      element.setAttribute('property-ids', '["BISTRO", "WIFI"]');
+      await waitForLitRender(element);
 
-  it('should render 3 elements with class "auto-width when property-ids is ["BISTRO", "WIFI", "BICYCLE"]"', async () => {
-    element.setAttribute('property-ids', '["BISTRO", "WIFI", "BICYCLE"]');
-    await waitForLitRender(element);
-    const autoWidthElements = element.shadowRoot?.querySelectorAll('.auto-width');
-    assert.equal(autoWidthElements?.length, 3);
-  });
-
-  it('should render the service label description in the sbb-screen-reader-only element', async () => {
-    element.setAttribute('property-ids', '["BISTRO"]');
-    await waitForLitRender(element);
-    const screenReaderOnlyElement = element.shadowRoot?.querySelector('sbb-screen-reader-only');
-    expect(screenReaderOnlyElement?.innerHTML).to.include('Bistro');
+      const autoWidthElements = element.shadowRoot?.querySelectorAll('.auto-width');
+      expect(autoWidthElements).not.to.be.null;
+      expect(autoWidthElements?.[0].getAttribute('title')).to.be.null;
+      expect(autoWidthElements?.[1].getAttribute('title')).to.be.null;
+    });
   });
 });
