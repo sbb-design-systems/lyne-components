@@ -12,22 +12,10 @@ $active: ':active, :state(active)';
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
 
-  --sbb-mini-button-color-text: var(--sbb-color-3);
-  --sbb-mini-button-color-default-background: transparent;
-  --sbb-mini-button-color-hover-background: var(--sbb-background-color-3);
-  --sbb-mini-button-color-active-background: var(--sbb-background-color-4);
-  --sbb-mini-button-color-disabled-background: var(--sbb-background-color-3);
-  --sbb-mini-button-color-disabled-border: var(--sbb-border-color-5);
-  --sbb-mini-button-color-disabled-text: light-dark(
-    var(--sbb-color-granite),
-    var(--sbb-color-smoke)
-  );
-  --sbb-mini-button-border-radius: var(--sbb-border-radius-infinity);
   --sbb-mini-button-transition-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
-  --sbb-mini-button-transition-easing-function: var(--sbb-animation-easing);
   --sbb-mini-button-color-background: var(--sbb-mini-button-color-default-background);
   --sbb-mini-button-color: var(--sbb-mini-button-color-text);
 
