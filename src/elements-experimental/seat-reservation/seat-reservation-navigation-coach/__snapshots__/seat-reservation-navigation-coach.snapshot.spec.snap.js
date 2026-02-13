@@ -31,10 +31,10 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shad
     </div>
     <sbb-screen-reader-only>
       <div>
-        Available services: Bike area,Quiet zone.
+        Navigate to coach 85. 0 seats available. 0 available bicycle spaces.
       </div>
       <div>
-        Navigate to coach 85. 0 seats available. 0 available bicycle spaces.
+        Available services: Bike area,Quiet zone.
       </div>
     </sbb-screen-reader-only>
   </button>
@@ -56,7 +56,7 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
       "children": [
         {
           "role": "button",
-          "name": "Available services: Bike area,Quiet zone. Navigate to coach 85. 0 seats available. 0 available bicycle spaces.",
+          "name": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces. Available services: Bike area,Quiet zone.",
           "invalid": false,
           "focusable": true
         },

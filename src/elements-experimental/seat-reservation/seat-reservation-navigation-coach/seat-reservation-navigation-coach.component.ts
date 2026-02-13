@@ -175,8 +175,8 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     >
       ${this._getBtnInformation(currServiceClassNumber)}
       <sbb-screen-reader-only>
-        ${ariaDescriptionCoachServices ? html`<div>${ariaDescriptionCoachServices}</div>` : nothing}
         ${!this.showTitleInfo ? html`<div>${titleDescriptionNavCoachButton}</div>` : nothing}
+        ${ariaDescriptionCoachServices ? html`<div>${ariaDescriptionCoachServices}</div>` : nothing}
       </sbb-screen-reader-only>
     </button>`;
   }
