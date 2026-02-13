@@ -23,6 +23,9 @@ $theme: 'standard' !default;
 @use '../../card/card/card.global' as card with (
   $theme: $theme
 );
+@use '../../chip-label/chip-label.global' as chip-label with (
+  $theme: $theme
+);
 @use '../../chip/chip/chip.global' as chip with (
   $theme: $theme
 );
@@ -102,6 +105,7 @@ $theme: 'standard' !default;
   @include card.base;
   @include card-badge.base;
   @include carousel.base;
+  @include chip-label.base;
   @include chip.base;
   @include chip-group.base;
   @include panel-common.base;
