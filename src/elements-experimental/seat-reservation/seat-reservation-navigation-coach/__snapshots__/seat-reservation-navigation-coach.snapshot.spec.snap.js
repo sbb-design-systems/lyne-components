@@ -13,6 +13,7 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach DOM"
 snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shadow DOM"] = 
 `<div class="sbb-sr-navigation__item-coach">
   <button
+    aria-describedby="nav-coach-service-descriptions-0"
     class="sbb-sr-navigation__ctrl-button"
     type="button"
   >
@@ -29,7 +30,7 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shad
       >
       </div>
     </div>
-    <sbb-screen-reader-only>
+    <sbb-screen-reader-only id="nav-coach-service-descriptions-0">
       <div>
         Navigate to coach 85. 0 seats available. 0 available bicycle spaces.
       </div>
@@ -57,8 +58,10 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
         {
           "role": "button",
           "name": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces. Available services: Bike area,Quiet zone.",
+          "description": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces. Available services: Bike area,Quiet zone.",
           "invalid": false,
-          "focusable": true
+          "focusable": true,
+          "describedby": "nav-coach-service-descriptions-0"
         },
         {
           "ignored": true,
