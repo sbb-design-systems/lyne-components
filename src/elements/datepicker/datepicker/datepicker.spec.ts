@@ -232,7 +232,7 @@ describe(`sbb-datepicker`, () => {
     await waitForCondition(() => !calendar.matches(':state(transition)'));
 
     // Select day
-    calendar.shadowRoot!.querySelectorAll('button')[5].click();
+    calendar.shadowRoot!.querySelectorAll('sbb-calendar-day')[4].click();
     await waitForLitRender(root);
     await waitForCondition(() => !calendar.matches(':state(transition)'));
 
