@@ -1,4 +1,4 @@
-@use '../core/styles' as sbb;
+@use '../../core/styles' as sbb;
 
 :host {
   display: block;
@@ -350,6 +350,15 @@
   @include sbb.if-forced-colors {
     --sbb-calendar-cell-background-color: ButtonText !important;
   }
+}
+
+sbb-calendar-day {
+  --sbb-calendar-day-flex-direction: row;
+  --sbb-calendar-day-justify-content: center;
+  --sbb-calendar-day-align-items: center;
+  --sbb-calendar-day-extra-display: none;
+  --sbb-calendar-day-crossed-out-top: 50%;
+  --sbb-calendar-day-crossed-out-translate: translate(-50%, -50%) rotate(-45deg);
 }
 
 @keyframes show {
