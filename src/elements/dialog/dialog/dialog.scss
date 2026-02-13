@@ -1,17 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-5x);
-  --sbb-dialog-color: var(--sbb-color-2);
-  --sbb-dialog-background-color: var(--sbb-background-color-1);
-  --sbb-dialog-width: 100%;
-  --sbb-dialog-height: 100%;
-  --sbb-dialog-max-width: 100%;
-  --sbb-dialog-max-width-default: #{sbb.px-to-rem-build(892)};
-  --sbb-dialog-max-height: 100%;
-  --sbb-dialog-inset: 0 auto auto 0;
-  --sbb-dialog-border-radius: var(--sbb-border-radius-8x);
-  --sbb-dialog-padding-block: var(--sbb-spacing-responsive-xs);
   --sbb-dialog-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
@@ -20,31 +9,11 @@
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
   );
-  --sbb-dialog-animation-easing: ease;
-  --sbb-dialog-pointer-events: none;
-  --sbb-dialog-backdrop-visibility: hidden;
-  --sbb-dialog-backdrop-pointer-events: none;
-  --sbb-dialog-backdrop-color: transparent;
-  --sbb-dialog-block-shadow: var(--sbb-box-shadow-level-9-soft);
-  --sbb-dialog-actions-border-color: var(--sbb-background-color-4);
 
   display: none;
   position: fixed;
   inset: var(--sbb-dialog-inset);
   z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-default-z-index));
-
-  @include sbb.mq($from: small) {
-    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-12x);
-  }
-
-  @include sbb.mq($from: large) {
-    --sbb-dialog-padding-inline: var(--sbb-spacing-responsive-s);
-    --sbb-dialog-max-width: min(
-      calc(100vw - var(--sbb-spacing-fixed-30x) * 2),
-      var(--sbb-dialog-max-width-default)
-    );
-    --sbb-dialog-max-height: calc(100vh - var(--sbb-spacing-fixed-16x));
-  }
 }
 
 :host(:state(top-shadow)) {
@@ -68,6 +37,10 @@
     --sbb-dialog-backdrop-visibility: visible;
     --sbb-dialog-backdrop-pointer-events: all;
   }
+}
+
+:host([backdrop='opaque']:is(:state(state-opening), :state(state-opened))) {
+  --sbb-dialog-backdrop-color: var(--sbb-background-color-3);
 }
 
 :host([backdrop='translucent']:is(:state(state-opening), :state(state-opened))) {
