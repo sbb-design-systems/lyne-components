@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.4.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.4.0...v4.4.1) (2026-02-13)
+
+
+### Bug Fixes
+
+* **sbb-tab-group:** ignore calculated height in fixedHeight conditions ([#4491](https://github.com/sbb-design-systems/lyne-components/issues/4491)) ([a33502f](https://github.com/sbb-design-systems/lyne-components/commit/a33502f7415e6634deef705af7c2af6fa4ac1e4e))
+
+
+### Documentation
+
+* mark the Angular wrapper as stable ([#4497](https://github.com/sbb-design-systems/lyne-components/issues/4497)) ([286db43](https://github.com/sbb-design-systems/lyne-components/commit/286db43dd8be1ee86434bac0356fad5864a4fff9))
+
+
+### Code Refactoring
+
+* **sbb-select:** relax DOM manipulations ([#4490](https://github.com/sbb-design-systems/lyne-components/issues/4490)) ([6e184ed](https://github.com/sbb-design-systems/lyne-components/commit/6e184ed4d0c173b60bf7e8bc70dff3c514d8c487))
+
 ## [4.4.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.3.1...v4.4.0) (2026-02-09)
 
 
