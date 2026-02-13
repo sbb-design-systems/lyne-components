@@ -97,7 +97,7 @@ const TemplateDefault = ({
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
       <figure slot="image" class="sbb-figure">
-        <img src=${placeholderImage} alt="400x300" />
+        <img src=${images[9]} alt="400x300" width="400" />
         <sbb-chip-label class="sbb-figure-overlap-start-start">AI Generated</sbb-chip-label>
       </figure>
       ${chipContent && chipContent !== ''
@@ -117,7 +117,7 @@ const TemplateDefaultFixedWidth = ({
 }: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)} style="width:400px">
-      <img src=${placeholderImage} alt="400x300" slot="image" />
+      <img src=${images[9]} alt="400x300" slot="image" width="400" />
       ${title && chipContent !== ''
         ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
         : nothing}
@@ -136,7 +136,7 @@ const TemplateCustom = ({
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
       <img
-        src=${placeholderImage}
+        src=${images[9]}
         alt="200x100"
         class="sbb-image-2-1"
         style="width: 200px;"
@@ -159,7 +159,7 @@ const TemplateSlots = ({
 }: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
-      <img src=${placeholderImage} alt="400x300" slot="image" />
+      <img src=${images[9]} alt="400x300" slot="image" width="400" />
       ${chipContent && chipContent !== ''
         ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
         : nothing}
