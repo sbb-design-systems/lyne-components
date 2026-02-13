@@ -96,7 +96,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
 
   /** Disable the mouse over title information */
   @forceType()
-  @property({ type: Boolean, reflect: true, useDefault: true })
+  @property({ type: Boolean })
   public accessor showTitleInfo: boolean = false;
 
   private _language = new SbbLanguageController(this);

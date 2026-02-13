@@ -97,7 +97,7 @@ export class SeatReservationBaseElement extends LitElement {
   @property({ attribute: 'preselect-coach-index', type: Number })
   public accessor preselectCoachIndex: number = -1;
 
-  /** The seat reservation navigations title information can be toggled by this property */
+  /** The seat reservation title information at place-controls, navigation-coaches and navigation-services can be toggled by this property */
   @forceType()
   @property({ attribute: 'show-title-info', type: Boolean })
   public accessor showTitleInfo: boolean = false;
