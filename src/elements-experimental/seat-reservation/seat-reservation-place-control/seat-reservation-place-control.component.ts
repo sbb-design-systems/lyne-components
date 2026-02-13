@@ -65,7 +65,7 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
 
   /** Disable the mouse over title information */
   @forceType()
-  @property({ type: Boolean })
+  @property({ type: Boolean, useDefault: true })
   public accessor showTitleInfo: boolean = false;
 
   private _optionalScreenreaderInfo: string = '';
