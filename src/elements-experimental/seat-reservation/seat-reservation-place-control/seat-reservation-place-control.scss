@@ -96,6 +96,15 @@ $disabled: '.sbb-reservation-place-control--disabled';
     var(--sbb-color-midnight)
   );
 
+  // Color definitions for high-contrast-mode
+  --sbb-seat-reservation-place-control-high-contrast-free-backrest: var(--sbb-color-white);
+  --sbb-seat-reservation-place-control-high-contrast-free-background: var(--sbb-color-black);
+  --sbb-seat-reservation-place-control-high-contrast-free-text: var(--sbb-color-lemon-light);
+  --sbb-seat-reservation-place-control-high-contrast-blocked-backrest: var(--sbb-color-storm);
+  --sbb-seat-reservation-place-control-high-contrast-blocked-background: var(--sbb-color-black);
+  --sbb-seat-reservation-place-control-high-contrast-blocked-text: var(--sbb-color-storm);
+  --sbb-seat-reservation-place-control-high-contrast-blocked-icon: var(--sbb-color-storm);
+
   width: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-width));
   height: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-height));
   position: absolute;
@@ -136,26 +145,51 @@ $disabled: '.sbb-reservation-place-control--disabled';
 // rotates the DOM-part "svg-place" by 180 degrees if the host is in RTL mode.
 @include sbb-sr-mixins.rotate-dom-part(svg-place);
 
+.sbb-sr-place-ctrl__text {
+  @include sbb.if-forced-colors {
+    forced-color-adjust: none;
+    background-color: var(
+      --sbb-seat-reservation-place-control-high-contrast-free-background
+    ) !important;
+    color: var(--sbb-seat-reservation-place-control-high-contrast-free-text) !important;
+
+    &--state-allocated,
+    &--state-restricted {
+      forced-color-adjust: none;
+      color: var(--sbb-seat-reservation-place-control-high-contrast-blocked-text) !important;
+    }
+  }
+}
+
 .sbb-sr-place-ctrl {
   @include sbb.if-forced-colors {
     &--state-free {
       ::part(svg-place) {
-        fill: black !important;
+        fill: var(--sbb-seat-reservation-place-control-high-contrast-free-background) !important;
       }
 
       ::part(svg-backrest) {
-        fill: white !important;
+        fill: var(--sbb-seat-reservation-place-control-high-contrast-free-backrest) !important;
       }
     }
 
     &--state-allocated,
     &--state-restricted {
       ::part(svg-place) {
-        fill: black !important;
+        fill: var(--sbb-seat-reservation-place-control-high-contrast-blocked-background) !important;
       }
 
       ::part(svg-backrest) {
-        fill: var(--sbb-color-smoke) !important;
+        fill: var(--sbb-seat-reservation-place-control-high-contrast-blocked-backrest) !important;
+      }
+
+      ::part(svg-icon) {
+        fill: var(--sbb-seat-reservation-place-control-high-contrast-blocked-icon) !important;
+      }
+
+      .sbb-sr-place-ctrl__text {
+        forced-color-adjust: none;
+        color: var(--sbb-seat-reservation-place-control-high-contrast-blocked-text) !important;
       }
     }
   }
