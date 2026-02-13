@@ -223,6 +223,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
 
   it('should take freePlacesByType settings into account for title-Attribute', async () => {
     element.freePlacesByType = { seats: 20, bicycles: 10 };
+    element.showTitleInfo = true;
 
     await waitForLitRender(element);
 
@@ -240,5 +241,30 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     await waitForLitRender(element);
     const screenReaderOnlyElement = element.shadowRoot?.querySelector('sbb-screen-reader-only');
     expect(screenReaderOnlyElement?.innerHTML).to.include('Available services: Bistro');
+  });
+
+  it('should include title information from button into screen-reader-only area if showTitleInfo is false', async () => {
+    const screenReaderOnlyElement = element.shadowRoot?.querySelector('sbb-screen-reader-only');
+
+    const btn = element.shadowRoot?.querySelector(
+      '.sbb-sr-navigation__ctrl-button',
+    ) as HTMLButtonElement;
+
+    expect(btn.getAttribute('title')).to.be.null;
+    expect(screenReaderOnlyElement?.innerHTML).to.include('Navigate to coach coach-id');
+  });
+
+  it('should include title information within button and no information from there into screen-reader-only area if showTitleInfo is true', async () => {
+    element.showTitleInfo = true;
+    await waitForLitRender(element);
+
+    const screenReaderOnlyElement = element.shadowRoot?.querySelector('sbb-screen-reader-only');
+
+    const btn = element.shadowRoot?.querySelector(
+      '.sbb-sr-navigation__ctrl-button',
+    ) as HTMLButtonElement;
+
+    expect(btn.getAttribute('title')).to.include('Navigate to coach coach-id');
+    expect(screenReaderOnlyElement?.innerHTML).to.not.include('Navigate to coach coach-id');
   });
 });

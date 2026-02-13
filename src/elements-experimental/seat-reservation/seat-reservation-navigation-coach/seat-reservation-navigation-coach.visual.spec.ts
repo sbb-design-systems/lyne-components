@@ -29,7 +29,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   // Standard visual diff states to be tested;
   // own states array because the visual-regression-snapshot.ts constant "visualDiffStandardStates"
   // includes more than we need
-  const visualDiffStandardStates = [visualDiffDefault, visualDiffHover] as const;
+  const seatReservationNavigationCoachVisualStates = [visualDiffDefault, visualDiffHover] as const;
 
   // large only viewport because we don't use any other breakpoint media queries
   describeViewports({ viewports: ['large'] }, () => {
@@ -56,7 +56,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
           );
         });
 
-        for (const state of visualDiffStandardStates) {
+        for (const state of seatReservationNavigationCoachVisualStates) {
           it(
             `${state.name}`,
             state.with((setup) => {

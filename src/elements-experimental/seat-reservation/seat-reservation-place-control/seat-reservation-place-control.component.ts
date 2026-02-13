@@ -63,6 +63,13 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   @property({ attribute: 'keyfocus' })
   public accessor keyfocus: string = 'unfocus';
 
+  /** Disable the mouse over title information */
+  @forceType()
+  @property({ type: Boolean, useDefault: true })
+  public accessor showTitleInfo: boolean = false;
+
+  private _optionalScreenreaderInfo: string = '';
+
   private _language = new SbbLanguageController(this);
 
   public constructor() {
@@ -76,6 +83,15 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
     if (changedProperties.has('keyfocus')) {
       if (this.keyfocus === 'focus') {
         this.focus();
+      }
+    }
+
+    // if title was shown once, we cannot unset it completely, but this
+    // behaviour should not happen very often as the title should
+    // not switch from on to off and on again
+    if (changedProperties.has('showTitleInfo')) {
+      if (!this.showTitleInfo) {
+        this.title = '';
       }
     }
   }
@@ -94,7 +110,14 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
     const inverseRotationPlaceCheckIcon = Number(textRotation) - Number(rotation);
     const disabledClass = this.preventClick ? 'sbb-reservation-place-control--disabled' : null;
 
-    this.title = this._getTitleDescriptionPlace();
+    // only set title to the SbbButtonBaseElement if requested; otherwise provide the title
+    // information to screen readers via an additional element
+    if (this.showTitleInfo) {
+      this.title = this._getTitleDescriptionPlace();
+    } else {
+      this._optionalScreenreaderInfo = this._getTitleDescriptionPlace();
+    }
+
     this.tabIndex = -1;
 
     return html`
@@ -115,6 +138,11 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
         <span ${this.text ?? nothing} class="sbb-sr-place-ctrl__text" aria-hidden="true"
           >${text}</span
         >
+        ${!this.showTitleInfo
+          ? html`<sbb-screen-reader-only id="${this.id}"
+              >${this._optionalScreenreaderInfo}</sbb-screen-reader-only
+            >`
+          : nothing}
       </div>
     `;
   }

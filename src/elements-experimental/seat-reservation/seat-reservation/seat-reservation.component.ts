@@ -199,6 +199,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
                 ?first="${navigationCoach?.driverAreaSide?.left}"
                 ?last="${navigationCoach?.driverAreaSide?.right}"
                 ?vertical="${this.alignVertical}"
+                ?showTitleInfo="${this.showTitleInfo}"
               >
               </sbb-seat-reservation-navigation-coach>
             </li>`;
@@ -425,6 +426,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
               data-deck-index=${deckIndex}
               .propertyIds=${place.propertyIds}
               .preventClick=${this.preventPlaceClick}
+              ?showTitleInfo="${this.showTitleInfo}"
             ></sbb-seat-reservation-place-control>
           </td>
         `;
