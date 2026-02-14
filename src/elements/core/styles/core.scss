@@ -50,6 +50,18 @@ $theme: 'standard' !default;
 @use '../../clock/clock.global' as clock with (
   $theme: $theme
 );
+@use '../../dialog/dialog/dialog.global' as dialog with (
+  $theme: $theme
+);
+@use '../../dialog/dialog-close-button/dialog-close-button.global' as dialog-close-button with (
+  $theme: $theme
+);
+@use '../../dialog/dialog-content/dialog-content.global' as dialog-content with (
+  $theme: $theme
+);
+@use '../../dialog/dialog-title/dialog-title.global' as dialog-title with (
+  $theme: $theme
+);
 @use '../../divider/divider.global' as divider with (
   $theme: $theme
 );
@@ -109,6 +121,8 @@ $theme: 'standard' !default;
   @include checkbox-group.base;
   @include checkbox-common.base;
   @include clock.base;
+  @include dialog.base;
+  @include dialog-close-button.base;
   @include divider.base;
   @include expansion-panel.base;
   @include expansion-panel-content.base;
@@ -193,12 +207,15 @@ $theme: 'standard' !default;
 
   @include mediaqueries.mq($from: small) {
     @include sbb-css-tokens.breakpoint-small;
+
+    @include dialog.base-breakpoint-small;
   }
 
   @include mediaqueries.mq($from: large) {
     @include sbb-css-tokens.breakpoint-large;
 
     @include chip-group.base-breakpoint-large;
+    @include dialog.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage
@@ -227,6 +244,9 @@ $theme: 'standard' !default;
 @include font-face.font-declarations;
 
 // Components global styles
+@include dialog-close-button.rules;
+@include dialog-content.rules;
+@include dialog-title.rules;
 @include tab-nav-bar.rules;
 
 // TODO: discuss where to add these classes
@@ -701,49 +721,6 @@ sbb-toggle:has(:focus-visible) {
 
   sbb-option-hint {
     --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-1x);
-  }
-}
-
-sbb-dialog-title {
-  // Hide margin on the right side. Distance to button is defined by flex gap already.
-  sbb-dialog:has(> sbb-dialog-close-button) > &,
-  sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-close-button) > * > & {
-    padding-inline-end: 0;
-  }
-}
-
-sbb-dialog-content {
-  // If there is a title, remove top spacing for the content
-  sbb-dialog:has(> sbb-dialog-title) > &,
-  sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title) > * > & {
-    padding-block-start: var(--sbb-spacing-fixed-1x);
-  }
-
-  // Set the negative scrollbar colors for dialog content when dialog is negative
-  sbb-dialog[negative] > &,
-  sbb-dialog[negative]:state(has-intermediate-element) > * > & {
-    @include scrollbar.scrollbar-variables--color-negative;
-  }
-}
-
-sbb-dialog-close-button {
-  // If there is no dialog title, the close button should be positioned absolute
-  sbb-dialog:not(:has(> sbb-dialog-title)) > &,
-  sbb-dialog:state(has-intermediate-element):not(:has(> * > sbb-dialog-title)) > * > & {
-    position: absolute;
-    z-index: 1;
-  }
-
-  // The close button positioning needs the current dialog title size
-  sbb-dialog:has(> sbb-dialog-title[visual-level='3']) > &,
-  sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='3']) > * > & {
-    --_sbb-dialog-title-size: var(--sbb-heading-font-size-3);
-  }
-
-  // The close button positioning needs the current dialog title size
-  sbb-dialog:has(> sbb-dialog-title[visual-level='5']) > &,
-  sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='5']) > * > & {
-    --_sbb-dialog-title-size: var(--sbb-heading-font-size-5);
   }
 }
 

@@ -1,0 +1,19 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin rules {
+  sbb-dialog-content {
+    // If there is a title, remove top spacing for the content
+    sbb-dialog:has(> sbb-dialog-title) > &,
+    sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title) > * > & {
+      padding-block-start: var(--sbb-spacing-fixed-1x);
+    }
+
+    // Set the negative scrollbar colors for dialog content when dialog is negative
+    sbb-dialog[negative] > &,
+    sbb-dialog[negative]:state(has-intermediate-element) > * > & {
+      @include sbb.scrollbar-variables--color-negative;
+    }
+  }
+}
