@@ -673,28 +673,28 @@
   resolved "https://registry.yarnpkg.com/@inquirer/ansi/-/ansi-2.0.3.tgz#3c4c5b587894278996c2750db83d89fb547b796b"
   integrity sha512-g44zhR3NIKVs0zUesa4iMzExmZpLUdTLRMCStqX3GE5NT6VkPcxQGJ+uC8tDgBUC/vB1rUhUd55cOf++4NZcmw==
 
-"@inquirer/checkbox@5.0.4":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@inquirer/checkbox/-/checkbox-5.0.4.tgz#813e8fd64c5f9ce064e4a6517a1fcc4524d2cf05"
-  integrity sha512-DrAMU3YBGMUAp6ArwTIp/25CNDtDbxk7UjIrrtM25JVVrlVYlVzHh5HR1BDFu9JMyUoZ4ZanzeaHqNDttf3gVg==
+"@inquirer/checkbox@5.0.6":
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/@inquirer/checkbox/-/checkbox-5.0.6.tgz#0308bdb673651b1b9f85053841b79436eb6413ed"
+  integrity sha512-qLZ1gOpsqsieB5k98GQ9bWYggvMsCXTc7HUwhEQpTsxFQYGthqR9UysCwqB7L9h47THYdXhJegnYb1IqURMjng==
   dependencies:
     "@inquirer/ansi" "^2.0.3"
-    "@inquirer/core" "^11.1.1"
+    "@inquirer/core" "^11.1.3"
     "@inquirer/figures" "^2.0.3"
     "@inquirer/type" "^4.0.3"
 
-"@inquirer/core@^11.1.1":
-  version "11.1.1"
-  resolved "https://registry.yarnpkg.com/@inquirer/core/-/core-11.1.1.tgz#7cf708b350f9e73b01ccb4b61ecf3016d3de1b0d"
-  integrity sha512-hV9o15UxX46OyQAtaoMqAOxGR8RVl1aZtDx1jHbCtSJy1tBdTfKxLPKf7utsE4cRy4tcmCQ4+vdV+ca+oNxqNA==
+"@inquirer/core@^11.1.3":
+  version "11.1.3"
+  resolved "https://registry.yarnpkg.com/@inquirer/core/-/core-11.1.3.tgz#019c4a77d81d75caa79d66dc4f56c52b3c211734"
+  integrity sha512-TBAGPDGvpwFSQ4nkawQzq5/X7DhElANjvKeUtcjpVnBIfuH/OEu4M+79R3+bGPtwxST4DOIGRtF933mUH2bRVw==
   dependencies:
     "@inquirer/ansi" "^2.0.3"
     "@inquirer/figures" "^2.0.3"
     "@inquirer/type" "^4.0.3"
     cli-width "^4.1.0"
+    fast-wrap-ansi "^0.2.0"
     mute-stream "^3.0.0"
     signal-exit "^4.1.0"
-    wrap-ansi "^9.0.2"
 
 "@inquirer/figures@^2.0.3":
   version "2.0.3"
@@ -4802,10 +4802,29 @@ fast-levenshtein@^2.0.6:
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
   integrity sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==
 
+fast-string-truncated-width@^3.0.2:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/fast-string-truncated-width/-/fast-string-truncated-width-3.0.3.tgz#23afe0da67d752ca0727538f1e6967759728ce49"
+  integrity sha512-0jjjIEL6+0jag3l2XWWizO64/aZVtpiGE3t0Zgqxv0DPuxiMjvB3M24fCyhZUO4KomJQPj3LTSUnDP3GpdwC0g==
+
+fast-string-width@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/fast-string-width/-/fast-string-width-3.0.2.tgz#16dbabb491ce5585b5ecb675b65c165d71688eeb"
+  integrity sha512-gX8LrtNEI5hq8DVUfRQMbr5lpaS4nMIWV+7XEbXk2b8kiQIizgnlr12B4dA3ZEx3308ze0O4Q1R+cHts8kyUJg==
+  dependencies:
+    fast-string-truncated-width "^3.0.2"
+
 fast-uri@^3.0.1:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/fast-uri/-/fast-uri-3.1.0.tgz#66eecff6c764c0df9b762e62ca7edcfb53b4edfa"
   integrity sha512-iPeeDKJSWf4IEOasVVrknXpaBV0IApz/gp7S2bb7Z4Lljbl2MGJRqInZiUrQwV16cpzw/D3S5j5Julj/gT52AA==
+
+fast-wrap-ansi@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/fast-wrap-ansi/-/fast-wrap-ansi-0.2.0.tgz#c0ae3f3982d061c3d657ec927196fbb47e22fe64"
+  integrity sha512-rLV8JHxTyhVmFYhBJuMujcrHqOT2cnO5Zxj37qROj23CP39GXubJRBUFF0z8KFK77Uc0SukZUf7JZhsVEQ6n8w==
+  dependencies:
+    fast-string-width "^3.0.2"
 
 fastest-levenshtein@^1.0.16:
   version "1.0.16"
@@ -9696,7 +9715,7 @@ wrap-ansi@^7.0.0:
     string-width "^4.1.0"
     strip-ansi "^6.0.0"
 
-wrap-ansi@^9.0.0, wrap-ansi@^9.0.2:
+wrap-ansi@^9.0.0:
   version "9.0.2"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-9.0.2.tgz#956832dea9494306e6d209eb871643bb873d7c98"
   integrity sha512-42AtmgqjV+X1VpdOfyTGOYRi0/zsoLqtXQckTmqTeybT+BDIbM/Guxo7x3pE2vtpr1ok6xRqM9OpBe+Jyoqyww==
