@@ -1,22 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-option-color: var(--sbb-color-3);
-  --sbb-option-background-color: inherit;
-  --sbb-option-background-color-hover: var(--sbb-background-color-3);
-  --sbb-option-background-color-active: var(--sbb-background-color-4);
-  --sbb-option-disabled-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
-  --sbb-option-disabled-background-color: var(--sbb-background-color-3);
-  --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
-  --sbb-option-min-height: var(--sbb-size-element-s);
-  --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
-  --sbb-option-justify-content: start;
-  --sbb-option-cursor: var(--sbb-cursor-pointer);
-  --sbb-option-border-radius: var(--sbb-border-radius-4x);
-  --sbb-option-icon-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
-  --sbb-option-focus-outline-color: transparent;
-  --sbb-option-focus-outline-inset: var(--sbb-spacing-fixed-1x);
-
   display: block;
 }
 
@@ -82,8 +66,8 @@
 }
 
 .sbb-option {
-  @include sbb.text-s--regular;
-
+  font-size: var(--sbb-option-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   position: relative;
   display: flex;
   min-height: var(--sbb-option-min-height);

@@ -1,18 +1,6 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
 :host {
-  --sbb-autocomplete-grid-row-color: var(--sbb-color-3);
-  --sbb-autocomplete-grid-row-background-color: inherit;
-  --sbb-autocomplete-grid-row-background-color-hover: var(--sbb-background-color-3);
-  --sbb-autocomplete-grid-row-disabled-border-color: light-dark(
-    var(--sbb-color-graphite),
-    var(--sbb-color-smoke)
-  );
-  --sbb-autocomplete-grid-row-disabled-background-color: var(--sbb-background-color-3);
-  --sbb-autocomplete-grid-row-padding-inline-end: var(--sbb-spacing-responsive-xxxs);
-  --sbb-autocomplete-grid-row-justify-content: space-between;
-  --sbb-autocomplete-grid-row-cursor: var(--sbb-cursor-pointer);
-
   display: block;
 }
 

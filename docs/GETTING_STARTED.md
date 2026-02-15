@@ -26,6 +26,7 @@ Select your technology to get started.
 
    ```css
    @import 'node_modules/@sbb-esta/lyne-elements/standard-theme.css';
+   @import 'node_modules/@sbb-esta/lyne-elements-experimental/standard-theme.css';
    ```
 
 3. Import the desired element and add it to globalThis:
@@ -66,6 +67,7 @@ Select your technology to get started.
 
    ```css
    @import 'node_modules/@sbb-esta/lyne-elements/standard-theme.css';
+   @import 'node_modules/@sbb-esta/lyne-elements-experimental/standard-theme.css';
    ```
 
    or editing your `angular.json`:
@@ -75,6 +77,7 @@ Select your technology to get started.
      "styles": [
        "src/styles.scss",
        "node_modules/@sbb-esta/lyne-elements/standard-theme.css"
+       "node_modules/@sbb-esta/lyne-elements-experimental/standard-theme.css"
      ],
      ...
    ```
@@ -127,6 +130,7 @@ bootstrapApplication(App).catch((err) => console.error(err));
 
    ```css
    @import '~@sbb-esta/lyne-elements/standard-theme.css';
+   @import '~@sbb-esta/lyne-elements-experimental/standard-theme.css';
    ```
 
 4. Enhance the `transpilePackages` array in Next.js config.
