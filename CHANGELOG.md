@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.5.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.4.0...v4.5.0) (2026-02-16)
+
+
+### Features
+
+* **sbb-autocomplete, sbb-autocomplete-grid:** add 'autoSelectActiveOptionOnBlur' ([#4500](https://github.com/sbb-design-systems/lyne-components/issues/4500)) ([b62fb66](https://github.com/sbb-design-systems/lyne-components/commit/b62fb66aed9083b3d3e7740bbd55a13002199e3d))
+
+
+### Bug Fixes
+
+* add temporal date adapter export to datetime module ([#4495](https://github.com/sbb-design-systems/lyne-components/issues/4495)) ([a9475ae](https://github.com/sbb-design-systems/lyne-components/commit/a9475aea49d6bde2c1992ea4244afeb7934a4ba1))
+* **sbb-tab-group:** ignore calculated height in fixedHeight conditions ([#4491](https://github.com/sbb-design-systems/lyne-components/issues/4491)) ([a33502f](https://github.com/sbb-design-systems/lyne-components/commit/a33502f7415e6634deef705af7c2af6fa4ac1e4e))
+* **sbb-tab-group:** show focus outline and fix focus trap ([#4501](https://github.com/sbb-design-systems/lyne-components/issues/4501)) ([a3fb38c](https://github.com/sbb-design-systems/lyne-components/commit/a3fb38cd86b3f52dab1a10055178630311d97976))
+
+
+### Documentation
+
+* mark the Angular wrapper as stable ([#4497](https://github.com/sbb-design-systems/lyne-components/issues/4497)) ([286db43](https://github.com/sbb-design-systems/lyne-components/commit/286db43dd8be1ee86434bac0356fad5864a4fff9))
+* move datetime to guides ([#4482](https://github.com/sbb-design-systems/lyne-components/issues/4482)) ([7aa65f0](https://github.com/sbb-design-systems/lyne-components/commit/7aa65f0178f6d9c197aa022674d510d9e2467ad1))
+* **sbb-teaser:** fix images in storybook ([#4489](https://github.com/sbb-design-systems/lyne-components/issues/4489)) ([1607bea](https://github.com/sbb-design-systems/lyne-components/commit/1607bea06553bae151fdd38fb442b1d3535f8feb))
+
+
+### Code Refactoring
+
+* **datepicker:** css refactoring ([#4496](https://github.com/sbb-design-systems/lyne-components/issues/4496)) ([c5eafd9](https://github.com/sbb-design-systems/lyne-components/commit/c5eafd904e6845e6c6c3061a23b07d727d60c724))
+* **sbb-button:** css refactoring ([#4456](https://github.com/sbb-design-systems/lyne-components/issues/4456)) ([df3584f](https://github.com/sbb-design-systems/lyne-components/commit/df3584fe4791d189a718b1b420c28c3986790866))
+* **sbb-select:** relax DOM manipulations ([#4490](https://github.com/sbb-design-systems/lyne-components/issues/4490)) ([6e184ed](https://github.com/sbb-design-systems/lyne-components/commit/6e184ed4d0c173b60bf7e8bc70dff3c514d8c487))
+
 ## [4.4.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.3.1...v4.4.0) (2026-02-09)
 
 
