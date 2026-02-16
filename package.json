@@ -66,7 +66,7 @@
     "@custom-elements-manifest/to-markdown": "0.1.0",
     "@eslint/eslintrc": "3.3.3",
     "@eslint/js": "10.0.1",
-    "@inquirer/checkbox": "5.0.6",
+    "@inquirer/checkbox": "5.0.7",
     "@lit-labs/observers": "2.1.0",
     "@lit-labs/router": "0.1.4",
     "@lit-labs/testing": "0.2.8",
