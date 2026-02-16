@@ -1,11 +1,16 @@
+import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing } from 'lit';
 
 import {
   describeEach,
   describeViewports,
+  tabKey,
   visualDiffDefault,
   visualDiffFocus,
+  visualRegressionFixture,
 } from '../../core/testing/private.ts';
+
+import type { SbbTabGroupElement } from './tab-group.component.ts';
 
 import '../tab-group.ts';
 import '../tab-label.ts';
@@ -70,10 +75,11 @@ describe(`sbb-tab-group`, () => {
       );
     });
 
-    it(
-      visualDiffFocus.name,
-      visualDiffFocus.with(async (setup) => {
-        await setup.withFixture(html`
+    describe('focus', () => {
+      let element: SbbTabGroupElement;
+
+      beforeEach(async function () {
+        element = await visualRegressionFixture(html`
           <sbb-tab-group initial-selected-index="0">
             <sbb-tab-label amount="16" icon-name="app-icon-small"> Tab title one </sbb-tab-label>
             <sbb-tab>
@@ -99,8 +105,26 @@ describe(`sbb-tab-group`, () => {
             <sbb-tab></sbb-tab>
           </sbb-tab-group>
         `);
-      }),
-    );
+      });
+
+      it(
+        '',
+        visualDiffFocus.with(async (setup) => {
+          setup.withSnapshotElement(element);
+        }),
+      );
+
+      it(
+        'focus tab',
+        visualDiffDefault.with(async (setup) => {
+          setup.withSnapshotElement(element).withPostSetupAction(async () => {
+            // Move focus to tab
+            setup.snapshotElement.querySelector('sbb-tab-label')!.focus();
+            await sendKeys({ press: tabKey });
+          });
+        }),
+      );
+    });
 
     it(
       'respect content margin',
@@ -146,10 +170,11 @@ describe(`sbb-tab-group`, () => {
       }),
     );
 
-    it(
-      'fixed height',
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
+    describe('fixed height', () => {
+      let element: SbbTabGroupElement;
+
+      beforeEach(async function () {
+        element = await visualRegressionFixture(html`
           <sbb-tab-group fixed-height style="height: 400px;">
             <sbb-tab-label>Tab title</sbb-tab-label>
             <sbb-tab>
@@ -170,7 +195,25 @@ describe(`sbb-tab-group`, () => {
             </sbb-tab>
           </sbb-tab-group>
         `);
-      }),
-    );
+      });
+
+      it(
+        '',
+        visualDiffDefault.with(async (setup) => {
+          setup.withSnapshotElement(element);
+        }),
+      );
+
+      it(
+        'focus',
+        visualDiffDefault.with(async (setup) => {
+          setup.withSnapshotElement(element).withPostSetupAction(async () => {
+            // Move focus to tab
+            setup.snapshotElement.querySelector('sbb-tab-label')!.focus();
+            await sendKeys({ press: tabKey });
+          });
+        }),
+      );
+    });
   });
 });
