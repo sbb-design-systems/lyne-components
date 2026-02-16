@@ -62,6 +62,12 @@ $theme: 'standard' !default;
 @use '../../clock/clock.global' as clock with (
   $theme: $theme
 );
+@use '../../container/container/container.global' as container with (
+  $theme: $theme
+);
+@use '../../container/sticky-bar/sticky-bar.global' as sticky-bar with (
+  $theme: $theme
+);
 @use '../../divider/divider.global' as divider with (
   $theme: $theme
 );
@@ -124,6 +130,8 @@ $theme: 'standard' !default;
   @include checkbox.base;
   @include checkbox-group.base;
   @include checkbox-common.base;
+  @include container.base;
+  @include sticky-bar.base;
   @include clock.base;
   @include divider.base;
   @include expansion-panel.base;
@@ -245,6 +253,7 @@ $theme: 'standard' !default;
 @include font-face.font-declarations;
 
 // Components global styles
+@include container.rules;
 @include tab-nav-bar.rules;
 
 // TODO: discuss where to add these classes
@@ -462,18 +471,6 @@ img {
   aspect-ratio: var(--sbb-image-aspect-ratio);
   object-fit: var(--sbb-image-object-fit);
   object-position: var(--sbb-image-object-position);
-}
-
-// TODO: Move back to the sbb-container components when the global CSS refactoring happens
-sbb-container {
-  > [slot='image']:is(sbb-image, img),
-  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
-    --sbb-image-object-fit: cover;
-
-    border-radius: var(--sbb-container-background-border-radius);
-    height: 100%;
-    position: absolute;
-  }
 }
 
 // TODO: Move back to the sbb-flip-card-summary components when the global CSS refactoring happens

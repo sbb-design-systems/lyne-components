@@ -1,0 +1,21 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-container-background-border-radius: 0;
+  --sbb-container-color: inherit;
+}
+
+@mixin rules {
+  sbb-container {
+    > [slot='image']:is(sbb-image, img),
+    > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
+      --sbb-image-object-fit: cover;
+
+      border-radius: var(--sbb-container-background-border-radius);
+      height: 100%;
+      position: absolute;
+    }
+  }
+}
