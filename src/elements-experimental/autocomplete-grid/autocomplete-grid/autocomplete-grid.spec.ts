@@ -602,6 +602,100 @@ describe(`sbb-autocomplete-grid`, () => {
       });
     });
 
+    describe('autoSelectActiveOptionOnBlur', () => {
+      let openSpy: EventSpy<Event>,
+        changeEventSpy: EventSpy<Event>,
+        inputEventSpy: EventSpy<Event>,
+        inputAutocompleteSpy: EventSpy<Event>;
+      let optOne: SbbAutocompleteGridOptionElement, optTwo: SbbAutocompleteGridOptionElement;
+
+      beforeEach(async () => {
+        openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
+        changeEventSpy = new EventSpy('change', input);
+        inputEventSpy = new EventSpy('input', input);
+        inputAutocompleteSpy = new EventSpy('inputAutocomplete', input);
+        optOne = element.querySelector<SbbAutocompleteGridOptionElement>('#option-1')!;
+        optTwo = element.querySelector<SbbAutocompleteGridOptionElement>('#option-2')!;
+
+        element.autoSelectActiveOptionOnBlur = true;
+        element.autoActiveFirstOption = true;
+        await waitForLitRender(element);
+      });
+
+      it('should select active option on blur', async () => {
+        input.focus();
+        input.value = 'a';
+        await openSpy.calledOnce();
+        expect(openSpy.count).to.be.equal(1);
+        await waitForLitRender(element);
+
+        expect(optOne).to.match(':state(active)');
+        expect(input).to.have.attribute('aria-activedescendant', 'option-1');
+        expect(input).to.have.attribute('aria-expanded', 'true');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(input.value).to.be.equal('a');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('1');
+        expect(optOne).to.have.attribute('selected');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
+        expect(openSpy.count).to.be.equal(1);
+      });
+
+      it('should do nothing if input is empty', async () => {
+        input.focus();
+        await openSpy.calledOnce();
+        expect(openSpy.count).to.be.equal(1);
+        await waitForLitRender(element);
+
+        expect(optOne).to.match(':state(active)');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+      });
+
+      it('should ignore auto-selection when an option is clicked', async () => {
+        input.focus();
+        input.value = 'a';
+        await openSpy.calledOnce();
+        await waitForLitRender(element);
+
+        expect(optOne).to.match(':state(active)');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+
+        optTwo.click();
+        await waitForLitRender(element);
+        expect(optTwo).to.have.attribute('selected');
+        expect(input.value).to.be.equal('2');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
+
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('2');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
+      });
+    });
+
     it('should not close on disabled option click', async () => {
       const openSpy = new EventSpy(SbbAutocompleteGridElement.events.open, element);
       const optOne = element.querySelector<SbbAutocompleteGridOptionElement>('#option-1')!;
