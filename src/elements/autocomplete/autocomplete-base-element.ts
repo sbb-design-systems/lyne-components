@@ -90,7 +90,10 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   @property({ attribute: 'auto-select-active-option', type: Boolean })
   public accessor autoSelectActiveOption: boolean = false;
 
-  /** When enabled, the active option is automatically selected on blur. */
+  /**
+   * When enabled, the active option is automatically selected on blur.
+   * This is an experimental feature. It might be subject to changes.
+   */
   @forceType()
   @property({ attribute: 'auto-select-active-option-on-blur', type: Boolean })
   public accessor autoSelectActiveOptionOnBlur: boolean = false;
