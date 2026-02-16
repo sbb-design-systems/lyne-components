@@ -170,7 +170,6 @@ snapshots["sbb-tab-group fixed height DOM"] =
   </sbb-tab-label>
   <sbb-tab
     class="sbb-scrollbar"
-    id="sbb-tab-12"
     tabindex="0"
   >
     Test tab content 1
@@ -183,7 +182,6 @@ snapshots["sbb-tab-group fixed height DOM"] =
   </sbb-tab-label>
   <sbb-tab
     class="sbb-scrollbar"
-    id="sbb-tab-13"
     tabindex="0"
   >
     Test tab content 2
