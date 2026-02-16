@@ -11,30 +11,10 @@ $active: ':active, :state(active), [loading]';
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
 
-  --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-offset-y);
-  --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
-  --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-blur);
-  --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-2-blur);
-  --sbb-button-color-disabled-background: var(--sbb-background-color-3);
-  --sbb-button-color-disabled-border: var(--sbb-border-color-5);
-  --sbb-button-color-disabled-text: light-dark(
-    var(--sbb-color-granite),
-    var(--sbb-color-aluminium)
-  );
-  --sbb-button-border-disabled-style: dashed;
-  --sbb-button-border-width: var(--sbb-border-width-2x);
-  --sbb-button-border-disabled-width: var(--sbb-border-width-1x);
-  --sbb-button-border-radius: var(--sbb-border-radius-infinity);
-  --sbb-button-min-height: var(--sbb-size-element-m);
   --sbb-button-transition-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
-  --sbb-button-transition-easing-function: var(--sbb-animation-easing);
-  --sbb-button-padding-block-min: var(--sbb-spacing-fixed-1x);
-  --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
-  --sbb-button-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-button-box-shadow: transparent 0 0;
   --sbb-button-box-shadow-definition:
     var(--sbb-shadow-elevation-level-3-shadow-2-offset-x) var(--sbb-button-shadow-2-offset-y)
       var(--sbb-button-shadow-2-blur) var(--sbb-shadow-elevation-level-3-shadow-2-spread)
@@ -42,8 +22,6 @@ $active: ':active, :state(active), [loading]';
     var(--sbb-shadow-elevation-level-3-shadow-1-offset-x) var(--sbb-button-shadow-1-offset-y)
       var(--sbb-button-shadow-1-blur) var(--sbb-shadow-elevation-level-3-shadow-1-spread)
       var(--sbb-button-shadow-1-color);
-  --sbb-button-loading-border-width: var(--sbb-border-width-3x);
-  --sbb-button-loading-delay: 300ms;
 
   // Calculated and private variables
   --_width: unset;
@@ -62,10 +40,6 @@ $active: ':active, :state(active), [loading]';
   // We used px unit as it is not relative to anything.
   --_border: calc(var(--sbb-button-border-width) + var(--sbb-button-border-overlap-fix, 1px)) solid
     var(--_border-color);
-
-  @include sbb.mq($from: large) {
-    --sbb-button-padding-inline: var(--sbb-spacing-fixed-10x);
-  }
 
   @include sbb.if-forced-colors {
     --sbb-button-color-default-border: CanvasText !important;
@@ -108,23 +82,20 @@ $active: ':active, :state(active), [loading]';
   --sbb-button-color-disabled-text: var(--sbb-color-aluminium);
 }
 
-:host([size='m']) {
-  --sbb-button-min-height: var(--sbb-size-element-s);
-  --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
+:host([size='l']) {
+  --sbb-button-min-height: var(--sbb-button-min-height-size-l);
+  --sbb-button-padding-inline: var(--sbb-button-padding-inline-size-l);
+}
 
-  @include sbb.mq($from: large) {
-    --sbb-button-padding-inline: var(--sbb-spacing-fixed-8x);
-  }
+:host([size='m']) {
+  --sbb-button-min-height: var(--sbb-button-min-height-size-m);
+  --sbb-button-padding-inline: var(--sbb-button-padding-inline-size-m);
 }
 
 :host([size='s']) {
-  --sbb-button-min-height: var(--sbb-size-element-xs);
-  --sbb-button-padding-inline: var(--sbb-spacing-fixed-4x);
+  --sbb-button-min-height: var(--sbb-button-min-height-size-s);
+  --sbb-button-padding-inline: var(--sbb-button-padding-inline-size-s);
   --sbb-button-gap: var(--sbb-spacing-fixed-1x);
-
-  @include sbb.mq($from: large) {
-    --sbb-button-padding-inline: var(--sbb-spacing-fixed-5x);
-  }
 }
 
 :host(#{$icon-only}) {
@@ -179,12 +150,13 @@ $active: ':active, :state(active), [loading]';
 }
 
 .sbb-action-base {
-  @include sbb.text-xs--bold;
-
   display: flex;
   gap: var(--sbb-button-gap);
   align-items: center;
   justify-content: center;
+  font-size: var(--sbb-text-font-size-xs);
+  font-weight: bold;
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   text-align: left;
   white-space: nowrap;
   text-decoration: none;

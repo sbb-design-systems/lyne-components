@@ -1,0 +1,58 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-button-box-shadow: transparent 0 0;
+  --sbb-button-border-radius: var(--sbb-border-radius-infinity);
+  --sbb-button-border-width: var(--sbb-border-width-2x);
+  --sbb-button-border-disabled-style: dashed;
+  --sbb-button-border-disabled-width: var(--sbb-border-width-1x);
+  --sbb-button-color-disabled-background: var(--sbb-background-color-3);
+  --sbb-button-color-disabled-border: var(--sbb-border-color-5);
+  --sbb-button-color-disabled-text: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-aluminium)
+  );
+  --sbb-button-gap: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-2x),
+        'lean': var(--sbb-spacing-fixed-1x),
+      ),
+      $theme
+    )};
+  --sbb-button-loading-border-width: var(--sbb-border-width-3x);
+  --sbb-button-loading-delay: 300ms;
+  --sbb-button-min-height-size-l: var(--sbb-size-element-m);
+  --sbb-button-min-height-size-m: var(--sbb-size-element-s);
+  --sbb-button-min-height-size-s: var(--sbb-size-element-xs);
+  --sbb-button-min-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-button-min-height-size-l),
+        'lean': var(--sbb-button-min-height-size-s),
+      ),
+      $theme
+    )};
+  --sbb-button-padding-block-min: var(--sbb-spacing-fixed-1x);
+  --sbb-button-padding-inline-size-l: var(--sbb-spacing-fixed-8x);
+  --sbb-button-padding-inline-size-m: var(--sbb-spacing-fixed-5x);
+  --sbb-button-padding-inline-size-s: var(--sbb-spacing-fixed-4x);
+  --sbb-button-padding-inline: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-button-padding-inline-size-l),
+        'lean': var(--sbb-button-padding-inline-size-s),
+      ),
+      $theme
+    )};
+  --sbb-button-shadow-1-offset-y: var(--sbb-shadow-elevation-level-3-shadow-1-offset-y);
+  --sbb-button-shadow-2-offset-y: var(--sbb-shadow-elevation-level-3-shadow-2-offset-y);
+  --sbb-button-shadow-1-blur: var(--sbb-shadow-elevation-level-3-shadow-1-blur);
+  --sbb-button-shadow-2-blur: var(--sbb-shadow-elevation-level-3-shadow-2-blur);
+  --sbb-button-transition-easing-function: var(--sbb-animation-easing);
+}
+
+@mixin base-breakpoint-large {
+  --sbb-button-padding-inline-size-l: var(--sbb-spacing-fixed-10x);
+  --sbb-button-padding-inline-size-m: var(--sbb-spacing-fixed-8x);
+  --sbb-button-padding-inline-size-s: var(--sbb-spacing-fixed-5x);
+}
