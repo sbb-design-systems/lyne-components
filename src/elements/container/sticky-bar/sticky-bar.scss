@@ -101,7 +101,7 @@ $intersector-overlapping: 1px;
     name: var(--sbb-sticky-bar-slide-vertically-animation-name, unset);
     duration: var(--sbb-sticky-bar-slide-vertically-animation-duration);
     timing-function: var(--sbb-sticky-bar-slide-vertically-animation-easing);
-    delay: var(--sbb-sticky-bar-slide-vertically-animation-delay);
+    delay: 0s;
 
     // Fill mode needed to enable delay
     fill-mode: backwards;
