@@ -5,10 +5,10 @@ import {
   visualDiffActive,
   visualDiffDefault,
   visualDiffFocus,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import '../form-field.js';
-import './slider.js';
+import '../form-field.ts';
+import './slider.component.ts';
 
 describe('sbb-slider', () => {
   const defaultArgs = {
@@ -51,9 +51,9 @@ describe('sbb-slider', () => {
     { name: 'form-field', template: formFieldTemplate },
   ];
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const variant of variants) {
-      describe(`${variant.name}`, () => {
+      describe(variant.name, () => {
         for (const visualDiffState of [visualDiffActive, visualDiffDefault, visualDiffFocus]) {
           it(
             visualDiffState.name,
@@ -99,6 +99,51 @@ describe('sbb-slider', () => {
             await setup.withFixture(variant.template({ ...defaultArgs, withSlottedIcon: true }));
           }),
         );
+      });
+    }
+  });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    for (const { darkMode, forcedColors } of [
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ]) {
+      describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
+        for (const variant of variants) {
+          describe(variant.name, () => {
+            for (const visualDiffState of [visualDiffActive, visualDiffDefault, visualDiffFocus]) {
+              it(
+                visualDiffState.name,
+                visualDiffState.with(async (setup) => {
+                  await setup.withFixture(variant.template(defaultArgs), {
+                    forcedColors,
+                    darkMode,
+                  });
+                }),
+              );
+            }
+
+            it(
+              'disabled',
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(variant.template({ ...defaultArgs, disabled: true }), {
+                  forcedColors,
+                  darkMode,
+                });
+              }),
+            );
+
+            it(
+              'readonly',
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(variant.template({ ...defaultArgs, readonly: true }), {
+                  forcedColors,
+                  darkMode,
+                });
+              }),
+            );
+          });
+        }
       });
     }
   });

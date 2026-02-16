@@ -3,10 +3,8 @@ export const snapshots = {};
 
 snapshots["sbb-dialog-title renders Light DOM"] = 
 `<sbb-dialog-title
-  aria-level="2"
   level="2"
-  role="heading"
-  visual-level="3"
+  visual-level="4"
 >
   Title
 </sbb-dialog-title>
@@ -14,65 +12,25 @@ snapshots["sbb-dialog-title renders Light DOM"] =
 /* end snapshot sbb-dialog-title renders Light DOM */
 
 snapshots["sbb-dialog-title renders Shadow DOM"] = 
-`<div class="sbb-dialog__header">
-  <div class="sbb-title">
-    <slot>
-    </slot>
-  </div>
-  <sbb-secondary-button
-    aria-label="Close secondary window"
-    class="sbb-dialog__close"
-    data-action=""
-    data-button=""
-    data-sbb-button=""
-    icon-name="cross-small"
-    sbb-dialog-close=""
-    size="m"
-    tabindex="0"
-    type="button"
-  >
-  </sbb-secondary-button>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-dialog-title renders Shadow DOM */
 
 snapshots["sbb-dialog-title renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Title"
-    },
-    {
-      "role": "button",
-      "name": "Close secondary window"
+      "role": "heading",
+      "name": "Title",
+      "level": 2
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-dialog-title renders A11y tree Chrome */
-
-snapshots["sbb-dialog-title renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Title"
-    },
-    {
-      "role": "button",
-      "name": "Close secondary window"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-dialog-title renders A11y tree Firefox */
 

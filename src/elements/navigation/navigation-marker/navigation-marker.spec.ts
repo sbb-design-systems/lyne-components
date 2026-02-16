@@ -1,12 +1,12 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
-import { SbbNavigationMarkerElement } from './navigation-marker.js';
+import { SbbNavigationMarkerElement } from './navigation-marker.component.ts';
 
-import '../navigation-button.js';
+import '../navigation-button.ts';
 
 describe(`sbb-navigation-marker`, () => {
   let element: SbbNavigationMarkerElement;
@@ -33,14 +33,14 @@ describe(`sbb-navigation-marker`, () => {
     secondAction.click();
     await waitForLitRender(element);
 
-    expect(secondAction).to.have.attribute('data-action-active');
-    expect(firstAction).not.to.have.attribute('data-action-active');
+    expect(secondAction).to.match(':state(action-active)');
+    expect(firstAction).not.to.match(':state(action-active)');
 
     firstAction.click();
     await waitForLitRender(element);
 
-    expect(firstAction).to.have.attribute('data-action-active');
-    expect(secondAction).not.to.have.attribute('data-action-active');
+    expect(firstAction).to.match(':state(action-active)');
+    expect(secondAction).not.to.match(':state(action-active)');
   });
 
   it('automatic list generation', () => {

@@ -1,17 +1,17 @@
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './header.js';
-import '../header-link.js';
-import '../header-button.js';
-import '../../menu.js';
-import '../../logo.js';
-import '../../signet.js';
+import './header.component.ts';
+import '../header-link.ts';
+import '../header-button.ts';
+import '../../menu.ts';
+import '../../logo.ts';
+import '../../signet.ts';
 
 describe(`sbb-header`, () => {
   const loremIpsumTemplate = `
@@ -25,14 +25,18 @@ describe(`sbb-header`, () => {
       ante, mollis eu lorem id, commodo cursus risus.
   `;
 
-  const template = (expanded: boolean = false, size: 'm' | 's' = 'm'): TemplateResult => html`
+  const template = (
+    expanded: boolean = false,
+    size: 'm' | 's' = 'm',
+    noIcon = false,
+  ): TemplateResult => html`
     <style>
       ${' .last-element, .sbb-header-spacer-logo {display: none;} '}
-      ${' @media screen and (width >= 840px) { .last-element { display: block; } }'}
-      ${' @media screen and (width < 1023px) { .sbb-header-spacer { display: none; } .sbb-header-spacer-logo { display: block; } }'}
+      ${' @media screen and (width >= 600px) { .last-element { display: block; } }'}
+      ${' @media screen and (width < 1024px) { .sbb-header-spacer { display: none; } .sbb-header-spacer-logo { display: block; } }'}
     </style>
     <sbb-header ?expanded=${expanded} size=${size}>
-      <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
+      <sbb-header-button icon-name=${noIcon ? nothing : 'hamburger-menu-small'} expand-from="small">
         Menu
       </sbb-header-button>
       <div class="sbb-header-spacer"></div>
@@ -42,7 +46,9 @@ describe(`sbb-header`, () => {
       <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
         Christina Müller
       </sbb-header-button>
-      <sbb-header-button icon-name="globe-small" class="last-element"> English </sbb-header-button>
+      <sbb-header-button icon-name="globe-small" class="last-element" expand-from="small">
+        English
+      </sbb-header-button>
       <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
       ${size === 's'
         ? html`<a href="#" class="sbb-header-logo"
@@ -103,12 +109,26 @@ describe(`sbb-header`, () => {
     );
 
     it(
+      `darkMode=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template(), { padding: '0', darkMode: true });
+      }),
+    );
+
+    it(
       `scroll`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template(), { padding: '0' });
 
         // Scroll page down
         setup.withPostSetupAction(() => window.scrollTo(0, document.body.scrollHeight));
+      }),
+    );
+
+    it(
+      `first item with no icon`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template(false, 'm', true), { padding: '0' });
       }),
     );
   });

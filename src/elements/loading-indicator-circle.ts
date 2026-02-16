@@ -1,1 +1,4 @@
-export * from './loading-indicator-circle/loading-indicator-circle.js';
+/**
+ * @entrypoint
+ */
+export * from './loading-indicator-circle/loading-indicator-circle.component.ts';

@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbStepLabelElement } from './step-label.js';
+import type { SbbStepLabelElement } from './step-label.component.ts';
 
-import './step-label.js';
+import './step-label.component.ts';
 
 describe('sbb-step-label', () => {
   let root: SbbStepLabelElement;

@@ -1,1 +1,4 @@
-export * from './journey-summary/journey-summary.js';
+/**
+ * @entrypoint
+ */
+export * from './journey-summary/journey-summary.component.ts';

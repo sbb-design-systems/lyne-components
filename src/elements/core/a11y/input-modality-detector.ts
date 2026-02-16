@@ -2,12 +2,12 @@
 
 import { isServer } from 'lit';
 
-import { getEventTarget } from '../eventing.js';
+import { getEventTarget } from '../eventing.ts';
 
 import {
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader,
-} from './fake-event-detection.js';
+} from './fake-event-detection.ts';
 
 export type SbbInputModality = 'touch' | 'mouse' | 'keyboard' | 'program' | null;
 
@@ -115,8 +115,7 @@ class SbbInputModalityDetector {
   }
 
   public reset(): void {
-    this._mostRecentModality = 'mouse';
-    this._mostRecentTarget = null;
+    this._updateState('mouse', null);
     this._lastTouchMs = 0;
   }
 
@@ -131,8 +130,7 @@ class SbbInputModalityDetector {
       return;
     }
 
-    this._mostRecentModality = 'keyboard';
-    this._mostRecentTarget = getEventTarget(event);
+    this._updateState('keyboard', event);
   };
 
   /**
@@ -149,8 +147,7 @@ class SbbInputModalityDetector {
 
     // Fake mousedown events are fired by some screen readers when controls are activated by the
     // screen reader. Attribute them to keyboard input modality.
-    this._mostRecentModality = isFakeMousedownFromScreenReader(event) ? 'keyboard' : 'mouse';
-    this._mostRecentTarget = getEventTarget(event);
+    this._updateState(isFakeMousedownFromScreenReader(event) ? 'keyboard' : 'mouse', event);
   };
 
   /**
@@ -161,8 +158,7 @@ class SbbInputModalityDetector {
     // Same scenario as mentioned in _onMousedown, but on touch screen devices, fake touchstart
     // events are fired. Again, attribute to keyboard input modality.
     if (isFakeTouchstartFromScreenReader(event)) {
-      this._mostRecentModality = 'keyboard';
-      this._mostRecentTarget = getEventTarget(event);
+      this._updateState('keyboard', event);
       return;
     }
 
@@ -170,37 +166,17 @@ class SbbInputModalityDetector {
     // triggered via mouse vs touch.
     this._lastTouchMs = Date.now();
 
-    this._mostRecentModality = 'touch';
-    this._mostRecentTarget = getEventTarget(event);
+    this._updateState('touch', event);
   };
+
+  private _updateState(modality: SbbInputModality, event: Event | null): void {
+    if (this._mostRecentModality) {
+      document.documentElement.classList.remove(`sbb-focus-modality-${this._mostRecentModality}`);
+    }
+    this._mostRecentModality = modality;
+    this._mostRecentTarget = event ? getEventTarget(event) : null;
+    document.documentElement.classList.add(`sbb-focus-modality-${this._mostRecentModality}`);
+  }
 }
 
 export const sbbInputModalityDetector = new SbbInputModalityDetector();
-
-// Set the input modality in order to avoid showing the outline in Safari.
-export function setModalityOnNextFocus(elementToFocus: HTMLElement | null | undefined): void {
-  if (!elementToFocus) {
-    return;
-  }
-
-  const mostRecentModality = sbbInputModalityDetector.mostRecentModality;
-
-  // Set focus origin to element which should receive focus
-  if (!(elementToFocus && mostRecentModality !== null)) {
-    return;
-  }
-  elementToFocus.addEventListener(
-    'focus',
-    () => {
-      elementToFocus.setAttribute('data-focus-origin', mostRecentModality);
-      elementToFocus.addEventListener(
-        'blur',
-        () => elementToFocus.removeAttribute('data-focus-origin'),
-        {
-          once: true,
-        },
-      );
-    },
-    { once: true },
-  );
-}

@@ -1,6 +1,6 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import {
   defaultDisabled,
@@ -12,9 +12,9 @@ import {
   defaultWithError,
   fileSelectorDefaultArgs,
   fileSelectorDefaultArgTypes,
-} from '../common/file-selector-common-stories.js';
+} from '../common/file-selector-common-stories.private.ts';
 
-import { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.js';
+import { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.ts';
 import readme from './readme.md?raw';
 
 const titleContent: InputType = {
@@ -48,7 +48,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbFileSelectorDropzoneElement.events.fileChangedEvent],
+      handles: [SbbFileSelectorDropzoneElement.events.filechanged],
     },
     docs: {
       extractComponentDescription: () => readme,

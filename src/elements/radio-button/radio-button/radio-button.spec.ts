@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
-import { SbbRadioButtonElement } from './radio-button.js';
+import { SbbRadioButtonElement } from './radio-button.component.ts';
 
 describe(`sbb-radio-button`, () => {
   let element: SbbRadioButtonElement;
@@ -27,7 +27,7 @@ describe(`sbb-radio-button`, () => {
       element.click();
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-checked');
+      expect(element).to.match(':state(checked)');
       expect(element.checked).to.be.true;
       await change.calledOnce();
       expect(change.count).to.be.equal(1);

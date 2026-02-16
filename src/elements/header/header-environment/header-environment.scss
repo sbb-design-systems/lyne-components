@@ -1,0 +1,57 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --sbb-header-environment-background-color: var(--sbb-color-granite);
+  --sbb-header-environment-color: var(--sbb-color-1-negative);
+  --sbb-header-environment-size: #{sbb.px-to-rem-build(38)};
+  --sbb-header-environment-rotate: 45deg;
+
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-start: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host(:dir(rtl)) {
+  --sbb-header-environment-rotate: -45deg;
+}
+
+:host(:state(env-dev)) {
+  --sbb-header-environment-background-color: var(--sbb-color-orange);
+}
+
+:host(:state(env-edu)) {
+  --sbb-header-environment-background-color: var(--sbb-color-green);
+}
+
+:host(:state(env-int)),
+:host(:state(env-inte)) {
+  --sbb-header-environment-background-color: var(--sbb-color-granite);
+}
+
+:host(:state(env-loc)) {
+  --sbb-header-environment-background-color: var(--sbb-color-pink);
+}
+
+:host(:state(env-test)) {
+  --sbb-header-environment-background-color: var(--sbb-color-sky);
+}
+
+// Ribbon
+:host::before {
+  content: '';
+  border-block-start: var(--sbb-header-environment-size) solid
+    var(--sbb-header-environment-background-color);
+  border-inline-start: var(--sbb-header-environment-size) solid transparent;
+}
+
+.sbb-header-environment__text {
+  @include sbb.text-xxs--bold;
+
+  position: absolute;
+  color: var(--sbb-header-environment-color);
+  rotate: var(--sbb-header-environment-rotate);
+  padding-block-end: var(--sbb-spacing-fixed-4x);
+}

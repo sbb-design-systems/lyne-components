@@ -5,16 +5,13 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-  visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './stepper.js';
-import '../step.js';
-import '../step-label.js';
+import './stepper.component.ts';
+import '../step.ts';
+import '../step-label.ts';
 
 describe(`sbb-stepper`, () => {
-  let root: HTMLElement;
-
   const cases = {
     orientation: ['horizontal', 'vertical'],
     linear: [false, true],
@@ -57,45 +54,57 @@ describe(`sbb-stepper`, () => {
     </sbb-stepper>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ linear, orientation }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(template(linear, orientation));
-      });
-
       for (const state of [visualDiffDefault, visualDiffFocus]) {
         it(
           state.name,
-          state.with((setup) => {
-            setup.withSnapshotElement(root);
+          state.with(async (setup) => {
+            await setup.withFixture(template(linear, orientation));
           }),
         );
       }
     });
 
     it(
-      `horizontal-from=medium`,
+      `horizontal-from=large`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template(false, 'vertical', false, 'medium'));
+        await setup.withFixture(template(false, 'vertical', false, 'large'));
       }),
     );
   });
 
-  describeViewports({ viewports: ['medium'] }, () => {
-    for (const orientation of cases.orientation) {
-      it(
-        `orientation=${orientation}_long labels`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template(false, orientation, true));
-        }),
-      );
+  describeViewports({ viewports: ['large'] }, () => {
+    for (const { darkMode, forcedColors } of [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ]) {
+      describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
+        for (const orientation of cases.orientation) {
+          describe(`orientation=${orientation}`, () => {
+            it(
+              `long labels`,
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(template(false, orientation, true), {
+                  forcedColors,
+                  darkMode,
+                });
+              }),
+            );
 
-      it(
-        `orientation=${orientation} size=s`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template(false, orientation, false, undefined, 's'));
-        }),
-      );
+            it(
+              `size=s`,
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(template(false, orientation, false, undefined, 's'), {
+                  forcedColors,
+                  darkMode,
+                });
+              }),
+            );
+          });
+        }
+      });
     }
   });
 });

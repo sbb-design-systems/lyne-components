@@ -2,85 +2,133 @@
 // Typo: Title Style Mixins
 // ----------------------------------------------------------------------------------------------------
 
-@mixin title($exclude-spacing: false) {
-  --sbb-title-line-height: var(--sbb-typo-line-height-titles);
-  --sbb-title-margin-block-start: 0;
-  --sbb-title-margin-block-end: 0;
-
-  @if not($exclude-spacing) {
-    --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
-    --sbb-title-margin-block-end: var(--sbb-spacing-responsive-s);
-  }
-
-  margin: 0;
-  margin-block: var(--sbb-title-margin-block-start) var(--sbb-title-margin-block-end);
+@mixin title-rules {
+  margin-block: var(--sbb-title-margin-block, 0);
+  margin-inline: 0;
   font-family: var(--sbb-typo-font-family);
   font-weight: bold;
-  line-height: var(--sbb-title-line-height);
-  letter-spacing: var(--sbb-typo-letter-spacing-titles);
+  line-height: var(--sbb-title-line-height, var(--sbb-typo-line-height-heading));
+  letter-spacing: var(--sbb-typo-letter-spacing-heading);
   font-size: var(--sbb-title-font-size);
 }
 
-@mixin title-1($exclude-spacing: false) {
-  @include title($exclude-spacing);
+@mixin title--level-1 {
+  --sbb-title-font-size: var(--sbb-title-font-size-level-1-lean, var(--sbb-heading-font-size-1));
+}
 
-  --sbb-title-font-size: var(--sbb-font-size-title-1);
+@mixin title--level-1-spacing {
+  --sbb-title-margin-block: var(
+    --sbb-heading-margin-block-1-lean,
+    var(--sbb-heading-margin-block-1)
+  );
+}
+
+@mixin title--level-2 {
+  --sbb-title-font-size: var(--sbb-title-font-size-level-2-lean, var(--sbb-heading-font-size-2));
+}
+
+@mixin title--level-2-spacing {
+  --sbb-title-margin-block: var(
+    --sbb-heading-margin-block-2-lean,
+    var(--sbb-heading-margin-block-2)
+  );
+}
+
+@mixin title--level-3 {
+  --sbb-title-font-size: var(--sbb-title-font-size-level-3-lean, var(--sbb-heading-font-size-3));
+}
+
+@mixin title--level-3-spacing {
+  --sbb-title-margin-block: var(
+    --sbb-heading-margin-block-3-lean,
+    var(--sbb-heading-margin-block-3)
+  );
+}
+
+@mixin title--level-4 {
+  --sbb-title-font-size: var(--sbb-title-font-size-level-4-lean, var(--sbb-heading-font-size-4));
+}
+
+@mixin title--level-4-spacing {
+  --sbb-title-margin-block: var(
+    --sbb-heading-margin-block-4-lean,
+    var(--sbb-heading-margin-block-4)
+  );
+}
+
+@mixin title--level-5 {
+  --sbb-title-font-size: var(--sbb-title-font-size-level-5-lean, var(--sbb-heading-font-size-5));
+}
+
+@mixin title--level-5-spacing {
+  --sbb-title-margin-block: var(
+    --sbb-heading-margin-block-5-lean,
+    var(--sbb-heading-margin-block-5)
+  );
+}
+
+@mixin title--level-6 {
+  --sbb-title-font-size: var(--sbb-title-font-size-level-6-lean, var(--sbb-heading-font-size-6));
+  --sbb-title-line-height: var(--sbb-typo-line-height-text);
+}
+
+@mixin title--level-6-spacing {
+  --sbb-title-margin-block: var(
+    --sbb-heading-margin-block-6-lean,
+    var(--sbb-heading-margin-block-6)
+  );
+}
+
+@mixin title-1($exclude-spacing: false) {
+  @include title--level-1;
+  @if not($exclude-spacing) {
+    @include title--level-1-spacing;
+  }
+  @include title-rules;
 }
 
 @mixin title-2($exclude-spacing: false) {
-  @include title($exclude-spacing);
-
-  --sbb-title-font-size: var(--sbb-font-size-title-2);
-
+  @include title--level-2;
   @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
+    @include title--level-2-spacing;
   }
+  @include title-rules;
 }
 
 @mixin title-3($exclude-spacing: false) {
-  @include title($exclude-spacing);
-
-  --sbb-title-font-size: var(--sbb-font-size-title-3);
-
+  @include title--level-3;
   @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
+    @include title--level-3-spacing;
   }
+  @include title-rules;
 }
 
 @mixin title-4($exclude-spacing: false) {
-  @include title($exclude-spacing);
-
-  --sbb-title-font-size: var(--sbb-font-size-title-4);
-
+  @include title--level-4;
   @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-fixed-3x);
+    @include title--level-4-spacing;
   }
+  @include title-rules;
 }
 
 @mixin title-5($exclude-spacing: false) {
-  @include title($exclude-spacing);
-
-  --sbb-title-font-size: var(--sbb-font-size-title-5);
-  --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
-
+  @include title--level-5;
   @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-fixed-2x);
+    @include title--level-5-spacing;
   }
+  @include title-rules;
 }
 
 @mixin title-6($exclude-spacing: false) {
-  @include title($exclude-spacing);
-
-  --sbb-title-font-size: var(--sbb-font-size-title-6);
-  --sbb-title-line-height: var(--sbb-typo-line-height-body-text);
-
+  @include title--level-6;
   @if not($exclude-spacing) {
-    --sbb-title-margin-block-end: var(--sbb-spacing-fixed-1x);
+    @include title--level-6-spacing;
   }
+  @include title-rules;
 }
 
 @mixin title--negative {
-  --sbb-title-text-color-normal: var(--sbb-color-milk);
+  --sbb-title-text-color-normal: var(--sbb-color-3-negative);
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -89,8 +137,8 @@
 @mixin text {
   font-family: var(--sbb-typo-font-family);
   font-weight: normal;
-  line-height: var(--sbb-typo-line-height-body-text);
-  letter-spacing: var(--sbb-typo-letter-spacing-body-text);
+  line-height: var(--sbb-typo-line-height-text);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   font-size: var(--sbb-text-font-size);
 }
 
@@ -99,7 +147,7 @@
 }
 
 @mixin text-xl--regular {
-  --sbb-text-font-size: var(--sbb-font-size-text-xl);
+  --sbb-text-font-size: var(--sbb-text-font-size-xl);
   @include text;
 }
 
@@ -109,7 +157,7 @@
 }
 
 @mixin text-l--regular {
-  --sbb-text-font-size: var(--sbb-font-size-text-l);
+  --sbb-text-font-size: var(--sbb-text-font-size-l);
   @include text;
 }
 
@@ -119,7 +167,7 @@
 }
 
 @mixin text-m--regular {
-  --sbb-text-font-size: var(--sbb-font-size-text-m);
+  --sbb-text-font-size: var(--sbb-text-font-size-m);
   @include text;
 }
 
@@ -129,7 +177,7 @@
 }
 
 @mixin text-s--regular {
-  --sbb-text-font-size: var(--sbb-font-size-text-s);
+  --sbb-text-font-size: var(--sbb-text-font-size-s);
   @include text;
 }
 
@@ -139,7 +187,7 @@
 }
 
 @mixin text-xs--regular {
-  --sbb-text-font-size: var(--sbb-font-size-text-xs);
+  --sbb-text-font-size: var(--sbb-text-font-size-xs);
   @include text;
 }
 
@@ -149,7 +197,7 @@
 }
 
 @mixin text-xxs--regular {
-  --sbb-text-font-size: var(--sbb-font-size-text-xxs);
+  --sbb-text-font-size: var(--sbb-text-font-size-xxs);
   @include text;
 }
 
@@ -168,8 +216,8 @@
 }
 
 @mixin placeholder {
-  color: var(--sbb-color-metal);
-  -webkit-text-fill-color: var(--sbb-color-metal);
+  color: var(--sbb-color-5);
+  -webkit-text-fill-color: var(--sbb-color-5);
   opacity: 1;
 }
 
@@ -184,7 +232,7 @@
   @include text-xs--regular;
 
   padding: 0;
-  color: var(--sbb-color-granite);
+  color: light-dark(var(--sbb-color-granite), var(--sbb-color-cement));
 }
 
 %sub-sup {

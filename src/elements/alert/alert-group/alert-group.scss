@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-alert-group-gap: var(--sbb-spacing-fixed-3x);
   --sbb-alert-group-border-radius: var(--sbb-border-radius-4x);
@@ -16,7 +13,7 @@
   gap: var(--sbb-alert-group-gap);
 }
 
-:host(:focus-visible:not([data-empty])) {
+:host(:focus-visible:not(:state(empty))) {
   @include sbb.focus-outline;
 
   border-radius: var(--sbb-alert-group-border-radius);

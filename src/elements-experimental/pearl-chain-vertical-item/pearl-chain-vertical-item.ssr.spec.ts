@@ -2,7 +2,7 @@ import { assert } from '@open-wc/testing';
 import { ssrHydratedFixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit';
 
-import { SbbPearlChainVerticalItemElement } from './pearl-chain-vertical-item.js';
+import { SbbPearlChainVerticalItemElement } from './pearl-chain-vertical-item.component.ts';
 
 describe(`sbb-pearl-chain-vertical-item ssr`, () => {
   let root: SbbPearlChainVerticalItemElement;
@@ -10,7 +10,7 @@ describe(`sbb-pearl-chain-vertical-item ssr`, () => {
   beforeEach(async () => {
     root = await ssrHydratedFixture<SbbPearlChainVerticalItemElement>(
       html`<sbb-pearl-chain-vertical-item></sbb-pearl-chain-vertical-item>`,
-      { modules: ['./pearl-chain-vertical-item.js'] },
+      { modules: ['./pearl-chain-vertical-item.component.js'] },
     );
   });
 

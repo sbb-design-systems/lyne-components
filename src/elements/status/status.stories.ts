@@ -1,14 +1,14 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
-import type { TemplateResult } from 'lit';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
-import './status.js';
+import '../title.ts';
+import './status.component.ts';
 
 const type: InputType = {
   control: {
@@ -26,7 +26,7 @@ const type: InputType = {
   ],
 };
 
-const titleContent: InputType = {
+const title: InputType = {
   control: {
     type: 'text',
   },
@@ -46,25 +46,28 @@ const iconName: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   type,
-  'title-content': titleContent,
+  title,
   text,
   'icon-name': iconName,
 };
 
 const defaultArgs: Args = {
   type: type.options![0],
-  'title-content': undefined,
+  title: '',
   text: 'Status info text',
   'icon-name': undefined,
 };
 
-const Template = ({ text, ...args }: Args): TemplateResult => html`
-  <sbb-status ${sbbSpread(args)}>${text}</sbb-status>
+const Template = ({ text, title, ...args }: Args): TemplateResult => html`
+  <sbb-status ${sbbSpread(args)}>
+    ${title ? html`<sbb-title level="3">${title}</sbb-title>` : nothing} ${text}
+  </sbb-status>
 `;
 
 const TemplateIconSlot = ({ text, 'icon-name': iconName, ...args }: Args): TemplateResult => html`
   <sbb-status ${sbbSpread(args)}>
-    ${text}<sbb-icon name=${iconName} slot="icon"></sbb-icon>
+    <sbb-icon name=${iconName} slot="icon"></sbb-icon>
+    ${text}
   </sbb-status>
 `;
 
@@ -119,49 +122,49 @@ export const inProgress: StoryObj = {
 export const infoWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'title-content': 'Title' },
+  args: { ...defaultArgs, title: 'Title' },
 };
 
 export const successWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![1], 'title-content': 'Success!' },
+  args: { ...defaultArgs, type: type.options![1], title: 'Success!' },
 };
 
 export const warningWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![2], 'title-content': 'Warning!' },
+  args: { ...defaultArgs, type: type.options![2], title: 'Warning!' },
 };
 
 export const errorWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![3], 'title-content': 'Error!' },
+  args: { ...defaultArgs, type: type.options![3], title: 'Error!' },
 };
 
 export const pendingWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![4], 'title-content': 'Pending...' },
+  args: { ...defaultArgs, type: type.options![4], title: 'Pending...' },
 };
 
 export const incompleteWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![5], 'title-content': 'Incomplete...' },
+  args: { ...defaultArgs, type: type.options![5], title: 'Incomplete...' },
 };
 
 export const notStartedWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![6], 'title-content': 'Not started...' },
+  args: { ...defaultArgs, type: type.options![6], title: 'Not started...' },
 };
 
 export const inProgressWithTitle: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, type: type.options![7], 'title-content': 'In progress...' },
+  args: { ...defaultArgs, type: type.options![7], title: 'In progress...' },
 };
 
 export const successWithCustomIcon: StoryObj = {
@@ -171,7 +174,7 @@ export const successWithCustomIcon: StoryObj = {
     ...defaultArgs,
     type: 'success',
     'icon-name': 'pen-small',
-    'title-content': 'Success!',
+    title: 'Success!',
   },
 };
 
@@ -182,7 +185,6 @@ export const successWithCustomIconSlotted: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [withActions as Decorator],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

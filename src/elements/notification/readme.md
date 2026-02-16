@@ -14,6 +14,7 @@ The `sbb-notification` is structured in the following way:
 
 ```html
 <sbb-notification>
+  <sbb-title level="3">Notification title</sbb-title>
   The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
   <sbb-link href="/">Link one</sbb-link>
   <sbb-link href="/">Link two</sbb-link>
@@ -25,7 +26,7 @@ Note that the notification only supports inline links.
 
 ## Variants
 
-The `sbb-notification` supports four types: `info` (default), `success`, `warn` and `error`, based on the type of the information displayed.
+The `sbb-notification` supports the types `info` (default), `note`, `success`, `warn` and `error`, based on the type of the information displayed.
 
 ```html
 <sbb-notification type="success">...</sbb-notification>
@@ -80,14 +81,13 @@ As a base rule, opening animations should be active if a notification arrives af
 
 ## Properties
 
-| Name           | Attribute       | Privacy | Type                                       | Default            | Description                                                                                             |
-| -------------- | --------------- | ------- | ------------------------------------------ | ------------------ | ------------------------------------------------------------------------------------------------------- |
-| `animation`    | `animation`     | public  | `'open' \| 'close' \| 'all' \| 'none'`     | `'all'`            | The enabled animations.                                                                                 |
-| `readonly`     | `readonly`      | public  | `boolean`                                  | `false`            | Whether the notification is readonly. In readonly mode, there is no dismiss button offered to the user. |
-| `size`         | `size`          | public  | `'m' \| 's'`                               | `'m' / 's' (lean)` | Size variant, either s or m.                                                                            |
-| `titleContent` | `title-content` | public  | `string`                                   | `''`               | Content of title.                                                                                       |
-| `titleLevel`   | `title-level`   | public  | `SbbTitleLevel`                            | `'3'`              | Level of title, it will be rendered as heading tag (e.g. h3). Defaults to level 3.                      |
-| `type`         | `type`          | public  | `'info' \| 'success' \| 'warn' \| 'error'` | `'info'`           | The type of the notification.                                                                           |
+| Name        | Attribute   | Privacy | Type                                                 | Default            | Description                                                                                                                      |
+| ----------- | ----------- | ------- | ---------------------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| `animation` | `animation` | public  | `'open' \| 'close' \| 'all' \| 'none'`               | `'all'`            | The enabled animations.                                                                                                          |
+| `iconName`  | `icon-name` | public  | `string`                                             | `''`               | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `readOnly`  | `readonly`  | public  | `boolean`                                            | `false`            | Whether the component is readonly.                                                                                               |
+| `size`      | `size`      | public  | `'s' \| 'm'`                                         | `'m' / 's' (lean)` | Size variant, either s or m.                                                                                                     |
+| `type`      | `type`      | public  | `'info' \| 'note' \| 'success' \| 'warn' \| 'error'` | `'info'`           | The type of the notification.                                                                                                    |
 
 ## Methods
 
@@ -97,12 +97,12 @@ As a base rule, opening animations should be active if a notification arrives af
 
 ## Events
 
-| Name        | Type                | Description                              | Inherited From |
-| ----------- | ------------------- | ---------------------------------------- | -------------- |
-| `didClose`  | `CustomEvent<void>` | Emits when the closing animation ends.   |                |
-| `didOpen`   | `CustomEvent<void>` | Emits when the opening animation ends.   |                |
-| `willClose` | `CustomEvent<void>` | Emits when the closing animation starts. |                |
-| `willOpen`  | `CustomEvent<void>` | Emits when the opening animation starts. |                |
+| Name          | Type    | Description                                                                                     | Inherited From |
+| ------------- | ------- | ----------------------------------------------------------------------------------------------- | -------------- |
+| `beforeclose` | `Event` | Emits when the closing animation starts. Can be canceled to prevent the component from closing. |                |
+| `beforeopen`  | `Event` | Emits when the opening animation starts.                                                        |                |
+| `close`       | `Event` | Emits when the closing animation ends.                                                          |                |
+| `open`        | `Event` | Emits when the opening animation ends.                                                          |                |
 
 ## CSS Properties
 
@@ -112,7 +112,8 @@ As a base rule, opening animations should be active if a notification arrives af
 
 ## Slots
 
-| Name    | Description                                                      |
-| ------- | ---------------------------------------------------------------- |
-|         | Use the unnamed slot to add content to the notification message. |
-| `title` | Use this to provide a notification title (optional).             |
+| Name    | Description                                                                                                                                |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+|         | Use the unnamed slot to add content to the `sbb-notification`. Content should consist of an optional `sbb-title` element and text content. |
+| `icon`  | Use this slot to display a custom icon by providing an `sbb-icon` component.                                                               |
+| `title` | Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.             |

@@ -2,9 +2,6 @@
 
 $disabled: '[disabled], :disabled, [disabled-interactive]';
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
@@ -12,38 +9,75 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 
   --sbb-menu-action-border-radius: var(--sbb-border-radius-infinity);
   --sbb-menu-action-outer-horizontal-padding: var(--sbb-spacing-fixed-3x);
+  --sbb-menu-action-outer-vertical-padding: var(--sbb-spacing-fixed-1x);
   --sbb-menu-action-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-menu-action-cursor: pointer;
-  --sbb-menu-action-color: var(--sbb-color-white);
+  --sbb-menu-action-cursor: var(--sbb-cursor-pointer);
+  --sbb-menu-action-color: var(--sbb-color-2-inverted);
   --sbb-menu-action-forced-color-border-color: CanvasText;
+  --sbb-menu-action-content-padding-inline: var(--sbb-spacing-fixed-2x);
+  --sbb-menu-action-content-padding-block: var(--sbb-spacing-fixed-1x);
 
   display: block;
 }
 
-:host(:hover:not(#{$disabled})) {
+:host(:is(:hover:not(#{$disabled}), [aria-expanded='true'])) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-menu-background-color: var(--sbb-color-iron);
+    --sbb-menu-background-color: light-dark(var(--sbb-color-iron), var(--sbb-color-milk));
     --sbb-menu-action-forced-color-border-color: Highlight;
   }
 }
 
 :host(:is(#{$disabled})) {
-  --sbb-menu-action-cursor: default;
-  --sbb-menu-action-color: var(--sbb-color-graphite);
+  --sbb-menu-action-cursor: var(--sbb-cursor-default);
+  --sbb-menu-action-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-granite));
   --sbb-menu-action-forced-color-border-color: GrayText;
 
   pointer-events: none;
-  cursor: default;
+  cursor: var(--sbb-cursor-default);
 
   @include sbb.if-forced-colors {
     --sbb-menu-action-color: GrayText;
   }
 }
 
-:host([data-button]) {
+:host(:state(sbb-menu-trigger)) {
+  --sbb-menu-action-cursor: var(--sbb-cursor-default);
+}
+
+:host(:state(button)) {
   @include sbb.if-forced-colors {
     --sbb-menu-action-color: ButtonText;
   }
+}
+
+:host([sbb-badge]:not(:state(has-icon-name), :state(slotted-icon)))::after {
+  inset: 50%
+    calc(
+      100% - var(--sbb-menu-action-outer-horizontal-padding) - var(
+          --sbb-menu-action-content-padding-inline
+        ) -
+        0.5 * var(--sbb-size-icon-ui-small)
+    )
+    auto auto !important;
+  translate: 50% -50%;
+}
+
+:host([sbb-badge]:is(:state(has-icon-name), :state(slotted-icon)))::after {
+  inset: calc(
+      var(--sbb-menu-action-outer-vertical-padding) + var(--sbb-menu-action-content-padding-block) +
+        var(--sbb-badge-position-offset)
+    )
+    calc(
+      100% - var(--sbb-menu-action-outer-horizontal-padding) - var(
+          --sbb-menu-action-content-padding-inline
+        ) - var(--sbb-size-icon-ui-small) +
+        var(--sbb-badge-position-offset)
+    )
+    auto auto !important;
+}
+
+:host([aria-controls*='sbb-menu']) {
+  --sbb-menu-action-submenu-icon-display: flex;
 }
 
 :is(.sbb-menu-button, .sbb-menu-link) {
@@ -51,7 +85,8 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   display: block;
   width: 100%;
   color: var(--sbb-menu-action-color);
-  padding: var(--sbb-spacing-fixed-1x) var(--sbb-menu-action-outer-horizontal-padding);
+  padding: var(--sbb-menu-action-outer-vertical-padding)
+    var(--sbb-menu-action-outer-horizontal-padding);
   cursor: var(--sbb-menu-action-cursor);
   outline: none;
 }
@@ -62,19 +97,17 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   display: flex;
   align-items: center;
   gap: var(--sbb-menu-action-gap);
-  padding: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x);
+  padding: var(--sbb-menu-action-content-padding-block)
+    var(--sbb-menu-action-content-padding-inline);
   border-radius: var(--sbb-menu-action-border-radius);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   background-color: var(--sbb-menu-background-color);
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   // Handle focus on the host (button variant)
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & ,
+  :host(:focus-visible) &,
   // Handle focus on the action (link variant)
-  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) :focus-visible & {
-    --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-
+  :focus-visible & {
     @include sbb.focus-outline;
   }
 
@@ -83,10 +116,16 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
   }
 }
 
-.sbb-menu-action__icon {
+.sbb-menu-action__icon,
+.sbb-menu-submenu__icon {
   display: flex;
   min-width: var(--sbb-size-icon-ui-small);
   min-height: var(--sbb-size-icon-ui-small);
+}
+
+.sbb-menu-submenu__icon {
+  display: var(--sbb-menu-action-submenu-icon-display, none);
+  margin-inline-start: auto;
 }
 
 .sbb-menu-action__label {
@@ -94,17 +133,5 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
 
   :host(:is(#{$disabled})) & {
     text-decoration: line-through;
-  }
-}
-
-.sbb-menu-action__amount {
-  @include sbb.badge;
-
-  margin-inline-start: auto;
-  width: var(--sbb-spacing-fixed-4x);
-  max-height: var(--sbb-spacing-fixed-4x);
-
-  @include sbb.if-forced-colors {
-    color: var(--sbb-menu-action-color);
   }
 }

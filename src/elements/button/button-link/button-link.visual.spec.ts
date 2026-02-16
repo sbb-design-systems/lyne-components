@@ -5,9 +5,9 @@ import {
   describeViewports,
   visualDiffStandardStates,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './button-link.js';
+import './button-link.component.ts';
 
 // We test only the differences to the sbb-button
 describe(`sbb-button-link`, () => {
@@ -34,7 +34,7 @@ describe(`sbb-button-link`, () => {
             </sbb-button-link>
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             focusOutlineDark: negative,
             forcedColors,
           },

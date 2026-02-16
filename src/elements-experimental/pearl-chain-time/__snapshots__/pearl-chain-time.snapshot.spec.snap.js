@@ -49,12 +49,7 @@ snapshots["sbb-pearl-chain-time renders with departure walk DOM"] =
 snapshots["sbb-pearl-chain-time renders with departure walk Shadow DOM"] = 
 `<div class="sbb-pearl-chain__time">
   <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--walk-small-left">
-    <sbb-icon
-      aria-hidden="true"
-      data-namespace="default"
-      name="walk-small"
-      role="img"
-    >
+    <sbb-icon name="walk-small">
     </sbb-icon>
     <time datetime="10M">
       <span class="sbb-screen-reader-only">
@@ -126,12 +121,7 @@ snapshots["sbb-pearl-chain-time renders with arrival walk Shadow DOM"] =
     15:00
   </time>
   <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--walk-small-right">
-    <sbb-icon
-      aria-hidden="true"
-      data-namespace="default"
-      name="walk-small"
-      role="img"
-    >
+    <sbb-icon name="walk-small">
     </sbb-icon>
     <time datetime="10M">
       <span class="sbb-screen-reader-only">
@@ -164,12 +154,7 @@ snapshots["sbb-pearl-chain-time renders with departure and arrival walk DOM"] =
 snapshots["sbb-pearl-chain-time renders with departure and arrival walk Shadow DOM"] = 
 `<div class="sbb-pearl-chain__time">
   <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--walk-small-left">
-    <sbb-icon
-      aria-hidden="true"
-      data-namespace="default"
-      name="walk-small"
-      role="img"
-    >
+    <sbb-icon name="walk-small">
     </sbb-icon>
     <time datetime="20M">
       <span class="sbb-screen-reader-only">
@@ -205,12 +190,7 @@ snapshots["sbb-pearl-chain-time renders with departure and arrival walk Shadow D
     15:00
   </time>
   <span class="sbb-pearl-chain__time-walktime sbb-pearl-chain__time-walktime--walk-small-right">
-    <sbb-icon
-      aria-hidden="true"
-      data-namespace="default"
-      name="walk-small"
-      role="img"
-    >
+    <sbb-icon name="walk-small">
     </sbb-icon>
     <time datetime="10M">
       <span class="sbb-screen-reader-only">

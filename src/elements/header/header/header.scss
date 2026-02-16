@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
@@ -19,7 +16,7 @@
   );
   --sbb-header-inset-inline-end: 0;
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-logo-height: #{sbb.px-to-rem-build(20)};
     --sbb-signet-height: #{sbb.px-to-rem-build(20)};
   }
@@ -29,19 +26,19 @@
   --sbb-header-position: absolute;
 }
 
-:host([hide-on-scroll][data-fixed]) {
+:host([hide-on-scroll]:state(fixed)) {
   --sbb-header-position: fixed;
   --sbb-header-animation-name: hide;
   --sbb-header-transform: translate3d(0, -100%, 0);
   --sbb-header-inset-inline-end: 0;
 }
 
-:host([hide-on-scroll][data-fixed][data-animated]) {
+:host([hide-on-scroll]:state(fixed):state(animated)) {
   // Hide transition
   --sbb-header-transition-timing: cubic-bezier(0.4, 0, 1, 1);
 }
 
-:host([hide-on-scroll][data-fixed][data-visible]) {
+:host([hide-on-scroll]:state(fixed):state(visible)) {
   --sbb-header-animation-name: show;
   --sbb-header-transform: translate3d(0, 0, 0);
 
@@ -49,7 +46,7 @@
   --sbb-header-transition-timing: cubic-bezier(0, 0, 0.2, 1);
 }
 
-:host([hide-on-scroll][data-fixed][data-has-visible-focus-within]) {
+:host([hide-on-scroll]:state(fixed):state(has-visible-focus-within)) {
   --sbb-header-transition-duration: 0;
   --sbb-header-transform: translate3d(0, 0, 0);
 }
@@ -57,7 +54,7 @@
 .sbb-header {
   position: var(--sbb-header-position);
   inset: 0 var(--sbb-header-inset-inline-end) auto 0;
-  background: var(--sbb-color-white);
+  background: var(--sbb-background-color-1);
   z-index: var(--sbb-header-z-index, 10);
   transform: var(--sbb-header-transform);
   transition: {
@@ -71,8 +68,8 @@
     timing-function: var(--sbb-header-transition-timing);
   }
 
-  :host(:is([data-shadow], [data-has-visible-focus-within][data-fixed])) & {
-    @include sbb.shadow-level-9-soft;
+  :host(:is(:state(shadow), :state(has-visible-focus-within):state(fixed))) & {
+    box-shadow: var(--sbb-box-shadow-level-9-soft);
   }
 
   @include sbb.if-forced-colors {
@@ -144,10 +141,7 @@
   inset: var(--sbb-spacing-fixed-3x) 0;
 }
 
-// Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-::slotted(
-    a.sbb-header-logo:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])
-  )::before {
+::slotted(a.sbb-header-logo:focus-visible)::before {
   @include sbb.focus-outline;
 
   outline-offset: var(--sbb-spacing-fixed-3x);

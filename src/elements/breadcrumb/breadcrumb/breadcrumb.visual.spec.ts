@@ -4,9 +4,9 @@ import {
   describeViewports,
   visualDiffStandardStates,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './breadcrumb.js';
+import './breadcrumb.component.ts';
 
 describe('sbb-breadcrumb', () => {
   let root: HTMLElement;
@@ -17,7 +17,7 @@ describe('sbb-breadcrumb', () => {
     { case: 'label and icon', icon: 'house-small', text: 'Breadcrumb' },
   ];
 
-  describeViewports({ viewports: ['wide'] }, () => {
+  describeViewports({ viewports: ['ultra'] }, () => {
     for (const singleCase of cases) {
       describe(`${singleCase.case}`, () => {
         beforeEach(async function () {

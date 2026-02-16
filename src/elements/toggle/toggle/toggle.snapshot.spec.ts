@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbToggleElement } from './toggle.js';
+import type { SbbToggleElement } from './toggle.component.ts';
 
-import './toggle.js';
-import '../toggle-option.js';
+import './toggle.component.ts';
+import '../toggle-option.ts';
 
 describe(`sbb-toggle`, () => {
   let element: SbbToggleElement;

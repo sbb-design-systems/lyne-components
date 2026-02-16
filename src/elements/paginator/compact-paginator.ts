@@ -1,1 +1,4 @@
-export * from './compact-paginator/compact-paginator.js';
+/**
+ * @entrypoint
+ */
+export * from './compact-paginator/compact-paginator.component.ts';

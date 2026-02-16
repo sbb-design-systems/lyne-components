@@ -3,9 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-secondary-button-static renders without icon DOM"] = 
 `<sbb-secondary-button-static
-  data-action=""
-  data-sbb-button=""
-  data-slot-names="unnamed"
   disabled=""
   negative=""
   size="m"
@@ -28,17 +25,9 @@ snapshots["sbb-secondary-button-static renders without icon Shadow DOM"] =
 /* end snapshot sbb-secondary-button-static renders without icon Shadow DOM */
 
 snapshots["sbb-secondary-button-static renders with slotted icon DOM"] = 
-`<sbb-secondary-button-static
-  data-action=""
-  data-sbb-button=""
-  data-slot-names="icon unnamed"
-  size="l"
->
+`<sbb-secondary-button-static size="l">
   <sbb-icon
-    aria-hidden="true"
-    data-namespace="default"
     name="chevron-small-left-small"
-    role="img"
     slot="icon"
   >
   </sbb-icon>
@@ -62,32 +51,38 @@ snapshots["sbb-secondary-button-static renders with slotted icon Shadow DOM"] =
 snapshots["sbb-secondary-button-static renders with slotted icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Label Text"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none"
+            }
+          ]
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "StaticText",
+              "name": "Label Text"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-secondary-button-static renders with slotted icon A11y tree Chrome */
-
-snapshots["sbb-secondary-button-static renders with slotted icon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Label Text "
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-secondary-button-static renders with slotted icon A11y tree Firefox */
 

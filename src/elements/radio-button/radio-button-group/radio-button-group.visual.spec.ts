@@ -5,17 +5,17 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../../card/card-badge.js';
-import '../../form-error.js';
-import '../../icon.js';
-import '../../radio-button.js';
+import '../../card/card-badge.ts';
+import '../../form-field/error.ts';
+import '../../icon.ts';
+import '../../radio-button.ts';
 
 const cases = {
   disabled: [false, true],
   orientation: ['vertical', 'horizontal'],
-  size: ['m', 's', 'xs'],
+  size: ['xs', 's', 'm'],
 };
 
 const suffixAndSubtext = (): TemplateResult => html`
@@ -45,7 +45,7 @@ const variants: { name: string; template: TemplateResult }[] = [
 ];
 
 describe(`sbb-radio-button-group`, () => {
-  describeViewports({ viewports: ['small', 'medium'] }, () => {
+  describeViewports({ viewports: ['small', 'large'] }, () => {
     describeEach(cases, ({ orientation, size, disabled }) => {
       for (const variant of variants) {
         describe(variant.name, () => {
@@ -86,10 +86,10 @@ describe(`sbb-radio-button-group`, () => {
 
     for (const variant of variants) {
       it(
-        `horizontal-from=medium with ${variant.name}`,
+        `horizontal-from=large with ${variant.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
-            html`<sbb-radio-button-group orientation="vertical" horizontal-from="medium">
+            html`<sbb-radio-button-group orientation="vertical" horizontal-from="large">
               ${variant.template}
             </sbb-radio-button-group>`,
           );
@@ -106,7 +106,7 @@ describe(`sbb-radio-button-group`, () => {
               await setup.withFixture(
                 html`<sbb-radio-button-group allow-empty-selection orientation=${orientation}>
                   ${variant.template}
-                  <sbb-form-error slot="error">This is a required field.</sbb-form-error>
+                  <sbb-error slot="error">This is a required field.</sbb-error>
                 </sbb-radio-button-group>`,
               );
             }),
@@ -114,5 +114,16 @@ describe(`sbb-radio-button-group`, () => {
         }
       });
     }
+
+    it(
+      `sbb-radio-button without label`,
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-radio-button-group
+            ><sbb-radio-button></sbb-radio-button
+          ></sbb-radio-button-group>`,
+        );
+      }),
+    );
   });
 });

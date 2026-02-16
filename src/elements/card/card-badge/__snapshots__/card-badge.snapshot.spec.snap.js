@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-card-badge renders DOM"] = 
 `<sbb-card-badge
   color="charcoal"
-  role="text"
   slot="badge"
 >
   Black Friday Special
@@ -13,18 +12,14 @@ snapshots["sbb-card-badge renders DOM"] =
 /* end snapshot sbb-card-badge renders DOM */
 
 snapshots["sbb-card-badge renders Shadow DOM"] = 
-`<span class="sbb-card-badge-wrapper">
-  <span class="sbb-card-badge">
-    <span
-      aria-hidden="true"
-      class="sbb-card-badge-background"
-    >
-    </span>
-    <span class="sbb-card-badge-content">
-      <slot>
-      </slot>
-    </span>
-  </span>
+`<span
+  aria-hidden="true"
+  class="sbb-card-badge-background"
+>
+</span>
+<span class="sbb-card-badge-content">
+  <slot>
+  </slot>
 </span>
 `;
 /* end snapshot sbb-card-badge renders Shadow DOM */
@@ -32,32 +27,16 @@ snapshots["sbb-card-badge renders Shadow DOM"] =
 snapshots["sbb-card-badge renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Black Friday Special"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-card-badge renders A11y tree Chrome */
-
-snapshots["sbb-card-badge renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Black Friday Special"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-card-badge renders A11y tree Firefox */
 

@@ -9,9 +9,9 @@ import {
   longFutureLeg,
   pastLeg,
   progressLeg,
-} from '../pearl-chain/pearl-chain.sample-data.js';
+} from '../pearl-chain/pearl-chain.sample-data.private.ts';
 
-import './journey-summary.js';
+import './journey-summary.component.ts';
 import '@sbb-esta/lyne-elements/button/button.js';
 import '@sbb-esta/lyne-elements/button/secondary-button.js';
 
@@ -175,14 +175,22 @@ describe(`sbb-journey-summary`, () => {
     },
   ];
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    for (const example of cases) {
-      it(
-        example.name,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template(example.args));
-        }),
-      );
+  describeViewports({ viewports: ['zero'] }, () => {
+    for (const { forcedColors, darkMode } of [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ]) {
+      describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
+        for (const example of cases) {
+          it(
+            example.name,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(template(example.args));
+            }),
+          );
+        }
+      });
     }
   });
 });

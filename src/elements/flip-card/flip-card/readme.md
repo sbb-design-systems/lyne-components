@@ -1,4 +1,4 @@
-The `sbb-flip-card` component displays an informative card that reveals more informations when clicked or toggled programmatically.
+The `sbb-flip-card` component displays an informative card that reveals more information when clicked or toggled programmatically.
 It's meant to be used together with [sbb-flip-card-summary](/docs/elements-sbb-flip-card-sbb-flip-card-summary--docs) and [sbb-flip-card-details](/docs/elements-sbb-flip-card-sbb-flip-card-details--docs).
 
 ```html
@@ -64,9 +64,9 @@ The `sbb-flip-card` will switch to the flipped state after the user clicks on it
 
 ## Events
 
-| Name   | Type                | Description                     | Inherited From |
-| ------ | ------------------- | ------------------------------- | -------------- |
-| `flip` | `CustomEvent<void>` | Emits when the flip card flips. |                |
+| Name   | Type    | Description                              | Inherited From |
+| ------ | ------- | ---------------------------------------- | -------------- |
+| `flip` | `Event` | Emits whenever the component is flipped. |                |
 
 ## Slots
 

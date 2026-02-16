@@ -1,1 +1,4 @@
-export * from './timetable-occupancy/timetable-occupancy.js';
+/**
+ * @entrypoint
+ */
+export * from './timetable-occupancy/timetable-occupancy.component.ts';

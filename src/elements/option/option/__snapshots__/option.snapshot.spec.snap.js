@@ -3,11 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-option autocomplete renders selected DOM"] = 
 `<sbb-option
-  aria-selected="true"
-  data-slot-names="unnamed"
-  data-variant="autocomplete"
   id="sbb-option-0"
-  role="option"
   selected=""
   value="1"
 >
@@ -26,7 +22,9 @@ snapshots["sbb-option autocomplete renders selected Shadow DOM"] =
     <span class="sbb-option__label">
       <slot>
       </slot>
-      Option 1
+      <span>
+        Option 1
+      </span>
     </span>
   </div>
 </div>
@@ -35,13 +33,8 @@ snapshots["sbb-option autocomplete renders selected Shadow DOM"] =
 
 snapshots["sbb-option autocomplete renders disabled DOM"] = 
 `<sbb-option
-  aria-disabled="true"
-  aria-selected="false"
-  data-slot-names="unnamed"
-  data-variant="autocomplete"
   disabled=""
   id="sbb-option-2"
-  role="option"
   value="1"
 >
   Option 1
@@ -59,7 +52,9 @@ snapshots["sbb-option autocomplete renders disabled Shadow DOM"] =
     <span class="sbb-option__label">
       <slot>
       </slot>
-      Option 1
+      <span>
+        Option 1
+      </span>
     </span>
   </div>
 </div>
@@ -69,8 +64,15 @@ snapshots["sbb-option autocomplete renders disabled Shadow DOM"] =
 snapshots["sbb-option selected Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "option",
+      "name": "",
+      "selected": true
+    }
+  ]
 }
 </p>
 `;
@@ -89,8 +91,16 @@ snapshots["sbb-option selected Firefox"] =
 snapshots["sbb-option disabled Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "option",
+      "name": "",
+      "disabled": true,
+      "selected": false
+    }
+  ]
 }
 </p>
 `;

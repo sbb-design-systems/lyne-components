@@ -5,10 +5,12 @@
 
   --sbb-options-panel-position-x: 0;
   --sbb-options-panel-position-y: 0;
-  --sbb-options-panel-active-option-y: 0;
 
-  // 85vh is not an exact value but looks optimized for mobile view.
-  --sbb-options-panel-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
+  // In order to have a valid value, we need a big integer to not fall into the minimum
+  --_sbb-options-panel-max-height: min(
+    var(--sbb-options-panel-max-height-calculated),
+    var(--sbb-options-panel-max-height, 100000em)
+  );
   --sbb-options-panel-min-height: var(--sbb-options-panel-origin-height);
   --sbb-options-panel-visibility: visible;
   --sbb-options-panel-width: fit-content;
@@ -25,21 +27,30 @@
   --sbb-options-panel-gap-fix-top: calc(
     var(--sbb-options-panel-position-y) - var(--sbb-options-panel-border-radius)
   );
-  --sbb-options-panel-background-color: var(--sbb-color-white);
+  --sbb-options-panel-background-color: var(--sbb-background-color-1);
+  --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-2x);
+  --sbb-options-panel-divider-margin-block: var(--sbb-spacing-fixed-3x);
 
   // As the overlays have always a white background, we have to fix the focus outline color
   // to default color for cases where the overlays are used in a negative context.
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+  --sbb-focus-outline-color: light-dark(
+    var(--sbb-focus-outline-color-default),
+    var(--sbb-focus-outline-color-dark)
+  );
 }
 
 @mixin options-panel-overlay-negative-variables {
   @include scrollbar.scrollbar-variables--color-negative;
 
-  --sbb-options-panel-background-color: var(--sbb-color-midnight);
+  --sbb-options-panel-background-color: var(--sbb-background-color-1-negative);
 
   // As the overlays have always a white background, we have to fix the focus outline color
   // to default color for cases where the overlays are used in a negative context.
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+
+@mixin options-panel-overlay-size-s-variables {
+  --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-1x);
 }
 
 @mixin options-panel-overlay-container {
@@ -97,10 +108,10 @@
 
 @mixin optionsOverlay {
   background-color: var(--sbb-options-panel-background-color);
-  padding-block: var(--sbb-spacing-fixed-3x);
+  padding-block: var(--sbb-options-panel-padding-block);
   padding-inline: 0;
   border-radius: var(--sbb-options-panel-options-border-radius);
-  max-height: var(--sbb-options-panel-max-height);
+  max-height: var(--_sbb-options-panel-max-height);
   min-height: var(--sbb-options-panel-min-height);
   pointer-events: all;
   overflow-y: auto;

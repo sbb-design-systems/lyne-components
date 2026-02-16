@@ -1,15 +1,15 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbFlipCardElement } from './flip-card.js';
+import { SbbFlipCardElement } from './flip-card.component.ts';
 
-import '../flip-card-details.js';
-import '../flip-card-summary.js';
-import '../../title.js';
-import '../../image.js';
-import '../../link.js';
+import '../flip-card-details.ts';
+import '../flip-card-summary.ts';
+import '../../title.ts';
+import '../../image.ts';
+import '../../link.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
@@ -34,7 +34,7 @@ describe(`sbb-flip-card ssr`, () => {
       `,
       {
         modules: [
-          './flip-card.js',
+          './flip-card.component.js',
           '../flip-card-summary.js',
           '../flip-card-details.js',
           '../../title.js',

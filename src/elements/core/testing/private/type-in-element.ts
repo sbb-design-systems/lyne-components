@@ -8,7 +8,9 @@
 
 // Copied from https://github.com/angular/components/blob/main/src/cdk/testing/testbed/fake-events/type-in-element.ts
 
-import { dispatchFakeEvent, dispatchKeyboardEvent } from './dispatch-events.js';
+import type { SbbFormAssociatedInputMixinType } from '../../mixins.ts';
+
+import { dispatchFakeEvent, dispatchKeyboardEvent } from './dispatch-events.ts';
 
 const PERIOD = 190;
 
@@ -45,7 +47,11 @@ const incrementalInputTypes = new Set([
  */
 export function isTextInput(element: Element): element is HTMLInputElement | HTMLTextAreaElement {
   const nodeName = element.nodeName.toLowerCase();
-  return nodeName === 'input' || nodeName === 'textarea';
+  return (
+    nodeName === 'input' ||
+    nodeName === 'textarea' ||
+    (nodeName.startsWith('sbb-') && nodeName.endsWith('-input'))
+  );
 }
 
 /**
@@ -149,7 +155,8 @@ export function typeInElement(element: HTMLElement, ...modifiersAndKeys: any[]):
     dispatchFakeEvent(element, 'input');
   }
 
-  if (isInput && element.value !== lastChangeValue) {
+  // Our input implementations already dispatch change on blur.
+  if (isInput && !element.localName.startsWith('sbb') && element.value !== lastChangeValue) {
     element.addEventListener('blur', () => dispatchFakeEvent(element, 'change'), { once: true });
   }
 }
@@ -158,7 +165,9 @@ export function typeInElement(element: HTMLElement, ...modifiersAndKeys: any[]):
  * Clears the text in an input or textarea element.
  * @docs-private
  */
-export function clearElement(element: HTMLInputElement | HTMLTextAreaElement): void {
+export function clearElement(
+  element: HTMLInputElement | HTMLTextAreaElement | (SbbFormAssociatedInputMixinType & HTMLElement),
+): void {
   element.focus();
   element.value = '';
   dispatchFakeEvent(element, 'input');

@@ -1,1 +1,4 @@
-export * from './time-input/time-input.js';
+/**
+ * @entrypoint
+ */
+export * from './time-input/time-input.component.ts';

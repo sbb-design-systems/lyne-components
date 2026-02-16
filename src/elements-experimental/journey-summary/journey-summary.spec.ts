@@ -2,7 +2,7 @@ import { assert } from '@open-wc/testing';
 import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbJourneySummaryElement } from './journey-summary.js';
+import { SbbJourneySummaryElement } from './journey-summary.component.ts';
 
 describe(`sbb-journey-summary`, () => {
   it('renders', async () => {

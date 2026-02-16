@@ -1,17 +1,17 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbButtonElement } from '../button.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbButtonElement } from '../button.ts';
 
 import readme from './readme.md?raw';
-import { SbbToastElement } from './toast.js';
-import '../button/button.js';
-import '../button/transparent-button.js';
-import '../link/link.js';
+import { SbbToastElement } from './toast.component.ts';
+import '../button/button.ts';
+import '../button/transparent-button.ts';
+import '../link/link.ts';
 
 const position: InputType = {
   control: {
@@ -31,7 +31,7 @@ const position: InputType = {
   ],
 };
 
-const dismissible: InputType = {
+const readonly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -59,7 +59,7 @@ const iconName: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   position,
-  dismissible,
+  readonly,
   timeout,
   politeness,
   'icon-name': iconName,
@@ -67,8 +67,8 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   position: 'bottom-center',
-  dismissible: false,
-  timeout: 6000,
+  readonly: false,
+  timeout: 0,
   politeness: 'polite',
   'icon-name': 'circle-tick-small',
 };
@@ -81,8 +81,9 @@ const toastTemplate = (
   <sbb-button
     @click=${(event: Event) =>
       (event.currentTarget as SbbButtonElement).parentElement!.querySelector('sbb-toast')!.open()}
-    >Show toast</sbb-button
   >
+    Show toast
+  </sbb-button>
   <sbb-toast timeout=${timeout} ${sbbSpread(args)}>
     ${contentLength === 's'
       ? 'Lorem ipsum dolor'
@@ -117,10 +118,10 @@ export const Basic: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const Dismissible: StoryObj = {
+export const ReadOnlyWithTimeout: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, dismissible: true },
+  args: { ...defaultArgs, readonly: true, timeout: 5000 },
 };
 
 export const LongContent: StoryObj = {
@@ -146,10 +147,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbToastElement.events.willOpen,
-        SbbToastElement.events.didOpen,
-        SbbToastElement.events.willClose,
-        SbbToastElement.events.didClose,
+        SbbToastElement.events.beforeopen,
+        SbbToastElement.events.open,
+        SbbToastElement.events.beforeclose,
+        SbbToastElement.events.close,
       ],
     },
     docs: {

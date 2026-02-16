@@ -5,9 +5,9 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './journey-header.js';
+import './journey-header.component.ts';
 
 describe(`sbb-journey-header`, () => {
   let root: HTMLElement;
@@ -19,7 +19,7 @@ describe(`sbb-journey-header`, () => {
 
   const sizeCases = ['s', 'm', 'l'];
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ negative, roundTrip }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
@@ -29,7 +29,7 @@ describe(`sbb-journey-header`, () => {
             origin="Origin"
             destination="Destination"
           ></sbb-journey-header>`,
-          { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
+          { backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined },
         );
       });
 
@@ -54,6 +54,24 @@ describe(`sbb-journey-header`, () => {
           );
         }),
       );
+    }
+
+    for (const negative of [false, true]) {
+      describe(`negative=${negative}`, () => {
+        it(
+          `darkMode=true`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-journey-header
+                origin="Origin"
+                destination="Destination"
+                ?negative=${negative}
+              ></sbb-journey-header>`,
+              { darkMode: true },
+            );
+          }),
+        );
+      });
     }
   });
 });

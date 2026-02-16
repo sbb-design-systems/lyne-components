@@ -1,6 +1,6 @@
 /**
  * To execute this script, run the following row in the root directory of this project.
- * Please add a valid github token and replace the PR number.
+ * Please add a valid GitHub token and replace the PR number.
  * rm -rf dist/screenshots && tsx scripts/manual-diff-check.ts --pr=3131 --github-token=<YOUR-TOKEN> && cd dist/screenshots && unzip screenshots.zip && cd ../.. && yarn start:visual-regression-app
  */
 
@@ -8,8 +8,6 @@ import { createWriteStream, existsSync, mkdirSync } from 'fs';
 import { Readable } from 'node:stream';
 import { finished } from 'node:stream/promises';
 import { parseArgs } from 'node:util';
-
-import { distDir } from '../tools/vite/index.js';
 
 const { values: cliArgs } = parseArgs({
   strict: false,
@@ -70,7 +68,7 @@ const zipResponse = await fetch(artifactDownloadUrl, {
   },
 });
 
-const screenshotDir = new URL(`./screenshots/`, distDir);
+const screenshotDir = new URL(`../dist/screenshots/`, import.meta.url);
 if (!existsSync(screenshotDir)) {
   mkdirSync(screenshotDir, { recursive: true });
 }

@@ -1,0 +1,110 @@
+name: Test
+on: [push, pull_request]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions: read-all
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Run eslint
+        run: yarn lint:tsc
+
+      - name: Preload test artifacts
+        run: node scripts/preload-test-artifacts.ts
+
+      - name: Store test artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-artifacts
+          path: node_modules/.cache/lyne-cdn/
+          retention-days: 1
+
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.51.1-noble
+      options: --user 1001
+    needs: setup
+    env:
+      max-segment: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        segment: [1, 2, 3, 4, 5]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive
+      - name: Restore test artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: test-artifacts
+
+      - name: Run tests
+        run: yarn test --segment=${{ matrix.segment }}/${{ env.max-segment }}
+        env:
+          NODE_ENV: production
+      - name: Assert no new snapshots (run `yarn test --ci` if this fails)
+        run: git diff --exit-code
+      - name: Store coverage
+        if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: matrix-coverage-${{ matrix.segment }}
+          path: coverage/
+          retention-days: 1
+
+  collect-test-results:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive
+      - uses: actions/download-artifact@v4
+
+      - name: Assemble code coverage
+        run: |
+          mkdir coverage-matrix
+          for file in */coverage-final.json; do
+            mv "$file" "coverage-matrix/$(basename $(dirname $file)).json"
+          done
+
+          yarn nyc report \
+            --temp-dir coverage-matrix \
+            --report-dir coverage \
+            --reporter lcov
+          rm -rf coverage-matrix
+      - name: Store coverage
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 1
+      - uses: codecov/codecov-action@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: coverage
+          fail_ci_if_error: true
+          verbose: true

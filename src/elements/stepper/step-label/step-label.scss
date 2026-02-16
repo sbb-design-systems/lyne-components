@@ -1,18 +1,15 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  --sbb-step-label-color: var(--sbb-color-iron);
+  --sbb-step-label-color: var(--sbb-color-4);
   --sbb-step-label-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
   --sbb-step-label-prefix-size: var(--sbb-size-element-xxs);
   --sbb-step-label-prefix-border-style: solid;
-  --sbb-step-label-prefix-border-color: var(--sbb-color-cloud);
-  --sbb-step-label-prefix-background-color: var(--sbb-color-white);
+  --sbb-step-label-prefix-border-color: var(--sbb-border-color-4-inverted);
+  --sbb-step-label-prefix-background-color: var(--sbb-background-color-1);
   --sbb-step-label-gap: var(--sbb-spacing-fixed-4x);
 
   position: relative;
@@ -26,10 +23,10 @@
     cursor: var(--sbb-step-label-cursor);
     color: var(--sbb-step-label-color);
 
-    // The `--sbb-font-size-text-l` is beign used here to align the bubble's inner text to
+    // The `--sbb-text-font-size-l` is being used here to align the bubble's inner text to
     // the label text which includes the `sbb.text-l--bold` mixin.
     inset-block-start: calc(
-      var(--sbb-font-size-text-l) * (var(--sbb-typo-line-height-body-text) / 2) +
+      var(--sbb-text-font-size-l) * (var(--sbb-typo-line-height-text) / 2) +
         (var(--sbb-border-width-1x) / 2)
     );
     inset-inline-start: calc(var(--sbb-step-label-prefix-size) / 2);
@@ -48,32 +45,32 @@
   }
 }
 
-:host([data-selected]) {
+:host(:state(selected)) {
   @include sbb.text-xxs--bold;
 
-  --sbb-step-label-color: var(--sbb-color-charcoal);
+  --sbb-step-label-color: var(--sbb-color-3);
 
   @include sbb.if-forced-colors {
     --sbb-step-label-color: Highlight !important;
   }
 }
 
-:host([data-size='s']) {
+:host(:state(size-s)) {
   --sbb-step-label-gap: var(--sbb-spacing-fixed-3x);
   --sbb-step-label-prefix-size: var(--sbb-size-element-xxxs);
 
   &::before {
-    // The `--sbb-font-size-text-m` is beign used here to align the bubble's inner text to
+    // The `--sbb-text-font-size-m` is being used here to align the bubble's inner text to
     // the label text which includes the `sbb.text-m--bold` mixin.
     inset-block-start: calc(
-      var(--sbb-font-size-text-m) * (var(--sbb-typo-line-height-body-text) / 2) +
+      var(--sbb-text-font-size-m) * (var(--sbb-typo-line-height-text) / 2) +
         (var(--sbb-border-width-1x) / 2)
     );
   }
 }
 
 :host(:disabled) {
-  --sbb-step-label-color: var(--sbb-color-granite);
+  --sbb-step-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
   --sbb-step-label-prefix-border-style: dashed;
 
   @include sbb.if-forced-colors {
@@ -83,29 +80,28 @@
 
 :host(:hover:not(:disabled)) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-step-label-cursor: pointer;
-    --sbb-step-label-prefix-background-color: var(--sbb-color-milk);
+    --sbb-step-label-cursor: var(--sbb-cursor-pointer);
+    --sbb-step-label-prefix-background-color: var(--sbb-background-color-3);
     --sbb-step-label-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
     --sbb-step-label-prefix-size-grow-hover: calc(var(--sbb-border-width-2x) * -1);
   }
 }
 
-// Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-:host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) {
+:host(:focus-visible) {
   @include sbb.focus-outline;
 
   border-radius: var(--sbb-border-radius-1x);
 }
 
-:host([data-orientation='vertical']) {
+:host(:state(orientation-vertical)) {
   transition: margin var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
 }
 
-:host([data-orientation='vertical']:not(:first-of-type)) {
+:host(:state(orientation-vertical):not(:first-of-type)) {
   margin-block-start: var(--sbb-spacing-fixed-6x);
 }
 
-:host([data-selected][data-orientation='vertical']) {
+:host(:state(selected):state(orientation-vertical)) {
   margin-block-end: var(--sbb-spacing-fixed-8x);
 }
 
@@ -118,7 +114,7 @@
   gap: var(--sbb-step-label-gap);
   color: var(--sbb-step-label-color);
 
-  :host([data-size='s']) & {
+  :host(:state(size-s)) & {
     @include sbb.text-m--bold;
   }
 }
@@ -132,7 +128,7 @@
   width: var(--sbb-step-label-prefix-size);
   height: var(--sbb-step-label-prefix-size);
   inset-block-start: calc(
-    1em * (var(--sbb-typo-line-height-body-text) / 2) + (var(--sbb-border-width-1x) / 2) -
+    1em * (var(--sbb-typo-line-height-text) / 2) + (var(--sbb-border-width-1x) / 2) -
       (var(--sbb-step-label-prefix-size) / 2)
   );
 
@@ -153,7 +149,7 @@
 }
 
 .sbb-step-label__text {
-  :host([data-orientation='horizontal']) & {
+  :host(:state(orientation-horizontal)) & {
     @include sbb.ellipsis;
   }
 }

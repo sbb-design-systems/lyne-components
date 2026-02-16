@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbFlipCardSummaryElement } from './flip-card-summary.js';
+import type { SbbFlipCardSummaryElement } from './flip-card-summary.component.ts';
 
-import './flip-card-summary.js';
-import '../../title.js';
-import '../../image.js';
+import './flip-card-summary.component.ts';
+import '../../title.ts';
+import '../../image.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

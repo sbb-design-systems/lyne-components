@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Args,
   ArgTypes,
@@ -7,17 +5,18 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
-
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
 
-import '../../form-field.js';
-import '../datepicker.js';
-import './datepicker-toggle.js';
+import '../../date-input.ts';
+import '../../form-field.ts';
+import '../datepicker.ts';
+import './datepicker-toggle.component.ts';
 
 const negative: InputType = {
   control: {
@@ -25,43 +24,27 @@ const negative: InputType = {
   },
 };
 
-const view: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['day', 'month', 'year'],
-};
-
 const defaultArgTypes: ArgTypes = {
   negative,
-  view: view,
 };
 
 const defaultArgs: Args = {
   negative: false,
-  view: view.options![0],
 };
 
-const StandaloneTemplate = (args: Args, picker?: string): TemplateResult => html`
-  <sbb-datepicker-toggle
-    ${sbbSpread(args)}
-    date-picker=${picker || nothing}
-  ></sbb-datepicker-toggle>
-`;
-
-const PickerAndButtonTemplate = (args: Args): TemplateResult => html`
+const PickerAndButtonTemplate = (): TemplateResult => html`
   <div style="display: flex; gap: 1em;">
-    ${StandaloneTemplate(args, 'datepicker')}
+    <sbb-date-input id="datepicker-input"></sbb-date-input>
+    <sbb-datepicker-toggle input="datepicker-input" datepicker="datepicker"></sbb-datepicker-toggle>
     <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-    <input id="datepicker-input" />
   </div>
 `;
 
-const FormFieldTemplate = ({ negative, ...args }: Args): TemplateResult => html`
+const FormFieldTemplate = ({ negative }: Args): TemplateResult => html`
   <sbb-form-field ?negative=${negative}>
-    <input />
+    <sbb-date-input></sbb-date-input>
     <sbb-datepicker></sbb-datepicker>
-    ${StandaloneTemplate(args)}
+    <sbb-datepicker-toggle></sbb-datepicker-toggle>
   </sbb-form-field>
 `;
 
@@ -83,17 +66,13 @@ export const InFormFieldNegative: StoryObj = {
   args: { ...defaultArgs, negative: true },
 };
 
-export const InitialYearSelection: StoryObj = {
-  render: FormFieldTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, view: view.options![2] },
-};
-
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     actions: {
       handles: ['click'],
     },

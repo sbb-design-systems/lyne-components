@@ -1,8 +1,8 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { AbstractConstructor } from './constructor.js';
-import type { SbbFormAssociatedMixinType } from './form-associated-mixin.js';
+import type { AbstractConstructor } from './constructor.ts';
+import type { SbbElementInternalsMixinType } from './element-internals-mixin.ts';
 
 export declare class SbbRequiredMixinType {
   public accessor required: boolean;
@@ -14,8 +14,7 @@ export declare class SbbRequiredMixinType {
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbRequiredMixin = <
-  T extends AbstractConstructor<LitElement & SbbFormAssociatedMixinType<V>>,
-  V,
+  T extends AbstractConstructor<LitElement & SbbElementInternalsMixinType>,
 >(
   superClass: T,
 ): AbstractConstructor<SbbRequiredMixinType> & T => {

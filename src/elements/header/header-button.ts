@@ -1,1 +1,4 @@
-export * from './header-button/header-button.js';
+/**
+ * @entrypoint
+ */
+export * from './header-button/header-button.component.ts';

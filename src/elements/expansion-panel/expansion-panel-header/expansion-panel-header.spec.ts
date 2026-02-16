@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy } from '../../core/testing.ts';
 
-import { SbbExpansionPanelHeaderElement } from './expansion-panel-header.js';
+import { SbbExpansionPanelHeaderElement } from './expansion-panel-header.component.ts';
 
 describe(`sbb-expansion-panel-header`, () => {
   let element: SbbExpansionPanelHeaderElement;
@@ -18,7 +18,7 @@ describe(`sbb-expansion-panel-header`, () => {
   });
 
   it('should emit event on click', async () => {
-    const spy = new EventSpy(SbbExpansionPanelHeaderElement.events.toggleExpanded);
+    const spy = new EventSpy(SbbExpansionPanelHeaderElement.events.toggleexpanded);
     element.click();
     expect(spy.count).to.be.greaterThan(0);
   });
@@ -27,7 +27,7 @@ describe(`sbb-expansion-panel-header`, () => {
     element = await fixture(
       html`<sbb-expansion-panel-header disabled>Header</sbb-expansion-panel-header>`,
     );
-    const spy = new EventSpy(SbbExpansionPanelHeaderElement.events.toggleExpanded);
+    const spy = new EventSpy(SbbExpansionPanelHeaderElement.events.toggleexpanded);
     element.click();
     expect(spy.count).not.to.be.greaterThan(0);
   });

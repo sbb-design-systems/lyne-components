@@ -1,10 +1,10 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
-import { SbbFileSelectorElement } from './file-selector.js';
+import { SbbFileSelectorElement } from './file-selector.component.ts';
 
 describe(`sbb-file-selector`, () => {
   let form: HTMLFormElement;

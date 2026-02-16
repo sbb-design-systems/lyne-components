@@ -1,10 +1,10 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType, getOverride } from '../decorators.js';
+import { forceType } from '../decorators.ts';
 
-import type { AbstractConstructor } from './constructor.js';
-import type { SbbFormAssociatedMixinType } from './form-associated-mixin.js';
+import type { AbstractConstructor } from './constructor.ts';
+import type { SbbElementInternalsMixinType } from './element-internals-mixin.ts';
 
 export declare class SbbDisabledMixinType {
   public accessor disabled: boolean;
@@ -23,11 +23,23 @@ export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbDisabledMixinType> & T => {
   abstract class SbbDisabledElement extends superClass implements Partial<SbbDisabledMixinType> {
-    /** Whether the component is disabled. */
-    @forceType()
-    @property({ reflect: true, type: Boolean })
-    @getOverride((e: SbbDisabledElement, v: boolean): boolean => v || e.isDisabledExternally())
-    public accessor disabled: boolean = false;
+    /**
+     * Whether the component is disabled.
+     * @default false
+     */
+    // TODO: remove reflect: true and manage only in setter.
+    @property({ type: Boolean, reflect: true })
+    public set disabled(value: boolean) {
+      this.#disabled = !!value;
+
+      // The attribute needs to be reflected synchronously (like native)
+      // TODO: only disabled of the actual component should be reflected, without considering this.isDisabledExternally()
+      this.toggleAttribute('disabled', this.disabled);
+    }
+    public get disabled(): boolean {
+      return this.#disabled || this.isDisabledExternally();
+    }
+    #disabled = false;
 
     /**
      * Will be used as 'or' check to the current disabled state.
@@ -66,7 +78,7 @@ export const SbbDisabledInteractiveMixin = <
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbDisabledTabIndexActionMixin = <
-  T extends AbstractConstructor<LitElement & SbbFormAssociatedMixinType>,
+  T extends AbstractConstructor<LitElement & SbbElementInternalsMixinType>,
 >(
   superClass: T,
 ): AbstractConstructor<SbbDisabledMixinType & SbbDisabledInteractiveMixinType> & T => {

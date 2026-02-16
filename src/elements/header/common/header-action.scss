@@ -1,7 +1,30 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
+@mixin icon-only {
+  // The variable is assigned to the property in the sbb-header component if it is
+  // the first element in the header and needs left offset correction (see sbb-header.scss).
+  // To avoid duplicated CSS definitions, the value itself is assigned here in
+  // sbb-header-button/sbb-header-link instead of sbb-header.
+
+  // Move it left by padding of header action to the icon itself.
+  --_sbb-header-first-item-padding-shift: calc(
+    -0.5 * (var(--sbb-header-action-min-width) - var(--sbb-header-action-icon-dimension))
+  );
+  --sbb-header-action-padding-inline-zero: 0;
+  --sbb-header-action-active-border-margin-inline: calc(
+    0.5 * (100% - var(--sbb-size-icon-ui-small))
+  );
+
+  .sbb-header-action__text {
+    @include sbb.screen-reader-only;
+
+    // This is a workaround to fix styling after orientation change on iOS.
+    // If the display value changes comparing to the base state (display: flex),
+    // it re-renders and displays everything correctly.
+    // Without this workaround, elements are overlapping each other.
+    display: flex;
+  }
+}
 
 :host {
   display: inline-block;
@@ -11,7 +34,7 @@
   outline: none !important;
 
   --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
-  --sbb-header-action-color: var(--sbb-color-black);
+  --sbb-header-action-color: var(--sbb-color-1);
   --sbb-header-action-background-color: transparent;
   --sbb-header-action-min-height: var(--sbb-size-element-s);
   --sbb-header-action-min-width: var(--sbb-header-action-min-height);
@@ -26,7 +49,7 @@
   --sbb-header-action-gap: var(--sbb-spacing-fixed-2x);
   --sbb-header-action-icon-dimension: var(--sbb-size-icon-ui-small);
   --sbb-header-action-active-border-width: var(--sbb-border-width-2x);
-  --sbb-header-action-active-border-color: var(--sbb-color-black);
+  --sbb-header-action-active-border-color: var(--sbb-header-action-color);
   --sbb-header-action-active-border-margin-inline: var(--sbb-header-action-padding-inline);
   --sbb-header-action-active-border-scale: 0;
 
@@ -48,8 +71,8 @@
 }
 
 @include sbb.hover-mq($hover: true) {
-  :host(:hover:not(:active, [data-active], [aria-expanded='true'])) {
-    --sbb-header-action-background-color: var(--sbb-color-milk);
+  :host(:hover:not(:active, :state(active))) {
+    --sbb-header-action-background-color: var(--sbb-background-color-3);
     --sbb-header-action-translate-y: #{sbb.px-to-rem-build(-1)};
     --sbb-header-action-background-inset: calc(var(--sbb-border-width-2x) * -1);
 
@@ -59,8 +82,8 @@
   }
 }
 
-:host(:is(:active, [data-active])) {
-  --sbb-header-action-background-color: var(--sbb-color-cloud);
+:host(:is(:active, :state(active))) {
+  --sbb-header-action-background-color: var(--sbb-background-color-4);
 
   @include sbb.if-forced-colors {
     --sbb-header-action-border-color: Highlight;
@@ -75,10 +98,17 @@
   }
 }
 
-:host([data-button]) {
+:host(:state(button)) {
   @include sbb.if-forced-colors {
     --sbb-header-action-color: ButtonText;
   }
+}
+
+// If there is no icon and the action is the first in the header, the left offset
+// must be changed (other value than for the icon only variant) to align the text with the container.
+// The value corresponds to the padding of the header action itself.
+:host(:not(:state(slotted-icon), :state(has-icon-name))) {
+  --sbb-header-first-item-margin-inline-start: var(--_sbb-header-first-item-padding-shift);
 }
 
 .sbb-action-base {
@@ -96,7 +126,7 @@
     --sbb-header-action-padding-inline-zero,
     var(--sbb-header-action-padding-inline)
   );
-  cursor: pointer;
+  cursor: var(--sbb-cursor-pointer);
   user-select: none;
   outline: none;
 
@@ -116,11 +146,10 @@
     }
   }
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   // Handle focus on the host (button variant)
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &,
+  :host(:focus-visible) &,
   // Handle focus on the action (link variant)
-  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+  &:focus-visible {
     &::before {
       @include sbb.focus-outline;
     }
@@ -130,7 +159,7 @@
   &::after {
     content: '';
     position: absolute;
-    border-bottom: var(--sbb-header-action-active-border-width) solid
+    border-block-end: var(--sbb-header-action-active-border-width) solid
       var(--sbb-header-action-active-border-color);
     inset: auto 0 calc(-1 * var(--sbb-header-action-active-border-width));
     margin-inline: var(--sbb-header-action-active-border-margin-inline);
@@ -160,6 +189,10 @@
   min-width: var(--sbb-header-action-icon-dimension);
   min-height: var(--sbb-header-action-icon-dimension);
   line-height: 0;
+
+  :host(:not(:state(slotted-icon), :state(has-icon-name))) & {
+    display: none;
+  }
 }
 
 .sbb-header-action__text {
@@ -167,36 +200,35 @@
   @include sbb.ellipsis;
 
   display: block;
+
+  :host(:not(:state(slotted))) & {
+    display: none;
+  }
+}
+
+// If there is no slotted text, regardless of expanded-from state, the icon only variant should be set.
+:host(:is(:state(slotted-icon), :state(has-icon-name)):not(:state(slotted))) {
+  @include icon-only;
 }
 
 // TODO: reevaluate this once 'CSS container queries' is supported
 // https://caniuse.com/css-container-queries-style
 @each $breakpoint, $value in sbb.$mq-breakpoints {
-  :host([expand-from='#{$breakpoint}']) {
-    @include sbb.mq($to: #{$breakpoint}) {
-      // The variable is assigned to the property in the sbb-header component if it is
-      // the first element in the header and needs left offset correction (see sbb-header.scss).
-      // To avoid duplicated CSS definitions, the value itself is assigned here in
-      // sbb-header-button/sbb-header-link instead of sbb-header.
-
-      // Move it left by padding of header action to the icon itself.
-      --_sbb-header-first-item-padding-shift: calc(
-        -0.5 * (var(--sbb-header-action-min-width) - var(--sbb-header-action-icon-dimension))
-      );
-      --sbb-header-action-padding-inline-zero: 0;
-      --sbb-header-action-active-border-margin-inline: calc(
-        0.5 * (100% - var(--sbb-size-icon-ui-small))
-      );
-
-      .sbb-header-action__text {
-        @include sbb.screen-reader-only;
-
-        // This is a workaround to fix styling after orientation change on iOS.
-        // If the display value changes comparing to the base state (display: flex),
-        // it re-renders and displays everything correctly.
-        // Without this workaround, elements are overlapping each other.
-        display: flex;
+  // We skip zero breakpoint as it would resolve into (to: 0).
+  // The rules are set to force the icon only variant if there is slotted text, but not yet expanded.
+  @if $breakpoint != 'zero' {
+    :host(
+      [expand-from='#{$breakpoint}']:is(:state(slotted-icon), :state(has-icon-name)):state(slotted)
+    ) {
+      @include sbb.mq($to: #{$breakpoint}) {
+        @include icon-only;
       }
     }
   }
+}
+
+::slotted([slot='icon']:is(sbb-image, img)) {
+  width: var(--sbb-header-action-icon-dimension);
+  height: var(--sbb-header-action-icon-dimension);
+  border-radius: var(--sbb-border-radius-infinity);
 }

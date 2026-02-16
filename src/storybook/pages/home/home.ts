@@ -1,9 +1,9 @@
-import type { Args } from '@storybook/web-components';
+import type { Args } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import '../../../elements/alert.js';
-import '../../../elements/action-group.js';
+import '../../../elements/alert.ts';
+import '../../../elements/action-group.ts';
 import {
   bikeProduct,
   dailyTicketProduct,
@@ -13,7 +13,7 @@ import {
   skiplinkList,
   teaserHero,
   timetableInput,
-} from './home.common.js';
+} from './home.common.ts';
 import './home.scss';
 
 export const homeTemplate = (args: Args): TemplateResult => html`
@@ -30,7 +30,12 @@ export const homeTemplate = (args: Args): TemplateResult => html`
       <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
         Sign in
       </sbb-header-button>
-      <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
+      <sbb-header-button
+        icon-name="globe-small"
+        id="language-menu-trigger"
+        class="last-element"
+        expand-from="small"
+      >
         English
       </sbb-header-button>
       <sbb-menu trigger="language-menu-trigger">
@@ -54,15 +59,16 @@ export const homeTemplate = (args: Args): TemplateResult => html`
     <section class="alert-section sbb-grid">
       <div class="grid-reduced-width">
         <sbb-alert-group accessibility-title="Disruptions">
-          <sbb-alert title-content="Interruption between Genève and Lausanne" size="l">
+          <sbb-alert size="l">
+            <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
             The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
             <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
           </sbb-alert>
-          <sbb-alert title-content="Interruption between Berne and Olten">
+          <sbb-alert>
+            <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
             Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00
             o'clock construction work will take place. You have to expect changed travel times and
-            changed connections.
-            <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
+            changed connections. <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
           </sbb-alert>
         </sbb-alert-group>
       </div>
@@ -74,7 +80,7 @@ export const homeTemplate = (args: Args): TemplateResult => html`
         <sbb-title level="2" ?negative=${args.negative}> Top Products. </sbb-title>
         <div class="top-products-grid">
           ${dailyTicketProduct()} ${bikeProduct()} ${liberoProduct()}
-          <sbb-card color="milk" size="s">
+          <sbb-card color="milk" class="sbb-card-spacing-xxxs-xxs">
             <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
               Buy daily ticket
             </sbb-card-link>
@@ -88,7 +94,7 @@ export const homeTemplate = (args: Args): TemplateResult => html`
             </span>
           </sbb-card>
 
-          <sbb-card color="milk" size="s" class="grid-span-2">
+          <sbb-card color="milk" class="sbb-card-spacing-xxxs-xxs grid-span-2">
             <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
               Show all GAs at a glance
             </sbb-card-link>
@@ -103,7 +109,7 @@ export const homeTemplate = (args: Args): TemplateResult => html`
             </span>
           </sbb-card>
 
-          <sbb-card class="grid-span-2" color="milk" size="s">
+          <sbb-card class="grid-span-2 sbb-card-spacing-xxxs-xxs" color="milk">
             <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
               Buy half price ticket
             </sbb-card-link>

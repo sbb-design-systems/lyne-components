@@ -1,17 +1,13 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
   height: var(--sbb-logo-height);
 
-  --sbb-logo-panel-color: var(--sbb-color-red);
+  --sbb-logo-panel-color: var(--sbb-color-brand);
   --sbb-logo-signet-color: var(--sbb-color-white);
-  --sbb-logo-word-mark-color: var(--sbb-color-black);
+  --sbb-logo-word-mark-color: light-dark(var(--sbb-color-black), var(--sbb-color-white));
   --sbb-logo-aspect-ratio: 454 / 48;
-  --sbb-logo-svg-container-width: 100%;
   --sbb-logo-svg-container-height: auto;
   --sbb-logo-background-color: none;
 

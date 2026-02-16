@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbOptionElement } from './option.js';
+import type { SbbOptionElement } from './option.component.ts';
 
-import '../../autocomplete.js';
-import './option.js';
+import '../../autocomplete.ts';
+import './option.component.ts';
 
 describe(`sbb-option`, () => {
   describe('autocomplete', () => {
@@ -29,7 +29,7 @@ describe(`sbb-option`, () => {
       });
 
       it('Shadow DOM', async () => {
-        await expect(element).shadowDom.to.be.equalSnapshot();
+        await expect(element).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['aria-hidden'] });
       });
     });
 
@@ -50,7 +50,7 @@ describe(`sbb-option`, () => {
       });
 
       it('Shadow DOM', async () => {
-        await expect(element).shadowDom.to.be.equalSnapshot();
+        await expect(element).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['aria-hidden'] });
       });
     });
   });

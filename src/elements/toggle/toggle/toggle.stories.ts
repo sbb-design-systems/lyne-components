@@ -1,14 +1,14 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './toggle.js';
-import '../toggle-option.js';
+import './toggle.component.ts';
+import '../toggle-option.ts';
 
 const disabled: InputType = {
   control: {
@@ -92,7 +92,7 @@ const defaultArgTypes: ArgTypes = {
   label,
   labelTwo,
   iconName,
-  ariaLabel,
+  'aria-label': ariaLabel,
 };
 
 const defaultArgs: Args = {
@@ -103,35 +103,21 @@ const defaultArgs: Args = {
   label: 'Bern',
   labelTwo: 'Zürich',
   iconName: undefined,
-  ariaLabel: undefined,
+  'aria-label': 'Origin',
 };
 
-const DefaultTemplate = ({
-  label,
-  labelTwo,
-  iconName,
-  ariaLabel,
-  ...args
-}: Args): TemplateResult => html`
+const DefaultTemplate = ({ label, labelTwo, iconName, ...args }: Args): TemplateResult => html`
   <sbb-toggle ${sbbSpread(args)}>
-    <sbb-toggle-option icon-name=${iconName} aria-label=${ariaLabel} value="Value 1">
-      ${label}
-    </sbb-toggle-option>
+    <sbb-toggle-option icon-name=${iconName} value="Value 1"> ${label} </sbb-toggle-option>
     <sbb-toggle-option icon-name=${iconName && 'arrows-right-left-small'} value="Value 2">
       ${labelTwo}
     </sbb-toggle-option>
   </sbb-toggle>
 `;
 
-const SlottedIconTemplate = ({
-  label,
-  labelTwo,
-  iconName,
-  ariaLabel,
-  ...args
-}: Args): TemplateResult => html`
+const SlottedIconTemplate = ({ label, labelTwo, iconName, ...args }: Args): TemplateResult => html`
   <sbb-toggle ${sbbSpread(args)}>
-    <sbb-toggle-option value="Value 1" aria-label=${ariaLabel}>
+    <sbb-toggle-option value="Value 1">
       <sbb-icon slot="icon" name=${iconName}></sbb-icon>
       ${label}
     </sbb-toggle-option>
@@ -205,6 +191,7 @@ export const IconsOnly: StoryObj = {
     iconName: iconName.options![0],
     label: undefined,
     labelTwo: undefined,
+    'aria-label': 'Chose between one way and return ticket',
   },
 };
 
@@ -217,6 +204,7 @@ export const IconsOnlySizeS: StoryObj = {
     size: size.options![1],
     label: undefined,
     labelTwo: undefined,
+    'aria-label': 'Chose between one way and return ticket',
   },
 };
 
@@ -228,6 +216,7 @@ export const IconsOnlySlotted: StoryObj = {
     iconName: iconName.options![1],
     label: undefined,
     labelTwo: undefined,
+    'aria-label': 'Chose between one way and return ticket',
   },
 };
 

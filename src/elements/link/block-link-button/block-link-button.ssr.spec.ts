@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbBlockLinkButtonElement } from './block-link-button.js';
+import { SbbBlockLinkButtonElement } from './block-link-button.component.ts';
 
 describe(`sbb-block-link-button ssr`, () => {
   let root: SbbBlockLinkButtonElement;
@@ -21,7 +21,7 @@ describe(`sbb-block-link-button ssr`, () => {
         <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
         Travelcards &amp; tickets.
       </sbb-block-link-button>`,
-      { modules: ['./block-link-button.js'] },
+      { modules: ['./block-link-button.component.js'] },
     );
   });
 

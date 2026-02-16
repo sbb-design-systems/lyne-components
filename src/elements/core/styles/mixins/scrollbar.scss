@@ -15,19 +15,22 @@
 }
 
 @mixin scrollbar-variables--color-positive {
-  --sbb-scrollbar-color: var(--sbb-color-black-alpha-30);
+  --sbb-scrollbar-color: light-dark(
+    color-mix(in srgb, var(--sbb-color-black) 30%, transparent),
+    color-mix(in srgb, var(--sbb-color-white) 30%, transparent)
+  );
 }
 
 @mixin scrollbar-variables--color-positive-track-visible {
-  --sbb-scrollbar-track-color: var(--sbb-color-cloud);
+  --sbb-scrollbar-track-color: var(--sbb-background-color-4);
 }
 
 @mixin scrollbar-variables--color-negative {
-  --sbb-scrollbar-color: var(--sbb-color-white-alpha-30);
+  --sbb-scrollbar-color: color-mix(in srgb, var(--sbb-color-white) 30%, transparent);
 }
 
 @mixin scrollbar-variables--color-negative-track-visible {
-  --sbb-scrollbar-track-color: var(--sbb-color-iron);
+  --sbb-scrollbar-track-color: var(--sbb-background-color-4-negative);
 }
 
 @mixin scrollbar-variables--track-invisible {

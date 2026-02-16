@@ -1,13 +1,9 @@
-The `sbb-dialog` component provides a way to present content on top of the app's content.
-It offers the following features:
+The `sbb-dialog` component provides a way to present content on top of the app's content mainly to interact with the user.
 
-- creates a backdrop for disabling interaction below the modal;
-- disables scrolling of the page content while open;
-- manages focus properly by setting it on the first focusable element;
-- can host a [sbb-dialog-actions](/docs/elements-sbb-dialog-sbb-dialog-actions--docs) component in the footer;
-- has a close button, which is always visible;
-- can display a back button next to the title;
-- adds the appropriate ARIA roles automatically.
+The component creates a backdrop to prevent interaction with content behind the modal, disables page scrolling while open,
+manages focus by setting it to the first focusable element, and automatically adds the appropriate ARIA roles.
+
+The dialog should always consist of a title and content. Optionally, a close button and actions can be provided.
 
 ```html
 <sbb-dialog>
@@ -18,55 +14,106 @@ It offers the following features:
 
 ## Slots
 
-There are three slots: `title`, `content` and `actions`, which can respectively be used to provide an `sbb-dialog-title`, `sbb-dialog-content` and an `sbb-dialog-actions`.
+Consumers don't need to directly assign any slots; the dedicated components take care of assigning the correct slot.
+
+The component supports slotting the `sbb-dialog-title`, `sbb-dialog-close-button`, `sbb-dialog-content` and an `sbb-dialog-actions` elements.
 
 ```html
 <sbb-dialog>
   <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-close-button></sbb-dialog-close-button>
   <sbb-dialog-content>Dialog content.</sbb-dialog-content>
   <sbb-dialog-actions>
-    <sbb-block-link sbb-dialog-close>Link</sbb-block-link>
-    <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
-    <sbb-button sbb-dialog-close> Confirm </sbb-button>
+    <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
+    <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
   </sbb-dialog-actions>
 </sbb-dialog>
 ```
 
 ## Interactions
 
-In order to show the dialog, you need to call the `open(event?: PointerEvent)` method on the `sbb-dialog` component.
-It is necessary to pass the event object to the `open()` method to allow the dialog to detect
-whether it has been opened by click or keyboard, so that the focus can be better handled.
+To display the dialog, a trigger can be connected via the `trigger` property,
+or the `open()` method on the `sbb-dialog` component can be called.
 
 ```html
-<sbb-button
-  label="Open dialog"
-  click="openDialog(event, 'my-dialog')"
-  aria-haspopup="dialog"
-  aria-controls="my-dialog"
-></sbb-button>
+<sbb-button id="dialog-trigger">Open dialog</sbb-button>
 
-<sbb-dialog id="my-dialog">
+<sbb-dialog trigger="dialog-trigger">
   <sbb-dialog-title>Title</sbb-dialog-title>
   <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+  <sbb-dialog-actions><sbb-button sbb-dialog-close>Close</sbb-button></sbb-dialog-actions>
 </sbb-dialog>
-
-<script>
-  const openDialog = (event, id) => {
-    const dialog = document.getElementById(id);
-    dialog.open(event);
-  };
-</script>
 ```
 
-To dismiss the dialog, you need to get a reference to the `sbb-dialog` element and call
-the `close(result?: any, target?: HTMLElement)` method, which will close the dialog element and
-emit a close event with an optional result as a payload.
+### Closing the dialog
 
-The component can also be dismissed by clicking on the close button, clicking on the backdrop, pressing the `Esc` key,
-or, if an element within the `sbb-dialog` has the `sbb-dialog-close` attribute, by clicking on it.
+The dialog can be closed in several ways:
 
-You can also set the property `backButton` on the `sbb-dialog-title` component to display the back button in the title section which will emit the event `requestBackAction` when clicked.
+1. **Close button**: Add an `<sbb-dialog-close-button>` component to provide a dedicated close button.
+   This is recommended for dialogs with complex content.
+
+   ```html
+   <sbb-dialog>
+     <sbb-dialog-title>Title</sbb-dialog-title>
+     <sbb-dialog-close-button></sbb-dialog-close-button>
+     <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+   </sbb-dialog>
+   ```
+
+2. **sbb-dialog-close attribute**: Add the `sbb-dialog-close` attribute to any element within the dialog
+   (typically buttons in the actions section) to close the dialog when clicked. You can optionally provide a result value:
+
+   ```html
+   <sbb-dialog>
+     <sbb-dialog-title>Title</sbb-dialog-title>
+     <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+     <sbb-dialog-actions>
+       <sbb-secondary-button sbb-dialog-close="cancel">Cancel</sbb-secondary-button>
+       <sbb-button sbb-dialog-close="confirm">Confirm</sbb-button>
+     </sbb-dialog-actions>
+   </sbb-dialog>
+   ```
+
+   Alternatively, you can use the `assignDialogResult()` helper to programmatically assign a complex result to an element:
+
+   ```js
+   import { assignDialogResult } from '@sbb-esta/lyne-elements/dialog.js';
+
+   const confirmButton = document.querySelector('sbb-button');
+   assignDialogResult(confirmButton, { action: 'confirm', otherProp: 'any value' });
+   ```
+
+3. **Backdrop click**: By default, clicking on the backdrop will close the dialog.
+   This behavior can be disabled by setting `backdrop-action="none"`.
+
+4. **Escape key**: Pressing the `Esc` key will close the dialog.
+
+5. **Programmatically**: Call the `close(result?: any)` method on the `sbb-dialog` element.
+   This method closes the dialog and emits `beforeclose` and `close` events with the provided result as a payload.
+
+   ```js
+   const dialog = document.querySelector('sbb-dialog');
+   dialog.close({ confirmed: true });
+   ```
+
+### Handling close events
+
+When the dialog closes, it emits two events:
+
+- `beforeclose`: Emitted before the closing transition begins. This event is cancelable by calling `event.preventDefault()`.
+- `close`: Emitted after the dialog has fully closed.
+
+Both events are of type `SbbDialogCloseEvent` and provide access to:
+
+- `result`: The result value passed to `close()`, assigned via `assignDialogResult()`, or the value of the `sbb-dialog-close` attribute
+- `closeTarget`: The element that triggered the close action (e.g., the clicked button), or `null` if closed programmatically or via Escape key
+
+```js
+dialog.addEventListener('close', (event) => {
+  console.log('Result:', event.result);
+  console.log('Close target:', event.closeTarget);
+});
+```
 
 ## Style
 
@@ -81,38 +128,59 @@ It's possible to display the component in `negative` variant using the self-name
 
 ## Accessibility
 
-When using a button to trigger the dialog, ensure to manage the appropriate ARIA attributes on the button element itself. This includes: `aria-haspopup="dialog"` that signals to assistive technologies that the button controls a dialog element,
-`aria-controls="dialog-id"` that connects the button to the dialog by referencing the dialog's ID. Consider using `aria-expanded` to indicate the dialog's current state (open or closed).
+We recommend to place at maximum two actions in the `sbb-dialog-actions` component.
+More elements can potentially confuse users.
 
-The `sbb-dialog` component may visually hide the title thanks to the `hideOnScroll` property of the [sbb-dialog-title](/docs/elements-sbb-dialog-sbb-dialog-title--docs) to create more space for content, this is useful especially on smaller screens. Screen readers and other assistive technologies will still have access to the title information for context.
+If there is more complex content than just a simple text / question, we recommend to slot the `sbb-dialog-close-button`.
+This either provides an initial focus at the dialog start and also provides as a second exit possibility.
+
+### Controlling initial focus
+
+The first element with the attribute `sbb-focus-initial` will receive focus on opening.
+If the attribute is not used, the first focusable element receives focus.
+In case there is no `sbb-dialog-close-button` and complex content,
+there should be a focusable element at the dialog start, e.g. the title itself.
+This prevents screen reader users having to navigate backwards from the dialog actions.
+
+### Focus restoration
+
+When closed, the dialog restores focus to the element that previously held focus when the
+dialog opened by default. However, focus restoration can be disabled
+by setting the `skipFocusRestoration` property to `true`.
+As this is an accessibility feature, it is recommended to focus
+an alternative element by listening to the `didClose` event.
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name                 | Attribute             | Privacy | Type                        | Default    | Description                                                                                                 |
-| -------------------- | --------------------- | ------- | --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------- |
-| `accessibilityLabel` | `accessibility-label` | public  | `string`                    | `''`       | This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay. |
-| `backdrop`           | `backdrop`            | public  | `'opaque' \| 'translucent'` | `'opaque'` | Backdrop density.                                                                                           |
-| `backdropAction`     | `backdrop-action`     | public  | `'close' \| 'none'`         | `'close'`  | Backdrop click action.                                                                                      |
-| `isOpen`             | -                     | public  | `boolean`                   |            | Whether the element is open.                                                                                |
-| `negative`           | `negative`            | public  | `boolean`                   | `false`    | Negative coloring variant flag.                                                                             |
+| Name                   | Attribute              | Privacy | Type                        | Default    | Description                                                                                                                                                                                                                                                |
+| ---------------------- | ---------------------- | ------- | --------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityLabel`   | `accessibility-label`  | public  | `string`                    | `''`       | This will be forwarded as aria-label to the relevant nested element to describe the purpose of the overlay.                                                                                                                                                |
+| `backdrop`             | `backdrop`             | public  | `'opaque' \| 'translucent'` | `'opaque'` | Backdrop density.                                                                                                                                                                                                                                          |
+| `backdropAction`       | `backdrop-action`      | public  | `'close' \| 'none'`         | `'close'`  | Backdrop click action.                                                                                                                                                                                                                                     |
+| `isOpen`               | -                      | public  | `boolean`                   |            | Whether the element is open.                                                                                                                                                                                                                               |
+| `negative`             | `negative`             | public  | `boolean`                   | `false`    | Negative coloring variant flag.                                                                                                                                                                                                                            |
+| `skipFocusRestoration` | `skipFocusRestoration` | public  | `boolean`                   | `false`    | Whether to skip restoring focus to the previously-focused element when the overlay is closed. Note that automatic focus restoration is an accessibility feature, and it is recommended that you provide your own equivalent, if you decide to turn it off. |
+| `trigger`              | `trigger`              | public  | `HTMLElement \| null`       | `null`     | The element that will trigger the menu overlay. For attribute usage, provide an id reference.                                                                                                                                                              |
 
 ## Methods
 
-| Name    | Privacy | Description           | Parameters                         | Return | Inherited From          |
-| ------- | ------- | --------------------- | ---------------------------------- | ------ | ----------------------- |
-| `close` | public  | Closes the component. | `result: any, target: HTMLElement` | `any`  | SbbOpenCloseBaseElement |
-| `open`  | public  | Opens the component.  |                                    | `void` | SbbOpenCloseBaseElement |
+| Name             | Privacy | Description                                                                 | Parameters    | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ------------- | ------ | ----------------------- |
+| `announceTitle`  | public  | Announce the accessibility label or dialog title for screen readers.        |               | `void` |                         |
+| `close`          | public  | Closes the component.                                                       | `result: any` | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |               | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the component.                                                        |               | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
-| Name        | Type                                       | Description                                                                     | Inherited From          |
-| ----------- | ------------------------------------------ | ------------------------------------------------------------------------------- | ----------------------- |
-| `didClose`  | `CustomEvent<SbbOverlayCloseEventDetails>` | Emits whenever the `sbb-dialog` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` is opened.                                      | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>`                        | Emits whenever the `sbb-dialog` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type                  | Description                                                                  | Inherited From          |
+| ------------- | --------------------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `SbbDialogCloseEvent` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event`               | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `SbbDialogCloseEvent` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event`               | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

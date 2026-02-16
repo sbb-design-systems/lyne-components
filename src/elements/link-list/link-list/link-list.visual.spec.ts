@@ -5,10 +5,10 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './link-list.js';
-import '../../link/block-link.js';
+import './link-list.component.ts';
+import '../../link/block-link.ts';
 
 describe(`sbb-link-list`, () => {
   let root: HTMLElement;
@@ -27,7 +27,7 @@ describe(`sbb-link-list`, () => {
     <sbb-block-link href="#">Link 5</sbb-block-link>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     // Main test cases
     describeEach(cases, ({ negative, orientation, size }) => {
       beforeEach(async function () {
@@ -38,7 +38,7 @@ describe(`sbb-link-list`, () => {
               ${linksTemplate()}
             </sbb-link-list>
           `,
-          { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
+          { backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined },
         );
       });
 
@@ -51,14 +51,31 @@ describe(`sbb-link-list`, () => {
     });
 
     it(
-      `horizontal-from=medium`,
+      `horizontal-from=large`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-link-list horizontal-from="medium">
+          <sbb-link-list horizontal-from="large">
             <span slot="title">Help &amp; Contact</span>
             ${linksTemplate()}
           </sbb-link-list>
         `);
+      }),
+    );
+  });
+
+  describeViewports({ viewports: ['zero'] }, () => {
+    it(
+      `darkMode=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`
+            <sbb-link-list horizontal-from="large">
+              <span slot="title">Help &amp; Contact</span>
+              ${linksTemplate()}
+            </sbb-link-list>
+          `,
+          { darkMode: true },
+        );
       }),
     );
   });

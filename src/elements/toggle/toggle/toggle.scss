@@ -1,107 +1,120 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
+  width: fit-content;
+
+  // Border-radius is used for the focus outline which is toggled in core.scss.
+  border-radius: var(--sbb-toggle-border-radius);
 
   --sbb-toggle-width: fit-content;
   --sbb-toggle-min-width: calc(
-    var(--sbb-toggle-padding-inline) * 2 + var(--sbb-size-icon-ui-small)
+    var(--sbb-toggle-padding-inline) * 4 + var(--sbb-size-icon-ui-small)
   );
-  --sbb-toggle-selected-option-border-color: var(--sbb-color-smoke);
-  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
+  --sbb-toggle-selected-option-border-width: var(--sbb-border-width-1x);
+  --sbb-toggle-selected-option-border-style: solid;
+  --sbb-toggle-selected-option-border-color: var(--sbb-border-color-5);
+  --sbb-toggle-selected-option-background-color: var(--sbb-background-color-1);
+  --sbb-toggle-background-inset: #{sbb.px-to-rem-build(2)};
+  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-toggle-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
-  --sbb-toggle-height: #{sbb.px-to-rem-build(28)};
-  --sbb-toggle-border-width: var(--sbb-border-width-1x);
-  --sbb-toggle-border-style: solid;
+  --sbb-toggle-height: var(--sbb-size-element-m);
   --sbb-toggle-border-radius: var(--sbb-border-radius-infinity);
-
-  @include sbb.mq($from: medium) {
-    --sbb-toggle-height: #{sbb.px-to-rem-build(32)};
-  }
+  --sbb-toggle-grid-template-columns: auto auto;
 
   @include sbb.if-forced-colors {
     --sbb-toggle-selected-option-border-color: Highlight;
-    --sbb-toggle-border-width: var(--sbb-border-width-2x);
+    --sbb-toggle-selected-option-border-width: var(--sbb-border-width-2x);
   }
 }
 
 :host([even]) {
-  --sbb-toggle-width: 100%;
+  width: 100%;
 
-  ::slotted(sbb-toggle-option) {
-    width: 50%;
-  }
+  --sbb-toggle-width: 100%;
+  --sbb-toggle-grid-template-columns: 50% 50%;
 }
 
-:host([disabled]) {
-  --sbb-toggle-selected-option-border-color: var(--sbb-color-graphite);
-  --sbb-toggle-border-style: dashed;
+:host(:disabled) {
+  --sbb-toggle-selected-option-border-color: light-dark(
+    var(--sbb-color-graphite),
+    var(--sbb-color-smoke)
+  );
+  --sbb-toggle-selected-option-border-style: dashed;
 
   @include sbb.if-forced-colors {
-    --sbb-toggle-border-style: solid;
+    --sbb-toggle-selected-option-border-style: solid;
     --sbb-toggle-selected-option-border-color: GrayText;
   }
 }
 
-:host([size='m']) {
-  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xs);
-  --sbb-toggle-height: #{sbb.px-to-rem-build(44)};
-
-  @include sbb.mq($from: medium) {
-    --sbb-toggle-height: #{sbb.px-to-rem-build(52)};
-  }
+:host([size='s']) {
+  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
+  --sbb-toggle-height: var(--sbb-size-element-xxs);
 }
 
-:host([data-disable-animation-on-resizing]) {
+:host(:is(:not(:state(initialized)), :state(disable-animation-on-resizing))) {
   @include sbb.disable-animation;
 }
 
 .sbb-toggle {
   @include sbb.text-m--regular;
 
-  position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: var(--sbb-toggle-grid-template-columns);
+  grid-template-areas: 'start end';
   align-items: center;
+  min-width: var(--sbb-toggle-min-width);
   width: var(--sbb-toggle-width);
-  max-width: 100%;
-  min-width: calc(var(--sbb-toggle-min-width) * 2);
   height: var(--sbb-toggle-height);
+  max-width: 100%;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  background: var(--sbb-color-cloud);
   border-radius: var(--sbb-toggle-border-radius);
 
-  &::after {
+  // White pill of selected toggle option
+  &::before {
     content: '';
-    padding-inline: var(--sbb-toggle-padding-inline);
-    display: inline-block;
-    opacity: 1;
-    background-color: var(--sbb-color-white);
-    border: var(--sbb-toggle-border-width) var(--sbb-toggle-border-style)
-      var(--sbb-toggle-selected-option-border-color);
+    display: block;
+    grid-area: start / start / end / end;
+    margin-inline: var(--sbb-toggle-option-left, 0) var(--sbb-toggle-option-right, 0);
+    background-color: var(--sbb-toggle-selected-option-background-color);
     border-radius: var(--sbb-toggle-border-radius);
-    position: absolute;
     max-width: 100%;
-    min-width: var(--sbb-toggle-min-width);
+    height: 100%;
+    border: var(--sbb-toggle-selected-option-border-width)
+      var(--sbb-toggle-selected-option-border-style) var(--sbb-toggle-selected-option-border-color);
 
-    // Selected option exceeds toggle dimensions by 2x border width
-    inset-block: calc(-2 * var(--sbb-toggle-border-width));
-    inset-inline: calc(var(--sbb-toggle-option-left) - #{sbb.px-to-rem-build(2)})
-      calc(var(--sbb-toggle-option-right) - #{sbb.px-to-rem-build(2)});
     transition: {
       duration: var(--sbb-toggle-animation-duration);
       timing-function: ease;
-      property: opacity, inset-inline-end, inset-inline-start;
+      property: margin-inline-start, margin-inline-end;
     }
   }
 
-  @include sbb.if-forced-colors {
-    outline: var(--sbb-toggle-border-width) solid CanvasText;
+  // Background
+  &::after {
+    content: '';
+    grid-area: start / start / end / end;
+    order: -1;
+    background: var(--sbb-background-color-4);
+    margin-inline: var(--sbb-toggle-background-inset);
+    height: calc(100% - 2 * var(--sbb-toggle-background-inset));
+    border-radius: var(--sbb-toggle-border-radius);
+
+    @include sbb.if-forced-colors {
+      border: var(--sbb-border-width-1x) solid CanvasText;
+    }
   }
+}
+
+::slotted(sbb-toggle-option:first-of-type) {
+  grid-area: start;
+}
+
+::slotted(sbb-toggle-option:last-of-type) {
+  grid-area: end;
 }

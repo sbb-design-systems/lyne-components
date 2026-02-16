@@ -6,10 +6,11 @@ import {
   describeViewports,
   visualRegressionFixture,
   visualDiffDefault,
-} from '../../core/testing/private.js';
-import { waitForCondition } from '../../core/testing/wait-for-condition.js';
+  visualDiffFocus,
+} from '../../core/testing/private.ts';
+import { waitForCondition } from '../../core/testing/wait-for-condition.ts';
 
-import './table-wrapper.js';
+import './table-wrapper.component.ts';
 
 describe(`sbb-table-wrapper`, () => {
   let root: HTMLElement;
@@ -19,7 +20,7 @@ describe(`sbb-table-wrapper`, () => {
     scrollbar: [false, true],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ negative, scrollbar }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
@@ -56,12 +57,14 @@ describe(`sbb-table-wrapper`, () => {
             <p class="sbb-table-caption">Table caption</p>
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
           },
         );
         if (scrollbar) {
           const element = root.querySelector('sbb-table-wrapper')!;
-          await waitForCondition(() => element.hasAttribute('data-has-horizontal-scrollbar'));
+          await waitForCondition(
+            () => !element.classList.contains('sbb-table-wrapper-offset-none'),
+          );
         }
       });
 
@@ -72,5 +75,25 @@ describe(`sbb-table-wrapper`, () => {
         }),
       );
     });
+
+    it(
+      'focusable',
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-table-wrapper focusable>
+            <table class="sbb-table">
+              <tr>
+                <td>Content</td>
+                <td>Content</td>
+              </tr>
+              <tr>
+                <td>Content</td>
+                <td>Content</td>
+              </tr>
+            </table>
+          </sbb-table-wrapper>`,
+        );
+      }),
+    );
   });
 });

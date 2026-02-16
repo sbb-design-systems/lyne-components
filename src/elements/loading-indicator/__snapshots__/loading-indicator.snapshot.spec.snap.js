@@ -3,9 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-loading-indicator renders with variant `window` DOM"] = 
 `<sbb-loading-indicator
-  aria-busy="true"
   color="default"
-  role="progressbar"
   size="s"
 >
 </sbb-loading-indicator>
@@ -57,8 +55,18 @@ snapshots["sbb-loading-indicator renders with variant `circle` Shadow DOM"] =
 snapshots["sbb-loading-indicator renders with variant `window` A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "progressbar",
+      "name": "",
+      "valuemin": 0,
+      "valuemax": 100,
+      "valuetext": "",
+      "busy": 1
+    }
+  ]
 }
 </p>
 `;

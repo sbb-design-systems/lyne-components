@@ -20,10 +20,6 @@ snapshots["sbb-map-container renders Shadow DOM"] =
     </slot>
     <sbb-accent-button
       class="sbb-map-container__sidebar-button"
-      data-action=""
-      data-button=""
-      data-sbb-button=""
-      data-slot-names="unnamed"
       icon-name="location-pin-map-small"
       inert=""
       size="l"
@@ -62,20 +58,32 @@ snapshots["sbb-map-container renders without scroll-up button Shadow DOM"] =
 snapshots["sbb-map-container renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "generic",
+              "name": ""
+            },
+            {
+              "role": "generic",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-map-container renders A11y tree Chrome */
-
-snapshots["sbb-map-container renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-map-container renders A11y tree Firefox */
 

@@ -5,9 +5,9 @@ import { html } from 'lit/static-html.js';
 import type {
   InterfaceSbbJourneySummaryAttributes,
   SbbJourneySummaryElement,
-} from './journey-summary.js';
+} from './journey-summary.component.ts';
 
-import './journey-summary.js';
+import './journey-summary.component.ts';
 
 const now = '2022-08-29T21:00:00Z';
 

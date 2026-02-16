@@ -1,7 +1,5 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
-@include sbb.box-sizing;
-
 .app-test-case-filter {
   display: flex;
   gap: 0.5rem 4rem;

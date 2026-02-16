@@ -1,38 +1,40 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
-import type { SbbSecondaryButtonElement } from '../button.js';
-import { fixture } from '../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../core/testing.js';
+import type { SbbSecondaryButtonElement } from '../button.ts';
+import { fixture } from '../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../core/testing.ts';
 
-import { SbbNotificationElement } from './notification.js';
+import { SbbNotificationElement } from './notification.component.ts';
 
-import '../link/link.js';
+import '../link/link.ts';
+import '../title.ts';
 
 describe(`sbb-notification`, () => {
   let element: SbbNotificationElement;
-  let didOpenEventSpy: EventSpy<Event>;
+  let openSpy: EventSpy<Event>;
 
   async function openAndClose(): Promise<void> {
     const parent = element.parentElement!;
-    const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose, element);
-    const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose, element);
+    const beforeCloseSpy = new EventSpy(SbbNotificationElement.events.beforeclose, element);
+    const closeSpy = new EventSpy(SbbNotificationElement.events.close, element);
 
-    await didOpenEventSpy.calledOnce();
-    expect(element).to.have.attribute('data-state', 'opened');
+    await openSpy.calledOnce();
+    expect(element).to.match(':state(state-opened)');
 
     element.close();
     await waitForLitRender(element);
 
-    await willCloseEventSpy.calledOnce();
-    expect(willCloseEventSpy.count).to.be.equal(1);
+    await beforeCloseSpy.calledOnce();
+    expect(beforeCloseSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    await didCloseEventSpy.calledOnce();
-    expect(didCloseEventSpy.count).to.be.equal(1);
+    await closeSpy.calledOnce();
+    expect(closeSpy.count).to.be.equal(1);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-state', 'closed');
+    expect(element).to.match(':state(state-closed)');
 
     await aTimeout(0);
     element = parent.querySelector<SbbNotificationElement>('sbb-notification')!;
@@ -41,11 +43,12 @@ describe(`sbb-notification`, () => {
 
   describe('with zero animation duration', () => {
     beforeEach(async () => {
-      didOpenEventSpy = new EventSpy(SbbNotificationElement.events.didOpen, null, {
+      openSpy = new EventSpy(SbbNotificationElement.events.open, null, {
         capture: true,
       });
       element = await fixture(html`
         <sbb-notification id="notification">
+          <sbb-title level="3">Title</sbb-title>
           The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
           <sbb-link href="/">Link one</sbb-link>
         </sbb-notification>
@@ -62,37 +65,47 @@ describe(`sbb-notification`, () => {
 
     it('closes the notification and removes it from the DOM on close button click', async () => {
       const parent = element.parentElement!;
-      const willCloseEventSpy = new EventSpy(SbbNotificationElement.events.willClose, element);
-      const didCloseEventSpy = new EventSpy(SbbNotificationElement.events.didClose, element);
+      const beforeCloseSpy = new EventSpy(SbbNotificationElement.events.beforeclose, element);
+      const closeSpy = new EventSpy(SbbNotificationElement.events.close, element);
       const closeButton = element.shadowRoot!.querySelector(
         '.sbb-notification__close',
       ) as SbbSecondaryButtonElement;
 
-      await didOpenEventSpy.calledOnce();
-      expect(element).to.have.attribute('data-state', 'opened');
+      await openSpy.calledOnce();
+      expect(element).to.match(':state(state-opened)');
 
       closeButton.click();
       await waitForLitRender(element);
 
-      await willCloseEventSpy.calledOnce();
-      expect(willCloseEventSpy.count).to.be.equal(1);
+      await beforeCloseSpy.calledOnce();
+      expect(beforeCloseSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      await didCloseEventSpy.calledOnce();
-      expect(didCloseEventSpy.count).to.be.equal(1);
+      await closeSpy.calledOnce();
+      expect(closeSpy.count).to.be.equal(1);
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-state', 'closed');
+      expect(element).to.match(':state(state-closed)');
 
       await aTimeout(0);
       element = parent.querySelector<SbbNotificationElement>('sbb-notification')!;
       expect(element).to.be.null;
     });
+
+    it('should sync title size', async () => {
+      expect(element.querySelector('sbb-title')!.visualLevel).to.be.equal('5');
+      element.size = 's';
+      await waitForLitRender(element);
+
+      expect(element.querySelector('sbb-title')!.visualLevel).to.be.equal('6');
+    });
   });
 
   describe('with non-zero animation duration', () => {
-    it('closes the notification and removes it from the DOM with animationend event', async () => {
-      didOpenEventSpy = new EventSpy(SbbNotificationElement.events.didOpen, null, {
+    it('closes the notification and removes it from the DOM with animationend event', async function (this: Context) {
+      (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
+      openSpy = new EventSpy(SbbNotificationElement.events.open, null, {
         capture: true,
       });
       element = await fixture(html`

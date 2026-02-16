@@ -1,9 +1,4 @@
 @use '../core/styles' as sbb;
-@use 'sass:color';
-@use 'node_modules/@sbb-esta/lyne-design-tokens/dist/scss/sbb-variables.scss' as sbb-tokens;
-
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
 
 // Open/Close animation vars
 $open-anim-margin-from: 0;
@@ -19,16 +14,17 @@ $open-anim-height-to: calc(
   --sbb-notification-margin: 0;
   --sbb-notification-padding-block: var(--sbb-spacing-responsive-xxs);
   --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xs);
-  --sbb-notification-color: var(--sbb-color-charcoal);
+  --sbb-notification-color: var(--sbb-color-2-negative-inverted);
+  --sbb-notification-background-color: light-dark(
+    color-mix(in srgb, var(--sbb-notification-type-color) 5%, white),
+    color-mix(in srgb, var(--sbb-notification-type-color) 35%, white)
+  );
   --sbb-notification-icon-color: var(--sbb-notification-type-color);
-  --sbb-notification-icon-margin-block-start: 0;
   --sbb-notification-border-width: var(--sbb-border-width-1x);
   --sbb-notification-border: var(--sbb-notification-border-width) solid
     var(--sbb-notification-type-color);
-  --sbb-notification-base-radius: var(--sbb-border-radius-4x);
-  --sbb-notification-border-radius: calc(var(--sbb-notification-base-radius) / 2)
-    var(--sbb-notification-base-radius) var(--sbb-notification-base-radius)
-    calc(var(--sbb-notification-base-radius) / 2);
+  --sbb-notification-base-border-radius: var(--sbb-border-radius-4x);
+  --sbb-notification-border-radius-start: calc(var(--sbb-notification-base-border-radius) / 2);
   --sbb-notification-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
@@ -36,6 +32,8 @@ $open-anim-height-to: calc(
   --sbb-notification-timing-function: ease-in;
   --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
     var(--sbb-spacing-responsive-xs);
+  --_sbb-notification-icon-authoritative-font-size: 1em;
+  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-text);
 
   // As the notification has always a light background, we have to fix the focus outline color
   // to default color for cases where the notification is used in a negative context.
@@ -45,40 +43,49 @@ $open-anim-height-to: calc(
 }
 
 // By default, the open animation is disabled
-:host([data-state='opening']:not([animation='open'], [animation='all'])) {
+:host(:state(state-opening):not([animation='open'], [animation='all'])) {
   @include sbb.disable-animation;
 }
 
-:host([data-state='closing']:not([animation='close'], [animation='all'])) {
+:host(:state(state-closing):not([animation='close'], [animation='all'])) {
   @include sbb.disable-animation;
 }
 
-:host([data-resize-disable-animation]) {
+:host(:state(resize-disable-animation)) {
   @include sbb.disable-animation;
 }
 
 // Types
-
-:host([type='info']) {
+:host(:is(:not([type]), [type='info'])) {
   --sbb-notification-type-color: var(--sbb-color-smoke);
-  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-smoke, white, 5%)};
   --sbb-notification-icon-color: var(--sbb-notification-color);
+  --sbb-notification-divider-opacity-light: 20%;
+  --sbb-notification-divider-opacity-dark: 20%;
+}
+
+:host([type='note']) {
+  --sbb-notification-type-color: var(--sbb-color-sky);
+  --sbb-notification-divider-opacity-light: 20%;
+  --sbb-notification-divider-opacity-dark: 20%;
 }
 
 :host([type='success']) {
-  --sbb-notification-type-color: var(--sbb-color-green);
-  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-green, white, 5%)};
+  --sbb-notification-type-color: var(--sbb-color-success);
+  --sbb-notification-divider-opacity-light: 15%;
+  --sbb-notification-divider-opacity-dark: 30%;
 }
 
 :host([type='warn']) {
-  --sbb-notification-type-color: var(--sbb-color-peach);
-  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-peach, white, 5%)};
+  --sbb-notification-type-color: var(--sbb-color-warning);
   --sbb-notification-icon-color: var(--sbb-notification-color);
+  --sbb-notification-divider-opacity-light: 25%;
+  --sbb-notification-divider-opacity-dark: 40%;
 }
 
 :host([type='error']) {
-  --sbb-notification-type-color: var(--sbb-color-red);
-  --sbb-notification-type-color-sass: #{color.mix(sbb-tokens.$sbb-color-red, white, 5%)};
+  --sbb-notification-type-color: var(--sbb-color-error);
+  --sbb-notification-divider-opacity-light: 10%;
+  --sbb-notification-divider-opacity-dark: 25%;
 }
 
 :host([size='s']) {
@@ -87,42 +94,24 @@ $open-anim-height-to: calc(
     var(--sbb-spacing-responsive-xxxs);
   --sbb-notification-content-padding-inline: var(--sbb-spacing-responsive-xxxs)
     var(--sbb-spacing-responsive-xxs);
-}
 
-@include sbb.mq($from: small) {
-  :host {
-    --sbb-notification-icon-margin-block-start: calc(
-      ((1em * var(--sbb-typo-line-height-body-text)) - var(--sbb-size-icon-ui-small)) / 2
-    );
-  }
-
-  :host(:where([data-slot-names~='title'], [title-content])) {
-    --sbb-notification-icon-margin-block-start: calc(
-      (
-          (var(--sbb-font-size-title-5) * var(--sbb-typo-line-height-body-text)) - var(
-              --sbb-size-icon-ui-small
-            )
-        ) /
-        2
-    );
-  }
-
-  :host([size='s']) {
+  @include sbb.mq($from: small) {
     --sbb-notification-padding-inline: var(--sbb-spacing-responsive-xxs);
-    --sbb-notification-icon-margin-block-start: 0;
   }
 }
 
 .sbb-notification__wrapper {
   position: relative;
   inset-inline-start: calc(
-    var(--sbb-notification-base-radius) - var(--sbb-notification-border-width)
+    var(--sbb-notification-base-border-radius) - var(--sbb-notification-border-width)
   );
   width: calc(
-    100% - calc(var(--sbb-notification-base-radius) - var(--sbb-notification-border-width))
+    100% - calc(var(--sbb-notification-base-border-radius) - var(--sbb-notification-border-width))
   );
   border: var(--sbb-notification-border);
-  border-radius: var(--sbb-notification-border-radius);
+  border-radius: var(--sbb-notification-border-radius-start)
+    var(--sbb-notification-base-border-radius) var(--sbb-notification-base-border-radius)
+    var(--sbb-notification-border-radius-start);
   opacity: #{$open-anim-opacity-from};
   max-height: #{$open-anim-height-from};
   margin: #{$open-anim-margin-from};
@@ -130,20 +119,21 @@ $open-anim-height-to: calc(
   &::before {
     content: '';
     position: absolute;
-    inset: calc(var(--sbb-notification-border-width) * -1) var(--sbb-notification-base-radius)
-      calc(var(--sbb-notification-border-width) * -1) calc(var(--sbb-notification-base-radius) * -1);
+    inset: calc(var(--sbb-notification-border-width) * -1)
+      var(--sbb-notification-base-border-radius) calc(var(--sbb-notification-border-width) * -1)
+      calc(var(--sbb-notification-base-border-radius) * -1);
     background-color: var(--sbb-notification-type-color);
     border: var(--sbb-notification-border);
-    border-radius: var(--sbb-notification-base-radius);
+    border-radius: var(--sbb-notification-base-border-radius);
   }
 
-  :host(:is([data-state='opened'], [data-state='closing'])) & {
+  :host(:is(:state(state-opened), :state(state-closing))) & {
     opacity: #{$open-anim-opacity-to};
     max-height: #{$open-anim-height-to};
     margin: #{$open-anim-margin-to};
   }
 
-  :host([data-state='opening']) & {
+  :host(:state(state-opening)) & {
     animation: {
       name: open;
       fill-mode: forwards;
@@ -152,7 +142,7 @@ $open-anim-height-to: calc(
     }
   }
 
-  :host([data-state='closing']) & {
+  :host(:state(state-closing)) & {
     animation: {
       name: close, close-height;
       fill-mode: forwards;
@@ -173,16 +163,12 @@ $open-anim-height-to: calc(
   padding-block: var(--sbb-notification-padding-block);
   padding-inline: var(--sbb-notification-padding-inline);
   color: var(--sbb-notification-color);
-  border-radius: var(--sbb-notification-border-radius);
+  border-radius: var(--sbb-notification-border-radius-start)
+    calc(var(--sbb-notification-base-border-radius) - var(--sbb-notification-border-width))
+    calc(var(--sbb-notification-base-border-radius) - var(--sbb-notification-border-width))
+    var(--sbb-notification-border-radius-start);
   overflow: hidden;
-
-  // We apply Sass calculated background color as default/fallback for older browsers.
-  background-color: var(--sbb-notification-type-color-sass);
-
-  // If supported, try to mix color with CSS
-  @supports (background-color: color-mix(in srgb, transparent 5%, white)) {
-    background-color: color-mix(in srgb, var(--sbb-notification-type-color) 5%, white);
-  }
+  background-color: var(--sbb-notification-background-color);
 
   @include sbb.mq($from: small) {
     grid-template-columns: auto 1fr auto;
@@ -194,24 +180,33 @@ $open-anim-height-to: calc(
   }
 }
 
-.sbb-notification__icon {
+.sbb-notification__icon,
+::slotted(sbb-icon) {
   color: var(--sbb-notification-icon-color);
-  margin-block-start: var(--sbb-notification-icon-margin-block-start);
 
   // This is an undocumented feature for sbb.ch, to have the ability to hide the icon.
   --sbb-icon-svg-width: var(--sbb-notification-icon-size);
-}
 
-.sbb-notification__title {
-  // Overwrite sbb-title default margin
-  margin: 0;
-
-  :host(:not([data-slot-names~='title'], [title-content])) & {
-    display: none;
+  @include sbb.mq($from: small) {
+    margin-block-start: max(
+      0rem,
+      calc(
+        (
+            (
+                var(--_sbb-notification-icon-authoritative-font-size) *
+                  var(--_sbb-notification-icon-authoritative-line-height)
+              ) - var(--sbb-size-icon-ui-small)
+          ) /
+          2
+      )
+    );
   }
 }
 
 .sbb-notification__content {
+  // The content of the notification is always displayed in positive mode,
+  // therefore, to have slotted content correctly display, we need only allow light mode.
+  color-scheme: only light;
   order: 3;
   grid-area: 2 / 1 / 3 / 3;
   margin-block-start: var(--sbb-spacing-fixed-2x);
@@ -224,6 +219,13 @@ $open-anim-height-to: calc(
   }
 }
 
+.sbb-notification__text {
+  // Reset paragraph styles
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
 .sbb-notification__close-wrapper {
   display: flex;
   align-items: center;
@@ -232,12 +234,22 @@ $open-anim-height-to: calc(
 }
 
 .sbb-notification__divider {
-  --sbb-divider-color: var(--sbb-notification-type-color);
+  --sbb-divider-color: light-dark(
+    color-mix(
+      in srgb,
+      var(--sbb-notification-type-color) var(--sbb-notification-divider-opacity-light),
+      var(--sbb-notification-background-color)
+    ),
+    color-mix(
+      in srgb,
+      var(--sbb-notification-type-color) var(--sbb-notification-divider-opacity-dark),
+      var(--sbb-notification-background-color)
+    )
+  );
 
   display: none;
   position: relative;
   inset-inline-start: var(--sbb-border-width-1x);
-  opacity: 0.2;
 
   @include sbb.mq($from: small) {
     display: block;
@@ -279,4 +291,9 @@ $open-anim-height-to: calc(
   to {
     max-height: #{$open-anim-height-from};
   }
+}
+
+::slotted(sbb-title) {
+  // Overwrite sbb-title default margin
+  margin: 0;
 }

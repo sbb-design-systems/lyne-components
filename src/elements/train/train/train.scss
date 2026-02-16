@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
@@ -21,7 +18,7 @@
   &::before {
     content: '';
     display: var(--sbb-train-formation-reserve-spacing-display, none);
-    height: calc(max(var(--sbb-size-icon-ui-small), 1em * var(--sbb-typo-line-height-body-text)));
+    height: calc(max(var(--sbb-size-icon-ui-small), 1em * var(--sbb-typo-line-height-text)));
   }
 }
 

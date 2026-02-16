@@ -1,0 +1,32 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --sbb-carousel-list-border-radius: var(--sbb-border-radius-4x);
+
+  display: flex;
+  height: var(--sbb-carousel-list-height);
+
+  // Setting 0px as fallback to avoid instant scrolling on Safari when loading the page
+  width: var(--sbb-carousel-list-width, 0);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  outline: none;
+  border-radius: var(--sbb-carousel-inherit-border-radius);
+}
+
+:host(:focus-visible) {
+  &::before {
+    @include sbb.focus-outline;
+
+    content: '';
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    border-start-start-radius: var(--sbb-carousel-list-border-radius);
+    border-start-end-radius: var(--sbb-carousel-list-border-radius);
+    border-end-start-radius: var(--sbb-carousel-inherit-border-radius);
+    border-end-end-radius: var(--sbb-carousel-inherit-border-radius);
+  }
+}

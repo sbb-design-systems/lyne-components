@@ -1,13 +1,14 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
+import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
-import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../mixins.js';
-import { tabKey } from '../testing/private/keys.js';
-import { fixture, typeInElement } from '../testing/private.js';
-import { EventSpy, waitForLitRender } from '../testing.js';
+import { isChromium } from '../dom.ts';
+import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../mixins.ts';
+import { tabKey } from '../testing/private/keys.ts';
+import { a11yTreeSnapshot, fixture, typeInElement } from '../testing/private.ts';
+import { EventSpy, waitForLitRender } from '../testing.ts';
 
-import { SbbButtonBaseElement } from './button-base-element.js';
+import { SbbButtonBaseElement } from './button-base-element.ts';
 
 type FormDataEntry = { [p: string]: FormDataEntryValue };
 
@@ -71,22 +72,22 @@ describe(`SbbButtonBaseElement`, () => {
       element.click();
       await waitForLitRender(element);
       expect(clickSpy.count).to.be.equal(1);
-      expect(await element.getAttribute('data-active')).to.be.equal(null);
+      expect(element).not.to.match(':state(active)');
     });
 
     it('space keydown and keyup', async () => {
       element.focus();
       await waitForLitRender(element);
       const clickSpy = new EventSpy('click');
-      expect(await element.getAttribute('data-active')).to.be.equal(null);
+      expect(element).not.to.match(':state(active)');
 
       await sendKeys({ down: 'Space' });
       await waitForLitRender(element);
-      expect(await element.getAttribute('data-active')).to.be.equal('');
+      expect(element).to.match(':state(active)');
 
       await sendKeys({ up: 'Space' });
       await waitForLitRender(element);
-      expect(await element.getAttribute('data-active')).to.be.equal(null);
+      expect(element).not.to.match(':state(active)');
       await waitForLitRender(element);
       expect(clickSpy.count).to.be.equal(1);
     });
@@ -108,7 +109,74 @@ describe(`SbbButtonBaseElement`, () => {
     let resetButton: GenericButton | HTMLButtonElement;
     let input: HTMLInputElement;
     let submitEventSpyPromise: Promise<FormDataEntry>;
+    let submittedCount: number = 0;
     let formDataEventSpyPromise: Promise<FormDataEntry>;
+
+    const onInputEnterPressTests = (): void => {
+      describe('on enter press in input', () => {
+        for (const inputCount of ['one input', 'two inputs']) {
+          describe(`with ${inputCount}`, () => {
+            if (inputCount === 'two inputs') {
+              beforeEach(() => {
+                form.appendChild(document.createElement('input'));
+              });
+            }
+
+            it('should submit form', async () => {
+              input.focus();
+              await sendKeys({ press: 'Enter' });
+
+              const submitFormData = await submitEventSpyPromise;
+
+              expect(submitFormData).to.be.deep.equal({
+                'submit-button': 'submit',
+                test: 'test',
+              });
+
+              expect(submittedCount).to.be.equal(1);
+            });
+
+            it('should not submit when submitButton is disabled', async () => {
+              submitButton.disabled = true;
+              await waitForLitRender(form);
+
+              input.focus();
+              await sendKeys({ press: 'Enter' });
+
+              await aTimeout(10);
+              expect(submittedCount).to.be.equal(0);
+            });
+          });
+        }
+
+        it('should not submit when submitButton was removed with two inputs', async () => {
+          form.appendChild(document.createElement('input'));
+
+          submitButton.remove();
+          await waitForLitRender(form);
+
+          input.focus();
+          await sendKeys({ press: 'Enter' });
+
+          await aTimeout(10);
+          expect(submittedCount).to.be.equal(0);
+        });
+
+        it('should submit when submitButton was removed with one input', async () => {
+          submitButton.remove();
+          await waitForLitRender(form);
+
+          input.focus();
+          await sendKeys({ press: 'Enter' });
+
+          const submitFormData = await submitEventSpyPromise;
+
+          expect(submitFormData).to.be.deep.equal({
+            test: 'test',
+          });
+        });
+      });
+    };
 
     for (const entry of [
       {
@@ -125,6 +193,10 @@ describe(`SbbButtonBaseElement`, () => {
       },
     ]) {
       describe(entry.selector, () => {
+        beforeEach(() => {
+          submittedCount = 0;
+        });
+
         describe('included in form', () => {
           let fieldSet: HTMLFieldSetElement;
 
@@ -140,6 +212,7 @@ describe(`SbbButtonBaseElement`, () => {
                 @submit=${(e: SubmitEvent) => {
                   e.preventDefault();
                   submitResolve(Object.fromEntries(new FormData(form, e.submitter)));
+                  submittedCount++;
                 }}
                 @formdata=${(e: FormDataEvent) => formDataResolve(Object.fromEntries(e.formData))}
               >
@@ -153,59 +226,58 @@ describe(`SbbButtonBaseElement`, () => {
             input = form.querySelector('input')!;
           });
 
-          it('should have role button', async () => {
-            const snapshot = (await a11ySnapshot({
-              selector: entry.selector,
-            })) as unknown as ButtonAccessibilitySnapshot;
+          if (isChromium) {
+            it('should have role button', async () => {
+              await aTimeout(1000);
+              const snapshot = await a11yTreeSnapshot({
+                selector: `${entry.selector}:first-of-type`,
+              });
 
-            expect(snapshot.role).to.be.equal('button');
-          });
+              expect(snapshot.role).to.be.equal('button');
+            });
 
-          it('should be focusable', async () => {
-            const snapshot = (await a11ySnapshot({
-              selector: entry.selector,
-            })) as unknown as ButtonAccessibilitySnapshot;
+            it('should be focusable', async () => {
+              const snapshot = await a11yTreeSnapshot({ selector: entry.selector });
 
-            expect(snapshot.disabled).to.be.undefined;
-            expect(submitButton).not.to.have.attribute('disabled');
-            expect(submitButton).not.to.match(':disabled');
+              expect(snapshot.disabled).to.be.undefined;
+              expect(submitButton).not.to.have.attribute('disabled');
+              expect(submitButton).not.to.match(':disabled');
 
-            await sendKeys({ press: tabKey });
-            await sendKeys({ press: tabKey });
-            expect(document.activeElement!).to.be.equal(submitButton);
-          });
+              await sendKeys({ press: tabKey });
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement!).to.be.equal(submitButton);
+            });
 
-          it('should not be focusable if disabled', async () => {
-            submitButton.disabled = true;
-            await waitForLitRender(submitButton);
+            it('should not be focusable if disabled', async () => {
+              submitButton.disabled = true;
+              await waitForLitRender(submitButton);
 
-            const snapshot = (await a11ySnapshot({
-              selector: entry.selector,
-            })) as unknown as ButtonAccessibilitySnapshot;
+              const snapshot = await a11yTreeSnapshot({ selector: entry.selector });
 
-            expect(snapshot.disabled).to.be.true;
-            expect(submitButton).to.have.attribute('disabled');
-            expect(submitButton).to.match(':disabled');
+              expect(snapshot.disabled).to.be.true;
+              expect(submitButton).to.have.attribute('disabled');
+              expect(submitButton).to.match(':disabled');
 
-            await sendKeys({ press: tabKey });
-            await sendKeys({ press: tabKey });
-            expect(document.activeElement!).not.to.be.equal(submitButton);
-          });
+              await sendKeys({ press: tabKey });
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement!).not.to.be.equal(submitButton);
+            });
 
-          it('should not be focusable if inside a disabled fieldset', async () => {
-            fieldSet.disabled = true;
-            await waitForLitRender(submitButton);
+            it('should not be focusable if inside a disabled fieldset', async () => {
+              fieldSet.disabled = true;
+              await waitForLitRender(submitButton);
 
-            const snapshot = (await a11ySnapshot({
-              selector: entry.selector,
-            })) as unknown as ButtonAccessibilitySnapshot;
+              const snapshot = (await a11yTreeSnapshot({
+                selector: entry.selector,
+              })) as unknown as ButtonAccessibilitySnapshot;
 
-            expect(snapshot.disabled).to.be.true;
-            expect(submitButton).to.match(':disabled');
+              expect(snapshot.disabled).to.be.true;
+              expect(submitButton).to.match(':disabled');
 
-            await sendKeys({ press: tabKey });
-            expect(document.activeElement!).not.to.be.equal(submitButton);
-          });
+              await sendKeys({ press: tabKey });
+              expect(document.activeElement!).not.to.be.equal(submitButton);
+            });
+          }
 
           it('should set default value', () => {
             expect(submitButton.value).to.be.equal('submit');
@@ -255,12 +327,13 @@ describe(`SbbButtonBaseElement`, () => {
             });
 
             const submitFormData = await submitEventSpyPromise;
-
             expect(submitFormData).to.be.deep.equal({
               'submit-button': 'submit',
               test: 'test',
             });
           });
+
+          onInputEnterPressTests();
         });
 
         describe('outside a form', () => {
@@ -278,6 +351,7 @@ describe(`SbbButtonBaseElement`, () => {
                   @submit=${(e: SubmitEvent) => {
                     e.preventDefault();
                     submitResolve(Object.fromEntries(new FormData(form, e.submitter)));
+                    submittedCount++;
                   }}
                   @formdata=${(e: FormDataEvent) => formDataResolve(Object.fromEntries(e.formData))}
                 >
@@ -329,6 +403,8 @@ describe(`SbbButtonBaseElement`, () => {
             // Submit button is not considered as part of the form and cannot be reset therefore
             expect(submitButton.value).to.be.equal('changed-value');
           });
+
+          onInputEnterPressTests();
         });
       });
     }

@@ -1,30 +1,56 @@
 @use './typo';
 @use './a11y';
 @use '../core/mediaqueries';
+@use '../core/functions';
+
+@mixin link-common-variables {
+  --sbb-link-color-hover: light-dark(var(--sbb-color-primary125), var(--sbb-color-graphite));
+  --sbb-link-color-active: light-dark(var(--sbb-color-primary150), var(--sbb-color-metal));
+}
+
+@mixin link-common-variables--negative {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
 
 @mixin block-link-variables {
-  --sbb-link-color-normal: var(--sbb-color-granite);
-  --sbb-link-color-hover: var(--sbb-color-red125);
-  --sbb-link-color-active: var(--sbb-color-red150);
+  @include link-common-variables;
+
+  --sbb-link-color-normal: light-dark(var(--sbb-color-granite), var(--sbb-color-white));
+  --sbb-link-color-hover: light-dark(var(--sbb-color-primary125), var(--sbb-color-cloud));
+  --sbb-link-color-active: light-dark(var(--sbb-color-primary150), var(--sbb-color-silver));
 }
 
 @mixin block-link-variables--negative {
-  --sbb-link-color-normal: var(--sbb-color-white);
-  --sbb-link-color-hover: var(--sbb-color-cloud);
+  @include link-common-variables--negative;
+
+  --sbb-link-color-normal: var(--sbb-color-1-negative);
+  --sbb-link-color-hover: var(--sbb-color-4-negative);
   --sbb-link-color-active: var(--sbb-color-silver);
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+
+// To display a current active page, e.g. if the CSS class sbb-active is set
+@mixin block-link-variables--active {
+  --sbb-link-color-normal: light-dark(var(--sbb-color-black), var(--sbb-color-cement));
+  --sbb-link-text-decoration-line: underline;
+}
+
+// To display a current active page, e.g. if the CSS class sbb-active is set
+@mixin block-link-variables--active-negative {
+  --sbb-link-color-normal: var(--sbb-color-cement);
+  --sbb-link-text-decoration-line: underline;
 }
 
 @mixin link-variables {
+  @include link-common-variables;
+
   --sbb-link-color-normal: inherit;
-  --sbb-link-color-hover: var(--sbb-color-red125);
-  --sbb-link-color-active: var(--sbb-color-red150);
 }
 
 @mixin link-variables--negative {
+  @include link-common-variables--negative;
+
   --sbb-link-color-hover: var(--sbb-color-graphite);
   --sbb-link-color-active: var(--sbb-color-metal);
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
 @mixin link-variables--button {
@@ -37,8 +63,9 @@
 
 @mixin link-base {
   color: var(--sbb-link-color-normal);
-  text-decoration: var(--sbb-link-text-decoration, underline);
-  user-select: none;
+  text-decoration-line: var(--sbb-link-text-decoration-line, underline);
+  text-decoration-thickness: #{functions.px-to-rem-build(1)};
+  text-underline-offset: 0.3125em; // 5px
 
   @include a11y.if-forced-colors {
     text-decoration: underline;
@@ -46,8 +73,7 @@
 }
 
 @mixin link-focus-visible {
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+  &:focus-visible {
     @include a11y.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
@@ -57,7 +83,7 @@
 @mixin link-hover-rules {
   @include mediaqueries.hover-mq($hover: true) {
     color: var(--sbb-link-color-hover);
-    text-decoration: var(--sbb-link-hover-text-decoration, underline);
+    text-decoration-line: var(--sbb-link-hover-text-decoration, underline);
   }
 }
 
@@ -80,14 +106,11 @@
 @mixin link-consolidation {
   @include typo.text-inherit;
   @include link-base;
+  @include link-focus-visible;
+  @include link-hover;
 
-  & {
-    @include link-focus-visible;
-    @include link-hover;
-
-    // Active definitions have to be after :hover definitions
-    @include link-active;
-  }
+  // Active definitions have to be after :hover definitions
+  @include link-active;
 }
 
 @mixin link {

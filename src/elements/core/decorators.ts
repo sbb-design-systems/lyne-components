@@ -1,6 +1,10 @@
-export * from './decorators/force-type.js';
-export * from './decorators/get-override.js';
-export * from './decorators/handle-distinct-change.js';
-export * from './decorators/host-attributes.js';
-export * from './decorators/omit-empty-converter.js';
-export * from './decorators/slot-state.js';
+/**
+ * @entrypoint
+ */
+export * from './decorators/force-type.ts';
+export * from './decorators/get-override.ts';
+export * from './decorators/handle-distinct-change.ts';
+export * from './decorators/host-attributes.ts';
+export * from './decorators/id-reference.ts';
+export * from './decorators/omit-empty-converter.ts';
+export * from './decorators/plain-date.ts';

@@ -1,75 +1,42 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  --sbb-toggle-option-cursor: pointer;
-  --sbb-toggle-option-color: var(--sbb-color-anthracite);
+  --sbb-toggle-option-cursor: var(--sbb-cursor-pointer);
+  --sbb-toggle-option-color: light-dark(var(--sbb-color-anthracite), var(--sbb-color-cloud));
   --sbb-toggle-option-icon-min-size: var(--sbb-size-icon-ui-small);
-  --sbb-toggle-option-border-radius: var(--sbb-border-radius-infinity);
-  --sbb-toggle-option-line-height: calc(1em * var(--sbb-typo-line-height-body-text));
 
   display: inline-block;
-  min-width: var(--sbb-toggle-min-width);
   overflow: hidden;
-  z-index: 1;
-}
 
-// Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-:host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) {
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
 }
 
 :host([checked]) {
-  --sbb-toggle-option-color: var(--sbb-color-charcoal);
+  --sbb-toggle-option-color: var(--sbb-color-2);
 }
 
 :host([disabled]) {
   --sbb-toggle-option-cursor: unset;
-  --sbb-toggle-option-color: var(--sbb-color-granite);
-}
-
-input[type='radio'] {
-  @include sbb.screen-reader-only;
+  --sbb-toggle-option-color: light-dark(var(--sbb-color-anthracite), var(--sbb-color-cloud));
 }
 
 .sbb-toggle-option {
   @include sbb.text-xs--bold;
 
-  cursor: var(--sbb-toggle-option-cursor);
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: var(--sbb-spacing-fixed-1x);
   height: var(--sbb-toggle-height);
   padding-inline: var(--sbb-toggle-padding-inline);
-  border-radius: var(--sbb-toggle-option-border-radius);
   color: var(--sbb-toggle-option-color);
-
-  // if ![icon-only]
-  :host([data-slot-names~='unnamed']:where([data-slot-names~='icon'], [icon-name])) & {
-    gap: var(--sbb-spacing-fixed-1x);
-  }
+  cursor: var(--sbb-toggle-option-cursor);
 }
 
 .sbb-toggle-option__label {
   @include sbb.ellipsis;
-
-  // We need to use a ::before pseudo-element to show a single outline wrapping
-  // the entire toggle when a toggle option receives :focus-visible.
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
-    &::before {
-      content: '';
-      position: absolute;
-      pointer-events: none;
-      inset: calc(var(--sbb-focus-outline-offset) * -2);
-      border: var(--sbb-focus-outline-color) solid var(--sbb-focus-outline-width);
-      border-radius: var(--sbb-toggle-option-border-radius);
-    }
-  }
 }
 
 sbb-icon,

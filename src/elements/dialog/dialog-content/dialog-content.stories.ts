@@ -1,9 +1,8 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import './dialog-content.js';
+import './dialog-content.component.ts';
 import readme from './readme.md?raw';
 
 const Template = (): TemplateResult =>
@@ -12,7 +11,6 @@ const Template = (): TemplateResult =>
 export const Default: StoryObj = { render: Template };
 
 const meta: Meta = {
-  decorators: [withActions as Decorator],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

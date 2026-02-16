@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbOverlayElement } from './overlay.js';
+import { SbbOverlayElement } from './overlay.component.ts';
 
 describe(`sbb-overlay ssr`, () => {
   let root: SbbOverlayElement;
@@ -15,7 +15,7 @@ describe(`sbb-overlay ssr`, () => {
           <p>Overlay content</p>
         </sbb-overlay>
       `,
-      { modules: ['./overlay.js'] },
+      { modules: ['./overlay.component.js'] },
     );
   });
 

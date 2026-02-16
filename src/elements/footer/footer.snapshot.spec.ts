@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbFooterElement } from './footer.js';
-import './footer.js';
+import type { SbbFooterElement } from './footer.component.ts';
+import './footer.component.ts';
 
 describe(`sbb-footer`, () => {
   describe('renders', () => {

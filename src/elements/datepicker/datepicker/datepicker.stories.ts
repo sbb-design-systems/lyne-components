@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Args,
   ArgTypes,
@@ -7,25 +5,30 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import { defaultDateAdapter } from '../../core/datetime.ts';
+import type { SbbDateInputElement } from '../../date-input.ts';
 
-import { SbbDatepickerElement } from './datepicker.js';
 import readme from './readme.md?raw';
 
-import '../datepicker-next-day.js';
-import '../datepicker-previous-day.js';
-import '../datepicker-toggle.js';
-import '../../form-field.js';
+import './datepicker.component.ts';
+import '../datepicker-next-day.ts';
+import '../datepicker-previous-day.ts';
+import '../datepicker-toggle.ts';
+import '../../date-input.ts';
+import '../../form-field.ts';
 
 const value: InputType = {
   control: {
     type: 'text',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
@@ -34,7 +37,7 @@ const disabled: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
@@ -43,7 +46,7 @@ const readonly: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
@@ -52,7 +55,7 @@ const required: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
@@ -61,7 +64,7 @@ const form: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
@@ -70,7 +73,7 @@ const min: InputType = {
     type: 'date',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
@@ -79,16 +82,7 @@ const max: InputType = {
     type: 'date',
   },
   table: {
-    category: 'Input datepicker attribute',
-  },
-};
-
-const wide: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
@@ -113,13 +107,22 @@ const dateFilter: InputType = {
     },
   },
   table: {
-    category: 'Datepicker attribute',
+    category: 'date-input attribute',
   },
 };
 
 const ariaLabel: InputType = {
   control: {
     type: 'text',
+  },
+  table: {
+    category: 'date-input attribute',
+  },
+};
+
+const wide: InputType = {
+  control: {
+    type: 'boolean',
   },
   table: {
     category: 'Datepicker attribute',
@@ -172,15 +175,6 @@ const borderless: InputType = {
   },
 };
 
-const now: InputType = {
-  control: {
-    type: 'date',
-  },
-  table: {
-    category: 'Testing',
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   value,
   form,
@@ -191,7 +185,6 @@ const basicArgTypes: ArgTypes = {
   max,
   wide,
   dateFilter,
-  now,
   'aria-label': ariaLabel,
 };
 
@@ -205,7 +198,6 @@ const basicArgs: Args = {
   max: undefined,
   wide: false,
   dateFilter: dateFilter.options![0],
-  now: undefined,
   'aria-label': undefined,
 };
 
@@ -227,36 +219,34 @@ const formFieldBasicArgs = {
   borderless: false,
 };
 
-const convertMillisecondsToSeconds = (milliseconds: number): number | typeof nothing => {
-  return milliseconds ? milliseconds / 1000 : nothing;
+const convertMillisecondsToIso8601 = (milliseconds: number): string | typeof nothing => {
+  return milliseconds ? defaultDateAdapter.toIso8601(new Date(milliseconds)) : nothing;
 };
 
 const changeEventHandler = async (event: Event): Promise<void> => {
   const div = document.createElement('div');
-  div.innerText = `valueAsDate is: ${(event.target as SbbDatepickerElement).valueAsDate}.`;
+  div.innerText = `valueAsDate is: ${(event.target as SbbDateInputElement).valueAsDate}.`;
   document.getElementById('container-value')?.append(div);
 };
 
-const Template = ({ min, max, wide, dateFilter, now, ...args }: Args): TemplateResult => {
+const Template = ({ min, max, wide, dateFilter, ...args }: Args): TemplateResult => {
   return html`
     <div style="display: flex; gap: 0.25rem;">
-      <sbb-datepicker-previous-day date-picker="datepicker"></sbb-datepicker-previous-day>
-      <sbb-datepicker-toggle date-picker="datepicker"></sbb-datepicker-toggle>
-      <input
+      <sbb-datepicker-previous-day input="datepicker-input"></sbb-datepicker-previous-day>
+      <sbb-date-input
         ${sbbSpread(args)}
         id="datepicker-input"
-        min=${convertMillisecondsToSeconds(min)}
-        max=${convertMillisecondsToSeconds(max)}
-      />
-      <sbb-datepicker
-        id="datepicker"
-        input="datepicker-input"
+        min=${convertMillisecondsToIso8601(min)}
+        max=${convertMillisecondsToIso8601(max)}
         .dateFilter=${dateFilter}
-        ?wide=${wide}
         @change=${(event: Event) => changeEventHandler(event)}
-        now=${convertMillisecondsToSeconds(now)}
-      ></sbb-datepicker>
-      <sbb-datepicker-next-day date-picker="datepicker"></sbb-datepicker-next-day>
+      ></sbb-date-input>
+      <sbb-datepicker-toggle
+        input="datepicker-input"
+        datepicker="datepicker"
+      ></sbb-datepicker-toggle>
+      <sbb-datepicker-next-day input="datepicker-input"></sbb-datepicker-next-day>
+      <sbb-datepicker id="datepicker" input="datepicker-input" ?wide=${wide}></sbb-datepicker>
     </div>
     <div id="container-value" style="margin-block-start: 1rem; color: var(--sbb-color-smoke);">
       Change date to get the latest value:
@@ -274,7 +264,6 @@ const TemplateFormField = ({
   negative,
   wide,
   dateFilter,
-  now,
   ...args
 }: Args): TemplateResult => {
   return html`
@@ -283,23 +272,19 @@ const TemplateFormField = ({
       ?negative=${negative}
       ?optional=${optional}
       ?borderless=${borderless}
-      width="collapse"
     >
       ${label ? html`<label>${label}</label>` : nothing}
       <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-      <sbb-datepicker-next-day></sbb-datepicker-next-day>
-      <sbb-datepicker-toggle></sbb-datepicker-toggle>
-      <input
+      <sbb-date-input
         ${sbbSpread(args)}
-        min=${convertMillisecondsToSeconds(min)}
-        max=${convertMillisecondsToSeconds(max)}
-      />
-      <sbb-datepicker
+        min=${convertMillisecondsToIso8601(min)}
+        max=${convertMillisecondsToIso8601(max)}
         .dateFilter=${dateFilter}
-        ?wide=${wide}
         @change=${(event: Event) => changeEventHandler(event)}
-        now=${convertMillisecondsToSeconds(now)}
-      ></sbb-datepicker>
+      ></sbb-date-input>
+      <sbb-datepicker-toggle></sbb-datepicker-toggle>
+      <sbb-datepicker-next-day></sbb-datepicker-next-day>
+      <sbb-datepicker ?wide=${wide}></sbb-datepicker>
     </sbb-form-field>
     <div id="container-value" style="margin-block-start: 1rem; color: var(--sbb-color-smoke);">
       Change date to get the latest value:
@@ -399,10 +384,9 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
-    actions: {
-      handles: ['input', 'change', SbbDatepickerElement.events.validationChange],
-    },
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       // Setting the iFrame height ensures that the story has enough space when used in the docs section.
       story: { inline: false, iframeHeight: '600px' },

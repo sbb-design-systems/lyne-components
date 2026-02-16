@@ -1,0 +1,11 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+@use '../common/styles/seat-reservation-functions' as sbb-sr-functions;
+
+:host {
+  --sbb-seat-reservation-scoped-width: 0;
+  --sbb-seat-reservation-scoped-height: 0;
+
+  display: block;
+  width: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-scoped-width));
+  height: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-scoped-height));
+}

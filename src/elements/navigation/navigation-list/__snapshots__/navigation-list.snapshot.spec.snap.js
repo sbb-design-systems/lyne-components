@@ -2,10 +2,8 @@
 export const snapshots = {};
 
 snapshots["sbb-navigation-list renders DOM"] = 
-`<sbb-navigation-list data-slot-names="li-0 li-1 li-2 li-3">
+`<sbb-navigation-list>
   <sbb-navigation-button
-    data-action=""
-    data-button=""
     size="m"
     slot="li-0"
     tabindex="0"
@@ -13,8 +11,6 @@ snapshots["sbb-navigation-list renders DOM"] =
     Tickets & Offers
   </sbb-navigation-button>
   <sbb-navigation-button
-    data-action=""
-    data-button=""
     size="m"
     slot="li-1"
     tabindex="0"
@@ -22,8 +18,6 @@ snapshots["sbb-navigation-list renders DOM"] =
     Vacations & Recreation
   </sbb-navigation-button>
   <sbb-navigation-button
-    data-action=""
-    data-button=""
     size="m"
     slot="li-2"
     tabindex="0"
@@ -31,8 +25,6 @@ snapshots["sbb-navigation-list renders DOM"] =
     Travel information
   </sbb-navigation-button>
   <sbb-navigation-button
-    data-action=""
-    data-button=""
     size="m"
     slot="li-3"
     tabindex="0"
@@ -120,56 +112,36 @@ snapshots["sbb-navigation-list should render named slots if data-ssr-child-count
 snapshots["sbb-navigation-list renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Tickets & Offers"
-    },
-    {
-      "role": "button",
-      "name": "Vacations & Recreation"
-    },
-    {
-      "role": "button",
-      "name": "Travel information"
-    },
-    {
-      "role": "button",
-      "name": "Help & Contact"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none"
+            }
+          ]
+        },
+        {
+          "role": "list",
+          "name": ""
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-navigation-list renders A11y tree Chrome */
-
-snapshots["sbb-navigation-list renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Tickets & Offers"
-    },
-    {
-      "role": "button",
-      "name": "Vacations & Recreation"
-    },
-    {
-      "role": "button",
-      "name": "Travel information"
-    },
-    {
-      "role": "button",
-      "name": "Help & Contact"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-navigation-list renders A11y tree Firefox */
 

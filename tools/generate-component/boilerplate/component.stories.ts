@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Args,
   ArgTypes,
@@ -7,13 +5,15 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
-import { __nameUpperCase__ } from './__noPrefixName__.js';
+import { __nameUpperCase__ } from './__noPrefixName__.component.ts';
 import readme from './readme.md?raw';
 
 const myProp: InputType = {
@@ -45,7 +45,9 @@ const meta: Meta = {
       handles: [__nameUpperCase__.events.myEventName],
     },
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

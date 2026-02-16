@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-journey-header-gap: var(--sbb-spacing-fixed-1x);
 
@@ -13,9 +10,8 @@
   @include sbb.scroll-margin-block-start;
 }
 
-sbb-title {
-  // Overwrite sbb-title default margin
-  margin: 0;
+:host([negative]) {
+  @include sbb.title--negative;
 }
 
 sbb-icon {

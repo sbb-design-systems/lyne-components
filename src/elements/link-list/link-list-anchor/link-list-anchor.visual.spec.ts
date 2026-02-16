@@ -8,10 +8,10 @@ import {
   visualDiffFocus,
   visualDiffHover,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './link-list-anchor.js';
-import '../../link/block-link.js';
+import './link-list-anchor.component.ts';
+import '../../link/block-link.ts';
 
 const links = (): TemplateResult[] =>
   new Array(5).fill('').map((_v, i) => html` <sbb-block-link href="#">Link ${i}</sbb-block-link> `);
@@ -32,15 +32,18 @@ const listAnchor = (
 `;
 
 describe(`sbb-link-list-anchor`, () => {
-  const cases = { negative: [false, true] };
+  const cases = {
+    negative: [false, true],
+  };
 
-  describeViewports({ viewports: ['zero', 'medium', 'wide'] }, () => {
-    describeEach(cases, ({ negative }) => {
+  describeViewports({ viewports: ['zero', 'large', 'ultra'] }, () => {
+    describeEach({ ...cases, darkMode: [false, true] }, ({ negative, darkMode }) => {
       let root: HTMLElement;
 
       beforeEach(async function () {
         root = await visualRegressionFixture(listAnchor(negative, 's', true), {
-          backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
+          backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+          darkMode,
         });
       });
 
@@ -59,7 +62,7 @@ describe(`sbb-link-list-anchor`, () => {
         'title',
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(listAnchor(negative, size, true), {
-            backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
           });
         }),
       );
@@ -68,7 +71,7 @@ describe(`sbb-link-list-anchor`, () => {
         'no title',
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(listAnchor(negative, size), {
-            backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
           });
         }),
       );
@@ -77,7 +80,7 @@ describe(`sbb-link-list-anchor`, () => {
         'slotted title',
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(listAnchor(negative, size, false, true), {
-            backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
           });
         }),
       );

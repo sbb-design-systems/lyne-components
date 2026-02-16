@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private.js';
+import { fixture } from '../core/testing/private.ts';
 
-import { SbbJourneyHeaderElement } from './journey-header.js';
+import { SbbJourneyHeaderElement } from './journey-header.component.ts';
 
 describe(`sbb-journey-header`, () => {
   let element: SbbJourneyHeaderElement;

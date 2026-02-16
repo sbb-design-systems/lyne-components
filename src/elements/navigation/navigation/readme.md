@@ -50,42 +50,58 @@ or call the `open()` method on the `sbb-navigation` component.
 
 ## Accessibility
 
-On opening, the focus will be automatically set on the first focusable element or the first action with
-the `.sbb-active` class and, if the action with this class has a connected section,
-the section will be opened and the focus will be set on the first focusable element or the first action
-with the `.sbb-active` class in the section.
+On opening, the focus will be automatically set on the first focusable element (unless manually specified, see below).
+If there is a trigger for a navigation section with the CSS class `.sbb-active`,
+the first occurrence automatically opens the connected section.
 When a navigation action is marked to indicate the user is currently on that page,
 `accessibility-current="page"` (for `sbb-navigation-link`s) or `aria-current="page"` (for `sbb-navigation-button`s)
 should be set on that action.
 Similarly, if a navigation action is marked to indicate a selected option (e.g. the selected language),
 `aria-pressed` should be set on that action.
 
+### Controlling initial focus
+
+The first element with the attribute `sbb-focus-initial` will receive focus on opening.
+If the attribute is not used, the first focusable element receives focus (recommended).
+
+```html
+<sbb-navigation >
+  <sbb-navigation-marker>
+    <sbb-navigation-button>Label 1</sbb-navigation-button>
+    <sbb-navigation-button sbb-focus-initial>Label 2</sbb-navigation-button>
+      ...
+</sbb-navigation>
+```
+
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name                      | Attribute                   | Privacy | Type                            | Default | Description                                                                                                |
-| ------------------------- | --------------------------- | ------- | ------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------- |
-| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `string`                        | `''`    | This will be forwarded as aria-label to the close button element.                                          |
-| `activeNavigationSection` | -                           | public  | `HTMLElement \| null`           | `null`  |                                                                                                            |
-| `isOpen`                  | -                           | public  | `boolean`                       |         | Whether the element is open.                                                                               |
-| `trigger`                 | `trigger`                   | public  | `string \| HTMLElement \| null` | `null`  | The element that will trigger the navigation. Accepts both a string (id of an element) or an HTML element. |
+| Name                      | Attribute                   | Privacy | Type                                  | Default | Description                                                                                 |
+| ------------------------- | --------------------------- | ------- | ------------------------------------- | ------- | ------------------------------------------------------------------------------------------- |
+| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `string`                              | `''`    | This will be forwarded as aria-label to the close button element.                           |
+| `activeNavigationSection` | -                           | public  | `SbbNavigationSectionElement \| null` | `null`  | Returns the active navigation section element.                                              |
+| `closeButton`             | -                           | public  | `HTMLElement \| null`                 |         | Returns the close button element.                                                           |
+| `isOpen`                  | -                           | public  | `boolean`                             |         | Whether the element is open.                                                                |
+| `navigationContent`       | -                           | public  | `HTMLElement \| null`                 |         | Returns the navigation content element.                                                     |
+| `trigger`                 | `trigger`                   | public  | `HTMLElement \| null`                 | `null`  | The element that will trigger the navigation. For attribute usage, provide an id reference. |
 
 ## Methods
 
-| Name    | Privacy | Description            | Parameters | Return | Inherited From          |
-| ------- | ------- | ---------------------- | ---------- | ------ | ----------------------- |
-| `close` | public  | Closes the navigation. |            | `void` | SbbOpenCloseBaseElement |
-| `open`  | public  | Opens the navigation.  |            | `void` | SbbOpenCloseBaseElement |
+| Name             | Privacy | Description                                                                 | Parameters | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Closes the navigation.                                                      |            | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the navigation.                                                       |            | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
-| Name        | Type                | Description                                                                         | Inherited From          |
-| ----------- | ------------------- | ----------------------------------------------------------------------------------- | ----------------------- |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-navigation` is opened.                                      | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-navigation` begins the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type    | Description                                                                  | Inherited From          |
+| ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `Event` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event` | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

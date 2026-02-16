@@ -1,3 +1,5 @@
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
 import {
   type CSSResultGroup,
   html,
@@ -8,7 +10,10 @@ import {
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import { screenshots, type ScreenshotTestCase } from '../../screenshots.js';
+import { screenshots, type ScreenshotTestCase } from '../../screenshots.ts';
+
+import type { TestCaseFilter } from './test-case-filter/test-case-filter.ts';
+import style from './test-case.scss?lit&inline';
 
 import '@sbb-esta/lyne-elements/button/secondary-button-link.js';
 import '@sbb-esta/lyne-elements/chip-label.js';
@@ -17,14 +22,9 @@ import '@sbb-esta/lyne-elements/header.js';
 import '@sbb-esta/lyne-elements/notification.js';
 import '@sbb-esta/lyne-elements/title.js';
 
-import type { TestCaseFilter } from './test-case-filter/test-case-filter.js';
-import style from './test-case.scss?lit&inline';
-
-import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
-
-import './test-title-chip-list/test-title-chip-list.js';
-import './image-diff/image-diff.js';
-import './test-case-filter/test-case-filter.js';
+import './test-title-chip-list/test-title-chip-list.ts';
+import './image-diff/image-diff.ts';
+import './test-case-filter/test-case-filter.ts';
 
 interface Filter {
   viewport?: string;
@@ -38,7 +38,7 @@ interface Filter {
 export
 @customElement('app-test-case')
 class TestCase extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   @property({ attribute: false }) public accessor params: {
     componentName: string;
@@ -99,7 +99,7 @@ class TestCase extends LitElement {
     this._showGlobalDiff = (event.target as SbbToggleCheckElement).checked;
   }
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <sbb-header expanded>
         <div class="app-progress" style="--app-progress: ${this._progressFraction()}"></div>

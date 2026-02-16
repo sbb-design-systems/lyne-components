@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbCardElement } from './card.js';
+import type { SbbCardElement } from './card.component.ts';
 
-import './card.js';
-import '../card-badge.js';
+import './card.component.ts';
+import '../card-badge.ts';
 
 describe(`sbb-card`, () => {
   let element: SbbCardElement;
@@ -15,7 +15,7 @@ describe(`sbb-card`, () => {
     // Note: for easier testing, we add the slot="badge"
     // to <sbb-card-badge> which would not be needed in real.
     element = await fixture(html`
-      <sbb-card size="xl">
+      <sbb-card>
         <h2>Title</h2>
         Content text
         <sbb-card-badge slot="badge">

@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 
-import { SbbTeaserProductStaticElement } from './teaser-product-static.js';
+import { SbbTeaserProductStaticElement } from './teaser-product-static.component.ts';
 
-import '../../image.js';
+import '../../image.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

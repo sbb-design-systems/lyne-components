@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   // We use this rule to make the inner container element to appear as if it were a
   // direct child of the host's parent element. This is useful because the host
@@ -16,7 +13,8 @@
     var(--sbb-animation-duration-6x)
   );
   --sbb-menu-animation-easing: ease;
-  --sbb-menu-transform: translateY(100%);
+  --sbb-menu-transform-y: 100%;
+  --sbb-menu-transform-x: 0%;
   --sbb-menu-max-width: 100%;
   --sbb-menu-min-width: 100%;
   --sbb-menu-inset: 0 auto auto 0;
@@ -28,25 +26,61 @@
   --sbb-menu-border-radius: var(--sbb-border-radius-4x);
   --sbb-menu-visibility: hidden;
   --sbb-menu-backdrop-color: transparent;
+  --sbb-menu-color: var(--sbb-color-2-inverted);
+  --sbb-menu-background-color: var(--sbb-background-color-1-inverted);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
-  @include sbb.mq($from: medium) {
-    --sbb-menu-transform: translateY(var(--sbb-spacing-fixed-2x));
+  @include sbb.scrollbar-variables($negative: true);
+
+  @include sbb.mq($from: large) {
+    --sbb-menu-transform-y: var(--sbb-spacing-fixed-2x);
     --sbb-menu-max-width: #{sbb.px-to-rem-build(320)};
     --sbb-menu-min-width: #{sbb.px-to-rem-build(180)};
+    --sbb-menu-back-button-display: none;
   }
 }
 
-:host(:is([data-state='opened'], [data-state='opening'])) {
+:host(:is(:state(state-opened), :state(state-opening))) {
   --sbb-menu-visibility: visible;
-  --sbb-menu-backdrop-color: var(--sbb-color-black-alpha-20);
+  --sbb-menu-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 20%, transparent);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-menu-backdrop-color: transparent;
   }
 }
 
-:host(:not([data-state='closed'])) {
+:host(:not(:state(nested))) {
+  --sbb-menu-back-button-display: none;
+}
+
+:host(:not(:state(state-closed))) {
   --sbb-menu-inset: 0;
+}
+
+:host(:state(dark)) {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+
+  // We have to ensure that the scrollbar is visible in dark mode with non-dark mode values.
+  --sbb-scrollbar-color: color-mix(in srgb, var(--sbb-color-black) 30%, transparent);
+  --sbb-scrollbar-color-hover: color-mix(in srgb, var(--sbb-color-black) 60%, transparent);
+}
+
+@include sbb.mq($to: large) {
+  :host(:state(skip-animation)) {
+    --sbb-menu-animation-duration: 0ms;
+  }
+
+  :host(:state(nested-child)) {
+    --sbb-menu-transform-x: -100%;
+  }
+
+  :host(:state(nested):is(:state(state-opening), :state(state-opened), :state(state-closing))) {
+    --sbb-menu-open-animation-name: open-sideways;
+  }
+
+  :host(:state(state-closing):state(nested):not(:state(close-all))) {
+    --sbb-menu-close-animation-name: close-sideways;
+  }
 }
 
 ::slotted(:not(sbb-menu-button, sbb-menu-link, sbb-divider)) {
@@ -54,10 +88,16 @@
   padding-inline: var(--sbb-spacing-fixed-5x);
 }
 
+sbb-divider,
 ::slotted(sbb-divider) {
-  --sbb-divider-color: var(--sbb-color-iron);
+  --sbb-divider-color: var(--sbb-background-color-4-inverted);
 
   margin-block: var(--sbb-spacing-fixed-2x);
+}
+
+sbb-divider,
+#sbb-menu__back-button {
+  display: var(--sbb-menu-back-button-display, block);
 }
 
 .sbb-menu__container {
@@ -81,6 +121,11 @@
       timing-function: var(--sbb-menu-animation-easing);
       property: background-color, visibility;
     }
+
+    // Hide the backdrop when in nested state
+    :host(:state(nested)) & {
+      display: none;
+    }
   }
 }
 
@@ -96,34 +141,39 @@
   inset-block-start: unset;
   inset-block-end: 0;
   inset-inline-end: unset;
-  color: var(--sbb-color-white);
+  color: var(--sbb-menu-color);
   border: none;
   border-radius: var(--sbb-menu-border-radius) var(--sbb-menu-border-radius) 0 0;
-  background-color: var(--sbb-color-black);
+  background-color: var(--sbb-menu-background-color);
   padding: 0;
   overflow: hidden;
+  translate: var(--sbb-menu-transform-x) 0;
 
-  :host([data-state]:not([data-state='closed'])) & {
+  // Used when navigating back from nested menu in mobile view
+  transition: translate var(--sbb-menu-animation-duration);
+
+  :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
     display: block;
     opacity: 1;
     pointer-events: all;
+
     animation: {
-      name: open;
+      name: var(--sbb-menu-open-animation-name, open);
       duration: var(--sbb-menu-animation-duration);
       timing-function: var(--sbb-menu-animation-easing);
     }
   }
 
-  :host([data-state][data-state='closing']) & {
+  :host(:state(state-closing)) & {
     pointer-events: none;
-    animation-name: close;
+    animation-name: var(--sbb-menu-close-animation-name, close);
   }
 
   @include sbb.if-forced-colors {
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     top: 0;
     bottom: unset;
     left: 0;
@@ -131,7 +181,7 @@
     max-height: fit-content;
     border-radius: var(--sbb-menu-border-radius);
 
-    :host(:not([data-state='closed'])) & {
+    :host(:not(:state(state-closed))) & {
       top: var(--sbb-menu-position-y);
       left: var(--sbb-menu-position-x);
       max-height: var(--sbb-menu-max-height);
@@ -141,14 +191,12 @@
 }
 
 .sbb-menu__content {
-  @include sbb.scrollbar($negative: true);
+  @include sbb.scrollbar-rules;
 
-  & {
-    max-height: var(--sbb-menu-max-height);
-    padding-block: var(--sbb-spacing-fixed-1x);
-    overflow: auto;
-    outline: none;
-  }
+  max-height: var(--sbb-menu-max-height);
+  padding-block: var(--sbb-spacing-fixed-1x);
+  overflow: auto;
+  outline: none;
 
   // Margin bottom in mobile variant
   &::after {
@@ -157,10 +205,10 @@
     height: var(--sbb-spacing-fixed-8x);
   }
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     max-height: fit-content;
 
-    :host(:not([data-state='closed'])) & {
+    :host(:not(:state(state-closed))) & {
       max-height: var(--sbb-menu-max-height);
       min-height: var(--sbb-menu-min-height);
     }
@@ -171,30 +219,51 @@
   }
 }
 
-.sbb-menu-list {
-  @include sbb.list-reset;
+::slotted(:is(:state(sbb-link), :state(sbb-button))) {
+  // As the background turns white, we need to ensure that buttons and links are displayed in positive.
+  color-scheme: only light;
 }
 
 @keyframes open {
   from {
     opacity: 0;
-    transform: var(--sbb-menu-transform);
+    translate: 0 var(--sbb-menu-transform-y);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0%);
+    translate: 0 0;
   }
 }
 
 @keyframes close {
   from {
     opacity: 1;
-    transform: translateY(0%);
+    translate: 0 0;
   }
 
   to {
     opacity: 0;
-    transform: var(--sbb-menu-transform);
+    translate: 0 var(--sbb-menu-transform-y);
+  }
+}
+
+@keyframes open-sideways {
+  from {
+    translate: 100% 0;
+  }
+
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes close-sideways {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: 100% 0;
   }
 }

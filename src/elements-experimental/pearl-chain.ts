@@ -1,1 +1,4 @@
-export * from './pearl-chain/pearl-chain.js';
+/**
+ * @entrypoint
+ */
+export * from './pearl-chain/pearl-chain.component.ts';

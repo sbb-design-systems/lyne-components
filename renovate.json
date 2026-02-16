@@ -8,7 +8,7 @@
   "nvm": {
     "enabled": false
   },
-  "baseBranches": ["main", "2.x"],
+  "baseBranchPatterns": ["main", "4.x"],
   "lockFileMaintenance": {
     "schedule": ["before 7am on monday"],
     "enabled": true
@@ -31,33 +31,27 @@
     },
     {
       "groupName": "esta",
-      "matchPackagePrefixes": ["@sbb-esta/"],
       "prPriority": 10,
-      "automerge": false
+      "automerge": false,
+      "matchPackageNames": ["@sbb-esta/**"]
     },
     {
       "groupName": "playwright",
-      "matchPackagePrefixes": ["playwright"],
       "prPriority": 10,
-      "automerge": false
+      "automerge": false,
+      "matchPackageNames": ["playwright**"]
     },
     {
       "groupName": "eslint",
-      "matchPackagePrefixes": ["@typescript-eslint/", "eslint"]
+      "matchPackageNames": ["@typescript-eslint/**", "eslint**"]
     },
     {
       "groupName": "commitlint",
-      "matchPackagePrefixes": ["@commitlint/"]
+      "matchPackageNames": ["@commitlint/**"]
     },
     {
       "groupName": "stylelint",
-      "matchPackagePrefixes": [
-        "postcss",
-        "stylelint",
-        "stylelint-config-prettier-scss",
-        "stylelint-config-standard-scss",
-        "stylelint-scss"
-      ]
+      "matchPackageNames": ["postcss", "stylelint**"]
     }
   ]
 }

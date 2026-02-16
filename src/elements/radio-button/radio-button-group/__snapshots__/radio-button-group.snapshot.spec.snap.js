@@ -3,24 +3,16 @@ export const snapshots = {};
 
 snapshots["sbb-radio-button-group renders DOM"] = 
 `<sbb-radio-button-group
-  data-slot-names="unnamed"
-  name="group-1"
   orientation="horizontal"
-  role="radiogroup"
   value="2"
 >
   <sbb-radio-button
-    data-slot-names="unnamed"
-    name="group-1"
     size="m"
     value="1"
   >
     1
   </sbb-radio-button>
   <sbb-radio-button
-    data-checked=""
-    data-slot-names="unnamed"
-    name="group-1"
     size="m"
     tabindex="0"
     value="2"
@@ -28,8 +20,6 @@ snapshots["sbb-radio-button-group renders DOM"] =
     2
   </sbb-radio-button>
   <sbb-radio-button
-    data-slot-names="unnamed"
-    name="group-1"
     size="m"
     value="3"
   >
@@ -44,62 +34,105 @@ snapshots["sbb-radio-button-group renders Shadow DOM"] =
   <slot>
   </slot>
 </div>
-<div class="sbb-radio-group__error">
-  <slot name="error">
-  </slot>
-</div>
+<slot name="error">
+</slot>
 `;
 /* end snapshot sbb-radio-button-group renders Shadow DOM */
+
+snapshots["sbb-radio-button-group renders with panel DOM"] = 
+`<sbb-radio-button-group orientation="horizontal">
+  <sbb-radio-button-panel
+    color="white"
+    size="m"
+    tabindex="0"
+    value="checkbox-1"
+  >
+    Label 1
+  </sbb-radio-button-panel>
+  <sbb-radio-button-panel
+    color="white"
+    size="m"
+    value="checkbox-2"
+  >
+    Label 2
+  </sbb-radio-button-panel>
+  <sbb-radio-button-panel
+    color="white"
+    size="m"
+    value="checkbox-3"
+  >
+    Label 3
+  </sbb-radio-button-panel>
+</sbb-radio-button-group>
+`;
+/* end snapshot sbb-radio-button-group renders with panel DOM */
+
+snapshots["sbb-radio-button-group renders with panel Shadow DOM"] = 
+`<div class="sbb-radio-group">
+  <slot>
+  </slot>
+</div>
+<slot name="error">
+</slot>
+`;
+/* end snapshot sbb-radio-button-group renders with panel Shadow DOM */
+
+snapshots["sbb-radio-button-group renders with selection-expansion-panel DOM"] = 
+`<sbb-radio-button-group orientation="horizontal">
+  <sbb-selection-expansion-panel>
+    <sbb-radio-button-panel
+      color="white"
+      size="m"
+      tabindex="0"
+      value="checkbox-1"
+    >
+      Label 1
+    </sbb-radio-button-panel>
+    <sbb-radio-button-panel
+      color="white"
+      size="m"
+      tabindex="0"
+      value="checkbox-2"
+    >
+      Label 2
+    </sbb-radio-button-panel>
+    <sbb-radio-button-panel
+      color="white"
+      size="m"
+      tabindex="0"
+      value="checkbox-3"
+    >
+      Label 3
+    </sbb-radio-button-panel>
+  </sbb-selection-expansion-panel>
+</sbb-radio-button-group>
+`;
+/* end snapshot sbb-radio-button-group renders with selection-expansion-panel DOM */
+
+snapshots["sbb-radio-button-group renders with selection-expansion-panel Shadow DOM"] = 
+`<div class="sbb-radio-group">
+  <slot>
+  </slot>
+</div>
+<slot name="error">
+</slot>
+`;
+/* end snapshot sbb-radio-button-group renders with selection-expansion-panel Shadow DOM */
 
 snapshots["sbb-radio-button-group renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "radio",
-      "name": "1",
-      "checked": false
-    },
-    {
-      "role": "radio",
-      "name": "2",
-      "checked": true
-    },
-    {
-      "role": "radio",
-      "name": "3",
-      "checked": false
+      "role": "radiogroup",
+      "name": "",
+      "required": false
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-radio-button-group renders A11y tree Chrome */
-
-snapshots["sbb-radio-button-group renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "1"
-    },
-    {
-      "role": "radio",
-      "name": "2",
-      "checked": true
-    },
-    {
-      "role": "radio",
-      "name": "3"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-radio-button-group renders A11y tree Firefox */
 

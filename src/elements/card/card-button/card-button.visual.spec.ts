@@ -1,5 +1,5 @@
-import { cardActionVisualSpec } from '../common/card-action.visual.spec.js';
+import { cardActionVisualSpec } from '../common/card-action.visual.spec.ts';
 
-import './card-button.js';
+import './card-button.component.ts';
 
 cardActionVisualSpec('sbb-card-button');

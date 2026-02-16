@@ -4,10 +4,6 @@ export const snapshots = {};
 snapshots["sbb-tag renders unchecked DOM"] = 
 `<sbb-tag
   aria-label="Check to remove filters"
-  aria-pressed="false"
-  data-action=""
-  data-button=""
-  data-slot-names="unnamed"
   size="m"
   tabindex="0"
   value="all"
@@ -37,11 +33,7 @@ snapshots["sbb-tag renders unchecked Shadow DOM"] =
 
 snapshots["sbb-tag renders checked DOM"] = 
 `<sbb-tag
-  aria-pressed="true"
   checked=""
-  data-action=""
-  data-button=""
-  data-slot-names="unnamed"
   size="m"
   tabindex="0"
   value="info"
@@ -72,10 +64,6 @@ snapshots["sbb-tag renders checked Shadow DOM"] =
 snapshots["sbb-tag renders disabled with icon and amount DOM"] = 
 `<sbb-tag
   amount="123"
-  aria-pressed="false"
-  data-action=""
-  data-button=""
-  data-slot-names="unnamed"
   disabled=""
   icon-name="circle-information-small"
   size="m"
@@ -90,12 +78,7 @@ snapshots["sbb-tag renders disabled with icon and amount Shadow DOM"] =
 `<span class="sbb-action-base sbb-tag">
   <span class="sbb-tag--shift sbb-tag__icon">
     <slot name="icon">
-      <sbb-icon
-        aria-hidden="true"
-        data-namespace="default"
-        name="circle-information-small"
-        role="img"
-      >
+      <sbb-icon name="circle-information-small">
       </sbb-icon>
     </slot>
   </span>
@@ -114,17 +97,12 @@ snapshots["sbb-tag renders disabled with icon and amount Shadow DOM"] =
 
 snapshots["sbb-tag renders slotted icon and amount DOM"] = 
 `<sbb-tag
-  aria-pressed="false"
-  data-action=""
-  data-button=""
-  data-slot-names="amount icon unnamed"
   size="m"
   tabindex="0"
   value="foo"
 >
   <sbb-icon
     aria-hidden="true"
-    data-namespace="default"
     name="cross-small"
     role="img"
     slot="icon"
@@ -159,12 +137,14 @@ snapshots["sbb-tag renders slotted icon and amount Shadow DOM"] =
 snapshots["sbb-tag A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
       "name": "Label",
+      "invalid": false,
+      "focusable": true,
       "pressed": false
     }
   ]
@@ -172,20 +152,4 @@ snapshots["sbb-tag A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-tag A11y tree Chrome */
-
-snapshots["sbb-tag A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "toggle button",
-      "name": "Label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tag A11y tree Firefox */
 

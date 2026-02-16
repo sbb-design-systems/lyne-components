@@ -1,12 +1,13 @@
 import { html } from 'lit/static-html.js';
 
-import sampleImages from '../core/images.js';
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
+import { waitForImageReady } from '../core/testing.ts';
 
-import './image.js';
+import './image.component.ts';
+import '../chip-label/chip-label.component.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
+const transparentImageUrl = import.meta.resolve('../core/testing/assets/transparent-image.png');
 
 const aspectRatios = [
   '1-1',
@@ -23,7 +24,7 @@ const aspectRatios = [
 ];
 
 describe(`sbb-image`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const aspectRatio of aspectRatios) {
       it(
         `aspect-ratio=${aspectRatio}`,
@@ -32,7 +33,9 @@ describe(`sbb-image`, () => {
             html`<sbb-image image-src=${imageUrl} class="sbb-image-${aspectRatio}"></sbb-image>`,
           );
 
-          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          setup.withPostSetupAction(
+            async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+          );
         }),
       );
     }
@@ -48,7 +51,9 @@ describe(`sbb-image`, () => {
           ></sbb-image>`,
         );
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -63,7 +68,9 @@ describe(`sbb-image`, () => {
             ></sbb-image>`,
           );
 
-          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          setup.withPostSetupAction(
+            async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+          );
         }),
       );
     }
@@ -84,16 +91,20 @@ describe(`sbb-image`, () => {
           </figure>`,
         );
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
     it(
       'transparent image from img cdn',
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`<sbb-image image-src=${sampleImages[8]}></sbb-image>`);
+        await setup.withFixture(html`<sbb-image image-src=${transparentImageUrl}></sbb-image>`);
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -104,7 +115,9 @@ describe(`sbb-image`, () => {
           html`<sbb-image image-src=${imageUrl} style="width: 200px; height: 200px"></sbb-image>`,
         );
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -118,7 +131,9 @@ describe(`sbb-image`, () => {
           </figure>`,
         );
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -132,7 +147,9 @@ describe(`sbb-image`, () => {
           ></sbb-image>`,
         );
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -146,7 +163,9 @@ describe(`sbb-image`, () => {
           ></sbb-image>`,
         );
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -157,7 +176,63 @@ describe(`sbb-image`, () => {
           html`<sbb-image skip-lqip image-src=${imageUrl} class="sbb-image-1-1"></sbb-image>`,
         );
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
+      }),
+    );
+
+    it(
+      'with chip label',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<figure class="sbb-figure" style="width: 200px; height: 300px">
+            <sbb-image image-src=${imageUrl}></sbb-image>
+            <sbb-chip-label class="sbb-figure-overlap-start-start">AI content</sbb-chip-label>
+          </figure>`,
+        );
+
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
+      }),
+    );
+
+    it(
+      'with multiple chip labels',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<figure class="sbb-figure">
+            <sbb-image image-src=${imageUrl}></sbb-image>
+            <div class="sbb-figure-overlap-end-end">
+              <sbb-chip-label>AI generated</sbb-chip-label>
+              <sbb-chip-label>Paid content</sbb-chip-label>
+            </div>
+          </figure>`,
+        );
+
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
+      }),
+    );
+
+    it(
+      'with multiple chip labels narrow',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<figure class="sbb-figure" style="width: 200px; height: 300px">
+            <sbb-image image-src=${imageUrl}></sbb-image>
+            <div class="sbb-figure-overlap-end-end">
+              <sbb-chip-label>AI generated</sbb-chip-label>
+              <sbb-chip-label>Paid content</sbb-chip-label>
+            </div>
+          </figure>`,
+        );
+
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
   });

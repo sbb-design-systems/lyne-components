@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process';
 
-import { startPlaywrightServerCommand } from './container-playwright-browser-plugin.js';
+import { startPlaywrightServerCommand } from './container-playwright-browser-plugin.ts';
 
 const abortController = new AbortController();
 spawn(startPlaywrightServerCommand[0], startPlaywrightServerCommand.slice(1), {

@@ -6,11 +6,12 @@ import {
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html, type TemplateResult } from 'lit';
 
-import type { ITripItem } from '../core/timetable/timetable-properties.js';
+import type { ITripItem } from '../core/timetable/timetable-properties.ts';
 
-import type { Boarding, Price } from './timetable-row.js';
-import './timetable-row.js';
+import type { Boarding, Price } from './timetable-row.component.ts';
+import './timetable-row.component.ts';
 import {
+  a11yFootpathTrip,
   busTrip,
   cancelledTrip,
   type DeepPartial,
@@ -28,8 +29,7 @@ import {
   skippedLastArrivalStopTrip,
   trainTrip,
   walkTimeTrip,
-  a11yFootpathTrip,
-} from './timetable-row.sample-data.js';
+} from './timetable-row.sample-data.private.ts';
 
 const samplePrice: Price = { price: '39.90', text: 'ab CHF', isDiscount: false };
 
@@ -37,7 +37,7 @@ interface Args {
   trip?: DeepPartial<ITripItem>;
   price?: Price;
   boarding?: Boarding;
-  now?: number;
+  now?: Date;
   active?: boolean;
   loadingTrip?: boolean;
   a11yFootpath?: boolean;
@@ -49,24 +49,24 @@ describe(`sbb-timetable-row`, () => {
     { name: 'position', trip: progressTrip },
     { name: 'cancelled', trip: cancelledTrip },
     { name: 'partially cancelled', trip: partiallyCancelled },
-    { name: 'past', trip: pastTrip, now: new Date('2023-12-01T12:11:00').valueOf() },
-    { name: 'disturbance', trip: disturbanceTrip, now: new Date('2022-12-05T12:11:00').valueOf() },
+    { name: 'past', trip: pastTrip, now: new Date('2023-12-01T12:11:00') },
+    { name: 'disturbance', trip: disturbanceTrip, now: new Date('2022-12-05T12:11:00') },
     {
       name: 'skipped departure stop',
       trip: skippedDepartureStopTrip,
-      now: new Date('2022-12-05T12:11:00').valueOf(),
+      now: new Date('2022-12-05T12:11:00'),
     },
     {
       name: 'skipped arrival stop',
       trip: skippedArrivalStopTrip,
-      now: new Date('2022-12-05T12:11:00').valueOf(),
+      now: new Date('2022-12-05T12:11:00'),
     },
     {
       name: 'skipped last arrival stop',
       trip: skippedLastArrivalStopTrip,
-      now: new Date('2022-12-05T12:11:00').valueOf(),
+      now: new Date('2022-12-05T12:11:00'),
     },
-    { name: 'quay changed', trip: quayChangeTrip, now: new Date('2022-12-05T12:11:00').valueOf() },
+    { name: 'quay changed', trip: quayChangeTrip, now: new Date('2022-12-05T12:11:00') },
     { name: 'train', trip: trainTrip },
     { name: 'bus', trip: busTrip },
     { name: 'ship', trip: shipTrip },
@@ -85,20 +85,32 @@ describe(`sbb-timetable-row`, () => {
       ?loading-trip=${args.loadingTrip}
       ?a11y-footpath=${args.a11yFootpath}
       ?loading-price=${args.loadingPrice}
-      now=${(args.now ?? new Date('2022-12-01T12:11:00').valueOf()) / 1000}
+      .now=${args.now ?? new Date('2022-12-01T12:11:00')}
       disable-animation
     ></sbb-timetable-row>
   `;
-  const wrapperStyle = { backgroundColor: 'var(--sbb-color-milk)' };
+  const wrapperStyle = { backgroundColor: 'var(--sbb-background-color-3)' };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    for (const c of cases) {
-      it(
-        c.name,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...c }), wrapperStyle);
-        }),
-      );
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
+    for (const { forcedColors, darkMode } of [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ]) {
+      describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
+        for (const c of cases) {
+          it(
+            c.name,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(template(c), {
+                ...wrapperStyle,
+                forcedColors,
+                darkMode,
+              });
+            }),
+          );
+        }
+      });
     }
 
     for (const state of [visualDiffDefault, visualDiffFocus, visualDiffHover]) {

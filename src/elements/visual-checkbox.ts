@@ -1,1 +1,4 @@
-export * from './visual-checkbox/visual-checkbox.js';
+/**
+ * @entrypoint
+ */
+export * from './visual-checkbox/visual-checkbox.component.ts';

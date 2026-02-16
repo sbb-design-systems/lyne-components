@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbBlockLinkElement } from './block-link.js';
+import { SbbBlockLinkElement } from './block-link.component.ts';
 
 describe(`sbb-block-link ssr`, () => {
   let root: SbbBlockLinkElement;
@@ -20,7 +20,7 @@ describe(`sbb-block-link ssr`, () => {
           Travelcards &amp; tickets.
         </sbb-block-link>
       `,
-      { modules: ['./block-link.js'] },
+      { modules: ['./block-link.component.js'] },
     );
   });
 

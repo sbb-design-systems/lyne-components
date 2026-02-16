@@ -1,46 +1,35 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: flex;
-
-  --sbb-breadcrumb-color: var(--sbb-color-granite);
 }
 
 @include sbb.hover-mq($hover: true) {
   :host(:hover) {
-    --sbb-breadcrumb-color: var(--sbb-color-charcoal);
+    --sbb-breadcrumb-color: var(--sbb-breadcrumb-color-hover);
   }
 }
 
-:host(:is(:active, [data-active])) {
-  --sbb-breadcrumb-color: var(--sbb-color-anthracite);
+:host(:is(:active, :state(active))) {
+  --sbb-breadcrumb-color: var(--sbb-breadcrumb-color-active);
 }
 
 .sbb-breadcrumb {
-  --sbb-link-text-decoration: none;
+  --sbb-link-text-decoration-line: none;
 
-  @include sbb.text-xs--regular;
   @include sbb.link-base;
 
-  & {
-    display: flex;
-    cursor: pointer;
-    gap: var(--sbb-spacing-fixed-2x);
-    color: var(--sbb-breadcrumb-color);
-    align-items: center;
-    overflow: hidden;
-    outline: none;
-  }
+  display: flex;
+  cursor: var(--sbb-cursor-pointer);
+  gap: var(--sbb-breadcrumb-gap);
+  color: var(--sbb-breadcrumb-color);
+  align-items: center;
+  overflow: hidden;
+  outline: none;
+  font-size: var(--sbb-breadcrumb-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 
-  @include sbb.if-forced-colors {
-    --sbb-breadcrumb-color: ButtonText;
-  }
-
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+  &:focus-visible {
     @include sbb.focus-outline;
 
     border-radius: var(--sbb-border-radius-2x);
@@ -49,6 +38,10 @@
 
 .sbb-breadcrumb__label {
   @include sbb.ellipsis;
+
+  :host(:not(:state(slotted))) & {
+    display: none;
+  }
 }
 
 .sbb-breadcrumb__icon,

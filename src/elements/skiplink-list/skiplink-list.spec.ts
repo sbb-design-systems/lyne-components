@@ -1,13 +1,13 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private.js';
-import { waitForLitRender } from '../core/testing.js';
-import type { SbbBlockLinkElement } from '../link.js';
+import { fixture } from '../core/testing/private.ts';
+import { waitForLitRender } from '../core/testing.ts';
+import type { SbbBlockLinkElement } from '../link.ts';
 
-import { SbbSkiplinkListElement } from './skiplink-list.js';
+import { SbbSkiplinkListElement } from './skiplink-list.component.ts';
 
-import '../link/block-link.js';
+import '../link/block-link.ts';
 
 describe(`sbb-skiplink-list`, () => {
   let element: SbbSkiplinkListElement;

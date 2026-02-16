@@ -1,2 +1,5 @@
-export * from './optgroup/optgroup.js';
-export * from './optgroup/optgroup-base-element.js';
+/**
+ * @entrypoint
+ */
+export * from './optgroup/optgroup.component.ts';
+export * from './optgroup/optgroup-base-element.ts';

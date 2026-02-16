@@ -4,9 +4,9 @@ export const snapshots = {};
 snapshots["sbb-dialog-actions renders DOM"] = 
 `<sbb-dialog-actions
   align-group="start"
-  button-size="l"
-  horizontal-from="medium"
-  link-size="m"
+  button-size="m"
+  horizontal-from="large"
+  link-size="s"
   orientation="horizontal"
 >
 </sbb-dialog-actions>
@@ -14,32 +14,24 @@ snapshots["sbb-dialog-actions renders DOM"] =
 /* end snapshot sbb-dialog-actions renders DOM */
 
 snapshots["sbb-dialog-actions renders Shadow DOM"] = 
-`<div class="sbb-dialog-actions">
-  <div class="sbb-action-group">
-    <slot>
-    </slot>
-  </div>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-dialog-actions renders Shadow DOM */
 
 snapshots["sbb-dialog-actions renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none"
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-dialog-actions renders A11y tree Chrome */
-
-snapshots["sbb-dialog-actions renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-dialog-actions renders A11y tree Firefox */
 

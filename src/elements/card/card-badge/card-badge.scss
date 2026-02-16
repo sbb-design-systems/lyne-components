@@ -1,55 +1,44 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  --sbb-card-badge-gap: var(--sbb-spacing-fixed-2x);
-
-  display: block;
-}
-
-:host([color='white']) {
-  --sbb-card-badge-color: var(--sbb-color-charcoal);
-  --sbb-card-badge-background-color: var(--sbb-color-white);
-  --sbb-card-badge-border-color: var(--sbb-color-aluminium);
-}
-
-:host([color='charcoal']) {
-  --sbb-card-badge-color: var(--sbb-color-white);
-  --sbb-card-badge-background-color: var(--sbb-color-charcoal);
-  --sbb-card-badge-border-color: transparent;
-}
-
-.sbb-card-badge-wrapper {
   display: flex;
   position: relative;
   height: fit-content;
-  justify-content: end;
+  width: fit-content;
+  margin-inline-start: auto;
 
   // Divider line to content
-  @include sbb.if-forced-colors {
-    &::after {
-      content: '';
-      display: block;
-      position: absolute;
-      inset: 0;
-      border-block-end: var(--sbb-border-width-1x) solid CanvasText;
-    }
+  &::after {
+    content: '';
+    display: var(--sbb-card-badge-border-display, none);
+    position: absolute;
+    inset: 0;
+    border: var(--sbb-border-width-1x) solid CanvasText;
   }
-}
 
-.sbb-card-badge {
-  position: relative;
-  display: flex;
   inset-block-start: 0;
   inset-inline-end: 0;
-  padding-inline: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-3x);
+  padding-inline: var(--sbb-card-badge-padding-inline);
+}
+
+:host([color='white']) {
+  --sbb-card-badge-color: var(--sbb-color-3);
+  --sbb-card-badge-background-color: var(--sbb-background-color-1);
+  --sbb-card-badge-border-color: light-dark(
+    var(--sbb-color-aluminium),
+    var(--sbb-color-anthracite)
+  );
+}
+
+:host(:dir(rtl)) {
+  --sbb-card-badge-skew: skew(-16deg, 0deg);
 }
 
 .sbb-card-badge-content {
-  @include sbb.text-xxs--bold;
+  @include sbb.text--bold;
 
+  font-size: var(--sbb-text-font-size-xxs);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   position: relative;
   display: flex;
   align-items: center;
@@ -58,33 +47,24 @@
 }
 
 .sbb-card-badge-background {
-  content: '';
   display: block;
   position: absolute;
   inset: 0;
   background-color: var(--sbb-card-badge-background-color);
-  border-end-start-radius: var(--sbb-border-radius-4x);
+  border-end-start-radius: var(--sbb-card-badge-border-radius);
 
   // Increase size to avoid looking cut.
   margin-inline-end: calc(var(--sbb-spacing-fixed-3x) * -1);
-  transform: skew(16deg, 0deg);
-
-  :host(:dir(rtl)) & {
-    transform: skew(-16deg, 0deg);
-  }
+  transform: var(--sbb-card-badge-skew);
 
   // Set border inline to the badge
   &::before {
     content: '';
-    display: block;
+    display: var(--sbb-card-badge-inline-border-display, block);
     position: absolute;
     inset: 0;
-    border-block-end: var(--sbb-border-width-1x) solid var(--sbb-card-badge-border-color);
-    border-inline-start: var(--sbb-border-width-1x) solid var(--sbb-card-badge-border-color);
-    border-end-start-radius: var(--sbb-border-radius-4x);
-
-    @include sbb.if-forced-colors {
-      border: none;
-    }
+    border-block-end: var(--sbb-card-badge-border-width) solid var(--sbb-card-badge-border-color);
+    border-inline-start: var(--sbb-card-badge-border-width) solid var(--sbb-card-badge-border-color);
+    border-end-start-radius: var(--sbb-card-badge-border-radius);
   }
 }

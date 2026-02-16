@@ -1,13 +1,13 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import '../../form-field.js';
-import '../../autocomplete.js';
-import '../../select.js';
-import '../option.js';
-import './optgroup.js';
+import '../../form-field.ts';
+import '../../autocomplete.ts';
+import '../../select.ts';
+import '../option.ts';
+import './optgroup.component.ts';
 
 describe(`sbb-optgroup`, () => {
   const defaultArgs = {
@@ -65,7 +65,7 @@ describe(`sbb-optgroup`, () => {
     </sbb-form-field>
   `;
 
-  describeViewports({ viewports: ['micro', 'medium'] }, () => {
+  describeViewports({ viewports: ['small', 'large'] }, () => {
     describe('standalone', () => {
       it(
         visualDiffDefault.name,
@@ -92,6 +92,15 @@ describe(`sbb-optgroup`, () => {
         `disabledSingle`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(standaloneTemplate({ ...defaultArgs, disabledSingle: true }));
+        }),
+      );
+
+      it(
+        `darkMode=true`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(standaloneTemplate({ ...defaultArgs, disabledSingle: true }), {
+            darkMode: true,
+          });
         }),
       );
     });

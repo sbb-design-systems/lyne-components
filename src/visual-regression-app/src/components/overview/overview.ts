@@ -1,9 +1,10 @@
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved
 import { meta } from 'virtual:meta';
 
-import { screenshots } from '../../screenshots.js';
+import { screenshots } from '../../screenshots.ts';
 
 import style from './overview.scss?lit&inline';
 
@@ -23,9 +24,9 @@ import '@sbb-esta/lyne-elements/title.js';
 export
 @customElement('app-overview')
 class Overview extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`
       <sbb-container expanded>
         <sbb-title level="3">
@@ -37,7 +38,7 @@ class Overview extends LitElement {
             <sbb-action-group
               align-group="stretch"
               orientation="vertical"
-              horizontal-from="medium"
+              horizontal-from="large"
               button-size="s"
               link-size="s"
             >

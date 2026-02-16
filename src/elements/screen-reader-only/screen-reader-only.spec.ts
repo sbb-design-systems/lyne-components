@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private.js';
+import { fixture } from '../core/testing/private.ts';
 
-import { SbbScreenReaderOnlyElement } from './screen-reader-only.js';
+import { SbbScreenReaderOnlyElement } from './screen-reader-only.component.ts';
 
 describe(`sbb-screen-reader-only`, () => {
   let element: SbbScreenReaderOnlyElement;

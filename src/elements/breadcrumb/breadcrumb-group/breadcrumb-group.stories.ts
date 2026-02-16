@@ -1,16 +1,16 @@
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
-import type { SbbBreadcrumbGroupElement } from './breadcrumb-group.js';
+import type { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.ts';
 import readme from './readme.md?raw';
 
-import '../../button/secondary-button.js';
-import './breadcrumb-group.js';
-import '../breadcrumb.js';
+import '../../button/secondary-button.ts';
+import './breadcrumb-group.component.ts';
+import '../breadcrumb.ts';
 
 const addBreadcrumb = (event: Event): void => {
   const breadcrumbGroup = (event.target as HTMLElement)

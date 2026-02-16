@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbTitleElement } from './title.js';
+import type { SbbTitleElement } from './title.component.ts';
 
-import './title.js';
+import './title.component.ts';
 
 describe(`sbb-title`, () => {
   describe('renders', async () => {

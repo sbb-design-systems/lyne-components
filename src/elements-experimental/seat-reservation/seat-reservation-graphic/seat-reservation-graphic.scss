@@ -1,0 +1,93 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+
+:host {
+  --sbb-seat-reservation-graphic-width: 16;
+  --sbb-seat-reservation-graphic-height: 16;
+  --sbb-seat-reservation-graphic-rotation: 0;
+  --sbb-seat-reservation-graphic-inverse-rotation: 0;
+  --sbb-seat-reservation-graphic-position: initial;
+  --sbb-seat-reservation-graphic-left: 0;
+  --sbb-seat-reservation-graphic-top: 0;
+  --sbb-icon-svg-width: calc(
+    var(--sbb-seat-reservation-graphic-width) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
+  --sbb-icon-svg-height: calc(
+    var(--sbb-seat-reservation-graphic-height) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(
+    var(--sbb-seat-reservation-graphic-width) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
+  height: calc(
+    var(--sbb-seat-reservation-graphic-height) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
+  position: var(--sbb-seat-reservation-graphic-position);
+  inset-inline-start: calc(
+    var(--sbb-seat-reservation-graphic-left) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
+  inset-block-start: calc(
+    var(--sbb-seat-reservation-graphic-top) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
+}
+
+// auto-width settings for graphics
+:host(.auto-width) {
+  --sbb-icon-svg-width: auto;
+
+  max-width: calc(
+    var(--sbb-seat-reservation-graphic-max-width) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
+  width: auto;
+}
+
+// hover state with pointer cursor for service icons and popover
+:host(.sbb-seat-reservation-graphic--cursor-pointer) {
+  cursor: var(--sbb-cursor-pointer);
+}
+
+.sbb-sr-icon,
+.sbb-sr-graphic {
+  width: inherit;
+  height: inherit;
+  transform-origin: center;
+  rotate: calc(var(--sbb-seat-reservation-graphic-rotation) * 1deg);
+}
+
+.sbb-sr-icon {
+  // override color directly set in the SVG file coming from CDN
+  color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
+}
+
+.sbb-sr-graphic {
+  svg {
+    width: clamp(100%, 100%, 100%);
+    height: clamp(100%, 100%, 100%);
+
+    .fix-rotation-inverse {
+      transform-origin: center;
+      rotate: calc(var(--sbb-seat-reservation-graphic-inverse-rotation) * 1deg);
+    }
+  }
+
+  @include sbb.if-forced-colors {
+    svg:not(.color-immutable) {
+      [fill]:not([fill='none']) {
+        fill: currentcolor;
+      }
+    }
+
+    .no-bg {
+      fill: transparent;
+    }
+  }
+}

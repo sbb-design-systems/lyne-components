@@ -5,11 +5,11 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../../title.js';
-import '../card-badge.js';
-import './card.js';
+import '../../title.ts';
+import '../card-badge.ts';
+import './card.component.ts';
 
 describe(`sbb-card`, () => {
   let root: HTMLElement;
@@ -17,16 +17,21 @@ describe(`sbb-card`, () => {
   const cases = {
     color: ['white', 'milk', 'transparent-bordered', 'transparent-bordered-dashed'],
     badge: ['none', 'charcoal', 'white'],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
-  const sizeCases = {
-    size: ['xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'],
+  const spacingCases = {
+    spacing: ['3x-xxs', 'xxxs-xxs', 'xxxs-s', '4x-xxs', 'xxs', 's', 'l'],
     badge: ['none', 'charcoal'],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     // Main test cases
-    describeEach(cases, ({ color, badge }) => {
+    describeEach(cases, ({ color, badge, emulateMedia: { forcedColors, darkMode } }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
@@ -46,7 +51,10 @@ describe(`sbb-card`, () => {
             </sbb-card>
           `,
           {
-            backgroundColor: color === 'milk' ? 'var(--sbb-color-white)' : 'var(--sbb-color-milk)',
+            backgroundColor:
+              color === 'milk' ? 'var(--sbb-background-color-1)' : 'var(--sbb-background-color-3)',
+            forcedColors,
+            darkMode,
           },
         );
       });
@@ -59,12 +67,12 @@ describe(`sbb-card`, () => {
       );
     });
 
-    // Size test cases
-    describeEach(sizeCases, ({ size, badge }) => {
+    // Spacing test cases
+    describeEach(spacingCases, ({ spacing, badge }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
-            <sbb-card size=${size}>
+            <sbb-card class=${`sbb-card-spacing-${spacing}`}>
               <span class="sbb-text-m">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. justo.
               </span>
@@ -79,7 +87,7 @@ describe(`sbb-card`, () => {
             </sbb-card>
           `,
           {
-            backgroundColor: 'var(--sbb-color-milk)',
+            backgroundColor: 'var(--sbb-background-color-3)',
           },
         );
       });
@@ -101,8 +109,20 @@ describe(`sbb-card`, () => {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. justo.
             </sbb-card>
           `,
-          { backgroundColor: 'var(--sbb-color-milk)' },
+          { backgroundColor: 'var(--sbb-background-color-3)' },
         );
+      }),
+    );
+
+    it(
+      'nested',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-card color="milk" class="sbb-card-spacing-l">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br />
+            <sbb-card> Nested lorem ipsum dolor sit amet, consectetur adipiscing elit. </sbb-card>
+          </sbb-card>
+        `);
       }),
     );
   });

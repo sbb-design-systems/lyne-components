@@ -2,10 +2,10 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../core/testing.js';
+import { fixture } from '../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../core/testing.ts';
 
-import { SbbSliderElement } from './slider.js';
+import { SbbSliderElement } from './slider.component.ts';
 
 const keyboardPressTimes = async (element: HTMLElement, key: string, times = 1): Promise<void> => {
   element.focus();
@@ -88,7 +88,61 @@ describe(`sbb-slider`, () => {
       await waitForLitRender(form);
 
       expect(element.value).to.be.equal('50');
+      expect(element.shadowRoot!.querySelector('input')!.value).to.be.equal('50');
       compareToNativeInput();
+    });
+
+    it('should set default value with min and max set', async () => {
+      element = await fixture(html`
+        <sbb-slider max="200" min="20" name="sbb-slider"></sbb-slider>
+      `);
+
+      expect(element.value).to.be.equal('110');
+      expect(element.shadowRoot!.querySelector('input')!.value).to.be.equal('110');
+      expect(element.style.getPropertyValue('--sbb-slider-value-fraction')).to.be.equal('0.5');
+    });
+
+    it('should set default value with only min set', async () => {
+      element = await fixture(html`<sbb-slider min="20" name="sbb-slider"></sbb-slider>`);
+
+      expect(element.value).to.be.equal('60');
+      expect(element.shadowRoot!.querySelector('input')!.value).to.be.equal('60');
+      expect(element.style.getPropertyValue('--sbb-slider-value-fraction')).to.be.equal('0.5');
+    });
+
+    it('should set default value with no min max', async () => {
+      element = await fixture(html`<sbb-slider name="sbb-slider"></sbb-slider>`);
+
+      expect(element.value).to.be.equal('50');
+      expect(element.shadowRoot!.querySelector('input')!.value).to.be.equal('50');
+      expect(element.style.getPropertyValue('--sbb-slider-value-fraction')).to.be.equal('0.5');
+    });
+
+    it('should bound value to min', async () => {
+      element = await fixture(
+        html`<sbb-slider name="sbb-slider" value="50" min="60"></sbb-slider>`,
+      );
+
+      expect(element.value).to.be.equal('60');
+      expect(element.shadowRoot!.querySelector('input')!.value).to.be.equal('60');
+      expect(element.style.getPropertyValue('--sbb-slider-value-fraction')).to.be.equal('0');
+    });
+
+    it('should bound value to max', async () => {
+      element = await fixture(
+        html`<sbb-slider name="sbb-slider" value="50" max="40"></sbb-slider>`,
+      );
+
+      expect(element.value).to.be.equal('40');
+      expect(element.shadowRoot!.querySelector('input')!.value).to.be.equal('40');
+      expect(element.style.getPropertyValue('--sbb-slider-value-fraction')).to.be.equal('1');
+    });
+
+    it('should update fraction when changing value', async () => {
+      element = await fixture(html`<sbb-slider name="sbb-slider" value="60"></sbb-slider>`);
+
+      expect(element.value).to.be.equal('60');
+      expect(element.style.getPropertyValue('--sbb-slider-value-fraction')).to.be.equal('0.6');
     });
 
     it('should handle invalid values', async () => {

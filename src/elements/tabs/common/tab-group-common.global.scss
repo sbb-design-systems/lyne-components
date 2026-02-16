@@ -1,0 +1,17 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+// These variables are shared within the `sbb-tab-label` and the `sbb-tab-nav-bar`.
+@mixin base {
+  --sbb-tab-group-content-gap-size-s: var(--sbb-spacing-responsive-xs);
+  --sbb-tab-group-content-gap-size-l: var(--sbb-spacing-responsive-s);
+  --sbb-tab-group-content-gap-size-xl: var(--sbb-spacing-responsive-m);
+  --sbb-tab-group-content-gap-default: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-tab-group-content-gap-size-l),
+        'lean': var(--sbb-tab-group-content-gap-size-s),
+      ),
+      $theme
+    )};
+}

@@ -1,0 +1,7 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+
+// Calculates the incoming pixel value to a rem value depending on the document font-size used by --sbb-seat-reservation-one-px-rem.
+// If no document font size exists, the sbb.px-to-rem-build function is used by default, which calculates with a fixed 16px font-size.
+@function sr-px-to-rem($px) {
+  @return calc($px * var(--sbb-seat-reservation-one-px-rem, sbb.px-to-rem-build(1)));
+}

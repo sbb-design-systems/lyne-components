@@ -1,12 +1,12 @@
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './divider.js';
+import './divider.component.ts';
 
 const Template = (args: Args): TemplateResult => html`
   <div style="height: 340px; padding: 20px;">
@@ -67,7 +67,9 @@ export const dividerNegative: StoryObj = {
 const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

@@ -2,21 +2,14 @@
 export const snapshots = {};
 
 snapshots["sbb-breadcrumb-group renders DOM"] = 
-`<sbb-breadcrumb-group
-  data-loaded=""
-  role="navigation"
->
+`<sbb-breadcrumb-group>
   <sbb-breadcrumb
-    data-action=""
-    data-link=""
     href="https://example.com"
     icon-name="pie-small"
     slot="li-0"
   >
   </sbb-breadcrumb>
   <sbb-breadcrumb
-    data-action=""
-    data-link=""
     href="https://example.com/one"
     slot="li-1"
   >
@@ -24,8 +17,6 @@ snapshots["sbb-breadcrumb-group renders DOM"] =
   </sbb-breadcrumb>
   <sbb-breadcrumb
     accessibility-current="page"
-    data-action=""
-    data-link=""
     href="https://example.com/one"
     slot="li-2"
   >
@@ -41,11 +32,8 @@ snapshots["sbb-breadcrumb-group renders Shadow DOM"] =
     <slot name="li-0">
     </slot>
     <sbb-icon
-      aria-hidden="true"
       class="sbb-breadcrumb-group__divider-icon"
-      data-namespace="default"
       name="chevron-small-right-small"
-      role="img"
     >
     </sbb-icon>
   </li>
@@ -53,11 +41,8 @@ snapshots["sbb-breadcrumb-group renders Shadow DOM"] =
     <slot name="li-1">
     </slot>
     <sbb-icon
-      aria-hidden="true"
       class="sbb-breadcrumb-group__divider-icon"
-      data-namespace="default"
       name="chevron-small-right-small"
-      role="img"
     >
     </sbb-icon>
   </li>
@@ -76,51 +61,16 @@ snapshots["sbb-breadcrumb-group renders Shadow DOM"] =
 snapshots["sbb-breadcrumb-group renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
+      "role": "navigation",
       "name": ""
-    },
-    {
-      "role": "link",
-      "name": "One"
-    },
-    {
-      "role": "link",
-      "name": "Two"
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-breadcrumb-group renders A11y tree Chrome */
-
-snapshots["sbb-breadcrumb-group renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "",
-      "value": "https://example.com/"
-    },
-    {
-      "role": "link",
-      "name": "One",
-      "value": "https://example.com/one"
-    },
-    {
-      "role": "link",
-      "name": "Two",
-      "value": "https://example.com/one"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-breadcrumb-group renders A11y tree Firefox */
 

@@ -1,1 +1,4 @@
-export * from './dialog-content/dialog-content.js';
+/**
+ * @entrypoint
+ */
+export * from './dialog-content/dialog-content.component.ts';

@@ -3,39 +3,41 @@ export const snapshots = {};
 
 snapshots["sbb-datepicker renders DOM"] = 
 `<sbb-form-field
-  data-input-empty=""
-  data-input-type="input"
-  data-slot-names="prefix suffix unnamed"
   error-space="none"
   size="m"
   width="default"
 >
-  <input
-    placeholder="DD.MM.YYYY"
-    type="text"
-  >
-  <sbb-datepicker id="sbb-datepicker-1">
-  </sbb-datepicker>
   <sbb-datepicker-previous-day
-    aria-disabled="true"
-    aria-label="Previous day"
-    data-action=""
-    data-button=""
-    data-disabled=""
     slot="prefix"
+    tabindex="0"
   >
   </sbb-datepicker-previous-day>
-  <sbb-datepicker-next-day
-    aria-disabled="true"
-    aria-label="Next day"
-    data-action=""
-    data-button=""
-    data-disabled=""
+  <sbb-date-input
+    contenteditable="plaintext-only"
+    id="datepicker-input"
+    placeholder="DD.MM.YYYY"
+    value="2021-12-20"
+  >
+    Mo, 20.12.2021
+  </sbb-date-input>
+  <sbb-datepicker-toggle
+    aria-controls="sbb-datepicker-1"
+    aria-expanded="false"
+    aria-haspopup="dialog"
     slot="suffix"
+    tabindex="0"
+  >
+  </sbb-datepicker-toggle>
+  <sbb-datepicker-next-day
+    slot="suffix"
+    tabindex="0"
   >
   </sbb-datepicker-next-day>
-  <sbb-datepicker-toggle slot="prefix">
-  </sbb-datepicker-toggle>
+  <sbb-datepicker
+    id="sbb-datepicker-1"
+    popover="manual"
+  >
+  </sbb-datepicker>
 </sbb-form-field>
 `;
 /* end snapshot sbb-datepicker renders DOM */
@@ -79,70 +81,30 @@ snapshots["sbb-datepicker renders Shadow DOM"] =
 snapshots["sbb-datepicker renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "button",
-      "name": "Previous day",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Show calendar",
-      "haspopup": "dialog"
-    },
-    {
-      "role": "textbox",
-      "name": "DD.MM.YYYY"
-    },
-    {
-      "role": "button",
-      "name": "Next day",
-      "disabled": true
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-datepicker renders A11y tree Chrome */
-
-snapshots["sbb-datepicker renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "button",
-      "name": "Previous day",
-      "disabled": true
-    },
-    {
-      "role": "button",
-      "name": "Show calendar",
-      "haspopup": "dialog"
-    },
-    {
-      "role": "textbox",
-      "name": "DD.MM.YYYY"
-    },
-    {
-      "role": "button",
-      "name": "Next day",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker renders A11y tree Firefox */
 

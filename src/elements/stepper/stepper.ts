@@ -1,1 +1,4 @@
-export * from './stepper/stepper.js';
+/**
+ * @entrypoint
+ */
+export * from './stepper/stepper.component.ts';

@@ -3,10 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon DOM"] = 
 `<sbb-accent-button-link
-  data-action=""
-  data-link=""
-  data-sbb-button=""
-  data-slot-names="unnamed"
   download=""
   href="https://www.sbb.ch"
   rel="noopener"
@@ -41,19 +37,12 @@ snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon 
 
 snapshots["sbb-accent-button-link renders a disabled sbb-accent-button-link with slotted icon DOM"] = 
 `<sbb-accent-button-link
-  data-action=""
-  data-link=""
-  data-sbb-button=""
-  data-slot-names="icon unnamed"
   disabled=""
   href="https://www.sbb.ch"
   size="l"
 >
   <sbb-icon
-    aria-hidden="true"
-    data-namespace="default"
     name="chevron-small-left-small"
-    role="img"
     slot="icon"
   >
   </sbb-icon>
@@ -82,33 +71,16 @@ snapshots["sbb-accent-button-link renders a disabled sbb-accent-button-link with
 snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "Label Text . Link target opens in a new window."
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-accent-button-link renders a sbb-accent-button-link without icon A11y tree Chrome */
-
-snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Label Text . Link target opens in a new window.",
-      "value": "https://www.sbb.ch/"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-accent-button-link renders a sbb-accent-button-link without icon A11y tree Firefox */
 

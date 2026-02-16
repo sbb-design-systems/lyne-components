@@ -3,10 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-button renders a sbb-button without icon DOM"] = 
 `<sbb-button
-  data-action=""
-  data-button=""
-  data-sbb-button=""
-  data-slot-names="unnamed"
   disabled=""
   form="formid"
   name="name"
@@ -34,18 +30,11 @@ snapshots["sbb-button renders a sbb-button without icon Shadow DOM"] =
 
 snapshots["sbb-button renders a sbb-button with slotted icon DOM"] = 
 `<sbb-button
-  data-action=""
-  data-button=""
-  data-sbb-button=""
-  data-slot-names="icon unnamed"
   size="l"
   tabindex="0"
 >
   <sbb-icon
-    aria-hidden="true"
-    data-namespace="default"
     name="chevron-small-left-small"
-    role="img"
     slot="icon"
   >
   </sbb-icon>
@@ -66,15 +55,46 @@ snapshots["sbb-button renders a sbb-button with slotted icon Shadow DOM"] =
 `;
 /* end snapshot sbb-button renders a sbb-button with slotted icon Shadow DOM */
 
+snapshots["sbb-button renders a sbb-button in loading state DOM"] = 
+`<sbb-button
+  icon-name="arrow-right-small"
+  loading=""
+  size="l"
+  style="--sbb-button-width: 136px;"
+  tabindex="0"
+>
+  Loading Button
+</sbb-button>
+`;
+/* end snapshot sbb-button renders a sbb-button in loading state DOM */
+
+snapshots["sbb-button renders a sbb-button in loading state Shadow DOM"] = 
+`<span class="sbb-action-base sbb-button">
+  <slot name="icon">
+    <sbb-icon name="arrow-right-small">
+    </sbb-icon>
+  </slot>
+  <span class="sbb-button__label">
+    <slot>
+    </slot>
+  </span>
+  <div class="sbb-button-loading-border">
+  </div>
+</span>
+`;
+/* end snapshot sbb-button renders a sbb-button in loading state Shadow DOM */
+
 snapshots["sbb-button renders a sbb-button with slotted icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Label Text"
+      "name": "Label Text",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
@@ -82,19 +102,23 @@ snapshots["sbb-button renders a sbb-button with slotted icon A11y tree Chrome"] 
 `;
 /* end snapshot sbb-button renders a sbb-button with slotted icon A11y tree Chrome */
 
-snapshots["sbb-button renders a sbb-button with slotted icon A11y tree Firefox"] = 
+snapshots["sbb-button renders a sbb-button in loading state A11y tree Chrome"] = 
 `<p>
   {
-  "role": "document",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Label Text"
+      "name": "Loading Button",
+      "disabled": true,
+      "invalid": false,
+      "focusable": true,
+      "busy": 1
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-button renders a sbb-button with slotted icon A11y tree Firefox */
+/* end snapshot sbb-button renders a sbb-button in loading state A11y tree Chrome */
 

@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbPaginatorElement } from './paginator.js';
+import { SbbPaginatorElement } from './paginator.component.ts';
 
 describe(`sbb-paginator ssr`, () => {
   let root: SbbPaginatorElement;
@@ -16,7 +16,7 @@ describe(`sbb-paginator ssr`, () => {
         page-size-options="[10, 25, 50]"
       ></sbb-paginator>`,
       {
-        modules: ['./paginator.js'],
+        modules: ['./paginator.component.js'],
       },
     );
   });

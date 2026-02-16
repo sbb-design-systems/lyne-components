@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbCheckboxElement } from './checkbox.js';
+import { SbbCheckboxElement } from './checkbox.component.ts';
 
 describe(`sbb-checkbox ssr`, () => {
   let root: SbbCheckboxElement;
@@ -12,7 +12,7 @@ describe(`sbb-checkbox ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-checkbox name="name" value="value">Label</sbb-checkbox>`,
       {
-        modules: ['./checkbox.js'],
+        modules: ['./checkbox.component.js'],
       },
     );
   });

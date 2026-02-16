@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbTableWrapperElement } from './table-wrapper.js';
-import './table-wrapper.js';
+import type { SbbTableWrapperElement } from './table-wrapper.component.ts';
+import './table-wrapper.component.ts';
 
 describe(`sbb-table-wrapper`, () => {
   describe('renders', () => {
@@ -12,7 +12,7 @@ describe(`sbb-table-wrapper`, () => {
 
     beforeEach(async () => {
       element = await fixture(
-        html` <sbb-table-wrapper>
+        html`<sbb-table-wrapper>
           <table class="sbb-table" aria-label="Table caption">
             <thead>
               <tr>

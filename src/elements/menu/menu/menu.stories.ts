@@ -1,18 +1,17 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
+import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { SbbMenuElement } from './menu.js';
+import { SbbMenuElement } from './menu.component.ts';
 import readme from './readme.md?raw';
 
-import '../../button/button.js';
-import '../../divider.js';
-import '../../link.js';
-import '../menu-button.js';
-import '../menu-link.js';
+import '../../button/button.ts';
+import '../../divider.ts';
+import '../../link.ts';
+import '../menu-button.ts';
+import '../menu-link.ts';
 
 const iconName: InputType = {
   control: {
@@ -23,7 +22,7 @@ const iconName: InputType = {
   },
 };
 
-const amount: InputType = {
+const badge: InputType = {
   control: {
     type: 'text',
   },
@@ -43,25 +42,25 @@ const disabled: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   'icon-name': iconName,
-  amount,
+  badge,
   disabled,
 };
 
 const defaultArgs: Args = {
   'icon-name': 'link-small',
-  amount: '123',
+  badge: '2',
   disabled: false,
 };
 
 const userNameStyle: Args = {
   fontWeight: 'bold',
-  fontSize: 'var(--sbb-font-size-text-xs)',
+  fontSize: 'var(--sbb-text-font-size-xs)',
   marginTop: 'var(--sbb-spacing-fixed-1x)',
 };
 
 const userInfoStyle: Args = {
-  color: 'var(--sbb-color-graphite)',
-  fontSize: 'var(--sbb-font-size-text-xxs)',
+  color: 'light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke))',
+  fontSize: 'var(--sbb-text-font-size-xxs)',
 };
 
 const triggerButton = (id: string): TemplateResult => html`
@@ -74,26 +73,62 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-link>
-    <sbb-menu-button icon-name="pen-small" amount="16" ?disabled=${args.disabled}>
+    <sbb-menu-button
+      icon-name="pen-small"
+      sbb-badge=${!args.disabled ? '16' : nothing}
+      aria-label=${!args.disabled ? 'Edit 16 items' : nothing}
+      ?disabled-interactive=${args.disabled}
+    >
       Edit
     </sbb-menu-button>
-    <sbb-menu-button icon-name="swisspass-small" amount=${args.amount}> Details </sbb-menu-button>
+    <sbb-menu-button
+      icon-name="swisspass-small"
+      sbb-badge=${args.badge}
+      aria-label="Details, ${args.badge} items"
+    >
+      Details
+    </sbb-menu-button>
     <sbb-divider></sbb-divider>
     <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
   </sbb-menu>
 `;
 
-const ListTemplate = (args: Args): TemplateResult => html`
+const NestedTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('menu-trigger-1')}
   <sbb-menu trigger="menu-trigger-1">
-    <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
-      View
-    </sbb-menu-link>
-    <sbb-menu-button icon-name="pen-small" amount="16" ?disabled=${args.disabled}>
+    <sbb-menu-button icon-name=${args['icon-name']}> New Document </sbb-menu-button>
+    <sbb-menu-button icon-name="pen-small" sbb-badge=${args.badge} ?disabled=${args.disabled}>
       Edit
     </sbb-menu-button>
-    <sbb-menu-button icon-name="swisspass-small" amount=${args.amount}> Details </sbb-menu-button>
-    <sbb-menu-button icon-name="cross-small">Cancel</sbb-menu-button>
+    <sbb-divider></sbb-divider>
+    <sbb-menu-button icon-name="lock-closed-small" id="sub-menu-1">
+      Set Document Permissions
+    </sbb-menu-button>
+    <sbb-menu-button icon-name="download-small" id="sub-menu-2">Download Selected</sbb-menu-button>
+    <sbb-menu-button icon-name="trash-small">Delete Selected</sbb-menu-button>
+    <sbb-menu-button icon-name="circle-information-small">Details</sbb-menu-button>
+    <sbb-divider></sbb-divider>
+    <sbb-menu-button icon-name="cross-small">Cancel Selection</sbb-menu-button>
+  </sbb-menu>
+  <sbb-menu trigger="sub-menu-1">
+    <sbb-menu-button icon-name="employees-sbb-small"> All Users </sbb-menu-button>
+    <sbb-menu-button icon-name="two-users-small"> Group </sbb-menu-button>
+    <sbb-menu-button icon-name="user-small"> Single User </sbb-menu-button>
+    <sbb-divider></sbb-divider>
+    <sbb-menu-button icon-name="filter-small" id="sub-menu-3">
+      Custom User Permission
+    </sbb-menu-button>
+  </sbb-menu>
+  <sbb-menu trigger="sub-menu-2">
+    <sbb-menu-button icon-name="document-pdf-small">Download as PDF</sbb-menu-button>
+    <sbb-menu-button icon-name="document-doc-small">Download as DOCX</sbb-menu-button>
+    <sbb-menu-button icon-name="document-xls-small">Download as XLS</sbb-menu-button>
+    <sbb-menu-button icon-name="document-zip-small">Download as archive</sbb-menu-button>
+  </sbb-menu>
+  <sbb-menu trigger="sub-menu-3">
+    <sbb-menu-button icon-name="hand-small">Hand Select</sbb-menu-button>
+    <sbb-menu-button icon-name="tag-small">Define Permission Criteria</sbb-menu-button>
+    <sbb-menu-button icon-name="link-small">Create Invitation Link</sbb-menu-button>
   </sbb-menu>
 `;
 
@@ -102,15 +137,21 @@ const CustomContentTemplate = (args: Args): TemplateResult => html`
   <sbb-menu trigger="menu-trigger-2">
     <div style=${styleMap(userNameStyle)}>Christina Müller</div>
     <span style=${styleMap(userInfoStyle)}>UIS9057</span>
-    <sbb-block-link href="https://www.sbb.ch/en" negative size="xs"> Profile </sbb-block-link>
+    <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
     <sbb-divider></sbb-divider>
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-link>
-    <sbb-menu-button icon-name="tickets-class-small" ?disabled=${args.disabled}>
+    <sbb-menu-button icon-name="tickets-class-small" ?disabled-interactive=${args.disabled}>
       Tickets
     </sbb-menu-button>
-    <sbb-menu-button icon-name="shopping-cart-small" amount=${args.amount}> Cart </sbb-menu-button>
+    <sbb-menu-button
+      icon-name="shopping-cart-small"
+      sbb-badge=${args.badge}
+      aria-label="Cart, containing ${args.badge} items"
+    >
+      Cart
+    </sbb-menu-button>
     <sbb-divider></sbb-divider>
     <sbb-menu-button icon-name="exit-small">Log Out</sbb-menu-button>
   </sbb-menu>
@@ -121,8 +162,9 @@ const LongContentTemplate = (args: Args): TemplateResult => html`
   <sbb-menu trigger="menu-trigger-3">
     <sbb-menu-button
       icon-name=${args['icon-name']}
-      ?disabled=${args.disabled}
-      amount=${args.amount}
+      ?disabled-interactive=${args.disabled}
+      sbb-badge=${!args.disabled ? args.badge : nothing}
+      aria-label=${!args.disabled ? `English, ${args.badge} items` : nothing}
     >
       English
     </sbb-menu-button>
@@ -158,13 +200,19 @@ const EllipsisTemplate = (args: Args): TemplateResult => html`
   <sbb-menu trigger="menu-trigger-4">
     <div style=${styleMap(userNameStyle)}>Christina Müller</div>
     <span style=${styleMap(userInfoStyle)}>UIS9057</span>
-    <sbb-block-link href="https://www.sbb.ch/en" negative size="xs"> Profile </sbb-block-link>
+    <sbb-block-link href="https://www.sbb.ch/en" size="xs"> Profile </sbb-block-link>
     <sbb-divider></sbb-divider>
     <sbb-menu-link icon-name=${args['icon-name']} href="https://www.sbb.ch/en">
       View
     </sbb-menu-link>
-    <sbb-menu-button icon-name="pen-small" ?disabled=${args.disabled}> Edit </sbb-menu-button>
-    <sbb-menu-button icon-name="swisspass-small" amount=${args.amount}>
+    <sbb-menu-button icon-name="pen-small" ?disabled-interactive=${args.disabled}>
+      Edit
+    </sbb-menu-button>
+    <sbb-menu-button
+      icon-name="swisspass-small"
+      sbb-badge=${args.badge}
+      aria-label="Very long label contains ${args.badge} items"
+    >
       Very long label that exceeds the maximum width of the menu, very long label that exceeds the
       maximum width of the menu, very long label that exceeds the maximum width of the menu
     </sbb-menu-button>
@@ -179,8 +227,8 @@ export const Default: StoryObj = {
   args: { ...defaultArgs, disabled: true },
 };
 
-export const List: StoryObj = {
-  render: ListTemplate,
+export const Nested: StoryObj = {
+  render: NestedTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, disabled: true },
 };
@@ -188,13 +236,13 @@ export const List: StoryObj = {
 export const CustomContent: StoryObj = {
   render: CustomContentTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, amount: '2' },
+  args: { ...defaultArgs, badge: '2' },
 };
 
 export const LongContent: StoryObj = {
   render: LongContentTemplate,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'icon-name': 'tick-small', amount: undefined },
+  args: { ...defaultArgs, 'icon-name': 'tick-small', badge: undefined },
 };
 
 export const Ellipsis: StoryObj = {
@@ -208,10 +256,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbMenuElement.events.willOpen,
-        SbbMenuElement.events.didOpen,
-        SbbMenuElement.events.didClose,
-        SbbMenuElement.events.willClose,
+        SbbMenuElement.events.beforeopen,
+        SbbMenuElement.events.open,
+        SbbMenuElement.events.close,
+        SbbMenuElement.events.beforeclose,
       ],
     },
     docs: {

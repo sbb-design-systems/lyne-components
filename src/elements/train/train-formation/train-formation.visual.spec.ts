@@ -1,12 +1,17 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+import {
+  describeEach,
+  describeViewports,
+  visualDiffDefault,
+  visualDiffFocus,
+} from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
-import '../train.js';
-import '../train-wagon.js';
-import '../train-blocked-passage.js';
-import './train-formation.js';
+import '../train.ts';
+import '../train-wagon.ts';
+import '../train-blocked-passage.ts';
+import './train-formation.component.ts';
 
 describe(`sbb-train-formation`, () => {
   const train1 = html`<sbb-train
@@ -172,7 +177,7 @@ describe(`sbb-train-formation`, () => {
     ></sbb-train-wagon>
   </sbb-train>`;
 
-  describeViewports({ viewports: ['zero', 'medium', 'ultra'] }, () => {
+  describeViewports({ viewports: ['zero', 'large', 'ultra'] }, () => {
     it(
       `multiple trains`,
       visualDiffDefault.with(async (setup) => {
@@ -200,6 +205,28 @@ describe(`sbb-train-formation`, () => {
           </sbb-train-formation>`,
         );
       }),
+    );
+  });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    describeEach(
+      {
+        emulateMedia: [
+          { forcedColors: true, darkMode: false },
+          { forcedColors: false, darkMode: true },
+        ],
+      },
+      ({ emulateMedia: { forcedColors, darkMode } }) => {
+        it(
+          `single train`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(html`<sbb-train-formation>${train1}</sbb-train-formation>`, {
+              forcedColors,
+              darkMode,
+            });
+          }),
+        );
+      },
     );
 
     it(
@@ -244,6 +271,15 @@ describe(`sbb-train-formation`, () => {
         );
 
         await waitForLitRender(setup.snapshotElement);
+      }),
+    );
+
+    it(
+      `displays focus outline`,
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-train-formation> ${train1} ${train2} </sbb-train-formation>`,
+        );
       }),
     );
   });

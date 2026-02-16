@@ -1,12 +1,13 @@
 import { html } from 'lit/static-html.js';
 
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
+import { waitForImageReady } from '../core/testing.ts';
 
-import './message.js';
-import '../chip-label.js';
-import '../image.js';
-import '../button/secondary-button.js';
+import './message.component.ts';
+import '../chip-label.ts';
+import '../image.ts';
+import '../button/secondary-button.ts';
+import '../title.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 
@@ -42,14 +43,15 @@ const imgTestCases = [
 ];
 
 describe(`sbb-message`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const testCase of imgTestCases) {
       it(
         `default ${testCase.title}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-message title-content="Unfortunately, an error has occurred.">
+            <sbb-message>
               ${testCase.imgTemplate()}
+              <sbb-title level="3" slot="title">Unfortunately, an error has occurred.</sbb-title>
               <p slot="subtitle">Please reload the page or try your search again later.</p>
               <p slot="legend">Error code: 0001</p>
               <sbb-secondary-button
@@ -60,7 +62,10 @@ describe(`sbb-message`, () => {
             </sbb-message>
           `);
 
-          await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+          setup.withPostSetupAction(
+            async () =>
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!),
+          );
         }),
       );
 
@@ -73,8 +78,9 @@ describe(`sbb-message`, () => {
                 width: 200px;
               }
             </style>
-            <sbb-message title-content="Unfortunately, an error has occurred.">
+            <sbb-message>
               ${testCase.imgTemplate()}
+              <sbb-title level="3" slot="title">Unfortunately, an error has occurred.</sbb-title>
               <p slot="subtitle">Please reload the page or try your search again later.</p>
               <p slot="legend">Error code: 0001</p>
               <sbb-secondary-button
@@ -85,7 +91,10 @@ describe(`sbb-message`, () => {
             </sbb-message>
           `);
 
-          await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+          setup.withPostSetupAction(
+            async () =>
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!),
+          );
         }),
       );
     }
@@ -94,7 +103,8 @@ describe(`sbb-message`, () => {
       'no image',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-message title-content="Unfortunately, an error has occurred.">
+          <sbb-message>
+            <sbb-title level="3" slot="title">Unfortunately, an error has occurred.</sbb-title>
             <p slot="subtitle">Please reload the page or try your search again later.</p>
             <p slot="legend">Error code: 0001</p>
             <sbb-secondary-button
@@ -111,8 +121,9 @@ describe(`sbb-message`, () => {
       'no error code',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-message title-content="Unfortunately, an error has occurred.">
+          <sbb-message>
             <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
+            <sbb-title level="3" slot="title">Unfortunately, an error has occurred.</sbb-title>
             <p slot="subtitle">Please reload the page or try your search again later.</p>
             <sbb-secondary-button
               slot="action"
@@ -122,7 +133,9 @@ describe(`sbb-message`, () => {
           </sbb-message>
         `);
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -130,35 +143,38 @@ describe(`sbb-message`, () => {
       'no action',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-message title-content="Unfortunately, an error has occurred.">
+          <sbb-message>
             <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
+            <sbb-title level="3" slot="title">Unfortunately, an error has occurred.</sbb-title>
             <p slot="subtitle">Please reload the page or try your search again later.</p>
             <p slot="legend">Error code: 0001</p>
           </sbb-message>
         `);
 
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
     it(
-      'slotted title',
+      'darkMode=true',
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`
-          <sbb-message>
-            <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
-            <p slot="title">Slotted title</p>
-            <p slot="subtitle">Please reload the page or try your search again later.</p>
-            <p slot="legend">Error code: 0001</p>
-            <sbb-secondary-button
-              slot="action"
-              icon-name="arrows-circle-small"
-              size="m"
-            ></sbb-secondary-button>
-          </sbb-message>
-        `);
-
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        await setup.withFixture(
+          html`
+            <sbb-message>
+              <sbb-title level="3" slot="title">Unfortunately, an error has occurred.</sbb-title>
+              <p slot="subtitle">Please reload the page or try your search again later.</p>
+              <p slot="legend">Error code: 0001</p>
+              <sbb-secondary-button
+                slot="action"
+                icon-name="arrows-circle-small"
+                size="m"
+              ></sbb-secondary-button>
+            </sbb-message>
+          `,
+          { darkMode: true },
+        );
       }),
     );
   });

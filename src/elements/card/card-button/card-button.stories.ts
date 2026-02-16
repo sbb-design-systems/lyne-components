@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import readme from './readme.md?raw';
 
-import '../card.js';
+import '../card.ts';
 
 const Template = (): TemplateResult => html`
   <sbb-card color="milk">

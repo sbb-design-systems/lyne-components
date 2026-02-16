@@ -4,8 +4,6 @@ export const snapshots = {};
 snapshots["sbb-header-button renders DOM"] = 
 `<sbb-header-button
   aria-label="a11y label"
-  data-action=""
-  data-button=""
   expand-from="zero"
   icon-name="pie-small"
   name="test"
@@ -23,12 +21,7 @@ snapshots["sbb-header-button renders Shadow DOM"] =
   <span class="sbb-header-action__wrapper">
     <span class="sbb-header-action__icon">
       <slot name="icon">
-        <sbb-icon
-          aria-hidden="true"
-          data-namespace="default"
-          name="pie-small"
-          role="img"
-        >
+        <sbb-icon name="pie-small">
         </sbb-icon>
       </slot>
     </span>
@@ -44,32 +37,18 @@ snapshots["sbb-header-button renders Shadow DOM"] =
 snapshots["sbb-header-button renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "a11y label"
+      "name": "a11y label",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-header-button renders A11y tree Chrome */
-
-snapshots["sbb-header-button renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "a11y label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-header-button renders A11y tree Firefox */
 

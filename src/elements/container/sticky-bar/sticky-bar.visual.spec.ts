@@ -1,5 +1,3 @@
-import { SbbBreakpointMediumMin } from '@sbb-esta/lyne-design-tokens';
-import { setViewport } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
 import {
@@ -7,25 +5,26 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+} from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
-import type { SbbStickyBarElement } from './sticky-bar.js';
+import type { SbbStickyBarElement } from './sticky-bar.component.ts';
 
-import './sticky-bar.js';
-import '../container.js';
-import '../../action-group.js';
-import '../../button.js';
-import '../../link.js';
-import '../../title.js';
+import './sticky-bar.component.ts';
+import '../container.ts';
+import '../../action-group.ts';
+import '../../button.ts';
+import '../../link.ts';
+import '../../title.ts';
 
 function isDark(color: string): boolean {
   return color === 'midnight' || color === 'charcoal';
 }
 
 describe(`sbb-sticky-bar`, () => {
+  const colorCases = [undefined, 'white', 'milk', 'midnight', 'charcoal'];
+
   const cases = {
-    color: [undefined, 'white', 'milk', 'midnight', 'charcoal'],
     containerExpanded: [false, true],
     scrolled: [false, true],
   };
@@ -55,8 +54,8 @@ describe(`sbb-sticky-bar`, () => {
     </sbb-action-group>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium', 'ultra'] }, () => {
-    describeEach(cases, ({ color, containerExpanded, scrolled }) => {
+  describeViewports({ viewports: ['zero', 'large', 'ultra'] }, () => {
+    describeEach(cases, ({ containerExpanded, scrolled }) => {
       let root: HTMLElement;
 
       beforeEach(async function () {
@@ -65,11 +64,11 @@ describe(`sbb-sticky-bar`, () => {
             <div id="scroll-container" style="overflow: auto; height: 400px;">
               <sbb-container
                 ?expanded=${containerExpanded}
-                style="--sbb-container-background-color: var(--sbb-color-cloud)"
+                style="--sbb-container-background-color: var(--sbb-background-color-4)"
               >
                 ${containerContent()} ${containerContent()} ${containerContent()}
                 <p>Content end</p>
-                <sbb-sticky-bar .color=${color}> ${actionGroup()} </sbb-sticky-bar>
+                <sbb-sticky-bar>${actionGroup()}</sbb-sticky-bar>
               </sbb-container>
             </div>
           `,
@@ -92,20 +91,18 @@ describe(`sbb-sticky-bar`, () => {
       );
     });
 
-    for (const color of cases.color) {
-      it(
-        `container_color=${color}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            html` <sbb-container .color=${color}>
-              ${containerContent(color)}
-              <sbb-sticky-bar> ${actionGroup(color)}</sbb-sticky-bar>
-            </sbb-container>`,
-            { padding: '0' },
-          );
-        }),
-      );
-    }
+    it(
+      `size=s`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html` <sbb-container style="overflow: auto; height: 400px;">
+            ${containerContent()} ${containerContent()} ${containerContent()}
+            <sbb-sticky-bar color="milk" size="s">${actionGroup()}</sbb-sticky-bar>
+          </sbb-container>`,
+          { padding: '0' },
+        );
+      }),
+    );
 
     it(
       `unstick`,
@@ -113,7 +110,7 @@ describe(`sbb-sticky-bar`, () => {
         await setup.withFixture(
           html`<sbb-container>
             ${containerContent()}
-            <sbb-sticky-bar color="milk"> ${actionGroup()} </sbb-sticky-bar>
+            <sbb-sticky-bar color="milk">${actionGroup()}</sbb-sticky-bar>
           </sbb-container>`,
           { padding: '0' },
         );
@@ -126,17 +123,52 @@ describe(`sbb-sticky-bar`, () => {
     );
   });
 
-  it(
-    `viewport=medium_short content`,
-    visualDiffDefault.with(async (setup) => {
-      await setup.withFixture(
-        html`<sbb-container>
-          ${containerContent()}
-          <sbb-sticky-bar color="milk"> ${actionGroup()} </sbb-sticky-bar>
-        </sbb-container>`,
-        { padding: '0' },
-      );
-      await setViewport({ width: SbbBreakpointMediumMin, height: 400 });
-    }),
-  );
+  describeViewports({ viewports: ['large'], viewportHeight: 400 }, () => {
+    it(
+      `short content`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-container>
+            ${containerContent()}
+            <sbb-sticky-bar color="milk">${actionGroup()}</sbb-sticky-bar>
+          </sbb-container>`,
+          { padding: '0' },
+        );
+      }),
+    );
+  });
+
+  describeViewports({ viewports: ['ultra'], viewportHeight: 200 }, () => {
+    for (const darkMode of [false, true]) {
+      describe(`darkMode=${darkMode}`, () => {
+        for (const color of colorCases) {
+          it(
+            `color=${color}`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                html`<sbb-container>
+                  ${containerContent()}
+                  <sbb-sticky-bar .color=${color}>${actionGroup()}</sbb-sticky-bar>
+                </sbb-container>`,
+                { padding: '0', darkMode },
+              );
+            }),
+          );
+
+          it(
+            `container_color=${color}`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                html`<sbb-container .color=${color}>
+                  ${containerContent(color)}
+                  <sbb-sticky-bar>${actionGroup(color)}</sbb-sticky-bar>
+                </sbb-container>`,
+                { padding: '0', darkMode },
+              );
+            }),
+          );
+        }
+      });
+    }
+  });
 });

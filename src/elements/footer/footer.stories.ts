@@ -1,18 +1,18 @@
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, type TemplateResult } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
-import '../clock.js';
-import '../button.js';
-import '../divider.js';
-import '../link.js';
-import '../link-list.js';
-import '../title.js';
-import './footer.js';
+import '../clock.ts';
+import '../button.ts';
+import '../divider.ts';
+import '../link.ts';
+import '../link-list.ts';
+import '../title.ts';
+import './footer.component.ts';
 
 const variant: InputType = {
   control: {

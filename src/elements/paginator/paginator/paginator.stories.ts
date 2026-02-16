@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Args,
   ArgTypes,
@@ -7,13 +5,15 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
-import { SbbPaginatorElement } from './paginator.js';
+import { SbbPaginatorElement } from './paginator.component.ts';
 import readme from './readme.md?raw';
 
 const length: InputType = {
@@ -74,6 +74,30 @@ const disabled: InputType = {
   },
 };
 
+const accessibilityPageLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityPreviousPageLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityNextPageLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const accessibilityItemsPerPageLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   length,
   'page-size': pageSize,
@@ -83,6 +107,10 @@ const defaultArgTypes: ArgTypes = {
   size,
   negative,
   disabled,
+  'accessibility-page-label': accessibilityPageLabel,
+  'accessibility-previous-page-label': accessibilityPreviousPageLabel,
+  'accessibility-next-page-label': accessibilityNextPageLabel,
+  'accessibility-items-per-page-label': accessibilityItemsPerPageLabel,
 };
 
 const defaultArgs: Args = {
@@ -198,7 +226,9 @@ const meta: Meta = {
       handles: [SbbPaginatorElement.events.page],
     },
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

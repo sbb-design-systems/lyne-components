@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { __nameUpperCase__ } from './__noPrefixName__.js';
-import './__noPrefixName__.js';
+import type { __nameUpperCase__ } from './__noPrefixName__.component.ts';
+import './__noPrefixName__.component.ts';
 
 describe(`__name__`, () => {
   describe('renders', () => {

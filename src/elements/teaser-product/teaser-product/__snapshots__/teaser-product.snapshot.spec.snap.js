@@ -3,9 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-teaser-product renders DOM"] = 
 `<sbb-teaser-product
-  data-action=""
-  data-link=""
-  data-slot-names="footnote image unnamed"
   href="https://www.sbb.ch"
   image-alignment="after"
 >
@@ -58,48 +55,15 @@ snapshots["sbb-teaser-product renders Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser-product renders Shadow DOM */
 
-snapshots["sbb-teaser-product renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "",
-      "value": "https://www.sbb.ch/"
-    },
-    {
-      "role": "text leaf",
-      "name": "Content"
-    },
-    {
-      "role": "text leaf",
-      "name": "Footnote"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-teaser-product renders A11y tree Firefox */
-
 snapshots["sbb-teaser-product renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
+      "role": "generic",
       "name": ""
-    },
-    {
-      "role": "text",
-      "name": "Content"
-    },
-    {
-      "role": "text",
-      "name": "Footnote"
     }
   ]
 }

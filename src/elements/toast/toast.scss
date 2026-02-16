@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-toast-max-width: #{sbb.px-to-rem-build(400)};
   --sbb-toast-animation-duration: var(
@@ -10,10 +7,8 @@
     var(--sbb-animation-duration-6x)
   );
   --sbb-toast-animation-timing-function: ease;
-  --sbb-toast-color: var(--sbb-color-white);
-  --sbb-toast-text-color: var(--sbb-color-milk);
-  --sbb-toast-background-color: var(--sbb-color-midnight);
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  --sbb-toast-text-color: var(--sbb-color-3-inverted);
+  --sbb-toast-background-color: var(--sbb-background-color-1-inverted);
   --sbb-toast-margin: var(--sbb-spacing-responsive-s);
   --sbb-toast-padding-block: var(--sbb-spacing-responsive-xxxs);
   --sbb-toast-padding-inline: var(--sbb-spacing-responsive-xs);
@@ -22,11 +17,13 @@
   --sbb-toast-container-position: fixed;
   --sbb-toast-horizontal-position: initial;
   --sbb-toast-vertical-position: initial;
+  --sbb-toast-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
   display: none;
 }
 
-:host([data-state]:not([data-state='closed'])) {
+:host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
   --sbb-toast-container-display: flex;
 
   display: block;
@@ -66,6 +63,10 @@
   --sbb-toast-vertical-position: flex-start;
 }
 
+:host(:state(dark)) {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
+}
+
 .sbb-toast__overlay-container {
   position: var(--sbb-toast-container-position);
   pointer-events: none;
@@ -79,15 +80,13 @@
   z-index: var(--sbb-toast-z-index, var(--sbb-overlay-default-z-index));
   pointer-events: auto;
   margin: var(--sbb-toast-margin);
-  padding-block: var(--sbb-toast-padding-block);
-  padding-inline: var(--sbb-toast-padding-inline);
   border-radius: var(--sbb-toast-border-radius);
   max-width: var(--sbb-toast-max-width);
   display: flex;
-  color: var(--sbb-toast-color);
+  color: var(--sbb-toast-text-color);
   background-color: var(--sbb-toast-background-color);
 
-  :host([data-state='opening']) & {
+  :host(:state(state-opening)) & {
     animation: {
       name: open;
       duration: var(--sbb-toast-animation-duration);
@@ -95,7 +94,7 @@
     }
   }
 
-  :host([data-state='closing']) & {
+  :host(:state(state-closing)) & {
     animation: {
       name: close;
       duration: var(--sbb-toast-animation-duration);
@@ -104,55 +103,50 @@
   }
 }
 
-.sbb-toast__icon {
-  margin-inline-end: var(--sbb-spacing-fixed-2x);
-  line-height: initial;
+.sbb-toast-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--sbb-toast-gap);
+  padding-block: var(--sbb-toast-padding-block);
+  padding-inline: var(--sbb-toast-padding-inline);
+}
 
-  :host(:not([data-slot-names~='icon'], [icon-name])) & {
-    display: none;
-  }
+slot:not([name='icon']),
+.sbb-toast__close {
+  // As the slotted content is displayed on a white background, we need to force light mode for them.
+  color-scheme: only light;
 }
 
 .sbb-toast__content {
   @include sbb.title-6($exclude-spacing: true);
 
-  color: var(--sbb-toast-text-color);
   flex: 1 1 0;
 }
 
-.sbb-toast__action {
-  position: relative;
-
-  // Since the action button has an absolute position, we have to "reserve" space
-  min-width: #{sbb.px-to-rem-build(40)};
-
-  :host(:not([data-slot-names~='action'], [dismissible])) & {
-    display: none;
-  }
+.sbb-toast__close {
+  display: flex;
+  align-items: center;
 }
 
-::slotted([data-sbb-button]),
-.sbb-toast__action-button {
-  margin-inline: var(--sbb-spacing-fixed-2x);
-  position: absolute;
-  top: #{sbb.px-to-rem-build(-10)}; // Center vertically the element
+.sbb-toast__close-divider {
+  padding-block: var(--sbb-toast-padding-block);
 }
 
-::slotted(:is(sbb-link, sbb-link-button, sbb-link-static)) {
-  margin-inline-start: var(--sbb-spacing-fixed-4x);
+.sbb-toast__close-button {
+  margin-inline: var(--sbb-spacing-responsive-xxxs);
 }
 
 @keyframes open {
   from {
     visibility: hidden;
     opacity: 0;
-    transform: translateY(var(--sbb-spacing-fixed-2x));
+    translate: 0 var(--sbb-spacing-fixed-2x);
   }
 
   to {
     visibility: visible;
     opacity: 1;
-    transform: translateY(0%);
+    translate: 0;
   }
 }
 
@@ -160,12 +154,12 @@
   from {
     visibility: visible;
     opacity: 1;
-    transform: translateY(0%);
+    translate: 0;
   }
 
   to {
     visibility: hidden;
     opacity: 0;
-    transform: translateY(var(--sbb-spacing-fixed-2x));
+    translate: 0 var(--sbb-spacing-fixed-2x);
   }
 }

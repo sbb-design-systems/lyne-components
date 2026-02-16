@@ -1,12 +1,12 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
-import type { SbbOptionElement } from '../option.js';
-import '../option.js';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
+import type { SbbOptionElement } from '../option.ts';
+import '../option.ts';
 
-import { SbbOptGroupElement } from './optgroup.js';
+import { SbbOptGroupElement } from './optgroup.component.ts';
 
 describe(`sbb-optgroup`, () => {
   let element: SbbOptGroupElement;
@@ -33,14 +33,14 @@ describe(`sbb-optgroup`, () => {
     await waitForLitRender(element);
 
     expect(element).to.have.attribute('disabled');
-    expect(optionOne).to.have.attribute('data-group-disabled');
-    expect(optionTwo).to.have.attribute('data-group-disabled');
+    expect(optionOne).to.match(':state(disabled)');
+    expect(optionTwo).to.match(':state(disabled)');
     expect(optionTwo).to.have.attribute('disabled');
-    expect(optionThree).to.have.attribute('data-group-disabled');
+    expect(optionThree).to.match(':state(disabled)');
 
     element.removeAttribute('disabled');
     await waitForLitRender(element);
-    expect(optionTwo).not.to.have.attribute('data-group-disabled');
+    expect(optionTwo).to.match(':state(disabled)');
     expect(optionTwo).to.have.attribute('disabled');
   });
 

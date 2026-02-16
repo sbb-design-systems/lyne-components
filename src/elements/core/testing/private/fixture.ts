@@ -2,7 +2,7 @@ import { emulateMedia } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { waitForLitRender } from '../wait-for-render.js';
+import { waitForLitRender } from '../wait-for-render.ts';
 
 // Copied from @lit-labs/testing/lib/fixtures/fixture-options.d.ts
 interface FixtureOptions {
@@ -34,10 +34,6 @@ const internalFixture = async <T extends HTMLElement>(
   options: FixtureOptions = { modules: [] },
 ): Promise<T> => {
   options.base ??= tryFindBase(new Error().stack!);
-  if (type !== 'csrFixture') {
-    options.modules.unshift('/src/elements/core/testing/test-setup-ssr.ts');
-  }
-
   const fixtures = await import('@lit-labs/testing/fixtures.js');
   return await waitForLitRender(fixtures[type]<T>(template, options));
 };
@@ -92,6 +88,7 @@ export async function visualRegressionFixture<T extends HTMLElement>(
     minHeight?: string;
     maxWidth?: string;
     forcedColors?: boolean;
+    darkMode?: boolean;
   },
 ): Promise<T> {
   const base = tryFindBase(new Error().stack!);
@@ -99,7 +96,7 @@ export async function visualRegressionFixture<T extends HTMLElement>(
 
   await emulateMedia({
     forcedColors: wrapperStyles?.forcedColors ? 'active' : 'none',
-    colorScheme: wrapperStyles?.forcedColors ? 'dark' : 'light',
+    colorScheme: wrapperStyles?.darkMode ? 'dark' : wrapperStyles?.forcedColors ? 'dark' : 'light',
   });
 
   return await fixture<T>(
@@ -107,7 +104,7 @@ export async function visualRegressionFixture<T extends HTMLElement>(
       id="visual-regression-fixture-wrapper"
       style=${styleMap({
         padding: wrapperStyles?.padding ?? '2rem',
-        'background-color': wrapperStyles?.backgroundColor ?? 'var(--sbb-color-white)',
+        'background-color': wrapperStyles?.backgroundColor ?? 'var(--sbb-background-color-1)',
         color: wrapperStyles?.color,
         '--sbb-focus-outline-color': wrapperStyles?.focusOutlineDark
           ? 'var(--sbb-focus-outline-color-dark)'

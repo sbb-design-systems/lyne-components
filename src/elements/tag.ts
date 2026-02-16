@@ -1,2 +1,5 @@
-export * from './tag/tag.js';
-export * from './tag/tag-group.js';
+/**
+ * @entrypoint
+ */
+export * from './tag/tag.ts';
+export * from './tag/tag-group.ts';

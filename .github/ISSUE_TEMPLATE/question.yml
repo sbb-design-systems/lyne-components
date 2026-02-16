@@ -1,7 +1,7 @@
 name: Question
 description: Ask a question to our developers and user experience architects
 title: '[Question]: '
-labels: 'type: question ❓'
+type: Question
 assignees:
   - octocat
 body:

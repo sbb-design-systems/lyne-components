@@ -1,1 +1,4 @@
-export * from './image/image.js';
+/**
+ * @entrypoint
+ */
+export * from './image/image.component.ts';

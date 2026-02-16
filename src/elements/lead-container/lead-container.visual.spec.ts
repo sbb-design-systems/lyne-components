@@ -5,24 +5,24 @@ import {
   describeViewports,
   loadAssetAsBase64,
   visualDiffDefault,
-} from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
+} from '../core/testing/private.ts';
+import { waitForImageReady } from '../core/testing.ts';
 
-import '../alert.js';
-import '../breadcrumb.js';
-import '../chip-label.js';
-import '../image.js';
-import '../link/block-link.js';
-import '../link/link.js';
-import '../notification.js';
-import '../title.js';
-import './lead-container.js';
+import '../alert.ts';
+import '../breadcrumb.ts';
+import '../chip-label.ts';
+import '../image.ts';
+import '../link/block-link.ts';
+import '../link/link.ts';
+import '../notification.ts';
+import '../title.ts';
+import './lead-container.component.ts';
 
 const leadImageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 const leadImageBase64 = await loadAssetAsBase64(leadImageUrl);
 
 describe(`sbb-lead-container`, () => {
-  const wrapperStyles = { backgroundColor: `var(--sbb-color-milk)`, padding: '0' };
+  const wrapperStyles = { backgroundColor: `var(--sbb-background-color-3)`, padding: '0' };
 
   const testCases = [
     {
@@ -82,7 +82,8 @@ describe(`sbb-lead-container`, () => {
       </style>
       ${image()}
       <sbb-alert-group class="sbb-lead-container-spacing">
-        <sbb-alert title-content="Interruption between Genève and Lausanne" size="m">
+        <sbb-alert size="m">
+          <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
           The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
           <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
         </sbb-alert>
@@ -127,9 +128,39 @@ describe(`sbb-lead-container`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(leadContainerTemplate(testCase.imgTemplate), wrapperStyles);
 
-          await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+          setup.withPostSetupAction(
+            async () =>
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!),
+          );
         }),
       );
     }
+
+    it(
+      'without image',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          leadContainerTemplate(() => html``),
+          wrapperStyles,
+        );
+      }),
+    );
+  });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    it(
+      'darkMode=true',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(leadContainerTemplate(testCases[0].imgTemplate), {
+          ...wrapperStyles,
+          darkMode: true,
+        });
+
+        setup.withPostSetupAction(
+          async () =>
+            await waitForImageReady(setup.snapshotElement.querySelector(testCases[0].imgSelector)!),
+        );
+      }),
+    );
   });
 });

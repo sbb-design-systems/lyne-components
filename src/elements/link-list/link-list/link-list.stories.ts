@@ -1,13 +1,13 @@
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import '../../link/block-link.js';
-import './link-list.js';
+import '../../link/block-link.ts';
+import './link-list.component.ts';
 
 const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];
 
@@ -48,7 +48,7 @@ const horizontalFrom: InputType = {
   control: {
     type: 'select',
   },
-  options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: ['zero', 'small', 'large', 'ultra'],
 };
 
 const negative: InputType = {
@@ -151,7 +151,7 @@ export const LinkListHorizontalFrom: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'horizontal-from': 'medium',
+    'horizontal-from': 'large',
   },
 };
 
@@ -166,7 +166,9 @@ export const LinkListWithSlottedTitle: StoryObj = {
 const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-2-negative)'
+        : 'var(--sbb-background-color-2)',
     docs: {
       extractComponentDescription: () => readme,
     },

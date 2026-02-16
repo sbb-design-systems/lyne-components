@@ -1,13 +1,13 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbNavigationElement } from './navigation.js';
+import { SbbNavigationElement } from './navigation.component.ts';
 
-import '../navigation-button.js';
-import '../navigation-marker.js';
-import '../navigation-section.js';
+import '../navigation-button.ts';
+import '../navigation-marker.ts';
+import '../navigation-section.ts';
 
 describe(`sbb-navigation ssr`, () => {
   let root: SbbNavigationElement;
@@ -35,7 +35,7 @@ describe(`sbb-navigation ssr`, () => {
       `,
       {
         modules: [
-          './navigation.js',
+          './navigation.component.js',
           '../navigation-button.js',
           '../navigation-marker.js',
           '../navigation-section.js',

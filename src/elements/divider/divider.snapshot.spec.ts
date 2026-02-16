@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbDividerElement } from './divider.js';
-import './divider.js';
+import type { SbbDividerElement } from './divider.component.ts';
+import './divider.component.ts';
 
 describe(`sbb-divider`, () => {
   describe('renders', () => {

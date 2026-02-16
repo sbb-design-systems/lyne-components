@@ -2,7 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import type { TemplateResult } from 'lit';
 import { html, LitElement, render } from 'lit';
 
-import { sbbSpread } from './spread.js';
+import { sbbSpread } from './spread.ts';
 
 class SpreadDirectiveTestOnlyElement extends LitElement {
   public static override get properties(): Record<string, any> {
@@ -23,7 +23,7 @@ class SpreadDirectiveTestOnlyElement extends LitElement {
     super();
   }
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`<slot></slot>`;
   }
 }
@@ -53,8 +53,8 @@ describe(`sbbSpread`, () => {
     expect(element).to.have.attribute('true-string', 'true');
     expect(element).to.have.attribute('false-string', 'false');
     expect(element).to.have.attribute('numeric', '1');
+    expect(element).to.have.attribute('zero');
     expect(element).not.to.have.attribute('boolean-false');
-    expect(element).not.to.have.attribute('zero');
     expect(element).not.to.have.attribute('nullish');
     expect(element).not.to.have.attribute('not-defined');
   });
@@ -87,7 +87,7 @@ describe(`sbbSpread`, () => {
 
     expect(spreadElement).to.have.attribute('is-truthy');
     expect(spreadElement).to.have.attribute('words', 'This value is a string');
-    expect(spreadElement).not.to.have.attribute('numeric');
+    expect(spreadElement).to.have.attribute('numeric');
   });
 
   describe('binding order', () => {

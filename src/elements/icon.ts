@@ -1,5 +1,8 @@
-export * from './icon/icon.js';
-export * from './icon/icon-base.js';
-export * from './icon/icon-request.js';
-export * from './icon/icon-validate.js';
-export * from './icon/icon-name-mixin.js';
+/**
+ * @entrypoint
+ */
+export * from './icon/icon.component.ts';
+export * from './icon/icon-base.ts';
+export * from './icon/icon-request.ts';
+export * from './icon/icon-validate.ts';
+export * from './icon/icon-name-mixin.ts';

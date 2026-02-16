@@ -1,13 +1,13 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbTrainWagonElement } from '../train-wagon.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbTrainWagonElement } from '../train-wagon.ts';
 
-import { SbbTrainElement } from './train.js';
+import { SbbTrainElement } from './train.component.ts';
 
-import '../train-wagon.js';
+import '../train-wagon.ts';
 
 describe(`sbb-train`, () => {
   let element: SbbTrainElement;
@@ -25,7 +25,7 @@ describe(`sbb-train`, () => {
         <sbb-train-wagon></sbb-train-wagon>
       </sbb-train>
     `);
-    const trainSlotChangeSpy = new EventSpy(SbbTrainElement.events.trainSlotChange);
+    const trainSlotChangeSpy = new EventSpy(SbbTrainElement.events.trainslotchange);
 
     element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.remove();
     await waitForLitRender(element);

@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbTeaserProductElement } from './teaser-product.js';
-import './teaser-product.js';
-import '../../image.js';
+import type { SbbTeaserProductElement } from './teaser-product.component.ts';
+import './teaser-product.component.ts';
+import '../../image.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

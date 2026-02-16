@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isSafari } from '../core/dom.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
-import { describeIf } from '../core/testing.js';
+import { isSafari } from '../core/dom.ts';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
+import { describeIf } from '../core/testing.ts';
 
-import type { SbbSelectElement } from './select.js';
-import './select.js';
-import '../option.js';
+import type { SbbSelectElement } from './select.component.ts';
+import './select.component.ts';
+import '../option.ts';
 
 describe(`sbb-select`, () => {
   describe('renders', () => {
@@ -25,7 +25,7 @@ describe(`sbb-select`, () => {
 
     describeIf(!isSafari, 'Chrome-Firefox', async () => {
       it('DOM', async () => {
-        await expect(elem).dom.to.be.equalSnapshot();
+        await expect(elem).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
 
       it('Shadow DOM', async () => {
@@ -61,11 +61,11 @@ describe(`sbb-select`, () => {
 
     describeIf(!isSafari, 'Chrome-Firefox', async () => {
       it('DOM', async () => {
-        await expect(elem).dom.to.be.equalSnapshot();
+        await expect(elem).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
 
       it('Shadow DOM', async () => {
-        await expect(elem).shadowDom.to.be.equalSnapshot();
+        await expect(elem).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
     });
 

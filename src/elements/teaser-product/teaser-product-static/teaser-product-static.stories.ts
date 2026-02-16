@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Args,
   ArgTypes,
@@ -7,21 +5,23 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import sampleImages from '../../core/images.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import sampleImages from '../../core/images.ts';
 
 import readme from './readme.md?raw';
-import './teaser-product-static.js';
-import '../../action-group.js';
-import '../../button/button.js';
-import '../../button/secondary-button.js';
-import '../../chip-label.js';
-import '../../image.js';
-import '../../title.js';
+import './teaser-product-static.component.ts';
+import '../../action-group.ts';
+import '../../button/button.ts';
+import '../../button/secondary-button.ts';
+import '../../chip-label.ts';
+import '../../image.ts';
+import '../../title.ts';
 
 const imageAlignment: InputType = {
   control: {
@@ -154,7 +154,9 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

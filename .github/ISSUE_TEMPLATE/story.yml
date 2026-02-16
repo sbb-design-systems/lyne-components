@@ -1,7 +1,7 @@
 name: '[Internal] Story'
 description: An internal story for lyne-components
 title: 'story(COMPONENT): TITLE'
-labels: [story, to-refine]
+type: Task
 body:
   - type: textarea
     id: description

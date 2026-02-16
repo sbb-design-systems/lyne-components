@@ -1,1 +1,4 @@
-export * from './header-link/header-link.js';
+/**
+ * @entrypoint
+ */
+export * from './header-link/header-link.component.ts';

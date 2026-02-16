@@ -1,10 +1,10 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbOptGroupElement } from './optgroup.js';
-import '../option.js';
+import { SbbOptGroupElement } from './optgroup.component.ts';
+import '../option.ts';
 
 describe(`sbb-optgroup ssr`, () => {
   let root: SbbOptGroupElement;
@@ -18,7 +18,7 @@ describe(`sbb-optgroup ssr`, () => {
           <sbb-option id="option-3" value="option-3">Label 3</sbb-option>
         </sbb-optgroup>
       `,
-      { modules: ['./optgroup.js', '../option.js'] },
+      { modules: ['./optgroup.component.js', '../option.js'] },
     );
   });
 

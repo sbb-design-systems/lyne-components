@@ -11,13 +11,12 @@ section sbb-title {
 }
 
 .timetable-section {
-  background-color: var(--sbb-color-red);
+  background-color: var(--sbb-color-primary);
 }
 
 .timetable-placeholder {
-  @include sbb.shadow-level-5-hard;
-
-  background-color: var(--sbb-color-white);
+  box-shadow: var(--sbb-box-shadow-level-5-hard);
+  background-color: var(--sbb-background-color-1);
   border-radius: var(--sbb-border-radius-4x);
   height: 21vh;
   width: 100%;
@@ -40,7 +39,7 @@ section sbb-title {
   display: grid;
   gap: var(--sbb-spacing-fixed-3x) var(--sbb-grid-base-gutter-responsive);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     grid-auto-flow: column;
     grid-template-rows: repeat(4, 1fr);
     grid-template-columns: repeat(2, 1fr);
@@ -70,7 +69,7 @@ section sbb-title {
     margin-block-start: var(--sbb-spacing-fixed-2x);
   }
 
-  [data-sbb-button] {
+  :state(sbb-button) {
     width: fit-content;
   }
 
@@ -87,7 +86,7 @@ section sbb-title {
   width: 100%;
   column-gap: var(--sbb-spacing-responsive-xxxs);
 
-  [data-sbb-button] {
+  :state(sbb-button) {
     align-self: start;
     margin-block-start: 1rem;
   }
@@ -99,27 +98,27 @@ section sbb-title {
       flex-grow: 1;
     }
 
-    [data-sbb-button] {
+    :state(sbb-button) {
       align-self: end;
     }
   }
 
-  @include sbb.mq($from: small, $to: medium) {
+  @include sbb.mq($from: small, $to: large) {
     @include card-expanded;
   }
 
-  @include sbb.mq($from: wide) {
+  @include sbb.mq($from: ultra) {
     @include card-expanded;
   }
 }
 
 .card-description {
-  color: var(--sbb-color-granite);
+  color: light-dark(var(--sbb-color-granite), var(--sbb-color-cement));
 }
 
 .product-section-logged-in {
   margin-block-end: var(--sbb-spacing-responsive-l);
-  background-color: var(--sbb-color-milk);
+  background-color: var(--sbb-background-color-3);
 }
 
 .logged-in-overview {
@@ -144,7 +143,7 @@ section sbb-title {
   min-width: 72px;
   width: 72px;
   height: 72px;
-  background-color: var(--sbb-color-cloud);
+  background-color: var(--sbb-background-color-4);
   border-radius: 50%;
   display: flex;
 
@@ -184,7 +183,7 @@ section sbb-title {
   display: grid;
   gap: var(--sbb-spacing-responsive-m) var(--sbb-spacing-fixed-3x);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -215,9 +214,6 @@ section sbb-title {
 
   @include sbb.mq($from: large) {
     grid-column: 2/-2;
-  }
-  @include sbb.mq($from: wide) {
-    grid-column: 3/-3;
   }
   @include sbb.mq($from: ultra) {
     grid-column: 4/-4;

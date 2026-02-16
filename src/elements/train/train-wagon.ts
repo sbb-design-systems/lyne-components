@@ -1,1 +1,4 @@
-export * from './train-wagon/train-wagon.js';
+/**
+ * @entrypoint
+ */
+export * from './train-wagon/train-wagon.component.ts';

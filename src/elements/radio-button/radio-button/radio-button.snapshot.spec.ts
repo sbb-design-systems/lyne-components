@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbRadioButtonElement } from './radio-button.js';
+import type { SbbRadioButtonElement } from './radio-button.component.ts';
 
-import './radio-button.js';
+import './radio-button.component.ts';
 
 describe(`sbb-radio-button`, () => {
   let element: SbbRadioButtonElement;
@@ -13,7 +13,7 @@ describe(`sbb-radio-button`, () => {
   describe('renders', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-radio-button value="radio-value" name="radio"></sbb-radio-button>`,
+        html`<sbb-radio-button value="radio-value" name="radio">Label</sbb-radio-button>`,
       );
     });
 
@@ -29,15 +29,15 @@ describe(`sbb-radio-button`, () => {
   });
 
   testA11yTreeSnapshot(
-    html`<sbb-radio-button value="radio-value" name="radio" checked></sbb-radio-button>`,
+    html`<sbb-radio-button value="radio-value" name="radio" checked>Label</sbb-radio-button>`,
     'renders checked - A11y tree',
   );
   testA11yTreeSnapshot(
-    html`<sbb-radio-button value="radio-value" name="radio" disabled></sbb-radio-button>`,
+    html`<sbb-radio-button value="radio-value" name="radio" disabled>Label</sbb-radio-button>`,
     'renders disabled - A11y tree',
   );
   testA11yTreeSnapshot(
-    html`<sbb-radio-button value="radio-value" name="radio" required></sbb-radio-button>`,
+    html`<sbb-radio-button value="radio-value" name="radio" required>Label</sbb-radio-button>`,
     'renders required - A11y tree',
   );
 });

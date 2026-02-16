@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbBlockLinkElement } from './block-link.js';
+import type { SbbBlockLinkElement } from './block-link.component.ts';
 
-import './block-link.js';
+import './block-link.component.ts';
 
 describe(`sbb-block-link`, () => {
   let element: SbbBlockLinkElement;

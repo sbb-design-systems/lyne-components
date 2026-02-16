@@ -1,39 +1,29 @@
 @use '../core/styles' as sbb;
 
-:host {
-  --sbb-title-margin-block-start: 0;
-  --sbb-title-margin-block-end: 0;
-
-  margin-block: var(--sbb-title-margin-block-start) var(--sbb-title-margin-block-end);
+:host([negative]) {
+  @include sbb.title--negative;
 }
 
-:host(:where(:not([visually-hidden]))) {
-  --sbb-title-margin-block-start: var(--sbb-spacing-responsive-m);
-  --sbb-title-margin-block-end: var(--sbb-spacing-responsive-s);
+:host(:where([level='1']:not([visual-level]), [visual-level='1'])) {
+  @include sbb.title--level-1-spacing;
 }
 
-// Due to using :where, order does matter
-:host(:where([level='1']:not([visual-level]), [visual-level='1']):where(:not([visually-hidden]))) {
-  --sbb-title-margin-block-start: var(--sbb-spacing-responsive-l);
+:host(:where([level='2']:not([visual-level]), [visual-level='2'])) {
+  @include sbb.title--level-2-spacing;
 }
 
-// Due to using :where, order does matter
-:host(:where([level='2']:not([visual-level]), [visual-level='2']):where(:not([visually-hidden]))),
-:host(:where([level='3']:not([visual-level]), [visual-level='3']):where(:not([visually-hidden]))) {
-  --sbb-title-margin-block-end: var(--sbb-spacing-responsive-xxxs);
+:host(:where([level='3']:not([visual-level]), [visual-level='3'])) {
+  @include sbb.title--level-3-spacing;
 }
 
-// Due to using :where, order does matter
-:host(:where([level='4']:not([visual-level]), [visual-level='4']):where(:not([visually-hidden]))) {
-  --sbb-title-margin-block-end: var(--sbb-spacing-fixed-3x);
+:host(:where([level='4']:not([visual-level]), [visual-level='4'])) {
+  @include sbb.title--level-4-spacing;
 }
 
-// Due to using :where, order does matter
-:host(:where([level='5']:not([visual-level]), [visual-level='5']):where(:not([visually-hidden]))) {
-  --sbb-title-margin-block-end: var(--sbb-spacing-fixed-2x);
+:host(:where([level='5']:not([visual-level]), [visual-level='5'])) {
+  @include sbb.title--level-5-spacing;
 }
 
-// Due to using :where, order does matter
-:host(:where([level='6']:not([visual-level]), [visual-level='6']):where(:not([visually-hidden]))) {
-  --sbb-title-margin-block-end: var(--sbb-spacing-fixed-1x);
+:host(:where([level='6']:not([visual-level]), [visual-level='6'])) {
+  @include sbb.title--level-6-spacing;
 }

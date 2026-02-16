@@ -2,15 +2,14 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbTabLabelElement } from '../tab-label.js';
-import type { SbbTabElement } from '../tab.js';
+import { fixture, tabKey } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbTabLabelElement } from '../tab-label.ts';
+import { SbbTabElement } from '../tab.ts';
 
-import { SbbTabGroupElement } from './tab-group.js';
+import { SbbTabGroupElement } from './tab-group.component.ts';
 
-import '../tab-label.js';
-import '../tab.js';
+import '../tab-label.ts';
 
 describe(`sbb-tab-group`, () => {
   let element: SbbTabGroupElement;
@@ -98,13 +97,22 @@ describe(`sbb-tab-group`, () => {
         expect(tab).to.have.attribute('active');
       });
 
-      it('dispatches event on tab change', async () => {
+      it('dispatches tabchange event on tab change', async () => {
         const tab = element.querySelector<SbbTabLabelElement>(':scope > sbb-tab-label#sbb-tab-1')!;
-        const changeSpy = new EventSpy(SbbTabGroupElement.events.didChange);
+        const changeSpy = new EventSpy(SbbTabGroupElement.events.tabchange);
 
         tab.click();
         await changeSpy.calledOnce();
         expect(changeSpy.count).to.be.equal(1);
+      });
+
+      it('dispatches active event on tab change', async () => {
+        const tab = element.querySelector<SbbTabLabelElement>(':scope > sbb-tab-label#sbb-tab-1')!;
+        const activeSpy = new EventSpy(SbbTabElement.events.active);
+
+        tab.click();
+        await activeSpy.calledOnce();
+        expect(activeSpy.count).to.be.equal(1);
       });
 
       it('selects tab on left arrow key pressed', async () => {
@@ -178,7 +186,7 @@ describe(`sbb-tab-group`, () => {
 
   it('recovers if active tabs are added later', async () => {
     element = await fixture(html`<sbb-tab-group></sbb-tab-group>`);
-    const changeSpy = new EventSpy(SbbTabGroupElement.events.didChange);
+    const changeSpy = new EventSpy(SbbTabGroupElement.events.tabchange);
 
     const newLabel = document.createElement('sbb-tab-label');
     newLabel.textContent = 'Label 1';
@@ -192,7 +200,6 @@ describe(`sbb-tab-group`, () => {
     // Await throttling
     await aTimeout(200);
 
-    // console.log(element._selectedTab)
     const newLabelActive = document.createElement('sbb-tab-label');
     newLabelActive.textContent = 'Label 2';
     const newTabActive = document.createElement('sbb-tab');
@@ -205,28 +212,32 @@ describe(`sbb-tab-group`, () => {
     await aTimeout(200);
 
     expect(changeSpy.count).to.be.equal(1);
-    expect(element.querySelector('sbb-tab-label')).to.have.attribute('active');
-    expect(element.querySelector('sbb-tab-label')).to.have.attribute('aria-selected', 'true');
-    expect(element.querySelector('sbb-tab')).to.have.attribute('active');
-    expect(element.querySelector('sbb-tab-label:nth-of-type(2)')).not.to.have.attribute('active');
-    expect(element.querySelector('sbb-tab-label:nth-of-type(2)')).to.have.attribute(
-      'aria-selected',
-      'false',
-    );
-    expect(element.querySelector('sbb-tab:nth-of-type(2)')).not.to.have.attribute('active');
+
+    let firstTabLabel = element.querySelector('sbb-tab-label') as SbbTabLabelElement;
+    expect(firstTabLabel).to.have.attribute('active');
+    expect(firstTabLabel['internals'].ariaSelected).to.be.equal('true');
+    expect(element.querySelector('sbb-tab')).to.match(':state(active)');
+
+    let secondTabLabel = element.querySelector(
+      'sbb-tab-label:nth-of-type(2)',
+    ) as SbbTabLabelElement;
+    expect(secondTabLabel).not.to.have.attribute('active');
+    expect(secondTabLabel['internals'].ariaSelected).to.be.equal('false');
+    expect(element.querySelector('sbb-tab:nth-of-type(2)')).not.to.match(':state(active)');
 
     newLabelActive.click();
     await waitForLitRender(element);
 
     expect(changeSpy.count).to.be.equal(2);
-    expect(element.querySelector('sbb-tab-label')).not.to.have.attribute('active');
-    expect(element.querySelector('sbb-tab-label')).to.have.attribute('aria-selected', 'false');
-    expect(element.querySelector('sbb-tab')).not.to.have.attribute('active');
-    expect(element.querySelector('sbb-tab-label:nth-of-type(2)')).to.have.attribute('active');
-    expect(element.querySelector('sbb-tab-label:nth-of-type(2)')).to.have.attribute(
-      'aria-selected',
-      'true',
-    );
-    expect(element.querySelector('sbb-tab:nth-of-type(2)')).to.have.attribute('active');
+
+    firstTabLabel = element.querySelector('sbb-tab-label') as SbbTabLabelElement;
+    expect(firstTabLabel).not.to.have.attribute('active');
+    expect(firstTabLabel['internals'].ariaSelected).to.be.equal('false');
+    expect(element.querySelector('sbb-tab')).not.to.match(':state(active)');
+
+    secondTabLabel = element.querySelector('sbb-tab-label:nth-of-type(2)') as SbbTabLabelElement;
+    expect(secondTabLabel).to.have.attribute('active');
+    expect(secondTabLabel['internals'].ariaSelected).to.be.equal('true');
+    expect(element.querySelector('sbb-tab:nth-of-type(2)')).to.match(':state(active)');
   });
 });

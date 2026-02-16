@@ -1,2 +1,5 @@
-export * from './alert/alert.js';
-export * from './alert/alert-group.js';
+/**
+ * @entrypoint
+ */
+export * from './alert/alert.ts';
+export * from './alert/alert-group.ts';

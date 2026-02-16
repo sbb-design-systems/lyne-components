@@ -1,10 +1,7 @@
 @use '../../core/styles' as sbb;
 
 $disabled: ':disabled, [disabled-interactive]';
-$active: ':active, [data-active]';
-
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
+$active: ':active, :state(active)';
 
 :host {
   display: inline-block;
@@ -15,14 +12,15 @@ $active: ':active, [data-active]';
   max-width: 100%;
 
   --sbb-tag-border-radius: var(--sbb-border-radius-infinity);
-  --sbb-tag-background-color: var(--sbb-color-white);
-  --sbb-tag-border-color: var(--sbb-color-cloud);
+  --sbb-tag-background-color: var(--sbb-background-color-1);
+  --sbb-tag-border-color: var(--sbb-border-color-4-inverted);
   --sbb-tag-border-style: solid;
   --sbb-tag-border-width: var(--sbb-border-width-1x);
-  --sbb-tag-text-color: var(--sbb-color-charcoal);
-  --sbb-tag-amount-color: var(--sbb-color-metal);
+  --sbb-tag-text-color: var(--sbb-color-2);
+  --sbb-tag-amount-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-tag-height: var(--sbb-size-element-xs);
   --sbb-tag-inset: 0;
+  --sbb-tag-cursor: var(--sbb-cursor-pointer);
   --sbb-tag-content-shift: translateY(0);
   --sbb-tag-animation-duration: var(
     --sbb-disable-animation-duration,
@@ -42,21 +40,24 @@ $active: ':active, [data-active]';
 }
 
 // Active state
-:host([checked]) {
-  --sbb-tag-border-color: var(--sbb-color-charcoal);
+:host(:state(checked)) {
+  --sbb-tag-border-color: var(--sbb-border-color-3);
   --sbb-tag-border-width: var(--sbb-border-width-2x);
 
   @include sbb.if-forced-colors {
     --sbb-tag-border-color: Highlight !important;
+    --sbb-tag-border-width: var(--sbb-border-width-4x);
   }
 }
 
 :host(:is(#{$disabled})) {
-  --sbb-tag-text-color: var(--sbb-color-granite);
+  --sbb-tag-text-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
   --sbb-tag-amount-color: var(--sbb-tag-text-color);
-  --sbb-tag-background-color: var(--sbb-color-milk);
-  --sbb-tag-border-color: var(--sbb-color-cement);
+  --sbb-tag-background-color: var(--sbb-background-color-3);
+  --sbb-tag-border-color: light-dark(var(--sbb-color-cement), var(--sbb-color-smoke));
   --sbb-tag-border-style: dashed;
+  --sbb-tag-cursor: unset;
+  --sbb-tag-pointer-events: none;
 
   @include sbb.if-forced-colors {
     --sbb-tag-text-color: GrayText;
@@ -65,13 +66,14 @@ $active: ':active, [data-active]';
   }
 }
 
-:host([checked]:is(#{$disabled})) {
-  --sbb-tag-border-color: var(--sbb-color-metal);
+:host(:state(checked):is(#{$disabled})) {
+  --sbb-tag-border-color: light-dark(var(--sbb-color-metal), var(--sbb-color-cement));
+  --sbb-tag-border-style: dashed;
 }
 
 :host(:hover:not(#{$disabled}, #{$active})) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-tag-background-color: var(--sbb-color-milk);
+    --sbb-tag-background-color: var(--sbb-background-color-3);
     --sbb-tag-inset: calc(var(--sbb-border-width-2x) * -1);
     --sbb-tag-content-shift: translateY(calc(var(--sbb-border-width-1x) * -1));
 
@@ -83,10 +85,10 @@ $active: ':active, [data-active]';
 
 // Pressed state
 :host(:is(#{$active}):not(#{$disabled})) {
-  --sbb-tag-background-color: var(--sbb-color-milk);
-  --sbb-tag-border-color: var(--sbb-color-iron);
+  --sbb-tag-background-color: var(--sbb-background-color-3);
+  --sbb-tag-border-color: light-dark(var(--sbb-color-iron), var(--sbb-color-storm));
   --sbb-tag-border-width: var(--sbb-border-width-2x);
-  --sbb-tag-text-color: var(--sbb-color-iron);
+  --sbb-tag-text-color: var(--sbb-color-4);
 
   @include sbb.if-forced-colors {
     --sbb-tag-border-color: Highlight;
@@ -109,12 +111,13 @@ $active: ':active, [data-active]';
   max-width: 100%;
   gap: var(--sbb-tag-gap);
   padding-inline: var(--sbb-tag-padding-inline);
-  cursor: pointer;
+  cursor: var(--sbb-tag-cursor);
   border-radius: var(--sbb-tag-border-radius);
   color: var(--sbb-tag-text-color);
   transition: color var(--sbb-tag-animation-duration) var(--sbb-tag-animation-easing);
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+  pointer-events: var(--sbb-tag-pointer-events, unset);
 
   &::before {
     content: '';
@@ -127,25 +130,19 @@ $active: ':active, [data-active]';
     transition-timing-function: var(--sbb-tag-animation-easing);
     transition-property: inset, background-color, border-color, box-shadow;
 
-    // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-    :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+    :host(:focus-visible) & {
       @include sbb.focus-outline;
     }
-  }
-
-  :host(#{$disabled}) & {
-    cursor: unset;
-    pointer-events: none;
   }
 }
 
 .sbb-tag__icon {
   display: flex;
   align-items: center;
-  height: calc(var(--sbb-typo-line-height-body-text) * 1em);
+  height: calc(var(--sbb-typo-line-height-text) * 1em);
   flex-shrink: 0;
 
-  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+  :host(:not(:state(slotted-icon), :state(has-icon-name))) & {
     display: none;
   }
 }
@@ -159,7 +156,7 @@ $active: ':active, [data-active]';
 
   color: var(--sbb-tag-amount-color);
 
-  :host(:not([data-slot-names~='amount'], [amount])) & {
+  :host(:not(:state(slotted-amount), [amount])) & {
     display: none;
   }
 }

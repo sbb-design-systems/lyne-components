@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbHeaderButtonElement } from './header-button.js';
-import './header-button.js';
+import type { SbbHeaderButtonElement } from './header-button.component.ts';
+import './header-button.component.ts';
 
 describe(`sbb-header-button`, () => {
   describe('renders', () => {

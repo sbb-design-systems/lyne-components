@@ -1,16 +1,16 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
+import { waitForImageReady } from '../core/testing.ts';
 
-import type { SbbLeadContainerElement } from './lead-container.js';
+import type { SbbLeadContainerElement } from './lead-container.component.ts';
 
-import '../breadcrumb.js';
-import '../image.js';
-import '../link/block-link/block-link.js';
-import '../title.js';
-import './lead-container.js';
+import '../breadcrumb.ts';
+import '../image.ts';
+import '../link/block-link/block-link.component.ts';
+import '../title.ts';
+import './lead-container.component.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 

@@ -21,7 +21,7 @@ class Main extends LitElement {
       path: '/',
       render: () => html`<app-overview></app-overview>`,
       enter: async () => {
-        await import('./components/overview/overview.js');
+        await import('./components/overview/overview.ts');
         return true;
       },
     },
@@ -32,13 +32,13 @@ class Main extends LitElement {
           .params=${{ componentName: component!, testCaseName: testcase! }}
         ></app-test-case>`,
       enter: async () => {
-        await import('./components/test-case/test-case.js');
+        await import('./components/test-case/test-case.ts');
         return true;
       },
     },
   ]);
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     return html`${this._router.outlet()}`;
   }
 }

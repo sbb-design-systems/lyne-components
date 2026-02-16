@@ -1,19 +1,19 @@
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
-import type { SbbFormErrorElement } from '../../form-error.js';
+import type { SbbErrorElement } from '../error.ts';
 
 import readme from './readme.md?raw';
 
-import './form-field.js';
-import '../form-field-clear.js';
-import '../../button/mini-button.js';
-import '../../form-error.js';
-import '../../link.js';
-import '../../popover.js';
-import '../../title.js';
+import './form-field.component.ts';
+import '../form-field-clear.ts';
+import '../../button/mini-button.ts';
+import '../error.ts';
+import '../../link.ts';
+import '../../popover.ts';
+import '../../title.ts';
 
 const formField = (
   {
@@ -49,11 +49,11 @@ const formField = (
   </sbb-form-field>`;
 
 const PopoverTrigger = (): TemplateResult => html`
-  <sbb-popover-trigger
+  <sbb-mini-button
     slot="suffix"
-    id="popover-trigger"
     icon-name="circle-information-small"
-  ></sbb-popover-trigger>
+    id="popover-trigger"
+  ></sbb-mini-button>
   <sbb-popover trigger="popover-trigger">
     <sbb-title level="2" visual-level="6" style="margin-block-start: 0"
       >Simple info popover.</sbb-title
@@ -112,9 +112,9 @@ const TemplateInputWithSlottedSpanLabel = (args: Args): TemplateResult =>
   formField({ ...args, slottedLabel: true }, TemplateBasicInput(args));
 
 const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = args.errorText;
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = args.errorText;
 
   return html`
     <form>
@@ -125,10 +125,10 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
               @keyup=${(event: KeyboardEvent) => {
                 const input = event.currentTarget as HTMLInputElement;
                 if (input.value !== '') {
-                  sbbFormError.remove();
+                  error.remove();
                   input.classList.remove(args.cssClass);
                 } else {
-                  input.closest('sbb-form-field')!.append(sbbFormError);
+                  input.closest('sbb-form-field')!.append(error);
                   input.classList.add(args.cssClass);
                 }
               }}
@@ -137,7 +137,7 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
               ?disabled=${args.disabled}
               ?readonly=${args.readonly}
             />
-            ${sbbFormError}`,
+            ${error}`,
         )}
       </div>
       <div style="color: var(--sbb-color-smoke);">
@@ -172,9 +172,9 @@ const TemplateInputWithClearButton = (args: Args): TemplateResult =>
 const TemplateSelect = (args: Args): TemplateResult => formField(args, TemplateBasicSelect(args));
 
 const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = args.errorText;
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = args.errorText;
 
   return html`
     <form>
@@ -185,10 +185,10 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
               @change=${(event: Event) => {
                 const select = event.currentTarget as HTMLSelectElement;
                 if (select.value !== '0') {
-                  sbbFormError.remove();
+                  error.remove();
                   select.classList.remove(args.cssClass);
                 } else {
-                  select.closest('sbb-form-field')!.append(sbbFormError);
+                  select.closest('sbb-form-field')!.append(error);
                   select.classList.add(args.cssClass);
                 }
               }}
@@ -200,7 +200,7 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
               <option value="2">Value 2</option>
               <option value="3">Value 3</option>
             </select>
-            ${sbbFormError}`,
+            ${error}`,
         )}
       </div>
       <div>
@@ -227,9 +227,9 @@ const TemplateTextarea = (args: Args): TemplateResult =>
   formField(args, TemplateBasicTextarea(args));
 
 const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = args.errorText;
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = args.errorText;
 
   return html`
     <form>
@@ -240,10 +240,10 @@ const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
               @keyup=${(event: KeyboardEvent) => {
                 const input = event.currentTarget as HTMLInputElement;
                 if (input.value !== '') {
-                  sbbFormError.remove();
+                  error.remove();
                   input.classList.remove(args.cssClass);
                 } else {
-                  input.closest('sbb-form-field')!.append(sbbFormError);
+                  input.closest('sbb-form-field')!.append(error);
                   input.classList.add(args.cssClass);
                 }
               }}
@@ -253,7 +253,7 @@ const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
               ?readonly=${args.readonly}
               .value=${args.value || nothing}
             ></textarea>
-            ${sbbFormError}`,
+            ${error}`,
         )}
       </div>
       <div>
@@ -980,7 +980,9 @@ export const TextareaFloatingWithIconNegative: StoryObj = {
 const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

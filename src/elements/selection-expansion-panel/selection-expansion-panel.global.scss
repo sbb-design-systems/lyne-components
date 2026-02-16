@@ -1,0 +1,21 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-selection-expansion-panel-background: var(--sbb-selection-panel-background-default);
+  --sbb-selection-expansion-panel-border-color: var(--sbb-selection-panel-border-color-default);
+  --sbb-selection-expansion-panel-border-width: var(--sbb-selection-panel-border-width-default);
+  --sbb-selection-expansion-panel-content-visibility: visible;
+  --sbb-selection-expansion-panel-content-padding-block-start: var(--sbb-spacing-responsive-xxs);
+  --sbb-selection-expansion-panel-content-padding-block-end: var(
+    --sbb-selection-panel-input-padding-block-m
+  );
+  --sbb-selection-expansion-panel-content-padding-inline: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-selection-panel-input-padding-inline-m),
+        'lean': var(--sbb-selection-panel-input-padding-inline-xs),
+      ),
+      $theme
+    )};
+}

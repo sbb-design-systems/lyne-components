@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbBreadcrumbElement } from './breadcrumb.js';
-import './breadcrumb.js';
+import type { SbbBreadcrumbElement } from './breadcrumb.component.ts';
+import './breadcrumb.component.ts';
 
 describe(`sbb-breadcrumb`, () => {
   describe('renders with text', () => {
@@ -52,9 +52,7 @@ describe(`sbb-breadcrumb`, () => {
 
     beforeEach(async () => {
       element = await fixture(html`
-        <sbb-breadcrumb data-action data-link href="/" icon-name="house-small">
-          Home
-        </sbb-breadcrumb>
+        <sbb-breadcrumb href="/" icon-name="house-small"> Home </sbb-breadcrumb>
       `);
     });
 

@@ -1,14 +1,23 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import { html, LitElement, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  html,
+  LitElement,
+  nothing,
+  type PropertyDeclaration,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { slotState } from '../../core/decorators.js';
-import { isAndroid, isSafari, setOrRemoveAttribute } from '../../core/dom.js';
-import type { EventEmitter } from '../../core/eventing.js';
-import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.js';
-import { SbbIconNameMixin } from '../../icon.js';
+import { isAndroid, isBlink, isSafari, setOrRemoveAttribute } from '../../core/dom.ts';
+import {
+  SbbDisabledMixin,
+  SbbElementInternalsMixin,
+  SbbHydrationMixin,
+} from '../../core/mixins.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
 
-import '../../screen-reader-only.js';
+import '../../screen-reader-only.ts';
 
 let nextId = 0;
 
@@ -21,18 +30,18 @@ const inertAriaGroups = isSafari;
 
 /** Configuration for the attribute to look at if component is nested in an option group */
 const optionObserverConfig: MutationObserverInit = {
-  attributeFilter: ['data-group-disabled', 'data-negative'],
-  attributes: true,
   childList: true,
   subtree: true,
   characterData: true,
 };
 
-export
-@slotState()
-abstract class SbbOptionBaseElement extends SbbDisabledMixin(
-  SbbIconNameMixin(SbbHydrationMixin(LitElement)),
+export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
+  SbbIconNameMixin(SbbElementInternalsMixin(SbbHydrationMixin(LitElement))),
 ) {
+  public static readonly events = {
+    optionselected: 'optionselected',
+  } as const;
+
   protected abstract optionId: string;
 
   /**
@@ -42,12 +51,18 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
    * Due to this, it is implemented as a getter/setter and the attributeChangedCallback() handles the diff check.
    */
   @property()
-  public set value(value: string) {
-    this.setAttribute('value', `${value}`);
+  public set value(value: T) {
+    if (typeof value === 'string') {
+      this.setAttribute('value', `${value}`);
+      this._value = null;
+    } else {
+      this._value = value;
+    }
   }
-  public get value(): string {
-    return this.getAttribute('value') ?? '';
+  public get value(): T {
+    return (this._value ?? this.getAttribute('value')) as T;
   }
+  private _value: T | null = null;
 
   /** Whether the option is selected. */
   @property({ type: Boolean })
@@ -59,17 +74,10 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
     return this.hasAttribute('selected');
   }
 
-  /** Emits when the option selection status changes. */
-  protected abstract selectionChange: EventEmitter;
-
-  /** Emits when an option was selected by user. */
-  protected abstract optionSelected: EventEmitter;
-
-  /** Whether to apply the negative styling */
-  @state() protected accessor negative = false;
-
   /** Whether the component must be set disabled due disabled attribute on sbb-optgroup. */
   @state() protected accessor disabledFromGroup = false;
+
+  @state() protected accessor groupLabel = '';
 
   @state() protected accessor label!: string;
 
@@ -87,10 +95,16 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
       passive: true,
     });
 
-    new MutationController(this, {
-      config: optionObserverConfig,
-      callback: (mutationsList) => this.onOptionAttributesChange(mutationsList),
-    });
+    this.addController(
+      new MutationController(this, {
+        config: optionObserverConfig,
+        callback: () => {
+          this.handleHighlightState();
+          /** @internal */
+          this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
+        },
+      }),
+    );
 
     if (inertAriaGroups) {
       if (this.hydrationRequired) {
@@ -120,32 +134,32 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
     this._highlightString = value;
   }
 
-  /**
-   * @internal
-   */
-  public setSelectedViaUserInteraction(selected: boolean): void {
+  protected selectViaUserInteraction(selected: boolean): void {
     this.selected = selected;
-    this.selectionChange.emit();
     if (this.selected) {
-      this.optionSelected.emit();
+      /** Emits when an option was selected by user. */
+      this.dispatchEvent(new Event('optionselected', { bubbles: true, composed: true }));
     }
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `${this.optionId}-${nextId++}`;
-    if (this.hydrationRequired) {
-      this.hydrationComplete.then(() => this.init());
-    } else {
-      this.init();
-    }
   }
 
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    if (changedProperties.has('disabled')) {
-      setOrRemoveAttribute(this, 'tabindex', isAndroid && !this.disabled && 0);
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+    if (name === 'disabled' || name === 'disabledFromGroup') {
+      this.toggleState('disabled', this.disabled || this.disabledFromGroup);
+      setOrRemoveAttribute(
+        this,
+        'tabindex',
+        isAndroid && !this.disabled && !this.disabledFromGroup ? 0 : null,
+      );
       this.updateAriaDisabled();
     }
   }
@@ -158,11 +172,10 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
   }
 
   protected abstract selectByClick(event: MouseEvent): void;
-  protected abstract setAttributeFromParent(): void;
 
   protected updateDisableHighlight(disabled: boolean): void {
     this.disableLabelHighlight = disabled;
-    this.toggleAttribute('data-disable-highlight', disabled);
+    this.toggleState('disable-highlight', disabled);
   }
 
   /**
@@ -170,46 +183,19 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
    * @internal
    */
   public setActive(value: boolean): void {
-    this.toggleAttribute('data-active', value);
-  }
-
-  protected init(): void {
-    this.setAttributeFromParent();
+    this.toggleState('active', value);
   }
 
   protected updateAriaDisabled(): void {
-    if (this.disabled || this.disabledFromGroup) {
-      this.setAttribute('aria-disabled', 'true');
-    } else {
-      this.removeAttribute('aria-disabled');
-    }
+    this.internals.ariaDisabled = this.disabled || this.disabledFromGroup ? 'true' : null;
+
+    // Listened by autocomplete
+    /** @internal */
+    this.dispatchEvent(new Event('ɵdisabledchange', { bubbles: true }));
   }
 
   private _updateAriaSelected(): void {
-    this.setAttribute('aria-selected', `${this.selected}`);
-  }
-
-  /** @deprecated use onExternalMutation() as replacement. Will be removed with next major change. */
-  protected onOptionAttributesChange(mutationsList: MutationRecord[]): void {
-    this.onExternalMutation(mutationsList);
-  }
-
-  /** Observe changes on data attributes + slotted content and set the appropriate values. */
-  protected onExternalMutation(mutationsList: MutationRecord[]): void {
-    for (const mutation of mutationsList) {
-      if (mutation.attributeName === 'data-group-disabled') {
-        this.disabledFromGroup = this.hasAttribute('data-group-disabled');
-        this.updateAriaDisabled();
-      } else if (mutation.attributeName === 'data-negative') {
-        this.negative = this.hasAttribute('data-negative');
-      } else {
-        /** @internal */
-        this.dispatchEvent(new Event('optionLabelChanged', { bubbles: true }));
-
-        // We return because there should be only one event triggered per mutationList
-        return;
-      }
-    }
+    this.internals.ariaSelected = `${this.selected}`;
   }
 
   protected handleHighlightState(): void {
@@ -232,7 +218,7 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
     this.label = labelNodes
       .map((l) => l.wholeText)
       .filter((l) => l.trim())
-      .join();
+      .join('');
   }
 
   protected getHighlightedLabel(): TemplateResult {
@@ -260,7 +246,7 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
   }
 
   protected renderIcon(): TemplateResult {
-    return html` <span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`;
+    return html`<span class="sbb-option__icon"> ${this.renderIconSlot()} </span>`;
   }
 
   protected renderLabel(): TemplateResult | typeof nothing {
@@ -278,16 +264,32 @@ abstract class SbbOptionBaseElement extends SbbDisabledMixin(
           ${this.renderIcon()}
           <span class="sbb-option__label">
             <slot @slotchange=${this.handleHighlightState}></slot>
-            ${this.renderLabel()}
-            ${this._inertAriaGroups && this.getAttribute('data-group-label')
-              ? html` <sbb-screen-reader-only>
-                  (${this.getAttribute('data-group-label')})</sbb-screen-reader-only
-                >`
+            <span
+              aria-hidden=${
+                /**
+                 * Screen readers with Chromium read the option twice.
+                 * We therefore have to hide the option for the screen readers.
+                 * TODO: Recheck periodically if this is still necessary.
+                 * https://issues.chromium.org/issues/460165741
+                 */
+                isBlink ? 'true' : nothing
+              }
+            >
+              ${this.renderLabel()}
+            </span>
+            ${this._inertAriaGroups && this.groupLabel
+              ? html`<sbb-screen-reader-only> (${this.groupLabel})</sbb-screen-reader-only>`
               : nothing}
           </span>
           ${this.renderTick()}
         </div>
       </div>
     `;
+  }
+}
+
+declare global {
+  interface GlobalEventHandlersEventMap {
+    optionselected: Event;
   }
 }

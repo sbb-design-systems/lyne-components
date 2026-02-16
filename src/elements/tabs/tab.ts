@@ -1,1 +1,4 @@
-export * from './tab/tab.js';
+/**
+ * @entrypoint
+ */
+export * from './tab/tab.component.ts';

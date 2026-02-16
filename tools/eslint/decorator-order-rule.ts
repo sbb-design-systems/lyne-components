@@ -1,7 +1,9 @@
 import { ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 
 const accessorDecoratorOrder = [
+  'idReference',
   'forceType',
+  'plainDate',
   'handleDistinctChange',
   'property',
   'state',

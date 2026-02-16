@@ -5,12 +5,12 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './action-group.js';
-import '../button/button.js';
-import '../button/secondary-button.js';
-import '../link/block-link.js';
+import './action-group.component.ts';
+import '../button/button.ts';
+import '../button/secondary-button.ts';
+import '../link/block-link.ts';
 
 describe(`sbb-action-group`, () => {
   let root: HTMLElement;
@@ -29,7 +29,7 @@ describe(`sbb-action-group`, () => {
     alignGroup: ['start', 'center', 'end'],
   };
 
-  describeViewports({ viewports: ['small', 'wide'] }, () => {
+  describeViewports({ viewports: ['small', 'ultra'] }, () => {
     describe('horizontal', () => {
       for (const state of horizontalCases) {
         it(
@@ -142,10 +142,10 @@ describe(`sbb-action-group`, () => {
     });
 
     it(
-      `orientation=vertical-horizontal-from=medium`,
+      `orientation=vertical-horizontal-from=large`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-action-group orientation="vertical" horizontal-from="medium">
+          <sbb-action-group orientation="vertical" horizontal-from="large">
             <sbb-secondary-button>Button 1</sbb-secondary-button>
             <sbb-button>Button 2</sbb-button>
             <sbb-block-link

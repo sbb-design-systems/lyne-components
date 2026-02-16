@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 
-import { SbbCardBadgeElement } from './card-badge.js';
+import { SbbCardBadgeElement } from './card-badge.component.ts';
 
 describe(`sbb-card-badge`, () => {
   let element: SbbCardBadgeElement;

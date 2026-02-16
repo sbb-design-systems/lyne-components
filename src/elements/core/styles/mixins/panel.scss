@@ -11,11 +11,11 @@
   --sbb-panel-inner-height: #{functions.px-to-rem-build(167)};
   --sbb-panel-triangle-height: #{functions.px-to-rem-build(33)};
   --sbb-panel-height: calc(var(--sbb-panel-inner-height) + 2 * var(--sbb-panel-triangle-height));
-  --sbb-panel-line-height: var(--sbb-typo-line-height-titles);
+  --sbb-panel-line-height: var(--sbb-typo-line-height-heading);
   --sbb-panel-font-size: var(--sbb-typo-scale-1-5x);
-  --sbb-panel-color: var(--sbb-color-white);
-  --sbb-panel-background-color: var(--sbb-color-red-alpha-90);
-  --sbb-panel-background-color-hover: var(--sbb-color-red);
+  --sbb-panel-color: var(--sbb-color-1-negative);
+  --sbb-panel-background-color: color-mix(in srgb, var(--sbb-color-primary) 90%, transparent);
+  --sbb-panel-background-color-hover: var(--sbb-color-primary);
   --sbb-panel-padding-inline: var(--sbb-spacing-responsive-m);
   --sbb-panel-gap: var(--sbb-spacing-responsive-xs);
   --sbb-panel-animation-duration: var(
@@ -24,7 +24,7 @@
   );
   --sbb-panel-animation-easing: var(--sbb-animation-easing);
 
-  @include mediaqueries.mq($from: medium) {
+  @include mediaqueries.mq($from: large) {
     --sbb-panel-width: #{functions.px-to-rem-build(321)};
     --sbb-panel-inner-height: #{functions.px-to-rem-build(240.11)};
     --sbb-panel-triangle-height: #{functions.px-to-rem-build(47.45)};
@@ -71,6 +71,6 @@
   font-size: var(--sbb-panel-font-size);
   font-weight: 300;
   line-height: var(--sbb-panel-line-height);
-  letter-spacing: var(--sbb-typo-letter-spacing-titles);
+  letter-spacing: var(--sbb-typo-letter-spacing-heading);
   color: var(--sbb-panel-color);
 }

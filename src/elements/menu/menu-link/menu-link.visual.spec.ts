@@ -1,21 +1,20 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import type { visualRegressionFixture } from '../../core/testing/private.js';
+import type { visualRegressionFixture } from '../../core/testing/private.ts';
 import {
   describeEach,
   describeViewports,
   visualDiffDefault,
-  visualDiffFocus,
   visualDiffHover,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './menu-link.js';
+import './menu-link.component.ts';
 
 describe(`sbb-menu-link`, () => {
   const defaultArgs = {
-    amount: 123 as number | undefined,
-    iconName: 'tick-small',
+    badge: 123 as number | undefined,
+    iconName: 'tick-small' as string | undefined,
     label: 'Link',
     disabled: false,
     disabledInteractive: false,
@@ -23,19 +22,19 @@ describe(`sbb-menu-link`, () => {
   };
 
   const template = ({
-    amount,
+    badge,
     iconName,
     label,
     disabled,
     disabledInteractive,
     slottedIcon,
-  }: typeof defaultArgs): TemplateResult =>
-    html` ${repeat(
+  }: typeof defaultArgs): TemplateResult => html`
+    ${repeat(
       new Array(3),
       (_, index) => html`
         <sbb-menu-link
           href="#"
-          amount=${amount || nothing}
+          sbb-badge=${badge && !disabled && !disabledInteractive ? badge : nothing}
           icon-name=${iconName || nothing}
           ?disabled=${disabled}
           ?disabled-interactive=${disabledInteractive}
@@ -46,34 +45,54 @@ describe(`sbb-menu-link`, () => {
             : nothing}
         </sbb-menu-link>
       `,
-    )}`;
+    )}
+  `;
 
   const state = {
-    amount: [undefined, 123],
+    badge: [undefined, 123],
     slottedIcon: [false, true],
+    iconName: ['tick-small', undefined],
   };
 
   const wrapperStyles: Parameters<typeof visualRegressionFixture>[1] = {
-    backgroundColor: 'var(--sbb-color-black)',
+    backgroundColor: 'var(--sbb-background-color-1-inverted)',
     maxWidth: '256px',
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    for (const visualDiffState of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
-      it(
-        visualDiffState.name,
-        visualDiffState.with(async (setup) => {
-          await setup.withFixture(template(defaultArgs), wrapperStyles);
-        }),
-      );
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
+    for (const { darkMode, forcedColors } of [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ]) {
+      describe(`darkMode=${darkMode} forcedColors=${forcedColors}`, () => {
+        for (const visualDiffState of [visualDiffDefault, visualDiffHover]) {
+          it(
+            visualDiffState.name,
+            visualDiffState.with(async (setup) => {
+              await setup.withFixture(template(defaultArgs), {
+                ...wrapperStyles,
+                darkMode,
+                forcedColors,
+              });
+            }),
+          );
 
-      it(
-        `disabled ${visualDiffState.name}`,
-        visualDiffState.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, disabled: true }), wrapperStyles);
-        }),
-      );
+          it(
+            `disabled ${visualDiffState.name}`,
+            visualDiffState.with(async (setup) => {
+              await setup.withFixture(template({ ...defaultArgs, disabled: true }), {
+                ...wrapperStyles,
+                darkMode,
+                forcedColors,
+              });
+            }),
+          );
+        }
+      });
+    }
 
+    for (const visualDiffState of [visualDiffDefault, visualDiffHover]) {
       it(
         `disabledInteractive ${visualDiffState.name}`,
         visualDiffState.with(async (setup) => {
@@ -98,11 +117,14 @@ describe(`sbb-menu-link`, () => {
       );
     }
 
-    describeEach(state, ({ amount, slottedIcon }) => {
+    describeEach(state, ({ badge, slottedIcon, iconName }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, amount, slottedIcon }), wrapperStyles);
+          await setup.withFixture(
+            template({ ...defaultArgs, badge, slottedIcon, iconName }),
+            wrapperStyles,
+          );
         }),
       );
     });

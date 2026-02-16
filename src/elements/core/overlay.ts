@@ -1,4 +1,8 @@
-export * from './overlay/overlay.js';
-export * from './overlay/overlay-option-panel.js';
-export * from './overlay/overlay-trigger-attributes.js';
-export * from './overlay/position.js';
+/**
+ * @entrypoint
+ */
+export * from './overlay/overlay.ts';
+export * from './overlay/overlay-option-panel.ts';
+export * from './overlay/overlay-outside-pointer-event-listener.ts';
+export * from './overlay/overlay-trigger-attributes.ts';
+export * from './overlay/position.ts';

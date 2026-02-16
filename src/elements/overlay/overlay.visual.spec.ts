@@ -1,27 +1,25 @@
 import { html, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import type { VisualDiffSetupBuilder } from '../core/testing/private.js';
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import type { VisualDiffSetupBuilder } from '../core/testing/private.ts';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './overlay.js';
-import type { SbbOverlayElement } from './overlay.js';
+import './overlay.component.ts';
+import type { SbbOverlayElement } from './overlay.component.ts';
 
 describe(`sbb-overlay`, () => {
   const defaultArgs = {
     expanded: false,
-    backButton: false,
     negative: false,
     numberOfBlocks: 1,
   };
 
   const template = ({
     expanded,
-    backButton,
     negative,
     numberOfBlocks,
   }: typeof defaultArgs): TemplateResult => html`
-    <sbb-overlay ?negative=${negative} ?expanded=${expanded} ?back-button=${backButton}>
+    <sbb-overlay ?negative=${negative} ?expanded=${expanded}>
       ${repeat(
         new Array(numberOfBlocks),
         () => html`
@@ -53,14 +51,6 @@ describe(`sbb-overlay`, () => {
       );
 
       it(
-        `negative=${negative} backButton`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...defaultArgs, negative, backButton: true }));
-          openOverlay(setup);
-        }),
-      );
-
-      it(
         `negative=${negative} expanded`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template({ ...defaultArgs, negative, expanded: true }));
@@ -72,6 +62,20 @@ describe(`sbb-overlay`, () => {
         `negative=${negative} long content`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(template({ ...defaultArgs, negative, numberOfBlocks: 7 }));
+          openOverlay(setup);
+        }),
+      );
+    }
+  });
+
+  describeViewports({ viewports: ['large'], viewportHeight: 600 }, () => {
+    for (const negative of [false, true]) {
+      it(
+        `darkMode=true negative=${negative} long content`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template({ ...defaultArgs, negative, numberOfBlocks: 7 }), {
+            darkMode: true,
+          });
           openOverlay(setup);
         }),
       );

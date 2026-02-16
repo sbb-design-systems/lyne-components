@@ -1,12 +1,12 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbActionGroupElement } from './action-group.js';
+import { SbbActionGroupElement } from './action-group.component.ts';
 
-import '../button.js';
-import '../link.js';
+import '../button.ts';
+import '../link.ts';
 
 describe(`sbb-action-group ssr`, () => {
   let root: SbbActionGroupElement;
@@ -25,7 +25,7 @@ describe(`sbb-action-group ssr`, () => {
           </sbb-block-link>
         </sbb-action-group>
       `,
-      { modules: ['./action-group.js', '../button.js', '../link.js'] },
+      { modules: ['./action-group.component.js', '../button.js', '../link.js'] },
     );
   });
 

@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbCheckboxGroupElement } from './checkbox-group.js';
+import { SbbCheckboxGroupElement } from './checkbox-group.component.ts';
 
-import '../checkbox.js';
+import '../checkbox.ts';
 
 describe(`sbb-checkbox-group ssr`, () => {
   let root: SbbCheckboxGroupElement;
@@ -19,7 +19,7 @@ describe(`sbb-checkbox-group ssr`, () => {
           <sbb-checkbox id="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
         </sbb-checkbox-group>
       `,
-      { modules: ['./checkbox-group.js', '../checkbox.js'] },
+      { modules: ['./checkbox-group.component.js', '../checkbox.js'] },
     );
   });
 

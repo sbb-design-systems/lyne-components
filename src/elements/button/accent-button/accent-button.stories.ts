@@ -1,10 +1,10 @@
-import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
 
 import {
   buttonDefaultArgs,
   buttonDefaultArgTypes,
   requestSubmit,
-} from '../common/button-common-stories.js';
+} from '../common/button-common-stories.private.ts';
 import {
   commonDecorators,
   fixedWidth,
@@ -21,10 +21,10 @@ import {
   sizeS,
   withHiddenSlottedIcon,
   withSlottedIcon,
-} from '../common/common-stories.js';
+} from '../common/common-stories.private.ts';
 
 import readme from './readme.md?raw';
-import './accent-button.js';
+import './accent-button.component.ts';
 
 const defaultArgTypes: ArgTypes = { ...buttonDefaultArgTypes };
 
@@ -55,7 +55,9 @@ const meta: Meta = {
   decorators: commonDecorators,
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-iron)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     actions: {
       handles: ['click'],
     },

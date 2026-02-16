@@ -1,23 +1,22 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbFormErrorElement } from '../../form-error.js';
-import { SbbStepElement } from '../step.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import type { SbbErrorElement } from '../../form-field.ts';
+import { SbbStepElement, type SbbStepValidateEventDetails } from '../step.ts';
 
 import readme from './readme.md?raw';
+import { SbbStepperElement } from './stepper.component.ts';
 
-import './stepper.js';
-import '../step-label.js';
-import '../../link/block-link-button.js';
-import '../../button/button.js';
-import '../../button/secondary-button.js';
-import '../../form-field.js';
-import '../../form-error.js';
-import '../../card.js';
+import '../step-label.ts';
+import '../../link/block-link-button.ts';
+import '../../button/button.ts';
+import '../../button/secondary-button.ts';
+import '../../form-field.ts';
+import '../../card.ts';
 
 const loremIpsum = `
   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
@@ -44,7 +43,7 @@ const horizontalFrom: InputType = {
   control: {
     type: 'select',
   },
-  options: ['unset', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: ['unset', 'zero', 'small', 'large', 'ultra'],
 };
 
 const size: InputType = {
@@ -71,7 +70,7 @@ const defaultArgs: Args = {
 const codeStyle: Args = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
   borderRadius: 'var(--sbb-border-radius-4x)',
-  backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
+  backgroundColor: 'var(--sbb-background-color-4)',
 };
 
 const textBlock = (): TemplateResult => html`
@@ -81,17 +80,33 @@ const textBlock = (): TemplateResult => html`
   </sbb-card>
 `;
 
-const firstFormElement = (sbbFormError: SbbFormErrorElement): TemplateResult => html`
+const toggleElement = (): void => {
+  const element = document.querySelector('#expandable')! as HTMLDivElement;
+  if (element.style.display === 'block') {
+    element.style.display = 'none';
+  } else {
+    element.style.display = 'block';
+  }
+};
+
+const addElement = (event: PointerEvent): void => {
+  const div = document.createElement('div');
+  div.innerText = 'Content dynamically added.';
+  div.style.cssText = `display: block; height: 200px; background-color: mistyrose;`;
+  (event.target as HTMLButtonElement).parentElement!.querySelector('sbb-step')!.appendChild(div);
+};
+
+const firstFormElement = (error: SbbErrorElement): TemplateResult => html`
   <sbb-form-field error-space="reserve" size="m">
     <label>Name</label>
     <input
       @input=${(event: KeyboardEvent) => {
         const input = event.currentTarget as HTMLInputElement;
         if (input.value !== '') {
-          sbbFormError.remove();
+          error.remove();
           input.classList.remove('sbb-invalid');
         } else {
-          input.closest('sbb-form-field')!.append(sbbFormError);
+          input.closest('sbb-form-field')!.append(error);
           input.classList.add('sbb-invalid');
         }
       }}
@@ -154,10 +169,10 @@ const stepperContent = (disabled: boolean, longLabel: boolean): TemplateResult[]
 
 const WithSingleFormTemplate = (args: Args): TemplateResult => {
   document.querySelector('sbb-stepper')?.reset();
-  document.querySelector('sbb-form-error')?.remove();
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = 'This is a required field.';
+  document.querySelector('sbb-error')?.remove();
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = 'This is a required field.';
 
   return html`
     <form
@@ -172,21 +187,25 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
         // This is needed to focus and trigger again the error on the first field
         // when getting back to it after resetting the stepper.
         setTimeout(() =>
-          document.querySelector('input[name="name"]')?.dispatchEvent(new Event('input')),
+          document.querySelector('input[name="name"]')?.dispatchEvent(new InputEvent('input')),
         );
       }}
     >
       <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
         <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
         <sbb-step
-          @validate=${(e: CustomEvent) => {
-            if (e.detail.currentStep.querySelector('sbb-form-field').hasAttribute('data-invalid')) {
+          @validate=${(e: CustomEvent<SbbStepValidateEventDetails>) => {
+            if (
+              e.detail
+                .currentStep!.querySelector('sbb-form-field')!
+                .inputElement!.matches(':invalid')
+            ) {
               e.preventDefault();
             }
           }}
         >
           <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
-            ${firstFormElement(sbbFormError)}
+            ${firstFormElement(error)}
           </div>
           <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
         </sbb-step>
@@ -242,17 +261,19 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
 
 const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
   document.querySelector('sbb-stepper')?.reset();
-  document.querySelector('sbb-form-error')?.remove();
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
-  sbbFormError.setAttribute('slot', 'error');
-  sbbFormError.textContent = 'This is a required field.';
+  document.querySelector('sbb-error')?.remove();
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.setAttribute('slot', 'error');
+  error.textContent = 'This is a required field.';
 
   return html`
     <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
       <sbb-step-label icon-name="pen-small">Step 1</sbb-step-label>
       <sbb-step
-        @validate=${(e: CustomEvent) => {
-          if (e.detail.currentStep.querySelector('sbb-form-field').hasAttribute('data-invalid')) {
+        @validate=${(e: CustomEvent<SbbStepValidateEventDetails>) => {
+          if (
+            e.detail.currentStep!.querySelector('sbb-form-field')!.inputElement!.matches(':invalid')
+          ) {
             e.preventDefault();
           }
         }}
@@ -263,11 +284,13 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
               // This is needed to focus and trigger again the error on the first field
               // when getting back to it after resetting the stepper.
               setTimeout(() =>
-                document.querySelector('input[name="name"]')?.dispatchEvent(new Event('input')),
+                document
+                  .querySelector('input[name="name"]')
+                  ?.dispatchEvent(new InputEvent('input')),
               );
             }}
           >
-            ${firstFormElement(sbbFormError)}
+            ${firstFormElement(error)}
           </form>
         </div>
         <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
@@ -329,6 +352,27 @@ const LongLabelsTemplate = (args: Args): TemplateResult => html`
   ${textBlock()}
 `;
 
+const DynamicHeightTemplate = (args: Args): TemplateResult => html`
+  <sbb-stepper ${sbbSpread(args)} aria-label="Purpose of this flow" selected-index="0">
+    <sbb-step-label>Step</sbb-step-label>
+    <sbb-step>
+      <div
+        tabindex="0"
+        class="sbb-focus-outline"
+        style="margin-block-end: var(--sbb-spacing-fixed-4x)"
+      >
+        First step content: ${loremIpsum.substring(0, loremIpsumSubstring[0])}
+      </div>
+      <div id="expandable" style="display: none; background-color: aliceblue; height: 400px;">
+        Toggle this content.
+      </div>
+    </sbb-step>
+  </sbb-stepper>
+  <sbb-button @click=${() => toggleElement()}>Toggle content</sbb-button>
+  <sbb-button @click=${(event: PointerEvent) => addElement(event)}>Add content</sbb-button>
+  ${textBlock()}
+`;
+
 export const WithSingleForm: StoryObj = {
   render: WithSingleFormTemplate,
   argTypes: defaultArgTypes,
@@ -343,6 +387,12 @@ export const WithMultipleForms: StoryObj = {
 
 export const Default: StoryObj = {
   render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const DynamicHeight: StoryObj = {
+  render: DynamicHeightTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
@@ -397,7 +447,7 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbStepElement.events.validate],
+      handles: [SbbStepElement.events.validate, SbbStepperElement.events.stepchange],
     },
     docs: {
       extractComponentDescription: () => readme,

@@ -4,11 +4,9 @@ export const snapshots = {};
 snapshots["sbb-link-list should render named slots if data-ssr-child-count attribute is set"] = 
 `<div class="sbb-link-list-wrapper">
   <sbb-title
-    aria-level="2"
     class="sbb-link-list-title"
     id="sbb-link-list-title-id"
     level="2"
-    role="heading"
     visual-level="5"
   >
     <slot name="title">
@@ -41,7 +39,6 @@ snapshots["sbb-link-list should render named slots if data-ssr-child-count attri
 
 snapshots["sbb-link-list rendered with a slotted title DOM"] = 
 `<sbb-link-list
-  data-slot-names="li-0 li-1 li-2 li-3 li-4 title"
   orientation="vertical"
   size="s"
   title-level="2"
@@ -50,10 +47,6 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
     Help & Contact
   </span>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="#"
     icon-placement="start"
     size="s"
@@ -62,10 +55,6 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
     Link 1
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="#"
     icon-placement="start"
     size="s"
@@ -74,10 +63,6 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
     Link 2
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="#"
     icon-placement="start"
     size="s"
@@ -86,10 +71,6 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
     Link 3
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="#"
     icon-placement="start"
     size="s"
@@ -98,10 +79,6 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
     Link 4
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="#"
     icon-placement="start"
     size="s"
@@ -116,11 +93,9 @@ snapshots["sbb-link-list rendered with a slotted title DOM"] =
 snapshots["sbb-link-list rendered with a slotted title Shadow DOM"] = 
 `<div class="sbb-link-list-wrapper">
   <sbb-title
-    aria-level="2"
     class="sbb-link-list-title"
     id="sbb-link-list-title-id"
     level="2"
-    role="heading"
     visual-level="5"
   >
     <slot name="title">
@@ -161,17 +136,12 @@ snapshots["sbb-link-list rendered with a slotted title Shadow DOM"] =
 
 snapshots["sbb-link-list rendered with a title from properties DOM"] = 
 `<sbb-link-list
-  data-slot-names="li-0 li-1 li-2 li-3 li-4"
   orientation="vertical"
   size="s"
   title-content="Help &amp; Contact"
   title-level="2"
 >
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="#"
     icon-placement="start"
     size="s"
@@ -180,10 +150,6 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
     Link 1
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="#"
     icon-placement="start"
     size="s"
@@ -192,10 +158,6 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
     Link 2
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="#"
     icon-placement="start"
     size="s"
@@ -204,10 +166,6 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
     Link 3
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="#"
     icon-placement="start"
     size="s"
@@ -216,10 +174,6 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
     Link 4
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="#"
     icon-placement="start"
     size="s"
@@ -234,11 +188,9 @@ snapshots["sbb-link-list rendered with a title from properties DOM"] =
 snapshots["sbb-link-list rendered with a title from properties Shadow DOM"] = 
 `<div class="sbb-link-list-wrapper">
   <sbb-title
-    aria-level="2"
     class="sbb-link-list-title"
     id="sbb-link-list-title-id"
     level="2"
-    role="heading"
     visual-level="5"
   >
     <slot name="title">
@@ -280,15 +232,10 @@ snapshots["sbb-link-list rendered with a title from properties Shadow DOM"] =
 
 snapshots["sbb-link-list rendered without a title DOM"] = 
 `<sbb-link-list
-  data-slot-names="li-0 li-1 li-2 li-3 li-4"
   orientation="vertical"
   size="s"
 >
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="#"
     icon-placement="start"
     size="s"
@@ -297,10 +244,6 @@ snapshots["sbb-link-list rendered without a title DOM"] =
     Link 1
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="#"
     icon-placement="start"
     size="s"
@@ -309,10 +252,6 @@ snapshots["sbb-link-list rendered without a title DOM"] =
     Link 2
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="#"
     icon-placement="start"
     size="s"
@@ -321,10 +260,6 @@ snapshots["sbb-link-list rendered without a title DOM"] =
     Link 3
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="#"
     icon-placement="start"
     size="s"
@@ -333,10 +268,6 @@ snapshots["sbb-link-list rendered without a title DOM"] =
     Link 4
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="#"
     icon-placement="start"
     size="s"
@@ -351,11 +282,9 @@ snapshots["sbb-link-list rendered without a title DOM"] =
 snapshots["sbb-link-list rendered without a title Shadow DOM"] = 
 `<div class="sbb-link-list-wrapper">
   <sbb-title
-    aria-level="2"
     class="sbb-link-list-title"
     id="sbb-link-list-title-id"
     level="2"
-    role="heading"
     visual-level="5"
   >
     <slot name="title">
@@ -397,20 +326,10 @@ snapshots["sbb-link-list rendered without a title Shadow DOM"] =
 snapshots["sbb-link-list rendered with a slotted title A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "ignored": true,
+  "role": "none"
 }
 </p>
 `;
 /* end snapshot sbb-link-list rendered with a slotted title A11y tree Chrome */
-
-snapshots["sbb-link-list rendered with a slotted title A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-link-list rendered with a slotted title A11y tree Firefox */
 

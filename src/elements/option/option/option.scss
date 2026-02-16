@@ -1,76 +1,75 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  --sbb-option-color: var(--sbb-color-charcoal);
+  --sbb-option-color: var(--sbb-color-3);
   --sbb-option-background-color: inherit;
-  --sbb-option-background-color-hover: var(--sbb-color-milk);
-  --sbb-option-background-color-active: var(--sbb-color-cloud);
-  --sbb-option-disabled-border-color: var(--sbb-color-graphite);
-  --sbb-option-disabled-background-color: var(--sbb-color-milk);
+  --sbb-option-background-color-hover: var(--sbb-background-color-3);
+  --sbb-option-background-color-active: var(--sbb-background-color-4);
+  --sbb-option-disabled-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
+  --sbb-option-disabled-background-color: var(--sbb-background-color-3);
   --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
-  --sbb-option-padding-block: calc(var(--sbb-spacing-fixed-2x) + var(--sbb-border-width-2x));
+  --sbb-option-min-height: var(--sbb-size-element-s);
   --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
   --sbb-option-justify-content: start;
-  --sbb-option-cursor: pointer;
+  --sbb-option-cursor: var(--sbb-cursor-pointer);
   --sbb-option-border-radius: var(--sbb-border-radius-4x);
-  --sbb-option-icon-color: var(--sbb-color-metal);
+  --sbb-option-icon-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-option-focus-outline-color: transparent;
+  --sbb-option-focus-outline-inset: var(--sbb-spacing-fixed-1x);
 
   display: block;
 }
 
-:host([data-negative]) {
-  --sbb-option-color: var(--sbb-color-milk);
-  --sbb-option-icon-color: var(--sbb-color-smoke);
-  --sbb-option-background-color-hover: var(--sbb-color-charcoal);
-  --sbb-option-background-color-active: var(--sbb-color-iron);
-  --sbb-option-disabled-border-color: var(--sbb-color-smoke);
-  --sbb-option-disabled-background-color: var(--sbb-color-charcoal);
+:host(:state(negative)) {
+  --sbb-option-color: var(--sbb-color-3-negative);
+  --sbb-option-icon-color: var(--sbb-color-5);
+  --sbb-option-background-color-hover: var(--sbb-background-color-3-negative);
+  --sbb-option-background-color-active: var(--sbb-background-color-4-negative);
+  --sbb-option-disabled-border-color: var(--sbb-border-color-5);
+  --sbb-option-disabled-background-color: var(--sbb-background-color-3-negative);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
-:host([data-active]) {
-  --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
-}
-
-:host(:hover:not([disabled], [data-group-disabled])) {
+:host(:hover:not(:state(disabled))) {
   @include sbb.hover-mq($hover: true) {
     --sbb-option-background-color: var(--sbb-option-background-color-hover);
   }
 }
 
-:host(:active:not([disabled], [data-group-disabled])) {
+:host(:active:not(:state(disabled))) {
   --sbb-option-background-color: var(--sbb-option-background-color-active);
 }
 
 // If highlighting is enabled, hide the original slot content
-:host(:not([data-disable-highlight])) {
+:host(:not(:state(disable-highlight))) {
   .sbb-option__label slot {
     display: none;
   }
 }
 
-:host(:is([data-group-disabled], [disabled])) {
-  --sbb-option-cursor: default;
+:host(:state(disabled)) {
+  --sbb-option-cursor: var(--sbb-cursor-default);
 
   @include sbb.if-forced-colors {
     --sbb-option-color: GrayText;
   }
 }
 
-:host([data-variant='select']) {
+:host(:state(variant-select)) {
   --sbb-option-column-gap: var(--sbb-spacing-fixed-2x);
   --sbb-option-justify-content: space-between;
 }
 
-:host([data-variant='select'][data-multiple]) {
+:host(:state(variant-select):state(multiple)) {
   --sbb-option-justify-content: start;
 }
 
+:host(:state(active)) {
+  --sbb-option-focus-outline-color: var(--sbb-focus-outline-color);
+}
+
 .sbb-option__label--highlight {
-  :host(:not(:is([disabled], [data-group-disabled]))) & {
+  :host(:not(:is(:state(disabled)))) & {
     @include sbb.text--bold;
     @include sbb.if-forced-colors {
       color: Highlight;
@@ -85,26 +84,31 @@
 .sbb-option {
   @include sbb.text-s--regular;
 
+  position: relative;
   display: flex;
+  min-height: var(--sbb-option-min-height);
   align-items: center;
   column-gap: var(--sbb-option-column-gap);
   padding-inline: var(--sbb-option-padding-inline);
-  padding-block: var(--sbb-option-padding-block);
   justify-content: var(--sbb-option-justify-content);
   color: var(--sbb-option-color);
-  background-color: var(--sbb-option-background-color);
   cursor: var(--sbb-option-cursor);
   -webkit-tap-highlight-color: transparent;
   -webkit-text-fill-color: var(--sbb-option-color);
 
-  :host([data-active]) & {
-    @include sbb.focus-outline;
-
+  // We use the pseudo element to display the focus outline (inline in this case)
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: var(--sbb-option-focus-outline-inset);
+    pointer-events: none;
+    border: var(--sbb-focus-outline-width) solid var(--sbb-option-focus-outline-color);
     border-radius: var(--sbb-option-border-radius);
   }
 
   // Add inner border and background for disabled option when it's not multiple
-  :host(:is([data-group-disabled], [disabled]):not([data-multiple])) & {
+  :host(:state(disabled):not(:state(multiple))) & {
     position: relative;
     z-index: 0;
 
@@ -131,12 +135,14 @@
   min-height: var(--sbb-size-icon-ui-small);
   color: var(--sbb-option-icon-color);
 
-  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+  :host(:not(:state(slotted-icon), :state(has-icon-name))) & {
     // Can be overridden by the 'preserve-icon-space' on the autocomplete
     display: var(--sbb-option-icon-container-display, none);
   }
 }
 
 .sbb-option__label {
-  white-space: initial;
+  text-overflow: var(--sbb-option-text-overflow);
+  overflow: var(--sbb-option-overflow);
+  white-space: var(--sbb-option-white-space, initial);
 }

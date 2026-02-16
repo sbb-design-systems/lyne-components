@@ -1,4 +1,3 @@
-import type { InputType } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
@@ -6,16 +5,17 @@ import type {
   Args,
   Decorator,
   StoryContext,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
-import '../../form-field.js';
-import '../../autocomplete.js';
-import '../../select.js';
-import '../option.js';
-import './optgroup.js';
+import '../../form-field.ts';
+import '../../autocomplete.ts';
+import '../../select.ts';
+import '../option.ts';
+import './optgroup.component.ts';
 
 const label: InputType = {
   control: {
@@ -180,7 +180,9 @@ export const MultipleSelect: StoryObj = {
 const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     actions: {
       handles: ['click'],
     },

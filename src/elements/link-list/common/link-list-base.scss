@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 }
@@ -17,7 +14,7 @@
   // Overwrite sbb-title default margin
   margin: 0;
 
-  :host(:not([data-slot-names~='title'], [title-content])) & {
+  :host(:not(:state(slotted-title), [title-content])) & {
     display: none;
   }
 }

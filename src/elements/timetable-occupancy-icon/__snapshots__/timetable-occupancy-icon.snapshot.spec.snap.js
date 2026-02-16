@@ -2,12 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-timetable-occupancy-icon renders with high occupancy DOM"] = 
-`<sbb-timetable-occupancy-icon
-  aria-label="Very high occupancy expected"
-  data-namespace="default"
-  occupancy="high"
-  role="img"
->
+`<sbb-timetable-occupancy-icon occupancy="high">
 </sbb-timetable-occupancy-icon>
 `;
 /* end snapshot sbb-timetable-occupancy-icon renders with high occupancy DOM */
@@ -27,11 +22,8 @@ snapshots["sbb-timetable-occupancy-icon renders with high occupancy Shadow DOM"]
 
 snapshots["sbb-timetable-occupancy-icon renders with none occupancy in negative mode DOM"] = 
 `<sbb-timetable-occupancy-icon
-  aria-label="No occupancy forecast available"
-  data-namespace="default"
   negative=""
   occupancy="none"
-  role="img"
 >
 </sbb-timetable-occupancy-icon>
 `;

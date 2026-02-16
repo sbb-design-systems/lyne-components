@@ -1,115 +1,73 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  display: block;
-
-  --sbb-visual-checkbox-dimension: var(--sbb-size-icon-ui-small);
-  --sbb-visual-checkbox-background-color: var(--sbb-color-white);
-  --sbb-visual-checkbox-border-color: var(--sbb-color-smoke);
-  --sbb-visual-checkbox-border-style: solid;
-  --sbb-visual-checkbox-border-width: var(--sbb-border-width-1x);
-  --sbb-visual-checkbox-selection-color: var(--sbb-color-red);
-  --sbb-visual-checkbox-cursor: pointer;
-
-  @include sbb.if-forced-colors {
-    --sbb-visual-checkbox-selection-color: Canvas;
-    --sbb-visual-checkbox-border-width: 0;
-  }
-}
-
-:host([size='xs']) {
-  --sbb-visual-checkbox-dimension: #{sbb.px-to-rem-build(20)};
-}
-
-:host([negative]) {
-  --sbb-visual-checkbox-background-color: var(--sbb-color-midnight);
-  --sbb-visual-checkbox-border-color: var(--sbb-color-smoke);
-  --sbb-visual-checkbox-selection-color: var(--sbb-color-red);
-
-  @include sbb.if-forced-colors {
-    --sbb-visual-checkbox-selection-color: Canvas;
-  }
-}
-
-:host([disabled]) {
-  --sbb-visual-checkbox-background-color: var(--sbb-color-milk);
-  --sbb-visual-checkbox-border-color: var(--sbb-color-smoke);
-  --sbb-visual-checkbox-border-style: dashed;
-  --sbb-visual-checkbox-selection-color: var(--sbb-color-charcoal);
-  --sbb-visual-checkbox-cursor: default;
-
-  @include sbb.if-forced-colors {
-    --sbb-visual-checkbox-selection-color: Canvas;
-  }
-}
-
-:host([disabled][negative]) {
-  --sbb-visual-checkbox-background-color: var(--sbb-color-charcoal);
-  --sbb-visual-checkbox-border-color: var(--sbb-color-smoke);
-  --sbb-visual-checkbox-selection-color: var(--sbb-color-white);
-
-  @include sbb.if-forced-colors {
-    --sbb-visual-checkbox-selection-color: Canvas;
-  }
-}
-
-:host([indeterminate]) {
-  @include sbb.if-forced-colors {
-    --sbb-visual-checkbox-selection-color: ButtonBorder;
-  }
-}
-
-:host([indeterminate][disabled]) {
-  @include sbb.if-forced-colors {
-    --sbb-visual-checkbox-selection-color: GrayText;
-  }
-}
-
-.sbb-visual-checkbox {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   width: var(--sbb-visual-checkbox-dimension);
   height: var(--sbb-visual-checkbox-dimension);
   border-radius: var(--sbb-border-radius-2x);
-  border: var(--sbb-visual-checkbox-border-width) var(--sbb-visual-checkbox-border-style)
-    var(--sbb-visual-checkbox-border-color);
   background-color: var(--sbb-visual-checkbox-background-color);
   cursor: var(--sbb-visual-checkbox-cursor);
+  outline: var(--sbb-visual-checkbox-border-width) var(--sbb-visual-checkbox-border-style)
+    var(--sbb-visual-checkbox-border-color);
+  outline-offset: calc(-1 * var(--sbb-visual-checkbox-border-width));
+}
 
-  @include sbb.if-forced-colors {
-    outline: var(--sbb-border-width-2x) solid ButtonBorder;
-    outline-offset: calc(-1 * var(--sbb-border-width-2x));
+:host([size='xs']) {
+  --sbb-visual-checkbox-dimension: var(--sbb-checkbox-dimension-xs);
+}
 
-    :host([checked]:not([indeterminate])) & {
-      background-color: HighLight;
-      outline: none;
-    }
+:host([size='s']) {
+  --sbb-visual-checkbox-dimension: var(--sbb-checkbox-dimension-s);
+}
 
-    :host([disabled]) & {
-      outline-color: GrayText;
-    }
+:host([size='m']) {
+  --sbb-visual-checkbox-dimension: var(--sbb-checkbox-dimension-m);
+}
 
-    :host([checked][disabled]:not([indeterminate])) & {
-      background-color: GrayText;
-    }
+:host([negative]) {
+  --sbb-visual-checkbox-background-color: var(--sbb-visual-checkbox-background-color-negative);
+  --sbb-visual-checkbox-selection-color: var(--sbb-visual-checkbox-selection-color-negative);
+}
+
+:host([disabled]) {
+  --sbb-visual-checkbox-background-color: var(--sbb-visual-checkbox-background-color-disabled);
+  --sbb-visual-checkbox-border-style: var(--sbb-visual-checkbox-border-style-disabled);
+  --sbb-visual-checkbox-cursor: var(--sbb-cursor-default);
+  --sbb-visual-checkbox-border-color: var(--sbb-visual-checkbox-border-color-disabled);
+  --sbb-visual-checkbox-selection-color: var(--sbb-visual-checkbox-selection-color-disabled);
+}
+
+:host([disabled][negative]) {
+  --sbb-visual-checkbox-background-color: var(
+    --sbb-visual-checkbox-background-color-negative-disabled
+  );
+  --sbb-visual-checkbox-selection-color: var(
+    --sbb-visual-checkbox-selection-color-disabled-negative
+  );
+}
+
+@include sbb.if-forced-colors {
+  :host([indeterminate]) {
+    --sbb-visual-checkbox-selection-color: ButtonBorder;
+  }
+
+  :host([indeterminate][disabled]) {
+    --sbb-visual-checkbox-selection-color: GrayText;
+  }
+
+  :host([checked]:not([indeterminate])) {
+    --sbb-visual-checkbox-background-color: Highlight;
+    --sbb-visual-checkbox-border-width: 0;
+  }
+
+  :host([disabled][checked]:not([indeterminate])) {
+    --sbb-visual-checkbox-background-color: GrayText;
   }
 }
 
-.sbb-visual-checkbox__icon {
-  display: inline-flex;
-  width: var(--sbb-visual-checkbox-dimension);
-  height: var(--sbb-visual-checkbox-dimension);
-
-  svg {
-    margin: auto;
-  }
-
-  path {
-    stroke: var(--sbb-visual-checkbox-selection-color);
-  }
+path {
+  stroke: var(--sbb-visual-checkbox-selection-color);
 }

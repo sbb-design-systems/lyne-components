@@ -35,15 +35,39 @@ You can place overlapping content by using the `sbb-figure-overlap-${horizontal-
 </figure>
 ```
 
+Instead of a `sbb-chip-label`, it's also possible to slot images (e.g. logos).
+In that case, the `sbb-figure-overlap-image` CSS class needs to be set on the image.
+
+```html
+<figure class="sbb-figure">
+  <sbb-image ...></sbb-image>
+  <img class="sbb-figure-overlap-image sbb-figure-overlap-end-end" src="logo.png" alt="Logo" />
+</figure>
+```
+
+** Multiple `<sbb-chip-label>`s **
+
+In order to place multiple `<sbb-chip-label>`s, a wrapping div can be used:
+
+```html
+<figure class="sbb-figure">
+  <sbb-image ...></sbb-image>
+  <div class="sbb-figure-overlap-end-end">
+    <sbb-chip-label>AI generated</sbb-chip-label>
+    <sbb-chip-label>Paid content</sbb-chip-label>
+  </div>
+</figure>
+```
+
 ### Utility classes
 
 Use the `sbb-image-border-radius-${value}` utility classes to set the image border radius.
 
-| Border Radius | CSS class           |
-| ------------- | ------------------- |
-| `default`     | `sbb-image-default` |
-| `none`        | `sbb-image-none`    |
-| `round`       | `sbb-image-round`   |
+| Border radius | CSS class                         |
+| ------------- | --------------------------------- |
+| `default`     | `sbb-image-border-radius-default` |
+| `none`        | `sbb-image-border-radius-none`    |
+| `round`       | `sbb-image-border-radius-round`   |
 
 ```html
 <sbb-image class="sbb-image-border-radius-none"></sbb-image>
@@ -90,16 +114,16 @@ Use the `sbb-image-${ratio}` utility classes to set the image aspect ratio.
 | `imageSrc`           | `image-src`            | public  | `string`                      | `''`      | Right now the module is heavily coupled with the image delivery service imgix and depends on the original files being stored inside AEM. You can pass in any https://cdn.img.sbb.ch img src address you find on sbb.ch to play around with it. Just strip the url parameters and paste in the plain file address. If you want to know how to best work with this module with images coming from a different source, please contact the LYNE Core Team.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | `importance`         | `importance`           | public  | `'auto' \| 'high' \| 'low'`   | `'high'`  | The importance attribute is fairly new attribute which should help the browser decide which resources it should prioritise during page load. We will set the attribute value based on the value, we receive in the loading attribute. 'eager', which we use for the largest image within the initial viewport, will set the attribute value to 'high'. 'lazy', which we use for images below the fold, will set the attribute value to 'low'.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `loading`            | `loading`              | public  | `'eager' \| 'lazy'`           | `'eager'` | With the support of native image lazy loading, we can now decide whether we want to load the image immediately or only once it is close to the visible viewport. The value eager is best used for images within the initial viewport. We want to load these images as fast as possible to improve the Core Web Vitals values. lazy on the other hand works best for images which are further down the page or invisible during the loading of the initial viewport.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `performanceMark`    | `performance-mark`     | public  | `string`                      | `''`      | With performance.mark you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the performance.mark into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to monitor these values over a long period to see if our performance increases or decreases over time. Best to use lowercase strings here, separate words with underscores or dashes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `pictureSizesConfig` | `picture-sizes-config` | public  | `string`                      | `''`      | With the pictureSizesConfig object, you can pass in information into image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. Type is: stringified InterfaceImageAttributesSizesConfig-Object An example could look like this: { "breakpoints": \[ { "image": { "height": "675", "width": "1200" }, "mediaQueries": \[ { "conditionFeature": "min-width", "conditionFeatureValue": { "lyneDesignToken": true, "value": "sbb-breakpoint-large-min" }, "conditionOperator": false } ] }, { "image": { "height": "549", "width": "976" }, "mediaQueries": \[ { "conditionFeature": "min-width", "conditionFeatureValue": { "lyneDesignToken": true, "value": "sbb-breakpoint-small-min" }, "conditionOperator": false } ] }, { "image": { "height": "180", "width": "320" }, "mediaQueries": \[ { "conditionFeature": "max-width", "conditionFeatureValue": { "lyneDesignToken": true, "value": "sbb-breakpoint-micro-max" }, "conditionOperator": "and" }, { "conditionFeature": "orientation", "conditionFeatureValue": { "lyneDesignToken": false, "value": "landscape" }, "conditionOperator": false } ] } ] } |
+| `performanceMark`    | `performance-mark`     | public  | `string`                      | `''`      | With `performance.mark` you can log a timestamp associated with the name you define in performanceMark when a certain event is happening. In our case we will log the `performance.mark` into the PerformanceEntry API once the image is fully loaded. Performance monitoring tools like SpeedCurve or Lighthouse are then able to grab these entries from the PerformanceEntry API and give us additional information and insights about our page loading behaviour. We are then also able to monitor these values over a long period to see if our performance increases or decreases over time. Best to use lowercase strings here, separate words with underscores or dashes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `pictureSizesConfig` | `picture-sizes-config` | public  | `string`                      | `''`      | With the pictureSizesConfig object, you can pass in information into image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. Type is: stringified InterfaceImageAttributesSizesConfig-Object An example could look like this: { "breakpoints": \[ { "image": { "height": "675", "width": "1200" }, "mediaQueries": \[ { "conditionFeature": "min-width", "conditionFeatureValue": { "lyneDesignToken": true, "value": "sbb-breakpoint-large-min" }, "conditionOperator": false } ] }, { "image": { "height": "549", "width": "976" }, "mediaQueries": \[ { "conditionFeature": "min-width", "conditionFeatureValue": { "lyneDesignToken": true, "value": "sbb-breakpoint-small-min" }, "conditionOperator": false } ] }, { "image": { "height": "180", "width": "320" }, "mediaQueries": \[ { "conditionFeature": "max-width", "conditionFeatureValue": { "lyneDesignToken": true, "value": "sbb-breakpoint-small-max" }, "conditionOperator": "and" }, { "conditionFeature": "orientation", "conditionFeatureValue": { "lyneDesignToken": false, "value": "landscape" }, "conditionOperator": false } ] } ] } |
 | `skipLqip`           | `skip-lqip`            | public  | `boolean`                     | `false`   | If set to false, we show a blurred version of the image as placeholder before the actual image shows up. This will help to improve the perceived loading performance. Read more about the idea of lqip here: https://medium.com/@imgix/lqip-your-images-for-fast-loading-2523d9ee4a62                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 ## Events
 
-| Name    | Type    | Description                                     | Inherited From |
-| ------- | ------- | ----------------------------------------------- | -------------- |
-| `error` | `Event` | Emits when the image loading ended in an error. |                |
-| `load`  | `Event` | Emits when the image has been loaded.           |                |
+| Name    | Type    | Description                                                                                                 | Inherited From |
+| ------- | ------- | ----------------------------------------------------------------------------------------------------------- | -------------- |
+| `error` | `Event` | Emits when the image loading ended in an error.                                                             |                |
+| `load`  | `Event` | Emits each time an image loads. E.g. loading image for a different viewport, triggers the load event again. |                |
 
 ## CSS Properties
 

@@ -1,14 +1,15 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
-import type { SbbNavigationElement } from '../navigation.js';
+import type { VisualDiffSetupBuilder } from '../../core/testing/private.ts';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import type { SbbNavigationElement } from '../navigation.ts';
 
-import './navigation-section.js';
-import '../navigation.js';
-import '../navigation-marker.js';
-import '../navigation-list.js';
-import '../navigation-button.js';
-import '../navigation-link.js';
+import './navigation-section.component.ts';
+import '../navigation.ts';
+import '../navigation-marker.ts';
+import '../navigation-list.ts';
+import '../navigation-button.ts';
+import '../navigation-link.ts';
 
 describe(`sbb-navigation-section`, () => {
   const navigationActions = (): TemplateResult => html`
@@ -27,27 +28,46 @@ describe(`sbb-navigation-section`, () => {
     </sbb-navigation-list>
   `;
 
+  const template = html`
+    <sbb-navigation>
+      <sbb-navigation-marker id="nav-marker">${navigationActions()}</sbb-navigation-marker>
+      <sbb-navigation-section trigger="nav-2" title-content="Title two">
+        ${navigationList(true)} ${navigationList(true)} ${navigationList()} ${navigationList()}
+        ${navigationList()} ${navigationList()}
+      </sbb-navigation-section>
+    </sbb-navigation>
+  `;
+
+  function openNavigation(setup: VisualDiffSetupBuilder): void {
+    const navigation = setup.snapshotElement.querySelector<SbbNavigationElement>('sbb-navigation')!;
+    setup.withSnapshotElement(navigation);
+    setup.withPostSetupAction(() => navigation.open());
+  }
+
   describeViewports({ viewportHeight: 600 }, () => {
     it(
       visualDiffDefault.name,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html`
-            <sbb-navigation>
-              <sbb-navigation-marker id="nav-marker">${navigationActions()}</sbb-navigation-marker>
+        await setup.withFixture(template, { padding: '0' });
+        openNavigation(setup);
+      }),
+    );
+  });
 
-              <sbb-navigation-section trigger="nav-2" title-content="Title two">
-                ${navigationList(true)} ${navigationList(true)} ${navigationList()}
-                ${navigationList()} ${navigationList()} ${navigationList()}
-              </sbb-navigation-section>
-            </sbb-navigation>
-          `,
-          { padding: '0' },
-        );
-        const navigation =
-          setup.snapshotElement.querySelector<SbbNavigationElement>('sbb-navigation')!;
-        setup.withSnapshotElement(navigation);
-        setup.withPostSetupAction(() => navigation.open());
+  describeViewports({ viewports: ['large'], viewportHeight: 600 }, () => {
+    it(
+      'darkMode=true',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template, { padding: '0', darkMode: true });
+        openNavigation(setup);
+      }),
+    );
+
+    it(
+      'forcedColors=true',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template, { padding: '0', forcedColors: true });
+        openNavigation(setup);
       }),
     );
   });

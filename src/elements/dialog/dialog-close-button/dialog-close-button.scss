@@ -1,0 +1,18 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: block;
+  height: fit-content;
+  grid-area: close-button;
+  margin-inline: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+  inset-inline-end: var(--sbb-spacing-fixed-4x);
+
+  // We have to center the button vertically to the title text.
+  margin-block-start: calc(
+    var(--sbb-dialog-padding-block) + 0.5 *
+      (
+        var(--sbb-typo-line-height-heading) *
+          var(--_sbb-dialog-title-size, var(--sbb-heading-font-size-4)) - var(--sbb-size-element-xs)
+      )
+  );
+}

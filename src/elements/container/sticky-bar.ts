@@ -1,1 +1,4 @@
-export * from './sticky-bar/sticky-bar.js';
+/**
+ * @entrypoint
+ */
+export * from './sticky-bar/sticky-bar.component.ts';

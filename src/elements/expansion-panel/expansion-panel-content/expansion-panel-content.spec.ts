@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 
-import { SbbExpansionPanelContentElement } from './expansion-panel-content.js';
+import { SbbExpansionPanelContentElement } from './expansion-panel-content.component.ts';
 
 describe(`sbb-expansion-panel-content`, () => {
   let element: SbbExpansionPanelContentElement;

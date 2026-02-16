@@ -7,10 +7,6 @@ snapshots["sbb-tag-group renders DOM"] =
   size="m"
 >
   <sbb-tag
-    aria-pressed="false"
-    data-action=""
-    data-button=""
-    data-slot-names="unnamed"
     size="m"
     slot="li-0"
     tabindex="0"
@@ -19,10 +15,6 @@ snapshots["sbb-tag-group renders DOM"] =
     First tag
   </sbb-tag>
   <sbb-tag
-    aria-pressed="false"
-    data-action=""
-    data-button=""
-    data-slot-names="unnamed"
     size="m"
     slot="li-1"
     tabindex="0"
@@ -33,10 +25,6 @@ snapshots["sbb-tag-group renders DOM"] =
   <div slot="li-2">
   </div>
   <sbb-tag
-    aria-pressed="false"
-    data-action=""
-    data-button=""
-    data-slot-names="unnamed"
     size="m"
     slot="li-3"
     tabindex="0"
@@ -79,51 +67,16 @@ snapshots["sbb-tag-group renders Shadow DOM"] =
 snapshots["sbb-tag-group renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "First tag",
-      "pressed": false
-    },
-    {
-      "role": "button",
-      "name": "Second tag",
-      "pressed": false
-    },
-    {
-      "role": "button",
-      "name": "Third tag",
-      "pressed": false
+      "role": "group",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-tag-group renders A11y tree Chrome */
-
-snapshots["sbb-tag-group renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "toggle button",
-      "name": "First tag"
-    },
-    {
-      "role": "toggle button",
-      "name": "Second tag"
-    },
-    {
-      "role": "toggle button",
-      "name": "Third tag"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tag-group renders A11y tree Firefox */
 

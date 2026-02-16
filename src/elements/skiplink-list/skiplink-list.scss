@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-skiplink-list-height: 0;
   --sbb-skiplink-list-overflow: hidden;
@@ -19,12 +16,16 @@
   z-index: calc(var(--sbb-skiplink-list-z-index, var(--sbb-overlay-default-z-index)) + 1);
 }
 
+.sbb-skiplink-list-title {
+  @include sbb.screen-reader-only;
+}
+
 .sbb-skiplink-list {
   @include sbb.list-reset;
 
   & > :is(li, span) {
-    @include sbb.shadow-level-5-hard;
-
+    box-shadow: var(--sbb-box-shadow-level-5-hard);
+    display: list-item;
     height: var(--sbb-skiplink-list-height);
     overflow: var(--sbb-skiplink-list-overflow);
     border-radius: var(--sbb-border-radius-4x);
@@ -35,13 +36,23 @@
     &:focus-within {
       --sbb-skiplink-list-height: auto;
       --sbb-skiplink-list-overflow: visible;
-      --sbb-skiplink-list-background: var(--sbb-color-black);
-      --sbb-skiplink-list-border: var(--sbb-border-width-2x) solid var(--sbb-color-white);
+      --sbb-skiplink-list-background: var(--sbb-background-color-1-inverted);
+      --sbb-skiplink-list-border: var(--sbb-border-width-2x) solid
+        var(--sbb-border-color-1-inverted);
     }
   }
 }
 
-::slotted([data-sbb-link]) {
+::slotted(:state(sbb-link)) {
   --sbb-focus-outline-color: transparent;
   --sbb-link-padding: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xxs);
+}
+
+::slotted(*) {
+  // As the slotted links are displayed on a white background, we need to force light mode for them.
+  color-scheme: only light;
+}
+
+:host(:state(dark)) ::slotted(*) {
+  --sbb-link-color-normal: var(--sbb-color-midnight);
 }

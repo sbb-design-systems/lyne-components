@@ -1,1 +1,4 @@
-export * from './block-link/block-link.js';
+/**
+ * @entrypoint
+ */
+export * from './block-link/block-link.component.ts';

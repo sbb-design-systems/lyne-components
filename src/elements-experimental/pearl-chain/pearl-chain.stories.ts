@@ -1,9 +1,9 @@
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { nothing, type TemplateResult } from 'lit';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
+import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import {
   cancelledLeg,
@@ -13,9 +13,9 @@ import {
   longFutureLeg,
   redirectedOnDepartureLeg,
   redirectedOnArrivalLeg,
-} from './pearl-chain.sample-data.js';
+} from './pearl-chain.sample-data.private.ts';
 import readme from './readme.md?raw';
-import './pearl-chain.js';
+import './pearl-chain.component.ts';
 
 const disableAnimation: InputType = {
   control: {
@@ -43,7 +43,7 @@ const Template = ({ legs, now, ...args }: Args): TemplateResult => {
   return html`<sbb-pearl-chain
     .legs=${legs}
     ${sbbSpread(args)}
-    now=${now ? now / 1000 : nothing}
+    .now=${now ? new Date(now) : null}
   ></sbb-pearl-chain>`;
 };
 

@@ -1,2 +1,5 @@
-export * from './overlay/overlay.js';
-export * from './overlay/overlay-base-element.js';
+/**
+ * @entrypoint
+ */
+export * from './overlay/overlay.component.ts';
+export * from './overlay/overlay-base-element.ts';

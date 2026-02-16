@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { mergeConfig, readConfig, type SbbIconConfig } from '../core/config.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
-import { waitForLitRender } from '../core/testing.js';
+import { mergeConfig, readConfig, type SbbIconConfig } from '../core/config.ts';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
+import { waitForLitRender } from '../core/testing.ts';
 
-import type { SbbIconElement } from './icon.js';
+import type { SbbIconElement } from './icon.component.ts';
 
-import './icon.js';
+import './icon.component.ts';
 
 describe(`sbb-icon`, () => {
   let iconConfig: SbbIconConfig;
@@ -97,10 +97,9 @@ describe(`sbb-icon`, () => {
       html`<sbb-icon name="app-icon-medium" aria-hidden="false"></sbb-icon>`,
     );
 
-    expect(icon).dom.to.be.equal(`
-      <sbb-icon name="app-icon-medium" aria-hidden="false" aria-label="Icon app icon medium" role="img" data-namespace="default">
-      </sbb-icon>
-    `);
+    expect(icon).dom.to.be.equal(
+      `<sbb-icon name="app-icon-medium" aria-hidden="false"></sbb-icon>`,
+    );
     expect(icon).shadowDom.to.be.equal(`
       <span class="sbb-icon-inner"><svg-fake data-name="app-icon-medium" height="36" width="36" style="width:36px;height:36px"></svg-fake></span>
     `);
@@ -109,8 +108,7 @@ describe(`sbb-icon`, () => {
     await waitForLitRender(icon);
 
     expect(icon).dom.to.be.equal(`
-      <sbb-icon name="pie-medium" aria-hidden="false" aria-label="Icon pie medium" role="img" data-namespace="default">
-      </sbb-icon>
+      <sbb-icon name="pie-medium" aria-hidden="false"></sbb-icon>
     `);
     expect(icon).shadowDom.to.be.equal(`
       <span class="sbb-icon-inner"><svg-fake data-name="pie-medium" height="36" width="36" style="width:36px;height:36px"></svg-fake></span>
@@ -145,10 +143,7 @@ describe(`sbb-icon`, () => {
 
     const root = await fixture(html`<sbb-icon name="kom:heart-medium"></sbb-icon>`);
 
-    expect(root).dom.to.be.equal(`
-      <sbb-icon name="kom:heart-medium" aria-hidden="true" role="img" data-namespace="kom">
-      </sbb-icon>
-    `);
+    expect(root).dom.to.be.equal(`<sbb-icon name="kom:heart-medium"></sbb-icon>`);
     await expect(root).shadowDom.to.equalSnapshot();
 
     expect(interceptorCalled).to.be.true;

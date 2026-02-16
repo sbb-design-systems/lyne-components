@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.js';
+import { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.component.ts';
 
 describe(`sbb-datepicker-previous-day ssr`, () => {
   let root: SbbDatepickerPreviousDayElement;
@@ -12,7 +12,7 @@ describe(`sbb-datepicker-previous-day ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-datepicker-previous-day></sbb-datepicker-previous-day>`,
       {
-        modules: ['./datepicker-previous-day.js'],
+        modules: ['./datepicker-previous-day.component.js'],
       },
     );
   });

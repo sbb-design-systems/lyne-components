@@ -9,10 +9,16 @@ snapshots["sbb-alert-group renders DOM"] =
 >
   <sbb-alert
     animation="all"
-    data-state="opened"
     size="m"
-    title-content="Interruption between Genève and Lausanne"
   >
+    <sbb-title
+      level="3"
+      negative=""
+      slot="title"
+      visual-level="5"
+    >
+      Interruption between Genève and Lausanne
+    </sbb-title>
     The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
   </sbb-alert>
 </sbb-alert-group>
@@ -42,10 +48,16 @@ snapshots["sbb-alert-group renders with slotted DOM"] =
   </span>
   <sbb-alert
     animation="all"
-    data-state="opened"
     size="m"
-    title-content="Interruption between Genève and Lausanne"
   >
+    <sbb-title
+      level="3"
+      negative=""
+      slot="title"
+      visual-level="5"
+    >
+      Interruption between Genève and Lausanne
+    </sbb-title>
     The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
   </sbb-alert>
 </sbb-alert-group>
@@ -67,60 +79,19 @@ snapshots["sbb-alert-group renders with slotted Shadow DOM"] =
 snapshots["sbb-alert-group renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "heading",
-      "name": "Disruptions",
-      "level": 3
-    },
-    {
-      "role": "heading",
-      "name": "Interruption between Genève and Lausanne",
-      "level": 3
-    },
-    {
-      "role": "text",
-      "name": "The rail traffic between Allaman and Morges is interrupted. All trains are cancelled."
-    },
-    {
-      "role": "button",
-      "name": "Close message"
+      "role": "status",
+      "name": "",
+      "live": "polite",
+      "atomic": true,
+      "relevant": "additions text"
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-alert-group renders A11y tree Chrome */
-
-snapshots["sbb-alert-group renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Disruptions",
-      "level": 3
-    },
-    {
-      "role": "heading",
-      "name": "Interruption between Genève and Lausanne",
-      "level": 3
-    },
-    {
-      "role": "text leaf",
-      "name": "The rail traffic between Allaman and Morges is interrupted. All trains are cancelled. "
-    },
-    {
-      "role": "button",
-      "name": "Close message"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-alert-group renders A11y tree Firefox */
 

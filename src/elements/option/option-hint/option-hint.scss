@@ -1,0 +1,35 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: block;
+
+  --sbb-option-hint-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-option-hint-column-gap: var(--sbb-spacing-responsive-xxxs);
+  --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-2x);
+  --sbb-option-hint-padding-inline: var(--sbb-spacing-responsive-xxxs);
+}
+
+:host([negative]) {
+  --sbb-option-hint-color: var(--sbb-color-5);
+}
+
+.sbb-option-hint__wrapper {
+  display: flex;
+  column-gap: var(--sbb-option-hint-column-gap);
+  padding-inline: var(--sbb-option-hint-padding-inline);
+  padding-block-end: var(--sbb-option-hint-padding-block-end);
+}
+
+.sbb-optgroup__icon-space {
+  // Can be overridden by the 'preserve-icon-space' on the autocomplete
+  display: var(--sbb-option-icon-container-display, none);
+  min-width: var(--sbb-size-icon-ui-small);
+}
+
+.sbb-option-hint {
+  @include sbb.text-xxs--regular;
+
+  color: var(--sbb-option-hint-color);
+  -webkit-text-fill-color: var(--sbb-option-hint-color);
+  flex-grow: 1;
+}

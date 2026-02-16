@@ -5,10 +5,10 @@ import {
   describeViewports,
   visualRegressionFixture,
   visualDiffDefault,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './form-field-clear.js';
-import '../form-field.js';
+import './form-field-clear.component.ts';
+import '../form-field.ts';
 
 describe(`sbb-form-field-clear`, () => {
   let root: HTMLElement;
@@ -20,10 +20,15 @@ describe(`sbb-form-field-clear`, () => {
       { disabled: true, readonly: false },
       { disabled: false, readonly: true },
     ],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
-  describeViewports({ viewports: ['medium'] }, () => {
-    describeEach(cases, ({ negative, state }) => {
+  describeViewports({ viewports: ['large'] }, () => {
+    describeEach(cases, ({ negative, state, emulateMedia: { forcedColors, darkMode } }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
@@ -39,7 +44,11 @@ describe(`sbb-form-field-clear`, () => {
               <sbb-form-field-clear></sbb-form-field-clear>
             </sbb-form-field>
           `,
-          { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
+          {
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+            forcedColors,
+            darkMode,
+          },
         );
       });
 

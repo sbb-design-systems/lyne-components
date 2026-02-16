@@ -2,9 +2,12 @@ import { expect } from '@open-wc/testing';
 import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit/static-html.js';
 
-import type { LineColor, SbbPearlChainVerticalItemElement } from './pearl-chain-vertical-item.js';
+import type {
+  LineColor,
+  SbbPearlChainVerticalItemElement,
+} from './pearl-chain-vertical-item.component.ts';
 
-import './pearl-chain-vertical-item.js';
+import './pearl-chain-vertical-item.component.ts';
 
 describe(`sbb-pearl-chain-vertical-item`, () => {
   describe('renders component with charcoal standard line and bullet', () => {

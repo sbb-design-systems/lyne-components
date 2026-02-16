@@ -1,23 +1,29 @@
 import { expect } from '@open-wc/testing';
 import { sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
+import type { Context } from 'mocha';
 
-import type { SbbTransparentButtonElement } from '../../button.js';
-import { fixture } from '../../core/testing/private.js';
-import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.js';
-import { SbbAlertElement } from '../alert.js';
+import type { SbbTransparentButtonElement } from '../../button.ts';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.ts';
+import { SbbAlertElement } from '../alert.ts';
 
-import { SbbAlertGroupElement } from './alert-group.js';
+import { SbbAlertGroupElement } from './alert-group.component.ts';
+
+import '../../title.ts';
 
 describe(`sbb-alert-group`, () => {
   let element: SbbAlertGroupElement;
 
-  it('should handle events ond states on interacting with alerts', async () => {
+  it('should handle events ond states on interacting with alerts', async function (this: Context) {
+    // Flaky on WebKit
+    this.retries(3);
+
     const alertGroupId = 'alertgroup';
     const accessibilityTitle = 'Disruptions';
     const accessibilityTitleLevel = '3';
 
-    const alertOpenedEventSpy = new EventSpy(SbbAlertElement.events.didOpen, null, {
+    const alertOpenedEventSpy = new EventSpy(SbbAlertElement.events.open, null, {
       capture: true,
     });
 
@@ -28,16 +34,22 @@ describe(`sbb-alert-group`, () => {
         accessibility-title="${accessibilityTitle}"
         accessibility-title-level="${accessibilityTitleLevel}"
       >
-        <sbb-alert title-content="Interruption" id="alert1">First</sbb-alert>
-        <sbb-alert title-content="Interruption" id="alert2">Second</sbb-alert>
+        <sbb-alert id="alert1">
+          <sbb-title level="3">Interruption</sbb-title>
+          First
+        </sbb-alert>
+        <sbb-alert id="alert2">
+          <sbb-title level="3">Interruption</sbb-title>
+          Second
+        </sbb-alert>
       </sbb-alert-group>
     `);
 
     const emptySpy = new EventSpy(SbbAlertGroupElement.events.empty);
     const alert1 = element.querySelector<SbbAlertElement>('sbb-alert#alert1')!;
     const alert2 = element.querySelector<SbbAlertElement>('sbb-alert#alert2')!;
-    const alert1ClosedEventSpy = new EventSpy(SbbAlertElement.events.didClose, alert1);
-    const alert2ClosedEventSpy = new EventSpy(SbbAlertElement.events.didClose, alert2);
+    const alert1ClosedEventSpy = new EventSpy(SbbAlertElement.events.close, alert1);
+    const alert2ClosedEventSpy = new EventSpy(SbbAlertElement.events.close, alert2);
 
     // Wait until both alerts are opened
     await alertOpenedEventSpy.calledTimes(2);

@@ -1,14 +1,14 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbMenuElement } from './menu.js';
+import { SbbMenuElement } from './menu.component.ts';
 
-import '../../button.js';
-import '../../divider.js';
-import '../../link.js';
-import '../menu-button.js';
+import '../../button.ts';
+import '../../divider.ts';
+import '../../link.ts';
+import '../menu-button.ts';
 
 describe(`sbb-menu ssr`, () => {
   let root: HTMLDivElement;
@@ -21,10 +21,10 @@ describe(`sbb-menu ssr`, () => {
           <sbb-menu id="menu" trigger="menu-trigger">
             <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
             <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
-            <sbb-menu-button id="menu-action-2" icon-name="pen-small" amount="1" disabled
+            <sbb-menu-button id="menu-action-2" icon-name="pen-small" sbb-badge="1" disabled
               >Edit</sbb-menu-button
             >
-            <sbb-menu-button id="menu-action-3" icon-name="swisspass-small" amount="2"
+            <sbb-menu-button id="menu-action-3" icon-name="swisspass-small" sbb-badge="2"
               >Details</sbb-menu-button
             >
             <sbb-divider id="menu-divider"></sbb-divider>
@@ -38,7 +38,7 @@ describe(`sbb-menu ssr`, () => {
           '../../divider.js',
           '../../link.js',
           '../menu-button.js',
-          './menu.js',
+          './menu.component.js',
         ],
       },
     );

@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
@@ -18,14 +15,17 @@
   position: absolute;
   inset: 0;
   border-radius: var(--sbb-card-border-radius);
-  cursor: pointer;
+  cursor: var(--sbb-cursor-pointer);
   outline: none;
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
   // Handle focus on the host (button variant)
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &,
+  :host(:focus-visible) &,
   // Handle focus on the action (link variant)
-  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+  &:focus-visible {
     @include sbb.focus-outline;
   }
+}
+
+.sbb-screen-reader-only {
+  @include sbb.screen-reader-only;
 }

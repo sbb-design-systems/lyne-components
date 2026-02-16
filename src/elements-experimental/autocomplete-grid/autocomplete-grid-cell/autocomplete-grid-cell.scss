@@ -1,0 +1,10 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+
+:host {
+  display: block;
+}
+
+.sbb-autocomplete-grid-cell {
+  display: flex;
+  column-gap: var(--sbb-spacing-fixed-6x);
+}

@@ -1,16 +1,15 @@
 import { expect } from '@open-wc/testing';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonElement } from '../../button.js';
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbFileSelectorDropzoneElement } from '../file-selector-dropzone.js';
-import type { SbbFileSelectorElement } from '../file-selector.js';
+import type { SbbSecondaryButtonElement } from '../../button.ts';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbFileSelectorDropzoneElement } from '../file-selector-dropzone.ts';
+import { SbbFileSelectorElement } from '../file-selector.ts';
 
-import '../file-selector-dropzone.js';
-import '../file-selector.js';
+import '../file-selector-dropzone.ts';
 
-import '../../button/secondary-button.js';
+import '../../button/secondary-button.ts';
 
 function createDataTransfer(
   numberOfFiles: number,
@@ -46,7 +45,7 @@ function addFiles(
   }
 
   // Manually dispatch events to simulate a user interaction
-  nativeInput.dispatchEvent(new Event('input', { composed: true, bubbles: true }));
+  nativeInput.dispatchEvent(new InputEvent('input', { composed: true, bubbles: true }));
   nativeInput.dispatchEvent(new Event('change'));
 }
 
@@ -145,7 +144,7 @@ describe(`sbb-file-selector-common`, () => {
       });
 
       it('loads a file, then deletes it', async () => {
-        const fileChangedSpy = new EventSpy('fileChanged');
+        const fileChangedSpy = new EventSpy(SbbFileSelectorElement.events.filechanged);
         addFiles(element, 1);
         addFiles(input, 1);
         await waitForLitRender(form);
@@ -166,9 +165,6 @@ describe(`sbb-file-selector-common`, () => {
               </span>
               <sbb-secondary-button aria-label="Remove file - hello0.txt"
                                     icon-name="trash-small"
-                                    data-action
-                                    data-button
-                                    data-sbb-button
                                     size="m"
                                     tabindex="0">
               </sbb-secondary-button>
@@ -177,9 +173,7 @@ describe(`sbb-file-selector-common`, () => {
         `);
 
         const button: SbbSecondaryButtonElement =
-          element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
-            'sbb-secondary-button[icon-name="trash-small"]',
-          )!;
+          element.shadowRoot!.querySelector<SbbSecondaryButtonElement>('sbb-secondary-button')!;
         expect(button).not.to.be.null;
         button.click();
         addFiles(input, 0);
@@ -192,7 +186,7 @@ describe(`sbb-file-selector-common`, () => {
       });
 
       it('loads a file, then reset the form', async () => {
-        const fileChangedSpy = new EventSpy('fileChanged');
+        const fileChangedSpy = new EventSpy(SbbFileSelectorElement.events.filechanged);
         addFiles(element, 1);
         addFiles(input, 1);
         await waitForLitRender(form);
@@ -208,17 +202,17 @@ describe(`sbb-file-selector-common`, () => {
 
       it('restore formState', async () => {
         const dt = createDataTransfer(2);
-        const formRestoreState: [string, FormDataEntryValue][] = Array.from(dt.files).map((e) => [
-          'fs',
-          e,
-        ]);
-        element.formStateRestoreCallback(formRestoreState, 'restore');
+
+        const formData = new FormData();
+        Array.from(dt.files).forEach((f) => formData.append('fs', f));
+
+        element.formStateRestoreCallback(formData, 'restore');
         await waitForLitRender(form);
         expect(element.files.length).to.be.equal(2);
       });
 
       it('loads more than one file in multiple mode', async () => {
-        const fileChangedSpy = new EventSpy('fileChanged');
+        const fileChangedSpy = new EventSpy(SbbFileSelectorElement.events.filechanged);
         element.multiple = true;
         input.multiple = true;
         await waitForLitRender(form);
@@ -244,7 +238,7 @@ describe(`sbb-file-selector-common`, () => {
       });
 
       it('loads files in multiple persistent mode', async () => {
-        const fileChangedSpy = new EventSpy('fileChanged');
+        const fileChangedSpy = new EventSpy(SbbFileSelectorElement.events.filechanged);
         element.multiple = true;
         element.multipleMode = 'persistent';
         await waitForLitRender(form);
@@ -320,6 +314,128 @@ describe(`sbb-file-selector-common`, () => {
         await waitForLitRender(form);
 
         expect(element).not.to.match(':disabled');
+      });
+
+      it('should allow single file drop when multiple=false', async () => {
+        const dragElement = element.shadowRoot!.querySelector(
+          '.sbb-file-selector__input-container',
+        );
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(new File(['foo'], 'programmatically_created.txt'));
+
+        dragElement?.dispatchEvent(
+          new DragEvent('drop', {
+            dataTransfer,
+          }),
+        );
+        await waitForLitRender(element);
+
+        expect(element.files.length).to.be.equal(1);
+      });
+
+      it('should block multiple files drop when multiple=false', async () => {
+        const dragElement = element.shadowRoot!.querySelector(
+          '.sbb-file-selector__input-container',
+        );
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(new File(['foo'], 'programmatically_created.txt'));
+        dataTransfer.items.add(new File(['foo2'], 'programmatically_created2.txt'));
+
+        dragElement?.dispatchEvent(
+          new DragEvent('drop', {
+            dataTransfer,
+          }),
+        );
+
+        await waitForLitRender(element);
+
+        expect(element.files.length).to.be.equal(0);
+      });
+
+      it('should allow correct file type drop', async () => {
+        const dragElement = element.shadowRoot!.querySelector(
+          '.sbb-file-selector__input-container',
+        );
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(new File(['foo'], 'programmatically_created.png'));
+
+        element.accept = '.pdf, .png';
+        await waitForLitRender(element);
+
+        dragElement?.dispatchEvent(
+          new DragEvent('drop', {
+            dataTransfer,
+          }),
+        );
+        await waitForLitRender(element);
+
+        expect(element.files.length).to.be.equal(1);
+      });
+
+      it('should block wrong file types drop', async () => {
+        const dragElement = element.shadowRoot!.querySelector(
+          '.sbb-file-selector__input-container',
+        );
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(new File(['foo'], 'programmatically_created.txt'));
+
+        element.accept = '.pdf, .png';
+        await waitForLitRender(element);
+
+        dragElement?.dispatchEvent(
+          new DragEvent('drop', {
+            dataTransfer,
+          }),
+        );
+
+        await waitForLitRender(element);
+
+        expect(element.files.length).to.be.equal(0);
+      });
+
+      it('should allow correct file type drop when multiple=true', async () => {
+        const dragElement = element.shadowRoot!.querySelector(
+          '.sbb-file-selector__input-container',
+        );
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(new File(['foo'], 'programmatically_created.png'));
+        dataTransfer.items.add(new File(['foo'], 'programmatically_created.pdf'));
+
+        element.multiple = true;
+        element.accept = '.pdf, .png';
+        await waitForLitRender(element);
+
+        dragElement?.dispatchEvent(
+          new DragEvent('drop', {
+            dataTransfer,
+          }),
+        );
+        await waitForLitRender(element);
+
+        expect(element.files.length).to.be.equal(2);
+      });
+
+      it('should block wrong file types drop when multiple = true', async () => {
+        const dragElement = element.shadowRoot!.querySelector(
+          '.sbb-file-selector__input-container',
+        );
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(new File(['foo'], 'programmatically_created.txt'));
+        dataTransfer.items.add(new File(['foo'], 'programmatically_created.pdf'));
+
+        element.accept = '.pdf, .png';
+        element.multiple = true;
+        await waitForLitRender(element);
+
+        dragElement?.dispatchEvent(
+          new DragEvent('drop', {
+            dataTransfer,
+          }),
+        );
+
+        await waitForLitRender(element);
+
+        expect(element.files.length).to.be.equal(0);
       });
     });
   });

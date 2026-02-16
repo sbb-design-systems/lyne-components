@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import './form-field.js';
-import '../../form-error.js';
-import type { SbbFormFieldElement } from './form-field.js';
+import './form-field.component.ts';
+import '../error.ts';
+import type { SbbFormFieldElement } from './form-field.component.ts';
 
 describe(`sbb-form-field`, () => {
   describe('renders input', () => {
@@ -58,7 +58,7 @@ describe(`sbb-form-field`, () => {
         <sbb-form-field>
           <label>Fill input</label>
           <input class="input" readonly placeholder="This is an input" />
-          <sbb-form-error id="error"> You can't change this value. </sbb-form-error>
+          <sbb-error id="error"> You can't change this value. </sbb-error>
         </sbb-form-field>
       `);
     });

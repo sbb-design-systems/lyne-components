@@ -4,8 +4,6 @@ export const snapshots = {};
 snapshots["sbb-header-link renders DOM"] = 
 `<sbb-header-link
   accessibility-label="a11y label"
-  data-action=""
-  data-link=""
   expand-from="small"
   href="https://github.com/sbb-design-systems/lyne-components"
   icon-name="pie-small"
@@ -27,12 +25,7 @@ snapshots["sbb-header-link renders Shadow DOM"] =
   <span class="sbb-header-action__wrapper">
     <span class="sbb-header-action__icon">
       <slot name="icon">
-        <sbb-icon
-          aria-hidden="true"
-          data-namespace="default"
-          name="pie-small"
-          role="img"
-        >
+        <sbb-icon name="pie-small">
         </sbb-icon>
       </slot>
     </span>
@@ -51,33 +44,16 @@ snapshots["sbb-header-link renders Shadow DOM"] =
 snapshots["sbb-header-link renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "a11y label"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-header-link renders A11y tree Chrome */
-
-snapshots["sbb-header-link renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "a11y label",
-      "value": "https://github.com/sbb-design-systems/lyne-components"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-header-link renders A11y tree Firefox */
 

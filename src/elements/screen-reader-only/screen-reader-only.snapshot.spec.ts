@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbScreenReaderOnlyElement } from './screen-reader-only.js';
+import type { SbbScreenReaderOnlyElement } from './screen-reader-only.component.ts';
 
-import './screen-reader-only.js';
+import './screen-reader-only.component.ts';
 
 describe(`sbb-screen-reader-only`, () => {
   describe('renders', async () => {

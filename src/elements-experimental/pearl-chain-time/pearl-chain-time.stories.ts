@@ -1,13 +1,13 @@
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { nothing, type TemplateResult } from 'lit';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
+import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.private.ts';
 
 import readme from './readme.md?raw';
-import './pearl-chain-time.js';
+import './pearl-chain-time.component.ts';
 
 const departureWalk: InputType = {
   control: {
@@ -65,7 +65,7 @@ const defaultArgs: Args = {
 const Template = ({ legs, now, ...args }: Args): TemplateResult =>
   html`<sbb-pearl-chain-time
     .legs=${legs}
-    now=${now ? now / 1000 : nothing}
+    .now=${now ? new Date(now) : null}
     ${sbbSpread(args)}
   ></sbb-pearl-chain-time>`;
 

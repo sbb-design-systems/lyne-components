@@ -1,78 +1,41 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
-$has-title: ':is([data-slot-names~=title], [title-content])';
-
 :host {
+  --sbb-status-color: var(--sbb-color-4);
   --sbb-status-gap: var(--sbb-spacing-fixed-1x);
-  --sbb-status-icon-color: var(--sbb-color-iron);
-  --sbb-status-text-color: var(--sbb-color-iron);
-  --_sbb-status-icon-font-size: var(--sbb-font-size-text-s);
+  --sbb-status-text-color: var(--sbb-status-color);
+  --_sbb-status-icon-color: var(--sbb-status-color);
 
   display: block;
 }
 
 :host([type='error']) {
-  --sbb-status-text-color: var(--sbb-color-red125);
-}
-
-:host(:is([type='error'], [type='error']#{$has-title})) {
-  --sbb-status-icon-color: var(--sbb-color-red125);
+  --sbb-status-color: var(--sbb-color-error);
 }
 
 :host([type='success']) {
-  --sbb-status-text-color: var(--sbb-color-green);
-}
-
-:host(:is([type='success'], [type='success']#{$has-title})) {
-  --sbb-status-icon-color: var(--sbb-color-green);
+  --sbb-status-color: var(--sbb-color-success);
 }
 
 :host([type='warning']) {
-  --sbb-status-icon-color: var(--sbb-color-charcoal);
-  --sbb-status-text-color: var(--sbb-color-charcoal);
+  --sbb-status-color: var(--sbb-color-2);
 }
 
 :host([type='pending']) {
-  --sbb-status-text-color: var(--sbb-color-sky);
-}
-
-:host(:is([type='pending'], [type='pending']#{$has-title})) {
-  --sbb-status-icon-color: var(--sbb-color-sky);
+  --sbb-status-color: var(--sbb-color-sky);
 }
 
 :host([type='incomplete']) {
-  --sbb-status-text-color: var(--sbb-color-red125);
-}
-
-:host(:is([type='incomplete'], [type='incomplete']#{$has-title})) {
-  --sbb-status-icon-color: var(--sbb-color-red125);
+  --sbb-status-color: var(--sbb-color-error);
 }
 
 :host([type='not-started']) {
-  --sbb-status-icon-color: var(--sbb-color-smoke);
-  --sbb-status-text-color: var(--sbb-color-charcoal);
-}
-
-:host(:is([type='not-started'], [type='in-progress']#{$has-title})) {
-  --sbb-status-icon-color: var(--sbb-color-smoke);
+  --sbb-status-color: var(--sbb-color-5);
+  --sbb-status-text-color: var(--sbb-color-2);
 }
 
 :host([type='in-progress']) {
-  --sbb-status-text-color: var(--sbb-color-pink);
-}
-
-:host(:is([type='in-progress'], [type='in-progress']#{$has-title})) {
-  --sbb-status-icon-color: var(--sbb-color-pink);
-}
-
-:host(#{$has-title}) {
-  --sbb-status-text-color: var(--sbb-color-granite);
-  --sbb-status-icon-color: var(--sbb-color-charcoal);
-  --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
-  --_sbb-status-icon-font-size: var(--sbb-font-size-title-5);
+  --sbb-status-color: var(--sbb-color-pink);
 }
 
 .sbb-status {
@@ -80,29 +43,22 @@ $has-title: ':is([data-slot-names~=title], [title-content])';
 
   display: flex;
   gap: var(--sbb-status-gap);
-  color: var(--sbb-status-text-color);
+  color: var(--_sbb-status-text-color-override, var(--sbb-status-text-color));
 }
 
 .sbb-status__icon {
   display: flex;
   flex-shrink: 0;
-  color: var(--sbb-status-icon-color);
+  color: var(--_sbb-status-icon-color);
   margin-block-start: calc(
     (
-        (var(--_sbb-status-icon-font-size) * var(--sbb-typo-line-height-body-text)) - var(
-            --sbb-size-icon-ui-small
-          )
+        (
+            var(--_sbb-status-title-font-size, var(--sbb-text-font-size-s)) *
+              var(--_sbb-status-title-line-height, var(--sbb-typo-line-height-text))
+          ) - var(--sbb-size-icon-ui-small)
       ) /
       2
   );
-}
-
-.sbb-status__title {
-  margin-block: 0;
-
-  :host(:not(#{$has-title})) & {
-    display: none;
-  }
 }
 
 .sbb-status__content-slot {
@@ -110,4 +66,8 @@ $has-title: ':is([data-slot-names~=title], [title-content])';
   display: inline;
   margin: 0;
   padding: 0;
+}
+
+::slotted(sbb-title) {
+  margin-block: 0;
 }

@@ -4,11 +4,11 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../../card.js';
-import '../../icon.js';
-import './checkbox-panel.js';
+import '../../card.ts';
+import '../../icon.ts';
+import './checkbox-panel.component.ts';
 
 describe('sbb-checkbox-panel', () => {
   const defaultArgs = {
@@ -26,7 +26,7 @@ describe('sbb-checkbox-panel', () => {
     borderless,
     size,
   }: typeof defaultArgs): TemplateResult =>
-    html` <sbb-checkbox-panel
+    html`<sbb-checkbox-panel
       ?checked=${state === 'checked'}
       ?indeterminate=${state === 'indeterminate'}
       ?disabled=${disabled}
@@ -40,53 +40,80 @@ describe('sbb-checkbox-panel', () => {
         <sbb-icon
           name="diamond-small"
           style="margin-inline: var(--sbb-spacing-fixed-2x);"
-          data-namespace="default"
           role="img"
           aria-hidden="true"
         ></sbb-icon>
-        <span class="${size ? `sbb-text-${size}` : 'sbb-text-m'} sbb-text--bold"> CHF 40.00 </span>
+        <span class="${size ? `sbb-text-${size}` : 'sbb-text-m'} sbb-text--bold">CHF 40.00</span>
       </span>
       <sbb-card-badge>%</sbb-card-badge>
     </sbb-checkbox-panel>`;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const state of ['checked', 'unchecked', 'indeterminate']) {
-      const args = { ...defaultArgs, state };
-      for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
+      describe(`state=${state}`, () => {
+        const args = { ...defaultArgs, state };
+
+        for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
+          it(
+            `${visualDiffState.name}`,
+            visualDiffState.with(async (setup) => {
+              await setup.withFixture(template(args));
+            }),
+          );
+        }
+
         it(
-          `state=${state} ${visualDiffState.name}`,
-          visualDiffState.with(async (setup) => {
-            await setup.withFixture(template(args));
+          `disabled default`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(template({ ...args, disabled: true }));
           }),
         );
-      }
-
-      it(
-        `state=${state} disabled ${visualDiffDefault.name}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template({ ...args, disabled: true }));
-        }),
-      );
+      });
     }
 
     it(
-      `color=milk ${visualDiffDefault.name}`,
+      `darkMode=true`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ ...defaultArgs, color: 'milk' }));
       }),
     );
 
+    for (const darkMode of [false, true]) {
+      it(
+        `color=milk darkMode=${darkMode}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(template({ ...defaultArgs, color: 'milk' }), { darkMode });
+        }),
+      );
+    }
+
     it(
-      `size=s ${visualDiffDefault.name}`,
+      `size=s`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ ...defaultArgs, size: 's' }));
       }),
     );
 
     it(
-      `borderless ${visualDiffDefault.name}`,
+      `size=xs`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template({ ...defaultArgs, borderless: true }));
+        await setup.withFixture(template({ ...defaultArgs, size: 'xs' }));
+      }),
+    );
+
+    it(
+      `borderless`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template({ ...defaultArgs, borderless: true }), {
+          backgroundColor: 'var(--sbb-background-color-3)',
+        });
+      }),
+    );
+
+    it(
+      `forcedColors=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(template({ ...defaultArgs }), { forcedColors: true });
       }),
     );
   });

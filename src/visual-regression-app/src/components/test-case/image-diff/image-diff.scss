@@ -1,7 +1,5 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
-@include sbb.box-sizing;
-
 :host {
   display: block;
 }
@@ -44,7 +42,7 @@
   display: flex;
   flex: 1;
   width: 100%;
-  background-color: var(--sbb-color-white);
+  background-color: var(--sbb-background-color-1);
 }
 
 .app-image {
@@ -61,7 +59,7 @@
   display: flex;
   width: 100%;
   text-align: left;
-  cursor: pointer;
+  cursor: var(--sbb-cursor-pointer);
 
   &:focus-visible {
     @include sbb.focus-outline;

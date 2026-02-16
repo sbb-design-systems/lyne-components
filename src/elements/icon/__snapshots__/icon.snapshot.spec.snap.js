@@ -15,12 +15,7 @@ snapshots["sbb-icon registers a custom namespace"] =
 /* end snapshot sbb-icon registers a custom namespace */
 
 snapshots["sbb-icon renders DOM"] = 
-`<sbb-icon
-  aria-hidden="true"
-  data-empty=""
-  data-namespace="default"
-  role="img"
->
+`<sbb-icon>
 </sbb-icon>
 `;
 /* end snapshot sbb-icon renders DOM */
@@ -32,12 +27,7 @@ snapshots["sbb-icon renders Shadow DOM"] =
 /* end snapshot sbb-icon renders Shadow DOM */
 
 snapshots["sbb-icon renders aria-hidden and no aria-label DOM"] = 
-`<sbb-icon
-  aria-hidden="true"
-  data-namespace="default"
-  name="app-icon-medium"
-  role="img"
->
+`<sbb-icon name="app-icon-medium">
 </sbb-icon>
 `;
 /* end snapshot sbb-icon renders aria-hidden and no aria-label DOM */
@@ -58,10 +48,7 @@ snapshots["sbb-icon renders aria-hidden and no aria-label Shadow DOM"] =
 snapshots["sbb-icon renders default aria-label DOM"] = 
 `<sbb-icon
   aria-hidden="false"
-  aria-label="Icon app icon medium"
-  data-namespace="default"
   name="app-icon-medium"
-  role="img"
 >
 </sbb-icon>
 `;
@@ -84,9 +71,7 @@ snapshots["sbb-icon renders custom aria-label DOM"] =
 `<sbb-icon
   aria-hidden="false"
   aria-label="Custom label"
-  data-namespace="default"
   name="app-icon-medium"
-  role="img"
 >
 </sbb-icon>
 `;
@@ -108,20 +93,16 @@ snapshots["sbb-icon renders custom aria-label Shadow DOM"] =
 snapshots["sbb-icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none"
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-icon A11y tree Chrome */
-
-snapshots["sbb-icon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-icon A11y tree Firefox */
 

@@ -1,16 +1,16 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import sampleImages from '../core/images.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import sampleImages from '../core/images.ts';
 
 import readme from './readme.md?raw';
-import './teaser-hero.js';
-import '../chip-label.js';
-import '../image.js';
+import './teaser-hero.component.ts';
+import '../chip-label.ts';
+import '../image.ts';
 
 const accessibilityLabel: InputType = {
   control: {

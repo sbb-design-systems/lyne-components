@@ -27,16 +27,12 @@ snapshots["A11y tree Chrome"] =
 /* end snapshot A11y tree Chrome */
 
 snapshots["sbb-flip-card DOM"] = 
-`<sbb-flip-card data-image-alignment="after">
+`<sbb-flip-card>
   <sbb-flip-card-summary
     image-alignment="after"
     slot="summary"
   >
-    <sbb-title
-      aria-level="4"
-      level="4"
-      role="heading"
-    >
+    <sbb-title level="4">
       Summary
     </sbb-title>
     <sbb-image slot="image">
@@ -50,11 +46,7 @@ snapshots["sbb-flip-card DOM"] =
           Vivamus turpis elit, dapibus eget fringilla pellentesque, lobortis in nibh. Duis dapibus
           vitae tortor ullamcorper maximus. In convallis consectetur felis.
     <sbb-link
-      data-action=""
-      data-card-focusable=""
-      data-link=""
-      data-sbb-link=""
-      data-slot-names="unnamed"
+      class="sbb-action"
       href="https://www.sbb.ch"
       negative=""
       size="s"
@@ -83,17 +75,11 @@ snapshots["sbb-flip-card Shadow DOM"] =
   </slot>
   <sbb-secondary-button-static
     class="sbb-flip-card--toggle-button"
-    data-action=""
-    data-sbb-button=""
-    data-slot-names="icon"
     size="s"
   >
     <sbb-icon
-      aria-hidden="true"
       class="sbb-flip-card--toggle-button-icon"
-      data-namespace="default"
       name="plus-small"
-      role="img"
       slot="icon"
     >
     </sbb-icon>
@@ -105,42 +91,16 @@ snapshots["sbb-flip-card Shadow DOM"] =
 snapshots["sbb-flip-card A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Summary, Click on this card for details"
-    },
-    {
-      "role": "heading",
-      "name": "Summary",
-      "level": 4
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-flip-card A11y tree Chrome */
-
-snapshots["sbb-flip-card A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Summary, Click on this card for details"
-    },
-    {
-      "role": "heading",
-      "name": "Summary",
-      "level": 4
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-flip-card A11y tree Firefox */
 

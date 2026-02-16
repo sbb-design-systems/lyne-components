@@ -1,13 +1,10 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
-  --sbb-mini-button-group-background: var(--sbb-color-white);
-  --sbb-mini-button-group-border-color: var(--sbb-color-cloud);
+  --sbb-mini-button-group-background: var(--sbb-background-color-1);
+  --sbb-mini-button-group-border-color: var(--sbb-border-color-4-inverted);
   --sbb-mini-button-group-border-width: var(--sbb-border-width-2x);
   --sbb-mini-button-group-border: var(--sbb-mini-button-group-border-width) solid
     var(--sbb-mini-button-group-border-color);
@@ -17,8 +14,8 @@
 }
 
 :host([negative]) {
-  --sbb-mini-button-group-background: var(--sbb-color-midnight);
-  --sbb-mini-button-group-border-color: var(--sbb-color-anthracite);
+  --sbb-mini-button-group-background: var(--sbb-background-color-1-negative);
+  --sbb-mini-button-group-border-color: var(--sbb-border-color-4-negative-inverted);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
@@ -36,7 +33,7 @@
   --sbb-mini-button-group-padding-inline: var(--sbb-spacing-fixed-4x);
 }
 
-::slotted(:is(sbb-mini-button, sbb-divider)) {
+::slotted(:is(sbb-mini-button, sbb-mini-button-link, sbb-divider)) {
   display: flex;
 }
 

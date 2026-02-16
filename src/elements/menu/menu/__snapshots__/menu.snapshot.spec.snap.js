@@ -3,57 +3,41 @@ export const snapshots = {};
 
 snapshots["sbb-menu renders DOM"] = 
 `<sbb-menu
-  data-state="closed"
   id="sbb-menu-0"
   popover="manual"
   trigger="menu-trigger"
 >
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="https://www.sbb.ch/en"
     icon-placement="start"
+    negative=""
     size="s"
   >
     Profile
   </sbb-block-link>
   <sbb-menu-button
-    data-action=""
-    data-button=""
     icon-name="tick-small"
     tabindex="0"
   >
     View
   </sbb-menu-button>
   <sbb-menu-button
-    amount="1"
-    data-action=""
-    data-button=""
     disabled=""
     icon-name="pen-small"
+    sbb-badge="1"
   >
     Edit
   </sbb-menu-button>
   <sbb-menu-button
-    amount="2"
-    data-action=""
-    data-button=""
     icon-name="swisspass-small"
+    sbb-badge="2"
     tabindex="0"
   >
     Details
   </sbb-menu-button>
-  <sbb-divider
-    aria-orientation="horizontal"
-    orientation="horizontal"
-    role="separator"
-  >
+  <sbb-divider orientation="horizontal">
   </sbb-divider>
   <sbb-menu-button
-    data-action=""
-    data-button=""
     icon-name="cross-small"
     tabindex="0"
   >
@@ -69,124 +53,101 @@ snapshots["sbb-menu renders Shadow DOM"] =
     <div class="sbb-menu__content">
       <slot>
       </slot>
+      <sbb-divider orientation="horizontal">
+      </sbb-divider>
+      <sbb-menu-button
+        icon-name="chevron-small-left-small"
+        id="sbb-menu__back-button"
+        tabindex="0"
+      >
+        Go back
+      </sbb-menu-button>
     </div>
   </div>
 </div>
 `;
 /* end snapshot sbb-menu renders Shadow DOM */
 
-snapshots["sbb-menu renders with list DOM"] = 
+snapshots["sbb-menu renders open DOM"] = 
 `<sbb-menu
-  data-state="closed"
   id="sbb-menu-2"
   popover="manual"
   trigger="menu-trigger"
 >
+  <sbb-block-link
+    href="https://www.sbb.ch/en"
+    icon-placement="start"
+    negative=""
+    size="s"
+  >
+    Profile
+  </sbb-block-link>
   <sbb-menu-button
-    data-action=""
-    data-button=""
     icon-name="tick-small"
-    slot="li-0"
     tabindex="0"
   >
     View
   </sbb-menu-button>
   <sbb-menu-button
-    amount="1"
-    data-action=""
-    data-button=""
     disabled=""
     icon-name="pen-small"
-    slot="li-1"
+    sbb-badge="1"
   >
     Edit
   </sbb-menu-button>
   <sbb-menu-button
-    amount="2"
-    data-action=""
-    data-button=""
     icon-name="swisspass-small"
-    slot="li-2"
+    sbb-badge="2"
     tabindex="0"
   >
     Details
   </sbb-menu-button>
+  <sbb-divider orientation="horizontal">
+  </sbb-divider>
   <sbb-menu-button
-    data-action=""
-    data-button=""
     icon-name="cross-small"
-    slot="li-3"
     tabindex="0"
   >
     Cancel
   </sbb-menu-button>
 </sbb-menu>
 `;
-/* end snapshot sbb-menu renders with list DOM */
+/* end snapshot sbb-menu renders open DOM */
 
-snapshots["sbb-menu renders with list Shadow DOM"] = 
+snapshots["sbb-menu renders open Shadow DOM"] = 
 `<div class="sbb-menu__container">
   <div class="sbb-menu">
     <div class="sbb-menu__content">
-      <ul class="sbb-menu-list">
-        <li>
-          <slot name="li-0">
-          </slot>
-        </li>
-        <li>
-          <slot name="li-1">
-          </slot>
-        </li>
-        <li>
-          <slot name="li-2">
-          </slot>
-        </li>
-        <li>
-          <slot name="li-3">
-          </slot>
-        </li>
-      </ul>
-      <span hidden="">
-        <slot>
-        </slot>
-      </span>
+      <slot>
+      </slot>
+      <sbb-divider orientation="horizontal">
+      </sbb-divider>
+      <sbb-menu-button
+        icon-name="chevron-small-left-small"
+        id="sbb-menu__back-button"
+        tabindex="0"
+      >
+        Go back
+      </sbb-menu-button>
     </div>
   </div>
 </div>
 `;
-/* end snapshot sbb-menu renders with list Shadow DOM */
+/* end snapshot sbb-menu renders open Shadow DOM */
 
-snapshots["sbb-menu renders with list A11y tree Chrome"] = 
+snapshots["sbb-menu renders open A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Menu trigger",
-      "haspopup": "menu"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-menu renders with list A11y tree Chrome */
-
-snapshots["sbb-menu renders with list A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Menu trigger",
-      "haspopup": "menu"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-menu renders with list A11y tree Firefox */
+/* end snapshot sbb-menu renders open A11y tree Chrome */
 

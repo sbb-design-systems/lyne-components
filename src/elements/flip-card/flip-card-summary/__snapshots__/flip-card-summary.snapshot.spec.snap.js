@@ -23,11 +23,7 @@ snapshots["sbb-flip-card-summary DOM"] =
   image-alignment="below"
   slot="summary"
 >
-  <sbb-title
-    aria-level="4"
-    level="4"
-    role="heading"
-  >
+  <sbb-title level="4">
     Summary
   </sbb-title>
   <sbb-image slot="image">
@@ -51,34 +47,39 @@ snapshots["sbb-flip-card-summary Shadow DOM"] =
 snapshots["sbb-flip-card-summary A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "heading",
-      "name": "Summary",
-      "level": 4
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "heading",
+          "name": "Summary",
+          "level": 4
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "role": "generic",
+                  "name": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-flip-card-summary A11y tree Chrome */
-
-snapshots["sbb-flip-card-summary A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Summary",
-      "level": 4
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-flip-card-summary A11y tree Firefox */
 

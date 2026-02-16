@@ -1,13 +1,16 @@
 import { html, nothing, type TemplateResult } from 'lit';
+import { ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import '../../form-field.js';
-import '../../select.js';
-import '../../autocomplete.js';
-import './option.js';
+import type { SbbOptionElement } from './option.component.ts';
+
+import '../../form-field.ts';
+import '../../select.ts';
+import '../../autocomplete.ts';
+import './option.component.ts';
 
 describe(`sbb-option`, () => {
   const defaultArgs = {
@@ -31,9 +34,11 @@ describe(`sbb-option`, () => {
           <sbb-option
             style=${styleMap(style)}
             icon-name=${iconName || nothing}
-            ?data-active=${active && i === 0}
             ?disabled=${disabled && i === 0}
             value=${`Value ${i + 1}`}
+            ${ref((o?: Element) =>
+              (o as SbbOptionElement | undefined)?.setActive(active && i === 0),
+            )}
             >Value ${i + 1}</sbb-option
           >
         `,
@@ -64,33 +69,50 @@ describe(`sbb-option`, () => {
     </sbb-form-field>
   `;
 
-  describeViewports({ viewports: ['micro', 'medium'] }, () => {
+  describeViewports({ viewports: ['small', 'large'] }, () => {
     describe('standalone', () => {
-      it(
-        visualDiffDefault.name,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(standaloneTemplate(defaultArgs));
-        }),
-      );
+      for (const { darkMode, forcedColors } of [
+        { forcedColors: false, darkMode: false },
+        { forcedColors: true, darkMode: false },
+        { forcedColors: false, darkMode: true },
+      ]) {
+        describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
+          it(
+            visualDiffDefault.name,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(standaloneTemplate(defaultArgs), {
+                forcedColors,
+                darkMode,
+              });
+            }),
+          );
+
+          it(
+            `disabled`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(standaloneTemplate({ ...defaultArgs, disabled: true }), {
+                forcedColors,
+                darkMode,
+              });
+            }),
+          );
+
+          it(
+            `active`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(standaloneTemplate({ ...defaultArgs, active: true }), {
+                forcedColors,
+                darkMode,
+              });
+            }),
+          );
+        });
+      }
 
       it(
         `icon`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(standaloneTemplate({ ...defaultArgs, iconName: 'clock-small' }));
-        }),
-      );
-
-      it(
-        `disabled`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(standaloneTemplate({ ...defaultArgs, disabled: true }));
-        }),
-      );
-
-      it(
-        `active`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(standaloneTemplate({ ...defaultArgs, active: true }));
         }),
       );
 

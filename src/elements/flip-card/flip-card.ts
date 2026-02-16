@@ -1,1 +1,4 @@
-export * from './flip-card/flip-card.js';
+/**
+ * @entrypoint
+ */
+export * from './flip-card/flip-card.component.ts';

@@ -34,11 +34,12 @@ Full example with applied spacings (CSS classes) in content:
   </style>
   <sbb-image
     slot="image"
-    image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Bahnhof-Luzern.jpg"
+    image-src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Bahnhof-Luzern.jpg"
     alt="Station of Lucerne from outside"
   ></sbb-image>
   <sbb-alert-group class="sbb-lead-container-spacing">
-    <sbb-alert title-content="Interruption between Genève and Lausanne" size="m">
+    <sbb-alert size="m">
+      <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
       The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
       <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
     </sbb-alert>
@@ -73,7 +74,7 @@ Optionally, you can add an overlapping `sbb-chip-label` by wrapping the `sbb-ima
 <sbb-lead-container>
   <figure class="sbb-figure" slot="image">
     <sbb-image
-      image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Bahnhof-Luzern.jpg"
+      image-src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Bahnhof-Luzern.jpg"
       alt="Station of Lucerne from outside"
     ></sbb-image>
     <sbb-chip-label class="sbb-figure-overlap-start-start">...</sbb-chip-label>

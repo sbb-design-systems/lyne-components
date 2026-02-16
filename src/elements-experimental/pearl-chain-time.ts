@@ -1,1 +1,4 @@
-export * from './pearl-chain-time/pearl-chain-time.js';
+/**
+ * @entrypoint
+ */
+export * from './pearl-chain-time/pearl-chain-time.component.ts';

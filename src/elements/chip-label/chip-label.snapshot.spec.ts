@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbChipLabelElement } from './chip-label.js';
+import type { SbbChipLabelElement } from './chip-label.component.ts';
 
-import './chip-label.js';
+import './chip-label.component.ts';
 
 describe(`sbb-chip-label`, () => {
   let element: SbbChipLabelElement;

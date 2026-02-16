@@ -1,9 +1,9 @@
 // eslint-disable-next-line import-x/no-unresolved
 import { screenshotsRaw } from 'virtual:screenshots';
 
-import type { ScreenshotFiles, ScreenshotMap } from './interfaces.js';
+import type { ScreenshotFiles, ScreenshotMap } from './interfaces.ts';
 
-const viewportOrder = ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'];
+const viewportOrder = ['zero', 'small', 'large', 'ultra'];
 
 export class ScreenshotStatistics {
   public static readonly empty = new ScreenshotStatistics(0, 0, 0);

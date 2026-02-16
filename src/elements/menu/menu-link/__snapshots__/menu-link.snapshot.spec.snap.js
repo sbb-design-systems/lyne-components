@@ -4,14 +4,10 @@ export const snapshots = {};
 snapshots["sbb-menu-link renders DOM"] = 
 `<sbb-menu-link
   accessibility-label="a11y label"
-  data-action=""
-  data-link=""
   href="https://github.com/sbb-design-systems/lyne-components"
   target="_blank"
 >
-  <span>
-    Action
-  </span>
+  Action
 </sbb-menu-link>
 `;
 /* end snapshot sbb-menu-link renders DOM */
@@ -22,6 +18,7 @@ snapshots["sbb-menu-link renders Shadow DOM"] =
   class="sbb-action-base sbb-menu-link"
   href="https://github.com/sbb-design-systems/lyne-components"
   rel="external noopener nofollow"
+  role="menuitem"
   target="_blank"
 >
   <span class="sbb-menu-action__content">
@@ -32,6 +29,10 @@ snapshots["sbb-menu-link renders Shadow DOM"] =
     <span class="sbb-menu-action__label">
       <slot>
       </slot>
+    </span>
+    <span class="sbb-menu-submenu__icon">
+      <sbb-icon name="chevron-small-right-small">
+      </sbb-icon>
     </span>
   </span>
   <sbb-screen-reader-only>
@@ -41,40 +42,31 @@ snapshots["sbb-menu-link renders Shadow DOM"] =
 `;
 /* end snapshot sbb-menu-link renders Shadow DOM */
 
-snapshots["sbb-menu-link renders component with icon and amount DOM"] = 
+snapshots["sbb-menu-link renders component with icon DOM"] = 
 `<sbb-menu-link
   accessibility-label="a11y label"
-  amount="123456"
-  data-action=""
-  data-link=""
   href="https://github.com/sbb-design-systems/lyne-components"
   icon-name="menu-small"
   target="_blank"
 >
-  <span>
-    Action
-  </span>
+  Action
 </sbb-menu-link>
 `;
-/* end snapshot sbb-menu-link renders component with icon and amount DOM */
+/* end snapshot sbb-menu-link renders component with icon DOM */
 
-snapshots["sbb-menu-link renders component with icon and amount Shadow DOM"] = 
+snapshots["sbb-menu-link renders component with icon Shadow DOM"] = 
 `<a
   aria-label="a11y label"
   class="sbb-action-base sbb-menu-link"
   href="https://github.com/sbb-design-systems/lyne-components"
   rel="external noopener nofollow"
+  role="menuitem"
   target="_blank"
 >
   <span class="sbb-menu-action__content">
     <span class="sbb-menu-action__icon">
       <slot name="icon">
-        <sbb-icon
-          aria-hidden="true"
-          data-namespace="default"
-          name="menu-small"
-          role="img"
-        >
+        <sbb-icon name="menu-small">
         </sbb-icon>
       </slot>
     </span>
@@ -82,8 +74,9 @@ snapshots["sbb-menu-link renders component with icon and amount Shadow DOM"] =
       <slot>
       </slot>
     </span>
-    <span class="sbb-menu-action__amount">
-      123456
+    <span class="sbb-menu-submenu__icon">
+      <sbb-icon name="chevron-small-right-small">
+      </sbb-icon>
     </span>
   </span>
   <sbb-screen-reader-only>
@@ -91,38 +84,21 @@ snapshots["sbb-menu-link renders component with icon and amount Shadow DOM"] =
   </sbb-screen-reader-only>
 </a>
 `;
-/* end snapshot sbb-menu-link renders component with icon and amount Shadow DOM */
+/* end snapshot sbb-menu-link renders component with icon Shadow DOM */
 
-snapshots["sbb-menu-link renders component with icon and amount A11y tree Chrome"] = 
+snapshots["sbb-menu-link renders component with icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "a11y label"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-menu-link renders component with icon and amount A11y tree Chrome */
-
-snapshots["sbb-menu-link renders component with icon and amount A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "a11y label",
-      "value": "https://github.com/sbb-design-systems/lyne-components"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-menu-link renders component with icon and amount A11y tree Firefox */
+/* end snapshot sbb-menu-link renders component with icon A11y tree Chrome */
 

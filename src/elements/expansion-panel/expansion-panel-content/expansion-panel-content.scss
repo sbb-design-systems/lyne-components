@@ -1,23 +1,32 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  --sbb-expansion-panel-content-padding-inline: var(--sbb-spacing-fixed-6x);
   --sbb-expansion-panel-content-padding-inline-start: var(
     --sbb-expansion-panel-content-padding-inline
   );
 
   display: block;
+  padding-block-end: var(--sbb-expansion-panel-content-padding-block-end);
+  padding-inline: var(--sbb-expansion-panel-content-padding-inline-start)
+    var(--sbb-expansion-panel-content-padding-inline);
 }
 
-:host([data-size='s']) {
-  --sbb-expansion-panel-content-padding-inline: var(--sbb-spacing-fixed-5x);
+:host(:state(size-s)) {
+  --sbb-expansion-panel-content-padding-inline: var(--sbb-expansion-panel-content-padding-inline-s);
 }
 
-:host([data-icon-space]) {
-  @include sbb.mq($from: micro) {
+:host(:state(size-l)) {
+  --sbb-expansion-panel-content-padding-inline: var(--sbb-expansion-panel-content-padding-inline-l);
+}
+
+:host(:not(:state(size-s), :state(size-l))) {
+  --sbb-expansion-panel-content-padding-inline: var(
+    --sbb-expansion-panel-content-padding-inline-default
+  );
+}
+
+:host(:state(icon-space)) {
+  @include sbb.mq($from: small) {
     // The space taken by the icon in the sbb-expansion-panel-header must be considered here to correctly calculate the padding value;
     // this is the sum of the default padding, plus the icon space plus the gap between the icon and the header title.
     --sbb-expansion-panel-content-padding-inline-start: calc(
@@ -25,12 +34,6 @@
         var(--sbb-expansion-panel-title-gap)
     );
   }
-}
-
-.sbb-expansion-panel-content {
-  padding-block-end: var(--sbb-spacing-responsive-s);
-  padding-inline: var(--sbb-expansion-panel-content-padding-inline-start)
-    var(--sbb-expansion-panel-content-padding-inline);
 }
 
 ::slotted(:is(p, sbb-title):first-child) {

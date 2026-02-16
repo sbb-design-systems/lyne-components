@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbLinkButtonElement } from './link-button.js';
+import { SbbLinkButtonElement } from './link-button.component.ts';
 
 describe(`sbb-link-button ssr`, () => {
   let root: SbbLinkButtonElement;
@@ -12,7 +12,7 @@ describe(`sbb-link-button ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-link-button id="focus-id">Link as Button</sbb-link-button>`,
       {
-        modules: ['./link-button.js'],
+        modules: ['./link-button.component.js'],
       },
     );
   });

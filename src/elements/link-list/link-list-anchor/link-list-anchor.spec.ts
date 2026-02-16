@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
-import { SbbLinkListAnchorElement } from './link-list-anchor.js';
-import '../../link/block-link.js';
+import { SbbLinkListAnchorElement } from './link-list-anchor.component.ts';
+import '../../link/block-link.ts';
 
 describe('sbb-link-list-anchor', () => {
   let element: SbbLinkListAnchorElement;

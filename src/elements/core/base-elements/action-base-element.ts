@@ -1,6 +1,6 @@
 import { html, LitElement, type TemplateResult } from 'lit';
 
-import { hostAttributes } from '../decorators.js';
+import { SbbElementInternalsMixin } from '../mixins.ts';
 
 /**
  * Whenever an element can be disabled it has disabled property
@@ -13,11 +13,7 @@ type MaybeDisabled = {
   disabledInteractive?: boolean;
 };
 
-export
-@hostAttributes({
-  'data-action': '',
-})
-abstract class SbbActionBaseElement extends LitElement {
+export abstract class SbbActionBaseElement extends SbbElementInternalsMixin(LitElement) {
   protected get maybeDisabled(): boolean | undefined {
     const maybeDisabled = this as MaybeDisabled;
     return maybeDisabled.disabled || maybeDisabled.formDisabled;
@@ -27,16 +23,21 @@ abstract class SbbActionBaseElement extends LitElement {
     return (this as MaybeDisabled).disabledInteractive;
   }
 
+  public constructor() {
+    super();
+    this.internals.states.add('action');
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
 
     if (
       import.meta.env.DEV &&
-      (this.hasAttribute('data-link') || this.hasAttribute('data-button')) &&
-      this.parentElement?.closest('[data-link], [data-button], a, button')
+      (this.matches(':state(link)') || this.matches(':state(button)')) &&
+      this.parentElement?.closest(':state(link), :state(button), a, button')
     ) {
       console.warn(
-        `Nested action element detected (${this.localName} inside ${this.parentElement!.closest('[data-link], [data-button], a, button')!.localName}). Maybe use a static variant for the inner action element?`,
+        `Nested action element detected (${this.localName} inside ${this.parentElement!.closest(':state(link), :state(button), a, button')!.localName}). Maybe use a static variant for the inner action element?`,
         this,
       );
     }

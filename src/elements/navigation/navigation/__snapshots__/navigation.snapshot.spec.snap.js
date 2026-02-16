@@ -3,16 +3,12 @@ export const snapshots = {};
 
 snapshots["sbb-navigation renders DOM"] = 
 `<sbb-navigation
-  data-state="closed"
   id="sbb-navigation-0"
   popover="manual"
-  role="navigation"
   trigger="nav-trigger"
 >
   <sbb-navigation-marker size="l">
     <sbb-navigation-button
-      data-action=""
-      data-button=""
       id="nav-1"
       size="l"
       slot="li-0"
@@ -21,8 +17,6 @@ snapshots["sbb-navigation renders DOM"] =
       Tickets & Offers
     </sbb-navigation-button>
     <sbb-navigation-button
-      data-action=""
-      data-button=""
       id="nav-2"
       size="l"
       slot="li-1"
@@ -46,9 +40,6 @@ snapshots["sbb-navigation renders Shadow DOM"] =
         aria-controls="sbb-navigation-overlay"
         aria-label="Close navigation"
         class="sbb-navigation__close"
-        data-action=""
-        data-button=""
-        data-sbb-button=""
         icon-name="cross-small"
         id="sbb-navigation-close-button"
         negative=""

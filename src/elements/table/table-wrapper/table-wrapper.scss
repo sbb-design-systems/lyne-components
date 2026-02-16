@@ -1,28 +1,14 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  --sbb-table-wrapper-border-radius: var(--sbb-border-radius-4x);
-
   display: block;
+  overflow: auto;
+}
+
+:host(:focus-visible) {
+  @include sbb.focus-outline;
 }
 
 ::slotted(.sbb-table) {
   width: 100%;
-}
-
-.sbb-table-wrapper {
-  overflow: auto;
-  @include sbb.scrollbar($size: thick, $track-visible: true);
-
-  :host([negative]) & {
-    @include sbb.scrollbar-variables--color-negative;
-    @include sbb.scrollbar-variables--color-negative-track-visible;
-  }
-
-  :host([data-has-horizontal-scrollbar]) & {
-    padding-bottom: var(--sbb-spacing-fixed-1x);
-  }
 }

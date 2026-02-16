@@ -2,14 +2,14 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils.js';
+} from '../common/button-test-utils.private.ts';
 
-import { SbbButtonStaticElement } from './button-static.js';
+import { SbbButtonStaticElement } from './button-static.component.ts';
 
 describe(`sbb-button-static`, () => {
   let element: SbbButtonStaticElement;
@@ -50,7 +50,7 @@ describe(`sbb-button-static`, () => {
 
       const clickSpy = new EventSpy('click');
 
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
 
       expect(clickSpy.count).not.to.be.greaterThan(0);
@@ -73,15 +73,13 @@ describe(`sbb-button-static`, () => {
 
   it('should detect icon in sbb-button-static', async () => {
     const root = await fixture(buttonIconTestTemplate('sbb-button-static'));
-    const dataSlots = root.getAttribute('data-slot-names');
-    expect(dataSlots).to.contain('icon');
-    expect(dataSlots).not.to.contain('unnamed');
+    expect(root).to.match(':state(slotted-icon)');
+    expect(root).not.to.match(':state(slotted)');
   });
 
   it('should detect icon in sbb-button-static when there is space around icon', async () => {
     const root = await fixture(buttonSpaceIconTestTemplate('sbb-button-static'));
-    const dataSlots = root.getAttribute('data-slot-names');
-    expect(dataSlots).to.contain('icon');
-    expect(dataSlots).not.to.contain('unnamed');
+    expect(root).to.match(':state(slotted-icon)');
+    expect(root).not.to.match(':state(slotted)');
   });
 });

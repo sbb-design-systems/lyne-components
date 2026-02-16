@@ -2,24 +2,15 @@
 export const snapshots = {};
 
 snapshots["sbb-toggle renders DOM"] = 
-`<sbb-toggle
-  role="radiogroup"
-  size="m"
->
+`<sbb-toggle size="m">
   <sbb-toggle-option
-    aria-checked="true"
     checked=""
-    data-slot-names="unnamed"
-    role="radio"
     tabindex="0"
     value="Value one"
   >
     Value one
   </sbb-toggle-option>
   <sbb-toggle-option
-    aria-checked="false"
-    data-slot-names="unnamed"
-    role="radio"
     tabindex="-1"
     value="Value two"
   >
@@ -40,43 +31,18 @@ snapshots["sbb-toggle renders Shadow DOM"] =
 snapshots["sbb-toggle renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "radio",
-      "name": "Value one",
-      "checked": true
-    },
-    {
-      "role": "radio",
-      "name": "Value two",
-      "checked": false
+      "role": "radiogroup",
+      "name": "",
+      "invalid": false,
+      "required": false
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-toggle renders A11y tree Chrome */
-
-snapshots["sbb-toggle renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "Value one",
-      "checked": true
-    },
-    {
-      "role": "radio",
-      "name": "Value two"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle renders A11y tree Firefox */
 

@@ -1,11 +1,22 @@
-import type { LitElement } from 'lit';
+/* eslint-disable @typescript-eslint/no-empty-object-type */
+import type { LitElement, PropertyDeclaration, PropertyValues } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { isWebkit } from '../dom.js';
+import { isWebkit } from '../dom.ts';
 
-import type { AbstractConstructor } from './constructor.js';
+import type { AbstractConstructor } from './constructor.ts';
+import type { SbbElementInternalsMixinType } from './element-internals-mixin.ts';
 
-const validityKeys: Required<ValidityStateFlags> = {
+declare global {
+  /**
+   * Defines custom validity state properties.
+   */
+  interface CustomValidityState {}
+  interface ValidityState extends CustomValidityState {}
+  interface ValidityStateFlags extends Partial<CustomValidityState> {}
+}
+
+const validityKeys: Required<Omit<ValidityStateFlags, keyof CustomValidityState>> = {
   badInput: false,
   customError: false,
   patternMismatch: false,
@@ -17,19 +28,40 @@ const validityKeys: Required<ValidityStateFlags> = {
   typeMismatch: false,
   valueMissing: false,
 };
+// We need ValidityState in the global context, as we check the prototype for
+// extensions. In environments where that is not the case (e.g. Node.js) we
+// patch it with a minimal shim.
+if (typeof ValidityState === 'undefined') {
+  const validityClass = class ValidityState {
+    public get valid(): boolean {
+      return true;
+    }
+    private constructor() {
+      throw new TypeError('Illegal constructor');
+    }
+  };
+  Object.entries(validityKeys).forEach(([key, value]) =>
+    Object.assign(validityClass.prototype, {
+      get [key](): boolean {
+        return value;
+      },
+    }),
+  );
+  globalThis.ValidityState = validityClass as unknown as typeof ValidityState;
+}
 
-export declare abstract class SbbFormAssociatedMixinType<V = string> {
+export declare abstract class SbbFormAssociatedMixinType {
   public get form(): HTMLFormElement | null;
   public accessor name: string;
   public get type(): string;
-  public accessor value: V | null;
+
+  public abstract accessor value: unknown;
 
   public get validity(): ValidityState;
   public get validationMessage(): string;
   public get willValidate(): boolean;
 
   protected formDisabled: boolean;
-  protected readonly internals: ElementInternals;
 
   public checkValidity(): boolean;
   public reportValidity(): boolean;
@@ -43,27 +75,34 @@ export declare abstract class SbbFormAssociatedMixinType<V = string> {
     reason: FormRestoreReason,
   ): void;
 
-  protected abstract updateFormValue(): void;
+  protected updateFormValue(): void;
+  protected formState?(): FormRestoreState;
   protected setValidityFlag<T extends keyof ValidityStateFlags>(
     flag: T,
     message: string,
     flagValue?: ValidityStateFlags[T],
   ): void;
   protected removeValidityFlag<T extends keyof ValidityStateFlags>(flag: T): void;
+  protected validate(): void;
+  protected shouldValidate(name: PropertyKey | undefined): boolean;
 }
 
 /**
  * The FormAssociatedMixin enables native form support for custom controls.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>, V = string>(
+export const SbbFormAssociatedMixin = <
+  T extends AbstractConstructor<LitElement & SbbElementInternalsMixinType>,
+>(
   superClass: T,
-): AbstractConstructor<SbbFormAssociatedMixinType<V>> & T => {
+): AbstractConstructor<SbbFormAssociatedMixinType> & T => {
   abstract class SbbFormAssociatedElement
     extends superClass
-    implements Partial<SbbFormAssociatedMixinType<V>>
+    implements Partial<SbbFormAssociatedMixinType>
   {
     public static formAssociated = true;
+
+    public abstract accessor value: unknown;
 
     /**
      * Returns the form owner of this element.
@@ -94,17 +133,6 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
       return this.localName;
     }
 
-    /** Value of the form element. */
-    @property()
-    public set value(value: V | null) {
-      this._value = value;
-      this.updateFormValue();
-    }
-    public get value(): V | null {
-      return this._value;
-    }
-    private _value: V | null = null;
-
     /**
      * Returns the ValidityState object for this element.
      */
@@ -118,7 +146,7 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
      * Please note that only one message is returned at a time (e.g. if
      * multiple validity states are invalid, only the chronologically first one
      * is returned until it is fixed, at which point the next message might be
-     * returned, if it is still applicable). Also a custom validity message
+     * returned, if it is still applicable). Also, a custom validity message
      * (see below) has precedence over native validation messages.
      */
     public get validationMessage(): string {
@@ -132,9 +160,6 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
     public get willValidate(): boolean {
       return this.internals.willValidate;
     }
-
-    /** @internal */
-    protected readonly internals: ElementInternals = this.attachInternals();
 
     private _validityStates = new Map<
       keyof ValidityStateFlags,
@@ -200,18 +225,24 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
     public formAssociatedCallback?(form: HTMLFormElement | null): void;
 
     /**
-     * Is called whenever a surrounding form / fieldset changes disabled state.
-     * @param disabled
+     * Is called whenever a surrounding fieldset changes disabled state.
      *
      * @internal
      */
-    public formDisabledCallback(disabled: boolean): void {
-      // This callback is triggered if the disabled property changes or the disabled attribute of a fieldset or form changes.
-      // We need to postpone the assignment, otherwise it interferes with disabled status setting
-      // and leads to a wrong state (e.g. embedded sbb-visual-checkbox).
-      Promise.resolve().then(() => {
-        this.formDisabled = disabled;
-      });
+    public formDisabledCallback(_disabled: boolean): void {
+      this.formDisabled = this._hasDisabledAncestor();
+    }
+
+    private _hasDisabledAncestor(): boolean {
+      // Check if any of the fieldset ancestors has the disabled attribute set.
+      let element: HTMLElement | null = this.parentElement;
+      while (element) {
+        if (element.localName === 'fieldset' && element.hasAttribute('disabled')) {
+          return true;
+        }
+        element = element.parentElement;
+      }
+      return false;
     }
 
     /**
@@ -223,9 +254,9 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
 
     /**
      *  Called when the browser is trying to restore element’s state to state in which case
-     *  reason is “restore”, or when the browser is trying to fulfill autofill on behalf of
-     *  user in which case reason is “autocomplete”.
-     *  In the case of “restore”, state is a string, File, or FormData object
+     *  reason is "restore", or when the browser is trying to fulfill autofill on behalf of
+     *  user in which case reason is "autocomplete".
+     *  In the case of "restore", state is a string, File, or FormData object
      *  previously set as the second argument to setFormValue.
      *
      * @internal
@@ -235,12 +266,63 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
       reason: FormRestoreReason,
     ): void;
 
+    public override requestUpdate(
+      name?: PropertyKey,
+      oldValue?: unknown,
+      options?: PropertyDeclaration,
+    ): void {
+      super.requestUpdate(name, oldValue, options);
+      if (name === 'value') {
+        this.updateFormValue();
+      }
+      if (this.hasUpdated && this.shouldValidate(name)) {
+        this.validate();
+      }
+    }
+
+    protected override firstUpdated(changedProperties: PropertyValues<this>): void {
+      super.firstUpdated(changedProperties);
+      this.validate();
+    }
+
     /**
      * Should be called when form value is changed.
      * Adapts and sets the formValue in the supported format (string | FormData | File | null)
      * https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals/setFormValue
      */
-    protected abstract updateFormValue(): void;
+    protected updateFormValue(): void {
+      let formValue: FormData | string | null;
+      const name = this.name ?? this.getAttribute('name');
+
+      if (typeof this.value === 'string' || this.value == null) {
+        formValue = this.value as string | null;
+      } else if (Array.isArray(this.value)) {
+        formValue = new FormData();
+        this.value.forEach((el) => {
+          (formValue as FormData).append(
+            name,
+            typeof el === 'string'
+              ? el
+              : new Blob([JSON.stringify(el)], {
+                  type: 'application/json',
+                }),
+          );
+        });
+      } else {
+        formValue = new FormData();
+        formValue.append(
+          name,
+          new Blob([JSON.stringify(this.value)], {
+            type: 'application/json',
+          }),
+        );
+      }
+
+      // If the form state is undefined then form value will be copied to state.
+      this.internals.setFormValue(formValue, this.formState?.());
+    }
+
+    protected formState?(): FormRestoreState;
 
     /**
      * Marks this element as suffering from the constraint indicated by the
@@ -249,8 +331,7 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
      * consumers are always displayed before internal messages and internal
      * messages are displayed in the order they were added.
      * To set/define custom validity state flags, you need to extend the
-     * ValidityState prototype and both the ValidityState and the
-     * ValidityStateFlags interface.
+     * ValidityState prototype (and the CustomValidityState interface).
      *
      * @example
      *
@@ -262,11 +343,8 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
      *   });
      *
      *   declare global {
-     *     interface ValidityState {
+     *     interface CustomValidityState {
      *       myError: boolean;
-     *     }
-     *     interface ValidityState {
-     *       myError?: boolean;
      *     }
      *   }
      */
@@ -276,54 +354,67 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
       flagValue?: ValidityStateFlags[T],
     ): void {
       flagValue ??= true;
-      this._validityStates.set(flag, { flagValue, message });
-      this._setInternalValidity();
+      const validityState = this._validityStates.get(flag);
+      if (
+        !validityState ||
+        validityState.message !== message ||
+        validityState.flagValue !== flagValue
+      ) {
+        this._validityStates.set(flag, { flagValue, message });
+        this._setInternalValidity();
+      }
     }
 
+    /** Removes the validity state flag entry and updates validity state. */
     protected removeValidityFlag<T extends keyof ValidityStateFlags>(flag: T): void {
-      this._validityStates.delete(flag);
-      this._setInternalValidity();
+      if (this._validityStates.has(flag)) {
+        this._validityStates.delete(flag);
+        this._setInternalValidity();
+      }
+    }
+
+    /** To be called whenever the current element needs to be validated. */
+    protected validate(): void {}
+
+    /** Whether validation should be run on a property change with the given name. */
+    protected shouldValidate(name: PropertyKey | undefined): boolean {
+      return !name;
     }
 
     private _setInternalValidity(): void {
-      if (this._validityStates.size) {
-        let outputMessage = this._validityStates.get('customError')?.message;
-        const flags: ValidityStateFlags = {};
-        this._validityStates.forEach(({ flagValue, message }, flag) => {
-          flags[flag] = flagValue as any;
-          outputMessage ||= message;
+      let outputMessage = this._validityStates.get('customError')?.message;
+      const flags: ValidityStateFlags = {};
+      this._validityStates.forEach(({ flagValue, message }, flag) => {
+        flags[flag] = flagValue as any;
+        outputMessage ||= message;
+      });
+
+      const customFlags = Object.keys(ValidityState.prototype).filter(
+        (f) => !(f in validityKeys) && f !== 'valid',
+      );
+      for (const flag of customFlags) {
+        const value = flag in flags ? flags[flag as keyof ValidityStateFlags] : false;
+        Object.defineProperty(this.internals.validity, flag, { value, configurable: true });
+        if (value) {
+          // If any custom errors are provided, we need to set customError to true,
+          // as this is the only custom error property browsers accept.
+          flags.customError = true;
+        }
+      }
+
+      this.internals.setValidity(flags, outputMessage);
+
+      // WebKit seems to always set customError to true, if any error is active.
+      // Due to this we patch the customError value manually.
+      if (isWebkit) {
+        Object.defineProperty(this.internals.validity, 'customError', {
+          value: this._validityStates.has('customError') || !!flags.customError,
+          configurable: true,
         });
-
-        const customFlags = Object.keys(ValidityState.prototype).filter(
-          (f) => !(f in validityKeys) && f !== 'valid',
-        );
-        for (const flag of customFlags) {
-          const value = flag in flags ? flags[flag as keyof ValidityStateFlags] : false;
-          Object.defineProperty(this.internals.validity, flag, { value, configurable: true });
-          if (value) {
-            // If any custom errors are provided, we need to set customError to true,
-            // as this is the only custom error property browsers accept.
-            flags.customError = true;
-          }
-        }
-
-        this.internals.setValidity(flags, outputMessage);
-
-        // WebKit seems to always set customError to true, if any error is active.
-        // Due to this we patch the customError value manually.
-        if (isWebkit) {
-          Object.defineProperty(this.internals.validity, 'customError', {
-            value: this._validityStates.has('customError') || !!flags.customError,
-            configurable: true,
-          });
-        }
-      } else {
-        this.internals.setValidity({});
       }
     }
   }
-  return SbbFormAssociatedElement as unknown as AbstractConstructor<SbbFormAssociatedMixinType<V>> &
-    T;
+  return SbbFormAssociatedElement as unknown as AbstractConstructor<SbbFormAssociatedMixinType> & T;
 };
 
 /**
@@ -331,7 +422,7 @@ export const SbbFormAssociatedMixin = <T extends AbstractConstructor<LitElement>
  * state is a `FormData` object, its entry list of name and values will be
  * provided.
  */
-export type FormRestoreState = File | string | [string, FormDataEntryValue][];
+export type FormRestoreState = string | FormData | File;
 
 /**
  * The reason a form component is being restored for, either `'restore'` for

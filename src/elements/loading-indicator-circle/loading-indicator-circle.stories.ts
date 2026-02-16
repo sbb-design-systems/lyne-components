@@ -1,17 +1,17 @@
-import type { InputType, StoryContext } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import type { InputType, StoryContext } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
-import type { SbbLoadingIndicatorCircleElement } from './loading-indicator-circle.js';
+import type { SbbLoadingIndicatorCircleElement } from './loading-indicator-circle.component.ts';
 import readme from './readme.md?raw';
 
-import './loading-indicator-circle.js';
-import '../button/button.js';
-import '../title.js';
-import '../card.js';
+import './loading-indicator-circle.component.ts';
+import '../button/button.ts';
+import '../title.ts';
+import '../card.ts';
 
 const createLoadingIndicator = (event: Event): void => {
   const loader: SbbLoadingIndicatorCircleElement = document.createElement(
@@ -86,7 +86,7 @@ const meta: Meta = {
     (story, context) => {
       if (context.args.color === 'white') {
         return html`<div
-          style="color: var(--sbb-color-white); --sbb-title-text-color-normal-override: var(--sbb-color-white)"
+          style="color: var(--sbb-color-1-negative); --sbb-title-text-color-normal-override: var(--sbb-color-1-negative)"
         >
           ${story()}
         </div>`;
@@ -96,7 +96,9 @@ const meta: Meta = {
   ],
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.color === 'white' ? 'var(--sbb-color-iron)' : 'var(--sbb-color-white)',
+      context.args.color === 'white'
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

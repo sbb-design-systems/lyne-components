@@ -1,5 +1,5 @@
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
+import type { InputType } from 'storybook/internal/types';
 
 import {
   commonDecorators,
@@ -19,11 +19,11 @@ import {
   sizeS,
   withHiddenSlottedIcon,
   withSlottedIcon,
-} from '../common/common-stories.js';
+} from '../common/common-stories.private.ts';
 
 import readme from './readme.md?raw';
-import '../../loading-indicator.js';
-import './transparent-button-static.js';
+import '../../loading-indicator.ts';
+import './transparent-button-static.component.ts';
 
 const disabled: InputType = {
   control: {
@@ -66,7 +66,9 @@ const meta: Meta = {
   decorators: commonDecorators,
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-granite)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-2-negative)'
+        : 'var(--sbb-background-color-2)',
     actions: {
       handles: ['click'],
     },

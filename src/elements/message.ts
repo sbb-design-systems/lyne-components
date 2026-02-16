@@ -1,1 +1,4 @@
-export * from './message/message.js';
+/**
+ * @entrypoint
+ */
+export * from './message/message.component.ts';

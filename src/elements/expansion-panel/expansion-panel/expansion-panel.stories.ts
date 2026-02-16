@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
@@ -7,18 +5,20 @@ import type {
   Args,
   Decorator,
   StoryContext,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.ts';
 
-import { SbbExpansionPanelElement } from './expansion-panel.js';
+import { SbbExpansionPanelElement } from './expansion-panel.component.ts';
 import readme from './readme.md?raw';
 
-import '../expansion-panel-content.js';
-import '../../icon.js';
+import '../expansion-panel-content.ts';
+import '../../icon.ts';
 
 const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -158,6 +158,26 @@ const TemplateSlottedIcon = ({
   </sbb-expansion-panel>
 `;
 
+const NestedTemplate = ({
+  headerText,
+  iconName,
+  contentText,
+  'disabled-interactive': disabledInteractive,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-expansion-panel ${sbbSpread(args)}>
+    <sbb-expansion-panel-header
+      icon-name=${iconName ?? nothing}
+      ?disabled-interactive=${disabledInteractive}
+    >
+      ${headerText}
+    </sbb-expansion-panel-header>
+    <sbb-expansion-panel-content>
+      ${Template({ headerText, iconName, contentText })}
+    </sbb-expansion-panel-content>
+  </sbb-expansion-panel>
+`;
+
 export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
@@ -230,20 +250,26 @@ export const SizeSWithIcon: StoryObj = {
   args: { ...defaultArgs, size: size.options![1], iconName: 'swisspass-medium' },
 };
 
+export const Nested: StoryObj = {
+  render: NestedTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.color === 'white' && context.args.borderless
-        ? 'var(--sbb-color-cement)'
-        : 'var(--sbb-color-white)',
+        ? 'var(--sbb-background-color-4)'
+        : 'var(--sbb-background-color-1)',
     actions: {
       handles: [
-        SbbExpansionPanelElement.events.willOpen,
-        SbbExpansionPanelElement.events.didOpen,
-        SbbExpansionPanelElement.events.willClose,
-        SbbExpansionPanelElement.events.didClose,
-        SbbExpansionPanelHeaderElement.events.toggleExpanded,
+        SbbExpansionPanelElement.events.beforeopen,
+        SbbExpansionPanelElement.events.open,
+        SbbExpansionPanelElement.events.beforeclose,
+        SbbExpansionPanelElement.events.close,
+        SbbExpansionPanelHeaderElement.events.toggleexpanded,
       ],
     },
     docs: {

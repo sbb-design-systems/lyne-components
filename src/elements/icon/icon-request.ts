@@ -1,9 +1,9 @@
 import { isServer } from 'lit';
 
-import type { SbbIconConfig } from '../core/config.js';
-import { readConfig } from '../core/config.js';
+import type { SbbIconConfig } from '../core/config.ts';
+import { readConfig } from '../core/config.ts';
 
-import { validateContent } from './icon-validate.js';
+import { validateContent } from './icon-validate.ts';
 
 const iconCdn = 'https://icons.app.sbb.ch/';
 
@@ -45,7 +45,7 @@ export const getSvgContent = (
           fetch(url)
             .then(async (response) => {
               if (!response.ok) {
-                throw new Error('Failed to load icon ' + namespace + ':' + name);
+                throw new Error(`Failed to load icon ${namespace}:${name}`);
               }
               return validateContent(await response.text(), sanitize);
             })

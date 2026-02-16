@@ -5,7 +5,7 @@ import { dirname, extname } from 'path';
 
 import type { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugin';
 
-import type { Meta } from '../../src/visual-regression-app/src/interfaces.js';
+import type { Meta } from '../../src/visual-regression-app/src/interfaces.ts';
 
 const metaFileName = 'meta.json';
 const branch =
@@ -13,7 +13,7 @@ const branch =
   process.env.BRANCH ??
   execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
 const baselineUrl = process.env.GITHUB_ACTIONS
-  ? 'http://localhost:8050/'
+  ? 'http://visual-regression:8080/'
   : 'https://lyne-visual-regression-baseline.app.sbb.ch/';
 
 // Importing distDir doesn't work

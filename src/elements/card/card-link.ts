@@ -1,1 +1,4 @@
-export * from './card-link/card-link.js';
+/**
+ * @entrypoint
+ */
+export * from './card-link/card-link.component.ts';

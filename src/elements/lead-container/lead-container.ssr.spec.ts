@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbLeadContainerElement } from './lead-container.js';
+import { SbbLeadContainerElement } from './lead-container.component.ts';
 
-import '../image.js';
+import '../image.ts';
 
 describe(`sbb-lead-container ssr`, () => {
   let root: SbbLeadContainerElement;
@@ -15,7 +15,7 @@ describe(`sbb-lead-container ssr`, () => {
       html`<sbb-lead-container>
         <sbb-image slot="image"></sbb-image>
       </sbb-lead-container>`,
-      { modules: ['./lead-container.js', '../image.js'] },
+      { modules: ['./lead-container.component.js', '../image.js'] },
     );
   });
 

@@ -3,8 +3,8 @@ import { resetMouse, sendKeys, sendMouse, setViewport } from '@web/test-runner-c
 import { visualDiff } from '@web/test-runner-visual-regression';
 import type { TemplateResult } from 'lit';
 
-import { visualRegressionFixture } from './fixture.js';
-import { tabKey } from './keys.js';
+import { visualRegressionFixture } from './fixture.ts';
+import { tabKey } from './keys.ts';
 
 export function imageName(test: Mocha.Runnable): string {
   return test!.fullTitle().trim().replaceAll(', ', '-').replaceAll(' ', '_').replaceAll('.', '_');

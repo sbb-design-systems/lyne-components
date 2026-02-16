@@ -1,0 +1,155 @@
+name: Visual Regression
+on:
+  push:
+    branches:
+      - main
+  pull_request: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions: read-all
+
+env:
+  IMAGE_REPO_VISUAL_REGRESSION: ghcr.io/sbb-design-systems/lyne-components/visual-regression
+
+jobs:
+  remove-label:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update label
+        # This label is used for filtering deployments in ArgoCD.
+        # At the start of the workflow, we remove the container available labels
+        # which will be re-added after the Secure workflow.
+        run: gh issue edit ${{ github.event.number }} --remove-label "diff-available"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Run eslint
+        run: yarn lint:tsc
+
+      - name: Preload test artifacts
+        run: node scripts/preload-test-artifacts.ts
+
+      - name: Store test artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-artifacts
+          path: node_modules/.cache/lyne-cdn/
+
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.51.1-noble
+      options: --user 1001
+    needs: setup
+    services:
+      visual-regression:
+        image: ghcr.io/sbb-design-systems/lyne-components/visual-regression:baseline
+    env:
+      max-segment: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        segment: [1, 2, 3, 4, 5]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive
+      - name: Restore test artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: test-artifacts
+
+        # This step must not fail, so we define a fallback, which will succeed, even if
+        # the visual regression tests failed. This will be evaluated in the secure workflow.
+      - name: Run visual regression tests
+        if: github.event_name == 'pull_request'
+        run: yarn test:visual-regression --segment=${{ matrix.segment }}/${{ env.max-segment }} || true
+        env:
+          NODE_ENV: production
+          RELEVANT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Run visual regression baseline generation
+        if: github.ref == 'refs/heads/main'
+        run: yarn test:visual-regression --segment=${{ matrix.segment }}/${{ env.max-segment }} --update-visual-baseline
+        env:
+          NODE_ENV: production
+          RELEVANT_SHA: ${{ github.sha }}
+
+      - name: Store visual regression output
+        uses: actions/upload-artifact@v4
+        with:
+          name: matrix-screenshots-${{ matrix.segment }}
+          path: dist/screenshots/
+          retention-days: 1
+
+  collect-test-results:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive
+      - uses: actions/download-artifact@v4
+      - name: Assemble screenshots
+        run: |
+          mkdir -p dist/screenshots
+          for file in matrix-screenshots-*/; do
+            cp -RT "$file" "dist/screenshots/"
+          done
+
+      - name: Prepare failed screenshot artifacts
+        if: github.event_name == 'pull_request'
+        run: node tools/visual-regression-testing/prepare-failed-screenshots-artifact.ts
+      - name: Store visual regression output
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-screenshots
+          path: dist/screenshots-artifact/
+
+      - name: Build visual-regression-app
+        if: github.ref == 'refs/heads/main'
+        run: yarn build visual-regression-app
+      - uses: ./.github/actions/setup-mint
+        if: github.ref == 'refs/heads/main'
+      - name: Build and push visual regression baseline
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+          docker build \
+            --file tools/visual-regression-testing/Dockerfile \
+            --tag ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline-fat \
+            .
+          mint slim \
+            --target ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline-fat \
+            --tag ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline \
+            --preserve-path /usr/share/nginx/html \
+            --include-new false
+          docker push ${{ env.IMAGE_REPO_VISUAL_REGRESSION }}:baseline
+          docker image list
+        env:
+          DOCKER_BUILDKIT: 1

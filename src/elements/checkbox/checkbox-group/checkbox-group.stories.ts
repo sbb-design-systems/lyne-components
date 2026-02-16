@@ -1,21 +1,21 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { ArgTypes, Args, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { styleMap, type StyleInfo } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbCheckboxElement } from '../checkbox.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import type { SbbCheckboxElement } from '../checkbox.ts';
 
 import readme from './readme.md?raw';
 
-import './checkbox-group.js';
-import '../checkbox.js';
-import '../checkbox-panel.js';
-import '../../form-error.js';
-import '../../icon.js';
-import '../../card/card-badge.js';
+import './checkbox-group.component.ts';
+import '../checkbox.ts';
+import '../checkbox-panel.ts';
+import '../../form-field/error.ts';
+import '../../icon.ts';
+import '../../card/card-badge.ts';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -112,9 +112,7 @@ const ErrorMessageTemplate = ({
 }: Args): TemplateResult => html`
   <sbb-checkbox-group ${sbbSpread(args)} id="sbb-checkbox-group">
     ${checkboxes(checked, disabledSingle, iconName, iconPlacement, label)}
-    ${args.required
-      ? html`<sbb-form-error slot="error">This is a required field.</sbb-form-error>`
-      : nothing}
+    ${args.required ? html`<sbb-error slot="error">This is a required field.</sbb-error>` : nothing}
   </sbb-checkbox-group>
 `;
 
@@ -224,7 +222,7 @@ const horizontalFrom: InputType = {
   control: {
     type: 'select',
   },
-  options: ['unset', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: ['unset', 'zero', 'small', 'large', 'ultra'],
   table: {
     category: 'Checkbox group',
   },
@@ -234,7 +232,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's', 'xs'],
+  options: ['xs', 's', 'm'],
   table: {
     category: 'Checkbox group',
   },
@@ -350,7 +348,7 @@ export const vertical: StoryObj = {
 export const verticalToHorizontal: StoryObj = {
   render: DefaultTemplate,
   argTypes: checkboxArgTypes,
-  args: { ...checkboxArgsVertical, 'horizontal-from': 'medium' },
+  args: { ...checkboxArgsVertical, 'horizontal-from': 'large' },
 };
 
 export const horizontalSizeM: StoryObj = {
@@ -407,13 +405,13 @@ export const verticalIconEndLongLabel: StoryObj = {
   args: { ...checkboxArgsVertical, ...iconEnd, label: longLabelText },
 };
 
-export const horizontalWithSbbFormError: StoryObj = {
+export const horizontalWitherror: StoryObj = {
   render: ErrorMessageTemplate,
   argTypes: checkboxArgTypes,
   args: { ...checkboxArgs, required: true },
 };
 
-export const verticalWithSbbFormError: StoryObj = {
+export const verticalWitherror: StoryObj = {
   render: ErrorMessageTemplate,
   argTypes: checkboxArgTypes,
   args: { ...checkboxArgsVertical, required: true },
@@ -440,7 +438,7 @@ export const verticalPanel: StoryObj = {
 export const verticalToHorizontalPanel: StoryObj = {
   render: PanelTemplate,
   argTypes: checkboxArgTypes,
-  args: { ...basicArgs, orientation: orientation.options![1], 'horizontal-from': 'medium' },
+  args: { ...basicArgs, orientation: orientation.options![1], 'horizontal-from': 'large' },
 };
 
 const meta: Meta = {

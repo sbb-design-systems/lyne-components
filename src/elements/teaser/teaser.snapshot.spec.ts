@@ -1,12 +1,15 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import images from '../core/images.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbTeaserElement } from './teaser.js';
+import type { SbbTeaserElement } from './teaser.component.ts';
 
-import './teaser.js';
+import '../chip-label.ts';
+import '../title.ts';
+import './teaser.component.ts';
+
+const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 
 describe(`sbb-teaser`, () => {
   let element: SbbTeaserElement;
@@ -33,15 +36,16 @@ describe(`sbb-teaser`, () => {
     testA11yTreeSnapshot();
   });
 
-  describe('renders after with title level set', () => {
+  describe('renders after with title set', () => {
     beforeEach(async () => {
       element = await fixture(
         html`<sbb-teaser
           href="https://github.com/sbb-design-systems/lyne-components"
           alignment="after"
           accessibility-label="SBB teaser"
-          title-level="2"
-        ></sbb-teaser>`,
+        >
+          <sbb-title level="2">Title</sbb-title>
+        </sbb-teaser>`,
       );
     });
 
@@ -63,17 +67,17 @@ describe(`sbb-teaser`, () => {
           alignment="below"
         >
           <figure slot="image" class="sbb-figure">
-            <img src=${images[0]} alt="400x300" />
+            <img src=${imageUrl} alt="400x300" />
           </figure>
-          <span slot="chip">Chip</span>
-          <span slot="title">TITLE</span>
-          description
+          <sbb-chip-label>Chip</sbb-chip-label>
+          <sbb-title level="2">Title</sbb-title>
+          A brief description.
         </sbb-teaser>`,
       );
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.equalSnapshot();
+      await expect(element).dom.to.equalSnapshot({ ignoreAttributes: ['src'] });
     });
 
     it('Shadow DOM', async () => {

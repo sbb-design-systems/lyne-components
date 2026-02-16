@@ -1,1 +1,4 @@
-export * from './radio-button/radio-button.js';
+/**
+ * @entrypoint
+ */
+export * from './radio-button/radio-button.component.ts';

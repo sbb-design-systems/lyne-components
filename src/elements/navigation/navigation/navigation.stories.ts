@@ -1,20 +1,20 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
-import { SbbNavigationElement } from './navigation.js';
+import { SbbNavigationElement } from './navigation.component.ts';
 import readme from './readme.md?raw';
-import '../navigation-section.js';
-import '../navigation-marker.js';
-import '../navigation-list.js';
-import '../navigation-button.js';
-import '../navigation-link.js';
-import '../../button/button.js';
-import '../../button/secondary-button.js';
+import '../navigation-section.ts';
+import '../navigation-marker.ts';
+import '../navigation-list.ts';
+import '../navigation-button.ts';
+import '../navigation-link.ts';
+import '../../button/button.ts';
+import '../../button/secondary-button.ts';
 
 const ariaLabel: InputType = {
   control: {
@@ -166,10 +166,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbNavigationElement.events.willOpen,
-        SbbNavigationElement.events.didOpen,
-        SbbNavigationElement.events.didClose,
-        SbbNavigationElement.events.willClose,
+        SbbNavigationElement.events.beforeopen,
+        SbbNavigationElement.events.open,
+        SbbNavigationElement.events.close,
+        SbbNavigationElement.events.beforeclose,
       ],
     },
     docs: {

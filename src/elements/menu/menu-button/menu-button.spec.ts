@@ -2,10 +2,10 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
-import { SbbMenuButtonElement } from './menu-button.js';
+import { SbbMenuButtonElement } from './menu-button.component.ts';
 
 describe(`sbb-menu-button`, () => {
   let element: SbbMenuButtonElement;
@@ -35,7 +35,7 @@ describe(`sbb-menu-button`, () => {
       const clickSpy = new EventSpy('click');
 
       element.dispatchEvent(
-        new CustomEvent('click', { bubbles: true, cancelable: true, composed: true }),
+        new PointerEvent('click', { bubbles: true, cancelable: true, composed: true }),
       );
       expect(clickSpy.count).not.to.be.greaterThan(0);
     });

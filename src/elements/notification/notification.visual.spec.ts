@@ -1,36 +1,37 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import '../link/link.js';
-import './notification.js';
+import '../link/link.ts';
+import '../title.ts';
+import './notification.component.ts';
 
 describe(`sbb-notification`, () => {
   const defaultArgs = {
     type: 'info',
     size: 'm',
     readonly: false,
-    title: true,
-    slotted: false,
+    showTitle: true,
+    iconName: '',
   };
 
   const notificationTemplate = ({
     type,
     size,
     readonly,
-    title,
-    slotted,
+    showTitle,
+    iconName,
   }: typeof defaultArgs): TemplateResult => html`
     <sbb-notification
-      title-content=${title && !slotted ? 'Title' : nothing}
       size=${size}
       ?readonly=${readonly}
       type=${type}
       style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
+      icon-name=${iconName || nothing}
     >
-      ${title && slotted ? html`<span slot="title">Slotted title</span>` : nothing} The quick brown
-      fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
+      ${showTitle ? html`<sbb-title>Title</sbb-title>` : nothing} The quick brown fox jumps over the
+      lazy dog. The quick brown fox jumps over the lazy dog.
       <sbb-link href="/">Link one</sbb-link>
       <sbb-link href="/">Link two</sbb-link>
       <sbb-link href="/">Link three</sbb-link>
@@ -46,21 +47,25 @@ describe(`sbb-notification`, () => {
 
   const states = {
     readonly: [false, true],
-    slottedTitle: [false, true],
+    showTitle: [false, true],
   };
 
-  const types = ['info', 'success', 'warn', 'error'];
+  const types = ['info', 'note', 'success', 'warn', 'error'];
   const visualStates = {
     state: [...types.map((type) => ({ type, multiple: false })), { multiple: true, type: 'all' }],
     size: ['s', 'm'],
   };
 
-  describeViewports({ viewports: ['zero', 'small', 'medium'] }, () => {
-    describeEach(states, ({ readonly, slottedTitle }) => {
+  describeViewports({ viewports: ['zero', 'small', 'large'] }, () => {
+    describeEach(states, ({ readonly, showTitle }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
-          const args = { ...defaultArgs, readonly, title: slottedTitle, slotted: slottedTitle };
+          const args = {
+            ...defaultArgs,
+            readonly,
+            showTitle,
+          } satisfies typeof defaultArgs;
           await setup.withFixture(html`${notificationTemplate(args)} ${textTemplate}`);
         }),
       );
@@ -71,14 +76,65 @@ describe(`sbb-notification`, () => {
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            ${repeat(
-              state.multiple ? types : [state.type],
-              (type: string) => html`${notificationTemplate({ ...defaultArgs, type, size })}`,
+            ${repeat(state.multiple ? types : [state.type], (type: string) =>
+              notificationTemplate({ ...defaultArgs, type, size }),
             )}
             ${textTemplate}
           `);
         }),
       );
     });
+  });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    for (const type of types) {
+      describe(`type=${type}`, () => {
+        it(
+          'darkMode=true',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`${notificationTemplate({ ...defaultArgs, type })} ${textTemplate}`,
+              {
+                darkMode: true,
+              },
+            );
+          }),
+        );
+
+        it(
+          'forcedColors=true',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`${notificationTemplate({ ...defaultArgs, type })} ${textTemplate}`,
+              {
+                forcedColors: true,
+              },
+            );
+          }),
+        );
+      });
+    }
+
+    it(
+      'custom icon name',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          notificationTemplate({ ...defaultArgs, iconName: 'magnifying-glass-small' }),
+        );
+      }),
+    );
+
+    it(
+      'slotted icon',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-notification type="info">
+            <sbb-icon name="magnifying-glass-small" slot="icon"></sbb-icon>
+            <sbb-title>Title</sbb-title>
+            Text
+          </sbb-notification>`,
+        );
+      }),
+    );
   });
 });

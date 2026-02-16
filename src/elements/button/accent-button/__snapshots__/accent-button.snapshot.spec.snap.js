@@ -3,10 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-accent-button renders a sbb-accent-button without icon DOM"] = 
 `<sbb-accent-button
-  data-action=""
-  data-button=""
-  data-sbb-button=""
-  data-slot-names="unnamed"
   disabled=""
   form="formid"
   name="name"
@@ -34,18 +30,11 @@ snapshots["sbb-accent-button renders a sbb-accent-button without icon Shadow DOM
 
 snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon DOM"] = 
 `<sbb-accent-button
-  data-action=""
-  data-button=""
-  data-sbb-button=""
-  data-slot-names="icon unnamed"
   size="l"
   tabindex="0"
 >
   <sbb-icon
-    aria-hidden="true"
-    data-namespace="default"
     name="chevron-small-left-small"
-    role="img"
     slot="icon"
   >
   </sbb-icon>
@@ -69,32 +58,18 @@ snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon Shado
 snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Label Text"
+      "name": "Label Text",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-accent-button renders a sbb-accent-button with slotted icon A11y tree Chrome */
-
-snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Label Text"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-accent-button renders a sbb-accent-button with slotted icon A11y tree Firefox */
 

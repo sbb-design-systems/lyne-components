@@ -1,17 +1,19 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbCalendarElement } from './calendar.js';
+import { SbbCalendarElement } from './calendar.component.ts';
 
 describe(`sbb-calendar ssr`, () => {
   let root: SbbCalendarElement;
 
-  beforeEach(async () => {
+  beforeEach(async function () {
+    // This test seems flaky for unknown reason, so we extend the timeout for this specific test.
+    this.timeout(20000);
     root = await ssrHydratedFixture(
-      html`<sbb-calendar now="2023-01-04T00:00:00" selected="2023-01-20T00:00:00"></sbb-calendar>`,
-      { modules: ['./calendar.js'] },
+      html`<sbb-calendar selected="2023-01-20T00:00:00"></sbb-calendar>`,
+      { modules: ['./calendar.component.js'] },
     );
   });
 

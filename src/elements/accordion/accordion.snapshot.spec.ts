@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbAccordionElement } from './accordion.js';
-import './accordion.js';
-import '../expansion-panel.js';
+import type { SbbAccordionElement } from './accordion.component.ts';
+import './accordion.component.ts';
+import '../expansion-panel.ts';
 
 describe(`sbb-accordion`, () => {
   let element: SbbAccordionElement;

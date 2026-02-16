@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbJourneyHeaderElement } from './journey-header.js';
-import './journey-header.js';
+import type { SbbJourneyHeaderElement } from './journey-header.component.ts';
+import './journey-header.component.ts';
 
 describe(`sbb-journey-header`, () => {
   describe('renders', () => {

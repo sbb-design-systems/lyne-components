@@ -2,17 +2,19 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import { SbbStepElement } from '../step/step.js';
-import type { SbbStepLabelElement } from '../step-label.js';
+import { elementInternalsSpy, fixture, tabKey } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import { SbbStepElement } from '../step/step.component.ts';
+import type { SbbStepLabelElement } from '../step-label.ts';
 
-import { SbbStepperElement } from './stepper.js';
-import '../step-label.js';
-import '../step.js';
+import { SbbStepChangeEvent, SbbStepperElement } from './stepper.component.ts';
+
+import '../step-label.ts';
+import '../step.ts';
 
 describe('sbb-stepper', () => {
   let element: SbbStepperElement;
+  const elementInternals = elementInternalsSpy();
 
   beforeEach(async () => {
     element = await fixture(html`
@@ -46,20 +48,47 @@ describe('sbb-stepper', () => {
     assert.instanceOf(element, SbbStepperElement);
   });
 
+  it("updates stepper's height if the step content changes", async () => {
+    // the starting height of the stepper should not be zero
+    const baseHeight = getComputedStyle(element)
+      .getPropertyValue('--sbb-stepper-content-height')
+      .replaceAll('px', '');
+    expect(+baseHeight).not.to.be.equal(0);
+
+    const stepOne = element.querySelector<SbbStepElement>('sbb-step:nth-of-type(1)')!;
+    const resizeChangeSpy = new EventSpy(SbbStepElement.events.resizechange, element);
+    const addedHeight = 200;
+
+    const div = document.createElement('div');
+    div.innerText = 'Content dynamically added.';
+    div.style.cssText = `display: block; height: ${addedHeight}px;`;
+    stepOne.appendChild(div);
+    await waitForLitRender(element);
+    await resizeChangeSpy.calledOnce();
+    expect(resizeChangeSpy.count).to.be.equal(1);
+
+    const newHeight = getComputedStyle(element).getPropertyValue('--sbb-stepper-content-height');
+    expect(newHeight).to.be.equal(`${+baseHeight + addedHeight}px`);
+  });
+
   it('selects the first step by default', async () => {
     const stepLabelOne = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(1)',
     )!;
 
     await waitForLitRender(element);
-    expect(stepLabelOne).to.have.attribute('data-selected');
+    expect(stepLabelOne).to.match(':state(selected)');
   });
 
-  it('selects the correct step on label click and emits validate event', async () => {
+  it('selects the correct step on label click and emits validate and stepchange events', async () => {
     const stepLabelThree = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(3)',
     )!;
     const validate = new EventSpy(SbbStepElement.events.validate);
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
+      element,
+    );
 
     stepLabelThree.focus();
     stepLabelThree.click();
@@ -67,62 +96,111 @@ describe('sbb-stepper', () => {
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    expect(stepLabelThree).to.have.attribute('data-selected');
-    expect(stepLabelThree.step).to.have.attribute('data-selected');
+    await stepChangeSpy.calledOnce();
+    expect(stepChangeSpy.count).to.be.equal(1);
+
+    const event = stepChangeSpy.lastEvent;
+    expect(event).to.be.instanceOf(SbbStepChangeEvent);
+    expect(event!.selectedIndex).to.be.equal(2);
+    expect(event!.previousIndex).to.be.equal(0);
+    expect(event!.selectedStep).to.be.equal(stepLabelThree.step);
+    expect(event!.previousStep).to.be.equal(element.steps[0]);
+
+    expect(stepLabelThree).to.match(':state(selected)');
+    expect(stepLabelThree.step).to.match(':state(selected)');
     expect(document.activeElement!.id).to.be.equal(stepLabelThree.id);
   });
 
-  it('selects the correct step via `selected` and emits validate event', async () => {
+  it('selects the correct step via `selected` and emits validate and stepchange events', async () => {
     const stepLabelThree = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(3)',
     )!;
     const validate = new EventSpy(SbbStepElement.events.validate);
-
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
+      element,
+    );
     element.selected = stepLabelThree.step!;
     await waitForLitRender(element);
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    expect(stepLabelThree).to.have.attribute('data-selected');
-    expect(stepLabelThree.step).to.have.attribute('data-selected');
+    await stepChangeSpy.calledOnce();
+    expect(stepChangeSpy.count).to.be.equal(1);
+
+    const event = stepChangeSpy.lastEvent;
+    expect(event).to.be.instanceOf(SbbStepChangeEvent);
+    expect(event!.selectedIndex).to.be.equal(2);
+    expect(event!.previousIndex).to.be.equal(0);
+    expect(event!.selectedStep).to.be.equal(stepLabelThree.step);
+    expect(event!.previousStep).to.be.equal(element.steps[0]);
+
+    expect(stepLabelThree).to.match(':state(selected)');
+    expect(stepLabelThree.step).to.match(':state(selected)');
     expect(document.activeElement!.id).not.to.be.equal(stepLabelThree.id);
   });
 
-  it('selects the correct step via `selectedIndex` and emits validate event', async () => {
+  it('selects the correct step via `selectedIndex` and emits validate and stepchange events', async () => {
     const stepLabelThree = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(3)',
     )!;
     const validate = new EventSpy(SbbStepElement.events.validate);
-
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
+      element,
+    );
     element.selectedIndex = 2;
     await waitForLitRender(element);
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    expect(stepLabelThree).to.have.attribute('data-selected');
-    expect(stepLabelThree.step).to.have.attribute('data-selected');
+    await stepChangeSpy.calledOnce();
+    expect(stepChangeSpy.count).to.be.equal(1);
+
+    const event = stepChangeSpy.lastEvent;
+    expect(event).to.be.instanceOf(SbbStepChangeEvent);
+    expect(event!.selectedIndex).to.be.equal(2);
+    expect(event!.previousIndex).to.be.equal(0);
+    expect(event!.selectedStep).to.be.equal(stepLabelThree.step);
+    expect(event!.previousStep).to.be.equal(element.steps[0]);
+
+    expect(stepLabelThree).to.match(':state(selected)');
+    expect(stepLabelThree.step).to.match(':state(selected)');
     expect(document.activeElement!.id).not.to.be.equal(stepLabelThree.id);
   });
 
-  it('selects the next step on [sbb-stepper-next] click and emits validate event', async () => {
+  it('selects the next step on [sbb-stepper-next] click and emits validate and stepchange events', async () => {
     const stepperNext = element.querySelector<HTMLElement>('[sbb-stepper-next]')!;
     const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(2)',
     )!;
     const validate = new EventSpy(SbbStepElement.events.validate);
-
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
+      element,
+    );
     stepperNext.focus();
     stepperNext.click();
     await waitForLitRender(element);
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    expect(stepLabelTwo).to.have.attribute('data-selected');
-    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+    await stepChangeSpy.calledOnce();
+    expect(stepChangeSpy.count).to.be.equal(1);
+
+    const event = stepChangeSpy.lastEvent;
+    expect(event).to.be.instanceOf(SbbStepChangeEvent);
+    expect(event!.selectedIndex).to.be.equal(1);
+    expect(event!.previousIndex).to.be.equal(0);
+    expect(event!.selectedStep).to.be.equal(stepLabelTwo.step);
+    expect(event!.previousStep).to.be.equal(element.steps[0]);
+
+    expect(stepLabelTwo).to.match(':state(selected)');
+    expect(stepLabelTwo.step).to.match(':state(selected)');
     expect(document.activeElement!.id).to.be.equal(stepLabelTwo.id);
   });
 
-  it('selects the previous step on [sbb-stepper-previous] click', async () => {
+  it('selects the previous step on [sbb-stepper-previous] click and emits stepchange event', async () => {
     const stepperNext = element.querySelector<HTMLElement>('[sbb-stepper-next]')!;
     const stepperPrevious = element.querySelector<HTMLElement>('[sbb-stepper-previous]')!;
     const stepLabelOne = element.querySelector<SbbStepLabelElement>(
@@ -139,15 +217,29 @@ describe('sbb-stepper', () => {
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    expect(stepLabelTwo).to.have.attribute('data-selected');
-    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+    expect(stepLabelTwo).to.match(':state(selected)');
+    expect(stepLabelTwo.step).to.match(':state(selected)');
     expect(document.activeElement!.id).to.be.equal(stepLabelTwo.id);
 
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
+      element,
+    );
     stepperPrevious.click();
     await waitForLitRender(element);
 
-    expect(stepLabelOne).to.have.attribute('data-selected');
-    expect(stepLabelOne.step).to.have.attribute('data-selected');
+    await stepChangeSpy.calledOnce();
+    expect(stepChangeSpy.count).to.be.equal(1);
+
+    const event = stepChangeSpy.lastEvent;
+    expect(event).to.be.instanceOf(SbbStepChangeEvent);
+    expect(event!.selectedIndex).to.be.equal(0);
+    expect(event!.previousIndex).to.be.equal(1);
+    expect(event!.selectedStep).to.be.equal(stepLabelOne.step);
+    expect(event!.previousStep).to.be.equal(element.steps[1]);
+
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelOne.step).to.match(':state(selected)');
     expect(document.activeElement!.id).to.be.equal(stepLabelOne.id);
   });
 
@@ -169,30 +261,33 @@ describe('sbb-stepper', () => {
     stepLabelThree.click();
     await waitForLitRender(element);
 
-    expect(stepLabelOne).to.have.attribute('data-selected');
-    expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelOne.step).to.match(':state(selected)');
 
     stepLabelTwo.click();
     await waitForLitRender(element);
 
-    expect(stepLabelOne).to.have.attribute('data-selected');
-    expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelOne.step).to.match(':state(selected)');
 
     stepperNext.click();
     await waitForLitRender(element);
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    expect(stepLabelTwo).to.have.attribute('data-selected');
-    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+    expect(stepLabelTwo).to.match(':state(selected)');
+    expect(stepLabelTwo.step).to.match(':state(selected)');
   });
 
-  it('does not switch to the next step if the validate is prevented', async () => {
+  it('does not switch to the next step if the validate is prevented and does not emit stepchange', async () => {
     const stepLabelThree = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(3)',
     )!;
     const validate = new EventSpy(SbbStepElement.events.validate);
-
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
+      element,
+    );
     element.addEventListener(SbbStepElement.events.validate, (ev) => ev.preventDefault());
 
     stepLabelThree.click();
@@ -200,8 +295,288 @@ describe('sbb-stepper', () => {
 
     await validate.calledOnce();
     expect(validate.count).to.be.equal(1);
-    expect(stepLabelThree).not.to.have.attribute('data-selected');
-    expect(stepLabelThree.step).not.to.have.attribute('data-selected');
+    expect(stepChangeSpy.count).to.be.equal(0);
+    expect(stepLabelThree).not.to.match(':state(selected)');
+    expect(stepLabelThree.step).not.to.match(':state(selected)');
+  });
+
+  it('does not select a disabled step-label on click', async () => {
+    const stepLabelOne = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(1)',
+    )!;
+    const stepLabelFour = element.querySelector<SbbStepLabelElement>(
+      'sbb-step-label:nth-of-type(4)',
+    )!;
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
+      element,
+    );
+
+    // Step 4 is already disabled in the fixture
+    expect(stepLabelFour.disabled).to.be.true;
+    expect(stepLabelFour).to.have.attribute('disabled');
+    expect(stepLabelOne).to.match(':state(selected)');
+
+    // Click on the disabled step label
+    stepLabelFour.click();
+    await waitForLitRender(element);
+
+    // No step change should have occurred
+    expect(stepChangeSpy.count).to.be.equal(0);
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelFour).not.to.match(':state(selected)');
+    expect(stepLabelFour.step).not.to.match(':state(selected)');
+  });
+
+  it('should keep last step disabled in non-linear stepper when switching from first to second step', async () => {
+    element = await fixture(html`
+      <sbb-stepper>
+        <sbb-step-label>Step 1</sbb-step-label>
+        <sbb-step>Step one content.</sbb-step>
+
+        <sbb-step-label>Step 2</sbb-step-label>
+        <sbb-step>Step two content.</sbb-step>
+
+        <sbb-step-label>Step 3</sbb-step-label>
+        <sbb-step>Step three content.</sbb-step>
+
+        <sbb-step-label>Step 4</sbb-step-label>
+        <sbb-step>Step four content.</sbb-step>
+      </sbb-stepper>
+    `);
+
+    const labels = element.querySelectorAll('sbb-step-label');
+    const stepLabelOne = labels[0];
+    const stepLabelTwo = labels[1];
+    const stepLabelFour = labels[3];
+
+    expect(stepLabelOne).to.match(':state(selected)');
+
+    stepLabelFour.disabled = true;
+    await waitForLitRender(element);
+    expect(stepLabelFour.disabled).to.be.true;
+    expect(stepLabelFour).to.have.attribute('disabled');
+    expect(stepLabelFour).to.match(':state(user-disabled)');
+
+    element.next();
+    await waitForLitRender(element);
+
+    expect(stepLabelTwo).to.match(':state(selected)');
+    expect(stepLabelFour).to.match(':state(user-disabled)');
+    expect(stepLabelFour).to.have.attribute('disabled');
+    expect(stepLabelFour.disabled).to.be.true;
+  });
+
+  it('should return correct step when step is slotted after step label dynamically', async () => {
+    const existingStepLabel = document.createElement('sbb-step-label')!;
+    element = document.createElement('sbb-stepper');
+    element.appendChild(existingStepLabel);
+
+    document.body.appendChild(element);
+
+    // Initially, label.step should be null since no step is slotted after it
+    expect(existingStepLabel.step).to.be.null;
+
+    // Dynamically add a step after the label
+    const newStep = document.createElement('sbb-step');
+    existingStepLabel.insertAdjacentElement('afterend', newStep);
+    await waitForLitRender(element);
+
+    // After adding the step, label.step should return the correct step
+    expect(existingStepLabel.step).to.equal(newStep);
+
+    element.remove();
+  });
+
+  describe('initial step selection logic', () => {
+    it('should select first step (index 0) by default when no initial selection is set', async () => {
+      element = await fixture(html`
+        <sbb-stepper>
+          <sbb-step-label>Step 1</sbb-step-label>
+          <sbb-step>Step one content.</sbb-step>
+
+          <sbb-step-label>Step 2</sbb-step-label>
+          <sbb-step>Step two content.</sbb-step>
+
+          <sbb-step-label>Step 3</sbb-step-label>
+          <sbb-step>Step three content.</sbb-step>
+        </sbb-stepper>
+      `);
+
+      expect(element.selectedIndex).to.be.equal(0);
+      expect(element.selected).to.be.equal(element.querySelector('sbb-step'));
+    });
+
+    it('should select step when selectedIndex is set before component is loaded', async () => {
+      element = document.createElement('sbb-stepper');
+      element.setAttribute('selected-index', '1');
+
+      const stepLabel1 = document.createElement('sbb-step-label');
+      const step1 = document.createElement('sbb-step');
+
+      const stepLabel2 = document.createElement('sbb-step-label');
+      const step2 = document.createElement('sbb-step');
+
+      element.appendChild(stepLabel1);
+      element.appendChild(step1);
+      element.appendChild(stepLabel2);
+      element.appendChild(step2);
+
+      document.body.appendChild(element);
+      await waitForLitRender(element);
+
+      expect(element.selectedIndex).to.be.equal(1);
+      expect(element.selected).to.be.equal(step2);
+
+      element.remove();
+    });
+
+    it('should select step when selected property is set before component is loaded', async () => {
+      element = document.createElement('sbb-stepper');
+
+      const stepLabel1 = document.createElement('sbb-step-label');
+      const step1 = document.createElement('sbb-step');
+
+      const stepLabel2 = document.createElement('sbb-step-label');
+      const step2 = document.createElement('sbb-step');
+
+      element.appendChild(stepLabel1);
+      element.appendChild(step1);
+      element.appendChild(stepLabel2);
+      element.appendChild(step2);
+
+      // Set selected before appending to DOM
+      element.selected = step2;
+
+      document.body.appendChild(element);
+      await waitForLitRender(element);
+
+      expect(element.selectedIndex).to.be.equal(1);
+      expect(element.selected).to.be.equal(step2);
+
+      element.remove();
+    });
+
+    it('should prioritize selected property over selectedIndex when both are set', async () => {
+      element = document.createElement('sbb-stepper');
+      element.setAttribute('selected-index', '1');
+
+      const stepLabel1 = document.createElement('sbb-step-label');
+      const step1 = document.createElement('sbb-step');
+
+      const stepLabel2 = document.createElement('sbb-step-label');
+      const step2 = document.createElement('sbb-step');
+
+      const stepLabel3 = document.createElement('sbb-step-label');
+      const step3 = document.createElement('sbb-step');
+
+      element.appendChild(stepLabel1);
+      element.appendChild(step1);
+      element.appendChild(stepLabel2);
+      element.appendChild(step2);
+      element.appendChild(stepLabel3);
+      element.appendChild(step3);
+
+      // Set selected property (should have priority)
+      element.selected = step3;
+
+      document.body.appendChild(element);
+      await waitForLitRender(element);
+
+      // Should select step3 (index 2) instead of step1 (index 1)
+      expect(element.selectedIndex).to.be.equal(2);
+      expect(element.selected).to.be.equal(step3);
+
+      element.remove();
+    });
+  });
+
+  describe('initial step selection logic in linear mode', () => {
+    it('should select step when selectedIndex is set before component is loaded', async () => {
+      element = document.createElement('sbb-stepper');
+      element.setAttribute('linear', '');
+      element.setAttribute('selected-index', '1');
+
+      const stepLabel1 = document.createElement('sbb-step-label');
+      const step1 = document.createElement('sbb-step');
+
+      const stepLabel2 = document.createElement('sbb-step-label');
+      const step2 = document.createElement('sbb-step');
+
+      element.appendChild(stepLabel1);
+      element.appendChild(step1);
+      element.appendChild(stepLabel2);
+      element.appendChild(step2);
+
+      document.body.appendChild(element);
+      await waitForLitRender(element);
+
+      expect(element.selectedIndex).to.be.equal(1);
+      expect(element.selected).to.be.equal(step2);
+
+      element.remove();
+    });
+
+    it('should select step when selected property is set before component is loaded', async () => {
+      element = document.createElement('sbb-stepper');
+      element.linear = true;
+
+      const stepLabel1 = document.createElement('sbb-step-label');
+      const step1 = document.createElement('sbb-step');
+
+      const stepLabel2 = document.createElement('sbb-step-label');
+      const step2 = document.createElement('sbb-step');
+
+      element.appendChild(stepLabel1);
+      element.appendChild(step1);
+      element.appendChild(stepLabel2);
+      element.appendChild(step2);
+
+      // Set selected before appending to DOM
+      element.selected = step2;
+
+      document.body.appendChild(element);
+      await waitForLitRender(element);
+
+      expect(element.selectedIndex).to.be.equal(1);
+      expect(element.selected).to.be.equal(step2);
+
+      element.remove();
+    });
+
+    it('should prioritize selected property over selectedIndex when both are set', async () => {
+      element = document.createElement('sbb-stepper');
+      element.linear = true;
+      element.setAttribute('selected-index', '1');
+
+      const stepLabel1 = document.createElement('sbb-step-label');
+      const step1 = document.createElement('sbb-step');
+
+      const stepLabel2 = document.createElement('sbb-step-label');
+      const step2 = document.createElement('sbb-step');
+
+      const stepLabel3 = document.createElement('sbb-step-label');
+      const step3 = document.createElement('sbb-step');
+
+      element.appendChild(stepLabel1);
+      element.appendChild(step1);
+      element.appendChild(stepLabel2);
+      element.appendChild(step2);
+      element.appendChild(stepLabel3);
+      element.appendChild(step3);
+
+      // Set selected property (should have priority)
+      element.selected = step3;
+
+      document.body.appendChild(element);
+      await waitForLitRender(element);
+
+      // Should select step3 (index 2) instead of step1 (index 1)
+      expect(element.selectedIndex).to.be.equal(2);
+      expect(element.selected).to.be.equal(step3);
+
+      element.remove();
+    });
   });
 
   it('resets the single form wrapping the stepper and returns to the first step', async () => {
@@ -250,8 +625,8 @@ describe('sbb-stepper', () => {
     expect(stepInputOne.value).to.be.equal('');
     expect(stepInputTwo.value).to.be.equal('');
 
-    expect(stepLabelOne).to.have.attribute('data-selected');
-    expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelOne.step).to.match(':state(selected)');
     expect(document.activeElement!.id).to.be.equal(stepLabelOne.id);
   });
 
@@ -299,8 +674,8 @@ describe('sbb-stepper', () => {
     expect(stepInputOne.value).to.be.equal('');
     expect(stepInputTwo.value).to.be.equal('');
 
-    expect(stepLabelOne).to.have.attribute('data-selected');
-    expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelOne.step).to.match(':state(selected)');
     expect(document.activeElement!.id).not.to.be.equal(stepLabelOne.id);
   });
 
@@ -316,25 +691,39 @@ describe('sbb-stepper', () => {
     expect(document.activeElement!.id).to.be.equal('step-one-content');
   });
 
-  it('sets the correct aria-labelledby attributes', async () => {
+  it('sets the correct ariaLabelledbyElements property', async () => {
     const steps: SbbStepElement[] = Array.from(
       element.querySelectorAll<SbbStepElement>('sbb-step'),
     );
     steps.forEach((step: SbbStepElement) =>
-      expect(step).to.have.attribute('aria-labelledby', step.label!.id),
+      expect(elementInternals.get(step)!.ariaLabelledByElements).to.have.same.members([step.label]),
     );
   });
 
-  it('selects step on right arrow key pressed', async () => {
+  it('selects step on right arrow key pressed and emits stepchange event', async () => {
     const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
       'sbb-step-label:nth-of-type(2)',
     )!;
-
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
+      element,
+    );
     await sendKeys({ press: tabKey });
     await sendKeys({ press: 'ArrowRight' });
+    await waitForLitRender(element);
 
-    expect(stepLabelTwo).to.have.attribute('data-selected');
-    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+    await stepChangeSpy.calledOnce();
+    expect(stepChangeSpy.count).to.be.equal(1);
+
+    const event = stepChangeSpy.lastEvent;
+    expect(event).to.be.instanceOf(SbbStepChangeEvent);
+    expect(event!.selectedIndex).to.be.equal(1);
+    expect(event!.previousIndex).to.be.equal(0);
+    expect(event!.selectedStep).to.be.equal(stepLabelTwo.step);
+    expect(event!.previousStep).to.be.equal(element.steps[0]);
+
+    expect(stepLabelTwo).to.match(':state(selected)');
+    expect(stepLabelTwo.step).to.match(':state(selected)');
   });
 
   it('selects step on left arrow key pressed', async () => {
@@ -348,13 +737,13 @@ describe('sbb-stepper', () => {
     await sendKeys({ press: tabKey });
     await sendKeys({ press: 'ArrowRight' });
 
-    expect(stepLabelTwo).to.have.attribute('data-selected');
-    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+    expect(stepLabelTwo).to.match(':state(selected)');
+    expect(stepLabelTwo.step).to.match(':state(selected)');
 
     await sendKeys({ press: 'ArrowLeft' });
 
-    expect(stepLabelOne).to.have.attribute('data-selected');
-    expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelOne.step).to.match(':state(selected)');
   });
 
   it('wraps around on arrow key navigation', async () => {
@@ -371,18 +760,18 @@ describe('sbb-stepper', () => {
     await sendKeys({ press: tabKey });
     await sendKeys({ press: 'ArrowRight' });
 
-    expect(stepLabelTwo).to.have.attribute('data-selected');
-    expect(stepLabelTwo.step).to.have.attribute('data-selected');
+    expect(stepLabelTwo).to.match(':state(selected)');
+    expect(stepLabelTwo.step).to.match(':state(selected)');
 
     await sendKeys({ press: 'ArrowRight' });
 
-    expect(stepLabelThree).to.have.attribute('data-selected');
-    expect(stepLabelThree.step).to.have.attribute('data-selected');
+    expect(stepLabelThree).to.match(':state(selected)');
+    expect(stepLabelThree.step).to.match(':state(selected)');
 
     await sendKeys({ press: 'ArrowRight' });
 
-    expect(stepLabelOne).to.have.attribute('data-selected');
-    expect(stepLabelOne.step).to.have.attribute('data-selected');
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(stepLabelOne.step).to.match(':state(selected)');
   });
 
   it('wraps around on arrow left arrow key navigation', async () => {
@@ -393,18 +782,117 @@ describe('sbb-stepper', () => {
     await sendKeys({ press: tabKey });
     await sendKeys({ press: 'ArrowLeft' });
 
-    expect(stepLabelThree).to.have.attribute('data-selected');
-    expect(stepLabelThree.step).to.have.attribute('data-selected');
+    expect(stepLabelThree).to.match(':state(selected)');
+    expect(stepLabelThree.step).to.match(':state(selected)');
+  });
+
+  it('does not trigger event on arrow right key in linear mode when on first step', async () => {
+    element = await fixture(html`
+      <sbb-stepper linear>
+        <sbb-step-label>Step 1</sbb-step-label>
+        <sbb-step>Step one content.</sbb-step>
+
+        <sbb-step-label>Step 2</sbb-step-label>
+        <sbb-step>Step two content.</sbb-step>
+
+        <sbb-step-label>Step 3</sbb-step-label>
+        <sbb-step>Step three content.</sbb-step>
+      </sbb-stepper>
+    `);
+
+    const stepLabelOne = element.querySelector<SbbStepLabelElement>('sbb-step-label')!;
+
+    const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+      SbbStepperElement.events.stepchange,
+      element,
+    );
+
+    // We are on step 1 (index 0), which is the current step
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(element.selectedIndex).to.be.equal(0);
+    expect(element.linear).to.be.true;
+
+    // Focus the stepper (focus on first step label)
+    stepLabelOne.focus();
+    expect(document.activeElement).to.equal(stepLabelOne);
+
+    // Press arrow right - should NOT navigate to step 2 in linear mode
+    // because in linear mode, only the current step is enabled (index > selectedIndex are disabled)
+    await sendKeys({ press: 'ArrowRight' });
+    await waitForLitRender(element);
+
+    // No event should be triggered
+    expect(stepChangeSpy.count).to.be.equal(0);
+
+    // Should still be on step 1
+    expect(stepLabelOne).to.match(':state(selected)');
+    expect(element.selectedIndex).to.be.equal(0);
   });
 
   it('proxy size to step children', async () => {
     const stepLabels = Array.from(element.querySelectorAll<SbbStepLabelElement>('sbb-step-label')!);
 
-    expect(stepLabels.every((l) => l.getAttribute('data-size') === element.size)).to.be.true;
+    expect(stepLabels.every((l) => l.matches(`:state(size-${element.size})`))).to.be.true;
 
     element.size = 's';
     await waitForLitRender(element);
 
-    expect(stepLabels.every((l) => l.getAttribute('data-size') === element.size)).to.be.true;
+    expect(stepLabels.every((l) => l.matches(`:state(size-${element.size})`))).to.be.true;
+  });
+
+  describe('stepchange event', () => {
+    it('should emit multiple stepchange events when changing steps multiple times', async () => {
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
+        element,
+      );
+      const stepLabelTwo = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(2)',
+      )!;
+      const stepLabelThree = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(3)',
+      )!;
+
+      // Change to step 2
+      stepLabelTwo.click();
+      await waitForLitRender(element);
+
+      await stepChangeSpy.calledOnce();
+      let event = stepChangeSpy.events[0];
+      expect(event.selectedIndex).to.be.equal(1);
+      expect(event.previousIndex).to.be.equal(0);
+
+      // Change to step 3
+      stepLabelThree.click();
+      await waitForLitRender(element);
+
+      await stepChangeSpy.calledTimes(2);
+      event = stepChangeSpy.events[1];
+      expect(event.selectedIndex).to.be.equal(2);
+      expect(event.previousIndex).to.be.equal(1);
+
+      expect(stepChangeSpy.count).to.be.equal(2);
+    });
+
+    it('should have correct event properties when changing from first to last step', async () => {
+      const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
+        SbbStepperElement.events.stepchange,
+        element,
+      );
+      const stepLabelThree = element.querySelector<SbbStepLabelElement>(
+        'sbb-step-label:nth-of-type(3)',
+      )!;
+
+      element.selectedIndex = 2;
+      await waitForLitRender(element);
+
+      await stepChangeSpy.calledOnce();
+      const event = stepChangeSpy.lastEvent;
+
+      expect(event!.selectedIndex).to.be.equal(2);
+      expect(event!.previousIndex).to.be.equal(0);
+      expect(event!.selectedStep).to.be.equal(stepLabelThree.step);
+      expect(event!.previousStep).to.be.equal(element.steps[0]);
+    });
   });
 });

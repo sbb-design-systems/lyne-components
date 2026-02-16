@@ -1,24 +1,22 @@
 import { expect } from '@open-wc/testing';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
-} from '../common/button-test-utils.js';
-import './transparent-button.js';
+} from '../common/button-test-utils.private.ts';
+import './transparent-button.component.ts';
 
 describe(`sbb-transparent-button`, () => {
   it('should detect icon in sbb-transparent-button', async () => {
     const root = await fixture(buttonIconTestTemplate('sbb-transparent-button'));
-    const dataSlots = root.getAttribute('data-slot-names');
-    expect(dataSlots).to.contain('icon');
-    expect(dataSlots).not.to.contain('unnamed');
+    expect(root).to.match(':state(slotted-icon)');
+    expect(root).not.to.match(':state(slotted)');
   });
 
   it('should detect icon in sbb-transparent-button when there is space around icon', async () => {
     const root = await fixture(buttonSpaceIconTestTemplate('sbb-transparent-button'));
-    const dataSlots = root.getAttribute('data-slot-names');
-    expect(dataSlots).to.contain('icon');
-    expect(dataSlots).not.to.contain('unnamed');
+    expect(root).to.match(':state(slotted-icon)');
+    expect(root).not.to.match(':state(slotted)');
   });
 });

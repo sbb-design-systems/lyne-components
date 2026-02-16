@@ -1,4 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
 import type {
   Args,
   ArgTypes,
@@ -6,7 +5,8 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
+import { withActions } from 'storybook/actions/decorator';
 
 import {
   blockFixedWidth,
@@ -23,10 +23,10 @@ import {
   blockXSIcon,
   linkDefaultArgs,
   linkDefaultArgTypes,
-} from '../common/link-common-stories.js';
+} from '../common/link-common-stories.private.ts';
 
 import readme from './readme.md?raw';
-import './block-link.js';
+import './block-link.component.ts';
 
 const defaultArgTypes: ArgTypes = {
   ...blockLinkCommonDefaultArgTypes,
@@ -56,7 +56,9 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-2-negative)'
+        : 'var(--sbb-background-color-2)',
     actions: {
       handles: ['click'],
     },

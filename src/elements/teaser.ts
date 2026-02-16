@@ -1,1 +1,4 @@
-export * from './teaser/teaser.js';
+/**
+ * @entrypoint
+ */
+export * from './teaser/teaser.component.ts';

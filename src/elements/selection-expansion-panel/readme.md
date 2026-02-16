@@ -50,60 +50,30 @@ or a [sbb-checkbox-group](/docs/elements-sbb-checkbox-sbb-checkbox-group--docs).
 
 ## Style
 
-The component has two background options that can be set using the `color` variable: `milk` and `white` (default).
-
-```html
-<sbb-selection-expansion-panel color="milk"> ... </sbb-selection-expansion-panel>
-```
-
-It's also possible to display the `sbb-selection-expansion-panel` without border by setting the `borderless` variable to `true`.
-
-```html
-<sbb-selection-expansion-panel borderless> ... </sbb-selection-expansion-panel>
-```
-
-The component has no `size` property but, when slotted in a `sbb-radio-button-group` or in a `sbb-checkbox-group`,
-it adapts to the parent `size` (`m` or `s`); if there's no wrapping group component,
-it adapts its `size` to the slotted `sbb-radio-button-panel` or in a `sbb-checkbox-panel`.
-
-```html
-<!-- Adapts to the size of the `sbb-checkbox-group`-->
-<sbb-checkbox-group size="s">
-  <sbb-selection-expansion-panel>
-    <sbb-checkbox-panel> ... </sbb-checkbox-panel>
-    <div slot="content">Inner Content</div>
-  </sbb-selection-expansion-panel>
-</sbb-checkbox-group>
-
-<!-- Adapts to the size of the `sbb-checkbox-panel`-->
-<sbb-selection-expansion-panel>
-  <sbb-checkbox-panel size="s"> ... </sbb-checkbox-panel>
-  <div slot="content">Inner Content</div>
-</sbb-selection-expansion-panel>
-```
+The component inherits its style from the slotted panel component (`sbb-checkbox-panel` or `sbb-radio-button-panel`).
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name         | Attribute    | Privacy | Type                | Default   | Description                                    |
-| ------------ | ------------ | ------- | ------------------- | --------- | ---------------------------------------------- |
-| `borderless` | `borderless` | public  | `boolean`           | `false`   | Whether the unselected panel has a border.     |
-| `color`      | `color`      | public  | `'white' \| 'milk'` | `'white'` | The background color of the panel.             |
-| `forceOpen`  | `force-open` | public  | `boolean`           | `false`   | Whether the content section is always visible. |
+| Name        | Attribute    | Privacy | Type                                                            | Default | Description                                    |
+| ----------- | ------------ | ------- | --------------------------------------------------------------- | ------- | ---------------------------------------------- |
+| `forceOpen` | `force-open` | public  | `boolean`                                                       | `false` | Whether the content section is always visible. |
+| `group`     | -            | public  | `SbbRadioButtonGroupElement \| SbbCheckboxGroupElement \| null` |         | Group element if present                       |
+| `panel`     | -            | public  | `SbbCheckboxPanelElement \| SbbRadioButtonPanelElement \| null` |         | Input panel element                            |
 
 ## Events
 
-| Name        | Type                | Description                                                       | Inherited From |
-| ----------- | ------------------- | ----------------------------------------------------------------- | -------------- |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the content section is closed.                     |                |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the content section is opened.                     |                |
-| `willClose` | `CustomEvent<void>` | Emits whenever the content section begins the closing transition. |                |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the content section starts the opening transition. |                |
+| Name          | Type    | Description                                                       | Inherited From |
+| ------------- | ------- | ----------------------------------------------------------------- | -------------- |
+| `beforeclose` | `Event` | Emits whenever the content section begins the closing transition. |                |
+| `beforeopen`  | `Event` | Emits whenever the content section starts the opening transition. |                |
+| `close`       | `Event` | Emits whenever the content section is closed.                     |                |
+| `open`        | `Event` | Emits whenever the content section is opened.                     |                |
 
 ## Slots
 
-| Name      | Description                                                                                                       |
-| --------- | ----------------------------------------------------------------------------------------------------------------- |
-|           | Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-expansion-panel`. |
-| `content` | Use this slot to provide custom content for the panel (optional).                                                 |
+| Name      | Description                                                                                                                   |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------- |
+|           | Use the unnamed slot to add `sbb-checkbox-panel` or `sbb-radio-button-panel` elements to the `sbb-selection-expansion-panel`. |
+| `content` | Use this slot to provide custom content for the panel (optional).                                                             |

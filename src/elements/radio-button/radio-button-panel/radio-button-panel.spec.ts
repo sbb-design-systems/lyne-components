@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
-import { SbbRadioButtonPanelElement } from './radio-button-panel.js';
+import { SbbRadioButtonPanelElement } from './radio-button-panel.component.ts';
 
 describe(`sbb-radio-button-panel`, () => {
   let element: SbbRadioButtonPanelElement;
@@ -25,47 +25,31 @@ describe(`sbb-radio-button-panel`, () => {
   });
 
   it('selects radio on click', async () => {
-    const stateChange = new EventSpy(SbbRadioButtonPanelElement.events.stateChange);
-
     element.click();
     await waitForLitRender(element);
 
     expect(element.checked).to.be.true;
-    expect(element).to.have.attribute('data-checked');
-    await stateChange.calledOnce();
-    expect(stateChange.count).to.be.equal(1);
+    expect(element).to.match(':state(checked)');
   });
 
   it('does not deselect radio if already checked', async () => {
-    const stateChange = new EventSpy(SbbRadioButtonPanelElement.events.stateChange);
+    element.click();
+    await waitForLitRender(element);
+    expect(element.checked).to.be.true;
 
     element.click();
     await waitForLitRender(element);
     expect(element.checked).to.be.true;
-    await stateChange.calledOnce();
-    expect(stateChange.count).to.be.equal(1);
-
-    element.click();
-    await waitForLitRender(element);
-    expect(element.checked).to.be.true;
-    await stateChange.calledOnce();
-    expect(stateChange.count).to.be.equal(1);
   });
 
   it('allows empty selection', async () => {
-    const stateChange = new EventSpy(SbbRadioButtonPanelElement.events.stateChange);
-
     element.allowEmptySelection = true;
     element.click();
     await waitForLitRender(element);
     expect(element.checked).to.be.true;
-    await stateChange.calledOnce();
-    expect(stateChange.count).to.be.equal(1);
 
     element.click();
     await waitForLitRender(element);
     expect(element.checked).to.be.false;
-    await stateChange.calledTimes(2);
-    expect(stateChange.count).to.be.equal(2);
   });
 });

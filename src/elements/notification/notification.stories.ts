@@ -1,28 +1,23 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbSecondaryButtonElement } from '../button.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbSecondaryButtonElement } from '../button.ts';
 
-import { SbbNotificationElement } from './notification.js';
+import { SbbNotificationElement } from './notification.component.ts';
 import readme from './readme.md?raw';
-import '../button/secondary-button.js';
-import '../link/link.js';
-
-const titleContent: InputType = {
-  control: {
-    type: 'text',
-  },
-};
+import '../button/secondary-button.ts';
+import '../link/link.ts';
+import '../title.ts';
 
 const type: InputType = {
   control: {
     type: 'select',
   },
-  options: ['info', 'success', 'warn', 'error'],
+  options: ['info', 'note', 'success', 'warn', 'error'],
 };
 
 const size: InputType = {
@@ -45,35 +40,47 @@ const animation: InputType = {
   options: ['all', 'close', 'open', 'none'],
 };
 
+const icon: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const basicArgTypes: ArgTypes = {
-  'title-content': titleContent,
   type,
   size,
   readonly,
   animation,
+  'icon-name': icon,
 };
 
 const basicArgs: Args = {
-  'title-content': 'Title',
   type: type.options![0],
   size: size.options![1],
   readonly: false,
   animation: animation.options![0],
+  'icon-name': undefined,
 };
 
 const appendNotification = (event: Event, args: Args): void => {
+  const title = document.createElement('sbb-title');
+  title.level = '3';
+  title.innerText = 'This is a title';
+
   const newNotification = document.createElement('sbb-notification');
   newNotification.style.setProperty(
     '--sbb-notification-margin',
     '0 0 var(--sbb-spacing-fixed-4x) 0',
   );
-  newNotification.titleContent = args['title-content'];
   newNotification.type = args['type'];
   newNotification.size = args['size'];
-  newNotification.readonly = args['readonly'];
+  newNotification.readOnly = args['readonly'];
   newNotification.animation = args['animation'];
+  newNotification.iconName = args['icon-name'];
   newNotification.innerHTML =
     'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';
+
+  newNotification.prepend(title);
   (event.target as SbbSecondaryButtonElement).parentElement
     ?.querySelector('.notification-container')
     ?.append(newNotification);
@@ -93,9 +100,9 @@ const trigger = (args: Args): TemplateResult => html`
 const simpleNotification = (type: string, title: string): TemplateResult => html`
   <sbb-notification
     type="${type}"
-    title-content="${title}"
     style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
   >
+    <sbb-title level="3">${title}</sbb-title>
     This is a ${type} notification.
   </sbb-notification>
 `;
@@ -114,8 +121,9 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
     ${sbbSpread({ ...args, animation: 'close' })}
     style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
   >
-    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
-    dog.&nbsp;<sbb-link href="/"> Link one</sbb-link>
+    <sbb-title level="3">This is a title</sbb-title>
+    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+    <sbb-link href="/"> Link one</sbb-link>
     <sbb-link href="/"> Link two</sbb-link>
     <sbb-link href="/"> Link three</sbb-link>
   </sbb-notification>
@@ -126,8 +134,9 @@ const MultipleNotificationsTemplate = (args: Args): TemplateResult => html`
     ${sbbSpread({ ...args, animation: 'close' })}
     style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
   >
-    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
-    dog.&nbsp;<sbb-link href="/"> Link one</sbb-link>
+    <sbb-title level="3">This is a title</sbb-title>
+    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+    <sbb-link href="/"> Link one</sbb-link>
     <sbb-link href="/"> Link two</sbb-link>
     <sbb-link href="/"> Link three</sbb-link>
   </sbb-notification>
@@ -136,41 +145,34 @@ const MultipleNotificationsTemplate = (args: Args): TemplateResult => html`
   ${simpleNotification('error', 'Error')}
 `;
 
-const SlottedTitleTemplate = (args: Args): TemplateResult => html`
-  <sbb-notification
-    ${sbbSpread({ ...args, animation: 'close' })}
-    style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
-  >
-    <span slot="title">Slotted title</span>
-    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.&nbsp;
-    <sbb-link href="/"> Link one </sbb-link>
-    <sbb-link href="/"> Link two </sbb-link>
-    <sbb-link href="/"> Link three </sbb-link>
-  </sbb-notification>
-`;
-
 export const Info: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
 };
 
-export const Success: StoryObj = {
+export const Note: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, type: type.options![1] },
 };
 
-export const Warn: StoryObj = {
+export const Success: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, type: type.options![2] },
 };
 
-export const Error: StoryObj = {
+export const Warn: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, type: type.options![3] },
+};
+
+export const Error: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, type: type.options![4] },
 };
 
 export const Readonly: StoryObj = {
@@ -183,24 +185,6 @@ export const SizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, size: 's' },
-};
-
-export const NoTitle: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, 'title-content': undefined },
-};
-
-export const ReadonlyNoTitle: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, 'title-content': undefined, readonly: true },
-};
-
-export const SlottedTitle: StoryObj = {
-  render: SlottedTitleTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, 'title-content': undefined },
 };
 
 export const MultipleNotifications: StoryObj = {
@@ -228,10 +212,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbNotificationElement.events.didOpen,
-        SbbNotificationElement.events.didClose,
-        SbbNotificationElement.events.willOpen,
-        SbbNotificationElement.events.willClose,
+        SbbNotificationElement.events.open,
+        SbbNotificationElement.events.close,
+        SbbNotificationElement.events.beforeopen,
+        SbbNotificationElement.events.beforeclose,
       ],
     },
     docs: {

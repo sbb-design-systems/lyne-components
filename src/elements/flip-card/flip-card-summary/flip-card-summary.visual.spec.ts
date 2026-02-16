@@ -5,13 +5,13 @@ import {
   describeViewports,
   loadAssetAsBase64,
   visualDiffDefault,
-} from '../../core/testing/private.js';
-import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
+} from '../../core/testing/private.ts';
+import { waitForImageReady } from '../../core/testing/wait-for-image-ready.ts';
 
-import './flip-card-summary.js';
-import '../../flip-card.js';
-import '../../title.js';
-import '../../image.js';
+import './flip-card-summary.component.ts';
+import '../../flip-card.ts';
+import '../../title.ts';
+import '../../image.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 const imageBase64 = await loadAssetAsBase64(imageUrl);
@@ -32,7 +32,7 @@ const images = [
 ];
 
 describe(`sbb-flip-card-summary`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const image of images) {
       describe(`image=${image.selector}`, () => {
         for (const imageAlignment of ['after', 'below']) {
@@ -47,7 +47,7 @@ describe(`sbb-flip-card-summary`, () => {
                     'flex-flow': 'column wrap',
                     gap: 'var(--sbb-spacing-responsive-xs)',
                     'min-height': '17.5rem',
-                    'background-color': 'var(--sbb-color-cloud-alpha-80)',
+                    'background-color': 'var(--sbb-background-color-4)',
                   })}
                 >
                   <sbb-flip-card-summary image-alignment=${imageAlignment}>
@@ -57,7 +57,10 @@ describe(`sbb-flip-card-summary`, () => {
                 </div>
               `);
 
-              await waitForImageReady(setup.snapshotElement.querySelector(image.selector)!);
+              setup.withPostSetupAction(
+                async () =>
+                  await waitForImageReady(setup.snapshotElement.querySelector(image.selector)!),
+              );
             }),
           );
         }

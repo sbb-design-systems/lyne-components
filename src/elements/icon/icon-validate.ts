@@ -56,7 +56,7 @@ export const validateContent = (
     }
 
     // do not sanitize the svg element
-    if (sanitize === false) {
+    if (!sanitize) {
       return div.innerHTML;
     }
 

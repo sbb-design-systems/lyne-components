@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbTableWrapperElement } from './table-wrapper.js';
+import { SbbTableWrapperElement } from './table-wrapper.component.ts';
 
 describe(`sbb-table-wrapper ssr`, () => {
   let root: SbbTableWrapperElement;
@@ -17,7 +17,7 @@ describe(`sbb-table-wrapper ssr`, () => {
           </caption>
         </table>
       </sbb-table-wrapper>`,
-      { modules: ['./table-wrapper.js'] },
+      { modules: ['./table-wrapper.component.js'] },
     );
   });
 

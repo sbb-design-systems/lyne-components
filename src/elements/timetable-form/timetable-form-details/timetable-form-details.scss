@@ -1,0 +1,28 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --sbb-timetable-form-details-padding-block: var(--sbb-spacing-fixed-1x);
+  --sbb-timetable-form-details-padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-timetable-form-details-horizontal-divider-height: 1.5rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sbb-spacing-fixed-1x);
+  border-block-start: var(--sbb-border-width-1x) solid var(--sbb-border-color-4-inverted);
+  padding-block: var(--sbb-timetable-form-details-padding-block);
+  padding-inline-start: calc(var(--sbb-size-icon-ui-small) + var(--sbb-spacing-responsive-xxxs));
+  align-items: center;
+}
+
+::slotted(sbb-form-field) {
+  --sbb-form-field-border-radius: var(--sbb-border-radius-6x);
+  --sbb-form-field-outline-offset: #{sbb.px-to-rem-build(-5)};
+}
+
+::slotted(sbb-divider[orientation='vertical']) {
+  height: var(--sbb-timetable-form-details-horizontal-divider-height);
+}
+
+::slotted(:last-child) {
+  margin-inline-end: var(--sbb-timetable-form-details-padding-inline);
+}

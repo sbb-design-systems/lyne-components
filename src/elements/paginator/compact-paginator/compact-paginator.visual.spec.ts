@@ -1,15 +1,15 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './compact-paginator.js';
+import './compact-paginator.component.ts';
 
 describe('sbb-compact-paginator', () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const negative of [false, true]) {
       describe(`negative=${negative}`, () => {
         const wrapperStyle = {
-          backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+          backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
         };
 
         for (const forcedColors of [false, true]) {
@@ -48,6 +48,20 @@ describe('sbb-compact-paginator', () => {
             );
           });
         }
+
+        it(
+          `darkMode=true`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-compact-paginator
+                ?negative=${negative}
+                length="50"
+                page-size="5"
+              ></sbb-compact-paginator>`,
+              { ...wrapperStyle, darkMode: true },
+            );
+          }),
+        );
 
         for (const size of ['s', 'm']) {
           describe(`size=${size}`, () => {

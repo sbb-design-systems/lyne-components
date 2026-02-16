@@ -53,7 +53,7 @@ to indicate the minimum breakpoint from which the orientation changes to `horizo
 The title will not be displayed in the horizontal orientation.
 
 ```html
-<sbb-link-list horizontal-from="medium">
+<sbb-link-list horizontal-from="large">
   <sbb-block-link
     href="https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html"
     >Refunds</sbb-block-link

@@ -1,1 +1,4 @@
-export * from './common/card-action-common.js';
+/**
+ * @entrypoint
+ */
+export * from './common/card-action-common.ts';

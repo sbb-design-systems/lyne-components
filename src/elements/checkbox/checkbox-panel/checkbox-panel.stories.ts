@@ -1,14 +1,14 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, type TemplateResult } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
-import '../../button.js';
-import '../../card.js';
-import '../../icon.js';
-import './checkbox-panel.js';
+import '../../button.ts';
+import '../../card.ts';
+import '../../icon.ts';
+import './checkbox-panel.component.ts';
 
 import readme from './readme.md?raw';
 
@@ -65,7 +65,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['xs', 's', 'm'],
 };
 
 const ariaLabel: InputType = {
@@ -97,7 +97,7 @@ const defaultArgs: Args = {
   'aria-label': undefined,
   color: color.options![0],
   borderless: false,
-  size: size.options![0],
+  size: size.options![2],
 };
 
 const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
@@ -110,7 +110,6 @@ const Template = ({ label, checked, ...args }: Args): TemplateResult =>
       <sbb-icon
         name="diamond-small"
         style="margin-inline: var(--sbb-spacing-fixed-2x);"
-        data-namespace="default"
         role="img"
         aria-hidden="true"
       ></sbb-icon>

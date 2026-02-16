@@ -3,15 +3,10 @@ export const snapshots = {};
 
 snapshots["sbb-link-list-anchor renders DOM"] = 
 `<sbb-link-list-anchor
-  data-slot-names="li-0 li-1 li-2"
   size="s"
   title-content="title"
 >
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="https://www.sbb.ch"
     icon-placement="start"
     size="s"
@@ -20,10 +15,6 @@ snapshots["sbb-link-list-anchor renders DOM"] =
     Link 0
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="https://www.sbb.ch"
     icon-placement="start"
     size="s"
@@ -32,10 +23,6 @@ snapshots["sbb-link-list-anchor renders DOM"] =
     Link 1
   </sbb-block-link>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="https://www.sbb.ch"
     icon-placement="start"
     size="s"
@@ -50,11 +37,9 @@ snapshots["sbb-link-list-anchor renders DOM"] =
 snapshots["sbb-link-list-anchor renders Shadow DOM"] = 
 `<div class="sbb-link-list-wrapper">
   <sbb-title
-    aria-level="2"
     class="sbb-link-list-title"
     id="sbb-link-list-title-id"
     level="2"
-    role="heading"
     visual-level="5"
   >
     <slot name="title">
@@ -89,61 +74,33 @@ snapshots["sbb-link-list-anchor renders Shadow DOM"] =
 snapshots["sbb-link-list-anchor renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "heading",
-      "name": "title",
-      "level": 2
-    },
-    {
-      "role": "link",
-      "name": "Link 0"
-    },
-    {
-      "role": "link",
-      "name": "Link 1"
-    },
-    {
-      "role": "link",
-      "name": "Link 2"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "heading",
+              "name": "title",
+              "level": 2
+            },
+            {
+              "role": "list",
+              "name": "title"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-link-list-anchor renders A11y tree Chrome */
-
-snapshots["sbb-link-list-anchor renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "title",
-      "level": 2
-    },
-    {
-      "role": "link",
-      "name": "Link 0",
-      "value": "https://www.sbb.ch/"
-    },
-    {
-      "role": "link",
-      "name": "Link 1",
-      "value": "https://www.sbb.ch/"
-    },
-    {
-      "role": "link",
-      "name": "Link 2",
-      "value": "https://www.sbb.ch/"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-link-list-anchor renders A11y tree Firefox */
 

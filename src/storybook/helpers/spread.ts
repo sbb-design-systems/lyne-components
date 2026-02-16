@@ -11,7 +11,7 @@ export class SbbSpreadDirective extends Directive {
     return nothing;
   }
 
-  public override update(part: Part, [spreadData]: { [key: string]: unknown }[]): void {
+  public override update(part: Part, [spreadData]: { [_: string]: unknown }[]): void {
     super.update(part, [spreadData]);
     if (this._element !== (part as ElementPart).element) {
       this._element = (part as ElementPart).element;
@@ -27,7 +27,7 @@ export class SbbSpreadDirective extends Directive {
     }
 
     for (const [name, value] of Object.entries(data)) {
-      if (typeof value === 'boolean' || !value) {
+      if (typeof value === 'boolean' || value == null) {
         this._element.toggleAttribute(name, !!value);
       } else {
         this._element.setAttribute(name, value);

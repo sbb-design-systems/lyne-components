@@ -1,8 +1,8 @@
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
+import type { InputType } from 'storybook/internal/types';
 
-import { homeLoggedInTemplate } from './home-logged-in.js';
-import { homeTemplate } from './home.js';
+import { homeLoggedInTemplate } from './home-logged-in.ts';
+import { homeTemplate } from './home.ts';
 import readme from './readme.md?raw';
 
 const negative: InputType = {
@@ -40,7 +40,9 @@ const meta: Meta = {
   args: defaultArgs,
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

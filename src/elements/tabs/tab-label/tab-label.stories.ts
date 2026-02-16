@@ -1,13 +1,13 @@
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import '../../icon.js';
-import './tab-label.js';
+import '../../icon.ts';
+import './tab-label.component.ts';
 
 const Template = ({ iconSlot, label, amountSlot, ...args }: Args): TemplateResult => html`
   <sbb-tab-label ${sbbSpread(args)}>

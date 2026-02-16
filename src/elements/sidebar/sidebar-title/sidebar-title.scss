@@ -1,0 +1,12 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  hyphens: auto;
+
+  // The close button is taller than the title. We need to align the text to the close button
+  // but can't use align-items: center because with centering, multiline titles are wrongly positioned.
+  padding-block-start: calc(
+    0.5 * (var(--sbb-sidebar__close-button-size) - 1em * var(--sbb-typo-line-height-heading))
+  );
+  min-height: var(--sbb-sidebar__close-button-size);
+}

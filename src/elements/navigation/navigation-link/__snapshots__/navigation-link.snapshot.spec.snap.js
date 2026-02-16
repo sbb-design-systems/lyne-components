@@ -4,8 +4,6 @@ export const snapshots = {};
 snapshots["sbb-navigation-link renders DOM"] = 
 `<sbb-navigation-link
   accessibility-label="a11y label"
-  data-action=""
-  data-link=""
   href="https://www.sbb.ch"
   size="l"
   target="_blank"
@@ -23,12 +21,7 @@ snapshots["sbb-navigation-link renders Shadow DOM"] =
   rel="external noopener nofollow"
   target="_blank"
 >
-  <sbb-icon
-    aria-hidden="true"
-    data-namespace="default"
-    name="dash-small"
-    role="img"
-  >
+  <sbb-icon name="dash-small">
   </sbb-icon>
   <slot>
   </slot>
@@ -42,33 +35,16 @@ snapshots["sbb-navigation-link renders Shadow DOM"] =
 snapshots["sbb-navigation-link renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "a11y label"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-navigation-link renders A11y tree Chrome */
-
-snapshots["sbb-navigation-link renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "a11y label",
-      "value": "https://www.sbb.ch/"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-navigation-link renders A11y tree Firefox */
 

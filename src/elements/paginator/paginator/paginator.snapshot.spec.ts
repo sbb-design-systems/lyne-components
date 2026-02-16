@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isSafari } from '../../core/dom.js';
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import { describeIf } from '../../core/testing.js';
+import { isSafari } from '../../core/dom.ts';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
+import { describeIf } from '../../core/testing.ts';
 
-import type { SbbPaginatorElement } from './paginator.js';
+import type { SbbPaginatorElement } from './paginator.component.ts';
 
-import './paginator.js';
+import './paginator.component.ts';
 
 describe(`sbb-paginator`, () => {
   describe('renders', () => {
@@ -78,13 +78,21 @@ describe(`sbb-paginator`, () => {
     });
   });
 
-  describe('renders with options', () => {
+  describe('renders with options and accessibility labels', () => {
     let element: SbbPaginatorElement;
 
     beforeEach(async () => {
-      const opt = [10, 25, 50];
       element = await fixture(
-        html`<sbb-paginator length="50" page-size="10" .pageSizeOptions=${opt}></sbb-paginator>`,
+        html`<sbb-paginator
+          length="50"
+          page-size="10"
+          page-index="2"
+          accessibility-page-label="Slide"
+          accessibility-previous-page-label="Previous slide"
+          accessibility-next-page-label="Next slide"
+          accessibility-items-per-page-label="Items per slide"
+          .pageSizeOptions=${[10, 25, 50]}
+        ></sbb-paginator>`,
       );
     });
 
@@ -94,7 +102,7 @@ describe(`sbb-paginator`, () => {
       });
 
       it('Shadow DOM', async () => {
-        await expect(element).shadowDom.to.be.equalSnapshot();
+        await expect(element).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
     });
 

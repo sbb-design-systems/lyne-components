@@ -1,1 +1,4 @@
-export * from './common/navigation-action-common.js';
+/**
+ * @entrypoint
+ */
+export * from './common/navigation-action-common.ts';

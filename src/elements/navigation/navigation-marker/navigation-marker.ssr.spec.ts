@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbNavigationMarkerElement } from './navigation-marker.js';
+import { SbbNavigationMarkerElement } from './navigation-marker.component.ts';
 
-import '../navigation-button.js';
+import '../navigation-button.ts';
 
 describe(`sbb-navigation-marker ssr`, () => {
   let root: SbbNavigationMarkerElement;
@@ -18,7 +18,7 @@ describe(`sbb-navigation-marker ssr`, () => {
         <sbb-navigation-button id="nav-3">Travel information</sbb-navigation-button>
         <sbb-navigation-button id="nav-4">Help & Contact</sbb-navigation-button>
       </sbb-navigation-marker>`,
-      { modules: ['./navigation-marker.js', '../navigation-button.js'] },
+      { modules: ['./navigation-marker.component.js', '../navigation-button.js'] },
     );
   });
 

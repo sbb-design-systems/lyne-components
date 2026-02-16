@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 
-import { SbbCheckboxPanelElement } from './checkbox-panel.js';
+import { SbbCheckboxPanelElement } from './checkbox-panel.component.ts';
 
 describe(`sbb-checkbox-panel`, () => {
   describe('general', () => {

@@ -1,14 +1,15 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
+import { waitForImageReady } from '../core/testing.ts';
 
-import type { SbbMessageElement } from './message.js';
+import type { SbbMessageElement } from './message.component.ts';
 
-import './message.js';
-import '../image.js';
-import '../button/button.js';
+import './message.component.ts';
+import '../image.ts';
+import '../button/button.ts';
+import '../title.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
@@ -18,8 +19,9 @@ describe(`sbb-message`, () => {
   describe('renders', () => {
     beforeEach(async () => {
       element = await fixture(
-        html` <sbb-message title-content="Title.">
+        html`<sbb-message>
           <sbb-image slot="image" image-src=${imageUrl}></sbb-image>
+          <sbb-title level="3" slot="title">Title.</sbb-title>
           <p slot="subtitle">Subtitle.</p>
           <p slot="legend">Error code: 0001</p>
           <sbb-button slot="action" icon-name="arrows-circle-small"></sbb-button>
@@ -43,7 +45,8 @@ describe(`sbb-message`, () => {
   describe('renders without optional slots', async () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-message title-content="Title.">
+        html`<sbb-message>
+          <sbb-title level="3" slot="title">Title.</sbb-title>
           <p slot="subtitle">Subtitle.</p>
         </sbb-message>`,
       );

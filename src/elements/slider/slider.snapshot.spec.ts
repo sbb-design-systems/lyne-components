@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbSliderElement } from './slider.js';
+import type { SbbSliderElement } from './slider.component.ts';
 
-import './slider.js';
+import './slider.component.ts';
 
 describe(`sbb-slider`, () => {
   let element: SbbSliderElement;

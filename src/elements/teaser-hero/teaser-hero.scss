@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
@@ -29,8 +26,7 @@
   min-height: var(--sbb-panel-height);
   text-decoration: none;
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+  &:focus-visible {
     @include sbb.focus-outline;
   }
 }
@@ -39,13 +35,10 @@
   z-index: 1;
 
   @include sbb.panel;
-
-  & {
-    @include sbb.absolute-center-y;
-  }
+  @include sbb.absolute-center-y;
 
   // Hide panel when no content or link-content is provided.
-  :host(:not([data-slot-names~='unnamed'], [data-slot-names~='link-content'], [link-content])) & {
+  :host(:not(:state(slotted), :state(slotted-link-content), [link-content])) & {
     display: none;
   }
 }
@@ -59,4 +52,10 @@
   display: inline;
   margin: 0;
   padding: 0;
+}
+
+.sbb-teaser-hero__panel-link {
+  :host(:not([href])) & {
+    display: none;
+  }
 }

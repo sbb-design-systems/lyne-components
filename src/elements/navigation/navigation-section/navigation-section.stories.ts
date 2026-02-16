@@ -1,18 +1,18 @@
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import '../../button.js';
-import '../navigation-list.js';
-import '../navigation-button.js';
-import '../navigation-link.js';
-import '../navigation-marker.js';
-import '../navigation.js';
-import './navigation-section.js';
+import '../../button.ts';
+import '../navigation-list.ts';
+import '../navigation-button.ts';
+import '../navigation-link.ts';
+import '../navigation-marker.ts';
+import '../navigation.ts';
+import './navigation-section.component.ts';
 
 const accessibilityLabel: InputType = {
   control: {

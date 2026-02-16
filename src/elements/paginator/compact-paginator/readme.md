@@ -57,18 +57,34 @@ that describes the content controlled by the paginator.
 
 ## Properties
 
-| Name            | Attribute        | Privacy | Type               | Default            | Description                        |
-| --------------- | ---------------- | ------- | ------------------ | ------------------ | ---------------------------------- |
-| `disabled`      | `disabled`       | public  | `boolean`          | `false`            | Whether the component is disabled. |
-| `length`        | `length`         | public  | `number`           | `0`                | Total number of items.             |
-| `negative`      | `negative`       | public  | `boolean`          | `false`            | Negative coloring variant flag.    |
-| `pageIndex`     | `page-index`     | public  | `number`           | `0`                | Current page index.                |
-| `pagerPosition` | `pager-position` | public  | `'start' \| 'end'` | `'start'`          | Position of the prev/next buttons. |
-| `pageSize`      | `page-size`      | public  | `number`           | `10`               | Number of items per page.          |
-| `size`          | `size`           | public  | `'m' \| 's'`       | `'m' / 's' (lean)` | Size variant, either m or s.       |
+| Name                             | Attribute                           | Privacy | Type               | Default            | Description                                                                                                                                         |
+| -------------------------------- | ----------------------------------- | ------- | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityNextPageLabel`     | `accessibility-next-page-label`     | public  | `string`           | `''`               | Accessibility label for the next page. Defaults to `next page`. Can be set for cases like a carousel, where `slide` or `image` fits better.         |
+| `accessibilityPageLabel`         | `accessibility-page-label`          | public  | `string`           | `''`               | Accessibility label for the page. Defaults to `page`. Can be set for cases like a carousel, where `slide` or `image` fits better.                   |
+| `accessibilityPreviousPageLabel` | `accessibility-previous-page-label` | public  | `string`           | `''`               | Accessibility label for the previous page. Defaults to `previous page`. Can be set for cases like a carousel, where `slide` or `image` fits better. |
+| `disabled`                       | `disabled`                          | public  | `boolean`          | `false`            | Whether the component is disabled.                                                                                                                  |
+| `length`                         | `length`                            | public  | `number`           | `0`                | Total number of items.                                                                                                                              |
+| `negative`                       | `negative`                          | public  | `boolean`          | `false`            | Negative coloring variant flag.                                                                                                                     |
+| `pageIndex`                      | `page-index`                        | public  | `number`           | `0`                | Current page index.                                                                                                                                 |
+| `pagerPosition`                  | `pager-position`                    | public  | `'start' \| 'end'` | `'start'`          | Position of the prev/next buttons.                                                                                                                  |
+| `pageSize`                       | `page-size`                         | public  | `number`           | `10`               | Number of items per page.                                                                                                                           |
+| `size`                           | `size`                              | public  | `'m' \| 's'`       | `'m' / 's' (lean)` | Size variant, either m or s.                                                                                                                        |
+
+## Methods
+
+| Name              | Privacy | Description                                                                                                                                                       | Parameters      | Return    | Inherited From                 |
+| ----------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | --------- | ------------------------------ |
+| `firstPage`       | public  | Move to the first page if not already there.                                                                                                                      |                 | `void`    | SbbPaginatorCommonElementMixin |
+| `hasNextPage`     | public  | Whether there is a next page.                                                                                                                                     |                 | `boolean` | SbbPaginatorCommonElementMixin |
+| `hasPreviousPage` | public  | Whether there is a previous page.                                                                                                                                 |                 | `boolean` | SbbPaginatorCommonElementMixin |
+| `lastPage`        | public  | Move to the last page if not already there.                                                                                                                       |                 | `void`    | SbbPaginatorCommonElementMixin |
+| `nextPage`        | public  | Advances to the next page if it exists.                                                                                                                           |                 | `void`    | SbbPaginatorCommonElementMixin |
+| `numberOfPages`   | public  | Calculates the current number of pages based on the `length` and the `pageSize`; value must be rounded up (e.g. `length = 21` and `pageSize = 10` means 3 pages). |                 | `number`  | SbbPaginatorCommonElementMixin |
+| `previousPage`    | public  | Move back to the previous page if it exists.                                                                                                                      |                 | `void`    | SbbPaginatorCommonElementMixin |
+| `selectPage`      | public  | Move to a specific page index.                                                                                                                                    | `index: number` | `void`    | SbbPaginatorCommonElementMixin |
 
 ## Events
 
-| Name   | Type                                        | Description                       | Inherited From |
-| ------ | ------------------------------------------- | --------------------------------- | -------------- |
-| `page` | `CustomEvent<SbbPaginatorPageEventDetails>` | Emits when the pageIndex changes. |                |
+| Name   | Type                                        | Description                                                                    | Inherited From                 |
+| ------ | ------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------ |
+| `page` | `CustomEvent<SbbPaginatorPageEventDetails>` | The page event is dispatched when the page index, length or page size changes. | SbbPaginatorCommonElementMixin |

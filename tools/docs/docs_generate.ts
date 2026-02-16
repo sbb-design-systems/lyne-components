@@ -2,21 +2,16 @@
  * Docs: https://github.com/open-wc/custom-elements-manifest/tree/master/packages/to-markdown
  */
 import fs from 'fs';
+import { globSync } from 'node:fs';
 
 import { customElementsManifestToMarkdown } from '@custom-elements-manifest/to-markdown';
-import type {
-  Attribute,
-  ClassDeclaration,
-  CustomElement,
-  Package,
-} from 'custom-elements-manifest/schema';
-import * as glob from 'glob';
+import type { Attribute, ClassDeclaration, CustomElement, Package } from 'custom-elements-manifest';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 import MagicString from 'magic-string';
 import { format, resolveConfig } from 'prettier';
 
-import elementsManifestConfig from '../manifest/elements-custom-elements-manifest.config.js';
-import elementsExperimentalManifestConfig from '../manifest/elements-experimental-custom-elements-manifest.config.js';
+import elementsManifestConfig from '../manifest/elements-custom-elements-manifest.config.ts';
+import elementsExperimentalManifestConfig from '../manifest/elements-experimental-custom-elements-manifest.config.ts';
 
 const manifestFilePaths = [
   `${elementsManifestConfig.outdir}/custom-elements.json`,
@@ -94,7 +89,7 @@ async function updateComponentReadme(
   docs: string,
   manifest: CustomElement,
 ): Promise<void> {
-  const path = glob.sync(`${componentsFolder}/**/${tag.replace(/^sbb-/, '')}/readme.md`)[0];
+  const path = globSync(`${componentsFolder}/**/${tag.replace(/^sbb-/, '')}/readme.md`)[0];
   if (!fs.existsSync(path)) {
     console.error(`Component ${name} has no readme file, please create it following the template`);
     return;
@@ -153,27 +148,28 @@ for (const manifestPath of manifestFilePaths) {
       ?.filter(
         (declaration): declaration is ExtendedClassDeclaration => declaration.kind === 'class',
       )
-      .forEach((declaration) =>
-        ['members', 'slots', 'cssProperties', 'events'].forEach((type) =>
+      .forEach((declaration) => {
+        ['members', 'slots', 'cssProperties', 'events', 'cssParts'].forEach((type) =>
           (declaration[type as keyof ExtendedClassDeclaration] as { name: string }[])?.sort(
-            (a, b) => a.name.localeCompare(b.name),
+            (a, b) => (a.name ?? '').localeCompare(b.name ?? ''),
           ),
-        ),
-      );
+        );
+        declaration.members?.forEach((member) => {
+          if (member.deprecated) {
+            member.description += '<br><strong>Deprecated</strong>';
+            if (typeof member.deprecated === 'string') {
+              member.description += `: ${member.deprecated}`;
+            }
+          }
+        });
+      });
   });
 
   const markdown: string = customElementsManifestToMarkdown(manifest, {
     headingOffset: -1, // Default heading is '###'
     private: 'details', // We use 'details' because it's the only way to remove 'protected' members from the tables. We remove details section later.
     omitDeclarations: ['exports'],
-    omitSections: [
-      'super-class',
-      'css-parts',
-      'main-heading',
-      'static-fields',
-      'attributes',
-      'mixins',
-    ],
+    omitSections: ['super-class', 'main-heading', 'static-fields', 'attributes', 'mixins'],
   });
   const manifestDeclarations = manifest.modules.flatMap((m) => m.declarations);
 

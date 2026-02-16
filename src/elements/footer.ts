@@ -1,1 +1,4 @@
-export * from './footer/footer.js';
+/**
+ * @entrypoint
+ */
+export * from './footer/footer.component.ts';

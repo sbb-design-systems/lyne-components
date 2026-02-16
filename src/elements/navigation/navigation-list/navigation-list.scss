@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 }
@@ -21,10 +18,10 @@
   @include sbb.text-xxs--bold;
 
   display: block;
-  color: var(--sbb-color-storm);
+  color: var(--sbb-color-5);
   padding-block-end: var(--sbb-spacing-fixed-2x);
 
-  :host(:not([data-slot-names~='label'], [label])) & {
+  :host(:not(:state(slotted-label), [label])) & {
     display: none;
   }
 }

@@ -1,15 +1,15 @@
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import sampleImages from '../../core/images.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import sampleImages from '../../core/images.ts';
 
-import '../../button/secondary-button.js';
-import '../../card.js';
-import '../../image.js';
-import '../../title.js';
-import './container.js';
+import '../../button/secondary-button.ts';
+import '../../card.ts';
+import '../../image.ts';
+import '../../title.ts';
+import './container.component.ts';
 
 import readme from './readme.md?raw';
 
@@ -36,7 +36,7 @@ const containerContent = (title: string, isDark: boolean, last = false): Templat
 `;
 
 const card = (title: string): TemplateResult => html`
-  <sbb-card size="xxl">
+  <sbb-card class="sbb-card-spacing-s">
     <sbb-title level="5">${title}</sbb-title>
     <p class="sbb-text-s" style="margin: 0">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -101,7 +101,9 @@ const DefaultTemplate = (args: Args): TemplateResult => html`
 
 const BackgroundImageTemplate = ({ 'image-src': imageSrc, ...args }: Args): TemplateResult => html`
   <sbb-container ${sbbSpread(args)}>
-    <sbb-title level="2" style="margin: 0">Container with background image</sbb-title>
+    <sbb-title level="2" style="margin: 0; color: var(--sbb-color-charcoal)"
+      >Container with background image</sbb-title
+    >
     <style>
       .content {
         display: flex;
@@ -110,8 +112,8 @@ const BackgroundImageTemplate = ({ 'image-src': imageSrc, ...args }: Args): Temp
         justify-content: center;
         flex-direction: column;
 
-        /* Starting from breakpoint medium. Please use design token. */
-        @media screen and (width >= 840px) {
+        /* Starting from breakpoint large. Please use design token. */
+        @media screen and (width >= 1024px) {
           flex-direction: row;
         }
       }

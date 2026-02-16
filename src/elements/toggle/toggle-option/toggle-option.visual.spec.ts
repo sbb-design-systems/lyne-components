@@ -1,8 +1,8 @@
 import { html, nothing } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './toggle-option.js';
+import './toggle-option.component.ts';
 
 describe(`sbb-toggle-option`, () => {
   describeViewports({ viewports: ['zero'] }, () => {

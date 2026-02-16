@@ -1,9 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbImageElement } from './image.js';
+import { SbbImageElement } from './image.component.ts';
 
 describe(`sbb-image ssr`, () => {
   let root: SbbImageElement;
@@ -11,7 +11,7 @@ describe(`sbb-image ssr`, () => {
 
   it('renders', async () => {
     root = await ssrHydratedFixture(html`<sbb-image image-src=${url}></sbb-image>`, {
-      modules: ['./image.js'],
+      modules: ['./image.component.js'],
     });
     assert.instanceOf(root, SbbImageElement);
   });
@@ -24,7 +24,7 @@ describe(`sbb-image ssr`, () => {
   for (const { name, url } of urls) {
     it(`should work with ${name}`, async () => {
       root = await ssrHydratedFixture(html`<sbb-image image-src=${url}></sbb-image>`, {
-        modules: ['./image.js'],
+        modules: ['./image.component.js'],
       });
       const sources = Array.from(root.shadowRoot!.querySelectorAll('source'));
       expect(sources.length).greaterThan(0);

@@ -1,39 +1,30 @@
-The `sbb-time-input` is a component that displays the typed value as a formatted time (HH:mm).
+The `sbb-time-input` is an input component that displays the typed value as a formatted time (HH:mm).
+
+```html
+<sbb-time-input value="15:00"></sbb-time-input>
+```
 
 The component allows the insertion of up to 4 numbers, possibly with a separator char like `.`, `:`, `,` or `-`,
 then automatically formats the value as time and displays it (see ["Format example"](#format-example)).
 
-The component and the native `input` can be connected using the `input` property,
-which accepts the id of the native input, or directly its reference.
-
-```html
-<input value="13:30" id="input-id" /> <sbb-time-input input="input-id"></sbb-time-input>
-```
-
 ## In `sbb-form-field`
 
-If the `sbb-time-input` is used within a `sbb-form-field`:
-
-- It links to the native input automatically.
-- It adapts to the form-field `size`.
+The `sbb-time-input` can be used within an `sbb-form-field`:
 
 ```html
 <sbb-form-field width="collapse" size="s">
-  <input value="13:30" />
-  <sbb-time-input></sbb-time-input>
+  <sbb-time-input value="13:30"></sbb-time-input>
 </sbb-form-field>
 ```
 
-The initial value can be set using the `value` property (string) of the `input`or the `valueAsDate` setter of the `sbb-time-input`.
-
-When the input changes, if it is valid, the component updates the `value` of the `input`.
-
-To get the value as a `Date` object, the `valueAsDate` property can be used.
-The date is constructed like following: the start date is set to 01.01.1970, 00:00:00 UTC, then the typed hours and minuted are added,
+The initial value can be set using the `value` property (string) or attribute.
+To get or set the value as a `Date` object, the `valueAsDate` property can be used.
+The returned date has its date always set to 01.01.1970 and only the hours and minutes
+are set to the current value of the element.
 e.g.: with a value of `12:34`, the `valueAsDate` will be 01.01.1970, 12:34:00 UTC.
 
-If the value is invalid because not real (e.g. 12:61 or 25:30), the component does not format the `value`,
-and `valueAsDate` will return `null`.
+If the value is invalid because not real (e.g. 12:61 or 25:30), the component does
+not format the `value`, and `valueAsDate` will return `null`.
 
 ## Format example
 
@@ -56,20 +47,42 @@ See the table below for some formatting examples:
 
 ## Events
 
-Whenever the validation state changes (e.g., a valid value becomes invalid or vice-versa), the `validationChange` event is emitted.
+Similar to the native `<input>` element, the `sbb-time-input` component
+dispatches the usual `input`, `change`, `blur`, `invalid` and keyboard
+and focus related events.
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name          | Attribute | Privacy | Type                            | Default | Description                                                |
-| ------------- | --------- | ------- | ------------------------------- | ------- | ---------------------------------------------------------- |
-| `input`       | `input`   | public  | `string \| HTMLElement \| null` | `null`  | Reference of the native input connected to the datepicker. |
-| `valueAsDate` | -         | public  | `Date \| null`                  |         | Formats the current input's value as date.                 |
+| Name                | Attribute  | Privacy | Type                      | Default  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ---------- | ------- | ------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`          | `disabled` | public  | `boolean`                 | `false`  | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `form`              | -          | public  | `HTMLFormElement \| null` |          | Returns the form owner of this element.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `name`              | `name`     | public  | `string`                  |          | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `placeholder`       | -          | public  | `string`                  |          |                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `readOnly`          | `readonly` | public  | `boolean`                 | `false`  | Whether the component is readonly.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `required`          | `required` | public  | `boolean`                 | `false`  | Whether the component is required.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `type`              | -          | public  | `string`                  | `'text'` | Form type of element.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `validationMessage` | -          | public  | `string`                  |          | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -          | public  | `ValidityState`           |          | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | `value`    | public  | `string`                  | `''`     | The value of the input. Reflects the current text value of this input.                                                                                                                                                                                                                                                                                                                                                                                  |
+| `valueAsDate`       | -          | public  | `Date \| null`            |          | Formats the current input's value as date.                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `willValidate`      | -          | public  | `boolean`                 |          | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+## Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters              | Return    | Inherited From              |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- | --------- | --------------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                         | `boolean` | SbbFormAssociatedMixin      |
+| `focus`             | public  |                                                                                                                                                                                            | `options: FocusOptions` | `void`    | SbbFormAssociatedInputMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                         | `boolean` | SbbFormAssociatedMixin      |
+| `select`            | public  | Makes the selection equal to the current object.                                                                                                                                           |                         | `void`    | SbbFormAssociatedInputMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string`       | `void`    | SbbFormAssociatedMixin      |
 
 ## Events
 
-| Name               | Type                                    | Description                                                                      | Inherited From |
-| ------------------ | --------------------------------------- | -------------------------------------------------------------------------------- | -------------- |
-| `didChange`        | `CustomEvent<void>`                     | Deprecated. used for React. Will probably be removed once React 19 is available. |                |
-| `validationChange` | `CustomEvent<SbbValidationChangeEvent>` | Emits whenever the internal validation state changes.                            |                |
+| Name     | Type         | Description                                                                                                                                                                        | Inherited From              |
+| -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| `change` | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFormAssociatedInputMixin |
+| `input`  | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFormAssociatedInputMixin |

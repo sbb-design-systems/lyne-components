@@ -1,30 +1,29 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
-  --sbb-lead-container-background-color: var(--sbb-color-white);
+  --sbb-lead-container-background-color: var(--sbb-background-color-1);
   --sbb-lead-container-image-ratio: 2 / 1;
   --sbb-lead-container-image-overlap: var(--sbb-spacing-fixed-24x);
-  --sbb-lead-container-padding-block: var(--sbb-spacing-responsive-l);
+  --sbb-lead-container-content-padding-block: var(--sbb-spacing-responsive-l);
+  --sbb-lead-container-padding-block: 0 var(--sbb-spacing-responsive-l);
   --sbb-lead-container-padding-inline: var(--sbb-layout-base-offset-responsive);
   --sbb-lead-container-border-radius: var(--sbb-border-radius-6x);
   --sbb-lead-container-image-border-radius: 0;
 
-  @include sbb.mq($from: wide) {
-    --sbb-lead-container-image-ratio: 21 / 9;
-  }
-
   @include sbb.mq($from: ultra) {
+    --sbb-lead-container-image-ratio: 21 / 9;
     --sbb-lead-container-image-border-radius: var(--sbb-lead-container-border-radius);
   }
 }
 
+:host(:not(:state(slotted-image))) {
+  --sbb-lead-container-image-overlap: 0;
+}
+
 .sbb-lead-container {
-  padding-block-end: var(--sbb-spacing-responsive-l);
+  padding-block: var(--sbb-lead-container-padding-block);
 }
 
 ::slotted([slot='image']) {
@@ -50,6 +49,7 @@
 
 ::slotted(.sbb-lead-container-lead-text) {
   margin-block: 0 var(--sbb-spacing-responsive-s);
+  color: light-dark(var(--sbb-color-iron), var(--sbb-color-smoke));
 }
 
 .sbb-lead-container-image {
@@ -73,26 +73,19 @@
 }
 
 .sbb-lead-container-content {
-  z-index: 1;
+  position: relative;
   border-radius: var(--sbb-lead-container-border-radius);
-  padding-block: var(--sbb-lead-container-padding-block);
+  padding-block: var(--sbb-lead-container-content-padding-block);
   background-color: var(--sbb-lead-container-background-color);
   grid-column: 1 / -1;
 
-  @include sbb.mq($from: medium) {
-    grid-column: 2 / -2;
-  }
-
   @include sbb.mq($from: large) {
+    grid-column: 2 / -2;
     margin-block-start: calc(-1 * var(--sbb-lead-container-image-overlap));
     padding-inline: var(--sbb-lead-container-padding-inline);
 
     // As the content should be aligned to the grid, we have to stretch the container by padding
     margin-inline: calc(-1 * var(--sbb-lead-container-padding-inline));
-  }
-
-  @include sbb.mq($from: wide) {
-    grid-column: 3 / -3;
   }
 
   @include sbb.mq($from: ultra) {

@@ -5,16 +5,13 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-  visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import '../icon.js';
-import '../title.js';
-import './toggle-check.js';
+import '../icon.ts';
+import '../title.ts';
+import './toggle-check.component.ts';
 
 describe(`sbb-toggle-check`, () => {
-  let root: HTMLElement;
-
   const longLabel = `For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit.
   Cras nec dolor eget leo porttitor ultrices. Mauris sed erat nec justo posuere elementum.
   In pharetra ante vel fringilla tincidunt. Fusce congue accumsan arcu dictum porttitor.
@@ -28,46 +25,62 @@ describe(`sbb-toggle-check`, () => {
     label: ['Label', 'Long label'],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ size, label }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(html`
-          <sbb-toggle-check size=${size as 'xs' | 's' | 'm'}>
-            ${label !== 'Long label' ? label : longLabel}
-          </sbb-toggle-check>
-        `);
-      });
-
       it(
         visualDiffDefault.name,
-        visualDiffDefault.with((setup) => {
-          setup.withSnapshotElement(root);
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
+            <sbb-toggle-check size=${size}>
+              ${label !== 'Long label' ? label : longLabel}
+            </sbb-toggle-check>
+          `);
         }),
       );
     });
+  });
 
-    describe('checked', () => {
-      for (const state of [visualDiffDefault, visualDiffFocus]) {
-        it(
-          state.name,
-          state.with(async (setup) => {
-            await setup.withFixture(html` <sbb-toggle-check checked> Label </sbb-toggle-check> `);
-          }),
-        );
-      }
-    });
+  describeViewports({ viewports: ['zero'] }, () => {
+    describeEach(
+      {
+        disabled: [false, true],
+        checked: [false, true],
+        emulateMedia: [
+          { forcedColors: false, darkMode: false },
+          { forcedColors: true, darkMode: false },
+          { forcedColors: false, darkMode: true },
+        ],
+      },
+      ({ disabled, checked, emulateMedia: { forcedColors, darkMode } }) => {
+        for (const state of [visualDiffDefault, visualDiffFocus]) {
+          it(
+            state.name,
+            state.with(async (setup) => {
+              await setup.withFixture(
+                html`
+                  <sbb-toggle-check ?disabled=${disabled} ?checked=${checked}>
+                    Label
+                  </sbb-toggle-check>
+                `,
+                { forcedColors, darkMode },
+              );
+            }),
+          );
+        }
+      },
+    );
 
     it(
       `long label ${visualDiffFocus.name}`,
       visualDiffFocus.with(async (setup) => {
-        await setup.withFixture(html` <sbb-toggle-check> ${longLabel} </sbb-toggle-check> `);
+        await setup.withFixture(html`<sbb-toggle-check>${longLabel}</sbb-toggle-check>`);
       }),
     );
 
     it(
       'without label',
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html` <sbb-toggle-check></sbb-toggle-check> `);
+        await setup.withFixture(html`<sbb-toggle-check></sbb-toggle-check>`);
       }),
     );
 
@@ -93,26 +106,13 @@ describe(`sbb-toggle-check`, () => {
       'custom icon slotted',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-toggle-check checked
-            >Label
+          <sbb-toggle-check checked>
+            Label
             <sbb-icon slot="icon" name="eye-small"></sbb-icon>
           </sbb-toggle-check>
         `);
       }),
     );
-
-    for (const checked of [false, true]) {
-      it(
-        `disabled ${checked ? 'checked' : 'unchecked'}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-toggle-check .checked=${checked} ?checked=${checked} disabled>
-              Label
-            </sbb-toggle-check>
-          `);
-        }),
-      );
-    }
 
     for (const state of [visualDiffDefault, visualDiffFocus]) {
       it(
@@ -120,8 +120,8 @@ describe(`sbb-toggle-check`, () => {
         state.with(async (setup) => {
           await setup.withFixture(html`
             <sbb-toggle-check label-position="before" style="display: block;">
-              <sbb-title level="5" style="margin: 0;"> Accessible Connection. </sbb-title>
-              <span class="sbb-text-s" style="color: var(--sbb-color-iron);">
+              <sbb-title level="5" style="margin: 0;">Accessible Connection.</sbb-title>
+              <span class="sbb-text-s" style="color: var(--sbb-color-4);">
                 Show connections for accessible journeys.
               </span>
             </sbb-toggle-check>

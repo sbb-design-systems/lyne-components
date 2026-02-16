@@ -1,0 +1,11 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --sbb-timetable-form-background-color: var(--sbb-background-color-1);
+  --sbb-timetable-form-border-radius: var(--sbb-border-radius-4x);
+
+  border-radius: var(--sbb-timetable-form-border-radius);
+  background-color: var(--sbb-timetable-form-background-color);
+  display: flex;
+  flex-direction: column;
+}

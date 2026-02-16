@@ -1,21 +1,22 @@
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 
-import '../../../elements/action-group.js';
-import '../../../elements/alert.js';
-import '../../../elements/container.js';
-import '../../../elements/button.js';
-import '../../../elements/card.js';
-import '../../../elements/checkbox.js';
-import '../../../elements/form-field.js';
-import '../../../elements/header.js';
-import '../../../elements/icon.js';
-import '../../../elements/menu.js';
-import '../../../elements/paginator.js';
-import '../../../elements/radio-button.js';
-import '../../../elements/signet.js';
-import '../../../elements/table.js';
+import '../../../elements/action-group.ts';
+import '../../../elements/alert.ts';
+import '../../../elements/container.ts';
+import '../../../elements/button.ts';
+import '../../../elements/card.ts';
+import '../../../elements/checkbox.ts';
+import '../../../elements/form-field.ts';
+import '../../../elements/header.ts';
+import '../../../elements/icon.ts';
+import '../../../elements/menu.ts';
+import '../../../elements/paginator.ts';
+import '../../../elements/radio-button.ts';
+import '../../../elements/signet.ts';
+import '../../../elements/table.ts';
 
 import './lean.scss';
 
@@ -29,7 +30,12 @@ const leanExampleTemplate = (): TemplateResult => html`
     <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
       Sign in
     </sbb-header-button>
-    <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
+    <sbb-header-button
+      icon-name="globe-small"
+      id="language-menu-trigger"
+      class="last-element"
+      expand-from="small"
+    >
       English
     </sbb-header-button>
     <sbb-menu trigger="language-menu-trigger">
@@ -72,9 +78,11 @@ const leanExampleTemplate = (): TemplateResult => html`
         <sbb-table-wrapper>
           <table class="sbb-table sbb-table--striped">
             <thead>
-              <th>Station</th>
-              <th>Departure</th>
-              <th>Arrival</th>
+              <tr>
+                <th>Station</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+              </tr>
             </thead>
             <tbody>
               <tr>
@@ -122,13 +130,17 @@ const leanExampleTemplate = (): TemplateResult => html`
         <sbb-checkbox-panel>
           Label
           <span slot="subtext">Subtext</span>
-          <span slot="suffix" style="margin-inline-start: auto; display:flex; align-items:center;">
+          <span
+            slot="suffix"
+            style=${styleMap({
+              'margin-inline-start': 'auto',
+              display: 'flex',
+              'align-items': 'center',
+            })}
+          >
             <sbb-icon
               name="diamond-small"
-              style="margin-inline: var(--sbb-spacing-fixed-2x);"
-              data-namespace="default"
-              role="img"
-              aria-hidden="true"
+              style=${styleMap({ 'margin-inline': 'var(--sbb-spacing-fixed-2x)' })}
             ></sbb-icon>
             <span class="sbb-text-m sbb-text--bold"> CHF 40.00 </span>
           </span>

@@ -5,7 +5,7 @@ The `sbb-header` component is a container for actions and a logo, and it is disp
 The slot can contain:
 
 - one or more actions ([sbb-header-button](/docs/elements-sbb-header-sbb-header-button--docs) or [sbb-header-link](/docs/elements-sbb-header-sbb-header-link--docs))
-- other action items like [sbb-button](/docs/elements-sbb-button--docs) or [sbb-link](/docs/elements-sbb-link--docs)
+- other action items like [sbb-button](/docs/elements-sbb-button-sbb-button--docs) or [sbb-link](/docs/elements-sbb-link-sbb-link--docs)
 - a logo or a signet with the `.sbb-header-logo` class (see [sbb-logo](/docs/elements-sbb-logo--docs))
 
 Slotted elements are aligned to the left. Use `<div class="sbb-header-spacer">` to align elements after it to the right.
@@ -100,7 +100,7 @@ by adding classes to `sbb-header-button`/`sbb-header-link` elements and then def
 
 1. four action items (with custom icons);
 2. the first item is always left aligned and has `expand-from` set to `small`;
-3. the other three items are left aligned in breakpoints zero to medium, and right aligned from large to ultra;
+3. the other three items are left aligned in breakpoints zero to large, and right aligned from large to ultra;
 4. the last item is not visible in breakpoints zero to small;
 5. the logo is always aligned to the right.
 
@@ -121,7 +121,7 @@ The result can also be seen in the [home](/story/pages-home--home) and [home-log
   display: none;
 }
 
-@media screen and (width >= 840px) {
+@media screen and (width >= 600px) {
   .last-element {
     display: block;
   }
@@ -208,19 +208,19 @@ so they were wrapped into a `style` tag and added to the Storybook's configurati
 
 ## Properties
 
-| Name           | Attribute        | Privacy | Type                                | Default            | Description                                                                                                          |
-| -------------- | ---------------- | ------- | ----------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------- |
-| `expanded`     | `expanded`       | public  | `boolean`                           | `false`            | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size. |
-| `hideOnScroll` | `hide-on-scroll` | public  | `boolean`                           | `false`            | Whether the header should hide and show on scroll.                                                                   |
-| `scrollOrigin` | `scroll-origin`  | public  | `string \| HTMLElement \| Document` |                    | The element's id or the element on which the scroll listener is attached.                                            |
-| `size`         | `size`           | public  | `'m' \| 's'`                        | `'m' / 's' (lean)` | Size of the header, either m or s.                                                                                   |
+| Name           | Attribute        | Privacy | Type                  | Default            | Description                                                                                                             |
+| -------------- | ---------------- | ------- | --------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `expanded`     | `expanded`       | public  | `boolean`             | `false`            | Whether to allow the header content to stretch to full width. By default, the content has the appropriate page size.    |
+| `hideOnScroll` | `hide-on-scroll` | public  | `boolean`             | `false`            | Whether the header should hide and show on scroll.                                                                      |
+| `scrollOrigin` | `scroll-origin`  | public  | `HTMLElement \| null` | `null`             | The element's id or the element on which the scroll listener is attached. For attribute usage, provide an id reference. |
+| `size`         | `size`           | public  | `'m' \| 's'`          | `'m' / 's' (lean)` | Size of the header, either m or s.                                                                                      |
 
 ## CSS Properties
 
-| Name                   | Default                                                                             | Description                                      |
-| ---------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------ |
-| `--sbb-header-height`  | `zero-small:var(--sbb-spacing-fixed-14x);medium-ultra:var(--sbb-spacing-fixed-24x)` | Can be used to modify height of the header.      |
-| `--sbb-header-z-index` | `10`                                                                                | Can be used to modify the z-index of the header. |
+| Name                   | Default                                                                            | Description                                      |
+| ---------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `--sbb-header-height`  | `zero-small:var(--sbb-spacing-fixed-14x);large-ultra:var(--sbb-spacing-fixed-24x)` | Can be used to modify height of the header.      |
+| `--sbb-header-z-index` | `10`                                                                               | Can be used to modify the z-index of the header. |
 
 ## Slots
 

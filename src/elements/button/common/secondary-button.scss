@@ -1,30 +1,43 @@
 :host {
-  --sbb-button-color-active-background: var(--sbb-color-milk);
-  --sbb-button-color-active-border: var(--sbb-color-cloud);
-  --sbb-button-color-active-text: var(--sbb-color-anthracite);
-  --sbb-button-color-default-background: var(--sbb-color-white);
-  --sbb-button-color-default-border: var(--sbb-color-cloud);
-  --sbb-button-color-default-text: var(--sbb-color-charcoal);
-  --sbb-button-color-hover-background: var(--sbb-color-white);
-  --sbb-button-color-hover-border: var(--sbb-color-cloud);
-  --sbb-button-color-hover-text: var(--sbb-color-iron);
-  --sbb-button-shadow-1-color: var(--sbb-color-platinum-alpha-20);
-  --sbb-button-shadow-2-color: var(--sbb-color-cement-alpha-20);
+  --sbb-button-color-active-background: var(--sbb-background-color-3);
+  --sbb-button-color-active-border: var(--sbb-border-color-4-inverted);
+  --sbb-button-color-active-text: light-dark(
+    var(--sbb-color-anthracite),
+    var(--sbb-color-graphite)
+  );
+  --sbb-button-color-default-background: var(--sbb-background-color-1);
+  --sbb-button-color-default-border: var(--sbb-border-color-4-inverted);
+  --sbb-button-color-default-text: var(--sbb-color-3);
+  --sbb-button-color-hover-background: var(--sbb-background-color-1);
+  --sbb-button-color-hover-border: var(--sbb-border-color-4-inverted);
+  --sbb-button-color-hover-text: var(--sbb-color-4);
+  --sbb-button-color-loading-border: var(--sbb-border-color-4-inverted);
+  --sbb-button-shadow-1-color: light-dark(
+    color-mix(in srgb, var(--sbb-color-platinum) 20%, transparent),
+    color-mix(in srgb, var(--sbb-color-black) 30%, transparent)
+  );
+  --sbb-button-shadow-2-color: light-dark(
+    color-mix(in srgb, var(--sbb-color-cement) 20%, transparent),
+    color-mix(in srgb, var(--sbb-color-black) 30%, transparent)
+  );
   --sbb-button-border-overlap-fix: 0rem;
 }
 
 :host([negative]) {
-  --sbb-button-color-active-background: transparent;
-  --sbb-button-color-active-border: var(--sbb-color-cloud);
-  --sbb-button-color-active-text: var(--sbb-color-cloud);
-  --sbb-button-color-default-background: transparent;
-  --sbb-button-color-default-border: var(--sbb-color-white);
-  --sbb-button-color-default-text: var(--sbb-color-white);
-  --sbb-button-color-hover-background: transparent;
-  --sbb-button-color-hover-border: var(--sbb-color-milk);
-  --sbb-button-color-hover-text: var(--sbb-color-milk);
+  --sbb-button-color-active-background: var(--sbb-background-color-2-negative);
+  --sbb-button-color-active-border: var(--sbb-border-color-4-negative-inverted);
+  --sbb-button-color-active-text: var(--sbb-color-graphite);
+  --sbb-button-color-default-background: var(--sbb-background-color-1-negative);
+  --sbb-button-color-default-border: var(--sbb-border-color-4-negative-inverted);
+  --sbb-button-color-default-text: var(--sbb-color-3-negative);
+  --sbb-button-color-hover-background: var(--sbb-background-color-1-negative);
+  --sbb-button-color-hover-border: var(--sbb-border-color-4-negative-inverted);
+  --sbb-button-color-hover-text: var(--sbb-color-4-negative);
+  --sbb-button-color-loading-border: var(--sbb-border-color-4-negative-inverted);
+  --sbb-button-shadow-1-color: color-mix(in srgb, var(--sbb-color-black) 30%, transparent);
+  --sbb-button-shadow-2-color: color-mix(in srgb, var(--sbb-color-black) 30%, transparent);
 }
 
-:host(:not([disabled], :disabled, [disabled-interactive], [negative], :active, [data-active])) {
+:host(:not([disabled], :disabled, [disabled-interactive], :active, :state(active))) {
   --sbb-button-box-shadow: var(--sbb-button-box-shadow-definition);
 }

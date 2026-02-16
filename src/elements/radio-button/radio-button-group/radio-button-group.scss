@@ -1,42 +1,28 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 @mixin horizontal-orientation {
   --sbb-radio-button-group-orientation: row;
+  --sbb-radio-button-group-radio-button-width: auto;
 }
 
-$breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
+$breakpoints: 'zero', 'small', 'large', 'ultra';
 
 :host {
-  @include horizontal-orientation;
-
-  --sbb-radio-button-group-width: max-content;
-  --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-6x);
-
   display: block;
-
-  ::slotted(sbb-radio-button-panel) {
-    flex: auto;
-  }
 }
 
 :host([orientation='vertical']) {
   --sbb-radio-button-group-orientation: column;
   --sbb-radio-button-group-width: 100%;
-
-  ::slotted(sbb-radio-button-panel) {
-    width: 100%;
-  }
+  --sbb-radio-button-group-radio-button-width: 100%;
 }
 
-:host([data-has-panel]) {
+:host(:state(has-panel)) {
   --sbb-radio-button-group-width: 100%;
-}
-
-:host([data-has-panel][orientation='vertical']) {
   --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+
+  // Distribute available space to the panels
+  --sbb-radio-button-group-radio-button-flex: auto;
 }
 
 @each $breakpoint in $breakpoints {
@@ -46,12 +32,10 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
       @include horizontal-orientation;
 
       // We need to unset the 100% width of the vertical mode if it starts to be horizontal
-      ::slotted(sbb-radio-button-panel) {
-        width: unset;
-      }
+      --sbb-radio-button-group-radio-button-width: initial;
     }
 
-    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']:not([data-has-panel])) {
+    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']:not(:state(has-panel))) {
       --sbb-radio-button-group-width: max-content;
     }
   }
@@ -63,13 +47,13 @@ $breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
   gap: var(--sbb-radio-button-group-gap);
   align-items: flex-start;
   width: var(--sbb-radio-button-group-width);
+
+  :host(:state(slotted-error)) & {
+    margin-block-end: var(--sbb-spacing-fixed-1x);
+  }
 }
 
-.sbb-radio-group__error {
-  display: inline-block;
-  margin-block-start: var(--sbb-spacing-fixed-1x);
-
-  :host(:not([data-slot-names~='error'])) & {
-    display: none;
-  }
+::slotted(sbb-radio-button-panel) {
+  width: var(--sbb-radio-button-group-radio-button-width);
+  flex: var(--sbb-radio-button-group-radio-button-flex);
 }

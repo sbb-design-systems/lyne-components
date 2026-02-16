@@ -1,10 +1,30 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  display: block;
+  display: none;
 
   @include sbb.ignore-children-margin;
+}
+
+:host(:focus-visible) {
+  @include sbb.focus-outline;
+}
+
+:host(:state(active)) {
+  display: block;
+  opacity: 1;
+  transition: {
+    duration: var(--sbb-tab-group-animation-duration);
+    delay: var(--sbb-tab-group-animation-duration);
+    timing-function: var(--sbb-animation-easing);
+    property: opacity, height;
+  }
+
+  // Experimental property, but supported in every major browser.
+  transition-behavior: allow-discrete;
+
+  // Experimental property, currently supported in every major browser except Firefox.
+  @starting-style {
+    opacity: 0;
+  }
 }

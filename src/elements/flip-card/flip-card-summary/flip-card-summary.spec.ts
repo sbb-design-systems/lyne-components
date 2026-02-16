@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 
-import { SbbFlipCardSummaryElement } from './flip-card-summary.js';
+import { SbbFlipCardSummaryElement } from './flip-card-summary.component.ts';
 
 describe('sbb-flip-card-summary', () => {
   let element: SbbFlipCardSummaryElement;

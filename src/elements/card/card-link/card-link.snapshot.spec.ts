@@ -1,18 +1,20 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import type { SbbCardElement } from '../card.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
+import type { SbbCardElement } from '../card.ts';
 
-import '../card.js';
-import './card-link.js';
+import type { SbbCardLinkElement } from './card-link.component.ts';
+
+import '../card.ts';
+import './card-link.component.ts';
 
 describe(`sbb-card-link`, () => {
-  let element: SbbCardElement;
+  let element: SbbCardLinkElement, card: SbbCardElement;
 
   describe('renders', () => {
     beforeEach(async () => {
-      element = await fixture(
+      card = await fixture(
         html`<sbb-card>
           <sbb-card-link
             href="https://github.com/sbb-design-systems/lyne-components"
@@ -22,10 +24,11 @@ describe(`sbb-card-link`, () => {
           Content text
         </sbb-card>`,
       );
+      element = card.querySelector('sbb-card-link')!;
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(card).dom.to.be.equalSnapshot();
     });
 
     it('Shadow DOM', async () => {

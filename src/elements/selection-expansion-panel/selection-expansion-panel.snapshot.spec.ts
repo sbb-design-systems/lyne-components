@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.js';
+import type { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.ts';
 
-import '../card/card-badge.js';
-import '../checkbox/checkbox-panel.js';
-import './selection-expansion-panel.js';
+import '../card/card-badge.ts';
+import '../checkbox/checkbox-panel.ts';
+import './selection-expansion-panel.component.ts';
 
 describe(`sbb-selection-expansion-panel`, () => {
   let element: SbbSelectionExpansionPanelElement;

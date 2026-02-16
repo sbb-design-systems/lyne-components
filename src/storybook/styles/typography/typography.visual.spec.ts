@@ -1,13 +1,13 @@
 import { html } from 'lit/static-html.js';
 
-import '../../../elements/title.js';
+import '../../../elements/title.ts';
 
 import {
   describeViewports,
   visualDiffDefault,
   visualDiffStandardStates,
   visualRegressionFixture,
-} from '../../../elements/core/testing/private.js';
+} from '../../../elements/core/testing/private.ts';
 
 import style from './typo-internal.scss?lit&inline';
 
@@ -26,7 +26,7 @@ describe(`typography`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
             <sbb-title level=${6 - textSizeIndex}>
-              Titel Level ${6 - textSizeIndex} / Text size ${textSize}
+              Title Level ${6 - textSizeIndex} / Text size ${textSize}
             </sbb-title>
             <p class=${`sbb-text-${textSize}`}>${text}</p>
           `);
@@ -38,7 +38,7 @@ describe(`typography`, () => {
       'text bold',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-title level="6"> Titel Level 6 / Text size xxs </sbb-title>
+          <sbb-title level="6"> Title Level 6 / Text size xxs </sbb-title>
           <p class=${`sbb-text-xxs sbb-text--bold`}>${text}</p>
         `);
       }),
@@ -73,8 +73,8 @@ describe(`typography`, () => {
                 It should adapt to the text but have an underline and hover colors.
               </p> `,
             {
-              backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined,
-              color: negative ? 'var(--sbb-color-white)' : '',
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+              color: negative ? 'var(--sbb-color-1-negative)' : '',
             },
           );
         });

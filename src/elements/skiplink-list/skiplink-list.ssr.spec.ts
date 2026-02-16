@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbSkiplinkListElement } from './skiplink-list.js';
+import { SbbSkiplinkListElement } from './skiplink-list.component.ts';
 
-import '../link/block-link.js';
+import '../link/block-link.ts';
 
 describe(`sbb-skiplink-list ssr`, () => {
   let root: SbbSkiplinkListElement;
@@ -20,7 +20,7 @@ describe(`sbb-skiplink-list ssr`, () => {
         </sbb-skiplink-list>
         <button id="button">Focus me</button>
       `,
-      { modules: ['./skiplink-list.js', '../link.js'] },
+      { modules: ['./skiplink-list.component.js', '../link.js'] },
     );
   });
 

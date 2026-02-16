@@ -1,18 +1,23 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
+:host([size='xs']) {
+  --sbb-checkbox-font-size: var(--sbb-text-font-size-xs);
+  --sbb-checkbox-dimension: var(--sbb-checkbox-dimension-xs);
+}
 
-:host {
-  --sbb-checkbox-dimension: var(--sbb-size-icon-ui-small);
-  --sbb-checkbox-label-color: var(--sbb-color-charcoal);
-  --sbb-checkbox-label-icon-color: var(--sbb-color-charcoal);
-  --sbb-checkbox-cursor: pointer;
+:host([size='s']) {
+  --sbb-checkbox-font-size: var(--sbb-text-font-size-s);
+  --sbb-checkbox-dimension: var(--sbb-checkbox-dimension-s);
+}
+
+:host([size='m']) {
+  --sbb-checkbox-font-size: var(--sbb-text-font-size-m);
+  --sbb-checkbox-dimension: var(--sbb-checkbox-dimension-m);
 }
 
 :host(:disabled) {
-  --sbb-checkbox-cursor: default;
-  --sbb-checkbox-label-color: var(--sbb-color-granite);
+  --sbb-checkbox-cursor: var(--sbb-cursor-default);
+  --sbb-checkbox-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
 }
 
 .sbb-checkbox-wrapper {
@@ -22,22 +27,14 @@
 }
 
 .sbb-checkbox {
-  @include sbb.text-m--regular;
-
+  font-size: var(--sbb-checkbox-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   position: relative;
   display: block;
   width: 100%;
   cursor: var(--sbb-checkbox-cursor);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-
-  :host([size='s']) & {
-    @include sbb.text-s--regular;
-  }
-
-  :host([size='xs']) & {
-    @include sbb.text-xs--regular;
-  }
 }
 
 .sbb-checkbox__inner {
@@ -52,11 +49,11 @@
   color: var(--sbb-checkbox-label-color);
 
   // Fix for Chrome and Safari, they approximate 23.8px to 23px for line-height
-  line-height: max((1em * var(--sbb-typo-line-height-body-text)), var(--sbb-checkbox-dimension));
+  line-height: max((1em * var(--sbb-typo-line-height-text)), var(--sbb-checkbox-dimension));
 }
 
 .sbb-checkbox__aligner {
   display: flex;
   align-items: center;
-  height: calc(1em * var(--sbb-typo-line-height-body-text));
+  height: calc(1em * var(--sbb-typo-line-height-text));
 }

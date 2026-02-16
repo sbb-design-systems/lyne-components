@@ -1,0 +1,12 @@
+@use '../../core/styles' as sbb;
+@use './checkbox-group';
+
+$theme: 'standard' !default;
+
+@mixin base {
+  @include checkbox-group.horizontal-orientation;
+
+  --sbb-checkbox-group-width: max-content;
+  --sbb-checkbox-group-gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-6x);
+  --sbb-checkbox-group-checkbox-flex: none;
+}

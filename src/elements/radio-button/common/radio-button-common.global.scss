@@ -1,0 +1,37 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-radio-button-label-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-radio-button-label-color: var(--sbb-color-3);
+  --sbb-radio-button-background-color: var(--sbb-background-color-1);
+  --sbb-radio-button-border-width: var(--sbb-border-width-1x);
+  --sbb-radio-button-border-style: solid;
+  --sbb-radio-button-border-color: var(--sbb-border-color-5);
+  --sbb-radio-button-cursor: var(--sbb-cursor-pointer);
+  --sbb-radio-button-dimension-xs: #{sbb.px-to-rem-build(20)};
+  --sbb-radio-button-dimension-s: var(--sbb-size-icon-ui-small);
+  --sbb-radio-button-dimension-m: var(--sbb-size-icon-ui-small);
+  --sbb-radio-button-dimension: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-radio-button-dimension-m),
+        'lean': var(--sbb-radio-button-dimension-xs),
+      ),
+      $theme
+    )};
+  --sbb-radio-button-inner-circle-dimension: #{sbb.px-to-rem-build(10)};
+  --sbb-radio-button-font-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-text-font-size-m),
+        'lean': var(--sbb-text-font-size-xs),
+      ),
+      $theme
+    )};
+}
+
+@mixin base-forced-colors {
+  --sbb-radio-button-background-color: Canvas;
+  --sbb-radio-button-border-width: var(--sbb-border-width-2x);
+  --sbb-radio-button-border-color: ButtonBorder;
+}

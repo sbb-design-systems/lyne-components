@@ -1,22 +1,22 @@
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import '../../../elements/link.js';
+import '../../../elements/link.ts';
 
 import readme from './readme.md?raw';
 import './layout.scss';
 
 const PageSpacingTemplate = (): TemplateResult => html`
   <section class="sbb-page-spacing visualized-page-spacing">
-    <div>Content</div>
+    <div><span>Content</span></div>
   </section>
 `;
 
 const PageSpacingExpandedTemplate = (): TemplateResult => html`
   <section class="sbb-page-spacing-expanded visualized-page-spacing">
-    <div>Content</div>
+    <div><span>Content</span></div>
   </section>
 `;
 

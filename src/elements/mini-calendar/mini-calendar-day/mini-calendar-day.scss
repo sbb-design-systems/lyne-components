@@ -1,0 +1,111 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --sbb-mini-calendar-day-scale: 1.333;
+  --sbb-mini-calendar-day-animation-easing: var(--sbb-animation-easing);
+  --sbb-mini-calendar-day-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-2x)
+  );
+
+  display: block;
+  height: sbb.px-to-rem-build(6);
+  width: sbb.px-to-rem-build(6);
+  margin: sbb.px-to-rem-build(1);
+  border-radius: var(--sbb-border-radius-infinity);
+  color: light-dark(var(--sbb-color-storm), var(--sbb-color-smoke));
+  background-color: currentcolor;
+}
+
+:host(:hover) {
+  @include sbb.hover-mq($hover: true) {
+    scale: var(--sbb-mini-calendar-day-scale);
+    transition: scale var(--sbb-mini-calendar-day-animation-easing)
+      var(--sbb-mini-calendar-day-animation-duration);
+  }
+}
+
+:host(:focus-visible) {
+  @include sbb.focus-outline;
+
+  outline-offset: sbb.px-to-rem-build(2);
+}
+
+:host([color='charcoal']) {
+  color: var(--sbb-background-color-2-inverted);
+}
+
+:host([color='cloud']) {
+  color: var(--sbb-background-color-4-inverted);
+}
+
+:host([color='orange']) {
+  color: var(--sbb-color-orange-light);
+}
+
+:host([color='red']) {
+  color: var(--sbb-color-error);
+}
+
+:host([color='sky']) {
+  color: var(--sbb-color-sky-light);
+}
+
+:host([marker='circle']) {
+  background-color: var(--sbb-color-1-inverted);
+  border: sbb.px-to-rem-build(1) solid currentcolor;
+}
+
+:host([marker='target']) {
+  background: radial-gradient(
+    circle,
+    currentcolor 0%,
+    currentcolor 25%,
+    var(--sbb-color-1-inverted) 25%,
+    var(--sbb-color-1-inverted) 50%,
+    currentcolor 50%,
+    currentcolor 100%
+  );
+}
+
+:host([marker='slash']) {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(
+      -45deg,
+      transparent 45%,
+      var(--sbb-color-1-inverted) 45%,
+      var(--sbb-color-1-inverted) 55%,
+      transparent 55%
+    );
+  }
+}
+
+:host([marker='cross']) {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(
+        -45deg,
+        transparent 45%,
+        var(--sbb-color-1-inverted) 45%,
+        var(--sbb-color-1-inverted) 55%,
+        transparent 55%
+      ),
+      linear-gradient(
+        45deg,
+        transparent 45%,
+        var(--sbb-color-1-inverted) 45%,
+        var(--sbb-color-1-inverted) 55%,
+        transparent 55%
+      );
+  }
+}

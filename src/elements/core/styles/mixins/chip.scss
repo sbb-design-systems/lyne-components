@@ -3,41 +3,41 @@
 @use './typo';
 
 @mixin chip-label-variables--color-milk {
-  --sbb-chip-label-color: var(--sbb-color-granite);
-  --sbb-chip-label-background-color: var(--sbb-color-milk);
+  --sbb-chip-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-cloud));
+  --sbb-chip-label-background-color: var(--sbb-background-color-3);
 }
 
 @mixin chip-label-variables--color-charcoal {
-  --sbb-chip-label-color: var(--sbb-color-white);
-  --sbb-chip-label-background-color: var(--sbb-color-charcoal);
+  --sbb-chip-label-color: var(--sbb-color-2-inverted);
+  --sbb-chip-label-background-color: var(--sbb-background-color-2-inverted);
 }
 
 @mixin chip-label-variables--color-white {
-  --sbb-chip-label-color: var(--sbb-color-granite);
-  --sbb-chip-label-background-color: var(--sbb-color-white);
+  --sbb-chip-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-cloud));
+  --sbb-chip-label-background-color: var(--sbb-background-color-1);
 }
 
 @mixin chip-label-variables--color-granite {
-  --sbb-chip-label-color: var(--sbb-color-white);
-  --sbb-chip-label-background-color: var(--sbb-color-granite);
+  --sbb-chip-label-color: var(--sbb-color-2-inverted);
+  --sbb-chip-label-background-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
 }
 
 @mixin chip-label-variables--size-xxs {
   --sbb-chip-label-padding-block: 0em;
   --sbb-chip-label-padding-inline: var(--sbb-spacing-fixed-2x);
-  --sbb-text-font-size: var(--sbb-font-size-text-xxs);
+  --sbb-text-font-size: var(--sbb-text-font-size-xxs);
 }
 
 @mixin chip-label-variables--size-xs {
   --sbb-chip-label-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-chip-label-padding-inline: var(--sbb-spacing-fixed-3x);
-  --sbb-text-font-size: var(--sbb-font-size-text-xs);
+  --sbb-text-font-size: var(--sbb-text-font-size-xs);
 }
 
 @mixin chip-label-variables--size-s {
   --sbb-chip-label-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-chip-label-padding-inline: var(--sbb-spacing-fixed-4x);
-  --sbb-text-font-size: var(--sbb-font-size-text-s);
+  --sbb-text-font-size: var(--sbb-text-font-size-s);
 }
 
 @mixin chip-label-rules {
@@ -49,7 +49,7 @@
   align-items: center;
   justify-content: center;
   height: calc(
-    var(--sbb-typo-line-height-body-text) * var(--sbb-text-font-size) +
+    var(--sbb-typo-line-height-text) * var(--sbb-text-font-size) +
       var(--sbb-chip-label-padding-block) * 2
   );
   background-color: var(--sbb-chip-label-background-color);

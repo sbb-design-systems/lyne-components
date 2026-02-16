@@ -2,11 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-teaser-product-static renders DOM"] = 
-`<sbb-teaser-product-static
-  data-action=""
-  data-slot-names="footnote image unnamed"
-  image-alignment="after"
->
+`<sbb-teaser-product-static image-alignment="after">
   <figure
     class="sbb-figure"
     slot="image"
@@ -52,40 +48,60 @@ snapshots["sbb-teaser-product-static renders Shadow DOM"] =
 snapshots["sbb-teaser-product-static renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Content"
-    },
-    {
-      "role": "text",
-      "name": "Footnote"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "role": "figure",
+                      "name": ""
+                    }
+                  ]
+                },
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "role": "paragraph",
+                      "name": ""
+                    },
+                    {
+                      "ignored": true,
+                      "role": "none",
+                      "children": [
+                        {
+                          "role": "paragraph",
+                          "name": ""
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-teaser-product-static renders A11y tree Chrome */
-
-snapshots["sbb-teaser-product-static renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Content"
-    },
-    {
-      "role": "text leaf",
-      "name": "Footnote"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-teaser-product-static renders A11y tree Firefox */
 

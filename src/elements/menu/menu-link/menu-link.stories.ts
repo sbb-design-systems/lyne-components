@@ -1,21 +1,26 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './menu-link.js';
+import './menu-link.component.ts';
 
 const getBasicTemplate = (
-  { text, ...args }: Args,
+  { text, badge, 'icon-name': iconName, ...args }: Args,
   id: number,
   iconSlot = false,
 ): TemplateResult => html`
-  <sbb-menu-link ${sbbSpread(args)}>
-    ${text} ${id} ${iconSlot ? html`<sbb-icon slot="icon" name="pie-small"></sbb-icon>` : nothing}
+  <sbb-menu-link
+    ${sbbSpread(args)}
+    sbb-badge=${!args.disabled ? badge : nothing}
+    icon-name=${!iconSlot ? iconName : nothing}
+  >
+    ${text} ${id}
+    ${iconSlot ? html`<sbb-icon slot="icon" name=${iconName || nothing}></sbb-icon>` : nothing}
   </sbb-menu-link>
 `;
 
@@ -24,7 +29,7 @@ const TemplateMenuAction = (args: Args): TemplateResult => html`
 `;
 
 const TemplateMenuActionCustomIcon = (args: Args): TemplateResult => html`
-  ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, false)}
+  ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, true)}
   ${getBasicTemplate(args, 3, true)}
 `;
 
@@ -34,9 +39,12 @@ const text: InputType = {
   },
 };
 
-const amount: InputType = {
+const badge: InputType = {
   control: {
     type: 'text',
+  },
+  table: {
+    category: 'badge',
   },
 };
 
@@ -118,7 +126,7 @@ const accessibilityLabel: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   text,
-  amount,
+  badge,
   'icon-name': iconName,
   href,
   target,
@@ -131,7 +139,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   text: 'Details',
-  amount: '99',
+  badge: '9',
   'icon-name': 'tick-small',
   href: href.options![0],
   target: '_blank',
@@ -139,7 +147,7 @@ const defaultArgs: Args = {
   download: false,
   disabled: false,
   'disabled-interactive': false,
-  'accessibility-label': '',
+  'accessibility-label': 'Descriptive Label, information about badge should be included.',
 };
 
 export const menuLink: StoryObj = {
@@ -148,20 +156,19 @@ export const menuLink: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const menuLinkCustomIconNoAmount: StoryObj = {
+export const menuLinkCustomIconNoBadge: StoryObj = {
   render: TemplateMenuActionCustomIcon,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    amount: undefined,
-    'icon-name': undefined,
+    badge: undefined,
   },
 };
 
-export const menuLinkNoIconNoAmount: StoryObj = {
+export const menuLinkNoIconNoBadge: StoryObj = {
   render: TemplateMenuAction,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'icon-name': undefined, amount: undefined },
+  args: { ...defaultArgs, 'icon-name': undefined, badge: undefined },
 };
 
 export const menuLinkStatic: StoryObj = {
@@ -185,13 +192,23 @@ export const menuLinkButtonEllipsis: StoryObj = {
   },
 };
 
+export const menuLinkBadgeNoIcon: StoryObj = {
+  render: TemplateMenuAction,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    'icon-name': undefined,
+    badge: '123',
+  },
+};
+
 const meta: Meta = {
   decorators: [
     (story) => html`<div style="width: 256px;">${story()}</div>`,
     withActions as Decorator,
   ],
   parameters: {
-    backgroundColor: () => 'var(--sbb-color-black)',
+    backgroundColor: () => 'var(--sbb-background-color-1-inverted)',
     actions: {
       handles: ['click'],
     },

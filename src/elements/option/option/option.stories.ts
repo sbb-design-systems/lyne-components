@@ -1,4 +1,3 @@
-import type { InputType } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
@@ -6,20 +5,21 @@ import type {
   Args,
   Decorator,
   StoryContext,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
-import { SbbOptionElement } from './option.js';
+import { SbbOptionElement } from './option.component.ts';
 import readme from './readme.md?raw';
 
-import '../../form-field.js';
-import '../../select.js';
-import '../../autocomplete.js';
+import '../../form-field.ts';
+import '../../select.ts';
+import '../../autocomplete.ts';
 
 const preserveIconSpace: InputType = {
   control: {
@@ -174,9 +174,14 @@ export const Select: StoryObj = {
 const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     actions: {
-      handles: [SbbOptionElement.events.selectionChange, SbbOptionElement.events.optionSelected],
+      handles: [
+        SbbOptionElement.events.optionselectionchange,
+        SbbOptionElement.events.optionselected,
+      ],
     },
     docs: {
       // Setting the iFrame height ensures that the story has enough space when used in the docs section.

@@ -3,7 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-overlay renders DOM"] = 
 `<sbb-overlay
-  data-state="opened"
+  id="sbb-overlay-0"
   popover="manual"
 >
 </sbb-overlay>
@@ -18,10 +18,6 @@ snapshots["sbb-overlay renders Shadow DOM"] =
         <sbb-secondary-button
           aria-label="Close secondary window"
           class="sbb-overlay__close"
-          data-action=""
-          data-button=""
-          data-focus-origin="mouse"
-          data-sbb-button=""
           icon-name="cross-small"
           sbb-overlay-close=""
           size="m"
@@ -34,7 +30,6 @@ snapshots["sbb-overlay renders Shadow DOM"] =
         <sbb-container
           class="sbb-overlay__content-container"
           color="transparent"
-          data-slot-names="unnamed"
         >
           <slot>
           </slot>
@@ -51,42 +46,16 @@ snapshots["sbb-overlay renders Shadow DOM"] =
 snapshots["sbb-overlay renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Close secondary window",
-      "focused": true
-    },
-    {
-      "role": "text",
-      "name": "Dialog "
+      "role": "group",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-overlay renders A11y tree Chrome */
-
-snapshots["sbb-overlay renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Close secondary window",
-      "focused": true
-    },
-    {
-      "role": "text leaf",
-      "name": "Dialog "
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-overlay renders A11y tree Firefox */
 

@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 
-import { SbbContainerElement } from './container.js';
+import { SbbContainerElement } from './container.component.ts';
 
 describe(`sbb-container`, () => {
   let element: SbbContainerElement;

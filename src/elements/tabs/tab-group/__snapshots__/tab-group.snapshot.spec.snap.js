@@ -5,75 +5,50 @@ snapshots["sbb-tab-group renders DOM"] =
 `<sbb-tab-group initial-selected-index="0">
   <sbb-tab-label
     active=""
-    aria-controls="sbb-tab-panel-1"
-    aria-selected="true"
-    data-size="l"
-    data-slot-names="unnamed"
-    role="tab"
     slot="tab-bar"
     tabindex="0"
   >
     Test tab label 1
   </sbb-tab-label>
   <sbb-tab
-    active=""
-    id="sbb-tab-panel-1"
-    role="tabpanel"
+    id="sbb-tab-0"
     tabindex="0"
   >
     Test tab content 1
   </sbb-tab>
   <sbb-tab-label
-    aria-controls="sbb-tab-panel-2"
-    aria-selected="false"
-    data-size="l"
-    data-slot-names="unnamed"
-    role="tab"
     slot="tab-bar"
     tabindex="-1"
   >
     Test tab label 2
   </sbb-tab-label>
   <sbb-tab
-    id="sbb-tab-panel-2"
-    role="tabpanel"
+    id="sbb-tab-1"
     tabindex="0"
   >
     Test tab content 2
   </sbb-tab>
   <sbb-tab-label
-    aria-controls="sbb-tab-panel-3"
-    aria-selected="false"
-    data-size="l"
-    data-slot-names="unnamed"
     disabled=""
-    role="tab"
     slot="tab-bar"
     tabindex="-1"
   >
     Test tab label 3
   </sbb-tab-label>
   <sbb-tab
-    id="sbb-tab-panel-3"
-    role="tabpanel"
+    id="sbb-tab-2"
     tabindex="0"
   >
     Test tab content 3
   </sbb-tab>
   <sbb-tab-label
-    aria-controls="sbb-tab-panel-4"
-    aria-selected="false"
-    data-size="l"
-    data-slot-names="unnamed"
-    role="tab"
     slot="tab-bar"
     tabindex="-1"
   >
     Test tab label 4
   </sbb-tab-label>
   <sbb-tab
-    id="sbb-tab-panel-4"
-    role="tabpanel"
+    id="sbb-tab-3"
     tabindex="0"
   >
     Test tab content 4
@@ -84,13 +59,13 @@ snapshots["sbb-tab-group renders DOM"] =
 
 snapshots["sbb-tab-group renders Shadow DOM"] = 
 `<div
-  class="tab-group"
+  class="sbb-tab-group"
   role="tablist"
 >
   <slot name="tab-bar">
   </slot>
 </div>
-<div class="tab-content">
+<div class="sbb-tab-group-content">
   <slot>
   </slot>
 </div>
@@ -100,33 +75,77 @@ snapshots["sbb-tab-group renders Shadow DOM"] =
 snapshots["sbb-tab-group renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "tab",
-      "name": "Test tab label 1",
-      "selected": true
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 2"
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 3"
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 4"
-    },
-    {
-      "role": "tabpanel",
-      "name": "",
+      "ignored": true,
+      "role": "none",
       "children": [
         {
-          "role": "text",
-          "name": "Test tab content 1"
+          "role": "tablist",
+          "name": "",
+          "multiselectable": false,
+          "orientation": "horizontal"
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "tabpanel",
+              "name": "",
+              "focusable": true
+            },
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     }
@@ -135,43 +154,4 @@ snapshots["sbb-tab-group renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-tab-group renders A11y tree Chrome */
-
-snapshots["sbb-tab-group renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "tab",
-      "name": "Test tab label 1",
-      "selected": true
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 2"
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 3"
-    },
-    {
-      "role": "tab",
-      "name": "Test tab label 4"
-    },
-    {
-      "role": "tabpanel",
-      "name": "",
-      "children": [
-        {
-          "role": "text leaf",
-          "name": "Test tab content 1 "
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tab-group renders A11y tree Firefox */
 

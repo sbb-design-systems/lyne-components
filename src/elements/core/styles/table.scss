@@ -40,12 +40,12 @@ sbb-table-wrapper[negative] .sbb-table,
   }
 }
 
-.sbb-table-header-cell {
-  @include table.table-header-cell;
+.sbb-table-header-row {
+  @include table.table-header-row;
 }
 
-.sbb-table-data-row {
-  @include table.table-data-row;
+.sbb-table-header-cell {
+  @include table.table-header-cell;
 }
 
 .sbb-table-row--striped {
@@ -60,6 +60,63 @@ sbb-table-wrapper[negative] .sbb-table,
   @include table.table-caption;
 }
 
+.sbb-table-filter {
+  @include table.table-filter;
+}
+
+.sbb-table-sticky {
+  // Note that the table can either set this class or an inline style to make something sticky.
+  // We set the style as `!important` so that we get an identical specificity in both cases
+  // and to avoid cases where user styles have a higher specificity.
+  position: sticky !important;
+}
+
+// The `sbb-table-sticky-*` css classes are used by the Angular wrapper and CDK.
+// Do not rename them, pls.
+:is(.sbb-table-sticky-border-elem-left, .sbb-table-sticky-border-elem-right)::after {
+  content: '';
+  transition: {
+    timing-function: var(--sbb-table-sticky-shadow-transition-easing);
+    duration: var(--sbb-table-sticky-shadow-transition-duration);
+    property: visibility, opacity;
+  }
+
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  width: var(--sbb-table-sticky-shadow-width);
+  inset: 0;
+}
+
+.sbb-table-sticky-border-elem-left {
+  :is(.sbb-table-wrapper-offset-left, .sbb-table-wrapper-offset-both) & {
+    border-inline-end: var(--sbb-table-border);
+
+    &::after {
+      visibility: visible;
+      opacity: 1;
+      background-image: linear-gradient(-270deg, rgb(0 0 0 / 10%) 0%, transparent 100%);
+      inset-inline-start: unset;
+      inset-inline-end: calc(var(--sbb-table-sticky-shadow-width) * -1 - 1px);
+    }
+  }
+}
+
+.sbb-table-sticky-border-elem-right {
+  :is(.sbb-table-wrapper-offset-right, .sbb-table-wrapper-offset-both) & {
+    border-inline-start: var(--sbb-table-border);
+
+    &::after {
+      visibility: visible;
+      opacity: 1;
+      background-image: linear-gradient(270deg, rgb(0 0 0 / 10%) 0%, transparent 100%);
+      inset-inline-start: calc(var(--sbb-table-sticky-shadow-width) * -1 - 1px);
+      inset-inline-end: unset;
+    }
+  }
+}
+
+// TODO: In future, move to the 'sbb-lean' theme
 html.sbb-lean .sbb-table:not(.sbb-table-xs, .sbb-table-m) {
   @include table.table--s;
 }

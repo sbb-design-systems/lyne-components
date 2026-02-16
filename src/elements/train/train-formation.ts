@@ -1,1 +1,4 @@
-export * from './train-formation/train-formation.js';
+/**
+ * @entrypoint
+ */
+export * from './train-formation/train-formation.component.ts';

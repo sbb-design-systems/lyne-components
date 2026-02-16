@@ -1,18 +1,18 @@
 import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { setModalityOnNextFocus } from '../../core/a11y.js';
 import {
   type AbstractConstructor,
   type Constructor,
   SbbFormAssociatedRadioButtonMixin,
-  type SbbFormAssociatedRadioButtonMixinType,
-} from '../../core/mixins.js';
-import type { SbbRadioButtonGroupElement } from '../radio-button-group.js';
+} from '../../core/mixins.ts';
+import type { SbbRadioButtonGroupElement } from '../radio-button-group.ts';
 
 export type SbbRadioButtonSize = 'xs' | 's' | 'm';
 
-export declare class SbbRadioButtonCommonElementMixinType extends SbbFormAssociatedRadioButtonMixinType {
+export declare abstract class SbbRadioButtonCommonElementMixinType extends SbbFormAssociatedRadioButtonMixin(
+  LitElement,
+) {
   public get allowEmptySelection(): boolean;
   public set allowEmptySelection(boolean);
   public get group(): SbbRadioButtonGroupElement | null;
@@ -101,7 +101,6 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
        * To cover that, we await the next render (which will make the 'checked' radio focusable) and focus the clicked radio
        */
       await this.updateComplete; // Wait for 'tabindex' to be updated
-      setModalityOnNextFocus(this);
       this.focus();
     }
 

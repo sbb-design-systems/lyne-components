@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
@@ -12,15 +9,15 @@
   --sbb-calendar-cell-size: #{sbb.px-to-rem-build(40)};
   --sbb-calendar-hover-shift: #{sbb.px-to-rem-build(1)};
   --sbb-calendar-wide-cell-size: #{sbb.px-to-rem-build(70)};
-  --sbb-calendar-cell-disabled-color: var(--sbb-color-granite);
-  --sbb-calendar-header-color: var(--sbb-color-granite);
+  --sbb-calendar-header-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   --sbb-calendar-cell-background-color: transparent;
   --sbb-calendar-cell-padding: #{sbb.px-to-rem-build(2)};
-  --sbb-calendar-cell-color: var(--sbb-color-charcoal);
-  --sbb-calendar-cell-selected-color: var(--sbb-color-white);
-  --sbb-calendar-cell-selected-background-color: var(--sbb-color-charcoal);
+  --sbb-calendar-cell-color: var(--sbb-color-2);
+  --sbb-calendar-cell-selected-color: var(--sbb-color-1-inverted);
+  --sbb-calendar-cell-selected-background-color: var(--sbb-background-color-2-inverted);
   --sbb-calendar-cell-disabled-height: #{sbb.px-to-rem-build(1.5)};
   --sbb-calendar-cell-disabled-width: #{sbb.px-to-rem-build(25.5)};
+  --sbb-calendar-cell-disabled-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   --sbb-calendar-cell-transition-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
@@ -35,10 +32,10 @@
   --sbb-calendar-table-animation-duration: 0.1ms;
   --sbb-calendar-table-column-spaces: 12;
   --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(44)};
-  --sbb-calendar-control-view-change-color: var(--sbb-color-charcoal);
-  --sbb-calendar-control-view-change-background: var(--sbb-color-white);
+  --sbb-calendar-control-view-change-color: var(--sbb-color-3);
+  --sbb-calendar-control-view-change-background: var(--sbb-background-color-1);
 
-  @include sbb.mq($from: micro) {
+  @include sbb.mq($from: small) {
     --sbb-calendar-cell-size: #{sbb.px-to-rem-build(44)};
     --sbb-calendar-wide-cell-size: #{sbb.px-to-rem-build(77)};
     --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(48)};
@@ -79,7 +76,7 @@
   margin: auto;
   height: var(--sbb-calendar-control-view-change-height);
   text-transform: capitalize;
-  cursor: pointer;
+  cursor: var(--sbb-cursor-pointer);
   padding-inline: var(--sbb-spacing-fixed-5x) var(--sbb-spacing-fixed-2x);
   border-radius: var(--sbb-border-radius-infinity);
   background-color: var(--sbb-calendar-control-view-change-background);
@@ -89,13 +86,19 @@
   transition-property: background-color, padding-block-end;
 
   &:disabled {
-    --sbb-calendar-control-view-change-background: var(--sbb-color-milk);
-    --sbb-calendar-control-view-change-color: var(--sbb-calendar-cell-disabled-color);
+    --sbb-calendar-control-view-change-background: light-dark(
+      var(--sbb-color-milk),
+      var(--sbb-color-anthracite)
+    );
+    --sbb-calendar-control-view-change-color: light-dark(
+      var(--sbb-color-granite),
+      var(--sbb-color-aluminium)
+    );
 
     cursor: unset;
   }
 
-  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+  &:focus-visible {
     @include sbb.focus-outline;
 
     outline-offset: var(--sbb-spacing-fixed-1x);
@@ -108,13 +111,19 @@
   }
 
   &:not(:disabled):active {
-    --sbb-calendar-control-view-change-background: var(--sbb-color-milk);
+    --sbb-calendar-control-view-change-background: var(--sbb-background-color-3);
   }
 }
 
 .sbb-calendar__table-month-view,
 .sbb-calendar__table-year-view {
   --sbb-calendar-table-column-spaces: 6;
+}
+
+.sbb-calendar__table-overflow-break {
+  // We have to cut the negative margin which is built by the containing sbb-calendar__table-container.
+  // Overflow: hidden would cut the focus outline. Therefore we take `contain` here.
+  contain: layout;
 }
 
 .sbb-calendar__table-container {
@@ -139,11 +148,38 @@
   );
   --sbb-calendar-margin: var(--sbb-calendar-start-offset);
 
-  :host([data-wide]) & {
+  :host(:state(wide)) & {
     --sbb-calendar-min-width: calc(
       2 * 7 * var(--sbb-calendar-cell-size) + var(--sbb-calendar-tables-gap)
     );
     --sbb-calendar-margin: calc(0.5 * var(--sbb-calendar-start-offset));
+  }
+
+  :host([orientation='horizontal'][week-numbers]) & {
+    --sbb-calendar-min-width: calc(8 * var(--sbb-calendar-cell-size));
+  }
+
+  :host([orientation='horizontal'][week-numbers]:state(wide)) & {
+    --sbb-calendar-min-width: calc(
+      2 * 8 * var(--sbb-calendar-cell-size) + var(--sbb-calendar-tables-gap)
+    );
+  }
+
+  // The container's min-width is set in vertical mode;
+  // the value `calc(7 * var(--sbb-calendar-cell-size))` is fine
+  // considering that the maximum number of weeks in a month is 6, plus 1 for the header at the table's left side.
+  :host([orientation='vertical']) & {
+    min-width: var(--sbb-calendar-min-width);
+
+    // The variable that defines the margin is set to 0 to correctly display the table if consumers set a custom width.
+    --sbb-calendar-start-offset: 0;
+  }
+
+  // The min-width in wide is calculated as (max number of weeks in a month) * (displayed months) + (header column) = 6 * 2 + 1 = 13.
+  :host([orientation='vertical']:state(wide)) & {
+    --sbb-calendar-min-width: calc(
+      13 * var(--sbb-calendar-cell-size) + var(--sbb-calendar-tables-gap)
+    );
   }
 }
 
@@ -166,7 +202,7 @@
     }
   }
 
-  :host(:not([data-wide])) & {
+  :host(:not(:state(wide))) & {
     // Due to a Safari iOS rendering bug we need to define min-width as well.
     // Otherwise, after orientation change, there is a wrong width if placed in an sbb-dialog.
     min-width: 100%;
@@ -174,15 +210,25 @@
 }
 
 .sbb-calendar__table-header {
-  @include sbb.text-xs--regular;
-
-  color: var(--sbb-calendar-header-color);
-  width: var(--sbb-calendar-cell-size);
-  padding: 0;
-  padding-block-end: var(--sbb-spacing-fixed-4x);
-
   // Depending where in the DOM it's used, it's possible that browser defaults set text-align to left.
   text-align: center;
+}
+
+.sbb-calendar__table-body {
+  // Depending where in the DOM it's used, it's possible that browser defaults set text-align to left.
+  text-align: center;
+}
+
+.sbb-calendar__table-header-cell {
+  @include sbb.text-xs--regular;
+
+  width: var(--sbb-calendar-cell-size);
+  color: var(--sbb-calendar-header-color);
+  padding: 0;
+
+  :host(:not([multiple])) & {
+    height: var(--sbb-calendar-cell-size);
+  }
 }
 
 .sbb-calendar__table-data {
@@ -191,13 +237,14 @@
   text-align: center;
 }
 
+.sbb-calendar__header-cell,
 .sbb-calendar__cell {
   @include sbb.button-reset;
   @include sbb.text-s--regular;
 
   height: var(--sbb-calendar-cell-size);
   color: var(--sbb-calendar-cell-color);
-  cursor: pointer;
+  cursor: var(--sbb-cursor-pointer);
   position: relative;
   z-index: 0;
 
@@ -215,13 +262,17 @@
 
   @include sbb.hover-mq($hover: true) {
     &:not(.sbb-calendar__selected, :active, :disabled):hover {
-      --sbb-calendar-cell-background-color: var(--sbb-color-milk);
+      --sbb-calendar-cell-background-color: var(--sbb-background-color-3);
 
       padding-block-end: var(--sbb-calendar-hover-shift);
 
       &::before {
         @include sbb.if-forced-colors {
           @include sbb.focus-outline;
+
+          // Basically the focus-outline mixin is made for use with focus-visible.
+          // As we use it here with hover, we have to ensure that the outline is not overridden when mouse or touch is in use.
+          --sbb-focus-outline-style: initial;
         }
       }
     }
@@ -238,16 +289,27 @@
   }
 
   &:not(.sbb-calendar__selected, :disabled):active {
-    --sbb-calendar-cell-background-color: var(--sbb-color-cloud);
+    --sbb-calendar-cell-background-color: var(--sbb-background-color-4);
 
     &::before {
       @include sbb.if-forced-colors {
         @include sbb.focus-outline;
+
+        // Basically the focus-outline mixin is made for use with focus-visible.
+        // As we use it here with :active, we have to ensure that the outline is not overridden when mouse or touch is in use.
+        --sbb-focus-outline-style: initial;
       }
     }
   }
 }
 
+.sbb-calendar__header-cell {
+  @include sbb.text-xs--regular;
+
+  color: var(--sbb-calendar-header-color);
+}
+
+.sbb-calendar__weekday,
 .sbb-calendar__day {
   border-radius: 50%;
   width: var(--sbb-calendar-cell-size);

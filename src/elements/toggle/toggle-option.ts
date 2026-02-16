@@ -1,1 +1,4 @@
-export * from './toggle-option/toggle-option.js';
+/**
+ * @entrypoint
+ */
+export * from './toggle-option/toggle-option.component.ts';

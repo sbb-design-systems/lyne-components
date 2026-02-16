@@ -1,20 +1,18 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  display: contents;
+  display: block;
+  padding-block: var(--sbb-dialog-padding-block);
+  padding-inline: var(--sbb-dialog-padding-inline);
+  grid-area: content;
+  overflow: auto;
 }
 
-.sbb-dialog-content {
-  @include sbb.scrollbar-rules;
+// If there is no scrollable content, the scroll area gets focus.
+// As it is impossible to place the scrollbar outside of the scroll area,
+// we need to fix the outline offset to avoid clipping of the focus outline.
+:host(:focus-visible) {
+  @include sbb.focus-outline;
 
-  & {
-    padding-inline: var(--sbb-dialog-padding-inline);
-    padding-block: var(--sbb-dialog-padding-block);
-    overflow: auto;
-    margin-block: var(--sbb-dialog-header-margin-block-start) 0;
-    transition: margin var(--sbb-dialog-animation-duration) var(--sbb-dialog-animation-easing);
-  }
+  --sbb-focus-outline-offset: calc(var(--sbb-focus-outline-width) * -1);
 }

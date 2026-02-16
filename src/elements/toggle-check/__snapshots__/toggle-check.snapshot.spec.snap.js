@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-toggle-check renders DOM"] = 
 `<sbb-toggle-check
   checked=""
-  data-checked=""
   label-position="after"
   size="s"
   tabindex="0"
@@ -24,12 +23,7 @@ snapshots["sbb-toggle-check renders Shadow DOM"] =
       <span class="sbb-toggle-check__circle">
         <span class="sbb-toggle-check__icon">
           <slot name="icon">
-            <sbb-icon
-              aria-hidden="true"
-              data-namespace="default"
-              name="tick-small"
-              role="img"
-            >
+            <sbb-icon name="tick-small">
             </sbb-icon>
           </slot>
         </span>
@@ -43,12 +37,14 @@ snapshots["sbb-toggle-check renders Shadow DOM"] =
 snapshots["sbb-toggle-check A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "checkbox",
       "name": "​",
+      "invalid": false,
+      "focusable": true,
       "checked": false
     }
   ]
@@ -56,20 +52,4 @@ snapshots["sbb-toggle-check A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-toggle-check A11y tree Chrome */
-
-snapshots["sbb-toggle-check A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "checkbox",
-      "name": "​"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-check A11y tree Firefox */
 

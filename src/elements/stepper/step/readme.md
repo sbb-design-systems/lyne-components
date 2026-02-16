@@ -29,15 +29,16 @@ The aria attribute `aria-labelledby` is set automatically.
 
 ## Properties
 
-| Name    | Attribute | Privacy | Type                          | Default | Description            |
-| ------- | --------- | ------- | ----------------------------- | ------- | ---------------------- |
-| `label` | -         | public  | `SbbStepLabelElement \| null` | `null`  | The label of the step. |
+| Name      | Attribute | Privacy | Type                          | Default | Description            |
+| --------- | --------- | ------- | ----------------------------- | ------- | ---------------------- |
+| `label`   | -         | public  | `SbbStepLabelElement \| null` | `null`  | The label of the step. |
+| `stepper` | -         | public  | `SbbStepperElement \| null`   |         |                        |
 
 ## Events
 
-| Name       | Type                                       | Description                                               | Inherited From |
-| ---------- | ------------------------------------------ | --------------------------------------------------------- | -------------- |
-| `validate` | `CustomEvent<SbbStepValidateEventDetails>` | Emits whenever step switch is triggered. Can be canceled. |                |
+| Name       | Type                                       | Description                                                                                                 | Inherited From |
+| ---------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------- | -------------- |
+| `validate` | `CustomEvent<SbbStepValidateEventDetails>` | The validate event is dispatched when a step change is triggered. Can be canceled to abort the step change. |                |
 
 ## Slots
 

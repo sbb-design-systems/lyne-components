@@ -1,79 +1,80 @@
 import { LitElement } from 'lit';
 
-import { EventEmitter } from '../eventing.js';
-import type { SbbOpenedClosedState } from '../interfaces.js';
+import type { SbbOpenedClosedState } from '../interfaces.ts';
+import { SbbElementInternalsMixin } from '../mixins.ts';
 
 /**
  * Base class for overlay components.
- *
- * @event willOpen - Emits whenever the component starts the opening transition. Can be canceled.
- * @event didOpen - Emits whenever the component is opened.
- * @event willClose - Emits whenever the component begins the closing transition. Can be canceled.
- * @event didClose - Emits whenever the component is closed.
  */
-export abstract class SbbOpenCloseBaseElement extends LitElement {
+export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(LitElement) {
   public static readonly events = {
-    willOpen: 'willOpen',
-    didOpen: 'didOpen',
-    willClose: 'willClose',
-    didClose: 'didClose',
+    beforeopen: 'beforeopen',
+    open: 'open',
+    beforeclose: 'beforeclose',
+    close: 'close',
   } as const;
 
   /** The state of the component. */
   protected set state(state: SbbOpenedClosedState) {
-    this.setAttribute('data-state', state);
+    if (this._state) {
+      this.internals.states.delete(`state-${this._state}`);
+    }
+    this._state = state;
+    if (this._state) {
+      this.internals.states.add(`state-${this._state}`);
+    }
   }
   protected get state(): SbbOpenedClosedState {
-    return this.getAttribute('data-state') as SbbOpenedClosedState;
+    return this._state;
   }
+  private _state!: SbbOpenedClosedState;
 
   /** Whether the element is open. */
   public get isOpen(): boolean {
     return this.state === 'opened';
   }
 
-  /** Emits whenever the component starts the opening transition. */
-  protected willOpen: EventEmitter = new EventEmitter(
-    this,
-    SbbOpenCloseBaseElement.events.willOpen,
-    { cancelable: true },
-  );
-
-  /** Emits whenever the component is opened. */
-  protected didOpen: EventEmitter = new EventEmitter(this, SbbOpenCloseBaseElement.events.didOpen, {
-    cancelable: true,
-  });
-
-  /** Emits whenever the component begins the closing transition. */
-  protected willClose: EventEmitter = new EventEmitter(
-    this,
-    SbbOpenCloseBaseElement.events.willClose,
-    { cancelable: true },
-  );
-
-  /** Emits whenever the component is closed. */
-  protected didClose: EventEmitter = new EventEmitter(
-    this,
-    SbbOpenCloseBaseElement.events.didClose,
-    { cancelable: true },
-  );
+  public constructor() {
+    super();
+    this.state = 'closed';
+  }
 
   /** Opens the component. */
   public abstract open(): void;
   /** Closes the component. */
   public abstract close(): void;
 
-  public override connectedCallback(): void {
-    super.connectedCallback();
-    this.state ||= 'closed';
+  /** The method which is called on escape key press. Defaults to calling close() */
+  public escapeStrategy(): void {
+    this.close();
+  }
+
+  protected dispatchBeforeOpenEvent(): boolean {
+    /** Emits whenever the component starts the opening transition. Can be canceled. */
+    return this.dispatchEvent(new Event('beforeopen', { cancelable: true }));
+  }
+
+  protected dispatchOpenEvent(): boolean {
+    /** Emits whenever the component is opened. */
+    return this.dispatchEvent(new Event('open'));
+  }
+
+  protected dispatchBeforeCloseEvent(): boolean {
+    /** Emits whenever the component begins the closing transition. Can be canceled. */
+    return this.dispatchEvent(new Event('beforeclose', { cancelable: true }));
+  }
+
+  protected dispatchCloseEvent(): boolean {
+    /** Emits whenever the component is closed. */
+    return this.dispatchEvent(new Event('close'));
   }
 }
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    willOpen: CustomEvent<void>;
-    willClose: CustomEvent<void>;
-    didOpen: CustomEvent<void>;
-    didClose: CustomEvent<void>;
+    beforeopen: Event;
+    beforeclose: Event;
+    open: Event;
+    close: Event;
   }
 }

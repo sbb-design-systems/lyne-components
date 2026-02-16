@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
@@ -11,11 +8,12 @@
   outline: none !important;
 }
 
-.sbb-radio-button {
-  display: block;
+:host(:not(:state(slotted), :state(slotted-icon), :state(has-icon-name))) {
+  --sbb-radio-button-label-gap: 0;
+}
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+.sbb-radio-button {
+  :host(:focus-visible) & {
     @include sbb.focus-outline;
 
     border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));

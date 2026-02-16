@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Meta,
   StoryObj,
@@ -7,18 +5,20 @@ import type {
   Args,
   Decorator,
   StoryContext,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './card.js';
-import '../card-badge.js';
-import '../card-button.js';
-import '../card-link.js';
-import '../../title.js';
+import './card.component.ts';
+import '../card-badge.ts';
+import '../card-button.ts';
+import '../card-link.ts';
+import '../../title.ts';
 
 const ContentText = (): TemplateResult => html`
   <span class="sbb-text-m">
@@ -34,12 +34,12 @@ const Content = (): TemplateResult => html`
   ${ContentText()}
 `;
 
-const Template = ({ size, color }: Args): TemplateResult => html`
-  <sbb-card ${sbbSpread({ size, color })}> ${Content()} </sbb-card>
+const Template = ({ spacing, color }: Args): TemplateResult => html`
+  <sbb-card ${sbbSpread({ color })} class=${`sbb-card-spacing-${spacing}`}>${Content()}</sbb-card>
 `;
 
-const TemplateWithBadge = ({ size, color }: Args): TemplateResult => html`
-  <sbb-card ${sbbSpread({ size, color })}>
+const TemplateWithBadge = ({ spacing, color }: Args): TemplateResult => html`
+  <sbb-card ${sbbSpread({ color })} class=${`sbb-card-spacing-${spacing}`}>
     <sbb-card-badge>
       <span>%</span>
       <span>from CHF</span>
@@ -59,14 +59,19 @@ const TemplateAction = ({ label, ...args }: Args): TemplateResult => {
   }
 };
 
-const TemplateCardAction = ({ size, color, label, ...args }: Args): TemplateResult => html`
-  <sbb-card ${sbbSpread({ size, color })}>
+const TemplateCardAction = ({ spacing, color, label, ...args }: Args): TemplateResult => html`
+  <sbb-card ${sbbSpread({ color })} class=${`sbb-card-spacing-${spacing}`}>
     ${TemplateAction({ label, ...args })} ${Content()}
   </sbb-card>
 `;
 
-const TemplateCardActionWithBadge = ({ size, color, label, ...args }: Args): TemplateResult => html`
-  <sbb-card ${sbbSpread({ size, color })}>
+const TemplateCardActionWithBadge = ({
+  spacing,
+  color,
+  label,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-card ${sbbSpread({ color })} class=${`sbb-card-spacing-${spacing}`}>
     ${TemplateAction({ label, ...args })}
     <sbb-card-badge>
       <span>%</span>
@@ -83,13 +88,6 @@ const TemplateCardActionMultipleCards = (args: Args): TemplateResult => html`
     ${TemplateCardActionWithBadge(args)} ${TemplateCardActionWithBadge(args)}
   </div>
 `;
-
-const size: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'],
-};
 
 const color: InputType = {
   control: {
@@ -114,6 +112,13 @@ const label: InputType = {
   table: {
     category: 'Card Action',
   },
+};
+
+const spacing: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['3x-xxs', 'xxxs-xxs', 'xxxs-s', '4x-xxs', 'xxs', 's', 'l'],
 };
 
 const hrefs = ['https://www.sbb.ch', 'https://github.com/sbb-design-systems/lyne-components'];
@@ -197,7 +202,7 @@ const value: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  size,
+  spacing,
   color,
 };
 
@@ -222,8 +227,8 @@ const defaultArgTypesLink: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  size: 'm',
   color: color.options![0],
+  spacing: 'xxxs-s',
 };
 
 const defaultArgsLink = {
@@ -234,18 +239,12 @@ const defaultArgsLink = {
   download: false,
   target: '_blank',
   rel: undefined,
-  name: undefined,
-  type: undefined,
-  form: undefined,
-  value: undefined,
 };
 
 const defaultArgsButton = {
-  ...defaultArgsLink,
-  href: undefined,
-  download: undefined,
-  target: undefined,
-  rel: undefined,
+  ...defaultArgs,
+  active: false,
+  label: 'Click this card to follow the action.',
   name: 'Button name',
   type: type.options![0],
   form: 'form-name',
@@ -265,7 +264,7 @@ export const WithBadge: StoryObj = {
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    size: size.options![2],
+    spacing: spacing.options![2],
   },
 };
 
@@ -291,7 +290,9 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.color === 'milk' ? 'var(--sbb-color-white)' : 'var(--sbb-color-milk)',
+      context.args.color === 'milk'
+        ? 'var(--sbb-background-color-1)'
+        : 'var(--sbb-background-color-3)',
     actions: {
       handles: ['click'],
     },

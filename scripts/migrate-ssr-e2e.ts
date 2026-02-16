@@ -1,9 +1,8 @@
-/* eslint-disable import-x/default, import-x/no-named-as-default-member */
 import { readFileSync, writeFileSync } from 'fs';
+import { globSync } from 'node:fs';
 import { basename, dirname, relative } from 'path';
 
-import * as glob from 'glob';
-import ts from 'typescript';
+import * as ts from 'typescript';
 
 /*
  * Convert e2e test files to use the lit fixture, to enable ssr testing.
@@ -24,11 +23,9 @@ const privateTesting = new URL(
   '../src/elements/core/testing/private.ts',
   import.meta.url,
 ).pathname.replace(/.ts$/, '.js');
-const specFiles = glob
-  .sync('**/*.{e2e,spec}.ts', {
-    cwd: new URL('../src/', import.meta.url),
-    absolute: true,
-  })
+const specFiles = globSync('**/*.{e2e,spec}.ts', {
+  cwd: new URL('../src/', import.meta.url),
+})
   .filter((f) => !f.includes('/core/') && !f.includes('/storybook/'))
   .filter((v, _i, a) => v.endsWith('.e2e.ts') || !a.includes(v.replace(/.spec.ts/, '.e2e.ts')))
   .sort();

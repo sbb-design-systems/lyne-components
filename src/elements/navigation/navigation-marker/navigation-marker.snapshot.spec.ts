@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 
-import type { SbbNavigationMarkerElement } from './navigation-marker.js';
+import type { SbbNavigationMarkerElement } from './navigation-marker.component.ts';
 
-import './navigation-marker.js';
+import './navigation-marker.component.ts';
 
 describe(`sbb-navigation-marker`, () => {
   let element: SbbNavigationMarkerElement;

@@ -1,16 +1,24 @@
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './title.js';
+import './title.component.ts';
 
 // we don't need to pass the args.text to the <sbb-title> tag, but Storybook wants all in it.
 const Template = ({ text, ...args }: Args): TemplateResult =>
   html`<sbb-title ${sbbSpread(args)}>${text}</sbb-title>`;
+
+const LeanTemplate = (args: Args): TemplateResult =>
+  html`${Template(args)}
+    <p>
+      In 'lean' mode, where the 'sbb-lean' class is applied to the
+      <html> tag, the title is given smaller sizes and spacings.
+      This story simulates the lean mode.
+    </p>`;
 
 const level: InputType = {
   control: {
@@ -36,7 +44,6 @@ const defaultArgs: Args = {
   text: 'Data without insights are trivial, and insights without action are pointless',
   negative: false,
   'visual-level': undefined,
-  'visually-hidden': false,
 };
 
 export const h1: StoryObj = {
@@ -90,10 +97,19 @@ export const h6VisualLevel: StoryObj = {
   args: { ...defaultArgs, level: level.options![0], 'visual-level': level.options![5] },
 };
 
+export const leanSize: StoryObj = {
+  render: LeanTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+  parameters: { isLean: true },
+};
+
 const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

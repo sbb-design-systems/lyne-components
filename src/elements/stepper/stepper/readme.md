@@ -1,4 +1,4 @@
-The `sbb-stepper` is a component that visually guides a user through a sequential, multi-step process. It breaks down complex forms, flows, or other linear interactions into smaller, easier-to-follow steps. The current step is highlighted, and a progress bar connects the steps to visually represent progress.
+The `sbb-stepper` is a component that visually guides a user through a sequential, multistep process. It breaks down complex forms, flows, or other linear interactions into smaller, easier-to-follow steps. The current step is highlighted, and a progress bar connects the steps to visually represent progress.
 
 Use it with [sbb-step-label](/docs/elements-sbb-stepper-sbb-step-label--docs) and [sbb-step](/docs/elements-sbb-stepper-sbb-step--docs).
 
@@ -75,7 +75,9 @@ Calling the `reset()` method on the `sbb-stepper` will reset the wrapping `form`
 
 ## Events
 
-Whenever a step switch is triggered, a `validate` event is emitted and can be canceled to prevent the step change.
+Whenever a step switch is triggered, a `validate` event is emitted on the requested step and bubbles up to the stepper.
+The validate event can be canceled to prevent the step change.
+Every successful change of a step triggers the `stepchange` event.
 
 ## Accessibility
 
@@ -105,7 +107,7 @@ Use an `aria-label` attribute to describe the purpose of the stepper. The `sbb-s
 
 | Name             | Attribute         | Privacy | Type                        | Default            | Description                                                                       |
 | ---------------- | ----------------- | ------- | --------------------------- | ------------------ | --------------------------------------------------------------------------------- |
-| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| null` | `null`             | Overrides the behaviour of `orientation` property.                                |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| null` | `null`             | Overrides the behavior of `orientation` property.                                 |
 | `linear`         | `linear`          | public  | `boolean`                   | `false`            | If set to true, only the current and previous labels can be clicked and selected. |
 | `orientation`    | `orientation`     | public  | `SbbOrientation`            | `'horizontal'`     | Steps orientation, either horizontal or vertical.                                 |
 | `selected`       | -                 | public  | `SbbStepElement \| null`    |                    | The currently selected step.                                                      |
@@ -120,6 +122,12 @@ Use an `aria-label` attribute to describe the purpose of the stepper. The `sbb-s
 | `next`     | public  | Selects the next step.                                                             |            | `void` |                |
 | `previous` | public  | Selects the previous step.                                                         |            | `void` |                |
 | `reset`    | public  | Resets the form in which the stepper is nested or every form of each step, if any. |            | `void` |                |
+
+## Events
+
+| Name         | Type                 | Description                        | Inherited From |
+| ------------ | -------------------- | ---------------------------------- | -------------- |
+| `stepchange` | `SbbStepChangeEvent` | Emits whenever a step was changed. |                |
 
 ## Slots
 

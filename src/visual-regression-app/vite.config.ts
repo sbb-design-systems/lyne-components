@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
-import { relative } from 'node:path';
+import { dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import {
@@ -11,12 +11,11 @@ import {
   type UserConfig,
 } from 'vite';
 
-import { distDir } from '../../tools/vite/index.js';
-import rootConfig from '../../vite.config.js';
+import rootConfig from '../../vite.config.ts';
 
-import type { ScreenshotFiles, Meta } from './src/interfaces.js';
+import type { ScreenshotFiles, Meta } from './src/interfaces.ts';
 
-const packageRoot = new URL('.', import.meta.url);
+const distDir = new URL('../../dist/', import.meta.url);
 const screenshotsDir = new URL(`./screenshots/`, distDir);
 const assetsScreenshotsDir = 'assets/screenshots/';
 
@@ -143,14 +142,14 @@ function prepareScreenshots(): PluginOption {
                   }
                 }
 
-                return <ScreenshotFiles>{
+                return {
                   browserName,
                   name: d.name,
                   failedFile: failedRelativeFileName,
                   diffFile: !isNew ? diffRelativeFileName : undefined,
                   baselineFile: !isNew ? baselineRelativeFileName : undefined,
                   isNew,
-                };
+                } as ScreenshotFiles;
               });
           });
 
@@ -185,12 +184,12 @@ function prepareScreenshots(): PluginOption {
                     });
                   }
 
-                  return <ScreenshotFiles>{
+                  return {
                     browserName,
                     name: d.name,
                     baselineFile: baselineRelativeFileName,
                     isNew: false,
-                  };
+                  } as ScreenshotFiles;
                 });
             });
         }
@@ -253,8 +252,8 @@ function prepareScreenshots(): PluginOption {
 }
 
 export default defineConfig(() =>
-  mergeConfig(rootConfig, <UserConfig>{
-    root: fileURLToPath(packageRoot),
+  mergeConfig(rootConfig, {
+    root: dirname(fileURLToPath(import.meta.url)),
     plugins: [prepareScreenshots()],
     build: {
       outDir: fileURLToPath(new URL(`./visual-regression-app/`, distDir)),
@@ -265,5 +264,5 @@ export default defineConfig(() =>
         'top-level-await': true, // Browsers can handle top-level-await features, used for the URLPattern polyfill.
       },
     },
-  }),
+  } satisfies UserConfig),
 );

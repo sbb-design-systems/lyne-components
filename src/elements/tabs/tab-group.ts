@@ -1,1 +1,4 @@
-export * from './tab-group/tab-group.js';
+/**
+ * @entrypoint
+ */
+export * from './tab-group/tab-group.component.ts';

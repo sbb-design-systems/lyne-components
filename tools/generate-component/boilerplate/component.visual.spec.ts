@@ -5,9 +5,9 @@ import {
   describeEach,
   visualDiffDefault,
   visualDiffStandardStates,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './__noPrefixName__.js';
+import './__noPrefixName__.component.ts';
 
 describe('__name__', () => {
   /**

@@ -1,12 +1,12 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbAutocompleteElement } from './autocomplete.js';
+import { SbbAutocompleteElement } from './autocomplete.component.ts';
 
-import '../form-field.js';
-import '../option.js';
+import '../form-field.ts';
+import '../option.ts';
 
 describe(`sbb-autocomplete ssr`, () => {
   let root: SbbAutocompleteElement;
@@ -24,7 +24,7 @@ describe(`sbb-autocomplete ssr`, () => {
         </sbb-form-field>
         <button>Use this for backdrop click</button>
       `,
-      { modules: ['../form-field.js', './autocomplete.js', '../option.js'] },
+      { modules: ['../form-field.js', './autocomplete.component.js', '../option.js'] },
     );
   });
 
@@ -35,8 +35,6 @@ describe(`sbb-autocomplete ssr`, () => {
   it('opens autocomplete', () => {
     root.querySelector('input')!.focus();
 
-    expect(root.querySelector('sbb-autocomplete')!.getAttribute('data-state')).not.to.be.equal(
-      'closed',
-    );
+    expect(root.querySelector('sbb-autocomplete')!).not.to.match(':state(state-closed)');
   });
 });

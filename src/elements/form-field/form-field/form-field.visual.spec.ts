@@ -1,17 +1,18 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
+import { isChromium } from '../../core/dom.ts';
 import {
   describeEach,
   describeViewports,
   visualDiffActive,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './form-field.js';
-import '../../button/mini-button.js';
-import '../../form-error.js';
-import '../../popover.js';
+import './form-field.component.ts';
+import '../../button/mini-button.ts';
+import '../error.ts';
+import '../../popover.ts';
 
 describe(`sbb-form-field`, () => {
   const formField = (
@@ -46,9 +47,7 @@ describe(`sbb-form-field`, () => {
           ? html`<span slot="label">${label}</span>`
           : nothing}
       ${template}
-      ${errorText
-        ? html`<sbb-form-error slot="error">This is a required field.</sbb-form-error>`
-        : nothing}
+      ${errorText ? html`<sbb-error slot="error">This is a required field.</sbb-error>` : nothing}
     </sbb-form-field>`;
 
   const basicInput = ({
@@ -103,12 +102,12 @@ describe(`sbb-form-field`, () => {
       ?disabled=${disabled || readonly}
       aria-label="Input button"
     ></sbb-mini-button>
-    <sbb-popover-trigger
+    <sbb-mini-button
       slot="suffix"
       id="popover-trigger"
       icon-name="circle-information-small"
-    ></sbb-popover-trigger>
-    <sbb-popover trigger="popover-trigger"> Some content. </sbb-popover>
+    ></sbb-mini-button>
+    <sbb-popover trigger="popover-trigger">Some content.</sbb-popover>
   `;
 
   const basicArgs = {
@@ -150,284 +149,367 @@ describe(`sbb-form-field`, () => {
     .set('select', basicSelect)
     .set('textarea', basicTextarea);
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    // As there are so many special styles for forced color, we apply forcedColors to every case.
-    for (const forcedColors of [false, true]) {
-      describe(`forcedColors=${forcedColors}`, () => {
-        for (const [name, template] of component.entries()) {
-          describe(`input=${name}`, () => {
-            // visual states
-            for (const negative of [false, true]) {
-              const args = { ...basicArgs, negative };
+  function testFormField({
+    forcedColors,
+    darkMode,
+  }: {
+    forcedColors: boolean;
+    darkMode: boolean;
+  }): void {
+    for (const [name, template] of component.entries()) {
+      describe(`input=${name}`, () => {
+        // visual states
+        for (const negative of [false, true]) {
+          const args = { ...basicArgs, negative };
 
-              describe(`negative=${negative}`, () => {
-                for (const visualDiffState of [
-                  visualDiffDefault,
-                  visualDiffFocus,
-                  visualDiffActive,
-                ]) {
-                  it(
-                    `slot=none ${visualDiffState.name}`,
-                    visualDiffState.with(async (setup) => {
-                      await setup.withFixture(html`${formField(args, template(args))}`, {
-                        backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-                        focusOutlineDark: negative,
-                        forcedColors,
-                      });
-                    }),
-                  );
-
-                  it(
-                    `slot=icons ${visualDiffState.name}`,
-                    visualDiffState.with(async (setup) => {
-                      const templateResult: TemplateResult = html`${template(args)} ${icons}`;
-                      await setup.withFixture(html`${formField(args, templateResult)}`, {
-                        backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-                        focusOutlineDark: negative,
-                        forcedColors,
-                      });
-                    }),
-                  );
-                }
-
+          describe(`negative=${negative}`, () => {
+            for (const visualDiffState of [visualDiffDefault, visualDiffFocus, visualDiffActive]) {
+              // Skip the active tests for native select on Chromium because of a bug.
+              if (!isChromium || template !== basicSelect || visualDiffState !== visualDiffActive) {
                 it(
-                  `slot=buttons ${visualDiffDefault.name}`,
-                  visualDiffDefault.with(async (setup) => {
-                    const templateResult: TemplateResult = html`${template(args)}
-                    ${buttonsAndPopover(args)}`;
-                    await setup.withFixture(html`${formField(args, templateResult)}`, {
-                      backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                  `slot=none ${visualDiffState.name}`,
+                  visualDiffState.with(async (setup) => {
+                    await setup.withFixture(html`${formField(args, template(args))}`, {
+                      backgroundColor: negative
+                        ? 'var(--sbb-background-color-2-negative)'
+                        : 'var(--sbb-background-color-2)',
                       focusOutlineDark: negative,
                       forcedColors,
+                      darkMode,
                     });
                   }),
                 );
 
                 it(
-                  `slot=buttons ${visualDiffActive.name}`,
-                  visualDiffActive.with(async (setup) => {
-                    const templateResult: TemplateResult = html`${template(args)}
-                    ${buttonsAndPopover(args)}`;
+                  `slot=icons ${visualDiffState.name}`,
+                  visualDiffState.with(async (setup) => {
+                    const templateResult: TemplateResult = html`${template(args)} ${icons}`;
                     await setup.withFixture(html`${formField(args, templateResult)}`, {
-                      backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                      backgroundColor: negative
+                        ? 'var(--sbb-background-color-2-negative)'
+                        : 'var(--sbb-background-color-2)',
                       focusOutlineDark: negative,
                       forcedColors,
+                      darkMode,
                     });
                   }),
                 );
-
-                it(
-                  `slot=buttons focus`,
-                  visualDiffFocus.with(async (setup) => {
-                    const templateResult: TemplateResult = html`${template(args)}
-                    ${buttonsAndPopover(args)}`;
-                    await setup.withFixture(html`${formField(args, templateResult)}`, {
-                      backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-                      focusOutlineDark: negative,
-                      forcedColors,
-                    });
-                    setup.withStateElement(setup.snapshotElement.querySelector('sbb-mini-button')!);
-                  }),
-                );
-              });
+              }
             }
 
-            // disabled and readonly states
-            describeEach(states, ({ negative, state }) => {
-              const args = {
-                ...basicArgs,
-                negative,
-                disabled: state.disabled,
-                readonly: state.readonly,
-              };
+            it(
+              `slot=buttons ${visualDiffDefault.name}`,
+              visualDiffDefault.with(async (setup) => {
+                const templateResult: TemplateResult = html`${template(args)}
+                ${buttonsAndPopover(args)}`;
+                await setup.withFixture(html`${formField(args, templateResult)}`, {
+                  backgroundColor: negative
+                    ? 'var(--sbb-background-color-2-negative)'
+                    : 'var(--sbb-background-color-2)',
+                  focusOutlineDark: negative,
+                  forcedColors,
+                  darkMode,
+                });
+              }),
+            );
 
+            // Skip the active tests for native select on Chromium because of a bug.
+            if (!isChromium || template !== basicSelect) {
               it(
-                `slot=none`,
-                visualDiffDefault.with(async (setup) => {
-                  await setup.withFixture(html`${formField(args, template(args))}`, {
-                    backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-                    focusOutlineDark: negative,
-                    forcedColors,
-                  });
-                }),
-              );
-
-              it(
-                `slot=buttons`,
-                visualDiffDefault.with(async (setup) => {
+                `slot=buttons ${visualDiffActive.name}`,
+                visualDiffActive.with(async (setup) => {
                   const templateResult: TemplateResult = html`${template(args)}
                   ${buttonsAndPopover(args)}`;
                   await setup.withFixture(html`${formField(args, templateResult)}`, {
-                    backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-2-negative)'
+                      : 'var(--sbb-background-color-2)',
                     focusOutlineDark: negative,
                     forcedColors,
+                    darkMode,
+                  });
+                }),
+              );
+            }
+
+            it(
+              `slot=buttons focus`,
+              visualDiffFocus.with(async (setup) => {
+                const templateResult: TemplateResult = html`${template(args)}
+                ${buttonsAndPopover(args)}`;
+                await setup.withFixture(html`${formField(args, templateResult)}`, {
+                  backgroundColor: negative
+                    ? 'var(--sbb-background-color-2-negative)'
+                    : 'var(--sbb-background-color-2)',
+                  focusOutlineDark: negative,
+                  forcedColors,
+                  darkMode,
+                });
+                setup.withStateElement(setup.snapshotElement.querySelector('sbb-mini-button')!);
+              }),
+            );
+          });
+        }
+
+        // disabled and readonly states
+        describeEach(states, ({ negative, state }) => {
+          const args = {
+            ...basicArgs,
+            negative,
+            disabled: state.disabled,
+            readonly: state.readonly,
+          };
+
+          it(
+            `slot=none`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(html`${formField(args, template(args))}`, {
+                backgroundColor: negative
+                  ? state.disabled
+                    ? 'var(--sbb-background-color-1-negative)'
+                    : 'var(--sbb-background-color-2-negative)'
+                  : state.disabled
+                    ? 'var(--sbb-background-color-1)'
+                    : 'var(--sbb-background-color-2)',
+                focusOutlineDark: negative,
+                forcedColors,
+                darkMode,
+              });
+            }),
+          );
+
+          it(
+            `slot=buttons`,
+            visualDiffDefault.with(async (setup) => {
+              const templateResult: TemplateResult = html`${template(args)}
+              ${buttonsAndPopover(args)}`;
+              await setup.withFixture(html`${formField(args, templateResult)}`, {
+                backgroundColor: negative
+                  ? 'var(--sbb-background-color-2-negative)'
+                  : 'var(--sbb-background-color-2)',
+                focusOutlineDark: negative,
+                forcedColors,
+                darkMode,
+              });
+            }),
+          );
+        });
+
+        it(
+          `label=slotted`,
+          visualDiffDefault.with(async (setup) => {
+            const slottedLabel = { ...basicArgs, 'slotted-label': true };
+            await setup.withFixture(html`${formField(slottedLabel, template(slottedLabel))}`, {
+              forcedColors,
+              darkMode,
+            });
+          }),
+        );
+
+        it(
+          `label=ellipsis`,
+          visualDiffDefault.with(async (setup) => {
+            const hiddenLabel = {
+              ...basicArgs,
+              label: 'This label name is so long that it needs ellipsis to fit',
+            };
+            await setup.withFixture(html`${formField(hiddenLabel, template(hiddenLabel))}`, {
+              forcedColors,
+              darkMode,
+            });
+          }),
+        );
+
+        // optional
+        it(
+          `optional=true`,
+          visualDiffDefault.with(async (setup) => {
+            const noLabel = { ...basicArgs, optional: true };
+            await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
+              forcedColors,
+              darkMode,
+            });
+          }),
+        );
+
+        // borderless
+        describe('borderless=true', () => {
+          for (const negative of [false, true]) {
+            describe(`negative=${negative}`, () => {
+              it(
+                ``,
+                visualDiffDefault.with(async (setup) => {
+                  const noLabel = { ...basicArgs, negative, borderless: true };
+                  await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-2-negative)'
+                      : 'var(--sbb-background-color-2)',
+                    focusOutlineDark: negative,
+                    forcedColors,
+                    darkMode,
+                  });
+                }),
+              );
+
+              it(
+                `disabled=true`,
+                visualDiffDefault.with(async (setup) => {
+                  const noLabel = { ...basicArgs, negative, borderless: true, disabled: true };
+                  await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-1-negative)'
+                      : 'var(--sbb-background-color-1)',
+                    focusOutlineDark: negative,
+                    forcedColors,
+                    darkMode,
+                  });
+                }),
+              );
+
+              it(
+                `error=true ${visualDiffFocus.name}`,
+                visualDiffFocus.with(async (setup) => {
+                  const noLabel = {
+                    ...basicArgs,
+                    negative,
+                    borderless: true,
+                    cssClass: 'sbb-invalid',
+                  };
+                  await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-2-negative)'
+                      : 'var(--sbb-background-color-2)',
+                    focusOutlineDark: negative,
+                    forcedColors,
+                    darkMode,
+                  });
+                }),
+              );
+
+              it(
+                visualDiffFocus.name,
+                visualDiffFocus.with(async (setup) => {
+                  const noLabel = { ...basicArgs, negative, borderless: true };
+                  await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-2-negative)'
+                      : 'var(--sbb-background-color-2)',
+                    focusOutlineDark: negative,
+                    forcedColors,
+                    darkMode,
                   });
                 }),
               );
             });
+          }
+        });
 
-            it(
-              `label=slotted`,
-              visualDiffDefault.with(async (setup) => {
-                const slottedLabel = { ...basicArgs, 'slotted-label': true };
-                await setup.withFixture(html`${formField(slottedLabel, template(slottedLabel))}`, {
-                  forcedColors,
-                });
-              }),
-            );
+        // visual
+        describeEach(visualProp, ({ size, width, errorText }) => {
+          it(
+            visualDiffDefault.name,
+            visualDiffDefault.with(async (setup) => {
+              const args = {
+                ...basicArgs,
+                size,
+                width,
+                errorText,
+                cssClass: errorText ? 'sbb-invalid' : '',
+              };
+              await setup.withFixture(html`${formField(args, template(args))}`, {
+                forcedColors,
+                darkMode,
+              });
+            }),
+          );
+        });
 
+        for (const size of visualProp.size) {
+          describe(`size=${size}`, () => {
             it(
-              `label=ellipsis`,
+              `label=floating`,
               visualDiffDefault.with(async (setup) => {
                 const hiddenLabel = {
                   ...basicArgs,
-                  label: 'This label name is so long that it needs ellipsis to fit',
+                  'floating-label': true,
+                  value: undefined,
+                  selectNullValue: true,
+                  size,
                 };
                 await setup.withFixture(html`${formField(hiddenLabel, template(hiddenLabel))}`, {
                   forcedColors,
+                  darkMode,
                 });
               }),
             );
 
-            // optional
             it(
-              `optional=true`,
+              `label=hidden`,
               visualDiffDefault.with(async (setup) => {
-                const noLabel = { ...basicArgs, optional: true };
+                const hiddenLabel = { ...basicArgs, 'hidden-label': true, size };
+                await setup.withFixture(html`${formField(hiddenLabel, template(hiddenLabel))}`, {
+                  forcedColors,
+                  darkMode,
+                });
+              }),
+            );
+
+            // labels
+            it(
+              `label=undefined`,
+              visualDiffDefault.with(async (setup) => {
+                const noLabel = { ...basicArgs, label: undefined, size };
                 await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
                   forcedColors,
+                  darkMode,
                 });
               }),
             );
-
-            // borderless
-            describe('borderless=true', () => {
-              for (const negative of [false, true]) {
-                describe(`negative=${negative}`, () => {
-                  it(
-                    ``,
-                    visualDiffDefault.with(async (setup) => {
-                      const noLabel = { ...basicArgs, negative, borderless: true };
-                      await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
-                        backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-                        focusOutlineDark: negative,
-                        forcedColors,
-                      });
-                    }),
-                  );
-
-                  it(
-                    `disabled=true`,
-                    visualDiffDefault.with(async (setup) => {
-                      const noLabel = { ...basicArgs, negative, borderless: true, disabled: true };
-                      await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
-                        backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-                        focusOutlineDark: negative,
-                        forcedColors,
-                      });
-                    }),
-                  );
-
-                  it(
-                    `error=true ${visualDiffFocus.name}`,
-                    visualDiffFocus.with(async (setup) => {
-                      const noLabel = {
-                        ...basicArgs,
-                        negative,
-                        borderless: true,
-                        cssClass: 'sbb-invalid',
-                      };
-                      await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
-                        backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-                        focusOutlineDark: negative,
-                        forcedColors,
-                      });
-                    }),
-                  );
-
-                  it(
-                    visualDiffFocus.name,
-                    visualDiffFocus.with(async (setup) => {
-                      const noLabel = { ...basicArgs, negative, borderless: true };
-                      await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
-                        backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-                        focusOutlineDark: negative,
-                        forcedColors,
-                      });
-                    }),
-                  );
-                });
-              }
-            });
-
-            // visual
-            describeEach(visualProp, ({ size, width, errorText }) => {
-              it(
-                visualDiffDefault.name,
-                visualDiffDefault.with(async (setup) => {
-                  const args = {
-                    ...basicArgs,
-                    size,
-                    width,
-                    errorText,
-                    cssClass: errorText ? 'sbb-invalid' : '',
-                  };
-                  await setup.withFixture(html`${formField(args, template(args))}`, {
-                    forcedColors,
-                  });
-                }),
-              );
-            });
-
-            for (const size of visualProp.size) {
-              describe(`size=${size}`, () => {
-                it(
-                  `label=floating`,
-                  visualDiffDefault.with(async (setup) => {
-                    const hiddenLabel = {
-                      ...basicArgs,
-                      'floating-label': true,
-                      value: undefined,
-                      selectNullValue: true,
-                      size,
-                    };
-                    await setup.withFixture(
-                      html`${formField(hiddenLabel, template(hiddenLabel))}`,
-                      {
-                        forcedColors,
-                      },
-                    );
-                  }),
-                );
-
-                it(
-                  `label=hidden`,
-                  visualDiffDefault.with(async (setup) => {
-                    const hiddenLabel = { ...basicArgs, 'hidden-label': true, size };
-                    await setup.withFixture(
-                      html`${formField(hiddenLabel, template(hiddenLabel))}`,
-                      {
-                        forcedColors,
-                      },
-                    );
-                  }),
-                );
-
-                // labels
-                it(
-                  `label=undefined`,
-                  visualDiffDefault.with(async (setup) => {
-                    const noLabel = { ...basicArgs, label: undefined, size };
-                    await setup.withFixture(html`${formField(noLabel, template(noLabel))}`, {
-                      forcedColors,
-                    });
-                  }),
-                );
-              });
-            }
           });
         }
       });
     }
+  }
+
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
+    testFormField({ forcedColors: false, darkMode: false });
+
+    it(
+      'should keep input type=number arrows inside container',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-form-field size="s">
+            <label>Label</label>
+            <input type="number" value="2" />
+          </sbb-form-field>`,
+        );
+
+        setup.withPostSetupAction(() => setup.snapshotElement.querySelector('input')!.focus());
+      }),
+    );
+  });
+
+  describeViewports({ viewports: ['zero'] }, () => {
+    describe(`darkMode=true`, () => {
+      testFormField({ forcedColors: false, darkMode: true });
+    });
+
+    // As there are so many special styles for forced colors, we apply forcedColors to every case.
+    describe(`forcedColors=true`, () => {
+      testFormField({ forcedColors: true, darkMode: false });
+    });
+
+    it(
+      'multiple errors',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-form-field>
+            <input type="number" value="2" minlength="4" required />
+            <sbb-error>This is required field</sbb-error>
+            <sbb-error>Minimum length is 4 characters</sbb-error>
+          </sbb-form-field>`,
+        );
+      }),
+    );
   });
 });

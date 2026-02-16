@@ -1,22 +1,22 @@
+import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay/overlay.component.js';
+import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check/toggle-check.component.js';
 import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved
 import { meta } from 'virtual:meta';
 
-import type { ScreenshotFiles } from '../../../interfaces.js';
+import type { ScreenshotFiles } from '../../../interfaces.ts';
 
 import style from './image-diff.scss?lit&inline';
-
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay/overlay.js';
-import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check/toggle-check.js';
 
 import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/status.js';
 import '@sbb-esta/lyne-elements/overlay.js';
 import '@sbb-esta/lyne-elements/toggle-check.js';
 
-import './fullscreen-diff/fullscreen-diff.js';
+import './fullscreen-diff/fullscreen-diff.ts';
 
 const getImageDimension = (img: HTMLImageElement): string =>
   `${img.naturalWidth}x${img.naturalHeight}px`;
@@ -27,7 +27,7 @@ const getImageDimension = (img: HTMLImageElement): string =>
 export
 @customElement('app-image-diff')
 class ImageDiff extends LitElement {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   @property({ attribute: false }) public accessor screenshotFiles: ScreenshotFiles | null = null;
 
@@ -63,14 +63,14 @@ class ImageDiff extends LitElement {
 
     sbbOverlayElement.appendChild(appFullscreenDiff);
     document.body.appendChild(sbbOverlayElement);
-    sbbOverlayElement.addEventListener(SbbOverlayElement.events.didClose, () => {
+    sbbOverlayElement.addEventListener(SbbOverlayElement.events.close, () => {
       document.body.removeChild(sbbOverlayElement);
     });
 
     sbbOverlayElement.open();
   }
 
-  public override render(): TemplateResult {
+  protected override render(): TemplateResult {
     if (!this.screenshotFiles) {
       return html``;
     }

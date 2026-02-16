@@ -1,15 +1,15 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
-  --sbb-train-formation-sector-line-color: var(--sbb-color-cement);
+  --sbb-train-formation-sector-line-color: light-dark(
+    var(--sbb-color-cement),
+    var(--sbb-color-smoke)
+  );
   --sbb-train-formation-sector-line-width: var(--sbb-border-width-1x);
   --sbb-train-formation-blocked-passage-width: #{sbb.px-to-rem-build(16)};
-  --sbb-train-formation-text-color: var(--sbb-color-charcoal);
+  --sbb-train-formation-text-color: var(--sbb-color-3);
   --sbb-train-formation-vertical-gap: var(--sbb-spacing-fixed-2x);
 
   @include sbb.if-forced-colors {
@@ -20,18 +20,20 @@
 .sbb-train-formation {
   @include sbb.scrollbar;
 
-  & {
-    display: grid;
-    grid-template:
-      'start sectors end' auto
-      'start trains end' auto / auto 1fr auto;
-    position: relative;
-    overflow-x: auto;
-    row-gap: calc(
-      var(--sbb-train-formation-show-sectors-gap, 0) * var(--sbb-train-formation-vertical-gap)
-    );
-    padding-block-end: var(--sbb-train-formation-vertical-gap);
-    color: var(--sbb-train-formation-text-color);
+  display: grid;
+  grid-template:
+    'start sectors end' auto
+    'start trains end' auto / auto 1fr auto;
+  position: relative;
+  overflow-x: auto;
+  row-gap: calc(
+    var(--sbb-train-formation-show-sectors-gap, 0) * var(--sbb-train-formation-vertical-gap)
+  );
+  padding-block-end: var(--sbb-train-formation-vertical-gap);
+  color: var(--sbb-train-formation-text-color);
+
+  &:focus-visible {
+    @include sbb.focus-outline;
   }
 
   // Enable inline padding

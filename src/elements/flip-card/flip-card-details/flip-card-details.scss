@@ -1,9 +1,7 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-flip-card-details-opacity: 0;
   --sbb-flip-card-details-translate-y: var(--sbb-spacing-fixed-2x);
   --sbb-flip-card-details-transition-delay: var(
@@ -27,7 +25,7 @@
   transition-property: transform, opacity;
   transition-duration: var(--sbb-flip-card-details-transition-duration);
 
-  :host([data-flipped]) & {
+  :host(:state(flipped)) & {
     transition-delay:
       var(--sbb-flip-card-details-transition-delay), var(--sbb-flip-card-details-transition-delay);
   }

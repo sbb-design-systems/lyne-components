@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
-import { SbbFormFieldElement } from '../form-field.js';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
+import { SbbFormFieldElement } from '../form-field.ts';
 
-import { SbbFormFieldClearElement } from './form-field-clear.js';
+import { SbbFormFieldClearElement } from './form-field-clear.component.ts';
 
 describe(`sbb-form-field-clear`, () => {
   let element: SbbFormFieldClearElement;

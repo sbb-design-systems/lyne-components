@@ -1,26 +1,33 @@
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
   isServer,
   nothing,
+  type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbOpenCloseBaseElement } from '../core/base-elements.js';
-import { SbbConnectedAbortController } from '../core/controllers.js';
-import { forceType, hostAttributes } from '../core/decorators.js';
-import { findReferencedElement, isSafari, isZeroAnimationDuration } from '../core/dom.js';
-import { SbbNegativeMixin, SbbHydrationMixin } from '../core/mixins.js';
+import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
+import {
+  SbbPropertyWatcherController,
+  SbbEscapableOverlayController,
+} from '../core/controllers.ts';
+import { forceType, idReference } from '../core/decorators.ts';
+import { isLean, isSafari, isZeroAnimationDuration } from '../core/dom.ts';
+import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.ts';
 import {
   isEventOnElement,
   overlayGapFixCorners,
   removeAriaComboBoxAttributes,
   setOverlayPosition,
-} from '../core/overlay.js';
-import type { SbbOptionBaseElement } from '../option.js';
+} from '../core/overlay.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
+import type { SbbOptionBaseElement } from '../option.ts';
 
 import style from './autocomplete-base-element.scss?lit&inline';
 
@@ -30,84 +37,178 @@ import style from './autocomplete-base-element.scss?lit&inline';
  */
 const ariaRoleOnHost = isSafari;
 
-export
-@hostAttributes({
-  popover: 'manual',
-})
-abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
+export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
   SbbHydrationMixin(SbbOpenCloseBaseElement),
 ) {
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
-   * The element where the autocomplete will attach; accepts both an element's id or an HTMLElement.
-   * If not set, it will search for the first 'sbb-form-field' ancestor.
+   * The element where the autocomplete will attach.
+   * If not set, as fallback there are two elements which can act as origin with following priority order:
+   * 1. `sbb-form-field` if it is an ancestor.
+   * 2. trigger element if set.
+   *
+   * For attribute usage, provide an id reference.
    */
-  @property() public accessor origin: string | HTMLElement | null = null;
+  @idReference()
+  @property()
+  public accessor origin: HTMLElement | null = null;
 
   /**
-   * The input element that will trigger the autocomplete opening; accepts both an element's id or an HTMLElement.
+   * The input element that will trigger the autocomplete opening.
    * By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element.
    * If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor.
+   *
+   * For attribute usage, provide an id reference.
    */
-  @property() public accessor trigger: string | HTMLInputElement | null = null;
+  @idReference()
+  @property()
+  public accessor trigger: HTMLInputElement | null = null;
 
   /** Whether the icon space is preserved when no icon is set. */
   @forceType()
   @property({ attribute: 'preserve-icon-space', reflect: true, type: Boolean })
   public accessor preserveIconSpace: boolean = false;
 
+  /** Whether the first option is automatically activated when the autocomplete is opened. */
+  @forceType()
+  @property({ attribute: 'auto-active-first-option', type: Boolean })
+  public accessor autoActiveFirstOption: boolean = false;
+
+  /** Function that maps an option's control value to its display value in the trigger. */
+  @property({ attribute: false })
+  public accessor displayWith: ((value: T) => string) | null = null;
+
+  /**
+   * Size variant, either m or s.
+   * @default 'm' / 's' (lean)
+   */
+  @property({ reflect: true }) public accessor size: 'm' | 's' = isLean() ? 's' : 'm';
+
+  /** Whether the active option should be selected as the user is navigating. */
+  @forceType()
+  @property({ attribute: 'auto-select-active-option', type: Boolean })
+  public accessor autoSelectActiveOption: boolean = false;
+
+  /**
+   * Whether the user is required to make a selection when they're interacting with the
+   * autocomplete. If the user moves away from the autocomplete without selecting an option from
+   * the list, the value will be reset. If the user opens the panel and closes it without
+   * interacting or selecting a value, the initial value will be kept.
+   */
+  @forceType()
+  @property({ attribute: 'require-selection', type: Boolean })
+  public accessor requireSelection: boolean = false;
+
+  /**
+   * The position of the autocomplete panel relative to the trigger.
+   * @default 'auto'
+   */
+  @property()
+  public accessor position: 'auto' | 'above' | 'below' = 'auto';
+
   /** Returns the element where autocomplete overlay is attached to. */
-  public get originElement(): HTMLElement {
-    if (!this._originElement) {
-      this._originElement = this._findOriginElement();
-    }
-    return this._originElement;
+  public get originElement(): HTMLElement | null {
+    return (
+      this.origin ??
+      this.closest?.('sbb-form-field')?.shadowRoot?.querySelector?.('#overlay-anchor') ??
+      this.trigger ??
+      null
+    );
   }
-  private _originElement?: HTMLElement;
 
   /** Returns the trigger element. */
-  public get triggerElement(): HTMLInputElement | undefined {
-    return this._triggerElement;
+  public get triggerElement(): HTMLInputElement | null {
+    return this._triggerElement ?? null;
   }
-  private _triggerElement: HTMLInputElement | undefined;
+  private _triggerElement?: HTMLInputElement | null;
 
   protected abstract overlayId: string;
   protected abstract panelRole: string;
-  /** @deprecated No longer used internally. */
-  protected abort = new SbbConnectedAbortController(this);
+  protected activeOption: SbbOptionBaseElement<T> | null = null;
+  protected pendingAutoSelectedOption: SbbOptionBaseElement<T> | null = null;
+  private _originResizeObserver = new ResizeController(this, {
+    target: null,
+    skipInitial: true,
+    callback: () => {
+      if (this.state === 'opened') {
+        this._setOverlayPosition();
+      }
+    },
+  });
+  /** Listens to the changes on the `disabled` or `readonly` attribute of the trigger. */
+  private _triggerAttributeObserver = !isServer
+    ? new MutationObserver((mutations: MutationRecord[]): void => {
+        const input = mutations[0].target as HTMLInputElement;
+        if (input.hasAttribute('disabled') || input.hasAttribute('readonly')) {
+          this.close();
+        }
+      })
+    : null;
   private _overlay!: HTMLElement;
   private _optionContainer!: HTMLElement;
-  private _triggerEventsController!: AbortController;
+  private _triggerAbortController!: AbortController;
   private _openPanelEventsController!: AbortController;
-  private _didLoad = false;
   private _isPointerDownEventOnMenu: boolean = false;
+  private _escapableOverlayController = new SbbEscapableOverlayController(this);
+  private _optionsCount = 0;
 
-  protected abstract get options(): SbbOptionBaseElement[];
+  /** Tracks input from keyboard. */
+  private _lastUserInput: string | null = null;
+
+  protected abstract get options(): SbbOptionBaseElement<T>[];
+
+  public constructor() {
+    super();
+    this.addEventListener?.('optionselected', (e: Event) => this.onOptionSelected(e));
+    this.addController(
+      new SbbPropertyWatcherController(
+        this,
+        () => this.closest<SbbFormFieldElement>('sbb-form-field'),
+        {
+          negative: (e) => {
+            this.negative = e.negative;
+            this.syncNegative();
+          },
+          borderless: (e) => this.toggleState('option-panel-origin-borderless', e.borderless),
+        },
+      ),
+    );
+  }
+
   protected abstract syncNegative(): void;
   protected abstract setTriggerAttributes(element: HTMLInputElement): void;
   protected abstract openedPanelKeyboardInteraction(event: KeyboardEvent): void;
   protected abstract selectByKeyboard(event: KeyboardEvent): void;
-  protected abstract setNextActiveOption(event: KeyboardEvent): void;
+  protected abstract setNextActiveOption(event?: KeyboardEvent): void;
   protected abstract resetActiveElement(): void;
 
   /** Opens the autocomplete. */
   public open(): void {
     if (
-      this.state !== 'closed' ||
+      this.state === 'opening' ||
+      this.state === 'opened' ||
       !this._overlay ||
       this.options.length === 0 ||
-      this._readonly()
+      this._readonly() ||
+      !this.dispatchBeforeOpenEvent()
     ) {
-      return;
-    }
-    if (!this.willOpen.emit()) {
       return;
     }
 
     this.showPopover?.();
     this.state = 'opening';
-    this._setOverlayPosition();
+    this.triggerElement?.toggleAttribute('data-expanded', true);
+    const originElement = this.originElement;
+    if (!originElement) {
+      throw new Error(
+        'Cannot find the origin element. Please specify a valid element or check the usage of the "origin" property from the documentation',
+      );
+    }
+    this._setOverlayPosition(originElement);
+    this._setNextActiveOptionIfAutoActiveFirstOption();
+    this._attachOpenPanelEvents();
+    this._escapableOverlayController.connect();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -118,15 +219,22 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   /** Closes the autocomplete. */
   public close(): void {
-    if (this.state !== 'opened') {
-      return;
-    }
-    if (!this.willClose.emit()) {
+    if (this.state === 'closing' || this.state === 'closed' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
+    // A 'pending selection' is confirmed on panel close
+    if (this.pendingAutoSelectedOption) {
+      this.pendingAutoSelectedOption.selected = true;
+      this._setValueAndDispatchEvents(this.pendingAutoSelectedOption);
+    }
+
     this.state = 'closing';
+    this.triggerElement?.removeAttribute('data-expanded');
     this._openPanelEventsController.abort();
+    if (this.originElement) {
+      this._originResizeObserver.unobserve(this.originElement);
+    }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `closed` state.
@@ -140,17 +248,13 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   }
 
   public override connectedCallback(): void {
+    this.popover = 'manual';
     super.connectedCallback();
     if (ariaRoleOnHost) {
       this.id ||= this.overlayId;
     }
-    const formField = this.closest('sbb-form-field') ?? this.closest('[data-form-field]');
 
-    if (formField) {
-      this.negative = formField.hasAttribute('negative');
-    }
-
-    if (this._didLoad) {
+    if (this.hasUpdated) {
       this._componentSetup();
     }
     this.syncNegative();
@@ -159,73 +263,139 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (
-      (changedProperties.has('origin') && this.origin !== changedProperties.get('origin')) ||
-      (changedProperties.has('trigger') && this.trigger !== changedProperties.get('trigger'))
-    ) {
-      this._componentSetup();
-    }
     if (changedProperties.has('negative')) {
       this.syncNegative();
+    }
+
+    if (changedProperties.has('autoActiveFirstOption') && this.isOpen) {
+      this._setNextActiveOptionIfAutoActiveFirstOption();
     }
   }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
-
     this._componentSetup();
-    this._didLoad = true;
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._triggerEventsController?.abort();
+    this._triggerElement = null;
+    this._triggerAbortController?.abort();
     this._openPanelEventsController?.abort();
   }
 
-  /** When an option is selected, update the input value and close the autocomplete. */
-  protected onOptionSelected(event: CustomEvent): void {
-    const target = event.target as SbbOptionBaseElement;
-    if (!target.selected) {
+  public override requestUpdate(
+    name?: PropertyKey,
+    oldValue?: unknown,
+    options?: PropertyDeclaration,
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+
+    if (isServer || !this.hasUpdated) {
       return;
     }
+    if (!name || name === 'trigger') {
+      this._configureTrigger();
+    } else if ((!name || name === 'origin') && this.isOpen) {
+      this._setOverlayPosition();
+    }
+  }
 
+  /** When an option is selected, update the input value and close the autocomplete. */
+  protected onOptionSelected(event: Event): void {
+    const target = event.target as SbbOptionBaseElement<T>;
+    this._setValueAndDispatchEvents(target);
+    this.close();
+  }
+
+  /** @deprecated */
+  protected onOptionArrowsSelected(_activeOption: SbbOptionBaseElement<T>): void {}
+
+  /**
+   * A 'pending selection' sets the option value in the input element without emitting events.
+   * A 'pending selection' is confirmed when the panel closes. Any other user interaction
+   * will reset the pending value.
+   */
+  protected setPendingSelection(activeOption: SbbOptionBaseElement<T>): void {
+    this.pendingAutoSelectedOption = activeOption;
+    this._setInputValue(activeOption);
+  }
+
+  private _setValueAndDispatchEvents(selectedOption: SbbOptionBaseElement<T>): void {
     // Deselect the previous options
     this.options
-      .filter((option) => option.id !== target.id && option.selected)
+      .filter((option) => option.id !== selectedOption.id && option.selected)
       .forEach((option) => (option.selected = false));
+    this.pendingAutoSelectedOption = null;
 
     if (this.triggerElement) {
-      // Set the option value
-      // In order to support React onChange event, we have to get the setter and call it.
-      // https://github.com/facebook/react/issues/11600#issuecomment-345813130
-      const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
-      setValue.call(this.triggerElement, target.value);
+      this._setInputValue(selectedOption);
 
       // Manually trigger the change events
       this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
       this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+
+      // Dispatching the input event changes _lastInput, which should stay empty since there's no keyboard interaction.
+      this._lastUserInput = null;
+
+      // Custom input event emitted when input value changes after an option is selected
+      this.triggerElement.dispatchEvent(
+        new CustomEvent<{ option: SbbOptionBaseElement<T> }>('inputAutocomplete', {
+          detail: { option: selectedOption },
+        }),
+      );
       this.triggerElement.focus();
     }
+  }
 
-    this.close();
+  /** Set the option value within the input element */
+  private _setInputValue(option: SbbOptionBaseElement<T>): void {
+    if (!this.triggerElement) {
+      return;
+    }
+
+    // Given a value, returns the string that should be shown within the input.
+    const toDisplay = this.displayWith?.(option.value as T) ?? option.value;
+
+    // Set the option value
+    // In order to support React onChange event, we have to get the setter and call it.
+    // https://github.com/facebook/react/issues/11600#issuecomment-345813130
+    const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
+    setValue.call(this.triggerElement, toDisplay);
   }
 
   private _handleSlotchange(): void {
     this._highlightOptions(this.triggerElement?.value);
-    this._openOnNewOptions();
-  }
 
-  /**
-   * If the 'input' is focused and there's a change in the number of options, open the autocomplete
-   */
-  private _openOnNewOptions(): void {
-    if (document?.activeElement === this.triggerElement) {
-      if (this.options.length > 0) {
-        this.open();
-      } else {
+    /**
+     * It's possible to filter out options with an opened panel on input change.
+     * In this case, the panel's position must be recalculated considering the new option's list.
+     */
+    if (this.isOpen) {
+      this._setOverlayPosition();
+      this._setNextActiveOptionIfAutoActiveFirstOption();
+
+      // If the autocomplete is open and the option count gets to zero, we close the autocomplete.
+      if (this._optionsCount > 0 && this.options.length === 0) {
         this.close();
       }
+    } else if (
+      // If the 'input' is focused and the count of options changes from 0 to > 0,
+      // the autocomplete should open automatically.
+      document?.activeElement === this.triggerElement &&
+      this._optionsCount === 0 &&
+      this.options.length > 0
+    ) {
+      this.open();
+    }
+
+    this._optionsCount = this.options.length;
+  }
+
+  private _setNextActiveOptionIfAutoActiveFirstOption(): void {
+    if (this.autoActiveFirstOption) {
+      this.resetActiveElement();
+      this.setNextActiveOption();
     }
   }
 
@@ -238,107 +408,87 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     if (isServer) {
       return;
     }
-    this._triggerEventsController?.abort();
-    this._openPanelEventsController?.abort();
 
-    this._originElement = undefined;
-    this.toggleAttribute(
-      'data-option-panel-origin-borderless',
-      !!this.closest?.('sbb-form-field')?.hasAttribute('borderless'),
-    );
-
-    this._bindTo(this._getTriggerElement());
+    this._configureTrigger();
   }
 
-  /**
-   * Retrieve the element where the autocomplete will be attached.
-   * @returns 'origin' or the first 'sbb-form-field' ancestor.
-   */
-  private _findOriginElement(): HTMLElement {
-    let result: HTMLElement | undefined | null;
-
-    if (!this.origin) {
-      result = this.closest?.('sbb-form-field')?.shadowRoot?.querySelector?.('#overlay-anchor');
-    } else {
-      result = findReferencedElement(this.origin);
-    }
-
-    if (!result) {
-      throw new Error(
-        'Cannot find the origin element. Please specify a valid element or read the "origin" prop documentation',
-      );
-    }
-
-    return result;
-  }
-
-  /**
-   * Retrieve the element that will trigger the autocomplete opening.
-   * @returns 'trigger' or the first 'input' inside the origin element.
-   */
-  private _getTriggerElement(): HTMLInputElement {
-    if (!this.trigger) {
-      return this.closest?.('sbb-form-field')?.querySelector('input') as HTMLInputElement;
-    }
-
-    const result = findReferencedElement<HTMLInputElement>(this.trigger);
-
-    if (!result) {
-      throw new Error(
-        'Cannot find the trigger element. Please specify a valid element or read the "trigger" prop documentation',
-      );
-    }
-
-    return result;
-  }
-
-  private _bindTo(triggerElem: HTMLInputElement): void {
-    if (!triggerElem) {
+  private _configureTrigger(): void {
+    const triggerElement = (this.trigger ??
+      this.closest?.('sbb-form-field')?.querySelector('input')) as HTMLInputElement | null;
+    if (triggerElement === this.triggerElement) {
       return;
     }
 
-    // Reset attributes to the old trigger and add them to the new one
-    this._removeTriggerAttributes(this.triggerElement);
-    this.setTriggerAttributes(triggerElem);
+    this._triggerAbortController?.abort();
+    removeAriaComboBoxAttributes(this.triggerElement);
+    this.triggerElement?.removeAttribute('data-expanded');
+    this._triggerElement = triggerElement;
 
-    this._triggerElement = triggerElem;
+    if (!this.triggerElement) {
+      return;
+    }
 
-    this._setupTriggerEvents();
-  }
+    // As the trigger can be the fallback of the origin, we eventually have to update the position.
+    const originElement = this.originElement;
+    if (this.triggerElement === originElement && this.isOpen) {
+      this._setOverlayPosition(originElement);
+    }
 
-  private _setupTriggerEvents(): void {
-    this._triggerEventsController = new AbortController();
+    this._triggerAttributeObserver?.observe(this.triggerElement!, {
+      attributes: true,
+      attributeFilter: ['disabled', 'readonly'],
+    });
+
+    this.setTriggerAttributes(this.triggerElement);
+    this._triggerAbortController = new AbortController();
 
     // Open the overlay on focus, click, input and `ArrowDown` event
-    this.triggerElement?.addEventListener('focus', () => this.open(), {
-      signal: this._triggerEventsController.signal,
+    this.triggerElement.addEventListener('focus', () => this.open(), {
+      signal: this._triggerAbortController.signal,
     });
-    this.triggerElement?.addEventListener('click', () => this.open(), {
-      signal: this._triggerEventsController.signal,
+    this.triggerElement.addEventListener('click', () => this.open(), {
+      signal: this._triggerAbortController.signal,
     });
-    this.triggerElement?.addEventListener(
+    this.triggerElement.addEventListener(
       'input',
       (event) => {
-        this.open();
-        this._highlightOptions((event.target as HTMLInputElement).value);
+        const value: string = (event.target as HTMLInputElement).value;
+
+        if (value) {
+          this.open();
+        }
+        this._highlightOptions(value);
+        this._lastUserInput = value;
+        this.pendingAutoSelectedOption = null;
       },
-      { signal: this._triggerEventsController.signal },
+      { signal: this._triggerAbortController.signal },
     );
-    this.triggerElement?.addEventListener(
+    this.triggerElement.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this._closedPanelKeyboardInteraction(event),
-      { signal: this._triggerEventsController.signal },
+      {
+        signal: this._triggerAbortController.signal,
+        // We need key event to run before any other subscription to guarantee a correct
+        // interaction with other components (necessary for the 'sbb-chip-group' use case).
+        capture: true,
+      },
     );
   }
 
   // Set overlay position, width and max height
-  private _setOverlayPosition(): void {
+  private _setOverlayPosition(originElement = this.originElement): void {
+    // An undefined originElement should only occur in the unlikely event
+    // that the autocomplete loses its originElement and triggerElement during an open state.
+    if (!originElement) {
+      return;
+    }
     setOverlayPosition(
       this._overlay,
-      this.originElement,
+      originElement,
       this._optionContainer,
       this.shadowRoot!.querySelector('.sbb-autocomplete__container')!,
       this,
+      this.position,
     );
   }
 
@@ -357,18 +507,30 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
 
   private _handleOpening(): void {
     this.state = 'opened';
-    this._attachOpenPanelEvents();
+    if (this.originElement) {
+      this._originResizeObserver.observe(this.originElement);
+    }
     this.triggerElement?.setAttribute('aria-expanded', 'true');
-    this.didOpen.emit();
+    this.dispatchOpenEvent();
   }
 
   private _handleClosing(): void {
     this.state = 'closed';
     this.hidePopover?.();
     this.triggerElement?.setAttribute('aria-expanded', 'false');
+
+    // Clears the input if there's user interaction without selection (selection clears `_lastUserInput`).
+    if (this.requireSelection && this.triggerElement && this._lastUserInput) {
+      const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
+      setValue.call(this.triggerElement, '');
+      this._highlightOptions('');
+      this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
+      this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+    }
     this.resetActiveElement();
     this._optionContainer.scrollTop = 0;
-    this.didClose.emit();
+    this._escapableOverlayController.disconnect();
+    this.dispatchCloseEvent();
   }
 
   private _attachOpenPanelEvents(): void {
@@ -395,10 +557,40 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
       signal: this._openPanelEventsController.signal,
     });
 
+    this.addEventListener(
+      'ɵdisabledchange',
+      () => {
+        if (this.activeOption?.disabled) {
+          this.resetActiveElement();
+        }
+        this._setNextActiveOptionIfAutoActiveFirstOption();
+      },
+      {
+        signal: this._openPanelEventsController.signal,
+      },
+    );
+
     // Keyboard interactions
     this.triggerElement?.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this.openedPanelKeyboardInteraction(event),
+      {
+        signal: this._openPanelEventsController.signal,
+        // We need key event to run before any other subscription to guarantee a correct
+        // interaction with other components (necessary for the 'sbb-chip-group' use case).
+        capture: true,
+      },
+    );
+
+    this.triggerElement?.addEventListener(
+      'blur',
+      (e) => {
+        // If the new focus is the autocomplete or inside of it then an option
+        // was selected and there is a separate mechanism that closes this instance.
+        if (!this.contains(e.relatedTarget as Node)) {
+          this.close();
+        }
+      },
       {
         signal: this._openPanelEventsController.signal,
       },
@@ -422,12 +614,11 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
   };
 
   private _closedPanelKeyboardInteraction(event: KeyboardEvent): void {
-    if (this.state !== 'closed') {
+    if (this.state === 'opening' || this.state === 'opened') {
       return;
     }
 
     switch (event.key) {
-      case 'Enter':
       case 'ArrowDown':
       case 'ArrowUp':
         this.open();
@@ -443,11 +634,10 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
     this.options.forEach((option) => option.highlight(searchTerm));
   }
 
-  private _removeTriggerAttributes(element?: HTMLInputElement): void {
-    removeAriaComboBoxAttributes(element);
-  }
-
   protected override render(): TemplateResult {
+    // Scroll areas without containing an interactive element will receive focus when tabbing through the document.
+    // If there are a lot of options and when pressing tab key, the scroll area on sbb-autocomplete__options gets focus.
+    // As elements inside the panel should never get focus, we have to avoid that by setting tabindex=-1.
     return html`
       <div class="sbb-autocomplete__gap-fix"></div>
       <div class="sbb-autocomplete__container">
@@ -455,7 +645,6 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
         <div
           @animationend=${this._onAnimationEnd}
           class="sbb-autocomplete__panel"
-          ?data-open=${this.state === 'opened' || this.state === 'opening'}
           ${ref((overlayRef?: Element) => (this._overlay = overlayRef as HTMLElement))}
         >
           <div class="sbb-autocomplete__wrapper">
@@ -463,6 +652,7 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
               class="sbb-autocomplete__options"
               role=${!ariaRoleOnHost ? this.panelRole : nothing}
               id=${!ariaRoleOnHost ? this.overlayId : nothing}
+              tabindex="-1"
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >
               <slot @slotchange=${this._handleSlotchange}></slot>
@@ -471,5 +661,11 @@ abstract class SbbAutocompleteBaseElement extends SbbNegativeMixin(
         </div>
       </div>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementEventMap {
+    inputAutocomplete: CustomEvent<{ option: SbbOptionBaseElement<any> }>;
   }
 }

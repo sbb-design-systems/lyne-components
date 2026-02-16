@@ -6,19 +6,19 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
-} from '../../core/testing/private.js';
-import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
-import type { SbbFlipCardImageAlignment } from '../flip-card-summary.js';
+} from '../../core/testing/private.ts';
+import { waitForImageReady } from '../../core/testing/wait-for-image-ready.ts';
+import type { SbbFlipCardImageAlignment } from '../flip-card-summary.ts';
 
-import type { SbbFlipCardElement } from './flip-card.js';
+import type { SbbFlipCardElement } from './flip-card.component.ts';
 
-import './flip-card.js';
-import '../flip-card-summary.js';
-import '../flip-card-details.js';
-import '../../chip-label.js';
-import '../../image.js';
-import '../../link.js';
-import '../../title.js';
+import './flip-card.component.ts';
+import '../flip-card-summary.ts';
+import '../flip-card-details.ts';
+import '../../chip-label.ts';
+import '../../image.ts';
+import '../../link.ts';
+import '../../title.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
@@ -81,7 +81,7 @@ const imgTestCases = [
 ];
 
 describe(`sbb-flip-card`, () => {
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const imageAlignment of ['after', 'below']) {
       describe(`image-alignment=${imageAlignment}`, () => {
         for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
@@ -94,7 +94,10 @@ describe(`sbb-flip-card`, () => {
                 </sbb-flip-card>
               `);
 
-              await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+              setup.withPostSetupAction(
+                async () =>
+                  await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+              );
             }),
           );
         }
@@ -107,12 +110,12 @@ describe(`sbb-flip-card`, () => {
         await setup.withFixture(
           html`<sbb-flip-card> ${content('Summary', 'after', false)}</sbb-flip-card>`,
         );
-        setup.withPostSetupAction(() => {
+        setup.withPostSetupAction(async () => {
           const flipCard =
             setup.snapshotElement.querySelector<SbbFlipCardElement>('sbb-flip-card')!;
           flipCard.click();
+          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
         });
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
       }),
     );
 
@@ -126,7 +129,9 @@ describe(`sbb-flip-card`, () => {
             )}</sbb-flip-card
           >`,
         );
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -159,12 +164,12 @@ describe(`sbb-flip-card`, () => {
                 </sbb-flip-card>
               </div>`,
             );
-            setup.withPostSetupAction(() => {
+            setup.withPostSetupAction(async () => {
               const flipCard =
                 setup.snapshotElement.querySelector<SbbFlipCardElement>('sbb-flip-card')!;
               flipCard.click();
+              await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
             });
-            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
           }),
         );
 
@@ -176,7 +181,10 @@ describe(`sbb-flip-card`, () => {
                 ${content('Summary', imageAlignment as SbbFlipCardImageAlignment, true)}
               </sbb-flip-card>`,
             );
-            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+            setup.withPostSetupAction(
+              async () =>
+                await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+            );
           }),
         );
 
@@ -194,7 +202,12 @@ describe(`sbb-flip-card`, () => {
                   )}
                 </sbb-flip-card>`,
               );
-              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+              setup.withPostSetupAction(
+                async () =>
+                  await waitForImageReady(
+                    setup.snapshotElement.querySelector(testCase.imgSelector)!,
+                  ),
+              );
             }),
           );
         }
@@ -210,10 +223,51 @@ describe(`sbb-flip-card`, () => {
               forcedColors: true,
             });
 
-            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+            setup.withPostSetupAction(
+              async () =>
+                await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+            );
           }),
         );
       }
+    });
+  });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    describe('darkMode=true', () => {
+      for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
+        it(
+          state.name,
+          state.with(async (setup) => {
+            await setup.withFixture(html`<sbb-flip-card> ${content('Summary')} </sbb-flip-card>`, {
+              darkMode: true,
+            });
+
+            setup.withPostSetupAction(
+              async () =>
+                await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+            );
+          }),
+        );
+      }
+
+      it(
+        'flipped',
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`<sbb-flip-card> ${content('Summary', 'after', false)}</sbb-flip-card>`,
+            {
+              darkMode: true,
+            },
+          );
+          setup.withPostSetupAction(async () => {
+            const flipCard =
+              setup.snapshotElement.querySelector<SbbFlipCardElement>('sbb-flip-card')!;
+            flipCard.click();
+            await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          });
+        }),
+      );
     });
   });
 });

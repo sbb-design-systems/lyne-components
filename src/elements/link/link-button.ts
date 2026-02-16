@@ -1,1 +1,4 @@
-export * from './link-button/link-button.js';
+/**
+ * @entrypoint
+ */
+export * from './link-button/link-button.component.ts';

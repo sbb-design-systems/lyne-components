@@ -1,0 +1,5 @@
+@use './mixins/animation';
+
+:root {
+  @include animation.disable-animation;
+}

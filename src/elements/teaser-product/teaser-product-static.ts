@@ -1,1 +1,4 @@
-export * from './teaser-product-static/teaser-product-static.js';
+/**
+ * @entrypoint
+ */
+export * from './teaser-product-static/teaser-product-static.component.ts';

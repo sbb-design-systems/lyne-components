@@ -1,1 +1,4 @@
-export * from './form-field-clear/form-field-clear.js';
+/**
+ * @entrypoint
+ */
+export * from './form-field-clear/form-field-clear.component.ts';

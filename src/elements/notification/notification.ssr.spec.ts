@@ -1,11 +1,12 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbNotificationElement } from './notification.js';
+import { SbbNotificationElement } from './notification.component.ts';
 
-import '../link/link.js';
+import '../title.ts';
+import '../link/link.ts';
 
 describe(`sbb-notification ssr`, () => {
   let root: SbbNotificationElement;
@@ -14,11 +15,12 @@ describe(`sbb-notification ssr`, () => {
     root = await ssrHydratedFixture(
       html`
         <sbb-notification id="notification">
+          <sbb-title>Title</sbb-title>
           The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
           <sbb-link href="/">Link one</sbb-link>
         </sbb-notification>
       `,
-      { modules: ['./notification.js', '../link.js'] },
+      { modules: ['./notification.component.js', '../link.js', '../title.js'] },
     );
   });
 

@@ -1,43 +1,42 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-link-list-anchor-border-color: var(--sbb-color-cloud);
+  --sbb-link-list-anchor-border-color: var(--sbb-border-color-4-inverted);
 }
 
 :host([negative]) {
-  --sbb-link-list-anchor-border-color: var(--sbb-color-granite);
+  --sbb-link-list-anchor-border-color: var(--sbb-border-color-4-negative-inverted);
 }
 
-::slotted([data-link]) {
-  --sbb-link-text-decoration: none;
-  --sbb-link-hover-text-decoration: none;
+::slotted(:state(link)) {
+  --sbb-link-text-decoration-line: none;
   --sbb-link-padding: var(--sbb-spacing-fixed-1x) 0 var(--sbb-spacing-fixed-1x)
     var(--sbb-spacing-fixed-4x);
-  --sbb-link-color-hover: var(--sbb-color-charcoal);
-  --sbb-link-color-active: var(--sbb-color-granite);
+  --sbb-link-color-hover: var(--sbb-color-3);
+  --sbb-link-color-active: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
 
   border-inline-start: var(--sbb-border-width-1x) solid var(--sbb-link-list-anchor-border-color);
 
   :host([negative]) & {
-    --sbb-link-color-normal: var(--sbb-color-smoke);
-    --sbb-link-color-hover: var(--sbb-color-milk);
-    --sbb-link-color-active: var(--sbb-color-smoke);
+    --sbb-link-color-normal: var(--sbb-color-5);
+    --sbb-link-color-hover: var(--sbb-color-3-negative);
+    --sbb-link-color-active: var(--sbb-color-5);
   }
 }
 
-::slotted([data-link]:is(:active, [data-active]):not([disabled], :disabled)) {
-  --sbb-link-list-anchor-border-color: var(--sbb-color-iron);
+::slotted(:state(link):is(:active, :state(active)):not([disabled], :disabled)) {
+  --sbb-link-list-anchor-border-color: light-dark(var(--sbb-color-iron), var(--sbb-color-silver));
 
   :host([negative]) & {
     --sbb-link-list-anchor-border-color: var(--sbb-color-silver);
   }
 }
 
-::slotted([data-link]:hover:not([disabled], :disabled)) {
-  --sbb-link-list-anchor-border-color: var(--sbb-color-charcoal);
+::slotted(:state(link):hover:not([disabled], :disabled)) {
+  --sbb-link-list-anchor-border-color: var(--sbb-color-3);
 
   :host([negative]) & {
-    --sbb-link-list-anchor-border-color: var(--sbb-color-milk);
+    --sbb-link-list-anchor-border-color: var(--sbb-color-3-negative);
   }
 }
 

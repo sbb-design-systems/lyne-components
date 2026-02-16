@@ -4,10 +4,6 @@ export const snapshots = {};
 snapshots["sbb-link-button renders DOM"] = 
 `<sbb-link-button
   aria-label="Travelcards &amp; tickets"
-  data-action=""
-  data-button=""
-  data-sbb-link=""
-  data-slot-names="unnamed"
   form="form"
   name="name"
   size="m"
@@ -31,32 +27,18 @@ snapshots["sbb-link-button renders Shadow DOM"] =
 snapshots["sbb-link-button renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Travelcards & tickets"
+      "name": "Travelcards & tickets",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-link-button renders A11y tree Chrome */
-
-snapshots["sbb-link-button renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Travelcards & tickets"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-link-button renders A11y tree Firefox */
 

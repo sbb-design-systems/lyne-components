@@ -3,10 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-lead-container DOM"] = 
 `<sbb-lead-container>
-  <sbb-image
-    data-loaded=""
-    slot="image"
-  >
+  <sbb-image slot="image">
   </sbb-image>
 </sbb-lead-container>
 `;
@@ -31,20 +28,50 @@ snapshots["sbb-lead-container Shadow DOM"] =
 snapshots["sbb-lead-container A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "role": "generic",
+                      "name": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "role": "generic",
+                  "name": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-lead-container A11y tree Chrome */
-
-snapshots["sbb-lead-container A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-lead-container A11y tree Firefox */
 

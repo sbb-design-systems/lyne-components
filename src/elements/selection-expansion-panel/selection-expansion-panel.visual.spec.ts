@@ -1,22 +1,23 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
+import type { SbbCheckboxSize } from '../checkbox/common/checkbox-common.ts';
 import {
   describeEach,
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
   visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './selection-expansion-panel.js';
-import '../card/card-badge.js';
-import '../checkbox/checkbox-panel.js';
-import '../checkbox/checkbox-group.js';
-import '../form-error.js';
-import '../icon.js';
-import '../link/block-link-button.js';
-import '../radio-button/radio-button-panel.js';
-import '../radio-button/radio-button-group.js';
+import './selection-expansion-panel.component.ts';
+import '../card/card-badge.ts';
+import '../checkbox/checkbox-panel.ts';
+import '../checkbox/checkbox-group.ts';
+import '../form-field/error.ts';
+import '../icon.ts';
+import '../link/block-link-button.ts';
+import '../radio-button/radio-button-panel.ts';
+import '../radio-button/radio-button-group.ts';
 
 describe(`sbb-selection-expansion-panel`, () => {
   let root: HTMLElement;
@@ -28,7 +29,7 @@ describe(`sbb-selection-expansion-panel`, () => {
     disabled: [false, true],
   };
 
-  const inputPanelContent = (size: 'm' | 's'): TemplateResult => html`
+  const inputPanelContent = (size: SbbCheckboxSize): TemplateResult => html`
     Value one
     <span slot="subtext">Subtext</span>
     <span slot="suffix" style="margin-inline-start: auto; display: flex; align-items: center">
@@ -50,19 +51,17 @@ describe(`sbb-selection-expansion-panel`, () => {
   type ParamsType = { [K in keyof typeof cases]: (typeof cases)[K][number] } & {
     forceOpen?: boolean;
     value?: string;
-    size: 'm' | 's';
+    size: SbbCheckboxSize;
   };
   const withCheckboxPanel = (params: Partial<ParamsType>): TemplateResult => html`
-    <sbb-selection-expansion-panel
-      ?borderless=${params.borderless}
-      color=${params.color || nothing}
-      ?force-open=${params.forceOpen}
-    >
+    <sbb-selection-expansion-panel ?force-open=${params.forceOpen}>
       <sbb-checkbox-panel
         ?checked=${params.checked}
         ?disabled=${params.disabled}
         value=${params.value || nothing}
         size=${params.size || 'm'}
+        ?borderless=${params.borderless}
+        color=${params.color || nothing}
       >
         ${inputPanelContent(params.size || 'm')}
       </sbb-checkbox-panel>
@@ -71,16 +70,14 @@ describe(`sbb-selection-expansion-panel`, () => {
   `;
 
   const withRadioPanel = (params: Partial<ParamsType>): TemplateResult => html`
-    <sbb-selection-expansion-panel
-      ?borderless=${params.borderless}
-      color=${params.color || nothing}
-      ?force-open=${params.forceOpen}
-    >
+    <sbb-selection-expansion-panel ?force-open=${params.forceOpen}>
       <sbb-radio-button-panel
         ?checked=${params.checked}
         ?disabled=${params.disabled}
         value=${params.value || nothing}
         size=${params.size || 'm'}
+        ?borderless=${params.borderless}
+        color=${params.color || nothing}
       >
         ${inputPanelContent(params.size || 'm')}
       </sbb-radio-button-panel>
@@ -88,7 +85,7 @@ describe(`sbb-selection-expansion-panel`, () => {
     </sbb-selection-expansion-panel>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const input of ['checkbox', 'radio']) {
       describe(`with ${input}`, () => {
         describeEach(cases, (params) => {
@@ -120,6 +117,17 @@ describe(`sbb-selection-expansion-panel`, () => {
         }
 
         it(
+          `size=xs`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(html`
+              ${input === 'checkbox'
+                ? withCheckboxPanel({ size: 'xs' })
+                : withRadioPanel({ size: 'xs' })}
+            `);
+          }),
+        );
+
+        it(
           `size=s`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
@@ -139,17 +147,11 @@ describe(`sbb-selection-expansion-panel`, () => {
                 error ? `with error` : '',
                 visualDiffDefault.with(async (setup) => {
                   await setup.withFixture(html`
-                    <sbb-checkbox-group
-                      orientation="vertical"
-                      horizontal-from="medium"
-                      size=${size}
-                    >
+                    <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
                       ${withCheckboxPanel({ checked: true, size })} ${withCheckboxPanel({ size })}
                       ${withCheckboxPanel({ size })}
                     </sbb-checkbox-group>
-                    ${error
-                      ? html`<sbb-form-error slot="error">Error message</sbb-form-error>`
-                      : nothing}
+                    ${error ? html`<sbb-error slot="error">Error message</sbb-error>` : nothing}
                   `);
                 }),
               );
@@ -168,16 +170,14 @@ describe(`sbb-selection-expansion-panel`, () => {
                   await setup.withFixture(html`
                     <sbb-radio-button-group
                       orientation="vertical"
-                      horizontal-from="medium"
+                      horizontal-from="large"
                       size=${size}
                     >
                       ${withRadioPanel({ checked: true, value: '1', size })}
                       ${withRadioPanel({ value: '2', size })}
                       ${withRadioPanel({ value: '3', size })}
                     </sbb-radio-button-group>
-                    ${error
-                      ? html`<sbb-form-error slot="error">Error message</sbb-form-error>`
-                      : nothing}
+                    ${error ? html`<sbb-error slot="error">Error message</sbb-error>` : nothing}
                   `);
                 }),
               );
@@ -186,5 +186,29 @@ describe(`sbb-selection-expansion-panel`, () => {
         }
       });
     }
+  });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    const colorCases = {
+      color: ['white', 'milk'],
+      checked: [false, true],
+      disabled: [false, true],
+      emulateMedia: [
+        { forcedColors: true, darkMode: false },
+        { forcedColors: false, darkMode: true },
+      ],
+    };
+
+    describeEach(colorCases, ({ emulateMedia: { darkMode, forcedColors }, ...params }) => {
+      it(
+        ``,
+        visualDiffFocus.with(async (setup) => {
+          await setup.withFixture(withCheckboxPanel(params), {
+            forcedColors,
+            darkMode,
+          });
+        }),
+      );
+    });
   });
 });

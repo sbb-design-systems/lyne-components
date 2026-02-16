@@ -1,1 +1,4 @@
-export * from './form-field/form-field.js';
+/**
+ * @entrypoint
+ */
+export * from './form-field/form-field.component.ts';

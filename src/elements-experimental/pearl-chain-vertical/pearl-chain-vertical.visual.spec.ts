@@ -6,8 +6,8 @@ import '@sbb-esta/lyne-elements/icon.js';
 import '@sbb-esta/lyne-elements/timetable-occupancy.js';
 import { html } from 'lit';
 
-import './pearl-chain-vertical.js';
-import '../pearl-chain-vertical-item.js';
+import './pearl-chain-vertical.component.ts';
+import '../pearl-chain-vertical-item.ts';
 
 describe(`sbb-pearl-chain-vertical`, () => {
   const defaultArgs = {
@@ -20,7 +20,7 @@ describe(`sbb-pearl-chain-vertical`, () => {
     position: 0,
   };
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     it(
       'connection',
       visualDiffDefault.with(async (setup) => {

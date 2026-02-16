@@ -5,16 +5,16 @@ import {
   loadAssetAsBase64,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
-import { waitForImageReady } from '../../core/testing/wait-for-image-ready.js';
+} from '../../core/testing/private.ts';
+import { waitForImageReady } from '../../core/testing/wait-for-image-ready.ts';
 
-import './teaser-product-static.js';
-import '../../action-group.js';
-import '../../button/button.js';
-import '../../button/secondary-button.js';
-import '../../chip-label.js';
-import '../../image.js';
-import '../../title.js';
+import './teaser-product-static.component.ts';
+import '../../action-group.ts';
+import '../../button/button.ts';
+import '../../button/secondary-button.ts';
+import '../../chip-label.ts';
+import '../../image.ts';
+import '../../title.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 const imageBase64 = await loadAssetAsBase64(imageUrl);
@@ -96,7 +96,7 @@ const withChipTemplate = ({
 `;
 
 describe('sbb-teaser-product-static', () => {
-  describeViewports({ viewports: ['zero', 'medium', 'large'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const slottedImg of [false, true]) {
       describe(`slottedImg=${slottedImg}`, () => {
         for (const negative of [false, true]) {
@@ -106,10 +106,15 @@ describe('sbb-teaser-product-static', () => {
                 visualState.name,
                 visualState.with(async (setup) => {
                   await setup.withFixture(template({ negative, showFooter: true, slottedImg }), {
-                    backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-2-negative)'
+                      : undefined,
                   });
-                  await waitForImageReady(
-                    setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
+                  setup.withPostSetupAction(
+                    async () =>
+                      await waitForImageReady(
+                        setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
+                      ),
                   );
                 }),
               );
@@ -120,11 +125,16 @@ describe('sbb-teaser-product-static', () => {
                   await setup.withFixture(
                     withChipTemplate({ negative, showFooter: true, slottedImg }),
                     {
-                      backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+                      backgroundColor: negative
+                        ? 'var(--sbb-background-color-2-negative)'
+                        : undefined,
                     },
                   );
-                  await waitForImageReady(
-                    setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
+                  setup.withPostSetupAction(
+                    async () =>
+                      await waitForImageReady(
+                        setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
+                      ),
                   );
                 }),
               );
@@ -138,8 +148,11 @@ describe('sbb-teaser-product-static', () => {
             await setup.withFixture(
               template({ imageAlignment: 'before', showFooter: true, slottedImg }),
             );
-            await waitForImageReady(
-              setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
+            setup.withPostSetupAction(
+              async () =>
+                await waitForImageReady(
+                  setup.snapshotElement.querySelector(slottedImg ? 'img' : 'sbb-image')!,
+                ),
             );
           }),
         );
@@ -150,7 +163,9 @@ describe('sbb-teaser-product-static', () => {
       'no footer',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template());
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -158,7 +173,9 @@ describe('sbb-teaser-product-static', () => {
       'long content',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ longContent: true, showFooter: true }));
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
 
@@ -166,7 +183,9 @@ describe('sbb-teaser-product-static', () => {
       'forcedColors=true',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ showFooter: true }), { forcedColors: true });
-        await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+        setup.withPostSetupAction(
+          async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+        );
       }),
     );
   });

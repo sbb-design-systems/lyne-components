@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-container-background-border-radius: 0;
   --sbb-container-color: inherit;
@@ -10,29 +7,29 @@
   display: block;
 }
 
-:host([color='white']) {
-  --sbb-container-background-color: var(--sbb-color-white);
+:host(:is(:not([color]), [color='white'])) {
+  --sbb-container-background-color: var(--sbb-background-color-1);
 }
 
 :host([color='milk']) {
-  --sbb-container-background-color: var(--sbb-color-milk);
+  --sbb-container-background-color: var(--sbb-background-color-3);
 }
 
 :host([color='midnight']),
 :host([color='charcoal']) {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-container-color: var(--sbb-color-white);
+  --sbb-container-color: var(--sbb-color-1-negative);
 }
 
 :host([color='midnight']) {
-  --sbb-container-background-color: var(--sbb-color-midnight);
+  --sbb-container-background-color: var(--sbb-background-color-1-negative);
 }
 
 :host([color='charcoal']) {
-  --sbb-container-background-color: var(--sbb-color-charcoal);
+  --sbb-container-background-color: var(--sbb-background-color-2-negative);
 }
 
-:host([data-slot-names~='image']) {
+:host(:state(slotted-image)) {
   --sbb-container-background-color: transparent;
   --sbb-container-padding: var(--sbb-spacing-responsive-xxl);
 }
@@ -41,7 +38,7 @@
   background-color: var(--sbb-container-background-color);
 }
 
-:host([data-slot-names~='image'][background-expanded]) {
+:host(:state(slotted-image)[background-expanded]) {
   position: relative;
 }
 
@@ -73,13 +70,13 @@
     @include sbb.page-spacing-expanded;
   }
 
-  :host([data-slot-names~='image']:not([background-expanded])) & {
+  :host(:state(slotted-image):not([background-expanded])) & {
     position: relative;
   }
 }
 
 .sbb-container__content {
-  :host([data-slot-names~='image']) & {
+  :host(:state(slotted-image)) & {
     // With relative positioning we ensure the content is in front of the image.
     position: relative;
   }

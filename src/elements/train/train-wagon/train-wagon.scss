@@ -1,19 +1,16 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
   --sbb-train-wagon-width: var(--sbb-train-formation-wagon-width);
   --sbb-train-wagon-height: var(--sbb-train-formation-wagon-height);
-  --sbb-train-wagon-shape-color: var(--sbb-color-charcoal);
+  --sbb-train-wagon-shape-color: var(--sbb-color-3);
   --sbb-train-wagon-main-icon-height: #{sbb.px-to-rem-build(20)};
   --sbb-train-wagon-main-icon-margin-block-start: #{sbb.px-to-rem-build(10)};
   --sbb-train-wagon-attribute-icon-gap: var(--sbb-spacing-fixed-1x);
   --sbb-train-wagon-attribute-icon-height: #{sbb.px-to-rem-build(14)};
-  --sbb-train-wagon-attribute-icon-color: var(--sbb-color-granite);
+  --sbb-train-wagon-attribute-icon-color: var(--sbb-color-1);
   --sbb-train-wagon-occupancy-height: #{sbb.px-to-rem-build(12)};
 
   @include sbb.if-forced-colors {
@@ -21,13 +18,13 @@
   }
 }
 
-:host(:is([type='closed'], [type='locomotive'])) {
-  --sbb-train-wagon-shape-color: var(--sbb-color-metal);
-
-  @include sbb.if-forced-colors {
-    --sbb-train-wagon-shape-color: CanvasText;
-  }
-}
+// :host(:is([type='closed'], [type='locomotive'])) {
+//  --sbb-train-wagon-shape-color: var(--sbb-color-metal);
+//
+//  @include sbb.if-forced-colors {
+//    --sbb-train-wagon-shape-color: CanvasText;
+//  }
+// }
 
 :host([type='closed']) {
   @include sbb.if-forced-colors {
@@ -105,7 +102,7 @@
   grid-area: label;
   text-align: center;
   display: var(--sbb-train-formation-wagon-label-display, inline-block);
-  min-height: calc(1em * var(--sbb-typo-line-height-body-text));
+  min-height: calc(1em * var(--sbb-typo-line-height-text));
 }
 
 .sbb-train-wagon__occupancy,

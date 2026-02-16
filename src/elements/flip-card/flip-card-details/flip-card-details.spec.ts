@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing/wait-for-render.js';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing/wait-for-render.ts';
 
-import { SbbFlipCardDetailsElement } from './flip-card-details.js';
+import { SbbFlipCardDetailsElement } from './flip-card-details.component.ts';
 
 describe('sbb-flip-card-details', () => {
   let element: SbbFlipCardDetailsElement;
@@ -22,14 +22,14 @@ describe('sbb-flip-card-details', () => {
     assert.instanceOf(element, SbbFlipCardDetailsElement);
   });
 
-  it('should have data-card-focusable attribute', async () => {
-    expect(element.querySelector('a')).to.have.attribute('data-card-focusable');
+  it('should have .sbb-action class', async () => {
+    expect(element.querySelector('a')).to.match('.sbb-action');
   });
 
-  it('should set data-card-focusable on a newly slotted action', async () => {
+  it('should set .sbb-action class on a newly slotted action', async () => {
     element.append(document.createElement('button'));
     await waitForLitRender(element);
 
-    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.match('.sbb-action');
   });
 });

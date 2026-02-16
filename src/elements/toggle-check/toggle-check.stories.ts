@@ -1,18 +1,18 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './toggle-check.js';
-import '../button/button.js';
-import '../button/secondary-button.js';
-import '../card.js';
-import '../icon.js';
-import '../title.js';
+import './toggle-check.component.ts';
+import '../button/button.ts';
+import '../button/secondary-button.ts';
+import '../card.ts';
+import '../icon.ts';
+import '../title.ts';
 
 const longLabel = `For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit.
   Cras nec dolor eget leo porttitor ultrices. Mauris sed erat nec justo posuere elementum.

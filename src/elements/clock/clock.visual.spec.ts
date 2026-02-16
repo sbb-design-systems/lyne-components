@@ -1,8 +1,8 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './clock.js';
+import './clock.component.ts';
 
 describe(`sbb-clock`, () => {
   const timeCases = [
@@ -12,16 +12,28 @@ describe(`sbb-clock`, () => {
     { hours: '11', minutes: '60', seconds: '60' },
   ];
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     for (const time of timeCases) {
       const timeStamp = `${time.hours}:${time.minutes}:${time.seconds}`;
 
       it(
         `time=${timeStamp.replaceAll(':', '-')}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`<sbb-clock now=${timeStamp}></sbb-clock>`);
+          await setup.withFixture(html`<sbb-clock now=${timeStamp}></sbb-clock>`, {
+            backgroundColor: 'var(--sbb-background-color-3)',
+          });
         }),
       );
     }
+
+    it(
+      `darkMode=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`<sbb-clock now=${'0:0:0'}></sbb-clock>`, {
+          darkMode: true,
+          backgroundColor: 'var(--sbb-background-color-3)',
+        });
+      }),
+    );
   });
 });

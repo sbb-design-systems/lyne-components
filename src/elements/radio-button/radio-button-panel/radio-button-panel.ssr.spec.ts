@@ -1,16 +1,16 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbRadioButtonPanelElement } from './radio-button-panel.js';
+import { SbbRadioButtonPanelElement } from './radio-button-panel.component.ts';
 
 describe(`sbb-radio-button-panel ssr`, () => {
   it('renders', async () => {
     const root = await ssrHydratedFixture(
       html`<sbb-radio-button-panel value="Value">Value label</sbb-radio-button-panel>`,
       {
-        modules: ['./radio-button-panel.js'],
+        modules: ['./radio-button-panel.component.js'],
       },
     );
     assert.instanceOf(root, SbbRadioButtonPanelElement);
@@ -20,7 +20,7 @@ describe(`sbb-radio-button-panel ssr`, () => {
     const root = await ssrHydratedFixture(
       html`<sbb-radio-button-panel value="Value" checked>Value label</sbb-radio-button-panel>`,
       {
-        modules: ['./radio-button-panel.js'],
+        modules: ['./radio-button-panel.component.js'],
       },
     );
     assert.instanceOf(root, SbbRadioButtonPanelElement);
@@ -34,7 +34,7 @@ describe(`sbb-radio-button-panel ssr`, () => {
         <sbb-radio-button-panel name="group" value="value 3">Value 3</sbb-radio-button-panel>
       `,
       {
-        modules: ['./radio-button-panel.js'],
+        modules: ['./radio-button-panel.component.js'],
       },
     );
     assert.instanceOf(root, SbbRadioButtonPanelElement);

@@ -1,0 +1,12 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  position: relative;
+  display: block;
+  height: 100%;
+  overflow: auto;
+
+  // If the element is scrollable and has no focusable content, it gets focused.
+  // To adapt to lyne styles we colorize it
+  outline-color: var(--sbb-focus-outline-color);
+}

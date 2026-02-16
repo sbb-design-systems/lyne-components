@@ -150,13 +150,13 @@ export default ESLintUtils.RuleCreator.withoutDocs({
   },
   meta: {
     docs: {
-      description: 'Properties should avoid certain type combinatios',
+      description: 'Properties should avoid certain type combinations',
     },
     messages: {
       propertyTypeTypeAnnotation: 'Properties should have a type annotation.',
       propertyTypeRuleNoUndefined:
         'Accessor properties should not use undefined. Use null if necessary.',
-      propertyTypeRuleNoNull: 'Accessor properties should not use null with primitive tyes.',
+      propertyTypeRuleNoNull: 'Accessor properties should not use null with primitive types.',
       propertyTypeRuleNoDefinite:
         'Accessor properties should not use ! assignment. Initialize with null if necessary.',
       propertyTypeRuleInitializer: 'Primitive accessor properties should have an initializer.',

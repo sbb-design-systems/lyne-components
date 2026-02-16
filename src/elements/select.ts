@@ -1,1 +1,4 @@
-export * from './select/select.js';
+/**
+ * @entrypoint
+ */
+export * from './select/select.component.ts';

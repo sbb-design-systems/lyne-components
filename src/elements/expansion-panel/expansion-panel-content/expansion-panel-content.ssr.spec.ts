@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbExpansionPanelContentElement } from './expansion-panel-content.js';
+import { SbbExpansionPanelContentElement } from './expansion-panel-content.component.ts';
 
 describe(`sbb-expansion-panel-content ssr`, () => {
   let root: SbbExpansionPanelContentElement;
@@ -12,7 +12,7 @@ describe(`sbb-expansion-panel-content ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-expansion-panel-content>Content</sbb-expansion-panel-content>`,
       {
-        modules: ['./expansion-panel-content.js'],
+        modules: ['./expansion-panel-content.component.js'],
       },
     );
   });

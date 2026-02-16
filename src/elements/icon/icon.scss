@@ -1,27 +1,28 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: inline-block;
   line-height: 0;
   -webkit-tap-highlight-color: transparent;
 }
 
-:host([data-empty]) {
+:host(:state(empty)) {
   --sbb-icon-default-dimension: 0;
 }
 
-:host([data-empty][data-namespace='default'][name$='-small']) {
+:host(:state(empty):state(namespace-default)[name$='-extra-small']) {
+  --sbb-icon-default-dimension: var(--sbb-size-icon-ui-extra-small);
+}
+
+:host(:state(empty):state(namespace-default)[name$='-small']) {
   --sbb-icon-default-dimension: var(--sbb-size-icon-ui-small);
 }
 
-:host([data-empty][data-namespace='default'][name$='-medium']) {
+:host(:state(empty):state(namespace-default)[name$='-medium']) {
   --sbb-icon-default-dimension: var(--sbb-size-icon-ui-medium);
 }
 
-:host([data-empty][data-namespace='default'][name$='-large']) {
+:host(:state(empty):state(namespace-default)[name$='-large']) {
   --sbb-icon-default-dimension: var(--sbb-size-icon-ui-large);
 }
 

@@ -2,14 +2,14 @@ import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbCardElement } from '../card.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbCardElement } from '../card.ts';
 
-import type { SbbCardLinkElement } from './card-link.js';
+import type { SbbCardLinkElement } from './card-link.component.ts';
 
-import '../card.js';
-import './card-link.js';
+import '../card.ts';
+import './card-link.component.ts';
 
 describe(`sbb-card-link`, () => {
   let element: SbbCardElement;
@@ -24,21 +24,21 @@ describe(`sbb-card-link`, () => {
       </sbb-card>
     `);
 
-    expect(element).to.have.attribute('data-has-action');
-    expect(element).not.to.have.attribute('data-has-active-action');
-    expect(element).to.have.attribute('data-action-role', 'link');
+    expect(element).to.match(':state(has-action)');
+    expect(element).not.to.match(':state(has-active-action)');
+    expect(element).to.match(':state(action-role-link)');
   });
 
   it('should correctly toggle active state', async () => {
     element = await fixture(
       html`<sbb-card><sbb-card-link href="#">Click me</sbb-card-link>Content</sbb-card>`,
     );
-    expect(element).not.to.have.attribute('data-has-active-action');
+    expect(element).not.to.match(':state(has-active-action)');
 
     element.querySelector<SbbCardLinkElement>('sbb-card-link')!.toggleAttribute('active', true);
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-has-active-action');
+    expect(element).to.match(':state(has-active-action)');
   });
 
   it('should remove data properties from host', async () => {
@@ -49,17 +49,17 @@ describe(`sbb-card-link`, () => {
       >`,
     );
 
-    expect(element).to.have.attribute('data-has-action');
-    expect(element).to.have.attribute('data-has-active-action');
-    expect(element).to.have.attribute('data-action-role', 'link');
+    expect(element).to.match(':state(has-action)');
+    expect(element).to.match(':state(has-active-action)');
+    expect(element).to.match(':state(action-role-link)');
 
     // Remove action from DOM
     element.querySelector<SbbCardLinkElement>('sbb-card-link')!.remove();
     await waitForLitRender(element);
 
-    expect(element).not.to.have.attribute('data-has-action');
-    expect(element).not.to.have.attribute('data-has-active-action');
-    expect(element).not.to.have.attribute('data-action-role', 'button');
+    expect(element).not.to.match(':state(has-action)');
+    expect(element).not.to.match(':state(has-active-action)');
+    expect(element).not.to.match(':state(action-role-button)');
   });
 
   it('should detect added link in slotted content to update focusable elements', async () => {
@@ -71,7 +71,7 @@ describe(`sbb-card-link`, () => {
         </span>
       </sbb-card>`,
     );
-    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.match('.sbb-action');
 
     // Add a second button in content
     element
@@ -82,9 +82,9 @@ describe(`sbb-card-link`, () => {
     await waitForLitRender(element);
     const buttons = element.querySelectorAll('button');
     expect(buttons.length).to.be.equal(2);
-    expect(
-      Array.from(buttons).every((el) => el.getAttribute('data-card-focusable') !== null),
-    ).to.be.equal(true);
+    expect(Array.from(buttons).every((el) => el.classList.contains('sbb-action'))).to.be.equal(
+      true,
+    );
 
     // Remove all buttons
     buttons.forEach((el) => el.remove());
@@ -107,7 +107,7 @@ describe(`sbb-card-link`, () => {
     await waitForLitRender(element);
 
     // Button should be marked as focusable
-    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.match('.sbb-action');
   });
 
   it('should detect focusable elements when action was added at later point', async () => {
@@ -126,7 +126,7 @@ describe(`sbb-card-link`, () => {
     await waitForLitRender(element);
 
     // Button should be marked as focusable
-    expect(element.querySelector('button')).to.have.attribute('data-card-focusable');
+    expect(element.querySelector('button')).to.match('.sbb-action');
   });
 
   describe('events', () => {

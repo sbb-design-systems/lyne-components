@@ -1,6 +1,8 @@
-export * from './testing/event-spy.js';
-export * from './testing/mocha-extensions.js';
-export * from './testing/scroll.js';
-export * from './testing/wait-for-condition.js';
-export * from './testing/wait-for-image-ready.js';
-export * from './testing/wait-for-render.js';
+/**
+ * @entrypoint
+ */
+export * from './testing/event-spy.ts';
+export * from './testing/mocha-extensions.ts';
+export * from './testing/wait-for-condition.ts';
+export * from './testing/wait-for-image-ready.ts';
+export * from './testing/wait-for-render.ts';

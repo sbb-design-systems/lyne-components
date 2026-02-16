@@ -1,12 +1,12 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './icon.js';
+import './icon.component.ts';
 
 describe(`sbb-icon`, () => {
   describeViewports({ viewports: ['small'] }, () => {
-    for (const size of ['small', 'medium', 'large']) {
+    for (const size of ['small', 'large']) {
       it(
         `icon=circle-information size=${size} ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {

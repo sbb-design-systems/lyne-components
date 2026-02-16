@@ -21,7 +21,7 @@ snapshots["sbb-pearl-chain-vertical-item renders component with charcoal standar
 >
   <div
     class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--default sbb-pearl-chain-vertical-item__line--standard"
-    style="--sbb-pearl-chain-vertical-item-leg-status:0%;"
+    style="--sbb-pearl-chain-vertical-item-leg-status: 0%;"
   >
   </div>
   <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--default sbb-pearl-chain-vertical-item__bullet--start-end">
@@ -52,7 +52,7 @@ snapshots["sbb-pearl-chain-vertical-item renders component with red line and bul
 >
   <div
     class="sbb-pearl-chain-vertical-item__line sbb-pearl-chain-vertical-item__line--disruption sbb-pearl-chain-vertical-item__line--standard"
-    style="--sbb-pearl-chain-vertical-item-leg-status:0%;"
+    style="--sbb-pearl-chain-vertical-item-leg-status: 0%;"
   >
   </div>
   <div class="sbb-pearl-chain-vertical-item__bullet sbb-pearl-chain-vertical-item__bullet--default sbb-pearl-chain-vertical-item__bullet--start-end">
@@ -225,20 +225,16 @@ snapshots["sbb-pearl-chain-vertical-item renders a crossed-bullet Shadow DOM"] =
 snapshots["sbb-pearl-chain-vertical-item renders component with charcoal standard line and bullet A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "generic",
+      "name": ""
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-pearl-chain-vertical-item renders component with charcoal standard line and bullet A11y tree Chrome */
-
-snapshots["sbb-pearl-chain-vertical-item renders component with charcoal standard line and bullet A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-pearl-chain-vertical-item renders component with charcoal standard line and bullet A11y tree Firefox */
 

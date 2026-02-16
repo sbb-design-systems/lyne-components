@@ -1,4 +1,8 @@
-export * from './dialog/dialog-actions.js';
-export * from './dialog/dialog-content.js';
-export * from './dialog/dialog-title.js';
-export * from './dialog/dialog.js';
+/**
+ * @entrypoint
+ */
+export * from './dialog/dialog-actions.ts';
+export * from './dialog/dialog-content.ts';
+export * from './dialog/dialog-close-button.ts';
+export * from './dialog/dialog-title.ts';
+export * from './dialog/dialog.ts';

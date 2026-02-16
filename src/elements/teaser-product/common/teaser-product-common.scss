@@ -1,17 +1,20 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
-  --sbb-teaser-product-background-color: var(--sbb-color-cloud);
+  --sbb-teaser-product-background-color: light-dark(
+    var(--sbb-color-cloud),
+    var(--sbb-color-midnight)
+  );
   --sbb-teaser-product-background-gradient-direction: to right;
   --sbb-teaser-product-background: var(--sbb-teaser-product-background-color);
   --sbb-teaser-product-border-radius: var(--sbb-border-radius-4x);
-  --sbb-teaser-product-content-color: var(--sbb-color-iron);
-  --sbb-teaser-product-footer-color: var(--sbb-color-anthracite);
+  --sbb-teaser-product-content-color: var(--sbb-color-4);
+  --sbb-teaser-product-footer-color: light-dark(
+    var(--sbb-color-anthracite),
+    var(--sbb-color-cloud)
+  );
   --sbb-teaser-product-container-padding-block: var(--sbb-spacing-responsive-l);
   --sbb-teaser-product-min-height: #{sbb.px-to-rem-build(600)};
   --sbb-teaser-product-background-gradient-start: 25%;
@@ -27,11 +30,11 @@
 }
 
 :host([negative]) {
-  --sbb-teaser-product-background-color: var(--sbb-color-midnight);
-  --sbb-teaser-product-content-color: var(--sbb-color-cloud);
-  --sbb-teaser-product-footer-color: var(--sbb-color-cloud);
+  --sbb-teaser-product-background-color: var(--sbb-background-color-1-negative);
+  --sbb-teaser-product-content-color: var(--sbb-color-4-negative);
+  --sbb-teaser-product-footer-color: var(--sbb-color-4-negative);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-title-text-color-normal-override: var(--sbb-color-milk);
+  --sbb-title-text-color-normal-override: var(--sbb-color-3-negative);
 }
 
 :host([image-alignment='before']) {
@@ -56,10 +59,10 @@
 }
 
 ::slotted(sbb-title.sbb-teaser-product--spacing) {
-  --sbb-title-margin-block-start: 0;
+  margin-block-start: 0;
 }
 
-::slotted(:is(sbb-action-group, [data-action]).sbb-teaser-product--spacing) {
+::slotted(:is(sbb-action-group, :state(action)).sbb-teaser-product--spacing) {
   margin-block-start: var(--sbb-spacing-responsive-xxs);
 }
 
@@ -136,7 +139,7 @@
 
   @include sbb.text-xxs--regular;
 
-  :host(:not([data-slot-names~='footnote'])) & {
+  :host(:not(:state(slotted-footnote))) & {
     padding-block-start: 0;
   }
 

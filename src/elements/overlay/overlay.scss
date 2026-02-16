@@ -1,12 +1,9 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   @include sbb.scrollbar-variables;
 
-  --sbb-overlay-background-color: var(--sbb-color-milk);
+  --sbb-overlay-background-color: var(--sbb-background-color-3);
   --sbb-overlay-height: 100%;
   --sbb-overlay-inset: 0 auto auto 0;
   --sbb-overlay-padding-block: calc(var(--sbb-spacing-fixed-14x) + var(--sbb-spacing-responsive-l));
@@ -23,11 +20,11 @@
   z-index: var(--sbb-overlay-z-index, var(--sbb-overlay-default-z-index));
 }
 
-:host([data-state]:not([data-state='closed'])) {
+:host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
   display: block;
 }
 
-:host(:is([data-state='opening'], [data-state='opened'])) {
+:host(:is(:state(state-opening), :state(state-opened))) {
   --sbb-overlay-pointer-events: all;
 }
 
@@ -35,11 +32,11 @@
   @include sbb.scrollbar-variables--color-negative;
 
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-overlay-color: var(--sbb-color-white);
-  --sbb-overlay-background-color: var(--sbb-color-midnight);
+  --sbb-overlay-color: var(--sbb-color-1-negative);
+  --sbb-overlay-background-color: var(--sbb-background-color-3-negative);
 }
 
-:host(:not([data-state='closed'])) {
+:host(:not(:state(state-closed))) {
   --sbb-overlay-inset: 0;
 }
 
@@ -51,7 +48,7 @@
   position: fixed;
   inset: var(--sbb-overlay-inset);
 
-  :host([data-state]:not([data-state='closed'])) & {
+  :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
     display: flex;
     animation: {
       name: open;
@@ -60,7 +57,7 @@
     }
   }
 
-  :host([data-state][data-state='closing']) & {
+  :host(:state(state-closing)) & {
     pointer-events: none;
     animation-name: close;
   }
@@ -76,7 +73,7 @@
   overflow: auto;
   color: var(--sbb-overlay-color);
 
-  :host([data-state]:not([data-state='closed'])) & {
+  :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
     animation: {
       name: open-move-in;
       duration: var(--sbb-overlay-animation-duration);
@@ -84,7 +81,7 @@
     }
   }
 
-  :host([data-state][data-state='closing']) & {
+  :host(:state(state-closing)) & {
     animation-name: close-move-out;
   }
 }
@@ -97,7 +94,7 @@
   outline: none;
   position: fixed;
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     position: sticky;
     inset-block-start: 0;
     height: auto;
@@ -128,11 +125,9 @@
 .sbb-overlay__content {
   @include sbb.scrollbar-rules;
 
-  & {
-    height: 100vh;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+  height: 100vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .sbb-overlay__content-container {

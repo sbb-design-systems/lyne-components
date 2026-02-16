@@ -86,7 +86,6 @@ You can file new issues by providing the above information [here](https://github
   The PR title and message should as well conform to the [commit message conventions](#commit).
 
 - If we suggest changes then:
-
   - Make the required updates.
   - Re-run tests to ensure tests are still passing.
   - Rebase your branch and force push to your GitHub repository (this will update your Pull
@@ -126,6 +125,32 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/) t
 Any line of the commit message cannot be longer 100 characters! This allows the message to be easier
 to read on GitHub as well as in various git tools.
 
+If you are adding breaking changes, include a `BREAKING CHANGE:` section in the footer. If the commit closes
+one or more issues, add `Closes #123`, `Closes #234`, and so on, to the footer. The numbers should
+correspond to the issue numbers.
+If a branch contains more than one commit, the `BREAKING CHANGE:` section and the `Closes #xy`
+entries must be added to the PR body in the same format.
+To comply with Release Please, the following conditions must be met:
+
+- There must be no new line directly behind `BREAKING CHANGE:`, and there must be text directly behind it.
+- New lines are allowed, but every line must start with a character unequal to a whitespace
+  (Lists are allowed, but the bullet character must be at the start of a line).
+- No complete empty lines are allowed.
+
+**Example of a valid commit message / PR body:** (type and subject not needed in PR body)
+
+```text
+feat(sbb-button): add new `sbb-button` component
+
+We had to remove the `sbb-old-button` component as it was deprecated for a long time.
+
+BREAKING CHANGE: The `sbb-old-button` component has been removed.
+- Some more details about the breaking change
+- More details
+
+Closes #123, #124
+```
+
 ### Type
 
 Must be one of the following:
@@ -133,8 +158,7 @@ Must be one of the following:
 - **feat**: A new feature
 - **fix**: A bug fix
 - **docs**: Documentation only changes
-- **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing
-  semi-colons, etc)
+- **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semicolons, etc.)
 - **refactor**: A code change that neither fixes a bug nor adds a feature
 - **perf**: A code change that improves performance
 - **test**: Adding missing tests or correcting existing tests

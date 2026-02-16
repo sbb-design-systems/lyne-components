@@ -1,1 +1,4 @@
-export * from './map-container/map-container.js';
+/**
+ * @entrypoint
+ */
+export * from './map-container/map-container.component.ts';

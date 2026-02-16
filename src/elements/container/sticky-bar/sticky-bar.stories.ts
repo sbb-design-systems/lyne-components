@@ -1,17 +1,17 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
-import { SbbStickyBarElement } from './sticky-bar.js';
+import { SbbStickyBarElement } from './sticky-bar.component.ts';
 
-import '../../action-group.js';
-import '../../button/button.js';
-import '../../button/secondary-button.js';
-import '../../link.js';
-import '../../title.js';
-import '../container.js';
+import '../../action-group.ts';
+import '../../button/button.ts';
+import '../../button/secondary-button.ts';
+import '../../link.ts';
+import '../../title.ts';
+import '../container.ts';
 
 const containerColor: InputType = {
   name: 'color',
@@ -52,11 +52,19 @@ const color: InputType = {
   options: ['unset', 'white', 'milk', 'midnight', 'charcoal'],
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['s', 'm'],
+};
+
 const defaultArgTypes: ArgTypes = {
   color,
   containerColor,
   containerExpanded,
   containerBackgroundExpanded,
+  size,
 };
 
 const defaultArgs: Args = {
@@ -64,13 +72,14 @@ const defaultArgs: Args = {
   containerColor: containerColor.options![0],
   containerExpanded: false,
   containerBackgroundExpanded: false,
+  size: size.options![1],
 };
 
 const actionGroup = (): TemplateResult => html`
   <sbb-action-group
     align-group="stretch"
     orientation="vertical"
-    horizontal-from="medium"
+    horizontal-from="large"
     style="width:100%;"
   >
     <sbb-block-link
@@ -108,6 +117,7 @@ const Template = (): TemplateResult =>
 
 const DefaultTemplate = ({
   color,
+  size,
   containerExpanded,
   containerColor,
   containerBackgroundExpanded,
@@ -121,12 +131,15 @@ const DefaultTemplate = ({
     ${containerContent('Another one', isDark(containerColor))}
     ${containerContent('And another one', isDark(containerColor))}
     ${containerContent('And a last one', isDark(containerColor))}
-    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
+    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing} size=${size}>
+      ${actionGroup()}
+    </sbb-sticky-bar>
   </sbb-container>
 `;
 
 const ShortTemplate = ({
   color,
+  size,
   containerExpanded,
   containerColor,
   containerBackgroundExpanded,
@@ -137,12 +150,15 @@ const ShortTemplate = ({
     ?background-expanded=${containerBackgroundExpanded}
   >
     ${containerContent('Example title', isDark(containerColor))}
-    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing}> ${actionGroup()} </sbb-sticky-bar>
+    <sbb-sticky-bar color=${color !== 'unset' ? color : nothing} size=${size}>
+      ${actionGroup()}
+    </sbb-sticky-bar>
   </sbb-container>
 `;
 
 const WithContentAfterTemplate = ({
   color,
+  size,
   containerExpanded,
   containerColor,
   containerBackgroundExpanded,
@@ -159,6 +175,7 @@ const WithContentAfterTemplate = ({
 
     <sbb-sticky-bar
       color=${color !== 'unset' ? color : nothing}
+      size=${size}
       style="--sbb-sticky-bar-bottom-overlapping-height: var(--sbb-spacing-responsive-l);"
     >
       ${actionGroup()}
@@ -192,6 +209,12 @@ export const Default: StoryObj = {
   render: DefaultTemplate,
   argTypes: defaultArgTypes,
   args: defaultArgs,
+};
+
+export const SizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, size: size.options![0] },
 };
 
 export const White: StoryObj = {
@@ -282,11 +305,11 @@ export const ControlStickyState: StoryObj = {
           style="
             position: fixed;
             inset-block-start: 0;
-            background-color: var(--sbb-color-white);
+            background-color: var(--sbb-background-color-1);
             padding: var(--sbb-spacing-responsive-xs);
             z-index: 1;
-            border-block-end: var(--sbb-border-width-1x) solid var(--sbb-color-black);
-            border-inline-end: var(--sbb-border-width-1x) solid var(--sbb-color-black);
+            border-block-end: var(--sbb-border-width-1x) solid var(--sbb-border-color-4);
+            border-inline-end: var(--sbb-border-width-1x) solid var(--sbb-border-color-4);
           "
         >
           Control whether the sticky bar has \`position: sticky\`.
@@ -320,10 +343,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbStickyBarElement.events.willStick,
-        SbbStickyBarElement.events.didStick,
-        SbbStickyBarElement.events.willUnstick,
-        SbbStickyBarElement.events.didUnstick,
+        SbbStickyBarElement.events.beforestick,
+        SbbStickyBarElement.events.stick,
+        SbbStickyBarElement.events.beforeunstick,
+        SbbStickyBarElement.events.unstick,
       ],
     },
     docs: {

@@ -1,43 +1,42 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './chip-label.js';
+import './chip-label.component.ts';
 
 describe(`sbb-chip-label`, () => {
   const sizeCases = ['xxs', 'xs', 's'];
   const colorCases = ['milk', 'charcoal', 'white', 'granite'];
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     // Size test
     for (const size of sizeCases) {
       it(
         `size=${size}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(html`
-            <sbb-chip-label size=${size as 'xxs' | 'xs' | 's'}> Label </sbb-chip-label>
-          `);
+          await setup.withFixture(html`<sbb-chip-label size=${size}>Label</sbb-chip-label>`);
         }),
       );
     }
 
-    // Color test
-    for (const color of colorCases) {
-      it(
-        `color=${color}`,
-        visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(
-            html`
-              <sbb-chip-label color=${color as 'milk' | 'charcoal' | 'white' | 'granite'}>
-                Label
-              </sbb-chip-label>
-            `,
-            {
-              backgroundColor: color === 'white' ? 'var(--sbb-color-granite)' : undefined,
-            },
+    // Color tests
+    for (const darkMode of [false, true]) {
+      describe(`darkMode=${darkMode}`, () => {
+        for (const color of colorCases) {
+          it(
+            `color=${color}`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(html`<sbb-chip-label color=${color}>Label</sbb-chip-label>`, {
+                backgroundColor:
+                  color === 'milk' || color === 'white'
+                    ? 'var(--sbb-background-color-4)'
+                    : undefined,
+                darkMode,
+              });
+            }),
           );
-        }),
-      );
+        }
+      });
     }
 
     it(
@@ -48,6 +47,15 @@ describe(`sbb-chip-label`, () => {
             This is a very long label which will be cut.
           </sbb-chip-label>
         `);
+      }),
+    );
+
+    it(
+      `forcedColors=true`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`<sbb-chip-label>Label</sbb-chip-label>`, {
+          forcedColors: true,
+        });
       }),
     );
   });

@@ -1,15 +1,12 @@
 import { html, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { slotState } from '../../core/decorators.js';
-import {
-  type AbstractConstructor,
-  SbbNegativeMixin,
-  type SbbNegativeMixinType,
-} from '../../core/mixins.js';
+import type { SbbActionBaseElement } from '../../core/base-elements.ts';
+import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.ts';
 
-export declare class SbbTeaserProductCommonElementMixinType extends SbbNegativeMixinType {
+export declare class SbbTeaserProductCommonElementMixinType extends SbbNegativeMixin(
+  SbbActionBaseElement,
+) {
   public accessor imageAlignment: 'after' | 'before';
 }
 
@@ -19,7 +16,6 @@ export const SbbTeaserProductCommonElementMixin = <
 >(
   superClass: T,
 ): AbstractConstructor<SbbTeaserProductCommonElementMixinType> & T => {
-  @slotState()
   abstract class SbbTeaserProductCommonElement
     extends SbbNegativeMixin(superClass)
     implements SbbTeaserProductCommonElementMixinType

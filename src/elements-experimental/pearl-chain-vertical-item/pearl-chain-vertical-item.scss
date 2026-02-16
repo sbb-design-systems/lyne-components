@@ -1,8 +1,5 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   @include sbb.pearl-chain-bullet-variables;
 
@@ -14,7 +11,6 @@
   --sbb-pearl-chain-vertical-item-border-width: var(--sbb-border-width-2x);
   --sbb-pearl-chain-vertical-item-border-width-thin: var(--sbb-border-width-1x);
   --sbb-pearl-chain-vertical-item-spacing-small: var(--sbb-spacing-fixed-1x);
-  --sbb-pearl-chain-vertical-item-spacing-medium: var(--sbb-spacing-fixed-4x);
   --sbb-pearl-chain-vertical-item-color-default: var(--sbb-pearl-chain-bullet-color);
   --sbb-pearl-chain-vertical-item-color-disruption: var(--sbb-pearl-chain-bullet-color-disruption);
   --sbb-pearl-chain-vertical-item-color-past: var(--sbb-pearl-chain-bullet-color-past);

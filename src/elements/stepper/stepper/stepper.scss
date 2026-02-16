@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-stepper-orientation: row;
   --sbb-stepper-border-width: var(--sbb-border-width-1x);
@@ -12,7 +9,7 @@
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
-  --sbb-stepper-marker-color: var(--sbb-color-charcoal);
+  --sbb-stepper-marker-color: var(--sbb-color-3);
 
   display: block;
   position: relative;
@@ -23,7 +20,7 @@
   }
 }
 
-:host([data-disable-animation]) {
+:host(:state(disable-animation)) {
   @include sbb.disable-animation;
 }
 
@@ -39,7 +36,7 @@
   display: flex;
   flex-direction: var(--sbb-stepper-orientation);
   position: relative;
-  justify-content: space-between;
+  justify-content: start;
   margin-block-end: var(--sbb-spacing-responsive-m);
 
   &::before {
@@ -50,9 +47,9 @@
   }
 
   :host([orientation='horizontal']) & {
-    gap: var(--sbb-spacing-fixed-4x);
+    gap: var(--sbb-spacing-responsive-m);
     padding-block-end: var(--sbb-spacing-fixed-4x);
-    border-block-end: var(--sbb-stepper-border-width) solid var(--sbb-color-cloud);
+    border-block-end: var(--sbb-stepper-border-width) solid var(--sbb-border-color-4-inverted);
 
     &::before {
       inset-block-end: calc(var(--sbb-stepper-border-width) * -1);
@@ -64,7 +61,7 @@
 
   :host([orientation='vertical']) & {
     padding-inline-start: var(--sbb-spacing-fixed-4x);
-    border-inline-start: var(--sbb-stepper-border-width) solid var(--sbb-color-cloud);
+    border-inline-start: var(--sbb-stepper-border-width) solid var(--sbb-border-color-4-inverted);
 
     &::before {
       inset-block-start: 0;

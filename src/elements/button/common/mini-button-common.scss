@@ -1,0 +1,127 @@
+@use '../../core/styles' as sbb;
+
+$disabled: '[disabled], :disabled, [disabled-interactive], :state(disabled)';
+$active: ':active, :state(active)';
+
+:host {
+  display: inline-block;
+  -webkit-tap-highlight-color: transparent;
+  height: fit-content;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize CSS of several frameworks.
+  outline: none !important;
+
+  --sbb-mini-button-color-text: var(--sbb-color-3);
+  --sbb-mini-button-color-default-background: transparent;
+  --sbb-mini-button-color-hover-background: var(--sbb-background-color-3);
+  --sbb-mini-button-color-active-background: var(--sbb-background-color-4);
+  --sbb-mini-button-color-disabled-background: var(--sbb-background-color-3);
+  --sbb-mini-button-color-disabled-border: var(--sbb-border-color-5);
+  --sbb-mini-button-color-disabled-text: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-smoke)
+  );
+  --sbb-mini-button-border-radius: var(--sbb-border-radius-infinity);
+  --sbb-mini-button-transition-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-2x)
+  );
+  --sbb-mini-button-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-mini-button-color-background: var(--sbb-mini-button-color-default-background);
+  --sbb-mini-button-color: var(--sbb-mini-button-color-text);
+
+  @include sbb.if-forced-colors {
+    --sbb-mini-button-color-text: ButtonText !important;
+    --sbb-mini-button-color-hover-background: Highlight !important;
+    --sbb-mini-button-color-active-background: Highlight !important;
+    --sbb-mini-button-color-disabled-background: Canvas !important;
+    --sbb-mini-button-color-disabled-border: GrayText !important;
+    --sbb-mini-button-color-disabled-text: GrayText !important;
+  }
+}
+
+:host([negative]) {
+  --sbb-mini-button-color-text: var(--sbb-color-3-negative);
+  --sbb-mini-button-color-default-background: transparent;
+  --sbb-mini-button-color-hover-background: var(--sbb-background-color-3-negative);
+  --sbb-mini-button-color-active-background: var(--sbb-background-color-4-negative);
+  --sbb-mini-button-color-disabled-background: var(--sbb-background-color-3-negative);
+  --sbb-mini-button-color-disabled-border: var(--sbb-border-color-5);
+  --sbb-mini-button-color-disabled-text: var(--sbb-color-5);
+}
+
+:host(:is(:hover, :state(force-hover)):not(#{$disabled}, #{$active})) {
+  @include sbb.hover-mq($hover: true) {
+    --sbb-mini-button-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
+    --sbb-mini-button-color-background: var(--sbb-mini-button-color-hover-background);
+  }
+}
+
+:host(:is(#{$active}):not(#{$disabled})) {
+  --sbb-mini-button-color-background: var(--sbb-mini-button-color-active-background);
+}
+
+:host(:is(#{$disabled})) {
+  --sbb-mini-button-color-background: var(--sbb-mini-button-color-disabled-background);
+  --sbb-mini-button-border: var(--sbb-border-width-1x) dashed
+    var(--sbb-mini-button-color-disabled-border);
+  --sbb-mini-button-color: var(--sbb-mini-button-color-disabled-text);
+  --sbb-mini-button-pointer-events: none;
+  --sbb-mini-button-cursor: var(--sbb-cursor-default);
+}
+
+:host(:state(focus-visible)) {
+  // Basically the focus-outline mixin is made for use with focus-visible.
+  // As we use it here with :state(focus-visible), we have to ensure that the outline is not overridden when mouse or touch is in use.
+  --sbb-focus-outline-style: initial;
+}
+
+// As the styles are used by multiple mini button like buttons, we have to use the common class name here.
+.sbb-action-base {
+  display: flex;
+  position: relative;
+  color: var(--sbb-mini-button-color);
+  border-radius: var(--sbb-mini-button-border-radius);
+  user-select: none;
+  pointer-events: var(--sbb-mini-button-pointer-events, auto);
+  cursor: var(--sbb-mini-button-cursor, var(--sbb-cursor-pointer));
+  transition: color var(--sbb-mini-button-transition-duration)
+    var(--sbb-mini-button-transition-easing-function);
+  text-decoration: none;
+  outline: none;
+
+  // Renders background in the background absolute to enable the hover animation
+  &::before {
+    position: absolute;
+    content: '';
+    inset: 0;
+    border-radius: var(--sbb-mini-button-border-radius);
+    background-color: var(--sbb-mini-button-color-background);
+    transition-duration: var(--sbb-mini-button-transition-duration);
+    transition-timing-function: var(--sbb-mini-button-transition-easing-function);
+    transition-property: inset, background-color;
+    border: var(--sbb-mini-button-border);
+  }
+
+  &:focus-visible,
+  :host(:is(:state(focus-visible), :focus-visible)) & {
+    &::before {
+      @include sbb.focus-outline;
+    }
+  }
+}
+
+::slotted(sbb-icon),
+sbb-icon {
+  display: flex;
+  transition: translate var(--sbb-mini-button-transition-duration)
+    var(--sbb-mini-button-transition-easing-function);
+  translate: 0 var(--sbb-mini-button-translate-y-content-hover, #{sbb.px-to-rem-build(0)});
+
+  // Ensure minimum size for icons
+  min-width: var(--_sbb-mini-button-image-size, var(--sbb-size-icon-ui-small));
+  min-height: var(--_sbb-mini-button-image-size, var(--sbb-size-icon-ui-small));
+  align-items: center;
+  justify-content: center;
+}

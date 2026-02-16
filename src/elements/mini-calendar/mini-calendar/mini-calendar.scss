@@ -1,0 +1,7 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-1x);
+}

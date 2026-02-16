@@ -1,10 +1,13 @@
 import { expect } from '@open-wc/testing';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import { buttonSlottedIconTestTemplate, buttonTestTemplate } from '../common/button-test-utils.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
+import {
+  buttonSlottedIconTestTemplate,
+  buttonTestTemplate,
+} from '../common/button-test-utils.private.ts';
 
-import type { SbbTransparentButtonElement } from './transparent-button.js';
-import './transparent-button.js';
+import type { SbbTransparentButtonElement } from './transparent-button.component.ts';
+import './transparent-button.component.ts';
 
 describe(`sbb-transparent-button`, () => {
   let element: SbbTransparentButtonElement;

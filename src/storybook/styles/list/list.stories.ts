@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import readme from './readme.md?raw';
 
-import '../../../elements/title.js';
+import '../../../elements/title.ts';
 
 const ListContent = (): TemplateResult => html`
   <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor</li>
@@ -89,7 +89,7 @@ const IconListCustomIconTemplate = (): TemplateResult => html`
       <sbb-title level="5">Text size ${textSize}</sbb-title>
       <ol
         class=${`sbb-icon-list sbb-text-${textSize}`}
-        style="--sbb-icon-list-marker-icon-color: var(--sbb-color-red); --sbb-icon-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-cross-small.svg')"
+        style="--sbb-icon-list-marker-icon-color: var(--sbb-color-primary); --sbb-icon-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-cross-small.svg')"
       >
         ${ListContent()}
         <li>

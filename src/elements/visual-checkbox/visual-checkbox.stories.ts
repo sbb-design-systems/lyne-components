@@ -1,12 +1,12 @@
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './visual-checkbox.js';
+import './visual-checkbox.component.ts';
 
 const checked: InputType = {
   control: {
@@ -52,7 +52,7 @@ const defaultArgs: Args = {
   indeterminate: false,
   disabled: false,
   negative: false,
-  size: size.options![0],
+  size: undefined,
 };
 
 const Template = (args: Args): TemplateResult =>
@@ -157,7 +157,9 @@ export const SizeXSNegative: StoryObj = {
 const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
     docs: {
       extractComponentDescription: () => readme,
     },

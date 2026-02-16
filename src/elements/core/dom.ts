@@ -1,9 +1,10 @@
-export * from './dom/animation.js';
-export * from './dom/breakpoint.js';
-export * from './dom/find-referenced-element.js';
-export * from './dom/host-context.js';
-export * from './dom/input-element.js';
-export * from './dom/lean-context.js';
-export * from './dom/set-or-remove-attribute.js';
-export * from './dom/platform.js';
-export * from './dom/scroll.js';
+/**
+ * @entrypoint
+ */
+export * from './dom/animation.ts';
+export * from './dom/contains-pierce-shadow-dom.ts';
+export * from './dom/lean-context.ts';
+export * from './dom/set-or-remove-attribute.ts';
+export * from './dom/platform.ts';
+export * from './dom/queue-dom-content-loaded.ts';
+export * from './dom/scroll.ts';

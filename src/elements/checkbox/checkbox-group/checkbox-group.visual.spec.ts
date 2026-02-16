@@ -5,14 +5,14 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../../card.js';
-import '../../form-error.js';
-import '../../icon.js';
-import '../checkbox.js';
-import '../checkbox-panel.js';
-import './checkbox-group.js';
+import '../../card.ts';
+import '../../form-field/error.ts';
+import '../../icon.ts';
+import '../checkbox.ts';
+import '../checkbox-panel.ts';
+import './checkbox-group.component.ts';
 
 describe('sbb-checkbox-group', () => {
   const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
@@ -61,9 +61,7 @@ describe('sbb-checkbox-group', () => {
           </sbb-checkbox>
         `,
       )}
-      ${required
-        ? html`<sbb-form-error slot="error">This is a required field.</sbb-form-error>`
-        : nothing}
+      ${required ? html`<sbb-error slot="error">This is a required field.</sbb-error>` : nothing}
     </sbb-checkbox-group>
   `;
 
@@ -102,7 +100,7 @@ describe('sbb-checkbox-group', () => {
     </sbb-checkbox-group>
   `;
 
-  describeViewports({ viewports: ['small', 'medium'] }, () => {
+  describeViewports({ viewports: ['small', 'large'] }, () => {
     for (const orientation of ['horizontal', 'vertical']) {
       const args = { ...defaultArgs, orientation };
       for (const visualDiffState of [visualDiffDefault, visualDiffFocus]) {
@@ -168,8 +166,8 @@ describe('sbb-checkbox-group', () => {
       );
     }
 
-    describe('horizontalFrom=medium', () => {
-      const args = { ...defaultArgs, orientation: 'vertical', horizontalFrom: 'medium' };
+    describe('horizontalFrom=large', () => {
+      const args = { ...defaultArgs, orientation: 'vertical', horizontalFrom: 'large' };
       it(
         `checkbox ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {

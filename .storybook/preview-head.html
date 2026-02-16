@@ -5,21 +5,21 @@
 
 <link
   rel="preload"
-  href="https://cdn.app.sbb.ch/fonts/v1_8_1_subset/SBBWeb-Roman.woff2"
+  href="https://cdn.app.sbb.ch/fonts/v1_9_subset/SBBWeb-Roman.woff2"
   as="font"
   type="font/woff2"
   crossorigin="anonymous"
 />
 <link
   rel="preload"
-  href="https://cdn.app.sbb.ch/fonts/v1_8_1_subset/SBBWeb-Bold.woff2"
+  href="https://cdn.app.sbb.ch/fonts/v1_9_subset/SBBWeb-Bold.woff2"
   as="font"
   type="font/woff2"
   crossorigin="anonymous"
 />
 <link
   rel="preload"
-  href="https://cdn.app.sbb.ch/fonts/v1_8_1_subset/SBBWeb-Light.woff2"
+  href="https://cdn.app.sbb.ch/fonts/v1_9_subset/SBBWeb-Light.woff2"
   as="font"
   type="font/woff2"
   crossorigin="anonymous"
@@ -32,7 +32,7 @@
     display: none;
   }
 
-  @media screen and (width >= 840px) {
+  @media screen and (width >= 600px) {
     .last-element {
       display: block;
     }
@@ -49,7 +49,16 @@
   }
 
   .sbdocs-content {
-    max-width: var(--sbb-breakpoint-medium-max) !important;
+    max-width: var(--sbb-breakpoint-large-max) !important;
+  }
+
+  .sbdocs-content summary {
+    /* the doc viewer in storybook does not have a dark mode. We force the font color to black. */
+    color: var(--sbb-color-charcoal);
+  }
+
+  .docs-story {
+    background-color: var(--sbb-background-color-1);
   }
 
   .sb-show-main.sb-main-padded {
@@ -68,9 +77,10 @@
         z-index: 100000;
         display: flex;
         gap: 0.5rem;
-        border: 1px solid red;
+        border: 1px solid var(--sbb-color-primary);
         border-radius: 0.25rem;
-        background-color: yellow;
+        color: var(--sbb-color-black);
+        background-color: var(--sbb-color-warning);
         padding: 0.5rem;
         inset: 0.5rem 0 auto;
         margin: 0 auto;

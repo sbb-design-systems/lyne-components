@@ -3,10 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-block-link-button renders DOM"] = 
 `<sbb-block-link-button
-  data-action=""
-  data-button=""
-  data-sbb-link=""
-  data-slot-names="icon unnamed"
   form="formid"
   icon-placement="end"
   name="name"
@@ -16,10 +12,7 @@ snapshots["sbb-block-link-button renders DOM"] =
   type="submit"
 >
   <sbb-icon
-    aria-hidden="true"
-    data-namespace="default"
     name="chevron-small-right-small"
-    role="img"
     slot="icon"
   >
   </sbb-icon>
@@ -43,32 +36,18 @@ snapshots["sbb-block-link-button renders Shadow DOM"] =
 snapshots["sbb-block-link-button renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Travelcards & tickets."
+      "name": "Travelcards & tickets.",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-block-link-button renders A11y tree Chrome */
-
-snapshots["sbb-block-link-button renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Travelcards & tickets."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-block-link-button renders A11y tree Firefox */
 

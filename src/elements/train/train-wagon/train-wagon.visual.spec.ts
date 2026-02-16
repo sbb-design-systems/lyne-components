@@ -1,10 +1,10 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './train-wagon.js';
-import '../train-formation.js';
-import '../train.js';
+import './train-wagon.component.ts';
+import '../train-formation.ts';
+import '../train.ts';
 
 describe(`sbb-train-wagon`, () => {
   const wagonTypeCases = {
@@ -28,7 +28,7 @@ describe(`sbb-train-wagon`, () => {
   const trainFormationWrapper = (content: TemplateResult): TemplateResult =>
     html`<sbb-train-formation><sbb-train>${content}</sbb-train></sbb-train-formation>`;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const occupancy of occupancyCases) {
       it(
         `occupancy=${occupancy}`,

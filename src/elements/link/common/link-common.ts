@@ -2,20 +2,15 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import { hostAttributes, slotState } from '../../core/decorators.js';
-import { isLean } from '../../core/dom.js';
-import {
-  SbbNegativeMixin,
-  type SbbNegativeMixinType,
-  type AbstractConstructor,
-} from '../../core/mixins.js';
+import type { SbbActionBaseElement } from '../../core/base-elements.ts';
+import { isLean } from '../../core/dom.ts';
+import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.ts';
 
 import style from './link.scss?lit&inline';
 
 export type SbbLinkSize = 'xs' | 's' | 'm';
 
-export declare class SbbLinkCommonElementMixinType extends SbbNegativeMixinType {
+export declare class SbbLinkCommonElementMixinType extends SbbNegativeMixin(SbbActionBaseElement) {
   public accessor size: SbbLinkSize;
 }
 
@@ -23,8 +18,6 @@ export declare class SbbLinkCommonElementMixinType extends SbbNegativeMixinType 
 export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActionBaseElement>>(
   superClass: T,
 ): AbstractConstructor<SbbLinkCommonElementMixinType> & T => {
-  @hostAttributes({ 'data-sbb-link': '' })
-  @slotState()
   abstract class SbbLinkCommonElement
     extends SbbNegativeMixin(superClass)
     implements Partial<SbbLinkCommonElementMixinType>
@@ -37,6 +30,11 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
      * @default 's' / 'xs' (lean)
      */
     @property({ reflect: true }) public accessor size: SbbLinkSize = isLean() ? 'xs' : 's';
+
+    public constructor() {
+      super();
+      this.internals.states.add('sbb-link');
+    }
 
     protected override renderTemplate(): TemplateResult {
       return html`<slot></slot>`;

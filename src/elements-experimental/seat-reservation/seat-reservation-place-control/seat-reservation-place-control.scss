@@ -1,0 +1,235 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+@use '../common/styles/seat-reservation-mixins' as sbb-sr-mixins;
+@use '../common/styles/seat-reservation-functions' as sbb-sr-functions;
+
+// Depends on the place state and current event (hover|focus), the background and fill colors of the place,
+// backrest of place and the text color are handled by colorizePlace function.
+@mixin colorizePlace($state, $event) {
+  ::part(svg-place) {
+    fill: var(--sbb-seat-reservation-place-control-#{$state}-background-#{$event});
+  }
+
+  ::part(svg-backrest) {
+    fill: var(--sbb-seat-reservation-place-control-#{$state}-backrest-background-#{$event});
+  }
+
+  .sbb-sr-place-ctrl__text {
+    // dont use transparent or remove background, otherwise there are a11y violations regarding
+    // insufficient color contrast
+    background-color: var(--sbb-seat-reservation-place-control-#{$state}-background-#{$event});
+    color: var(--sbb-seat-reservation-place-control-#{$state}-text);
+  }
+}
+
+$disabled: '.sbb-reservation-place-control--disabled';
+
+:host {
+  --sbb-seat-reservation-place-control-text-scale-value: 1;
+  --sbb-seat-reservation-place-control-width: 16;
+  --sbb-seat-reservation-place-control-height: 16;
+  --sbb-seat-reservation-place-control-top: 0;
+  --sbb-seat-reservation-place-control-left: 0;
+  --sbb-seat-reservation-place-control-rotation: 0;
+  --sbb-seat-reservation-place-control-text-rotation: 0;
+  --sbb-seat-reservation-place-control-text-size: calc(
+    var(--sbb-seat-reservation-place-control-text-scale-value, 1) * 0.5
+  );
+
+  // Color definition for text
+  --sbb-seat-reservation-place-control-default-text: light-dark(
+    var(--sbb-color-black),
+    var(--sbb-color-white)
+  );
+  --sbb-seat-reservation-place-control-hover-text: light-dark(
+    var(--sbb-color-iron),
+    var(--sbb-color-silver)
+  );
+  --sbb-seat-reservation-place-control-focus-text: light-dark(
+    var(--sbb-color-anthracite),
+    var(--sbb-color-graphite)
+  );
+  --sbb-seat-reservation-place-control-allocated-text: light-dark(
+    var(--sbb-color-smoke),
+    var(--sbb-color-metal)
+  );
+
+  // Color background definition for place with state FREE
+  --sbb-seat-reservation-place-control-free-background-default: var(--sbb-background-color-2);
+  --sbb-seat-reservation-place-control-free-background-hover: light-dark(
+    var(--sbb-color-cloud),
+    var(--sbb-color-midnight)
+  );
+  --sbb-seat-reservation-place-control-free-background-focus: light-dark(
+    var(--sbb-color-silver),
+    var(--sbb-color-black)
+  );
+
+  // Color background definition for backrest with state FREE
+  --sbb-seat-reservation-place-control-free-backrest-background-default: light-dark(
+    var(--sbb-color-black),
+    var(--sbb-color-white)
+  );
+  --sbb-seat-reservation-place-control-free-backrest-background-hover: light-dark(
+    var(--sbb-color-black),
+    var(--sbb-color-white)
+  );
+  --sbb-seat-reservation-place-control-free-backrest-background-focus: light-dark(
+    var(--sbb-color-black),
+    var(--sbb-color-white)
+  );
+
+  // Color background definition for place with state SELECTED
+  --sbb-seat-reservation-place-control-selected-background-default: var(--sbb-color-primary);
+  --sbb-seat-reservation-place-control-selected-background-hover: var(--sbb-color-primary125);
+  --sbb-seat-reservation-place-control-selected-background-focus: var(--sbb-color-primary150);
+
+  // Color background definition for backrest with state SELECTED
+  --sbb-seat-reservation-place-control-selected-backrest-background-default: var(
+    --sbb-color-primary150
+  );
+  --sbb-seat-reservation-place-control-selected-backrest-background-hover: #7d000f;
+  --sbb-seat-reservation-place-control-selected-backrest-background-focus: #5a000b;
+
+  // Color background definition for place with state ALLOCATED
+  --sbb-seat-reservation-place-control-allocated-background-default: light-dark(
+    var(--sbb-color-milk),
+    var(--sbb-color-midnight)
+  );
+
+  width: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-width));
+  height: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-height));
+  position: absolute;
+  inset-block-start: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-top));
+  inset-inline-start: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-left));
+  font-weight: 300;
+  cursor: var(--sbb-cursor-pointer);
+}
+
+:host(:hover) {
+  .sbb-sr-place-ctrl {
+    &--state-free:not(#{$disabled}) {
+      @include colorizePlace('free', 'hover');
+    }
+
+    &--state-selected:not(#{$disabled}) {
+      @include colorizePlace('selected', 'hover');
+    }
+  }
+}
+
+:host(:focus-visible) {
+  .sbb-sr-place-ctrl {
+    &--state-free:not(#{$disabled}) {
+      @include colorizePlace('free', 'focus');
+    }
+  }
+}
+
+:host(:active) {
+  .sbb-sr-place-ctrl {
+    &--state-selected:not(#{$disabled}) {
+      @include colorizePlace('selected', 'focus');
+    }
+  }
+}
+
+// rotates the DOM-part "svg-place" by 180 degrees if the host is in RTL mode.
+@include sbb-sr-mixins.rotate-dom-part(svg-place);
+
+.sbb-sr-place-ctrl {
+  $root: &;
+
+  width: max-content;
+  position: relative;
+  font-size: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-text-size));
+
+  &--state-free {
+    @include colorizePlace('free', 'default');
+  }
+
+  &--state-selected {
+    @include colorizePlace('selected', 'default');
+  }
+
+  &--state-allocated,
+  &--state-restricted {
+    @include colorizePlace('allocated', 'default');
+
+    cursor: not-allowed;
+  }
+
+  &__text {
+    overflow: hidden;
+    display: none;
+    position: absolute;
+    inset-block-start: 50%;
+    translate: -50% -50%;
+    rotate: calc(var(--sbb-seat-reservation-place-control-text-rotation) * 1deg);
+    font-family: var(--sbb-typo-font-family);
+
+    // dont use sbb.px-to-rem or --sbb-typo-scale-0-75x; we want "em" in this case!
+    font-size: 0.75em;
+    line-height: initial;
+
+    #{$root}--state-free &,
+    #{$root}--state-allocated &,
+    #{$root}--state-restricted#{$root}--type-bicycle & {
+      display: block;
+    }
+
+    #{$root}--type-bicycle & {
+      inset-block-start: 65%;
+      inset-inline-start: 50%;
+
+      // We need to adjust transform origin point for bicycle places text (necessary for rotation),
+      // because the position of place number is not centered in the place area.
+      // The value 16% is the optimal value for the rotation offset on the origin y-axis.
+      transform-origin: center 16%;
+
+      // use a smaller font-size to avoid a11y violation
+      font-size: 0.6875em;
+    }
+
+    // Depending on the place orientation, minor positioning adjustments may need to be made to center the text,
+    // because of the width of the SVG which is not square
+    #{$root}--orientation-0#{$root}--type-seat & {
+      inset-inline-start: 45%;
+    }
+
+    #{$root}--orientation-90#{$root}--type-seat & {
+      inset-block-start: 46%;
+      inset-inline-start: 50%;
+    }
+
+    #{$root}--orientation-180#{$root}--type-seat & {
+      inset-inline-start: 55%;
+    }
+
+    #{$root}--orientation-270#{$root}--type-seat & {
+      inset-block-start: 52%;
+      inset-inline-start: 52%;
+    }
+  }
+}
+
+:host(:dir(rtl)) {
+  // For RTL, we need to adjust the text position to the right side
+  .sbb-sr-place-ctrl {
+    &--orientation-0 .sbb-sr-place-ctrl__text {
+      inset-inline-start: 3%;
+    }
+
+    &--orientation-90 .sbb-sr-place-ctrl__text,
+    &--orientation-180 .sbb-sr-place-ctrl__text {
+      inset-inline-start: 10%;
+    }
+
+    &--orientation-270 .sbb-sr-place-ctrl__text {
+      inset-inline-start: 5%;
+    }
+
+    &--type-bicycle .sbb-sr-place-ctrl__text {
+      inset-inline-start: -10%;
+    }
+  }
+}

@@ -1,1 +1,4 @@
-export * from './navigation-marker/navigation-marker.js';
+/**
+ * @entrypoint
+ */
+export * from './navigation-marker/navigation-marker.component.ts';

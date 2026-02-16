@@ -1,15 +1,22 @@
 import { html, nothing } from 'lit';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import {
+  describeEach,
+  describeViewports,
+  visualDiffDefault,
+  visualDiffFocus,
+} from '../core/testing/private.ts';
 
-import './toast.js';
-import '../button.js';
-import '../link.js';
+import './toast.component.ts';
+import '../button.ts';
+import '../link.ts';
 
 describe(`sbb-toast`, () => {
   const cases = {
     icon: [false, true],
-    action: ['dismissible', 'button', 'link'],
+    readonly: [false, true],
+    action: ['button', 'link'],
+    content: ['short', 'long'],
   };
 
   const positionCases = [
@@ -21,18 +28,18 @@ describe(`sbb-toast`, () => {
     'bottom-end',
   ];
 
-  describeViewports({ viewports: ['zero', 'medium'], viewportHeight: 300 }, () => {
-    describeEach(cases, ({ icon, action }) => {
+  describeViewports({ viewports: ['zero', 'large'], viewportHeight: 300 }, () => {
+    describeEach(cases, ({ icon, action, readonly, content }) => {
       it(
         '',
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`
-              <sbb-toast
-                icon-name=${icon ? 'circle-tick-small' : nothing}
-                ?dismissible=${action === 'dismissible'}
-              >
-                Lorem ipsum dolor
+              <sbb-toast icon-name=${icon ? 'circle-tick-small' : nothing} ?readonly=${readonly}>
+                ${content === 'short'
+                  ? html`Lorem ipsum dolor`
+                  : html`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+                    tempor incididunt.`}
                 ${action === 'button'
                   ? html`<sbb-transparent-button
                       slot="action"
@@ -41,7 +48,7 @@ describe(`sbb-toast`, () => {
                     ></sbb-transparent-button>`
                   : nothing}
                 ${action === 'link'
-                  ? html`<sbb-link slot="action" sbb-toast-close href="#"> Link action </sbb-link>`
+                  ? html`<sbb-link slot="action" sbb-toast-close href="#">Link action</sbb-link>`
                   : nothing}
               </sbb-toast>
             `,
@@ -58,7 +65,7 @@ describe(`sbb-toast`, () => {
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(
             html`
-              <sbb-toast icon-name="circle-tick-small" dismissible position=${position}>
+              <sbb-toast icon-name="circle-tick-small" position=${position}>
                 Lorem ipsum dolor
               </sbb-toast>
             `,
@@ -68,5 +75,16 @@ describe(`sbb-toast`, () => {
         }),
       );
     }
+
+    it(
+      'darkMode=true',
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-toast icon-name="circle-tick-small">Lorem ipsum dolor</sbb-toast>`,
+          { minHeight: '300px', padding: '0', darkMode: true },
+        );
+        setup.withPostSetupAction(() => setup.snapshotElement.querySelector('sbb-toast')!.open());
+      }),
+    );
   });
 });

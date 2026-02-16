@@ -34,10 +34,10 @@ jobs:
     steps:
       - name: Get token
         id: get_token
-        uses: tibdex/github-app-token@v2
+        uses: actions/create-github-app-token@v2
         with:
-          app_id: ${{ secrets.MAINTENANCE_APP_ID }}
-          private_key: ${{ secrets.MAINTENANCE_APP_PEM }}
+          app-id: ${{ secrets.MAINTENANCE_APP_ID }}
+          private-key: ${{ secrets.MAINTENANCE_APP_PEM }}
       - name: Get branch name from label
         id: branch_name
         run: |
@@ -81,7 +81,7 @@ jobs:
 
       - name: Update maintenance issue
         if: needs.cherry_pick.outputs.failed_branches
-        run: yarn ts-hooks scripts/update-maintenance-issue.ts
+        run: node scripts/update-maintenance-issue.ts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}

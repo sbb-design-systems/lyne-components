@@ -1,15 +1,16 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isSafari } from '../core/dom.js';
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
-import { describeIf } from '../core/testing.js';
-import type { SbbFormFieldElement } from '../form-field.js';
+import { isSafari } from '../core/dom.ts';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
+import { describeIf } from '../core/testing.ts';
+import type { SbbFormFieldElement } from '../form-field.ts';
 
-import type { SbbAutocompleteElement } from './autocomplete.js';
-import '../form-field.js';
-import '../option.js';
-import './autocomplete.js';
+import type { SbbAutocompleteElement } from './autocomplete.component.ts';
+
+import '../form-field.ts';
+import '../option.ts';
+import './autocomplete.component.ts';
 
 describe(`sbb-autocomplete`, () => {
   describe('renders standalone', async () => {
@@ -31,7 +32,7 @@ describe(`sbb-autocomplete`, () => {
 
     describeIf(!isSafari, 'Chrome-Firefox', async () => {
       it('DOM', async () => {
-        await expect(element).dom.to.be.equalSnapshot();
+        await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
 
       it('Shadow DOM', async () => {
@@ -67,7 +68,7 @@ describe(`sbb-autocomplete`, () => {
 
     describeIf(!isSafari, 'Chrome-Firefox', async () => {
       it('DOM', async () => {
-        await expect(root).dom.to.be.equalSnapshot();
+        await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
 
       it('Shadow DOM', async () => {

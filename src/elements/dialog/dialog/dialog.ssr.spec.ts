@@ -1,13 +1,13 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbDialogElement } from './dialog.js';
+import { SbbDialogElement } from './dialog.component.ts';
 
-import '../dialog-actions.js';
-import '../dialog-content.js';
-import '../dialog-title.js';
+import '../dialog-actions.ts';
+import '../dialog-content.ts';
+import '../dialog-title.ts';
 
 describe(`sbb-dialog ssr`, () => {
   let root: SbbDialogElement;
@@ -23,7 +23,7 @@ describe(`sbb-dialog ssr`, () => {
       `,
       {
         modules: [
-          './dialog.js',
+          './dialog.component.js',
           '../dialog-actions.js',
           '../dialog-content.js',
           '../dialog-title.js',

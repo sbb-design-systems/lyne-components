@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
+import { waitForImageReady } from '../core/testing.ts';
 
-import type { SbbTeaserHeroElement } from './teaser-hero.js';
-import './teaser-hero.js';
-import '../image.js';
-import '../chip-label.js';
+import type { SbbTeaserHeroElement } from './teaser-hero.component.ts';
+import './teaser-hero.component.ts';
+import '../image.ts';
+import '../chip-label.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 

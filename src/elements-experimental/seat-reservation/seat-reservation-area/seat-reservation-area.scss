@@ -1,0 +1,60 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+
+:host {
+  --sbb-seat-reservation-area-border-radius: var(--sbb-border-width-4x);
+  --sbb-seat-reservation-area-rotation: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(
+    var(--sbb-seat-reservation-area-height) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
+  width: calc(
+    var(--sbb-seat-reservation-area-width) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
+  border: var(--sbb-border-width-1x) solid
+    light-dark(var(--sbb-color-graphite), var(--sbb-color-granite));
+  border-radius: var(--sbb-seat-reservation-area-border-radius);
+  position: absolute;
+  inset-block-start: calc(
+    var(--sbb-seat-reservation-area-top) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
+  inset-inline-start: calc(
+    var(--sbb-seat-reservation-area-left) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
+  rotate: calc(var(--sbb-seat-reservation-area-rotation) * 1deg);
+  line-height: normal;
+  background-color: var(--sbb-background-color-2);
+}
+
+:host([background='dark']) {
+  background-color: light-dark(var(--sbb-color-milk), var(--sbb-color-iron));
+}
+
+:host([mounting='upper-border']) {
+  border-block-start-width: var(--sbb-border-width-2x);
+  border-radius: 0 0 var(--sbb-seat-reservation-area-border-radius)
+    var(--sbb-seat-reservation-area-border-radius);
+}
+
+:host([mounting='lower-border']) {
+  border-block-end-width: var(--sbb-border-width-2x);
+  border-radius: var(--sbb-seat-reservation-area-border-radius)
+    var(--sbb-seat-reservation-area-border-radius) 0 0;
+}
+
+:host([mounting='upper-to-lower-border']) {
+  border-block-start: none;
+  border-block-end: none;
+  border-radius: 0;
+}
+
+// hover state with pointer cursor for service icons and popover
+:host(.sbb-seat-reservation-area--cursor-pointer) {
+  cursor: var(--sbb-cursor-pointer);
+}

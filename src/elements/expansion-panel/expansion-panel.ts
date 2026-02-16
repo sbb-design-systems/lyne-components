@@ -1,1 +1,4 @@
-export * from './expansion-panel/expansion-panel.js';
+/**
+ * @entrypoint
+ */
+export * from './expansion-panel/expansion-panel.component.ts';

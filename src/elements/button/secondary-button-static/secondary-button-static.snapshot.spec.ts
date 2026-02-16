@@ -1,11 +1,14 @@
 import { expect } from '@open-wc/testing';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import { buttonSlottedIconTestTemplate, buttonTestTemplate } from '../common/button-test-utils.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
+import {
+  buttonSlottedIconTestTemplate,
+  buttonTestTemplate,
+} from '../common/button-test-utils.private.ts';
 
-import type { SbbSecondaryButtonStaticElement } from './secondary-button-static.js';
+import type { SbbSecondaryButtonStaticElement } from './secondary-button-static.component.ts';
 
-import './secondary-button-static.js';
+import './secondary-button-static.component.ts';
 
 describe(`sbb-secondary-button-static`, () => {
   let element: SbbSecondaryButtonStaticElement;

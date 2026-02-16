@@ -3,9 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-expansion-panel-header renders DOM"] = 
 `<sbb-expansion-panel-header
-  data-action=""
-  data-button=""
-  data-slot-names="unnamed"
   slot="header"
   tabindex="0"
 >
@@ -26,11 +23,8 @@ snapshots["sbb-expansion-panel-header renders Shadow DOM"] =
   </span>
   <span class="sbb-expansion-panel-header__toggle">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-expansion-panel-header__toggle-icon"
-      data-namespace="default"
       name="chevron-small-down-medium"
-      role="img"
     >
     </sbb-icon>
   </span>
@@ -40,10 +34,6 @@ snapshots["sbb-expansion-panel-header renders Shadow DOM"] =
 
 snapshots["sbb-expansion-panel-header renders with icon DOM"] = 
 `<sbb-expansion-panel-header
-  data-action=""
-  data-button=""
-  data-icon=""
-  data-slot-names="unnamed"
   icon-name="pie-medium"
   slot="header"
   tabindex="0"
@@ -58,12 +48,7 @@ snapshots["sbb-expansion-panel-header renders with icon Shadow DOM"] =
   <span class="sbb-expansion-panel-header__title">
     <span class="sbb-expansion-panel-header__icon">
       <slot name="icon">
-        <sbb-icon
-          aria-hidden="true"
-          data-namespace="default"
-          name="pie-medium"
-          role="img"
-        >
+        <sbb-icon name="pie-medium">
         </sbb-icon>
       </slot>
     </span>
@@ -72,11 +57,8 @@ snapshots["sbb-expansion-panel-header renders with icon Shadow DOM"] =
   </span>
   <span class="sbb-expansion-panel-header__toggle">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-expansion-panel-header__toggle-icon"
-      data-namespace="default"
       name="chevron-small-down-medium"
-      role="img"
     >
     </sbb-icon>
   </span>
@@ -86,18 +68,11 @@ snapshots["sbb-expansion-panel-header renders with icon Shadow DOM"] =
 
 snapshots["sbb-expansion-panel-header renders with slotted icon DOM"] = 
 `<sbb-expansion-panel-header
-  data-action=""
-  data-button=""
-  data-icon=""
-  data-slot-names="icon unnamed"
   slot="header"
   tabindex="0"
 >
   <sbb-icon
-    aria-hidden="true"
-    data-namespace="default"
     name="pie-medium"
-    role="img"
     slot="icon"
   >
   </sbb-icon>
@@ -118,11 +93,8 @@ snapshots["sbb-expansion-panel-header renders with slotted icon Shadow DOM"] =
   </span>
   <span class="sbb-expansion-panel-header__toggle">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-expansion-panel-header__toggle-icon"
-      data-namespace="default"
       name="chevron-small-down-medium"
-      role="img"
     >
     </sbb-icon>
   </span>
@@ -133,32 +105,18 @@ snapshots["sbb-expansion-panel-header renders with slotted icon Shadow DOM"] =
 snapshots["sbb-expansion-panel-header renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Header"
+      "name": "Header",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-expansion-panel-header renders A11y tree Chrome */
-
-snapshots["sbb-expansion-panel-header renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Header"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-expansion-panel-header renders A11y tree Firefox */
 

@@ -6,19 +6,14 @@ $open-anim-rows-to: 1fr;
 $open-anim-opacity-from: 0;
 $open-anim-opacity-to: 1;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-alert-background-color: var(--sbb-color-midnight);
+  --sbb-alert-background-color: var(--sbb-background-color-1-inverted);
   --sbb-alert-border-radius: var(--sbb-border-radius-4x);
-  --sbb-alert-color: var(--sbb-color-aluminium);
+  --sbb-alert-color: light-dark(var(--sbb-color-aluminium), var(--sbb-color-anthracite));
   --sbb-alert-padding: var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xs);
   --sbb-alert-icon-size: #{sbb.px-to-rem-build(20)};
-  --sbb-alert-close-icon-size: var(--sbb-size-icon-ui-small);
   --sbb-alert-close-icon-margin: var(--sbb-spacing-responsive-xxs);
   --sbb-alert-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-responsive-xs);
   --sbb-alert-animation-duration: var(
@@ -26,8 +21,9 @@ $open-anim-opacity-to: 1;
     var(--sbb-animation-duration-6x)
   );
   --sbb-alert-timing-function: ease-in;
+  --sbb-alert-title-margin-block: 0;
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-alert-icon-size: #{sbb.px-to-rem-build(28)};
   }
 
@@ -40,11 +36,11 @@ $open-anim-opacity-to: 1;
 }
 
 // By default, the open animation is disabled
-:host([data-state='opening']:not([animation='open'], [animation='all'])) {
+:host(:state(state-opening):not([animation='open'], [animation='all'])) {
   @include sbb.disable-animation;
 }
 
-:host([data-state='closing']:not([animation='close'], [animation='all'])) {
+:host(:state(state-closing):not([animation='close'], [animation='all'])) {
   @include sbb.disable-animation;
 }
 
@@ -55,10 +51,15 @@ $open-anim-opacity-to: 1;
 
 :host([size='l']) {
   --sbb-alert-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-alert-title-margin-block: 0 var(--sbb-spacing-fixed-1x);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-alert-icon-size: #{sbb.px-to-rem-build(34)};
   }
+}
+
+:host(:not(:state(dark))) {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
 .sbb-alert__transition-wrapper {
@@ -66,12 +67,12 @@ $open-anim-opacity-to: 1;
   grid-template-rows: #{$open-anim-rows-from};
   opacity: #{$open-anim-opacity-from};
 
-  :host(:is([data-state='opened'], [data-state='closing'])) & {
+  :host(:is(:state(state-opened), :state(state-closing))) & {
     grid-template-rows: #{$open-anim-rows-to};
     opacity: #{$open-anim-opacity-to};
   }
 
-  :host([data-state='opening']) & {
+  :host(:state(state-opening)) & {
     animation-name: open, open-opacity;
     animation-fill-mode: forwards;
     animation-duration: var(--sbb-alert-animation-duration);
@@ -79,7 +80,7 @@ $open-anim-opacity-to: 1;
     animation-delay: 0s, var(--sbb-alert-animation-duration);
   }
 
-  :host([data-state='closing']) & {
+  :host(:state(state-closing)) & {
     animation: {
       name: close-opacity, close;
       fill-mode: forwards;
@@ -125,6 +126,8 @@ $open-anim-opacity-to: 1;
 }
 
 .sbb-alert__content {
+  // As the background turns white, we need to ensure that all content is displayed in light mode.
+  color-scheme: only light;
   order: 3;
   grid-column: 1 / 3;
 
@@ -142,12 +145,9 @@ $open-anim-opacity-to: 1;
   padding: 0;
 }
 
-.sbb-alert__title {
-  // Overwrite sbb-title default margin
-  margin: 0;
-}
-
 .sbb-alert__close-button-wrapper {
+  // As the background turns white, we need to ensure that the button is displayed in light mode.
+  color-scheme: only light;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -207,4 +207,9 @@ $open-anim-opacity-to: 1;
   to {
     opacity: #{$open-anim-opacity-from};
   }
+}
+
+::slotted(sbb-title) {
+  // Overwrite sbb-title default margin
+  margin-block: var(--sbb-alert-title-margin-block);
 }

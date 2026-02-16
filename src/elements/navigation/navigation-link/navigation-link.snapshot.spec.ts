@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbNavigationLinkElement } from './navigation-link.js';
+import type { SbbNavigationLinkElement } from './navigation-link.component.ts';
 
-import './navigation-link.js';
+import './navigation-link.component.ts';
 
 describe(`sbb-navigation-link`, () => {
   let element: SbbNavigationLinkElement;

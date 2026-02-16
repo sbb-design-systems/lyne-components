@@ -9,7 +9,7 @@ The `sbb-form-field` component is intended to be used as a form input wrapper wi
 <sbb-form-field>
   <label>Example</label>
   <input required />
-  <sbb-form-error>This field is required!</sbb-form-error>
+  <sbb-error>This field is required!</sbb-error>
 </sbb-form-field>
 ```
 
@@ -48,14 +48,14 @@ it's mandatory to call the `reset()` method of the `sbb-form-field` to update th
 
 ### Error messages
 
-Error messages can be shown under the form field by adding `sbb-form-error` elements inside the form field.
+Error messages can be shown under the form field by adding `sbb-error` elements inside the form field.
 The component will automatically assign them to the `slot='error'`.
 
 ```html
 <sbb-form-field floating-label>
   <label>Example</label>
   <input required />
-  <sbb-form-error>This field is required!</sbb-form-error>
+  <sbb-error>This field is required!</sbb-error>
 </sbb-form-field>
 ```
 
@@ -105,7 +105,7 @@ The component has a `size` property, which accepts three different values: `s`, 
 <sbb-form-field size="l">
   <label>Example</label>
   <input required />
-  <sbb-form-error>This field is required!</sbb-form-error>
+  <sbb-error>This field is required!</sbb-error>
 </sbb-form-field>
 ```
 
@@ -117,9 +117,87 @@ it's possible to apply any desired width by setting just the `width` and `min-wi
 
 ```html
 <sbb-form-field width="collapse">
-  <input value="13:30" />
-  <sbb-time-input></sbb-time-input>
+  <sbb-time-input value="13:30"></sbb-time-input>
 </sbb-form-field>
+```
+
+### Reflected state from input
+
+The form field reflects certain states as custom states. This includes `focus`, `disabled`,
+`readonly`, `empty`, `has-error`, `has-popup-open` and `input-type-{tag name of the input}`.
+
+This can be targeted via CSS via the `:state()` pseudo-class:
+
+```css
+sbb-form-field:state(disabled) {
+  // Additional rules to apply when the input of the form field is disabled
+}
+```
+
+### Error state
+
+The form field is displayed in an error state when an input element has been interacted with
+and is in an error state. This checks both for the native validity state (which can be set
+on `<input>`, `<select>` and `<textarea>` via validation attributes like `required` or
+via the `setCustomValidity(message)` method) and for the Angular Forms state classes.
+
+If you want to manually set the error state, you can add the `sbb-invalid` CSS class
+to the input element.
+
+If you want to directly show the error state without having had an interaction, you can use the
+`sbb-show-errors` class on an ancestor (e.g. `<form>`).
+
+## Custom form control
+
+The form field looks for native form controls (i.e. `<input>`, `<select>`
+or `<textarea>`) or form associated custom elements. If nothing matches,
+it assumes the first slotted element is the form control (excluding
+`<label>` and elements with a `slot="*"` attribute).
+
+Once connected, the form field primarily observes the attributes `readonly`,
+`disabled`, `form`, `class` and listens to the `input` and `invalid` event
+on the connected form control to update the internal state accordingly.
+
+If you want to use a custom form control that does not follow that convention
+(e.g. Angular), you need to provide an integration layer, which is defined
+as the `SbbFormFieldElementControl` interface.
+
+To initially connect the custom form control and to update the state, whenever
+one of the property of the interface changes, the `SbbFormFieldControlEvent`
+needs to be dispatched on the `<sbb-form-field>` instance.
+
+### Angular
+
+In `@sbb-esta/lyne-angular` we have an adaption layer to easily define a custom form control.
+Please consume the documentation of `@sbb-esta/lyne-angular` for an example.
+
+### Example
+
+If you are using another framework, or you are using an existing library
+that you need to connect, you can write the integration yourself.
+
+```ts
+import {
+  SbbFormFieldElementControl,
+  SbbFormFieldControlEvent,
+} from '@sbb-esta/lyne-elements/form-field.js';
+
+const formField = document.getElementsByTagName('sbb-form-field')[0];
+const myControl = document.getElementsByTagName('my-form-control')[0];
+
+function onFormControlChange(): void {
+  formField.dispatchEvent(
+    new SbbFormFieldControlEvent({
+      id: myControl.id,
+      disabled: myControl.disabled,
+      empty: myControl.isEmpty,
+      readOnly: myControl.readOnly,
+      onContainerClick: (): void => myControl.focus(),
+    }),
+  );
+}
+
+myControl.addEventListener('custom-change-event', onFormControlChange);
 ```
 
 ## Accessibility
@@ -131,7 +209,7 @@ contained within the form field.
 When you provide a label, the `sbb-form-field` automatically
 associates this label with the form element using the `for`
 attribute to reference the control's ID.
-When using a non-native form element (e.g. `sbb-select`), the `aria-labelledby` is used to connect the
+When using a non-native form element, the `aria-labelledby` is used to connect the
 form element with the label, by setting an id on the label and referencing this id in the
 `aria-labelledby` attribute placed on the form element.
 Please note that only one `<label>` element is supported. Additionally, if you place the `<label>`
@@ -139,26 +217,25 @@ element outside the `sbb-form-field`, the automatic assignment is skipped, and i
 consumer to use the correct id references.
 If you like to visually hide a label, but still present it with screen readers, use the `hiddenLabel` property.
 
-When you provide informational text via `sbb-form-error`, it automatically adds these elements' IDs
-to the form element's `aria-describedby` attribute.
-Additionally, `sbb-form-error` is slotted to an element having `aria-live="polite"` so that assistive
-technology will announce errors when they appear.
+When you provide informational text via `sbb-error`, it automatically adds these elements' IDs
+to the form element's `ariaErrorMessageElements` property (or `aria-errormessage` attribute as fallback).
 
 <!-- Auto Generated Below -->
 
 ## Properties
 
-| Name            | Attribute        | Privacy | Type                                                                | Default            | Description                                                                                                                                                           |
-| --------------- | ---------------- | ------- | ------------------------------------------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `borderless`    | `borderless`     | public  | `boolean`                                                           | `false`            | Whether to display the form field without a border.                                                                                                                   |
-| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                               | `'none'`           | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.                                |
-| `floatingLabel` | `floating-label` | public  | `boolean`                                                           | `false`            | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 |
-| `hiddenLabel`   | `hidden-label`   | public  | `boolean`                                                           | `false`            | Whether to visually hide the label. If hidden, screen readers will still read it.                                                                                     |
-| `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| undefined` |                    | Returns the input element.                                                                                                                                            |
-| `negative`      | `negative`       | public  | `boolean`                                                           | `false`            | Negative coloring variant flag.                                                                                                                                       |
-| `optional`      | `optional`       | public  | `boolean`                                                           | `false`            | Indicates whether the input is optional.                                                                                                                              |
-| `size`          | `size`           | public  | `'l' \| 'm' \| 's'`                                                 | `'m' / 's' (lean)` | Size variant, either l, m or s.                                                                                                                                       |
-| `width`         | `width`          | public  | `'default' \| 'collapse'`                                           | `'default'`        | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. |
+| Name            | Attribute        | Privacy | Type                                                           | Default            | Description                                                                                                                                                           |
+| --------------- | ---------------- | ------- | -------------------------------------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `borderless`    | `borderless`     | public  | `boolean`                                                      | `false`            | Whether to display the form field without a border.                                                                                                                   |
+| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                          | `'none'`           | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.                                |
+| `floatingLabel` | `floating-label` | public  | `boolean`                                                      | `false`            | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 |
+| `hiddenLabel`   | `hidden-label`   | public  | `boolean`                                                      | `false`            | Whether to visually hide the label. If hidden, screen readers will still read it.                                                                                     |
+| `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| null` |                    | Returns the input element.                                                                                                                                            |
+| `label`         | -                | public  | `HTMLLabelElement \| null`                                     |                    | Reference to the slotted label.                                                                                                                                       |
+| `negative`      | `negative`       | public  | `boolean`                                                      | `false`            | Negative coloring variant flag.                                                                                                                                       |
+| `optional`      | `optional`       | public  | `boolean`                                                      | `false`            | Indicates whether the input is optional.                                                                                                                              |
+| `size`          | `size`           | public  | `'l' \| 'm' \| 's'`                                            | `'m' / 's' (lean)` | Size variant, either l, m or s.                                                                                                                                       |
+| `width`         | `width`          | public  | `'default' \| 'collapse'`                                      | `'default'`        | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. |
 
 ## Methods
 
@@ -166,6 +243,13 @@ technology will announce errors when they appear.
 | ------- | ------- | ------------------------------------------------------------------------------------- | ---------- | ------ | -------------- |
 | `clear` | public  | Manually clears the input value. It only works for inputs, selects are not supported. |            | `void` |                |
 | `reset` | public  | Manually reset the form field. Currently, this only resets the floating label.        |            | `void` |                |
+
+## CSS Properties
+
+| Name                                       | Default | Description                                            |
+| ------------------------------------------ | ------- | ------------------------------------------------------ |
+| `--sbb-form-field-focus-underline-z-index` |         | To override the z-index of the focus underline effect, |
+| `--sbb-form-field-outline-offset`          |         | To override the focus outline offset,                  |
 
 ## Slots
 

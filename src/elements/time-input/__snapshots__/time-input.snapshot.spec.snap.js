@@ -2,56 +2,44 @@
 export const snapshots = {};
 
 snapshots["sbb-time-input renders DOM"] = 
-`<span>
-  <sbb-time-input input="id-1">
-  </sbb-time-input>
-  <input
-    data-sbb-time-input=""
-    id="id-1"
-    inputmode="numeric"
-    maxlength="5"
-    placeholder="HH:MM"
-    type="text"
-  >
-</span>
+`<sbb-time-input
+  contenteditable="plaintext-only"
+  inputmode="numeric"
+  placeholder="HH:MM"
+  value="13:30"
+>
+  13:30
+</sbb-time-input>
 `;
 /* end snapshot sbb-time-input renders DOM */
 
 snapshots["sbb-time-input renders Shadow DOM"] = 
-`<p role="status">
-</p>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-time-input renders Shadow DOM */
 
 snapshots["sbb-time-input renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "textbox",
-      "name": "HH:MM"
+      "name": "HH:MM",
+      "value": "13:30",
+      "invalid": false,
+      "focusable": true,
+      "editable": "plaintext",
+      "settable": true,
+      "multiline": false,
+      "readonly": false,
+      "required": false
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-time-input renders A11y tree Chrome */
-
-snapshots["sbb-time-input renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "textbox",
-      "name": "HH:MM"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-time-input renders A11y tree Firefox */
 

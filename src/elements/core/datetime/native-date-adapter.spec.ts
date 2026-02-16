@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
 
-import { NativeDateAdapter } from './native-date-adapter.js';
+import { NativeDateAdapter } from './native-date-adapter.ts';
 
 describe('NativeDateAdapter', () => {
   let nativeDateAdapter: NativeDateAdapter;
@@ -20,7 +20,7 @@ describe('NativeDateAdapter', () => {
   });
 
   it('should return the right value for year month, date and weekday', () => {
-    const date: Date = new Date(2023, 0, 1);
+    const date: Date = new Date('2023-01-01T00:00:00.000Z');
     expect(nativeDateAdapter.getYear(date)).to.be.equal(2023);
     expect(nativeDateAdapter.getMonth(date)).to.be.equal(1);
     expect(nativeDateAdapter.getDate(date)).to.be.equal(1);
@@ -169,18 +169,6 @@ describe('NativeDateAdapter', () => {
       '1.1.1970',
     );
 
-    const dateNumber: Date = nativeDateAdapter.deserialize(946684800)!;
-    expect(dateNumber instanceof Date).to.be.equal(true);
-    expect(
-      `${dateNumber.getDate()}.${dateNumber.getMonth() + 1}.${dateNumber.getFullYear()}`,
-    ).to.be.equal('1.1.2000');
-
-    const dateNumAsStr: Date = nativeDateAdapter.deserialize('946684800')!;
-    expect(dateNumAsStr instanceof Date).to.be.equal(true);
-    expect(
-      `${dateNumAsStr.getDate()}.${dateNumAsStr.getMonth() + 1}.${dateNumAsStr.getFullYear()}`,
-    ).to.be.equal('1.1.2000');
-
     const dateString: Date = nativeDateAdapter.deserialize('2024-01-01')!;
     expect(dateString instanceof Date).to.be.equal(true);
     expect(
@@ -192,20 +180,19 @@ describe('NativeDateAdapter', () => {
     expect(+fakeDate).to.be.NaN;
   });
 
-  it('parseDate should return the correct value', function () {
-    const now = new Date(2023, 8, 15, 0, 0, 0, 0);
-    expect(nativeDateAdapter.parse(null, now)).to.be.null;
-    expect(nativeDateAdapter.parse('Test', now)).to.be.null;
-    expect(nativeDateAdapter.parse('1.1', now)).to.be.null;
-    let formattedDate = nativeDateAdapter.parse('1/1/2000', now)!;
-    expect(formattedDate.getFullYear()).to.be.equal(2000);
-    expect(formattedDate.getMonth()).to.be.equal(0);
-    expect(formattedDate.getDate()).to.be.equal(1);
-
-    formattedDate = nativeDateAdapter.parse('1.1.2000', now)!;
-    expect(formattedDate.getFullYear()).to.be.equal(2000);
-    expect(formattedDate.getMonth()).to.be.equal(0);
-    expect(formattedDate.getDate()).to.be.equal(1);
+  it('parse should return the correct value', function () {
+    expect(nativeDateAdapter.parse(null)).to.be.null;
+    expect(nativeDateAdapter.parse('Test')).to.be.null;
+    expect(nativeDateAdapter.parse('1.1')).to.be.null;
+    expect(nativeDateAdapter.parse('2000.0.1')).to.be.null;
+    expect(nativeDateAdapter.parse('12.0.2000')).to.be.null;
+    expect(nativeDateAdapter.parse('0.12.2000')).to.be.null;
+    for (const dateString of ['1/1/2000', '1.1.2000', '2000-01-01']) {
+      const date = nativeDateAdapter.parse(dateString)!;
+      expect(date.getFullYear()).to.be.equal(2000);
+      expect(date.getMonth()).to.be.equal(0);
+      expect(date.getDate()).to.be.equal(1);
+    }
   });
 
   it('format should return the correct string', function () {
@@ -234,5 +221,10 @@ describe('NativeDateAdapter', () => {
     expect(
       nativeDateAdapter.getAccessibilityFormatDate(new Date(2018, 7, 15, 0, 0, 0)),
     ).to.be.equal('15 août 2018');
+  });
+
+  it('should convert to ISO8601 format', () => {
+    const date = new Date(2023, 8, 15);
+    expect(nativeDateAdapter.toIso8601(date)).to.be.equal('2023-09-15');
   });
 });

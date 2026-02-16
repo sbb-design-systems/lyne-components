@@ -1,11 +1,11 @@
 import { html } from 'lit';
 
-import { describeViewports, visualDiffDefault } from '../core/testing/private.js';
+import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './screen-reader-only.js';
+import './screen-reader-only.component.ts';
 
 describe(`sbb-screen-reader-only`, () => {
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     it(
       visualDiffDefault.name,
       visualDiffDefault.with(async (setup) => {

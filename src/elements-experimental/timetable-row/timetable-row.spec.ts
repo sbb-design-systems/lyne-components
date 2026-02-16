@@ -4,7 +4,7 @@ import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { EventSpy } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
-import type { ITripItem, Notice, PtSituation } from '../core/timetable/timetable-properties.js';
+import type { ITripItem, Notice, PtSituation } from '../core/timetable/timetable-properties.ts';
 
 import {
   filterNotices,
@@ -12,8 +12,8 @@ import {
   getHimIcon,
   SbbTimetableRowElement,
   sortSituation,
-} from './timetable-row.js';
-import { partiallyCancelled, walkTimeTrip } from './timetable-row.sample-data.js';
+} from './timetable-row.component.ts';
+import { partiallyCancelled, walkTimeTrip } from './timetable-row.sample-data.private.ts';
 
 describe(`sbb-timetable-row`, () => {
   let element: SbbTimetableRowElement;

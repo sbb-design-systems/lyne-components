@@ -12,11 +12,11 @@ It's possible to use the component together with the `sbb-card-badge` and the `s
 ### With `sbb-card-badge`
 
 The `sbb-card-badge` component can be used to display a badge in the upper right corner.
-The badge is hidden with card sizes are `xs` or `s`.
+
 For API details, see the [sbb-card-badge](/docs/elements-sbb-card-sbb-card-badge--docs) docs.
 
 ```html
-<sbb-card size="m" color="white">
+<sbb-card color="white">
   <sbb-card-badge>
     <span>%</span>
     <span>from CHF</span>
@@ -46,17 +46,17 @@ the [sbb-card-link](/docs/elements-sbb-card-sbb-card-link--docs) docs.
 
 ## Style
 
-It's possible to choose among seven different values for the `size` property (from `xs` to `xxxl`, default `m`);
-the choice mainly affects the content's padding.
+Generally, the padding of the `sbb-card` can be set directly on the host. However, it's possible to choose among
+different preset spacing classes.
 
 ```html
-<sbb-card size="xs">Card content</sbb-card>
-<sbb-card size="s">Card content</sbb-card>
-<sbb-card size="m">Card content</sbb-card>
-<sbb-card size="l">Card content</sbb-card>
-<sbb-card size="xl">Card content</sbb-card>
-<sbb-card size="xxl">Card content</sbb-card>
-<sbb-card size="xxxl">Card content</sbb-card>
+<sbb-card class="sbb-card-spacing-3x-xxs">Card content</sbb-card>
+<sbb-card class="sbb-card-spacing-xxxs-xxs">Card content</sbb-card>
+<sbb-card class="sbb-card-spacing-xxxs-s">Card content</sbb-card>
+<sbb-card class="sbb-card-spacing-4x-xxs">Card content</sbb-card>
+<sbb-card class="sbb-card-spacing-xxs">Card content</sbb-card>
+<sbb-card class="sbb-card-spacing-s">Card content</sbb-card>
+<sbb-card class="sbb-card-spacing-l">Card content</sbb-card>
 ```
 
 The component has four different values to choose from for the `color` property; default is `white`.
@@ -86,10 +86,9 @@ To improve coloring, it's needed to manually define styles for Window high contr
 
 ## Properties
 
-| Name    | Attribute | Privacy | Type                                                                           | Default             | Description                                        |
-| ------- | --------- | ------- | ------------------------------------------------------------------------------ | ------------------- | -------------------------------------------------- |
-| `color` | `color`   | public  | `'white' \| 'milk' \| 'transparent-bordered' \| 'transparent-bordered-dashed'` | `'white'`           | Option to set the component's background color.    |
-| `size`  | `size`    | public  | `'xs' \| 's' \| 'm' \| 'l' \| 'xl' \| 'xxl' \| 'xxxl'`                         | `'m' / 'xs' (lean)` | Size variant, either xs, s, m, l, xl, xxl or xxxl. |
+| Name    | Attribute | Privacy | Type                                                                           | Default   | Description                                     |
+| ------- | --------- | ------- | ------------------------------------------------------------------------------ | --------- | ----------------------------------------------- |
+| `color` | `color`   | public  | `'white' \| 'milk' \| 'transparent-bordered' \| 'transparent-bordered-dashed'` | `'white'` | Option to set the component's background color. |
 
 ## Slots
 

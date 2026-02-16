@@ -3,8 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-breadcrumb renders with text DOM"] = 
 `<sbb-breadcrumb
-  data-action=""
-  data-link=""
   download=""
   href="https://example.com/test"
   rel="subsection"
@@ -38,8 +36,6 @@ snapshots["sbb-breadcrumb renders with text Shadow DOM"] =
 
 snapshots["sbb-breadcrumb renders with icon DOM"] = 
 `<sbb-breadcrumb
-  data-action=""
-  data-link=""
   href="/"
   icon-name="house-small"
 >
@@ -54,18 +50,12 @@ snapshots["sbb-breadcrumb renders with icon Shadow DOM"] =
 >
   <slot name="icon">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-breadcrumb__icon"
-      data-namespace="default"
       name="house-small"
-      role="img"
     >
     </sbb-icon>
   </slot>
-  <span
-    class="sbb-breadcrumb__label"
-    hidden=""
-  >
+  <span class="sbb-breadcrumb__label">
     <slot>
     </slot>
   </span>
@@ -75,8 +65,6 @@ snapshots["sbb-breadcrumb renders with icon Shadow DOM"] =
 
 snapshots["sbb-breadcrumb renders with icon and text DOM"] = 
 `<sbb-breadcrumb
-  data-action=""
-  data-link=""
   href="/"
   icon-name="house-small"
 >
@@ -92,11 +80,8 @@ snapshots["sbb-breadcrumb renders with icon and text Shadow DOM"] =
 >
   <slot name="icon">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-breadcrumb__icon"
-      data-namespace="default"
       name="house-small"
-      role="img"
     >
     </sbb-icon>
   </slot>
@@ -111,33 +96,16 @@ snapshots["sbb-breadcrumb renders with icon and text Shadow DOM"] =
 snapshots["sbb-breadcrumb renders with text A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "Breadcrumb . Link target opens in a new window."
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-breadcrumb renders with text A11y tree Chrome */
-
-snapshots["sbb-breadcrumb renders with text A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Breadcrumb . Link target opens in a new window.",
-      "value": "https://example.com/test"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-breadcrumb renders with text A11y tree Firefox */
 

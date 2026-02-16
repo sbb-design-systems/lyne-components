@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbTransparentButtonStaticElement } from './transparent-button-static.js';
+import { SbbTransparentButtonStaticElement } from './transparent-button-static.component.ts';
 
 describe(`sbb-transparent-button-static ssr`, () => {
   let root: SbbTransparentButtonStaticElement;
@@ -11,7 +11,7 @@ describe(`sbb-transparent-button-static ssr`, () => {
   beforeEach(async () => {
     root = await ssrHydratedFixture(
       html`<sbb-transparent-button-static>Button</sbb-transparent-button-static>`,
-      { modules: ['./transparent-button-static.js'] },
+      { modules: ['./transparent-button-static.component.js'] },
     );
   });
 

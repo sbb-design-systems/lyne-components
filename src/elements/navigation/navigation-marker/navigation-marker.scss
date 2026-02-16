@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-navigation-action-gap: var(--sbb-spacing-responsive-xs);
   --sbb-navigation-marker-position-x: var(--sbb-spacing-fixed-1x);
@@ -10,7 +7,7 @@
   --sbb-navigation-marker-width: #{sbb.px-to-rem-build(17)};
   --sbb-navigation-marker-border: var(--sbb-border-width-1x);
   --sbb-navigation-marker-padding-inline-start: var(--sbb-spacing-fixed-6x);
-  --sbb-navigation-marker-typo-line-height: var(--sbb-typo-line-height-titles);
+  --sbb-navigation-marker-typo-line-height: var(--sbb-typo-line-height-heading);
   --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-3x);
   --sbb-navigation-marker-margin-block: calc(
     1em * var(--sbb-navigation-marker-typo-line-height) / 2 - var(--sbb-navigation-marker-border) /
@@ -23,7 +20,7 @@
 :host([size='s']) {
   --sbb-navigation-action-gap: var(--sbb-spacing-fixed-2x);
   --sbb-navigation-marker-width: #{sbb.px-to-rem-build(8)};
-  --sbb-navigation-marker-typo-line-height: var(--sbb-typo-line-height-body-text);
+  --sbb-navigation-marker-typo-line-height: var(--sbb-typo-line-height-text);
   --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-2x);
   --sbb-navigation-marker-position-x: calc(
     var(--sbb-navigation-marker-padding-inline-start) - var(--sbb-spacing-fixed-2x)
@@ -51,7 +48,7 @@
     inset-inline-start: var(--sbb-navigation-marker-position-x);
     inset-block-start: var(--sbb-navigation-marker-position-y);
     width: var(--sbb-navigation-marker-width);
-    border-block-start: var(--sbb-navigation-marker-border) solid var(--sbb-color-storm);
+    border-block-start: var(--sbb-navigation-marker-border) solid var(--sbb-color-5);
     margin-block: var(--sbb-navigation-marker-margin-block);
     transition: {
       duration: var(--sbb-disable-animation-duration, var(--sbb-animation-duration-6x));
@@ -59,7 +56,7 @@
       property: opacity, inset-block-start;
     }
 
-    :host([data-has-active-action]) & {
+    :host(:state(has-active-action)) & {
       opacity: 1;
     }
 

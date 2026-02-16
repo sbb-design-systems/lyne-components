@@ -1,7 +1,10 @@
-export * from './link/block-link.js';
-export * from './link/block-link-button.js';
-export * from './link/block-link-static.js';
-export * from './link/link.js';
-export * from './link/link-button.js';
-export * from './link/link-static.js';
-export * from './link/common.js';
+/**
+ * @entrypoint
+ */
+export * from './link/block-link.ts';
+export * from './link/block-link-button.ts';
+export * from './link/block-link-static.ts';
+export * from './link/link.ts';
+export * from './link/link-button.ts';
+export * from './link/link-static.ts';
+export * from './link/common.ts';

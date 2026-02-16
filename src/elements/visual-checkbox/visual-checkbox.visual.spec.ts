@@ -1,13 +1,8 @@
 import { html } from 'lit';
 
-import {
-  describeEach,
-  describeViewports,
-  visualDiffDefault,
-  visualRegressionFixture,
-} from '../core/testing/private.js';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './visual-checkbox.js';
+import './visual-checkbox.component.ts';
 
 describe(`sbb-visual-checkbox`, () => {
   const states = [
@@ -19,53 +14,51 @@ describe(`sbb-visual-checkbox`, () => {
   const visualStates = {
     disabled: [false, true],
     negative: [false, true],
-    forcedColors: [false, true],
+    emulateMedia: [
+      { forcedColors: false, darkMode: false },
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ],
   };
 
   const size = ['xs', 's', 'm'];
 
   describeViewports({ viewports: ['zero'] }, () => {
-    let root: HTMLElement;
-
-    describeEach({ states, ...visualStates }, ({ states, disabled, negative, forcedColors }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(
-          html`<sbb-visual-checkbox
-            ?indeterminate=${states.indeterminate}
-            ?checked=${states.checked}
-            ?disabled=${disabled}
-            ?negative=${negative}
-          ></sbb-visual-checkbox>`,
-          {
-            forcedColors,
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
-          },
+    describeEach(
+      { states, ...visualStates },
+      ({ states, disabled, negative, emulateMedia: { forcedColors, darkMode } }) => {
+        it(
+          visualDiffDefault.name,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-visual-checkbox
+                ?indeterminate=${states.indeterminate}
+                ?checked=${states.checked}
+                ?disabled=${disabled}
+                ?negative=${negative}
+              ></sbb-visual-checkbox>`,
+              {
+                backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+                forcedColors,
+                darkMode,
+              },
+            );
+          }),
         );
-      });
-
-      it(
-        visualDiffDefault.name,
-        visualDiffDefault.with((setup) => {
-          setup.withSnapshotElement(root);
-        }),
-      );
-    });
+      },
+    );
 
     describeEach({ states, size }, ({ states, size }) => {
-      beforeEach(async function () {
-        root = await visualRegressionFixture(
-          html`<sbb-visual-checkbox
-            ?indeterminate=${states.indeterminate}
-            ?checked=${states.checked}
-            size=${size}
-          ></sbb-visual-checkbox>`,
-        );
-      });
-
       it(
         visualDiffDefault.name,
-        visualDiffDefault.with((setup) => {
-          setup.withSnapshotElement(root);
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(
+            html`<sbb-visual-checkbox
+              ?indeterminate=${states.indeterminate}
+              ?checked=${states.checked}
+              size=${size}
+            ></sbb-visual-checkbox>`,
+          );
         }),
       );
     });

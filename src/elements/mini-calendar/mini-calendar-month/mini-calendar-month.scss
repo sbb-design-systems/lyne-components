@@ -1,0 +1,32 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --sbb-mini-calendar-month-offset: 0;
+  --sbb-mini-calendar-month-visibilty-year: hidden;
+
+  display: inline-block;
+}
+
+:host(:state(show-year)) {
+  --sbb-mini-calendar-month-visibilty-year: visible;
+}
+
+.sbb-mini-calendar-month-wrapper {
+  display: grid;
+  height: var(--sbb-mini-calendar-month-height);
+  grid-auto-flow: var(--sbb-mini-calendar-grid-auto-flow);
+  grid-auto-rows: sbb.px-to-rem-build(8);
+  grid-template-columns: var(--sbb-mini-calendar-month-grid-template-columns);
+  grid-template-rows: var(--sbb-mini-calendar-month-grid-template-rows);
+}
+
+.sbb-mini-calendar-month-label-year,
+.sbb-mini-calendar-month-label-month {
+  @include sbb.text-xxs--regular;
+
+  color: light-dark(var(--sbb-color-granite), var(--sbb-color-silver));
+}
+
+.sbb-mini-calendar-month-label-year {
+  visibility: var(--sbb-mini-calendar-month-visibilty-year);
+}

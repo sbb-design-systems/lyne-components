@@ -1,6 +1,6 @@
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
-import { readConfig } from '../config.js';
+import { readConfig } from '../config.ts';
 
 /**
  * The LanguageController is a reactive controller that observes the "lang" attribute

@@ -1,0 +1,340 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+@use '../common/styles/seat-reservation-mixins.scss' as sbb-sr-mixins;
+@use '../common/styles/seat-reservation-functions' as sbb-sr-functions;
+
+$disabled: '[disabled], :disabled';
+
+:host {
+  // fixes the keyboard focus border which was cut off due to missing navigation service icons
+  display: inline-block;
+  min-height: sbb-sr-functions.sr-px-to-rem(
+    44
+  ); // default button height (36px) + 2 * 4px focus outline offset
+
+  --sbb-seat-reservation-navigation-travelclass-spacing: 10;
+  --sbb-seat-reservation-navigation-btn-border-width-default: 1;
+  --sbb-seat-reservation-navigation-btn-border-width: var(
+    --sbb-seat-reservation-navigation-btn-border-width-default
+  );
+  --sbb-seat-reservation-navigation-btn-border-color: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-graphite)
+  );
+  --sbb-seat-reservation-navigation-btn-background-color: light-dark(
+    var(--sbb-color-white),
+    var(--sbb-color-black)
+  );
+
+  // selected state variables
+  --sbb-seat-reservation-navigation-btn-border-width-selected: 2;
+  --sbb-seat-reservation-navigation-btn-background-color-selected: light-dark(
+    var(--sbb-color-milk),
+    var(--sbb-color-iron)
+  );
+  --sbb-seat-reservation-navigation-btn-border-color-selected: light-dark(
+    var(--sbb-color-black),
+    var(--sbb-color-white)
+  );
+
+  // focus state variables
+  --sbb-seat-reservation-navigation-btn-outline-width-focused: 1;
+  --sbb-seat-reservation-navigation-btn-outline-color-focused: light-dark(
+    var(--sbb-color-black),
+    var(--sbb-color-white)
+  );
+  --sbb-seat-reservation-navigation-btn-outline-offset-focused: 4;
+  --sbb-seat-reservation-navigation-btn-background-color-focused: light-dark(
+    var(--sbb-color-white),
+    var(--sbb-color-black)
+  );
+  --sbb-seat-reservation-navigation-btn-border-width-focused: var(
+    --sbb-seat-reservation-navigation-btn-border-width
+  );
+  --sbb-seat-reservation-navigation-btn-border-color-focused: light-dark(
+    var(--sbb-color-black),
+    var(--sbb-color-white)
+  );
+
+  // hover state variables
+  --sbb-seat-reservation-navigation-btn-border-width-hovered: 2;
+  --sbb-seat-reservation-navigation-btn-background-color-hovered: light-dark(
+    var(--sbb-color-cloud),
+    var(--sbb-color-midnight)
+  );
+  --sbb-seat-reservation-navigation-btn-border-color-hovered: light-dark(
+    var(--sbb-color-black),
+    var(--sbb-color-white)
+  );
+
+  // disable state variables
+  --sbb-seat-reservation-navigation-btn-background-color-disabled: var(--sbb-background-color-2);
+  --sbb-seat-reservation-navigation-btn-border-color-disabled: light-dark(
+    var(--sbb-color-platinum),
+    var(--sbb-color-iron)
+  );
+}
+
+.sbb-sr-navigation__item-coach {
+  display: flex;
+  flex-direction: column;
+  gap: sbb-sr-functions.sr-px-to-rem(8);
+  width: sbb-sr-functions.sr-px-to-rem(80);
+  list-style-type: none;
+
+  &.first-coach,
+  &.last-coach {
+    .sbb-sr-navigation--first-class {
+      width: calc(100% - sbb-sr-functions.sr-px-to-rem(18));
+    }
+  }
+
+  &.first-coach {
+    .sbb-sr-navigation__ctrl-button:not(.sbb-seat-reservation-navigation-driver-area) {
+      @include sbb-sr-mixins.visualize-coach-border(8, 2, 2, 8);
+    }
+
+    .sbb-sr-navigation--first-class {
+      margin-inline-start: sbb-sr-functions.sr-px-to-rem(
+        var(--sbb-seat-reservation-navigation-travelclass-spacing)
+      );
+    }
+  }
+
+  &.last-coach {
+    .sbb-sr-navigation__ctrl-button:not(.sbb-sr-navigation-driver-area) {
+      @include sbb-sr-mixins.visualize-coach-border(2, 8, 8, 2);
+    }
+
+    .sbb-sr-navigation__additional-information {
+      padding-inline-end: sbb-sr-functions.sr-px-to-rem(
+        var(--sbb-seat-reservation-navigation-travelclass-spacing)
+      );
+    }
+
+    .sbb-sr-navigation--first-class {
+      margin-inline-end: sbb-sr-functions.sr-px-to-rem(
+        var(--sbb-seat-reservation-navigation-travelclass-spacing)
+      );
+    }
+  }
+}
+
+// same for all states
+.sbb-sr-navigation__ctrl-button {
+  @include sbb.button-reset;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: sbb-sr-functions.sr-px-to-rem(36);
+  position: relative;
+  background-color: var(--sbb-seat-reservation-navigation-btn-background-color);
+  cursor: var(--sbb-cursor-pointer);
+
+  &.sbb-sr-navigation-driver-area {
+    @include sbb-sr-mixins.visualize-coach-border(8, 8, 8, 8);
+  }
+
+  @include sbb-sr-mixins.visualize-coach-border(2, 2, 2, 2);
+}
+
+.sbb-sr-navigation__item-coach--focused .sbb-sr-navigation__ctrl-button {
+  @include sbb-sr-mixins.style-coach-by-state('focused');
+
+  .sbb-sr-navigation__item-coach-travelclass {
+    background-color: light-dark(var(--sbb-color-metal), var(--sbb-color-storm));
+  }
+
+  .sbb-sr-navigation__item-coach-number {
+    color: light-dark(var(--sbb-color-anthracite), var(--sbb-color-graphite));
+  }
+}
+
+// selected, i.e. the coach within the train is selected (FIGMA State:Selected)
+.sbb-sr-navigation__item-coach--selected .sbb-sr-navigation__ctrl-button {
+  @include sbb-sr-mixins.style-coach-by-state('selected');
+
+  .sbb-sr-navigation__item-coach-travelclass {
+    background-color: light-dark(var(--sbb-color-black), var(--sbb-color-white));
+  }
+
+  .sbb-sr-navigation__item-coach-number {
+    color: light-dark(var(--sbb-color-black), var(--sbb-color-white));
+  }
+}
+
+.sbb-sr-navigation__item-coach--hovered .sbb-sr-navigation__ctrl-button {
+  @include sbb-sr-mixins.style-coach-by-state('hovered');
+}
+
+.sbb-sr-navigation__item-coach--selected.sbb-sr-navigation__item-coach--hovered
+  .sbb-sr-navigation__ctrl-button {
+  @include sbb-sr-mixins.style-coach-by-state('selected');
+
+  background-color: var(--sbb-seat-reservation-navigation-btn-background-color-hovered) !important;
+}
+
+// selected AND focus (FIGMA State:Selected + Focused)
+// background-color from selected State has more specificity, so we need to override it here (again)
+.sbb-sr-navigation__item-coach--selected
+  .sbb-sr-navigation__ctrl-button:focus-visible:not(#{$disabled}) {
+  @include sbb-sr-mixins.style-coach-by-state('selected');
+}
+
+.sbb-sr-navigation__item-coach--hovered .sbb-sr-navigation__ctrl-button {
+  @include sbb-sr-mixins.style-coach-by-state('hovered');
+}
+
+// hover (FIGMA State:hover)
+.sbb-sr-navigation__ctrl-button:hover:not(#{$disabled}) {
+  @include sbb-sr-mixins.style-coach-by-state('hovered');
+
+  .sbb-sr-navigation__item-coach-travelclass {
+    background-color: var(--sbb-color-smoke);
+  }
+
+  .sbb-sr-navigation__item-coach-number {
+    color: light-dark(var(--sbb-color-iron), var(--sbb-color-silver));
+  }
+}
+
+// disabled (FIGMA State:disabled)
+.sbb-sr-navigation__ctrl-button:is(#{$disabled}) {
+  @include sbb-sr-mixins.style-coach-by-state('disabled');
+
+  cursor: unset;
+  pointer-events: unset;
+
+  .sbb-sr-navigation__item-coach-travelclass {
+    background-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-granite));
+  }
+
+  .sbb-sr-navigation__item-coach-number {
+    color: light-dark(var(--sbb-color-graphite), var(--sbb-color-granite));
+  }
+}
+
+.sbb-sr-navigation__additional-information {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  column-gap: sbb-sr-functions.sr-px-to-rem(8);
+  padding-inline: sbb-sr-functions.sr-px-to-rem(16);
+  font-family: var(--sbb-typo-font-family);
+  font-weight: 700;
+  color: light-dark(var(--sbb-color-granite), var(--sbb-color-granite));
+
+  @include sbb.if-forced-colors {
+    color: var(--sbb-color-milk);
+  }
+}
+
+.sbb-sr-navigation__item-coach-number {
+  color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
+
+  @include sbb.if-forced-colors {
+    @include sbb.if-forced-colors {
+      color: inherit;
+    }
+
+    color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
+  }
+
+  .sbb-sr-navigation__item-coach-travelclass {
+    background-color: var(--sbb-background-color-2-inverted);
+  }
+}
+
+// graphical orientation of FIRST class
+.sbb-sr-navigation--first-class {
+  width: calc(100% - sbb-sr-functions.sr-px-to-rem(8));
+  position: absolute;
+  inset-block-start: sbb-sr-functions.sr-px-to-rem(3);
+  inset-inline-start: sbb-sr-functions.sr-px-to-rem(4);
+
+  // use border instead of height to support force-color modes
+  border: sbb-sr-functions.sr-px-to-rem(1) solid transparent;
+  border-radius: var(--sbb-border-radius-1x);
+  margin: auto;
+  background-color: var(--sbb-color-lemon);
+}
+
+// textual orientation of travel class
+.sbb-sr-navigation__item-coach-travelclass {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: sbb-sr-functions.sr-px-to-rem(20);
+  min-width: sbb-sr-functions.sr-px-to-rem(20);
+  border-radius: var(--sbb-border-radius-1x);
+  text-align: center;
+  background-color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
+  color: light-dark(var(--sbb-color-white), var(--sbb-color-black));
+}
+
+// ################ VERTICAL MODE settings ################
+:host([vertical]) .sbb-sr-navigation__item-coach {
+  flex-direction: row;
+
+  .sbb-sr-navigation__ctrl-button {
+    flex-direction: row-reverse;
+    height: sbb-sr-functions.sr-px-to-rem(80);
+    min-width: sbb-sr-functions.sr-px-to-rem(36);
+  }
+
+  .sbb-sr-navigation__additional-information {
+    flex-direction: column-reverse;
+    padding-block: sbb-sr-functions.sr-px-to-rem(16);
+    padding-inline-start: unset;
+    padding-inline-end: unset;
+  }
+
+  .sbb-sr-navigation--first-class {
+    height: calc(100% - sbb-sr-functions.sr-px-to-rem(8));
+    width: initial;
+    inset-inline-end: sbb-sr-functions.sr-px-to-rem(3);
+    inset-block-start: sbb-sr-functions.sr-px-to-rem(4);
+    inset-inline-start: initial;
+  }
+
+  &.first-coach,
+  &.last-coach {
+    .sbb-sr-navigation--first-class {
+      height: calc(100% - sbb-sr-functions.sr-px-to-rem(18));
+    }
+  }
+
+  // handle border-radius
+  &.first-coach:not(.last-coach) {
+    .sbb-sr-navigation__ctrl-button:not(.sbb-sr-navigation-driver-area) {
+      @include sbb-sr-mixins.visualize-coach-border(8, 8, 2, 2);
+    }
+
+    .sbb-sr-navigation--first-class {
+      margin-block-start: sbb-sr-functions.sr-px-to-rem(
+        var(--sbb-seat-reservation-navigation-travelclass-spacing)
+      );
+      margin-inline-start: initial;
+    }
+  }
+
+  &.last-coach:not(.first-coach) {
+    .sbb-sr-navigation__ctrl-button:not(.sbb-sr-navigation-driver-area) {
+      @include sbb-sr-mixins.visualize-coach-border(2, 2, 8, 8);
+    }
+
+    .sbb-sr-navigation--first-class {
+      margin-block-end: sbb-sr-functions.sr-px-to-rem(
+        var(--sbb-seat-reservation-navigation-travelclass-spacing)
+      );
+      margin-inline-end: initial;
+    }
+  }
+
+  // Driver area
+  .sbb-sr-navigation-driver-area {
+    height: sbb-sr-functions.sr-px-to-rem(80);
+    min-width: sbb-sr-functions.sr-px-to-rem(36);
+  }
+}

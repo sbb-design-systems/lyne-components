@@ -1,9 +1,10 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
-import type { SbbOpenCloseBaseElement } from '../base-elements/open-close-base-element.js';
+import type { SbbOpenCloseBaseElement } from '../base-elements.ts';
 
 const IGNORED_ELEMENTS = ['script', 'head', 'template', 'style'];
 const inertElements = new Set<HTMLElement>();
+const exemptedElements = new Set<HTMLElement>();
 const inertOverlays = new Set<HTMLElement>();
 
 export class SbbInertController implements ReactiveController {
@@ -11,6 +12,7 @@ export class SbbInertController implements ReactiveController {
     private _host: ReactiveControllerHost & SbbOpenCloseBaseElement,
     private _inertElements = inertElements,
     private _inertOverlays = inertOverlays,
+    private _exemptedElements = exemptedElements,
   ) {
     this._host.addController?.(this);
   }
@@ -22,7 +24,7 @@ export class SbbInertController implements ReactiveController {
   }
 
   public hostDisconnected(): void {
-    if (this._inertOverlays.has(this._host)) {
+    if (this.isInert()) {
       this.deactivate();
     }
   }
@@ -31,11 +33,11 @@ export class SbbInertController implements ReactiveController {
   public activate(): void {
     // Remove inert state from previous opened overlay
     if (this._inertOverlays.size) {
-      this._removeInertAttributes();
+      this._removeAllInertAttributes();
     }
 
     this._inertOverlays.add(this._host);
-    this._addInertAttributes();
+    this._addAllInertAttributes();
   }
 
   /** Removes inert state. */
@@ -55,39 +57,63 @@ export class SbbInertController implements ReactiveController {
       return;
     }
 
-    this._removeInertAttributes();
+    this._removeAllInertAttributes();
     this._inertOverlays.delete(this._host);
 
     // If there is as previous opened overlay, set its inert state again.
     if (this._inertOverlays.size) {
-      this._addInertAttributes();
+      this._addAllInertAttributes();
     }
+  }
+
+  /** Whether the assigned host is currently inert */
+  public isInert(): boolean {
+    return this._inertOverlays.has(this._host);
+  }
+
+  /** Temporarily removes all inert attributes from a given element. */
+  public exempt(element: HTMLElement): void {
+    if (this._inertElements.has(element) && !this._exemptedElements.has(element)) {
+      this._removeInertAttributes(element);
+      this._inertElements.delete(element);
+      this._exemptedElements.add(element);
+    }
+  }
+
+  /** Inerts an element currently exempted from inert. */
+  public restoreAllExempted(): void {
+    this._exemptedElements.forEach((e) => this._addInertAttributes(e));
+    this._exemptedElements.clear();
   }
 
   private _currentOverlay(): HTMLElement | null {
     return [...this._inertOverlays].pop() ?? null;
   }
 
-  private _removeInertAttributes(): void {
-    this._inertElements.forEach((element: HTMLElement): void => {
-      if (!element) {
-        return;
-      }
-
-      if (element.hasAttribute('data-sbb-inert')) {
-        element.inert = false;
-        element.removeAttribute('data-sbb-inert');
-      }
-
-      if (element.hasAttribute('data-sbb-aria-hidden')) {
-        element.removeAttribute('aria-hidden');
-        element.removeAttribute('data-sbb-aria-hidden');
-      }
-    });
+  private _removeAllInertAttributes(): void {
+    this._inertElements.forEach((element: HTMLElement): void =>
+      this._removeInertAttributes(element),
+    );
     this._inertElements.clear();
   }
 
-  private _addInertAttributes(): void {
+  private _removeInertAttributes(element: HTMLElement): void {
+    if (!element) {
+      return;
+    }
+
+    if (element.hasAttribute('data-sbb-inert')) {
+      element.inert = false;
+      element.removeAttribute('data-sbb-inert');
+    }
+
+    if (element.hasAttribute('data-sbb-aria-hidden')) {
+      element.removeAttribute('aria-hidden');
+      element.removeAttribute('data-sbb-aria-hidden');
+    }
+  }
+
+  private _addAllInertAttributes(): void {
     let element: Element | null = this._currentOverlay();
 
     while (element !== document.documentElement && element !== null) {
@@ -96,24 +122,29 @@ export class SbbInertController implements ReactiveController {
           (child): child is HTMLElement =>
             child !== element &&
             child instanceof window.HTMLElement &&
-            !IGNORED_ELEMENTS.includes(child.localName),
+            !IGNORED_ELEMENTS.includes(child.localName) &&
+            !child.classList.contains('sbb-live-announcer-element'),
         )
         .forEach((element) => {
-          this._inertElements.add(element);
-
-          if (!element.inert) {
-            element.inert = true;
-            element.toggleAttribute('data-sbb-inert', true);
-          }
-
-          if (!element.hasAttribute('aria-hidden')) {
-            element.setAttribute('aria-hidden', 'true');
-            element.toggleAttribute('data-sbb-aria-hidden', true);
-          }
+          this._addInertAttributes(element);
         });
 
       // We need to pierce through Shadow DOM boundary
       element = element?.parentElement ?? (element?.getRootNode() as ShadowRoot)?.host ?? null;
+    }
+  }
+
+  private _addInertAttributes(element: HTMLElement): void {
+    this._inertElements.add(element);
+
+    if (!element.inert) {
+      element.inert = true;
+      element.toggleAttribute('data-sbb-inert', true);
+    }
+
+    if (!element.hasAttribute('aria-hidden')) {
+      element.setAttribute('aria-hidden', 'true');
+      element.toggleAttribute('data-sbb-aria-hidden', true);
     }
   }
 }

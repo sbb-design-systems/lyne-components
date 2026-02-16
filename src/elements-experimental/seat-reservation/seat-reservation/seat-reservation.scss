@@ -1,0 +1,237 @@
+@use '@sbb-esta/lyne-elements/core/styles' as sbb;
+@use '../common/styles/seat-reservation-mixins' as sbb-sr-mixins;
+@use '../common/styles/seat-reservation-functions' as sbb-sr-functions;
+
+// Maximum responsive navigation width, consists of the maximum navigation extent minus 2x nav direction buttons 96px and 8px padding.
+$max-coach-navigation-width: calc(960px - 96px - 8px);
+$scrollbar-height: 16px;
+
+:host {
+  // Note: The use of px is intentional here, because many widths/heights, rotations, scales, etc. depends on this.
+  --sbb-seat-reservation-grid-size: 16px;
+  --sbb-seat-reservation-height: 0;
+  --sbb-seat-reservation-decks: 1;
+
+  display: block;
+  height: inherit;
+
+  ::part(coach-floor) {
+    fill: var(--sbb-background-color-2);
+
+    // In High Contrast Mode we set floor color to transparent
+    @include sbb.if-forced-colors {
+      fill: transparent;
+    }
+  }
+}
+
+// rotates the DOM-part "coach-floor" by 180 degrees if the host is in RTL mode.
+@include sbb-sr-mixins.rotate-dom-part(coach-floor);
+
+[popover]:where(sbb-popover) {
+  @include sbb.popover-reset;
+
+  .sbb-sr-popover {
+    margin-block: sbb-sr-functions.sr-px-to-rem(4);
+  }
+}
+
+// START - Vertical mode
+:host([align-vertical]) {
+  $coach-navigation-padding: 5;
+  $coach-scollbar-width: 24;
+  $coach-grid-width: calc(var(--sbb-seat-reservation-height) + $coach-scollbar-width);
+
+  .sbb-sr__component {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: sbb-sr-functions.sr-px-to-rem(22);
+    height: inherit;
+
+    @include sbb.mq($from: small) {
+      gap: sbb-sr-functions.sr-px-to-rem(54);
+    }
+
+    nav.sbb-sr-navigation,
+    ul.sbb-sr-navigation__list-coaches {
+      flex-direction: column;
+    }
+
+    nav.sbb-sr-navigation {
+      padding: sbb-sr-functions.sr-px-to-rem(16) 0;
+
+      .sbb-sr__navigation-control-button {
+        left: sbb-sr-functions.sr-px-to-rem(1);
+        top: 0;
+        rotate: 90deg;
+
+        @include sbb.mq($from: large) {
+          left: sbb-sr-functions.sr-px-to-rem(-1);
+        }
+      }
+
+      ul.sbb-sr-navigation__list-coaches {
+        max-width: initial;
+
+        // Padding needs to visual focus-visible style for nav button inside overflow content,
+        // otherwise focus-visible style is cutted.
+        padding: sbb-sr-functions.sr-px-to-rem($coach-navigation-padding);
+        overflow: hidden scroll;
+      }
+    }
+  }
+
+  // VERTICAL MODE - LABELMULTIPLE DECKS - LABELS
+  .sbb-sr__wrapper-coach-decks {
+    flex-direction: column;
+
+    .sbb-sr__wrapper-deck-labels {
+      flex-direction: column-reverse;
+      width: sbb-sr-functions.sr-px-to-rem($coach-grid-width);
+      height: initial;
+
+      b {
+        inline-size: calc(50% - sbb-sr-functions.sr-px-to-rem(16));
+        block-size: sbb-sr-functions.sr-px-to-rem(20);
+        margin-bottom: sbb-sr-functions.sr-px-to-rem(16);
+        rotate: initial;
+        writing-mode: initial;
+      }
+    }
+  }
+
+  // VERTICAL MODE - SEATMAP SCROLL AREA
+  .sbb-sr__wrapper-scrollarea {
+    width: sbb-sr-functions.sr-px-to-rem($coach-grid-width);
+    height: 100%;
+    overflow: hidden scroll;
+
+    .sbb-sr__parent {
+      flex-direction: row;
+      rotate: 90deg;
+    }
+  }
+}
+
+// END - Vertical mode
+
+.sbb-sr-navigation {
+  gap: sbb-sr-functions.sr-px-to-rem(3);
+}
+
+.sbb-sr-navigation .sbb-sr__navigation-control-button {
+  position: relative;
+  top: sbb-sr-functions.sr-px-to-rem(2);
+
+  @include sbb.mq($from: large) {
+    top: 0;
+  }
+}
+
+.sbb-sr__component {
+  display: flex;
+  flex-direction: column;
+  gap: calc(sbb-sr-functions.sr-px-to-rem(64) - $scrollbar-height);
+}
+
+// NAVIGATION NEW
+.sbb-sr-navigation-wrapper {
+  display: flex;
+}
+
+.sbb-sr-navigation {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-inline: 16px;
+}
+
+.sbb-sr-navigation__list-coaches {
+  @include sbb.list-reset;
+  @include sbb.scrollbar;
+
+  display: flex;
+  flex-wrap: nowrap;
+  gap: sbb-sr-functions.sr-px-to-rem(4);
+  padding: sbb-sr-functions.sr-px-to-rem(6) sbb-sr-functions.sr-px-to-rem(5) 0;
+  max-width: $max-coach-navigation-width;
+
+  // Set sbb scrollbar transparent by default
+  --sbb-scrollbar-color: transparent;
+
+  overflow: scroll hidden;
+  position: relative;
+}
+
+// --------------- Seat Reservation Main Navigation - END ----------------
+
+// ------------- Seat Reservation Coaches - START -----------------
+.sbb-sr__wrapper-coach-decks {
+  display: flex;
+  overflow: hidden;
+  height: inherit;
+
+  .sbb-sr__wrapper-deck-labels {
+    display: flex;
+    justify-content: space-between;
+    height: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-height));
+    writing-mode: vertical-lr;
+
+    b {
+      height: calc(50% - sbb-sr-functions.sr-px-to-rem(16));
+      width: sbb-sr-functions.sr-px-to-rem(20);
+      margin-block-end: 16px;
+      rotate: 180deg;
+      text-align: center;
+      line-height: sbb-sr-functions.sr-px-to-rem(20);
+    }
+  }
+}
+
+.sbb-sr__wrapper-scrollarea {
+  @include sbb.scrollbar;
+
+  overflow: scroll hidden;
+  padding-block: sbb-sr-functions.sr-px-to-rem(8) sbb-sr-functions.sr-px-to-rem(16);
+
+  .sbb-sr__parent {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+}
+
+.sbb-sr__list-decks {
+  @include sbb.list-reset;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.sbb-sr__list-decks--gap {
+  gap: sbb-sr-functions.sr-px-to-rem(48);
+}
+
+.sbb-sr__list-item-deck {
+  position: relative;
+}
+
+.sbb-sr__list-coaches {
+  @include sbb.list-reset;
+
+  display: flex;
+  gap: sbb-sr-functions.sr-px-to-rem(4);
+}
+
+// If there are overhanging elements we need to increase the gap between coaches
+.sbb-sr__list-decks:has(.sbb-sr-coach-has-overhanging-elements) .sbb-sr__list-coaches {
+  gap: sbb-sr-functions.sr-px-to-rem(8);
+}
+
+.sbb-sr__item-coach {
+  position: relative;
+}
+
+.sbb-sr-coach-wrapper__table {
+  outline: 0;
+}

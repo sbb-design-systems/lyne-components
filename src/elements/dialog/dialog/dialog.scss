@@ -1,14 +1,9 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  @include sbb.scrollbar-variables;
-
   --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-5x);
-  --sbb-dialog-color: var(--sbb-color-black);
-  --sbb-dialog-background-color: var(--sbb-color-white);
+  --sbb-dialog-color: var(--sbb-color-2);
+  --sbb-dialog-background-color: var(--sbb-background-color-1);
   --sbb-dialog-width: 100%;
   --sbb-dialog-height: 100%;
   --sbb-dialog-max-width: 100%;
@@ -16,34 +11,33 @@
   --sbb-dialog-max-height: 100%;
   --sbb-dialog-inset: 0 auto auto 0;
   --sbb-dialog-border-radius: var(--sbb-border-radius-8x);
-  --sbb-dialog-padding-block: var(--sbb-spacing-responsive-s);
+  --sbb-dialog-padding-block: var(--sbb-spacing-responsive-xs);
   --sbb-dialog-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
+  );
+  --sbb-dialog-shadow-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-4x)
   );
   --sbb-dialog-animation-easing: ease;
   --sbb-dialog-pointer-events: none;
   --sbb-dialog-backdrop-visibility: hidden;
   --sbb-dialog-backdrop-pointer-events: none;
   --sbb-dialog-backdrop-color: transparent;
-  --sbb-dialog-content-transition: transform var(--sbb-dialog-animation-duration)
-    var(--sbb-dialog-animation-easing);
-  --sbb-dialog-actions-border: var(--sbb-border-width-1x) solid var(--sbb-color-cloud);
+  --sbb-dialog-block-shadow: var(--sbb-box-shadow-level-9-soft);
+  --sbb-dialog-actions-border-color: var(--sbb-background-color-4);
 
   display: none;
   position: fixed;
   inset: var(--sbb-dialog-inset);
   z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-default-z-index));
 
-  @include sbb.mq($from: micro) {
-    --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-6x);
-  }
-
   @include sbb.mq($from: small) {
     --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-12x);
   }
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-dialog-padding-inline: var(--sbb-spacing-responsive-s);
     --sbb-dialog-max-width: min(
       calc(100vw - var(--sbb-spacing-fixed-30x) * 2),
@@ -53,43 +47,43 @@
   }
 }
 
-:host([data-state]:not([data-state='closed'])) {
+:host(:state(top-shadow)) {
+  --sbb-dialog-block-start-box-shadow: var(--sbb-dialog-block-shadow);
+}
+
+:host(:state(bottom-shadow)) {
+  --sbb-dialog-block-end-box-shadow: var(--sbb-dialog-block-shadow);
+  --sbb-dialog-actions-border-color: transparent;
+}
+
+:host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
   display: block;
 }
 
-:host(:is([data-state='opening'], [data-state='opened'])) {
+:host(:is(:state(state-opening), :state(state-opened))) {
   --sbb-dialog-pointer-events: all;
-  --sbb-dialog-backdrop-color: var(--sbb-color-milk);
+  --sbb-dialog-backdrop-color: var(--sbb-background-color-3);
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-dialog-backdrop-visibility: visible;
     --sbb-dialog-backdrop-pointer-events: all;
   }
 }
 
-:host([backdrop='translucent']:is([data-state='opening'], [data-state='opened'])) {
-  --sbb-dialog-backdrop-color: var(--sbb-color-black-alpha-50);
-}
-
-:host([data-hide-header]) {
-  // Hide transition
-  --sbb-dialog-header-margin-block-start: calc(var(--sbb-dialog-header-height) * -1);
+:host([backdrop='translucent']:is(:state(state-opening), :state(state-opened))) {
+  --sbb-dialog-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 50%, transparent);
 }
 
 :host([negative]) {
-  @include sbb.scrollbar-variables--color-negative;
-
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-dialog-color: var(--sbb-color-white);
-  --sbb-dialog-background-color: var(--sbb-color-midnight);
-  --sbb-dialog-actions-border: none;
+  --sbb-dialog-color: var(--sbb-color-2-negative);
+  --sbb-dialog-background-color: var(--sbb-background-color-1-negative);
+  --sbb-dialog-backdrop-color: var(--sbb-background-color-3-negative);
+  --sbb-dialog-actions-border-color: var(--sbb-background-color-4-negative);
+  --sbb-dialog-block-shadow: var(--sbb-box-shadow-level-9-soft-negative);
 }
 
-:host([data-overflows]:not([negative])) {
-  --sbb-dialog-actions-border: none;
-}
-
-:host(:not([data-state='closed'])) {
+:host(:not(:state(state-closed))) {
   --sbb-dialog-inset: 0;
 }
 
@@ -127,11 +121,10 @@
   height: var(--sbb-dialog-height);
   max-width: var(--sbb-dialog-max-width);
   max-height: var(--sbb-dialog-max-height);
-  overflow: auto;
   color: var(--sbb-dialog-color);
   background-color: var(--sbb-dialog-background-color);
 
-  :host([data-state]:not([data-state='closed'])) & {
+  :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
     display: block;
 
     animation: {
@@ -141,7 +134,7 @@
     }
   }
 
-  :host([data-state][data-state='closing']) & {
+  :host(:state(state-closing)) & {
     pointer-events: none;
     animation-name: close;
   }
@@ -150,28 +143,29 @@
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     border-radius: var(--sbb-dialog-border-radius);
     overflow: hidden;
-    height: fit-content;
+    height: auto;
   }
 }
 
+:host(:state(has-intermediate-element)) ::slotted(:first-child),
 .sbb-dialog__wrapper {
-  display: flex;
-  flex-direction: column;
   width: var(--sbb-dialog-width);
   height: var(--sbb-dialog-height);
   max-width: var(--sbb-dialog-max-width);
   max-height: var(--sbb-dialog-max-height);
-  outline: none;
-  position: fixed;
+}
 
-  @include sbb.mq($from: medium) {
-    position: sticky;
-    inset-block-start: 0;
-    height: auto;
-  }
+:host(:state(has-intermediate-element)) ::slotted(:first-child),
+:host(:not(:state(has-intermediate-element))) .sbb-dialog__wrapper {
+  display: grid;
+  grid-template:
+    'title close-button' auto
+    'content content' 1fr
+    'actions actions' auto / 1fr auto;
+  gap: 0;
 }
 
 // It is necessary to use animations with keyframes instead of transitions in order not to alter
@@ -180,23 +174,23 @@
 @keyframes open {
   from {
     opacity: 0;
-    transform: translateY(var(--sbb-spacing-fixed-4x));
+    translate: 0 var(--sbb-spacing-fixed-4x);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0%);
+    translate: 0;
   }
 }
 
 @keyframes close {
   from {
     opacity: 1;
-    transform: translateY(0%);
+    translate: 0;
   }
 
   to {
     opacity: 0;
-    transform: translateY(var(--sbb-spacing-fixed-4x));
+    translate: 0 var(--sbb-spacing-fixed-4x);
   }
 }

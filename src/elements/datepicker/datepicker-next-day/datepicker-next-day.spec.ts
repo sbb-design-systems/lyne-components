@@ -1,15 +1,16 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
-import type { SbbFormFieldElement } from '../../form-field.js';
-import type { SbbDatepickerElement } from '../datepicker.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import type { SbbDateInputElement } from '../../date-input.ts';
+import type { SbbFormFieldElement } from '../../form-field.ts';
 
-import { SbbDatepickerNextDayElement } from './datepicker-next-day.js';
+import { SbbDatepickerNextDayElement } from './datepicker-next-day.component.ts';
 
-import '../datepicker.js';
-import '../../form-field/form-field.js';
+import '../datepicker.ts';
+import '../../date-input.ts';
+import '../../form-field/form-field.ts';
 
 describe(`sbb-datepicker-next-day`, () => {
   describe('standalone', () => {
@@ -21,112 +22,110 @@ describe(`sbb-datepicker-next-day`, () => {
     });
   });
 
-  describe('with picker', () => {
-    it('renders and click', async () => {
-      const page = await fixture(html`
-        <div>
-          <input id="datepicker-input" value="31-12-2022" />
-          <sbb-datepicker id="datepicker" input="datepicker-input"></sbb-datepicker>
-          <sbb-datepicker-next-day datepicker="datepicker"></sbb-datepicker-next-day>
+  it('renders and click', async () => {
+    const root = await fixture(html`
+      <div>
+        <sbb-date-input id="datepicker-input" value="2022-12-31"></sbb-date-input>
+        <sbb-datepicker-next-day input="datepicker-input"></sbb-datepicker-next-day>
+      </div>
+    `);
+
+    const element = root.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
+    const input = root.querySelector<SbbDateInputElement>('sbb-date-input')!;
+
+    const changeSpy = new EventSpy('change', input);
+    const blurSpy = new EventSpy('blur', input);
+
+    assert.instanceOf(element, SbbDatepickerNextDayElement);
+    expect(input.value).to.be.equal('Sa, 31.12.2022');
+
+    element.click();
+    await changeSpy.calledOnce();
+
+    expect(changeSpy.count).to.be.equal(1);
+    expect(blurSpy.count).to.be.equal(1);
+    expect(input.value).to.be.equal('Su, 01.01.2023');
+  });
+
+  it('date input is created after the component', async () => {
+    const element = await fixture(html`
+      <div>
+        <sbb-datepicker-next-day input="datepicker-input"></sbb-datepicker-next-day>
+      </div>
+    `);
+
+    const nextButton: SbbDatepickerNextDayElement =
+      element.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
+    // there's no date input, so the button is disabled
+    expect(nextButton).not.to.be.null;
+    expect(nextButton.disabled).to.be.true;
+
+    const input = document.createElement('sbb-date-input');
+    input.setAttribute('id', 'datepicker-input');
+    input.setAttribute('value', '01-01-2023');
+    element.appendChild(input);
+    await waitForLitRender(element);
+
+    expect(nextButton.disabled).to.be.false;
+  });
+
+  it('date input is created after the component with different parent', async () => {
+    const element = await fixture(html`
+      <div>
+        <div id="parent">
+          <sbb-datepicker-next-day input="datepicker-input"></sbb-datepicker-next-day>
         </div>
-      `);
+        <div id="other"></div>
+      </div>
+    `);
 
-      const element: SbbDatepickerNextDayElement =
-        page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
-      await waitForLitRender(element);
-      const input: HTMLInputElement = page.querySelector<HTMLInputElement>('input')!;
+    const nextButton =
+      element.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
+    // there's no date input, so the button is disabled
+    expect(nextButton).not.to.be.null;
+    expect(nextButton.disabled).to.be.true;
 
-      const changeSpy = new EventSpy('change', input);
-      const blurSpy = new EventSpy('blur', input);
+    const input = document.createElement('sbb-date-input');
+    input.setAttribute('id', 'datepicker-input');
+    input.setAttribute('value', '01-01-2023');
+    element.querySelector<HTMLDivElement>('#other')!.appendChild(input);
+    await waitForLitRender(element);
 
-      assert.instanceOf(element, SbbDatepickerNextDayElement);
-      expect(input.value).to.be.equal('Sa, 31.12.2022');
-
-      await element.click();
-
-      await changeSpy.calledOnce();
-
-      expect(changeSpy.count).to.be.equal(1);
-      expect(blurSpy.count).to.be.equal(1);
-      expect(input.value).to.be.equal('Su, 01.01.2023');
-    });
-
-    it('datepicker is created after the component', async () => {
-      const element = await fixture(html`
-        <div>
-          <input id="datepicker-input" value="01-01-2023" />
-          <sbb-datepicker-next-day datepicker="datepicker"></sbb-datepicker-next-day>
-        </div>
-      `);
-
-      const nextButton: SbbDatepickerNextDayElement =
-        element.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
-      const inputUpdated = new EventSpy('inputUpdated', element);
-      // there's no datepicker, so no event and the button is disabled due _datePickerElement not set
-      expect(nextButton).not.to.be.null;
-      expect(inputUpdated.count).to.be.equal(0);
-      expect(nextButton).to.have.attribute('data-disabled');
-
-      const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
-      picker.setAttribute('input', 'datepicker-input');
-      picker.setAttribute('id', 'datepicker');
-      picker.setAttribute('value', '01-01-2023');
-      element.appendChild(picker);
-      await waitForLitRender(element);
-
-      expect(inputUpdated.count).to.be.equal(1);
-      expect(nextButton).not.to.have.attribute('data-disabled');
-    });
-
-    it('datepicker is created after the component with different parent', async () => {
-      const element = await fixture(html`
-        <div>
-          <div id="parent">
-            <input id="datepicker-input" value="01-01-2023" />
-            <sbb-datepicker-next-day datepicker="datepicker"></sbb-datepicker-next-day>
-          </div>
-          <div id="other"></div>
-        </div>
-      `);
-
-      const nextButton: SbbDatepickerNextDayElement =
-        element.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
-      const inputUpdated = new EventSpy('inputUpdated', element.querySelector('#parent'));
-      // there's no datepicker, so no event and the button is disabled due _datePickerElement not set
-      expect(nextButton).not.to.be.null;
-      expect(inputUpdated.count).to.be.equal(0);
-      expect(nextButton).to.have.attribute('data-disabled');
-
-      const picker: SbbDatepickerElement = document.createElement('sbb-datepicker');
-      picker.setAttribute('input', 'datepicker-input');
-      picker.setAttribute('id', 'datepicker');
-      picker.setAttribute('value', '01-01-2023');
-      element.querySelector<HTMLDivElement>('#other')!.appendChild(picker);
-      await waitForLitRender(element);
-
-      expect(inputUpdated.count).to.be.equal(0);
-      expect(nextButton).not.to.have.attribute('data-disabled');
-    });
+    expect(nextButton.disabled).to.be.false;
   });
 
   describe('in form field', () => {
-    let element: SbbDatepickerNextDayElement, input: HTMLInputElement;
+    let element: SbbDatepickerNextDayElement, input: SbbDateInputElement;
 
     beforeEach(async () => {
       const form = await fixture<SbbFormFieldElement>(html`
         <sbb-form-field>
-          <input value="21-01-2023" />
-          <sbb-datepicker></sbb-datepicker>
+          <sbb-date-input value="2023-01-21"></sbb-date-input>
           <sbb-datepicker-next-day></sbb-datepicker-next-day>
+          <sbb-datepicker></sbb-datepicker>
         </sbb-form-field>
       `);
       element = form.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
-      input = form.querySelector<HTMLInputElement>('input')!;
-      await waitForLitRender(element);
+      input = form.querySelector<SbbDateInputElement>('sbb-date-input')!;
     });
 
     it('renders', async () => {
       assert.instanceOf(element, SbbDatepickerNextDayElement);
+    });
+
+    it('should assign itself to correct slot', async () => {
+      expect(element.slot).to.be.equal('suffix');
+    });
+
+    it('should assign itself to correct slot if placed before date input', async () => {
+      const form = await fixture<SbbFormFieldElement>(html`
+        <sbb-form-field>
+          <sbb-datepicker-next-day></sbb-datepicker-next-day>
+          <sbb-date-input value="2023-01-21"></sbb-date-input>
+          <sbb-datepicker></sbb-datepicker>
+        </sbb-form-field>
+      `);
+      expect(form.querySelector('sbb-datepicker-next-day')!.slot).to.be.equal('prefix');
     });
 
     it('click', async () => {
@@ -143,14 +142,14 @@ describe(`sbb-datepicker-next-day`, () => {
     it('disabled due max value equals to value', async () => {
       const form: SbbFormFieldElement = await fixture(html`
         <sbb-form-field>
-          <input value="21-01-2023" max="1674255600" />
+          <sbb-date-input value="2023-01-21" max="2023-01-21"></sbb-date-input>
           <sbb-datepicker-next-day></sbb-datepicker-next-day>
           <sbb-datepicker></sbb-datepicker>
         </sbb-form-field>
       `);
-      input = form.querySelector<HTMLInputElement>('input')!;
+      input = form.querySelector<SbbDateInputElement>('sbb-date-input')!;
       expect(input.value).to.be.equal('Sa, 21.01.2023');
-      expect(form.querySelector('sbb-datepicker-next-day')).to.have.attribute('data-disabled');
+      expect(form.querySelector('sbb-datepicker-next-day')?.disabled).to.be.true;
 
       element.click();
       await waitForLitRender(element);
@@ -163,7 +162,7 @@ describe(`sbb-datepicker-next-day`, () => {
 
       await waitForLitRender(element);
 
-      expect(element).to.have.attribute('data-disabled');
+      expect(element.disabled).to.be.true;
       element.click();
       await waitForLitRender(element);
       expect(input.value).to.be.equal('Sa, 21.01.2023');
@@ -173,28 +172,26 @@ describe(`sbb-datepicker-next-day`, () => {
   it('renders with datepicker and input disabled', async () => {
     const page: SbbFormFieldElement = await fixture(html`
       <sbb-form-field>
-        <input disabled="" />
+        <sbb-date-input disabled></sbb-date-input>
         <sbb-datepicker></sbb-datepicker>
         <sbb-datepicker-next-day></sbb-datepicker-next-day>
       </sbb-form-field>
     `);
 
-    const element: SbbDatepickerNextDayElement =
-      page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
-    expect(element).to.have.attribute('data-disabled');
+    const element = page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
+    expect(element.disabled).to.be.true;
   });
 
   it('renders with datepicker and input readonly', async () => {
     const page: SbbFormFieldElement = await fixture(html`
       <sbb-form-field>
-        <input readonly="" />
+        <sbb-date-input readonly></sbb-date-input>
         <sbb-datepicker></sbb-datepicker>
         <sbb-datepicker-next-day></sbb-datepicker-next-day>
       </sbb-form-field>
     `);
 
-    const element: SbbDatepickerNextDayElement =
-      page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
-    expect(element).to.have.attribute('data-disabled');
+    const element = page.querySelector<SbbDatepickerNextDayElement>('sbb-datepicker-next-day')!;
+    expect(element.disabled).to.be.true;
   });
 });

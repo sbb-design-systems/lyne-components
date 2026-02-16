@@ -4,7 +4,7 @@ import {
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html, type TemplateResult } from 'lit';
 
-import './pearl-chain-vertical-item.js';
+import './pearl-chain-vertical-item.component.ts';
 
 describe(`sbb-pearl-chain-vertical-item`, () => {
   const defaultArgs = {
@@ -26,7 +26,7 @@ describe(`sbb-pearl-chain-vertical-item`, () => {
     <div>more</div>
   `;
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     describe('slot', () => {
       it(
         'right',

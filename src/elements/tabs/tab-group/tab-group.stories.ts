@@ -1,29 +1,22 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
-  Args,
-  Decorator,
-  StoryContext,
-} from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import { SbbTabElement } from '../tab.ts';
 
 import readme from './readme.md?raw';
-import { type SbbTabChangedEventDetails, SbbTabGroupElement } from './tab-group.js';
+import { type SbbTabChangedEventDetails, SbbTabGroupElement } from './tab-group.component.ts';
 
-import '../../link.js';
-import '../../title.js';
-import '../tab-label.js';
-import '../tab.js';
-import '../../card.js';
+import '../../card.ts';
+import '../../link.ts';
+import '../../title.ts';
+import '../tab-label.ts';
 
-const changeEventHandler = (event: CustomEvent): void => {
-  const evDetail = event.detail as SbbTabChangedEventDetails;
+const changeEventHandler = (event: CustomEvent<SbbTabChangedEventDetails>): void => {
+  const evDetail = event.detail;
   const card = document.getElementById('container')!;
   card.innerHTML = `
     The selected tab has index: ${evDetail.activeIndex} and label "${evDetail.activeTabLabel.textContent}";<br/>
@@ -52,12 +45,16 @@ const tabPanelOne = (): TemplateResult => html`
 
 const tabPanelTwo = (): TemplateResult => html`
   <sbb-tab>
-    <section>
-      Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
-      urna neque viverra justo nec.
-      <sbb-block-link target="_blank" href="https://www.sbb.ch">Visit sbb.ch</sbb-block-link>
-    </section>
+    ${new Array(5).fill(null).map(
+      () => html`
+        <section>
+          Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+          elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis
+          rhoncus urna neque viverra justo nec.
+          <sbb-block-link target="_blank" href="https://www.sbb.ch">Visit sbb.ch</sbb-block-link>
+        </section>
+      `,
+    )}
   </sbb-tab>
 `;
 
@@ -70,7 +67,6 @@ const tabPanelFour = (): TemplateResult => html`
   </sbb-tab>
 `;
 
-// TODO: check whether didChange can be replaced with change
 const DefaultTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
   <sbb-card
     id="container"
@@ -80,7 +76,7 @@ const DefaultTemplate = ({ size, label, ...args }: Args): TemplateResult => html
   <sbb-tab-group
     size=${size}
     initial-selected-index="0"
-    @didChange=${(e: CustomEvent) => changeEventHandler(e)}
+    @tabchange=${(e: CustomEvent<SbbTabChangedEventDetails>) => changeEventHandler(e)}
   >
     ${firstTabTitle(label, args)} ${tabPanelOne()}
 
@@ -93,6 +89,9 @@ const DefaultTemplate = ({ size, label, ...args }: Args): TemplateResult => html
     <sbb-tab-label>Tab title four</sbb-tab-label>
     ${tabPanelFour()}
   </sbb-tab-group>
+  <sbb-card color="milk" style="margin-block-start: var(--sbb-spacing-fixed-8x)"
+    >Some content used to check the tabs height</sbb-card
+  >
 `;
 
 const IconsAndNumbersTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
@@ -147,6 +146,57 @@ const NestedTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
   </sbb-tab-group>
 `;
 
+const DynamicTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
+  <sbb-tab-group size=${size} initial-selected-index="0">
+    <sbb-tab-label ${sbbSpread(args)}>${label}</sbb-tab-label>
+    <sbb-tab
+      @active=${() => {
+        const tabContent = document.getElementById('dynamic');
+        const article = document.createElement('article');
+        article.innerHTML = `<p id="dynamic">Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+      elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+      urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus
+      turpis in eu mi bibendum neque egestas congue.</p>`;
+        setTimeout(() => tabContent?.replaceWith(article), 3000);
+      }}
+    >
+      <article id="dynamic">Loading...</article>
+    </sbb-tab>
+
+    <sbb-tab-label>Tab title two</sbb-tab-label>
+    ${tabPanelTwo()}
+
+    <sbb-tab-label ?disabled=${true}>Tab title three</sbb-tab-label>
+    <sbb-tab>I was disabled.</sbb-tab>
+
+    <sbb-tab-label>Tab title four</sbb-tab-label>
+    ${tabPanelFour()}
+  </sbb-tab-group>
+  <sbb-card color="milk" style="margin-block-start: var(--sbb-spacing-fixed-8x)"
+    >Some content used to check the tabs height</sbb-card
+  >
+`;
+
+const FixedHeightTemplate = ({ size, label, ...args }: Args): TemplateResult => html`
+  <sbb-tab-group
+    fixed-height
+    style="height: 400px;"
+    size=${size}
+    @tabchange=${(e: CustomEvent<SbbTabChangedEventDetails>) => changeEventHandler(e)}
+  >
+    ${firstTabTitle(label, args)} ${tabPanelOne()}
+
+    <sbb-tab-label>Tab title two</sbb-tab-label>
+    ${tabPanelTwo()}
+
+    <sbb-tab-label ?disabled=${true}>Tab title three</sbb-tab-label>
+    <sbb-tab>I was disabled.</sbb-tab>
+
+    <sbb-tab-label>Tab title four</sbb-tab-label>
+    ${tabPanelFour()}
+  </sbb-tab-group>
+`;
+
 const label: InputType = {
   control: {
     type: 'text',
@@ -182,21 +232,11 @@ const size: InputType = {
   options: ['s', 'l', 'xl'],
 };
 
-const negative: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    disable: true,
-  },
-};
-
 const basicArgTypes: ArgTypes = {
   label,
   'icon-name': iconName,
   amount: amount,
   size: size,
-  negative,
 };
 
 const basicArgs: Args = {
@@ -204,7 +244,6 @@ const basicArgs: Args = {
   'icon-name': undefined,
   amount: undefined,
   size: size.options![1],
-  negative: false,
 };
 
 export const defaultTabsSizeL: StoryObj = {
@@ -251,16 +290,32 @@ export const nestedTabGroups: StoryObj = {
 export const tintedBackground: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0], negative: true },
+  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0] },
+  parameters: {
+    backgroundColor: () => 'var(--sbb-background-color-3)',
+  },
+};
+
+export const ContentOnActiveEvent: StoryObj = {
+  render: DynamicTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
+
+export const FixedHeight: StoryObj = {
+  render: FixedHeightTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+  parameters: {
+    backgroundColor: () => 'var(--sbb-background-color-3)',
+  },
 };
 
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
     actions: {
-      handles: [SbbTabGroupElement.events.didChange],
+      handles: [SbbTabGroupElement.events.tabchange, SbbTabElement.events.active],
     },
     docs: {
       extractComponentDescription: () => readme,

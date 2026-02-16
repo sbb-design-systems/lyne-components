@@ -2,13 +2,17 @@ import { assert, expect } from '@open-wc/testing';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAccentButtonElement } from '../button.js';
-import { fixture } from '../core/testing/private.js';
-import { EventSpy, waitForCondition } from '../core/testing.js';
+import type { SbbAccentButtonElement } from '../button.ts';
+import {
+  fixture,
+  sbbBreakpointLargeMinPx,
+  sbbBreakpointSmallMinPx,
+} from '../core/testing/private.ts';
+import { EventSpy, waitForCondition } from '../core/testing.ts';
 
-import { SbbMapContainerElement } from './map-container.js';
+import { SbbMapContainerElement } from './map-container.component.ts';
 
-import '../title.js';
+import '../title.ts';
 
 describe(`sbb-map-container`, () => {
   let element: SbbMapContainerElement;
@@ -33,7 +37,7 @@ describe(`sbb-map-container`, () => {
       </sbb-map-container>`,
     );
 
-    await setViewport({ width: 320, height: 600 });
+    await setViewport({ width: sbbBreakpointSmallMinPx, height: 600 });
 
     assert.instanceOf(element, SbbMapContainerElement);
 
@@ -43,14 +47,14 @@ describe(`sbb-map-container`, () => {
         .hasAttribute('inert');
     }
 
-    expect(element).not.to.have.attribute('data-scroll-up-button-visible');
+    expect(element).not.to.match(':state(scroll-up-button-visible)');
     expect(getInert()).to.be.equal(true);
 
     // Scroll down
     window.scrollTo(0, 400);
     await waitForCondition(async () => !getInert());
 
-    expect(element).to.have.attribute('data-scroll-up-button-visible');
+    expect(element).to.match(':state(scroll-up-button-visible)');
     expect(getInert()).to.be.equal(false);
   });
 
@@ -74,7 +78,7 @@ describe(`sbb-map-container`, () => {
       </sbb-map-container>`,
     );
 
-    await setViewport({ width: 1000, height: 300 });
+    await setViewport({ width: sbbBreakpointLargeMinPx, height: 300 });
 
     const scrollSpy = new EventSpy('scroll', document);
     const scrollContext = element.shadowRoot!.querySelector('.sbb-map-container__sidebar')!;

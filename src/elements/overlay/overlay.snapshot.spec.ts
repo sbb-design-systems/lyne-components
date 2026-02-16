@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
-import { waitForLitRender } from '../core/testing.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
+import { waitForLitRender } from '../core/testing.ts';
 
-import type { SbbOverlayElement } from './overlay.js';
-import './overlay.js';
+import type { SbbOverlayElement } from './overlay.component.ts';
+import './overlay.component.ts';
 
 describe('sbb-overlay', () => {
   describe('renders', () => {

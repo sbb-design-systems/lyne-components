@@ -1,4 +1,4 @@
-import { type TemplateResult, html, nothing } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 
 import {
   describeEach,
@@ -6,10 +6,10 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import '../toggle-option.js';
-import './toggle.js';
+import '../toggle-option.ts';
+import './toggle.component.ts';
 
 describe(`sbb-toggle`, () => {
   let root: HTMLElement;
@@ -34,11 +34,11 @@ describe(`sbb-toggle`, () => {
     label: [true, false],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ size, even }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(html`
-          <sbb-toggle ?even=${even} size=${size as 's' | 'm'}> ${options(true)} </sbb-toggle>
+          <sbb-toggle ?even=${even} size=${size}> ${options(true)} </sbb-toggle>
         `);
       });
 
@@ -57,7 +57,7 @@ describe(`sbb-toggle`, () => {
         `disabled size ${size}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-toggle disabled size=${size as 's' | 'm'}> ${options(true)} </sbb-toggle>
+            <sbb-toggle disabled size=${size}> ${options(true)} </sbb-toggle>
           `);
         }),
       );
@@ -68,7 +68,7 @@ describe(`sbb-toggle`, () => {
         `icon ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(html`
-            <sbb-toggle size=${size as 's' | 'm'}> ${options(label, 'app-icon-small')} </sbb-toggle>
+            <sbb-toggle size=${size}> ${options(label, 'app-icon-small')} </sbb-toggle>
           `);
         }),
       );
@@ -106,6 +106,45 @@ describe(`sbb-toggle`, () => {
           </sbb-toggle>`,
         );
       }),
+    );
+
+    it(
+      'fieldset disabled',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<fieldset disabled>
+            <sbb-toggle name="sbb-toggle-1"> ${options(true)} </sbb-toggle>
+          </fieldset>`,
+        );
+      }),
+    );
+
+    describeEach(
+      {
+        disabled: [false, true],
+        emulateMedia: [
+          { forcedColors: true, darkMode: false },
+          { forcedColors: false, darkMode: true },
+        ],
+      },
+      ({ disabled, emulateMedia: { forcedColors, darkMode } }) => {
+        for (const state of [visualDiffDefault, visualDiffFocus]) {
+          it(
+            state.name,
+            state.with(async (setup) => {
+              await setup.withFixture(
+                html`<sbb-toggle ?disabled=${disabled}>
+                  ${options(true, 'app-icon-small')}
+                </sbb-toggle>`,
+                {
+                  forcedColors,
+                  darkMode,
+                },
+              );
+            }),
+          );
+        }
+      },
     );
   });
 });

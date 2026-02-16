@@ -12,6 +12,14 @@
   @include sbb.block-link-variables--negative;
 }
 
+:host(.sbb-active) {
+  @include sbb.block-link-variables--active;
+}
+
+:host(.sbb-active[negative]) {
+  @include sbb.block-link-variables--active-negative;
+}
+
 .sbb-action-base {
   gap: var(--sbb-link-gap);
 
@@ -30,12 +38,12 @@
 
 .sbb-link__icon {
   position: relative;
-  height: calc(var(--sbb-typo-line-height-body-text) * 1em);
+  height: calc(var(--sbb-typo-line-height-text) * 1em);
   width: var(--sbb-size-icon-ui-small);
   flex: 0 0 auto;
   align-self: start;
 
-  :host(:not([data-slot-names~='icon'], [icon-name])) & {
+  :host(:not(:state(slotted-icon), :state(has-icon-name))) & {
     display: none;
   }
 

@@ -1,12 +1,6 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  --sbb-divider-color: var(--sbb-color-cloud);
-  --sbb-divider-border-width: var(--sbb-border-width-1x);
-
   display: block;
 }
 
@@ -15,11 +9,11 @@
 }
 
 :host([negative]) {
-  --sbb-divider-color: var(--sbb-color-iron);
+  --sbb-divider-color: var(--sbb-divider-color-negative);
 }
 
 .sbb-divider {
-  :host([orientation='horizontal']) & {
+  :host(:is([orientation='horizontal'], :not([orientation]))) & {
     border-top: var(--sbb-divider-border-width) solid var(--sbb-divider-color);
   }
 

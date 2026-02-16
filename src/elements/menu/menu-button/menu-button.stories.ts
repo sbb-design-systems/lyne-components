@@ -1,20 +1,25 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './menu-button.js';
+import './menu-button.component.ts';
 
 const getBasicTemplate = (
-  { text, ...args }: Args,
+  { text, badge, 'icon-name': iconName, ...args }: Args,
   id: number,
   iconSlot = false,
 ): TemplateResult => html`
-  <sbb-menu-button ${sbbSpread(args)}>
-    ${text} ${id} ${iconSlot ? html`<sbb-icon slot="icon" name="pie-small"></sbb-icon>` : nothing}
+  <sbb-menu-button
+    ${sbbSpread(args)}
+    sbb-badge=${!args.disabled ? badge : nothing}
+    icon-name=${!iconSlot ? iconName : nothing}
+  >
+    ${text} ${id}
+    ${iconSlot ? html`<sbb-icon slot="icon" name=${iconName || nothing}></sbb-icon>` : nothing}
   </sbb-menu-button>
 `;
 
@@ -23,7 +28,7 @@ const TemplateMenuAction = (args: Args): TemplateResult => html`
 `;
 
 const TemplateMenuActionCustomIcon = (args: Args): TemplateResult => html`
-  ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, false)}
+  ${getBasicTemplate(args, 1, true)} ${getBasicTemplate(args, 2, true)}
   ${getBasicTemplate(args, 3, true)}
 `;
 
@@ -33,9 +38,12 @@ const text: InputType = {
   },
 };
 
-const amount: InputType = {
+const badge: InputType = {
   control: {
     type: 'text',
+  },
+  table: {
+    category: 'badge',
   },
 };
 
@@ -111,7 +119,7 @@ const ariaLabel: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   text,
-  amount,
+  badge,
   'icon-name': iconName,
   type,
   disabled,
@@ -124,7 +132,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   text: 'Details',
-  amount: '99',
+  badge: '9',
   'icon-name': 'tick-small',
   disabled: false,
   'disabled-interactive': false,
@@ -132,7 +140,7 @@ const defaultArgs: Args = {
   name: 'detail',
   value: 'Value',
   form: 'form-name',
-  'aria-label': ariaLabel,
+  'aria-label': 'Descriptive Label, information about badge should be included.',
 };
 
 export const menuButton: StoryObj = {
@@ -141,20 +149,19 @@ export const menuButton: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const menuButtonCustomIconNoAmount: StoryObj = {
+export const menuButtonCustomIconNoBadge: StoryObj = {
   render: TemplateMenuActionCustomIcon,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    amount: undefined,
-    'icon-name': undefined,
+    badge: undefined,
   },
 };
 
-export const menuButtonNoIconNoAmount: StoryObj = {
+export const menuButtonNoIconNoBadge: StoryObj = {
   render: TemplateMenuAction,
   argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'icon-name': undefined, amount: undefined },
+  args: { ...defaultArgs, 'icon-name': undefined, badge: undefined },
 };
 
 export const menuButtonDisabled: StoryObj = {
@@ -163,12 +170,22 @@ export const menuButtonDisabled: StoryObj = {
   args: { ...defaultArgs, disabled: true },
 };
 
-export const menuActionButtonEllipsis: StoryObj = {
+export const menuButtonEllipsis: StoryObj = {
   render: TemplateMenuAction,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  },
+};
+
+export const menuButtonBadgeNoIcon: StoryObj = {
+  render: TemplateMenuAction,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    'icon-name': undefined,
+    badge: '123',
   },
 };
 
@@ -178,7 +195,7 @@ const meta: Meta = {
     withActions as Decorator,
   ],
   parameters: {
-    backgroundColor: () => 'var(--sbb-color-black)',
+    backgroundColor: () => 'var(--sbb-background-color-1-inverted)',
     actions: {
       handles: ['click'],
     },

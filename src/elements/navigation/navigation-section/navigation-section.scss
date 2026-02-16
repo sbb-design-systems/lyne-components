@@ -1,11 +1,8 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-navigation-section-display: none;
-  --sbb-navigation-section-column: 1 / 5;
+  --sbb-navigation-section-column: 1 / -1;
   --sbb-navigation-section-position: fixed;
   --sbb-navigation-section-pointer-events: none;
   --sbb-navigation-section-animation-duration: var(
@@ -15,7 +12,7 @@
   --sbb-navigation-section-animation-easing: ease-out;
   --sbb-navigation-section-padding-inline: var(--sbb-layout-base-offset-responsive);
   --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-l);
-  --sbb-navigation-section-transform: translateX(100%);
+  --sbb-navigation-section-translate: 100%;
   --sbb-navigation-section-content-padding-inline-start: var(--sbb-spacing-fixed-12x);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   --sbb-navigation-section-width: 100dvw;
@@ -32,7 +29,7 @@
   z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-default-z-index));
 
   @include sbb.mq($from: large) {
-    --sbb-navigation-section-column: 5 / 9;
+    --sbb-navigation-section-column: 5 / 13;
     --sbb-navigation-section-animation-duration: var(
       --sbb-disable-animation-duration,
       var(--sbb-animation-duration-4x)
@@ -41,17 +38,13 @@
     --sbb-navigation-section-padding-inline: var(--sbb-spacing-fixed-8x)
       var(--sbb-layout-base-offset-responsive);
     --sbb-navigation-section-position: relative;
-    --sbb-navigation-section-transform: translateX(0%);
+    --sbb-navigation-section-translate: 0;
     --sbb-navigation-section-content-padding-inline-start: 0;
     --sbb-navigation-section-width: calc(
       100% + var(--sbb-layout-base-offset-responsive) + var(--sbb-grid-base-gutter-responsive)
     );
 
-    transform: translateX(calc(var(--sbb-grid-base-gutter-responsive) * -1));
-  }
-
-  @include sbb.mq($from: wide) {
-    --sbb-navigation-section-column: 5 / 13;
+    translate: calc(var(--sbb-grid-base-gutter-responsive) * -1) 0;
   }
 
   @include sbb.mq($from: ultra) {
@@ -61,19 +54,19 @@
   }
 }
 
-:host([data-state='opened']) {
+:host(:state(state-opened)) {
   --sbb-navigation-section-pointer-events: all;
 }
 
-:host([data-state='opening']) {
+:host(:state(state-opening)) {
   --sbb-navigation-section-position: absolute;
 }
 
-:host(:is([data-state='opening'], [data-state='closing'])) {
+:host(:is(:state(state-opening), :state(state-closing))) {
   --sbb-navigation-section-pointer-events: none;
 }
 
-:host([data-state]:not([data-state='closed'])) {
+:host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
   --sbb-navigation-section-display: block;
 }
 
@@ -82,7 +75,7 @@
 }
 
 // Always place the sbb-button on a new row
-::slotted([data-sbb-button]) {
+::slotted(:state(sbb-button)) {
   grid-column-start: 1;
 }
 
@@ -97,12 +90,12 @@
   margin: 0;
   width: 100%;
   height: 100%;
-  color: var(--sbb-color-white);
+  color: var(--sbb-navigation-color, var(--sbb-color-1-negative));
   background-color: transparent;
   padding: 0;
   overflow: hidden;
 
-  :host([data-state]:not([data-state='closed'])) & {
+  :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
     display: block;
 
     animation: {
@@ -112,7 +105,7 @@
     }
   }
 
-  :host([data-state][data-state='closing']) & {
+  :host(:state(state-closing)) & {
     animation-name: close;
   }
 
@@ -124,17 +117,15 @@
 .sbb-navigation-section__wrapper {
   @include sbb.scrollbar($negative: true);
 
-  & {
-    height: 100%;
-    padding-block: var(--sbb-navigation-section-padding-block);
-    outline: none;
-    overflow-y: auto;
+  height: 100%;
+  padding-block: var(--sbb-navigation-section-padding-block);
+  outline: none;
+  overflow-y: auto;
 
-    :host(:is([data-state='opening'], [data-state='closing'])) & {
-      --sbb-scrollbar-color: transparent;
+  :host(:is(:state(state-opening), :state(state-closing))) & {
+    --sbb-scrollbar-color: transparent;
 
-      scrollbar-color: transparent transparent;
-    }
+    scrollbar-color: transparent transparent;
   }
 }
 
@@ -151,18 +142,14 @@
     padding-inline-start: 0;
   }
 
-  @include sbb.mq($from: wide) {
+  @include sbb.mq($from: ultra) {
     grid-column: 1 / 4;
-  }
-
-  :host(:not([data-slot-names~='title'], [title-content])) & {
-    display: none;
   }
 }
 
 .sbb-navigation-section__back {
   position: absolute;
-  transform: translateX(calc((100% + var(--sbb-spacing-fixed-1x)) * -1));
+  translate: calc((100% + var(--sbb-spacing-fixed-1x)) * -1) 0;
 
   @include sbb.mq($from: large) {
     display: none;
@@ -170,60 +157,61 @@
 }
 
 .sbb-navigation-section__title {
-  @include sbb.title-4($exclude-spacing: true);
+  @include sbb.title-rules;
+  @include sbb.title--level-4;
 
   @include sbb.mq($from: large) {
-    @include sbb.title-2($exclude-spacing: true);
+    @include sbb.title--level-2;
   }
 }
 
 .sbb-navigation-section__content {
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: var(--sbb-spacing-responsive-l) var(--sbb-grid-base-gutter-responsive);
+  gap: var(--sbb-spacing-responsive-l) var(--sbb-grid-base-gutter-responsive);
   padding-inline: var(--sbb-navigation-section-padding-inline);
 
   @include sbb.mq($from: large) {
     opacity: 0;
-    transform: translateY(var(--sbb-spacing-fixed-3x));
+    translate: 0 var(--sbb-spacing-fixed-3x);
     transition: {
       duration: var(--sbb-navigation-section-animation-duration);
       delay: var(--sbb-navigation-section-animation-duration);
       timing-function: var(--sbb-navigation-section-animation-easing);
-      property: opacity, transform;
+      property: opacity, translate;
     }
 
-    :host([data-state='opened']) & {
+    :host(:state(state-opened)) & {
       opacity: 1;
-      transform: translateY(0);
+      translate: 0 0;
     }
   }
 
-  @include sbb.mq($from: wide) {
+  @include sbb.mq($from: ultra) {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  :host([data-state='closing']) & {
+  :host(:state(state-closing)) & {
     transition-delay: 0s;
   }
 }
 
 @keyframes open {
   from {
-    transform: var(--sbb-navigation-section-transform);
+    translate: var(--sbb-navigation-section-translate) 0;
   }
 
   to {
-    transform: translate(0%, 0%);
+    translate: 0 0;
   }
 }
 
 @keyframes close {
   from {
-    transform: translate(0%, 0%);
+    translate: 0 0;
   }
 
   to {
-    transform: var(--sbb-navigation-section-transform);
+    translate: var(--sbb-navigation-section-translate) 0;
   }
 }

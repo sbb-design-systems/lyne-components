@@ -2,11 +2,13 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { waitForLitRender } from '../../core/testing.js';
-import { SbbCheckboxElement } from '../checkbox.js';
+import { fixture } from '../../core/testing/private.ts';
+import { waitForLitRender } from '../../core/testing.ts';
+import { SbbCheckboxElement } from '../checkbox.ts';
 
-import { SbbCheckboxGroupElement } from './checkbox-group.js';
+import { SbbCheckboxGroupElement } from './checkbox-group.component.ts';
+
+import '../checkbox-panel.ts';
 
 describe(`sbb-checkbox-group`, () => {
   let element: SbbCheckboxGroupElement;
@@ -91,5 +93,15 @@ describe(`sbb-checkbox-group`, () => {
     await waitForLitRender(element);
     await sendKeys({ press: 'ArrowLeft' });
     expect(document.activeElement!.textContent).to.equal('Label 2');
+  });
+
+  it('recognizes panel when added later', async () => {
+    element = await fixture(html`<sbb-checkbox-group></sbb-checkbox-group>`);
+
+    const panel = document.createElement('sbb-checkbox-panel');
+    element.appendChild(panel);
+    await waitForLitRender(element);
+
+    expect(element).to.match(':state(has-panel)');
   });
 });

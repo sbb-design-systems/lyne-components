@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 // Fixes the gap between the origin and the overlay by creating conjunction
 // corners based on the origin element border radius
 @include sbb.overlay-gap-fix;
@@ -19,7 +16,11 @@
   display: none;
 }
 
-:host([data-state]:not([data-state='closed'])) {
+:host([size='s']) {
+  @include sbb.options-panel-overlay-size-s-variables;
+}
+
+:host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
   display: block;
 }
 
@@ -27,35 +28,35 @@
   @include sbb.options-panel-overlay-negative-variables;
 }
 
-:host(:not([data-state])),
-:host([data-state='closed']) {
+:host(:not(:state(state-opening), :state(state-opened), :state(state-closing))),
+:host(:state(state-closed)) {
   --sbb-options-panel-visibility: hidden;
   --sbb-options-pointer-events: none;
 }
 
-:host([data-state='opening']) {
+:host(:state(state-opening)) {
   --sbb-options-panel-animation-name: open;
 }
 
-:host([data-state='closing']) {
+:host(:state(state-closing)) {
   --sbb-options-panel-animation-name: close;
 }
 
-:host([data-state='opened']),
-:host([data-state='opening']) {
+:host(:state(state-opened)),
+:host(:state(state-opening)) {
   --sbb-options-panel-gap-fix-opacity: 1;
 }
 
-:host([data-options-panel-position='below']) {
+:host(:state(options-panel-position-below)) {
   --sbb-options-panel-animation-transform: translateY(
     calc((var(--sbb-options-panel-origin-height) / 2) * -1)
   );
 }
 
-:host([data-options-panel-position='above']) {
+:host(:state(options-panel-position-above)) {
   --sbb-options-panel-options-border-radius: var(--sbb-options-panel-border-radius)
     var(--sbb-options-panel-border-radius) 0 0;
-  --sbb-options-panel-gap-fix-top: var(--sbb-options-panel-max-height);
+  --sbb-options-panel-gap-fix-top: var(--_sbb-options-panel-max-height);
   --sbb-options-panel-gap-fix-transform: rotate(180deg);
   --sbb-options-panel-animation-transform: translateY(
     calc(var(--sbb-options-panel-origin-height) / 2)
@@ -67,7 +68,7 @@
 }
 
 ::slotted(sbb-divider) {
-  margin-block: var(--sbb-spacing-fixed-3x);
+  margin-block: var(--sbb-options-panel-divider-margin-block);
 }
 
 .sbb-autocomplete__container {
@@ -81,28 +82,28 @@
 .sbb-autocomplete__panel {
   @include sbb.options-panel-overlay;
 
-  :host([data-options-panel-position='below']) & {
+  :host(:state(options-panel-position-below)) & {
     inset-block-start: calc(
       var(--sbb-options-panel-position-y) - var(--sbb-options-panel-origin-height)
     );
   }
 
-  :host(:is([data-state='opened'], [data-state='opening'])) & {
-    @include sbb.shadow-level-5-hard;
+  :host(:is(:state(state-opened), :state(state-opening))) & {
+    box-shadow: var(--sbb-box-shadow-level-5-hard);
   }
 
-  :host(:is([data-state='opened'], [data-state='opening'])[negative]) & {
-    @include sbb.shadow-level-5-hard-negative;
+  :host(:is(:state(state-opened), :state(state-opening))[negative]) & {
+    box-shadow: var(--sbb-box-shadow-level-5-hard-negative);
   }
 
   &::before {
-    :host([data-options-panel-position='below']) & {
+    :host(:state(options-panel-position-below)) & {
       display: block;
     }
   }
 
   &::after {
-    :host([data-options-panel-position='above']) & {
+    :host(:state(options-panel-position-above)) & {
       display: block;
     }
   }
@@ -110,19 +111,18 @@
   // stylelint-disable-next-line no-descending-specificity
   &::before,
   &::after {
-    :host(:is([data-state='opened'], [data-state='opening'])[data-option-panel-origin-borderless])
+    :host(:is(:state(state-opened), :state(state-opening)):state(option-panel-origin-borderless))
       & {
-      @include sbb.shadow-level-5-hard;
+      box-shadow: var(--sbb-box-shadow-level-5-hard);
     }
 
     :host(
-        :is(
-            [data-state='opened'],
-            [data-state='opening']
-          )[data-option-panel-origin-borderless][negative]
+        :is(:state(state-opened), :state(state-opening)):state(
+            option-panel-origin-borderless
+          )[negative]
       )
       & {
-      @include sbb.shadow-level-5-hard-negative;
+      box-shadow: var(--sbb-box-shadow-level-5-hard-negative);
     }
   }
 }
@@ -135,9 +135,7 @@
   @include sbb.optionsOverlay;
   @include sbb.scrollbar-rules;
 
-  & {
-    pointer-events: var(--sbb-options-pointer-events);
-  }
+  pointer-events: var(--sbb-options-pointer-events);
 
   @include sbb.if-forced-colors {
     border: var(--sbb-border-width-1x) solid CanvasText;

@@ -2,43 +2,54 @@
 
 // SBB table mixin
 // Notes:
-// We cannot use `border-collapse` because it is not compatible with the `border-radius` property.
+// We cannot use `border-collapse` because in sticky variants it gets visually broken.
 // Therefore, we have to build the grid avoiding double borders.
 @mixin table {
   @include table--m;
   @include table--striped;
 
-  & {
-    --sbb-table-border: var(--sbb-border-width-1x) solid var(--sbb-table-border-color);
-    --sbb-table-border-color: var(--sbb-color-cloud);
-    --sbb-table-border-radius: var(--sbb-border-radius-4x);
-    --sbb-table-background-color: var(--sbb-color-white);
-    --sbb-table-row-striped-color: var(--sbb-color-milk);
-    --sbb-table-color: inherit;
-    --sbb-table-caption-color: var(--sbb-color-granite);
-    --sbb-table-caption-margin-block-start: var(--sbb-spacing-fixed-4x);
+  --sbb-table-border: var(--sbb-border-width-1x) solid var(--sbb-table-border-color);
+  --sbb-table-border-color: light-dark(var(--sbb-color-cloud), var(--sbb-color-anthracite));
+  --sbb-table-background-color: var(--sbb-background-color-1);
+  --sbb-table-row-striped-color: var(--sbb-background-color-3);
+  --sbb-table-color: var(--sbb-color-1);
+  --sbb-table-caption-color: light-dark(var(--sbb-color-granite), var(--sbb-color-cement));
+  --sbb-table-caption-margin-block-start: var(--sbb-spacing-fixed-4x);
+  --sbb-table-sticky-shadow-width: 3rem;
+  --sbb-table-sticky-shadow-transition-easing: var(--sbb-animation-easing);
+  --sbb-table-sticky-shadow-transition-duration: var(--sbb-animation-duration-6x);
 
-    background-color: var(--sbb-table-background-color);
-    border: var(--sbb-table-border);
-    border-radius: var(--sbb-table-border-radius);
-    border-spacing: 0;
-    caption-side: bottom;
-    color: var(--sbb-table-color);
-    table-layout: auto;
-  }
+  border-spacing: 0;
+  caption-side: bottom;
+  color: var(--sbb-table-color);
+  table-layout: auto;
 
   thead {
-    & > tr > th {
-      @include table-header-cell;
+    & > tr {
+      @include table-header-row;
+
+      &:first-of-type > th {
+        border-block-start: var(--sbb-table-border);
+      }
+
+      & > th {
+        @include table-header-cell;
+
+        &:first-of-type {
+          border-inline-start: var(--sbb-table-border);
+        }
+      }
     }
   }
 
   tbody {
     & > tr {
-      @include table-data-row;
-
       & > td {
         @include table-data-cell;
+
+        &:first-of-type {
+          border-inline-start: var(--sbb-table-border);
+        }
       }
     }
   }
@@ -46,62 +57,69 @@
   caption {
     @include table-caption;
   }
+
+  // If there is no thead, add a top border to the first tbody row
+  // In Angular the CDK table always adds a thead even if there are no headers.
+  // Due to this fact we have to also insert `tr` in the `:has()` selector.
+  &:not(:has(thead tr)) tbody > tr:first-of-type > td {
+    border-block-start: var(--sbb-table-border);
+  }
+}
+
+@mixin table-header-row {
+  // If there is more than one header row, only the last one has the bottom border
+  &:last-of-type > th {
+    border-block-end: var(--sbb-table-border);
+  }
 }
 
 @mixin table-header-cell {
-  @include typo.text-xs--bold;
-
-  border-bottom: var(--sbb-table-border);
-  border-right: var(--sbb-table-border);
+  font-size: var(--sbb-table-header-cell-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  font-weight: bold;
+  background-color: var(--sbb-table-background-color);
+  border-inline-end: var(--sbb-table-border);
   padding-block: var(--sbb-table-header-padding-block);
   padding-inline: var(--sbb-table-header-padding-inline);
   text-align: left;
-
-  // To avoid double border
-  &:last-of-type {
-    border-right: none;
-  }
-}
-
-@mixin table-data-row {
-  // To avoid double borders
-  &:first-of-type td {
-    border-top: none;
-  }
 }
 
 @mixin table-data-cell {
-  @include typo.text-s--regular;
-
-  border-top: var(--sbb-table-border);
-  border-right: var(--sbb-table-border);
+  font-size: var(--sbb-table-data-cell-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  background-color: var(--sbb-table-background-color);
+  border-block-end: var(--sbb-table-border);
+  border-inline-end: var(--sbb-table-border);
   padding-block: var(--sbb-table-cell-padding-block);
   padding-inline: var(--sbb-table-cell-padding-inline);
-
-  // To avoid double border
-  &:last-of-type {
-    border-right: none;
-  }
 }
 
 @mixin table-caption {
-  @include typo.text-xs--regular;
+  // Workaround for storybook. It crashes if 'light-dark' is used as a 'var' fallback
+  --sbb-table-caption-color-fallback: light-dark(var(--sbb-color-granite), var(--sbb-color-cement));
+
+  font-size: var(--sbb-text-font-size-xs);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 
   // Defaults are needed for cases where the caption is used outside a table
-  color: var(--sbb-table-caption-color, var(--sbb-color-granite));
+  color: var(--sbb-table-caption-color, var(--sbb-table-caption-color-fallback));
   margin-block-start: var(--sbb-table-caption-margin-block-start, var(--sbb-spacing-fixed-4x));
   text-align: left;
 }
 
+@mixin table-filter {
+  padding-block-start: 0 !important;
+}
+
 @mixin table--striped {
-  tbody tr:nth-child(odd) {
+  tbody tr:nth-child(odd) :is(th, td) {
     @include table-row--striped;
   }
 }
 
 @mixin table--unstriped {
-  tbody tr:nth-child(odd) {
-    background-color: unset;
+  tbody tr:nth-child(odd) :is(th, td) {
+    background-color: var(--sbb-table-background-color);
   }
 }
 
@@ -111,13 +129,15 @@
 
 @mixin table--negative {
   --sbb-table-border-color: var(--sbb-color-anthracite);
-  --sbb-table-background-color: var(--sbb-color-midnight);
-  --sbb-table-color: var(--sbb-color-white);
-  --sbb-table-row-striped-color: var(--sbb-color-charcoal);
+  --sbb-table-background-color: var(--sbb-background-color-1-negative);
+  --sbb-table-color: var(--sbb-color-1-negative);
+  --sbb-table-row-striped-color: var(--sbb-background-color-3-negative);
   --sbb-table-caption-color: var(--sbb-color-cement);
 }
 
 @mixin table--m {
+  --sbb-table-header-cell-font-size: var(--sbb-text-font-size-xs);
+  --sbb-table-data-cell-font-size: var(--sbb-text-font-size-s);
   --sbb-table-header-padding-block: var(--sbb-spacing-fixed-3x);
   --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-4x);
   --sbb-table-cell-padding-block: var(--sbb-spacing-responsive-xxxs);
@@ -125,29 +145,25 @@
 }
 
 @mixin table--s {
+  --sbb-table-header-cell-font-size: var(--sbb-text-font-size-xs);
+  --sbb-table-data-cell-font-size: var(--sbb-text-font-size-xs);
   --sbb-table-header-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-2x);
   --sbb-table-cell-padding-block: var(--sbb-spacing-fixed-1x);
   --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-2x);
-
-  tbody > tr > td {
-    @include typo.text-xs--regular;
-  }
 }
 
 @mixin table--xs {
+  --sbb-table-header-cell-font-size: var(--sbb-text-font-size-xs);
+  --sbb-table-data-cell-font-size: var(--sbb-text-font-size-xs);
   --sbb-table-header-padding-block: 0;
   --sbb-table-header-padding-inline: var(--sbb-spacing-fixed-1x);
   --sbb-table-cell-padding-block: 0;
   --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-1x);
-
-  tbody > tr > td {
-    @include typo.text-xs--regular;
-  }
 }
 
 @mixin table--theme-iron {
-  --sbb-table-cell-color: var(--sbb-color-iron);
+  --sbb-table-cell-color: var(--sbb-color-4);
 
   tbody > tr > td {
     color: var(--sbb-table-cell-color);

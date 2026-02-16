@@ -61,7 +61,7 @@ const firstIndex = 0;
 
 /**
  * Gets the index of the element to move to, based on the keyboard input, the current element in the list and the list size.
- * @param event The keyboard event to check.
+ * @param event The keyboard event to check. If null, will count as a 'next' step.
  * @param current The index of the current element in the list.
  * @param size The size of the list.
  * @returns if it is a 'previous' event, returns the index of the previous element,
@@ -69,13 +69,17 @@ const firstIndex = 0;
  * if it is a 'next' event, returns the index of the next element,
  * or the index of the first one, if the current is the last in the list.
  */
-export function getNextElementIndex(event: KeyboardEvent, current: number, size: number): number {
+export function getNextElementIndex(
+  event: KeyboardEvent | undefined,
+  current: number,
+  size: number,
+): number {
   const { prevKey, nextKey } = getPrevAndNextKeys();
 
-  if (event.key === prevKey || event.key === 'ArrowUp') {
-    return current < firstIndex ? getLastIndex(size) : calcNextIndexInRange(current, size, -1);
-  } else if (event.key === nextKey || event.key === 'ArrowDown') {
+  if (!event || event.key === nextKey || event.key === 'ArrowDown') {
     return current >= size ? firstIndex : calcNextIndexInRange(current, size, 1);
+  } else if (event.key === prevKey || event.key === 'ArrowUp') {
+    return current < firstIndex ? getLastIndex(size) : calcNextIndexInRange(current, size, -1);
   }
   return current;
 }

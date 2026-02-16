@@ -1,17 +1,17 @@
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, type TemplateResult } from 'lit';
 
-import '../alert.js';
-import '../breadcrumb.js';
-import '../chip-label.js';
-import '../image.js';
-import '../link/block-link.js';
-import '../link/link.js';
-import '../notification.js';
-import '../title.js';
-import './lead-container.js';
+import '../alert.ts';
+import '../breadcrumb.ts';
+import '../chip-label.ts';
+import '../image.ts';
+import '../link/block-link.ts';
+import '../link/link.ts';
+import '../notification.ts';
+import '../title.ts';
+import './lead-container.component.ts';
 
-import images from '../core/images.js';
+import images from '../core/images.ts';
 
 import readme from './readme.md?raw';
 
@@ -22,7 +22,8 @@ const content = (): TemplateResult => html`
     }
   </style>
   <sbb-alert-group class="sbb-lead-container-spacing">
-    <sbb-alert title-content="Interruption between Genève and Lausanne" size="m">
+    <sbb-alert size="m">
+      <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
       The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
       <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
     </sbb-alert>
@@ -63,7 +64,7 @@ const content = (): TemplateResult => html`
 
 const DefaultTemplate = (): TemplateResult => html`
   <sbb-lead-container>
-    ${content()};
+    ${content()}
     <sbb-image
       slot="image"
       image-src=${images[6]}
@@ -74,14 +75,14 @@ const DefaultTemplate = (): TemplateResult => html`
 
 const WithChipTemplate = (): TemplateResult => html`
   <sbb-lead-container>
-    ${content()};
+    ${content()}
 
     <figure class="sbb-figure" slot="image">
       <sbb-image image-src=${images[6]} alt="Station of Lucerne from outside"></sbb-image>
 
-      <sbb-chip-label color="charcoal" class="sbb-figure-overlap-start-end"
-        >AI generated</sbb-chip-label
-      >
+      <sbb-chip-label color="charcoal" class="sbb-figure-overlap-start-end">
+        AI generated
+      </sbb-chip-label>
     </figure>
   </sbb-lead-container>
 `;

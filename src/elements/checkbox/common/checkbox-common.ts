@@ -1,22 +1,15 @@
 import type { LitElement, PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType } from '../../core/decorators.js';
-import {
-  type Constructor,
-  type SbbDisabledMixinType,
-  SbbFormAssociatedCheckboxMixin,
-  type SbbFormAssociatedCheckboxMixinType,
-  type SbbRequiredMixinType,
-} from '../../core/mixins.js';
-import type { SbbCheckboxGroupElement } from '../checkbox-group.js';
+import { forceType } from '../../core/decorators.ts';
+import { type Constructor, SbbFormAssociatedCheckboxMixin } from '../../core/mixins.ts';
+import type { SbbCheckboxGroupElement } from '../checkbox-group.ts';
 
 export type SbbCheckboxSize = 'xs' | 's' | 'm';
 
-export declare class SbbCheckboxCommonElementMixinType
-  extends SbbFormAssociatedCheckboxMixinType
-  implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
-{
+export declare abstract class SbbCheckboxCommonElementMixinType extends SbbFormAssociatedCheckboxMixin(
+  LitElement,
+) {
   public accessor indeterminate: boolean;
 
   public get group(): SbbCheckboxGroupElement | null;

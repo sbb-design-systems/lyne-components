@@ -2,7 +2,7 @@ import type { PlaywrightLauncher, ProductType } from '@web/test-runner-playwrigh
 import type { Browser, LaunchOptions } from 'playwright';
 import * as playwright from 'playwright';
 
-import { playwrightWebsocketAddress } from './container-playwright-browser-plugin.js';
+import { playwrightWebsocketAddress } from './container-playwright-browser-plugin.ts';
 
 interface PlaywrightLauncherPrivate {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -30,13 +30,11 @@ export function configureRemotePlaywrightBrowser(browser: PlaywrightLauncher): v
     if (!this.browser || !this.browser?.isConnected()) {
       this.__connectBrowserPromise = (async () => {
         // eslint-disable-next-line import-x/namespace
-        const browser = await playwright[this.product].connect(playwrightWebsocketAddress, {
+        return await playwright[this.product].connect(playwrightWebsocketAddress, {
           headers: { 'x-playwright-launch-options': JSON.stringify(this.launchOptions) },
         });
-        return browser;
       })();
-      const browser = await this.__connectBrowserPromise;
-      this.browser = browser;
+      this.browser = await this.__connectBrowserPromise;
       this.__connectBrowserPromise = undefined;
     }
     return this.browser;

@@ -1,125 +1,113 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 // # Stacking of action
 // To support content with actions that should be accessible, we have to stack the action and content like following:
 // The content is basically on top of the action, but is made pointer transparent with `pointer-events: none`.
 // All focusable elements inside the main slot will receive `pointer-events: all` which makes them pointer accessible.
 
 :host {
-  display: block;
-
-  @include sbb.card-variables;
+  @include sbb.card;
+  @include sbb.card-variables--spacing-default;
 }
 
-:host([color='milk']) {
+// :where is needed for lower specificity
+:host(:where([color='white'])) {
+  @include sbb.card-variables--white;
+}
+
+// :where is needed for lower specificity
+:host(:where([color='milk'])) {
   @include sbb.card-variables--milk;
 }
 
-:host([color='transparent-bordered']) {
+// :where is needed for lower specificity
+:host(:where([color='transparent-bordered'])) {
   @include sbb.card-variables--transparent-bordered;
 }
 
-:host([color='transparent-bordered-dashed']) {
+// :where is needed for lower specificity
+:host(:where([color='transparent-bordered-dashed'])) {
   @include sbb.card-variables--transparent-bordered-dashed;
 }
 
-:host([data-has-active-action]) {
+// :where is needed for lower specificity
+:host(:where(:not([color]))) {
+  @include sbb.card-variables--white;
+}
+
+:host(:state(has-active-action)) {
   @include sbb.card-variables--active;
 }
 
-:host([size='xs']) {
-  @include sbb.card-variables--xs;
+:host(:state(has-action)) {
+  --sbb-card-pointer-events: none;
 }
 
-:host([size='s']) {
-  @include sbb.card-variables--s;
+:host(:state(has-action):not(:state(has-active-action)):hover) {
+  @include sbb.card--hover;
 }
 
-:host([size='m']) {
-  @include sbb.card-variables--m;
-}
-
-:host([size='m'][data-has-card-badge]) {
-  @include sbb.card-variables--m-has-badge;
-}
-
-:host([size='l']) {
-  @include sbb.card-variables--l;
-}
-
-:host([size='l'][data-has-card-badge]) {
-  @include sbb.card-variables--l-has-badge;
-}
-
-:host([size='xl']) {
-  @include sbb.card-variables--xl;
-}
-
-:host([size='xl'][data-has-card-badge]) {
-  @include sbb.card-variables--xl-has-badge;
-}
-
-:host([size='xxl']) {
-  @include sbb.card-variables--xxl;
-}
-
-:host([size='xxxl']) {
-  @include sbb.card-variables--xxxl;
-}
-
-:host([data-has-action]) {
-  @include sbb.if-forced-colors {
-    --sbb-title-text-color-normal-override: var(--sbb-card-color);
-  }
-}
-
-:host([data-has-action]:not([data-has-active-action]):hover) {
-  @include sbb.card--hover('.sbb-card');
-}
-
-:host([data-has-action][data-action-role='button']) {
+// :where is needed for lower specificity
+:host(:where(:state(has-action):state(action-role-button))) {
   @include sbb.card-variables--button;
 }
 
-:host([data-has-action][data-action-role='link']) {
+// :where is needed for lower specificity
+:host(:where(:state(has-action):state(action-role-link))) {
   @include sbb.card-variables--link;
 }
 
-.sbb-card {
-  width: 100%;
-  height: 100%;
+:host(.sbb-card-spacing-3x-xxs) {
+  @include sbb.card-variables--spacing-3x-xxs;
+}
 
-  @include sbb.card;
+:host(.sbb-card-spacing-xxxs-xxs) {
+  @include sbb.card-variables--spacing-xxxs-xxs;
+}
+
+:host(.sbb-card-spacing-xxxs-s) {
+  @include sbb.card-variables--spacing-xxxs-s;
+}
+
+:host(.sbb-card-spacing-4x-xxs) {
+  @include sbb.card-variables--spacing-4x-xxs;
+}
+
+:host(.sbb-card-spacing-xxs) {
+  @include sbb.card-variables--spacing-xxs;
+}
+
+:host(.sbb-card-spacing-s) {
+  @include sbb.card-variables--spacing-s;
+}
+
+:host(.sbb-card-spacing-l) {
+  @include sbb.card-variables--spacing-l;
+}
+
+// Has to be after spacing definitions
+:host(:state(slotted-badge)) {
+  --sbb-card-padding-block: var(--sbb-card-with-badge-padding-block);
+  --sbb-card-badge-display: block;
 }
 
 .sbb-card__wrapper {
   @include sbb.card--wrapper;
 
-  :host([data-has-action]) & {
-    pointer-events: none;
-    transform: translateY(var(--sbb-card-hover-shift));
-    transition: transform var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
-  }
+  pointer-events: var(--sbb-card-pointer-events, auto);
+  translate: 0 var(--sbb-card-hover-shift, 0);
+  transition: translate var(--sbb-card-animation-duration) var(--sbb-card-animation-easing);
 }
 
 .sbb-card__badge-wrapper {
+  display: var(--sbb-card-badge-display, none);
   overflow: hidden;
   position: absolute;
   inset: 0;
   inset-block-end: unset;
   border-start-start-radius: var(--sbb-card-border-radius);
   border-start-end-radius: var(--sbb-card-border-radius);
-
-  :host([data-has-action]) & {
-    pointer-events: none;
-  }
-
-  :host(:not([data-has-card-badge])) & {
-    display: none;
-  }
+  pointer-events: var(--sbb-card-pointer-events, auto);
 }
 
 // We remove upper margin from all titles

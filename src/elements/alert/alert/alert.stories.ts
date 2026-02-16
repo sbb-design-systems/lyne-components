@@ -1,22 +1,35 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
-import { SbbAlertElement } from './alert.js';
+import { SbbAlertElement } from './alert.component.ts';
 import readme from './readme.md?raw';
 
-import '../../link/link.js';
+import '../../link/link.ts';
+import '../../title.ts';
 
-const Default = ({ 'content-slot-text': contentSlotText, ...args }: Args): TemplateResult => html`
-  <sbb-alert ${sbbSpread(args)}>${contentSlotText}</sbb-alert>
+const Default = ({
+  title,
+  'content-slot-text': contentSlotText,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-alert ${sbbSpread(args)}>
+    <sbb-title level="3">${title}</sbb-title>
+    ${contentSlotText}
+  </sbb-alert>
 `;
 
-const WithLink = ({ 'content-slot-text': contentSlotText, ...args }: Args): TemplateResult => html`
+const WithLink = ({
+  title,
+  'content-slot-text': contentSlotText,
+  ...args
+}: Args): TemplateResult => html`
   <sbb-alert ${sbbSpread(args)}>
+    <sbb-title level="3">${title}</sbb-title>
     ${contentSlotText} <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
   </sbb-alert>
 `;
@@ -31,18 +44,18 @@ const DefaultWithOtherContent = (args: Args): TemplateResult => {
 };
 
 const CustomSlots = ({
-  'title-content': titleContent,
+  title,
   'content-slot-text': contentSlotText,
   ...args
 }: Args): TemplateResult => html`
   <sbb-alert ${sbbSpread(args)}>
     <sbb-icon name="disruption" slot="icon"></sbb-icon>
-    <span slot="title">${titleContent}</span>
+    <sbb-title level="3">${title}</sbb-title>
     ${contentSlotText}
   </sbb-alert>
 `;
 
-const titleContent: InputType = {
+const title: InputType = {
   control: {
     type: 'text',
   },
@@ -88,7 +101,7 @@ const animation: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  'title-content': titleContent,
+  title,
   'title-level': titleLevel,
   size,
   readonly,
@@ -98,7 +111,7 @@ const defaultArgTypes: ArgTypes = {
 };
 
 const defaultArgs: Args = {
-  'title-content': 'Interruption between Berne and Olten',
+  title: 'Interruption between Berne and Olten',
   'title-level': 3,
   size: size.options![0],
   readonly: false,
@@ -149,10 +162,10 @@ const meta: Meta = {
   parameters: {
     actions: {
       handles: [
-        SbbAlertElement.events.willOpen,
-        SbbAlertElement.events.didOpen,
-        SbbAlertElement.events.willClose,
-        SbbAlertElement.events.didClose,
+        SbbAlertElement.events.beforeopen,
+        SbbAlertElement.events.open,
+        SbbAlertElement.events.beforeclose,
+        SbbAlertElement.events.close,
       ],
     },
     docs: {

@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html, LitElement, type ReactiveControllerHost, type TemplateResult } from 'lit';
 
-import type { SbbOpenCloseBaseElement } from '../base-elements.js';
-import { fixture } from '../testing/private.js';
+import type { SbbOpenCloseBaseElement } from '../base-elements.ts';
+import { fixture } from '../testing/private.ts';
 
-import { SbbInertController } from './inert-controller.js';
+import { SbbInertController } from './inert-controller.ts';
 
 class ShadowElement extends LitElement {
   protected override render(): TemplateResult {

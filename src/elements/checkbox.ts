@@ -1,4 +1,7 @@
-export * from './checkbox/checkbox.js';
-export * from './checkbox/checkbox-group.js';
-export * from './checkbox/checkbox-panel.js';
-export * from './checkbox/common.js';
+/**
+ * @entrypoint
+ */
+export * from './checkbox/checkbox.ts';
+export * from './checkbox/checkbox-group.ts';
+export * from './checkbox/checkbox-panel.ts';
+export * from './checkbox/common.ts';

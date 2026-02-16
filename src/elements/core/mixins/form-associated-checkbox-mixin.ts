@@ -1,45 +1,31 @@
-import {
-  defaultConverter,
-  type LitElement,
-  type PropertyDeclaration,
-  type PropertyValues,
-} from 'lit';
+import { defaultConverter, type LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../controllers.js';
-import { hostAttributes } from '../decorators.js';
-import { preventScrollOnSpacebarPress } from '../eventing.js';
-import { i18nCheckboxRequired } from '../i18n.js';
+import { SbbLanguageController } from '../controllers.ts';
+import { hostAttributes } from '../decorators.ts';
+import { preventScrollOnSpacebarPress } from '../eventing.ts';
+import { i18nCheckboxRequired } from '../i18n.ts';
 
-import type { Constructor } from './constructor.js';
-import { SbbDisabledMixin, type SbbDisabledMixinType } from './disabled-mixin.js';
+import type { AbstractConstructor } from './constructor.ts';
+import { SbbDisabledMixin } from './disabled-mixin.ts';
+import { SbbElementInternalsMixin } from './element-internals-mixin.ts';
 import {
   SbbFormAssociatedMixin,
   type FormRestoreReason,
   type FormRestoreState,
-  type SbbFormAssociatedMixinType,
-} from './form-associated-mixin.js';
-import { SbbRequiredMixin, type SbbRequiredMixinType } from './required-mixin.js';
+} from './form-associated-mixin.ts';
+import { SbbRequiredMixin } from './required-mixin.ts';
 
 type CheckedSetterValue = { value: boolean; attribute: boolean };
 
-export declare abstract class SbbFormAssociatedCheckboxMixinType
-  extends SbbFormAssociatedMixinType
-  implements Partial<SbbDisabledMixinType>, Partial<SbbRequiredMixinType>
-{
-  public get checked(): boolean;
-  public set checked(value: boolean);
-
-  public set disabled(value: boolean);
-  public get disabled(): boolean;
-
-  public set required(value: boolean);
-  public get required(): boolean;
+export declare abstract class SbbFormAssociatedCheckboxMixinType extends SbbDisabledMixin(
+  SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement))),
+) {
+  public accessor checked: boolean;
 
   public formResetCallback(): void;
   public formStateRestoreCallback(state: FormRestoreState | null, reason: FormRestoreReason): void;
 
-  protected isDisabledExternally(): boolean;
   protected isRequiredExternally(): boolean;
   protected withUserInteraction?(): void;
   protected updateFormValue(): void;
@@ -51,16 +37,20 @@ export declare abstract class SbbFormAssociatedCheckboxMixinType
  * Inherited classes MUST implement the ariaChecked state (ElementInternals) themselves.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>>(
+export const SbbFormAssociatedCheckboxMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
-): Constructor<SbbFormAssociatedCheckboxMixinType> & T => {
+): AbstractConstructor<SbbFormAssociatedCheckboxMixinType> & T => {
   @hostAttributes({
     tabindex: '0',
   })
   abstract class SbbFormAssociatedCheckboxElement
-    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass)))
+    extends SbbDisabledMixin(
+      SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superClass))),
+    )
     implements Partial<SbbFormAssociatedCheckboxMixinType>
   {
+    public static override readonly role = 'checkbox';
+
     private _attributeMutationBlocked = false;
     private _languageController = new SbbLanguageController(this);
 
@@ -106,9 +96,6 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
 
     protected constructor() {
       super();
-      /** @internal */
-      this.internals.role = 'checkbox';
-
       this.addEventListener?.('click', this._handleUserInteraction);
       this.addEventListener?.('keydown', preventScrollOnSpacebarPress);
       this.addEventListener?.('keyup', this._handleKeyboardInteraction);
@@ -137,9 +124,9 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
 
     /**
      *  Called when the browser is trying to restore element’s state to state in which case
-     *  reason is “restore”, or when the browser is trying to fulfill autofill on behalf of
-     *  user in which case reason is “autocomplete”.
-     *  In the case of “restore”, state is a string, File, or FormData object
+     *  reason is "restore", or when the browser is trying to fulfill autofill on behalf of
+     *  user in which case reason is "autocomplete".
+     *  In the case of "restore", state is a string, File, or FormData object
      *  previously set as the second argument to setFormValue.
      *
      * @internal
@@ -153,22 +140,6 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
       }
     }
 
-    public override requestUpdate(
-      name?: PropertyKey,
-      oldValue?: unknown,
-      options?: PropertyDeclaration,
-    ): void {
-      super.requestUpdate(name, oldValue, options);
-      if (this.hasUpdated && (name === 'checked' || name === 'required' || !name)) {
-        this._setValidity();
-      }
-    }
-
-    protected override firstUpdated(changedProperties: PropertyValues<this>): void {
-      super.firstUpdated(changedProperties);
-      this._setValidity();
-    }
-
     /**
      * Additional logic which is being executed when user
      * interaction happens and state is not disabled.
@@ -177,9 +148,29 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
 
     protected override updateFormValue(): void {
       if (this.checked) {
-        this.internals.setFormValue(this.value, `${this.checked}`);
+        super.updateFormValue();
       } else {
         this.internals.setFormValue(null);
+      }
+    }
+
+    protected override formState(): FormRestoreState {
+      return `${this.checked}`;
+    }
+
+    protected override shouldValidate(name: PropertyKey | undefined): boolean {
+      return super.shouldValidate(name) || name === 'checked' || name === 'required';
+    }
+
+    protected override validate(): void {
+      super.validate();
+      if (this.required && !this.checked) {
+        this.setValidityFlag(
+          'valueMissing',
+          i18nCheckboxRequired[this._languageController.current],
+        );
+      } else {
+        this.removeValidityFlag('valueMissing');
       }
     }
 
@@ -202,19 +193,8 @@ export const SbbFormAssociatedCheckboxMixin = <T extends Constructor<LitElement>
       this.dispatchEvent(new InputEvent('input', { composed: true, bubbles: true }));
       this.dispatchEvent(new Event('change', { bubbles: true }));
     };
-
-    private _setValidity(): void {
-      if (this.required && !this.checked) {
-        this.setValidityFlag(
-          'valueMissing',
-          i18nCheckboxRequired[this._languageController.current],
-        );
-      } else {
-        this.removeValidityFlag('valueMissing');
-      }
-    }
   }
 
-  return SbbFormAssociatedCheckboxElement as unknown as Constructor<SbbFormAssociatedCheckboxMixinType> &
+  return SbbFormAssociatedCheckboxElement as unknown as AbstractConstructor<SbbFormAssociatedCheckboxMixinType> &
     T;
 };

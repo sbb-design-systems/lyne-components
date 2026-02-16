@@ -1,0 +1,113 @@
+@use '../core/styles' as sbb;
+
+:host {
+  --sbb-tooltip-pointer-events: all;
+  --sbb-tooltip-min-width: var(--sbb-spacing-fixed-8x);
+  --sbb-tooltip-max-width: min(
+    #{sbb.px-to-rem-build(400)},
+    calc(100vw - var(--sbb-spacing-fixed-2x))
+  );
+  --sbb-tooltip-border-color: var(--sbb-background-color-1-inverted);
+  --sbb-tooltip-border-radius: var(--sbb-border-radius-8x);
+  --sbb-tooltip-padding: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+  --sbb-tooltip-background-color: var(--sbb-background-color-1-inverted);
+  --sbb-tooltip-color: var(--sbb-color-2-inverted);
+  --sbb-tooltip-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-4x)
+  );
+  --sbb-tooltip-animation-easing: ease-out;
+  --sbb-tooltip-animation-translate: 0 var(--sbb-spacing-fixed-2x);
+  --sbb-tooltip-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-overlay-position-area: block-start;
+  --sbb-overlay-position-try-fallbacks:
+    block-start span-inline-end, block-start span-inline-start, block-end,
+    block-end span-inline-end, block-end span-inline-start;
+
+  position-area: var(--sbb-overlay-position-area);
+  position-try-fallbacks: var(--sbb-overlay-position-try-fallbacks);
+  display: none;
+  position: fixed;
+  background-color: transparent;
+  pointer-events: var(--sbb-tooltip-pointer-events);
+  z-index: var(--sbb-tooltip-z-index, var(--sbb-overlay-default-z-index));
+  animation-name: var(--sbb-tooltip-animation-name);
+  animation-duration: var(--sbb-tooltip-animation-duration);
+  animation-timing-function: var(--sbb-tooltip-animation-easing);
+
+  // Reset [popover] styles
+  border: none;
+  inset: initial;
+  padding: 0;
+  margin: 0;
+}
+
+:host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
+  display: block;
+
+  --sbb-tooltip-animation-name: open;
+}
+
+:host(:state(state-closing)) {
+  --sbb-tooltip-animation-name: close;
+  --sbb-tooltip-pointer-events: none;
+}
+
+:host(:is([data-position~='block-end'], [data-position~='bottom'], [data-position^='end'])) {
+  padding-block-start: var(--sbb-tooltip-gap);
+}
+
+:host(:is([data-position~='block-start'], [data-position~='top'], [data-position^='start'])) {
+  padding-block-end: var(--sbb-tooltip-gap);
+}
+
+:host(
+  :is(
+    [data-position~='inline-start'],
+    [data-position~='inline-end'],
+    [data-position~='left'],
+    [data-position~='right'],
+    [data-position$=' start'],
+    [data-position$=' end']
+  )
+) {
+  // Add a gap on both sides to distance the tooltip from the trigger and the edge of the viewport.
+  padding-inline: var(--sbb-tooltip-gap);
+}
+
+.sbb-tooltip {
+  box-shadow: var(--sbb-box-shadow-level-5-soft);
+  @include sbb.text-xs--regular;
+
+  border: var(--sbb-border-width-1x) solid var(--sbb-tooltip-border-color);
+  border-radius: var(--sbb-tooltip-border-radius);
+  padding: var(--sbb-tooltip-padding);
+  color: var(--sbb-tooltip-color);
+  background-color: var(--sbb-tooltip-background-color);
+  min-width: var(--sbb-tooltip-min-width);
+  max-width: var(--sbb-tooltip-max-width);
+}
+
+@keyframes open {
+  from {
+    opacity: 0;
+    translate: var(--sbb-tooltip-animation-translate);
+  }
+
+  to {
+    opacity: 1;
+    translate: 0;
+  }
+}
+
+@keyframes close {
+  from {
+    opacity: 1;
+    translate: 0;
+  }
+
+  to {
+    opacity: 0;
+    translate: var(--sbb-tooltip-animation-translate);
+  }
+}

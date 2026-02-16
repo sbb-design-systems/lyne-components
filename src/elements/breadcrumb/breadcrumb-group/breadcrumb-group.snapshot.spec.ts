@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbBreadcrumbGroupElement } from './breadcrumb-group.js';
+import type { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.ts';
 
-import '../breadcrumb.js';
-import './breadcrumb-group.js';
+import '../breadcrumb.ts';
+import './breadcrumb-group.component.ts';
 
 describe(`sbb-breadcrumb-group`, () => {
   let root: SbbBreadcrumbGroupElement;

@@ -1,10 +1,13 @@
 import { expect } from '@open-wc/testing';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
-import { buttonSlottedIconTestTemplate, buttonTestTemplate } from '../common/button-test-utils.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
+import {
+  buttonSlottedIconTestTemplate,
+  buttonTestTemplate,
+} from '../common/button-test-utils.private.ts';
 
-import type { SbbAccentButtonElement } from './accent-button.js';
-import './accent-button.js';
+import type { SbbAccentButtonElement } from './accent-button.component.ts';
+import './accent-button.component.ts';
 
 describe(`sbb-accent-button`, () => {
   let element: SbbAccentButtonElement;

@@ -39,9 +39,7 @@ snapshots["sbb-train-wagon should render as type wagon Shadow DOM"] =
       </span>
     </li>
     <sbb-timetable-occupancy-icon
-      aria-label="No occupancy forecast available"
       class="sbb-train-wagon__occupancy"
-      data-namespace="default"
       occupancy="none"
       role="listitem"
     >
@@ -61,10 +59,7 @@ snapshots["sbb-train-wagon should render as type wagon Shadow DOM"] =
 snapshots["sbb-train-wagon should render as type wagon with one icon DOM"] = 
 `<sbb-train-wagon type="wagon">
   <sbb-icon
-    aria-hidden="true"
-    data-namespace="default"
     name="sa-rs"
-    role="img"
     slot="li-0"
   >
   </sbb-icon>
@@ -104,18 +99,12 @@ snapshots["sbb-train-wagon should render as type wagon with one icon Shadow DOM"
 snapshots["sbb-train-wagon should render as type wagon with multiple icons DOM"] = 
 `<sbb-train-wagon type="wagon">
   <sbb-icon
-    aria-hidden="true"
-    data-namespace="default"
     name="sa-rs"
-    role="img"
     slot="li-0"
   >
   </sbb-icon>
   <sbb-icon
-    aria-hidden="true"
-    data-namespace="default"
     name="sa-rs"
-    role="img"
     slot="li-1"
   >
   </sbb-icon>
@@ -217,50 +206,30 @@ snapshots["sbb-train-wagon should render as type closed wagon without number Sha
 snapshots["sbb-train-wagon should render as type wagon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Number, 38"
-    },
-    {
-      "role": "text",
-      "name": "First Class"
-    },
-    {
-      "role": "text",
-      "name": "No passage to the previous train coach"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "list",
+              "name": "Train coach"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-train-wagon should render as type wagon A11y tree Chrome */
-
-snapshots["sbb-train-wagon should render as type wagon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Number, 38"
-    },
-    {
-      "role": "text leaf",
-      "name": "First Class"
-    },
-    {
-      "role": "text leaf",
-      "name": "No passage to the previous train coach"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-train-wagon should render as type wagon A11y tree Firefox */
 
 snapshots["sbb-train-wagon should render as type wagon end with only one property DOM"] = 
 `<sbb-train-wagon
@@ -319,26 +288,6 @@ snapshots["sbb-train-wagon should render as type wagon end with only one propert
 `;
 /* end snapshot sbb-train-wagon should render as type wagon end with only one property A11y tree Chrome */
 
-snapshots["sbb-train-wagon should render as type wagon end with only one property A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Train coach"
-    },
-    {
-      "role": "text leaf",
-      "name": "First Class"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-train-wagon should render as type wagon end with only one property A11y tree Firefox */
-
 snapshots["sbb-train-wagon should render as type wagon-end-right with only one property DOM"] = 
 `<sbb-train-wagon
   type="wagon-end-right"
@@ -382,42 +331,30 @@ snapshots["sbb-train-wagon should render as type wagon-end-right with only one p
 snapshots["sbb-train-wagon should render as type wagon-end-right with only one property A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "First Class"
-    },
-    {
-      "role": "text",
-      "name": "No passage to the next train coach"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "list",
+              "name": "Train coach"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-train-wagon should render as type wagon-end-right with only one property A11y tree Chrome */
-
-snapshots["sbb-train-wagon should render as type wagon-end-right with only one property A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "First Class"
-    },
-    {
-      "role": "text leaf",
-      "name": "No passage to the next train coach"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-train-wagon should render as type wagon-end-right with only one property A11y tree Firefox */
 
 snapshots["sbb-train-wagon should render with only label DOM"] = 
 `<sbb-train-wagon
@@ -454,39 +391,43 @@ snapshots["sbb-train-wagon should render with only label Shadow DOM"] =
 `;
 /* end snapshot sbb-train-wagon should render with only label Shadow DOM */
 
-snapshots["sbb-train-wagon should render with only label A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Train coach"
-    },
-    {
-      "role": "text leaf",
-      "name": "Number, 1"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-train-wagon should render with only label A11y tree Firefox */
-
 snapshots["sbb-train-wagon should render with only label A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Train coach"
-    },
-    {
-      "role": "text",
-      "name": "Number, 1"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "role": "StaticText",
+                      "name": "Train coach"
+                    }
+                  ]
+                },
+                {
+                  "role": "generic",
+                  "name": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
@@ -526,40 +467,50 @@ snapshots["sbb-train-wagon should render as type wagon-end-left Shadow DOM"] =
 snapshots["sbb-train-wagon should render as type wagon-end-left A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Train coach"
-    },
-    {
-      "role": "text",
-      "name": "No passage to the previous train coach"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "role": "StaticText",
+                      "name": "Train coach"
+                    }
+                  ]
+                },
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "role": "StaticText",
+                      "name": "No passage to the previous train coach"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-train-wagon should render as type wagon-end-left A11y tree Chrome */
-
-snapshots["sbb-train-wagon should render as type wagon-end-left A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Train coach"
-    },
-    {
-      "role": "text leaf",
-      "name": "No passage to the previous train coach"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-train-wagon should render as type wagon-end-left A11y tree Firefox */
 

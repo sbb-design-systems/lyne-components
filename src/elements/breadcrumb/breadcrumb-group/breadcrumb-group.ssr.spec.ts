@@ -1,11 +1,11 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../../core/testing/private.js';
+import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import { SbbBreadcrumbGroupElement } from './breadcrumb-group.js';
+import { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.ts';
 
-import '../breadcrumb.js';
+import '../breadcrumb.ts';
 
 describe(`sbb-breadcrumb-group ssr`, () => {
   let root: SbbBreadcrumbGroupElement;
@@ -19,7 +19,7 @@ describe(`sbb-breadcrumb-group ssr`, () => {
           <sbb-breadcrumb href="#" id="breadcrumb-2">Two</sbb-breadcrumb>
         </sbb-breadcrumb-group>
       `,
-      { modules: ['./breadcrumb-group.js', '../breadcrumb.js'] },
+      { modules: ['./breadcrumb-group.component.js', '../breadcrumb.js'] },
     );
   });
 

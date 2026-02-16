@@ -1,41 +1,37 @@
 import { html, isServer, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../controllers.js';
-import { forceType, hostAttributes } from '../decorators.js';
-import { i18nTargetOpensInNewWindow } from '../i18n.js';
+import { SbbLanguageController } from '../controllers.ts';
+import { forceType, omitEmptyConverter } from '../decorators.ts';
+import { i18nTargetOpensInNewWindow } from '../i18n.ts';
 
-import { SbbActionBaseElement } from './action-base-element.js';
+import { SbbActionBaseElement } from './action-base-element.ts';
 
-import '../../screen-reader-only.js';
+import '../../screen-reader-only.ts';
 
 /** Enumeration for 'target' attribute in <a> HTML tag. */
 export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
 
 /** Link base class. */
-export
-@hostAttributes({
-  'data-link': '',
-})
-abstract class SbbLinkBaseElement extends SbbActionBaseElement {
+export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   /** The href value you want to link to. */
   @forceType()
-  @property()
+  @property({ reflect: true, converter: omitEmptyConverter })
   public accessor href: string = '';
 
   /** Where to display the linked URL. */
   @forceType()
-  @property()
+  @property({ reflect: true, converter: omitEmptyConverter })
   public accessor target: LinkTargetType | string = '';
 
   /** The relationship of the linked URL as space-separated link types. */
   @forceType()
-  @property()
+  @property({ reflect: true, converter: omitEmptyConverter })
   public accessor rel: string = '';
 
   /** Whether the browser will show the download dialog on click. */
   @forceType()
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   public accessor download: boolean = false;
 
   /** This will be forwarded as aria-label to the inner anchor element. */
@@ -49,9 +45,11 @@ abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   public accessor accessibilityCurrent: string = '';
 
   protected language = new SbbLanguageController(this);
+  protected readonly anchorRole: string | null = null;
 
   public constructor() {
     super();
+    this.internals.states.add('link');
     if (!isServer) {
       this.setupBaseEventHandlers();
     }
@@ -89,6 +87,7 @@ abstract class SbbLinkBaseElement extends SbbActionBaseElement {
         ?download=${this.download}
         target=${this.target || nothing}
         rel=${this._evaluateRelAttribute()}
+        role=${this.anchorRole || nothing}
         aria-label=${this.accessibilityLabel || nothing}
         aria-current=${this.accessibilityCurrent || nothing}
         tabindex=${this.maybeDisabled && !this.maybeDisabledInteractive ? '-1' : nothing}

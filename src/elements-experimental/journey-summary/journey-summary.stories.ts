@@ -1,19 +1,19 @@
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components';
-import { nothing, type TemplateResult } from 'lit';
+import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
+import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import {
   futureLeg,
   longFutureLeg,
   pastLeg,
   progressLeg,
-} from '../pearl-chain/pearl-chain.sample-data.js';
+} from '../pearl-chain/pearl-chain.sample-data.private.ts';
 
 import readme from './readme.md?raw';
 
-import './journey-summary.js';
+import './journey-summary.component.ts';
 import '@sbb-esta/lyne-elements/button/button.js';
 import '@sbb-esta/lyne-elements/button/secondary-button.js';
 
@@ -93,7 +93,7 @@ const Template = ({ trip, tripBack, now, ...args }: Args): TemplateResult => htm
   <sbb-journey-summary
     .trip=${trip}
     .tripBack=${tripBack}
-    now=${now ? now / 1000 : nothing}
+    .now=${now ? new Date(now) : null}
     ${sbbSpread(args)}
   >
     <div style="display: flex; padding-top: 24px; justify-content: space-between;" slot="content">
@@ -107,7 +107,7 @@ const TemplateNoSlot = ({ trip, tripBack, now, ...args }: Args): TemplateResult 
   html`<sbb-journey-summary
     .trip=${trip}
     .tripBack=${tripBack}
-    now=${now ? now / 1000 : nothing}
+    .now=${now ? new Date(now) : null}
     ${sbbSpread(args)}
   ></sbb-journey-summary>`;
 

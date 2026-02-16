@@ -1,1 +1,4 @@
-export * from './timetable-row/timetable-row.js';
+/**
+ * @entrypoint
+ */
+export * from './timetable-row/timetable-row.component.ts';

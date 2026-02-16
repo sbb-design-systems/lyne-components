@@ -1,10 +1,10 @@
-import type { Args, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import readme from './readme.md?raw';
-import '../pearl-chain-vertical.js';
-import './pearl-chain-vertical-item.js';
+import '../pearl-chain-vertical.ts';
+import './pearl-chain-vertical-item.component.ts';
 
 const Template = (args: Args): TemplateResult => {
   return html`

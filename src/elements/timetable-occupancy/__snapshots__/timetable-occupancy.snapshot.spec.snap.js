@@ -22,12 +22,7 @@ snapshots["sbb-timetable-occupancy renders Shadow DOM"] =
     <sbb-screen-reader-only>
       First Class.
     </sbb-screen-reader-only>
-    <sbb-timetable-occupancy-icon
-      aria-label="Very high occupancy expected"
-      class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
-      role="img"
-    >
+    <sbb-timetable-occupancy-icon class="sbb-timetable-occupancy__list-item-icon">
     </sbb-timetable-occupancy-icon>
   </li>
   <li class="sbb-timetable-occupancy__list-item">
@@ -40,12 +35,7 @@ snapshots["sbb-timetable-occupancy renders Shadow DOM"] =
     <sbb-screen-reader-only>
       Second Class.
     </sbb-screen-reader-only>
-    <sbb-timetable-occupancy-icon
-      aria-label="Very high occupancy expected"
-      class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
-      role="img"
-    >
+    <sbb-timetable-occupancy-icon class="sbb-timetable-occupancy__list-item-icon">
     </sbb-timetable-occupancy-icon>
   </li>
 </ul>
@@ -75,11 +65,8 @@ snapshots["sbb-timetable-occupancy renders negative Shadow DOM"] =
       First Class.
     </sbb-screen-reader-only>
     <sbb-timetable-occupancy-icon
-      aria-label="Low to medium occupancy expected"
       class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
       negative=""
-      role="img"
     >
     </sbb-timetable-occupancy-icon>
   </li>
@@ -94,11 +81,8 @@ snapshots["sbb-timetable-occupancy renders negative Shadow DOM"] =
       Second Class.
     </sbb-screen-reader-only>
     <sbb-timetable-occupancy-icon
-      aria-label="High occupancy expected"
       class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
       negative=""
-      role="img"
     >
     </sbb-timetable-occupancy-icon>
   </li>
@@ -127,12 +111,7 @@ snapshots["sbb-timetable-occupancy renders only first class wagon Shadow DOM"] =
     <sbb-screen-reader-only>
       First Class.
     </sbb-screen-reader-only>
-    <sbb-timetable-occupancy-icon
-      aria-label="Low to medium occupancy expected"
-      class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
-      role="img"
-    >
+    <sbb-timetable-occupancy-icon class="sbb-timetable-occupancy__list-item-icon">
     </sbb-timetable-occupancy-icon>
   </li>
 </ul>
@@ -160,12 +139,7 @@ snapshots["sbb-timetable-occupancy renders only second class wagon Shadow DOM"] 
     <sbb-screen-reader-only>
       Second Class.
     </sbb-screen-reader-only>
-    <sbb-timetable-occupancy-icon
-      aria-label="No occupancy forecast available"
-      class="sbb-timetable-occupancy__list-item-icon"
-      data-namespace="default"
-      role="img"
-    >
+    <sbb-timetable-occupancy-icon class="sbb-timetable-occupancy__list-item-icon">
     </sbb-timetable-occupancy-icon>
   </li>
 </ul>
@@ -175,48 +149,16 @@ snapshots["sbb-timetable-occupancy renders only second class wagon Shadow DOM"] 
 snapshots["sbb-timetable-occupancy renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "First Class."
-    },
-    {
-      "role": "text",
-      "name": "Second Class."
+      "role": "list",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-timetable-occupancy renders A11y tree Chrome */
-
-snapshots["sbb-timetable-occupancy renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "First Class."
-    },
-    {
-      "role": "img",
-      "name": "Very high occupancy expected"
-    },
-    {
-      "role": "text leaf",
-      "name": "Second Class."
-    },
-    {
-      "role": "img",
-      "name": "Very high occupancy expected"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-timetable-occupancy renders A11y tree Firefox */
 

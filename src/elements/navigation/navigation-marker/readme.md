@@ -1,4 +1,4 @@
-The `sbb-navigation-marker` component is a collection of of [sbb-navigation-button](/docs/elements-sbb-navigation-sbb-navigation-button--docs)
+The `sbb-navigation-marker` component is a collection of [sbb-navigation-button](/docs/elements-sbb-navigation-sbb-navigation-button--docs)
 and [sbb-navigation-link](/docs/elements-sbb-navigation-sbb-navigation-link--docs).
 Its intended use is inside a [sbb-navigation](/docs/elements-sbb-navigation-sbb-navigation--docs) component.
 

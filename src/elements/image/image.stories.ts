@@ -1,16 +1,18 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import images from '../core/images.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import images from '../core/images.ts';
 
-import { SbbImageElement } from './image.js';
+import { SbbImageElement } from './image.component.ts';
 import readme from './readme.md?raw';
-import '../chip-label.js';
+
+import '../chip-label.ts';
+import '../link.ts';
 
 const ImageTemplate = ({ aspectRatio, borderRadius, ...args }: Args): TemplateResult => html`
   <sbb-image
@@ -28,10 +30,9 @@ const WithCaptionTemplate = (args: Args): TemplateResult => html`
     ${ImageTemplate(args)}
     <figcaption>
       With the
-      <a href="https://www.sbb.ch/en/tickets-offers/travelcards/half-fare-travelcard.html"
-        >Half Fare Travelcard</a
-      >
-      , you can travel for half price on all SBB routes and most other railways as well as on boats
+      <sbb-link href="https://www.sbb.ch/en/tickets-offers/travelcards/half-fare-travelcard.html">
+        Half Fare Travelcard</sbb-link
+      >, you can travel for half price on all SBB routes and most other railways as well as on boats
       and Postbuses. You also benefit from discounts on urban transport as well as other additional
       attractive services and discounts.
     </figcaption>
@@ -42,6 +43,16 @@ const WithChipTemplate = ({ chipPosition, ...args }: Args): TemplateResult => ht
   <figure class="sbb-figure">
     ${ImageTemplate(args)}
     <sbb-chip-label class="sbb-figure-overlap-${chipPosition}">AI generated</sbb-chip-label>
+  </figure>
+`;
+
+const WithMultipleChipsTemplate = ({ chipPosition, ...args }: Args): TemplateResult => html`
+  <figure class="sbb-figure">
+    ${ImageTemplate(args)}
+    <div class="sbb-figure-overlap-${chipPosition}">
+      <sbb-chip-label>AI generated</sbb-chip-label>
+      <sbb-chip-label>Paid content</sbb-chip-label>
+    </div>
   </figure>
 `;
 
@@ -221,6 +232,12 @@ export const SkipLqip: StoryObj = {
 
 export const WithChip: StoryObj = {
   render: WithChipTemplate,
+  argTypes: { ...defaultArgTypes, chipPosition },
+  args: { ...defaultArgs, chipPosition: chipPosition.options![0] },
+};
+
+export const WithMultipleChips: StoryObj = {
+  render: WithMultipleChipsTemplate,
   argTypes: { ...defaultArgTypes, chipPosition },
   args: { ...defaultArgs, chipPosition: chipPosition.options![0] },
 };

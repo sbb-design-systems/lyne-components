@@ -1,1 +1,4 @@
-export * from './accent-button/accent-button.js';
+/**
+ * @entrypoint
+ */
+export * from './accent-button/accent-button.component.ts';

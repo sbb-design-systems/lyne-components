@@ -1,11 +1,8 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-flip-card-toggle-icon-transform: rotate(0);
-  --sbb-flip-card-background-color: var(--sbb-color-cloud);
+  --sbb-flip-card-background-color: var(--sbb-background-color-4);
   --sbb-flip-card-border-radius: var(--sbb-border-radius-4x);
   --sbb-flip-card-min-height: #{sbb.px-to-rem-build(280)};
   --sbb-flip-card-summary-transition-duration: var(
@@ -24,19 +21,22 @@
   position: relative;
   display: block;
 
-  @include sbb.mq($from: medium) {
+  @include sbb.mq($from: large) {
     --sbb-flip-card-min-height: #{sbb.px-to-rem-build(320)};
   }
 }
 
 :host(:hover) {
   @include sbb.hover-mq($hover: true) {
-    --sbb-flip-card-background-color: var(--sbb-color-cloud-alpha-80);
+    --sbb-flip-card-background-color: light-dark(
+      color-mix(in srgb, var(--sbb-color-cloud) 80%, transparent),
+      var(--sbb-color-iron)
+    );
     --sbb-flip-card-translate-title-y-hover: #{sbb.px-to-rem-build(-1)};
   }
 }
 
-:host([data-flipped]) {
+:host(:state(flipped)) {
   --sbb-flip-card-toggle-icon-transform: rotate(45deg);
   --sbb-flip-card-details-transition-duration: var(
     --sbb-disable-animation-duration,
@@ -55,12 +55,12 @@
   }
 }
 
-:host([data-image-alignment='after']) {
-  @include sbb.mq($from: small, $to: medium) {
+:host(:state(image-alignment-after)) {
+  @include sbb.mq($from: small, $to: large) {
     --sbb-flip-card-min-height: #{sbb.px-to-rem-build(240)};
   }
 
-  @include sbb.mq($from: wide) {
+  @include sbb.mq($from: ultra) {
     --sbb-flip-card-min-height: #{sbb.px-to-rem-build(400)};
   }
 }
@@ -79,9 +79,9 @@
     all var(--sbb-flip-card-summary-transition-duration) ease-out,
     min-height var(--sbb-flip-card-details-transition-duration);
   transition-delay: var(--sbb-flip-card-summary-transition-delay);
-  cursor: pointer;
+  cursor: var(--sbb-cursor-pointer);
 
-  :host([data-flipped]) & {
+  :host(:state(flipped)) & {
     min-height: max(var(--sbb-flip-card-min-height), var(--sbb-flip-card-details-height));
   }
 
@@ -110,7 +110,7 @@
     position: absolute;
     inset-inline-start: var(--sbb-spacing-responsive-s);
     inset-block-end: var(--sbb-spacing-responsive-s);
-    background-color: var(--sbb-color-midnight);
+    background-color: light-dark(var(--sbb-color-midnight), var(--sbb-color-iron));
     width: var(--sbb-size-element-xs);
     height: var(--sbb-size-element-xs);
 
@@ -118,7 +118,7 @@
     border-radius: #{sbb.px-to-rem-build(256)};
     transition: var(--sbb-disable-animation-duration, var(--sbb-animation-duration-3x)) ease-out;
 
-    :host([data-flipped]) & {
+    :host(:state(flipped)) & {
       opacity: 1;
       inset-inline-start: 0;
       inset-block-end: 0;
@@ -135,7 +135,7 @@
   inset-inline-start: var(--sbb-spacing-responsive-s);
   inset-block-end: var(--sbb-spacing-responsive-s);
 
-  :host([data-flipped]) & {
+  :host(:state(flipped)) & {
     --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
   }
 }
@@ -152,9 +152,9 @@
   inset: 0;
   width: 100%;
   border-radius: var(--sbb-flip-card-border-radius);
-  cursor: pointer;
+  cursor: var(--sbb-cursor-pointer);
 
-  &:not([data-focus-origin='mouse'], [data-focus-origin='touch']):focus-visible {
+  &:focus-visible {
     @include sbb.focus-outline;
   }
 }

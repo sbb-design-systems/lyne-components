@@ -1,18 +1,7 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  --sbb-radio-button-label-color: var(--sbb-color-charcoal);
-  --sbb-radio-button-background-color: var(--sbb-color-white);
-  --sbb-radio-button-inner-circle-color: var(--sbb-color-white);
-  --sbb-radio-button-border-width: var(--sbb-border-width-1x);
-  --sbb-radio-button-border-style: solid;
-  --sbb-radio-button-border-color: var(--sbb-color-smoke);
-  --sbb-radio-button-dimension: var(--sbb-size-icon-ui-small);
-  --sbb-radio-button-inner-circle-dimension: #{sbb.px-to-rem-build(10)};
-  --sbb-radio-button-cursor: pointer;
+  --sbb-radio-button-inner-circle-color: var(--sbb-radio-button-background-color);
 
   // The border in unchecked state should fill the circle.
   --sbb-radio-button-background-fake-border-width: calc(var(--sbb-radio-button-dimension) / 2);
@@ -20,18 +9,12 @@
   // Align radio button to the first row of the label based on the line-height so that it's vertically
   // aligned to the label and sticks to the top if the label breaks into multiple lines
   --sbb-radio-button-icon-align: calc(
-    (1em * var(--sbb-typo-line-height-body-text) - var(--sbb-radio-button-dimension)) / 2
+    (1em * var(--sbb-typo-line-height-text) - var(--sbb-radio-button-dimension)) / 2
   );
-
-  @include sbb.if-forced-colors {
-    --sbb-radio-button-background-color: Canvas !important;
-    --sbb-radio-button-border-width: var(--sbb-border-width-2x);
-    --sbb-radio-button-border-color: ButtonBorder;
-  }
 }
 
-:host([data-checked]) {
-  --sbb-radio-button-inner-circle-color: var(--sbb-color-red);
+:host(:state(checked)) {
+  --sbb-radio-button-inner-circle-color: var(--sbb-color-primary);
   --sbb-radio-button-background-fake-border-width: calc(
     (var(--sbb-radio-button-dimension) - var(--sbb-radio-button-inner-circle-dimension)) / 2
   );
@@ -44,21 +27,38 @@
 
 // Disabled definitions have to be after checked definitions
 :host(:disabled) {
-  --sbb-radio-button-label-color: var(--sbb-color-granite);
-  --sbb-radio-button-background-color: var(--sbb-color-milk);
+  --sbb-radio-button-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-aluminium));
+  --sbb-radio-button-background-color: var(--sbb-background-color-3);
   --sbb-radio-button-border-style: dashed;
-  --sbb-radio-button-inner-circle-color: var(--sbb-color-charcoal);
-  --sbb-radio-button-cursor: default;
+  --sbb-radio-button-inner-circle-color: var(--sbb-radio-button-background-color);
+  --sbb-radio-button-cursor: var(--sbb-cursor-default);
 
   @include sbb.if-forced-colors {
+    --sbb-radio-button-background-color: Canvas;
     --sbb-radio-button-inner-circle-color: GrayText;
     --sbb-radio-button-border-color: GrayText;
     --sbb-radio-button-border-style: solid;
   }
 }
 
+// Disabled definitions have to be after checked definitions
+:host(:disabled:state(checked)) {
+  --sbb-radio-button-inner-circle-color: var(--sbb-background-color-2-inverted);
+}
+
 :host([size='xs']) {
-  --sbb-radio-button-dimension: #{sbb.px-to-rem-build(20)};
+  --sbb-radio-button-font-size: var(--sbb-text-font-size-xs);
+  --sbb-radio-button-dimension: var(--sbb-radio-button-dimension-xs);
+}
+
+:host([size='s']) {
+  --sbb-radio-button-font-size: var(--sbb-text-font-size-s);
+  --sbb-radio-button-dimension: var(--sbb-radio-button-dimension-s);
+}
+
+:host([size='m']) {
+  --sbb-radio-button-font-size: var(--sbb-text-font-size-m);
+  --sbb-radio-button-dimension: var(--sbb-radio-button-dimension-m);
 }
 
 .sbb-screen-reader-only {
@@ -66,28 +66,21 @@
 }
 
 .sbb-radio-button {
+  font-size: var(--sbb-radio-button-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   display: block;
   cursor: var(--sbb-radio-button-cursor);
   user-select: none;
   position: relative;
   color: var(--sbb-radio-button-label-color);
   -webkit-tap-highlight-color: transparent;
-
-  @include sbb.text-m--regular;
-
-  :host([size='s']) & {
-    @include sbb.text-s--regular;
-  }
-
-  :host([size='xs']) & {
-    @include sbb.text-xs--regular;
-  }
 }
 
 .sbb-radio-button__label-slot {
   display: flex;
   align-items: flex-start;
   overflow: hidden;
+  min-height: calc(var(--sbb-radio-button-font-size) * var(--sbb-typo-line-height-text));
 
   &::before,
   &::after {
@@ -117,7 +110,7 @@
     // The border color acts as background color.
     border: var(--sbb-radio-button-background-fake-border-width) solid
       var(--sbb-radio-button-background-color);
-    margin-inline-end: var(--sbb-spacing-fixed-2x);
+    margin-inline-end: var(--sbb-radio-button-label-gap);
   }
 
   &::after {

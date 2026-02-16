@@ -1,13 +1,6 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
-:host {
-  display: block;
-}
-
-$breakpoints: 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra';
+$breakpoints: 'zero', 'small', 'large', 'ultra';
 $vertical-orientations: (
   start: flex-start,
   center: center,
@@ -21,10 +14,14 @@ $horizontal-orientations: (
   end: flex-end,
 );
 
-:host([orientation='horizontal']) {
-  --sbb-action-group-orientation: row;
-  --sbb-action-group-align-items: center;
+:host {
   --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
+
+  display: flex;
+  flex-direction: var(--sbb-action-group-orientation, row);
+  align-items: var(--sbb-action-group-align-items, center);
+  justify-content: var(--sbb-action-group-justify-content, start);
+  gap: var(--sbb-action-group-gap);
 }
 
 @each $key, $value in $horizontal-orientations {
@@ -58,24 +55,16 @@ $horizontal-orientations: (
   }
 }
 
-.sbb-action-group {
-  display: flex;
-  flex-direction: var(--sbb-action-group-orientation);
-  gap: var(--sbb-action-group-gap);
-  justify-content: var(--sbb-action-group-justify-content);
-  align-items: var(--sbb-action-group-align-items);
+::slotted([align-self='start']) {
+  margin-inline-end: auto;
+}
 
-  ::slotted([align-self='start']) {
-    margin-inline-end: auto;
-  }
+::slotted([align-self='center']) {
+  margin-inline: auto;
+}
 
-  ::slotted([align-self='center']) {
-    margin-inline: auto;
-  }
-
-  ::slotted([align-self='end']) {
-    margin-inline-start: auto;
-  }
+::slotted([align-self='end']) {
+  margin-inline-start: auto;
 }
 
 ::slotted(:is(sbb-block-link, sbb-block-link-button, sbb-block-link-static)) {

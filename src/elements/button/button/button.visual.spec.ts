@@ -1,15 +1,18 @@
 import { html } from 'lit';
 
+import { isWebkit } from '../../core/dom/platform.ts';
+import { ɵstateController } from '../../core/mixins/element-internals-mixin.ts';
 import {
   describeEach,
   describeViewports,
+  visualDiffActive,
   visualDiffDefault,
   visualDiffHover,
   visualDiffStandardStates,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './button.js';
+import './button.component.ts';
 
 describe(`sbb-button`, () => {
   let root: HTMLElement;
@@ -22,6 +25,7 @@ describe(`sbb-button`, () => {
       { icon: 'arrow-right-small', text: 'Button' },
       { icon: 'arrow-right-small', text: '' },
     ],
+    darkMode: [false, true],
   };
 
   // 'l' as default is covered by other cases.
@@ -32,18 +36,24 @@ describe(`sbb-button`, () => {
     negative: [false, true],
   };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
-    describeEach(cases, ({ disabled, negative, state }) => {
+  const loadingCases = {
+    negative: [false, true],
+    darkMode: [false, true],
+  };
+
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
+    describeEach(cases, ({ disabled, negative, state, darkMode }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
-            <sbb-button ?disabled=${disabled} ?negative=${negative} .iconName=${state.icon}>
-              ${state.text}
-            </sbb-button>
+            <sbb-button ?disabled=${disabled} ?negative=${negative} .iconName=${state.icon}
+              >${state.text}</sbb-button
+            >
           `,
           {
-            backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             focusOutlineDark: negative,
+            darkMode,
           },
         );
       });
@@ -53,9 +63,41 @@ describe(`sbb-button`, () => {
           state.name,
           state.with((setup) => {
             setup.withSnapshotElement(root);
+
+            setup.withPostSetupAction(() => {
+              // Webkit has problems to render the :active state, we help by manually set the state.
+              // TODO: re-check whether this is still needed in the future.
+              if (isWebkit && state === visualDiffActive) {
+                ɵstateController(setup.stateElement)?.add('active');
+              }
+            });
           }),
         );
       }
+    });
+
+    describe('loading', () => {
+      describeEach(loadingCases, ({ negative, darkMode }) => {
+        beforeEach(async function () {
+          root = await visualRegressionFixture(
+            html` <sbb-button loading ?negative=${negative}>Loading Button</sbb-button> `,
+            {
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+              focusOutlineDark: negative,
+              darkMode,
+            },
+          );
+        });
+
+        for (const state of visualDiffStandardStates) {
+          it(
+            state.name,
+            state.with((setup) => {
+              setup.withSnapshotElement(root);
+            }),
+          );
+        }
+      });
     });
 
     describeEach(sizeCases, ({ size, icon }) => {
@@ -79,7 +121,9 @@ describe(`sbb-button`, () => {
                 await setup.withFixture(
                   html`<sbb-button disabled-interactive ?negative=${negative}>Button</sbb-button>`,
                   {
-                    backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-1-negative)'
+                      : undefined,
                     focusOutlineDark: negative,
                   },
                 );
@@ -100,7 +144,7 @@ describe(`sbb-button`, () => {
               </sbb-button>
             `,
             {
-              backgroundColor: negative ? 'var(--sbb-color-iron)' : undefined,
+              backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
               focusOutlineDark: negative,
               forcedColors: true,
             },

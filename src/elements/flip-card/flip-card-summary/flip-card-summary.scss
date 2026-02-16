@@ -1,8 +1,5 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-flip-card-summary-opacity: 1;
   --sbb-flip-card-summary-pointer-events: all;
@@ -30,7 +27,7 @@
       grid-template-rows: 1fr;
     }
 
-    @include sbb.mq($from: medium) {
+    @include sbb.mq($from: large) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-template-rows: 1fr;
     }
@@ -48,7 +45,7 @@
       grid-area: 1 / 1 / 2 / 3;
     }
 
-    @include sbb.mq($from: medium) {
+    @include sbb.mq($from: large) {
       grid-area: 1 / 1 / 2 / 2;
     }
   }
@@ -68,7 +65,7 @@
       grid-area: 1 / 3 / 2 / 4;
     }
 
-    @include sbb.mq($from: medium) {
+    @include sbb.mq($from: large) {
       grid-area: 1 / 2 / 2 / 3;
     }
   }

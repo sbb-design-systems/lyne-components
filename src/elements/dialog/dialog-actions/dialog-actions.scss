@@ -1,24 +1,29 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  display: contents;
-
-  @include sbb.if-forced-colors {
-    --sbb-dialog-actions-border: var(--sbb-border-width-1x) solid CanvasText;
-  }
-}
-
-.sbb-dialog-actions {
+  grid-area: actions;
   padding-inline: var(--sbb-dialog-padding-inline);
-  padding-block: var(--sbb-spacing-responsive-s);
+  padding-block: var(--sbb-dialog-padding-block);
   margin-block-start: auto;
   background-color: var(--sbb-dialog-background-color);
-  border-block-start: var(--sbb-dialog-actions-border);
+  transition: box-shadow var(--sbb-animation-easing) var(--sbb-dialog-shadow-animation-duration);
+  box-shadow: var(--sbb-dialog-block-end-box-shadow, none);
 
-  :host([data-overflows]:not([data-negative])) & {
-    @include sbb.shadow-level-9-soft;
+  // Horizontal line has to be absolute positioned because otherwise
+  // it interferes with scroll detection of above container.
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    align-self: start;
+    border-block-start: var(--sbb-border-width-1x) solid var(--sbb-dialog-actions-border-color);
+    transition: border-color var(--sbb-animation-easing) var(--sbb-dialog-shadow-animation-duration);
+    width: 100%;
+    margin-block-start: calc(-1 * var(--sbb-dialog-padding-block));
+    margin-inline-start: calc(-1 * var(--sbb-dialog-padding-inline));
+
+    @include sbb.if-forced-colors {
+      border-color: CanvasText;
+    }
   }
 }

@@ -1,20 +1,14 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  --sbb-breadcrumb-group-wrap: nowrap;
-  --sbb-breadcrumb-group-visibility: hidden;
-
   display: block;
 }
 
-:host([data-loaded]) {
+:host(:state(loaded)) {
   --sbb-breadcrumb-group-visibility: visible;
 }
 
-:host([data-state]) {
+:host(:is(:state(state-collapsed), :state(state-manually-expanded))) {
   --sbb-breadcrumb-group-wrap: wrap;
 }
 
@@ -34,15 +28,10 @@
 }
 
 .sbb-breadcrumb-group__divider-icon {
-  color: var(--sbb-color-granite);
+  color: var(--sbb-breadcrumb-group-ellipsis-color);
 }
 
 #sbb-breadcrumb-ellipsis {
-  --sbb-breadcrumb-group-ellipsis-color: var(--sbb-color-granite);
-  --sbb-breadcrumb-group-ellipsis-background-color: transparent;
-  --sbb-breadcrumb-group-ellipsis-border-width: var(--sbb-border-width-1x);
-  --sbb-breadcrumb-group-ellipsis-border-color: var(--sbb-color-silver);
-
   @include sbb.button-reset;
   @include sbb.text-xxs--regular;
 
@@ -57,7 +46,7 @@
 
   // In order to vertically center ..., we use padding with half the font size.
   padding-block-end: 0.5em;
-  cursor: pointer;
+  cursor: var(--sbb-cursor-pointer);
   color: var(--sbb-breadcrumb-group-ellipsis-color);
   background-color: var(--sbb-breadcrumb-group-ellipsis-background-color);
   overflow: hidden;
@@ -69,8 +58,8 @@
 
   @include sbb.hover-mq($hover: true) {
     &:hover {
-      --sbb-breadcrumb-group-ellipsis-color: var(--sbb-color-charcoal);
-      --sbb-breadcrumb-group-ellipsis-background-color: var(--sbb-color-milk);
+      --sbb-breadcrumb-group-ellipsis-color: var(--sbb-color-2);
+      --sbb-breadcrumb-group-ellipsis-background-color: var(--sbb-background-color-3);
 
       @include sbb.if-forced-colors {
         --sbb-breadcrumb-group-ellipsis-border-color: Highlight;
@@ -78,7 +67,7 @@
     }
   }
 
-  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+  &:focus-visible {
     @include sbb.focus-outline;
   }
 }

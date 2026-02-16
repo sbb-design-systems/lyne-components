@@ -1,15 +1,15 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './action-group.js';
-import '../button.js';
-import '../link/block-link.js';
+import './action-group.component.ts';
+import '../button.ts';
+import '../link/block-link.ts';
 
 const secondaryButtonTemplate = (alignSelf?: string): TemplateResult => html`
   <sbb-secondary-button align-self=${alignSelf || nothing}> Button 1 </sbb-secondary-button>
@@ -115,7 +115,7 @@ const horizontalFrom: InputType = {
   control: {
     type: 'select',
   },
-  options: ['unset', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: ['unset', 'zero', 'small', 'large', 'ultra'],
 };
 
 const alignGroup: InputType = {
@@ -274,7 +274,7 @@ export const VerticalAllocation0_0_2FullWidth: StoryObj = {
 export const VerticalToHorizontal3_0_0: StoryObj = {
   render: CommonTemplateThreeElementsAllocation,
   argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, 'horizontal-from': 'medium' },
+  args: { ...basicArgsVertical, 'horizontal-from': 'large' },
 };
 
 export const HorizontalAllocationSizeS3_0_0: StoryObj = {

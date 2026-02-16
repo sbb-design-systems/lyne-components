@@ -1,1 +1,4 @@
-export * from './logo/logo.js';
+/**
+ * @entrypoint
+ */
+export * from './logo/logo.component.ts';

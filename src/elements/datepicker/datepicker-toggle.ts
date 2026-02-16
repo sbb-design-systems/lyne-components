@@ -1,1 +1,4 @@
-export * from './datepicker-toggle/datepicker-toggle.js';
+/**
+ * @entrypoint
+ */
+export * from './datepicker-toggle/datepicker-toggle.component.ts';

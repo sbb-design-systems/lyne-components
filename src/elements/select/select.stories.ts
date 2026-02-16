@@ -1,5 +1,3 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
 import type {
   Args,
   ArgTypes,
@@ -7,20 +5,23 @@ import type {
   Meta,
   StoryContext,
   StoryObj,
-} from '@storybook/web-components';
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import type { SbbFormErrorElement } from '../form-error.js';
-import { SbbOptionElement } from '../option.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbErrorElement } from '../form-field.ts';
+import { SbbOptionElement } from '../option.ts';
 
 import readme from './readme.md?raw';
-import { SbbSelectElement } from './select.js';
-import '../form-error.js';
-import '../form-field.js';
+import { SbbSelectElement } from './select.component.ts';
+
+import '../form-field.ts';
+import '../card.ts';
 
 const borderless: InputType = {
   control: {
@@ -190,20 +191,10 @@ const changeEventHandler = (event: Event): void => {
   document.getElementById('container-value')!.append(div);
 };
 
-const textBlockStyle: Readonly<StyleInfo> = {
-  position: 'relative',
-  marginBlockStart: '1rem',
-  padding: '1rem',
-  backgroundColor: 'var(--sbb-color-milk)',
-  border: 'var(--sbb-border-width-1x) solid var(--sbb-color-cloud)',
-  borderRadius: 'var(--sbb-border-radius-4x)',
-  zIndex: '100',
-};
-
 const codeStyle: Readonly<StyleInfo> = {
   padding: 'var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-2x)',
   borderRadius: 'var(--sbb-border-radius-4x)',
-  backgroundColor: 'var(--sbb-color-smoke-alpha-20)',
+  backgroundColor: 'var(--sbb-background-color-4)',
 };
 
 const aboveDecorator: Decorator = (story) => html`
@@ -222,7 +213,7 @@ const valueEllipsis: string = 'This label name is so long that it needs ellipsis
 
 const textBlock = (text: string | null = null): TemplateResult => {
   return html`
-    <div style=${styleMap(textBlockStyle)}>
+    <sbb-card color="milk" style="margin-block-start: 1rem">
       ${!text
         ? html`
             <span>
@@ -231,7 +222,7 @@ const textBlock = (text: string | null = null): TemplateResult => {
             </span>
           `
         : text}
-    </div>
+    </sbb-card>
   `;
 };
 
@@ -354,8 +345,8 @@ const FormFieldTemplateWithError = ({
   if (args.multiple && args.value) {
     args.value = [args.value];
   }
-  const sbbFormError: SbbFormErrorElement = document.createElement('sbb-form-error');
-  sbbFormError.textContent = 'Error';
+  const error: SbbErrorElement = document.createElement('sbb-error');
+  error.textContent = 'Error';
 
   return html`
     <div>
@@ -373,10 +364,10 @@ const FormFieldTemplateWithError = ({
           class="sbb-invalid"
           @change=${(event: Event) => {
             if ((event.target as SbbSelectElement).value !== '') {
-              sbbFormError.remove();
+              error.remove();
               document.getElementById('sbb-select')!.classList.remove('sbb-invalid');
             } else {
-              document.getElementById('sbb-form-field')!.append(sbbFormError);
+              document.getElementById('sbb-form-field')!.append(error);
               document.getElementById('sbb-select')!.classList.add('sbb-invalid');
             }
           }}
@@ -385,7 +376,7 @@ const FormFieldTemplateWithError = ({
             ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
             : createOptions(numberOfOptions, disableOption, false, args.value)}
         </sbb-select>
-        ${sbbFormError}
+        ${error}
       </sbb-form-field>
       ${textBlock()}
     </div>
@@ -598,15 +589,17 @@ const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args.negative ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args.negative
+        ? 'var(--sbb-background-color-2-negative)'
+        : 'var(--sbb-background-color-2)',
     actions: {
       handles: [
         SbbSelectElement.events.change,
-        SbbSelectElement.events.didClose,
-        SbbSelectElement.events.didOpen,
-        SbbSelectElement.events.willClose,
-        SbbSelectElement.events.willOpen,
-        SbbOptionElement.events.optionSelected,
+        SbbSelectElement.events.close,
+        SbbSelectElement.events.open,
+        SbbSelectElement.events.beforeclose,
+        SbbSelectElement.events.beforeopen,
+        SbbOptionElement.events.optionselected,
       ],
     },
     docs: {

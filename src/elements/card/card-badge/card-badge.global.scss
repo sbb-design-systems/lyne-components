@@ -1,0 +1,19 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-card-badge-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-card-badge-color: var(--sbb-color-2-inverted);
+  --sbb-card-badge-background-color: var(--sbb-background-color-3-inverted);
+  --sbb-card-badge-border-color: transparent;
+  --sbb-card-badge-padding-inline: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-3x);
+  --sbb-card-badge-border-width: var(--sbb-border-width-1x);
+  --sbb-card-badge-border-radius: var(--sbb-border-radius-4x);
+  --sbb-card-badge-skew: skew(16deg, 0deg);
+}
+
+@mixin base-forced-colors {
+  --sbb-card-badge-border-display: block;
+  --sbb-card-badge-inline-border-display: none;
+}

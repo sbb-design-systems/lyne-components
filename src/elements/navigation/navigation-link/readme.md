@@ -35,7 +35,7 @@ The component has three different sizes, which can be changed using the `size` p
 | ---------------------- | ----------------------- | ------- | ------------------------------------------ | ------------------ | ------------------------------------------------------------------- |
 | `accessibilityCurrent` | `accessibility-current` | public  | `string`                                   | `''`               | This will be forwarded as aria-current to the inner anchor element. |
 | `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                   | `''`               | This will be forwarded as aria-label to the inner anchor element.   |
-| `connectedSection`     | -                       | public  | `SbbNavigationSectionElement \| undefined` |                    | The section that is beign controlled by the action, if any.         |
+| `connectedSection`     | -                       | public  | `SbbNavigationSectionElement \| undefined` |                    | The section that is being controlled by the action, if any.         |
 | `download`             | `download`              | public  | `boolean`                                  | `false`            | Whether the browser will show the download dialog on click.         |
 | `href`                 | `href`                  | public  | `string`                                   | `''`               | The href value you want to link to.                                 |
 | `marker`               | -                       | public  | `SbbNavigationMarkerElement \| null`       |                    | The navigation marker in which the action is nested.                |

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 import { parse, stringify } from 'comment-parser';
+import type { Block } from 'comment-parser/primitives';
 
 export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
@@ -26,34 +27,8 @@ export default ESLintUtils.RuleCreator.withoutDocs({
       if (!classDeclaration || !classDeclaration.decorators?.length) {
         return null;
       }
-      const jsDoc = context.getSourceCode().getCommentsBefore(classDeclaration.decorators![0])[0];
+      const jsDoc = context.sourceCode.getCommentsBefore(classDeclaration.decorators![0])[0];
       return jsDoc ? { jsDoc, parsedJsDoc: parse(`/*${jsDoc.value}*/`)?.[0] ?? null } : null;
-    };
-    const findClassEventNames = (node: TSESTree.Node | undefined): Map<string, string> => {
-      const classBody = findParent<TSESTree.ClassBody>(node, 'ClassBody');
-      if (!classBody) {
-        return new Map<string, string>();
-      }
-      const events = classBody.body.find(
-        (n): n is TSESTree.PropertyDefinition =>
-          n.type === 'PropertyDefinition' &&
-          (n as TSESTree.PropertyDefinition).static &&
-          ((n as TSESTree.PropertyDefinition).key as TSESTree.Identifier).name === 'events',
-      );
-      if (!events) {
-        return new Map<string, string>();
-      }
-      return (
-        ((events.value as TSESTree.TSAsExpression).expression as TSESTree.ObjectExpression) ??
-        (events.value as TSESTree.ObjectExpression)
-      ).properties.reduce(
-        (current, next) =>
-          current.set(
-            ((next as TSESTree.Property).key as TSESTree.Identifier).name,
-            ((next as TSESTree.Property).value as TSESTree.Literal).value as string,
-          ),
-        new Map<string, string>(),
-      );
     };
 
     const events = new Map<string, { type: string; doc: string }>();
@@ -73,40 +48,6 @@ export default ESLintUtils.RuleCreator.withoutDocs({
       NewExpression(node) {
         if (node.callee.type !== 'Identifier') {
           return;
-        } else if (node.callee.name === 'EventEmitter') {
-          const eventNames = findClassEventNames(node);
-          const typeNode =
-            node.typeArguments?.params[0] ??
-            (
-              (node.parent as TSESTree.PropertyDefinition).typeAnnotation
-                ?.typeAnnotation as TSESTree.TSTypeReference
-            ).typeArguments?.params[0];
-          const type = typeNode ? context.getSourceCode().getText(typeNode) : 'void';
-          const eventVariable = (
-            (node.arguments[1] as TSESTree.MemberExpression).property as TSESTree.Identifier
-          ).name;
-          const eventName = eventNames.get(eventVariable);
-          if (!eventName || events.has(eventName)) {
-            return;
-          }
-
-          const doc = context.getSourceCode().getCommentsBefore(node.parent!)?.[0];
-          const eventDoc = doc
-            ? (parse(`/*${doc.value}*/`)[0] ?? parse(`/**${doc.value}*/`)[0])
-            : undefined;
-          if (eventDoc?.tags.some((t) => t.tag === 'internal')) {
-            return;
-          }
-
-          events.set(eventName, {
-            type: `{CustomEvent<${type}>}`,
-            doc:
-              eventDoc?.description ||
-              eventDoc?.tags
-                .filter((t) => t.tag === 'deprecated')
-                .map((t) => `Deprecated. ${t.description}`)[0] ||
-              'TODO: Document this event',
-          });
         } else if (node.callee.name.endsWith('Event')) {
           const jsDoc = findJsDoc(node);
           if (!jsDoc) {
@@ -147,7 +88,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
             },
           });
         }
-        const parsedJsDoc = malformedJsDoc
+        const parsedJsDoc: Block = malformedJsDoc
           ? parse(`/**${jsDoc.value}*/`)[0]
           : parse(`/*${jsDoc.value}*/`)[0];
         if (!parsedJsDoc) {

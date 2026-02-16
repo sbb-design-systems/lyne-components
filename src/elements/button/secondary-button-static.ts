@@ -1,1 +1,4 @@
-export * from './secondary-button-static/secondary-button-static.js';
+/**
+ * @entrypoint
+ */
+export * from './secondary-button-static/secondary-button-static.component.ts';

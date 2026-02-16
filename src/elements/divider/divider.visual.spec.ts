@@ -5,9 +5,9 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './divider.js';
+import './divider.component.ts';
 
 describe(`sbb-divider`, () => {
   let root: HTMLElement;
@@ -15,10 +15,11 @@ describe(`sbb-divider`, () => {
   const cases = {
     orientation: ['horizontal', 'vertical'],
     negative: [false, true],
+    darkMode: [false, true],
   };
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(cases, ({ negative, orientation }) => {
+    describeEach(cases, ({ negative, orientation, darkMode }) => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
@@ -26,7 +27,10 @@ describe(`sbb-divider`, () => {
               <sbb-divider ?negative=${negative} orientation=${orientation}></sbb-divider>
             </div>
           `,
-          { backgroundColor: negative ? 'var(--sbb-color-charcoal)' : undefined },
+          {
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
+            darkMode,
+          },
         );
       });
 

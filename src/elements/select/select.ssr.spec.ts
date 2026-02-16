@@ -1,10 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { ssrHydratedFixture } from '../core/testing/private.js';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
-import { SbbSelectElement } from './select.js';
-import '../option.js';
+import { SbbSelectElement } from './select.component.ts';
+import '../option.ts';
 
 describe(`sbb-select ssr`, () => {
   let root: SbbSelectElement;
@@ -18,7 +18,7 @@ describe(`sbb-select ssr`, () => {
           <sbb-option id="option-3" value="3">Third</sbb-option>
         </sbb-select>
       `,
-      { modules: ['./select.js', '../option.js'] },
+      { modules: ['./select.component.js', '../option.js'] },
     );
 
     assert.instanceOf(root, SbbSelectElement);
@@ -33,7 +33,7 @@ describe(`sbb-select ssr`, () => {
           <sbb-option id="option-3" value="3">Third</sbb-option>
         </sbb-select>
       `,
-      { modules: ['./select.js', '../option.js'] },
+      { modules: ['./select.component.js', '../option.js'] },
     );
 
     assert.instanceOf(root, SbbSelectElement);

@@ -4,10 +4,6 @@ export const snapshots = {};
 snapshots["sbb-block-link renders DOM"] = 
 `<sbb-block-link
   accessibility-label="Travelcards &amp; tickets"
-  data-action=""
-  data-link=""
-  data-sbb-link=""
-  data-slot-names="unnamed"
   download=""
   href="https://github.com/sbb-design-systems/lyne-components"
   icon-placement="start"
@@ -38,33 +34,16 @@ snapshots["sbb-block-link renders Shadow DOM"] =
 snapshots["sbb-block-link renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "Travelcards & tickets"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-block-link renders A11y tree Chrome */
-
-snapshots["sbb-block-link renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Travelcards & tickets",
-      "value": "https://github.com/sbb-design-systems/lyne-components"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-block-link renders A11y tree Firefox */
 

@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
+import { fixture } from '../core/testing/private.ts';
+import { waitForImageReady } from '../core/testing.ts';
 
-import type { SbbImageElement } from './image.js';
+import type { SbbImageElement } from './image.component.ts';
 
-import './image.js';
+import './image.component.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 

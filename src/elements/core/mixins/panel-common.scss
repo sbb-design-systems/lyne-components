@@ -2,30 +2,17 @@
 
 :host {
   --sbb-selection-panel-background: var(
-    --sbb-selection-expansion-panel-inner-background,
-    var(--sbb-color-white)
-  );
-  --sbb-selection-panel-border-color: var(--sbb-color-cloud);
-
-  // We use --sbb-selection-expansion-panel-border-radius in case a user would define another border radius.
-  // The default is the same as here.
-  --sbb-selection-panel-border-radius: var(
-    --sbb-selection-expansion-panel-border-radius,
-    var(--sbb-border-radius-4x)
+    --sbb-selection-panel-inner-background,
+    var(--sbb-selection-panel-background-default)
   );
   --sbb-selection-panel-border-width: var(
-    --sbb-selection-expansion-panel-inner-border-width,
-    var(--sbb-border-width-1x)
+    --sbb-selection-panel-inner-border-width,
+    var(--sbb-selection-panel-border-width-default)
   );
-  --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xs)
-    var(--sbb-spacing-responsive-xxs);
   --sbb-selection-panel-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
   );
-  --sbb-selection-panel-cursor: pointer;
-  --sbb-selection-panel-suffix-color: var(--sbb-color-charcoal);
-  --sbb-selection-panel-subtext-color: var(--sbb-color-granite);
 
   display: block;
 
@@ -34,32 +21,45 @@
   outline: none !important;
 }
 
+:host([size='xs']) {
+  --sbb-selection-panel-checkbox-dimension: var(--sbb-checkbox-dimension-xs);
+  --sbb-selection-panel-input-padding: var(--sbb-selection-panel-input-padding-block-xs)
+    var(--sbb-selection-panel-input-padding-inline-xs);
+}
+
 :host([size='s']) {
-  --sbb-selection-panel-input-padding: var(--sbb-spacing-responsive-xxs)
-    var(--sbb-spacing-responsive-xxxs);
+  --sbb-selection-panel-checkbox-dimension: var(--sbb-checkbox-dimension-s);
+  --sbb-selection-panel-input-padding: var(--sbb-selection-panel-input-padding-block-s)
+    var(--sbb-selection-panel-input-padding-inline-s);
+}
+
+:host([size='m']) {
+  --sbb-selection-panel-checkbox-dimension: var(--sbb-checkbox-dimension-m);
+  --sbb-selection-panel-input-padding: var(--sbb-selection-panel-input-padding-block-m)
+    var(--sbb-selection-panel-input-padding-inline-m);
 }
 
 :host([color='milk']) {
   --sbb-selection-panel-background: var(
-    --sbb-selection-expansion-panel-inner-background,
-    var(--sbb-color-milk)
+    --sbb-selection-panel-inner-background,
+    var(--sbb-selection-panel-background-milk)
   );
 }
 
-:host([borderless]:not([data-checked])) {
-  --sbb-selection-panel-border-color: transparent;
+:host([borderless]:not(:state(checked))) {
+  --sbb-selection-panel-border-color: var(--sbb-selection-panel-border-color-borderless);
 }
 
-:host(:is([data-checked]):not(:disabled, [disabled])) {
-  --sbb-selection-panel-border-color: var(--sbb-color-charcoal);
+:host(:is(:state(checked)):not(:disabled, [disabled])) {
+  --sbb-selection-panel-border-color: var(--sbb-selection-panel-border-color-checked);
   --sbb-selection-panel-border-width: var(
-    --sbb-selection-expansion-panel-inner-border-width,
-    var(--sbb-border-width-2x)
+    --sbb-selection-panel-inner-border-width,
+    var(--sbb-selection-panel-border-width-checked)
   );
 }
 
 :host(:is(:disabled, [disabled])) {
-  --sbb-selection-panel-cursor: default;
+  --sbb-selection-panel-cursor: var(--sbb-cursor-default);
 }
 
 .sbb-selection-panel {
@@ -112,9 +112,11 @@ slot[name='suffix'] {
 slot[name='subtext'] {
   display: block;
   color: var(--sbb-selection-panel-subtext-color);
-  padding-inline-start: var(--sbb-spacing-fixed-8x);
+  padding-inline-start: calc(
+    var(--sbb-selection-panel-checkbox-dimension) + var(--sbb-spacing-fixed-2x)
+  );
 
-  :host(:not([data-slot-names~='subtext'])) & {
+  :host(:not(:state(slotted-subtext))) & {
     display: none;
   }
 }

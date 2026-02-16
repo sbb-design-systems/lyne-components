@@ -7,23 +7,17 @@ snapshots["sbb-mini-button-group renders DOM"] =
   size="m"
 >
   <sbb-mini-button
-    data-action=""
-    data-button=""
     icon-name="pen-small"
     slot="li-0"
     tabindex="0"
   >
   </sbb-mini-button>
   <sbb-divider
-    aria-orientation="vertical"
     orientation="vertical"
-    role="separator"
     slot="li-1"
   >
   </sbb-divider>
   <sbb-mini-button
-    data-action=""
-    data-button=""
     icon-name="pen-small"
     slot="li-2"
     tabindex="0"
@@ -64,8 +58,6 @@ snapshots["sbb-mini-button-group renders negative DOM"] =
   size="m"
 >
   <sbb-mini-button
-    data-action=""
-    data-button=""
     icon-name="pen-small"
     negative=""
     slot="li-0"
@@ -73,8 +65,6 @@ snapshots["sbb-mini-button-group renders negative DOM"] =
   >
   </sbb-mini-button>
   <sbb-mini-button
-    data-action=""
-    data-button=""
     icon-name="pen-small"
     negative=""
     slot="li-1"
@@ -106,40 +96,26 @@ snapshots["sbb-mini-button-group renders negative Shadow DOM"] =
 snapshots["sbb-mini-button-group renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": ""
-    },
-    {
-      "role": "button",
-      "name": ""
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "list",
+          "name": "Group label"
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-mini-button-group renders A11y tree Chrome */
-
-snapshots["sbb-mini-button-group renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": ""
-    },
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-mini-button-group renders A11y tree Firefox */
 

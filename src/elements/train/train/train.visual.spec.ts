@@ -5,14 +5,14 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import './train.js';
+import './train.component.ts';
 
 describe(`sbb-train`, () => {
   const cases = { direction: ['left', 'right'], station: [undefined, 'Berne'] };
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     describeEach(cases, ({ direction, station }) => {
       let root: HTMLElement;
 

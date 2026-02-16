@@ -1,0 +1,90 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: flex;
+
+  --sbb-form-field-border-radius: var(--sbb-border-radius-6x);
+  --sbb-form-field-outline-offset: #{sbb.px-to-rem-build(-5)};
+  --sbb-timetable-form-field-route-icon-color: var(--sbb-color-2);
+  --sbb-timetable-form-field-route-icon-background-color: var(--sbb-background-color-1);
+}
+
+:host(:first-of-type) {
+  --sbb-timetable-form-field-route-icon-rotate: 90deg;
+}
+
+:host(:last-of-type) {
+  --sbb-timetable-form-field-route-icon-rotate: -90deg;
+  --sbb-timetable-form-field-route-icon-translate: #{sbb.px-to-rem-build(-1)} 0; // the 'route-circle-start-small' is not perfectly symmetrical
+}
+
+:host(:where(:not(:last-of-type))) {
+  .sbb-form-field__wrapper::after {
+    content: '';
+    position: absolute;
+    border-block-end: var(--sbb-border-width-1x) var(--sbb-form-field-border-style)
+      var(--sbb-border-color-4-inverted);
+    inset-inline: var(--sbb-form-field-padding-inline);
+    inset-block-end: 0;
+  }
+}
+
+// 'Start/End' route icon shape
+.sbb-timetable-form-field__start-route-icon {
+  align-self: center;
+  margin-inline-start: var(--sbb-form-field-padding-inline);
+  rotate: var(--sbb-timetable-form-field-route-icon-rotate);
+  translate: var(--sbb-timetable-form-field-route-icon-translate);
+
+  &::after {
+    --connecting-line-offset: #{sbb.px-to-rem-build(3)}; // the 'route-circle-start-small' has a gap, at the end of the line, that needs to be covered.
+    --connecting-line-width: calc(
+      (var(--sbb-form-field-min-height) - var(--sbb-icon-svg-height)) / 2 +
+        var(--connecting-line-offset)
+    );
+
+    content: '';
+    position: absolute;
+    inset-block-start: 50%;
+    border-block-start: var(--sbb-border-width-1x) solid
+      var(--sbb-timetable-form-field-route-icon-color);
+    width: var(--connecting-line-width);
+    margin-left: calc(var(--connecting-line-offset) * -1);
+  }
+}
+
+// 'Via' route icon shape
+.sbb-timetable-form-field__via-route-icon {
+  align-self: stretch;
+  position: relative;
+  width: var(--sbb-size-icon-ui-small);
+  margin-inline-start: var(--sbb-form-field-padding-inline);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 50%;
+    height: 100%;
+    margin-inline-start: #{sbb.px-to-rem-build(-1)};
+    border-inline-start: var(--sbb-border-width-1x) solid
+      var(--sbb-timetable-form-field-route-icon-color);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    translate: -50% -50%;
+    width: #{sbb.px-to-rem-build(7)};
+    height: #{sbb.px-to-rem-build(7)};
+    border: var(--sbb-border-width-1x) solid var(--sbb-timetable-form-field-route-icon-color);
+    border-radius: var(--sbb-border-radius-infinity);
+    background-color: var(--sbb-timetable-form-field-route-icon-background-color);
+    margin-inline-start: #{sbb.px-to-rem-build(-0.5)};
+  }
+}
+
+.sbb-form-field__space-wrapper {
+  flex-grow: 1;
+}

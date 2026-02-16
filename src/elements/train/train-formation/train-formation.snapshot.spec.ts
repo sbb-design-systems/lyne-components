@@ -1,13 +1,13 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbTrainFormationElement } from './train-formation.js';
+import type { SbbTrainFormationElement } from './train-formation.component.ts';
 
-import './train-formation.js';
-import '../train.js';
-import '../train-wagon.js';
+import './train-formation.component.ts';
+import '../train.ts';
+import '../train-wagon.ts';
 
 describe(`sbb-train-formation`, () => {
   let element: SbbTrainFormationElement;

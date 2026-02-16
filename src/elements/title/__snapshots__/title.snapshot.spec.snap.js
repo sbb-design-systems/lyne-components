@@ -3,9 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-title renders DOM"] = 
 `<sbb-title
-  aria-level="1"
   level="1"
-  role="heading"
   visual-level="2"
 >
   Sample Title Text
@@ -14,18 +12,16 @@ snapshots["sbb-title renders DOM"] =
 /* end snapshot sbb-title renders DOM */
 
 snapshots["sbb-title renders Shadow DOM"] = 
-`<div class="sbb-title">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-title renders Shadow DOM */
 
 snapshots["sbb-title A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "heading",
@@ -37,21 +33,4 @@ snapshots["sbb-title A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-title A11y tree Chrome */
-
-snapshots["sbb-title A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Sample Title Text",
-      "level": 1
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-title A11y tree Firefox */
 

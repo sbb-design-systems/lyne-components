@@ -1,1 +1,4 @@
-export * from './config/config.js';
+/**
+ * @entrypoint
+ */
+export * from './config/config.ts';

@@ -49,8 +49,9 @@ A `sbb-toast` can also be given a custom action that, if marked with the `sbb-to
 
 ## Style
 
-If the `dismissible` property is set to true, a close button is displayed at the component end.
-The time before the component auto-closing can be set with the `timeout` property (in milliseconds, default is 6000).
+If the `readOnly` property (attribute `readonly`) is set to true, the close button is hidden.
+The time before the component automatically closes can be set with the `timeout` property (in milliseconds,
+default is 0, which is equal to never closing automatically).
 
 The position on the page where the toast will be opened can be configured with the `position` property,
 which accepts all the combinations of the vertical positions `top` and `bottom`
@@ -58,12 +59,12 @@ with the horizontal positions `left`, `start`, `center`, `right` and `end` (defa
 
 ```html
 <sbb-button onclick="document.querySelector('sbb-toast').open()">Open toast bottom left</sbb-button>
-<sbb-toast position="bottom-left" dismissible="true">Toast content</sbb-toast>
+<sbb-toast position="bottom-left">Toast content</sbb-toast>
 
-<sbb-button onclick="document.querySelector('sbb-toast#top-center').open()"
-  >Open toast top center</sbb-button
->
-<sbb-toast position="top-center" timeout="5000" id="top-center">Toast content</sbb-toast>
+<sbb-button onclick="document.querySelector('sbb-toast#top-center').open()">
+  Open toast top center with timeout
+</sbb-button>
+<sbb-toast position="top-center" timeout="20000" id="top-center">Toast content</sbb-toast>
 ```
 
 ## Accessibility
@@ -102,30 +103,31 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 
 ## Properties
 
-| Name          | Attribute     | Privacy | Type                               | Default           | Description                                                                                                                                         |
-| ------------- | ------------- | ------- | ---------------------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `dismissible` | `dismissible` | public  | `boolean`                          | `false`           | Whether the toast has a close button.                                                                                                               |
-| `iconName`    | `icon-name`   | public  | `string`                           | `''`              | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                    |
-| `isOpen`      | -             | public  | `boolean`                          |                   | Whether the element is open.                                                                                                                        |
-| `politeness`  | `politeness`  | public  | `'polite' \| 'assertive' \| 'off'` | `'polite'`        | The ARIA politeness level. Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA\_Live\_Regions#live\_regions for further info |
-| `position`    | `position`    | public  | `SbbToastPosition`                 | `'bottom-center'` | The position where to place the toast.                                                                                                              |
-| `timeout`     | `timeout`     | public  | `number`                           | `6000`            | The length of time in milliseconds to wait before automatically dismissing the toast. If 0, it stays open indefinitely.                             |
+| Name         | Attribute    | Privacy | Type                               | Default           | Description                                                                                                                                                                                                                  |
+| ------------ | ------------ | ------- | ---------------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `iconName`   | `icon-name`  | public  | `string`                           | `''`              | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                                                             |
+| `isOpen`     | -            | public  | `boolean`                          |                   | Whether the element is open.                                                                                                                                                                                                 |
+| `politeness` | `politeness` | public  | `'polite' \| 'assertive' \| 'off'` | `'polite'`        | The ARIA politeness level. Check https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA\_Live\_Regions#live\_regions for further info                                                                          |
+| `position`   | `position`   | public  | `SbbToastPosition`                 | `'bottom-center'` | The position where to place the toast.                                                                                                                                                                                       |
+| `readOnly`   | `readonly`   | public  | `boolean`                          | `false`           | Whether the component is readonly.                                                                                                                                                                                           |
+| `timeout`    | `timeout`    | public  | `number`                           | `0`               | The length of time in milliseconds to wait before automatically dismissing the toast. If 0 (default), it stays open indefinitely. From accessibility perspective, it is recommended to set a timeout of at least 20 seconds. |
 
 ## Methods
 
-| Name    | Privacy | Description                                                                     | Parameters | Return | Inherited From          |
-| ------- | ------- | ------------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
-| `close` | public  | Close the toast.                                                                |            | `void` | SbbOpenCloseBaseElement |
-| `open`  | public  | Open the toast. If there are other opened toasts in the page, close them first. |            | `void` | SbbOpenCloseBaseElement |
+| Name             | Privacy | Description                                                                     | Parameters | Return | Inherited From          |
+| ---------------- | ------- | ------------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Close the toast.                                                                |            | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close()     |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Open the toast. If there are other opened toasts in the page, close them first. |            | `void` | SbbOpenCloseBaseElement |
 
 ## Events
 
-| Name        | Type                | Description                                                                    | Inherited From          |
-| ----------- | ------------------- | ------------------------------------------------------------------------------ | ----------------------- |
-| `didClose`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` is closed.                                      | SbbOpenCloseBaseElement |
-| `didOpen`   | `CustomEvent<void>` | Emits whenever the `sbb-toast` is opened.                                      | SbbOpenCloseBaseElement |
-| `willClose` | `CustomEvent<void>` | Emits whenever the `sbb-toast` begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `willOpen`  | `CustomEvent<void>` | Emits whenever the `sbb-toast` starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| Name          | Type    | Description                                                                  | Inherited From          |
+| ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `Event` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event` | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
 ## CSS Properties
 

@@ -2,11 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-loading-indicator-circle renders with variant `circle` DOM"] = 
-`<sbb-loading-indicator-circle
-  aria-busy="true"
-  color="default"
-  role="progressbar"
->
+`<sbb-loading-indicator-circle color="default">
 </sbb-loading-indicator-circle>
 `;
 /* end snapshot sbb-loading-indicator-circle renders with variant `circle` DOM */
@@ -22,8 +18,18 @@ snapshots["sbb-loading-indicator-circle renders with variant `circle` Shadow DOM
 snapshots["sbb-loading-indicator-circle renders with variant `circle` A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "progressbar",
+      "name": "",
+      "valuemin": 0,
+      "valuemax": 100,
+      "valuetext": "",
+      "busy": 1
+    }
+  ]
 }
 </p>
 `;

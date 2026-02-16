@@ -1,32 +1,6 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
-:host {
-  --sbb-datepicker-control-radius: var(--sbb-border-radius-4x);
-  --sbb-datepicker-control-color: var(--sbb-color-black);
-
-  display: inline-flex;
-}
-
-.sbb-datepicker-toggle__trigger {
-  color: var(--sbb-datepicker-control-color);
-
-  // Enables taking full height in order to shift the calendar position to the border bottom of the form field.
-  height: unset;
-}
-
-sbb-icon {
-  color: var(--sbb-color-graphite);
-}
-
-// Hide popover artifacts
-sbb-popover {
-  margin: 0;
-  padding: 0;
-  border: none;
-  width: auto;
-  height: auto;
-  background-color: transparent;
+.sbb-datepicker-toggle {
+  margin: auto;
+  -webkit-tap-highlight-color: transparent;
 }

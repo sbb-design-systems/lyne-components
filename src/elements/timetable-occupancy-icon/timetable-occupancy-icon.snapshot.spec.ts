@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private.js';
+import { fixture } from '../core/testing/private.ts';
 
-import type { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.js';
+import type { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.component.ts';
 
-import './timetable-occupancy-icon.js';
+import './timetable-occupancy-icon.component.ts';
 
 describe(`sbb-timetable-occupancy-icon`, () => {
   let element: SbbTimetableOccupancyIconElement;

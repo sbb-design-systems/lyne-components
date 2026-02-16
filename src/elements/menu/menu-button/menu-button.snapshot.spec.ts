@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbMenuButtonElement } from './menu-button.js';
+import type { SbbMenuButtonElement } from './menu-button.component.ts';
 
-import './menu-button.js';
+import './menu-button.component.ts';
 
 describe(`sbb-menu-button`, () => {
   describe('renders', () => {
@@ -14,7 +14,7 @@ describe(`sbb-menu-button`, () => {
     beforeEach(async () => {
       element = await fixture(html`
         <sbb-menu-button form="formid" name="name" type="submit" aria-label="a11y label">
-          <span>Action</span>
+          Action
         </sbb-menu-button>
       `);
     });
@@ -28,14 +28,12 @@ describe(`sbb-menu-button`, () => {
     });
   });
 
-  describe('renders component with icon and amount', () => {
+  describe('renders component with icon', () => {
     let element: SbbMenuButtonElement;
 
     beforeEach(async () => {
       element = await fixture(html`
-        <sbb-menu-button icon-name="menu-small" amount="123456">
-          <span>Action</span>
-        </sbb-menu-button>
+        <sbb-menu-button icon-name="menu-small">Action</sbb-menu-button>
       `);
     });
 

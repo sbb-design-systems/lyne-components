@@ -1,0 +1,103 @@
+@use '../core/styles' as sbb;
+
+:host {
+  // Variable used to override background color of selection panels.
+  --sbb-selection-panel-inner-background: transparent;
+
+  // Variable used to override border width of selection panels.
+  --sbb-selection-panel-inner-border-width: 0px;
+
+  // As the selection panel has always a white/milk background, we have to fix the focus outline color
+  // to default color for cases where the selection panel is used in a negative context.
+  --sbb-focus-outline-color: light-dark(
+    var(--sbb-focus-outline-color-default),
+    var(--sbb-focus-outline-color-dark)
+  );
+
+  display: block;
+  position: relative;
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+:host(:where(:state(color-milk))) {
+  --sbb-selection-action-panel-background: var(--sbb-selection-panel-background-milk);
+}
+
+// :where is to align specificity
+:host(:where(:state(checked)):not(:where(:state(disabled)))) {
+  --sbb-selection-action-panel-border-color: var(--sbb-selection-panel-border-color-checked);
+  --sbb-selection-action-panel-border-width: var(--sbb-selection-panel-border-width-checked);
+}
+
+// :where is to align specificity
+:host(:state(borderless):not(:where(:state(checked)))) {
+  --sbb-selection-action-panel-border-color: transparent;
+}
+
+:host(:where(:state(with-expansion-panel))) {
+  --sbb-selection-action-panel-background: transparent;
+  --sbb-selection-action-panel-border-color: transparent;
+}
+
+:host(:not(:state(with-expansion-panel))) {
+  // For high contrast mode we need a real border, but only without an outer expansion-panel
+  @include sbb.if-forced-colors {
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border: var(--sbb-selection-panel-border-width-default) solid
+        var(--sbb-selection-panel-border-color-default);
+      border-radius: var(--sbb-selection-panel-border-radius);
+    }
+  }
+}
+
+::slotted(:is(sbb-checkbox-panel, sbb-radio-button-panel)) {
+  flex: auto;
+}
+
+:host(:state(size-xs)) {
+  --sbb-selection-action-panel-action-margin-inline: var(
+    --sbb-selection-action-panel-action-margin-inline-xs
+  );
+}
+
+:host(:state(size-s)) {
+  --sbb-selection-action-panel-action-margin-inline: var(
+    --sbb-selection-action-panel-action-margin-inline-s
+  );
+}
+
+:host(:state(size-m)) {
+  --sbb-selection-action-panel-action-margin-inline: var(
+    --sbb-selection-action-panel-action-margin-inline-m
+  );
+}
+
+::slotted(:is(:state(action), .sbb-action)) {
+  align-self: center;
+  margin-inline: var(--sbb-selection-action-panel-action-margin-inline);
+}
+
+.sbb-selection-action-panel {
+  display: flex;
+  background-color: var(--sbb-selection-action-panel-background);
+  border-radius: var(--sbb-selection-panel-border-radius);
+
+  // We use the box-shadow instead of the border to avoid the size-change flickering.
+  box-shadow: inset 0 0 0 var(--sbb-selection-action-panel-border-width)
+    var(--sbb-selection-action-panel-border-color);
+}
+
+.sbb-selection-action-panel__badge {
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--sbb-selection-panel-border-radius);
+  overflow: hidden;
+}

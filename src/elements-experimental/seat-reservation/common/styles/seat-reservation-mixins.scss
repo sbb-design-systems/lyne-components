@@ -1,0 +1,83 @@
+@use './seat-reservation-functions.scss' as sbb-sr-function;
+
+// Mixin for rotating elements based on the direction of the host element.
+// default rotation is 180 degrees for RTL.
+// for SVG which are not bicycle, not selected or already rotated seats at the moment.
+// * todo: selected seats !
+@mixin rotate-dom-part($part-identifier, $concrete-degree: 180) {
+  :host(:dir(rtl)) {
+    :not(
+      .sbb-sr-place-ctrl--type-bicycle,
+      .sbb-sr-place-ctrl--orientation-90,
+      .sbb-sr-place-ctrl--orientation-270,
+      .sbb-sr-place-ctrl--state-selected
+    ) {
+      ::part(#{$part-identifier}) {
+        rotate: calc(#{$concrete-degree} * 1deg);
+      }
+    }
+  }
+}
+
+// Mixin to visualize the coach border within the NavCoachButton.
+// Border implemented with a pseudo before element, which has no effect on the width of the internal content of the NavCoach button.
+// This visualises a stable button with different border widths
+@mixin visualize-coach-border(
+  $border-radius-top-left,
+  $border-radius-top-right,
+  $border-radius-bottom-right,
+  $border-radius-bottom-left
+) {
+  $border-radius-top-left: var(--sbb-border-radius-#{$border-radius-top-left}x);
+  $border-radius-top-right: var(--sbb-border-radius-#{$border-radius-top-right}x);
+  $border-radius-bottom-right: var(--sbb-border-radius-#{$border-radius-bottom-right}x);
+  $border-radius-bottom-left: var(--sbb-border-radius-#{$border-radius-bottom-left}x);
+
+  border-radius: $border-radius-top-left $border-radius-top-right $border-radius-bottom-right
+    $border-radius-bottom-left;
+
+  // Pseudo visual border
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: sbb-sr-function.sr-px-to-rem(var(--sbb-seat-reservation-navigation-btn-border-width))
+      solid var(--sbb-seat-reservation-navigation-btn-border-color);
+    border-radius: $border-radius-top-left $border-radius-top-right $border-radius-bottom-right
+      $border-radius-bottom-left;
+  }
+}
+
+// Mixin to colorize the NavCoachButton depending on the given status.
+// Background color, Border color, Border width and the Button outline of the NavCoachButton are defined here.
+@mixin style-coach-by-state($state) {
+  // Set background color by state
+  --sbb-seat-reservation-navigation-btn-background-color: var(
+    --sbb-seat-reservation-navigation-btn-background-color-#{$state}
+  );
+
+  // Set border color by state
+  --sbb-seat-reservation-navigation-btn-border-color: var(
+    --sbb-seat-reservation-navigation-btn-border-color-#{$state}
+  );
+
+  // Set border width by state. No border width change for disabled state
+  @if $state != 'disabled' {
+    --sbb-seat-reservation-navigation-btn-border-width: var(
+      --sbb-seat-reservation-navigation-btn-border-width-#{$state}
+    );
+  }
+
+  // Set outline style by state focus
+  @if $state == 'focused' {
+    outline: sbb-sr-function.sr-px-to-rem(
+        var(--sbb-seat-reservation-navigation-btn-outline-width-focused)
+      )
+      solid
+      var(--sbb-seat-reservation-navigation-btn-outline-color-focused);
+    outline-offset: sbb-sr-function.sr-px-to-rem(
+      var(--sbb-seat-reservation-navigation-btn-outline-offset-focused)
+    );
+  }
+}

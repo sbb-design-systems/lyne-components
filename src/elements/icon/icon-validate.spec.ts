@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
 
-import { isValid } from './icon-validate.js';
+import { isValid } from './icon-validate.ts';
 
 describe(`sbb-icon-validate`, () => {
   describe('isValid', () => {

@@ -1,29 +1,21 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-action-group renders renders DOM"] = 
+snapshots["sbb-action-group renders DOM"] = 
 `<sbb-action-group
   align-group="start"
   button-size="l"
-  horizontal-from="medium"
+  horizontal-from="large"
   link-size="m"
   orientation="horizontal"
 >
   <sbb-secondary-button
-    data-action=""
-    data-button=""
-    data-sbb-button=""
-    data-slot-names="unnamed"
     size="l"
     tabindex="0"
   >
     Button
   </sbb-secondary-button>
   <sbb-block-link
-    data-action=""
-    data-link=""
-    data-sbb-link=""
-    data-slot-names="unnamed"
     href="https://github.com/sbb-design-systems/lyne-components"
     icon-name="chevron-small-left-small"
     icon-placement="start"
@@ -33,54 +25,45 @@ snapshots["sbb-action-group renders renders DOM"] =
   </sbb-block-link>
 </sbb-action-group>
 `;
-/* end snapshot sbb-action-group renders renders DOM */
+/* end snapshot sbb-action-group renders DOM */
 
-snapshots["sbb-action-group renders renders Shadow DOM"] = 
-`<div class="sbb-action-group">
-  <slot>
-  </slot>
-</div>
+snapshots["sbb-action-group renders Shadow DOM"] = 
+`<slot>
+</slot>
 `;
-/* end snapshot sbb-action-group renders renders Shadow DOM */
+/* end snapshot sbb-action-group renders Shadow DOM */
 
-snapshots["sbb-action-group renders renders A11y tree Chrome"] = 
+snapshots["sbb-action-group renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Button"
-    },
-    {
-      "role": "link",
-      "name": "Link"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "button",
+              "name": "Button",
+              "invalid": false,
+              "focusable": true
+            },
+            {
+              "role": "generic",
+              "name": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
-/* end snapshot sbb-action-group renders renders A11y tree Chrome */
-
-snapshots["sbb-action-group renders renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Button"
-    },
-    {
-      "role": "link",
-      "name": "Link",
-      "value": "https://github.com/sbb-design-systems/lyne-components"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-action-group renders renders A11y tree Firefox */
+/* end snapshot sbb-action-group renders A11y tree Chrome */
 

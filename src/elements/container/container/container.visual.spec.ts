@@ -1,20 +1,20 @@
-import { SbbBreakpointUltraMin } from '@sbb-esta/lyne-design-tokens';
 import { setViewport } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
 import {
   describeViewports,
   loadAssetAsBase64,
+  sbbBreakpointUltraMinPx,
   visualDiffDefault,
-} from '../../core/testing/private.js';
-import { waitForImageReady } from '../../core/testing.js';
+} from '../../core/testing/private.ts';
+import { waitForImageReady } from '../../core/testing.ts';
 
-import '../../button.js';
-import '../../card.js';
-import '../../chip-label.js';
-import '../../image.js';
-import '../../title.js';
-import './container.js';
+import '../../button.ts';
+import '../../card.ts';
+import '../../chip-label.ts';
+import '../../image.ts';
+import '../../title.ts';
+import './container.component.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 const imageBase64 = await loadAssetAsBase64(imageUrl);
@@ -77,7 +77,7 @@ describe(`sbb-container`, () => {
 
   const backgroundImageContent = html`
     <sbb-title level="2" style="margin-block-start: 0">Container with background image</sbb-title>
-    <sbb-card size="xxl">
+    <sbb-card class="sbb-card-spacing-s">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua.
     </sbb-card>
@@ -121,7 +121,10 @@ describe(`sbb-container`, () => {
                   </sbb-container>`,
                 );
 
-                await waitForImageReady(setup.snapshotElement.querySelector(image.selector)!);
+                setup.withPostSetupAction(
+                  async () =>
+                    await waitForImageReady(setup.snapshotElement.querySelector(image.selector)!),
+                );
               }),
             );
           }
@@ -130,7 +133,7 @@ describe(`sbb-container`, () => {
     });
   });
 
-  describeViewports({ viewports: ['medium'] }, () => {
+  describeViewports({ viewports: ['large'] }, () => {
     it(
       `nested`,
       visualDiffDefault.with(async (setup) => {
@@ -138,7 +141,7 @@ describe(`sbb-container`, () => {
           html`
             <sbb-container color="white">
               ${containerContent()}
-              <div style="background-color: var(--sbb-color-milk);">
+              <div style="background-color: var(--sbb-background-color-3);">
                 <sbb-container color="transparent">${containerContent()}</sbb-container>
               </div>
             </sbb-container>
@@ -147,12 +150,26 @@ describe(`sbb-container`, () => {
         );
       }),
     );
+
+    describe(`darkMode=true`, () => {
+      for (const color of colorCases) {
+        it(
+          `color=${color}`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-container color=${color}>${containerContent(color)}</sbb-container>`,
+              { ...wrapperStyles, darkMode: true },
+            );
+          }),
+        );
+      }
+    });
   });
 
   // Test very large screens
   for (const backgroundExpanded of backgroundExpandedCases) {
     describe(`viewport=custom_background-expanded=${backgroundExpanded}`, () => {
-      const viewport = { width: SbbBreakpointUltraMin + 300, height: 600 };
+      const viewport = { width: sbbBreakpointUltraMinPx + 300, height: 600 };
       const wrapperStyles = { backgroundColor: 'var(--sbb-color-silver)', padding: '0' };
 
       it(

@@ -25,6 +25,23 @@ The content element must be wrapped in a `sbb-tab` and placed right after its re
 Tab groups can also be nested, which means that a `sbb-tab` can contain another `sbb-tab-group`,
 as shown in the "Nested Tab Groups" example.
 
+## Fixed height
+
+By default, the tab group adjusts its height based on the content of the active tab.
+If you want to set a fixed height for the tab group, you can apply the `fixed-height` attribute or property
+and set an explicit (or implicit) height on the element.
+This will make the tab content scrollable if it exceeds the available space.
+
+```html
+<sbb-tab-group fixed-height style="height: 400px;">
+  <sbb-tab-label>Tab 1</sbb-tab-label>
+  <sbb-tab>Long content that may need scrolling...</sbb-tab>
+
+  <sbb-tab-label>Tab 2</sbb-tab-label>
+  <sbb-tab>More content...</sbb-tab>
+</sbb-tab-group>
+```
+
 ## States
 
 A tab can be selected, unselected, or in `disabled` state; disable a tab to mark it as unavailable.
@@ -38,7 +55,7 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 
 ## Events
 
-Consumers can listen to the `didChange` event, whose `event.detail` is typed as `SbbTabChangedEventDetails`.
+Consumers can listen to the `tabchange` event, whose `event.detail` is typed as `SbbTabChangedEventDetails`.
 From it, it's possible to retrieve the information about the current `sbb-tab-label`, `sbb-tab` and index, and,
 if available, also the information about the previous ones.
 
@@ -57,10 +74,13 @@ type SbbTabChangedEventDetails = {
 
 ## Properties
 
-| Name                   | Attribute                | Privacy | Type                              | Default            | Description                                                                                                                        |
-| ---------------------- | ------------------------ | ------- | --------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `initialSelectedIndex` | `initial-selected-index` | public  | `number`                          | `0`                | Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected. |
-| `size`                 | `size`                   | public  | `InterfaceSbbTabGroupTab['size']` | `'l' / 's' (lean)` | Size variant, either s, l or xl.                                                                                                   |
+| Name                   | Attribute                | Privacy | Type                   | Default            | Description                                                                                                                                                                                   |
+| ---------------------- | ------------------------ | ------- | ---------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fixedHeight`          | `fixed-height`           | public  | `boolean`              | `false`            | If set to true, the `sbb-tab` elements take 100% height of the `sbb-tab-group`. It enables controlling the height on the `sbb-tab-group` element. The content becomes scrollable on overflow. |
+| `initialSelectedIndex` | `initial-selected-index` | public  | `number`               | `0`                | Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.                                                            |
+| `labels`               | -                        | public  | `SbbTabLabelElement[]` |                    | Gets the slotted `sbb-tab-label`s.                                                                                                                                                            |
+| `size`                 | `size`                   | public  | `'s' \| 'l' \| 'xl'`   | `'l' / 's' (lean)` | Size variant, either s, l or xl.                                                                                                                                                              |
+| `tabs`                 | -                        | public  | `SbbTabElement[]`      |                    | Gets the slotted `sbb-tab`s.                                                                                                                                                                  |
 
 ## Methods
 
@@ -72,9 +92,9 @@ type SbbTabChangedEventDetails = {
 
 ## Events
 
-| Name        | Type                                     | Description                            | Inherited From |
-| ----------- | ---------------------------------------- | -------------------------------------- | -------------- |
-| `didChange` | `CustomEvent<SbbTabChangedEventDetails>` | Emits an event on selected tab change. |                |
+| Name        | Type                                     | Description                                               | Inherited From |
+| ----------- | ---------------------------------------- | --------------------------------------------------------- | -------------- |
+| `tabchange` | `CustomEvent<SbbTabChangedEventDetails>` | The tabchange event is dispatched when a tab is selected. |                |
 
 ## Slots
 

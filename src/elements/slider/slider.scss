@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
@@ -17,13 +14,16 @@
   --sbb-slider-knob-size-active: #{sbb.px-to-rem-build(31)};
   --sbb-slider-knob-border-size: #{sbb.px-to-rem-build(3)};
   --sbb-slider-knob-border-style: solid;
-  --sbb-slider-knob-color: var(--sbb-color-white);
-  --sbb-slider-knob-border-color: var(--sbb-color-red);
-  --sbb-slider-icon-color: var(--sbb-color-black);
-  --sbb-slider-selected-line-color: var(--sbb-color-red);
-  --sbb-slider-selected-line-disabled-color: var(--sbb-color-smoke);
-  --sbb-slider-line-color: var(--sbb-color-smoke);
-  --sbb-slider-line-disabled-color: var(--sbb-color-graphite);
+  --sbb-slider-knob-color: var(--sbb-background-color-1);
+  --sbb-slider-knob-border-color: var(--sbb-color-primary);
+  --sbb-slider-icon-color: var(--sbb-color-1);
+  --sbb-slider-selected-line-color: var(--sbb-color-primary);
+  --sbb-slider-selected-line-disabled-color: light-dark(
+    var(--sbb-color-smoke),
+    var(--sbb-color-cement)
+  );
+  --sbb-slider-line-color: var(--sbb-border-color-5);
+  --sbb-slider-line-disabled-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-granite));
 
   @include sbb.if-forced-colors {
     --sbb-slider-selected-line-color: Highlight;
@@ -32,14 +32,14 @@
 }
 
 :host(:disabled) {
-  --sbb-slider-icon-color: var(--sbb-color-graphite);
-  --sbb-slider-knob-border-color: var(--sbb-color-smoke);
+  --sbb-slider-icon-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
+  --sbb-slider-knob-border-color: var(--sbb-border-color-5);
   --sbb-slider-knob-border-size: var(--sbb-border-width-2x);
   --sbb-slider-knob-border-style: dashed;
 }
 
 :host([readonly]) {
-  --sbb-slider-icon-color: var(--sbb-color-smoke);
+  --sbb-slider-icon-color: var(--sbb-color-5);
   --sbb-slider-knob-border-color: var(--sbb-slider-selected-line-disabled-color);
 }
 
@@ -103,8 +103,8 @@
 
 .sbb-slider__knob {
   @include sbb.absolute-center-y;
-  @include sbb.shadow-level-5-hard;
 
+  box-shadow: var(--sbb-box-shadow-level-5-hard);
   width: var(--sbb-slider-knob-size);
   height: var(--sbb-slider-knob-size);
   inset-inline-start: calc(
@@ -120,8 +120,7 @@
   border-radius: 50%;
   pointer-events: none;
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) & {
+  :host(:focus-visible) & {
     @include sbb.focus-outline;
 
     --sbb-slider-knob-size: var(--sbb-slider-knob-size-active);

@@ -4,8 +4,6 @@ export const snapshots = {};
 snapshots["sbb-notification renders DOM"] = 
 `<sbb-notification
   animation="all"
-  data-slot-names="unnamed"
-  data-state="opened"
   size="m"
   type="info"
 >
@@ -17,42 +15,30 @@ snapshots["sbb-notification renders DOM"] =
 snapshots["sbb-notification renders Shadow DOM"] = 
 `<div class="sbb-notification__wrapper">
   <div class="sbb-notification">
-    <sbb-icon
-      aria-hidden="true"
-      class="sbb-notification__icon"
-      data-namespace="default"
-      name="circle-information-small"
-      role="img"
-    >
-    </sbb-icon>
-    <span class="sbb-notification__content">
-      <sbb-title
-        aria-level="3"
-        class="sbb-notification__title"
-        level="3"
-        role="heading"
-        visual-level="5"
+    <slot name="icon">
+      <sbb-icon
+        class="sbb-notification__icon"
+        name="circle-information-small"
       >
-        <slot name="title">
-        </slot>
-      </sbb-title>
-      <slot>
+      </sbb-icon>
+    </slot>
+    <span class="sbb-notification__content">
+      <slot name="title">
       </slot>
+      <p class="sbb-notification__text">
+        <slot>
+        </slot>
+      </p>
     </span>
     <span class="sbb-notification__close-wrapper">
       <sbb-divider
-        aria-orientation="vertical"
         class="sbb-notification__divider"
         orientation="vertical"
-        role="separator"
       >
       </sbb-divider>
       <sbb-secondary-button
         aria-label="Close message"
         class="sbb-notification__close"
-        data-action=""
-        data-button=""
-        data-sbb-button=""
         icon-name="cross-small"
         size="m"
         tabindex="0"
@@ -67,12 +53,16 @@ snapshots["sbb-notification renders Shadow DOM"] =
 snapshots["sbb-notification renders with a title DOM"] = 
 `<sbb-notification
   animation="all"
-  data-slot-names="unnamed"
-  data-state="opened"
   size="m"
-  title-content="Title"
-  type="info"
+  type="success"
 >
+  <sbb-title
+    level="3"
+    slot="title"
+    visual-level="5"
+  >
+    Title
+  </sbb-title>
   The quick brown fox jumps over the lazy dog.
 </sbb-notification>
 `;
@@ -81,43 +71,30 @@ snapshots["sbb-notification renders with a title DOM"] =
 snapshots["sbb-notification renders with a title Shadow DOM"] = 
 `<div class="sbb-notification__wrapper">
   <div class="sbb-notification">
-    <sbb-icon
-      aria-hidden="true"
-      class="sbb-notification__icon"
-      data-namespace="default"
-      name="circle-information-small"
-      role="img"
-    >
-    </sbb-icon>
-    <span class="sbb-notification__content">
-      <sbb-title
-        aria-level="3"
-        class="sbb-notification__title"
-        level="3"
-        role="heading"
-        visual-level="5"
+    <slot name="icon">
+      <sbb-icon
+        class="sbb-notification__icon"
+        name="circle-tick-small"
       >
-        <slot name="title">
-          Title
-        </slot>
-      </sbb-title>
-      <slot>
+      </sbb-icon>
+    </slot>
+    <span class="sbb-notification__content">
+      <slot name="title">
       </slot>
+      <p class="sbb-notification__text">
+        <slot>
+        </slot>
+      </p>
     </span>
     <span class="sbb-notification__close-wrapper">
       <sbb-divider
-        aria-orientation="vertical"
         class="sbb-notification__divider"
         orientation="vertical"
-        role="separator"
       >
       </sbb-divider>
       <sbb-secondary-button
         aria-label="Close message"
         class="sbb-notification__close"
-        data-action=""
-        data-button=""
-        data-sbb-button=""
         icon-name="cross-small"
         size="m"
         tabindex="0"
@@ -132,8 +109,6 @@ snapshots["sbb-notification renders with a title Shadow DOM"] =
 snapshots["sbb-notification renders with a slotted title DOM"] = 
 `<sbb-notification
   animation="all"
-  data-slot-names="title unnamed"
-  data-state="opened"
   size="m"
   type="info"
 >
@@ -149,19 +124,14 @@ snapshots["sbb-notification renders with a slotted title Shadow DOM"] =
 `<div class="sbb-notification__wrapper">
   <div class="sbb-notification">
     <sbb-icon
-      aria-hidden="true"
       class="sbb-notification__icon"
-      data-namespace="default"
       name="circle-information-small"
-      role="img"
     >
     </sbb-icon>
     <span class="sbb-notification__content">
       <sbb-title
-        aria-level="3"
         class="sbb-notification__title"
         level="3"
-        role="heading"
         visual-level="5"
       >
         <slot name="title">
@@ -172,18 +142,13 @@ snapshots["sbb-notification renders with a slotted title Shadow DOM"] =
     </span>
     <span class="sbb-notification__close-wrapper">
       <sbb-divider
-        aria-orientation="vertical"
         class="sbb-notification__divider"
         orientation="vertical"
-        role="separator"
       >
       </sbb-divider>
       <sbb-secondary-button
         aria-label="Close message"
         class="sbb-notification__close"
-        data-action=""
-        data-button=""
-        data-sbb-button=""
         icon-name="cross-small"
         size="m"
         tabindex="0"
@@ -198,13 +163,17 @@ snapshots["sbb-notification renders with a slotted title Shadow DOM"] =
 snapshots["sbb-notification renders without the close button DOM"] = 
 `<sbb-notification
   animation="all"
-  data-slot-names="unnamed"
-  data-state="opened"
   readonly=""
   size="m"
-  title-content="Title"
   type="info"
 >
+  <sbb-title
+    level="3"
+    slot="title"
+    visual-level="5"
+  >
+    Title
+  </sbb-title>
   The quick brown fox jumps over the lazy dog.
 </sbb-notification>
 `;
@@ -213,28 +182,20 @@ snapshots["sbb-notification renders without the close button DOM"] =
 snapshots["sbb-notification renders without the close button Shadow DOM"] = 
 `<div class="sbb-notification__wrapper">
   <div class="sbb-notification">
-    <sbb-icon
-      aria-hidden="true"
-      class="sbb-notification__icon"
-      data-namespace="default"
-      name="circle-information-small"
-      role="img"
-    >
-    </sbb-icon>
-    <span class="sbb-notification__content">
-      <sbb-title
-        aria-level="3"
-        class="sbb-notification__title"
-        level="3"
-        role="heading"
-        visual-level="5"
+    <slot name="icon">
+      <sbb-icon
+        class="sbb-notification__icon"
+        name="circle-information-small"
       >
-        <slot name="title">
-          Title
-        </slot>
-      </sbb-title>
-      <slot>
+      </sbb-icon>
+    </slot>
+    <span class="sbb-notification__content">
+      <slot name="title">
       </slot>
+      <p class="sbb-notification__text">
+        <slot>
+        </slot>
+      </p>
     </span>
   </div>
 </div>
@@ -244,12 +205,16 @@ snapshots["sbb-notification renders without the close button Shadow DOM"] =
 snapshots["sbb-notification renders size s DOM"] = 
 `<sbb-notification
   animation="all"
-  data-slot-names="unnamed"
-  data-state="opened"
   size="s"
-  title-content="Title"
   type="info"
 >
+  <sbb-title
+    level="3"
+    slot="title"
+    visual-level="6"
+  >
+    Title
+  </sbb-title>
   The quick brown fox jumps over the lazy dog.
 </sbb-notification>
 `;
@@ -258,43 +223,30 @@ snapshots["sbb-notification renders size s DOM"] =
 snapshots["sbb-notification renders size s Shadow DOM"] = 
 `<div class="sbb-notification__wrapper">
   <div class="sbb-notification">
-    <sbb-icon
-      aria-hidden="true"
-      class="sbb-notification__icon"
-      data-namespace="default"
-      name="circle-information-small"
-      role="img"
-    >
-    </sbb-icon>
-    <span class="sbb-notification__content">
-      <sbb-title
-        aria-level="3"
-        class="sbb-notification__title"
-        level="3"
-        role="heading"
-        visual-level="6"
+    <slot name="icon">
+      <sbb-icon
+        class="sbb-notification__icon"
+        name="circle-information-small"
       >
-        <slot name="title">
-          Title
-        </slot>
-      </sbb-title>
-      <slot>
+      </sbb-icon>
+    </slot>
+    <span class="sbb-notification__content">
+      <slot name="title">
       </slot>
+      <p class="sbb-notification__text">
+        <slot>
+        </slot>
+      </p>
     </span>
     <span class="sbb-notification__close-wrapper">
       <sbb-divider
-        aria-orientation="vertical"
         class="sbb-notification__divider"
         orientation="vertical"
-        role="separator"
       >
       </sbb-divider>
       <sbb-secondary-button
         aria-label="Close message"
         class="sbb-notification__close"
-        data-action=""
-        data-button=""
-        data-sbb-button=""
         icon-name="cross-small"
         size="s"
         tabindex="0"
@@ -309,50 +261,22 @@ snapshots["sbb-notification renders size s Shadow DOM"] =
 snapshots["sbb-notification A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "heading",
-      "name": "Test title",
-      "level": 3
-    },
-    {
-      "role": "text",
-      "name": "Lorem ipsum ..."
-    },
-    {
-      "role": "button",
-      "name": "Close message"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-notification A11y tree Chrome */
-
-snapshots["sbb-notification A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Test title",
-      "level": 3
-    },
-    {
-      "role": "text leaf",
-      "name": "Lorem ipsum ..."
-    },
-    {
-      "role": "button",
-      "name": "Close message"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-notification A11y tree Firefox */
 

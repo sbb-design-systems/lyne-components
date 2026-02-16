@@ -5,20 +5,17 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-  visualRegressionFixture,
-} from '../core/testing/private.js';
+} from '../core/testing/private.ts';
 
-import './time-input.js';
-import '../form-field.js';
-import '../form-error.js';
-import '../icon.js';
+import './time-input.component.ts';
+import '../form-field.ts';
+import '../icon.ts';
 
 describe(`sbb-time-input`, () => {
-  let root: HTMLElement;
-
   const cases = {
     negative: [false, true],
     withError: [false, true],
+    forcedColors: [false, true],
   };
 
   const sizeCases = {
@@ -42,33 +39,31 @@ describe(`sbb-time-input`, () => {
     >
       <label>Label</label>
       ${!args.noIcons ? html`<sbb-icon slot="prefix" name="clock-small"></sbb-icon>` : nothing}
-      <sbb-time-input></sbb-time-input>
-      <input
-        id="input-id"
+      <sbb-time-input
         value=${args.withError ? '00:99' : '12:00'}
+        class=${args.withError ? 'sbb-invalid' : nothing}
         ?disabled=${args.disabled}
         ?readonly="${args.readonly}"
-      />
+      ></sbb-time-input>
       ${!args.noIcons
         ? html`<sbb-icon slot="suffix" name="circle-information-small"></sbb-icon>`
         : nothing}
-      ${args.withError ? html`<sbb-form-error>Error message</sbb-form-error>` : nothing}
+      ${args.withError ? html`<sbb-error>Error message</sbb-error>` : nothing}
     </sbb-form-field>
   `;
 
-  describeViewports({ viewports: ['zero', 'medium'] }, () => {
+  describeViewports({ viewports: ['zero', 'large'] }, () => {
     for (const state of [visualDiffDefault, visualDiffFocus]) {
-      describeEach(cases, (params) => {
-        beforeEach(async function () {
-          root = await visualRegressionFixture(template(params), {
-            backgroundColor: params.negative ? 'var(--sbb-color-charcoal)' : undefined,
-          });
-        });
-
+      describeEach(cases, ({ forcedColors, ...params }) => {
         it(
           state.name,
-          state.with((setup) => {
-            setup.withSnapshotElement(root);
+          state.with(async (setup) => {
+            await setup.withFixture(template(params), {
+              backgroundColor: params.negative
+                ? 'var(--sbb-background-color-1-negative)'
+                : undefined,
+              forcedColors,
+            });
           }),
         );
       });
@@ -84,21 +79,21 @@ describe(`sbb-time-input`, () => {
       });
 
       it(
-        `disabled_${state.name}`,
+        `disabled ${state.name}`,
         state.with(async (setup) => {
           await setup.withFixture(template({ disabled: true }));
         }),
       );
 
       it(
-        `readonly_${state.name}`,
+        `readonly ${state.name}`,
         state.with(async (setup) => {
           await setup.withFixture(template({ readonly: true }));
         }),
       );
 
       it(
-        `borderless_${state.name}`,
+        `borderless ${state.name}`,
         state.with(async (setup) => {
           await setup.withFixture(template({ borderless: true }));
         }),

@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 
-import type { SbbTrainElement } from './train.js';
+import type { SbbTrainElement } from './train.component.ts';
 
-import './train.js';
+import './train.component.ts';
 
 describe(`sbb-train`, () => {
   let element: SbbTrainElement;

@@ -1,1 +1,4 @@
-export * from './loading-indicator/loading-indicator.js';
+/**
+ * @entrypoint
+ */
+export * from './loading-indicator/loading-indicator.component.ts';

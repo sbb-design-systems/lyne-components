@@ -1,6 +1,7 @@
 @use 'sass:selector';
 @use '../core/functions';
 @use '../core/mediaqueries';
+@use './a11y';
 @use './typo';
 
 @mixin list-reset {
@@ -13,7 +14,11 @@
 @mixin list {
   // Support both top level usage (& is empty / falsy)
   // and applied to a selector usage.
-  #{if(&, '&:where(ol, ul)', ':is(ol, ul)')} {
+  $selector: ':is(ol, ul)';
+  @if & {
+    $selector: '&:where(ol, ul)';
+  }
+  #{$selector} {
     --sbb-list-vertical-gap: 0.75em;
     --sbb-list-padding-inline-start: 1.5em;
 
@@ -47,7 +52,11 @@
 
   // Support both top level usage (& is empty / falsy)
   // and applied to a selector usage.
-  #{if(&, '&:where(ul)', 'ul')} {
+  $selector: 'ul';
+  @if & {
+    $selector: '&:where(ul)';
+  }
+  #{$selector} {
     &,
     ul {
       list-style-type: none;
@@ -64,7 +73,7 @@
           width: 1em;
           align-items: center;
           justify-content: center;
-          inset-block-start: calc(0.5 * (var(--sbb-typo-line-height-body-text) * 1em - 1em));
+          inset-block-start: calc(0.5 * (var(--sbb-typo-line-height-text) * 1em - 1em));
           inset-inline-start: calc(-1 * (0.5 * var(--sbb-list-padding-inline-start) + 0.5em));
 
           // Scale 1.3 to match Figma specs.
@@ -78,7 +87,11 @@
 @mixin description-list {
   // Support both top level usage (& is empty / falsy)
   // and applied to a selector usage.
-  #{if(&, '&:where(dl)', 'dl')} {
+  $selector: 'dl';
+  @if & {
+    $selector: '&:where(dl)';
+  }
+  #{$selector} {
     @include typo.text-s--regular;
 
     margin: 0;
@@ -96,69 +109,6 @@
   }
 }
 
-// @deprecated Will be removed with next major version
-@mixin base-marker-list(
-  $dimensions,
-  $padding-inline,
-  $to-text-gap,
-  $vertical-gap,
-  $text-to-marker-block-offset
-) {
-  & {
-    #{$dimensions}: #{functions.px-to-rem-build(34)};
-    #{$padding-inline}: var(--sbb-spacing-responsive-xxs);
-    #{$to-text-gap}: var(--sbb-spacing-responsive-xxxs);
-
-    // Additional space from overall li padding to the text because text
-    // has to be centered to marker number.
-    #{$text-to-marker-block-offset}: calc(
-      0.5 *
-        (var(#{$dimensions}) - var(--sbb-typo-line-height-body-text) * var(--sbb-text-font-size))
-    );
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  &:where(.sbb-text-xl) {
-    @include mediaqueries.mq($from: medium) {
-      #{$dimensions}: #{functions.px-to-rem-build(41)};
-    }
-  }
-
-  // stylelint-disable-next-line no-descending-specificity
-  > li {
-    position: relative;
-    padding-inline: calc(var(#{$padding-inline}) + var(#{$dimensions}) + var(#{$to-text-gap}))
-      var(#{$padding-inline});
-    min-height: var(#{$dimensions});
-
-    &::before {
-      @include typo.text-xxs--bold;
-
-      position: absolute;
-      height: var(#{$dimensions});
-      width: var(#{$dimensions});
-      margin-block-start: calc(-1 * var(#{$text-to-marker-block-offset}));
-      inset-inline-start: var(#{$padding-inline});
-      border-radius: 50%;
-    }
-
-    + li {
-      margin-block-start: var(#{$vertical-gap});
-    }
-
-    p {
-      margin-block: 0;
-    }
-
-    // P has to be redefined to be more specific
-    > * + p {
-      margin-block-start: var(--sbb-spacing-responsive-xxxs);
-    }
-  }
-}
-
 @mixin icon-list {
   --sbb-icon-list-marker-icon: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="%23000" fill-rule="evenodd" d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 9 9 9 9 0 0 1-9 9 9 9 0 0 1-9-9m9-10C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2m-1.104 13.305 5-6.5-.792-.61-4.69 6.096-2.102-1.681-.624.78 2.5 2 .398.319z" clip-rule="evenodd"></path></svg>');
   --sbb-icon-list-marker-icon-color: currentcolor;
@@ -171,7 +121,7 @@
   --sbb-icon-list-text-to-marker-block-offset: calc(
     0.5 *
       (
-        var(--sbb-icon-list-dimensions) - var(--sbb-typo-line-height-body-text) *
+        var(--sbb-icon-list-dimensions) - var(--sbb-typo-line-height-text) *
           var(--sbb-text-font-size)
       )
   );
@@ -211,6 +161,13 @@
       mask-repeat: no-repeat;
       mask-position: center;
       mask-size: 100%;
+
+      // If consumers override the `--sbb-icon-list-marker-icon-color` variable to set a custom color via inline style,
+      // it would have higher specificity over any rule, included the forced-colors one.
+      // This can be avoided forcing `background-color: CanvasText` in high-contrast mode.
+      @include a11y.if-forced-colors {
+        background-color: CanvasText;
+      }
     }
   }
 }
@@ -222,13 +179,14 @@
   --sbb-step-list-padding-block: var(--sbb-spacing-fixed-3x);
   --sbb-step-list-vertical-gap: var(--sbb-spacing-fixed-1x);
   --sbb-step-list-border-radius: var(--sbb-border-radius-4x);
+  --sbb-step-list-color: var(--sbb-color-2);
 
   // Additional space from overall li padding to the text because text
   // has to be centered to marker number.
   --sbb-step-list-text-to-marker-block-offset: calc(
     0.5 *
       (
-        var(--sbb-step-list-dimensions) - var(--sbb-typo-line-height-body-text) *
+        var(--sbb-step-list-dimensions) - var(--sbb-typo-line-height-text) *
           var(--sbb-text-font-size)
       )
   );
@@ -237,7 +195,7 @@
   margin: 0;
   padding: 0;
   counter-reset: steps;
-  color: var(--sbb-color-iron);
+  color: var(--sbb-step-list-color);
 
   &:where(.sbb-text-s) {
     --sbb-step-list-padding-block: var(--sbb-spacing-fixed-4x);
@@ -248,7 +206,7 @@
   }
 
   &:where(.sbb-text-xl) {
-    @include mediaqueries.mq($from: medium) {
+    @include mediaqueries.mq($from: large) {
       --sbb-step-list-dimensions: #{functions.px-to-rem-build(41)};
     }
   }
@@ -257,7 +215,7 @@
   > li {
     position: relative;
     counter-increment: steps;
-    background-color: var(--sbb-color-milk);
+    background-color: var(--sbb-background-color-3);
     padding-block: calc(
         var(--sbb-step-list-padding-block) + var(--sbb-step-list-text-to-marker-block-offset)
       )
@@ -281,8 +239,9 @@
       width: var(--sbb-step-list-dimensions);
       margin-block-start: calc(-1 * var(--sbb-step-list-text-to-marker-block-offset));
       inset-inline-start: var(--sbb-step-list-padding-inline);
-      color: var(--sbb-color-charcoal);
-      border: var(--sbb-border-width-1x) solid var(--sbb-color-cement);
+      color: var(--sbb-step-list-color);
+      border: var(--sbb-border-width-1x) solid
+        light-dark(var(--sbb-color-cement), var(--sbb-color-smoke));
       border-radius: 50%;
     }
 

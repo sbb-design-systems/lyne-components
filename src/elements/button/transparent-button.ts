@@ -1,1 +1,4 @@
-export * from './transparent-button/transparent-button.js';
+/**
+ * @entrypoint
+ */
+export * from './transparent-button/transparent-button.component.ts';

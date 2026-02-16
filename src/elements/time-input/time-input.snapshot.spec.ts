@@ -1,24 +1,18 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
-import type { SbbTimeInputElement } from './time-input.js';
-import './time-input.js';
+import type { SbbTimeInputElement } from './time-input.component.ts';
+
+import './time-input.component.ts';
 
 describe(`sbb-time-input`, () => {
   describe('renders', () => {
-    let root: HTMLElement;
-    let element: SbbTimeInputElement;
+    let root: SbbTimeInputElement;
 
     beforeEach(async () => {
-      root = await fixture(html`
-        <span>
-          <sbb-time-input input="id-1"></sbb-time-input>
-          <input id="id-1" />
-        </span>
-      `);
-      element = document.querySelector('sbb-time-input')!;
+      root = await fixture(html` <sbb-time-input value="13:30"></sbb-time-input> `);
     });
 
     it('DOM', async () => {
@@ -26,7 +20,7 @@ describe(`sbb-time-input`, () => {
     });
 
     it('Shadow DOM', async () => {
-      await expect(element).shadowDom.to.be.equalSnapshot();
+      await expect(root).shadowDom.to.be.equalSnapshot();
     });
 
     testA11yTreeSnapshot();

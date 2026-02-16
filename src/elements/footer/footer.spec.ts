@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private.js';
+import { fixture } from '../core/testing/private.ts';
 
-import { SbbFooterElement } from './footer.js';
+import { SbbFooterElement } from './footer.component.ts';
 
 describe(`sbb-footer`, () => {
   let element: SbbFooterElement;

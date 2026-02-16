@@ -1,8 +1,5 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: inline-block;
 
@@ -11,11 +8,10 @@
   outline: none !important;
 
   --sbb-teaser-scale-hover: 1.02;
-  --sbb-teaser-description-color: var(--sbb-color-granite);
+  --sbb-teaser-description-color: light-dark(var(--sbb-color-granite), var(--sbb-color-silver));
   --sbb-teaser-flex-direction: row;
   --sbb-teaser-align-items: center;
   --sbb-teaser-gap: var(--sbb-spacing-fixed-4x);
-  --sbb-teaser-width: fit-content;
   --sbb-teaser-border-radius: var(--sbb-border-radius-4x);
 
   @include sbb.if-forced-colors {
@@ -32,7 +28,6 @@
   --sbb-teaser-flex-direction: column;
   --sbb-teaser-align-items: baseline;
   --sbb-teaser-gap: var(--sbb-spacing-fixed-3x);
-  --sbb-teaser-width: 100%;
 }
 
 @include sbb.hover-mq($hover: true) {
@@ -44,7 +39,7 @@
 .sbb-teaser__wrapper {
   display: flex;
   position: relative;
-  cursor: pointer;
+  cursor: var(--sbb-cursor-pointer);
 
   @include sbb.zero-width-space;
 }
@@ -54,20 +49,25 @@
   position: absolute;
   inset: 0;
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  :host(:not([data-focus-origin='mouse'], [data-focus-origin='touch'])) &:focus-visible {
+  &:focus-visible {
     @include sbb.focus-outline;
 
     border-radius: var(--sbb-teaser-border-radius);
+
+    // We move the focus outline further out to not overlap with the teaser border in forced colors
+    @include sbb.if-forced-colors {
+      outline-offset: calc(2 * var(--sbb-focus-outline-offset));
+    }
   }
 
   @include sbb.if-forced-colors {
-    outline-offset: var(--sbb-focus-outline-offset);
-    outline: CanvasText solid var(--sbb-focus-outline-width);
-    border-radius: var(--sbb-teaser-border-radius);
-
-    &:hover {
-      outline-color: Highlight;
+    &::before {
+      content: '';
+      position: absolute;
+      inset: calc(-1 * var(--sbb-focus-outline-offset));
+      pointer-events: none;
+      border-radius: calc(var(--sbb-teaser-border-radius) + var(--sbb-focus-outline-offset));
+      border: var(--sbb-border-width-1x) solid CanvasText;
     }
   }
 }
@@ -83,6 +83,9 @@
 }
 
 .sbb-teaser__text {
+  @include sbb.text-s--regular;
+
+  color: var(--sbb-teaser-description-color);
   overflow: hidden;
   max-width: 100%;
 }
@@ -100,29 +103,24 @@
 
   @include sbb.hover-mq($hover: true) {
     :host(:hover) & {
-      @include sbb.shadow-level-9-hard;
+      box-shadow: var(--sbb-box-shadow-level-9-hard);
     }
   }
 }
 
-.sbb-teaser__chip-label {
+.sbb-teaser__description {
+  // Reset paragraph styles
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+::slotted(sbb-chip-label) {
   display: block;
   max-width: fit-content;
   margin-block-end: var(--sbb-spacing-fixed-1x);
-
-  :host(:not([data-slot-names~='chip'], [chip-content])) & {
-    display: none;
-  }
 }
 
-.sbb-teaser__lead {
-  // Overwrite sbb-title default margin
-  margin: 0;
-}
-
-.sbb-teaser__description {
-  @include sbb.text-s--regular;
-
-  display: inline-block;
-  color: var(--sbb-teaser-description-color);
+::slotted(sbb-title) {
+  margin-block: 0;
 }

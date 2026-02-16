@@ -1,0 +1,93 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sbb-chip-group-gap);
+  align-items: center;
+  margin-block: var(--sbb-chip-group-margin-block);
+}
+
+:host(:is(:state(size-s), :state(empty))) {
+  --sbb-chip-group-margin-block: 0;
+}
+
+:host(:state(size-s):not(:state(empty))) {
+  --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(6)} #{sbb.px-to-rem-build(5)};
+
+  @include sbb.mq($from: large) {
+    --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(5)} #{sbb.px-to-rem-build(3)};
+  }
+}
+
+:host(:state(without-label):state(size-s):not(:state(empty))) {
+  --sbb-chip-group-margin-block: 0 #{sbb.px-to-rem-build(7)};
+
+  @include sbb.mq($from: large) {
+    --sbb-chip-group-margin-block: 0 #{sbb.px-to-rem-build(5)};
+  }
+}
+
+:host(:is(:state(size-l), :state(size-m))) {
+  --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default) 0;
+
+  @include sbb.mq($from: large) {
+    --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default-large) 0;
+  }
+}
+
+:host(:state(without-label):state(size-m):not(:state(empty))) {
+  --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(3)} #{sbb.px-to-rem-build(11)};
+
+  @include sbb.mq($from: large) {
+    --sbb-chip-group-margin-block: #{sbb.px-to-rem-build(3)} #{sbb.px-to-rem-build(14)};
+  }
+}
+
+:host(:state(without-label):not(:state(empty), :state(size-s), :state(size-m), :state(size-l))) {
+  --sbb-chip-group-margin-block: var(--sbb-chip-group-margin-block-no-label-not-empty);
+}
+
+:host(:not(:state(without-label)):state(size-m):not(:state(empty))) {
+  --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default)
+    var(--_sbb-chip-group-margin-block-start-default-large);
+
+  @include sbb.mq($from: large) {
+    --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default-large)
+      var(--_sbb-chip-group-margin-block-start-default-large);
+  }
+}
+
+:host(:not(:state(without-label), :state(empty), :state(size-s), :state(size-m), :state(size-l))) {
+  --sbb-chip-group-margin-block: var(--sbb-chip-group-margin-block-with-label-not-empty);
+}
+
+:host(:state(without-label):state(size-l):not(:state(empty))) {
+  --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default)
+    #{sbb.px-to-rem-build(16)};
+
+  @include sbb.mq($from: large) {
+    --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default-large)
+      #{sbb.px-to-rem-build(20)};
+  }
+}
+
+:host(:not(:state(without-label)):state(size-l):not(:state(empty))) {
+  --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default)
+    #{sbb.px-to-rem-build(7.5)};
+
+  @include sbb.mq($from: large) {
+    --sbb-chip-group-margin-block: var(--_sbb-chip-group-margin-block-start-default-large)
+      #{sbb.px-to-rem-build(7.5)};
+  }
+}
+
+::slotted(input) {
+  flex: 1 1 var(--sbb-chip-group-input-min-width);
+  max-height: #{sbb.px-to-rem-build(24)};
+}
+
+::slotted(sbb-chip) {
+  max-width: 100%;
+}

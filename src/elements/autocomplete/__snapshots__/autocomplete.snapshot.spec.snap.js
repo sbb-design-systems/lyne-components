@@ -3,29 +3,20 @@ export const snapshots = {};
 
 snapshots["sbb-autocomplete renders standalone Safari DOM"] = 
 `<sbb-autocomplete
-  data-state="closed"
   id="sbb-autocomplete-1"
   origin="origin"
   popover="manual"
-  role="listbox"
+  size="m"
   trigger="trigger"
 >
   <sbb-option
-    aria-selected="false"
-    data-slot-names="unnamed"
-    data-variant="autocomplete"
     id="sbb-option-0"
-    role="option"
     value="1"
   >
     1
   </sbb-option>
   <sbb-option
-    aria-selected="false"
-    data-slot-names="unnamed"
-    data-variant="autocomplete"
     id="sbb-option-1"
-    role="option"
     value="2"
   >
     2
@@ -56,7 +47,10 @@ snapshots["sbb-autocomplete renders standalone Safari Shadow DOM"] =
   </div>
   <div class="sbb-autocomplete__panel">
     <div class="sbb-autocomplete__wrapper">
-      <div class="sbb-autocomplete__options">
+      <div
+        class="sbb-autocomplete__options"
+        tabindex="-1"
+      >
         <slot>
         </slot>
       </div>
@@ -68,9 +62,6 @@ snapshots["sbb-autocomplete renders standalone Safari Shadow DOM"] =
 
 snapshots["sbb-autocomplete renders in form field Safari DOM"] = 
 `<sbb-form-field
-  data-input-empty=""
-  data-input-type="input"
-  data-slot-names="unnamed"
   error-space="none"
   size="m"
   width="default"
@@ -85,27 +76,18 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
     role="combobox"
   >
   <sbb-autocomplete
-    data-state="closed"
     id="sbb-autocomplete-3"
     popover="manual"
-    role="listbox"
+    size="m"
   >
     <sbb-option
-      aria-selected="false"
-      data-slot-names="unnamed"
-      data-variant="autocomplete"
       id="sbb-option-4"
-      role="option"
       value="1"
     >
       1
     </sbb-option>
     <sbb-option
-      aria-selected="false"
-      data-slot-names="unnamed"
-      data-variant="autocomplete"
       id="sbb-option-5"
-      role="option"
       value="2"
     >
       2
@@ -153,29 +135,15 @@ snapshots["sbb-autocomplete renders in form field Safari Shadow DOM"] =
 
 snapshots["sbb-autocomplete renders standalone Chrome-Firefox DOM"] = 
 `<sbb-autocomplete
-  data-state="closed"
   origin="origin"
   popover="manual"
+  size="m"
   trigger="trigger"
 >
-  <sbb-option
-    aria-selected="false"
-    data-slot-names="unnamed"
-    data-variant="autocomplete"
-    id="sbb-option-0"
-    role="option"
-    value="1"
-  >
+  <sbb-option value="1">
     1
   </sbb-option>
-  <sbb-option
-    aria-selected="false"
-    data-slot-names="unnamed"
-    data-variant="autocomplete"
-    id="sbb-option-1"
-    role="option"
-    value="2"
-  >
+  <sbb-option value="2">
     2
   </sbb-option>
 </sbb-autocomplete>
@@ -208,6 +176,7 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM"] =
         class="sbb-autocomplete__options"
         id="sbb-autocomplete-2"
         role="listbox"
+        tabindex="-1"
       >
         <slot>
         </slot>
@@ -220,9 +189,6 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM"] =
 
 snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] = 
 `<sbb-form-field
-  data-input-empty=""
-  data-input-type="input"
-  data-slot-names="unnamed"
   error-space="none"
   size="m"
   width="default"
@@ -237,27 +203,13 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
     role="combobox"
   >
   <sbb-autocomplete
-    data-state="closed"
     popover="manual"
+    size="m"
   >
-    <sbb-option
-      aria-selected="false"
-      data-slot-names="unnamed"
-      data-variant="autocomplete"
-      id="sbb-option-4"
-      role="option"
-      value="1"
-    >
+    <sbb-option value="1">
       1
     </sbb-option>
-    <sbb-option
-      aria-selected="false"
-      data-slot-names="unnamed"
-      data-variant="autocomplete"
-      id="sbb-option-5"
-      role="option"
-      value="2"
-    >
+    <sbb-option value="2">
       2
     </sbb-option>
   </sbb-autocomplete>
@@ -304,44 +256,30 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox Shadow DOM"] =
 snapshots["sbb-autocomplete renders in form field A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "combobox",
-      "name": "",
-      "autocomplete": "list",
-      "haspopup": "listbox"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-autocomplete renders in form field A11y tree Chrome */
-
-snapshots["sbb-autocomplete renders in form field A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "combobox",
-      "name": "",
-      "autocomplete": "list",
-      "haspopup": "listbox"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete renders in form field A11y tree Firefox */
 

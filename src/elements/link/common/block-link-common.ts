@@ -2,22 +2,20 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.js';
-import type { SbbIconPlacement } from '../../core/interfaces.js';
-import type { AbstractConstructor } from '../../core/mixins.js';
-import type { SbbIconNameMixinType } from '../../icon.js';
-import { SbbIconNameMixin } from '../../icon.js';
+import type { SbbActionBaseElement } from '../../core/base-elements.ts';
+import type { SbbIconPlacement } from '../../core/interfaces.ts';
+import type { AbstractConstructor } from '../../core/mixins.ts';
+import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbIconNameMixin } from '../../icon.ts';
 
-import { SbbLinkCommonElementMixin, type SbbLinkCommonElementMixinType } from './link-common.js';
+import { SbbLinkCommonElementMixin } from './link-common.ts';
 // eslint-disable-next-line import-x/order
 import blockStyle from './block-link.scss?lit&inline';
 import style from './link.scss?lit&inline';
 
-export declare class SbbBlockLinkCommonElementMixinType
-  extends SbbLinkCommonElementMixinType
-  implements Partial<SbbIconNameMixinType>
-{
-  public accessor iconName: string;
+export declare class SbbBlockLinkCommonElementMixinType extends SbbLinkCommonElementMixin(
+  SbbIconNameMixin(SbbActionBaseElement),
+) {
   public accessor iconPlacement: SbbIconPlacement;
 }
 
@@ -29,7 +27,7 @@ export const SbbBlockLinkCommonElementMixin = <T extends AbstractConstructor<Sbb
     extends SbbLinkCommonElementMixin(SbbIconNameMixin(superClass))
     implements Partial<SbbBlockLinkCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [style, blockStyle];
+    public static styles: CSSResultGroup = [boxSizingStyles, style, blockStyle];
 
     /** Moves the icon to the end of the component if set to true. */
     @property({ attribute: 'icon-placement', reflect: true })

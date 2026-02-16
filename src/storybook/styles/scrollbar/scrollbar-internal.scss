@@ -1,8 +1,8 @@
 @use '../../../elements/core/styles' as sbb;
 
 .negative {
-  background-color: var(--sbb-color-charcoal);
-  color: var(--sbb-color-white);
+  background-color: var(--sbb-background-color-1-negative);
+  color: var(--sbb-color-1-negative);
 }
 
 .overflow-container {

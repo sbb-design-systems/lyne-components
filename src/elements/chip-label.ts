@@ -1,1 +1,4 @@
-export * from './chip-label/chip-label.js';
+/**
+ * @entrypoint
+ */
+export * from './chip-label/chip-label.component.ts';

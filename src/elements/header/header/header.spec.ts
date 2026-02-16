@@ -1,20 +1,20 @@
-import { assert, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture, tabKey } from '../../core/testing/private.js';
-import { EventSpy, mockScrollTo, waitForLitRender } from '../../core/testing.js';
-import { SbbMenuElement } from '../../menu.js';
-import type { SbbHeaderButtonElement } from '../header-button.js';
+import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import { SbbMenuElement } from '../../menu.ts';
+import type { SbbHeaderButtonElement } from '../header-button.ts';
 
-import { SbbHeaderElement } from './header.js';
-import '../header-button.js';
+import { SbbHeaderElement } from './header.component.ts';
+import '../header-button.ts';
 
 describe(`sbb-header`, () => {
   let element: SbbHeaderElement;
 
   beforeEach(async () => {
-    await setViewport({ width: 1200, height: 600 });
+    await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
   });
 
   it('renders', async () => {
@@ -31,47 +31,11 @@ describe(`sbb-header`, () => {
     `);
     element = root.querySelector<SbbHeaderElement>('sbb-header')!;
 
-    mockScrollTo({ top: 200 });
-    await waitForLitRender(element);
-    expect(element).to.have.attribute('data-shadow');
-  });
+    const scrollEventSpy = new EventSpy('scroll', document, { passive: true });
+    window.scrollTo({ top: 200, behavior: 'instant' });
+    await scrollEventSpy.calledOnce();
 
-  it('should hide/show on scroll', async () => {
-    const root = await fixture(html`
-      <div>
-        <sbb-header hide-on-scroll></sbb-header>
-        <div style="height: 2000px;"></div>
-      </div>
-    `);
-
-    element = root.querySelector<SbbHeaderElement>('sbb-header')!;
-    expect(element.scrollOrigin).not.to.be.undefined;
-    expect(element.offsetHeight).to.be.equal(96);
-    expect(root.offsetHeight).to.be.equal(2096);
-
-    // Scroll bottom (0px to 400px): header fixed.
-    mockScrollTo({ top: 400 });
-    await waitForLitRender(element);
-
-    // Scroll top (400px to 200px): header fixed and visible, with shadow and animated.
-    mockScrollTo({ top: 200 });
-
-    await waitForLitRender(element);
-
-    expect(element).to.have.attribute('data-shadow');
-    expect(element).to.have.attribute('data-animated');
-    expect(element).to.have.attribute('data-fixed');
-    expect(element).to.have.attribute('data-visible');
-
-    // Scroll top (100 to 0px): initial situation.
-    mockScrollTo({ top: 0 });
-
-    await waitForLitRender(element);
-
-    expect(element).not.to.have.attribute('data-shadow');
-    expect(element).not.to.have.attribute('data-animated');
-    expect(element).not.to.have.attribute('data-fixed');
-    expect(element).not.to.have.attribute('data-visible');
+    expect(element).to.match(':state(shadow)');
   });
 
   it('should hide/show on scroll', async () => {
@@ -86,53 +50,129 @@ describe(`sbb-header`, () => {
     `);
 
     element = root.querySelector('sbb-header')!;
+    const scrollEventSpy = new EventSpy('scroll', document, { passive: true });
+
     expect(element.scrollOrigin).not.to.be.undefined;
     expect(element.offsetHeight).to.be.equal(96);
     expect(root.offsetHeight).to.be.equal(2096);
 
     // Scroll bottom (0px to 400px): header fixed.
-    mockScrollTo({ top: 400 });
-    await waitForLitRender(element);
+    window.scrollTo({ top: 400, behavior: 'instant' });
+    await scrollEventSpy.calledOnce();
 
     // Scroll top (400px to 200px): header fixed and visible, with shadow and animated.
-    mockScrollTo({ top: 200 });
+    window.scrollTo({ top: 200, behavior: 'instant' });
+    await scrollEventSpy.calledTimes(2);
 
     await waitForLitRender(element);
 
-    expect(element).to.have.attribute('data-shadow');
-    expect(element).to.have.attribute('data-animated');
-    expect(element).to.have.attribute('data-fixed');
-    expect(element).to.have.attribute('data-visible');
+    expect(element).to.match(':state(shadow)');
+    expect(element).to.match(':state(animated)');
+    expect(element).to.match(':state(fixed)');
+    expect(element).to.match(':state(visible)');
 
     // Scroll bottom (0px to 400px): header fixed.
-    mockScrollTo({ top: 400 });
-    await waitForLitRender(element);
+    window.scrollTo({ top: 400, behavior: 'instant' });
+    await scrollEventSpy.calledTimes(3);
 
-    expect(element).to.have.attribute('data-animated');
-    expect(element).to.have.attribute('data-fixed');
-    expect(element).not.to.have.attribute('data-shadow');
-    expect(element).not.to.have.attribute('data-visible');
-    expect(element).not.to.have.attribute('data-has-visible-focus-within');
+    expect(element).to.match(':state(animated)');
+    expect(element).to.match(':state(fixed)');
+    expect(element).not.to.match(':state(shadow)');
+    expect(element).not.to.match(':state(visible)');
+    expect(element).not.to.match(':state(has-visible-focus-within)');
     expect(window.getComputedStyle(element).getPropertyValue('--sbb-header-transform')).to.equal(
       'translate3d(0, -100%, 0)',
     );
 
     // Focus an element inside the header
     await sendKeys({ press: tabKey });
-    expect(element).to.have.attribute('data-has-visible-focus-within');
+    expect(element).to.match(':state(has-visible-focus-within)');
     expect(window.getComputedStyle(element).getPropertyValue('--sbb-header-transform')).to.equal(
       'translate3d(0, 0, 0)',
     );
 
     // Scroll top (100 to 0px): initial situation.
-    mockScrollTo({ top: 0 });
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    await scrollEventSpy.calledTimes(4);
 
-    await waitForLitRender(element);
+    expect(element).not.to.match(':state(shadow)');
+    expect(element).not.to.match(':state(animated)');
+    expect(element).not.to.match(':state(fixed)');
+    expect(element).not.to.match(':state(visible)');
+  });
 
-    expect(element).not.to.have.attribute('data-shadow');
-    expect(element).not.to.have.attribute('data-animated');
-    expect(element).not.to.have.attribute('data-fixed');
-    expect(element).not.to.have.attribute('data-visible');
+  it('should work with custom scrollOrigin', async () => {
+    const root = await fixture(html`
+      <div>
+        <sbb-header hide-on-scroll scroll-origin="container">
+          <sbb-header-button id="action-1">Action 1</sbb-header-button>
+          <sbb-header-button id="action-2">Action 2</sbb-header-button>
+        </sbb-header>
+        <div
+          id="container"
+          style="position:fixed; inset: var(--sbb-header-height) 0 0 0; width: 100vw; overflow: auto;"
+        >
+          <div style="height: 2000px">Content</div>
+        </div>
+      </div>
+    `);
+
+    element = root.querySelector<SbbHeaderElement>('sbb-header')!;
+    const scrollContext = root.querySelector<HTMLDivElement>('#container')!;
+    expect(element.scrollOrigin).to.be.equal(scrollContext);
+    expect(element.offsetHeight).to.be.equal(96);
+
+    const scrollEventSpy = new EventSpy('scroll', scrollContext, { passive: true });
+
+    // Scroll bottom (0px to 400px): header fixed.
+    scrollContext.scrollTo({ top: 400, behavior: 'instant' });
+    await scrollEventSpy.calledOnce();
+
+    // Scroll top (400px to 200px): header fixed and visible, with shadow and animated.
+    scrollContext.scrollTo({ top: 200, behavior: 'instant' });
+    await scrollEventSpy.calledTimes(2);
+
+    expect(scrollContext.scrollTop).to.be.equal(200);
+    expect(element).to.match(':state(shadow)');
+  });
+
+  it('should respect custom scrollOrigin appearing in DOM after initialization', async () => {
+    const root = await fixture(html`
+      <div>
+        <sbb-header hide-on-scroll scroll-origin="container">
+          <sbb-header-button id="action-1">Action 1</sbb-header-button>
+          <sbb-header-button id="action-2">Action 2</sbb-header-button>
+        </sbb-header>
+        <div
+          style="position:fixed; inset: var(--sbb-header-height) 0 0 0; width: 100vw; overflow: auto;"
+        >
+          <div style="height: 2000px">Content</div>
+        </div>
+      </div>
+    `);
+
+    element = root.querySelector<SbbHeaderElement>('sbb-header')!;
+
+    const scrollContext = root.querySelector<HTMLDivElement>('div > div')!;
+    expect(element.scrollOrigin).to.be.null;
+    expect(element.offsetHeight).to.be.equal(96);
+
+    scrollContext.id = 'container';
+    await aTimeout(100);
+    await waitForLitRender(root);
+    expect(element.scrollOrigin).to.be.equal(scrollContext);
+    const scrollEventSpy = new EventSpy('scroll', scrollContext, { passive: true });
+
+    // Scroll bottom (0px to 400px): header fixed.
+    scrollContext.scrollTo({ top: 400, behavior: 'instant' });
+    await scrollEventSpy.calledOnce();
+
+    // Scroll top (400px to 200px): header fixed and visible, with shadow and animated.
+    scrollContext.scrollTo({ top: 200, behavior: 'instant' });
+    await scrollEventSpy.calledTimes(2);
+
+    expect(scrollContext.scrollTop).to.be.equal(200);
+    expect(element).to.match(':state(shadow)');
   });
 
   it('should close menu on scroll', async () => {
@@ -148,29 +188,31 @@ describe(`sbb-header`, () => {
         <div style="height: 2000px;"></div>
       </div>
     `);
-
     element = root.querySelector<SbbHeaderElement>('sbb-header')!;
+    const scrollEventSpy = new EventSpy('scroll', document, { passive: true });
 
     // Scroll down a little bit
-    mockScrollTo({ top: 250 });
-    await waitForLitRender(element);
+    window.scrollTo({ top: 250, behavior: 'instant' });
+    await scrollEventSpy.calledTimes(1);
 
     // Scroll up to show header
-    mockScrollTo({ top: 200 });
-    await waitForLitRender(element);
-    expect(element).to.have.attribute('data-visible');
+    window.scrollTo({ top: 200, behavior: 'instant' });
+    await scrollEventSpy.calledTimes(2);
+    expect(element).to.match(':state(visible)');
 
     // Open menu
-    const willOpenEventSpy = new EventSpy(SbbMenuElement.events.willOpen, null, { capture: true });
-    const didOpenEventSpy = new EventSpy(SbbMenuElement.events.didOpen, null, { capture: true });
+    const beforeOpenSpy = new EventSpy(SbbMenuElement.events.beforeopen, null, {
+      capture: true,
+    });
+    const openSpy = new EventSpy(SbbMenuElement.events.open, null, { capture: true });
     const menuTrigger = root.querySelector<SbbHeaderButtonElement>('sbb-header-button')!;
     menuTrigger.click();
     await waitForLitRender(element);
-    await willOpenEventSpy.calledOnce();
-    expect(willOpenEventSpy.count).to.be.equal(1);
+    await beforeOpenSpy.calledOnce();
+    expect(beforeOpenSpy.count).to.be.equal(1);
     await waitForLitRender(element);
-    await didOpenEventSpy.calledOnce();
-    expect(didOpenEventSpy.count).to.be.equal(1);
+    await openSpy.calledOnce();
+    expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
     const menuId = menuTrigger.getAttribute('aria-controls');
     const menu = root.querySelector(`#${menuId}`);
@@ -178,15 +220,16 @@ describe(`sbb-header`, () => {
     // Assert menu opened
     expect(menuTrigger).to.have.attribute('aria-controls');
     expect(menuTrigger).to.have.attribute('aria-expanded', 'true');
-    expect(menu).to.have.attribute('data-state', 'opened');
+    expect(menu).to.match(':state(state-opened)');
 
     // Scroll down to hide header.
-    mockScrollTo({ top: 250 });
+    window.scrollTo({ top: 250, behavior: 'instant' });
+    await scrollEventSpy.calledTimes(3);
     await waitForLitRender(element);
 
     // Assert menu closed
-    expect(element).not.to.have.attribute('data-visible');
-    expect(menu).not.to.have.attribute('data-state', 'opened');
+    expect(element).not.to.match(':state(visible)');
+    expect(menu).not.to.match(':state(state-opened)');
     expect(menuTrigger).to.have.attribute('aria-expanded', 'false');
   });
 });

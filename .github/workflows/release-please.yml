@@ -11,14 +11,16 @@ on:
 
 permissions:
   contents: write
+  id-token: write # Required for OIDC
   packages: write
   pull-requests: write
+
+env:
+  IMAGE_REPO_DOCS: ghcr.io/sbb-design-systems/lyne-components/docs
 
 jobs:
   release-please:
     runs-on: ubuntu-latest
-    env:
-      IMAGE_REPO_STORYBOOK: ghcr.io/${{ github.repository }}/storybook
     steps:
       - uses: googleapis/release-please-action@v4
         id: release
@@ -36,10 +38,10 @@ jobs:
 
       - name: Get token
         id: get_token
-        uses: tibdex/github-app-token@v2
+        uses: actions/create-github-app-token@v2
         with:
-          app_id: ${{ secrets.MAINTENANCE_APP_ID }}
-          private_key: ${{ secrets.MAINTENANCE_APP_PEM }}
+          app-id: ${{ secrets.MAINTENANCE_APP_ID }}
+          private-key: ${{ secrets.MAINTENANCE_APP_PEM }}
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -55,8 +57,10 @@ jobs:
       - name: Run build
         run: STORYBOOK_COMPONENTS_VERSION="${{ steps.version.outputs.version }}" yarn build
       - name: Remove files with forbidden extensions
-        run: node ./scripts/clean-storybook-files.cjs
+        run: node ./scripts/clean-docs-files.ts
 
+      - name: Update npm
+        run: npm install --global npm@latest
       - name: 'Release: Determine npm tag'
         if: ${{ steps.release.outputs.release_created }}
         id: npm_tag
@@ -64,45 +68,53 @@ jobs:
 
       - name: 'Release: Publish @sbb-esta/lyne-elements'
         if: ${{ steps.release.outputs.release_created }}
-        run: yarn publish dist/elements --tag ${{ steps.npm_tag.outputs.npm_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd dist/elements
+          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
       - name: 'Release: Publish @sbb-esta/lyne-elements-experimental'
         if: ${{ steps.release.outputs.release_created }}
-        run: yarn publish dist/elements-experimental --tag ${{ steps.npm_tag.outputs.npm_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd dist/elements-experimental
+          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
       - name: 'Release: Publish @sbb-esta/lyne-react'
         if: ${{ steps.release.outputs.release_created }}
-        run: yarn publish dist/react --tag ${{ steps.npm_tag.outputs.npm_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd dist/react
+          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
       - name: 'Release: Publish @sbb-esta/lyne-react-experimental'
         if: ${{ steps.release.outputs.release_created }}
-        run: yarn publish dist/react-experimental --tag ${{ steps.npm_tag.outputs.npm_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd dist/react-experimental
+          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
 
       - uses: ./.github/actions/setup-mint
       - name: 'Container: Build and publish release image'
         if: ${{ steps.release.outputs.release_created }}
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build --tag $IMAGE_REPO_STORYBOOK:$VERSION-fat .
+          docker build --tag ${{ env.IMAGE_REPO_DOCS }}:$VERSION-fat .
           mint slim \
-            --target $IMAGE_REPO_STORYBOOK:$VERSION-fat \
-            --tag $IMAGE_REPO_STORYBOOK:$VERSION \
-            --preserve-path /usr/share/nginx/html
-          docker push $IMAGE_REPO_STORYBOOK:$VERSION
-          docker tag $IMAGE_REPO_STORYBOOK:$VERSION $IMAGE_REPO_STORYBOOK:$VERSION-slim
-          docker push $IMAGE_REPO_STORYBOOK:$VERSION-slim
-          docker tag $IMAGE_REPO_STORYBOOK:$VERSION $IMAGE_REPO_STORYBOOK:latest
-          docker push $IMAGE_REPO_STORYBOOK:latest
-          docker tag $IMAGE_REPO_STORYBOOK:$VERSION $IMAGE_REPO_STORYBOOK:latest-slim
-          docker push $IMAGE_REPO_STORYBOOK:latest-slim
+            --target ${{ env.IMAGE_REPO_DOCS }}:$VERSION-fat \
+            --tag ${{ env.IMAGE_REPO_DOCS }}:$VERSION \
+            --preserve-path /usr/share/nginx/html \
+            --include-new false
+          docker push ${{ env.IMAGE_REPO_DOCS }}:$VERSION
+          if [[ $VERSION != *"-"* ]]; then
+            docker tag ${{ env.IMAGE_REPO_DOCS }}:$VERSION ${{ env.IMAGE_REPO_DOCS }}:latest
+            docker push ${{ env.IMAGE_REPO_DOCS }}:latest
+          fi
           docker image list
         env:
           DOCKER_BUILDKIT: 1
+          VERSION: ${{ steps.release.outputs.version }}
+
+      - name: Send Teams webhook
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          node scripts/teams-webhook.ts
+        env:
+          RELEASE_TAG: ${{ steps.release.outputs.version }}
+          TEAMS_WEBHOOK: ${{ secrets.TEAMS_WEBHOOK }}
 
       - name: Cherry-pick CHANGELOG.md into ${{ github.event.repository.default_branch }}
         if: ${{ steps.release.outputs.release_created && github.ref_name != 'main' }}
@@ -116,7 +128,7 @@ jobs:
 
       - name: Update maintenance issue
         if: ${{ steps.release.outputs.release_created && failure() }}
-        run: yarn ts-hooks scripts/update-maintenance-issue.ts
+        run: node scripts/update-maintenance-issue.ts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FAILED_RELEASE: ${{ steps.release.outputs.version }}

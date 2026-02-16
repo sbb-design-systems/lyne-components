@@ -4,9 +4,6 @@ export const snapshots = {};
 snapshots["sbb-teaser-hero renders DOM"] = 
 `<sbb-teaser-hero
   accessibility-label="label"
-  data-action=""
-  data-link=""
-  data-slot-names="image link-content unnamed"
   href="https://www.sbb.ch"
 >
   Break out and explore castles and palaces.
@@ -17,7 +14,7 @@ snapshots["sbb-teaser-hero renders DOM"] =
     class="sbb-figure"
     slot="image"
   >
-    <sbb-image data-loaded="">
+    <sbb-image>
     </sbb-image>
     <sbb-chip-label
       class="sbb-figure-overlap-start-start"
@@ -44,9 +41,6 @@ snapshots["sbb-teaser-hero renders Shadow DOM"] =
     </p>
     <sbb-block-link-static
       class="sbb-teaser-hero__panel-link"
-      data-action=""
-      data-sbb-link=""
-      data-slot-names="link-content unnamed"
       icon-name="chevron-small-right-small"
       icon-placement="end"
       negative=""
@@ -62,32 +56,15 @@ snapshots["sbb-teaser-hero renders Shadow DOM"] =
 `;
 /* end snapshot sbb-teaser-hero renders Shadow DOM */
 
-snapshots["sbb-teaser-hero renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "label",
-      "value": "https://www.sbb.ch/"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-teaser-hero renders A11y tree Firefox */
-
 snapshots["sbb-teaser-hero renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "label"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
@@ -98,9 +75,6 @@ snapshots["sbb-teaser-hero renders A11y tree Chrome"] =
 snapshots["sbb-teaser-hero renders with img DOM"] = 
 `<sbb-teaser-hero
   accessibility-label="label"
-  data-action=""
-  data-link=""
-  data-slot-names="image unnamed"
   href="https://www.sbb.ch"
   link-content="Find out more"
   rel="external"
@@ -139,9 +113,6 @@ snapshots["sbb-teaser-hero renders with img Shadow DOM"] =
     </p>
     <sbb-block-link-static
       class="sbb-teaser-hero__panel-link"
-      data-action=""
-      data-sbb-link=""
-      data-slot-names="unnamed"
       icon-name="chevron-small-right-small"
       icon-placement="end"
       negative=""

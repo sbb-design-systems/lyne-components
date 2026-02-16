@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbDialogContentElement } from './dialog-content.js';
-import './dialog-content.js';
+import type { SbbDialogContentElement } from './dialog-content.component.ts';
+import './dialog-content.component.ts';
 
 describe('sbb-dialog-content', () => {
   describe('renders', async () => {

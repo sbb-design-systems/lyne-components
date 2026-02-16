@@ -3,7 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-checkbox-panel renders unchecked DOM"] = 
 `<sbb-checkbox-panel
-  data-slot-names="subtext suffix unnamed"
+  color="white"
   size="m"
   tabindex="0"
 >
@@ -49,8 +49,7 @@ snapshots["sbb-checkbox-panel renders unchecked Shadow DOM"] =
 snapshots["sbb-checkbox-panel renders checked DOM"] = 
 `<sbb-checkbox-panel
   checked=""
-  data-checked=""
-  data-slot-names="subtext suffix unnamed"
+  color="white"
   size="m"
   tabindex="0"
 >
@@ -98,7 +97,7 @@ snapshots["sbb-checkbox-panel renders checked Shadow DOM"] =
 
 snapshots["sbb-checkbox-panel renders indeterminate DOM"] = 
 `<sbb-checkbox-panel
-  data-slot-names="subtext suffix unnamed"
+  color="white"
   indeterminate=""
   size="m"
   tabindex="0"
@@ -147,7 +146,7 @@ snapshots["sbb-checkbox-panel renders indeterminate Shadow DOM"] =
 
 snapshots["sbb-checkbox-panel renders unchecked disabled DOM"] = 
 `<sbb-checkbox-panel
-  data-slot-names="subtext suffix unnamed"
+  color="white"
   disabled=""
   size="m"
   tabindex="0"
@@ -197,12 +196,14 @@ snapshots["sbb-checkbox-panel renders unchecked disabled Shadow DOM"] =
 snapshots["sbb-checkbox-panel Unchecked - A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "checkbox",
       "name": "​ Label",
+      "invalid": false,
+      "focusable": true,
       "checked": false
     }
   ]
@@ -214,12 +215,14 @@ snapshots["sbb-checkbox-panel Unchecked - A11y tree Chrome"] =
 snapshots["sbb-checkbox-panel Checked - A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "checkbox",
       "name": "​ Label",
+      "invalid": false,
+      "focusable": true,
       "checked": true
     }
   ]
@@ -227,37 +230,4 @@ snapshots["sbb-checkbox-panel Checked - A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-checkbox-panel Checked - A11y tree Chrome */
-
-snapshots["sbb-checkbox-panel Unchecked - A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "checkbox",
-      "name": "​ Label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-checkbox-panel Unchecked - A11y tree Firefox */
-
-snapshots["sbb-checkbox-panel Checked - A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "checkbox",
-      "name": "​ Label",
-      "checked": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-checkbox-panel Checked - A11y tree Firefox */
 

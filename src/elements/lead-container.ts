@@ -1,1 +1,4 @@
-export * from './lead-container/lead-container.js';
+/**
+ * @entrypoint
+ */
+export * from './lead-container/lead-container.component.ts';

@@ -1,17 +1,17 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
-import '../../icon.js';
-import '../../title.js';
-import '../../card/card-badge.js';
-import '../radio-button-panel.js';
+import '../../icon.ts';
+import '../../title.ts';
+import '../../card/card-badge.ts';
+import '../radio-button-panel.ts';
 
 const value: InputType = {
   control: {
@@ -60,7 +60,13 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['xs', 's', 'm'],
+};
+
+const allowEmptySelection: InputType = {
+  control: {
+    type: 'boolean',
+  },
 };
 
 const defaultArgTypes: ArgTypes = {
@@ -72,6 +78,7 @@ const defaultArgTypes: ArgTypes = {
   color,
   borderless,
   size,
+  'allow-empty-selection': allowEmptySelection,
 };
 
 const defaultArgs: Args = {
@@ -82,7 +89,8 @@ const defaultArgs: Args = {
   labelBoldClass: false,
   color: color.options![0],
   borderless: false,
-  size: size.options![0],
+  size: size.options![2],
+  'allow-empty-selection': false,
 };
 
 const cardBadge = (): TemplateResult => html`<sbb-card-badge>%</sbb-card-badge>`;
@@ -92,13 +100,7 @@ const DefaultTemplate = ({ labelBoldClass, ...args }: Args): TemplateResult =>
     >${labelBoldClass ? html`<span class="sbb-text--bold">Label</span>` : 'Label'}
     <span slot="subtext">Subtext</span>
     <span slot="suffix" style="margin-inline-start: auto; display:flex; align-items:center;">
-      <sbb-icon
-        name="diamond-small"
-        style="margin-inline: var(--sbb-spacing-fixed-2x);"
-        data-namespace="default"
-        role="img"
-        aria-hidden="true"
-      ></sbb-icon>
+      <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);"></sbb-icon>
       <span class="${args['size'] ? `sbb-text-${args['size']}` : 'sbb-text-m'} sbb-text--bold">
         CHF 40.00
       </span>

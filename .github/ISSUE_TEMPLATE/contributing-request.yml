@@ -1,7 +1,7 @@
 name: Request for contributing
 description: Request for contributing a new component or enhancement of a component
 title: '[Contributing request]: '
-labels: 'type: contributing-request 🔨'
+type: Feature
 assignees:
   - octocat
 body:

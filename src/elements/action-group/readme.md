@@ -1,5 +1,5 @@
 The `sbb-action-group` component is a generic content container which can contain up to three action items
-([sbb-button](/docs/elements-sbb-button--docs) or [sbb-block-link](/docs/elements-sbb-link-sbb-block-link--docs) or other HTML elements)
+([sbb-button](/docs/elements-sbb-button-sbb-button--docs) or [sbb-block-link](/docs/elements-sbb-link-sbb-block-link--docs) or other HTML elements)
 in various [allocations](#allocations).
 
 ## Style
@@ -124,7 +124,7 @@ The values for `align-group` and `align-self` for the various allocations are as
 | ---------------- | ----------------- | ------- | ------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'` | `'start'`           | Set the slotted `<sbb-action-group>` children's alignment.                                                              |
 | `buttonSize`     | `button-size`     | public  | `SbbButtonSize`                             | `'l' / 's' (lean)`  | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.         |
-| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                         | `'medium'`          | Overrides the behaviour of `orientation` property.                                                                      |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                         | `'large'`           | Overrides the behaviour of `orientation` property.                                                                      |
 | `linkSize`       | `link-size`       | public  | `SbbLinkSize`                               | `'m' / 'xs' (lean)` | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
 | `orientation`    | `orientation`     | public  | `SbbOrientation`                            | `'horizontal'`      | Indicates the orientation of the components inside the `<sbb-action-group>`.                                            |
 

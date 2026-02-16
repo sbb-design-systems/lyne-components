@@ -1,1 +1,4 @@
-export * from './i18n/i18n.js';
+/**
+ * @entrypoint
+ */
+export * from './i18n/i18n.ts';

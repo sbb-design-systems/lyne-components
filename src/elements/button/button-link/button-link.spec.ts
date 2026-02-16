@@ -2,10 +2,10 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
-import { EventSpy, waitForLitRender } from '../../core/testing.js';
+import { fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
-import { SbbButtonLinkElement } from './button-link.js';
+import { SbbButtonLinkElement } from './button-link.component.ts';
 
 describe(`sbb-button-link`, () => {
   let element: SbbButtonLinkElement;
@@ -59,7 +59,7 @@ describe(`sbb-button-link`, () => {
 
       const clickSpy = new EventSpy('click');
 
-      element.dispatchEvent(new CustomEvent('click'));
+      element.dispatchEvent(new PointerEvent('click'));
       await waitForLitRender(element);
 
       expect(clickSpy.count).not.to.be.greaterThan(0);

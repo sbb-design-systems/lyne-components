@@ -1,1 +1,4 @@
-export * from './common/paginator-common.js';
+/**
+ * @entrypoint
+ */
+export * from './common/paginator-common.ts';

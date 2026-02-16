@@ -5,11 +5,13 @@ import {
   visualDiffDefault,
   visualDiffFocus,
   visualDiffHover,
-} from '../core/testing/private.js';
-import { waitForImageReady } from '../core/testing.js';
-import './teaser-hero.js';
-import '../image.js';
-import '../chip-label.js';
+} from '../core/testing/private.ts';
+import { waitForImageReady } from '../core/testing.ts';
+import type { SbbImageElement } from '../image.ts';
+
+import './teaser-hero.component.ts';
+import '../image.ts';
+import '../chip-label.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 
@@ -45,7 +47,7 @@ const imgTestCases = [
 ];
 
 describe(`sbb-teaser-hero`, () => {
-  describeViewports({ viewports: ['zero', 'micro', 'small', 'medium', 'wide'] }, () => {
+  describeViewports({ viewports: ['zero', 'small', 'large', 'ultra'] }, () => {
     for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
       for (const testCase of imgTestCases) {
         it(
@@ -57,7 +59,9 @@ describe(`sbb-teaser-hero`, () => {
               </sbb-teaser-hero>
             `);
 
-            await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+            setup.withPostSetupAction(async () => {
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+            });
           }),
         );
       }
@@ -71,7 +75,9 @@ describe(`sbb-teaser-hero`, () => {
             </sbb-teaser-hero>
           `);
 
-          await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!);
+          setup.withPostSetupAction(
+            async () => await waitForImageReady(setup.snapshotElement.querySelector('sbb-image')!),
+          );
         }),
       );
     }
@@ -88,9 +94,74 @@ describe(`sbb-teaser-hero`, () => {
             </sbb-teaser-hero>
           `);
 
-          await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+          setup.withPostSetupAction(
+            async () =>
+              await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!),
+          );
         }),
       );
+    }
+
+    it(
+      `allows logo img`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-teaser-hero href="#" link-content="Find out more">
+            Break out and explore castles and palaces.
+            <figure class="sbb-figure" slot="image">
+              <sbb-image image-src=${imageUrl}></sbb-image>
+              <sbb-chip-label class="sbb-figure-overlap-start-start">Chip label</sbb-chip-label>
+              <img
+                class="sbb-figure-overlap-image sbb-figure-overlap-end-end"
+                alt=""
+                width="50"
+                height="30"
+                style="border: 1px solid black"
+                src=${imageUrl}
+              />
+            </figure>
+          </sbb-teaser-hero>
+        `);
+
+        setup.withPostSetupAction(async () => {
+          await Promise.all(
+            Array.from(
+              setup.snapshotElement.querySelectorAll<SbbImageElement | HTMLImageElement>(
+                'img,sbb-image',
+              ),
+            ).map((el) => waitForImageReady(el)),
+          );
+        });
+      }),
+    );
+
+    for (const { forcedColors, darkMode } of [
+      { forcedColors: true, darkMode: false },
+      { forcedColors: false, darkMode: true },
+    ]) {
+      describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
+        for (const state of [visualDiffDefault, visualDiffHover, visualDiffFocus]) {
+          const testCase = imgTestCases[1];
+
+          it(
+            state.name,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                html`
+                  <sbb-teaser-hero href="#" link-content="Find out more">
+                    Break out and explore castles and palaces. ${testCase.imgTemplate()}
+                  </sbb-teaser-hero>
+                `,
+                { forcedColors, darkMode },
+              );
+
+              setup.withPostSetupAction(async () => {
+                await waitForImageReady(setup.snapshotElement.querySelector(testCase.imgSelector)!);
+              });
+            }),
+          );
+        }
+      });
     }
   });
 });

@@ -1,1 +1,4 @@
-export * from './action-group/action-group.js';
+/**
+ * @entrypoint
+ */
+export * from './action-group/action-group.component.ts';

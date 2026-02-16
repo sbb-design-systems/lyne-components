@@ -1,23 +1,8 @@
 @use '../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
-  --sbb-clock-hours-animation-start-angle: 0deg;
-  --sbb-clock-seconds-animation-start-angle: 0deg;
-  --sbb-clock-hours-animation-duration: 0s;
-  --sbb-clock-seconds-animation-duration: 0s;
-  --sbb-clock-animation-play-state: paused;
-  --sbb-clock-seconds-hand-color: var(--sbb-color-red);
-
   display: block;
-}
-
-.sbb-clock {
   position: relative;
-  width: 100%;
-  height: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
   contain: content;
@@ -35,6 +20,12 @@
   backface-visibility: hidden;
 }
 
+.sbb-clock__hand-hours,
+.sbb-clock__hand-minutes,
+.sbb-clock__face {
+  fill: var(--sbb-clock-face-color);
+}
+
 .sbb-clock__hand-minutes {
   transition: transform var(--sbb-disable-animation-duration, 0.2s)
     cubic-bezier(0.4, 2.08, 0.55, 0.44);
@@ -49,13 +40,13 @@
   animation-duration: 43200s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
-  animation-play-state: var(--sbb-clock-animation-play-state);
+  animation-play-state: var(--sbb-clock-animation-play-state, 'paused');
 }
 
 .sbb-clock__hand-hours--initial-hour {
   animation-name: hand-hours-animation-initial-hour;
-  animation-duration: var(--sbb-clock-hours-animation-duration);
-  animation-play-state: var(--sbb-clock-animation-play-state);
+  animation-duration: var(--sbb-clock-hours-animation-duration, 0s);
+  animation-play-state: var(--sbb-clock-animation-play-state, 'paused');
   animation-iteration-count: 1;
 }
 
@@ -67,20 +58,20 @@
   animation-name: hand-seconds-animation;
   animation-duration: 60s;
   animation-timing-function: linear;
-  animation-play-state: var(--sbb-clock-animation-play-state);
+  animation-play-state: var(--sbb-clock-animation-play-state, 'paused');
   animation-iteration-count: infinite;
   fill: var(--sbb-clock-seconds-hand-color);
 }
 
 .sbb-clock__hand-seconds--initial-minute {
   animation-name: hand-seconds-animation-initial-minute;
-  animation-duration: var(--sbb-clock-seconds-animation-duration);
-  animation-play-state: var(--sbb-clock-animation-play-state);
+  animation-duration: var(--sbb-clock-seconds-animation-duration, 0s);
+  animation-play-state: var(--sbb-clock-animation-play-state, 'paused');
   animation-iteration-count: 1;
 }
 
 :is(.sbb-clock__hand-hours, .sbb-clock__hand-minutes, .sbb-clock__hand-seconds) {
-  :host(:not([data-initialized])) & {
+  :host(:not(:state(initialized))) & {
     display: none;
   }
 }
@@ -93,7 +84,7 @@
 
 @keyframes hand-hours-animation-initial-hour {
   0% {
-    transform: rotateZ(var(--sbb-clock-hours-animation-start-angle));
+    transform: rotateZ(var(--sbb-clock-hours-animation-start-angle, 0deg));
   }
 
   100% {
@@ -114,7 +105,7 @@
 
 @keyframes hand-seconds-animation-initial-minute {
   0% {
-    transform: rotateZ(var(--sbb-clock-seconds-animation-start-angle));
+    transform: rotateZ(var(--sbb-clock-seconds-animation-start-angle, 0deg));
   }
 
   97.5%,

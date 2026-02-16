@@ -1,14 +1,14 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import { breakpoints } from '../../core/dom.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
-import { SbbDialogTitleElement } from './dialog-title.js';
 import readme from './readme.md?raw';
+
+import './dialog-title.component.ts';
 
 const level: InputType = {
   control: {
@@ -17,50 +17,12 @@ const level: InputType = {
   options: [1, 2, 3, 4, 5, 6],
 };
 
-const backButton: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const hideOnScroll: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: [...breakpoints],
-};
-
-const accessibilityCloseLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Accessibility',
-  },
-};
-
-const accessibilityBackLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Accessibility',
-  },
-};
-
 const defaultArgTypes: ArgTypes = {
   level,
-  'back-button': backButton,
-  'hide-on-scroll': hideOnScroll,
-  'accessibility-close-label': accessibilityCloseLabel,
-  'accessibility-back-label': accessibilityBackLabel,
 };
 
 const defaultArgs: Args = {
-  'back-button': true,
-  'hide-on-scroll': hideOnScroll.options![0],
-  'accessibility-close-label': 'Close dialog',
-  'accessibility-back-label': 'Go back',
+  level: 2,
 };
 
 const Template = (args: Args): TemplateResult =>
@@ -72,18 +34,9 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const NoBackButton: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'back-button': false, 'accessibility-back-label': undefined },
-};
-
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
-    actions: {
-      handles: [SbbDialogTitleElement.events.backClick],
-    },
     docs: {
       extractComponentDescription: () => readme,
     },

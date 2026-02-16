@@ -1,7 +1,36 @@
 @use '../core/styles' as sbb;
 
 :host {
-  @include sbb.screen-reader-only;
+  display: inline-flex;
 
-  display: block;
+  // With sbb-form-field[width="collapsed"], the default min width of a
+  // an inline element is basically nothing (except potentially the placeholder).
+  // Due to this, we set a minimum width for the time input element.
+  // We also cannot use width, as the form field overwrites that property.
+  min-width: var(--sbb-time-input-max-width);
+
+  // The time input also has a very specific dimension, so we also set the maximum width.
+  max-width: var(--sbb-time-input-max-width);
+  cursor: text;
+  align-items: center;
+
+  @include sbb.if-forced-colors {
+    color: FieldText;
+  }
+}
+
+:host(:disabled) {
+  cursor: var(--sbb-cursor-default);
+}
+
+:host(:focus) {
+  text-overflow: initial !important;
+}
+
+:host(:empty)::after {
+  content: attr(placeholder);
+  @include sbb.placeholder;
+  @include sbb.if-forced-colors {
+    color: GrayText;
+  }
 }

@@ -1,9 +1,9 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../../core/testing/private.js';
+import { fixture } from '../../core/testing/private.ts';
 
-import { SbbTabElement } from './tab.js';
+import { SbbTabElement } from './tab.component.ts';
 
 describe('sbb-tab', () => {
   let element: SbbTabElement;

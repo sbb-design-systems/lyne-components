@@ -2,7 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-image should render DOM"] = 
-`<sbb-image data-loaded="">
+`<sbb-image>
 </sbb-image>
 `;
 /* end snapshot sbb-image should render DOM */
@@ -23,11 +23,11 @@ snapshots["sbb-image should render Shadow DOM"] =
       sizes="1200px"
     >
     <source
-      media="(min-width: 22.5rem)"
+      media="(min-width: 37.5rem)"
       sizes="976px"
     >
     <source
-      media="(max-width: 22.4375rem)"
+      media="(max-width: 37.4375rem)"
       sizes="320px"
     >
     <img

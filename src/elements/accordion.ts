@@ -1,1 +1,4 @@
-export * from './accordion/accordion.js';
+/**
+ * @entrypoint
+ */
+export * from './accordion/accordion.component.ts';

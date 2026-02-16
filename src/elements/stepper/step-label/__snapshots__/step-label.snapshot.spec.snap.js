@@ -3,10 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-step-label renders DOM"] = 
 `<sbb-step-label
-  data-action=""
-  data-button=""
   id="sbb-step-label-0"
-  role="tab"
   slot="step-label"
   tabindex="-1"
 >
@@ -31,11 +28,8 @@ snapshots["sbb-step-label renders Shadow DOM"] =
 
 snapshots["sbb-step-label renders with icon DOM"] = 
 `<sbb-step-label
-  data-action=""
-  data-button=""
   icon-name="tick-small"
   id="sbb-step-label-2"
-  role="tab"
   slot="step-label"
   tabindex="-1"
 >
@@ -48,12 +42,7 @@ snapshots["sbb-step-label renders with icon Shadow DOM"] =
 `<div class="sbb-step-label">
   <span class="sbb-step-label__prefix">
     <slot name="icon">
-      <sbb-icon
-        aria-hidden="true"
-        data-namespace="default"
-        name="tick-small"
-        role="img"
-      >
+      <sbb-icon name="tick-small">
       </sbb-icon>
     </slot>
   </span>
@@ -67,12 +56,8 @@ snapshots["sbb-step-label renders with icon Shadow DOM"] =
 
 snapshots["sbb-step-label renders disabled DOM"] = 
 `<sbb-step-label
-  data-action=""
-  data-button=""
-  data-disabled=""
   disabled=""
   id="sbb-step-label-4"
-  role="tab"
   slot="step-label"
   tabindex="-1"
 >
@@ -98,32 +83,19 @@ snapshots["sbb-step-label renders disabled Shadow DOM"] =
 snapshots["sbb-step-label A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "tab",
-      "name": "Label"
+      "name": "Label",
+      "invalid": false,
+      "focusable": true,
+      "selected": false
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-step-label A11y tree Chrome */
-
-snapshots["sbb-step-label A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-step-label A11y tree Firefox */
 

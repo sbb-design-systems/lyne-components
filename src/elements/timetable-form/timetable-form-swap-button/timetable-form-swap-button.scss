@@ -1,0 +1,19 @@
+@use '../../core/styles' as sbb;
+
+// Apply the absolute positioning only when the swap button is in a timetable form.
+:host(:state(timetable-form-context)) {
+  --sbb-timetable-form-swap-button-margin-inline-end: var(--sbb-spacing-fixed-6x);
+  --sbb-timetable-form-swap-button-translate: 0 -50%;
+  --sbb-timetable-form-swap-button-z-index: 1;
+  --sbb-timetable-form-swap-button-position: absolute;
+
+  position: relative;
+}
+
+.sbb-timetable-form-swap-button {
+  position: var(--sbb-timetable-form-swap-button-position, relative);
+  margin-inline-end: var(--sbb-timetable-form-swap-button-margin-inline-end);
+  translate: var(--sbb-timetable-form-swap-button-translate);
+  z-index: var(--sbb-timetable-form-swap-button-z-index);
+  inset-inline-end: 0;
+}

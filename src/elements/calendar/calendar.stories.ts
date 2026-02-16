@@ -1,13 +1,13 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.js';
-import { defaultDateAdapter } from '../core/datetime.js';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { defaultDateAdapter } from '../core/datetime.ts';
 
-import { SbbCalendarElement } from './calendar.js';
+import { SbbCalendarElement } from './calendar.component.ts';
 import readme from './readme.md?raw';
 
 const getCalendarAttr = (min: number | string, max: number | string): Record<string, string> => {
@@ -21,20 +21,65 @@ const getCalendarAttr = (min: number | string, max: number | string): Record<str
   return attr;
 };
 
-const Template = ({ min, max, selected, dateFilter, now, ...args }: Args): TemplateResult => html`
-  <sbb-calendar
-    .selected=${new Date(selected)}
-    .now=${new Date(now)}
-    .dateFilter=${dateFilter}
-    ${sbbSpread(getCalendarAttr(min, max))}
-    ${sbbSpread(args)}
-  ></sbb-calendar>
-`;
+const Template = ({ min, max, multiple, selected, dateFilter, ...args }: Args): TemplateResult => {
+  if (selected) {
+    if (multiple) {
+      if (!Array.isArray(selected)) {
+        selected = [new Date(selected)];
+      } else {
+        selected = selected.map((e) => new Date(e));
+      }
+    } else {
+      if (Array.isArray(selected)) {
+        selected = new Date(selected[0]);
+      } else {
+        selected = new Date(selected);
+      }
+    }
+  }
+  return html`
+    <sbb-calendar
+      ?multiple=${multiple}
+      .selected=${selected}
+      .dateFilter="${dateFilter}"
+      ${sbbSpread(getCalendarAttr(min, max))}
+      ${sbbSpread(args)}
+    ></sbb-calendar>
+  `;
+};
 
 const wide: InputType = {
   control: {
     type: 'boolean',
   },
+  table: {
+    category: 'Calendar',
+  },
+};
+
+const weekNumbers: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Calendar',
+  },
+};
+
+const multiple: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Calendar',
+  },
+};
+
+const orientation: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['horizontal', 'vertical'],
   table: {
     category: 'Calendar',
   },
@@ -74,15 +119,6 @@ const view: InputType = {
   options: ['day', 'month', 'year'],
 };
 
-const now: InputType = {
-  control: {
-    type: 'date',
-  },
-  table: {
-    category: 'Testing',
-  },
-};
-
 const filterFunctions = [
   undefined,
   (d: Date): boolean => d.getDay() !== 6 && d.getDay() !== 0,
@@ -110,12 +146,14 @@ const dateFilter: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   wide,
+  'week-numbers': weekNumbers,
+  multiple,
+  orientation,
   selected,
   min,
   max,
   dateFilter,
-  view: view,
-  now,
+  view,
 };
 
 const today = new Date();
@@ -123,9 +161,11 @@ today.setDate(today.getDate() >= 15 ? 8 : 18);
 
 const defaultArgs: Args = {
   wide: false,
+  orientation: orientation.options![0],
   selected: today,
-  now: undefined,
   view: view.options![0],
+  'week-numbers': false,
+  multiple: false,
 };
 
 export const Calendar: StoryObj = {
@@ -144,12 +184,6 @@ export const CalendarWithMinAndMax: StoryObj = {
   },
 };
 
-export const CalendarWide: StoryObj = {
-  render: Template,
-  argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, wide: true },
-};
-
 export const CalendarFilterFunction: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes, dateFilter },
@@ -165,17 +199,96 @@ export const CalendarWithInitialYearSelection: StoryObj = {
   args: { ...defaultArgs, view: view.options![2] },
 };
 
+export const CalendarWeekNumbers: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, 'week-numbers': true },
+};
+
+export const CalendarWeekNumbersMultiple: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, 'week-numbers': true, multiple: true, selected: [today] },
+};
+
+export const CalendarWide: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, wide: true },
+};
+
+export const CalendarWideWeekNumbers: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, wide: true, 'week-numbers': true },
+};
+
+export const CalendarWideWeekNumbersMultiple: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, wide: true, 'week-numbers': true, multiple: true, selected: [today] },
+};
+
+export const CalendarVertical: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, orientation: orientation.options![1] },
+};
+
+export const CalendarVerticalWeekNumbers: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, orientation: orientation.options![1], 'week-numbers': true },
+};
+
+export const CalendarVerticalWeekNumbersMultiple: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: {
+    ...defaultArgs,
+    orientation: orientation.options![1],
+    'week-numbers': true,
+    multiple: true,
+    selected: [today],
+  },
+};
+
+export const CalendarVerticalWide: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, orientation: orientation.options![1], wide: true },
+};
+
+export const CalendarVerticalWideWeekNumbers: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, orientation: orientation.options![1], wide: true, 'week-numbers': true },
+};
+
+export const CalendarVerticalWideWeekNumbersMultiple: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes },
+  args: {
+    ...defaultArgs,
+    orientation: orientation.options![1],
+    wide: true,
+    'week-numbers': true,
+    multiple: true,
+    selected: [today],
+  },
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbCalendarElement.events.dateSelected],
+      handles: [SbbCalendarElement.events.dateselected],
     },
     docs: {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-datepicker/sbb-calendar',
+  title: 'elements/sbb-calendar',
 };
 
 export default meta;

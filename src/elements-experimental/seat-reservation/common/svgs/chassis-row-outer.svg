@@ -1,0 +1,8 @@
+<svg class="color-immutable" part="coach-floor" width="20" height="184" viewBox="0 0 20 184" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <mask id="path-1-outside-1_174_12089" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="184" fill="black">
+    <rect fill="white" width="20" height="184"/>
+    <path d="M2 6C2 3.79086 3.79086 2 6 2H20V182H6C3.79086 182 2 180.209 2 178V6Z"/>
+  </mask>
+  <path d="M2 6C2 3.79086 3.79086 2 6 2H20V182H6C3.79086 182 2 180.209 2 178V6Z"/>
+  <path d="M0 6C0 2.68629 2.68629 0 6 0H20V4H6C4.89543 4 4 4.89543 4 6H0ZM20 184H6C2.68629 184 0 181.314 0 178H4C4 179.105 4.89543 180 6 180H20V184ZM6 184C2.68629 184 0 181.314 0 178V6C0 2.68629 2.68629 0 6 0V4C4.89543 4 4 4.89543 4 6V178C4 179.105 4.89543 180 6 180V184ZM20 2V182V2Z" fill="#B7B7B7" mask="url(#path-1-outside-1_174_12089)"/>
+</svg>

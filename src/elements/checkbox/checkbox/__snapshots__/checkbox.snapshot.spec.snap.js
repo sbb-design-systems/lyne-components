@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-checkbox should render unchecked DOM"] = 
 `<sbb-checkbox
-  data-slot-names="unnamed"
   icon-placement="end"
   size="m"
   tabindex="0"
@@ -24,10 +23,8 @@ snapshots["sbb-checkbox should render unchecked Shadow DOM"] =
       <span class="sbb-checkbox__label">
         <slot>
         </slot>
-        <span class="sbb-checkbox__aligner sbb-checkbox__label--icon">
-          <slot name="icon">
-          </slot>
-        </span>
+        <slot name="icon">
+        </slot>
       </span>
     </span>
   </span>
@@ -38,7 +35,6 @@ snapshots["sbb-checkbox should render unchecked Shadow DOM"] =
 snapshots["sbb-checkbox should render checked DOM"] = 
 `<sbb-checkbox
   checked=""
-  data-slot-names="unnamed"
   icon-placement="end"
   size="m"
   tabindex="0"
@@ -62,10 +58,8 @@ snapshots["sbb-checkbox should render checked Shadow DOM"] =
       <span class="sbb-checkbox__label">
         <slot>
         </slot>
-        <span class="sbb-checkbox__aligner sbb-checkbox__label--icon">
-          <slot name="icon">
-          </slot>
-        </span>
+        <slot name="icon">
+        </slot>
       </span>
     </span>
   </span>
@@ -75,7 +69,6 @@ snapshots["sbb-checkbox should render checked Shadow DOM"] =
 
 snapshots["sbb-checkbox should render indeterminate DOM"] = 
 `<sbb-checkbox
-  data-slot-names="unnamed"
   icon-placement="end"
   indeterminate=""
   size="m"
@@ -100,10 +93,8 @@ snapshots["sbb-checkbox should render indeterminate Shadow DOM"] =
       <span class="sbb-checkbox__label">
         <slot>
         </slot>
-        <span class="sbb-checkbox__aligner sbb-checkbox__label--icon">
-          <slot name="icon">
-          </slot>
-        </span>
+        <slot name="icon">
+        </slot>
       </span>
     </span>
   </span>
@@ -113,7 +104,6 @@ snapshots["sbb-checkbox should render indeterminate Shadow DOM"] =
 
 snapshots["sbb-checkbox should render unchecked disabled DOM"] = 
 `<sbb-checkbox
-  data-slot-names="unnamed"
   disabled=""
   icon-placement="end"
   size="m"
@@ -138,10 +128,8 @@ snapshots["sbb-checkbox should render unchecked disabled Shadow DOM"] =
       <span class="sbb-checkbox__label">
         <slot>
         </slot>
-        <span class="sbb-checkbox__aligner sbb-checkbox__label--icon">
-          <slot name="icon">
-          </slot>
-        </span>
+        <slot name="icon">
+        </slot>
       </span>
     </span>
   </span>
@@ -152,12 +140,14 @@ snapshots["sbb-checkbox should render unchecked disabled Shadow DOM"] =
 snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "checkbox",
       "name": "​ Label",
+      "invalid": false,
+      "focusable": true,
       "checked": false
     }
   ]
@@ -169,12 +159,14 @@ snapshots["sbb-checkbox Unchecked - A11y tree Chrome"] =
 snapshots["sbb-checkbox Checked - A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "checkbox",
       "name": "​ Label",
+      "invalid": false,
+      "focusable": true,
       "checked": true
     }
   ]
@@ -182,37 +174,4 @@ snapshots["sbb-checkbox Checked - A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-checkbox Checked - A11y tree Chrome */
-
-snapshots["sbb-checkbox Unchecked - A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "checkbox",
-      "name": "​ Label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-checkbox Unchecked - A11y tree Firefox */
-
-snapshots["sbb-checkbox Checked - A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "checkbox",
-      "name": "​ Label",
-      "checked": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-checkbox Checked - A11y tree Firefox */
 

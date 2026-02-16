@@ -1,12 +1,11 @@
-import type { Args } from '@storybook/web-components';
+import type { Args } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import type { SbbDialogElement } from '../../../elements/dialog.js';
 import {
   futureLeg,
   pastLeg,
-} from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.js';
+} from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.private.ts';
 
 import {
   bikeProduct,
@@ -17,10 +16,10 @@ import {
   skiplinkList,
   teaserHero,
   timetableInput,
-} from './home.common.js';
-import '../../../elements/dialog.js';
-import '../../../elements/journey-header.js';
-import '../../../elements-experimental/pearl-chain.js';
+} from './home.common.ts';
+import '../../../elements/dialog.ts';
+import '../../../elements/journey-header.ts';
+import '../../../elements-experimental/pearl-chain.ts';
 import './home.scss';
 
 export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
@@ -33,7 +32,7 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
         Menu
       </sbb-header-button>
       <div class="sbb-header-spacer"></div>
-      <sbb-header-link icon-name="magnifying-glass-small" href="/"> Search </sbb-header-link>
+      <sbb-header-link icon-name="magnifying-glass-small" href="/">Search</sbb-header-link>
       <sbb-header-button
         icon-name="user-small"
         id="user-menu-trigger"
@@ -42,22 +41,27 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
         Christina Müller
       </sbb-header-button>
       <sbb-menu trigger="user-menu-trigger">
-        <sbb-menu-link icon-name="user-small" href="/"> Account </sbb-menu-link>
+        <sbb-menu-link icon-name="user-small" href="/">Account</sbb-menu-link>
         <sbb-menu-button icon-name="tickets-class-small">Tickets</sbb-menu-button>
-        <sbb-menu-button icon-name="shopping-cart-small" amount="1">
+        <sbb-menu-button icon-name="shopping-cart-small" sbb-badge="1">
           Shopping cart
         </sbb-menu-button>
         <sbb-divider></sbb-divider>
         <sbb-menu-button icon-name="exit-small">Sign out</sbb-menu-button>
       </sbb-menu>
-      <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
+      <sbb-header-button
+        icon-name="globe-small"
+        id="language-menu-trigger"
+        class="last-element"
+        expand-from="small"
+      >
         English
       </sbb-header-button>
       <sbb-menu trigger="language-menu-trigger">
         <sbb-menu-button aria-pressed="false">Deutsch</sbb-menu-button>
         <sbb-menu-button aria-pressed="false">Français</sbb-menu-button>
         <sbb-menu-button aria-pressed="false">Italiano</sbb-menu-button>
-        <sbb-menu-button icon-name="tick-small" aria-pressed="true"> English </sbb-menu-button>
+        <sbb-menu-button icon-name="tick-small" aria-pressed="true">English</sbb-menu-button>
       </sbb-menu>
       <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
       <a href="https://www.sbb.ch" class="sbb-header-logo">
@@ -165,29 +169,22 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
               </sbb-card>
             </li>
           </ul>
-          <sbb-secondary-button
-            class="all-purchased-tickets-button"
-            @click=${() => (document.getElementById('my-dialog') as SbbDialogElement).open()}
-          >
+          <sbb-secondary-button class="all-purchased-tickets-button" id="dialog-trigger">
             All purchased tickets
           </sbb-secondary-button>
 
-          <sbb-dialog id="my-dialog">
-            <sbb-dialog-title back-button>My Dialog</sbb-dialog-title>
-
+          <sbb-dialog trigger="dialog-trigger">
+            <sbb-dialog-title>My Dialog</sbb-dialog-title>
+            <sbb-dialog-close-button></sbb-dialog-close-button>
             <sbb-dialog-content>
-              <p style="margin-top: 0;">
+              <p style="margin-block-start: 0;">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                 exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
                 irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
                 pariatur.
               </p>
-              <sbb-secondary-button
-                size="m"
-                @click=${() =>
-                  (document.getElementById('my-stacked-dialog') as SbbDialogElement).open()}
-              >
+              <sbb-secondary-button size="m" id="dialog-trigger-stacked">
                 Open stacked dialog
               </sbb-secondary-button>
             </sbb-dialog-content>
@@ -195,28 +192,24 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
             <sbb-dialog-actions
               align-group="stretch"
               orientation="vertical"
-              horizontal-from="medium"
+              horizontal-from="large"
             >
-              <sbb-block-link
-                size="s"
-                align-self="start"
-                icon-name="chevron-small-left-small"
-                href="https://www.sbb.ch/en/"
-                sbb-dialog-close
-              >
-                Link
-              </sbb-block-link>
-              <sbb-secondary-button size="m" sbb-dialog-close> Cancel </sbb-secondary-button>
-              <sbb-button size="m" sbb-dialog-close> Button </sbb-button>
+              <sbb-secondary-button size="m" sbb-dialog-close>Cancel</sbb-secondary-button>
+              <sbb-button size="m" sbb-dialog-close>Button</sbb-button>
             </sbb-dialog-actions>
           </sbb-dialog>
 
-          <sbb-dialog id="my-stacked-dialog">
-            <sbb-dialog-title back-button>Stacked Dialog</sbb-dialog-title>
+          <sbb-dialog trigger="dialog-trigger-stacked">
+            <sbb-dialog-title>Stacked Dialog</sbb-dialog-title>
+            <sbb-dialog-close-button></sbb-dialog-close-button>
             <sbb-dialog-content>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua.
             </sbb-dialog-content>
+            <sbb-dialog-actions align-group="end">
+              <sbb-secondary-button size="m" sbb-dialog-close>Cancel</sbb-secondary-button>
+              <sbb-button size="m" sbb-dialog-close sbb-focus-initial>Button</sbb-button>
+            </sbb-dialog-actions>
           </sbb-dialog>
         </div>
       </div>
@@ -237,7 +230,7 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
             <sbb-title level="3" visual-level="4" ?negative=${args.negative}>
               Your subscriptions.
             </sbb-title>
-            <sbb-card color="milk" size="s">
+            <sbb-card color="milk" class="sbb-card-spacing-xxxs-xxs">
               <sbb-card-link href="https://github.com/sbb-design-systems/lyne-components">
                 Edit subscription
               </sbb-card-link>

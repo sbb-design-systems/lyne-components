@@ -1,0 +1,14 @@
+// ----------------------------------------------------------------------------------------------------
+// Popover Mixins
+// ----------------------------------------------------------------------------------------------------
+
+@mixin popover-reset {
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  color: inherit;
+  pointer-events: none;
+}

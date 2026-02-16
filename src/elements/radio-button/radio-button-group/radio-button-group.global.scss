@@ -1,0 +1,12 @@
+@use '../../core/styles' as sbb;
+@use './radio-button-group';
+
+$theme: 'standard' !default;
+
+@mixin base {
+  @include radio-button-group.horizontal-orientation;
+
+  --sbb-radio-button-group-width: max-content;
+  --sbb-radio-button-group-gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-6x);
+  --sbb-radio-button-group-radio-button-flex: none;
+}

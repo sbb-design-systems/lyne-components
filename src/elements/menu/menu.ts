@@ -1,1 +1,4 @@
-export * from './menu/menu.js';
+/**
+ * @entrypoint
+ */
+export * from './menu/menu.component.ts';

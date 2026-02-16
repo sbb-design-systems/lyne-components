@@ -5,22 +5,21 @@ import {
   describeViewports,
   visualDiffDefault,
   visualDiffFocus,
-} from '../../core/testing/private.js';
+} from '../../core/testing/private.ts';
 
-import type { SbbDatepickerToggleElement } from './datepicker-toggle.js';
-
-import './datepicker-toggle.js';
-import '../datepicker.js';
-import '../../form-field.js';
+import './datepicker-toggle.component.ts';
+import '../datepicker.ts';
+import '../../date-input.ts';
+import '../../form-field.ts';
 
 describe(`sbb-datepicker-toggle`, () => {
-  describeViewports({ viewports: ['wide'] }, () => {
+  describeViewports({ viewports: ['ultra'] }, () => {
     describeEach({ negative: [true, false] }, ({ negative }) => {
       const withFormFieldTemplate = html`
         <sbb-form-field ?negative=${negative}>
-          <sbb-datepicker-toggle id="toggle"></sbb-datepicker-toggle>
-          <sbb-datepicker now="2023-01-12T00:00:00Z"></sbb-datepicker>
-          <input />
+          <sbb-date-input></sbb-date-input>
+          <sbb-datepicker-toggle></sbb-datepicker-toggle>
+          <sbb-datepicker></sbb-datepicker>
         </sbb-form-field>
       `;
 
@@ -28,15 +27,8 @@ describe(`sbb-datepicker-toggle`, () => {
         `form field ${visualDiffDefault.name}`,
         visualDiffDefault.with(async (setup) => {
           await setup.withFixture(withFormFieldTemplate, {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             focusOutlineDark: negative,
-            minHeight: '600px',
-          });
-
-          setup.withPostSetupAction(() => {
-            const toggle =
-              setup.snapshotElement.querySelector<SbbDatepickerToggleElement>('#toggle')!;
-            toggle.open();
           });
         }),
       );
@@ -45,9 +37,11 @@ describe(`sbb-datepicker-toggle`, () => {
         `form field ${visualDiffFocus.name}`,
         visualDiffFocus.with(async (setup) => {
           await setup.withFixture(withFormFieldTemplate, {
-            backgroundColor: negative ? 'var(--sbb-color-black)' : undefined,
+            backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined,
             focusOutlineDark: negative,
           });
+
+          setup.withStateElement(setup.snapshotElement.querySelector('sbb-datepicker-toggle')!);
         }),
       );
     });

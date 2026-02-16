@@ -1,1 +1,4 @@
-export * from './navigation-list/navigation-list.js';
+/**
+ * @entrypoint
+ */
+export * from './navigation-list/navigation-list.component.ts';

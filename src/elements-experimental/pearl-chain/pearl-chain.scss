@@ -14,9 +14,6 @@
   }
 }
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   --sbb-pearl-chain-height: var(--sbb-border-width-2x);
   --sbb-pearl-chain-spacing-small: #{sbb.px-to-rem-build(2)};
@@ -48,13 +45,11 @@
   @include sbb.pearl-chain-bullet-start-end;
   @include sbb.pearl-chain-bullet;
 
-  & {
-    content: '';
-    position: absolute;
-    background-color: currentcolor;
-    inset-block-start: 0;
-    z-index: 3;
-  }
+  content: '';
+  position: absolute;
+  background-color: currentcolor;
+  inset-block-start: 0;
+  z-index: 3;
 }
 
 .sbb-pearl-chain__bullet:first-of-type {
@@ -95,10 +90,7 @@
   z-index: 2;
 
   @include sbb.pearl-chain-bullet;
-
-  & {
-    @include sbb.pearl-chain-bullet-stop;
-  }
+  @include sbb.pearl-chain-bullet-stop;
 }
 
 .sbb-pearl-chain__bullet--future {
@@ -205,14 +197,12 @@
 .sbb-pearl-chain__position {
   @include sbb.pearl-chain-bullet-position;
 
-  & {
-    position: absolute;
-    inset-block-start: -200%;
-    z-index: 4;
+  position: absolute;
+  inset-block-start: -200%;
+  z-index: 4;
 
-    // --sbb-pearl-chain-status-position: defined in .ts file
-    inset-inline-start: var(--sbb-pearl-chain-status-position);
-  }
+  // --sbb-pearl-chain-status-position: defined in .ts file
+  inset-inline-start: var(--sbb-pearl-chain-status-position);
 }
 
 .sbb-pearl-chain__position--no-animation {

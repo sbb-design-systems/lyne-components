@@ -14,3 +14,7 @@
 .sbb-grid-expanded {
   @include layout.grid-base;
 }
+
+.sbb-grid-only {
+  @include layout.grid-base;
+}

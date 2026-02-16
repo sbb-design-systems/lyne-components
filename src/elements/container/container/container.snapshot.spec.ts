@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.js';
+import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import type { SbbContainerElement } from './container.js';
-import './container.js';
+import type { SbbContainerElement } from './container.component.ts';
+import './container.component.ts';
 
 describe(`sbb-container`, () => {
   describe('renders', () => {

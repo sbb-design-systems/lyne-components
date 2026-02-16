@@ -1,18 +1,15 @@
 @use '../../core/styles' as sbb;
 
-// Box-sizing rules contained in typography are not traversing Shadow DOM boundaries. We need to include box-sizing mixin in every component.
-@include sbb.box-sizing;
-
 :host {
   display: block;
 
   --sbb-paginator-height: var(--sbb-size-element-m);
-  --sbb-paginator-page-color: var(--sbb-color-metal);
+  --sbb-paginator-page-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   --sbb-paginator-page-background-color: transparent;
   --sbb-paginator-page-border-width: 0;
   --sbb-paginator-page-border-style: none;
   --sbb-paginator-page-border-color: none;
-  --sbb-paginator-page-cursor: pointer;
+  --sbb-paginator-page-cursor: var(--sbb-cursor-pointer);
   --sbb-paginator-page-inset: 0;
   --sbb-paginator-animation-easing: var(--sbb-animation-easing);
   --sbb-paginator-animation-duration: var(
@@ -29,7 +26,7 @@
 }
 
 :host([negative]) {
-  --sbb-paginator-page-color: var(--sbb-color-smoke);
+  --sbb-paginator-page-color: var(--sbb-color-5);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
@@ -63,6 +60,15 @@
   gap: var(--sbb-spacing-fixed-2x);
   white-space: nowrap;
   color: var(--sbb-paginator-page-color);
+
+  // Reapply part of the global form-field css that does not pierce the shadow DOM.
+  sbb-select {
+    @include sbb.text-m--regular;
+
+    color: var(--sbb-form-field-text-color);
+    font-size: var(--sbb-form-field-input-text-size);
+    padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
+  }
 }
 
 .sbb-paginator__pages {
@@ -118,8 +124,7 @@
     }
   }
 
-  // Hide focus outline when focus origin is mouse or touch. This is being used as a workaround in various components.
-  &:focus-visible:not([data-focus-origin='mouse'], [data-focus-origin='touch']) {
+  &:focus-visible {
     &::before {
       @include sbb.focus-outline;
 
@@ -130,14 +135,14 @@
   &[data-selected] {
     @include sbb.text--bold;
 
-    --sbb-paginator-page-color: var(--sbb-color-charcoal);
+    --sbb-paginator-page-color: var(--sbb-color-3);
     --sbb-paginator-page-border-width: var(--sbb-border-width-2x);
     --sbb-paginator-page-border-style: solid;
-    --sbb-paginator-page-border-color: var(--sbb-color-charcoal);
+    --sbb-paginator-page-border-color: var(--sbb-border-color-2);
 
     :host([negative]) & {
-      --sbb-paginator-page-color: var(--sbb-color-milk);
-      --sbb-paginator-page-border-color: var(--sbb-color-white);
+      --sbb-paginator-page-color: var(--sbb-color-3-negative);
+      --sbb-paginator-page-border-color: var(--sbb-border-color-2-negative);
     }
 
     @include sbb.if-forced-colors {
@@ -146,19 +151,19 @@
   }
 
   &:disabled {
-    --sbb-paginator-page-color: var(--sbb-color-smoke);
+    --sbb-paginator-page-color: var(--sbb-color-5);
     --sbb-paginator-page-border-style: dashed;
-    --sbb-paginator-page-border-color: var(--sbb-color-smoke);
-    --sbb-paginator-page-background-color: var(--sbb-color-milk);
-    --sbb-paginator-page-cursor: default;
+    --sbb-paginator-page-border-color: var(--sbb-border-color-5);
+    --sbb-paginator-page-background-color: var(--sbb-background-color-3);
+    --sbb-paginator-page-cursor: var(--sbb-cursor-default);
 
     &:not([data-selected]) {
       --sbb-paginator-page-border-width: var(--sbb-border-width-1x);
     }
 
     :host([negative]) & {
-      --sbb-paginator-page-color: var(--sbb-color-aluminium);
-      --sbb-paginator-page-background-color: var(--sbb-color-charcoal);
+      --sbb-paginator-page-color: var(--sbb-color-5);
+      --sbb-paginator-page-background-color: var(--sbb-background-color-3-negative);
     }
 
     @include sbb.if-forced-colors {
@@ -170,12 +175,12 @@
 
   &:not(:disabled):hover {
     @include sbb.hover-mq($hover: true) {
-      --sbb-paginator-page-background-color: var(--sbb-color-milk);
+      --sbb-paginator-page-background-color: var(--sbb-background-color-3);
       --sbb-paginator-page-inset: calc(var(--sbb-border-width-2x) * -1);
       --sbb-paginator-translate-y-content-hover: #{sbb.px-to-rem-build(-1)};
 
       :host([negative]) & {
-        --sbb-paginator-page-background-color: var(--sbb-color-charcoal);
+        --sbb-paginator-page-background-color: var(--sbb-background-color-3-negative);
       }
 
       @include sbb.if-forced-colors {
@@ -185,14 +190,14 @@
   }
 
   &:not(:disabled):active {
-    --sbb-paginator-page-color: var(--sbb-color-charcoal);
-    --sbb-paginator-page-background-color: var(--sbb-color-cloud);
+    --sbb-paginator-page-color: var(--sbb-color-3);
+    --sbb-paginator-page-background-color: var(--sbb-background-color-4);
     --sbb-paginator-page-inset: 0;
     --sbb-paginator-translate-y-content-hover: 0;
 
     :host([negative]) & {
-      --sbb-paginator-page-color: var(--sbb-color-milk);
-      --sbb-paginator-page-background-color: var(--sbb-color-iron);
+      --sbb-paginator-page-color: var(--sbb-color-3-negative);
+      --sbb-paginator-page-background-color: var(--sbb-background-color-4-negative);
     }
 
     @include sbb.if-forced-colors {

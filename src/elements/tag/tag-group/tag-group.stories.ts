@@ -1,17 +1,19 @@
-import { withActions } from '@storybook/addon-actions/decorator';
-import type { InputType } from '@storybook/types';
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components';
+import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.js';
-import type { SbbTagElement } from '../tag.js';
+import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+import type { SbbTagElement, SbbTagGroupElement } from '../../tag.ts';
 
 import readme from './readme.md?raw';
-import './tag-group.js';
-import '../tag.js';
-import type { SbbTagGroupElement } from './tag-group.js';
+import './tag-group.component.ts';
+import '../tag.ts';
+import '../../action-group.ts';
+import '../../button.ts';
+import '../../card.ts';
 
 const uncheckAllTag = (event: Event): void => {
   const tagGroup = (event.currentTarget as SbbTagElement).closest(
@@ -32,6 +34,12 @@ const uncheckTags = (event: Event): void => {
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt quis, mattis eu quam.`;
 
 const multiple: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const disabled: InputType = {
   control: {
     type: 'boolean',
   },
@@ -70,6 +78,7 @@ const size: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   multiple,
+  disabled,
   value,
   'list-accessibility-label': listAccessibilityLabel,
   'aria-label': ariaLabel,
@@ -79,6 +88,7 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   multiple: true,
+  disabled: false,
   value: undefined,
   'list-accessibility-label': 'Select your desired filter',
   'aria-label': undefined,
@@ -86,8 +96,14 @@ const defaultArgs: Args = {
   size: size.options![1],
 };
 
-const tagTemplate = (label: string, checked = false): TemplateResult => html`
-  <sbb-tag ?checked=${checked} value=${label} amount="123" icon-name="pie-small">
+const tagTemplate = (label: string, checked = false, name?: string): TemplateResult => html`
+  <sbb-tag
+    name="${name || nothing}"
+    ?checked=${checked}
+    value=${label}
+    amount="123"
+    icon-name="pie-small"
+  >
     ${label}
   </sbb-tag>
 `;
@@ -135,10 +151,42 @@ const AllChoiceTagGroupTemplate = ({ numberOfTagsInGroup, ...args }: Args): Temp
   </div>
 `;
 
+const TemplateWithForm = ({ numberOfTagsInGroup, ...args }: Args): TemplateResult => html`
+  <form
+    @submit=${(e: SubmitEvent) => {
+      e.preventDefault();
+      const form = (e.target as HTMLFormElement)!;
+      form.querySelector('#form-data')!.innerHTML = JSON.stringify(
+        Object.fromEntries(new FormData(form)),
+      );
+    }}
+  >
+    <sbb-tag-group ${sbbSpread(args)} style="margin-block-end: 2rem;">
+      ${repeat(new Array(numberOfTagsInGroup), (_e, i) =>
+        tagTemplate(`Label ${i + 1}`, i <= 2, `tag${i + 1}`),
+      )}
+    </sbb-tag-group>
+
+    <sbb-tag-group disabled> ${tagTemplate('Disabled tag', false)}</sbb-tag-group>
+
+    <sbb-action-group style="margin-block: var(--sbb-spacing-responsive-s)">
+      <sbb-secondary-button type="reset">Reset</sbb-secondary-button>
+      <sbb-button type="submit">Submit</sbb-button>
+    </sbb-action-group>
+    <p class="sbb-text-s">Form-Data after click submit:</p>
+    <sbb-card color="milk" id="form-data"></sbb-card>
+  </form>
+`;
+
 export const tagGroup: StoryObj = {
   render: TagGroupTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
+};
+export const disabledGroup: StoryObj = {
+  render: TagGroupTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, disabled: true },
 };
 
 export const tagGroupSizeS: StoryObj = {
@@ -164,6 +212,12 @@ export const exclusiveTagGroup: StoryObj = {
 
 export const allChoiceTagGroup: StoryObj = {
   render: AllChoiceTagGroupTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const withForm: StoryObj = {
+  render: TemplateWithForm,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
