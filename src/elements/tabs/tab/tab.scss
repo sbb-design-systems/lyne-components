@@ -28,3 +28,8 @@
     opacity: 0;
   }
 }
+
+:host(:state(fixed-height)) {
+  height: 100%;
+  overflow: auto;
+}

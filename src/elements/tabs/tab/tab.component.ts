@@ -3,6 +3,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbPropertyWatcherController } from '../../core/controllers/property-watcher-controller.ts';
 import { SbbElementInternalsMixin } from '../../core/mixins.ts';
 import type { SbbTabGroupElement } from '../tab-group/tab-group.component.ts';
 import type { SbbTabLabelElement } from '../tab-label.ts';
@@ -44,11 +45,25 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
     return this.closest('sbb-tab-group');
   }
 
+  public constructor() {
+    super();
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.group, {
+        fixedHeight: (e) => this.toggleState('fixed-height', e.fixedHeight),
+      }),
+    );
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
 
     this.id ||= `sbb-tab-${nextId++}`;
     this.tabIndex = 0;
+
+    // As we can't include the scrollbar mixin on the host and to minimize
+    // payload, we decided to add the scrollbar class here.
+    // This is an exception as we normally don't alter the classList of the host.
+    this.classList.add('sbb-scrollbar');
   }
 
   /** @internal */
