@@ -19,7 +19,7 @@
 }
 
 ::slotted(sbb-tab) {
-  :host(fixed-height) & {
+  :host([fixed-height]) & {
     height: 100%;
     overflow: auto;
   }
