@@ -98,7 +98,7 @@ $intersector-overlapping: 1px;
   z-index: var(--sbb-sticky-bar-z-index);
 
   animation: {
-    name: var(--sbb-sticky-bar-slide-vertically-animation-name);
+    name: var(--sbb-sticky-bar-slide-vertically-animation-name, unset);
     duration: var(--sbb-sticky-bar-slide-vertically-animation-duration);
     timing-function: var(--sbb-sticky-bar-slide-vertically-animation-easing);
     delay: var(--sbb-sticky-bar-slide-vertically-animation-delay);
