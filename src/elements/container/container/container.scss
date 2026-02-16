@@ -1,9 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-container-background-border-radius: 0;
-  --sbb-container-color: inherit;
-
   display: block;
 }
 
