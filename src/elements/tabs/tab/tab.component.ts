@@ -3,7 +3,6 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbPropertyWatcherController } from '../../core/controllers/property-watcher-controller.ts';
 import { SbbElementInternalsMixin } from '../../core/mixins.ts';
 import type { SbbTabGroupElement } from '../tab-group/tab-group.component.ts';
 import type { SbbTabLabelElement } from '../tab-label.ts';
@@ -43,15 +42,6 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
   /** Get the parent `sbb-tab-group`. */
   public get group(): SbbTabGroupElement | null {
     return this.closest('sbb-tab-group');
-  }
-
-  public constructor() {
-    super();
-    this.addController(
-      new SbbPropertyWatcherController(this, () => this.group, {
-        fixedHeight: (e) => this.toggleState('fixed-height', e.fixedHeight),
-      }),
-    );
   }
 
   public override connectedCallback(): void {

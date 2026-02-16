@@ -17,3 +17,10 @@
   height: var(--sbb-tab-content-height);
   transition: height var(--sbb-tab-group-animation-duration) var(--sbb-animation-easing);
 }
+
+::slotted(sbb-tab) {
+  :host(fixed-height) & {
+    height: 100%;
+    overflow: auto;
+  }
+}
