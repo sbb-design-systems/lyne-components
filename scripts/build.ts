@@ -34,6 +34,10 @@ import dtsPlugin from 'vite-plugin-dts';
 import { lightDarkPlugin, statePlugin } from '../tools/postcss/index.ts';
 import globalConfig from '../vite.config.ts';
 
+if (typeof Temporal !== 'object') {
+  await import('temporal-polyfill/global');
+}
+
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 const currentDirectory = fileURLToPath(new URL('./', import.meta.url));
 const distDirectory = join(projectRoot, 'dist');
