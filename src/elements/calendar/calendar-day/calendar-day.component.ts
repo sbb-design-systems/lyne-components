@@ -42,12 +42,13 @@ class SbbCalendarDayElement<T extends Date = Date> extends SbbDisabledMixin(
   /** Value of the calendar-day element. */
   @state()
   public set value(value: T | null) {
-    if (this.dateAdapter.isValid(value)) {
-      this._value = value;
-      const isToday = this.dateAdapter.sameDate(value, this.dateAdapter.today());
+    const date = this.dateAdapter.getValidDateOrNull(this.dateAdapter.deserialize(value));
+    if (date) {
+      this._value = date;
+      const isToday = this.dateAdapter.sameDate(date, this.dateAdapter.today());
       this.toggleState('current', isToday);
       this.internals.ariaCurrent = isToday ? 'date' : null;
-      this.internals.ariaLabel = this.dateAdapter.getAccessibilityFormatDate(value);
+      this.internals.ariaLabel = this.dateAdapter.getAccessibilityFormatDate(date);
       const parent = this._getParent();
       if (parent) {
         this._setDisabledFilteredState(parent);
@@ -93,8 +94,8 @@ class SbbCalendarDayElement<T extends Date = Date> extends SbbDisabledMixin(
   }
 
   /**
-   * The component is used as default day cell within the `sbb-calendar`,
-   * or,if extra content is need, it can be slotted.
+   * The component is used as the default day cell within the `sbb-calendar`,
+   * or,if extra content is needed, it can be slotted.
    */
   private _getParent(): SbbCalendarElement | null {
     const calendarParent = this.closest?.<SbbCalendarElement>('sbb-calendar');
@@ -110,9 +111,9 @@ class SbbCalendarDayElement<T extends Date = Date> extends SbbDisabledMixin(
 
   private _setSelectedState(component: SbbCalendarElement): void {
     const selected = component.multiple
-      ? (component.selected as Date[]).find(
-          (selDay) => this.dateAdapter.compareDate(this.value, selDay) === 0,
-        ) !== undefined
+      ? (component.selected as Date[]).some((selDay) =>
+          this.dateAdapter.sameDate(this.value, selDay),
+        )
       : !!component.selected && this.dateAdapter.compareDate(this.value, component.selected) === 0;
     this.toggleState('selected', selected);
     this.internals.ariaPressed = String(selected);

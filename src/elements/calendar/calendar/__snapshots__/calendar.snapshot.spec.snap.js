@@ -124,7 +124,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-01">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-01"
                   tabindex="-1"
                 >
@@ -136,7 +135,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-02">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-02"
                   tabindex="-1"
                 >
@@ -146,7 +144,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-03">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-03"
                   tabindex="-1"
                 >
@@ -156,7 +153,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-04">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-04"
                   tabindex="-1"
                 >
@@ -166,7 +162,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-05">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-05"
                   tabindex="-1"
                 >
@@ -176,7 +171,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-06">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-06"
                   tabindex="-1"
                 >
@@ -186,7 +180,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-07">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-07"
                   tabindex="-1"
                 >
@@ -196,7 +189,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-08">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-08"
                   tabindex="-1"
                 >
@@ -208,7 +200,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-09">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-09"
                   tabindex="-1"
                 >
@@ -218,7 +209,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-10">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-10"
                   tabindex="-1"
                 >
@@ -228,7 +218,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-11">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-11"
                   tabindex="-1"
                 >
@@ -238,7 +227,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-12">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-12"
                   tabindex="-1"
                 >
@@ -248,7 +236,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-13">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-13"
                   tabindex="-1"
                 >
@@ -258,7 +245,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-14">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-14"
                   tabindex="-1"
                 >
@@ -268,7 +254,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-15">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-15"
                   tabindex="-1"
                 >
@@ -280,7 +265,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-16">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-16"
                   tabindex="-1"
                 >
@@ -290,7 +274,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-17">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-17"
                   tabindex="-1"
                 >
@@ -300,7 +283,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-18">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-18"
                   tabindex="-1"
                 >
@@ -310,7 +292,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-19">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-19"
                   tabindex="-1"
                 >
@@ -320,7 +301,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-20">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-20"
                   tabindex="0"
                 >
@@ -330,7 +310,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-21">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-21"
                   tabindex="-1"
                 >
@@ -340,7 +319,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-22">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-22"
                   tabindex="-1"
                 >
@@ -352,7 +330,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-23">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-23"
                   tabindex="-1"
                 >
@@ -362,7 +339,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-24">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-24"
                   tabindex="-1"
                 >
@@ -372,7 +348,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-25">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-25"
                   tabindex="-1"
                 >
@@ -382,7 +357,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-26">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-26"
                   tabindex="-1"
                 >
@@ -392,7 +366,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-27">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-27"
                   tabindex="-1"
                 >
@@ -402,7 +375,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-28">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-28"
                   tabindex="-1"
                 >
@@ -412,7 +384,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-29">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-29"
                   tabindex="-1"
                 >
@@ -424,7 +395,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-30">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-30"
                   tabindex="-1"
                 >
@@ -434,7 +404,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             <td>
               <slot name="2023-01-31">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-31"
                   tabindex="-1"
                 >
@@ -449,15 +418,6 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-calendar default renders Shadow DOM */
-
-snapshots["sbb-calendar default renders vertical DOM"] = 
-`<sbb-calendar
-  orientation="vertical"
-  selected="2023-01-20T00:00:00"
->
-</sbb-calendar>
-`;
-/* end snapshot sbb-calendar default renders vertical DOM */
 
 snapshots["sbb-calendar default renders A11y tree Chrome"] = 
 `<p>
@@ -474,6 +434,15 @@ snapshots["sbb-calendar default renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-calendar default renders A11y tree Chrome */
+
+snapshots["sbb-calendar default renders vertical DOM"] = 
+`<sbb-calendar
+  orientation="vertical"
+  selected="2023-01-20T00:00:00"
+>
+</sbb-calendar>
+`;
+/* end snapshot sbb-calendar default renders vertical DOM */
 
 snapshots["sbb-calendar default renders vertical Shadow DOM"] = 
 `<div class="sbb-calendar__wrapper">
@@ -527,7 +496,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-02">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-02"
                   tabindex="-1"
                 >
@@ -537,7 +505,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-09">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-09"
                   tabindex="-1"
                 >
@@ -547,7 +514,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-16">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-16"
                   tabindex="-1"
                 >
@@ -557,7 +523,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-23">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-23"
                   tabindex="-1"
                 >
@@ -567,7 +532,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-30">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-30"
                   tabindex="-1"
                 >
@@ -589,7 +553,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-03">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-03"
                   tabindex="-1"
                 >
@@ -599,7 +562,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-10">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-10"
                   tabindex="-1"
                 >
@@ -609,7 +571,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-17">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-17"
                   tabindex="-1"
                 >
@@ -619,7 +580,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-24">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-24"
                   tabindex="-1"
                 >
@@ -629,7 +589,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-31">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-31"
                   tabindex="-1"
                 >
@@ -651,7 +610,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-04">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-04"
                   tabindex="-1"
                 >
@@ -661,7 +619,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-11">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-11"
                   tabindex="-1"
                 >
@@ -671,7 +628,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-18">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-18"
                   tabindex="-1"
                 >
@@ -681,7 +637,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-25">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-25"
                   tabindex="-1"
                 >
@@ -703,7 +658,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-05">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-05"
                   tabindex="-1"
                 >
@@ -713,7 +667,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-12">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-12"
                   tabindex="-1"
                 >
@@ -723,7 +676,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-19">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-19"
                   tabindex="-1"
                 >
@@ -733,7 +685,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-26">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-26"
                   tabindex="-1"
                 >
@@ -755,7 +706,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-06">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-06"
                   tabindex="-1"
                 >
@@ -765,7 +715,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-13">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-13"
                   tabindex="-1"
                 >
@@ -775,7 +724,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-20">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-20"
                   tabindex="0"
                 >
@@ -785,7 +733,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-27">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-27"
                   tabindex="-1"
                 >
@@ -807,7 +754,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-07">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-07"
                   tabindex="-1"
                 >
@@ -817,7 +763,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-14">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-14"
                   tabindex="-1"
                 >
@@ -827,7 +772,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-21">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-21"
                   tabindex="-1"
                 >
@@ -837,7 +781,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-28">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-28"
                   tabindex="-1"
                 >
@@ -857,7 +800,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-01">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-01"
                   tabindex="-1"
                 >
@@ -867,7 +809,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-08">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-08"
                   tabindex="-1"
                 >
@@ -877,7 +818,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-15">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-15"
                   tabindex="-1"
                 >
@@ -887,7 +827,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-22">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-22"
                   tabindex="-1"
                 >
@@ -897,7 +836,6 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-29">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-29"
                   tabindex="-1"
                 >
@@ -1037,7 +975,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-01">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-01"
                   tabindex="-1"
                 >
@@ -1049,7 +986,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-02">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-02"
                   tabindex="-1"
                 >
@@ -1059,7 +995,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-03">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-03"
                   tabindex="-1"
                 >
@@ -1069,7 +1004,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-04">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-04"
                   tabindex="-1"
                 >
@@ -1079,7 +1013,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-05">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-05"
                   tabindex="-1"
                 >
@@ -1089,7 +1022,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-06">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-06"
                   tabindex="-1"
                 >
@@ -1099,7 +1031,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-07">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-07"
                   tabindex="-1"
                 >
@@ -1109,7 +1040,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-08">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-08"
                   tabindex="-1"
                 >
@@ -1121,7 +1051,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-09">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-09"
                   tabindex="-1"
                 >
@@ -1131,7 +1060,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-10">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-10"
                   tabindex="-1"
                 >
@@ -1141,7 +1069,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-11">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-11"
                   tabindex="-1"
                 >
@@ -1151,7 +1078,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-12">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-12"
                   tabindex="-1"
                 >
@@ -1161,7 +1087,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-13">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-13"
                   tabindex="-1"
                 >
@@ -1171,7 +1096,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-14">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-14"
                   tabindex="-1"
                 >
@@ -1181,7 +1105,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-15">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-15"
                   tabindex="-1"
                 >
@@ -1193,7 +1116,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-16">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-16"
                   tabindex="-1"
                 >
@@ -1203,7 +1125,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-17">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-17"
                   tabindex="-1"
                 >
@@ -1213,7 +1134,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-18">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-18"
                   tabindex="-1"
                 >
@@ -1223,7 +1143,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-19">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-19"
                   tabindex="-1"
                 >
@@ -1233,7 +1152,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-20">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-20"
                   tabindex="0"
                 >
@@ -1243,7 +1161,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-21">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-21"
                   tabindex="-1"
                 >
@@ -1253,7 +1170,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-22">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-22"
                   tabindex="-1"
                 >
@@ -1265,7 +1181,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-23">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-23"
                   tabindex="-1"
                 >
@@ -1275,7 +1190,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-24">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-24"
                   tabindex="-1"
                 >
@@ -1285,7 +1199,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-25">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-25"
                   tabindex="-1"
                 >
@@ -1295,7 +1208,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-26">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-26"
                   tabindex="-1"
                 >
@@ -1305,7 +1217,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-27">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-27"
                   tabindex="-1"
                 >
@@ -1315,7 +1226,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-28">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-28"
                   tabindex="-1"
                 >
@@ -1325,7 +1235,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-29">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-29"
                   tabindex="-1"
                 >
@@ -1337,7 +1246,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-30">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-30"
                   tabindex="-1"
                 >
@@ -1347,7 +1255,6 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-31">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-31"
                   tabindex="-1"
                 >
@@ -1507,7 +1414,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-01">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-01"
                   tabindex="-1"
                 >
@@ -1527,7 +1433,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-02">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-02"
                   tabindex="-1"
                 >
@@ -1537,7 +1442,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-03">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-03"
                   tabindex="-1"
                 >
@@ -1547,7 +1451,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-04">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-04"
                   tabindex="-1"
                 >
@@ -1557,7 +1460,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-05">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-05"
                   tabindex="-1"
                 >
@@ -1567,7 +1469,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-06">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-06"
                   tabindex="-1"
                 >
@@ -1577,7 +1478,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-07">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-07"
                   tabindex="-1"
                 >
@@ -1587,7 +1487,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-08">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-08"
                   tabindex="-1"
                 >
@@ -1607,7 +1506,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-09">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-09"
                   tabindex="-1"
                 >
@@ -1617,7 +1515,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-10">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-10"
                   tabindex="-1"
                 >
@@ -1627,7 +1524,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-11">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-11"
                   tabindex="-1"
                 >
@@ -1637,7 +1533,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-12">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-12"
                   tabindex="-1"
                 >
@@ -1647,7 +1542,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-13">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-13"
                   tabindex="-1"
                 >
@@ -1657,7 +1551,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-14">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-14"
                   tabindex="-1"
                 >
@@ -1667,7 +1560,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-15">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-15"
                   tabindex="-1"
                 >
@@ -1687,7 +1579,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-16">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-16"
                   tabindex="-1"
                 >
@@ -1697,7 +1588,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-17">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-17"
                   tabindex="-1"
                 >
@@ -1707,7 +1597,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-18">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-18"
                   tabindex="-1"
                 >
@@ -1717,7 +1606,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-19">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-19"
                   tabindex="-1"
                 >
@@ -1727,7 +1615,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-20">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-20"
                   tabindex="0"
                 >
@@ -1737,7 +1624,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-21">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-21"
                   tabindex="-1"
                 >
@@ -1747,7 +1633,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-22">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-22"
                   tabindex="-1"
                 >
@@ -1767,7 +1652,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-23">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-23"
                   tabindex="-1"
                 >
@@ -1777,7 +1661,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-24">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-24"
                   tabindex="-1"
                 >
@@ -1787,7 +1670,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-25">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-25"
                   tabindex="-1"
                 >
@@ -1797,7 +1679,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-26">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-26"
                   tabindex="-1"
                 >
@@ -1807,7 +1688,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-27">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-27"
                   tabindex="-1"
                 >
@@ -1817,7 +1697,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-28">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-28"
                   tabindex="-1"
                 >
@@ -1827,7 +1706,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-29">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-29"
                   tabindex="-1"
                 >
@@ -1847,7 +1725,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-30">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-30"
                   tabindex="-1"
                 >
@@ -1857,7 +1734,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-01-31">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-31"
                   tabindex="-1"
                 >
@@ -1947,7 +1823,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-01">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-01"
                   tabindex="-1"
                 >
@@ -1957,7 +1832,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-02">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-02"
                   tabindex="-1"
                 >
@@ -1967,7 +1841,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-03">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-03"
                   tabindex="-1"
                 >
@@ -1977,7 +1850,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-04">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-04"
                   tabindex="-1"
                 >
@@ -1987,7 +1859,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-05">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-05"
                   tabindex="-1"
                 >
@@ -2007,7 +1878,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-06">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-06"
                   tabindex="-1"
                 >
@@ -2017,7 +1887,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-07">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-07"
                   tabindex="-1"
                 >
@@ -2027,7 +1896,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-08">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-08"
                   tabindex="-1"
                 >
@@ -2037,7 +1905,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-09">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-09"
                   tabindex="-1"
                 >
@@ -2047,7 +1914,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-10">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-10"
                   tabindex="-1"
                 >
@@ -2057,7 +1923,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-11">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-11"
                   tabindex="-1"
                 >
@@ -2067,7 +1932,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-12">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-12"
                   tabindex="-1"
                 >
@@ -2087,7 +1951,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-13">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-13"
                   tabindex="-1"
                 >
@@ -2097,7 +1960,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-14">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-14"
                   tabindex="-1"
                 >
@@ -2107,7 +1969,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-15">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-15"
                   tabindex="-1"
                 >
@@ -2117,7 +1978,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-16">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-16"
                   tabindex="-1"
                 >
@@ -2127,7 +1987,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-17">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-17"
                   tabindex="-1"
                 >
@@ -2137,7 +1996,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-18">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-18"
                   tabindex="-1"
                 >
@@ -2147,7 +2005,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-19">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-19"
                   tabindex="-1"
                 >
@@ -2167,7 +2024,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-20">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-20"
                   tabindex="-1"
                 >
@@ -2177,7 +2033,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-21">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-21"
                   tabindex="-1"
                 >
@@ -2187,7 +2042,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-22">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-22"
                   tabindex="-1"
                 >
@@ -2197,7 +2051,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-23">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-23"
                   tabindex="-1"
                 >
@@ -2207,7 +2060,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-24">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-24"
                   tabindex="-1"
                 >
@@ -2217,7 +2069,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-25">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-25"
                   tabindex="-1"
                 >
@@ -2227,7 +2078,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-26">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-26"
                   tabindex="-1"
                 >
@@ -2247,7 +2097,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-27">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-27"
                   tabindex="-1"
                 >
@@ -2257,7 +2106,6 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             <td>
               <slot name="2023-02-28">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-28"
                   tabindex="-1"
                 >
@@ -2399,7 +2247,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-02">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-02"
                   tabindex="-1"
                 >
@@ -2409,7 +2256,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-09">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-09"
                   tabindex="-1"
                 >
@@ -2419,7 +2265,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-16">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-16"
                   tabindex="-1"
                 >
@@ -2429,7 +2274,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-23">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-23"
                   tabindex="-1"
                 >
@@ -2439,7 +2283,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-30">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-30"
                   tabindex="-1"
                 >
@@ -2461,7 +2304,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-03">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-03"
                   tabindex="-1"
                 >
@@ -2471,7 +2313,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-10">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-10"
                   tabindex="-1"
                 >
@@ -2481,7 +2322,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-17">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-17"
                   tabindex="-1"
                 >
@@ -2491,7 +2331,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-24">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-24"
                   tabindex="-1"
                 >
@@ -2501,7 +2340,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-31">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-31"
                   tabindex="-1"
                 >
@@ -2523,7 +2361,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-04">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-04"
                   tabindex="-1"
                 >
@@ -2533,7 +2370,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-11">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-11"
                   tabindex="-1"
                 >
@@ -2543,7 +2379,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-18">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-18"
                   tabindex="-1"
                 >
@@ -2553,7 +2388,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-25">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-25"
                   tabindex="-1"
                 >
@@ -2575,7 +2409,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-05">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-05"
                   tabindex="-1"
                 >
@@ -2585,7 +2418,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-12">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-12"
                   tabindex="-1"
                 >
@@ -2595,7 +2427,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-19">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-19"
                   tabindex="-1"
                 >
@@ -2605,7 +2436,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-26">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-26"
                   tabindex="-1"
                 >
@@ -2627,7 +2457,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-06">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-06"
                   tabindex="-1"
                 >
@@ -2637,7 +2466,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-13">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-13"
                   tabindex="-1"
                 >
@@ -2647,7 +2475,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-20">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-20"
                   tabindex="0"
                 >
@@ -2657,7 +2484,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-27">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-27"
                   tabindex="-1"
                 >
@@ -2679,7 +2505,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-07">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-07"
                   tabindex="-1"
                 >
@@ -2689,7 +2514,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-14">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-14"
                   tabindex="-1"
                 >
@@ -2699,7 +2523,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-21">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-21"
                   tabindex="-1"
                 >
@@ -2709,7 +2532,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-28">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-28"
                   tabindex="-1"
                 >
@@ -2729,7 +2551,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-01">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-01"
                   tabindex="-1"
                 >
@@ -2739,7 +2560,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-08">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-08"
                   tabindex="-1"
                 >
@@ -2749,7 +2569,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-15">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-15"
                   tabindex="-1"
                 >
@@ -2759,7 +2578,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-22">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-22"
                   tabindex="-1"
                 >
@@ -2769,7 +2587,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-01-29">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-29"
                   tabindex="-1"
                 >
@@ -2831,7 +2648,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-06">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-06"
                   tabindex="-1"
                 >
@@ -2841,7 +2657,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-13">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-13"
                   tabindex="-1"
                 >
@@ -2851,7 +2666,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-20">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-20"
                   tabindex="-1"
                 >
@@ -2861,7 +2675,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-27">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-27"
                   tabindex="-1"
                 >
@@ -2875,7 +2688,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-07">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-07"
                   tabindex="-1"
                 >
@@ -2885,7 +2697,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-14">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-14"
                   tabindex="-1"
                 >
@@ -2895,7 +2706,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-21">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-21"
                   tabindex="-1"
                 >
@@ -2905,7 +2715,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-28">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-28"
                   tabindex="-1"
                 >
@@ -2917,7 +2726,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-01">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-01"
                   tabindex="-1"
                 >
@@ -2927,7 +2735,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-08">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-08"
                   tabindex="-1"
                 >
@@ -2937,7 +2744,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-15">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-15"
                   tabindex="-1"
                 >
@@ -2947,7 +2753,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-22">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-22"
                   tabindex="-1"
                 >
@@ -2959,7 +2764,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-02">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-02"
                   tabindex="-1"
                 >
@@ -2969,7 +2773,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-09">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-09"
                   tabindex="-1"
                 >
@@ -2979,7 +2782,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-16">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-16"
                   tabindex="-1"
                 >
@@ -2989,7 +2791,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-23">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-23"
                   tabindex="-1"
                 >
@@ -3001,7 +2802,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-03">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-03"
                   tabindex="-1"
                 >
@@ -3011,7 +2811,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-10">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-10"
                   tabindex="-1"
                 >
@@ -3021,7 +2820,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-17">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-17"
                   tabindex="-1"
                 >
@@ -3031,7 +2829,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-24">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-24"
                   tabindex="-1"
                 >
@@ -3043,7 +2840,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-04">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-04"
                   tabindex="-1"
                 >
@@ -3053,7 +2849,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-11">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-11"
                   tabindex="-1"
                 >
@@ -3063,7 +2858,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-18">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-18"
                   tabindex="-1"
                 >
@@ -3073,7 +2867,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-25">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-25"
                   tabindex="-1"
                 >
@@ -3085,7 +2878,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-05">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-05"
                   tabindex="-1"
                 >
@@ -3095,7 +2887,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-12">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-12"
                   tabindex="-1"
                 >
@@ -3105,7 +2896,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-19">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-19"
                   tabindex="-1"
                 >
@@ -3115,7 +2905,6 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             <td>
               <slot name="2023-02-26">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-26"
                   tabindex="-1"
                 >
@@ -3409,7 +3198,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-01">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-01"
                   tabindex="-1"
                 >
@@ -3421,7 +3209,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-02">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-02"
                   tabindex="-1"
                 >
@@ -3431,7 +3218,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-03">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-03"
                   tabindex="-1"
                 >
@@ -3441,7 +3227,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-04">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-04"
                   tabindex="-1"
                 >
@@ -3451,7 +3236,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-05">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-05"
                   tabindex="-1"
                 >
@@ -3461,7 +3245,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-06">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-06"
                   tabindex="-1"
                 >
@@ -3471,7 +3254,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-07">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-07"
                   tabindex="-1"
                 >
@@ -3481,7 +3263,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-08">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-08"
                   tabindex="-1"
                 >
@@ -3493,7 +3274,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-09">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-09"
                   tabindex="-1"
                 >
@@ -3503,7 +3283,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-10">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-10"
                   tabindex="-1"
                 >
@@ -3513,7 +3292,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-11">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-11"
                   tabindex="-1"
                 >
@@ -3523,7 +3301,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-12">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-12"
                   tabindex="-1"
                 >
@@ -3533,7 +3310,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-13">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-13"
                   tabindex="-1"
                 >
@@ -3543,7 +3319,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-14">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-14"
                   tabindex="-1"
                 >
@@ -3553,7 +3328,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-15">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-15"
                   tabindex="-1"
                 >
@@ -3565,7 +3339,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-16">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-16"
                   tabindex="-1"
                 >
@@ -3575,7 +3348,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-17">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-17"
                   tabindex="-1"
                 >
@@ -3585,7 +3357,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-18">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-18"
                   tabindex="-1"
                 >
@@ -3595,7 +3366,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-19">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-19"
                   tabindex="-1"
                 >
@@ -3605,7 +3375,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-20">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-20"
                   tabindex="0"
                 >
@@ -3615,7 +3384,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-21">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-21"
                   tabindex="-1"
                 >
@@ -3625,7 +3393,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-22">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-22"
                   tabindex="-1"
                 >
@@ -3637,7 +3404,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-23">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-23"
                   tabindex="-1"
                 >
@@ -3647,7 +3413,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-24">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-24"
                   tabindex="-1"
                 >
@@ -3657,7 +3422,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-25">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-25"
                   tabindex="-1"
                 >
@@ -3667,7 +3431,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-26">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-26"
                   tabindex="-1"
                 >
@@ -3677,7 +3440,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-27">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-27"
                   tabindex="-1"
                 >
@@ -3687,7 +3449,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-28">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-28"
                   tabindex="-1"
                 >
@@ -3697,7 +3458,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-29">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-29"
                   tabindex="-1"
                 >
@@ -3709,7 +3469,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-30">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-30"
                   tabindex="-1"
                 >
@@ -3719,7 +3478,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             <td>
               <slot name="2023-01-31">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-31"
                   tabindex="-1"
                 >
@@ -3967,7 +3725,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-02">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-02"
                   tabindex="-1"
                 >
@@ -3977,7 +3734,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-09">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-09"
                   tabindex="-1"
                 >
@@ -3987,7 +3743,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-16">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-16"
                   tabindex="-1"
                 >
@@ -3997,7 +3752,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-23">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-23"
                   tabindex="-1"
                 >
@@ -4007,7 +3761,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-30">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-30"
                   tabindex="-1"
                 >
@@ -4029,7 +3782,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-03">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-03"
                   tabindex="-1"
                 >
@@ -4039,7 +3791,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-10">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-10"
                   tabindex="-1"
                 >
@@ -4049,7 +3800,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-17">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-17"
                   tabindex="-1"
                 >
@@ -4059,7 +3809,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-24">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-24"
                   tabindex="-1"
                 >
@@ -4069,7 +3818,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-31">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-31"
                   tabindex="-1"
                 >
@@ -4091,7 +3839,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-04">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-04"
                   tabindex="-1"
                 >
@@ -4101,7 +3848,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-11">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-11"
                   tabindex="-1"
                 >
@@ -4111,7 +3857,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-18">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-18"
                   tabindex="-1"
                 >
@@ -4121,7 +3866,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-25">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-25"
                   tabindex="-1"
                 >
@@ -4143,7 +3887,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-05">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-05"
                   tabindex="-1"
                 >
@@ -4153,7 +3896,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-12">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-12"
                   tabindex="-1"
                 >
@@ -4163,7 +3905,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-19">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-19"
                   tabindex="-1"
                 >
@@ -4173,7 +3914,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-26">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-26"
                   tabindex="-1"
                 >
@@ -4195,7 +3935,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-06">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-06"
                   tabindex="-1"
                 >
@@ -4205,7 +3944,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-13">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-13"
                   tabindex="-1"
                 >
@@ -4215,7 +3953,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-20">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-20"
                   tabindex="0"
                 >
@@ -4225,7 +3962,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-27">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-27"
                   tabindex="-1"
                 >
@@ -4247,7 +3983,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-07">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-07"
                   tabindex="-1"
                 >
@@ -4257,7 +3992,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-14">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-14"
                   tabindex="-1"
                 >
@@ -4267,7 +4001,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-21">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-21"
                   tabindex="-1"
                 >
@@ -4277,7 +4010,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-28">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-28"
                   tabindex="-1"
                 >
@@ -4297,7 +4029,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-01">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-01"
                   tabindex="-1"
                 >
@@ -4307,7 +4038,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-08">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-08"
                   tabindex="-1"
                 >
@@ -4317,7 +4047,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-15">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-15"
                   tabindex="-1"
                 >
@@ -4327,7 +4056,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-22">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-22"
                   tabindex="-1"
                 >
@@ -4337,7 +4065,6 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             <td>
               <slot name="2023-01-29">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-29"
                   tabindex="-1"
                 >
@@ -4632,7 +4359,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-01">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-01"
                   tabindex="-1"
                 >
@@ -4644,7 +4370,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-02">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-02"
                   tabindex="-1"
                 >
@@ -4654,7 +4379,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-03">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-03"
                   tabindex="-1"
                 >
@@ -4664,7 +4388,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-04">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-04"
                   tabindex="-1"
                 >
@@ -4674,7 +4397,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-05">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-05"
                   tabindex="-1"
                 >
@@ -4684,7 +4406,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-06">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-06"
                   tabindex="-1"
                 >
@@ -4694,7 +4415,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-07">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-07"
                   tabindex="-1"
                 >
@@ -4704,7 +4424,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-08">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-08"
                   tabindex="-1"
                 >
@@ -4716,7 +4435,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-09">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-09"
                   tabindex="-1"
                 >
@@ -4726,7 +4444,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-10">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-10"
                   tabindex="-1"
                 >
@@ -4736,7 +4453,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-11">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-11"
                   tabindex="-1"
                 >
@@ -4746,7 +4462,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-12">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-12"
                   tabindex="-1"
                 >
@@ -4756,7 +4471,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-13">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-13"
                   tabindex="-1"
                 >
@@ -4766,7 +4480,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-14">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-14"
                   tabindex="-1"
                 >
@@ -4776,7 +4489,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-15">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-15"
                   tabindex="-1"
                 >
@@ -4788,7 +4500,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-16">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-16"
                   tabindex="-1"
                 >
@@ -4798,7 +4509,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-17">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-17"
                   tabindex="-1"
                 >
@@ -4808,7 +4518,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-18">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-18"
                   tabindex="-1"
                 >
@@ -4818,7 +4527,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-19">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-19"
                   tabindex="-1"
                 >
@@ -4828,7 +4536,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-20">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-20"
                   tabindex="0"
                 >
@@ -4838,7 +4545,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-21">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-21"
                   tabindex="-1"
                 >
@@ -4848,7 +4554,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-22">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-22"
                   tabindex="-1"
                 >
@@ -4860,7 +4565,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-23">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-23"
                   tabindex="-1"
                 >
@@ -4870,7 +4574,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-24">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-24"
                   tabindex="-1"
                 >
@@ -4880,7 +4583,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-25">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-25"
                   tabindex="-1"
                 >
@@ -4890,7 +4592,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-26">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-26"
                   tabindex="-1"
                 >
@@ -4900,7 +4601,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-27">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-27"
                   tabindex="-1"
                 >
@@ -4910,7 +4610,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-28">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-28"
                   tabindex="-1"
                 >
@@ -4920,7 +4619,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-29">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-29"
                   tabindex="-1"
                 >
@@ -4932,7 +4630,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-30">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-30"
                   tabindex="-1"
                 >
@@ -4942,7 +4639,6 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <td>
               <slot name="2023-01-31">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-31"
                   tabindex="-1"
                 >
@@ -5257,7 +4953,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-01">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-01"
                   tabindex="-1"
                 >
@@ -5277,7 +4972,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-02">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-02"
                   tabindex="-1"
                 >
@@ -5287,7 +4981,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-03">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-03"
                   tabindex="-1"
                 >
@@ -5297,7 +4990,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-04">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-04"
                   tabindex="-1"
                 >
@@ -5307,7 +4999,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-05">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-05"
                   tabindex="-1"
                 >
@@ -5317,7 +5008,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-06">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-06"
                   tabindex="-1"
                 >
@@ -5327,7 +5017,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-07">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-07"
                   tabindex="-1"
                 >
@@ -5337,7 +5026,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-08">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-08"
                   tabindex="-1"
                 >
@@ -5357,7 +5045,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-09">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-09"
                   tabindex="-1"
                 >
@@ -5367,7 +5054,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-10">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-10"
                   tabindex="-1"
                 >
@@ -5377,7 +5063,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-11">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-11"
                   tabindex="-1"
                 >
@@ -5387,7 +5072,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-12">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-12"
                   tabindex="-1"
                 >
@@ -5397,7 +5081,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-13">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-13"
                   tabindex="-1"
                 >
@@ -5407,7 +5090,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-14">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-14"
                   tabindex="-1"
                 >
@@ -5417,7 +5099,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-15">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-15"
                   tabindex="-1"
                 >
@@ -5437,7 +5118,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-16">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-16"
                   tabindex="-1"
                 >
@@ -5447,7 +5127,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-17">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-17"
                   tabindex="-1"
                 >
@@ -5457,7 +5136,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-18">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-18"
                   tabindex="-1"
                 >
@@ -5467,7 +5145,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-19">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-19"
                   tabindex="-1"
                 >
@@ -5477,7 +5154,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-20">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-20"
                   tabindex="0"
                 >
@@ -5487,7 +5163,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-21">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-21"
                   tabindex="-1"
                 >
@@ -5497,7 +5172,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-22">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-22"
                   tabindex="-1"
                 >
@@ -5517,7 +5191,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-23">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-23"
                   tabindex="-1"
                 >
@@ -5527,7 +5200,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-24">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-24"
                   tabindex="-1"
                 >
@@ -5537,7 +5209,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-25">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-25"
                   tabindex="-1"
                 >
@@ -5547,7 +5218,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-26">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-26"
                   tabindex="-1"
                 >
@@ -5557,7 +5227,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-27">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-27"
                   tabindex="-1"
                 >
@@ -5567,7 +5236,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-28">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-28"
                   tabindex="-1"
                 >
@@ -5577,7 +5245,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-29">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-29"
                   tabindex="-1"
                 >
@@ -5597,7 +5264,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-30">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-30"
                   tabindex="-1"
                 >
@@ -5607,7 +5273,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-01-31">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-31"
                   tabindex="-1"
                 >
@@ -5697,7 +5362,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-01">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-01"
                   tabindex="-1"
                 >
@@ -5707,7 +5371,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-02">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-02"
                   tabindex="-1"
                 >
@@ -5717,7 +5380,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-03">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-03"
                   tabindex="-1"
                 >
@@ -5727,7 +5389,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-04">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-04"
                   tabindex="-1"
                 >
@@ -5737,7 +5398,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-05">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-05"
                   tabindex="-1"
                 >
@@ -5757,7 +5417,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-06">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-06"
                   tabindex="-1"
                 >
@@ -5767,7 +5426,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-07">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-07"
                   tabindex="-1"
                 >
@@ -5777,7 +5435,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-08">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-08"
                   tabindex="-1"
                 >
@@ -5787,7 +5444,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-09">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-09"
                   tabindex="-1"
                 >
@@ -5797,7 +5453,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-10">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-10"
                   tabindex="-1"
                 >
@@ -5807,7 +5462,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-11">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-11"
                   tabindex="-1"
                 >
@@ -5817,7 +5471,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-12">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-12"
                   tabindex="-1"
                 >
@@ -5837,7 +5490,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-13">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-13"
                   tabindex="-1"
                 >
@@ -5847,7 +5499,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-14">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-14"
                   tabindex="-1"
                 >
@@ -5857,7 +5508,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-15">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-15"
                   tabindex="-1"
                 >
@@ -5867,7 +5517,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-16">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-16"
                   tabindex="-1"
                 >
@@ -5877,7 +5526,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-17">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-17"
                   tabindex="-1"
                 >
@@ -5887,7 +5535,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-18">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-18"
                   tabindex="-1"
                 >
@@ -5897,7 +5544,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-19">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-19"
                   tabindex="-1"
                 >
@@ -5917,7 +5563,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-20">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-20"
                   tabindex="-1"
                 >
@@ -5927,7 +5572,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-21">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-21"
                   tabindex="-1"
                 >
@@ -5937,7 +5581,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-22">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-22"
                   tabindex="-1"
                 >
@@ -5947,7 +5590,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-23">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-23"
                   tabindex="-1"
                 >
@@ -5957,7 +5599,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-24">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-24"
                   tabindex="-1"
                 >
@@ -5967,7 +5608,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-25">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-25"
                   tabindex="-1"
                 >
@@ -5977,7 +5617,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-26">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-26"
                   tabindex="-1"
                 >
@@ -5997,7 +5636,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-27">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-27"
                   tabindex="-1"
                 >
@@ -6007,7 +5645,6 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             <td>
               <slot name="2023-02-28">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-28"
                   tabindex="-1"
                 >
@@ -6304,7 +5941,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-02">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-02"
                   tabindex="-1"
                 >
@@ -6314,7 +5950,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-09">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-09"
                   tabindex="-1"
                 >
@@ -6324,7 +5959,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-16">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-16"
                   tabindex="-1"
                 >
@@ -6334,7 +5968,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-23">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-23"
                   tabindex="-1"
                 >
@@ -6344,7 +5977,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-30">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-30"
                   tabindex="-1"
                 >
@@ -6366,7 +5998,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-03">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-03"
                   tabindex="-1"
                 >
@@ -6376,7 +6007,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-10">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-10"
                   tabindex="-1"
                 >
@@ -6386,7 +6016,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-17">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-17"
                   tabindex="-1"
                 >
@@ -6396,7 +6025,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-24">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-24"
                   tabindex="-1"
                 >
@@ -6406,7 +6034,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-31">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-31"
                   tabindex="-1"
                 >
@@ -6428,7 +6055,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-04">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-04"
                   tabindex="-1"
                 >
@@ -6438,7 +6064,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-11">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-11"
                   tabindex="-1"
                 >
@@ -6448,7 +6073,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-18">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-18"
                   tabindex="-1"
                 >
@@ -6458,7 +6082,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-25">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-25"
                   tabindex="-1"
                 >
@@ -6480,7 +6103,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-05">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-05"
                   tabindex="-1"
                 >
@@ -6490,7 +6112,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-12">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-12"
                   tabindex="-1"
                 >
@@ -6500,7 +6121,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-19">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-19"
                   tabindex="-1"
                 >
@@ -6510,7 +6130,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-26">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-26"
                   tabindex="-1"
                 >
@@ -6532,7 +6151,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-06">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-06"
                   tabindex="-1"
                 >
@@ -6542,7 +6160,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-13">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-13"
                   tabindex="-1"
                 >
@@ -6552,7 +6169,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-20">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-20"
                   tabindex="0"
                 >
@@ -6562,7 +6178,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-27">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-27"
                   tabindex="-1"
                 >
@@ -6584,7 +6199,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-07">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-07"
                   tabindex="-1"
                 >
@@ -6594,7 +6208,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-14">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-14"
                   tabindex="-1"
                 >
@@ -6604,7 +6217,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-21">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-21"
                   tabindex="-1"
                 >
@@ -6614,7 +6226,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-28">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-28"
                   tabindex="-1"
                 >
@@ -6634,7 +6245,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-01">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-01"
                   tabindex="-1"
                 >
@@ -6644,7 +6254,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-08">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-08"
                   tabindex="-1"
                 >
@@ -6654,7 +6263,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-15">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-15"
                   tabindex="-1"
                 >
@@ -6664,7 +6272,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-22">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-22"
                   tabindex="-1"
                 >
@@ -6674,7 +6281,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-01-29">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-01-29"
                   tabindex="-1"
                 >
@@ -6736,7 +6342,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-06">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-06"
                   tabindex="-1"
                 >
@@ -6746,7 +6351,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-13">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-13"
                   tabindex="-1"
                 >
@@ -6756,7 +6360,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-20">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-20"
                   tabindex="-1"
                 >
@@ -6766,7 +6369,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-27">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-27"
                   tabindex="-1"
                 >
@@ -6780,7 +6382,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-07">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-07"
                   tabindex="-1"
                 >
@@ -6790,7 +6391,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-14">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-14"
                   tabindex="-1"
                 >
@@ -6800,7 +6400,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-21">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-21"
                   tabindex="-1"
                 >
@@ -6810,7 +6409,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-28">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-28"
                   tabindex="-1"
                 >
@@ -6822,7 +6420,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-01">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-01"
                   tabindex="-1"
                 >
@@ -6832,7 +6429,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-08">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-08"
                   tabindex="-1"
                 >
@@ -6842,7 +6438,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-15">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-15"
                   tabindex="-1"
                 >
@@ -6852,7 +6447,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-22">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-22"
                   tabindex="-1"
                 >
@@ -6864,7 +6458,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-02">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-02"
                   tabindex="-1"
                 >
@@ -6874,7 +6467,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-09">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-09"
                   tabindex="-1"
                 >
@@ -6884,7 +6476,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-16">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-16"
                   tabindex="-1"
                 >
@@ -6894,7 +6485,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-23">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-23"
                   tabindex="-1"
                 >
@@ -6906,7 +6496,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-03">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-03"
                   tabindex="-1"
                 >
@@ -6916,7 +6505,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-10">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-10"
                   tabindex="-1"
                 >
@@ -6926,7 +6514,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-17">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-17"
                   tabindex="-1"
                 >
@@ -6936,7 +6523,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-24">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-24"
                   tabindex="-1"
                 >
@@ -6948,7 +6534,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-04">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-04"
                   tabindex="-1"
                 >
@@ -6958,7 +6543,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-11">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-11"
                   tabindex="-1"
                 >
@@ -6968,7 +6552,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-18">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-18"
                   tabindex="-1"
                 >
@@ -6978,7 +6561,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-25">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-25"
                   tabindex="-1"
                 >
@@ -6990,7 +6572,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-05">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-05"
                   tabindex="-1"
                 >
@@ -7000,7 +6581,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-12">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-12"
                   tabindex="-1"
                 >
@@ -7010,7 +6590,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-19">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-19"
                   tabindex="-1"
                 >
@@ -7020,7 +6599,6 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             <td>
               <slot name="2023-02-26">
                 <sbb-calendar-day
-                  sbb-popover-close=""
                   slot="2023-02-26"
                   tabindex="-1"
                 >

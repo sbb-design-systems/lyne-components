@@ -45,6 +45,7 @@ import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 
 import style from './calendar.scss?lit&inline';
+
 import '../../button/secondary-button.ts';
 import '../../icon.ts';
 import '../../screen-reader-only.ts';
@@ -337,7 +338,7 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
       if ((e.target as HTMLElement).localName === 'sbb-calendar-day') {
         this._handleKeyboardEvent(
           e,
-          this.mapDateToDay((e.target as SbbCalendarDayElement).value! as T),
+          this._mapDateToDay((e.target as SbbCalendarDayElement).value! as T),
         );
       }
     });
@@ -404,10 +405,9 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
   }
 
   private _onSlotChange = (): void => {
-    // fixme handle case of removal of all days
-    if (!this._enhancedVariant) {
-      this._enhancedVariant = true;
-    }
+    this._enhancedVariant = Array.from(this.children).some(
+      (c) => c.localName === 'sbb-calendar-day',
+    );
     this._setTabIndex();
   };
 
@@ -552,7 +552,7 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
         this._dateAdapter.getMonth(value),
         i + 1,
       )!;
-      weeks[weeks.length - 1].push(this.mapDateToDay(date));
+      weeks[weeks.length - 1].push(this._mapDateToDay(date));
     }
     return weeks;
   }
@@ -582,12 +582,12 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
         this._dateAdapter.getMonth(value),
         i + 1,
       )!;
-      weeks[cell].push(this.mapDateToDay(date));
+      weeks[cell].push(this._mapDateToDay(date));
     }
     return weeks;
   }
 
-  protected mapDateToDay(date: T): Day<T> {
+  private _mapDateToDay(date: T): Day<T> {
     const isoDate = this._dateAdapter.toIso8601(date);
     return {
       value: isoDate,
@@ -1662,7 +1662,6 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
               slot=${day.value}
               @click=${() => this._selectDate(day.dateValue)}
               @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt, day)}
-              sbb-popover-close
             ></sbb-calendar-day>
           </slot>
         </td>
