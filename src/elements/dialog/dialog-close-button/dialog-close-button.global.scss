@@ -4,13 +4,6 @@ $theme: 'standard' !default;
 
 @mixin base {
   --sbb-dialog-close-button-inset-inline-end: var(--sbb-spacing-fixed-4x);
-  --sbb-dialog-close-button-margin-block-start: calc(
-    var(--sbb-dialog-padding-block) + 0.5 *
-      (
-        var(--sbb-typo-line-height-heading) *
-          var(--_sbb-dialog-title-size, var(--sbb-heading-font-size-4)) - var(--sbb-size-element-xs)
-      )
-  );
   --sbb-dialog-close-button-margin-inline: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
 }
 
