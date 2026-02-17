@@ -13,16 +13,17 @@ permissions:
 
 jobs:
   add_label:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: github.event.pull_request.user.login != 'renovate[bot]'
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Add target label
         if: "${{ !contains(github.event.pull_request.body, 'BREAKING CHANGE:') && !contains(github.event.pull_request.labels.*.name, 'target: major') }}"
-        uses: actions-ecosystem/action-add-labels@v1
-        with:
-          labels: 'target: ${{ env.TARGET_RELEASE }}'
+        run: |
+          gh issue edit $PR_NUMBER --repo ${{ github.repository }} --add-label "target: $TARGET_RELEASE"
       - name: Remove target label
         if: "${{ contains(github.event.pull_request.body, 'BREAKING CHANGE:') || contains(github.event.pull_request.labels.*.name, 'target: major') }}"
-        uses: actions-ecosystem/action-remove-labels@v1
-        with:
-          labels: 'target: ${{ env.TARGET_RELEASE }}'
+        run: |
+          gh issue edit $PR_NUMBER --repo ${{ github.repository }} --remove-label "target: $TARGET_RELEASE"

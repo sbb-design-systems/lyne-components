@@ -7,14 +7,16 @@ permissions: read-all
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: yarn
-      - run: yarn install --frozen-lockfile --non-interactive
+      - run: |
+          npm install --global yarn
+          yarn install --frozen-lockfile --non-interactive
 
       - name: 'Lint: Pull request title'
         env:
