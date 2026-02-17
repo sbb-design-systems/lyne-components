@@ -12,13 +12,22 @@ import { DateAdapter } from './date-adapter.ts';
 const ISO_8601_REGEX =
   /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 
-if (typeof Temporal !== 'object') {
-  throw new Error(
-    'Temporal is not available in the current environment. Please make sure to include the temporal polyfill.',
-  );
-}
-
 export class TemporalDateAdapter extends DateAdapter<Temporal.PlainDate> {
+  /**
+   * @param cutoffYearOffset The threshold on whether a two-digit year
+   * should be treated as belonging to 2000 or 1900. e.g. with 15 (default)
+   * the current year plus 15 will be treated as belonging to 2000, and the rest to 1900.
+   * So e.g. with the current year 2025, 40 will be treated as 2040, while 41 will be treated as 1941.
+   */
+  public constructor(cutoffYearOffset?: number) {
+    super(cutoffYearOffset);
+    if (typeof Temporal !== 'object') {
+      throw new Error(
+        'Temporal is not available in the current environment. Please make sure to include the temporal polyfill.',
+      );
+    }
+  }
+
   /** Gets the year of the input date. */
   public getYear(date: Temporal.PlainDate): number {
     return date.year;
