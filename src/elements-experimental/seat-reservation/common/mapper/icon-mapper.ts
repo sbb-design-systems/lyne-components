@@ -33,6 +33,7 @@ export const mapIconToSvg: Record<string, SeatReservationIcon> = {
   DRIVER_AREA: { svg: svgs.chassisDriverTrain },
   DRIVER_AREA_BUS: { svg: svgs.chassisDriverBus },
   DRIVER_AREA_TRAIN: { svg: svgs.chassisDriverTrainFull },
+  DRIVER_AREA_NO_VERTICAL_WALL: { svg: svgs.chassisDriverTrain },
   EASY_ACCESS: { svgName: 'sa-em' },
   EASY_ACCESS_AREA: { svgName: 'sa-em' },
   EASY_ACCESS_ICON: { svgName: 'sa-em' },
