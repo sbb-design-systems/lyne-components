@@ -5,7 +5,7 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-import { MOCK_GIRUNO_TRAIN } from '../common/mapper/seat-reservation-sample-data.ts';
+import { MOCK_GIRUNO_TRAIN, MOCK_TRAIN_LOCOMOTIVE_LAYOUT } from '../common/mapper/seat-reservation-sample-data.ts';
 import { mapRawDataToSeatReservation, type CoachItem, type SeatReservation } from '../common.ts';
 
 import readme from './readme.md?raw';
@@ -227,6 +227,23 @@ export const trainToggleDecks: StoryObj = {
   render: Template,
   argTypes: toggleArgs,
   args: { seatReservations: 'LOWER_DECK' },
+};
+
+const trainWithNewLocomotives: Args = {
+  seatReservations: [MOCK_TRAIN_LOCOMOTIVE_LAYOUT],
+  'has-navigation': true,
+  'max-reservations': 4,
+  'align-vertical': false,
+  'base-grid-size': 16,
+  height: null,
+  'prevent-place-click': false,
+  'show-title-info': false,
+};
+
+export const TrainWithNewLocomotives: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: trainWithNewLocomotives,
 };
 
 const meta: Meta = {

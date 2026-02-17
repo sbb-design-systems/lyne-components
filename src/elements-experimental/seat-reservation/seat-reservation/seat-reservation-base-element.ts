@@ -152,6 +152,7 @@ export class SeatReservationBaseElement extends LitElement {
   // Graphics that should not be rendered with an area
   protected notAreaElements = [
     'DRIVER_AREA',
+    'DRIVER_AREA_NO_VERTICAL_WALL',
     'COACH_PASSAGE',
     'COACH_WALL_NO_PASSAGE',
     'COMPARTMENT_PASSAGE',

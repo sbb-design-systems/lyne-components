@@ -287,6 +287,8 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     const COACH_PASSAGE_WIDTH = 1;
     const allElements = coachItem.graphicElements;
     const driverArea = allElements?.find((element: BaseElement) => element.icon === 'DRIVER_AREA');
+    const driverAreaNoVerticalWall = allElements?.find((element: BaseElement) => element.icon === 'DRIVER_AREA_NO_VERTICAL_WALL');
+
     let borderWidth = driverArea
       ? coachItem.dimension.w - driverArea.dimension.w - COACH_PASSAGE_WIDTH
       : coachItem.dimension.w - COACH_PASSAGE_WIDTH * 2;
@@ -299,6 +301,17 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       driverArea && driverArea.position.x === 0
         ? driverArea?.dimension.w * this.baseGridSize
         : this.baseGridSize;
+
+    //recalculate the border width and offset if there is a driver area without vertical wall on both sides
+    if (driverAreaNoVerticalWall) {
+      const coachWidth = this.getCalculatedDimension(coachItem.dimension).w;
+
+      //recalculated borderWidth = coachWidth - 2 * driver area width, since the driver area is on both sides
+      borderWidth = coachWidth - 2 * (driverAreaNoVerticalWall.dimension.w * this.baseGridSize);
+
+      //recalculated borderOffsetX = driver area width, since the border starts after the driver area on the left side
+      borderOffsetX = driverAreaNoVerticalWall.dimension.w * this.baseGridSize;
+    }
 
     const currentCoachOverlappingInfo = this.overHangingElementInformation.find(
       (el) => el.coachId == coachItem.id,
@@ -572,12 +585,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
     // If the icon is the driver area, then here concat the vehicle type to get the right vehicle chassis icon
     const icon =
-      graphicalElement.icon && graphicalElement.icon.indexOf('DRIVER_AREA') === -1
-        ? graphicalElement.icon
-        : graphicalElement.icon?.concat(
-            '_',
-            this.seatReservations[this.currSelectedDeckIndex].vehicleType,
-          );
+      graphicalElement.icon && graphicalElement.icon.endsWith('DRIVER_AREA')
+        ? graphicalElement.icon?.concat(
+          '_',
+          this.seatReservations[this.currSelectedDeckIndex].vehicleType,
+        )
+        : graphicalElement.icon;
 
     return html` <sbb-seat-reservation-graphic
       style=${styleMap({
