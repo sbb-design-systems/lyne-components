@@ -286,7 +286,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     const COACH_PASSAGE_WIDTH = 1;
     const allElements = coachItem.graphicElements;
     const driverArea = allElements?.find((element: BaseElement) => element.icon === 'DRIVER_AREA');
-    const driverAreaNoVerticalWall = allElements?.find((element: BaseElement) => element.icon === 'DRIVER_AREA_NO_VERTICAL_WALL');
+    const driverAreaNoVerticalWall = allElements?.find(
+      (element: BaseElement) => element.icon === 'DRIVER_AREA_NO_VERTICAL_WALL',
+    );
 
     let borderWidth = driverArea
       ? coachItem.dimension.w - driverArea.dimension.w - COACH_PASSAGE_WIDTH
@@ -585,9 +587,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     const icon =
       graphicalElement.icon && graphicalElement.icon.endsWith('DRIVER_AREA')
         ? graphicalElement.icon?.concat(
-          '_',
-          this.seatReservations[this.currSelectedDeckIndex].vehicleType,
-        )
+            '_',
+            this.seatReservations[this.currSelectedDeckIndex].vehicleType,
+          )
         : graphicalElement.icon;
 
     return html` <sbb-seat-reservation-graphic

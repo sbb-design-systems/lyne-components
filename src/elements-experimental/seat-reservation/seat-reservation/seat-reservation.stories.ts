@@ -5,7 +5,10 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-import { MOCK_GIRUNO_TRAIN, MOCK_TRAIN_LOCOMOTIVE_LAYOUT } from '../common/mapper/seat-reservation-sample-data.ts';
+import {
+  MOCK_GIRUNO_TRAIN,
+  MOCK_TRAIN_LOCOMOTIVE_LAYOUT,
+} from '../common/mapper/seat-reservation-sample-data.ts';
 import { mapRawDataToSeatReservation, type CoachItem, type SeatReservation } from '../common.ts';
 
 import readme from './readme.md?raw';
