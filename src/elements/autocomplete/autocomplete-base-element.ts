@@ -91,6 +91,14 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   public accessor autoSelectActiveOption: boolean = false;
 
   /**
+   * When enabled, the active option is automatically selected on blur.
+   * This is an experimental feature. It might be subject to changes.
+   */
+  @forceType()
+  @property({ attribute: 'auto-select-active-option-on-blur', type: Boolean })
+  public accessor autoSelectActiveOptionOnBlur: boolean = false;
+
+  /**
    * Whether the user is required to make a selection when they're interacting with the
    * autocomplete. If the user moves away from the autocomplete without selecting an option from
    * the list, the value will be reset. If the user opens the panel and closes it without
@@ -107,7 +115,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   @property()
   public accessor position: 'auto' | 'above' | 'below' = 'auto';
 
-  /** Returns the element where autocomplete overlay is attached to. */
+  /** Returns the element where the autocomplete overlay is attached to. */
   public get originElement(): HTMLElement | null {
     return (
       this.origin ??
@@ -126,6 +134,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   protected abstract overlayId: string;
   protected abstract panelRole: string;
   protected activeOption: SbbOptionBaseElement<T> | null = null;
+  protected pendingAutoSelectedOption: SbbOptionBaseElement<T> | null = null;
   private _originResizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,
@@ -159,7 +168,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
   public constructor() {
     super();
-
+    this.addEventListener?.('optionselected', (e: Event) => this.onOptionSelected(e));
     this.addController(
       new SbbPropertyWatcherController(
         this,
@@ -220,6 +229,12 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   public close(): void {
     if (this.state === 'closing' || this.state === 'closed' || !this.dispatchBeforeCloseEvent()) {
       return;
+    }
+
+    // A 'pending selection' is confirmed on panel close
+    if (this.pendingAutoSelectedOption) {
+      this.pendingAutoSelectedOption.selected = true;
+      this._setValueAndDispatchEvents(this.pendingAutoSelectedOption);
     }
 
     this.state = 'closing';
@@ -301,10 +316,17 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.close();
   }
 
-  /** When an option is selected, update the input value and close the autocomplete. */
-  protected onOptionArrowsSelected(activeOption: SbbOptionBaseElement<T>): void {
-    activeOption.selected = true;
-    this._setValueAndDispatchEvents(activeOption);
+  /** @deprecated */
+  protected onOptionArrowsSelected(_activeOption: SbbOptionBaseElement<T>): void {}
+
+  /**
+   * A 'pending selection' sets the option value in the input element without emitting events.
+   * A 'pending selection' is confirmed when the panel closes. Any other user interaction
+   * will reset the pending value.
+   */
+  protected setPendingSelection(activeOption: SbbOptionBaseElement<T>): void {
+    this.pendingAutoSelectedOption = activeOption;
+    this._setInputValue(activeOption);
   }
 
   private _setValueAndDispatchEvents(selectedOption: SbbOptionBaseElement<T>): void {
@@ -312,16 +334,10 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.options
       .filter((option) => option.id !== selectedOption.id && option.selected)
       .forEach((option) => (option.selected = false));
+    this.pendingAutoSelectedOption = null;
 
     if (this.triggerElement) {
-      // Given a value, returns the string that should be shown within the input.
-      const toDisplay = this.displayWith?.(selectedOption.value as T) ?? selectedOption.value;
-
-      // Set the option value
-      // In order to support React onChange event, we have to get the setter and call it.
-      // https://github.com/facebook/react/issues/11600#issuecomment-345813130
-      const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
-      setValue.call(this.triggerElement, toDisplay);
+      this._setInputValue(selectedOption);
 
       // Manually trigger the change events
       this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
@@ -338,6 +354,22 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       );
       this.triggerElement.focus();
     }
+  }
+
+  /** Set the option value within the input element */
+  private _setInputValue(option: SbbOptionBaseElement<T>): void {
+    if (!this.triggerElement) {
+      return;
+    }
+
+    // Given a value, returns the string that should be shown within the input.
+    const toDisplay = this.displayWith?.(option.value as T) ?? option.value;
+
+    // Set the option value
+    // In order to support React onChange event, we have to get the setter and call it.
+    // https://github.com/facebook/react/issues/11600#issuecomment-345813130
+    const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
+    setValue.call(this.triggerElement, toDisplay);
   }
 
   private _handleSlotchange(): void {
@@ -435,6 +467,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
         }
         this._highlightOptions(value);
         this._lastUserInput = value;
+        this.pendingAutoSelectedOption = null;
       },
       { signal: this._triggerAbortController.signal },
     );
@@ -563,6 +596,15 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
         // If the new focus is the autocomplete or inside of it then an option
         // was selected and there is a separate mechanism that closes this instance.
         if (!this.contains(e.relatedTarget as Node)) {
+          if (
+            this.autoSelectActiveOptionOnBlur &&
+            this.activeOption &&
+            this.triggerElement?.value
+          ) {
+            this.activeOption.selected = true;
+            this._setValueAndDispatchEvents(this.activeOption);
+          }
+
           this.close();
         }
       },

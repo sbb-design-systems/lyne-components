@@ -44,11 +44,6 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
     );
   }
 
-  public constructor() {
-    super();
-    this.addEventListener?.('optionselected', (e: Event) => this.onOptionSelected(e));
-  }
-
   protected syncNegative(): void {
     this.querySelectorAll?.<
       SbbDividerElement | SbbAutocompleteGridButtonElement | SbbOptionHintElement
@@ -135,9 +130,14 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
     this.triggerElement?.setAttribute('aria-activedescendant', this.activeOption.id);
     this.activeOption.scrollIntoView({ block: 'nearest' });
 
+    // Moving the active option should not move the input cursor (caret)
+    if (event) {
+      event.preventDefault();
+    }
+
     // If 'autoSelectActiveOption' and is triggered from a keyboard event
     if (this.autoSelectActiveOption && event) {
-      this.onOptionArrowsSelected(this.activeOption);
+      this.setPendingSelection(this.activeOption);
     }
   }
 

@@ -34,6 +34,10 @@ import dtsPlugin from 'vite-plugin-dts';
 import { lightDarkPlugin, statePlugin } from '../tools/postcss/index.ts';
 import globalConfig from '../vite.config.ts';
 
+if (typeof Temporal !== 'object') {
+  await import('temporal-polyfill/global');
+}
+
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 const currentDirectory = fileURLToPath(new URL('./', import.meta.url));
 const distDirectory = join(projectRoot, 'dist');
@@ -834,8 +838,11 @@ function buildNginxConfig(pkg: PackageBuilder): void {
     .join(' ');
 
   const configTemplate = readFileSync(join(projectRoot, '.github/default.conf'), 'utf8');
+  // This is intentionally not the same directory as the docs output
+  const configTarget = join(`${pkg.outDir}-nginx`, 'default.conf');
+  mkdirSync(dirname(configTarget), { recursive: true });
   writeFileSync(
-    join(pkg.outDir, 'default.conf'),
+    configTarget,
     configTemplate.replace(`script-src 'self';`, `script-src 'self' ${scriptHash};`),
     'utf8',
   );

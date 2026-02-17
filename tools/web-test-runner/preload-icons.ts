@@ -17,6 +17,7 @@ const preloadIconList = [
   'arrows-circle-small',
   'arrows-long-right-left-small',
   'arrows-right-left-small',
+  'avatar-train-staff-medium',
   'backpack-medium',
   'battery-level-empty-small',
   'battery-level-high-small',
@@ -88,20 +89,32 @@ const preloadIconList = [
   'reroute',
   'route-circle-start-small',
   'sa-abteilkinderwagen',
+  'sa-ac',
   'sa-b',
   'sa-bz',
   'sa-cc',
   'sa-ci',
   'sa-fl',
   'sa-fz',
+  'sa-ga',
+  'sa-ka',
+  'sa-mf',
+  'sa-mi',
   'sa-nf',
   'sa-r',
+  'sa-rn',
   'sa-rr',
   'sa-rs',
+  'sa-rw',
+  'sa-rz',
+  'sa-sa',
   'sa-tg',
+  'sa-vo',
   'sa-vr',
+  'sa-wc',
   'sa-wl',
   'sa-wr',
+  'sa-wv',
   'sa-z',
   'shopping-cart-small',
   'swisspass-medium',
@@ -165,6 +178,7 @@ export async function preloadIcons(): Promise<PreloadedIcon[]> {
       preloadedIcons.push({ namespace, icon, svg: readFileSync(iconCachePath, 'utf8') });
     } else {
       const iconUrl = `https://icons.app.sbb.ch/${namespace === 'default' ? 'icons' : namespace}/${icon}.svg`;
+      // eslint-disable-next-line no-useless-assignment
       let svg = '';
       try {
         // We want to retry once, as we noticed sometimes the icon downloads are flakey.

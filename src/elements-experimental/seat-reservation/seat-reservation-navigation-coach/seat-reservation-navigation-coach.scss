@@ -5,6 +5,12 @@
 $disabled: '[disabled], :disabled';
 
 :host {
+  // fixes the keyboard focus border which was cut off due to missing navigation service icons
+  display: inline-block;
+  min-height: sbb-sr-functions.sr-px-to-rem(
+    44
+  ); // default button height (36px) + 2 * 4px focus outline offset
+
   --sbb-seat-reservation-navigation-travelclass-spacing: 10;
   --sbb-seat-reservation-navigation-btn-border-width-default: 1;
   --sbb-seat-reservation-navigation-btn-border-width: var(
