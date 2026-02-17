@@ -91,6 +91,14 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   public accessor autoSelectActiveOption: boolean = false;
 
   /**
+   * When enabled, the active option is automatically selected on blur.
+   * This is an experimental feature. It might be subject to changes.
+   */
+  @forceType()
+  @property({ attribute: 'auto-select-active-option-on-blur', type: Boolean })
+  public accessor autoSelectActiveOptionOnBlur: boolean = false;
+
+  /**
    * Whether the user is required to make a selection when they're interacting with the
    * autocomplete. If the user moves away from the autocomplete without selecting an option from
    * the list, the value will be reset. If the user opens the panel and closes it without
@@ -107,7 +115,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   @property()
   public accessor position: 'auto' | 'above' | 'below' = 'auto';
 
-  /** Returns the element where autocomplete overlay is attached to. */
+  /** Returns the element where the autocomplete overlay is attached to. */
   public get originElement(): HTMLElement | null {
     return (
       this.origin ??
@@ -588,6 +596,15 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
         // If the new focus is the autocomplete or inside of it then an option
         // was selected and there is a separate mechanism that closes this instance.
         if (!this.contains(e.relatedTarget as Node)) {
+          if (
+            this.autoSelectActiveOptionOnBlur &&
+            this.activeOption &&
+            this.triggerElement?.value
+          ) {
+            this.activeOption.selected = true;
+            this._setValueAndDispatchEvents(this.activeOption);
+          }
+
           this.close();
         }
       },

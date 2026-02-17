@@ -142,12 +142,14 @@ export class SbbFocusTrapController implements ReactiveController {
 
   /** Get the last tabbable element from a DOM subtree (inclusive). */
   private _getLastTabbableElement(root: HTMLElement): HTMLElement | null {
+    let result: HTMLElement | null = null;
+
     if (
       root !== this._host &&
       interactivityChecker.isFocusable(root) &&
       interactivityChecker.isTabbable(root)
     ) {
-      return root;
+      result = root;
     }
 
     const children = root.shadowRoot
@@ -168,7 +170,7 @@ export class SbbFocusTrapController implements ReactiveController {
       }
     }
 
-    return null;
+    return result;
   }
 
   private _untrap(): void {
