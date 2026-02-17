@@ -88,10 +88,10 @@ const i18nObjects: I18nObjects = {
     it: ' con compartimento di _param0_',
   },
   NAVIGATE_COACH_BLOCKED: {
-    de: 'Zugabteil _param0_ ist nicht betretbar',
-    en: 'No access to train compartment _param0_',
-    fr: 'Le compartiment _param0_ n’est pas accessible',
-    it: 'Il compartimento del treno _param0_ non è accessibile',
+    de: 'Lokomotive',
+    en: 'Locomotive',
+    fr: 'Locomotive',
+    it: 'Locomotiva',
   },
   SEAT_RESERVATION_NAVIGATION: {
     de: 'Sitzplatzreservierungsnavigation',
