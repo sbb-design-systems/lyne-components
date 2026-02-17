@@ -33409,4 +33409,3 @@ export const MOCK_TRAIN_LOCOMOTIVE_LAYOUT = {
     },
   ],
 };
-
