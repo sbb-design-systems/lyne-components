@@ -169,21 +169,28 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _renderTravelDirection(): TemplateResult | null {
-    if (!this.travelDirection || this.travelDirection === 'UNDEFINED') return null;
+    if (!this.travelDirection || this.travelDirection === 'NONE') return null;
 
     const labelText = getI18nSeatReservation(
       'SEAT_RESERVATION_TRAVEL_DIRECTION',
       this._language.current,
     );
 
-    return html`<div
-      class="sbb-sr-travel-direction-wrapper"
-      data-travel-direction="${this.travelDirection}"
-    >
+    const arrowDirection = this.alignVertical
+      ? this.travelDirection === 'RIGHT'
+        ? 'down'
+        : 'up'
+      : this.travelDirection === 'RIGHT'
+        ? 'right'
+        : 'left';
+
+    const iconName = `arrow-${arrowDirection}-small`;
+
+    return html`<div class="sbb-sr-travel-direction-wrapper">
       <div class="sbb-sr__travel-direction--arrow">
-        <sbb-icon slot="icon" name="arrow-left-small"></sbb-icon>
+        <sbb-icon slot="icon" name="${iconName}"></sbb-icon>
       </div>
-      <div class="sbb-sr__travel-direction--label" aria-label="${labelText}">${labelText}</div>
+      <div class="sbb-sr__travel-direction--label">${labelText}</div>
     </div>`;
   }
 

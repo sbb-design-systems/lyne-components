@@ -61,7 +61,7 @@ export class SeatReservationBaseElement extends LitElement {
 
   /** Displays an arrow showing what direction does train drive*/
   @property({ attribute: 'travel-direction', type: String })
-  public accessor travelDirection: TravelDirection = 'UNDEFINED';
+  public accessor travelDirection: TravelDirection = 'NONE';
 
   /** The seat reservation navigation can be toggled by this property */
   @forceType()

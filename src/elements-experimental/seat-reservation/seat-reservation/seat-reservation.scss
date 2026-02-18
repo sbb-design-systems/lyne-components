@@ -115,19 +115,6 @@ $scrollbar-height: 16px;
   .sbb-sr-travel-direction-wrapper {
     width: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-height));
     margin-block-start: sbb-sr-functions.sr-px-to-rem(4);
-    gap: 0;
-  }
-
-  .sbb-sr-travel-direction-wrapper[data-travel-direction='LEFT'] {
-    sbb-icon {
-      rotate: 90deg;
-    }
-  }
-
-  .sbb-sr-travel-direction-wrapper[data-travel-direction='RIGHT'] {
-    sbb-icon {
-      rotate: 270deg;
-    }
   }
 }
 
@@ -157,19 +144,13 @@ $scrollbar-height: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: var(--sbb-text-font-size-s);
-  gap: sbb-sr-functions.sr-px-to-rem(8);
+  column-gap: sbb-sr-functions.sr-px-to-rem(4);
   margin-block: sbb-sr-functions.sr-px-to-rem(8) sbb-sr-functions.sr-px-to-rem(4);
+  font-size: var(--sbb-text-font-size-s);
 
   .sbb-sr__travel-direction--arrow {
     display: flex;
     align-items: center;
-  }
-}
-
-.sbb-sr-travel-direction-wrapper[data-travel-direction='RIGHT'] {
-  sbb-icon {
-    rotate: 180deg;
   }
 }
 
