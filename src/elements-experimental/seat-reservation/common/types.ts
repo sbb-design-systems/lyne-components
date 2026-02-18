@@ -34,6 +34,11 @@ export type NavigationCoachItem = {
   isDriverArea: boolean;
   // holds information about whether a coach on the left or right side has a driver area
   driverAreaSide?: Record<string, boolean>;
+  // driverAreaElements which can be used throughout the seat-reservation because they wont change
+  driverAreaElements: {
+    driverArea: BaseElement | undefined;
+    driverAreaNoVerticalWall: BaseElement | undefined;
+  }
 };
 
 /** Extends BaseElement with seat-specific data. */

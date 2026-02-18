@@ -907,6 +907,7 @@ export class SeatReservationBaseElement extends LitElement {
     }
     return null;
   }
+
   /**
    * To get the correct closest place of current pressed key and the current selected place,
    * we have to investigate the coordinates of each place to find the closest place of the currSelectedPlaceElementId.
@@ -1346,6 +1347,7 @@ export class SeatReservationBaseElement extends LitElement {
       }),
     );
   }
+
   /**
    * All selected places will be reset or the currentSelectedPlace was given, then we reset all except currentSelectedPlace
    * @param reservationPlaceSelections
@@ -1466,6 +1468,7 @@ export class SeatReservationBaseElement extends LitElement {
           isDriverArea: coach.places ? coach.places.length === 0 : true,
           driverAreaSide: this._prepareDriverAreaSideNavigation(coach),
           freePlaces: this.getAvailableFreePlacesNumFromCoach(places),
+          driverAreaElements: this._setDriverAreasElements(coach),
         });
       });
     }
@@ -1646,5 +1649,35 @@ export class SeatReservationBaseElement extends LitElement {
           element.position.x === 0 || element.position.x + element.dimension.w >= coachItemWidth,
       ) ?? false
     );
+  }
+
+  /**
+   * collect information about the driverAreas for one coach
+   * @param coachItem
+   * @private
+   */
+  private _setDriverAreasElements(coachItem: CoachItem): {
+    driverArea: BaseElement | undefined;
+    driverAreaNoVerticalWall: BaseElement | undefined
+  } {
+    if (coachItem) {
+      const driverArea = coachItem.graphicElements?.find(
+        (element: BaseElement) => element.icon === 'DRIVER_AREA',
+      );
+
+      const driverAreaNoVerticalWall = coachItem.graphicElements?.find(
+        (element: BaseElement) => element.icon === 'DRIVER_AREA_NO_VERTICAL_WALL',
+      );
+
+      return {
+        driverArea: driverArea,
+        driverAreaNoVerticalWall: driverAreaNoVerticalWall,
+      };
+    }
+
+    return {
+      driverArea: undefined,
+      driverAreaNoVerticalWall: undefined
+    };
   }
 }

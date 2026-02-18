@@ -244,7 +244,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     placeCoachDeckIndex: number,
   ): TemplateResult {
     const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
-    const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem);
+    const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem, coachIndex);
 
     return html`<sbb-seat-reservation-scoped
       style=${styleMap({
@@ -252,7 +252,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         '--sbb-seat-reservation-scoped-height': calculatedCoachDimension.h,
       })}
     >
-      ${this._getRenderedCoachBorders(coachItem)}
+      ${this._getRenderedCoachBorders(coachItem, coachIndex)}
       ${this._getRenderedGraphicalElements(
         coachItem.graphicElements || [],
         coachItem.dimension,
@@ -280,15 +280,16 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    * @returns Returns the border graphic (COACH_BORDER_MIDDLE) of a coach with calculated border gap and coach width,
    * depending on whether the coach is with a driver area or without.
    */
-  private _getRenderedCoachBorders(coachItem: CoachItem): TemplateResult | null {
+  private _getRenderedCoachBorders(
+    coachItem: CoachItem,
+    coachIndex: number,
+  ): TemplateResult | null {
     if (!coachItem.graphicElements) return null;
 
     const COACH_PASSAGE_WIDTH = 1;
-    const allElements = coachItem.graphicElements;
-    const driverArea = allElements?.find((element: BaseElement) => element.icon === 'DRIVER_AREA');
-    const driverAreaNoVerticalWall = allElements?.find(
-      (element: BaseElement) => element.icon === 'DRIVER_AREA_NO_VERTICAL_WALL',
-    );
+    const driverArea = this.coachNavData[coachIndex]?.driverAreaElements.driverArea;
+    const driverAreaNoVerticalWall =
+      this.coachNavData[coachIndex]?.driverAreaElements.driverAreaNoVerticalWall;
 
     let borderWidth = driverArea
       ? coachItem.dimension.w - driverArea.dimension.w - COACH_PASSAGE_WIDTH
@@ -727,7 +728,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       .forEach((popover) => popover.close());
   }
 
-  private _getDescriptionTableCoach(coachItem: CoachItem): string {
+  private _getDescriptionTableCoach(coachItem: CoachItem, coachIndex: number): string {
+    //show different table caption for screenreader if it is a locomotive
+    if (this.coachNavData[coachIndex].driverAreaElements.driverAreaNoVerticalWall) {
+      return getI18nSeatReservation('NAVIGATE_COACH_BLOCKED', this._language.current);
+    }
+
     if (!coachItem.places?.length) {
       return getI18nSeatReservation('COACH_BLOCKED_TABLE_CAPTION', this._language.current, [
         coachItem.id,
