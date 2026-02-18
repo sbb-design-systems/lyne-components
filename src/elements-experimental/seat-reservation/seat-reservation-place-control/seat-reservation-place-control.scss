@@ -13,11 +13,41 @@
     fill: var(--sbb-seat-reservation-place-control-#{$state}-backrest-background-#{$event});
   }
 
+  ::part(svg-icon) {
+    fill: var(--sbb-seat-reservation-place-control-#{$state}-text);
+  }
+
   .sbb-sr-place-ctrl__text {
     // dont use transparent or remove background, otherwise there are a11y violations regarding
     // insufficient color contrast
     background-color: var(--sbb-seat-reservation-place-control-#{$state}-background-#{$event});
     color: var(--sbb-seat-reservation-place-control-#{$state}-text);
+  }
+
+  @if $state != 'selected' {
+    @include sbb.if-forced-colors {
+      ::part(svg-place) {
+        fill: var(
+          --sbb-seat-reservation-place-control-#{$state}-background-high-contrast
+        ) !important;
+      }
+
+      ::part(svg-backrest) {
+        fill: var(--sbb-seat-reservation-place-control-#{$state}-backrest-high-contrast) !important;
+      }
+
+      ::part(svg-icon) {
+        fill: var(--sbb-seat-reservation-place-control-#{$state}-high-contrast-icon) !important;
+      }
+
+      .sbb-sr-place-ctrl__text {
+        forced-color-adjust: none;
+        background-color: var(
+          --sbb-seat-reservation-place-control-#{$state}-background-high-contrast
+        ) !important;
+        color: var(--sbb-seat-reservation-place-control-#{$state}-high-contrast-text) !important;
+      }
+    }
   }
 }
 
@@ -97,13 +127,13 @@ $disabled: '.sbb-reservation-place-control--disabled';
   );
 
   // Color definitions for high-contrast-mode
-  --sbb-seat-reservation-place-control-high-contrast-free-backrest: CanvasText;
-  --sbb-seat-reservation-place-control-high-contrast-free-background: Canvas;
-  --sbb-seat-reservation-place-control-high-contrast-free-text: ButtonText;
-  --sbb-seat-reservation-place-control-high-contrast-blocked-backrest: GrayText;
-  --sbb-seat-reservation-place-control-high-contrast-blocked-background: Canvas;
-  --sbb-seat-reservation-place-control-high-contrast-blocked-text: GrayText;
-  --sbb-seat-reservation-place-control-high-contrast-blocked-icon: GrayText;
+  --sbb-seat-reservation-place-control-free-backrest-high-contrast: CanvasText;
+  --sbb-seat-reservation-place-control-free-background-high-contrast: Canvas;
+  --sbb-seat-reservation-place-control-free-high-contrast-text: ButtonText;
+  --sbb-seat-reservation-place-control-allocated-backrest-high-contrast: GrayText;
+  --sbb-seat-reservation-place-control-allocated-background-high-contrast: Canvas;
+  --sbb-seat-reservation-place-control-allocated-high-contrast-text: GrayText;
+  --sbb-seat-reservation-place-control-allocated-high-contrast-icon: GrayText;
 
   width: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-width));
   height: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-height));
@@ -149,51 +179,19 @@ $disabled: '.sbb-reservation-place-control--disabled';
   @include sbb.if-forced-colors {
     forced-color-adjust: none;
     background-color: var(
-      --sbb-seat-reservation-place-control-high-contrast-free-background
+      --sbb-seat-reservation-place-control-free-background-high-contrast
     ) !important;
-    color: var(--sbb-seat-reservation-place-control-high-contrast-free-text) !important;
+    color: var(--sbb-seat-reservation-place-control-free-high-contrast-text) !important;
 
     &--state-allocated,
     &--state-restricted {
       forced-color-adjust: none;
-      color: var(--sbb-seat-reservation-place-control-high-contrast-blocked-text) !important;
+      color: var(--sbb-seat-reservation-place-control-allocated-high-contrast-text) !important;
     }
   }
 }
 
 .sbb-sr-place-ctrl {
-  @include sbb.if-forced-colors {
-    &--state-free {
-      ::part(svg-place) {
-        fill: var(--sbb-seat-reservation-place-control-high-contrast-free-background) !important;
-      }
-
-      ::part(svg-backrest) {
-        fill: var(--sbb-seat-reservation-place-control-high-contrast-free-backrest) !important;
-      }
-    }
-
-    &--state-allocated,
-    &--state-restricted {
-      ::part(svg-place) {
-        fill: var(--sbb-seat-reservation-place-control-high-contrast-blocked-background) !important;
-      }
-
-      ::part(svg-backrest) {
-        fill: var(--sbb-seat-reservation-place-control-high-contrast-blocked-backrest) !important;
-      }
-
-      ::part(svg-icon) {
-        fill: var(--sbb-seat-reservation-place-control-high-contrast-blocked-icon) !important;
-      }
-
-      .sbb-sr-place-ctrl__text {
-        forced-color-adjust: none;
-        color: var(--sbb-seat-reservation-place-control-high-contrast-blocked-text) !important;
-      }
-    }
-  }
-
   $root: &;
 
   width: max-content;
