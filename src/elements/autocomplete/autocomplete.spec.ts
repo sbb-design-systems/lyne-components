@@ -432,6 +432,7 @@ describe(`sbb-autocomplete`, () => {
         expect(inputEventSpy.count).to.be.equal(1);
         expect(inputAutocompleteSpy.count).to.be.equal(1);
         expect(openSpy.count).to.be.equal(1);
+        expect(document.activeElement?.localName).not.to.be.equal('input'); // Ensure the focus is not trapped
       });
 
       it('should reset pending selection on user input', async () => {
@@ -556,6 +557,7 @@ describe(`sbb-autocomplete`, () => {
         expect(inputEventSpy.count).to.be.equal(1);
         expect(inputAutocompleteSpy.count).to.be.equal(1);
         expect(openSpy.count).to.be.equal(1);
+        expect(document.activeElement?.localName).not.to.be.equal('input'); // Ensure the focus is not trapped
       });
 
       it('should do nothing if input is empty', async () => {
