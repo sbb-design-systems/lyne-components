@@ -1,0 +1,13 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-bar-container-background-band-height: 7.25rem; // From figma specs
+  --sbb-bar-container-background-color: var(--sbb-background-color-1);
+  --sbb-bar-container-padding-block: var(--sbb-spacing-responsive-s) var(--sbb-spacing-responsive-l);
+}
+
+@mixin base-breakpoint-large {
+  --sbb-bar-container-background-band-height: 8.5rem;
+}
