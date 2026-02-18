@@ -27,24 +27,22 @@
   @if $state != 'selected' {
     @include sbb.if-forced-colors {
       ::part(svg-place) {
-        fill: var(
-          --sbb-seat-reservation-place-control-#{$state}-background-high-contrast
-        ) !important;
+        fill: var(--sbb-seat-reservation-place-control-#{$state}-background-high-contrast);
       }
 
       ::part(svg-backrest) {
-        fill: var(--sbb-seat-reservation-place-control-#{$state}-backrest-high-contrast) !important;
+        fill: var(--sbb-seat-reservation-place-control-#{$state}-backrest-high-contrast);
       }
 
       ::part(svg-icon) {
-        fill: var(--sbb-seat-reservation-place-control-#{$state}-high-contrast-icon) !important;
+        fill: var(--sbb-seat-reservation-place-control-#{$state}-high-contrast-icon);
       }
 
       .sbb-sr-place-ctrl__text {
         forced-color-adjust: none;
         background-color: var(
           --sbb-seat-reservation-place-control-#{$state}-background-high-contrast
-        ) !important;
+        );
         color: var(--sbb-seat-reservation-place-control-#{$state}-high-contrast-text) !important;
       }
     }
