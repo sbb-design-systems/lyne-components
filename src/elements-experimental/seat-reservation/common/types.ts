@@ -38,7 +38,7 @@ export type NavigationCoachItem = {
   driverAreaElements: {
     driverArea: BaseElement | undefined;
     driverAreaNoVerticalWall: BaseElement | undefined;
-  }
+  };
 };
 
 /** Extends BaseElement with seat-specific data. */

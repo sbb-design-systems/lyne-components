@@ -6,9 +6,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 import { MOCK_GIRUNO_TRAIN } from '../common/mapper/sample-data/seat-reservation-sample-data-giruno.ts';
-import {
-  MOCK_TRAIN_LOCOMOTIVE_LAYOUT,
-} from '../common/mapper/sample-data/seat-reservation-sample-data-others.ts';
+import { MOCK_TRAIN_LOCOMOTIVE_LAYOUT } from '../common/mapper/sample-data/seat-reservation-sample-data-others.ts';
 import { mapRawDataToSeatReservation, type CoachItem, type SeatReservation } from '../common.ts';
 
 import readme from './readme.md?raw';

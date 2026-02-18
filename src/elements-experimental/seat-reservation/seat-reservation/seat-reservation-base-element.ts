@@ -1658,7 +1658,7 @@ export class SeatReservationBaseElement extends LitElement {
    */
   private _setDriverAreasElements(coachItem: CoachItem): {
     driverArea: BaseElement | undefined;
-    driverAreaNoVerticalWall: BaseElement | undefined
+    driverAreaNoVerticalWall: BaseElement | undefined;
   } {
     if (coachItem) {
       const driverArea = coachItem.graphicElements?.find(
@@ -1677,7 +1677,7 @@ export class SeatReservationBaseElement extends LitElement {
 
     return {
       driverArea: undefined,
-      driverAreaNoVerticalWall: undefined
+      driverAreaNoVerticalWall: undefined,
     };
   }
 }
