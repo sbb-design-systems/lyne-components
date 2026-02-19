@@ -3,9 +3,11 @@ import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/test
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
+import type { CoachItemDetails } from '../common/types.ts';
+
 import type { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.component.ts';
+
 import './seat-reservation-navigation-coach.component.ts';
-import type { CoachItemDetails } from '@sbb-esta/lyne-elements-experimental/seat-reservation/common/types.js';
 
 describe(`sbb-seat-reservation-navigation-coach`, () => {
   describe('renders a navigation coach', async () => {
