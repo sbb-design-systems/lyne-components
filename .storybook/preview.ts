@@ -14,6 +14,10 @@ import leanTheme from '../src/elements/core/styles/lean-theme.scss?inline';
 import offBrandTheme from '../src/elements/core/styles/off-brand-theme.scss?inline';
 import safetyTheme from '../src/elements/core/styles/safety-theme.scss?inline';
 
+if (typeof Temporal !== 'object') {
+  await import('temporal-polyfill/global');
+}
+
 const originalStyleSheet = Array.from(document.styleSheets).find((stylesheet) =>
   Array.from(stylesheet.cssRules).find((value) =>
     // We assume that we target the standard theme file if this variable is included.
