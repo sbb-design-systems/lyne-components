@@ -15,11 +15,11 @@ $open-anim-opacity-to: 1;
   --sbb-expansion-panel-border-width: var(--sbb-border-width-1x);
   --sbb-expansion-panel-border-block-start-color: var(--sbb-expansion-panel-border-color);
   --sbb-expansion-panel-border-block-start-width: var(--sbb-expansion-panel-border-width);
-  --sbb-expansion-panel-content-visibility: hidden;
   --sbb-expansion-panel-start-end-radius: var(--sbb-expansion-panel-border-radius);
   --sbb-expansion-panel-start-start-radius: var(--sbb-expansion-panel-border-radius);
   --sbb-expansion-panel-end-end-radius: var(--sbb-expansion-panel-border-radius);
   --sbb-expansion-panel-end-start-radius: var(--sbb-expansion-panel-border-radius);
+  --_sbb-expansion-panel-display: grid;
 
   display: block;
   background-color: var(--sbb-expansion-panel-background-color);
@@ -52,7 +52,7 @@ $open-anim-opacity-to: 1;
 }
 
 :host([expanded]) {
-  --sbb-expansion-panel-content-visibility: visible;
+  --_sbb-expansion-panel-display-expanded: var(--_sbb-expansion-panel-display);
 }
 
 :host(:state(accordion):state(accordion-first)) {
@@ -121,8 +121,7 @@ $open-anim-opacity-to: 1;
 }
 
 .sbb-expansion-panel__content-wrapper {
-  display: grid;
-  visibility: var(--sbb-expansion-panel-content-visibility);
+  display: var(--_sbb-expansion-panel-display-expanded, none);
   grid-template-rows: #{$open-anim-rows-from};
   opacity: #{$open-anim-opacity-from};
 
@@ -140,6 +139,8 @@ $open-anim-opacity-to: 1;
   }
 
   :host(:state(state-closing)) & {
+    display: var(--_sbb-expansion-panel-display);
+    visibility: hidden;
     animation-name: close;
     animation-duration: var(--sbb-expansion-panel-animation-duration);
     animation-timing-function: var(--sbb-animation-easing);
