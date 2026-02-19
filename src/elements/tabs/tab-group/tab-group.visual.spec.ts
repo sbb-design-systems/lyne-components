@@ -215,5 +215,36 @@ describe(`sbb-tab-group`, () => {
         }),
       );
     });
+
+    it(
+      'tab with display flex',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <style>
+            sbb-tab.flex-tab {
+              display: flex;
+            }
+          </style>
+          <sbb-tab-group>
+            <sbb-tab-label>Tab 1</sbb-tab-label>
+            <sbb-tab class="flex-tab">
+              <article>
+                First flex item - Diam maecenas ultricies mi eget mauris pharetra et ultrices neque
+                ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae.
+              </article>
+              <article>
+                Second flex item - Proin sagittis nisl rhoncus mattis rhoncus urna neque viverra
+                justo nec ultrices dui sapien eget mi.
+              </article>
+            </sbb-tab>
+
+            <sbb-tab-label>Tab 2</sbb-tab-label>
+            <sbb-tab class="flex-tab">
+              <article>Should be hidden</article>
+            </sbb-tab>
+          </sbb-tab-group>
+        `);
+      }),
+    );
   });
 });
