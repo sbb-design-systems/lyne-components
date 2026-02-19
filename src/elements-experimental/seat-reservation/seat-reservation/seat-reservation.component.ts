@@ -16,7 +16,7 @@ import type {
   BaseElement,
   PlaceSelection,
   SeatReservation,
-  NavigationCoachItem,
+  CoachItemDetails,
 } from '../common.ts';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.ts';
@@ -145,7 +145,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       btnDisabled = false;
     } else if (
       btnDirection == 'DIRECTION_RIGHT' &&
-      this.selectedCoachIndex < this.coachNavData.length - 1
+      this.selectedCoachIndex < this.coachItemDetails.length - 1
     ) {
       btnDisabled = false;
     }
@@ -180,24 +180,18 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             this._language.current,
           )}"
         >
-          ${this.coachNavData.map((navigationCoach: NavigationCoachItem, index: number) => {
+          ${this.coachItemDetails.map((coachItemDetails: CoachItemDetails, index: number) => {
             return html`<li>
               <sbb-seat-reservation-navigation-coach
                 @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
                 @focuscoach=${() => this._onFocusNavCoach()}
                 @keyup=${(evt: KeyboardEvent) => this.onKeyNavigationNavCoachButton(evt, index)}
                 index="${index}"
-                coach-id="${navigationCoach.id}"
-                .freePlacesByType="${navigationCoach.freePlaces}"
                 .selected=${this.selectedCoachIndex === index}
                 .focused=${this.focusedCoachIndex === index}
                 .hovered=${this.hoveredCoachIndex === index}
                 .nativeFocusActive=${this.hasSeatReservationNativeFocus}
-                .propertyIds="${navigationCoach.propertyIds}"
-                .travelClass="${navigationCoach.travelClass}"
-                ?driver-area="${navigationCoach.isDriverArea}"
-                ?first="${navigationCoach?.driverAreaSide?.left}"
-                ?last="${navigationCoach?.driverAreaSide?.right}"
+                .coachItemDetails="${coachItemDetails}"
                 ?vertical="${this.alignVertical}"
                 ?showTitleInfo="${this.showTitleInfo}"
               >
@@ -245,7 +239,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     placeCoachDeckIndex: number,
   ): TemplateResult {
     const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
-    const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem, coachIndex);
+    const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem);
 
     return html`<sbb-seat-reservation-scoped
       style=${styleMap({
@@ -288,9 +282,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     if (!coachItem.graphicElements) return null;
 
     const COACH_PASSAGE_WIDTH = 1;
-    const driverArea = this.coachNavData[coachIndex]?.driverAreaElements.driverArea;
+    const driverArea = this.coachItemDetails[coachIndex]?.driverAreaElements.driverArea;
     const driverAreaNoVerticalWall =
-      this.coachNavData[coachIndex]?.driverAreaElements.driverAreaNoVerticalWall;
+      this.coachItemDetails[coachIndex]?.driverAreaElements.driverAreaNoVerticalWall;
 
     let borderWidth = driverArea
       ? coachItem.dimension.w - driverArea.dimension.w - COACH_PASSAGE_WIDTH
@@ -730,9 +724,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       .forEach((popover) => popover.close());
   }
 
-  private _getDescriptionTableCoach(coachItem: CoachItem, coachIndex: number): string {
+  private _getDescriptionTableCoach(coachItem: CoachItem): string {
     //show different table caption for screenreader if it is a locomotive
-    if (this.coachNavData[coachIndex].driverAreaElements.driverAreaNoVerticalWall) {
+    if (coachItem.type === 'LOCOMOTIVE_COACH') {
       return getI18nSeatReservation('NAVIGATE_COACH_BLOCKED', this._language.current);
     }
 
