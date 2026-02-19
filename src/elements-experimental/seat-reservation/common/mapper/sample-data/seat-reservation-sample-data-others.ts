@@ -41,7 +41,7 @@ export const MOCK_TRAIN_LOCOMOTIVE_LAYOUT = {
       ],
       travelClass: ['FIRST'],
       propertyIds: [],
-      type: 'LOCOMOTIVE_COACH'
+      type: 'LOCOMOTIVE_COACH',
     },
     {
       id: '10',
@@ -907,7 +907,7 @@ export const MOCK_TRAIN_LOCOMOTIVE_LAYOUT = {
       ],
       travelClass: ['FIRST'],
       propertyIds: [],
-      type: 'LOCOMOTIVE_COACH'
+      type: 'LOCOMOTIVE_COACH',
     },
     {
       id: '9',

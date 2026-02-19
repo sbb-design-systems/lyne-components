@@ -1078,7 +1078,10 @@ export class SeatReservationBaseElement extends LitElement {
         this.focusedCoachIndex = newFocusableIndex;
       }
       // If we tab next and the current selected nav coach is the last element, so we have to focus (jump) directly to the right nav direction button
-      else if (tabDirection === 'NEXT_TAB' && newFocusableIndex === this.coachItemDetails.length - 1) {
+      else if (
+        tabDirection === 'NEXT_TAB' &&
+        newFocusableIndex === this.coachItemDetails.length - 1
+      ) {
         this.unfocusPlaceElement();
         this.focusedCoachIndex = -1;
         const btnRightDirection = this.shadowRoot?.getElementById(
@@ -1670,9 +1673,12 @@ export class SeatReservationBaseElement extends LitElement {
         (element: BaseElement) => element.icon === 'DRIVER_AREA',
       );
 
-      const driverAreaNoVerticalWall = coachItem.type === 'LOCOMOTIVE_COACH' ? coachItem.graphicElements?.find(
-        (element: BaseElement) => element.icon === 'DRIVER_AREA_NO_VERTICAL_WALL',
-      ) : undefined;
+      const driverAreaNoVerticalWall =
+        coachItem.type === 'LOCOMOTIVE_COACH'
+          ? coachItem.graphicElements?.find(
+              (element: BaseElement) => element.icon === 'DRIVER_AREA_NO_VERTICAL_WALL',
+            )
+          : undefined;
 
       return {
         driverArea: driverArea,

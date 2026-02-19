@@ -163,7 +163,6 @@ export const VerticalFirstClass: StoryObj = {
   },
 };
 
-
 const meta: Meta = {
   decorators: [
     withActions as Decorator,
