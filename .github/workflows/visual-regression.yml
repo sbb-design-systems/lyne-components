@@ -15,21 +15,6 @@ env:
   IMAGE_REPO_VISUAL_REGRESSION: ghcr.io/sbb-design-systems/lyne-components/visual-regression
 
 jobs:
-  remove-label:
-    runs-on: ubuntu-slim
-    if: github.event_name == 'pull_request'
-    permissions:
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v4
-      - name: Update label
-        # This label is used for filtering deployments in ArgoCD.
-        # At the start of the workflow, we remove the container available labels
-        # which will be re-added after the Secure workflow.
-        run: gh issue edit ${{ github.event.number }} --remove-label "diff-available"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   setup:
     runs-on: ubuntu-latest
     steps:
