@@ -180,7 +180,7 @@ class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
    * Mainly used to cover cases where the setter is called before the radios are loaded
    */
   private _updateRadioState(): void {
-    if (this._fallbackValue) {
+    if (this._fallbackValue != null) {
       // eslint-disable-next-line no-self-assign
       this.value = this.value;
     }
