@@ -519,6 +519,14 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       elementMounting = 'lower-border';
     }
 
+    // TIMO-45830
+    // If area elements are located at the border of coach,
+    // we have to manually modify the position and height of the area element,
+    // so that we get a gap from the visuel coach border
+    if (elementMounting !== 'free') {
+      calculatedPosition.y += elementMounting === 'upper-border' ? 2 : 1;
+      calculatedDimension.h -= 3;
+    }
     return html`
       <sbb-seat-reservation-area
         id="${triggerId}"
