@@ -15,7 +15,7 @@ import type {
   CoachNumberOfFreePlaces,
   ElementDimension,
   ElementPosition,
-  NavigationCoachItem,
+  CoachItemDetails,
   Place,
   PlaceSelection,
   PlaceTravelClass,
@@ -112,7 +112,7 @@ export class SeatReservationBaseElement extends LitElement {
   protected gapBetweenCoachDecks = 48;
   // Describes the fix width of coach navigation button
   protected coachNavButtonDim: number = 0;
-  protected coachNavData: NavigationCoachItem[] = [];
+  protected coachItemDetails: CoachItemDetails[] = [];
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
   protected maxCalcCoachesWidth: number = 0;
   protected scrollCoachesAreaWidth: number = 0;
@@ -240,7 +240,7 @@ export class SeatReservationBaseElement extends LitElement {
       this._initEmptyCoachDeckOffsets();
     }
 
-    this._prepareNavigationCoachData();
+    this._prepareCoachItemDetailsData();
   }
 
   /** Init scroll event handling for coach navigation */
@@ -397,7 +397,7 @@ export class SeatReservationBaseElement extends LitElement {
           if (
             !this.currSelectedPlace ||
             !pressedShiftTab ||
-            this.coachNavData[currTabIndex].isDriverArea ||
+            this.coachItemDetails[currTabIndex].isDriverArea ||
             this.focusedCoachIndex == -1
           ) {
             this.focusedCoachIndex = currTabIndex;
@@ -508,8 +508,8 @@ export class SeatReservationBaseElement extends LitElement {
 
     // For DriverArea or Empty coach (no places), no place is selectable, so we return directly
     if (
-      this.coachNavData[this.currSelectedCoachIndex] &&
-      this.coachNavData[this.currSelectedCoachIndex].isDriverArea
+      this.coachItemDetails[this.currSelectedCoachIndex] &&
+      this.coachItemDetails[this.currSelectedCoachIndex].isDriverArea
     ) {
       this._setFocusToSelectedCoachGrid();
       return;
@@ -1073,7 +1073,7 @@ export class SeatReservationBaseElement extends LitElement {
         this.focusedCoachIndex = newFocusableIndex;
       }
       // If we tab next and the current selected nav coach is the last element, so we have to focus (jump) directly to the right nav direction button
-      else if (tabDirection === 'NEXT_TAB' && newFocusableIndex === this.coachNavData.length - 1) {
+      else if (tabDirection === 'NEXT_TAB' && newFocusableIndex === this.coachItemDetails.length - 1) {
         this.unfocusPlaceElement();
         this.focusedCoachIndex = -1;
         const btnRightDirection = this.shadowRoot?.getElementById(
@@ -1438,12 +1438,12 @@ export class SeatReservationBaseElement extends LitElement {
    *    - class (first, second, any)
    *    - whether there is a driver area left or right
    * */
-  private _prepareNavigationCoachData(): void {
+  private _prepareCoachItemDetailsData(): void {
     if (this.seatReservations) {
       const lowerDeck: CoachItem[] =
         this.seatReservations[this.seatReservations.length - 1].coachItems;
 
-      this.coachNavData = [];
+      this.coachItemDetails = [];
 
       lowerDeck.forEach((coach, index) => {
         const travelClasses: PlaceTravelClass[] = [];
@@ -1461,7 +1461,7 @@ export class SeatReservationBaseElement extends LitElement {
             places.push(...(coach.places ? coach.places : []));
           });
 
-        this.coachNavData.push({
+        this.coachItemDetails.push({
           id: coach.id,
           travelClass: this._prepareTravelClassNavigation(travelClasses),
           propertyIds: this._prepareServiceIconsNavigation(propertyIds),
@@ -1665,9 +1665,9 @@ export class SeatReservationBaseElement extends LitElement {
         (element: BaseElement) => element.icon === 'DRIVER_AREA',
       );
 
-      const driverAreaNoVerticalWall = coachItem.graphicElements?.find(
+      const driverAreaNoVerticalWall = coachItem.type === 'LOCOMOTIVE_COACH' ? coachItem.graphicElements?.find(
         (element: BaseElement) => element.icon === 'DRIVER_AREA_NO_VERTICAL_WALL',
-      );
+      ) : undefined;
 
       return {
         driverArea: driverArea,

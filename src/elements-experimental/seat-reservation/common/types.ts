@@ -20,8 +20,8 @@ export type CoachItem = {
   propertyIds?: string[];
 };
 
-/** Describes a coach (wagon) in the navigation. */
-export type NavigationCoachItem = {
+/** Describes a coach (wagon) details */
+export type CoachItemDetails = {
   // id - Compartment number, max. 3 digits; CH-wide usually 2 digits
   id: string;
   // prioritized travel class to be displayed in the navigation
@@ -34,7 +34,7 @@ export type NavigationCoachItem = {
   isDriverArea: boolean;
   // holds information about whether a coach on the left or right side has a driver area
   driverAreaSide?: Record<string, boolean>;
-  // driverAreaElements which can be used throughout the seat-reservation because they wont change
+  // driverAreaElements which can be used throughout the seat-reservation because they won't change
   driverAreaElements: {
     driverArea: BaseElement | undefined;
     driverAreaNoVerticalWall: BaseElement | undefined;
@@ -114,7 +114,7 @@ export type SeatReservationSelectedPlaces = {
 
 export type PlaceType = 'SEAT' | 'BICYCLE';
 export type CoachDeckLevel = 'SINGLE_DECK' | 'LOWER_DECK' | 'MIDDLE_DECK' | 'UPPER_DECK';
-export type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD';
+export type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD' | 'LOCOMOTIVE_COACH';
 export type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
 export type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
 export type VehicleType = 'TRAIN' | 'BUS';
