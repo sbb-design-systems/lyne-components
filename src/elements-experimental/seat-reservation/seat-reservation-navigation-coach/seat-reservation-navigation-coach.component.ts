@@ -212,7 +212,9 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
 
   private _getTitleDescriptionNavCoachButton(serviceClassNumber: number | null): string {
     if (this.driverArea) {
-      return getI18nSeatReservation('NAVIGATE_COACH_BLOCKED', this._language.current);
+      return getI18nSeatReservation('NAVIGATE_COACH_BLOCKED', this._language.current, [
+        this.coachId,
+      ]);
     }
 
     let label = getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [this.coachId]);
