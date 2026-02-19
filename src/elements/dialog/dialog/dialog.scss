@@ -26,11 +26,11 @@
 }
 
 :host(:state(top-shadow)) {
-  --sbb-dialog-block-start-box-shadow: var(--sbb-dialog-block-shadow);
+  --sbb-dialog-block-start-box-shadow: var(--_sbb-dialog-block-shadow);
 }
 
 :host(:state(bottom-shadow)) {
-  --sbb-dialog-block-end-box-shadow: var(--sbb-dialog-block-shadow);
+  --sbb-dialog-block-end-box-shadow: var(--_sbb-dialog-block-shadow);
   --sbb-dialog-actions-border-color: transparent;
 }
 
@@ -57,18 +57,18 @@
 }
 
 :host(:not([negative])) {
-  --sbb-dialog-color: var(--sbb-color-2);
-  --sbb-dialog-background-color: var(--sbb-background-color-1);
-  --sbb-dialog-block-shadow: var(--sbb-box-shadow-level-9-soft);
+  --_sbb-dialog-color: var(--sbb-dialog-color);
+  --_sbb-dialog-background-color: var(--sbb-dialog-background-color);
+  --_sbb-dialog-block-shadow: var(--sbb-dialog-block-shadow);
 }
 
 :host([negative]) {
-  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-dialog-color: var(--sbb-color-2-negative);
-  --sbb-dialog-background-color: var(--sbb-background-color-1-negative);
-  --sbb-dialog-backdrop-color: var(--sbb-background-color-3-negative);
+  --_sbb-dialog-color: var(--sbb-dialog-color-negative);
+  --_sbb-dialog-background-color: var(--sbb-dialog-background-color-negative);
+  --_sbb-dialog-block-shadow: var(--sbb-dialog-block-shadow-negative);
   --sbb-dialog-actions-border-color: var(--sbb-background-color-4-negative);
-  --sbb-dialog-block-shadow: var(--sbb-box-shadow-level-9-soft-negative);
+  --sbb-dialog-backdrop-color: var(--sbb-background-color-3-negative);
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 }
 
 :host(:not(:state(state-closed))) {
@@ -109,8 +109,8 @@
   height: var(--sbb-dialog-height);
   max-width: var(--sbb-dialog-max-width);
   max-height: var(--sbb-dialog-max-height);
-  color: var(--sbb-dialog-color);
-  background-color: var(--sbb-dialog-background-color);
+  color: var(--_sbb-dialog-color);
+  background-color: var(--_sbb-dialog-background-color);
 
   :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
     display: block;

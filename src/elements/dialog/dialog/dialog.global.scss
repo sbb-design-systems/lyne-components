@@ -6,6 +6,10 @@ $theme: 'standard' !default;
   --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-5x);
   --sbb-dialog-color: var(--sbb-color-2);
   --sbb-dialog-background-color: var(--sbb-background-color-1);
+  --sbb-dialog-block-shadow: var(--sbb-box-shadow-level-9-soft);
+  --sbb-dialog-color-negative: var(--sbb-color-2-negative);
+  --sbb-dialog-background-color-negative: var(--sbb-background-color-1-negative);
+  --sbb-dialog-block-shadow-negative: var(--sbb-box-shadow-level-9-soft-negative);
   --sbb-dialog-width: 100%;
   --sbb-dialog-max-width-default: #{sbb.px-to-rem-build(892)};
   --sbb-dialog-height: 100%;
@@ -17,7 +21,6 @@ $theme: 'standard' !default;
   --sbb-dialog-backdrop-visibility: hidden;
   --sbb-dialog-backdrop-pointer-events: none;
   --sbb-dialog-backdrop-color: transparent;
-  --sbb-dialog-block-shadow: var(--sbb-box-shadow-level-9-soft);
   --sbb-dialog-actions-border-color: var(--sbb-background-color-4);
 }
 
