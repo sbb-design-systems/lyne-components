@@ -140,6 +140,7 @@ const Template = ({
     </sbb-expansion-panel-header>
     <sbb-expansion-panel-content>${contentText}</sbb-expansion-panel-content>
   </sbb-expansion-panel>
+  <p>Content below the accordion.</p>
 `;
 
 const TemplateSlottedIcon = ({
@@ -156,6 +157,7 @@ const TemplateSlottedIcon = ({
     </sbb-expansion-panel-header>
     <sbb-expansion-panel-content>${contentText}</sbb-expansion-panel-content>
   </sbb-expansion-panel>
+  <p>Content below the accordion.</p>
 `;
 
 const NestedTemplate = ({
@@ -176,6 +178,7 @@ const NestedTemplate = ({
       ${Template({ headerText, iconName, contentText })}
     </sbb-expansion-panel-content>
   </sbb-expansion-panel>
+  <p>Content below the accordion.</p>
 `;
 
 export const Default: StoryObj = {
