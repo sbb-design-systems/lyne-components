@@ -535,9 +535,10 @@ describe(`sbb-autocomplete`, () => {
 
       it('should select active option on blur', async () => {
         input.focus();
-        input.value = 'a';
+        await sendKeys({ type: 'a' });
         await openSpy.calledOnce();
         expect(openSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
         await waitForLitRender(element);
 
         expect(optOne).to.match(':state(active)');
@@ -546,15 +547,15 @@ describe(`sbb-autocomplete`, () => {
         expect(optOne).not.to.have.attribute('selected');
         expect(input.value).to.be.equal('a');
         expect(changeEventSpy.count).to.be.equal(0);
-        expect(inputEventSpy.count).to.be.equal(0);
+        expect(inputEventSpy.count).to.be.equal(1);
         expect(inputAutocompleteSpy.count).to.be.equal(0);
 
         await sendKeys({ press: tabKey });
         await waitForLitRender(element);
         expect(input.value).to.be.equal('1');
         expect(optOne).to.have.attribute('selected');
-        expect(changeEventSpy.count).to.be.equal(1);
-        expect(inputEventSpy.count).to.be.equal(1);
+        expect(changeEventSpy.count).to.be.equal(2);
+        expect(inputEventSpy.count).to.be.equal(2);
         expect(inputAutocompleteSpy.count).to.be.equal(1);
         expect(openSpy.count).to.be.equal(1);
         expect(document.activeElement?.localName).not.to.be.equal('input'); // Ensure the focus is not trapped
@@ -599,6 +600,19 @@ describe(`sbb-autocomplete`, () => {
         expect(inputEventSpy.count).to.be.equal(1);
         expect(inputAutocompleteSpy.count).to.be.equal(1);
 
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('2');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
+
+        input.focus();
+        await openSpy.calledTimes(2);
+        await waitForLitRender(element);
+        expect(optOne).to.match(':state(active)');
+
+        // Ensure that the active option is not auto-selected without any previous user interaction
         await sendKeys({ press: tabKey });
         await waitForLitRender(element);
         expect(input.value).to.be.equal('2');

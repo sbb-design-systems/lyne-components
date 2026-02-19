@@ -604,6 +604,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
           if (
             this.autoSelectActiveOptionOnBlur &&
             this.activeOption &&
+            this._lastUserInput &&
             this.triggerElement?.value
           ) {
             this.activeOption.selected = true;
