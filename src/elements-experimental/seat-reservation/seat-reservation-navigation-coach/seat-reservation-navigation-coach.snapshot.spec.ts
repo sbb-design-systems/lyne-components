@@ -5,19 +5,25 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.component.ts';
 import './seat-reservation-navigation-coach.component.ts';
+import type { CoachItemDetails } from '@sbb-esta/lyne-elements-experimental/seat-reservation/common/types.js';
 
 describe(`sbb-seat-reservation-navigation-coach`, () => {
   describe('renders a navigation coach', async () => {
     let root: SbbSeatReservationNavigationCoachElement;
 
-    const propertyIds: string[] = ['BICYCLE', 'SILENCE'];
+     const coachItemDetails: CoachItemDetails = {
+       id: '85',
+       travelClass: 'FIRST',
+       propertyIds: ['BICYCLE', 'SILENCE'],
+       isDriverArea: false,
+       freePlaces: { seats: 0, bicycles: 0},
+       driverAreaElements: { driverArea: undefined, driverAreaNoVerticalWall: undefined },
+     };
 
     beforeEach(async () => {
       root = await fixture(
         html`<sbb-seat-reservation-navigation-coach
-          coach-id="85"
-          .propertyIds="${propertyIds}"
-          travel-class="['FIRST']"
+          .coachItemDetails="${coachItemDetails}"
         ></sbb-seat-reservation-navigation-coach>`,
       );
 

@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach DOM"] = 
-`<sbb-seat-reservation-navigation-coach
-  coach-id="85"
-  travel-class="['FIRST']"
->
+`<sbb-seat-reservation-navigation-coach>
 </sbb-seat-reservation-navigation-coach>
 `;
 /* end snapshot sbb-seat-reservation-navigation-coach renders a navigation coach DOM */
@@ -15,9 +12,11 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shad
   <button
     aria-describedby="nav-coach-service-descriptions-0"
     class="sbb-sr-navigation__ctrl-button"
-    title="Navigate to coach 85. 0 seats available. 0 available bicycle spaces."
+    title="Navigate to coach 85 with First class compartment. 0 seats available. 0 available bicycle spaces."
     type="button"
   >
+    <span class="sbb-sr-navigation--first-class">
+    </span>
     <div class="sbb-sr-navigation__additional-information">
       <div
         aria-hidden="true"
@@ -29,6 +28,7 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shad
         aria-hidden="true"
         class="sbb-sr-navigation__item-coach-travelclass"
       >
+        1
       </div>
     </div>
   </button>
@@ -53,7 +53,7 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
       "children": [
         {
           "role": "button",
-          "name": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces.",
+          "name": "Navigate to coach 85 with First class compartment. 0 seats available. 0 available bicycle spaces.",
           "description": "Available services: Bike area,Quiet zone",
           "invalid": false,
           "focusable": true,

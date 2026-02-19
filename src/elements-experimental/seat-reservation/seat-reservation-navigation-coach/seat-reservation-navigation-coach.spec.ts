@@ -4,15 +4,26 @@ import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
+import type { CoachItemDetails } from '../common/types.ts';
+
 import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.component.ts';
 
 describe('sbb-seat-reservation-navigation-coach', () => {
   let element: SbbSeatReservationNavigationCoachElement;
+  const coachItemDetails: CoachItemDetails = {
+    id: 'coach-id',
+    travelClass: 'SECOND',
+    propertyIds: ['BICYCLE', 'SILENCE'],
+    isDriverArea: false,
+    freePlaces: { seats: 0, bicycles: 0 },
+    driverAreaElements: { driverArea: undefined, driverAreaNoVerticalWall: undefined },
+    driverAreaSide: { left: false, right: false },
+  };
 
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-seat-reservation-navigation-coach
-        coach-id="coach-id"
+        .coachItemDetails="${coachItemDetails}"
       ></sbb-seat-reservation-navigation-coach>`,
     );
 
@@ -44,7 +55,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   });
 
   it('should have element coach-id', async () => {
-    await expect(element.coachId).to.be.equal('coach-id');
+    await expect(element.coachItemDetails.id).to.be.equal('coach-id');
   });
 
   it('check child content', async () => {
@@ -85,7 +96,10 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   });
 
   it('should have a driver area', async () => {
-    element.driverArea = true;
+    element.setAttribute(
+      'coach-item-details',
+      JSON.stringify({ ...coachItemDetails, isDriverArea: true }),
+    );
     await waitForLitRender(element);
 
     const el = element.shadowRoot?.querySelector('.sbb-sr-navigation-driver-area');
@@ -94,7 +108,11 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   });
 
   it('should have three seat-reservation-navigation-service elements when property-ids is ["BISTRO", "WIFI", "BICYCLE"]"', async () => {
-    element.setAttribute('property-ids', '["BISTRO", "WIFI", "BICYCLE"]');
+    element.setAttribute(
+      'coach-item-details',
+      JSON.stringify({ ...coachItemDetails, propertyIds: ['BISTRO', 'WIFI', 'BICYCLE'] }),
+    );
+
     await waitForLitRender(element);
     const autoWidthElements = element.shadowRoot
       ?.querySelector('sbb-seat-reservation-navigation-services')
@@ -141,7 +159,10 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   }
 
   it('should not render first-class span element for SECOND', async () => {
-    element.setAttribute('travel-class', '["SECOND"]');
+    element.setAttribute(
+      'coach-item-details',
+      JSON.stringify({ ...coachItemDetails, travelClass: 'SECOND' }),
+    );
     await waitForLitRender(element);
 
     const el = element.shadowRoot?.querySelector('.sbb-sr-navigation--first-class');
@@ -149,7 +170,10 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   });
 
   it('should render first-class span element for FIRST', async () => {
-    element.setAttribute('travel-class', '["FIRST"]');
+    element.setAttribute(
+      'coach-item-details',
+      JSON.stringify({ ...coachItemDetails, travelClass: 'FIRST' }),
+    );
     await waitForLitRender(element);
 
     const el = element.shadowRoot?.querySelector('.sbb-sr-navigation--first-class');
@@ -157,7 +181,10 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   });
 
   it('should render a coach which is the first one in the navigation', async () => {
-    element.first = true;
+    element.setAttribute(
+      'coach-item-details',
+      JSON.stringify({ ...coachItemDetails, driverAreaSide: { left: true, right: false } }),
+    );
 
     await waitForLitRender(element);
 
@@ -172,7 +199,10 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   });
 
   it('should render a coach which is the last one in the navigation', async () => {
-    element.last = true;
+    element.setAttribute(
+      'coach-item-details',
+      JSON.stringify({ ...coachItemDetails, driverAreaSide: { left: false, right: true } }),
+    );
 
     await waitForLitRender(element);
 
@@ -222,7 +252,10 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   });
 
   it('should take freePlacesByType settings into account for title-Attribute', async () => {
-    element.freePlacesByType = { seats: 20, bicycles: 10 };
+    element.setAttribute(
+      'coach-item-details',
+      JSON.stringify({ ...coachItemDetails, freePlaces: { seats: 20, bicycles: 10 } }),
+    );
 
     await waitForLitRender(element);
 
@@ -231,12 +264,16 @@ describe('sbb-seat-reservation-navigation-coach', () => {
     ) as HTMLButtonElement;
 
     await expect(btn.getAttribute('title')).to.be.equal(
-      'Navigate to coach coach-id. 20 seats available. 10 available bicycle spaces.',
+      'Navigate to coach coach-id with Second class compartment. 20 seats available. 10 available bicycle spaces.',
     );
   });
 
   it('should render the aria label in the sbb-screen-reader-only element', async () => {
-    element.setAttribute('property-ids', '["BISTRO"]');
+    element.setAttribute(
+      'coach-item-details',
+      JSON.stringify({ ...coachItemDetails, propertyIds: ['BISTRO'] }),
+    );
+
     await waitForLitRender(element);
     const screenReaderOnlyElement = element.shadowRoot?.querySelector('sbb-screen-reader-only');
     expect(screenReaderOnlyElement?.innerHTML).to.include('Available services: Bistro');
