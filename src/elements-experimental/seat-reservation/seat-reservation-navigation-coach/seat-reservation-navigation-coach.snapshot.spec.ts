@@ -11,14 +11,14 @@ describe(`sbb-seat-reservation-navigation-coach`, () => {
   describe('renders a navigation coach', async () => {
     let root: SbbSeatReservationNavigationCoachElement;
 
-     const coachItemDetails: CoachItemDetails = {
-       id: '85',
-       travelClass: 'FIRST',
-       propertyIds: ['BICYCLE', 'SILENCE'],
-       isDriverArea: false,
-       freePlaces: { seats: 0, bicycles: 0},
-       driverAreaElements: { driverArea: undefined, driverAreaNoVerticalWall: undefined },
-     };
+    const coachItemDetails: CoachItemDetails = {
+      id: '85',
+      travelClass: 'FIRST',
+      propertyIds: ['BICYCLE', 'SILENCE'],
+      isDriverArea: false,
+      freePlaces: { seats: 0, bicycles: 0 },
+      driverAreaElements: { driverArea: undefined, driverAreaNoVerticalWall: undefined },
+    };
 
     beforeEach(async () => {
       root = await fixture(
