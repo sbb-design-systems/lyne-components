@@ -170,6 +170,7 @@ const Template = ({
       `,
     )}
   </sbb-accordion>
+  <p>Content below the accordion.</p>
 `;
 
 export const Default: StoryObj = {
