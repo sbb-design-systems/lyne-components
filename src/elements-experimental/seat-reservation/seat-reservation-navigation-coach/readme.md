@@ -22,8 +22,8 @@ The purpose of this component is to be used in the main [sbb-reservation-navigat
     propertyIds: ['WIFI', 'POWER_OUTLET']
   }"
   ?vertical="false"
-  >
-  </sbb-seat-reservation-navigation-coach>
+>
+</sbb-seat-reservation-navigation-coach>
 ```
 
 ## Events
@@ -45,16 +45,16 @@ The purpose of this component is to be used in the main [sbb-reservation-navigat
 
 ## Properties
 
-| Name                | Attribute             | Privacy | Type                      | Default                     | Description                                                                                                                |
-|---------------------|-----------------------| ------- |---------------------------|-----------------------------|----------------------------------------------------------------------------------------------------------------------------|
-| `disable`           | `disable`             | public  | `boolean`                 | `false`                     | Disable the coach navigation                                                                                               |
-| `focused`           | `focused`             | public  | `boolean`                 | `false`                     | Focus coach property                                                                                                       |
-| `hovered`           | `hovered`             | public  | `boolean`                 | `false`                     | Hover coach property                                                                                                       |
-| `index`             | `index`               | public  | `number`                  | `0`                         |                                                                                                                            |
-| `nativeFocusActive` | `nativeFocusActive`   | public  | `boolean`                 | `true`                      | Native focus for this navigation coach is also set when the focused property is changed                                    |
-| `coachItemDetails`  | `coach-item-details`  | public  | `CoachItemDetails`        | `{}`                        | CoachItemDetails with Information about TravelClass, isDriverArea, present places, CoachType, dimension, position and more | 
-| `selected`          | `selected`            | public  | `boolean`                 | `false`                     | Select coach property                                                                                                      |
-| `vertical`          | `vertical`            | public  | `boolean`                 | `false`                     | If the coach navigation should be displayed vertically                                                                     |
+| Name                | Attribute            | Privacy | Type               | Default                | Description                                                                             |
+| ------------------- | -------------------- | ------- | ------------------ | ---------------------- | --------------------------------------------------------------------------------------- |
+| `coachItemDetails`  | `coach-item-details` | public  | `CoachItemDetails` | `<CoachItemDetails>{}` |                                                                                         |
+| `disable`           | `disable`            | public  | `boolean`          | `false`                | Disable the coach navigation                                                            |
+| `focused`           | `focused`            | public  | `boolean`          | `false`                | Focus coach property                                                                    |
+| `hovered`           | `hovered`            | public  | `boolean`          | `false`                | Hover coach property                                                                    |
+| `index`             | `index`              | public  | `number`           | `0`                    |                                                                                         |
+| `nativeFocusActive` | `nativeFocusActive`  | public  | `boolean`          | `true`                 | Native focus for this navigation coach is also set when the focused property is changed |
+| `selected`          | `selected`           | public  | `boolean`          | `false`                | Select coach property                                                                   |
+| `vertical`          | `vertical`           | public  | `boolean`          | `false`                | If the coach navigation should be displayed vertically                                  |
 
 ## Events
 

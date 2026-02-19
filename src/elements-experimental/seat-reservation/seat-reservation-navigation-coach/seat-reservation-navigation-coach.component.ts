@@ -188,7 +188,9 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
       return getI18nSeatReservation('COACH_LOCOMOTIVE', this._language.current);
     }
 
-    let label = getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [this.coachItemDetails.id]);
+    let label = getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [
+      this.coachItemDetails.id,
+    ]);
 
     //If service class exist, then expand label with service class translation
     if (serviceClassNumber) {
