@@ -727,7 +727,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   private _getDescriptionTableCoach(coachItem: CoachItem): string {
     //show different table caption for screenreader if it is a locomotive
     if (coachItem.type === 'LOCOMOTIVE_COACH') {
-      return getI18nSeatReservation('NAVIGATE_COACH_BLOCKED', this._language.current);
+      return getI18nSeatReservation('COACH_LOCOMOTIVE', this._language.current);
     }
 
     if (!coachItem.places?.length) {
