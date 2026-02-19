@@ -22,20 +22,10 @@ class SbbDatepickerNextDayElement<T = Date> extends SbbDatepickerButton<T> {
   protected i18nOffBoundaryDay: Record<string, string> = i18nNextDay;
   protected i18nSelectOffBoundaryDay = i18nSelectNextDay;
 
-  protected findAvailableDate(date: T): T | null {
-    let availableDate = this.dateAdapter.addCalendarDays(date, 1);
+  protected getFollowingDate(date: T): T | null {
+    const availableDate = this.dateAdapter.addCalendarDays(date, 1);
     if (this._isAfterMaxDate(availableDate)) {
       return null;
-    }
-
-    const dateFilter = this.input!.dateFilter;
-    if (dateFilter) {
-      while (!dateFilter(availableDate)) {
-        availableDate = this.dateAdapter.addCalendarDays(availableDate, 1);
-        if (this._isAfterMaxDate(availableDate)) {
-          return null;
-        }
-      }
     }
 
     return availableDate;
