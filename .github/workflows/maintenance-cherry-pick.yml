@@ -66,19 +66,20 @@ jobs:
     runs-on: ubuntu-slim
     needs: cherry_pick
     if: always() && needs.cherry_pick.result == 'failure' &&
-      github.event.pull_request.user.login != 'renovate[bot]'
+      github.event.pull_request.user.login != 'renovate[bot]' &&
+      needs.cherry_pick.outputs.failed_branches
 
     steps:
       - uses: actions/checkout@v4
+      - run: npm install --global yarn
 
       - uses: actions/setup-node@v4
         if: needs.cherry_pick.outputs.failed_branches
         with:
           node-version-file: .nvmrc
+          cache: yarn
 
-      - run: |
-          npm install --global yarn
-          yarn install --frozen-lockfile --non-interactive
+      - run: yarn install --frozen-lockfile --non-interactive
         if: needs.cherry_pick.outputs.failed_branches
 
       - name: Update maintenance issue
