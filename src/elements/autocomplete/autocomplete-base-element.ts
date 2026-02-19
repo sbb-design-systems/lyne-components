@@ -234,7 +234,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     // A 'pending selection' is confirmed on panel close
     if (this.pendingAutoSelectedOption) {
       this.pendingAutoSelectedOption.selected = true;
-      this._setValueAndDispatchEvents(this.pendingAutoSelectedOption);
+      this._setValueAndDispatchEvents(this.pendingAutoSelectedOption, true);
     }
 
     this.state = 'closing';
@@ -329,7 +329,10 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this._setInputValue(activeOption);
   }
 
-  private _setValueAndDispatchEvents(selectedOption: SbbOptionBaseElement<T>): void {
+  private _setValueAndDispatchEvents(
+    selectedOption: SbbOptionBaseElement<T>,
+    preventFocus = false,
+  ): void {
     // Deselect the previous options
     this.options
       .filter((option) => option.id !== selectedOption.id && option.selected)
@@ -352,7 +355,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
           detail: { option: selectedOption },
         }),
       );
-      this.triggerElement.focus();
+      if (!preventFocus) {
+        this.triggerElement.focus();
+      }
     }
   }
 
@@ -599,10 +604,11 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
           if (
             this.autoSelectActiveOptionOnBlur &&
             this.activeOption &&
+            this._lastUserInput &&
             this.triggerElement?.value
           ) {
             this.activeOption.selected = true;
-            this._setValueAndDispatchEvents(this.activeOption);
+            this._setValueAndDispatchEvents(this.activeOption, true);
           }
 
           this.close();
