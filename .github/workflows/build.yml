@@ -11,21 +11,6 @@ env:
   IMAGE_REPO_DOCS: ghcr.io/sbb-design-systems/lyne-components/docs
 
 jobs:
-  remove-label:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    permissions:
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v4
-      - name: "Add 'preview-available' label"
-        # This label is used for filtering deployments in ArgoCD.
-        # At the start of the workflow, we remove the container available labels
-        # which will be re-added after the Secure workflow.
-        run: gh issue edit ${{ github.event.number }} --remove-label "preview-available"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   lint:
     runs-on: ubuntu-latest
     steps:
