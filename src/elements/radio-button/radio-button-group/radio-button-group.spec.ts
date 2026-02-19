@@ -263,6 +263,38 @@ import '../radio-button-panel.ts';
         expect(radios[1].checked).to.be.false;
         expect(radios[2].checked).to.be.false;
       });
+
+      describe('with falsy value', () => {
+        let element: SbbRadioButtonGroupElement<boolean | number>;
+
+        beforeEach(async () => {
+          element = await fixture(html`
+          <sbb-radio-button-group .value=${false}>
+            <${tagSingle} .value=${true}>Value 0</${tagSingle}>
+            <${tagSingle} .value=${false}>Value 1</${tagSingle}>
+            <${tagSingle} .value=${0}>Value 1</${tagSingle}>
+          </sbb-radio-button-group>
+        `);
+          radios = Array.from(element.querySelectorAll(selector));
+        });
+
+        it('should init with falsy value', async () => {
+          expect(element.value).to.be.equal(false);
+          expect(radios[0].checked).to.be.false;
+          expect(radios[1].checked).to.be.true;
+          expect(radios[2].checked).to.be.false;
+        });
+
+        it('should set falsy value', async () => {
+          element.value = 0;
+          await waitForLitRender(element);
+
+          expect(element.value).to.be.equal(0);
+          expect(radios[0].checked).to.be.false;
+          expect(radios[1].checked).to.be.false;
+          expect(radios[2].checked).to.be.true;
+        });
+      });
     });
 
     describe('value preservation', () => {
