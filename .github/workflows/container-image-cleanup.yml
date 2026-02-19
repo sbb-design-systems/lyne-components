@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   preview-image-cleanup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     env:
       CLOSED_PR_RETENTION_DAYS: 5
       PACKAGE_NAMES: docs-preview,visual-regression
@@ -58,7 +58,7 @@ jobs:
             }
 
   untagged-image-cleanup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     strategy:
       matrix:
         repo: [docs, docs-preview, visual-regression]
