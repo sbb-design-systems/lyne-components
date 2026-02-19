@@ -124,6 +124,17 @@ Consumers can customize the array of [keys](https://developer.mozilla.org/en-US/
 <sbb-chip-group name="field-name" separator-keys='["Enter", "Space"]'> ... </sbb-chip-group>
 ```
 
+### Add on blur
+
+By default, the `sbb-chip-group` does not create a chip when the input loses focus.
+
+Consumers can enable this behavior by setting the `addOnBlur` property to `true`.
+When enabled, a chip will be automatically created from the input value when the input loses focus.
+
+```html
+<sbb-chip-group add-on-blur> ... </sbb-chip-group>
+```
+
 ## Keyboard interaction
 
 At any time, only a single chip (usually, the last one) is focusable and part of the tab order. Users can move between them using the arrow keys.
@@ -174,6 +185,7 @@ align with the type information.
 
 | Name                | Attribute        | Privacy | Type                             | Default     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------- | ---------------- | ------- | -------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `addOnBlur`         | `add-on-blur`    | public  | `boolean`                        | `false`     | Whether to automatically add a chip when the input loses focus if there's a value. Defaults to `false`                                                                                                                                                                                                                                                                                                                                                  |
 | `disabled`          | `disabled`       | public  | `boolean`                        | `false`     | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `displayWith`       | -                | public  | `((value: T) => string) \| null` | `null`      | Function that maps a chip's value to its display value.                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `form`              | -                | public  | `HTMLFormElement \| null`        |             | Returns the form owner of this element.                                                                                                                                                                                                                                                                                                                                                                                                                 |
