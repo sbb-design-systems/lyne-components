@@ -20,6 +20,13 @@ const seatReservationType: InputType = {
     'Seat Reservations Array<SeatReservation>. It is possible to display several decks from the vehicle scheme. Each SeatReservation object within the array represents one deck.',
 };
 
+const travelDirectionType: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['LEFT', 'RIGHT', 'NONE'],
+};
+
 const maxSeatReservationsType: InputType = {
   control: { type: 'number' },
   description: 'Maximal number of possible clickable seats',
@@ -64,6 +71,7 @@ const preselectCoachIndexType: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   seatReservations: seatReservationType,
+  'travel-direction': travelDirectionType,
   'max-seat-reservations': maxSeatReservationsType,
   'max-bicycle-reservations': maxBicycleReservationsType,
   'has-navigation': navigationType,
