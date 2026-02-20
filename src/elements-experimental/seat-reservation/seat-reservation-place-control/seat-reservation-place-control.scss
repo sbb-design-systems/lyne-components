@@ -13,10 +13,6 @@
     fill: var(--sbb-seat-reservation-place-control-#{$state}-backrest-background-#{$event});
   }
 
-  ::part(svg-icon) {
-    fill: var(--sbb-seat-reservation-place-control-#{$state}-text);
-  }
-
   .sbb-sr-place-ctrl__text {
     // dont use transparent or remove background, otherwise there are a11y violations regarding
     // insufficient color contrast
@@ -27,11 +23,19 @@
   @if $state != 'selected' {
     @include sbb.if-forced-colors {
       ::part(svg-place) {
+        overflow: visible;
         fill: var(--sbb-seat-reservation-place-control-#{$state}-background-high-contrast);
       }
 
       ::part(svg-backrest) {
         fill: var(--sbb-seat-reservation-place-control-#{$state}-backrest-high-contrast);
+      }
+
+      ::part(svg-seatline) {
+        stroke: var(--sbb-seat-reservation-place-control-#{$state}-seatline-high-contrast);
+        outline: solid var(--sbb-seat-reservation-place-control-#{$state}-background-high-contrast);
+        outline-offset: var(--sbb-seat-reservation-outline-offset);
+        border-radius: var(--sbb-seat-reservation-place-border-radius);
       }
 
       ::part(svg-icon) {
@@ -41,8 +45,8 @@
       .sbb-sr-place-ctrl__text {
         forced-color-adjust: none;
         background-color: var(
-          --sbb-seat-reservation-place-control-#{$state}-background-high-contrast
-        );
+          --sbb-seat-reservation-place-control-#{$state}-text-background-high-contrast
+        ) !important;
         color: var(--sbb-seat-reservation-place-control-#{$state}-high-contrast-text) !important;
       }
     }
@@ -125,13 +129,21 @@ $disabled: '.sbb-reservation-place-control--disabled';
   );
 
   // Color definitions for high-contrast-mode
-  --sbb-seat-reservation-place-control-free-backrest-high-contrast: CanvasText;
-  --sbb-seat-reservation-place-control-free-background-high-contrast: Canvas;
+  --sbb-seat-reservation-place-control-free-backrest-high-contrast: Canvas;
+  --sbb-seat-reservation-place-control-free-background-high-contrast: CanvasText;
+  --sbb-seat-reservation-place-control-free-text-background-high-contrast: Canvas !important;
+  --sbb-seat-reservation-place-control-free-seatline-high-contrast: Canvas;
   --sbb-seat-reservation-place-control-free-high-contrast-text: ButtonText;
+  --sbb-seat-reservation-place-control-free-high-contrast-icon: Canvas;
+  --sbb-seat-reservation-place-control-free-outline-high-contrast: CanvasText;
   --sbb-seat-reservation-place-control-allocated-backrest-high-contrast: GrayText;
   --sbb-seat-reservation-place-control-allocated-background-high-contrast: Canvas;
   --sbb-seat-reservation-place-control-allocated-high-contrast-text: GrayText;
   --sbb-seat-reservation-place-control-allocated-high-contrast-icon: GrayText;
+
+  // other definitions for high-contrast-mode
+  --sbb-seat-reservation-place-border-radius: 1px;
+  --sbb-seat-reservation-outline-offset: -1px;
 
   width: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-width));
   height: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-height));
