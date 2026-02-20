@@ -234,10 +234,6 @@ $disabled: '[disabled], :disabled';
   color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
 
   @include sbb.if-forced-colors {
-    @include sbb.if-forced-colors {
-      color: inherit;
-    }
-
     color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
   }
 
@@ -271,6 +267,10 @@ $disabled: '[disabled], :disabled';
   text-align: center;
   background-color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
   color: light-dark(var(--sbb-color-white), var(--sbb-color-black));
+
+  @include sbb.if-forced-colors {
+    border: solid var(--sbb-border-width-1x);
+  }
 }
 
 // ################ VERTICAL MODE settings ################
