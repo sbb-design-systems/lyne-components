@@ -54,6 +54,7 @@ The purpose of this component is to be used in the main [sbb-reservation-navigat
 | `index`             | `index`              | public  | `number`           | `0`                    |                                                                                         |
 | `nativeFocusActive` | `nativeFocusActive`  | public  | `boolean`          | `true`                 | Native focus for this navigation coach is also set when the focused property is changed |
 | `selected`          | `selected`           | public  | `boolean`          | `false`                | Select coach property                                                                   |
+| `showTitleInfo`     | `showTitleInfo`      | public  | `boolean`          | `false`                | Disable the mouse over title information                                                |
 | `vertical`          | `vertical`           | public  | `boolean`          | `false`                | If the coach navigation should be displayed vertically                                  |
 
 ## Events
