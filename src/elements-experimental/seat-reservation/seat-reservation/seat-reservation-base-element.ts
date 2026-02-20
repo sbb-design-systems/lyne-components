@@ -317,7 +317,7 @@ export class SeatReservationBaseElement extends LitElement {
       });
 
       // Set maximum calculated coach width
-      this.maxCalcCoachesWidth = currCalcTriggerPos;
+      this.maxCalcCoachesWidth = currCalcTriggerPos - this.gapBetweenCoaches;
     }
   }
 
@@ -1053,15 +1053,12 @@ export class SeatReservationBaseElement extends LitElement {
           this.unfocusPlaceElement();
           return;
         }
-        // If we tab back and the current selected nav coach is the first element, so we have to focus (jump) directly to the left nav direction button
-        else if (currFocusIndex == 0) {
-          this.unfocusPlaceElement();
-          this.currSelectedPlace = null;
-          this.focusedCoachIndex = -1;
-          const btnLeftDirection = this.shadowRoot?.getElementById(
-            'sbb-sr-navigation__wrapper-button-direction--left',
-          ) as HTMLElement;
-          btnLeftDirection.focus();
+
+        // If we tab back and the currently selected nav coach is the first element, then we try to tab out of the seatreservation component via the first tab element.
+        // In this case, we have to set the focus to the current selected nav coach again, because the native focus lies in this moment on the seatmap and we have to set the focus back to the nav coach
+        // to enable the user tab out of the component via the first tab element.
+        else if (currFocusIndex === 0) {
+          this._setFocusToCurrentFocusedNavCoach();
         } else {
           this.focusedCoachIndex = newFocusableIndex;
         }
@@ -1070,14 +1067,12 @@ export class SeatReservationBaseElement extends LitElement {
       else if (newFocusableIndex !== this.currSelectedCoachIndex) {
         this.focusedCoachIndex = newFocusableIndex;
       }
-      // If we tab next and the current selected nav coach is the last element, so we have to focus (jump) directly to the right nav direction button
+
+      // If we tab next and the currently selected nav coach is the last element, then we try to tab out of the seatreservation component via the last tab element.
+      // In this case, we have to set the focus to the current selected nav coach again, because the native focus lies in this moment on the seatmap and we have to set the focus back to the nav coach
+      // to enable the user tab out of the component via the last tab element.
       else if (tabDirection === 'NEXT_TAB' && newFocusableIndex === this.coachNavData.length - 1) {
-        this.unfocusPlaceElement();
-        this.focusedCoachIndex = -1;
-        const btnRightDirection = this.shadowRoot?.getElementById(
-          'sbb-sr-navigation__wrapper-button-direction--right',
-        ) as HTMLElement;
-        btnRightDirection.focus();
+        this._setFocusToCurrentFocusedNavCoach();
       } else {
         this.focusedCoachIndex = -1;
         this.selectedCoachIndex = newFocusableIndex;
@@ -1099,6 +1094,16 @@ export class SeatReservationBaseElement extends LitElement {
     else {
       this.scrollToSelectedNavCoach(newFocusableIndex);
     }
+  }
+
+  // Set the focus again to the current focused nav coach, this is necessary to get the native focus back to the nav coach.
+  // After reseting the focusedCoachIndex, the user can tab out of the seatreservation component via the first or last tab element.
+  private _setFocusToCurrentFocusedNavCoach(): void {
+    const currFocusIndex = this.focusedCoachIndex;
+    this.focusedCoachIndex = -1;
+    setTimeout(() => {
+      this.focusedCoachIndex = currFocusIndex;
+    }, 0);
   }
 
   private _navigateToPlaceByKeyboard(pressedKey: string): void {
