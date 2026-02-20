@@ -184,14 +184,14 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
   private _getTitleDescriptionNavCoachButton(serviceClassNumber: number | null): string {
     if (
       this.coachItemDetails.isDriverArea &&
-      !this.coachItemDetails.driverAreaElements.driverAreaNoVerticalWall
+      !this.coachItemDetails.driverAreaElements?.driverAreaNoVerticalWall
     ) {
       return getI18nSeatReservation('NAVIGATE_COACH_BLOCKED', this._language.current, [
         this.coachItemDetails.id,
       ]);
     }
 
-    if (this.coachItemDetails.driverAreaElements.driverAreaNoVerticalWall) {
+    if (this.coachItemDetails.driverAreaElements?.driverAreaNoVerticalWall) {
       return getI18nSeatReservation('COACH_LOCOMOTIVE', this._language.current);
     }
 
@@ -219,7 +219,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
     const freePlacesTxt = getI18nSeatReservation(
       'COACH_AVAILABLE_NUMBER_OF_PLACES',
       this._language.current,
-      [this.coachItemDetails.freePlaces.seats, this.coachItemDetails.freePlaces.bicycles],
+      [this.coachItemDetails.freePlaces?.seats, this.coachItemDetails.freePlaces?.bicycles],
     );
     label = label.concat('. ').concat(freePlacesTxt);
     return label;
@@ -227,7 +227,7 @@ class SbbSeatReservationNavigationCoachElement extends LitElement {
 
   private _getAriaDescriptionCoachServices(): string | null {
     let ariaDescription = null;
-    if (this.coachItemDetails.propertyIds.length) {
+    if (this.coachItemDetails.propertyIds?.length) {
       ariaDescription =
         getI18nSeatReservation('COACH_AVAILABLE_SERVICES', this._language.current) + ': ';
       ariaDescription +=

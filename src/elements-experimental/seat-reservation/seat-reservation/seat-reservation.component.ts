@@ -282,9 +282,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     if (!coachItem.graphicElements) return null;
 
     const COACH_PASSAGE_WIDTH = 1;
-    const driverArea = this.coachItemDetails[coachIndex]?.driverAreaElements.driverArea;
+    const driverArea = this.coachItemDetails[coachIndex]?.driverAreaElements?.driverArea;
     const driverAreaNoVerticalWall =
-      this.coachItemDetails[coachIndex]?.driverAreaElements.driverAreaNoVerticalWall;
+      this.coachItemDetails[coachIndex]?.driverAreaElements?.driverAreaNoVerticalWall;
 
     let borderWidth = driverArea
       ? coachItem.dimension.w - driverArea.dimension.w - COACH_PASSAGE_WIDTH
