@@ -79,6 +79,15 @@ const i18nObjects: I18nObjects = {
     fr: 'Locomotive',
     it: 'Locomotiva',
   },
+
+  // TRAVEL DIRECTION
+  SEAT_RESERVATION_TRAVEL_DIRECTION: {
+    de: 'Fahrtrichtung',
+    en: 'Travel direction',
+    fr: 'Direction du voyage',
+    it: 'Direzione di viaggio',
+  },
+
   // NAVIGATION
   NAVIGATE_TO_COACH: {
     de: 'Navigiere zu Wagen _param0_',
