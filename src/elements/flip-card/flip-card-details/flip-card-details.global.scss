@@ -1,0 +1,9 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-flip-card-details-opacity: 0;
+  --sbb-flip-card-details-translate-y: var(--sbb-spacing-fixed-2x);
+  --sbb-flip-card-details-padding: var(--sbb-spacing-responsive-s);
+}

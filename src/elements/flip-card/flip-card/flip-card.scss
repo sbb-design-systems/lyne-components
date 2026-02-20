@@ -1,10 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-flip-card-toggle-icon-transform: rotate(0);
-  --sbb-flip-card-background-color: var(--sbb-background-color-4);
-  --sbb-flip-card-border-radius: var(--sbb-border-radius-4x);
-  --sbb-flip-card-min-height: #{sbb.px-to-rem-build(280)};
   --sbb-flip-card-summary-transition-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-5x)
@@ -71,7 +67,7 @@
   height: 100%;
   flex-flow: wrap;
   flex-direction: column;
-  gap: var(--sbb-spacing-responsive-xs);
+  gap: var(--sbb-flip-card-gap);
   min-height: var(--sbb-flip-card-min-height);
   background-color: var(--sbb-flip-card-background-color);
   border-radius: var(--sbb-flip-card-border-radius);
@@ -88,7 +84,7 @@
   @include sbb.if-forced-colors {
     &::after {
       content: '';
-      border: var(--sbb-border-width-2x) solid CanvasText;
+      border: var(--sbb-flip-card-border) solid CanvasText;
       border-radius: var(--sbb-flip-card-border-radius);
       position: absolute;
       inset: 0;
@@ -108,11 +104,11 @@
     opacity: 0;
     pointer-events: none;
     position: absolute;
-    inset-inline-start: var(--sbb-spacing-responsive-s);
-    inset-block-end: var(--sbb-spacing-responsive-s);
+    inset-inline-start: var(--sbb-flip-card-inset);
+    inset-block-end: var(--sbb-flip-card-inset);
     background-color: light-dark(var(--sbb-color-midnight), var(--sbb-color-iron));
-    width: var(--sbb-size-element-xs);
-    height: var(--sbb-size-element-xs);
+    width: var(--sbb-flip-card-dimensions);
+    height: var(--sbb-flip-card-dimensions);
 
     // Use this large border radius to improve the appearance of the expanding dark background.
     border-radius: #{sbb.px-to-rem-build(256)};
@@ -132,8 +128,8 @@
 
 .sbb-flip-card--toggle-button {
   position: absolute;
-  inset-inline-start: var(--sbb-spacing-responsive-s);
-  inset-block-end: var(--sbb-spacing-responsive-s);
+  inset-inline-start: var(--sbb-flip-card-inset);
+  inset-block-end: var(--sbb-flip-card-inset);
 
   :host(:state(flipped)) & {
     --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);

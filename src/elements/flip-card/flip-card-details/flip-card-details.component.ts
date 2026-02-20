@@ -48,13 +48,7 @@ class SbbFlipCardDetailsElement extends SbbElementInternalsMixin(LitElement) {
   }
 
   protected override render(): TemplateResult {
-    return html`
-      <div class="sbb-flip-card-details--wrapper">
-        <div class="sbb-flip-card-details">
-          <slot></slot>
-        </div>
-      </div>
-    `;
+    return html` <slot></slot> `;
   }
 }
 

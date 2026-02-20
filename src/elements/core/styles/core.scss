@@ -82,6 +82,15 @@ $theme: 'standard' !default;
   expansion-panel-header with (
   $theme: $theme
 );
+@use '../../flip-card/flip-card/flip-card.global' as flip-card with (
+  $theme: $theme
+);
+@use '../../flip-card/flip-card-details/flip-card-details.global' as flip-card-details with (
+  $theme: $theme
+);
+@use '../../flip-card/flip-card-summary/flip-card-summary.global' as flip-card-summary with (
+  $theme: $theme
+);
 @use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
   $theme: $theme
 );
@@ -137,6 +146,9 @@ $theme: 'standard' !default;
   @include expansion-panel.base;
   @include expansion-panel-content.base;
   @include expansion-panel-header.base;
+  @include flip-card.base;
+  @include flip-card-details.base;
+  @include flip-card-summary.base;
   @include radio-button-common.base;
   @include radio-button-group.base;
   @include selection-action-panel.base;

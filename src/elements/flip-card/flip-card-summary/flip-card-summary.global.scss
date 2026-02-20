@@ -1,0 +1,12 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-flip-card-summary-dimensions: 100%;
+  --sbb-flip-card-summary-opacity: 1;
+  --sbb-flip-card-summary-pointer-events: all;
+  --sbb-flip-card-summary-title-padding-block: var(--sbb-spacing-responsive-s)
+    var(--sbb-spacing-responsive-xs);
+  --sbb-flip-card-summary-title-padding-inline: var(--sbb-spacing-responsive-s);
+}
