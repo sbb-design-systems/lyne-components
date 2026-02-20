@@ -154,7 +154,17 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
 
   private _onLabelSlotChange = (): void => {
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
+    this._ensureActiveTab();
   };
+
+  private _ensureActiveTab(): void {
+    if (
+      this.internals.states.has('initialized') &&
+      !this.labels.some((tabLabel) => tabLabel.active)
+    ) {
+      this._initSelection();
+    }
+  }
 
   private _initSelection(): void {
     const selectedTabLabel = this.labels[this.initialSelectedIndex];

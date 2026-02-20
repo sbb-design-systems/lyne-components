@@ -21,7 +21,7 @@ jobs:
   # Workaround for the limitation of being unable to use env in job if block.
   # https://github.com/actions/runner/issues/1189
   pr-check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: github.event_name == 'pull_request_target'
     outputs:
       PEER_REQUIRED: ${{ steps.env.outputs.PEER_REQUIRED }}
@@ -34,7 +34,7 @@ jobs:
           echo "PEER_APPROVED=$PEER_APPROVED" >> "${GITHUB_OUTPUT}"
 
   peer-review-required:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     needs: pr-check
     if: >
       !github.event.pull_request.draft &&
@@ -45,7 +45,7 @@ jobs:
         run: gh issue edit ${{ github.event.number }} --repo ${{ github.repository }} --add-label "$PEER_REQUIRED"
 
   peer-review-not-required:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     needs: pr-check
     if: >
       (
@@ -59,7 +59,7 @@ jobs:
         run: gh issue edit ${{ github.event.number }} --repo ${{ github.repository }} --remove-label "$PEER_REQUIRED"
 
   approved:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: github.event_name == 'pull_request_review' && github.event.review.state == 'APPROVED'
     steps:
       - name: Resolve team membership

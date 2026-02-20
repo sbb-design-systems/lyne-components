@@ -60,8 +60,8 @@
     "lit": "3.3.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "20.4.1",
-    "@commitlint/config-conventional": "20.4.1",
+    "@commitlint/cli": "20.4.2",
+    "@commitlint/config-conventional": "20.4.2",
     "@custom-elements-manifest/analyzer": "0.11.0",
     "@custom-elements-manifest/to-markdown": "0.1.0",
     "@eslint/eslintrc": "3.3.3",
