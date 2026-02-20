@@ -457,3 +457,61 @@ describe(`sbb-seat-reservation`, () => {
     });
   });
 });
+
+describe(`sbb-seat-reservation`, () => {
+  function hasNoTravelDirectionWrapper(): void {
+    const travelDirectionWrapper = element.shadowRoot!.querySelector<HTMLDivElement>(
+      '.sbb-sr-travel-direction-wrapper',
+    );
+    expect(travelDirectionWrapper).to.be.null;
+  }
+
+  function checkArrowDirection(iconName: string): void {
+    const arrowIcon = element.shadowRoot!.querySelector<HTMLElement>(
+      'sbb-icon[name="' + iconName + '"]',
+    );
+    expect(arrowIcon).not.to.be.null;
+  }
+
+  beforeEach(async () => {
+    element = await fixture(
+      html`<sbb-seat-reservation .seatReservations=${dataFull}></sbb-seat-reservation>`,
+    );
+    await waitForLitRender(element);
+  });
+
+  it('should not be shown per default', async () => {
+    hasNoTravelDirectionWrapper();
+  });
+
+  it('should not be shown, when UNDEFINED is given', async () => {
+    element.travelDirection = 'NONE';
+    hasNoTravelDirectionWrapper();
+  });
+
+  it('should be shown and have arrow icon showing left, when LEFT is given in horizontal mode', async () => {
+    element.travelDirection = 'LEFT';
+    await waitForLitRender(element);
+    checkArrowDirection('arrow-left-small');
+  });
+
+  it('should be shown and have arrow icon showing right, when RIGHT is given in horizontal mode', async () => {
+    element.travelDirection = 'RIGHT';
+    await waitForLitRender(element);
+    checkArrowDirection('arrow-right-small');
+  });
+
+  it('should be shown and have arrow icon showing up, when LEFT is given in vertical mode', async () => {
+    element.travelDirection = 'LEFT';
+    element.alignVertical = true;
+    await waitForLitRender(element);
+    checkArrowDirection('arrow-up-small');
+  });
+
+  it('should be shown and have arrow icon showing down, when RIGHT is given in vertical mode', async () => {
+    element.travelDirection = 'RIGHT';
+    element.alignVertical = true;
+    await waitForLitRender(element);
+    checkArrowDirection('arrow-down-small');
+  });
+});
