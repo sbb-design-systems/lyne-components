@@ -95,7 +95,7 @@ class SbbCalendarDayElement<T extends Date = Date> extends SbbDisabledMixin(
 
   /**
    * The component is used as the default day cell within the `sbb-calendar`,
-   * or,if extra content is needed, it can be slotted.
+   * or, if extra content is needed, it can be slotted.
    */
   private _getParent(): SbbCalendarElement | null {
     const calendarParent = this.closest?.<SbbCalendarElement>('sbb-calendar');
