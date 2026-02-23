@@ -283,16 +283,10 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
 
   /** A list of buttons corresponding to days, months or years depending on the view. */
   private get _cells(): (HTMLButtonElement | SbbCalendarDayElement)[] {
-    return (
+    return Array.from<HTMLButtonElement | SbbCalendarDayElement>(
       (this._calendarView === 'day'
-        ? Array.from(
-            this._getRootForQuerySelector().querySelectorAll<SbbCalendarDayElement>(
-              'sbb-calendar-day',
-            ),
-          )
-        : Array.from(
-            this.shadowRoot!.querySelectorAll<HTMLButtonElement>('.sbb-calendar__cell'),
-          )) ?? []
+        ? this._getRootForQuerySelector()?.querySelectorAll('sbb-calendar-day')
+        : this.shadowRoot?.querySelectorAll('.sbb-calendar__cell')) ?? [],
     );
   }
 

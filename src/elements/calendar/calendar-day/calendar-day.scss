@@ -12,10 +12,13 @@
   );
   --sbb-calendar-day-transition-easing-function: var(--sbb-animation-easing);
   --sbb-calendar-day-cursor: var(--sbb-cursor-pointer);
+  --sbb-calendar-day-border-radius: var(--sbb-border-radius-4x);
   --sbb-calendar-day-flex-direction: column;
   --sbb-calendar-day-justify-content: initial;
   --sbb-calendar-day-align-items: initial;
+  --sbb-calendar-day-value-height: var(--sbb-spacing-fixed-6x);
   --sbb-calendar-day-extra-display: block;
+  --sbb-calendar-day-extra-height: var(--sbb-spacing-fixed-4x);
   --sbb-calendar-day-crossed-out-top: 33%;
   --sbb-calendar-day-crossed-out-translate: translate(-50%, -33%) rotate(-45deg);
 }
@@ -60,7 +63,7 @@
     inset: var(--sbb-calendar-cell-padding);
     background-color: var(--sbb-calendar-cell-background-color);
     border: var(--sbb-calendar-day-selected-border);
-    border-radius: var(--sbb-border-radius-4x);
+    border-radius: var(--sbb-calendar-day-border-radius);
     z-index: -1;
     transition-duration: var(--sbb-calendar-day-transition-duration);
     transition-timing-function: var(--sbb-calendar-day-transition-easing-function);
@@ -103,10 +106,10 @@
 }
 
 .sbb-calendar-day__value {
-  height: var(--sbb-spacing-fixed-6x);
+  height: var(--sbb-calendar-day-value-height);
 
   :host(:state(current)) & {
-    @include sbb.text-s--bold;
+    font-weight: bold;
   }
 
   :host(:state(crossed-out)) & {
@@ -116,8 +119,8 @@
       width: var(--sbb-calendar-cell-disabled-width);
       position: absolute;
       background-color: var(--sbb-calendar-cell-disabled-color);
-      top: var(--sbb-calendar-day-crossed-out-top);
-      left: 50%;
+      inset-block-start: var(--sbb-calendar-day-crossed-out-top);
+      inset-inline-start: 50%;
       transform: var(--sbb-calendar-day-crossed-out-translate);
     }
   }
@@ -125,6 +128,6 @@
 
 .sbb-calendar-day__extra {
   display: var(--sbb-calendar-day-extra-display);
-  height: var(--sbb-spacing-fixed-4x);
+  height: var(--sbb-calendar-day-extra-height);
   padding: var(--sbb-calendar-cell-padding);
 }
