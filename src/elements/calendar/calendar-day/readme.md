@@ -19,7 +19,7 @@ Styling the content is on consumer side.
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: var(--sbb-color-metal);
+    color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
   }
 </style>
 

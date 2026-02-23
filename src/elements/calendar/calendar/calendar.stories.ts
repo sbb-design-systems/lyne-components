@@ -6,7 +6,10 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 import { defaultDateAdapter } from '../../core/datetime.ts';
-import { createSlottedDays, priceStyle } from '../calendar-day/calendar-day.helper.private.ts';
+import {
+  createSlottedDays,
+  monthChangeHandler,
+} from '../calendar-day/calendar-day.helper.private.ts';
 
 import type { SbbMonthChangeEvent } from './calendar.component.ts';
 import { SbbCalendarElement } from './calendar.component.ts';
@@ -14,23 +17,6 @@ import readme from './readme.md?raw';
 
 const today = new Date();
 today.setDate(today.getDate() >= 15 ? 8 : 18);
-
-const monthChangeHandler = (e: SbbMonthChangeEvent, withPrice: boolean): void => {
-  const calendar = e.target as SbbCalendarElement;
-  Array.from(calendar.children).forEach((e) => e.remove());
-  e.range?.map((day) => {
-    const child = document.createElement('sbb-calendar-day');
-    child.setAttribute('slot', day.value);
-    if (withPrice) {
-      const price = document.createElement('span');
-      price.className = 'sbb-text-xxs';
-      price.textContent = +day.dayValue % 9 === 0 ? '99.-' : '123.-';
-      price.style = priceStyle(+day.dayValue % 9 === 0);
-      child.appendChild(price);
-    }
-    calendar.appendChild(child);
-  });
-};
 
 const createDays = (wide: boolean, withPrice: boolean): TemplateResult => {
   const year = defaultDateAdapter.getYear(today);
@@ -246,7 +232,7 @@ const defaultArgs: Args = {
   view: view.options![0],
   'week-numbers': false,
   multiple: false,
-  withPrice: false,
+  withPrice: true,
 };
 
 export const Calendar: StoryObj = {

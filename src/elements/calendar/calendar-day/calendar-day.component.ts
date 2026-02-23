@@ -98,15 +98,10 @@ class SbbCalendarDayElement<T extends Date = Date> extends SbbDisabledMixin(
    * or, if extra content is needed, it can be slotted.
    */
   private _getParent(): SbbCalendarElement | null {
-    const calendarParent = this.closest?.<SbbCalendarElement>('sbb-calendar');
-    if (calendarParent) {
-      return calendarParent;
-    }
-    const root = this.getRootNode?.();
-    if (root && root instanceof ShadowRoot && root.host.localName === 'sbb-calendar') {
-      return root.host as SbbCalendarElement;
-    }
-    return null;
+    return (
+      this.closest?.<SbbCalendarElement>('sbb-calendar') ??
+      (this.getRootNode?.() as ShadowRoot)?.host?.closest('sbb-calendar')
+    );
   }
 
   private _setSelectedState(component: SbbCalendarElement): void {

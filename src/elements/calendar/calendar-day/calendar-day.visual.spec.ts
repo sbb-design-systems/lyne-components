@@ -57,7 +57,7 @@ describe('sbb-calendar-day', () => {
                     ${content
                       ? html` <span
                           class="sbb-text-xxs"
-                          style="display: flex; flex-direction: column; justify-content: center; color: var(--sbb-color-metal);"
+                          style="display: flex; flex-direction: column; justify-content: center; color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));"
                           >99.-</span
                         >`
                       : nothing}
@@ -82,7 +82,7 @@ describe('sbb-calendar-day', () => {
                     ${content
                       ? html` <span
                           class="sbb-text-xxs"
-                          style="display: flex; flex-direction: column; justify-content: center; color: var(--sbb-color-metal);"
+                          style="display: flex; flex-direction: column; justify-content: center; color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));"
                           >99.-</span
                         >`
                       : nothing}

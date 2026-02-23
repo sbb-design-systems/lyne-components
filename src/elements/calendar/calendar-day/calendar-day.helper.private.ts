@@ -6,29 +6,37 @@ import type { SbbMonthChangeEvent, SbbCalendarElement } from '../calendar/calend
 
 import './calendar-day.component.ts';
 
-/**
- * Used in stories and tests to emulate the consumer's behavior;
- * dynamically removes the previous slotted days and adds the correct one based on the SbbMonthChangeEvent's Day[] range.
- * @param event The SbbMonthChangeEvent emitted from the SbbCalendarElement
- */
-export const monthChangeHandler = (event: SbbMonthChangeEvent): void => {
-  const calendar = event.target as SbbCalendarElement;
-  Array.from(calendar.children).forEach((e) => e.remove());
-  event.range?.map((day) => {
-    const child = document.createElement('sbb-calendar-day');
-    child.setAttribute('slot', day.value);
-    calendar.appendChild(child);
-  });
-};
-
 export const priceStyle = (greenBold: boolean): string => {
-  return `display: flex; flex-direction: column; justify-content: center; ${greenBold ? 'color: var(--sbb-color-green); font-weight: bold;' : 'color: var(--sbb-color-metal);'}`;
+  return `display: flex; flex-direction: column; justify-content: center; ${greenBold ? 'color: var(--sbb-color-green); font-weight: bold;' : 'color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));'}`;
 };
 
 export const createPrice = (greenBold: boolean): TemplateResult => {
   return html`
     <span class="sbb-text-xxs" style=${priceStyle(greenBold)}>${greenBold ? '99.-' : '123.-'}</span>
   `;
+};
+
+/**
+ * Used in stories and tests to emulate the consumer's behavior;
+ * dynamically removes the previous slotted days and adds the correct one based on the SbbMonthChangeEvent's Day[] range.
+ * @param event The SbbMonthChangeEvent emitted from the SbbCalendarElement
+ * @param withPrice whether to display the extra text content
+ */
+export const monthChangeHandler = (event: SbbMonthChangeEvent, withPrice = false): void => {
+  const calendar = event.target as SbbCalendarElement;
+  Array.from(calendar.children).forEach((e) => e.remove());
+  event.range?.map((day) => {
+    const child = document.createElement('sbb-calendar-day');
+    child.setAttribute('slot', day.value);
+    if (withPrice) {
+      const price = document.createElement('span');
+      price.className = 'sbb-text-xxs';
+      price.textContent = +day.dayValue % 9 === 0 ? '99.-' : '123.-';
+      price.style = priceStyle(+day.dayValue % 9 === 0);
+      child.appendChild(price);
+    }
+    calendar.appendChild(child);
+  });
 };
 
 /**

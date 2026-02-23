@@ -31,7 +31,7 @@ Consumers can listen to this event to dynamically create and slot the `sbb-calen
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: var(--sbb-color-metal);
+  color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
 }
 ```
 
