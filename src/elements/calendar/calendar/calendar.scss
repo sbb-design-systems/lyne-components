@@ -25,6 +25,8 @@
   --sbb-calendar-cell-transition-easing-function: var(--sbb-animation-easing);
   --sbb-calendar-tables-gap: var(--sbb-spacing-fixed-10x);
   --sbb-calendar-table-animation-shift: #{sbb.px-to-rem-build(0.1)};
+  --sbb-calendar-border-collapse: collapse;
+  --sbb-calendar-border-spacing: initial;
 
   // While changing views, there would be a few frames where the height of the calendar collapses to just
   // the height of the controls and then grow back to the height of the next view.
@@ -185,8 +187,9 @@
 
 .sbb-calendar__table {
   width: 100%;
-  border-collapse: collapse;
   height: max-content;
+  border-collapse: var(--sbb-calendar-border-collapse);
+  border-spacing: var(--sbb-calendar-border-spacing);
 
   animation: {
     name: show;
@@ -200,6 +203,11 @@
       name: hide;
       duration: var(--sbb-calendar-table-animation-duration);
     }
+  }
+
+  :host(:state(enhanced)) & {
+    --sbb-calendar-border-collapse: separate;
+    --sbb-calendar-border-spacing: 0 var(--sbb-spacing-fixed-3x);
   }
 
   :host(:not(:state(wide))) & {

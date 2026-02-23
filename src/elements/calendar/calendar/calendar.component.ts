@@ -408,6 +408,7 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
     this._enhancedVariant = Array.from(this.children).some(
       (c) => c.localName === 'sbb-calendar-day',
     );
+    this.internals.states.add('enhanced');
     this._setTabIndex();
   };
 
