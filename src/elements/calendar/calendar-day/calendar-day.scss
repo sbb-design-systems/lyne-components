@@ -5,7 +5,7 @@
 
   --sbb-calendar-day-width: #{sbb.px-to-rem-build(44)};
   --sbb-calendar-day-height: #{sbb.px-to-rem-build(48)};
-  --sbb-calendar-day-cell-background-color: transparent;
+  --sbb-calendar-day-cell-background-color: var(--sbb-calendar-cell-background-color);
   --sbb-calendar-day-selected-border: none;
   --sbb-calendar-day-transition-duration: var(
     --sbb-disable-animation-duration,
