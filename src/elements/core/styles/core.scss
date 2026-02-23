@@ -363,6 +363,7 @@ html {
     white-space: break-spaces;
     overflow-y: auto;
     min-height: calc((var(--sbb-typo-line-height-text) * 1em));
+    height: 100%;
   }
 
   &[size='l'] :where(textarea) {
