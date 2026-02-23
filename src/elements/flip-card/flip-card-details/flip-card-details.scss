@@ -14,10 +14,13 @@
   position: absolute;
   pointer-events: none;
   color: var(--sbb-color-milk);
-  opacity: var(--sbb-flip-card-details-opacity);
+  opacity: var(--sbb-flip-card-details-opacity, 0);
   transform: translateY(var(--sbb-flip-card-details-translate-y));
   transition-property: transform, opacity;
   transition-duration: var(--sbb-flip-card-details-transition-duration);
+}
+
+.sbb-flip-card-details {
   overflow: hidden;
   padding: var(--sbb-flip-card-details-padding);
   padding-block-end: var(--sbb-flip-card-details-padding-block-end);

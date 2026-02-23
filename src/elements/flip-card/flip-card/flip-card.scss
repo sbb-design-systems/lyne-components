@@ -16,10 +16,6 @@
 
   position: relative;
   display: block;
-
-  @include sbb.mq($from: large) {
-    --sbb-flip-card-min-height: #{sbb.px-to-rem-build(320)};
-  }
 }
 
 :host(:hover) {
@@ -137,7 +133,7 @@
 }
 
 .sbb-flip-card--toggle-button-icon {
-  transform: var(--sbb-flip-card-toggle-icon-transform);
+  transform: var(--sbb-flip-card-toggle-icon-transform, 0);
   transition: transform var(--sbb-flip-card-summary-transition-duration) ease-out;
 }
 

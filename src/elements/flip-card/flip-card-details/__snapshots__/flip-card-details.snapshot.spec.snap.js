@@ -9,8 +9,10 @@ snapshots["sbb-flip-card-details DOM"] =
 /* end snapshot sbb-flip-card-details DOM */
 
 snapshots["sbb-flip-card-details Shadow DOM"] = 
-`<slot>
-</slot>
+`<div class="sbb-flip-card-details">
+  <slot>
+  </slot>
+</div>
 `;
 /* end snapshot sbb-flip-card-details Shadow DOM */
 

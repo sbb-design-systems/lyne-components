@@ -3,8 +3,8 @@
 :host {
   display: grid;
   min-height: var(--sbb-flip-card-min-height);
-  pointer-events: var(--sbb-flip-card-summary-pointer-events);
-  opacity: var(--sbb-flip-card-summary-opacity);
+  pointer-events: var(--sbb-flip-card-summary-pointer-events, all);
+  opacity: var(--sbb-flip-card-summary-opacity, 1);
   border-radius: var(--sbb-flip-card-border-radius);
   overflow: hidden;
   grid-template-columns: minmax(0, 1fr);

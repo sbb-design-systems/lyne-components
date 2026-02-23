@@ -3,7 +3,6 @@
 $theme: 'standard' !default;
 
 @mixin base {
-  --sbb-flip-card-toggle-icon-transform: rotate(0);
   --sbb-flip-card-background-color: var(--sbb-background-color-4);
   --sbb-flip-card-border: var(--sbb-border-width-2x);
   --sbb-flip-card-border-radius: var(--sbb-border-radius-4x);
@@ -11,4 +10,8 @@ $theme: 'standard' !default;
   --sbb-flip-card-inset: var(--sbb-spacing-responsive-s);
   --sbb-flip-card-min-height: #{sbb.px-to-rem-build(280)};
   --sbb-flip-card-gap: var(--sbb-spacing-responsive-xs);
+}
+
+@mixin base-breakpoint-large {
+  --sbb-flip-card-min-height: #{sbb.px-to-rem-build(320)};
 }

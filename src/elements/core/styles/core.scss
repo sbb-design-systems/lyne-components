@@ -237,6 +237,7 @@ $theme: 'standard' !default;
     @include button.base-breakpoint-large;
 
     @include chip-group.base-breakpoint-large;
+    @include flip-card.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage
