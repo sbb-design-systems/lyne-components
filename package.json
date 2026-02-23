@@ -64,7 +64,7 @@
     "@commitlint/config-conventional": "20.4.2",
     "@custom-elements-manifest/analyzer": "0.11.0",
     "@custom-elements-manifest/to-markdown": "0.1.0",
-    "@eslint/eslintrc": "3.3.3",
+    "@eslint/eslintrc": "3.3.4",
     "@eslint/js": "10.0.1",
     "@inquirer/checkbox": "5.1.0",
     "@lit-labs/observers": "2.1.0",
