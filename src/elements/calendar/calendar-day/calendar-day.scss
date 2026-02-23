@@ -21,7 +21,7 @@
 }
 
 :host(:state(selected)) {
-  --sbb-calendar-day-selected-border: var(--sbb-border-width-1x) solid var(--sbb-border-color-2);
+  --sbb-calendar-day-selected-border: var(--sbb-border-width-2x) solid var(--sbb-border-color-2);
 }
 
 :host(:disabled) {
@@ -60,7 +60,7 @@
     inset: var(--sbb-calendar-cell-padding);
     background-color: var(--sbb-calendar-cell-background-color);
     border: var(--sbb-calendar-day-selected-border);
-    border-radius: var(--sbb-border-radius-6x);
+    border-radius: var(--sbb-border-radius-4x);
     z-index: -1;
     transition-duration: var(--sbb-calendar-day-transition-duration);
     transition-timing-function: var(--sbb-calendar-day-transition-easing-function);
