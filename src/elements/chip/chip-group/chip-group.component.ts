@@ -108,7 +108,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   @property({ attribute: 'separator-keys', type: Array })
   public accessor separatorKeys: string[] = ['Enter'];
 
-  /** Whether to automatically add a chip when the input loses focus if there's a value. Defaults to `false` */
+  /** Whether to automatically add a chip when the input loses focus if there's a value. */
   @forceType()
   @property({ attribute: 'add-on-blur', type: Boolean })
   public accessor addOnBlur: boolean = false;
