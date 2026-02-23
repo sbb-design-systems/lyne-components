@@ -1201,10 +1201,10 @@
     "@types/sinon-chai" "^3.2.3"
     chai-a11y-axe "^1.5.0"
 
-"@ota-meshi/ast-token-store@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@ota-meshi/ast-token-store/-/ast-token-store-0.2.1.tgz#cc4a45518fd3029f286f4f90f4a5a3920cab0ec5"
-  integrity sha512-+8oB1wcOSWJCR6vAm2ioSLas7SoPwp+8tZ1Tcy8DSVEHMip6jxxlGu6EsRzJLAYVCyzKQ38B5pAqSbon1l1rmA==
+"@ota-meshi/ast-token-store@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@ota-meshi/ast-token-store/-/ast-token-store-0.3.0.tgz#c4112dabb53c8bd0c298d94d858849c30f1d3283"
+  integrity sha512-XRO0zi2NIUKq2lUk3T1ecFSld1fMWRKE6naRFGkgkdeosx7IslyUKNv5Dcb5PJTja9tHJoFu0v/7yEpAkrkrTg==
 
 "@oxc-resolver/binding-android-arm-eabi@11.17.1":
   version "11.17.1"
@@ -4611,14 +4611,14 @@ eslint-plugin-storybook@10.2.10:
   dependencies:
     "@typescript-eslint/utils" "^8.48.0"
 
-eslint-plugin-yml@3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-yml/-/eslint-plugin-yml-3.2.1.tgz#112adf556d3ee55c663fa1970476dae7f439f586"
-  integrity sha512-/oFj7MWk56AKLelLSUb7zN1OKDI9kR+uKEzbf/sGu7Bov0tJs3qwtMcu+VCcEtFAFD7KZe0LSYhyy0Uq8hKF9g==
+eslint-plugin-yml@3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-yml/-/eslint-plugin-yml-3.2.2.tgz#3f1927d27a3061c855c3c2ec79710d9597796d95"
+  integrity sha512-vMluBBMGecygLzeOly0EnDhudQb9CNEXEUokTap93oF/KyASAADed4xRlFBQQNuzJK3N6u5s3M/IjIKPGZZOKA==
   dependencies:
     "@eslint/core" "^1.0.1"
     "@eslint/plugin-kit" "^0.6.0"
-    "@ota-meshi/ast-token-store" "^0.2.1"
+    "@ota-meshi/ast-token-store" "^0.3.0"
     debug "^4.3.2"
     diff-sequences "^29.0.0"
     escape-string-regexp "5.0.0"
