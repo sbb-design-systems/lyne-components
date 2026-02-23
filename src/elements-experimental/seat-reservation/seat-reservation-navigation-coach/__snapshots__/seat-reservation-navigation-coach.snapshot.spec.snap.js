@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach DOM"] = 
-`<sbb-seat-reservation-navigation-coach
-  coach-id="85"
-  travel-class="['FIRST']"
->
+`<sbb-seat-reservation-navigation-coach>
 </sbb-seat-reservation-navigation-coach>
 `;
 /* end snapshot sbb-seat-reservation-navigation-coach renders a navigation coach DOM */
@@ -17,6 +14,8 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shad
     class="sbb-sr-navigation__ctrl-button"
     type="button"
   >
+    <span class="sbb-sr-navigation--first-class">
+    </span>
     <div class="sbb-sr-navigation__additional-information">
       <div
         aria-hidden="true"
@@ -28,11 +27,12 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach Shad
         aria-hidden="true"
         class="sbb-sr-navigation__item-coach-travelclass"
       >
+        1
       </div>
     </div>
     <sbb-screen-reader-only id="nav-coach-service-descriptions-0">
       <div>
-        Navigate to coach 85. 0 seats available. 0 available bicycle spaces.
+        Navigate to coach 85 with First class compartment. 0 seats available. 0 available bicycle spaces.
       </div>
       <div>
         Available services: Bike area,Quiet zone.
@@ -57,8 +57,8 @@ snapshots["sbb-seat-reservation-navigation-coach renders a navigation coach A11y
       "children": [
         {
           "role": "button",
-          "name": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces. Available services: Bike area,Quiet zone.",
-          "description": "Navigate to coach 85. 0 seats available. 0 available bicycle spaces. Available services: Bike area,Quiet zone.",
+          "name": "Navigate to coach 85 with First class compartment. 0 seats available. 0 available bicycle spaces. Available services: Bike area,Quiet zone.",
+          "description": "Navigate to coach 85 with First class compartment. 0 seats available. 0 available bicycle spaces. Available services: Bike area,Quiet zone.",
           "invalid": false,
           "focusable": true,
           "describedby": "nav-coach-service-descriptions-0"

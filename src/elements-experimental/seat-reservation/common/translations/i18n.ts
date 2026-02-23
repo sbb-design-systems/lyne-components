@@ -73,6 +73,12 @@ const i18nObjects: I18nObjects = {
     fr: 'Terminer la réservation graphique de places',
     it: 'Uscita dalla prenotazione grafica dei posti',
   },
+  COACH_LOCOMOTIVE: {
+    de: 'Lokomotive',
+    en: 'Locomotive',
+    fr: 'Locomotive',
+    it: 'Locomotiva',
+  },
 
   // TRAVEL DIRECTION
   SEAT_RESERVATION_TRAVEL_DIRECTION: {
