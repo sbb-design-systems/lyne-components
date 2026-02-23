@@ -11,6 +11,8 @@
   --sbb-calendar-wide-cell-size: #{sbb.px-to-rem-build(70)};
   --sbb-calendar-header-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   --sbb-calendar-cell-background-color: transparent;
+  --sbb-calendar-cell-background-color-hover: var(--sbb-background-color-3);
+  --sbb-calendar-cell-background-color-active: var(--sbb-background-color-4);
   --sbb-calendar-cell-padding: #{sbb.px-to-rem-build(2)};
   --sbb-calendar-cell-color: var(--sbb-color-2);
   --sbb-calendar-cell-selected-color: var(--sbb-color-1-inverted);
@@ -245,6 +247,7 @@
   text-align: center;
 }
 
+// FIXME: check whether is possible to avoid using z-index rules
 .sbb-calendar__header-cell,
 .sbb-calendar__cell {
   @include sbb.button-reset;
@@ -270,7 +273,7 @@
 
   @include sbb.hover-mq($hover: true) {
     &:not(.sbb-calendar__selected, :active, :disabled):hover {
-      --sbb-calendar-cell-background-color: var(--sbb-background-color-3);
+      --sbb-calendar-cell-background-color: var(--sbb-calendar-cell-background-color-hover);
 
       padding-block-end: var(--sbb-calendar-hover-shift);
 
@@ -297,7 +300,7 @@
   }
 
   &:not(.sbb-calendar__selected, :disabled):active {
-    --sbb-calendar-cell-background-color: var(--sbb-background-color-4);
+    --sbb-calendar-cell-background-color: var(--sbb-calendar-cell-background-color-active);
 
     &::before {
       @include sbb.if-forced-colors {

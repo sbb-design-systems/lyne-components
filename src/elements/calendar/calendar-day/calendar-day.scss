@@ -5,6 +5,7 @@
 
   --sbb-calendar-day-width: #{sbb.px-to-rem-build(44)};
   --sbb-calendar-day-height: #{sbb.px-to-rem-build(48)};
+  --sbb-calendar-day-cell-background-color: transparent;
   --sbb-calendar-day-selected-border: none;
   --sbb-calendar-day-transition-duration: var(
     --sbb-disable-animation-duration,
@@ -37,9 +38,10 @@
 }
 
 :host(:not(:disabled):active) {
-  --sbb-calendar-cell-background-color: var(--sbb-background-color-4);
+  --sbb-calendar-day-cell-background-color: var(--sbb-calendar-cell-background-color-active);
 }
 
+// FIXME: check whether is possible to avoid using z-index rules
 .sbb-calendar-day {
   @include sbb.button-reset;
   @include sbb.text-s--regular;
@@ -61,7 +63,7 @@
     content: '';
     position: absolute;
     inset: var(--sbb-calendar-cell-padding);
-    background-color: var(--sbb-calendar-cell-background-color);
+    background-color: var(--sbb-calendar-day-cell-background-color);
     border: var(--sbb-calendar-day-selected-border);
     border-radius: var(--sbb-calendar-day-border-radius);
     z-index: -1;
@@ -87,7 +89,7 @@
   :host(:not(:active, :disabled)) & {
     @include sbb.hover-mq($hover: true) {
       &:hover {
-        --sbb-calendar-cell-background-color: var(--sbb-background-color-3);
+        --sbb-calendar-day-cell-background-color: var(--sbb-calendar-cell-background-color-hover);
 
         padding-block-end: var(--sbb-calendar-hover-shift);
 
