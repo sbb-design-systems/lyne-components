@@ -61,31 +61,10 @@ jobs:
 
       - name: Update npm
         run: npm install --global npm@latest
-      - name: 'Release: Determine npm tag'
-        if: ${{ steps.release.outputs.release_created }}
-        id: npm_tag
-        run: echo "npm_tag=$([[ "${{ steps.version.outputs.version }}" == *"-"* ]] && echo "next" || echo "latest")" >> $GITHUB_OUTPUT
-
-      - name: 'Release: Publish @sbb-esta/lyne-elements'
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          cd dist/elements
-          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
-      - name: 'Release: Publish @sbb-esta/lyne-elements-experimental'
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          cd dist/elements-experimental
-          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
-      - name: 'Release: Publish @sbb-esta/lyne-react'
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          cd dist/react
-          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
-      - name: 'Release: Publish @sbb-esta/lyne-react-experimental'
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          cd dist/react-experimental
-          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
+      - name: Publish packages
+        run: node scripts/publish.ts
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
 
       - uses: ./.github/actions/setup-mint
       - name: 'Container: Build and publish release image'
