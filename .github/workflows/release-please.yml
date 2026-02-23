@@ -117,13 +117,14 @@ jobs:
           RELEASE_TAG: ${{ steps.release.outputs.version }}
           TEAMS_WEBHOOK: ${{ secrets.TEAMS_WEBHOOK }}
 
-      - name: Cherry-pick CHANGELOG.md into ${{ github.event.repository.default_branch }}
+      - name: Apply CHANGELOG.md into ${{ github.event.repository.default_branch }}
         if: ${{ steps.release.outputs.release_created && github.ref_name != 'main' }}
         run: |
+          node scripts/changelog.ts extract
           git config user.email "github-actions@github.com"
           git config user.name "github-actions"
           git checkout ${{ github.event.repository.default_branch }}
-          git show ${{ github.sha }} -- CHANGELOG.md | git apply -
+          node scripts/changelog.ts insert
           git commit -a -m "chore: update changelog"
           git push
 
