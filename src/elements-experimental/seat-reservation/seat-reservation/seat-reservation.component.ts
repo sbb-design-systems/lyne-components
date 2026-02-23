@@ -146,7 +146,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       btnDisabled = false;
     } else if (
       btnDirection == 'DIRECTION_RIGHT' &&
-      this.selectedCoachIndex < this.coachItemDetails.length - 1
+      this.selectedCoachIndex < this.coachItemDetailsElements.length - 1
     ) {
       btnDisabled = false;
     }
@@ -207,24 +207,26 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             this._language.current,
           )}"
         >
-          ${this.coachItemDetails.map((coachItemDetails: CoachItemDetails, index: number) => {
-            return html`<li>
-              <sbb-seat-reservation-navigation-coach
-                @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
-                @focuscoach=${() => this._onFocusNavCoach()}
-                @keyup=${(evt: KeyboardEvent) => this.onKeyNavigationNavCoachButton(evt, index)}
-                index="${index}"
-                .selected=${this.selectedCoachIndex === index}
-                .focused=${this.focusedCoachIndex === index}
-                .hovered=${this.hoveredCoachIndex === index}
-                .nativeFocusActive=${this.hasSeatReservationNativeFocus}
-                .coachItemDetails="${coachItemDetails}"
-                ?vertical="${this.alignVertical}"
-                ?showTitleInfo="${this.showTitleInfo}"
-              >
-              </sbb-seat-reservation-navigation-coach>
-            </li>`;
-          })}
+          ${this.coachItemDetailsElements.map(
+            (coachItemDetails: CoachItemDetails, index: number) => {
+              return html`<li>
+                <sbb-seat-reservation-navigation-coach
+                  @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
+                  @focuscoach=${() => this._onFocusNavCoach()}
+                  @keyup=${(evt: KeyboardEvent) => this.onKeyNavigationNavCoachButton(evt, index)}
+                  index="${index}"
+                  .selected=${this.selectedCoachIndex === index}
+                  .focused=${this.focusedCoachIndex === index}
+                  .hovered=${this.hoveredCoachIndex === index}
+                  .nativeFocusActive=${this.hasSeatReservationNativeFocus}
+                  .coachItemDetails="${coachItemDetails}"
+                  ?vertical="${this.alignVertical}"
+                  ?showTitleInfo="${this.showTitleInfo}"
+                >
+                </sbb-seat-reservation-navigation-coach>
+              </li>`;
+            },
+          )}
         </ul>
         ${this._renderNavigationControlButton('DIRECTION_RIGHT')}
       </nav>
@@ -309,9 +311,9 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     if (!coachItem.graphicElements) return null;
 
     const COACH_PASSAGE_WIDTH = 1;
-    const driverArea = this.coachItemDetails[coachIndex]?.driverAreaElements?.driverArea;
+    const driverArea = this.coachItemDetailsElements[coachIndex]?.driverAreaElements?.driverArea;
     const driverAreaNoVerticalWall =
-      this.coachItemDetails[coachIndex]?.driverAreaElements?.driverAreaNoVerticalWall;
+      this.coachItemDetailsElements[coachIndex]?.driverAreaElements?.driverAreaNoVerticalWall;
 
     let borderWidth = driverArea
       ? coachItem.dimension.w - driverArea.dimension.w - COACH_PASSAGE_WIDTH

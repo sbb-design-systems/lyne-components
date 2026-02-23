@@ -122,7 +122,7 @@ export class SeatReservationBaseElement extends LitElement {
   protected gapBetweenCoachDecks = 48;
   // Describes the fix width of coach navigation button
   protected coachNavButtonDim: number = 0;
-  protected coachItemDetails: CoachItemDetails[] = [];
+  protected coachItemDetailsElements: CoachItemDetails[] = [];
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
   protected maxCalcCoachesWidth: number = 0;
   protected scrollCoachesAreaWidth: number = 0;
@@ -407,7 +407,7 @@ export class SeatReservationBaseElement extends LitElement {
           if (
             !this.currSelectedPlace ||
             !pressedShiftTab ||
-            this.coachItemDetails[currTabIndex].isDriverArea ||
+            this.coachItemDetailsElements[currTabIndex].isDriverArea ||
             this.focusedCoachIndex == -1
           ) {
             this.focusedCoachIndex = currTabIndex;
@@ -518,8 +518,8 @@ export class SeatReservationBaseElement extends LitElement {
 
     // For DriverArea or Empty coach (no places), no place is selectable, so we return directly
     if (
-      this.coachItemDetails[this.currSelectedCoachIndex] &&
-      this.coachItemDetails[this.currSelectedCoachIndex].isDriverArea
+      this.coachItemDetailsElements[this.currSelectedCoachIndex] &&
+      this.coachItemDetailsElements[this.currSelectedCoachIndex].isDriverArea
     ) {
       this._setFocusToSelectedCoachGrid();
       return;
@@ -1085,7 +1085,7 @@ export class SeatReservationBaseElement extends LitElement {
       // If we tab next and the current selected nav coach is the last element, so we have to focus (jump) directly to the right nav direction button
       else if (
         tabDirection === 'NEXT_TAB' &&
-        newFocusableIndex === this.coachItemDetails.length - 1
+        newFocusableIndex === this.coachItemDetailsElements.length - 1
       ) {
         this.unfocusPlaceElement();
         this.focusedCoachIndex = -1;
@@ -1456,7 +1456,7 @@ export class SeatReservationBaseElement extends LitElement {
       const lowerDeck: CoachItem[] =
         this.seatReservations[this.seatReservations.length - 1].coachItems;
 
-      this.coachItemDetails = [];
+      this.coachItemDetailsElements = [];
 
       lowerDeck.forEach((coach, index) => {
         const travelClasses: PlaceTravelClass[] = [];
@@ -1474,7 +1474,7 @@ export class SeatReservationBaseElement extends LitElement {
             places.push(...(coach.places ? coach.places : []));
           });
 
-        this.coachItemDetails.push({
+        this.coachItemDetailsElements.push({
           id: coach.id,
           travelClass: this._prepareTravelClassNavigation(travelClasses),
           propertyIds: this._prepareServiceIconsNavigation(propertyIds),
