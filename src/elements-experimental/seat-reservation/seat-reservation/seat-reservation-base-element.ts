@@ -15,7 +15,7 @@ import type {
   CoachNumberOfFreePlaces,
   ElementDimension,
   ElementPosition,
-  NavigationCoachItem,
+  CoachItemDetails,
   Place,
   PlaceSelection,
   PlaceTravelClass,
@@ -122,7 +122,7 @@ export class SeatReservationBaseElement extends LitElement {
   protected gapBetweenCoachDecks = 48;
   // Describes the fix width of coach navigation button
   protected coachNavButtonDim: number = 0;
-  protected coachNavData: NavigationCoachItem[] = [];
+  protected coachItemDetailsElements: CoachItemDetails[] = [];
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
   protected maxCalcCoachesWidth: number = 0;
   protected scrollCoachesAreaWidth: number = 0;
@@ -157,6 +157,7 @@ export class SeatReservationBaseElement extends LitElement {
   // Graphics that should not be rendered with an area
   protected notAreaElements = [
     'DRIVER_AREA',
+    'DRIVER_AREA_NO_VERTICAL_WALL',
     'COACH_PASSAGE',
     'COACH_WALL_NO_PASSAGE',
     'COMPARTMENT_PASSAGE',
@@ -249,7 +250,7 @@ export class SeatReservationBaseElement extends LitElement {
       this._initEmptyCoachDeckOffsets();
     }
 
-    this._prepareNavigationCoachData();
+    this._prepareCoachItemDetailsData();
   }
 
   /** Init scroll event handling for coach navigation */
@@ -406,7 +407,7 @@ export class SeatReservationBaseElement extends LitElement {
           if (
             !this.currSelectedPlace ||
             !pressedShiftTab ||
-            this.coachNavData[currTabIndex].isDriverArea ||
+            this.coachItemDetailsElements[currTabIndex].isDriverArea ||
             this.focusedCoachIndex == -1
           ) {
             this.focusedCoachIndex = currTabIndex;
@@ -517,8 +518,8 @@ export class SeatReservationBaseElement extends LitElement {
 
     // For DriverArea or Empty coach (no places), no place is selectable, so we return directly
     if (
-      this.coachNavData[this.currSelectedCoachIndex] &&
-      this.coachNavData[this.currSelectedCoachIndex].isDriverArea
+      this.coachItemDetailsElements[this.currSelectedCoachIndex] &&
+      this.coachItemDetailsElements[this.currSelectedCoachIndex].isDriverArea
     ) {
       this._setFocusToSelectedCoachGrid();
       return;
@@ -916,6 +917,7 @@ export class SeatReservationBaseElement extends LitElement {
     }
     return null;
   }
+
   /**
    * To get the correct closest place of current pressed key and the current selected place,
    * we have to investigate the coordinates of each place to find the closest place of the currSelectedPlaceElementId.
@@ -1081,7 +1083,10 @@ export class SeatReservationBaseElement extends LitElement {
         this.focusedCoachIndex = newFocusableIndex;
       }
       // If we tab next and the current selected nav coach is the last element, so we have to focus (jump) directly to the right nav direction button
-      else if (tabDirection === 'NEXT_TAB' && newFocusableIndex === this.coachNavData.length - 1) {
+      else if (
+        tabDirection === 'NEXT_TAB' &&
+        newFocusableIndex === this.coachItemDetailsElements.length - 1
+      ) {
         this.unfocusPlaceElement();
         this.focusedCoachIndex = -1;
         const btnRightDirection = this.shadowRoot?.getElementById(
@@ -1355,6 +1360,7 @@ export class SeatReservationBaseElement extends LitElement {
       }),
     );
   }
+
   /**
    * All selected places will be reset or the currentSelectedPlace was given, then we reset all except currentSelectedPlace
    * @param reservationPlaceSelections
@@ -1445,12 +1451,12 @@ export class SeatReservationBaseElement extends LitElement {
    *    - class (first, second, any)
    *    - whether there is a driver area left or right
    * */
-  private _prepareNavigationCoachData(): void {
+  private _prepareCoachItemDetailsData(): void {
     if (this.seatReservations) {
       const lowerDeck: CoachItem[] =
         this.seatReservations[this.seatReservations.length - 1].coachItems;
 
-      this.coachNavData = [];
+      this.coachItemDetailsElements = [];
 
       lowerDeck.forEach((coach, index) => {
         const travelClasses: PlaceTravelClass[] = [];
@@ -1468,13 +1474,14 @@ export class SeatReservationBaseElement extends LitElement {
             places.push(...(coach.places ? coach.places : []));
           });
 
-        this.coachNavData.push({
+        this.coachItemDetailsElements.push({
           id: coach.id,
           travelClass: this._prepareTravelClassNavigation(travelClasses),
           propertyIds: this._prepareServiceIconsNavigation(propertyIds),
           isDriverArea: coach.places ? coach.places.length === 0 : true,
           driverAreaSide: this._prepareDriverAreaSideNavigation(coach),
           freePlaces: this.getAvailableFreePlacesNumFromCoach(places),
+          driverAreaElements: this._setDriverAreasElements(coach),
         });
       });
     }
@@ -1655,5 +1662,38 @@ export class SeatReservationBaseElement extends LitElement {
           element.position.x === 0 || element.position.x + element.dimension.w >= coachItemWidth,
       ) ?? false
     );
+  }
+
+  /**
+   * collect information about the driverAreas for one coach
+   * @param coachItem
+   * @private
+   */
+  private _setDriverAreasElements(coachItem: CoachItem): {
+    driverArea: BaseElement | undefined;
+    driverAreaNoVerticalWall: BaseElement | undefined;
+  } {
+    if (coachItem) {
+      const driverArea = coachItem.graphicElements?.find(
+        (element: BaseElement) => element.icon === 'DRIVER_AREA',
+      );
+
+      const driverAreaNoVerticalWall =
+        coachItem.type === 'LOCOMOTIVE_COACH'
+          ? coachItem.graphicElements?.find(
+              (element: BaseElement) => element.icon === 'DRIVER_AREA_NO_VERTICAL_WALL',
+            )
+          : undefined;
+
+      return {
+        driverArea: driverArea,
+        driverAreaNoVerticalWall: driverAreaNoVerticalWall,
+      };
+    }
+
+    return {
+      driverArea: undefined,
+      driverAreaNoVerticalWall: undefined,
+    };
   }
 }

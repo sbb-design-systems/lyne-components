@@ -31,6 +31,14 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   // includes more than we need
   const seatReservationNavigationCoachVisualStates = [visualDiffDefault, visualDiffHover] as const;
 
+  const coachItemDetails = {
+    id: '85',
+    travelClass: 'FIRST',
+    propertyIds: propertyIds,
+    freePlaces: { seats: 0, bycicles: 0 },
+    driverAreaElements: { driverArea: undefined, driverAreaNoVerticalWall: undefined },
+  };
+
   // large only viewport because we don't use any other breakpoint media queries
   describeViewports({ viewports: ['large'] }, () => {
     describeEach(
@@ -39,16 +47,14 @@ describe('sbb-seat-reservation-navigation-coach', () => {
         beforeEach(async function () {
           root = await visualRegressionFixture(
             html`
-            <sbb-seat-reservation-navigation-coach
-              coach-id="85"
-              ?selected=${selected}
-              ?focused=${focused}
-              ?hovered=${hovered}
-              ?disable=${disabled}
-              travel-class=["FIRST"]
-              .propertyIds=${propertyIds}
-            ></sbb-seat-reservation-navigation-coach>
-          `,
+              <sbb-seat-reservation-navigation-coach
+                ?selected=${selected}
+                ?focused=${focused}
+                ?hovered=${hovered}
+                ?disable=${disabled}
+                .coachItemDetails="${coachItemDetails}"
+              ></sbb-seat-reservation-navigation-coach>
+            `,
             {
               darkMode,
               forcedColors,
