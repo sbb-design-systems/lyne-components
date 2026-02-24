@@ -20,13 +20,13 @@
   transition-duration: var(--sbb-flip-card-details-transition-duration);
 }
 
+:host(:state(flipped)) {
+  transition-delay:
+    var(--sbb-flip-card-details-transition-delay), var(--sbb-flip-card-details-transition-delay);
+}
+
 .sbb-flip-card-details {
   overflow: hidden;
   padding: var(--sbb-flip-card-details-padding);
   padding-block-end: var(--sbb-flip-card-details-padding-block-end);
-}
-
-:host(:state(flipped)) {
-  transition-delay:
-    var(--sbb-flip-card-details-transition-delay), var(--sbb-flip-card-details-transition-delay);
 }
