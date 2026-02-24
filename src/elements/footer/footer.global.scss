@@ -1,0 +1,18 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-footer-background-color: var(--sbb-background-color-3);
+  --sbb-footer-border-block-start: var(--sbb-border-width-1x);
+  --sbb-footer-clock-width: #{sbb.px-to-rem-build(76)};
+  --sbb-footer-color: light-dark(var(--sbb-color-granite), var(--sbb-color-white));
+  --sbb-footer-font-size: var(--sbb-text-font-size-s);
+  --sbb-footer-gap-horizontal: var(--sbb-grid-base-gutter-responsive);
+  --sbb-footer-gap-vertical: var(--sbb-spacing-responsive-l);
+  --sbb-footer-padding-block: var(--sbb-spacing-responsive-l);
+}
+
+@mixin base-breakpoint-small {
+  --sbb-footer-clock-width: #{sbb.px-to-rem-build(112)};
+}
