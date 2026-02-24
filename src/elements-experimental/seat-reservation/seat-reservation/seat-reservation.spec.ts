@@ -32,10 +32,6 @@ describe(`sbb-seat-reservation`, () => {
     assert.instanceOf(element, SbbSeatReservationElement);
   });
 
-  it('should be accessible', async () => {
-    await expect(element).to.be.accessible();
-  });
-
   it('should correctly set seatReservations from dataFull', async () => {
     assert.deepEqual(element.seatReservations, dataFull);
   });

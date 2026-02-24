@@ -165,6 +165,13 @@ export class SeatReservationBaseElement extends LitElement {
   private _scrollTimeout: ReturnType<typeof setTimeout> | undefined;
   private _lastStartScrollPos = -1;
 
+  public constructor() {
+    super();
+    // Add blur event listener on the entire component to detect when the user leaves the component
+    // by using tab navigation or clicking outside of the component. In this case, we can reset the selected coach and place.
+    this.addEventListener('blur', () => this._onLeaveSeatReservationComponent());
+  }
+
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
@@ -366,9 +373,7 @@ export class SeatReservationBaseElement extends LitElement {
     event: KeyboardEvent,
     currNavCoachButtonIndex: number,
   ): void {
-    const pressedKey = event.key;
-
-    if (pressedKey === this.keyboardNavigationEvents.Tab) {
+    if (event.key === this.keyboardNavigationEvents.Tab || event.shiftKey) {
       this._handleTabKeyNavigation(event, 'navigation', currNavCoachButtonIndex);
       return;
     }
@@ -428,22 +433,29 @@ export class SeatReservationBaseElement extends LitElement {
    * With the [TAB] key the user navigation goes to the next coach navigation element and the currently selected place is automatically reset.
    */
   protected keyboardSeatmapEventHandling(event: KeyboardEvent): void {
+    const isTabNext = event.key === this.keyboardNavigationEvents.Tab;
+    const isTabPrev = event.shiftKey && isTabNext;
+
+    // If no navigation exist and the first or last coach is selected, the the use tries to leave the seat reservation component by using tab,
+    // so we can return here and allow the native focus to leave the component.
+    if (
+      (!this.hasNavigation && this.currSelectedCoachIndex === 0 && isTabPrev) ||
+      (this.currSelectedCoachIndex === this.coachNavData.length - 1 && isTabNext)
+    ) {
+      return;
+    }
+
     const pressedKey = event.key;
     this.preventCoachScrollByPlaceClick = false;
-
     // Check any keyboard event was triggered inside the seat reservation component,
     // so we can say the native browser focus lies on the component
-    if (
-      !this.hasSeatReservationNativeFocus &&
-      ((event.shiftKey && pressedKey === this.keyboardNavigationEvents.Tab) ||
-        pressedKey === this.keyboardNavigationEvents.Tab)
-    ) {
+    if (!this.hasSeatReservationNativeFocus && (isTabNext || isTabPrev)) {
       this.hasSeatReservationNativeFocus = true;
     }
 
     // If any place is selected and TAB Key combination ist pressed,
     // then we handle the next or previous coach selection
-    if (pressedKey == this.keyboardNavigationEvents.Tab) {
+    if (isTabNext) {
       this._handleTabKeyNavigation(event, 'seatmap');
       return;
     }
@@ -1053,12 +1065,11 @@ export class SeatReservationBaseElement extends LitElement {
           this.unfocusPlaceElement();
           return;
         }
-
-        // If we tab back and the currently selected nav coach is the first element, then we try to tab out of the seatreservation component via the first tab element.
-        // In this case, we have to set the focus to the current selected nav coach again, because the native focus lies in this moment on the seatmap and we have to set the focus back to the nav coach
-        // to enable the user tab out of the component via the first tab element.
+        // When the first coach is selected and we TAB back, we have to set the native focus on the first coach in the navigation to get back to the normal tab navigation.
+        // To do this, we have to remove the focusedIndex from the first coach and set it again after a short delay
         else if (currFocusIndex === 0) {
-          this._setFocusToCurrentFocusedNavCoach();
+          // Refocus the first coach
+          this._refocusCurrentFocusedNavCoach(currFocusIndex);
         } else {
           this.focusedCoachIndex = newFocusableIndex;
         }
@@ -1067,12 +1078,11 @@ export class SeatReservationBaseElement extends LitElement {
       else if (newFocusableIndex !== this.currSelectedCoachIndex) {
         this.focusedCoachIndex = newFocusableIndex;
       }
-
-      // If we tab next and the currently selected nav coach is the last element, then we try to tab out of the seatreservation component via the last tab element.
-      // In this case, we have to set the focus to the current selected nav coach again, because the native focus lies in this moment on the seatmap and we have to set the focus back to the nav coach
-      // to enable the user tab out of the component via the last tab element.
+      // When the last coach is selected and we TAB, we have to set the native focus on the last coach in the navigation to get back to the normal tab navigation.
+      // To do this, we have  to remove the focusedIndex from the first coach and set it again after a short delay
       else if (tabDirection === 'NEXT_TAB' && newFocusableIndex === this.coachNavData.length - 1) {
-        this._setFocusToCurrentFocusedNavCoach();
+        // Refocus the last coach
+        this._refocusCurrentFocusedNavCoach(currFocusIndex);
       } else {
         this.focusedCoachIndex = -1;
         this.selectedCoachIndex = newFocusableIndex;
@@ -1096,14 +1106,10 @@ export class SeatReservationBaseElement extends LitElement {
     }
   }
 
-  // Set the focus again to the current focused nav coach, this is necessary to get the native focus back to the nav coach.
-  // After reseting the focusedCoachIndex, the user can tab out of the seatreservation component via the first or last tab element.
-  private _setFocusToCurrentFocusedNavCoach(): void {
-    const currFocusIndex = this.focusedCoachIndex;
+  // Refocused the current focused (visual) nav coach to get the native focus back to the navigation
+  private _refocusCurrentFocusedNavCoach(focusIndex: number): void {
     this.focusedCoachIndex = -1;
-    setTimeout(() => {
-      this.focusedCoachIndex = currFocusIndex;
-    }, 0);
+    setTimeout(() => (this.focusedCoachIndex = focusIndex), 0);
   }
 
   private _navigateToPlaceByKeyboard(pressedKey: string): void {
@@ -1650,5 +1656,16 @@ export class SeatReservationBaseElement extends LitElement {
           element.position.x === 0 || element.position.x + element.dimension.w >= coachItemWidth,
       ) ?? false
     );
+  }
+
+  /**
+   * Is called when the SeatReservation loses focus, what happens when the user tabs out or clicks somewhere else.
+   * Then we reset the focused elements.
+   */
+  private _onLeaveSeatReservationComponent(): void {
+    if (this.hasNavigation) {
+      this.focusedCoachIndex = -1;
+    }
+    this.unfocusPlaceElement();
   }
 }
