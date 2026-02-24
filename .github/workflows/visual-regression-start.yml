@@ -15,7 +15,7 @@ jobs:
         # This label is used for filtering deployments in ArgoCD.
         # At the start of the workflow, we remove the container available labels
         # which will be re-added after the Secure workflow.
-        run: gh issue edit $PR_NUMBER --repo ${{ github.repository }} --remove-label "preview-available"
+        run: gh issue edit $PR_NUMBER --repo ${{ github.repository }} --remove-label "diff-available"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0].number }}
