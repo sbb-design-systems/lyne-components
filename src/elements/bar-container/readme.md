@@ -27,6 +27,6 @@ The component has two color variants that can be set using the `color` property 
 
 ## Slots
 
-| Name | Description                          |
-| ---- | ------------------------------------ |
-|      | Use the unnamed slot to add content. |
+| Name | Description                                               |
+| ---- | --------------------------------------------------------- |
+|      | Use the unnamed slot to add content to the bar container. |
