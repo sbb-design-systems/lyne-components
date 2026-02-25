@@ -1,0 +1,138 @@
+@use '../../core/styles/index' as sbb;
+
+:host {
+  display: block;
+
+  --sbb-calendar-day-width: #{sbb.px-to-rem-build(44)};
+  --sbb-calendar-day-height: #{sbb.px-to-rem-build(48)};
+  --sbb-calendar-day-cell-background-color: var(--sbb-calendar-cell-background-color);
+  --sbb-calendar-day-selected-border: none;
+  --sbb-calendar-day-transition-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-2x)
+  );
+  --sbb-calendar-day-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-calendar-day-cursor: var(--sbb-cursor-pointer);
+  --sbb-calendar-day-border-radius: var(--sbb-border-radius-4x);
+  --sbb-calendar-day-flex-direction: column;
+  --sbb-calendar-day-justify-content: initial;
+  --sbb-calendar-day-align-items: initial;
+  --sbb-calendar-day-value-height: var(--sbb-spacing-fixed-6x);
+  --sbb-calendar-day-extra-display: block;
+  --sbb-calendar-day-extra-height: var(--sbb-spacing-fixed-4x);
+  --sbb-calendar-day-crossed-out-top: 33%;
+  --sbb-calendar-day-crossed-out-translate: translate(-50%, -33%) rotate(-45deg);
+}
+
+:host(:state(selected)) {
+  --sbb-calendar-day-selected-border: var(--sbb-border-width-2x) solid var(--sbb-border-color-2);
+}
+
+:host(:disabled) {
+  --sbb-calendar-cell-color: var(--sbb-calendar-cell-disabled-color);
+  --sbb-calendar-day-cursor: unset;
+}
+
+:host(:focus-visible) {
+  outline: 0;
+}
+
+:host(:not(:disabled):active) {
+  --sbb-calendar-day-cell-background-color: var(--sbb-calendar-cell-background-color-active);
+}
+
+// FIXME: check whether is possible to avoid using z-index rules
+.sbb-calendar-day {
+  @include sbb.text-s--regular;
+
+  display: flex;
+  flex-direction: var(--sbb-calendar-day-flex-direction);
+  justify-content: var(--sbb-calendar-day-justify-content);
+  align-items: var(--sbb-calendar-day-align-items);
+  height: var(--sbb-calendar-day-height);
+  width: var(--sbb-calendar-day-width);
+  padding: var(--sbb-calendar-cell-padding);
+  padding-block-end: var(--sbb-calendar-day-cell-padding-hover, var(--sbb-calendar-cell-padding));
+  margin: auto;
+  color: var(--sbb-calendar-cell-color);
+  cursor: var(--sbb-calendar-day-cursor);
+  position: relative;
+  z-index: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--sbb-calendar-day-cell-background-color);
+    border: var(--sbb-calendar-day-selected-border);
+    border-radius: var(--sbb-calendar-day-border-radius);
+    z-index: -1;
+    transition-duration: var(--sbb-calendar-day-transition-duration);
+    transition-timing-function: var(--sbb-calendar-day-transition-easing-function);
+    transition-property: background-color;
+
+    :host(:focus-visible) & {
+      @include sbb.focus-outline;
+    }
+
+    :host(:not(:disabled):active) & {
+      @include sbb.if-forced-colors {
+        @include sbb.focus-outline;
+
+        // Basically the focus-outline mixin is made for use with focus-visible.
+        // As we use it here with :active, we have to ensure that the outline is not overridden when mouse or touch is in use.
+        --sbb-focus-outline-style: initial;
+      }
+    }
+  }
+
+  :host(:not(:active, :disabled):hover) & {
+    @include sbb.hover-mq($hover: true) {
+      --sbb-calendar-day-cell-background-color: var(--sbb-calendar-cell-background-color-hover);
+      --sbb-calendar-day-cell-padding-hover: calc(
+        #{sbb.px-to-rem-build(1)} + var(--sbb-calendar-cell-padding)
+      );
+
+      &::before {
+        @include sbb.if-forced-colors {
+          @include sbb.focus-outline;
+
+          // Basically the focus-outline mixin is made for use with focus-visible.
+          // As we use it here with hover, we have to ensure that the outline is not overridden when mouse or touch is in use.
+          --sbb-focus-outline-style: initial;
+        }
+      }
+    }
+  }
+}
+
+.sbb-calendar-day__value {
+  height: var(--sbb-calendar-day-value-height);
+
+  :host(:state(current)) & {
+    font-weight: bold;
+  }
+
+  :host(:state(crossed-out)) & {
+    &::after {
+      content: '';
+      height: var(--sbb-calendar-cell-disabled-height);
+      width: var(--sbb-calendar-cell-disabled-width);
+      position: absolute;
+      background-color: var(--sbb-calendar-cell-disabled-color);
+      inset-block-start: var(--sbb-calendar-day-crossed-out-top);
+      inset-inline-start: 50%;
+      transform: var(--sbb-calendar-day-crossed-out-translate);
+    }
+  }
+}
+
+.sbb-calendar-day__extra {
+  display: var(--sbb-calendar-day-extra-display);
+  height: var(--sbb-calendar-day-extra-height);
+  padding: var(--sbb-calendar-cell-padding);
+}
+
+::slotted(*) {
+  height: #{sbb.px-to-rem-build(16)};
+}
