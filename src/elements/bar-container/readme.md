@@ -1,4 +1,4 @@
-The `sbb-bar-container` is a component that displays its content with a leading red band and the default page spacing.
+The `sbb-bar-container` is a component that wraps its content with a red background/band, while keeping/maintaining the default page spacing.
 
 ```html
 <sbb-bar-container>
@@ -9,9 +9,9 @@ The `sbb-bar-container` is a component that displays its content with a leading 
 
 ## Style
 
-By default `sbb-bar-container` uses the `page spacing` defined in the [layout documentation](/docs/styles-layout--docs).
+By default `sbb-bar-container` uses the page spacing defined in the [layout documentation](/docs/styles-layout--docs).
 
-The component has two color variants that can be set using the `color` property (default: `white`).
+The component has two color variants, , `milk` and `white` (default), that can be set using the `color` property.
 
 ```html
 <sbb-bar-container color="milk"> ... </sbb-bar-container>

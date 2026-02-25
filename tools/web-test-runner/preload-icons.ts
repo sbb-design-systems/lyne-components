@@ -13,6 +13,7 @@ const preloadIconList = [
   'app-icon-small',
   'arrow-change-small',
   'arrow-long-right-small',
+  'arrow-left-small',
   'arrow-right-small',
   'arrows-circle-small',
   'arrows-long-right-left-small',
@@ -165,7 +166,7 @@ export async function preloadIcons(): Promise<PreloadedIcon[]> {
       preloadedIcons.push({ namespace, icon, svg: readFileSync(iconCachePath, 'utf8') });
     } else {
       const iconUrl = `https://icons.app.sbb.ch/${namespace === 'default' ? 'icons' : namespace}/${icon}.svg`;
-      let svg = '';
+      let svg: string;
       try {
         // We want to retry once, as we noticed sometimes the icon downloads are flakey.
         try {
