@@ -101,7 +101,7 @@ jobs:
           name: coverage
           path: coverage/
           retention-days: 1
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v5
         if: github.ref == 'refs/heads/main'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
