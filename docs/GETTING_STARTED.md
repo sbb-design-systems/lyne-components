@@ -41,8 +41,8 @@ Select your technology to get started.
 <details>
   <summary>Angular</summary>
 
-> ⓘ We provide a Lyne Angular wrapper which helps to use Lyne components in Angular. It's currently in beta state, see
-> https://github.com/sbb-design-systems/lyne-angular for more information.
+> ⓘ We provide a Lyne Angular wrapper which helps to use Lyne components in Angular.
+> See https://github.com/sbb-design-systems/lyne-angular for more information.
 > However, it's possible to use Lyne Components in Angular without the wrapper.
 
 > ⓘ For simple testing and reproductions, see [Stackblitz starter for @sbb-esta/lyne-angular](https://stackblitz.com/edit/lyne-angular-starter?file=src%2Fmain.ts).

@@ -89,5 +89,9 @@ if (testGroup === 'visual-regression') {
   return result;
 };
 
+if (typeof Temporal !== 'object') {
+  await import('temporal-polyfill/global');
+}
+
 // We import and run the web test runner script manually, as it ensures correct load order.
 await import(/* @vite-ignore */ testRunScript);

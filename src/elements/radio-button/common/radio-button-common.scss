@@ -80,6 +80,7 @@
   display: flex;
   align-items: flex-start;
   overflow: hidden;
+  min-height: calc(var(--sbb-radio-button-font-size) * var(--sbb-typo-line-height-text));
 
   &::before,
   &::after {
@@ -109,7 +110,7 @@
     // The border color acts as background color.
     border: var(--sbb-radio-button-background-fake-border-width) solid
       var(--sbb-radio-button-background-color);
-    margin-inline-end: var(--sbb-spacing-fixed-2x);
+    margin-inline-end: var(--sbb-radio-button-label-gap);
   }
 
   &::after {

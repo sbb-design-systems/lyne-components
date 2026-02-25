@@ -1,23 +1,16 @@
 import { SbbLanguageController } from '../controllers.ts';
 
-import { DateAdapter, FORMAT_DATE, ISO8601_FORMAT_DATE } from './date-adapter.ts';
+import { DateAdapter } from './date-adapter.ts';
 
 /**
  * Matches strings that have the form of a valid RFC 3339 string
  * (https://tools.ietf.org/html/rfc3339). Note that the string may not actually be a valid date
- * because the regex will match strings an without of bounds month, date, etc.
+ * because the regex will match strings and without of bounds month, date, etc.
  */
 const ISO_8601_REGEX =
   /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 
 export class NativeDateAdapter extends DateAdapter<Date> {
-  private readonly _cutoffYearOffset: number;
-
-  public constructor(cutoffYearOffset: number = 15) {
-    super();
-    this._cutoffYearOffset = cutoffYearOffset;
-  }
-
   /** Gets the year of the input date. */
   public getYear(date: Date): number {
     return date.getFullYear();
@@ -90,20 +83,18 @@ export class NativeDateAdapter extends DateAdapter<Date> {
   }
 
   /** Creates a new date, given day, month and year; the method doesn't allow date's overflow. */
-  public createDate(year: number, month: number, date: number): Date {
+  public createDate(year: number, month: number, day: number): Date {
     // Check for invalid month and date (except upper bound on date which we have to check after creating the Date).
     if (month < 1 || month > 12) {
-      throw Error(`Invalid month index "${month}". Month index has to be between 1 and 12.`);
+      throw Error(`Invalid month "${month}". Month has to be between 1 and 12.`);
+    } else if (day < 1) {
+      throw Error(`Invalid day "${day}". Day has to be greater than 0.`);
     }
 
-    if (date < 1) {
-      throw Error(`Invalid date "${date}". Date has to be greater than 0.`);
-    }
-
-    const result = this._createDateWithOverflow(year, month - 1, date);
+    const result = this._createDateWithOverflow(year, month - 1, day);
     // Check that the date wasn't above the upper bound for the month, causing the month to overflow
     if (result.getMonth() + 1 !== month) {
-      throw Error(`Invalid date "${date}" for month with index "${month}".`);
+      throw Error(`Invalid day "${day}" for month "${month}".`);
     }
 
     return result;
@@ -164,46 +155,6 @@ export class NativeDateAdapter extends DateAdapter<Date> {
       }
     }
     return super.deserialize(date);
-  }
-
-  /** Returns the right format for the `valueAsDate` property. */
-  public parse(value: string | null | undefined): Date | null {
-    if (!value) {
-      return null;
-    }
-
-    let date: Date | null = null;
-    const isoMatch = value.match(ISO8601_FORMAT_DATE);
-    try {
-      date = isoMatch ? this.createDate(+isoMatch[1], +isoMatch[2], +isoMatch[3]) : null;
-    } catch {
-      /* empty */
-    }
-    if (this.isValid(date)) {
-      return date;
-    }
-
-    const strippedValue = value.replace(/\D/g, ' ').trim();
-
-    const match: RegExpMatchArray | null | undefined = strippedValue?.match(FORMAT_DATE);
-    if (
-      !match ||
-      match.index !== 0 ||
-      match.length <= 2 ||
-      match.some((e) => e === undefined) ||
-      !this.isValid(this.createDate(+match[3], +match[2], +match[1]))
-    ) {
-      return null;
-    }
-
-    let year = +match[3];
-
-    if (typeof year === 'number' && year < 100 && year >= 0) {
-      const shift = this.today().getFullYear() - 2000 + this._cutoffYearOffset;
-      year = year <= shift ? 2000 + year : 1900 + year;
-    }
-
-    return new Date(year, +match[2] - 1, +match[1]);
   }
 
   public override invalid(): Date {

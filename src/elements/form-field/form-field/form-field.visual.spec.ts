@@ -511,5 +511,16 @@ describe(`sbb-form-field`, () => {
         );
       }),
     );
+
+    it(
+      'adaptive textarea',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-form-field style="height: 200px;">
+            <textarea style="border: 1px solid var(--sbb-color-pink)"></textarea>
+          </sbb-form-field>`,
+        );
+      }),
+    );
   });
 });

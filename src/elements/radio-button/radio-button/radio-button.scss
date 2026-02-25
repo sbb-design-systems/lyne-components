@@ -8,9 +8,11 @@
   outline: none !important;
 }
 
-.sbb-radio-button {
-  display: block;
+:host(:not(:state(slotted), :state(slotted-icon), :state(has-icon-name))) {
+  --sbb-radio-button-label-gap: 0;
+}
 
+.sbb-radio-button {
   :host(:focus-visible) & {
     @include sbb.focus-outline;
 

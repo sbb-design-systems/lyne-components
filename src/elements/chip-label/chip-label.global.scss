@@ -1,0 +1,8 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  @include sbb.chip-label-variables--color-milk;
+  @include sbb.chip-label-variables--size-xxs;
+}

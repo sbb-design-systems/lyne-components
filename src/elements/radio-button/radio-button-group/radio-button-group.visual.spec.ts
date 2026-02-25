@@ -114,5 +114,16 @@ describe(`sbb-radio-button-group`, () => {
         }
       });
     }
+
+    it(
+      `sbb-radio-button without label`,
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-radio-button-group
+            ><sbb-radio-button></sbb-radio-button
+          ></sbb-radio-button-group>`,
+        );
+      }),
+    );
   });
 });

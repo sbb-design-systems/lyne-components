@@ -44,7 +44,6 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
   } as const;
 
   private _tabGroupElement!: HTMLElement;
-  private _tabContentElement!: HTMLElement;
   private _tabGroupResizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,
@@ -65,6 +64,15 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
   @forceType()
   @property({ attribute: 'initial-selected-index', type: Number })
   public accessor initialSelectedIndex: number = 0;
+
+  /**
+   * If set to true, the `sbb-tab` elements take 100% height of the `sbb-tab-group`.
+   * It enables controlling the height on the `sbb-tab-group` element.
+   * The content becomes scrollable on overflow.
+   */
+  @forceType()
+  @property({ attribute: 'fixed-height', type: Boolean, reflect: true })
+  public accessor fixedHeight: boolean = false;
 
   /** Gets the slotted `sbb-tab-label`s. */
   public get labels(): SbbTabLabelElement[] {
@@ -106,30 +114,30 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
 
   /**
    * Disables a tab by index.
-   * @param tabIndex The index of the tab you want to disable.
+   * @param index The index of the tab you want to disable.
    */
-  public disableTab(tabIndex: number): void {
-    if (this.labels[tabIndex]) {
-      this.labels[tabIndex].disabled = true;
+  public disableTab(index: number): void {
+    if (this.labels[index]) {
+      this.labels[index].disabled = true;
     }
   }
 
   /**
    * Enables a tab by index.
-   * @param tabIndex The index of the tab you want to enable.
+   * @param index The index of the tab you want to enable.
    */
-  public enableTab(tabIndex: number): void {
-    if (this.labels[tabIndex]) {
-      this.labels[tabIndex].disabled = false;
+  public enableTab(index: number): void {
+    if (this.labels[index]) {
+      this.labels[index].disabled = false;
     }
   }
 
   /**
    * Activates a tab by index.
-   * @param tabIndex The index of the tab you want to activate.
+   * @param index The index of the tab you want to activate.
    */
-  public activateTab(tabIndex: number): void {
-    this.labels[tabIndex]?.activate();
+  public activateTab(index: number): void {
+    this.labels[index]?.activate();
   }
 
   private _enabledTabs(): SbbTabLabelElement[] {
@@ -146,7 +154,17 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
 
   private _onLabelSlotChange = (): void => {
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
+    this._ensureActiveTab();
   };
+
+  private _ensureActiveTab(): void {
+    if (
+      this.internals.states.has('initialized') &&
+      !this.labels.some((tabLabel) => tabLabel.active)
+    ) {
+      this._initSelection();
+    }
+  }
 
   private _initSelection(): void {
     const selectedTabLabel = this.labels[this.initialSelectedIndex];
@@ -200,7 +218,7 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
    * @internal
    */
   protected setTabContentHeight(contentHeight: number): void {
-    this._tabContentElement.style.height = `${contentHeight}px`;
+    this.style.setProperty('--sbb-tab-content-height', `${contentHeight}px`);
   }
 
   protected override render(): TemplateResult {
@@ -212,12 +230,13 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
       >
         <slot name="tab-bar" @slotchange=${this._onLabelSlotChange}></slot>
       </div>
-      <div
-        class="sbb-tab-group-content"
-        ${ref((el?: Element) => (this._tabContentElement = el as HTMLElement))}
-      >
-        <slot @slotchange=${throttle(this._onContentSlotChange, 150)}></slot>
-      </div>
+      ${!this.fixedHeight
+        ? html`
+            <div class="sbb-tab-group-content">
+              <slot @slotchange=${throttle(this._onContentSlotChange, 150)}></slot>
+            </div>
+          `
+        : html`<slot @slotchange=${throttle(this._onContentSlotChange, 150)}></slot>`}
     `;
   }
 }

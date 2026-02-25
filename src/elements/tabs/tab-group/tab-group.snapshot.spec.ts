@@ -37,4 +37,27 @@ describe(`sbb-tab-group`, () => {
 
     testA11yTreeSnapshot();
   });
+
+  describe('fixed height', () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-tab-group fixed-height>
+          <sbb-tab-label>Test tab label 1</sbb-tab-label>
+          <sbb-tab> Test tab content 1 </sbb-tab>
+          <sbb-tab-label>Test tab label 2</sbb-tab-label>
+          <sbb-tab> Test tab content 2 </sbb-tab>
+        </sbb-tab-group>`,
+      );
+    });
+
+    it('DOM', async () => {
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
+    });
+
+    it('Shadow DOM', async () => {
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
+  });
 });

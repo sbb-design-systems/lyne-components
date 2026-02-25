@@ -1,0 +1,27 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-mini-button-group-background: var(--sbb-background-color-1);
+  --sbb-mini-button-group-border-color: var(--sbb-border-color-4-inverted);
+  --sbb-mini-button-group-border-width: var(--sbb-border-width-2x);
+  --sbb-mini-button-group-border-radius: var(--sbb-border-radius-infinity);
+  --sbb-mini-button-group-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-mini-button-group-min-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-size-element-s),
+        'lean': var(--sbb-size-element-xs),
+      ),
+      $theme
+    )};
+  --sbb-mini-button-group-padding-inline: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-3x),
+        'lean': var(--sbb-spacing-fixed-2x),
+      ),
+      $theme
+    )};
+  --sbb-mini-button-group-divider-height: var(--sbb-size-icon-ui-small);
+  --sbb-mini-button-group-divider-padding: var(--sbb-spacing-fixed-1x);
+}
