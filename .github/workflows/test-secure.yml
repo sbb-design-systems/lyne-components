@@ -28,7 +28,7 @@ jobs:
           path: coverage/
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GH_ACTIONS_ARTIFACT_DOWNLOAD }}
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           directory: coverage
