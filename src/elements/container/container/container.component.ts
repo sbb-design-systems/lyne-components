@@ -19,6 +19,9 @@ import style from './container.scss?lit&inline';
  * @slot - Use the unnamed slot to add anything to the container.
  * @slot sticky-bar - The slot used by the sbb-sticky-bar component.
  * @slot image - The slot used to slot an `sbb-image` to use as background.
+ * @cssprop --sbb-page-spacing-padding - Use this variable to override the page spacing, which should
+ * only be needed in very rare cases. Overriding this variable unsets the main behavior of the container,
+ * which is to use the default page spacing.
  */
 export
 @customElement('sbb-container')
