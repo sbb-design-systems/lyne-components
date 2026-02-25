@@ -324,8 +324,9 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
     this.addEventListener('focusin', () => (this._containingFocus = true));
     this.addEventListener('focusout', () => (this._containingFocus = false));
     this.addEventListener('click', (e) => {
-      if ((e.target as HTMLElement).localName === 'sbb-calendar-day') {
-        this._selectDate((e.target as SbbCalendarDayElement).value! as T);
+      const day = (e.target as HTMLElement).closest<SbbCalendarDayElement<T>>('sbb-calendar-day');
+      if (day) {
+        this._selectDate(day.value!);
       }
     });
     this.addEventListener('keydown', (e) => {
