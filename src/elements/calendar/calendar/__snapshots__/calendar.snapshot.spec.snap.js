@@ -121,7 +121,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-01">
                 <sbb-calendar-day
                   slot="2023-01-01"
@@ -132,7 +132,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-02">
                 <sbb-calendar-day
                   slot="2023-01-02"
@@ -141,7 +141,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-03">
                 <sbb-calendar-day
                   slot="2023-01-03"
@@ -150,7 +150,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-04">
                 <sbb-calendar-day
                   slot="2023-01-04"
@@ -159,7 +159,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-05">
                 <sbb-calendar-day
                   slot="2023-01-05"
@@ -168,7 +168,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-06">
                 <sbb-calendar-day
                   slot="2023-01-06"
@@ -177,7 +177,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-07">
                 <sbb-calendar-day
                   slot="2023-01-07"
@@ -186,7 +186,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-08">
                 <sbb-calendar-day
                   slot="2023-01-08"
@@ -197,7 +197,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-09">
                 <sbb-calendar-day
                   slot="2023-01-09"
@@ -206,7 +206,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-10">
                 <sbb-calendar-day
                   slot="2023-01-10"
@@ -215,7 +215,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-11">
                 <sbb-calendar-day
                   slot="2023-01-11"
@@ -224,7 +224,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-12">
                 <sbb-calendar-day
                   slot="2023-01-12"
@@ -233,7 +233,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-13">
                 <sbb-calendar-day
                   slot="2023-01-13"
@@ -242,7 +242,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-14">
                 <sbb-calendar-day
                   slot="2023-01-14"
@@ -251,7 +251,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-15">
                 <sbb-calendar-day
                   slot="2023-01-15"
@@ -262,7 +262,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-16">
                 <sbb-calendar-day
                   slot="2023-01-16"
@@ -271,7 +271,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-17">
                 <sbb-calendar-day
                   slot="2023-01-17"
@@ -280,7 +280,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-18">
                 <sbb-calendar-day
                   slot="2023-01-18"
@@ -289,7 +289,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-19">
                 <sbb-calendar-day
                   slot="2023-01-19"
@@ -298,7 +298,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
@@ -307,7 +307,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-21">
                 <sbb-calendar-day
                   slot="2023-01-21"
@@ -316,7 +316,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-22">
                 <sbb-calendar-day
                   slot="2023-01-22"
@@ -327,7 +327,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-23">
                 <sbb-calendar-day
                   slot="2023-01-23"
@@ -336,7 +336,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-24">
                 <sbb-calendar-day
                   slot="2023-01-24"
@@ -345,7 +345,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-25">
                 <sbb-calendar-day
                   slot="2023-01-25"
@@ -354,7 +354,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-26">
                 <sbb-calendar-day
                   slot="2023-01-26"
@@ -363,7 +363,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-27">
                 <sbb-calendar-day
                   slot="2023-01-27"
@@ -372,7 +372,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-28">
                 <sbb-calendar-day
                   slot="2023-01-28"
@@ -381,7 +381,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-29">
                 <sbb-calendar-day
                   slot="2023-01-29"
@@ -392,7 +392,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-30">
                 <sbb-calendar-day
                   slot="2023-01-30"
@@ -401,7 +401,7 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-31">
                 <sbb-calendar-day
                   slot="2023-01-31"
@@ -477,7 +477,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-02">
                 <sbb-calendar-day
                   slot="2023-01-02"
@@ -486,7 +486,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-09">
                 <sbb-calendar-day
                   slot="2023-01-09"
@@ -495,7 +495,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-16">
                 <sbb-calendar-day
                   slot="2023-01-16"
@@ -504,7 +504,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-23">
                 <sbb-calendar-day
                   slot="2023-01-23"
@@ -513,7 +513,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-30">
                 <sbb-calendar-day
                   slot="2023-01-30"
@@ -534,7 +534,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-03">
                 <sbb-calendar-day
                   slot="2023-01-03"
@@ -543,7 +543,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-10">
                 <sbb-calendar-day
                   slot="2023-01-10"
@@ -552,7 +552,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-17">
                 <sbb-calendar-day
                   slot="2023-01-17"
@@ -561,7 +561,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-24">
                 <sbb-calendar-day
                   slot="2023-01-24"
@@ -570,7 +570,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-31">
                 <sbb-calendar-day
                   slot="2023-01-31"
@@ -591,7 +591,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-04">
                 <sbb-calendar-day
                   slot="2023-01-04"
@@ -600,7 +600,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-11">
                 <sbb-calendar-day
                   slot="2023-01-11"
@@ -609,7 +609,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-18">
                 <sbb-calendar-day
                   slot="2023-01-18"
@@ -618,7 +618,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-25">
                 <sbb-calendar-day
                   slot="2023-01-25"
@@ -639,7 +639,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-05">
                 <sbb-calendar-day
                   slot="2023-01-05"
@@ -648,7 +648,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-12">
                 <sbb-calendar-day
                   slot="2023-01-12"
@@ -657,7 +657,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-19">
                 <sbb-calendar-day
                   slot="2023-01-19"
@@ -666,7 +666,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-26">
                 <sbb-calendar-day
                   slot="2023-01-26"
@@ -687,7 +687,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-06">
                 <sbb-calendar-day
                   slot="2023-01-06"
@@ -696,7 +696,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-13">
                 <sbb-calendar-day
                   slot="2023-01-13"
@@ -705,7 +705,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
@@ -714,7 +714,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-27">
                 <sbb-calendar-day
                   slot="2023-01-27"
@@ -735,7 +735,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-07">
                 <sbb-calendar-day
                   slot="2023-01-07"
@@ -744,7 +744,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-14">
                 <sbb-calendar-day
                   slot="2023-01-14"
@@ -753,7 +753,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-21">
                 <sbb-calendar-day
                   slot="2023-01-21"
@@ -762,7 +762,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-28">
                 <sbb-calendar-day
                   slot="2023-01-28"
@@ -781,7 +781,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 S
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-01">
                 <sbb-calendar-day
                   slot="2023-01-01"
@@ -790,7 +790,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-08">
                 <sbb-calendar-day
                   slot="2023-01-08"
@@ -799,7 +799,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-15">
                 <sbb-calendar-day
                   slot="2023-01-15"
@@ -808,7 +808,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-22">
                 <sbb-calendar-day
                   slot="2023-01-22"
@@ -817,7 +817,7 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-29">
                 <sbb-calendar-day
                   slot="2023-01-29"
@@ -972,7 +972,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-01">
                 <sbb-calendar-day
                   slot="2023-01-01"
@@ -983,7 +983,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-02">
                 <sbb-calendar-day
                   slot="2023-01-02"
@@ -992,7 +992,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-03">
                 <sbb-calendar-day
                   slot="2023-01-03"
@@ -1001,7 +1001,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-04">
                 <sbb-calendar-day
                   slot="2023-01-04"
@@ -1010,7 +1010,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-05">
                 <sbb-calendar-day
                   slot="2023-01-05"
@@ -1019,7 +1019,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-06">
                 <sbb-calendar-day
                   slot="2023-01-06"
@@ -1028,7 +1028,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-07">
                 <sbb-calendar-day
                   slot="2023-01-07"
@@ -1037,7 +1037,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-08">
                 <sbb-calendar-day
                   slot="2023-01-08"
@@ -1048,7 +1048,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-09">
                 <sbb-calendar-day
                   slot="2023-01-09"
@@ -1057,7 +1057,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-10">
                 <sbb-calendar-day
                   slot="2023-01-10"
@@ -1066,7 +1066,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-11">
                 <sbb-calendar-day
                   slot="2023-01-11"
@@ -1075,7 +1075,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-12">
                 <sbb-calendar-day
                   slot="2023-01-12"
@@ -1084,7 +1084,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-13">
                 <sbb-calendar-day
                   slot="2023-01-13"
@@ -1093,7 +1093,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-14">
                 <sbb-calendar-day
                   slot="2023-01-14"
@@ -1102,7 +1102,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-15">
                 <sbb-calendar-day
                   slot="2023-01-15"
@@ -1113,7 +1113,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-16">
                 <sbb-calendar-day
                   slot="2023-01-16"
@@ -1122,7 +1122,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-17">
                 <sbb-calendar-day
                   slot="2023-01-17"
@@ -1131,7 +1131,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-18">
                 <sbb-calendar-day
                   slot="2023-01-18"
@@ -1140,7 +1140,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-19">
                 <sbb-calendar-day
                   slot="2023-01-19"
@@ -1149,7 +1149,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
@@ -1158,7 +1158,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-21">
                 <sbb-calendar-day
                   slot="2023-01-21"
@@ -1167,7 +1167,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-22">
                 <sbb-calendar-day
                   slot="2023-01-22"
@@ -1178,7 +1178,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-23">
                 <sbb-calendar-day
                   slot="2023-01-23"
@@ -1187,7 +1187,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-24">
                 <sbb-calendar-day
                   slot="2023-01-24"
@@ -1196,7 +1196,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-25">
                 <sbb-calendar-day
                   slot="2023-01-25"
@@ -1205,7 +1205,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-26">
                 <sbb-calendar-day
                   slot="2023-01-26"
@@ -1214,7 +1214,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-27">
                 <sbb-calendar-day
                   slot="2023-01-27"
@@ -1223,7 +1223,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-28">
                 <sbb-calendar-day
                   slot="2023-01-28"
@@ -1232,7 +1232,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-29">
                 <sbb-calendar-day
                   slot="2023-01-29"
@@ -1243,7 +1243,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-30">
                 <sbb-calendar-day
                   slot="2023-01-30"
@@ -1252,7 +1252,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-31">
                 <sbb-calendar-day
                   slot="2023-01-31"
@@ -1411,7 +1411,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-01">
                 <sbb-calendar-day
                   slot="2023-01-01"
@@ -1430,7 +1430,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 1
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-02">
                 <sbb-calendar-day
                   slot="2023-01-02"
@@ -1439,7 +1439,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-03">
                 <sbb-calendar-day
                   slot="2023-01-03"
@@ -1448,7 +1448,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-04">
                 <sbb-calendar-day
                   slot="2023-01-04"
@@ -1457,7 +1457,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-05">
                 <sbb-calendar-day
                   slot="2023-01-05"
@@ -1466,7 +1466,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-06">
                 <sbb-calendar-day
                   slot="2023-01-06"
@@ -1475,7 +1475,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-07">
                 <sbb-calendar-day
                   slot="2023-01-07"
@@ -1484,7 +1484,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-08">
                 <sbb-calendar-day
                   slot="2023-01-08"
@@ -1503,7 +1503,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 2
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-09">
                 <sbb-calendar-day
                   slot="2023-01-09"
@@ -1512,7 +1512,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-10">
                 <sbb-calendar-day
                   slot="2023-01-10"
@@ -1521,7 +1521,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-11">
                 <sbb-calendar-day
                   slot="2023-01-11"
@@ -1530,7 +1530,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-12">
                 <sbb-calendar-day
                   slot="2023-01-12"
@@ -1539,7 +1539,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-13">
                 <sbb-calendar-day
                   slot="2023-01-13"
@@ -1548,7 +1548,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-14">
                 <sbb-calendar-day
                   slot="2023-01-14"
@@ -1557,7 +1557,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-15">
                 <sbb-calendar-day
                   slot="2023-01-15"
@@ -1576,7 +1576,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 3
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-16">
                 <sbb-calendar-day
                   slot="2023-01-16"
@@ -1585,7 +1585,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-17">
                 <sbb-calendar-day
                   slot="2023-01-17"
@@ -1594,7 +1594,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-18">
                 <sbb-calendar-day
                   slot="2023-01-18"
@@ -1603,7 +1603,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-19">
                 <sbb-calendar-day
                   slot="2023-01-19"
@@ -1612,7 +1612,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
@@ -1621,7 +1621,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-21">
                 <sbb-calendar-day
                   slot="2023-01-21"
@@ -1630,7 +1630,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-22">
                 <sbb-calendar-day
                   slot="2023-01-22"
@@ -1649,7 +1649,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 4
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-23">
                 <sbb-calendar-day
                   slot="2023-01-23"
@@ -1658,7 +1658,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-24">
                 <sbb-calendar-day
                   slot="2023-01-24"
@@ -1667,7 +1667,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-25">
                 <sbb-calendar-day
                   slot="2023-01-25"
@@ -1676,7 +1676,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-26">
                 <sbb-calendar-day
                   slot="2023-01-26"
@@ -1685,7 +1685,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-27">
                 <sbb-calendar-day
                   slot="2023-01-27"
@@ -1694,7 +1694,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-28">
                 <sbb-calendar-day
                   slot="2023-01-28"
@@ -1703,7 +1703,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-29">
                 <sbb-calendar-day
                   slot="2023-01-29"
@@ -1722,7 +1722,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 5
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-30">
                 <sbb-calendar-day
                   slot="2023-01-30"
@@ -1731,7 +1731,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-31">
                 <sbb-calendar-day
                   slot="2023-01-31"
@@ -1820,7 +1820,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-01">
                 <sbb-calendar-day
                   slot="2023-02-01"
@@ -1829,7 +1829,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-02">
                 <sbb-calendar-day
                   slot="2023-02-02"
@@ -1838,7 +1838,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-03">
                 <sbb-calendar-day
                   slot="2023-02-03"
@@ -1847,7 +1847,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-04">
                 <sbb-calendar-day
                   slot="2023-02-04"
@@ -1856,7 +1856,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-05">
                 <sbb-calendar-day
                   slot="2023-02-05"
@@ -1875,7 +1875,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 6
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-06">
                 <sbb-calendar-day
                   slot="2023-02-06"
@@ -1884,7 +1884,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-07">
                 <sbb-calendar-day
                   slot="2023-02-07"
@@ -1893,7 +1893,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-08">
                 <sbb-calendar-day
                   slot="2023-02-08"
@@ -1902,7 +1902,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-09">
                 <sbb-calendar-day
                   slot="2023-02-09"
@@ -1911,7 +1911,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-10">
                 <sbb-calendar-day
                   slot="2023-02-10"
@@ -1920,7 +1920,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-11">
                 <sbb-calendar-day
                   slot="2023-02-11"
@@ -1929,7 +1929,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-12">
                 <sbb-calendar-day
                   slot="2023-02-12"
@@ -1948,7 +1948,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 7
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-13">
                 <sbb-calendar-day
                   slot="2023-02-13"
@@ -1957,7 +1957,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-14">
                 <sbb-calendar-day
                   slot="2023-02-14"
@@ -1966,7 +1966,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-15">
                 <sbb-calendar-day
                   slot="2023-02-15"
@@ -1975,7 +1975,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-16">
                 <sbb-calendar-day
                   slot="2023-02-16"
@@ -1984,7 +1984,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-17">
                 <sbb-calendar-day
                   slot="2023-02-17"
@@ -1993,7 +1993,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-18">
                 <sbb-calendar-day
                   slot="2023-02-18"
@@ -2002,7 +2002,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-19">
                 <sbb-calendar-day
                   slot="2023-02-19"
@@ -2021,7 +2021,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 8
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-20">
                 <sbb-calendar-day
                   slot="2023-02-20"
@@ -2030,7 +2030,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-21">
                 <sbb-calendar-day
                   slot="2023-02-21"
@@ -2039,7 +2039,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-22">
                 <sbb-calendar-day
                   slot="2023-02-22"
@@ -2048,7 +2048,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-23">
                 <sbb-calendar-day
                   slot="2023-02-23"
@@ -2057,7 +2057,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-24">
                 <sbb-calendar-day
                   slot="2023-02-24"
@@ -2066,7 +2066,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-25">
                 <sbb-calendar-day
                   slot="2023-02-25"
@@ -2075,7 +2075,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-26">
                 <sbb-calendar-day
                   slot="2023-02-26"
@@ -2094,7 +2094,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 9
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-27">
                 <sbb-calendar-day
                   slot="2023-02-27"
@@ -2103,7 +2103,7 @@ snapshots["sbb-calendar default renders horizontal wide with week numbers Shadow
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-28">
                 <sbb-calendar-day
                   slot="2023-02-28"
@@ -2244,7 +2244,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-02">
                 <sbb-calendar-day
                   slot="2023-01-02"
@@ -2253,7 +2253,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-09">
                 <sbb-calendar-day
                   slot="2023-01-09"
@@ -2262,7 +2262,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-16">
                 <sbb-calendar-day
                   slot="2023-01-16"
@@ -2271,7 +2271,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-23">
                 <sbb-calendar-day
                   slot="2023-01-23"
@@ -2280,7 +2280,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-30">
                 <sbb-calendar-day
                   slot="2023-01-30"
@@ -2301,7 +2301,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-03">
                 <sbb-calendar-day
                   slot="2023-01-03"
@@ -2310,7 +2310,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-10">
                 <sbb-calendar-day
                   slot="2023-01-10"
@@ -2319,7 +2319,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-17">
                 <sbb-calendar-day
                   slot="2023-01-17"
@@ -2328,7 +2328,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-24">
                 <sbb-calendar-day
                   slot="2023-01-24"
@@ -2337,7 +2337,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-31">
                 <sbb-calendar-day
                   slot="2023-01-31"
@@ -2358,7 +2358,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-04">
                 <sbb-calendar-day
                   slot="2023-01-04"
@@ -2367,7 +2367,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-11">
                 <sbb-calendar-day
                   slot="2023-01-11"
@@ -2376,7 +2376,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-18">
                 <sbb-calendar-day
                   slot="2023-01-18"
@@ -2385,7 +2385,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-25">
                 <sbb-calendar-day
                   slot="2023-01-25"
@@ -2406,7 +2406,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-05">
                 <sbb-calendar-day
                   slot="2023-01-05"
@@ -2415,7 +2415,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-12">
                 <sbb-calendar-day
                   slot="2023-01-12"
@@ -2424,7 +2424,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-19">
                 <sbb-calendar-day
                   slot="2023-01-19"
@@ -2433,7 +2433,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-26">
                 <sbb-calendar-day
                   slot="2023-01-26"
@@ -2454,7 +2454,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-06">
                 <sbb-calendar-day
                   slot="2023-01-06"
@@ -2463,7 +2463,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-13">
                 <sbb-calendar-day
                   slot="2023-01-13"
@@ -2472,7 +2472,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
@@ -2481,7 +2481,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-27">
                 <sbb-calendar-day
                   slot="2023-01-27"
@@ -2502,7 +2502,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-07">
                 <sbb-calendar-day
                   slot="2023-01-07"
@@ -2511,7 +2511,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-14">
                 <sbb-calendar-day
                   slot="2023-01-14"
@@ -2520,7 +2520,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-21">
                 <sbb-calendar-day
                   slot="2023-01-21"
@@ -2529,7 +2529,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-28">
                 <sbb-calendar-day
                   slot="2023-01-28"
@@ -2548,7 +2548,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 S
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-01">
                 <sbb-calendar-day
                   slot="2023-01-01"
@@ -2557,7 +2557,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-08">
                 <sbb-calendar-day
                   slot="2023-01-08"
@@ -2566,7 +2566,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-15">
                 <sbb-calendar-day
                   slot="2023-01-15"
@@ -2575,7 +2575,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-22">
                 <sbb-calendar-day
                   slot="2023-01-22"
@@ -2584,7 +2584,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-29">
                 <sbb-calendar-day
                   slot="2023-01-29"
@@ -2645,7 +2645,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
           <tr>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-06">
                 <sbb-calendar-day
                   slot="2023-02-06"
@@ -2654,7 +2654,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-13">
                 <sbb-calendar-day
                   slot="2023-02-13"
@@ -2663,7 +2663,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-20">
                 <sbb-calendar-day
                   slot="2023-02-20"
@@ -2672,7 +2672,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-27">
                 <sbb-calendar-day
                   slot="2023-02-27"
@@ -2685,7 +2685,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
           <tr>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-07">
                 <sbb-calendar-day
                   slot="2023-02-07"
@@ -2694,7 +2694,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-14">
                 <sbb-calendar-day
                   slot="2023-02-14"
@@ -2703,7 +2703,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-21">
                 <sbb-calendar-day
                   slot="2023-02-21"
@@ -2712,7 +2712,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-28">
                 <sbb-calendar-day
                   slot="2023-02-28"
@@ -2723,7 +2723,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-01">
                 <sbb-calendar-day
                   slot="2023-02-01"
@@ -2732,7 +2732,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-08">
                 <sbb-calendar-day
                   slot="2023-02-08"
@@ -2741,7 +2741,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-15">
                 <sbb-calendar-day
                   slot="2023-02-15"
@@ -2750,7 +2750,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-22">
                 <sbb-calendar-day
                   slot="2023-02-22"
@@ -2761,7 +2761,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-02">
                 <sbb-calendar-day
                   slot="2023-02-02"
@@ -2770,7 +2770,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-09">
                 <sbb-calendar-day
                   slot="2023-02-09"
@@ -2779,7 +2779,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-16">
                 <sbb-calendar-day
                   slot="2023-02-16"
@@ -2788,7 +2788,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-23">
                 <sbb-calendar-day
                   slot="2023-02-23"
@@ -2799,7 +2799,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-03">
                 <sbb-calendar-day
                   slot="2023-02-03"
@@ -2808,7 +2808,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-10">
                 <sbb-calendar-day
                   slot="2023-02-10"
@@ -2817,7 +2817,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-17">
                 <sbb-calendar-day
                   slot="2023-02-17"
@@ -2826,7 +2826,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-24">
                 <sbb-calendar-day
                   slot="2023-02-24"
@@ -2837,7 +2837,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-04">
                 <sbb-calendar-day
                   slot="2023-02-04"
@@ -2846,7 +2846,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-11">
                 <sbb-calendar-day
                   slot="2023-02-11"
@@ -2855,7 +2855,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-18">
                 <sbb-calendar-day
                   slot="2023-02-18"
@@ -2864,7 +2864,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-25">
                 <sbb-calendar-day
                   slot="2023-02-25"
@@ -2875,7 +2875,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-05">
                 <sbb-calendar-day
                   slot="2023-02-05"
@@ -2884,7 +2884,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-12">
                 <sbb-calendar-day
                   slot="2023-02-12"
@@ -2893,7 +2893,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-19">
                 <sbb-calendar-day
                   slot="2023-02-19"
@@ -2902,7 +2902,7 @@ snapshots["sbb-calendar default renders vertical wide with week numbers Shadow D
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-26">
                 <sbb-calendar-day
                   slot="2023-02-26"
@@ -3195,7 +3195,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-01">
                 <sbb-calendar-day
                   slot="2023-01-01"
@@ -3206,7 +3206,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-02">
                 <sbb-calendar-day
                   slot="2023-01-02"
@@ -3215,7 +3215,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-03">
                 <sbb-calendar-day
                   slot="2023-01-03"
@@ -3224,7 +3224,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-04">
                 <sbb-calendar-day
                   slot="2023-01-04"
@@ -3233,7 +3233,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-05">
                 <sbb-calendar-day
                   slot="2023-01-05"
@@ -3242,7 +3242,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-06">
                 <sbb-calendar-day
                   slot="2023-01-06"
@@ -3251,7 +3251,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-07">
                 <sbb-calendar-day
                   slot="2023-01-07"
@@ -3260,7 +3260,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-08">
                 <sbb-calendar-day
                   slot="2023-01-08"
@@ -3271,7 +3271,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-09">
                 <sbb-calendar-day
                   slot="2023-01-09"
@@ -3280,7 +3280,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-10">
                 <sbb-calendar-day
                   slot="2023-01-10"
@@ -3289,7 +3289,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-11">
                 <sbb-calendar-day
                   slot="2023-01-11"
@@ -3298,7 +3298,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-12">
                 <sbb-calendar-day
                   slot="2023-01-12"
@@ -3307,7 +3307,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-13">
                 <sbb-calendar-day
                   slot="2023-01-13"
@@ -3316,7 +3316,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-14">
                 <sbb-calendar-day
                   slot="2023-01-14"
@@ -3325,7 +3325,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-15">
                 <sbb-calendar-day
                   slot="2023-01-15"
@@ -3336,7 +3336,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-16">
                 <sbb-calendar-day
                   slot="2023-01-16"
@@ -3345,7 +3345,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-17">
                 <sbb-calendar-day
                   slot="2023-01-17"
@@ -3354,7 +3354,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-18">
                 <sbb-calendar-day
                   slot="2023-01-18"
@@ -3363,7 +3363,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-19">
                 <sbb-calendar-day
                   slot="2023-01-19"
@@ -3372,7 +3372,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
@@ -3381,7 +3381,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-21">
                 <sbb-calendar-day
                   slot="2023-01-21"
@@ -3390,7 +3390,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-22">
                 <sbb-calendar-day
                   slot="2023-01-22"
@@ -3401,7 +3401,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-23">
                 <sbb-calendar-day
                   slot="2023-01-23"
@@ -3410,7 +3410,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-24">
                 <sbb-calendar-day
                   slot="2023-01-24"
@@ -3419,7 +3419,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-25">
                 <sbb-calendar-day
                   slot="2023-01-25"
@@ -3428,7 +3428,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-26">
                 <sbb-calendar-day
                   slot="2023-01-26"
@@ -3437,7 +3437,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-27">
                 <sbb-calendar-day
                   slot="2023-01-27"
@@ -3446,7 +3446,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-28">
                 <sbb-calendar-day
                   slot="2023-01-28"
@@ -3455,7 +3455,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-29">
                 <sbb-calendar-day
                   slot="2023-01-29"
@@ -3466,7 +3466,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-30">
                 <sbb-calendar-day
                   slot="2023-01-30"
@@ -3475,7 +3475,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-31">
                 <sbb-calendar-day
                   slot="2023-01-31"
@@ -3492,22 +3492,6 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-calendar enhanced renders Shadow DOM */
-
-snapshots["sbb-calendar enhanced renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "generic",
-  "name": "Fixture Container",
-  "children": [
-    {
-      "role": "generic",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-calendar enhanced renders A11y tree Chrome */
 
 snapshots["sbb-calendar enhanced renders vertical DOM"] = 
 `<sbb-calendar
@@ -3673,6 +3657,22 @@ snapshots["sbb-calendar enhanced renders vertical DOM"] =
 `;
 /* end snapshot sbb-calendar enhanced renders vertical DOM */
 
+snapshots["sbb-calendar enhanced renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "generic",
+      "name": ""
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-calendar enhanced renders A11y tree Chrome */
+
 snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] = 
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__controls">
@@ -3722,7 +3722,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-02">
                 <sbb-calendar-day
                   slot="2023-01-02"
@@ -3731,7 +3731,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-09">
                 <sbb-calendar-day
                   slot="2023-01-09"
@@ -3740,7 +3740,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-16">
                 <sbb-calendar-day
                   slot="2023-01-16"
@@ -3749,7 +3749,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-23">
                 <sbb-calendar-day
                   slot="2023-01-23"
@@ -3758,7 +3758,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-30">
                 <sbb-calendar-day
                   slot="2023-01-30"
@@ -3779,7 +3779,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-03">
                 <sbb-calendar-day
                   slot="2023-01-03"
@@ -3788,7 +3788,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-10">
                 <sbb-calendar-day
                   slot="2023-01-10"
@@ -3797,7 +3797,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-17">
                 <sbb-calendar-day
                   slot="2023-01-17"
@@ -3806,7 +3806,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-24">
                 <sbb-calendar-day
                   slot="2023-01-24"
@@ -3815,7 +3815,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-31">
                 <sbb-calendar-day
                   slot="2023-01-31"
@@ -3836,7 +3836,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-04">
                 <sbb-calendar-day
                   slot="2023-01-04"
@@ -3845,7 +3845,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-11">
                 <sbb-calendar-day
                   slot="2023-01-11"
@@ -3854,7 +3854,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-18">
                 <sbb-calendar-day
                   slot="2023-01-18"
@@ -3863,7 +3863,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-25">
                 <sbb-calendar-day
                   slot="2023-01-25"
@@ -3884,7 +3884,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-05">
                 <sbb-calendar-day
                   slot="2023-01-05"
@@ -3893,7 +3893,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-12">
                 <sbb-calendar-day
                   slot="2023-01-12"
@@ -3902,7 +3902,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-19">
                 <sbb-calendar-day
                   slot="2023-01-19"
@@ -3911,7 +3911,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-26">
                 <sbb-calendar-day
                   slot="2023-01-26"
@@ -3932,7 +3932,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-06">
                 <sbb-calendar-day
                   slot="2023-01-06"
@@ -3941,7 +3941,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-13">
                 <sbb-calendar-day
                   slot="2023-01-13"
@@ -3950,7 +3950,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
@@ -3959,7 +3959,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-27">
                 <sbb-calendar-day
                   slot="2023-01-27"
@@ -3980,7 +3980,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-07">
                 <sbb-calendar-day
                   slot="2023-01-07"
@@ -3989,7 +3989,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-14">
                 <sbb-calendar-day
                   slot="2023-01-14"
@@ -3998,7 +3998,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-21">
                 <sbb-calendar-day
                   slot="2023-01-21"
@@ -4007,7 +4007,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-28">
                 <sbb-calendar-day
                   slot="2023-01-28"
@@ -4026,7 +4026,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 S
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-01">
                 <sbb-calendar-day
                   slot="2023-01-01"
@@ -4035,7 +4035,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-08">
                 <sbb-calendar-day
                   slot="2023-01-08"
@@ -4044,7 +4044,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-15">
                 <sbb-calendar-day
                   slot="2023-01-15"
@@ -4053,7 +4053,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-22">
                 <sbb-calendar-day
                   slot="2023-01-22"
@@ -4062,7 +4062,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-29">
                 <sbb-calendar-day
                   slot="2023-01-29"
@@ -4356,7 +4356,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-01">
                 <sbb-calendar-day
                   slot="2023-01-01"
@@ -4367,7 +4367,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-02">
                 <sbb-calendar-day
                   slot="2023-01-02"
@@ -4376,7 +4376,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-03">
                 <sbb-calendar-day
                   slot="2023-01-03"
@@ -4385,7 +4385,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-04">
                 <sbb-calendar-day
                   slot="2023-01-04"
@@ -4394,7 +4394,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-05">
                 <sbb-calendar-day
                   slot="2023-01-05"
@@ -4403,7 +4403,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-06">
                 <sbb-calendar-day
                   slot="2023-01-06"
@@ -4412,7 +4412,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-07">
                 <sbb-calendar-day
                   slot="2023-01-07"
@@ -4421,7 +4421,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-08">
                 <sbb-calendar-day
                   slot="2023-01-08"
@@ -4432,7 +4432,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-09">
                 <sbb-calendar-day
                   slot="2023-01-09"
@@ -4441,7 +4441,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-10">
                 <sbb-calendar-day
                   slot="2023-01-10"
@@ -4450,7 +4450,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-11">
                 <sbb-calendar-day
                   slot="2023-01-11"
@@ -4459,7 +4459,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-12">
                 <sbb-calendar-day
                   slot="2023-01-12"
@@ -4468,7 +4468,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-13">
                 <sbb-calendar-day
                   slot="2023-01-13"
@@ -4477,7 +4477,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-14">
                 <sbb-calendar-day
                   slot="2023-01-14"
@@ -4486,7 +4486,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-15">
                 <sbb-calendar-day
                   slot="2023-01-15"
@@ -4497,7 +4497,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-16">
                 <sbb-calendar-day
                   slot="2023-01-16"
@@ -4506,7 +4506,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-17">
                 <sbb-calendar-day
                   slot="2023-01-17"
@@ -4515,7 +4515,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-18">
                 <sbb-calendar-day
                   slot="2023-01-18"
@@ -4524,7 +4524,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-19">
                 <sbb-calendar-day
                   slot="2023-01-19"
@@ -4533,7 +4533,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
@@ -4542,7 +4542,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-21">
                 <sbb-calendar-day
                   slot="2023-01-21"
@@ -4551,7 +4551,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-22">
                 <sbb-calendar-day
                   slot="2023-01-22"
@@ -4562,7 +4562,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-23">
                 <sbb-calendar-day
                   slot="2023-01-23"
@@ -4571,7 +4571,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-24">
                 <sbb-calendar-day
                   slot="2023-01-24"
@@ -4580,7 +4580,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-25">
                 <sbb-calendar-day
                   slot="2023-01-25"
@@ -4589,7 +4589,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-26">
                 <sbb-calendar-day
                   slot="2023-01-26"
@@ -4598,7 +4598,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-27">
                 <sbb-calendar-day
                   slot="2023-01-27"
@@ -4607,7 +4607,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-28">
                 <sbb-calendar-day
                   slot="2023-01-28"
@@ -4616,7 +4616,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-29">
                 <sbb-calendar-day
                   slot="2023-01-29"
@@ -4627,7 +4627,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-30">
                 <sbb-calendar-day
                   slot="2023-01-30"
@@ -4636,7 +4636,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-31">
                 <sbb-calendar-day
                   slot="2023-01-31"
@@ -4950,7 +4950,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-01">
                 <sbb-calendar-day
                   slot="2023-01-01"
@@ -4969,7 +4969,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 1
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-02">
                 <sbb-calendar-day
                   slot="2023-01-02"
@@ -4978,7 +4978,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-03">
                 <sbb-calendar-day
                   slot="2023-01-03"
@@ -4987,7 +4987,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-04">
                 <sbb-calendar-day
                   slot="2023-01-04"
@@ -4996,7 +4996,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-05">
                 <sbb-calendar-day
                   slot="2023-01-05"
@@ -5005,7 +5005,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-06">
                 <sbb-calendar-day
                   slot="2023-01-06"
@@ -5014,7 +5014,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-07">
                 <sbb-calendar-day
                   slot="2023-01-07"
@@ -5023,7 +5023,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-08">
                 <sbb-calendar-day
                   slot="2023-01-08"
@@ -5042,7 +5042,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 2
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-09">
                 <sbb-calendar-day
                   slot="2023-01-09"
@@ -5051,7 +5051,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-10">
                 <sbb-calendar-day
                   slot="2023-01-10"
@@ -5060,7 +5060,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-11">
                 <sbb-calendar-day
                   slot="2023-01-11"
@@ -5069,7 +5069,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-12">
                 <sbb-calendar-day
                   slot="2023-01-12"
@@ -5078,7 +5078,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-13">
                 <sbb-calendar-day
                   slot="2023-01-13"
@@ -5087,7 +5087,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-14">
                 <sbb-calendar-day
                   slot="2023-01-14"
@@ -5096,7 +5096,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-15">
                 <sbb-calendar-day
                   slot="2023-01-15"
@@ -5115,7 +5115,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 3
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-16">
                 <sbb-calendar-day
                   slot="2023-01-16"
@@ -5124,7 +5124,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-17">
                 <sbb-calendar-day
                   slot="2023-01-17"
@@ -5133,7 +5133,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-18">
                 <sbb-calendar-day
                   slot="2023-01-18"
@@ -5142,7 +5142,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-19">
                 <sbb-calendar-day
                   slot="2023-01-19"
@@ -5151,7 +5151,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
@@ -5160,7 +5160,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-21">
                 <sbb-calendar-day
                   slot="2023-01-21"
@@ -5169,7 +5169,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-22">
                 <sbb-calendar-day
                   slot="2023-01-22"
@@ -5188,7 +5188,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 4
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-23">
                 <sbb-calendar-day
                   slot="2023-01-23"
@@ -5197,7 +5197,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-24">
                 <sbb-calendar-day
                   slot="2023-01-24"
@@ -5206,7 +5206,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-25">
                 <sbb-calendar-day
                   slot="2023-01-25"
@@ -5215,7 +5215,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-26">
                 <sbb-calendar-day
                   slot="2023-01-26"
@@ -5224,7 +5224,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-27">
                 <sbb-calendar-day
                   slot="2023-01-27"
@@ -5233,7 +5233,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-28">
                 <sbb-calendar-day
                   slot="2023-01-28"
@@ -5242,7 +5242,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-29">
                 <sbb-calendar-day
                   slot="2023-01-29"
@@ -5261,7 +5261,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 5
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-30">
                 <sbb-calendar-day
                   slot="2023-01-30"
@@ -5270,7 +5270,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-31">
                 <sbb-calendar-day
                   slot="2023-01-31"
@@ -5359,7 +5359,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-01">
                 <sbb-calendar-day
                   slot="2023-02-01"
@@ -5368,7 +5368,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-02">
                 <sbb-calendar-day
                   slot="2023-02-02"
@@ -5377,7 +5377,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-03">
                 <sbb-calendar-day
                   slot="2023-02-03"
@@ -5386,7 +5386,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-04">
                 <sbb-calendar-day
                   slot="2023-02-04"
@@ -5395,7 +5395,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-05">
                 <sbb-calendar-day
                   slot="2023-02-05"
@@ -5414,7 +5414,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 6
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-06">
                 <sbb-calendar-day
                   slot="2023-02-06"
@@ -5423,7 +5423,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-07">
                 <sbb-calendar-day
                   slot="2023-02-07"
@@ -5432,7 +5432,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-08">
                 <sbb-calendar-day
                   slot="2023-02-08"
@@ -5441,7 +5441,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-09">
                 <sbb-calendar-day
                   slot="2023-02-09"
@@ -5450,7 +5450,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-10">
                 <sbb-calendar-day
                   slot="2023-02-10"
@@ -5459,7 +5459,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-11">
                 <sbb-calendar-day
                   slot="2023-02-11"
@@ -5468,7 +5468,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-12">
                 <sbb-calendar-day
                   slot="2023-02-12"
@@ -5487,7 +5487,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 7
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-13">
                 <sbb-calendar-day
                   slot="2023-02-13"
@@ -5496,7 +5496,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-14">
                 <sbb-calendar-day
                   slot="2023-02-14"
@@ -5505,7 +5505,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-15">
                 <sbb-calendar-day
                   slot="2023-02-15"
@@ -5514,7 +5514,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-16">
                 <sbb-calendar-day
                   slot="2023-02-16"
@@ -5523,7 +5523,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-17">
                 <sbb-calendar-day
                   slot="2023-02-17"
@@ -5532,7 +5532,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-18">
                 <sbb-calendar-day
                   slot="2023-02-18"
@@ -5541,7 +5541,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-19">
                 <sbb-calendar-day
                   slot="2023-02-19"
@@ -5560,7 +5560,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 8
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-20">
                 <sbb-calendar-day
                   slot="2023-02-20"
@@ -5569,7 +5569,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-21">
                 <sbb-calendar-day
                   slot="2023-02-21"
@@ -5578,7 +5578,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-22">
                 <sbb-calendar-day
                   slot="2023-02-22"
@@ -5587,7 +5587,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-23">
                 <sbb-calendar-day
                   slot="2023-02-23"
@@ -5596,7 +5596,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-24">
                 <sbb-calendar-day
                   slot="2023-02-24"
@@ -5605,7 +5605,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-25">
                 <sbb-calendar-day
                   slot="2023-02-25"
@@ -5614,7 +5614,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-26">
                 <sbb-calendar-day
                   slot="2023-02-26"
@@ -5633,7 +5633,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 9
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-27">
                 <sbb-calendar-day
                   slot="2023-02-27"
@@ -5642,7 +5642,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-28">
                 <sbb-calendar-day
                   slot="2023-02-28"
@@ -5938,7 +5938,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-02">
                 <sbb-calendar-day
                   slot="2023-01-02"
@@ -5947,7 +5947,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-09">
                 <sbb-calendar-day
                   slot="2023-01-09"
@@ -5956,7 +5956,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-16">
                 <sbb-calendar-day
                   slot="2023-01-16"
@@ -5965,7 +5965,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-23">
                 <sbb-calendar-day
                   slot="2023-01-23"
@@ -5974,7 +5974,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-30">
                 <sbb-calendar-day
                   slot="2023-01-30"
@@ -5995,7 +5995,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-03">
                 <sbb-calendar-day
                   slot="2023-01-03"
@@ -6004,7 +6004,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-10">
                 <sbb-calendar-day
                   slot="2023-01-10"
@@ -6013,7 +6013,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-17">
                 <sbb-calendar-day
                   slot="2023-01-17"
@@ -6022,7 +6022,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-24">
                 <sbb-calendar-day
                   slot="2023-01-24"
@@ -6031,7 +6031,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-31">
                 <sbb-calendar-day
                   slot="2023-01-31"
@@ -6052,7 +6052,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-04">
                 <sbb-calendar-day
                   slot="2023-01-04"
@@ -6061,7 +6061,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-11">
                 <sbb-calendar-day
                   slot="2023-01-11"
@@ -6070,7 +6070,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-18">
                 <sbb-calendar-day
                   slot="2023-01-18"
@@ -6079,7 +6079,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-25">
                 <sbb-calendar-day
                   slot="2023-01-25"
@@ -6100,7 +6100,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-05">
                 <sbb-calendar-day
                   slot="2023-01-05"
@@ -6109,7 +6109,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-12">
                 <sbb-calendar-day
                   slot="2023-01-12"
@@ -6118,7 +6118,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-19">
                 <sbb-calendar-day
                   slot="2023-01-19"
@@ -6127,7 +6127,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-26">
                 <sbb-calendar-day
                   slot="2023-01-26"
@@ -6148,7 +6148,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-06">
                 <sbb-calendar-day
                   slot="2023-01-06"
@@ -6157,7 +6157,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-13">
                 <sbb-calendar-day
                   slot="2023-01-13"
@@ -6166,7 +6166,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
@@ -6175,7 +6175,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-27">
                 <sbb-calendar-day
                   slot="2023-01-27"
@@ -6196,7 +6196,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             </td>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-07">
                 <sbb-calendar-day
                   slot="2023-01-07"
@@ -6205,7 +6205,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-14">
                 <sbb-calendar-day
                   slot="2023-01-14"
@@ -6214,7 +6214,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-21">
                 <sbb-calendar-day
                   slot="2023-01-21"
@@ -6223,7 +6223,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-28">
                 <sbb-calendar-day
                   slot="2023-01-28"
@@ -6242,7 +6242,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 S
               </span>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-01">
                 <sbb-calendar-day
                   slot="2023-01-01"
@@ -6251,7 +6251,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-08">
                 <sbb-calendar-day
                   slot="2023-01-08"
@@ -6260,7 +6260,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-15">
                 <sbb-calendar-day
                   slot="2023-01-15"
@@ -6269,7 +6269,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-22">
                 <sbb-calendar-day
                   slot="2023-01-22"
@@ -6278,7 +6278,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-01-29">
                 <sbb-calendar-day
                   slot="2023-01-29"
@@ -6339,7 +6339,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
           <tr>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-06">
                 <sbb-calendar-day
                   slot="2023-02-06"
@@ -6348,7 +6348,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-13">
                 <sbb-calendar-day
                   slot="2023-02-13"
@@ -6357,7 +6357,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-20">
                 <sbb-calendar-day
                   slot="2023-02-20"
@@ -6366,7 +6366,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-27">
                 <sbb-calendar-day
                   slot="2023-02-27"
@@ -6379,7 +6379,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
           <tr>
             <td class="sbb-calendar__table-data">
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-07">
                 <sbb-calendar-day
                   slot="2023-02-07"
@@ -6388,7 +6388,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-14">
                 <sbb-calendar-day
                   slot="2023-02-14"
@@ -6397,7 +6397,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-21">
                 <sbb-calendar-day
                   slot="2023-02-21"
@@ -6406,7 +6406,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-28">
                 <sbb-calendar-day
                   slot="2023-02-28"
@@ -6417,7 +6417,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-01">
                 <sbb-calendar-day
                   slot="2023-02-01"
@@ -6426,7 +6426,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-08">
                 <sbb-calendar-day
                   slot="2023-02-08"
@@ -6435,7 +6435,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-15">
                 <sbb-calendar-day
                   slot="2023-02-15"
@@ -6444,7 +6444,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-22">
                 <sbb-calendar-day
                   slot="2023-02-22"
@@ -6455,7 +6455,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-02">
                 <sbb-calendar-day
                   slot="2023-02-02"
@@ -6464,7 +6464,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-09">
                 <sbb-calendar-day
                   slot="2023-02-09"
@@ -6473,7 +6473,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-16">
                 <sbb-calendar-day
                   slot="2023-02-16"
@@ -6482,7 +6482,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-23">
                 <sbb-calendar-day
                   slot="2023-02-23"
@@ -6493,7 +6493,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-03">
                 <sbb-calendar-day
                   slot="2023-02-03"
@@ -6502,7 +6502,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-10">
                 <sbb-calendar-day
                   slot="2023-02-10"
@@ -6511,7 +6511,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-17">
                 <sbb-calendar-day
                   slot="2023-02-17"
@@ -6520,7 +6520,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-24">
                 <sbb-calendar-day
                   slot="2023-02-24"
@@ -6531,7 +6531,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-04">
                 <sbb-calendar-day
                   slot="2023-02-04"
@@ -6540,7 +6540,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-11">
                 <sbb-calendar-day
                   slot="2023-02-11"
@@ -6549,7 +6549,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-18">
                 <sbb-calendar-day
                   slot="2023-02-18"
@@ -6558,7 +6558,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-25">
                 <sbb-calendar-day
                   slot="2023-02-25"
@@ -6569,7 +6569,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
             </td>
           </tr>
           <tr>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-05">
                 <sbb-calendar-day
                   slot="2023-02-05"
@@ -6578,7 +6578,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-12">
                 <sbb-calendar-day
                   slot="2023-02-12"
@@ -6587,7 +6587,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-19">
                 <sbb-calendar-day
                   slot="2023-02-19"
@@ -6596,7 +6596,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
                 </sbb-calendar-day>
               </slot>
             </td>
-            <td class="sbb-calendar__day-cell">
+            <td class="sbb-calendar__day-cell sbb-calendar__table-data">
               <slot name="2023-02-26">
                 <sbb-calendar-day
                   slot="2023-02-26"

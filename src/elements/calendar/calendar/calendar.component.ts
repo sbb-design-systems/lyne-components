@@ -1652,7 +1652,7 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
   private _createDayCells(week: Day<T>[]): TemplateResult[] {
     return week.map((day: Day<T>) => {
       return html`
-        <td class="sbb-calendar__day-cell">
+        <td class=" sbb-calendar__table-data sbb-calendar__day-cell">
           <slot name=${day.value}>
             <sbb-calendar-day
               slot=${day.value}
@@ -1761,7 +1761,6 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
                     <button
                       class=${classMap({
                         'sbb-calendar__cell': true,
-                        'sbb-calendar__pill': true,
                         'sbb-calendar__cell-current': isCurrentMonth,
                         'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
                         'sbb-calendar__selected': selected,
@@ -1898,7 +1897,6 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
                   <button
                     class=${classMap({
                       'sbb-calendar__cell': true,
-                      'sbb-calendar__pill': true,
                       'sbb-calendar__cell-current': isCurrentYear,
                       'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
                       'sbb-calendar__selected': selected,
