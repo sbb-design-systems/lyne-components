@@ -1651,7 +1651,7 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
   private _createDayCells(week: Day<T>[]): TemplateResult[] {
     return week.map((day: Day<T>) => {
       return html`
-        <td>
+        <td class="sbb-calendar__day-cell">
           <slot name=${day.value}>
             <sbb-calendar-day
               slot=${day.value}
