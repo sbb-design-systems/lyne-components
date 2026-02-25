@@ -269,7 +269,7 @@ $disabled: '[disabled], :disabled';
   color: light-dark(var(--sbb-color-white), var(--sbb-color-black));
 
   @include sbb.if-forced-colors {
-    border: solid var(--sbb-border-width-1x);
+    border: var(--sbb-border-width-1x) solid;
   }
 }
 
