@@ -63,7 +63,7 @@ jobs:
       matrix:
         repo: [docs, docs-preview, visual-regression]
     steps:
-      - uses: actions/delete-package-versions@v4
+      - uses: actions/delete-package-versions@v5
         with:
           package-name: lyne-components/${{ matrix.repo }}
           package-type: container
