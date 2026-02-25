@@ -228,7 +228,7 @@ describe('sbb-calendar', () => {
   describeViewports({ viewports: ['zero'] }, () => {
     describe('day button', () => {
       describeEach(dayButtonCases, ({ selected, emulateMedia: { forcedColors, darkMode } }) => {
-        let element: SbbCalendarElement, root: HTMLElement;
+        let root: HTMLElement;
 
         beforeEach(async function () {
           const selectedDate = new Date(2023, 0, 20);
@@ -242,7 +242,6 @@ describe('sbb-calendar', () => {
               forcedColors,
             },
           );
-          element = root.querySelector('sbb-calendar')!;
         });
 
         for (const state of selected
@@ -254,8 +253,8 @@ describe('sbb-calendar', () => {
               setup.withSnapshotElement(root);
               setup.withStateElement(
                 selected
-                  ? element.shadowRoot!.querySelector('button.sbb-calendar__selected')!
-                  : element.shadowRoot!.querySelector('button.sbb-calendar__day')!,
+                  ? setup.snapshotElement.querySelector('sbb-calendar-day[slot="2023-01-20"]')!
+                  : setup.snapshotElement.querySelector('sbb-calendar-day[slot="2023-01-01"]')!,
               );
             }),
           );

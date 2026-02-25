@@ -5,6 +5,7 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 import { type SinonStub, stub } from 'sinon';
 
+import type { SbbCalendarDayElement } from '../../calendar.ts';
 import { SbbCalendarElement } from '../../calendar.ts';
 import { defaultDateAdapter } from '../../core/datetime.ts';
 import { i18nDateChangedTo } from '../../core/i18n.ts';
@@ -306,9 +307,9 @@ describe(`sbb-datepicker`, () => {
 
     datepicker.input!.dateFilter = (d) => d?.getFullYear() !== 2022;
     await waitForLitRender(element);
-    const buttons = calendar.shadowRoot!.querySelectorAll<HTMLButtonElement>('.sbb-calendar__day')!;
-    for (const button of buttons) {
-      expect(button.classList.contains('sbb-calendar__crossed-out'), button.value).to.be.true;
+    const days = calendar.shadowRoot!.querySelectorAll<SbbCalendarDayElement>('sbb-calendar__day')!;
+    for (const button of days) {
+      expect(button.classList.contains('sbb-calendar__crossed-out'), button.slot).to.be.true;
     }
   });
 
