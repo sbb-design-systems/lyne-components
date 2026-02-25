@@ -108,7 +108,7 @@
     "lit-analyzer": "2.0.3",
     "madge": "8.0.0",
     "npm-run-all2": "8.0.4",
-    "nyc": "17.1.0",
+    "nyc": "18.0.0",
     "octokit": "5.0.5",
     "playwright": "1.58.2",
     "postcss": "8.5.6",
