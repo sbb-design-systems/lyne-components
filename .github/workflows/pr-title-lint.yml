@@ -9,7 +9,7 @@ jobs:
   lint:
     runs-on: ubuntu-slim
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: npm install --global yarn
       - uses: actions/setup-node@v4
         with:
