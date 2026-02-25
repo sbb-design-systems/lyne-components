@@ -46,7 +46,7 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ steps.get_token.outputs.token }}
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: yarn
