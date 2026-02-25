@@ -43,7 +43,6 @@
 
 // FIXME: check whether is possible to avoid using z-index rules
 .sbb-calendar-day {
-  @include sbb.button-reset;
   @include sbb.text-s--regular;
 
   display: flex;
@@ -63,7 +62,7 @@
   &::before {
     content: '';
     position: absolute;
-    inset: var(--sbb-calendar-cell-padding);
+    inset: 0;
     background-color: var(--sbb-calendar-day-cell-background-color);
     border: var(--sbb-calendar-day-selected-border);
     border-radius: var(--sbb-calendar-day-border-radius);
@@ -90,7 +89,9 @@
   :host(:not(:active, :disabled):hover) & {
     @include sbb.hover-mq($hover: true) {
       --sbb-calendar-day-cell-background-color: var(--sbb-calendar-cell-background-color-hover);
-      --sbb-calendar-day-cell-padding-hover: #{sbb.px-to-rem-build(1)};
+      --sbb-calendar-day-cell-padding-hover: calc(
+        #{sbb.px-to-rem-build(1)} + var(--sbb-calendar-cell-padding)
+      );
 
       &::before {
         @include sbb.if-forced-colors {
@@ -130,4 +131,8 @@
   display: var(--sbb-calendar-day-extra-display);
   height: var(--sbb-calendar-day-extra-height);
   padding: var(--sbb-calendar-cell-padding);
+}
+
+::slotted(*) {
+  height: #{sbb.px-to-rem-build(16)};
 }
