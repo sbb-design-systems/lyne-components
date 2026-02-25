@@ -351,10 +351,10 @@ export const CalendarEnhanced: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const CalendarEnhancedExtraContent: StoryObj = {
+export const CalendarEnhancedNoExtraContent: StoryObj = {
   render: EnhancedTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, withPrice: true },
+  args: { ...defaultArgs, withPrice: false },
 };
 
 export const CalendarEnhancedVertical: StoryObj = {
