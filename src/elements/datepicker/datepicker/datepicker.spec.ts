@@ -292,7 +292,7 @@ describe(`sbb-datepicker`, () => {
     // We have to wait another tick
     await aTimeout(0);
 
-    const calendar = datepicker.shadowRoot!.querySelector('sbb-calendar')!;
+    const calendar = datepicker.shadowRoot!.querySelector<SbbCalendarElement>('sbb-calendar')!;
     expect(calendar.wide, 'calendar.wide').to.be.false;
     expect(
       calendar.shadowRoot!.querySelectorAll('.sbb-calendar__controls-change-date')!.length,
@@ -307,9 +307,9 @@ describe(`sbb-datepicker`, () => {
 
     datepicker.input!.dateFilter = (d) => d?.getFullYear() !== 2022;
     await waitForLitRender(element);
-    const days = calendar.shadowRoot!.querySelectorAll<SbbCalendarDayElement>('sbb-calendar__day')!;
-    for (const button of days) {
-      expect(button.classList.contains('sbb-calendar__crossed-out'), button.slot).to.be.true;
+    const days = calendar.shadowRoot!.querySelectorAll<SbbCalendarDayElement>('sbb-calendar-day')!;
+    for (const day of days) {
+      expect(day, day.slot).to.match(':state(crossed-out)');
     }
   });
 
