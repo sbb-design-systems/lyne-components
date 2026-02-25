@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.6.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.5.1...v4.6.0) (2026-02-25)
+
+
+### Features
+
+* **sbb-calendar:** add enhanced variant ([#4487](https://github.com/sbb-design-systems/lyne-components/issues/4487)) ([51bfd60](https://github.com/sbb-design-systems/lyne-components/commit/51bfd60287a6ea350060dcb747108742fbea8232))
+
+
+### Bug Fixes
+
+* **sbb-form-field:** allow to specify height (for textarea) ([#4523](https://github.com/sbb-design-systems/lyne-components/issues/4523)) ([3a98d3a](https://github.com/sbb-design-systems/lyne-components/commit/3a98d3abbed501c982acbaa0e8412dd9c3f2b70d))
+* **sbb-seat-reservation:** enable leaving sr by TAB and first or last nav coach is selected ([#4524](https://github.com/sbb-design-systems/lyne-components/issues/4524)) ([7781781](https://github.com/sbb-design-systems/lyne-components/commit/7781781e48b5f7ecaa99fd6daf1e588843594a13))
+
 ## [4.5.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.5.0...v4.5.1) (2026-02-19)
 
 
