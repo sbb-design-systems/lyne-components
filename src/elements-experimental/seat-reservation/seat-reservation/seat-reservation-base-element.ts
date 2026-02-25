@@ -373,7 +373,7 @@ export class SeatReservationBaseElement extends LitElement {
     event: KeyboardEvent,
     currNavCoachButtonIndex: number,
   ): void {
-    if (event.key === this.keyboardNavigationEvents.Tab || event.shiftKey) {
+    if (event.key === this.keyboardNavigationEvents.Tab) {
       this._handleTabKeyNavigation(event, 'navigation', currNavCoachButtonIndex);
       return;
     }
