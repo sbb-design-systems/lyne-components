@@ -43,7 +43,7 @@ jobs:
         run: |
           echo "branch=$(echo ${{ matrix.label }} | sed -n 's/target: \([0-9]*.x\).*/\1/p')" >> $GITHUB_OUTPUT
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         if: steps.branch_name.outputs.branch
         with:
           token: ${{ steps.get_token.outputs.token }}
@@ -70,7 +70,7 @@ jobs:
       needs.cherry_pick.outputs.failed_branches
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: npm install --global yarn
       - uses: actions/setup-node@v4
         with:
