@@ -37,7 +37,7 @@ jobs:
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v7
         with:
           name: docs
           path: dist/storybook/
