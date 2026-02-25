@@ -1479,7 +1479,7 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
                 <tr>
                   ${this.weekNumbers
                     ? html`
-                        <td class="sbb-calendar__table-header-cell">
+                        <td class="sbb-calendar__table-header-cell-vertical">
                           ${this.multiple
                             ? html`
                                 <button
@@ -1515,7 +1515,7 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
               <tr>
                 ${this.weekNumbers
                   ? html`
-                      <td class="sbb-calendar__table-header-cell">
+                      <td class="sbb-calendar__table-header-cell-vertical">
                         ${this.multiple
                           ? html`
                               <button
@@ -1619,7 +1619,7 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
                 ${nextMonthActiveDate
                   ? nothing
                   : html`
-                      <td class="sbb-calendar__table-header-cell">
+                      <td class="sbb-calendar__table-header-cell-vertical">
                         ${this.multiple
                           ? html`
                               <button

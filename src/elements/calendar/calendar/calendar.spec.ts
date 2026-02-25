@@ -281,7 +281,7 @@ describe(`sbb-calendar`, () => {
           expect(yearCells.length).to.be.equal(24);
           expect(yearCells[0]).dom.to.be.equal(`
             <td class="sbb-calendar__table-data sbb-calendar__table-year">
-              <button aria-disabled="false" aria-label="2016" aria-pressed="false" class="sbb-calendar__cell sbb-calendar__pill" data-year="2016" tabindex="-1">
+              <button aria-disabled="false" aria-label="2016" aria-pressed="false" class="sbb-calendar__cell" data-year="2016" tabindex="-1">
                 2016
               </button>
             </td>
@@ -317,7 +317,7 @@ describe(`sbb-calendar`, () => {
                 aria-disabled="false"
                 aria-label="January 2023"
                 aria-pressed="true"
-                class="sbb-calendar__cell sbb-calendar__pill sbb-calendar__selected sbb-calendar__cell-current"
+                class="sbb-calendar__cell sbb-calendar__selected sbb-calendar__cell-current"
                 data-month="1"
                 tabindex="0">
                 Jan
@@ -881,7 +881,7 @@ describe(`sbb-calendar`, () => {
         );
         expect(buttonNextDay).to.have.attribute('disabled');
 
-        const emptyCells = element.shadowRoot!.querySelectorAll('td.sbb-calendar__table-data');
+        const emptyCells = element.shadowRoot!.querySelectorAll('td:not(:has(slot))');
         expect(emptyCells.length).to.be.equal(6);
 
         const lastDisabledMinDate = getElementRoot(element).querySelector<SbbCalendarDayElement>(

@@ -228,7 +228,8 @@
   text-align: center;
 }
 
-.sbb-calendar__table-header-cell {
+.sbb-calendar__table-header-cell,
+.sbb-calendar__table-header-cell-vertical {
   @include sbb.text-xs--regular;
 
   width: var(--sbb-calendar-cell-size);
@@ -238,6 +239,10 @@
   :host(:not([multiple])) & {
     height: var(--sbb-calendar-cell-size);
   }
+}
+
+.sbb-calendar__table-header-cell-vertical {
+  padding-block-end: var(--sbb-calendar-cell-padding-block-end);
 }
 
 .sbb-calendar__table-data {
