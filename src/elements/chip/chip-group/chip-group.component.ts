@@ -230,6 +230,7 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
       });
       this._inputElement.addEventListener('blur', () => this._onInputBlur(), {
         signal: this._inputAbortController.signal,
+        capture: true,
       });
       this._inputElement.addEventListener(
         'inputAutocomplete',
