@@ -56,7 +56,7 @@ snapshots["sbb-seat-reservation renders Shadow DOM"] =
     <div
       class="sbb-sr__wrapper-scrollarea"
       id="sbb-sr__wrapper-scrollarea"
-      tabindex="0"
+      tabindex="-1"
     >
       <div
         class="sbb-sr__parent"
