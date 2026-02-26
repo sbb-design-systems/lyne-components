@@ -29,7 +29,6 @@ export class SbbScrollHandler {
     document.body.style.height = '100dvh';
     document.body.style.position = 'relative';
     document.body.style.marginInlineEnd = `${scrollbarWidth}px`;
-    document.body.style.setProperty('--sbb-scrollbar-width', `${scrollbarWidth}px`);
 
     document.body.toggleAttribute('data-sbb-scroll-disabled', true);
   }
@@ -44,7 +43,6 @@ export class SbbScrollHandler {
     document.body.style.position = this._position || '';
     document.body.style.overflow = this._overflow || '';
     document.body.style.marginInlineEnd = this._marginInlineEnd || '';
-    document.body.style.setProperty('--sbb-scrollbar-width', '0');
 
     document.body.removeAttribute('data-sbb-scroll-disabled');
   }

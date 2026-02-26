@@ -30,7 +30,7 @@
   --sbb-header-position: fixed;
   --sbb-header-animation-name: hide;
   --sbb-header-transform: translate3d(0, -100%, 0);
-  --sbb-header-inset-inline-end: var(--sbb-scrollbar-width, 0);
+  --sbb-header-inset-inline-end: 0;
 }
 
 :host([hide-on-scroll]:state(fixed):state(animated)) {

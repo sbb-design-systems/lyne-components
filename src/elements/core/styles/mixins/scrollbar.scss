@@ -1,74 +1,23 @@
 @use '../core/functions';
 
 @mixin scrollbar-rules {
-  --sbb-scrollbar-width: var(--sbb-spacing-fixed-3x);
-
-  &::-webkit-scrollbar {
-    // Total width
-    width: var(--sbb-scrollbar-width);
-    height: var(--sbb-scrollbar-width);
-    background-color: var(--sbb-scrollbar-track-color, transparent);
-  }
-
-  &::-webkit-scrollbar-corner {
-    background-color: var(--sbb-scrollbar-track-color, transparent);
-  }
-
-  // Scrollbar itself
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--sbb-scrollbar-color, currentcolor);
-    border: calc(0.5 * (var(--sbb-scrollbar-width) - var(--sbb-scrollbar-thumb-width))) solid
-      transparent;
-    border-radius: var(--sbb-border-radius-4x);
-    background-clip: padding-box;
-
-    &:hover {
-      background-color: var(--sbb-scrollbar-color-hover, currentcolor);
-      border-width: calc(
-        0.5 * (var(--sbb-scrollbar-width) - var(--sbb-scrollbar-thumb-width-hover))
-      );
-    }
-  }
-
-  // Hide button (top and bottom of the scrollbar)
-  &::-webkit-scrollbar-button,
-  &::-webkit-scrollbar-corner {
-    display: none;
-  }
-
-  //  Styles for Firefox.
-  //  We have to use the `not` selector as Chrome supports both, the -webkit-* and the following properties.
-  //  As long as possible we use the -webkit-* approach as we have more styling possibilities there.
-  @supports not selector(::-webkit-scrollbar) {
-    // stylelint-disable-next-line block-no-redundant-nested-style-rules
-    & {
-      scrollbar-width: var(--sbb-scrollbar-width-firefox);
-      scrollbar-color: var(--sbb-scrollbar-color, currentcolor)
-        var(--sbb-scrollbar-track-color, transparent);
-    }
-  }
+  scrollbar-width: var(--sbb-scrollbar-width);
+  scrollbar-color: var(--sbb-scrollbar-color, currentcolor)
+    var(--sbb-scrollbar-track-color, transparent);
 }
 
 @mixin scrollbar-variables--size-thin {
-  --sbb-scrollbar-thumb-width: #{functions.px-to-rem-build(2)};
-  --sbb-scrollbar-thumb-width-hover: #{functions.px-to-rem-build(4)};
-  --sbb-scrollbar-width-firefox: thin;
+  --sbb-scrollbar-width: thin;
 }
 
 @mixin scrollbar-variables--size-thick {
-  --sbb-scrollbar-thumb-width: #{functions.px-to-rem-build(8)};
-  --sbb-scrollbar-thumb-width-hover: var(--sbb-scrollbar-thumb-width);
-  --sbb-scrollbar-width-firefox: auto;
+  --sbb-scrollbar-width: auto;
 }
 
 @mixin scrollbar-variables--color-positive {
   --sbb-scrollbar-color: light-dark(
     color-mix(in srgb, var(--sbb-color-black) 30%, transparent),
     color-mix(in srgb, var(--sbb-color-white) 30%, transparent)
-  );
-  --sbb-scrollbar-color-hover: light-dark(
-    color-mix(in srgb, var(--sbb-color-black) 60%, transparent),
-    color-mix(in srgb, var(--sbb-color-white) 60%, transparent)
   );
 }
 
@@ -78,7 +27,6 @@
 
 @mixin scrollbar-variables--color-negative {
   --sbb-scrollbar-color: color-mix(in srgb, var(--sbb-color-white) 30%, transparent);
-  --sbb-scrollbar-color-hover: color-mix(in srgb, var(--sbb-color-white) 60%, transparent);
 }
 
 @mixin scrollbar-variables--color-negative-track-visible {
