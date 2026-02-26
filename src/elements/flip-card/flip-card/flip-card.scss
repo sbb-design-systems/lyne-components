@@ -133,7 +133,7 @@
 }
 
 .sbb-flip-card--toggle-button-icon {
-  transform: var(--sbb-flip-card-toggle-icon-transform, 0);
+  transform: var(--sbb-flip-card-toggle-icon-transform, none);
   transition: transform var(--sbb-flip-card-summary-transition-duration) ease-out;
 }
 
