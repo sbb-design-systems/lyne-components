@@ -18,17 +18,18 @@ The `seat-reservation-place-control` is a component that renders a control eleme
 
 ## Properties
 
-| Name            | Attribute       | Privacy | Type         | Default     | Description                                                     |
-| --------------- | --------------- | ------- | ------------ | ----------- | --------------------------------------------------------------- |
-| `coachIndex`    | `coach-index`   | public  | `number`     | `null!`     | Coach Index Prop to identifier the right place to coach         |
-| `deckIndex`     | `deck-index`    | public  | `number`     | `null!`     | Deck Index Prop to identifier the right place to deck           |
-| `keyfocus`      | `keyfocus`      | public  | `string`     | `'unfocus'` | Set the place focus outline style                               |
-| `placeType`     | `type`          | public  | `PlaceType`  | `'SEAT'`    | placeType of the place, e.g. 'SEAT', 'BICYCLE'                  |
-| `preventClick`  | `prevent-click` | public  | `boolean`    | `false`     | Prevent click prop prevent any place action                     |
-| `propertyIds`   | `propertyIds`   | public  | `string[]`   | `[]`        | property ids of the place, to display more info about the place |
-| `showTitleInfo` | `showTitleInfo` | public  | `boolean`    | `false`     | Disable the mouse over title information                        |
-| `state`         | `state`         | public  | `PlaceState` | `'FREE'`    | state of the place, e.g. 'FREE', 'SELECTED', 'BLOCKED'          |
-| `text`          | `text`          | public  | `string`     | `''`        | label of the place, e.g. '1A', '2B'                             |
+| Name              | Attribute          | Privacy | Type              | Default     | Description                                                           |
+| ----------------- | ------------------ | ------- | ----------------- | ----------- | --------------------------------------------------------------------- |
+| `coachIndex`      | `coach-index`      | public  | `number`          | `null!`     | Coach Index Prop to identifier the right place to coach               |
+| `deckIndex`       | `deck-index`       | public  | `number`          | `null!`     | Deck Index Prop to identifier the right place to deck                 |
+| `keyfocus`        | `keyfocus`         | public  | `string`          | `'unfocus'` | Set the place focus outline style                                     |
+| `placeType`       | `type`             | public  | `PlaceType`       | `'SEAT'`    | placeType of the place, e.g. 'SEAT', 'BICYCLE'                        |
+| `preventClick`    | `prevent-click`    | public  | `boolean`         | `false`     | Prevent click prop prevent any place action                           |
+| `propertyIds`     | `propertyIds`      | public  | `string[]`        | `[]`        | property ids of the place, to display more info about the place       |
+| `showTitleInfo`   | `showTitleInfo`    | public  | `boolean`         | `false`     | Disable the mouse over title information                              |
+| `state`           | `state`            | public  | `PlaceState`      | `'FREE'`    | state of the place, e.g. 'FREE', 'SELECTED', 'BLOCKED'                |
+| `text`            | `text`             | public  | `string`          | `''`        | label of the place, e.g. '1A', '2B'                                   |
+| `travelDirection` | `travel-direction` | public  | `TravelDirection` | `'NONE'`    | direction of a whole train, used to compute an orientation of a place |
 
 ## Events
 
