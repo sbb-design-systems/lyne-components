@@ -184,16 +184,21 @@ const NoFooterTemplate = ({ level, includeCloseButton, ...args }: Args): Templat
   </sbb-dialog>
 `;
 
-const NestedTemplate = ({ level, includeCloseButton, ...args }: Args): TemplateResult => html`
+const NestedTemplate = ({
+  level,
+  includeCloseButton,
+  negative,
+  ...args
+}: Args): TemplateResult => html`
   ${triggerButton('dialog-trigger')}
-  <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
+  <sbb-dialog trigger="dialog-trigger" ?negative=${negative} ${sbbSpread(args)}>
     ${dialogTitle(level)}
     ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
     <sbb-dialog-content> Click the button to open a nested dialog. </sbb-dialog-content>
     <sbb-dialog-actions align-group="end">
       ${triggerButton('dialog-trigger-2')}
     </sbb-dialog-actions>
-    <sbb-dialog trigger="dialog-trigger-2" ${sbbSpread(args)}>
+    <sbb-dialog negative trigger="dialog-trigger-2" ${sbbSpread(args)}>
       ${dialogTitle(level)}
       ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
       <sbb-dialog-content>
@@ -208,6 +213,7 @@ const NestedTemplate = ({ level, includeCloseButton, ...args }: Args): TemplateR
           </sbb-autocomplete>
         </sbb-form-field>
       </sbb-dialog-content>
+      ${dialogActions(negative, includeCloseButton)}
     </sbb-dialog>
   </sbb-dialog>
 `;
