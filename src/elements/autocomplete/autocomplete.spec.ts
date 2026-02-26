@@ -432,6 +432,7 @@ describe(`sbb-autocomplete`, () => {
         expect(inputEventSpy.count).to.be.equal(1);
         expect(inputAutocompleteSpy.count).to.be.equal(1);
         expect(openSpy.count).to.be.equal(1);
+        expect(document.activeElement?.localName).not.to.be.equal('input'); // Ensure the focus is not trapped
       });
 
       it('should reset pending selection on user input', async () => {
@@ -534,9 +535,10 @@ describe(`sbb-autocomplete`, () => {
 
       it('should select active option on blur', async () => {
         input.focus();
-        input.value = 'a';
+        await sendKeys({ type: 'a' });
         await openSpy.calledOnce();
         expect(openSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
         await waitForLitRender(element);
 
         expect(optOne).to.match(':state(active)');
@@ -545,17 +547,18 @@ describe(`sbb-autocomplete`, () => {
         expect(optOne).not.to.have.attribute('selected');
         expect(input.value).to.be.equal('a');
         expect(changeEventSpy.count).to.be.equal(0);
-        expect(inputEventSpy.count).to.be.equal(0);
+        expect(inputEventSpy.count).to.be.equal(1);
         expect(inputAutocompleteSpy.count).to.be.equal(0);
 
         await sendKeys({ press: tabKey });
         await waitForLitRender(element);
         expect(input.value).to.be.equal('1');
         expect(optOne).to.have.attribute('selected');
-        expect(changeEventSpy.count).to.be.equal(1);
-        expect(inputEventSpy.count).to.be.equal(1);
+        expect(changeEventSpy.count).to.be.equal(2);
+        expect(inputEventSpy.count).to.be.equal(2);
         expect(inputAutocompleteSpy.count).to.be.equal(1);
         expect(openSpy.count).to.be.equal(1);
+        expect(document.activeElement?.localName).not.to.be.equal('input'); // Ensure the focus is not trapped
       });
 
       it('should do nothing if input is empty', async () => {
@@ -603,6 +606,19 @@ describe(`sbb-autocomplete`, () => {
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(1);
         expect(inputAutocompleteSpy.count).to.be.equal(1);
+
+        input.focus();
+        await openSpy.calledTimes(2);
+        await waitForLitRender(element);
+        expect(optOne).to.match(':state(active)');
+
+        // Ensure that the active option is not auto-selected without any previous user interaction
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('2');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
       });
     });
 
@@ -626,7 +642,7 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('a');
         expect(changeEventSpy.count).to.be.equal(0);
         expect(inputEventSpy.count).to.be.equal(1);
-        await sendKeys({ press: 'Escape' });
+        await sendKeys({ press: tabKey });
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(2);
@@ -643,7 +659,7 @@ describe(`sbb-autocomplete`, () => {
         await sendKeys({ press: 'ArrowDown' });
         expect(changeEventSpy.count).to.be.equal(0);
         expect(inputEventSpy.count).to.be.equal(0);
-        await sendKeys({ press: 'Escape' });
+        await sendKeys({ press: tabKey });
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(0);
         expect(inputEventSpy.count).to.be.equal(0);
@@ -662,7 +678,7 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('a');
         expect(changeEventSpy.count).to.be.equal(0);
         expect(inputEventSpy.count).to.be.equal(1);
-        await sendKeys({ press: 'Escape' });
+        await sendKeys({ press: tabKey });
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(2);
@@ -690,7 +706,7 @@ describe(`sbb-autocomplete`, () => {
 
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(1);
-        await sendKeys({ press: 'Escape' });
+        await sendKeys({ press: tabKey });
         expect(input.value).to.be.equal('2');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(1);
@@ -761,6 +777,7 @@ describe(`sbb-autocomplete`, () => {
         await sendKeys({ press: 'ArrowDown' });
         await sendKeys({ press: 'Enter' });
         await waitForLitRender(element);
+
         await closeSpy.calledOnce();
         expect(closeSpy.count).to.be.equal(1);
         expect(input.value).to.be.equal('1');
@@ -769,7 +786,7 @@ describe(`sbb-autocomplete`, () => {
         await sendKeys({ press: 'a' });
         expect(openSpy.count).to.be.equal(2);
         expect(inputEventSpy.count).to.be.equal(2);
-        await sendKeys({ press: 'Escape' });
+        await sendKeys({ press: tabKey });
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(2);
         expect(inputEventSpy.count).to.be.equal(3);

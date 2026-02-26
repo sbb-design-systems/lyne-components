@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.6.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.5.1...v4.6.0) (2026-02-25)
+
+
+### Features
+
+* **sbb-calendar:** add enhanced variant ([#4487](https://github.com/sbb-design-systems/lyne-components/issues/4487)) ([51bfd60](https://github.com/sbb-design-systems/lyne-components/commit/51bfd60287a6ea350060dcb747108742fbea8232))
+
+
+### Bug Fixes
+
+* **sbb-form-field:** allow to specify height (for textarea) ([#4523](https://github.com/sbb-design-systems/lyne-components/issues/4523)) ([3a98d3a](https://github.com/sbb-design-systems/lyne-components/commit/3a98d3abbed501c982acbaa0e8412dd9c3f2b70d))
+* **sbb-seat-reservation:** enable leaving sr by TAB and first or last nav coach is selected ([#4524](https://github.com/sbb-design-systems/lyne-components/issues/4524)) ([7781781](https://github.com/sbb-design-systems/lyne-components/commit/7781781e48b5f7ecaa99fd6daf1e588843594a13))
+
+## [4.5.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.5.0...v4.5.1) (2026-02-19)
+
+
+### Bug Fixes
+
+* move Temporal polyfill check to constructor ([#4508](https://github.com/sbb-design-systems/lyne-components/issues/4508)) ([dec84ac](https://github.com/sbb-design-systems/lyne-components/commit/dec84ac0663e906b618fa8648f171a0a67487d5c))
+* remove temporalDateAdapter instance ([#4516](https://github.com/sbb-design-systems/lyne-components/issues/4516)) ([d78e776](https://github.com/sbb-design-systems/lyne-components/commit/d78e77648b58bbb30621d35841e373c57eb17e4b))
+* **sbb-autocomplete:** condition auto-selection on previous user interaction ([#4517](https://github.com/sbb-design-systems/lyne-components/issues/4517)) ([f50c397](https://github.com/sbb-design-systems/lyne-components/commit/f50c3970bf87f90c453ec14e1bb995c7deb5f471))
+* **sbb-dialog:** enable selection of title ([#4515](https://github.com/sbb-design-systems/lyne-components/issues/4515)) ([a58ce30](https://github.com/sbb-design-systems/lyne-components/commit/a58ce30e5e513b53b74b9ea5ebb9717e7613f981))
+* **sbb-expansion-panel:** avoid reserving space below the panel ([#4519](https://github.com/sbb-design-systems/lyne-components/issues/4519)) ([3905590](https://github.com/sbb-design-systems/lyne-components/commit/3905590c2a5dd2a1a187274610a1693d2edee382))
+* **sbb-radio-button-group:** handle init with falsy values ([#4510](https://github.com/sbb-design-systems/lyne-components/issues/4510)) ([318ebac](https://github.com/sbb-design-systems/lyne-components/commit/318ebac8ace1b7a17b2dfefc9ecf090c107332fa))
+* **sbb-seat-reservation:** fix overlapping area elements by browser zoom ([#4506](https://github.com/sbb-design-systems/lyne-components/issues/4506)) ([a32411a](https://github.com/sbb-design-systems/lyne-components/commit/a32411a36faae697176dd3e3f3fc973bce16c334))
+* **sbb-tab-group:** fix tab selection on slotchange ([#4520](https://github.com/sbb-design-systems/lyne-components/issues/4520)) ([b36276f](https://github.com/sbb-design-systems/lyne-components/commit/b36276f12eef4d4f4ef5e4200fb6aa3b4d97b738))
+* **sbb-tab:** allow consumer configured display properties ([#4514](https://github.com/sbb-design-systems/lyne-components/issues/4514)) ([1a1ba40](https://github.com/sbb-design-systems/lyne-components/commit/1a1ba403950a61f9f995a12ff2f39704c9caec30))
+
+
+### Code Refactoring
+
+* **sbb-chip-label:** css refactoring ([#4465](https://github.com/sbb-design-systems/lyne-components/issues/4465)) ([abae471](https://github.com/sbb-design-systems/lyne-components/commit/abae4713e4e5793c9311905703029b376ed7ef70))
+* **sbb-container, sbb-sticky-bar:** css refactoring ([#4493](https://github.com/sbb-design-systems/lyne-components/issues/4493)) ([3bd7ebb](https://github.com/sbb-design-systems/lyne-components/commit/3bd7ebb272286d7c7eca6ecbe4b04aa6e43b482b))
+
 ## [4.5.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.4.0...v4.5.0) (2026-02-16)
 
 

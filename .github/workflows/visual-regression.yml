@@ -15,26 +15,11 @@ env:
   IMAGE_REPO_VISUAL_REGRESSION: ghcr.io/sbb-design-systems/lyne-components/visual-regression
 
 jobs:
-  remove-label:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    permissions:
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v4
-      - name: Update label
-        # This label is used for filtering deployments in ArgoCD.
-        # At the start of the workflow, we remove the container available labels
-        # which will be re-added after the Secure workflow.
-        run: gh issue edit ${{ github.event.number }} --remove-label "diff-available"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   setup:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: yarn
@@ -47,7 +32,7 @@ jobs:
         run: node scripts/preload-test-artifacts.ts
 
       - name: Store test artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: test-artifacts
           path: node_modules/.cache/lyne-cdn/
@@ -55,7 +40,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.51.1-noble
+      image: mcr.microsoft.com/playwright:v1.58.2-noble
       options: --user 1001
     needs: setup
     services:
@@ -68,14 +53,14 @@ jobs:
       matrix:
         segment: [1, 2, 3, 4, 5]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
       - name: Restore test artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: test-artifacts
 
@@ -95,7 +80,7 @@ jobs:
           RELEVANT_SHA: ${{ github.sha }}
 
       - name: Store visual regression output
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: matrix-screenshots-${{ matrix.segment }}
           path: dist/screenshots/
@@ -107,13 +92,13 @@ jobs:
       packages: write
     needs: test
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v7
       - name: Assemble screenshots
         run: |
           mkdir -p dist/screenshots
@@ -126,7 +111,7 @@ jobs:
         run: node tools/visual-regression-testing/prepare-failed-screenshots-artifact.ts
       - name: Store visual regression output
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: visual-regression-screenshots
           path: dist/screenshots-artifact/

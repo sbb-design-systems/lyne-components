@@ -204,20 +204,17 @@
   --sbb-form-field-overflow: visible;
 }
 
-// :where is to align specificity
-:host(:where(:state(input-type-textarea))) {
-  --sbb-form-field-max-height: fit-content;
-}
-
 .sbb-form-field__space-wrapper {
   display: flex;
   flex-direction: column;
+  height: 100%;
 
   @include sbb.zero-width-space;
 }
 
 .sbb-form-field__wrapper {
   display: flex;
+  flex: 1;
   gap: var(--sbb-form-field-gap);
   padding-inline: var(--sbb-form-field-padding-inline);
   border-radius: var(--sbb-form-field-border-radius);
@@ -308,6 +305,8 @@
 }
 
 .sbb-form-field__input-container {
+  display: flex;
+  flex-direction: column;
   flex: 1 1 auto;
   position: relative;
   margin-block-start: var(--sbb-form-field-margin-block-start);
@@ -400,6 +399,8 @@
 
 .sbb-form-field__input {
   display: flex;
+  flex: 1;
+  align-items: start;
 
   :host(
       [size='s']:is(

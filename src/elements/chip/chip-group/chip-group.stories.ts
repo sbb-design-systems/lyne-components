@@ -42,6 +42,12 @@ const separatorKeys: InputType = {
   },
 };
 
+const addOnBlur: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const size: InputType = {
   control: {
     type: 'inline-radio',
@@ -75,6 +81,7 @@ const defaultArgTypes: ArgTypes = {
   readonly,
   negative,
   separatorKeys,
+  addOnBlur,
   size,
   hiddenLabel,
   floatingLabel,
@@ -85,6 +92,7 @@ const defaultArgs: Args = {
   readonly: false,
   negative: false,
   separatorKeys: undefined,
+  addOnBlur: false,
   size: 'm',
   hiddenLabel: false,
   floatingLabel: false,
@@ -99,7 +107,11 @@ const Template = (args: Args): TemplateResult => html`
       ?floating-label=${args.floatingLabel}
     >
       <label>Label</label>
-      <sbb-chip-group name="chip-group-1" .separatorKeys=${args.separatorKeys || nothing}>
+      <sbb-chip-group
+        name="chip-group-1"
+        .separatorKeys=${args.separatorKeys || nothing}
+        ?add-on-blur=${args.addOnBlur}
+      >
         <sbb-chip value="chip 1"></sbb-chip>
         <sbb-chip value="chip 2"></sbb-chip>
         <sbb-chip value="chip 3"></sbb-chip>
@@ -121,6 +133,7 @@ const WithAutocompleteTemplate = (args: Args): TemplateResult => html`
       name="chip-group-1"
       ?negative=${args.negative}
       .separatorKeys=${args.separatorKeys || nothing}
+      ?add-on-blur=${args.addOnBlur}
     >
       <sbb-chip value="chip 1"></sbb-chip>
       <sbb-chip value="chip 2"></sbb-chip>
@@ -187,6 +200,12 @@ export const WithSeparatorKeys: StoryObj = {
   render: SeparatorKeysTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, separatorKeys: [','] },
+};
+
+export const AddOnBlur: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, addOnBlur: true },
 };
 
 const meta: Meta = {

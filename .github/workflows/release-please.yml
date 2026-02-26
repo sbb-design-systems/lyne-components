@@ -42,11 +42,11 @@ jobs:
         with:
           app-id: ${{ secrets.MAINTENANCE_APP_ID }}
           private-key: ${{ secrets.MAINTENANCE_APP_PEM }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ steps.get_token.outputs.token }}
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: yarn
@@ -61,31 +61,10 @@ jobs:
 
       - name: Update npm
         run: npm install --global npm@latest
-      - name: 'Release: Determine npm tag'
-        if: ${{ steps.release.outputs.release_created }}
-        id: npm_tag
-        run: echo "npm_tag=$([[ "${{ steps.version.outputs.version }}" == *"-"* ]] && echo "next" || echo "latest")" >> $GITHUB_OUTPUT
-
-      - name: 'Release: Publish @sbb-esta/lyne-elements'
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          cd dist/elements
-          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
-      - name: 'Release: Publish @sbb-esta/lyne-elements-experimental'
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          cd dist/elements-experimental
-          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
-      - name: 'Release: Publish @sbb-esta/lyne-react'
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          cd dist/react
-          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
-      - name: 'Release: Publish @sbb-esta/lyne-react-experimental'
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          cd dist/react-experimental
-          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
+      - name: Publish packages
+        run: node scripts/publish.ts
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
 
       - uses: ./.github/actions/setup-mint
       - name: 'Container: Build and publish release image'
@@ -116,13 +95,14 @@ jobs:
           RELEASE_TAG: ${{ steps.release.outputs.version }}
           TEAMS_WEBHOOK: ${{ secrets.TEAMS_WEBHOOK }}
 
-      - name: Cherry-pick CHANGELOG.md into ${{ github.event.repository.default_branch }}
+      - name: Apply CHANGELOG.md into ${{ github.event.repository.default_branch }}
         if: ${{ steps.release.outputs.release_created && github.ref_name != 'main' }}
         run: |
+          node scripts/changelog.ts extract
           git config user.email "github-actions@github.com"
           git config user.name "github-actions"
           git checkout ${{ github.event.repository.default_branch }}
-          git show ${{ github.sha }} -- CHANGELOG.md | git apply -
+          node scripts/changelog.ts insert
           git commit -a -m "chore: update changelog"
           git push
 
