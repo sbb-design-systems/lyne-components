@@ -10,6 +10,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
 import { SbbLanguageController, SbbPropertyWatcherController } from '../../core/controllers.ts';
+import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom/lean-context.ts';
 import { i18nChipGroupInputDescription, i18nSelectionRequired } from '../../core/i18n.ts';
 import {
@@ -106,6 +107,11 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   /** The array of keys that will trigger a `chipinputtokenend` event. Default `['Enter']` */
   @property({ attribute: 'separator-keys', type: Array })
   public accessor separatorKeys: string[] = ['Enter'];
+
+  /** Whether to automatically add a chip when the input loses focus if there's a value. */
+  @forceType()
+  @property({ attribute: 'add-on-blur', type: Boolean })
+  public accessor addOnBlur: boolean = false;
 
   /**
    * Listens to the changes on `readonly` and `disabled` attributes of `<input>`.
@@ -222,6 +228,10 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
       this._inputElement.addEventListener('keydown', (ev) => this._onInputKeyDown(ev), {
         signal: this._inputAbortController.signal,
       });
+      this._inputElement.addEventListener('blur', () => this._onInputBlur(), {
+        signal: this._inputAbortController.signal,
+        capture: true,
+      });
       this._inputElement.addEventListener(
         'inputAutocomplete',
         (event: CustomEvent<{ option: SbbOptionBaseElement<T> }>) => {
@@ -296,6 +306,15 @@ class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
     // if the user typed one of the separator keys, trigger a 'chipinputtokenend' event
     if (this.separatorKeys.includes(event.key)) {
       event.preventDefault(); // prevent typing the separator key into the input
+      this._createChipFromInput('input');
+    }
+  }
+
+  /**
+   * Handle blur event on the input
+   **/
+  private _onInputBlur(): void {
+    if (this.addOnBlur) {
       this._createChipFromInput('input');
     }
   }
