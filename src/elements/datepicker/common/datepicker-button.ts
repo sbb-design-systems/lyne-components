@@ -122,6 +122,11 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbDatepickerButtonB
     this.addEventListener?.('click', () => this._handleClick());
   }
 
+  /** @deprecated Use `getFollowingDate(date: T)` instead. */
+  protected findAvailableDate(_date: T): T | null {
+    return this.getFollowingDate(_date);
+  }
+
   protected abstract getFollowingDate(_date: T): T | null;
 
   private _handleClick(): void {
