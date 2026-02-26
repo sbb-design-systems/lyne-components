@@ -5,6 +5,7 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 import { type SinonStub, stub } from 'sinon';
 
+import type { SbbCalendarDayElement } from '../../calendar.ts';
 import { SbbCalendarElement } from '../../calendar.ts';
 import { defaultDateAdapter } from '../../core/datetime.ts';
 import { i18nDateChangedTo } from '../../core/i18n.ts';
@@ -232,7 +233,7 @@ describe(`sbb-datepicker`, () => {
     await waitForCondition(() => !calendar.matches(':state(transition)'));
 
     // Select day
-    calendar.shadowRoot!.querySelectorAll('button')[5].click();
+    calendar.shadowRoot!.querySelectorAll('sbb-calendar-day')[4].click();
     await waitForLitRender(root);
     await waitForCondition(() => !calendar.matches(':state(transition)'));
 
@@ -291,7 +292,7 @@ describe(`sbb-datepicker`, () => {
     // We have to wait another tick
     await aTimeout(0);
 
-    const calendar = datepicker.shadowRoot!.querySelector('sbb-calendar')!;
+    const calendar = datepicker.shadowRoot!.querySelector<SbbCalendarElement>('sbb-calendar')!;
     expect(calendar.wide, 'calendar.wide').to.be.false;
     expect(
       calendar.shadowRoot!.querySelectorAll('.sbb-calendar__controls-change-date')!.length,
@@ -306,9 +307,9 @@ describe(`sbb-datepicker`, () => {
 
     datepicker.input!.dateFilter = (d) => d?.getFullYear() !== 2022;
     await waitForLitRender(element);
-    const buttons = calendar.shadowRoot!.querySelectorAll<HTMLButtonElement>('.sbb-calendar__day')!;
-    for (const button of buttons) {
-      expect(button.classList.contains('sbb-calendar__crossed-out'), button.value).to.be.true;
+    const days = calendar.shadowRoot!.querySelectorAll<SbbCalendarDayElement>('sbb-calendar-day')!;
+    for (const day of days) {
+      expect(day, day.slot).to.match(':state(crossed-out)');
     }
   });
 

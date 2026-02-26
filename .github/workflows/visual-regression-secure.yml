@@ -27,14 +27,14 @@ jobs:
       packages: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v7
         with:
           name: visual-regression-screenshots
           path: dist/screenshots/
@@ -45,7 +45,7 @@ jobs:
         run: yarn build visual-regression-app
 
       - name: Create check if changed
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         id: screenshot-check
         env:
           urlTemplate: https://lyne-components-visual-regression-diff-pr{}.app.sbb.ch
