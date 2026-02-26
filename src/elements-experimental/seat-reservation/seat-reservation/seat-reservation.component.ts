@@ -448,6 +448,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
               text=${place.number}
               type=${place.type}
               state=${place.state}
+              travel-direction=${this.travelDirection}
               coach-index=${coachIndex}
               deck-index=${placeCoachDeckIndex}
               data-deck-index=${deckIndex}

@@ -24,7 +24,7 @@ const travelDirectionType: InputType = {
   control: {
     type: 'select',
   },
-  options: ['LEFT', 'RIGHT', 'NONE'],
+  options: ['LEFT', 'RIGHT', 'NONE', 'upside-down'],
 };
 
 const maxSeatReservationsType: InputType = {
