@@ -24,9 +24,7 @@ import style from './calendar-day.scss?lit&inline';
  */
 export
 @customElement('sbb-calendar-day')
-class SbbCalendarDayElement<T extends Date = Date> extends SbbDisabledMixin(
-  SbbButtonLikeBaseElement,
-) {
+class SbbCalendarDayElement<T = Date> extends SbbDisabledMixin(SbbButtonLikeBaseElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected dateAdapter: DateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
@@ -97,14 +95,14 @@ class SbbCalendarDayElement<T extends Date = Date> extends SbbDisabledMixin(
    * The component is used as the default day cell within the `sbb-calendar`,
    * or, if extra content is needed, it can be slotted.
    */
-  private _getParent(): SbbCalendarElement | null {
+  private _getParent(): SbbCalendarElement<T> | null {
     return (
-      this.closest?.<SbbCalendarElement>('sbb-calendar') ??
-      (this.getRootNode?.() as ShadowRoot)?.host?.closest('sbb-calendar')
+      this.closest?.<SbbCalendarElement<T>>('sbb-calendar') ??
+      (this.getRootNode?.() as ShadowRoot)?.host?.closest<SbbCalendarElement<T>>('sbb-calendar')
     );
   }
 
-  private _setSelectedState(component: SbbCalendarElement): void {
+  private _setSelectedState(component: SbbCalendarElement<T>): void {
     const selected = component.multiple
       ? (component.selected as Date[]).some((selDay) =>
           this.dateAdapter.sameDate(this.value, selDay),
@@ -114,7 +112,7 @@ class SbbCalendarDayElement<T extends Date = Date> extends SbbDisabledMixin(
     this.internals.ariaPressed = String(selected);
   }
 
-  private _setDisabledFilteredState(component: SbbCalendarElement): void {
+  private _setDisabledFilteredState(component: SbbCalendarElement<T>): void {
     const isFilteredOut = !this._isActiveDate(component.dateFilter);
     const isOutOfRange = !this._isDayInRange(component.min, component.max);
     this.disabled = isFilteredOut || isOutOfRange;
@@ -122,11 +120,11 @@ class SbbCalendarDayElement<T extends Date = Date> extends SbbDisabledMixin(
     this.toggleState('crossed-out', isFilteredOut && !isOutOfRange);
   }
 
-  private _isActiveDate(dateFilter: ((date: Date | null) => boolean) | null): boolean {
+  private _isActiveDate(dateFilter: ((date: T | null) => boolean) | null): boolean {
     return dateFilter?.(this.value) ?? true;
   }
 
-  private _isDayInRange(min: Date | null, max: Date | null): boolean {
+  private _isDayInRange(min: T | null, max: T | null): boolean {
     if (!min && !max) {
       return true;
     }
