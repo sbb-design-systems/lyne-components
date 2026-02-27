@@ -20,7 +20,6 @@ import {
   appendAriaElements,
   removeAriaElements,
   type SbbFormAssociatedInputMixinType,
-  SbbHydrationMixin,
   SbbNegativeMixin,
 } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
@@ -80,7 +79,7 @@ export class SbbFormFieldControlEvent extends Event {
  */
 export
 @customElement('sbb-form-field')
-class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(SbbElement)) {
+class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   // List of elements that should not focus input on click

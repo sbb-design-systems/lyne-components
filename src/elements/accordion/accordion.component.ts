@@ -6,7 +6,7 @@ import { SbbElement } from '../core/base-elements.ts';
 import { forceType, handleDistinctChange } from '../core/decorators.ts';
 import { isLean } from '../core/dom.ts';
 import { isEventPrevented } from '../core/eventing.ts';
-import { SbbHydrationMixin, ɵstateController } from '../core/mixins.ts';
+import { ɵstateController } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import type { SbbExpansionPanelElement } from '../expansion-panel.ts';
 import type { SbbTitleLevel } from '../title.ts';
@@ -20,7 +20,7 @@ import style from './accordion.scss?lit&inline';
  */
 export
 @customElement('sbb-accordion')
-class SbbAccordionElement extends SbbHydrationMixin(SbbElement) {
+class SbbAccordionElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

@@ -7,7 +7,7 @@ import { forceType } from '../core/decorators.ts';
 import { isZeroAnimationDuration } from '../core/dom.ts';
 import { i18nCollapsed, i18nExpanded } from '../core/i18n.ts';
 import type { SbbOpenedClosedState } from '../core/interfaces.ts';
-import { SbbHydrationMixin, SbbSelectionPanelMixin } from '../core/mixins.ts';
+import { SbbSelectionPanelMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './selection-expansion-panel.scss?lit&inline';
@@ -22,9 +22,7 @@ import '../divider.ts';
  */
 export
 @customElement('sbb-selection-expansion-panel')
-class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(
-  SbbHydrationMixin(SbbElement),
-) {
+class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(SbbElement) {
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {

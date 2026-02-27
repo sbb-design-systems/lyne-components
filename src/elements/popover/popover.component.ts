@@ -20,7 +20,7 @@ import { forceType, idReference } from '../core/decorators.ts';
 import { isZeroAnimationDuration } from '../core/dom.ts';
 import { composedPathHasAttribute } from '../core/eventing.ts';
 import { i18nClosePopover } from '../core/i18n.ts';
-import { SbbHydrationMixin, ɵstateController } from '../core/mixins.ts';
+import { ɵstateController } from '../core/mixins.ts';
 import {
   getElementPosition,
   isEventOnElement,
@@ -41,7 +41,7 @@ let nextId = 0;
 const popoversRef = new Set<SbbPopoverBaseElement>();
 const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).matches;
 
-export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
+export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

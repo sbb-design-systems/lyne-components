@@ -5,7 +5,7 @@ import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
 import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isSafari } from '../../core/dom.ts';
-import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.ts';
+import { SbbDisabledMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbOptionBaseElement } from '../option.ts';
 
@@ -20,9 +20,7 @@ import '../../divider.ts';
  */
 const inertAriaGroups = isSafari;
 
-export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
-  SbbHydrationMixin(SbbElement),
-) {
+export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbElement) {
   public static override readonly role = !inertAriaGroups ? 'group' : null;
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 

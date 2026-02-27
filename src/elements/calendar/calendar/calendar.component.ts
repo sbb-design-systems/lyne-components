@@ -40,7 +40,6 @@ import {
   i18nYearMonthSelection,
 } from '../../core/i18n.ts';
 import type { SbbOrientation } from '../../core/interfaces.ts';
-import { SbbHydrationMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 
@@ -133,7 +132,7 @@ export type CalendarView = 'day' | 'month' | 'year';
  */
 export
 @customElement('sbb-calendar')
-class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElement) {
+class SbbCalendarElement<T = Date> extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     dateselected: 'dateselected',

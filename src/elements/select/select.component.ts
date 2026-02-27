@@ -27,7 +27,6 @@ import {
   type FormRestoreState,
   SbbDisabledMixin,
   SbbFormAssociatedMixin,
-  SbbHydrationMixin,
   SbbNegativeMixin,
   SbbReadonlyMixin,
   SbbRequiredMixin,
@@ -65,11 +64,9 @@ export
 class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   SbbDisabledMixin(
     SbbNegativeMixin(
-      SbbHydrationMixin(
-        SbbRequiredMixin(
-          SbbReadonlyMixin(
-            SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement>(SbbOpenCloseBaseElement),
-          ),
+      SbbRequiredMixin(
+        SbbReadonlyMixin(
+          SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement>(SbbOpenCloseBaseElement),
         ),
       ),
     ),

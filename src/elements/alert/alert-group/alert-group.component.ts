@@ -6,7 +6,6 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isEventPrevented } from '../../core/eventing.ts';
-import { SbbHydrationMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbTitleLevel } from '../../title.ts';
 import type { SbbAlertElement } from '../alert.ts';
@@ -21,7 +20,7 @@ import style from './alert-group.scss?lit&inline';
  */
 export
 @customElement('sbb-alert-group')
-class SbbAlertGroupElement extends SbbHydrationMixin(SbbElement) {
+class SbbAlertGroupElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     empty: 'empty',

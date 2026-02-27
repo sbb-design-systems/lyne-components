@@ -8,7 +8,7 @@ import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController, SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { forceType } from '../../core/decorators.ts';
 import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.ts';
-import { SbbHydrationMixin, ɵstateController } from '../../core/mixins.ts';
+import { ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details.ts';
 import type { SbbFlipCardSummaryElement } from '../flip-card-summary.ts';
@@ -26,7 +26,7 @@ import '../../screen-reader-only.ts';
  */
 export
 @customElement('sbb-flip-card')
-class SbbFlipCardElement extends SbbHydrationMixin(SbbElement) {
+class SbbFlipCardElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     flip: 'flip',

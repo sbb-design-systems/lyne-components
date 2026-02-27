@@ -14,7 +14,6 @@ import {
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';
-import { SbbHydrationMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.ts';
 
@@ -64,7 +63,7 @@ export class SbbStepChangeEvent extends Event {
  */
 export
 @customElement('sbb-stepper')
-class SbbStepperElement extends SbbHydrationMixin(SbbElement) {
+class SbbStepperElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     stepchange: 'stepchange',

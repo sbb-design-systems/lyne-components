@@ -9,7 +9,7 @@ import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import { throttle } from '../../core/eventing.ts';
-import { SbbHydrationMixin, ɵstateController } from '../../core/mixins.ts';
+import { ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { tabGroupCommonStyles } from '../common.ts';
 import type { SbbTabLabelElement } from '../tab-label.ts';
@@ -34,7 +34,7 @@ export type SbbTabChangedEventDetails = {
  */
 export
 @customElement('sbb-tab-group')
-class SbbTabGroupElement extends SbbHydrationMixin(SbbElement) {
+class SbbTabGroupElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, tabGroupCommonStyles, style];
   public static readonly events = {
     tabchange: 'tabchange',

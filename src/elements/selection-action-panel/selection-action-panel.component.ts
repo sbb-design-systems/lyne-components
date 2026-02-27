@@ -4,7 +4,7 @@ import { customElement } from 'lit/decorators.js';
 import type { SbbCardBadgeElement } from '../card.ts';
 import type { SbbCheckboxPanelElement } from '../checkbox/checkbox-panel.ts';
 import { SbbElement } from '../core/base-elements.ts';
-import { SbbHydrationMixin, SbbSelectionPanelMixin } from '../core/mixins.ts';
+import { SbbSelectionPanelMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import type { SbbRadioButtonPanelElement } from '../radio-button/radio-button-panel.ts';
 
@@ -19,7 +19,7 @@ import style from './selection-action-panel.scss?lit&inline';
  */
 export
 @customElement('sbb-selection-action-panel')
-class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbHydrationMixin(SbbElement)) {
+class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public override connectedCallback(): void {

@@ -12,7 +12,6 @@ import { SbbFocusVisibleWithinController } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
 import { forceType, idReference } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
-import { SbbHydrationMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './header.scss?lit&inline';
@@ -28,7 +27,7 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  */
 export
 @customElement('sbb-header')
-class SbbHeaderElement extends SbbHydrationMixin(SbbElement) {
+class SbbHeaderElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

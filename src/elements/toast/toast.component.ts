@@ -9,7 +9,7 @@ import { forceType } from '../core/decorators.ts';
 import { isLean, isZeroAnimationDuration } from '../core/dom.ts';
 import { composedPathHasAttribute } from '../core/eventing.ts';
 import { i18nCloseAlert } from '../core/i18n.ts';
-import { SbbHydrationMixin, SbbReadonlyMixin } from '../core/mixins.ts';
+import { SbbReadonlyMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import { SbbIconNameMixin } from '../icon.ts';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.ts';
@@ -38,9 +38,7 @@ const toastRefs = new Set<SbbToastElement>();
  */
 export
 @customElement('sbb-toast')
-class SbbToastElement extends SbbIconNameMixin(
-  SbbHydrationMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)),
-) {
+class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
