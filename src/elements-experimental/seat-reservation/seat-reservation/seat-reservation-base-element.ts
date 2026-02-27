@@ -1092,7 +1092,10 @@ export class SeatReservationBaseElement extends LitElement {
       }
       // When the last coach is selected and we TAB, we have to set the native focus on the last coach in the navigation to get back to the normal tab navigation.
       // To do this, we have  to remove the focusedIndex from the first coach and set it again after a short delay
-      else if (tabDirection === 'NEXT_TAB' && newFocusableIndex === this.coachItemDetailsElements.length - 1) {
+      else if (
+        tabDirection === 'NEXT_TAB' &&
+        newFocusableIndex === this.coachItemDetailsElements.length - 1
+      ) {
         // Refocus the last coach
         this._refocusCurrentFocusedNavCoach(currFocusIndex);
       } else {
