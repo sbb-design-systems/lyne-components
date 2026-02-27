@@ -10,7 +10,9 @@ import type {
 } from '../../core/mixins/form-associated-mixin.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
 
-export abstract class CalendarCellBaseElement extends SbbDisabledMixin(SbbButtonLikeBaseElement) {
+export abstract class CalendarCellBaseElement<T = Date> extends SbbDisabledMixin(
+  SbbButtonLikeBaseElement,
+) {
   protected dateAdapter: DateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
   public constructor() {
@@ -25,11 +27,13 @@ export abstract class CalendarCellBaseElement extends SbbDisabledMixin(SbbButton
     );
   }
 
-  protected abstract setDisabledFilteredState(parent: SbbCalendarElement): void;
-  protected abstract setSelectedState(parent: SbbCalendarElement): void;
+  protected abstract setDisabledFilteredState(parent: SbbCalendarElement<T>): void;
+  protected abstract setSelectedState(parent: SbbCalendarElement<T>): void;
 
-  protected getParent(): SbbCalendarElement | null {
-    return (this.getRootNode?.() as ShadowRoot)?.host?.closest('sbb-calendar');
+  protected getParent(): SbbCalendarElement<T> | null {
+    return (this.getRootNode?.() as ShadowRoot)?.host?.closest<SbbCalendarElement<T>>(
+      'sbb-calendar',
+    );
   }
 
   /**

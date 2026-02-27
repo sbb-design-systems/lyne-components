@@ -15,7 +15,7 @@ import style from './calendar-day.scss?lit&inline';
  */
 export
 @customElement('sbb-calendar-day')
-class SbbCalendarDayElement<T = Date> extends CalendarCellBaseElement {
+class SbbCalendarDayElement<T = Date> extends CalendarCellBaseElement<T> {
   public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle, style];
 
   @property()
@@ -58,14 +58,14 @@ class SbbCalendarDayElement<T = Date> extends CalendarCellBaseElement {
    * The component is used as the default day cell within the `sbb-calendar`,
    * or, if extra content is needed, it can be slotted.
    */
-  protected override getParent(): SbbCalendarElement | null {
+  protected override getParent(): SbbCalendarElement<T> | null {
     return (
       this.closest?.<SbbCalendarElement<T>>('sbb-calendar') ??
       (this.getRootNode?.() as ShadowRoot)?.host?.closest<SbbCalendarElement<T>>('sbb-calendar')
     );
   }
 
-  protected setSelectedState(parent: SbbCalendarElement): void {
+  protected setSelectedState(parent: SbbCalendarElement<T>): void {
     const selected = parent.multiple
       ? (parent.selected as Date[]).some((selDay) => this.dateAdapter.sameDate(this.value, selDay))
       : !!parent.selected && this.dateAdapter.compareDate(this.value, parent.selected) === 0;
@@ -73,7 +73,7 @@ class SbbCalendarDayElement<T = Date> extends CalendarCellBaseElement {
     this.internals.ariaPressed = String(selected);
   }
 
-  protected setDisabledFilteredState(parent: SbbCalendarElement): void {
+  protected setDisabledFilteredState(parent: SbbCalendarElement<T>): void {
     const isFilteredOut = !this._isActiveDate(parent.dateFilter);
     const isOutOfRange = !this._isDayInRange(parent.min, parent.max);
     this.disabled = isFilteredOut || isOutOfRange;
