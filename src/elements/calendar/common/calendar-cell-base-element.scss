@@ -1,0 +1,84 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: block;
+
+  --sbb-calendar-cell-background-color: var(--sbb-calendar-cell-background-color);
+  --sbb-calendar-cell-selected-border: none;
+  --sbb-calendar-cell-transition-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-2x)
+  );
+  --sbb-calendar-cell-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-calendar-cell-cursor: var(--sbb-cursor-pointer);
+  --sbb-calendar-cell-border-radius: var(--sbb-border-radius-4x);
+}
+
+:host(:state(selected)) {
+  --sbb-calendar-cell-selected-border: var(--sbb-border-width-2x) solid var(--sbb-border-color-2);
+}
+
+:host(:disabled) {
+  --sbb-calendar-cell-color: var(--sbb-calendar-cell-disabled-color);
+  --sbb-calendar-cell-cursor: unset;
+}
+
+:host(:focus-visible) {
+  outline: 0;
+}
+
+:host(:not(:disabled):active) {
+  --sbb-calendar-cell-background-color: var(--sbb-calendar-cell-background-color-active);
+}
+
+.sbb-action-base {
+  font-size: var(--sbb-text-font-size-s);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  cursor: var(--sbb-calendar-cell-cursor);
+  color: var(--sbb-calendar-cell-color);
+  z-index: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--sbb-calendar-cell-background-color);
+    border: var(--sbb-calendar-cell-selected-border);
+    border-radius: var(--sbb-calendar-cell-border-radius);
+    z-index: -1;
+    transition-duration: var(--sbb-calendar-cell-transition-duration);
+    transition-timing-function: var(--sbb-calendar-cell-transition-easing-function);
+    transition-property: background-color;
+
+    :host(:focus-visible) & {
+      @include sbb.focus-outline;
+    }
+
+    :host(:not(:disabled):active) & {
+      @include sbb.if-forced-colors {
+        @include sbb.focus-outline;
+
+        // Basically the focus-outline mixin is made for use with focus-visible.
+        // As we use it here with :active, we have to ensure that the outline is not overridden when mouse or touch is in use.
+        --sbb-focus-outline-style: initial;
+      }
+    }
+  }
+
+  :host(:not(:active, :disabled):hover) & {
+    @include sbb.hover-mq($hover: true) {
+      --sbb-calendar-cell-background-color: var(--sbb-calendar-cell-background-color-hover);
+      --sbb-calendar-cell-padding-hover: var(--sbb-calendar-hover-shift);
+
+      &::before {
+        @include sbb.if-forced-colors {
+          @include sbb.focus-outline;
+
+          // Basically the focus-outline mixin is made for use with focus-visible.
+          // As we use it here with hover, we have to ensure that the outline is not overridden when mouse or touch is in use.
+          --sbb-focus-outline-style: initial;
+        }
+      }
+    }
+  }
+}
