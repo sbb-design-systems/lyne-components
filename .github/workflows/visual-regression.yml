@@ -32,7 +32,7 @@ jobs:
         run: node scripts/preload-test-artifacts.ts
 
       - name: Store test artifacts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: test-artifacts
           path: node_modules/.cache/lyne-cdn/
@@ -60,7 +60,7 @@ jobs:
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
       - name: Restore test artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: test-artifacts
 
@@ -80,7 +80,7 @@ jobs:
           RELEVANT_SHA: ${{ github.sha }}
 
       - name: Store visual regression output
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: matrix-screenshots-${{ matrix.segment }}
           path: dist/screenshots/
@@ -98,7 +98,7 @@ jobs:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@v8
       - name: Assemble screenshots
         run: |
           mkdir -p dist/screenshots
@@ -111,7 +111,7 @@ jobs:
         run: node tools/visual-regression-testing/prepare-failed-screenshots-artifact.ts
       - name: Store visual regression output
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: visual-regression-screenshots
           path: dist/screenshots-artifact/
