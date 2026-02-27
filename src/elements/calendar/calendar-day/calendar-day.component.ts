@@ -15,7 +15,7 @@ import style from './calendar-day.scss?lit&inline';
  */
 export
 @customElement('sbb-calendar-day')
-class SbbCalendarDayElement<T extends Date = Date> extends CalendarCellBaseElement {
+class SbbCalendarDayElement<T = Date> extends CalendarCellBaseElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle, style];
 
   @property()
@@ -60,8 +60,8 @@ class SbbCalendarDayElement<T extends Date = Date> extends CalendarCellBaseEleme
    */
   protected override getParent(): SbbCalendarElement | null {
     return (
-      this.closest?.<SbbCalendarElement>('sbb-calendar') ??
-      (this.getRootNode?.() as ShadowRoot)?.host?.closest('sbb-calendar')
+      this.closest?.<SbbCalendarElement<T>>('sbb-calendar') ??
+      (this.getRootNode?.() as ShadowRoot)?.host?.closest<SbbCalendarElement<T>>('sbb-calendar')
     );
   }
 
@@ -81,11 +81,11 @@ class SbbCalendarDayElement<T extends Date = Date> extends CalendarCellBaseEleme
     this.toggleState('crossed-out', isFilteredOut && !isOutOfRange);
   }
 
-  private _isActiveDate(dateFilter: ((date: Date | null) => boolean) | null): boolean {
+  private _isActiveDate(dateFilter: ((date: T | null) => boolean) | null): boolean {
     return dateFilter?.(this.value) ?? true;
   }
 
-  private _isDayInRange(min: Date | null, max: Date | null): boolean {
+  private _isDayInRange(min: T | null, max: T | null): boolean {
     if (!min && !max) {
       return true;
     }
