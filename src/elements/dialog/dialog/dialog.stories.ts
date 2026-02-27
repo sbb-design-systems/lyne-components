@@ -198,7 +198,7 @@ const NestedTemplate = ({
     <sbb-dialog-actions align-group="end">
       ${triggerButton('dialog-trigger-2')}
     </sbb-dialog-actions>
-    <sbb-dialog negative trigger="dialog-trigger-2" ${sbbSpread(args)}>
+    <sbb-dialog ?negative=${!negative} trigger="dialog-trigger-2" ${sbbSpread(args)}>
       ${dialogTitle(level)}
       ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
       <sbb-dialog-content>
