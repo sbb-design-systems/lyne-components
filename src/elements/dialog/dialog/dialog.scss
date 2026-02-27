@@ -5,7 +5,6 @@
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
-  --sbb-dialog-max-width: 100%;
   --sbb-dialog-padding-block: var(--sbb-spacing-responsive-xs);
   --sbb-dialog-shadow-animation-duration: var(
     --sbb-disable-animation-duration,
@@ -16,13 +15,6 @@
   position: fixed;
   inset: var(--sbb-dialog-inset);
   z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-default-z-index));
-
-  @include sbb.mq($from: large) {
-    --sbb-dialog-max-width: min(
-      calc(100vw - var(--sbb-spacing-fixed-30x) * 2),
-      var(--sbb-dialog-max-width-default)
-    );
-  }
 }
 
 :host(:state(top-shadow)) {
@@ -59,6 +51,7 @@
 :host(:not([negative])) {
   --_sbb-dialog-color: var(--sbb-dialog-color);
   --_sbb-dialog-block-shadow: var(--sbb-dialog-block-shadow);
+  --sbb-dialog-actions-border-color: var(--sbb-background-color-4);
   --sbb-dialog-background-color: var(--sbb-background-color-1);
 }
 
