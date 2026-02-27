@@ -4,7 +4,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
-import { CalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts';
+import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts';
 
 import style from './calendar-day.scss?lit&inline';
 
@@ -15,7 +15,7 @@ import style from './calendar-day.scss?lit&inline';
  */
 export
 @customElement('sbb-calendar-day')
-class SbbCalendarDayElement<T = Date> extends CalendarCellBaseElement<T> {
+class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<T> {
   public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle, style];
 
   @property()

@@ -10,7 +10,7 @@ import type {
 } from '../../core/mixins/form-associated-mixin.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
 
-export abstract class CalendarCellBaseElement<T = Date> extends SbbDisabledMixin(
+export abstract class SbbCalendarCellBaseElement<T = Date> extends SbbDisabledMixin(
   SbbButtonLikeBaseElement,
 ) {
   protected dateAdapter: DateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
