@@ -23,9 +23,7 @@
   @if $state != 'selected' {
     @include sbb.if-forced-colors {
       ::part(svg-place) {
-        fill: var(
-          --sbb-seat-reservation-place-control-#{$state}-background-high-contrast
-        ) !important;
+        fill: var(--sbb-seat-reservation-place-control-#{$state}-background-high-contrast);
       }
 
       ::part(svg-backrest) {
@@ -33,19 +31,19 @@
       }
 
       ::part(svg-icon) {
-        fill: var(--sbb-seat-reservation-place-control-#{$state}-high-contrast-icon);
+        fill: var(--sbb-seat-reservation-place-control-#{$state}-icon-high-contrast);
       }
 
       ::part(svg-seatline) {
-        stroke: var(--sbb-seat-reservation-place-control-#{$state}-high-contrast-icon);
+        stroke: var(--sbb-seat-reservation-place-control-#{$state}-backrest-high-contrast);
       }
 
       .sbb-sr-place-ctrl__text {
         forced-color-adjust: none;
         background-color: var(
           --sbb-seat-reservation-place-control-#{$state}-background-high-contrast
-        ) !important;
-        color: var(--sbb-seat-reservation-place-control-#{$state}-high-contrast-text) !important;
+        );
+        color: var(--sbb-seat-reservation-place-control-#{$state}-text-high-contrast);
       }
     }
   }
@@ -129,12 +127,12 @@ $disabled: '.sbb-reservation-place-control--disabled';
   // Color definitions for high contrast mode
   --sbb-seat-reservation-place-control-free-backrest-high-contrast: CanvasText;
   --sbb-seat-reservation-place-control-free-background-high-contrast: Canvas;
-  --sbb-seat-reservation-place-control-free-high-contrast-text: ButtonText;
-  --sbb-seat-reservation-place-control-free-high-contrast-icon: CanvasText;
+  --sbb-seat-reservation-place-control-free-text-high-contrast: ButtonText;
+  --sbb-seat-reservation-place-control-free-icon-high-contrast: CanvasText;
   --sbb-seat-reservation-place-control-allocated-backrest-high-contrast: GrayText;
   --sbb-seat-reservation-place-control-allocated-background-high-contrast: Canvas;
-  --sbb-seat-reservation-place-control-allocated-high-contrast-text: GrayText;
-  --sbb-seat-reservation-place-control-allocated-high-contrast-icon: GrayText;
+  --sbb-seat-reservation-place-control-allocated-text-high-contrast: GrayText;
+  --sbb-seat-reservation-place-control-allocated-icon-high-contrast: GrayText;
 
   width: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-width));
   height: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-place-control-height));
@@ -193,7 +191,6 @@ $disabled: '.sbb-reservation-place-control--disabled';
 
   &--state-allocated,
   &--state-restricted {
-    forced-color-adjust: none;
     @include colorizePlace('allocated', 'default');
 
     cursor: not-allowed;
