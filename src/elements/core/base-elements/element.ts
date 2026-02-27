@@ -1,6 +1,7 @@
 import { LitElement, type PropertyDeclaration, type ReactiveController } from 'lit';
 
 import { SbbElementInternalsMixin } from '../mixins/element-internals-mixin.ts';
+import { SbbHydrationMixin } from '../mixins/hydration-mixin.ts';
 
 export interface SbbPropertyValues {
   oldValue?: unknown;
@@ -18,8 +19,9 @@ export interface SbbReactiveController extends ReactiveController {
 /**
  * A base class for all SBB elements.
  */
-// TODO: Inline and remove SbbElementInternalsMixin as breaking change
-export abstract class SbbElement extends SbbElementInternalsMixin(LitElement) {
+// TODO(breaking-change): Inline and remove SbbElementInternalsMixin and SbbHydrationMixin as a breaking change
+export class SbbElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
+  public static ['_$sbbElement$'] = true;
   public static readonly elementName: string;
 
   private _controllers?: Set<SbbReactiveController>;

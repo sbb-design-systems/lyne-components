@@ -1,13 +1,13 @@
 import {
   type CSSResultGroup,
   html,
-  LitElement,
   nothing,
   type PropertyDeclaration,
   type TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { checkboxCommonStyle, SbbCheckboxCommonElementMixin } from '../common.ts';
@@ -29,7 +29,7 @@ import '../../visual-checkbox.ts';
 export
 @customElement('sbb-checkbox-panel')
 class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
-  SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(LitElement)),
+  SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(SbbElement)),
 ) {
   public static override styles: CSSResultGroup = [
     boxSizingStyles,

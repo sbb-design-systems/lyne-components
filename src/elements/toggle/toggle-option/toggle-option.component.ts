@@ -1,10 +1,11 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
-import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { SbbDisabledMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 import type { SbbToggleElement } from '../toggle.ts';
@@ -20,9 +21,7 @@ import style from './toggle-option.scss?lit&inline';
  */
 export
 @customElement('sbb-toggle-option')
-class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
-  SbbIconNameMixin(SbbElementInternalsMixin(LitElement)),
-) {
+class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(SbbIconNameMixin(SbbElement)) {
   public static override readonly role = 'radio';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 

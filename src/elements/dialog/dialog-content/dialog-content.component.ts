@@ -1,6 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
+
+import { SbbElement } from '../../core/base-elements.ts';
 
 import style from './dialog-content.scss?lit&inline';
 
@@ -11,7 +13,7 @@ import style from './dialog-content.scss?lit&inline';
  */
 export
 @customElement('sbb-dialog-content')
-class SbbDialogContentElement extends LitElement {
+class SbbDialogContentElement extends SbbElement {
   public static override styles: CSSResultGroup = style;
 
   public override connectedCallback(): void {

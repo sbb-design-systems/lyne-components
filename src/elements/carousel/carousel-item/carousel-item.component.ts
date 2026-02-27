@@ -1,8 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 
 import style from './carousel-item.scss?lit&inline';
 
@@ -19,7 +19,7 @@ export type SbbCarouselItemEventDetail = {
  */
 export
 @customElement('sbb-carousel-item')
-class SbbCarouselItemElement extends SbbElementInternalsMixin(LitElement) {
+class SbbCarouselItemElement extends SbbElement {
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     beforeshow: 'beforeshow',

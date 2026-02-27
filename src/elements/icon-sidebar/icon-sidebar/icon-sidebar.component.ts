@@ -1,7 +1,7 @@
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container.ts';
 
 import style from './icon-sidebar.scss?lit&inline';
@@ -13,7 +13,7 @@ import style from './icon-sidebar.scss?lit&inline';
  */
 export
 @customElement('sbb-icon-sidebar')
-class SbbIconSidebarElement extends SbbElementInternalsMixin(LitElement) {
+class SbbIconSidebarElement extends SbbElement {
   public static override readonly role = 'navigation';
   public static override styles: CSSResultGroup = style;
 

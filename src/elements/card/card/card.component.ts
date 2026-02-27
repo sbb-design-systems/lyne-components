@@ -1,8 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './card.scss?lit&inline';
@@ -16,7 +16,7 @@ import style from './card.scss?lit&inline';
  */
 export
 @customElement('sbb-card')
-class SbbCardElement extends SbbElementInternalsMixin(LitElement) {
+class SbbCardElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Option to set the component's background color. */

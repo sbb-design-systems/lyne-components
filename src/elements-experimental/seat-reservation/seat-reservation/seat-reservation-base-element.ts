@@ -1,6 +1,7 @@
 import { isArrowKeyOrPageKeysPressed } from '@sbb-esta/lyne-elements/core/a11y.js';
+import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { isServer, LitElement, type PropertyValues } from 'lit';
+import { isServer, type PropertyValues } from 'lit';
 import { eventOptions, property, state } from 'lit/decorators.js';
 
 import {
@@ -48,7 +49,7 @@ const ALLOWED_SERVICE_ICONS: string[] = [
   'sa-rz',
 ];
 
-export class SeatReservationBaseElement extends LitElement {
+export class SeatReservationBaseElement extends SbbElement {
   public static readonly events = {
     selectedplaces: 'selectedplaces',
     selectedcoach: 'selectedcoach',

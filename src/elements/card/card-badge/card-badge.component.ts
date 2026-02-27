@@ -1,8 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './card-badge.scss?lit&inline';
@@ -15,7 +15,7 @@ import style from './card-badge.scss?lit&inline';
  */
 export
 @customElement('sbb-card-badge')
-class SbbCardBadgeElement extends SbbElementInternalsMixin(LitElement) {
+class SbbCardBadgeElement extends SbbElement {
   public static override readonly role = 'text';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 

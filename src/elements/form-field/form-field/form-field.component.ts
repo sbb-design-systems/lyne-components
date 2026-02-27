@@ -2,7 +2,6 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  LitElement,
   nothing,
   type PropertyValues,
   type TemplateResult,
@@ -12,6 +11,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
 import type { SbbChipGroupElement } from '../../chip.ts';
 import { sbbInputModalityDetector } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
@@ -19,7 +19,6 @@ import { i18nOptional } from '../../core/i18n.ts';
 import {
   appendAriaElements,
   removeAriaElements,
-  SbbElementInternalsMixin,
   type SbbFormAssociatedInputMixinType,
   SbbHydrationMixin,
   SbbNegativeMixin,
@@ -81,9 +80,7 @@ export class SbbFormFieldControlEvent extends Event {
  */
 export
 @customElement('sbb-form-field')
-class SbbFormFieldElement extends SbbNegativeMixin(
-  SbbElementInternalsMixin(SbbHydrationMixin(LitElement)),
-) {
+class SbbFormFieldElement extends SbbNegativeMixin(SbbHydrationMixin(SbbElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   // List of elements that should not focus input on click

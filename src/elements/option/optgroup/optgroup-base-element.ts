@@ -1,21 +1,11 @@
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  nothing,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isSafari } from '../../core/dom.ts';
-import {
-  SbbDisabledMixin,
-  SbbElementInternalsMixin,
-  SbbHydrationMixin,
-} from '../../core/mixins.ts';
+import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbOptionBaseElement } from '../option.ts';
 
@@ -31,7 +21,7 @@ import '../../divider.ts';
 const inertAriaGroups = isSafari;
 
 export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
-  SbbElementInternalsMixin(SbbHydrationMixin(LitElement)),
+  SbbHydrationMixin(SbbElement),
 ) {
   public static override readonly role = !inertAriaGroups ? 'group' : null;
   public static override styles: CSSResultGroup = [boxSizingStyles, style];

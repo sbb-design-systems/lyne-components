@@ -1,11 +1,11 @@
 import type { PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import {
-  SbbElementInternalsMixin,
   SbbNamedSlotListMixin,
   SbbNegativeMixin,
   type WithListChildren,
@@ -29,8 +29,8 @@ import '../../title.ts';
 export class SbbLinkListBaseElement extends SbbNegativeMixin(
   SbbNamedSlotListMixin<
     SbbBlockLinkElement | SbbBlockLinkButtonElement | SbbBlockLinkStaticElement,
-    typeof LitElement
-  >(SbbElementInternalsMixin(LitElement)),
+    typeof SbbElement
+  >(SbbElement),
 ) {
   protected override readonly listChildLocalNames = [
     'sbb-block-link',

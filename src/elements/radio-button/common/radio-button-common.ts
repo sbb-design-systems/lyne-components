@@ -1,6 +1,6 @@
-import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import {
   type AbstractConstructor,
   type Constructor,
@@ -11,7 +11,7 @@ import type { SbbRadioButtonGroupElement } from '../radio-button-group.ts';
 export type SbbRadioButtonSize = 'xs' | 's' | 'm';
 
 export declare abstract class SbbRadioButtonCommonElementMixinType extends SbbFormAssociatedRadioButtonMixin(
-  LitElement,
+  SbbElement,
 ) {
   public get allowEmptySelection(): boolean;
   public set allowEmptySelection(boolean);
@@ -20,7 +20,7 @@ export declare abstract class SbbRadioButtonCommonElementMixinType extends SbbFo
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElement>>(
+export const SbbRadioButtonCommonElementMixin = <T extends Constructor<SbbElement>>(
   superClass: T,
 ): AbstractConstructor<SbbRadioButtonCommonElementMixinType> & T => {
   abstract class SbbRadioButtonCommonElement

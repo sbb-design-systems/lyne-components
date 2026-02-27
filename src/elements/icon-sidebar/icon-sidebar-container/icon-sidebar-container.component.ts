@@ -1,6 +1,7 @@
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { sidebarContainerCommonStyle } from '../../sidebar/common.ts';
 import type { SbbIconSidebarElement } from '../icon-sidebar.ts';
 
@@ -13,7 +14,7 @@ import style from './icon-sidebar-container.scss?lit&inline';
  */
 export
 @customElement('sbb-icon-sidebar-container')
-class SbbIconSidebarContainerElement extends LitElement {
+class SbbIconSidebarContainerElement extends SbbElement {
   public static override styles: CSSResultGroup = [sidebarContainerCommonStyle, style];
 
   /** The icon-sidebar children. */

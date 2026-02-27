@@ -1,9 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './expansion-panel-content.scss?lit&inline';
@@ -15,7 +15,7 @@ import style from './expansion-panel-content.scss?lit&inline';
  */
 export
 @customElement('sbb-expansion-panel-content')
-class SbbExpansionPanelContentElement extends SbbElementInternalsMixin(LitElement) {
+class SbbExpansionPanelContentElement extends SbbElement {
   public static override readonly role = 'region';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 

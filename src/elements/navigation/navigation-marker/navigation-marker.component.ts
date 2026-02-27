@@ -1,10 +1,10 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { isLean } from '../../core/dom.ts';
 import {
-  SbbElementInternalsMixin,
   SbbNamedSlotListMixin,
   ɵstateController,
   type WithListChildren,
@@ -22,11 +22,10 @@ import style from './navigation-marker.scss?lit&inline';
  */
 export
 @customElement('sbb-navigation-marker')
-class SbbNavigationMarkerElement extends SbbElementInternalsMixin(
-  SbbNamedSlotListMixin<SbbNavigationButtonElement | SbbNavigationLinkElement, typeof LitElement>(
-    LitElement,
-  ),
-) {
+class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
+  SbbNavigationButtonElement | SbbNavigationLinkElement,
+  typeof SbbElement
+>(SbbElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = [
     'sbb-navigation-button',

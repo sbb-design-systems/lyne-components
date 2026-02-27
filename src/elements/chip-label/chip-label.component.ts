@@ -1,7 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../core/base-elements.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './chip-label.scss?lit&inline';
@@ -13,7 +14,7 @@ import style from './chip-label.scss?lit&inline';
  */
 export
 @customElement('sbb-chip-label')
-class SbbChipLabelElement extends LitElement {
+class SbbChipLabelElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Size of the chip. */

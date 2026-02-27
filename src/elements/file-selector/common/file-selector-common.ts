@@ -1,4 +1,4 @@
-import type { LitElement, TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
@@ -6,6 +6,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonStaticElement } from '../../button.ts';
 import { sbbInputModalityDetector } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
@@ -21,7 +22,6 @@ import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
-  SbbElementInternalsMixin,
   SbbFormAssociatedMixin,
   ɵstateController,
 } from '../../core/mixins.ts';
@@ -29,7 +29,7 @@ import {
 import '../../button/secondary-button.ts';
 
 export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbDisabledMixin(
-  SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)),
+  SbbFormAssociatedMixin(SbbElement),
 ) {
   public accessor size: 's' | 'm';
   public accessor multiple: boolean;
@@ -49,11 +49,11 @@ export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbD
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFileSelectorCommonElementMixin = <T extends Constructor<LitElement>>(
+export const SbbFileSelectorCommonElementMixin = <T extends Constructor<SbbElement>>(
   superclass: T,
 ): Constructor<SbbFileSelectorCommonElementMixinType> & T => {
   abstract class SbbFileSelectorCommonElement
-    extends SbbDisabledMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superclass)))
+    extends SbbDisabledMixin(SbbFormAssociatedMixin(superclass))
     implements Partial<SbbFileSelectorCommonElementMixinType>
   {
     public static readonly events = {

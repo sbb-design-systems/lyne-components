@@ -1,7 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../core/base-elements.ts';
 import { forceType } from '../core/decorators.ts';
 import type { SbbProtectiveRoom } from '../core/interfaces.ts';
 import { SbbNegativeMixin } from '../core/mixins.ts';
@@ -16,7 +17,7 @@ import style from './logo.scss?lit&inline';
  */
 export
 @customElement('sbb-logo')
-class SbbLogoElement extends SbbNegativeMixin(LitElement) {
+class SbbLogoElement extends SbbNegativeMixin(SbbElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Visual protective room around logo. */

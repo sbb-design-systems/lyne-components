@@ -1,19 +1,13 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  nothing,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../core/base-elements.ts';
 import { SbbLanguageController } from '../core/controllers.ts';
 import { isLean, isZeroAnimationDuration } from '../core/dom.ts';
 import { i18nCloseNotification } from '../core/i18n.ts';
 import type { SbbOpenedClosedState } from '../core/interfaces.ts';
-import { SbbElementInternalsMixin, SbbReadonlyMixin } from '../core/mixins.ts';
+import { SbbReadonlyMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import { SbbIconNameMixin } from '../icon.ts';
 import type { SbbTitleElement } from '../title.ts';
@@ -44,9 +38,7 @@ const DEBOUNCE_TIME = 150;
  */
 export
 @customElement('sbb-notification')
-class SbbNotificationElement extends SbbIconNameMixin(
-  SbbReadonlyMixin(SbbElementInternalsMixin(LitElement)),
-) {
+class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     beforeopen: 'beforeopen',

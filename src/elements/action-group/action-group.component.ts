@@ -1,8 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.ts';
+import { SbbElement } from '../core/base-elements.ts';
 import { isLean } from '../core/dom.ts';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.ts';
 import { boxSizingStyles } from '../core/styles.ts';
@@ -22,7 +23,7 @@ import style from './action-group.scss?lit&inline';
  */
 export
 @customElement('sbb-action-group')
-class SbbActionGroupElement extends LitElement {
+class SbbActionGroupElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

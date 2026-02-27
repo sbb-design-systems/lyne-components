@@ -1,7 +1,8 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../core/base-elements.ts';
 import { forceType, handleDistinctChange } from '../core/decorators.ts';
 import { isLean } from '../core/dom.ts';
 import { isEventPrevented } from '../core/eventing.ts';
@@ -19,7 +20,7 @@ import style from './accordion.scss?lit&inline';
  */
 export
 @customElement('sbb-accordion')
-class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
+class SbbAccordionElement extends SbbHydrationMixin(SbbElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

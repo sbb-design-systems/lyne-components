@@ -1,18 +1,15 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import { throttle } from '../../core/eventing.ts';
-import {
-  SbbElementInternalsMixin,
-  SbbHydrationMixin,
-  ɵstateController,
-} from '../../core/mixins.ts';
+import { SbbHydrationMixin, ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { tabGroupCommonStyles } from '../common.ts';
 import type { SbbTabLabelElement } from '../tab-label.ts';
@@ -37,7 +34,7 @@ export type SbbTabChangedEventDetails = {
  */
 export
 @customElement('sbb-tab-group')
-class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitElement)) {
+class SbbTabGroupElement extends SbbHydrationMixin(SbbElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, tabGroupCommonStyles, style];
   public static readonly events = {
     tabchange: 'tabchange',

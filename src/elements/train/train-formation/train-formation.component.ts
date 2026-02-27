@@ -1,14 +1,8 @@
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  nothing,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n.ts';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.ts';
@@ -33,8 +27,8 @@ interface AggregatedSector {
  */
 export
 @customElement('sbb-train-formation')
-class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, typeof LitElement>(
-  LitElement,
+class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, typeof SbbElement>(
+  SbbElement,
 ) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = ['sbb-train'];

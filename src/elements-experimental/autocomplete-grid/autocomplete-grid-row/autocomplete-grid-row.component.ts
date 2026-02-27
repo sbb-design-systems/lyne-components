@@ -1,6 +1,6 @@
-import { SbbElementInternalsMixin } from '@sbb-esta/lyne-elements/core/mixins.js';
+import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import style from './autocomplete-grid-row.scss?lit&inline';
@@ -14,7 +14,7 @@ let autocompleteRowNextId = 0;
  */
 export
 @customElement('sbb-autocomplete-grid-row')
-class SbbAutocompleteGridRowElement extends SbbElementInternalsMixin(LitElement) {
+class SbbAutocompleteGridRowElement extends SbbElement {
   public static override readonly role = 'row';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 

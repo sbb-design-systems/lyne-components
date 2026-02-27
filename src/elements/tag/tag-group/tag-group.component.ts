@@ -1,13 +1,7 @@
-import {
-  type CSSResultGroup,
-  html,
-  isServer,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean, setOrRemoveAttribute } from '../../core/dom.ts';
 import {
@@ -29,7 +23,7 @@ import style from './tag-group.scss?lit&inline';
 export
 @customElement('sbb-tag-group')
 class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
-  SbbNamedSlotListMixin<SbbTagElement, typeof LitElement>(LitElement),
+  SbbNamedSlotListMixin<SbbTagElement, typeof SbbElement>(SbbElement),
 ) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   // DIV is added here due to special requirements from sbb.ch.

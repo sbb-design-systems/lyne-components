@@ -1,14 +1,9 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import {
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointLargeAndAbove,
@@ -19,7 +14,7 @@ import {
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';
-import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
+import { SbbHydrationMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.ts';
 
@@ -69,7 +64,7 @@ export class SbbStepChangeEvent extends Event {
  */
 export
 @customElement('sbb-stepper')
-class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
+class SbbStepperElement extends SbbHydrationMixin(SbbElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     stepchange: 'stepchange',

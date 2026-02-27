@@ -1,7 +1,6 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import {
   html,
-  LitElement,
   nothing,
   type PropertyDeclaration,
   type PropertyValues,
@@ -9,12 +8,9 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { isAndroid, isBlink, isSafari, setOrRemoveAttribute } from '../../core/dom.ts';
-import {
-  SbbDisabledMixin,
-  SbbElementInternalsMixin,
-  SbbHydrationMixin,
-} from '../../core/mixins.ts';
+import { SbbDisabledMixin, SbbHydrationMixin } from '../../core/mixins.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 
 import '../../screen-reader-only.ts';
@@ -36,7 +32,7 @@ const optionObserverConfig: MutationObserverInit = {
 };
 
 export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
-  SbbIconNameMixin(SbbElementInternalsMixin(SbbHydrationMixin(LitElement))),
+  SbbIconNameMixin(SbbHydrationMixin(SbbElement)),
 ) {
   public static readonly events = {
     optionselected: 'optionselected',

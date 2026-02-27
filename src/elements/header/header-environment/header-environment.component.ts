@@ -1,8 +1,8 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './header-environment.scss?lit&inline';
@@ -17,7 +17,7 @@ import style from './header-environment.scss?lit&inline';
  */
 export
 @customElement('sbb-header-environment')
-class SbbHeaderEnvironmentElement extends SbbElementInternalsMixin(LitElement) {
+class SbbHeaderEnvironmentElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private _env: string | null = null;

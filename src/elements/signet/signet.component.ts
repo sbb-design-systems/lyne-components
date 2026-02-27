@@ -1,7 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../core/base-elements.ts';
 import { forceType } from '../core/decorators.ts';
 import type { SbbProtectiveRoom } from '../core/interfaces.ts';
 import { boxSizingStyles } from '../core/styles.ts';
@@ -17,7 +18,7 @@ export type SbbSignetProtectiveRoom = SbbProtectiveRoom | 'panel';
  */
 export
 @customElement('sbb-signet')
-class SbbSignetElement extends LitElement {
+class SbbSignetElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Visual protective room around signet. */

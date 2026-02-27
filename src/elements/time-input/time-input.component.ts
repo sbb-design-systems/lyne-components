@@ -1,7 +1,8 @@
-import { type CSSResultGroup, isServer, LitElement } from 'lit';
+import { type CSSResultGroup, isServer } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { sbbLiveAnnouncer } from '../core/a11y.ts';
+import { SbbElement } from '../core/base-elements.ts';
 import { SbbLanguageController } from '../core/controllers.ts';
 import {
   i18nTimeInputChange,
@@ -28,7 +29,7 @@ interface Time {
  */
 export
 @customElement('sbb-time-input')
-class SbbTimeInputElement extends SbbFormAssociatedInputMixin(LitElement) {
+class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement) {
   public static override styles: CSSResultGroup = style;
 
   /**

@@ -1,14 +1,8 @@
-import {
-  type CSSResultGroup,
-  html,
-  isServer,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController, SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom/lean-context.ts';
@@ -17,7 +11,6 @@ import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
-  SbbElementInternalsMixin,
   SbbFormAssociatedMixin,
   SbbNegativeMixin,
   SbbRequiredMixin,
@@ -56,7 +49,7 @@ export interface SbbChipInputTokenEndEventDetails<T = string> {
 export
 @customElement('sbb-chip-group')
 class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
-  SbbDisabledMixin(SbbNegativeMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)))),
+  SbbDisabledMixin(SbbNegativeMixin(SbbFormAssociatedMixin(SbbElement))),
 ) {
   public static override readonly role = 'listbox';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];

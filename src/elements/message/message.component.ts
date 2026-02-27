@@ -1,7 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbElement } from '../core/base-elements.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import type { SbbTitleElement } from '../title.ts';
 
@@ -18,7 +19,7 @@ import style from './message.scss?lit&inline';
  */
 export
 @customElement('sbb-message')
-class SbbMessageElement extends LitElement {
+class SbbMessageElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private _configureTitle(event: Event): void {

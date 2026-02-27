@@ -1,6 +1,7 @@
-import type { LitElement, PropertyValues } from 'lit';
+import type { PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import { type Constructor, SbbFormAssociatedCheckboxMixin } from '../../core/mixins.ts';
 import type { SbbCheckboxGroupElement } from '../checkbox-group.ts';
@@ -8,7 +9,7 @@ import type { SbbCheckboxGroupElement } from '../checkbox-group.ts';
 export type SbbCheckboxSize = 'xs' | 's' | 'm';
 
 export declare abstract class SbbCheckboxCommonElementMixinType extends SbbFormAssociatedCheckboxMixin(
-  LitElement,
+  SbbElement,
 ) {
   public accessor indeterminate: boolean;
 
@@ -16,7 +17,7 @@ export declare abstract class SbbCheckboxCommonElementMixinType extends SbbFormA
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbCheckboxCommonElementMixin = <T extends Constructor<LitElement>>(
+export const SbbCheckboxCommonElementMixin = <T extends Constructor<SbbElement>>(
   superClass: T,
 ): Constructor<SbbCheckboxCommonElementMixinType> & T => {
   abstract class SbbCheckboxCommonElement

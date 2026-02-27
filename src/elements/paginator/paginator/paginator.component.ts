@@ -1,15 +1,9 @@
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  nothing,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
 import { sbbInputModalityDetector } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import { i18nItemsPerPage, i18nPage } from '../../core/i18n.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
@@ -30,7 +24,7 @@ const MAX_PAGE_NUMBERS_DISPLAYED = 3;
  */
 export
 @customElement('sbb-paginator')
-class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
+class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(SbbElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events: Record<string, string> = {
     page: 'page',

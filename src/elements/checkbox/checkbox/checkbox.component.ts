@@ -1,6 +1,7 @@
-import { LitElement, html, type CSSResultGroup, type TemplateResult } from 'lit';
+import { html, type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { getOverride } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import type { SbbIconPlacement } from '../../core/interfaces.ts';
@@ -28,7 +29,7 @@ import '../../visual-checkbox.ts';
 export
 @customElement('sbb-checkbox')
 class SbbCheckboxElement<T = string> extends SbbIconNameMixin(
-  SbbCheckboxCommonElementMixin(LitElement),
+  SbbCheckboxCommonElementMixin(SbbElement),
 ) {
   public static override styles: CSSResultGroup = [
     boxSizingStyles,

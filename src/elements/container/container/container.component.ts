@@ -1,14 +1,9 @@
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
-import { SbbElementInternalsMixin, ɵstateController } from '../../core/mixins.ts';
+import { ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './container.scss?lit&inline';
@@ -22,7 +17,7 @@ import style from './container.scss?lit&inline';
  */
 export
 @customElement('sbb-container')
-class SbbContainerElement extends SbbElementInternalsMixin(LitElement) {
+class SbbContainerElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Whether the container is expanded. */

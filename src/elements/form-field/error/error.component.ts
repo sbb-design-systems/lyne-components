@@ -1,7 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbNegativeMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
@@ -17,7 +18,7 @@ let nextId = 0;
  */
 export
 @customElement('sbb-error')
-class SbbErrorElement extends SbbNegativeMixin(LitElement) {
+class SbbErrorElement extends SbbNegativeMixin(SbbElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public override connectedCallback(): void {

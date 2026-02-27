@@ -1,8 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, nothing } from 'lit';
+import { nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { SbbElement } from '../core/base-elements.ts';
 import { forceType } from '../core/decorators.ts';
 import { SbbNegativeMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
@@ -17,7 +18,7 @@ import style from './footer.scss?lit&inline';
  */
 export
 @customElement('sbb-footer')
-class SbbFooterElement extends SbbNegativeMixin(LitElement) {
+class SbbFooterElement extends SbbNegativeMixin(SbbElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

@@ -1,7 +1,7 @@
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../core/mixins/element-internals-mixin.ts';
+import { SbbElement } from '../core/base-elements.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './lead-container.scss?lit&inline';
@@ -16,7 +16,7 @@ import style from './lead-container.scss?lit&inline';
  */
 export
 @customElement('sbb-lead-container')
-class SbbLeadContainerElement extends SbbElementInternalsMixin(LitElement) {
+class SbbLeadContainerElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override render(): TemplateResult {

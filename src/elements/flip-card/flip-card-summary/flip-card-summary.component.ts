@@ -1,7 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './flip-card-summary.scss?lit&inline';
@@ -16,7 +17,7 @@ export type SbbFlipCardImageAlignment = 'after' | 'below';
  */
 export
 @customElement('sbb-flip-card-summary')
-class SbbFlipCardSummaryElement extends LitElement {
+class SbbFlipCardSummaryElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** The position where to render the image. */

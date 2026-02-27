@@ -1,8 +1,9 @@
+import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
@@ -21,7 +22,7 @@ export type SelectCoachEventDetails = number;
  */
 export
 @customElement('sbb-seat-reservation-navigation-coach')
-class SbbSeatReservationNavigationCoachElement extends LitElement {
+class SbbSeatReservationNavigationCoachElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     selectcoach: 'selectcoach',

@@ -1,12 +1,7 @@
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
+import { SbbElement } from '../core/base-elements.ts';
 import { SbbLanguageController } from '../core/controllers.ts';
 import { forceType } from '../core/decorators.ts';
 import { isZeroAnimationDuration } from '../core/dom.ts';
@@ -28,7 +23,7 @@ import '../divider.ts';
 export
 @customElement('sbb-selection-expansion-panel')
 class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(
-  SbbHydrationMixin(LitElement),
+  SbbHydrationMixin(SbbElement),
 ) {
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = [boxSizingStyles, style];

@@ -1,8 +1,9 @@
 import type { PropertyValues } from '@lit/reactive-element';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers/language-controller.ts';
 import { forceType } from '../../core/decorators.ts';
 import {
@@ -11,7 +12,6 @@ import {
   i18nPreviousSlide,
   i18nSlide,
 } from '../../core/i18n/i18n.ts';
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.ts';
 import type {
@@ -31,7 +31,7 @@ import style from './carousel.scss?lit&inline';
  */
 export
 @customElement('sbb-carousel')
-class SbbCarouselElement extends SbbElementInternalsMixin(LitElement) {
+class SbbCarouselElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

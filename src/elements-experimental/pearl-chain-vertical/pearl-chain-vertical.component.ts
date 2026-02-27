@@ -1,6 +1,7 @@
+import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import style from './pearl-chain-vertical.scss?lit&inline';
@@ -12,7 +13,7 @@ import style from './pearl-chain-vertical.scss?lit&inline';
  */
 export
 @customElement('sbb-pearl-chain-vertical')
-class SbbPearlChainVerticalElement extends LitElement {
+class SbbPearlChainVerticalElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override render(): TemplateResult {

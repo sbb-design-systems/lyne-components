@@ -1,7 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, html } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { getOverride } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
@@ -23,7 +24,7 @@ import radioButtonStyle from './radio-button.scss?lit&inline';
  */
 export
 @customElement('sbb-radio-button')
-class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonElementMixin(LitElement) {
+class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonElementMixin(SbbElement) {
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     radioButtonCommonStyle,

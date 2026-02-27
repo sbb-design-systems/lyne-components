@@ -1,14 +1,14 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import { SbbElement } from '../core/base-elements.ts';
 import { forceType, hostAttributes } from '../core/decorators.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
-  SbbElementInternalsMixin,
   SbbFormAssociatedMixin,
   SbbReadonlyMixin,
 } from '../core/mixins.ts';
@@ -31,7 +31,7 @@ export
   tabindex: '0',
 })
 class SbbSliderElement extends SbbDisabledMixin(
-  SbbReadonlyMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement))),
+  SbbReadonlyMixin(SbbFormAssociatedMixin(SbbElement)),
 ) {
   public static override readonly role = 'slider';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];

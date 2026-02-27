@@ -1,12 +1,5 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  nothing,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import {
@@ -14,13 +7,10 @@ import {
   isArrowKeyPressed,
   sbbInputModalityDetector,
 } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n.ts';
-import {
-  SbbElementInternalsMixin,
-  SbbNamedSlotListMixin,
-  type WithListChildren,
-} from '../../core/mixins.ts';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbBreadcrumbElement } from '../breadcrumb.ts';
 
@@ -37,9 +27,10 @@ const MIN_BREADCRUMBS_TO_COLLAPSE = 3;
  */
 export
 @customElement('sbb-breadcrumb-group')
-class SbbBreadcrumbGroupElement extends SbbElementInternalsMixin(
-  SbbNamedSlotListMixin<SbbBreadcrumbElement, typeof LitElement>(LitElement),
-) {
+class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
+  SbbBreadcrumbElement,
+  typeof SbbElement
+>(SbbElement) {
   public static override readonly role = 'navigation';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = ['sbb-breadcrumb'];

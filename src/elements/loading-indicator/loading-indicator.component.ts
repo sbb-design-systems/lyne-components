@@ -1,8 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../core/mixins.ts';
+import { SbbElement } from '../core/base-elements.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './loading-indicator.scss?lit&inline';
@@ -12,7 +12,7 @@ import style from './loading-indicator.scss?lit&inline';
  */
 export
 @customElement('sbb-loading-indicator')
-class SbbLoadingIndicatorElement extends SbbElementInternalsMixin(LitElement) {
+class SbbLoadingIndicatorElement extends SbbElement {
   public static override readonly role = 'progressbar';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 

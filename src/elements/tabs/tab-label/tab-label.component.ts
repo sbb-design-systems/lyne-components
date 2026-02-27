@@ -1,11 +1,11 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
-import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { SbbDisabledMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 import type { SbbTitleLevel } from '../../title.ts';
@@ -24,9 +24,7 @@ import style from './tab-label.scss?lit&inline';
  */
 export
 @customElement('sbb-tab-label')
-class SbbTabLabelElement extends SbbDisabledMixin(
-  SbbIconNameMixin(SbbElementInternalsMixin(LitElement)),
-) {
+class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbElement)) {
   public static override role = 'tab';
   public static override styles: CSSResultGroup = [boxSizingStyles, tabLabelCommonStyles, style];
 

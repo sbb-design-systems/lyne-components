@@ -7,6 +7,7 @@ import { i18nTargetOpensInNewWindow } from '../i18n.ts';
 
 import { SbbActionBaseElement } from './action-base-element.ts';
 
+// TODO: Remove this import. core should not import elements.
 import '../../screen-reader-only.ts';
 
 /** Enumeration for 'target' attribute in <a> HTML tag. */

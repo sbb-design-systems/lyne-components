@@ -1,8 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../core/mixins.ts';
+import { SbbElement } from '../core/base-elements.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import { SbbIconNameMixin } from '../icon.ts';
 import type { SbbTitleElement } from '../title.ts';
@@ -32,7 +32,7 @@ export type SbbStatusType =
  */
 export
 @customElement('sbb-status')
-class SbbStatusElement extends SbbIconNameMixin(SbbElementInternalsMixin(LitElement)) {
+class SbbStatusElement extends SbbIconNameMixin(SbbElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private readonly _statusTypes: Map<SbbStatusType, string> = new Map([

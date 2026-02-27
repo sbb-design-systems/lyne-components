@@ -1,13 +1,8 @@
-import {
-  type CSSResultGroup,
-  LitElement,
-  nothing,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
 import { i18nTrain, i18nWagonsLabel } from '../../core/i18n.ts';
@@ -30,8 +25,8 @@ export
 @customElement('sbb-train')
 class SbbTrainElement extends SbbNamedSlotListMixin<
   SbbTrainWagonElement | SbbTrainBlockedPassageElement,
-  typeof LitElement
->(LitElement) {
+  typeof SbbElement
+>(SbbElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     trainslotchange: 'trainslotchange',

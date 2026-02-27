@@ -1,9 +1,10 @@
-import { type CSSResultGroup, LitElement, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonStaticElement } from '../../button.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import {
   i18nFileSelectorSubtitleLabel,
@@ -24,7 +25,7 @@ import style from './file-selector-dropzone.scss?lit&inline';
  */
 export
 @customElement('sbb-file-selector-dropzone')
-class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElementMixin(LitElement) {
+class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElementMixin(SbbElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, fileSelectorCommonStyle, style];
   public static readonly events = {
     filechanged: 'filechanged',

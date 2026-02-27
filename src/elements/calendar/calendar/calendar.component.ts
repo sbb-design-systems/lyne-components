@@ -3,7 +3,6 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  LitElement,
   nothing,
   type PropertyValues,
   type TemplateResult,
@@ -12,6 +11,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { readConfig } from '../../core/config.ts';
 import {
   SbbLanguageController,
@@ -40,7 +40,7 @@ import {
   i18nYearMonthSelection,
 } from '../../core/i18n.ts';
 import type { SbbOrientation } from '../../core/interfaces.ts';
-import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
+import { SbbHydrationMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 
@@ -133,7 +133,7 @@ export type CalendarView = 'day' | 'month' | 'year';
  */
 export
 @customElement('sbb-calendar')
-class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
+class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     dateselected: 'dateselected',

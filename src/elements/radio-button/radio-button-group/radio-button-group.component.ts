@@ -1,12 +1,13 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';
-import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { SbbDisabledMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbRadioButtonSize } from '../common.ts';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
@@ -25,9 +26,7 @@ let nextId = 0;
  */
 export
 @customElement('sbb-radio-button-group')
-class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(
-  SbbElementInternalsMixin(LitElement),
-) {
+class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(SbbElement) {
   public static override readonly role = 'radiogroup';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {

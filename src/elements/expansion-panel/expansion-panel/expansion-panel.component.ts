@@ -1,16 +1,12 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean, isZeroAnimationDuration } from '../../core/dom.ts';
 import type { SbbOpenedClosedState } from '../../core/interfaces.ts';
-import {
-  SbbElementInternalsMixin,
-  SbbHydrationMixin,
-  ɵstateController,
-} from '../../core/mixins.ts';
+import { SbbHydrationMixin, ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbTitleLevel } from '../../title.ts';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.ts';
@@ -27,7 +23,7 @@ let nextId = 0;
  */
 export
 @customElement('sbb-expansion-panel')
-class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
+class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElement) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     beforeopen: 'beforeopen',

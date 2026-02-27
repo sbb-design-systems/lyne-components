@@ -1,13 +1,7 @@
-import {
-  type CSSResultGroup,
-  html,
-  isServer,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { sidebarContainerCommonStyle } from '../common.ts';
@@ -28,7 +22,7 @@ const MIN_WIDTH_BEFORE_COLLAPSE = 320;
  */
 export
 @customElement('sbb-sidebar-container')
-class SbbSidebarContainerElement extends LitElement {
+class SbbSidebarContainerElement extends SbbElement {
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     sidebarContainerCommonStyle,

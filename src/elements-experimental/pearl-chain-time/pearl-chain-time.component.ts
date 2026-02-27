@@ -1,3 +1,4 @@
+import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
@@ -9,7 +10,7 @@ import {
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { format } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { removeTimezoneFromISOTimeString } from '../core/datetime.ts';
@@ -25,7 +26,7 @@ import '../pearl-chain.ts';
  */
 export
 @customElement('sbb-pearl-chain-time')
-class SbbPearlChainTimeElement extends LitElement {
+class SbbPearlChainTimeElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

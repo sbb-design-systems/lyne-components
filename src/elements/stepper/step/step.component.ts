@@ -1,19 +1,10 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers.ts';
-import {
-  appendAriaElements,
-  removeAriaElements,
-  SbbElementInternalsMixin,
-} from '../../core/mixins.ts';
+import { appendAriaElements, removeAriaElements } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbStepLabelElement } from '../step-label.ts';
 import type { SbbStepperElement } from '../stepper.ts';
@@ -36,7 +27,7 @@ export type SbbStepValidateEventDetails = {
  */
 export
 @customElement('sbb-step')
-class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
+class SbbStepElement extends SbbElement {
   public static override readonly role = 'tabpanel';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {

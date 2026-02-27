@@ -1,9 +1,10 @@
+import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { i18nDurationHour, i18nDurationMinute } from '@sbb-esta/lyne-elements/core/i18n.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import style from './timetable-duration.scss?lit&inline';
@@ -13,7 +14,7 @@ import style from './timetable-duration.scss?lit&inline';
  */
 export
 @customElement('sbb-timetable-duration')
-class SbbTimetableDurationElement extends LitElement {
+class SbbTimetableDurationElement extends SbbElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

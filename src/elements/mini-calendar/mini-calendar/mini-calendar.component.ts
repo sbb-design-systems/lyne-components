@@ -1,9 +1,10 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { readConfig } from '../../core/config/config.ts';
 import type { DateAdapter } from '../../core/datetime/date-adapter.ts';
 import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
@@ -21,7 +22,7 @@ import style from './mini-calendar.scss?lit&inline';
  */
 export
 @customElement('sbb-mini-calendar')
-class SbbMiniCalendarElement<T = Date> extends LitElement {
+class SbbMiniCalendarElement<T = Date> extends SbbElement {
   public static override styles: CSSResultGroup = style;
 
   /** The orientation of days in the calendar. */

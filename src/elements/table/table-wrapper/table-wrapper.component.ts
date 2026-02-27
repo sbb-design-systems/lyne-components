@@ -1,16 +1,10 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import {
-  type CSSResultGroup,
-  html,
-  isServer,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
-import { SbbElementInternalsMixin, SbbNegativeMixin } from '../../core/mixins.ts';
+import { SbbNegativeMixin } from '../../core/mixins.ts';
 
 import style from './table-wrapper.scss?lit&inline';
 
@@ -21,7 +15,7 @@ import style from './table-wrapper.scss?lit&inline';
  */
 export
 @customElement('sbb-table-wrapper')
-class SbbTableWrapperElement extends SbbNegativeMixin(SbbElementInternalsMixin(LitElement)) {
+class SbbTableWrapperElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly role = 'section';
   public static override styles: CSSResultGroup = style;
 
