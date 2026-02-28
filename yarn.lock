@@ -3675,7 +3675,7 @@ commander@^12.1.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-12.1.0.tgz#01423b36f501259fdaac4d0e4d60c96c991585d3"
   integrity sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA==
 
-commander@^14.0.2:
+commander@^14.0.3:
   version "14.0.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-14.0.3.tgz#425d79b48f9af82fcd9e4fc1ea8af6c5ec07bbc2"
   integrity sha512-H+y0Jo/T1RZ9qPP4Eh1pkcQcLRglraJaSLoyOtHxu6AapkjWVCy2Sit1QQ4x3Dng8qDlSsZEet7g5Pq06MvTgw==
@@ -6221,18 +6221,18 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.2.4.tgz#eca284f75d2965079309dc0ad9255abb2ebc1632"
   integrity sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==
 
-lint-staged@16.2.7:
-  version "16.2.7"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-16.2.7.tgz#c4a635960c17b52fe774f1f40aee8ce1bd86531f"
-  integrity sha512-lDIj4RnYmK7/kXMya+qJsmkRFkGolciXjrsZ6PC25GdTfWOAWetR0ZbsNXRAj1EHHImRSalc+whZFg56F5DVow==
+lint-staged@16.3.0:
+  version "16.3.0"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-16.3.0.tgz#6907226b6a925406d504264c22c62c490e44aefe"
+  integrity sha512-YVHHy/p6U4/No9Af+35JLh3umJ9dPQnGTvNCbfO/T5fC60us0jFnc+vw33cqveI+kqxIFJQakcMVTO2KM+653A==
   dependencies:
-    commander "^14.0.2"
+    commander "^14.0.3"
     listr2 "^9.0.5"
     micromatch "^4.0.8"
     nano-spawn "^2.0.0"
-    pidtree "^0.6.0"
     string-argv "^0.3.2"
-    yaml "^2.8.1"
+    tinyexec "^1.0.2"
+    yaml "^2.8.2"
 
 listr2@^9.0.5:
   version "9.0.5"
@@ -9048,7 +9048,7 @@ tiny-invariant@^1.3.1, tiny-invariant@^1.3.3:
   resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.3.3.tgz#46680b7a873a0d5d10005995eb90a70d74d60127"
   integrity sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==
 
-tinyexec@^1.0.0:
+tinyexec@^1.0.0, tinyexec@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/tinyexec/-/tinyexec-1.0.2.tgz#bdd2737fe2ba40bd6f918ae26642f264b99ca251"
   integrity sha512-W/KYk+NFhkmsYpuHq5JykngiOCnxeVL8v8dFnqxSD8qEEdRfXk1SDM6JzNqcERbcGYj9tMrDQBYV9cjgnunFIg==
@@ -9832,7 +9832,7 @@ yaml-eslint-parser@^2.0.0:
     eslint-visitor-keys "^5.0.0"
     yaml "^2.0.0"
 
-yaml@^2.0.0, yaml@^2.8.1:
+yaml@^2.0.0, yaml@^2.8.2:
   version "2.8.2"
   resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.8.2.tgz#5694f25eca0ce9c3e7a9d9e00ce0ddabbd9e35c5"
   integrity sha512-mplynKqc1C2hTVYxd0PU2xQAc22TI1vShAYGksCCfxbn/dFwnHTNi1bvYsBTkhdUNtGIf5xNOg938rrSSYvS9A==
