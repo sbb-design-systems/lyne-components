@@ -3,8 +3,8 @@
 :host {
   --sbb-bar-container-background: linear-gradient(
     to bottom,
-    var(--sbb-color-primary) 0 var(--sbb-bar-container-background-band-height),
-    var(--sbb-bar-container-background-color) var(--sbb-bar-container-background-band-height) 100%
+    var(--sbb-bar-container-background-bar-color) 0 var(--sbb-bar-container-background-bar-height),
+    var(--sbb-bar-container-background-color) var(--sbb-bar-container-background-bar-height) 100%
   );
 
   @include sbb.page-spacing;
