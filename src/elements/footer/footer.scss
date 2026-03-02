@@ -21,7 +21,7 @@
   background-color: var(--sbb-footer-background-color);
 
   @include sbb.if-forced-colors {
-    border-block-start: var(--sbb-footer-border-block-start) solid CanvasText;
+    border-block-start: var(--sbb-border-width-1x) solid CanvasText;
   }
 }
 

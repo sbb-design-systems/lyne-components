@@ -4,7 +4,6 @@ $theme: 'standard' !default;
 
 @mixin base {
   --sbb-footer-background-color: var(--sbb-background-color-3);
-  --sbb-footer-border-block-start: var(--sbb-border-width-1x);
   --sbb-footer-clock-width: #{sbb.px-to-rem-build(76)};
   --sbb-footer-color: light-dark(var(--sbb-color-granite), var(--sbb-color-white));
   --sbb-footer-font-size: var(--sbb-text-font-size-s);
