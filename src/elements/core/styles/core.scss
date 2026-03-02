@@ -274,6 +274,7 @@ $theme: 'standard' !default;
 
 // Components global styles
 @include container.rules;
+@include option.rules;
 @include tab-nav-bar.rules;
 
 // TODO: discuss where to add these classes
@@ -722,22 +723,6 @@ sbb-header + :where(sbb-sidebar-container, sbb-icon-sidebar-container) {
 
 sbb-toggle:has(:focus-visible) {
   @include a11y.focus-outline;
-}
-
-:where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s'] {
-  :where(sbb-option, sbb-autocomplete-grid-option) {
-    --sbb-option-min-height: var(--sbb-size-element-xxs);
-    --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
-    --sbb-option-focus-outline-inset: 0 var(--sbb-spacing-fixed-1x);
-  }
-
-  sbb-optgroup {
-    --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
-  }
-
-  sbb-option-hint {
-    --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-1x);
-  }
 }
 
 sbb-dialog-title {
