@@ -12,20 +12,18 @@ snapshots["sbb-autocomplete-grid-option renders DOM"] =
 /* end snapshot sbb-autocomplete-grid-option renders DOM */
 
 snapshots["sbb-autocomplete-grid-option renders Shadow DOM"] = 
-`<div class="sbb-option__container">
-  <div class="sbb-option">
-    <span class="sbb-option__icon">
-      <slot name="icon">
-      </slot>
+`<div class="sbb-option">
+  <span class="sbb-option__icon">
+    <slot name="icon">
+    </slot>
+  </span>
+  <span class="sbb-option__label">
+    <slot>
+    </slot>
+    <span>
+      Option 1
     </span>
-    <span class="sbb-option__label">
-      <slot>
-      </slot>
-      <span>
-        Option 1
-      </span>
-    </span>
-  </div>
+  </span>
 </div>
 `;
 /* end snapshot sbb-autocomplete-grid-option renders Shadow DOM */
@@ -42,20 +40,18 @@ snapshots["sbb-autocomplete-grid-option renders disabled DOM"] =
 /* end snapshot sbb-autocomplete-grid-option renders disabled DOM */
 
 snapshots["sbb-autocomplete-grid-option renders disabled Shadow DOM"] = 
-`<div class="sbb-option__container">
-  <div class="sbb-option">
-    <span class="sbb-option__icon">
-      <slot name="icon">
-      </slot>
+`<div class="sbb-option">
+  <span class="sbb-option__icon">
+    <slot name="icon">
+    </slot>
+  </span>
+  <span class="sbb-option__label">
+    <slot>
+    </slot>
+    <span>
+      Option 1
     </span>
-    <span class="sbb-option__label">
-      <slot>
-      </slot>
-      <span>
-        Option 1
-      </span>
-    </span>
-  </div>
+  </span>
 </div>
 `;
 /* end snapshot sbb-autocomplete-grid-option renders disabled Shadow DOM */

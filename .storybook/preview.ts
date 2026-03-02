@@ -8,44 +8,34 @@ import type { Preview } from '@storybook/web-components-vite';
 import type { Parameters, StoryContext } from 'storybook/internal/types';
 import { makeDecorator } from 'storybook/preview-api';
 
-import '../src/elements/core/styles/standard-theme.scss';
-import '../src/elements-experimental/core/styles/standard-theme.scss';
-
 import leanTheme from '../src/elements/core/styles/lean-theme.scss?inline';
 import offBrandTheme from '../src/elements/core/styles/off-brand-theme.scss?inline';
 import safetyTheme from '../src/elements/core/styles/safety-theme.scss?inline';
-
-const originalStyleSheet = Array.from(document.styleSheets).find((stylesheet) =>
-  Array.from(stylesheet.cssRules).find((value) =>
-    // We assume that we target the standard theme file if this variable is included.
-    value.cssText.includes('--sbb-font-color-default'),
-  ),
-);
-
-const standardTheme = Array.from(originalStyleSheet?.cssRules ?? [])
-  .map((rule) => rule.cssText)
-  .join('');
-
-// We need a created stylesheet to manipulate it.
-// So we copy the content of the preloaded standard
-// theme into the constructed one then we remove the original one.
-const themeStyleSheet = new CSSStyleSheet();
-themeStyleSheet.replaceSync(standardTheme);
-document.adoptedStyleSheets.push(themeStyleSheet);
-originalStyleSheet?.ownerNode?.remove();
+import standardTheme from '../src/elements/core/styles/standard-theme.scss?inline';
+import experimentalLeanTheme from '../src/elements-experimental/core/styles/lean-theme.scss?inline';
+import experimentalOffBrandTheme from '../src/elements-experimental/core/styles/off-brand-theme.scss?inline';
+import experimentalSafetyTheme from '../src/elements-experimental/core/styles/safety-theme.scss?inline';
+import experimentalStandardTheme from '../src/elements-experimental/core/styles/standard-theme.scss?inline';
 
 const themeMap = {
-  standard: standardTheme,
-  'off-brand': offBrandTheme,
-  safety: safetyTheme,
-  lean: leanTheme,
+  standard: standardTheme.concat(experimentalStandardTheme),
+  'off-brand': offBrandTheme.concat(experimentalOffBrandTheme),
+  safety: safetyTheme.concat(experimentalSafetyTheme),
+  lean: leanTheme.concat(experimentalLeanTheme),
 };
+
+// We need a created stylesheet to manipulate it.
+// We initialize it with the standard theme.
+const themeStyleSheet = new CSSStyleSheet();
+themeStyleSheet.replaceSync(themeMap['standard']);
+document.adoptedStyleSheets.push(themeStyleSheet);
 
 const themeDecorator = makeDecorator({
   name: 'theme',
   parameterName: 'theme',
   skipIfNoParametersOrOptions: false,
   wrapper: (getStory, context) => {
+    console.log('eeeee', context.globals.theme);
     const selectedTheme = context.globals.theme as 'standard' | 'off-brand' | 'safety' | 'lean';
 
     themeStyleSheet?.replaceSync(themeMap[selectedTheme]);
