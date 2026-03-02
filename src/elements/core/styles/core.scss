@@ -82,6 +82,15 @@ $theme: 'standard' !default;
   expansion-panel-header with (
   $theme: $theme
 );
+@use '../../flip-card/flip-card/flip-card.global' as flip-card with (
+  $theme: $theme
+);
+@use '../../flip-card/flip-card-details/flip-card-details.global' as flip-card-details with (
+  $theme: $theme
+);
+@use '../../flip-card/flip-card-summary/flip-card-summary.global' as flip-card-summary with (
+  $theme: $theme
+);
 @use '../../footer/footer.global' as footer with (
   $theme: $theme
 );
@@ -140,6 +149,9 @@ $theme: 'standard' !default;
   @include expansion-panel.base;
   @include expansion-panel-content.base;
   @include expansion-panel-header.base;
+  @include flip-card.base;
+  @include flip-card-details.base;
+  @include flip-card-summary.base;
   @include footer.base;
   @include radio-button-common.base;
   @include radio-button-group.base;
@@ -231,6 +243,7 @@ $theme: 'standard' !default;
     @include button.base-breakpoint-large;
 
     @include chip-group.base-breakpoint-large;
+    @include flip-card.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage
@@ -260,6 +273,7 @@ $theme: 'standard' !default;
 
 // Components global styles
 @include container.rules;
+@include flip-card-summary.rules;
 @include tab-nav-bar.rules;
 
 // TODO: discuss where to add these classes
@@ -478,19 +492,6 @@ img {
   aspect-ratio: var(--sbb-image-aspect-ratio);
   object-fit: var(--sbb-image-object-fit);
   object-position: var(--sbb-image-object-position);
-}
-
-// TODO: Move back to the sbb-flip-card-summary components when the global CSS refactoring happens
-sbb-flip-card-summary {
-  > [slot='image']:is(sbb-image, img),
-  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
-    --sbb-image-aspect-ratio: auto;
-    --sbb-image-object-fit: cover;
-
-    border-radius: 0;
-    display: block;
-    height: 100%;
-  }
 }
 
 // TODO: Move back to the sbb-lead-container components when the global CSS refactoring happens
