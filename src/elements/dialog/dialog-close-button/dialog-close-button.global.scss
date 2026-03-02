@@ -1,0 +1,35 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-dialog-close-button-inset-inline-end: var(--sbb-spacing-fixed-4x);
+  --sbb-dialog-close-button-margin-inline: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+}
+
+@mixin rules {
+  sbb-dialog-close-button {
+    // If there is no dialog title, the close button should be positioned absolute
+    sbb-dialog:not(:has(> sbb-dialog-title)) > &,
+    sbb-dialog:state(has-intermediate-element):not(:has(> * > sbb-dialog-title)) > * > & {
+      position: absolute;
+      z-index: 1;
+    }
+
+    // The close button positioning needs the current dialog title size
+    sbb-dialog:has(> sbb-dialog-title[visual-level='3']) > &,
+    sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='3'])
+      > *
+      > & {
+      --_sbb-dialog-title-size: var(--sbb-heading-font-size-3);
+    }
+
+    // The close button positioning needs the current dialog title size
+    sbb-dialog:has(> sbb-dialog-title[visual-level='5']) > &,
+    sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='5'])
+      > *
+      > & {
+      --_sbb-dialog-title-size: var(--sbb-heading-font-size-5);
+    }
+  }
+}

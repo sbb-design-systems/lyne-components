@@ -1,0 +1,11 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-option-hint-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-option-hint-column-gap: var(--sbb-spacing-responsive-xxxs);
+  --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-2x);
+  --sbb-option-hint-padding-inline: var(--sbb-spacing-responsive-xxxs);
+  --sbb-option-hint-font-size: var(--sbb-text-font-size-xxs);
+}
