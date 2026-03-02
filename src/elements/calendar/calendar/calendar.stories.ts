@@ -232,6 +232,16 @@ const defaultArgs: Args = {
   view: view.options![0],
   'week-numbers': false,
   multiple: false,
+  withPrice: false,
+};
+
+const defaultArgsEnhanced: Args = {
+  wide: false,
+  orientation: orientation.options![0],
+  selected: today,
+  view: view.options![0],
+  'week-numbers': false,
+  multiple: false,
   withPrice: true,
 };
 
@@ -348,37 +358,43 @@ export const CalendarVerticalWideWeekNumbersMultiple: StoryObj = {
 export const CalendarEnhanced: StoryObj = {
   render: EnhancedTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs },
+  args: { ...defaultArgsEnhanced },
 };
 
 export const CalendarEnhancedNoExtraContent: StoryObj = {
   render: EnhancedTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, withPrice: false },
+  args: { ...defaultArgs },
 };
 
 export const CalendarEnhancedVertical: StoryObj = {
   render: EnhancedTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, orientation: orientation.options![1] },
+  args: { ...defaultArgsEnhanced, orientation: orientation.options![1] },
 };
 
 export const CalendarEnhancedWide: StoryObj = {
   render: EnhancedTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, wide: true },
+  args: { ...defaultArgsEnhanced, wide: true },
 };
 
 export const CalendarEnhancedWideWeekNumbers: StoryObj = {
   render: EnhancedTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, wide: true, 'week-numbers': true },
+  args: { ...defaultArgsEnhanced, wide: true, 'week-numbers': true },
 };
 
 export const CalendarEnhancedWideWeekNumbersMultiple: StoryObj = {
   render: EnhancedTemplate,
   argTypes: { ...defaultArgTypes },
-  args: { ...defaultArgs, wide: true, 'week-numbers': true, multiple: true, selected: [today] },
+  args: {
+    ...defaultArgsEnhanced,
+    wide: true,
+    'week-numbers': true,
+    multiple: true,
+    selected: [today],
+  },
 };
 
 const meta: Meta = {
