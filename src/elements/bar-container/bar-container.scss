@@ -1,0 +1,24 @@
+@use '../core/styles/index' as sbb;
+
+:host {
+  --sbb-bar-container-background: linear-gradient(
+    to bottom,
+    var(--sbb-bar-container-background-bar-color) 0 var(--sbb-bar-container-background-bar-height),
+    var(--sbb-bar-container-background-color) var(--sbb-bar-container-background-bar-height) 100%
+  );
+
+  @include sbb.page-spacing;
+
+  display: block;
+  background: var(--sbb-bar-container-background);
+  padding-block: var(--sbb-bar-container-padding-block);
+}
+
+:host([color='milk']) {
+  --sbb-bar-container-background-color: var(--sbb-background-color-3);
+}
+
+::slotted(:is(sbb-link, sbb-block-link):first-child) {
+  display: inline-block;
+  margin-block-end: var(--sbb-spacing-fixed-4x);
+}
