@@ -317,7 +317,7 @@
   inset-block-start: 0;
   color: var(--sbb-form-field-label-color);
   font-size: var(--sbb-form-field-label-text-size);
-  letter-spacing: var(--sbb-form-field-label-letter-spacing);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 
   :host(:where(:state(input-type-select), :state(input-type-sbb-select))) & {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
