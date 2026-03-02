@@ -1,5 +1,3 @@
-import { customElement } from 'lit/decorators.js';
-
 import type { SbbAutocompleteBaseElement, SbbAutocompleteElement } from '../../autocomplete.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import type { SbbSelectElement } from '../../select/select.component.ts';
@@ -12,9 +10,8 @@ import { SbbOptgroupBaseElement } from './optgroup-base-element.ts';
  *
  * @slot - Use the unnamed slot to add `sbb-option` elements to the `sbb-optgroup`.
  */
-export
-@customElement('sbb-optgroup')
-class SbbOptGroupElement extends SbbOptgroupBaseElement {
+export class SbbOptGroupElement extends SbbOptgroupBaseElement {
+  public static override readonly elementName: string = 'sbb-optgroup';
   protected get options(): SbbOptionElement[] {
     return Array.from(this.querySelectorAll?.('sbb-option') ?? []) as SbbOptionElement[];
   }

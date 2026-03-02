@@ -1,5 +1,5 @@
 import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -21,12 +21,11 @@ import '../../icon.ts';
  *
  * @slot - Use the unnamed slot to add 'sbb-train-wagon' elements to the `sbb-train`.
  */
-export
-@customElement('sbb-train')
-class SbbTrainElement extends SbbNamedSlotListMixin<
+export class SbbTrainElement extends SbbNamedSlotListMixin<
   SbbTrainWagonElement | SbbTrainBlockedPassageElement,
   typeof SbbElement
 >(SbbElement) {
+  public static override readonly elementName: string = 'sbb-train';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     trainslotchange: 'trainslotchange',

@@ -1,6 +1,4 @@
-/**
- * @entrypoint
- */
+/** @entrypoint */
 export * from './link/block-link.ts';
 export * from './link/block-link-button.ts';
 export * from './link/block-link-static.ts';

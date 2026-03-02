@@ -5,16 +5,15 @@ import { i18nDurationHour, i18nDurationMinute } from '@sbb-esta/lyne-elements/co
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import style from './timetable-duration.scss?lit&inline';
 
 /**
  * Used in `sbb-timetable-row`, it displays information about the trip duration.
  */
-export
-@customElement('sbb-timetable-duration')
-class SbbTimetableDurationElement extends SbbElement {
+export class SbbTimetableDurationElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-timetable-duration';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

@@ -1,7 +1,7 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
@@ -22,9 +22,8 @@ import style from './checkbox-group.scss?lit&inline';
  * @slot - Use the unnamed slot to add `sbb-checkbox` elements to the `sbb-checkbox-group`.
  * @slot error - Slot used to render a `sbb-error` inside the `sbb-checkbox-group`.
  */
-export
-@customElement('sbb-checkbox-group')
-class SbbCheckboxGroupElement extends SbbDisabledMixin(SbbElement) {
+export class SbbCheckboxGroupElement extends SbbDisabledMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-checkbox-group';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Whether the checkbox group is required. */

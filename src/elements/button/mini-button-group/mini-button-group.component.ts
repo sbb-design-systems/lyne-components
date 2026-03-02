@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
@@ -20,11 +20,10 @@ export type SbbMiniButtonGroupSize = 's' | 'm' | 'l' | 'xl';
  *
  * @slot - Use the unnamed slot to add `sbb-mini-button` and `sbb-divider` elements.
  */
-export
-@customElement('sbb-mini-button-group')
-class SbbMiniButtonGroupElement extends SbbNegativeMixin(
+export class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   SbbNamedSlotListMixin<SbbMiniButtonElement, typeof SbbElement>(SbbElement),
 ) {
+  public static override readonly elementName: string = 'sbb-mini-button-group';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = [
     'sbb-mini-button',

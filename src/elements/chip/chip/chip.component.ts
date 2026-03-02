@@ -1,5 +1,5 @@
 import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
@@ -18,11 +18,10 @@ import style from './chip.scss?lit&inline';
  * @slot - Use the unnamed slot to add the display value. If not provided, the 'value' will be used.
  * @overrideType value - (T = string) | null
  */
-export
-@customElement('sbb-chip')
-class SbbChipElement<T = string> extends SbbNegativeMixin(
+export class SbbChipElement<T = string> extends SbbNegativeMixin(
   SbbDisabledMixin(SbbReadonlyMixin(SbbElement)),
 ) {
+  public static override readonly elementName: string = 'sbb-chip';
   public static override readonly role = 'option';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {

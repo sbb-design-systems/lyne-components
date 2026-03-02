@@ -1,6 +1,6 @@
 import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { readConfig } from '../../core/config/config.ts';
@@ -16,9 +16,8 @@ import style from './mini-calendar-month.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-mini-calendar-day` elements.
  */
-export
-@customElement('sbb-mini-calendar-month')
-class SbbMiniCalendarMonthElement<T = Date> extends SbbElement {
+export class SbbMiniCalendarMonthElement<T = Date> extends SbbElement {
+  public static override readonly elementName: string = 'sbb-mini-calendar-month';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Date as ISO string (YYYY-MM-DD) */

@@ -1,5 +1,4 @@
 import { type CSSResultGroup, html, nothing, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import {
@@ -20,11 +19,10 @@ import style from './expansion-panel-header.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the `sbb-expansion-panel-header`.
  * @slot icon - Slot used to render the `sbb-expansion-panel-header` icon.
  */
-export
-@customElement('sbb-expansion-panel-header')
-class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
+export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
   SbbIconNameMixin(SbbButtonBaseElement),
 ) {
+  public static override readonly elementName: string = 'sbb-expansion-panel-header';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     toggleexpanded: 'toggleexpanded',

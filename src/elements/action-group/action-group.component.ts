@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.ts';
 import { SbbElement } from '../core/base-elements.ts';
@@ -21,9 +21,8 @@ import style from './action-group.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-block-link` or `sbb-button` elements to the `sbb-action-group`.
  */
-export
-@customElement('sbb-action-group')
-class SbbActionGroupElement extends SbbElement {
+export class SbbActionGroupElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-action-group';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

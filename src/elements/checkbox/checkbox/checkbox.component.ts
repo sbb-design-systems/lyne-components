@@ -1,5 +1,5 @@
 import { html, type CSSResultGroup, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { getOverride } from '../../core/decorators.ts';
@@ -26,11 +26,10 @@ import '../../visual-checkbox.ts';
  * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  * @overrideType value - (T = string) | null
  */
-export
-@customElement('sbb-checkbox')
-class SbbCheckboxElement<T = string> extends SbbIconNameMixin(
+export class SbbCheckboxElement<T = string> extends SbbIconNameMixin(
   SbbCheckboxCommonElementMixin(SbbElement),
 ) {
+  public static override readonly elementName: string = 'sbb-checkbox';
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     checkboxCommonStyle,

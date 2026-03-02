@@ -1,6 +1,6 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, isServer, type TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
@@ -24,9 +24,8 @@ import '../../screen-reader-only.ts';
  * @slot - Use the unnamed slot to add a `sbb-flip-card-summary` and a `sbb-flip-card-details` element.
  *
  */
-export
-@customElement('sbb-flip-card')
-class SbbFlipCardElement extends SbbElement {
+export class SbbFlipCardElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-flip-card';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     flip: 'flip',

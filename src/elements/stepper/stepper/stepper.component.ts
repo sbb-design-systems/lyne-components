@@ -1,6 +1,6 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
@@ -61,9 +61,8 @@ export class SbbStepChangeEvent extends Event {
  * @slot step - Use this slot to provide an `sbb-step`.
  * @event {SbbStepChangeEvent} stepchange - Emits whenever a step was changed.
  */
-export
-@customElement('sbb-stepper')
-class SbbStepperElement extends SbbElement {
+export class SbbStepperElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-stepper';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     stepchange: 'stepchange',

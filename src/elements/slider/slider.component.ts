@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbElement } from '../core/base-elements.ts';
@@ -26,13 +26,13 @@ import '../icon.ts';
  * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  */
 export
-@customElement('sbb-slider')
 @hostAttributes({
   tabindex: '0',
 })
 class SbbSliderElement extends SbbDisabledMixin(
   SbbReadonlyMixin(SbbFormAssociatedMixin(SbbElement)),
 ) {
+  public static override readonly elementName: string = 'sbb-slider';
   public static override readonly role = 'slider';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {

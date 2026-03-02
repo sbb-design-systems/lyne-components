@@ -1,5 +1,5 @@
 import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
 import { SbbLanguageController } from '../core/controllers.ts';
@@ -20,9 +20,8 @@ import '../divider.ts';
  * @slot - Use the unnamed slot to add `sbb-checkbox-panel` or `sbb-radio-button-panel` elements to the `sbb-selection-expansion-panel`.
  * @slot content - Use this slot to provide custom content for the panel (optional).
  */
-export
-@customElement('sbb-selection-expansion-panel')
-class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(SbbElement) {
+export class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-selection-expansion-panel';
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {

@@ -1,5 +1,5 @@
 import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbElement } from '../core/base-elements.ts';
@@ -22,12 +22,11 @@ import style from './skiplink-list.scss?lit&inline';
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export
-@customElement('sbb-skiplink-list')
-class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
+export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
   SbbBlockLinkElement | SbbBlockLinkButtonElement,
   typeof SbbElement
 >(SbbElement) {
+  public static override readonly elementName: string = 'sbb-skiplink-list';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = ['sbb-block-link', 'sbb-block-link-button'];
 

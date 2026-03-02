@@ -1,5 +1,5 @@
 import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
@@ -46,11 +46,10 @@ export interface SbbChipInputTokenEndEventDetails<T = string> {
  * @slot - Use the unnamed slot to add `sbb-chip` elements.
  * @overrideType value - (T = string[]) | null
  */
-export
-@customElement('sbb-chip-group')
-class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
+export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
   SbbDisabledMixin(SbbNegativeMixin(SbbFormAssociatedMixin(SbbElement))),
 ) {
+  public static override readonly elementName: string = 'sbb-chip-group';
   public static override readonly role = 'listbox';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {

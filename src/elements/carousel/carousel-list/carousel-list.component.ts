@@ -1,7 +1,6 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { isArrowKeyPressed } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
@@ -19,9 +18,8 @@ import style from './carousel-list.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-carousel-item` elements.
  */
-export
-@customElement('sbb-carousel-list')
-class SbbCarouselListElement extends SbbElement {
+export class SbbCarouselListElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-carousel-list';
   public static override styles: CSSResultGroup = style;
 
   private _currentIndex = 0;

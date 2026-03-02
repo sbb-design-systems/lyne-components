@@ -1,5 +1,5 @@
 import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
@@ -17,12 +17,11 @@ import style from './navigation-list.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the `sbb-navigation-list`.
  * @slot label - Use this to provide a label element.
  */
-export
-@customElement('sbb-navigation-list')
-class SbbNavigationListElement extends SbbNamedSlotListMixin<
+export class SbbNavigationListElement extends SbbNamedSlotListMixin<
   SbbNavigationButtonElement | SbbNavigationLinkElement,
   typeof SbbElement
 >(SbbElement) {
+  public static override readonly elementName: string = 'sbb-navigation-list';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = [
     'sbb-navigation-button',

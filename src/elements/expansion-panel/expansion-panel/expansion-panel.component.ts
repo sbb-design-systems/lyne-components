@@ -1,5 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -21,9 +21,8 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to add a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` element.
  */
-export
-@customElement('sbb-expansion-panel')
-class SbbExpansionPanelElement extends SbbElement {
+export class SbbExpansionPanelElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-expansion-panel';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     beforeopen: 'beforeopen',

@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyDeclaration, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
 import { isLean } from '../core/dom.ts';
@@ -19,11 +19,10 @@ import style from './toggle-check.scss?lit&inline';
  * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  * @overrideType value - (T = string) | null
  */
-export
-@customElement('sbb-toggle-check')
-class SbbToggleCheckElement<T = string> extends SbbIconNameMixin(
+export class SbbToggleCheckElement<T = string> extends SbbIconNameMixin(
   SbbFormAssociatedCheckboxMixin(SbbElement),
 ) {
+  public static override readonly elementName: string = 'sbb-toggle-check';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Value of the form element. */

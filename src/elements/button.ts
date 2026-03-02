@@ -1,6 +1,4 @@
-/**
- * @entrypoint
- */
+/** @entrypoint */
 export * from './button/button.ts';
 export * from './button/secondary-button.ts';
 export * from './button/accent-button.ts';

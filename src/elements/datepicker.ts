@@ -1,6 +1,4 @@
-/**
- * @entrypoint
- */
+/** @entrypoint */
 export * from './datepicker/datepicker.ts';
 export * from './datepicker/datepicker-next-day.ts';
 export * from './datepicker/datepicker-previous-day.ts';

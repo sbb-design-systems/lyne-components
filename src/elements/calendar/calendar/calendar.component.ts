@@ -7,7 +7,7 @@ import {
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.ts';
@@ -130,9 +130,8 @@ export type CalendarView = 'day' | 'month' | 'year';
  *
  * @slot - Use the unnamed slot to add customized `sbb-calendar-day` elements.
  */
-export
-@customElement('sbb-calendar')
-class SbbCalendarElement<T = Date> extends SbbElement {
+export class SbbCalendarElement<T = Date> extends SbbElement {
+  public static override readonly elementName: string = 'sbb-calendar';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     dateselected: 'dateselected',

@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
 import { SbbLanguageController } from '../core/controllers.ts';
@@ -17,9 +17,8 @@ import '../timetable-occupancy-icon.ts';
 /**
  * Used in `sbb-timetable-row`, it displays information about wagon occupancy.
  */
-export
-@customElement('sbb-timetable-occupancy')
-class SbbTimetableOccupancyElement extends SbbNegativeMixin(SbbElement) {
+export class SbbTimetableOccupancyElement extends SbbNegativeMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-timetable-occupancy';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Occupancy for first class wagons. */

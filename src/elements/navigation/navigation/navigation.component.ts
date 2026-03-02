@@ -7,7 +7,7 @@ import {
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbFocusTrapController } from '../../core/a11y.ts';
@@ -46,9 +46,8 @@ const DEBOUNCE_TIME = 150;
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export
-@customElement('sbb-navigation')
-class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
+export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
+  public static override readonly elementName: string = 'sbb-navigation';
   public static override readonly role = 'navigation';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 

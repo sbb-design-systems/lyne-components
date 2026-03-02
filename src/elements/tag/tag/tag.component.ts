@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbButtonLikeBaseElement } from '../../core/base-elements.ts';
 import { forceType, getOverride, omitEmptyConverter } from '../../core/decorators.ts';
@@ -26,11 +26,10 @@ export type SbbTagSize = 's' | 'm';
  * @slot amount - Provide an amount to show it at the component end.
  * @overrideType value - (T = string) | null
  */
-export
-@customElement('sbb-tag')
-class SbbTagElement<T = string> extends SbbIconNameMixin(
+export class SbbTagElement<T = string> extends SbbIconNameMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonLikeBaseElement),
 ) {
+  public static override readonly elementName: string = 'sbb-tag';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     input: 'input',

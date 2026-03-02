@@ -1,5 +1,4 @@
 import type { CSSResultGroup } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { boxSizingStyles } from '../../core/styles.ts';
 import { linkListBaseStyle, SbbLinkListBaseElement } from '../common.ts';
@@ -12,9 +11,8 @@ import style from './link-list-anchor.scss?lit&inline';
  * @slot - Use the unnamed slot to add one or more `sbb-block-link`.
  * @slot title - Use this slot to provide a title.
  */
-export
-@customElement('sbb-link-list-anchor')
-class SbbLinkListAnchorElement extends SbbLinkListBaseElement {
+export class SbbLinkListAnchorElement extends SbbLinkListBaseElement {
+  public static override readonly elementName: string = 'sbb-link-list-anchor';
   public static override styles: CSSResultGroup = [boxSizingStyles, linkListBaseStyle, style];
 }
 

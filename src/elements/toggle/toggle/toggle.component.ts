@@ -1,5 +1,5 @@
 import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { interactivityChecker } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
@@ -22,9 +22,10 @@ import style from './toggle.scss?lit&inline';
  * @slot - Use the unnamed slot to add `<sbb-toggle-option>` elements to the toggle.
  * @overrideType value - (T = string) | null
  */
-export
-@customElement('sbb-toggle')
-class SbbToggleElement<T = string> extends SbbDisabledMixin(SbbFormAssociatedMixin(SbbElement)) {
+export class SbbToggleElement<T = string> extends SbbDisabledMixin(
+  SbbFormAssociatedMixin(SbbElement),
+) {
+  public static override readonly elementName: string = 'sbb-toggle';
   public static override readonly role = 'radiogroup';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {

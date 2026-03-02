@@ -1,6 +1,4 @@
-/**
- * @entrypoint
- */
+/** @entrypoint */
 export * from './seat-reservation/common.ts';
 export * from './seat-reservation/seat-reservation.ts';
 export * from './seat-reservation/seat-reservation-area.ts';

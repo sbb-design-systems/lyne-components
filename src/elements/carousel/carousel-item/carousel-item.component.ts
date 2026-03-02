@@ -1,6 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 
@@ -17,9 +16,8 @@ export type SbbCarouselItemEventDetail = {
  * @event {CustomEvent<SbbCarouselItemEventDetail>} beforeshow - Event emitted when the item is starting scrolling.
  * @event {CustomEvent<SbbCarouselItemEventDetail>} show - Event emitted when the item is full visible after scrolling.
  */
-export
-@customElement('sbb-carousel-item')
-class SbbCarouselItemElement extends SbbElement {
+export class SbbCarouselItemElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-carousel-item';
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     beforeshow: 'beforeshow',

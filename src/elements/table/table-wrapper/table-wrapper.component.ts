@@ -1,6 +1,6 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
@@ -13,9 +13,8 @@ import style from './table-wrapper.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add the table.
  */
-export
-@customElement('sbb-table-wrapper')
-class SbbTableWrapperElement extends SbbNegativeMixin(SbbElement) {
+export class SbbTableWrapperElement extends SbbNegativeMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-table-wrapper';
   public static override readonly role = 'section';
   public static override styles: CSSResultGroup = style;
 

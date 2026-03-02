@@ -8,7 +8,7 @@ import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { format, isValid } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime.ts';
 import type { Leg } from '../core/timetable.ts';
@@ -37,9 +37,8 @@ export interface InterfaceSbbJourneySummaryAttributes {
  *
  * @slot content - Use this slot to add `sbb-button`s or other interactive elements.
  */
-export
-@customElement('sbb-journey-summary')
-class SbbJourneySummaryElement extends SbbElement {
+export class SbbJourneySummaryElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-journey-summary';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**  The trip prop */

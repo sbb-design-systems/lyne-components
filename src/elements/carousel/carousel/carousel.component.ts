@@ -1,7 +1,7 @@
 import type { PropertyValues } from '@lit/reactive-element';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers/language-controller.ts';
@@ -29,9 +29,8 @@ import style from './carousel.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add the `sbb-carousel-list` for content and a `sbb-paginator` for controls.
  */
-export
-@customElement('sbb-carousel')
-class SbbCarouselElement extends SbbElement {
+export class SbbCarouselElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-carousel';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

@@ -1,6 +1,4 @@
-/**
- * @entrypoint
- */
+/** @entrypoint */
 export * from './eventing/composed-path-has-attribute.ts';
 export * from './eventing/event-target.ts';
 export * from './eventing/form-element-handlers.ts';

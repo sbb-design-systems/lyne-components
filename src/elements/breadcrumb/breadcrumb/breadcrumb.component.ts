@@ -1,5 +1,4 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbLinkBaseElement } from '../../core/base-elements.ts';
@@ -14,9 +13,8 @@ import style from './breadcrumb.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the breadcrumb.
  * @slot icon - Use this to display an icon as breadcrumb.
  */
-export
-@customElement('sbb-breadcrumb')
-class SbbBreadcrumbElement extends SbbIconNameMixin(SbbLinkBaseElement) {
+export class SbbBreadcrumbElement extends SbbIconNameMixin(SbbLinkBaseElement) {
+  public static override readonly elementName: string = 'sbb-breadcrumb';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override renderTemplate(): TemplateResult {

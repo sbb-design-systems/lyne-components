@@ -1,6 +1,4 @@
-/**
- * @entrypoint
- */
+/** @entrypoint */
 export * from './card/card.ts';
 export * from './card/card-badge.ts';
 export * from './card/card-button.ts';

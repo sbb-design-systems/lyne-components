@@ -1,6 +1,6 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { state } from 'lit/decorators.js';
 
 import {
   getNextElementIndex,
@@ -25,12 +25,11 @@ const MIN_BREADCRUMBS_TO_COLLAPSE = 3;
  *
  * @slot - Use the unnamed slot to add `sbb-breadcrumb` elements.
  */
-export
-@customElement('sbb-breadcrumb-group')
-class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
+export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
   SbbBreadcrumbElement,
   typeof SbbElement
 >(SbbElement) {
+  public static override readonly elementName: string = 'sbb-breadcrumb-group';
   public static override readonly role = 'navigation';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = ['sbb-breadcrumb'];

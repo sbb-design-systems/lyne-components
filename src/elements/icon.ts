@@ -1,6 +1,4 @@
-/**
- * @entrypoint
- */
+/** @entrypoint */
 export * from './icon/icon.component.ts';
 export * from './icon/icon-base.ts';
 export * from './icon/icon-request.ts';

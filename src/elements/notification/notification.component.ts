@@ -1,6 +1,6 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
 import { SbbLanguageController } from '../core/controllers.ts';
@@ -36,9 +36,8 @@ const DEBOUNCE_TIME = 150;
  * @cssprop [--sbb-notification-margin=0] - Can be used to modify the margin in order to get a smoother animation.
  * See style section for more information.
  */
-export
-@customElement('sbb-notification')
-class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbElement)) {
+export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbElement)) {
+  public static override readonly elementName: string = 'sbb-notification';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     beforeopen: 'beforeopen',

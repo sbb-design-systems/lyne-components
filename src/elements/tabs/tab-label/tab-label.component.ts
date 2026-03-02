@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -22,9 +22,8 @@ import style from './tab-label.scss?lit&inline';
  * @slot icon - Use this slot to display an icon to the left of the title, by providing the `sbb-icon` component.
  * @slot amount - Provide a number to show an amount to the right of the title.
  */
-export
-@customElement('sbb-tab-label')
-class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbElement)) {
+export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbElement)) {
+  public static override readonly elementName: string = 'sbb-tab-label';
   public static override role = 'tab';
   public static override styles: CSSResultGroup = [boxSizingStyles, tabLabelCommonStyles, style];
 

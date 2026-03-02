@@ -1,6 +1,4 @@
-/**
- * @entrypoint
- */
+/** @entrypoint */
 export * from './testing/event-spy.ts';
 export * from './testing/mocha-extensions.ts';
 export * from './testing/wait-for-condition.ts';

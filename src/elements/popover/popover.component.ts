@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyDeclaration, PropertyValues, TemplateResult } from 'lit';
 import { html, isServer, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
@@ -420,9 +420,8 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export
-@customElement('sbb-popover')
-class SbbPopoverElement extends SbbPopoverBaseElement {
+export class SbbPopoverElement extends SbbPopoverBaseElement {
+  public static override readonly elementName: string = 'sbb-popover';
   /** Whether the close button should be hidden. */
   @forceType()
   @property({ attribute: 'hide-close-button', type: Boolean, reflect: true })

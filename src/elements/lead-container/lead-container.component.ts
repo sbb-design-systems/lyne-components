@@ -1,5 +1,4 @@
 import { type CSSResultGroup, html, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
 import { boxSizingStyles } from '../core/styles.ts';
@@ -14,9 +13,8 @@ import style from './lead-container.scss?lit&inline';
  * `sbb-image`, `img` and `picture` elements are supported.
  * For other elements the aspect ratio has to be set manually.
  */
-export
-@customElement('sbb-lead-container')
-class SbbLeadContainerElement extends SbbElement {
+export class SbbLeadContainerElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-lead-container';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override render(): TemplateResult {

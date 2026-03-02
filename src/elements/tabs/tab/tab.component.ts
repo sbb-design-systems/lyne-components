@@ -1,7 +1,6 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import type { SbbTabGroupElement } from '../tab-group/tab-group.component.ts';
@@ -17,9 +16,8 @@ let nextId = 0;
  * @slot - Use the unnamed slot to provide content.
  * @event {Event} active - The `active` event fires when the sbb-tab has been activated via user selection on the sbb-tab-label.
  */
-export
-@customElement('sbb-tab')
-class SbbTabElement extends SbbElement {
+export class SbbTabElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-tab';
   public static override role = 'tabpanel';
   public static override styles: CSSResultGroup = style;
   public static readonly events = {

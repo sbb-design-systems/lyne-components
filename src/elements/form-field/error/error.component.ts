@@ -1,6 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { SbbNegativeMixin } from '../../core/mixins.ts';
@@ -16,9 +15,8 @@ let nextId = 0;
  * @slot - Use this slot to display the error message.
  * @slot icon - Use this slot to override the default error icon.
  */
-export
-@customElement('sbb-error')
-class SbbErrorElement extends SbbNegativeMixin(SbbElement) {
+export class SbbErrorElement extends SbbNegativeMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-error';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public override connectedCallback(): void {

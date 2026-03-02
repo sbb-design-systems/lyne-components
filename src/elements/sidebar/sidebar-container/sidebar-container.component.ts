@@ -1,5 +1,4 @@
 import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { ɵstateController } from '../../core/mixins.ts';
@@ -20,9 +19,8 @@ const MIN_WIDTH_BEFORE_COLLAPSE = 320;
  *
  * @slot - Use the unnamed slot to add `sbb-sidebar` and `sbb-sidebar-content` elements.
  */
-export
-@customElement('sbb-sidebar-container')
-class SbbSidebarContainerElement extends SbbElement {
+export class SbbSidebarContainerElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-sidebar-container';
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     sidebarContainerCommonStyle,

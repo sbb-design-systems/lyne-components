@@ -1,6 +1,5 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers.ts';
@@ -25,9 +24,8 @@ export type SbbStepValidateEventDetails = {
  *
  * @slot - Use the unnamed slot to provide content.
  */
-export
-@customElement('sbb-step')
-class SbbStepElement extends SbbElement {
+export class SbbStepElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-step';
   public static override readonly role = 'tabpanel';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {

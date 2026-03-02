@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.ts';
 import { forceType } from '../core/decorators.ts';
@@ -29,9 +29,8 @@ const sizeToLevel: Map<JourneyHeaderSize, SbbTitleLevel> = new Map<
 /**
  * Combined with the `sbb-journey-summary`, it displays the journey's detail.
  */
-export
-@customElement('sbb-journey-header')
-class SbbJourneyHeaderElement extends SbbNegativeMixin(SbbTitleBase) {
+export class SbbJourneyHeaderElement extends SbbNegativeMixin(SbbTitleBase) {
+  public static override readonly elementName: string = 'sbb-journey-header';
   public static override styles: CSSResultGroup = [boxSizingStyles, SbbTitleBase.styles, style];
 
   /** Origin location for the journey header. */

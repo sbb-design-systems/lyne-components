@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
 import { boxSizingStyles } from '../core/styles.ts';
@@ -30,9 +30,8 @@ export type SbbStatusType =
  * @cssprop [--sbb-status-text-color=var(--sbb-status-color)] - Specify a custom text color,
  * which will override the predefined color for any type. Only valid for a status without a title.
  */
-export
-@customElement('sbb-status')
-class SbbStatusElement extends SbbIconNameMixin(SbbElement) {
+export class SbbStatusElement extends SbbIconNameMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-status';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private readonly _statusTypes: Map<SbbStatusType, string> = new Map([

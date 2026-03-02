@@ -33,9 +33,10 @@ export class SbbElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
    *   Defaults to the global `customElements` instance.
    */
   public static define(customElementRegistry: CustomElementRegistry = customElements): void {
-    if (!customElementRegistry.get(this.elementName)) {
+    const elementClass = customElementRegistry.get(this.elementName);
+    if (!elementClass) {
       customElementRegistry.define(this.elementName, this as unknown as CustomElementConstructor);
-    } else if (import.meta.env.DEV) {
+    } else if (import.meta.env.DEV && elementClass !== this) {
       console.warn(
         `The custom element with name "${this.elementName}" is already defined. Skipping.`,
       );
@@ -98,6 +99,7 @@ export class SbbElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
       this._controllers?.forEach((controller) =>
         controller.hostPropertyUpdate?.(name, values, options),
       );
+      // TODO: Ausprobieren
       if (options && values.value !== values.oldValue) {
         if (!options.type || options.type === String) {
           this.internals.states.delete(`${name.toString()}-${values.oldValue}`);

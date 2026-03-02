@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyDeclaration } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { miniButtonStyle } from '../../button/common.ts';
 import { idReference } from '../../core/decorators.ts';
@@ -11,9 +11,8 @@ import type { SbbDatepickerElement } from '../datepicker.ts';
 /**
  * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.
  */
-export
-@customElement('sbb-datepicker-toggle')
-class SbbDatepickerToggleElement<T = Date> extends SbbDatepickerButtonBase<T> {
+export class SbbDatepickerToggleElement<T = Date> extends SbbDatepickerButtonBase<T> {
+  public static override readonly elementName: string = 'sbb-datepicker-toggle';
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     miniButtonStyle,

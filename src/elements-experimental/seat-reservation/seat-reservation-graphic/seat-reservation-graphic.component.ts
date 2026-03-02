@@ -4,7 +4,7 @@ import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { type CSSResultGroup, isServer, type TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation, mapIconToSvg } from '../common.ts';
@@ -16,9 +16,8 @@ import '@sbb-esta/lyne-elements/icon.js';
 /**
  * Output one of the SVG graphics based on its code.
  */
-export
-@customElement('sbb-seat-reservation-graphic')
-class SbbSeatReservationGraphicElement extends SbbElement {
+export class SbbSeatReservationGraphicElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-seat-reservation-graphic';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Name of the SVG graphic to be displayed. */

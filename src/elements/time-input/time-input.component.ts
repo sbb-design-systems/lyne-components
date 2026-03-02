@@ -1,5 +1,5 @@
 import { type CSSResultGroup, isServer } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { sbbLiveAnnouncer } from '../core/a11y.ts';
 import { SbbElement } from '../core/base-elements.ts';
@@ -27,9 +27,8 @@ interface Time {
 /**
  * Custom input for a time.
  */
-export
-@customElement('sbb-time-input')
-class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement) {
+export class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-time-input';
   public static override styles: CSSResultGroup = style;
 
   /**

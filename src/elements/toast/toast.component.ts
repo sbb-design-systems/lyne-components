@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.ts';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
@@ -36,9 +36,8 @@ const toastRefs = new Set<SbbToastElement>();
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export
-@customElement('sbb-toast')
-class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
+export class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
+  public static override readonly elementName: string = 'sbb-toast';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

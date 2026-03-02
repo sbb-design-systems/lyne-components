@@ -1,6 +1,4 @@
-/**
- * @entrypoint
- */
+/** @entrypoint */
 export * from './autocomplete-grid/autocomplete-grid.ts';
 export * from './autocomplete-grid/autocomplete-grid-button.ts';
 export * from './autocomplete-grid/autocomplete-grid-cell.ts';

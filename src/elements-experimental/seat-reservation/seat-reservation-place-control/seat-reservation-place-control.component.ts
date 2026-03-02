@@ -3,7 +3,7 @@ import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { type CSSResultGroup, html, nothing, type TemplateResult, type PropertyValues } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common.ts';
@@ -16,9 +16,8 @@ import style from './seat-reservation-place-control.scss?lit&inline';
 /**
  * Output the graphic of a seat or a bicycle place as a control element.
  */
-export
-@customElement('sbb-seat-reservation-place-control')
-class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
+export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
+  public static override readonly elementName: string = 'sbb-seat-reservation-place-control';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     selectplace: 'selectplace',

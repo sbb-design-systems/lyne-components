@@ -1,6 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers.ts';
@@ -13,9 +12,8 @@ import style from './expansion-panel-content.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the `sbb-expansion-panel`.
  */
-export
-@customElement('sbb-expansion-panel-content')
-class SbbExpansionPanelContentElement extends SbbElement {
+export class SbbExpansionPanelContentElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-expansion-panel-content';
   public static override readonly role = 'region';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 

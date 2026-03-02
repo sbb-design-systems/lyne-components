@@ -1,6 +1,4 @@
-/**
- * @entrypoint
- */
+/** @entrypoint */
 export * from './mixins/animation-complete-mixin.ts';
 export * from './mixins/constructor.ts';
 export * from './mixins/disabled-mixin.ts';

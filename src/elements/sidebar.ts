@@ -1,6 +1,4 @@
-/**
- * @entrypoint
- */
+/** @entrypoint */
 export * from './sidebar/common.ts';
 export * from './sidebar/sidebar.ts';
 export * from './sidebar/sidebar-close-button.ts';

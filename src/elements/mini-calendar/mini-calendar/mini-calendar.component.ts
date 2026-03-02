@@ -1,7 +1,7 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
@@ -20,9 +20,8 @@ import style from './mini-calendar.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-mini-calendar-month` elements.
  */
-export
-@customElement('sbb-mini-calendar')
-class SbbMiniCalendarElement<T = Date> extends SbbElement {
+export class SbbMiniCalendarElement<T = Date> extends SbbElement {
+  public static override readonly elementName: string = 'sbb-mini-calendar';
   public static override styles: CSSResultGroup = style;
 
   /** The orientation of days in the calendar. */

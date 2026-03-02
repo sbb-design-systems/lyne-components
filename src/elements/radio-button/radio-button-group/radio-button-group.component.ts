@@ -1,7 +1,7 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
@@ -24,9 +24,8 @@ let nextId = 0;
  * @slot error - Use this to provide a `sbb-error` to show an error message.
  * @overrideType value - (T = string) | null
  */
-export
-@customElement('sbb-radio-button-group')
-class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(SbbElement) {
+export class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-radio-button-group';
   public static override readonly role = 'radiogroup';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {

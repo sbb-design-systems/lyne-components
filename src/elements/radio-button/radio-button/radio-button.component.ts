@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { getOverride } from '../../core/decorators.ts';
@@ -22,9 +22,10 @@ import radioButtonStyle from './radio-button.scss?lit&inline';
  * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  * @overrideType value - (T = string) | null
  */
-export
-@customElement('sbb-radio-button')
-class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonElementMixin(SbbElement) {
+export class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonElementMixin(
+  SbbElement,
+) {
+  public static override readonly elementName: string = 'sbb-radio-button';
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     radioButtonCommonStyle,

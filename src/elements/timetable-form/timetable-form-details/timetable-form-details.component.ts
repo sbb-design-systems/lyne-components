@@ -1,6 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 
@@ -11,9 +10,8 @@ import style from './timetable-form-details.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add content to the details section.
  */
-export
-@customElement('sbb-timetable-form-details')
-class SbbTimetableFormDetailsElement extends SbbElement {
+export class SbbTimetableFormDetailsElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-timetable-form-details';
   public static override styles: CSSResultGroup = style;
 
   protected override render(): TemplateResult {

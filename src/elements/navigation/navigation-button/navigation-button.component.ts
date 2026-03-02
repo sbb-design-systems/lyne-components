@@ -1,5 +1,3 @@
-import { customElement } from 'lit/decorators.js';
-
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import { SbbNavigationActionCommonElementMixin } from '../common.ts';
 
@@ -8,11 +6,11 @@ import { SbbNavigationActionCommonElementMixin } from '../common.ts';
  *
  * @slot - Use the unnamed slot to add content to the `sbb-navigation-button`.
  */
-export
-@customElement('sbb-navigation-button')
-class SbbNavigationButtonElement extends SbbNavigationActionCommonElementMixin(
+export class SbbNavigationButtonElement extends SbbNavigationActionCommonElementMixin(
   SbbButtonBaseElement,
-) {}
+) {
+  public static override readonly elementName: string = 'sbb-navigation-button';
+}
 
 declare global {
   interface HTMLElementTagNameMap {

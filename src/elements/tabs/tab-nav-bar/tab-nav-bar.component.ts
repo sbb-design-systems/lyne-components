@@ -1,6 +1,6 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { isLean } from '../../core/dom/lean-context.ts';
@@ -15,9 +15,8 @@ import style from './tab-nav-bar.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add anchors.
  */
-export
-@customElement('sbb-tab-nav-bar')
-class SbbTabNavBarElement extends SbbNamedSlotListMixin(SbbElement) {
+export class SbbTabNavBarElement extends SbbNamedSlotListMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-tab-nav-bar';
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     tabLabelCommonStyles,

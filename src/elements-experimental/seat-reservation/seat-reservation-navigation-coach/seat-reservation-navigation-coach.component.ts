@@ -4,7 +4,7 @@ import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation } from '../common/translations.ts';
@@ -20,9 +20,8 @@ export type SelectCoachEventDetails = number;
 /**
  * This component will display the navigation coach item for Seat reservation.
  */
-export
-@customElement('sbb-seat-reservation-navigation-coach')
-class SbbSeatReservationNavigationCoachElement extends SbbElement {
+export class SbbSeatReservationNavigationCoachElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-seat-reservation-navigation-coach';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     selectcoach: 'selectcoach',

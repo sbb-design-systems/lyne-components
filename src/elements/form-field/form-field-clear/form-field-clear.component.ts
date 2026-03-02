@@ -1,6 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { miniButtonStyle } from '../../button/common.ts';
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
@@ -15,9 +14,8 @@ import '../../icon.ts';
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
  */
-export
-@customElement('sbb-form-field-clear')
-class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
+export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
+  public static override readonly elementName: string = 'sbb-form-field-clear';
   public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle];
 
   private _formField?: SbbFormFieldElement | null;

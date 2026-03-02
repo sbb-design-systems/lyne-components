@@ -3,7 +3,6 @@ import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.js';
 import { html, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -35,9 +34,8 @@ import '../seat-reservation-scoped.ts';
  * Main component for the seat reservation.
  *
  */
-export
-@customElement('sbb-seat-reservation')
-class SbbSeatReservationElement extends SeatReservationBaseElement {
+export class SbbSeatReservationElement extends SeatReservationBaseElement {
+  public static override readonly elementName: string = 'sbb-seat-reservation';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private _language = new SbbLanguageController(this);

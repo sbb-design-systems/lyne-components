@@ -1,5 +1,4 @@
 import { type CSSResultGroup, html, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers.ts';
@@ -19,9 +18,8 @@ let nextId = 0;
  * @slot - Use the unnamed slot to provide a label.
  * @slot icon - Use this to display an icon in the label bubble.
  */
-export
-@customElement('sbb-step-label')
-class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
+export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
+  public static override readonly elementName: string = 'sbb-step-label';
   public static override readonly role = 'tab';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 

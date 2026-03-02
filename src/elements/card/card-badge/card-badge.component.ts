@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
@@ -13,9 +13,8 @@ import style from './card-badge.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the badge.
  *   Content parts should be wrapped in `<span>` tags to achieve correct spacings.
  */
-export
-@customElement('sbb-card-badge')
-class SbbCardBadgeElement extends SbbElement {
+export class SbbCardBadgeElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-card-badge';
   public static override readonly role = 'text';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 

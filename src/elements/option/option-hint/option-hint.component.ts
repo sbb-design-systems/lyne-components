@@ -1,6 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { SbbNegativeMixin } from '../../core/mixins.ts';
@@ -13,9 +12,8 @@ import style from './option-hint.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to display the hint message.
  */
-export
-@customElement('sbb-option-hint')
-class SbbOptionHintElement extends SbbNegativeMixin(SbbElement) {
+export class SbbOptionHintElement extends SbbNegativeMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-option-hint';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   protected override render(): TemplateResult {

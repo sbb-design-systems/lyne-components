@@ -1,5 +1,4 @@
 import { type CSSResultGroup, html, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import type { SbbCardBadgeElement } from '../card.ts';
 import type { SbbCheckboxPanelElement } from '../checkbox/checkbox-panel.ts';
@@ -17,9 +16,8 @@ import style from './selection-action-panel.scss?lit&inline';
  * @slot - Use this slot to render a `sbb-checkbox-panel` or `sbb-radio-button-panel` element and the action element.
  * @slot badge - Use this slot to render a `sbb-card-badge` component.
  */
-export
-@customElement('sbb-selection-action-panel')
-class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbElement) {
+export class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-selection-action-panel';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public override connectedCallback(): void {

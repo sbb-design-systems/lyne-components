@@ -3,16 +3,15 @@ import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import style from './seat-reservation-area.scss?lit&inline';
 
 /**
  * Visualize an area with a special meaning within a wagon.
  */
-export
-@customElement('sbb-seat-reservation-area')
-class SbbSeatReservationAreaElement extends SbbElement {
+export class SbbSeatReservationAreaElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-seat-reservation-area';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Mounting Prop */

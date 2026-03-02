@@ -1,5 +1,5 @@
 import { type CSSResultGroup, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
@@ -23,9 +23,8 @@ import style from './file-selector-dropzone.scss?lit&inline';
  *
  * @slot error - Use this to provide a `sbb-error` to show an error message.
  */
-export
-@customElement('sbb-file-selector-dropzone')
-class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElementMixin(SbbElement) {
+export class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElementMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-file-selector-dropzone';
   public static override styles: CSSResultGroup = [boxSizingStyles, fileSelectorCommonStyle, style];
   public static readonly events = {
     filechanged: 'filechanged',

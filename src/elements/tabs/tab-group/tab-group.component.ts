@@ -1,7 +1,7 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
@@ -32,9 +32,8 @@ export type SbbTabChangedEventDetails = {
  * @slot - Use the unnamed slot to add content to the `sbb-tab-group` via `sbb-tab-label` and `sbb-tab` instances.
  * @event {CustomEvent<SbbTabChangedEventDetails>} tabchange - The tabchange event is dispatched when a tab is selected.
  */
-export
-@customElement('sbb-tab-group')
-class SbbTabGroupElement extends SbbElement {
+export class SbbTabGroupElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-tab-group';
   public static override styles: CSSResultGroup = [boxSizingStyles, tabGroupCommonStyles, style];
   public static readonly events = {
     tabchange: 'tabchange',

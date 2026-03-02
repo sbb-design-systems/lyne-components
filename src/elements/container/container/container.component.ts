@@ -1,5 +1,5 @@
 import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
@@ -15,9 +15,8 @@ import style from './container.scss?lit&inline';
  * @slot sticky-bar - The slot used by the sbb-sticky-bar component.
  * @slot image - The slot used to slot an `sbb-image` to use as background.
  */
-export
-@customElement('sbb-container')
-class SbbContainerElement extends SbbElement {
+export class SbbContainerElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-container';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Whether the container is expanded. */

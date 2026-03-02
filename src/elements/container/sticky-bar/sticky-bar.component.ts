@@ -1,6 +1,6 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { isLean, isZeroAnimationDuration } from '../../core/dom.ts';
@@ -22,9 +22,8 @@ type StickyState = 'sticking' | 'sticky' | 'unsticking' | 'unsticky';
  * @cssprop [--sbb-sticky-bar-z-index] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable.
  */
-export
-@customElement('sbb-sticky-bar')
-class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElement) {
+export class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-sticky-bar';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public static readonly events = {

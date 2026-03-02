@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
 import { forceType } from '../core/decorators.ts';
@@ -16,9 +16,8 @@ export type SbbSignetProtectiveRoom = SbbProtectiveRoom | 'panel';
  *
  * @cssprop [--sbb-signet-height=auto] - Can be used to set the height of the signet.
  */
-export
-@customElement('sbb-signet')
-class SbbSignetElement extends SbbElement {
+export class SbbSignetElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-signet';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Visual protective room around signet. */

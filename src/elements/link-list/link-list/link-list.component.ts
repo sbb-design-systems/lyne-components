@@ -1,5 +1,5 @@
 import type { CSSResultGroup } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
@@ -13,9 +13,8 @@ import style from './link-list.scss?lit&inline';
  * @slot - Use the unnamed slot to add one or more `sbb-block-link`.
  * @slot title - Use this slot to provide a title.
  */
-export
-@customElement('sbb-link-list')
-class SbbLinkListElement extends SbbLinkListBaseElement {
+export class SbbLinkListElement extends SbbLinkListBaseElement {
+  public static override readonly elementName: string = 'sbb-link-list';
   public static override styles: CSSResultGroup = [boxSizingStyles, linkListBaseStyle, style];
 
   /** Selected breakpoint from which the list is rendered horizontally. */

@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
 import { forceType, handleDistinctChange } from '../core/decorators.ts';
@@ -18,9 +18,8 @@ import style from './accordion.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-expansion-panel` elements.
  */
-export
-@customElement('sbb-accordion')
-class SbbAccordionElement extends SbbElement {
+export class SbbAccordionElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-accordion';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

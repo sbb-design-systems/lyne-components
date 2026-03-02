@@ -3,7 +3,6 @@ import { ɵstateController } from '@sbb-esta/lyne-elements/core/mixins.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option.js';
 import type { CSSResultGroup, PropertyValues } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import style from './autocomplete-grid-option.scss?lit&inline';
 
@@ -18,9 +17,8 @@ export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
  * when preserve-icon-space on autocomplete is not set or iconName is not set.
  * @overrideType value - T = string
  */
-export
-@customElement('sbb-autocomplete-grid-option')
-class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<T> {
+export class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<T> {
+  public static override readonly elementName: string = 'sbb-autocomplete-grid-option';
   public static override readonly role = 'gridcell';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 

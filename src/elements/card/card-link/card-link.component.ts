@@ -1,5 +1,3 @@
-import { customElement } from 'lit/decorators.js';
-
 import { SbbLinkBaseElement } from '../../core/base-elements.ts';
 import { SbbCardActionCommonElementMixin } from '../common.ts';
 
@@ -9,9 +7,8 @@ import { SbbCardActionCommonElementMixin } from '../common.ts';
  * @slot - Use the unnamed slot to add a descriptive label / title of the link (important!).
  *   This is relevant for SEO and screen readers.
  */
-export
-@customElement('sbb-card-link')
-class SbbCardLinkElement extends SbbCardActionCommonElementMixin(SbbLinkBaseElement) {
+export class SbbCardLinkElement extends SbbCardActionCommonElementMixin(SbbLinkBaseElement) {
+  public static override readonly elementName: string = 'sbb-card-link';
   protected override actionRole: 'link' | 'button' = 'link';
 }
 

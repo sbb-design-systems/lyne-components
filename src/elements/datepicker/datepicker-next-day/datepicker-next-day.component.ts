@@ -1,5 +1,4 @@
 import type { CSSResultGroup } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { miniButtonStyle } from '../../button/common.ts';
 import { i18nNextDay, i18nSelectNextDay } from '../../core/i18n.ts';
@@ -9,9 +8,8 @@ import { datepickerButtonStyle, SbbDatepickerButton } from '../common.ts';
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date ahead.
  */
-export
-@customElement('sbb-datepicker-next-day')
-class SbbDatepickerNextDayElement<T = Date> extends SbbDatepickerButton<T> {
+export class SbbDatepickerNextDayElement<T = Date> extends SbbDatepickerButton<T> {
+  public static override readonly elementName: string = 'sbb-datepicker-next-day';
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     miniButtonStyle,

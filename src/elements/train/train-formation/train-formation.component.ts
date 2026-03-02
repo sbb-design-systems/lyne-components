@@ -1,5 +1,5 @@
 import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -25,11 +25,11 @@ interface AggregatedSector {
  * @slot - Use the unnamed slot to add 'sbb-train' elements to the `sbb-train-formation`.
  * @cssprop [--sbb-train-formation-padding-inline=0px] - Defines the inline padding inside the horizontal scrolling area.
  */
-export
-@customElement('sbb-train-formation')
-class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, typeof SbbElement>(
-  SbbElement,
-) {
+export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
+  SbbTrainElement,
+  typeof SbbElement
+>(SbbElement) {
+  public static override readonly elementName: string = 'sbb-train-formation';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = ['sbb-train'];
 

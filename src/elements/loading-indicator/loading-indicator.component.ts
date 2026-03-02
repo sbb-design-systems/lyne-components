@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
 import { boxSizingStyles } from '../core/styles.ts';
@@ -10,9 +10,8 @@ import style from './loading-indicator.scss?lit&inline';
 /**
  * It displays a loading indicator.
  */
-export
-@customElement('sbb-loading-indicator')
-class SbbLoadingIndicatorElement extends SbbElement {
+export class SbbLoadingIndicatorElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-loading-indicator';
   public static override readonly role = 'progressbar';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 

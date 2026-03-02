@@ -1,7 +1,6 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
@@ -14,9 +13,8 @@ import style from './flip-card-details.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to provide any kind of content.
  */
-export
-@customElement('sbb-flip-card-details')
-class SbbFlipCardDetailsElement extends SbbElement {
+export class SbbFlipCardDetailsElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-flip-card-details';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   public constructor() {

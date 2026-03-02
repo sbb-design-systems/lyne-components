@@ -6,7 +6,7 @@ import {
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
 import type { SbbChipGroupElement } from '../../chip.ts';
@@ -77,9 +77,8 @@ export class SbbFormFieldControlEvent extends Event {
  * @cssprop [--sbb-form-field-outline-offset] - To override the focus outline offset,
  * @cssprop [--sbb-form-field-focus-underline-z-index] - To override the z-index of the focus underline effect,
  */
-export
-@customElement('sbb-form-field')
-class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
+export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-form-field';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   // List of elements that should not focus input on click

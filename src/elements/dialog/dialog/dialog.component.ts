@@ -1,6 +1,6 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
@@ -33,9 +33,8 @@ let nextId = 0;
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export
-@customElement('sbb-dialog')
-class SbbDialogElement extends SbbOverlayBaseElement {
+export class SbbDialogElement extends SbbOverlayBaseElement {
+  public static override readonly elementName: string = 'sbb-dialog';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Backdrop click action. */

@@ -7,7 +7,7 @@ import {
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import {
   IS_FOCUSABLE_QUERY,
@@ -46,9 +46,8 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to add content into the `sbb-navigation-section`.
  */
-export
-@customElement('sbb-navigation-section')
-class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
+export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
+  public static override readonly elementName: string = 'sbb-navigation-section';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

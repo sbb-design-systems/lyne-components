@@ -1,5 +1,5 @@
 import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
@@ -20,11 +20,10 @@ import '../../screen-reader-only.ts';
  * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  * @overrideType value - (T = string) | null
  */
-export
-@customElement('sbb-radio-button-panel')
-class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
+export class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   SbbRadioButtonCommonElementMixin(SbbUpdateSchedulerMixin(SbbElement)),
 ) {
+  public static override readonly elementName: string = 'sbb-radio-button-panel';
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     radioButtonCommonStyle,

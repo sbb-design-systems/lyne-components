@@ -5,7 +5,6 @@ import { ɵstateController } from '@sbb-esta/lyne-elements/core/mixins.js';
 import { setAriaComboBoxAttributes } from '@sbb-esta/lyne-elements/core/overlay.js';
 import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.js';
 import type { SbbOptGroupElement, SbbOptionHintElement } from '@sbb-esta/lyne-elements/option.js';
-import { customElement } from 'lit/decorators.js';
 
 import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.ts';
 import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.ts';
@@ -28,9 +27,8 @@ const ariaRoleOnHost = isSafari;
  * @cssprop [--sbb-options-panel-max-height] - Maximum height of the options panel.
  * If the calculated remaining space is smaller, the value gets ignored.
  */
-export
-@customElement('sbb-autocomplete-grid')
-class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<T> {
+export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<T> {
+  public static override readonly elementName: string = 'sbb-autocomplete-grid';
   public static override readonly role = ariaRoleOnHost ? 'grid' : null;
   protected overlayId = `sbb-autocomplete-grid-${++nextId}`;
   protected panelRole = 'grid';

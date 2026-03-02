@@ -4,7 +4,7 @@ import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { getI18nSeatReservation } from '../common.ts';
 
@@ -17,9 +17,8 @@ import style from './seat-reservation-navigation-services.scss?lit&inline';
  * Component displays the available service icons of one coach.
  *
  */
-export
-@customElement('sbb-seat-reservation-navigation-services')
-class SbbSeatReservationNavigationServicesElement extends SbbElement {
+export class SbbSeatReservationNavigationServicesElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-seat-reservation-navigation-services';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Coach service property ids, which are used to display the services in the navigation */

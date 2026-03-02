@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -18,9 +18,8 @@ import style from './alert-group.scss?lit&inline';
  * @slot - Use the unnamed slot to add `sbb-alert` elements to the `sbb-alert-group`.
  * @slot accessibility-title - title for this `sbb-alert-group` which is only visible for screen reader users.
  */
-export
-@customElement('sbb-alert-group')
-class SbbAlertGroupElement extends SbbElement {
+export class SbbAlertGroupElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-alert-group';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     empty: 'empty',
