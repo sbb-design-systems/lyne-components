@@ -4,8 +4,8 @@
   display: block;
   height: fit-content;
   grid-area: close-button;
-  margin-inline: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
-  inset-inline-end: var(--sbb-spacing-fixed-4x);
+  margin-inline: var(--sbb-dialog-close-button-margin-inline);
+  inset-inline-end: var(--sbb-dialog-close-button-inset-inline-end);
 
   // We have to center the button vertically to the title text.
   margin-block-start: calc(
