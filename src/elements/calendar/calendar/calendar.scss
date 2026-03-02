@@ -8,7 +8,6 @@
 
   --sbb-calendar-cell-size: #{sbb.px-to-rem-build(40)};
   --sbb-calendar-hover-shift: #{sbb.px-to-rem-build(1)};
-  --sbb-calendar-wide-cell-size: #{sbb.px-to-rem-build(70)};
   --sbb-calendar-header-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   --sbb-calendar-cell-background-color: transparent;
   --sbb-calendar-cell-background-color-hover: var(--sbb-background-color-3);
@@ -37,12 +36,9 @@
   --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(44)};
   --sbb-calendar-control-view-change-color: var(--sbb-color-3);
   --sbb-calendar-control-view-change-background: var(--sbb-background-color-1);
-  --sbb-calendar-cell-year-month-width: #{sbb.px-to-rem-build(77)};
-  --sbb-calendar-cell-year-month-height: #{sbb.px-to-rem-build(44)};
 
   @include sbb.mq($from: small) {
     --sbb-calendar-cell-size: #{sbb.px-to-rem-build(44)};
-    --sbb-calendar-wide-cell-size: #{sbb.px-to-rem-build(77)};
     --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(48)};
   }
 }
@@ -78,12 +74,13 @@
 
 .sbb-calendar__controls-change-date {
   @include sbb.button-reset;
-  @include sbb.text-s--regular;
 
   display: flex;
   align-items: center;
   margin: auto;
   height: var(--sbb-calendar-control-view-change-height);
+  font-size: var(--sbb-text-font-size-s);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   text-transform: capitalize;
   cursor: var(--sbb-cursor-pointer);
   padding-inline: var(--sbb-spacing-fixed-5x) var(--sbb-spacing-fixed-2x);
@@ -251,17 +248,14 @@
   text-align: center;
 }
 
-// FIXME: check whether is possible to avoid using z-index rules
-.sbb-calendar__header-cell,
-.sbb-calendar__cell {
+.sbb-calendar__header-cell {
   @include sbb.button-reset;
-  @include sbb.text-s--regular;
 
+  font-size: var(--sbb-text-font-size-xs);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   height: var(--sbb-calendar-cell-size);
-  color: var(--sbb-calendar-cell-color);
+  color: var(--sbb-calendar-header-color);
   cursor: var(--sbb-cursor-pointer);
-  position: relative;
-  z-index: 0;
 
   &::before {
     content: '';
@@ -318,43 +312,12 @@
   }
 }
 
-.sbb-calendar__header-cell {
-  @include sbb.text-xs--regular;
-
-  color: var(--sbb-calendar-header-color);
-}
-
-.sbb-calendar__cell {
-  height: var(--sbb-calendar-cell-year-month-height);
-  width: var(--sbb-calendar-cell-year-month-width);
-}
-
 .sbb-calendar__weekday {
   width: var(--sbb-calendar-cell-size);
 }
 
 .sbb-calendar__day-cell {
   padding-block-end: var(--sbb-calendar-cell-padding-block-end);
-}
-
-.sbb-calendar__crossed-out::after {
-  content: '';
-  height: var(--sbb-calendar-cell-disabled-height);
-  width: var(--sbb-calendar-cell-disabled-width);
-  position: absolute;
-  background-color: var(--sbb-calendar-cell-disabled-color);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-.sbb-calendar__cell-current {
-  @include sbb.text-s--bold;
-}
-
-.sbb-calendar__selected::before {
-  border: var(--sbb-calendar-cell-selected-border);
-  border-radius: var(--sbb-calendar-cell-border-radius);
 }
 
 sbb-calendar-day {
