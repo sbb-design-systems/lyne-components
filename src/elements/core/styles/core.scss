@@ -82,6 +82,9 @@ $theme: 'standard' !default;
   expansion-panel-header with (
   $theme: $theme
 );
+@use '../../file-selector/common/file-selector.global' as file-selector with (
+  $theme: $theme
+);
 @use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
   $theme: $theme
 );
@@ -137,6 +140,7 @@ $theme: 'standard' !default;
   @include expansion-panel.base;
   @include expansion-panel-content.base;
   @include expansion-panel-header.base;
+  @include file-selector.base;
   @include radio-button-common.base;
   @include radio-button-group.base;
   @include selection-action-panel.base;

@@ -1,0 +1,11 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-file-selector-color: var(--sbb-color-2);
+  --sbb-file-selector-subtitle-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+  --sbb-file-selector-background-color: var(--sbb-background-color-1);
+  --sbb-file-selector-border-color: var(--sbb-border-color-4-inverted);
+  --sbb-file-selector-transition-easing-function: var(--sbb-animation-easing);
+}
