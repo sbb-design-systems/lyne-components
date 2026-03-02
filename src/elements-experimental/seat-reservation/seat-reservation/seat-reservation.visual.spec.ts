@@ -31,7 +31,7 @@ describe('sbb-seat-reservation', () => {
   // Standard visual diff states to be tested;
   // own states array because the visual-regression-snapshot.ts constant "visualDiffStandardStates"
   // includes more than we need
-  const visualDiffStandardStates = [visualDiffDefault, visualDiffFocus] as const;
+  const seatReservationVisualStates = [visualDiffDefault, visualDiffFocus] as const;
 
   describeViewports({ viewports: ['small', 'large', 'ultra'] }, () => {
     describeEach(
@@ -53,7 +53,7 @@ describe('sbb-seat-reservation', () => {
           );
         });
 
-        for (const state of visualDiffStandardStates) {
+        for (const state of seatReservationVisualStates) {
           it(
             `Train ${state.name}`,
             state.with((setup) => {
@@ -83,7 +83,7 @@ describe('sbb-seat-reservation', () => {
           );
         });
 
-        for (const state of visualDiffStandardStates) {
+        for (const state of seatReservationVisualStates) {
           it(
             `Bus ${state.name}`,
             state.with((setup) => {
