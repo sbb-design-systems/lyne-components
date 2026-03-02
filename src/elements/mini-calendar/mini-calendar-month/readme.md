@@ -29,9 +29,9 @@ The `orientation` value of the `sbb-mini-calendar` parent controls the component
 
 ## Properties
 
-| Name   | Attribute | Privacy | Type     | Default | Description                     |
-| ------ | --------- | ------- | -------- | ------- | ------------------------------- |
-| `date` | `date`    | public  | `string` | `''`    | Date as ISO string (YYYY-MM-DD) |
+| Name   | Attribute | Privacy | Type     | Default | Description                  |
+| ------ | --------- | ------- | -------- | ------- | ---------------------------- |
+| `date` | `date`    | public  | `string` | `''`    | Date as ISO string (YYYY-MM) |
 
 ## Slots
 
