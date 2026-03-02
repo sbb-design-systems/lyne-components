@@ -1,0 +1,13 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin rules {
+  sbb-dialog-title {
+    // Hide margin on the right side. Distance to button is defined by flex gap already.
+    sbb-dialog:has(> sbb-dialog-close-button) > &,
+    sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-close-button) > * > & {
+      padding-inline-end: 0;
+    }
+  }
+}
