@@ -1,6 +1,13 @@
 import { html } from 'lit';
 
 import {
+  cancelledLeg,
+  futureLeg,
+  longFutureLeg,
+  pastLeg,
+  progressLeg,
+} from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.private.ts';
+import {
   describeViewports,
   visualDiffActive,
   visualDiffDefault,
@@ -10,7 +17,6 @@ import {
 import '../../button.ts';
 import '../../checkbox.ts';
 import '../../clock.ts';
-import '../../container.ts';
 import '../../link.ts';
 import '../../loading-indicator.ts';
 import '../../loading-indicator-circle.ts';
@@ -20,6 +26,7 @@ import '../../signet.ts';
 import '../../slider.ts';
 import '../../teaser-hero.ts';
 import '../../toggle-check.ts';
+import '../../../elements-experimental/pearl-chain/pearl-chain.component.ts';
 
 import './safety-theme.scss';
 
@@ -97,6 +104,22 @@ describe(`sbb-safety`, () => {
               html`<sbb-clock now="12:12:12"></sbb-clock><br />
                 <sbb-logo></sbb-logo><br />
                 <sbb-signet></sbb-signet>`,
+              {
+                darkMode,
+              },
+            );
+          }),
+        );
+
+        it(
+          `pearl-chain`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-pearl-chain
+                .legs=${[pastLeg, progressLeg, longFutureLeg, cancelledLeg, futureLeg]}
+                .now=${new Date('2022-12-05T12:11:00')}
+                disable-animation
+              ></sbb-pearl-chain> `,
               {
                 darkMode,
               },
