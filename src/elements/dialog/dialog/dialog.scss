@@ -28,11 +28,6 @@
   --sbb-dialog-block-start-box-shadow: var(--_sbb-dialog-block-shadow);
 }
 
-:host(:state(bottom-shadow)) {
-  --sbb-dialog-block-end-box-shadow: var(--_sbb-dialog-block-shadow);
-  --sbb-dialog-actions-border-color: transparent;
-}
-
 :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
   display: block;
 }
@@ -69,6 +64,11 @@
   --sbb-dialog-actions-border-color: var(--sbb-background-color-4-negative);
   --sbb-dialog-backdrop-color: var(--sbb-background-color-3-negative);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+}
+
+:host(:state(bottom-shadow)) {
+  --sbb-dialog-block-end-box-shadow: var(--_sbb-dialog-block-shadow);
+  --sbb-dialog-actions-border-color: transparent;
 }
 
 :host(:not(:state(state-closed))) {
