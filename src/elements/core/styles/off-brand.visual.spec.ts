@@ -1,6 +1,13 @@
 import { html } from 'lit';
 
 import {
+  cancelledLeg,
+  futureLeg,
+  longFutureLeg,
+  pastLeg,
+  progressLeg,
+} from '../../../elements-experimental/pearl-chain/pearl-chain.sample-data.private.ts';
+import {
   describeViewports,
   visualDiffActive,
   visualDiffDefault,
@@ -9,7 +16,6 @@ import {
 
 import '../../button.ts';
 import '../../checkbox.ts';
-import '../../container.ts';
 import '../../teaser-hero.ts';
 import '../../link.ts';
 import '../../loading-indicator.ts';
@@ -17,6 +23,7 @@ import '../../loading-indicator-circle.ts';
 import '../../radio-button.ts';
 import '../../slider.ts';
 import '../../toggle-check.ts';
+import '../../../elements-experimental/pearl-chain.ts';
 
 import './off-brand-theme.scss';
 
@@ -80,6 +87,22 @@ describe(`sbb-off-brand`, () => {
                 <sbb-checkbox checked>Label</sbb-checkbox><br />
                 <sbb-toggle-check checked>Label</sbb-toggle-check><br />
                 <sbb-slider></sbb-slider> `,
+              {
+                darkMode,
+              },
+            );
+          }),
+        );
+
+        it(
+          `pearl-chain`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-pearl-chain
+                .legs=${[pastLeg, progressLeg, longFutureLeg, cancelledLeg, futureLeg]}
+                .now=${new Date('2022-12-05T12:11:00')}
+                disable-animation
+              ></sbb-pearl-chain> `,
               {
                 darkMode,
               },
