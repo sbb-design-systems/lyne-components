@@ -35,7 +35,6 @@ const themeDecorator = makeDecorator({
   parameterName: 'theme',
   skipIfNoParametersOrOptions: false,
   wrapper: (getStory, context) => {
-    console.log('eeeee', context.globals.theme);
     const selectedTheme = context.globals.theme as 'standard' | 'off-brand' | 'safety' | 'lean';
 
     themeStyleSheet?.replaceSync(themeMap[selectedTheme]);
