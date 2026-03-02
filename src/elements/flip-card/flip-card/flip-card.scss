@@ -103,8 +103,8 @@
     inset-inline-start: var(--sbb-flip-card-inset);
     inset-block-end: var(--sbb-flip-card-inset);
     background-color: light-dark(var(--sbb-color-midnight), var(--sbb-color-iron));
-    width: var(--sbb-flip-card-dimensions);
-    height: var(--sbb-flip-card-dimensions);
+    width: var(--sbb-flip-card-button-dimensions);
+    height: var(--sbb-flip-card-button-dimensions);
 
     // Use this large border radius to improve the appearance of the expanding dark background.
     border-radius: #{sbb.px-to-rem-build(256)};

@@ -6,7 +6,7 @@ $theme: 'standard' !default;
   --sbb-flip-card-background-color: var(--sbb-background-color-4);
   --sbb-flip-card-border: var(--sbb-border-width-2x);
   --sbb-flip-card-border-radius: var(--sbb-border-radius-4x);
-  --sbb-flip-card-dimensions: var(--sbb-size-element-xs);
+  --sbb-flip-card-button-dimensions: var(--sbb-button-min-height-size-s);
   --sbb-flip-card-gap: var(--sbb-spacing-responsive-xs);
   --sbb-flip-card-inset: var(--sbb-spacing-responsive-s);
   --sbb-flip-card-min-height: #{sbb.px-to-rem-build(280)};
