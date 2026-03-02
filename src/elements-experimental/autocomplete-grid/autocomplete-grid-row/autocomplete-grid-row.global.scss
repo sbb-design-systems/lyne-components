@@ -2,7 +2,6 @@ $theme: 'standard' !default;
 
 @mixin base {
   --sbb-autocomplete-grid-row-color: var(--sbb-color-3);
-  --sbb-autocomplete-grid-row-background-color: inherit;
   --sbb-autocomplete-grid-row-background-color-hover: var(--sbb-background-color-3);
   --sbb-autocomplete-grid-row-disabled-border-color: light-dark(
     var(--sbb-color-graphite),

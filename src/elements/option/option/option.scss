@@ -2,6 +2,9 @@
 
 :host {
   display: block;
+  background-color: var(--sbb-option-background-color);
+  font-size: var(--sbb-option-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 }
 
 :host(:state(negative)) {
@@ -61,13 +64,7 @@
   }
 }
 
-.sbb-option__container {
-  background-color: var(--sbb-option-background-color);
-}
-
 .sbb-option {
-  font-size: var(--sbb-option-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
   position: relative;
   display: flex;
   min-height: var(--sbb-option-min-height);

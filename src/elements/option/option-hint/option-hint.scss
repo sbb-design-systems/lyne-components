@@ -5,6 +5,8 @@
   column-gap: var(--sbb-option-hint-column-gap);
   padding-inline: var(--sbb-option-hint-padding-inline);
   padding-block-end: var(--sbb-option-hint-padding-block-end);
+  font-size: var(--sbb-option-hint-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 }
 
 :host([negative]) {
@@ -18,8 +20,6 @@
 }
 
 .sbb-option-hint {
-  font-size: var(--sbb-option-hint-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
   color: var(--sbb-option-hint-color);
   -webkit-text-fill-color: var(--sbb-option-hint-color);
   flex-grow: 1;

@@ -43,7 +43,7 @@
   justify-content: var(--sbb-autocomplete-grid-row-justify-content);
   gap: var(--sbb-spacing-fixed-6x);
   color: var(--sbb-autocomplete-grid-row-color);
-  background-color: var(--sbb-autocomplete-grid-row-background-color);
+  background-color: var(--sbb-autocomplete-grid-row-background-color, inherit);
   cursor: var(--sbb-autocomplete-grid-row-cursor);
   -webkit-tap-highlight-color: transparent;
   -webkit-text-fill-color: var(--sbb-autocomplete-grid-row-color);

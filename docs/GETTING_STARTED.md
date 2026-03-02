@@ -26,6 +26,8 @@ Select your technology to get started.
 
    ```css
    @import 'node_modules/@sbb-esta/lyne-elements/standard-theme.css';
+
+   /** If you are using experimental components */
    @import 'node_modules/@sbb-esta/lyne-elements-experimental/standard-theme.css';
    ```
 
@@ -67,6 +69,8 @@ Select your technology to get started.
 
    ```css
    @import 'node_modules/@sbb-esta/lyne-elements/standard-theme.css';
+
+   /** If you are using experimental components */
    @import 'node_modules/@sbb-esta/lyne-elements-experimental/standard-theme.css';
    ```
 
@@ -76,7 +80,9 @@ Select your technology to get started.
      ...
      "styles": [
        "src/styles.scss",
-       "node_modules/@sbb-esta/lyne-elements/standard-theme.css"
+       "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
+
+       /** If you are using experimental components */
        "node_modules/@sbb-esta/lyne-elements-experimental/standard-theme.css"
      ],
      ...
@@ -130,6 +136,8 @@ bootstrapApplication(App).catch((err) => console.error(err));
 
    ```css
    @import '~@sbb-esta/lyne-elements/standard-theme.css';
+
+   /** If you are using experimental components */
    @import '~@sbb-esta/lyne-elements-experimental/standard-theme.css';
    ```
 
