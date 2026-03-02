@@ -7,9 +7,9 @@
     var(--sbb-bar-container-background-color) var(--sbb-bar-container-background-bar-height) 100%
   );
 
-  @include sbb.page-spacing;
+  @include sbb.grid;
 
-  display: block;
+  gap: 0 var(--sbb-grid-base-gutter-responsive);
   background: var(--sbb-bar-container-background);
   padding-block: var(--sbb-bar-container-padding-block);
 }
@@ -19,6 +19,13 @@
 }
 
 ::slotted(:is(sbb-link, sbb-block-link):first-child) {
-  display: inline-block;
+  width: fit-content;
   margin-block-end: var(--sbb-spacing-fixed-4x);
+
+  // Reserve the first row for the link.
+  grid-area: 1 / 1 / 1 / -1;
+}
+
+::slotted(*) {
+  grid-column: 1 / -1;
 }

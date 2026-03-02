@@ -21,7 +21,7 @@ describe('sbb-bar-container', () => {
             <sbb-bar-container color=${color}>
               ${withLink
                 ? html`<sbb-block-link icon-name="arrow-left-small" href="/" negative>
-                    Zurich
+                    Back
                   </sbb-block-link>`
                 : nothing}
               <sbb-card>

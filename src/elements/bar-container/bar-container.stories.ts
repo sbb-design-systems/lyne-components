@@ -43,9 +43,30 @@ const ContentText = (): TemplateResult => html`
   </span>
 `;
 
-const Template = ({ cardColor, ...args }: Args): TemplateResult => html`
+const Template = ({ cardColor, gridAlignment, ...args }: Args): TemplateResult => html`
+  ${gridAlignment
+    ? html`
+        <style>
+          sbb-block-link,
+          sbb-card {
+            grid-column: 1/-1;
+
+            @media screen and (min-width: 64rem) {
+              grid-column: 2/-2;
+            }
+            @media screen and (min-width: 90rem) {
+              grid-column: 4/-4;
+            }
+          }
+
+          sbb-card {
+            box-shadow: var(--sbb-box-shadow-level-5-hard);
+          }
+        </style>
+      `
+    : ``}
   <sbb-bar-container ${sbbSpread(args)}>
-    <sbb-block-link icon-name="arrow-left-small" href="/" negative>Zurich</sbb-block-link>
+    <sbb-block-link icon-name="arrow-left-small" href="/" negative>Back</sbb-block-link>
     <sbb-card color=${cardColor}>${ContentText()}</sbb-card>
   </sbb-bar-container>
 `;
@@ -66,6 +87,12 @@ export const MilkCard: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, cardColor: 'milk' },
+};
+
+export const GridAlignment: StoryObj = {
+  render: Template,
+  argTypes: { ...defaultArgTypes, gridAlignment: { table: { disable: true } } },
+  args: { ...defaultArgs, gridAlignment: true },
 };
 
 const meta: Meta = {
