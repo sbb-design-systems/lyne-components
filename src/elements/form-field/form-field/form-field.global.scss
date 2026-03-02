@@ -1,0 +1,222 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-form-field-background-color: var(--sbb-background-color-1);
+  --sbb-form-field-border-color: var(--sbb-border-color-5);
+  --sbb-form-field-border-style: solid;
+  --sbb-form-field-border-radius: var(--sbb-border-radius-4x);
+  --sbb-form-field-border-width: var(--sbb-border-width-1x);
+  --sbb-form-field-color: var(--sbb-color-3);
+  --sbb-form-field-label-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-form-field-prefix-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-form-field-text-color: var(--sbb-color-3);
+  --sbb-form-field-arrow-color: var(--sbb-color-3);
+  --sbb-form-field-error-divider-width: var(--sbb-spacing-fixed-1x);
+  --sbb-form-field-error-padding-block-start: var(--sbb-form-field-error-divider-width);
+  --sbb-form-field-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-form-field-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-form-field-min-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-size-element-m),
+        'lean': var(--sbb-size-element-xs),
+      ),
+      $theme
+    )};
+  --sbb-form-field-padding-inline: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-3x),
+        'lean': var(--sbb-spacing-fixed-2x),
+      ),
+      $theme
+    )};
+  --sbb-form-field-input-text-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-text-font-size-m),
+        'lean': var(--sbb-text-font-size-s),
+      ),
+      $theme
+    )};
+  --sbb-form-field-label-text-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-text-font-size-xs),
+        'lean': var(--sbb-text-font-size-xxs),
+      ),
+      $theme
+    )};
+  --sbb-form-field-label-to-input-overlapping: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-1x),
+        'lean': #{sbb.px-to-rem-build(10)},
+      ),
+      $theme
+    )};
+  --sbb-form-field-floating-label-transform: #{sbb.theme-pattern-select(
+      (
+        'standard': #{sbb.px-to-rem-build(8.5)},
+        'lean': #{sbb.px-to-rem-build(5.5)},
+      ),
+      $theme
+    )};
+  --sbb-form-field-spacer-margin-block-end: #{sbb.theme-pattern-select(
+      (
+        'standard': calc(-1 * var(--sbb-form-field-label-to-input-overlapping)),
+        'lean': #{sbb.px-to-rem-build(-8.5)},
+      ),
+      $theme
+    )};
+
+  // As the form field has always a white background, we have to fix the focus outline color
+  // to default color for cases where the form field is used in a negative context.
+  --sbb-focus-outline-color: light-dark(
+    var(--sbb-focus-outline-color-default),
+    var(--sbb-focus-outline-color-dark)
+  );
+}
+
+@mixin base-forced-colors {
+  --sbb-form-field-border-color: ButtonBorder;
+}
+
+@mixin base-breakpoint-large {
+  --sbb-form-field-label-to-input-overlapping: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-1x),
+        'lean': #{sbb.px-to-rem-build(11)},
+      ),
+      $theme
+    )};
+  --sbb-form-field-floating-label-transform: #{sbb.theme-pattern-select(
+      (
+        'standard': #{sbb.px-to-rem-build(10.5)},
+        'lean': #{sbb.px-to-rem-build(5)},
+      ),
+      $theme
+    )};
+  --sbb-form-field-spacer-margin-block-end: #{sbb.theme-pattern-select(
+      (
+        'standard': calc(-1 * var(--sbb-form-field-label-to-input-overlapping)),
+        'lean': #{sbb.px-to-rem-build(-8)},
+      ),
+      $theme
+    )};
+}
+
+@mixin rules {
+  :is(sbb-form-field, sbb-timetable-form-field) {
+    :where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input) {
+      @include sbb.ellipsis;
+      @include sbb.input-reset;
+
+      // Use !important here to not interfere with Firefox focus ring definition
+      // which appears in normalize CSS of several frameworks.
+      outline: none !important;
+      overflow: var(--sbb-form-field-overflow, hidden);
+      width: 100%;
+      box-sizing: border-box;
+      color: var(--sbb-form-field-text-color);
+
+      // Fill color needed for Safari
+      -webkit-text-fill-color: var(--sbb-form-field-text-color);
+      opacity: 1;
+      background-color: transparent;
+
+      // To be more specific than the styles in normalize.scss we need to use !important
+      // TODO: Find a better solution
+      font-size: var(--sbb-form-field-input-text-size) !important;
+      letter-spacing: var(--sbb-form-field-input-text-letter-spacing) !important;
+      font-family: var(--sbb-typo-font-family) !important;
+      line-height: var(--sbb-typo-line-height-text) !important;
+
+      &::placeholder {
+        @include sbb.placeholder;
+      }
+    }
+
+    &[floating-label] :where(input, select, textarea, sbb-select)::placeholder,
+      // This covers the placeholder of the sbb-date-input and sbb-time-input
+    &[floating-label] :where(sbb-date-input, sbb-time-input)::after {
+      color: transparent !important;
+      -webkit-text-fill-color: transparent !important;
+
+      @include sbb.if-forced-colors {
+        color: Canvas !important;
+        -webkit-text-fill-color: Canvas !important;
+      }
+    }
+
+    // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
+    &:not([floating-label]) :where(input, select, textarea, sbb-select):disabled::placeholder {
+      color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+      -webkit-text-fill-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+    }
+
+    // Fix positioning issue for select which occurs in Safari
+    :where(select) {
+      vertical-align: middle;
+    }
+
+    :where(select, sbb-select) {
+      padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
+    }
+
+    &[size='s'] :where(input, sbb-date-input, sbb-time-input) {
+      // We shrink the input's height to support all types of inputs (especially type=number).
+      // Factor 1.25 ensures, letters are not cut.
+      height: calc(var(--sbb-form-field-input-text-size) * 1.25);
+
+      // Avoids Safari bug, where text gets misaligned with type=number
+      line-height: 1 !important;
+
+      // We add the missing block spacing to fit the line-height
+      margin-block: calc(
+        0.5 * (var(--sbb-form-field-input-text-size) * (var(--sbb-typo-line-height-text) - 1.25))
+      );
+    }
+
+    :where(textarea) {
+      @include sbb.scrollbar;
+
+      position: relative;
+      resize: none;
+
+      // White-space break needed for Firefox
+      white-space: break-spaces;
+      overflow-y: auto;
+      min-height: calc((var(--sbb-typo-line-height-text) * 1em));
+      height: 100%;
+    }
+
+    &[size='l'] :where(textarea) {
+      padding-block-end: #{sbb.px-to-rem-build(5.5)};
+    }
+
+    &[negative] :where(textarea) {
+      @include sbb.scrollbar($negative: true);
+    }
+
+    &:has(
+      :is(
+        :is(input, textarea, select):user-invalid,
+        :state(interacted):invalid,
+        .ng-touched.ng-invalid,
+        .sbb-invalid
+      )
+    ),
+    :is(.ng-submitted, .sbb-show-errors) &:has(:is(:invalid, .ng-invalid)) {
+      --sbb-form-field-border-color: var(--sbb-color-error);
+      --sbb-form-field-text-color: var(--sbb-color-error);
+
+      &[negative] {
+        --sbb-form-field-border-color: var(--sbb-color-red85);
+        --sbb-form-field-text-color: var(--sbb-color-red85);
+      }
+
+      @include sbb.if-forced-colors {
+        --sbb-form-field-border-color: LinkText !important;
+        --sbb-form-field-text-color: LinkText !important;
+      }
+    }
+  }
+}
