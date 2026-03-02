@@ -102,6 +102,24 @@ const autoActiveFirstOption: InputType = {
   },
 };
 
+const autoSelectActiveOption: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete',
+  },
+};
+
+const autoSelectActiveOptionOnBlur: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete',
+  },
+};
+
 const position: InputType = {
   control: {
     type: 'inline-radio',
@@ -199,6 +217,8 @@ const defaultArgTypes: ArgTypes = {
   // Autocomplete args
   preserveIconSpace,
   autoActiveFirstOption,
+  autoSelectActiveOption,
+  autoSelectActiveOptionOnBlur,
   position,
 
   // Option args
@@ -231,6 +251,8 @@ const defaultArgs: Args = {
   // Autocomplete args
   preserveIconSpace: true,
   autoActiveFirstOption: false,
+  autoSelectActiveOption: false,
+  autoSelectActiveOptionOnBlur: false,
   position: position.options![0],
 
   // Option args
@@ -327,6 +349,8 @@ const Template = (args: Args): TemplateResult => html`
         position=${args.position}
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
+        ?auto-select-active-option=${args.autoSelectActiveOption}
+        ?auto-select-active-option-on-blur=${args.autoSelectActiveOptionOnBlur}
       >
         ${createRows1(args.optionIconName, args.buttonIconName, args.disableOption)}
         ${createRows2(args.buttonIconName, args.disableOption)}
@@ -362,6 +386,8 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
         position=${args.position}
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
+        ?auto-select-active-option=${args.autoSelectActiveOption}
+        ?auto-select-active-option-on-blur=${args.autoSelectActiveOptionOnBlur}
       >
         <sbb-autocomplete-grid-row>
           <sbb-autocomplete-grid-option value="Current location" icon-name="gps-small"
@@ -542,6 +568,7 @@ const meta: Meta = {
         SbbAutocompleteGridElement.events.close,
         SbbAutocompleteGridElement.events.beforeclose,
         'change',
+        'input',
         'click',
         SbbAutocompleteGridOptionElement.events.optionselected,
       ],

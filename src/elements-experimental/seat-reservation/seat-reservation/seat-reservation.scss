@@ -107,9 +107,14 @@ $scrollbar-height: 16px;
     overflow: hidden scroll;
 
     .sbb-sr__parent {
-      flex-direction: row;
       rotate: 90deg;
     }
+  }
+
+  // VERTICAL MODE - TRAVEL-DIRECTION
+  .sbb-sr-travel-direction-wrapper {
+    width: sbb-sr-functions.sr-px-to-rem(var(--sbb-seat-reservation-height));
+    margin-block-start: sbb-sr-functions.sr-px-to-rem(4);
   }
 }
 
@@ -132,6 +137,21 @@ $scrollbar-height: 16px;
   display: flex;
   flex-direction: column;
   gap: calc(sbb-sr-functions.sr-px-to-rem(64) - $scrollbar-height);
+}
+
+// TRAVEL DIRECTION
+.sbb-sr-travel-direction-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: sbb-sr-functions.sr-px-to-rem(4);
+  margin-block: sbb-sr-functions.sr-px-to-rem(8) sbb-sr-functions.sr-px-to-rem(4);
+  font-size: var(--sbb-text-font-size-s);
+
+  .sbb-sr__travel-direction--arrow {
+    display: flex;
+    align-items: center;
+  }
 }
 
 // NAVIGATION NEW

@@ -17,6 +17,10 @@ import experimentalOffBrandTheme from '../src/elements-experimental/core/styles/
 import experimentalSafetyTheme from '../src/elements-experimental/core/styles/safety-theme.scss?inline';
 import experimentalStandardTheme from '../src/elements-experimental/core/styles/standard-theme.scss?inline';
 
+if (typeof Temporal !== 'object') {
+  await import('temporal-polyfill/global');
+}
+
 const themeMap = {
   standard: standardTheme.concat(experimentalStandardTheme),
   'off-brand': offBrandTheme.concat(experimentalOffBrandTheme),
@@ -153,7 +157,7 @@ const parameters: Parameters = {
     storySort: {
       // Story section order.
       // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
-      order: ['introduction', 'pages', 'elements', 'experimental', 'styles', 'internals'],
+      order: ['introduction', 'guides', 'pages', 'elements', 'experimental', 'styles', 'internals'],
     },
   },
 };

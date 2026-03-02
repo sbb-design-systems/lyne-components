@@ -23,16 +23,9 @@ describe('focusTrapController', () => {
         super();
         const shadowRoot = this.attachShadow({ mode: 'open' });
         shadowRoot.innerHTML = `
-          <span tabindex="0" id="custom-button">Button</span>
-          <span tabindex="0" id="custom-link">Link</span>
-          <div>
-            <input id="input" />
-            <button style="visibility: hidden" id="hidden-button">Button</button>
-          </div>
+          <button id="first-focusable-element">Button</button>
           <slot></slot>
-          <button id="disabled-button" disabled>Disabled button</button>
-          <span id="disabled-interactive-button" disabled-interactive tabindex="0">Disabled interactive button</span>
-          <span id="inert-button" tabindex="0" inert>Inert button</span>
+          <button id="last-focusable-element">Button</button>
       `;
       }
     },
@@ -43,7 +36,6 @@ describe('focusTrapController', () => {
     element = await fixture(html`
       <my-container-element>
         <button id="slotted-button">Button</button>
-        <span id="not-focusable"></span>
       </my-container-element>
     `);
     focusTrapController = new SbbFocusTrapController(element);
@@ -53,7 +45,7 @@ describe('focusTrapController', () => {
     const result = focusTrapController.focusFirstTabbableElement();
 
     expect(getActiveElement()?.id, 'Expected first element to be focused').to.be.equal(
-      'custom-button',
+      'first-focusable-element',
     );
     expect(result, 'Expected return value to be true if focus was shifted.').to.be.true;
   });
@@ -62,7 +54,7 @@ describe('focusTrapController', () => {
     const result = focusTrapController.focusLastTabbableElement();
 
     expect(getActiveElement()?.id, `Expected last element to be focused`).to.be.equal(
-      'disabled-interactive-button',
+      'last-focusable-element',
     );
     expect(result, 'Expected return value to be true if focus was shifted.').to.be.true;
   });
@@ -79,41 +71,17 @@ describe('focusTrapController', () => {
     expect(result).to.be.false;
   });
 
-  it('should wrap around with tabbing', async () => {
-    focusTrapController.enabled = true;
-    const firstButton = element.shadowRoot!.querySelector<HTMLElement>('#custom-button')!;
-    focusTrapController.focusInitialElement();
-
-    expect(getActiveElement()).to.equal(firstButton);
-
-    await sendKeys({ press: tabKey });
-    expect(getActiveElement()?.id).to.equal('custom-link');
-
-    await sendKeys({ press: tabKey });
-    expect(getActiveElement()?.id).to.equal('input');
-
-    await sendKeys({ press: tabKey });
-    expect(getActiveElement()?.id).to.equal('slotted-button');
-
-    await sendKeys({ press: tabKey });
-    expect(getActiveElement()?.id).to.equal('disabled-interactive-button');
-
-    // Wrap around
-    await sendKeys({ press: tabKey });
-    expect(getActiveElement()?.id).to.equal('custom-button');
-  });
-
   it('should disable focus trap', async () => {
     focusTrapController.enabled = true;
 
     // Focus last element
-    element.shadowRoot!.querySelector<HTMLElement>('#disabled-interactive-button')!.focus();
-    expect(getActiveElement()?.id).to.equal('disabled-interactive-button');
+    element.shadowRoot!.querySelector<HTMLElement>('#last-focusable-element')!.focus();
+    expect(getActiveElement()?.id).to.equal('last-focusable-element');
 
     focusTrapController.enabled = false;
 
     await sendKeys({ press: tabKey });
-    expect(getActiveElement()?.id).not.to.equal('custom-button');
+    expect(getActiveElement()?.id).not.to.equal('first-focusable-element');
   });
 
   it('should be able to set initial focus target', () => {
@@ -124,7 +92,7 @@ describe('focusTrapController', () => {
 
   it('focusInitialElement should fallback to first tabbable element', () => {
     focusTrapController.focusInitialElement();
-    expect(getActiveElement()?.id).to.be.equal('custom-button');
+    expect(getActiveElement()?.id).to.be.equal('first-focusable-element');
   });
 
   it('should be able to pass in focus options to focusInitialElement()', () => {
@@ -139,8 +107,9 @@ describe('focusTrapController', () => {
   });
 
   it('should be able to pass in focus options to focusFirstTabbableElement', () => {
-    const initialFocusedButton =
-      element.shadowRoot!.querySelector<HTMLButtonElement>('#custom-button')!;
+    const initialFocusedButton = element.shadowRoot!.querySelector<HTMLButtonElement>(
+      '#first-focusable-element',
+    )!;
 
     const options = { preventScroll: true };
     const buttonSpy = spy(initialFocusedButton, 'focus');
@@ -150,14 +119,146 @@ describe('focusTrapController', () => {
   });
 
   it('should be able to pass in focus options to focusLastTabbableElement', () => {
-    const initialFocusedButton = element.shadowRoot!.querySelector<HTMLButtonElement>(
-      '#disabled-interactive-button',
-    )!;
+    const initialFocusedButton =
+      element.shadowRoot!.querySelector<HTMLButtonElement>('#last-focusable-element')!;
 
     const options = { preventScroll: true };
     const buttonSpy = spy(initialFocusedButton, 'focus');
     focusTrapController.focusLastTabbableElement(options);
 
     expect(buttonSpy).to.have.been.calledOnceWith(options);
+  });
+
+  describe('wrap around', () => {
+    describe('shadow DOM', () => {
+      it('should wrap around to the first element when tabbing forward from the last element', async () => {
+        focusTrapController.enabled = true;
+        const button = element.shadowRoot!.querySelector<HTMLElement>('#last-focusable-element')!;
+        button.focus();
+        expect(getActiveElement()?.id).to.equal('last-focusable-element');
+
+        await sendKeys({ press: tabKey });
+        expect(getActiveElement()?.id).to.equal('first-focusable-element');
+      });
+
+      it('should wrap around to the last element when tabbing backwards from the first element', async () => {
+        focusTrapController.enabled = true;
+        const button = element.shadowRoot!.querySelector<HTMLElement>('#first-focusable-element')!;
+        button.focus();
+        expect(getActiveElement()?.id).to.equal('first-focusable-element');
+
+        await sendKeys({ press: `Shift+${tabKey}` });
+        expect(getActiveElement()?.id).to.equal('last-focusable-element');
+      });
+
+      it('should wrap around to the first element when tabbing forwards from the last element with focusable container', async () => {
+        const button = element.shadowRoot!.querySelector<HTMLElement>('#last-focusable-element')!;
+
+        const container = document.createElement('div');
+        container.tabIndex = 0;
+        container.id = 'container';
+        element.shadowRoot!.append(container);
+        element.shadowRoot!.querySelector('#container')?.appendChild(button);
+
+        focusTrapController.enabled = true;
+        element.shadowRoot!.querySelector<HTMLElement>('#first-focusable-element')!.focus();
+        expect(getActiveElement()?.id).to.equal('first-focusable-element');
+
+        await sendKeys({ press: tabKey });
+        await sendKeys({ press: tabKey });
+        expect(getActiveElement()?.id).to.equal('container');
+
+        await sendKeys({ press: tabKey });
+        expect(getActiveElement()?.id).to.equal('last-focusable-element');
+
+        await sendKeys({ press: tabKey });
+        expect(getActiveElement()?.id).to.equal('first-focusable-element');
+      });
+
+      it('should wrap around to the last element when tabbing backwards from the first element with focusable container', async () => {
+        const button = element.shadowRoot!.querySelector<HTMLElement>('#last-focusable-element')!;
+
+        const container = document.createElement('div');
+        container.tabIndex = 0;
+        container.id = 'container';
+        element.shadowRoot!.append(container);
+        element.shadowRoot!.querySelector('#container')?.appendChild(button);
+
+        focusTrapController.enabled = true;
+        element.shadowRoot!.querySelector<HTMLElement>('#first-focusable-element')!.focus();
+        expect(getActiveElement()?.id).to.equal('first-focusable-element');
+
+        await sendKeys({ press: `Shift+${tabKey}` });
+
+        expect(getActiveElement()?.id).to.equal('last-focusable-element');
+      });
+    });
+
+    describe('light DOM', () => {
+      beforeEach(() => {
+        element.shadowRoot!.querySelector<HTMLElement>('#last-focusable-element')!.remove();
+      });
+
+      it('should wrap around to the first element when tabbing forward from the last element', async () => {
+        focusTrapController.enabled = true;
+        const button = element.querySelector<HTMLElement>('#slotted-button')!;
+        button.focus();
+        expect(getActiveElement()?.id).to.equal('slotted-button');
+
+        await sendKeys({ press: tabKey });
+        expect(getActiveElement()?.id).to.equal('first-focusable-element');
+      });
+
+      it('should wrap around to the last element when tabbing backwards from the first element', async () => {
+        focusTrapController.enabled = true;
+        const button = element.shadowRoot!.querySelector<HTMLElement>('#first-focusable-element')!;
+        button.focus();
+        expect(getActiveElement()?.id).to.equal('first-focusable-element');
+
+        await sendKeys({ press: `Shift+${tabKey}` });
+        expect(getActiveElement()?.id).to.equal('slotted-button');
+      });
+
+      it('should wrap around to the first element when tabbing forwards from the last element with focusable container', async () => {
+        const button = element.querySelector<HTMLElement>('#slotted-button')!;
+
+        const container = document.createElement('div');
+        container.tabIndex = 0;
+        container.id = 'container';
+        element.append(container);
+        element.querySelector('#container')?.appendChild(button);
+
+        focusTrapController.enabled = true;
+        element.shadowRoot!.querySelector<HTMLElement>('#first-focusable-element')!.focus();
+        expect(getActiveElement()?.id).to.equal('first-focusable-element');
+
+        await sendKeys({ press: tabKey });
+        expect(getActiveElement()?.id).to.equal('container');
+
+        await sendKeys({ press: tabKey });
+        expect(getActiveElement()?.id).to.equal('slotted-button');
+
+        await sendKeys({ press: tabKey });
+        expect(getActiveElement()?.id).to.equal('first-focusable-element');
+      });
+
+      it('should wrap around to the last element when tabbing backwards from the first element with focusable container', async () => {
+        const button = element.querySelector<HTMLElement>('#slotted-button')!;
+
+        const container = document.createElement('div');
+        container.tabIndex = 0;
+        container.id = 'container';
+        element.append(container);
+        element.querySelector('#container')?.appendChild(button);
+
+        focusTrapController.enabled = true;
+        element.shadowRoot!.querySelector<HTMLElement>('#first-focusable-element')!.focus();
+        expect(getActiveElement()?.id).to.equal('first-focusable-element');
+
+        await sendKeys({ press: `Shift+${tabKey}` });
+
+        expect(getActiveElement()?.id).to.equal('slotted-button');
+      });
+    });
   });
 });

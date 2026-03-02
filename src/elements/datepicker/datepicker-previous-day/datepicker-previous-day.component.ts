@@ -4,9 +4,7 @@ import { customElement } from 'lit/decorators.js';
 import { miniButtonStyle } from '../../button/common.ts';
 import { i18nPreviousDay, i18nSelectPreviousDay } from '../../core/i18n.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbDatepickerButton } from '../common.ts';
-
-import style from './datepicker-previous-day.scss?lit&inline';
+import { datepickerButtonStyle, SbbDatepickerButton } from '../common.ts';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date back.
@@ -14,26 +12,20 @@ import style from './datepicker-previous-day.scss?lit&inline';
 export
 @customElement('sbb-datepicker-previous-day')
 class SbbDatepickerPreviousDayElement<T = Date> extends SbbDatepickerButton<T> {
-  public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle, style];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    miniButtonStyle,
+    datepickerButtonStyle,
+  ];
 
   protected iconName: string = 'chevron-small-left-small';
   protected i18nOffBoundaryDay: Record<string, string> = i18nPreviousDay;
   protected i18nSelectOffBoundaryDay = i18nSelectPreviousDay;
 
-  protected findAvailableDate(date: T): T | null {
-    let availableDate = this.dateAdapter.addCalendarDays(date, -1);
+  protected getFollowingDate(date: T): T | null {
+    const availableDate = this.dateAdapter.addCalendarDays(date, -1);
     if (this._isBeforeMinDate(availableDate)) {
       return null;
-    }
-
-    const dateFilter = this.input!.dateFilter;
-    if (dateFilter) {
-      while (!dateFilter(availableDate)) {
-        availableDate = this.dateAdapter.addCalendarDays(availableDate, -1);
-        if (this._isBeforeMinDate(availableDate)) {
-          return null;
-        }
-      }
     }
 
     return availableDate;

@@ -11,12 +11,12 @@ import type {
   VehicleType,
 } from '../types.ts';
 
+import { MOCK_COACHES_RAW_BUS } from './sample-data/seat-reservation-sample-data-bus.ts';
 import {
   MOCK_COACHE_RAW_DECK_LOWER,
   MOCK_COACHE_RAW_DECK_UPPPER,
-  MOCK_COACHES_RAW_0,
-  MOCK_COACHES_RAW_1,
-} from './seat-reservation-sample-data.ts';
+} from './sample-data/seat-reservation-sample-data-decks.ts';
+import { MOCK_COACHES_RAW_TRAIN } from './sample-data/seat-reservation-sample-data-train.ts';
 
 /**
  * Handle mock data based on vehicle type or coach deck level
@@ -29,7 +29,7 @@ function getMockData(
   coachDeckLevel: CoachDeckLevel | null,
 ): any[] {
   if (vehicleType !== null) {
-    return vehicleType === 'TRAIN' ? MOCK_COACHES_RAW_0 : MOCK_COACHES_RAW_1;
+    return vehicleType === 'TRAIN' ? MOCK_COACHES_RAW_TRAIN : MOCK_COACHES_RAW_BUS;
   } else {
     if (coachDeckLevel === 'LOWER_DECK') {
       return MOCK_COACHE_RAW_DECK_LOWER;
@@ -37,7 +37,7 @@ function getMockData(
       return MOCK_COACHE_RAW_DECK_UPPPER;
     }
   }
-  return MOCK_COACHES_RAW_0;
+  return MOCK_COACHES_RAW_TRAIN;
 }
 
 /**

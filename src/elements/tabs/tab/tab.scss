@@ -1,13 +1,17 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: none;
-
   @include sbb.ignore-children-margin;
 }
 
 :host(:focus-visible) {
   @include sbb.focus-outline;
+}
+
+:host(:not(:state(active))) {
+  // We want that a consumer can have a different display property on the tab, e.g. flex, grid, etc.
+  // But if the tab is not active, display: none should always win.
+  display: none !important;
 }
 
 :host(:state(active)) {

@@ -8,6 +8,7 @@
   background-color: var(--sbb-dialog-background-color);
   transition: box-shadow var(--sbb-animation-easing) var(--sbb-dialog-shadow-animation-duration);
   box-shadow: var(--sbb-dialog-block-end-box-shadow, none);
+  position: relative;
 
   // Horizontal line has to be absolute positioned because otherwise
   // it interferes with scroll detection of above container.
@@ -18,9 +19,8 @@
     align-self: start;
     border-block-start: var(--sbb-border-width-1x) solid var(--sbb-dialog-actions-border-color);
     transition: border-color var(--sbb-animation-easing) var(--sbb-dialog-shadow-animation-duration);
+    inset: 0 auto auto 0;
     width: 100%;
-    margin-block-start: calc(-1 * var(--sbb-dialog-padding-block));
-    margin-inline-start: calc(-1 * var(--sbb-dialog-padding-inline));
 
     @include sbb.if-forced-colors {
       border-color: CanvasText;

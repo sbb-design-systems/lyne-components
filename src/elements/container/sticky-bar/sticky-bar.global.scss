@@ -1,0 +1,17 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-sticky-bar-animation-easing: var(--sbb-animation-easing);
+  --sbb-sticky-bar-border-radius: var(--sbb-border-radius-8x);
+  --sbb-sticky-bar-padding-block: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-responsive-xs),
+        'lean': var(--sbb-spacing-responsive-xxxs),
+      ),
+      $theme
+    )};
+  --sbb-sticky-bar-position: sticky;
+  --sbb-sticky-bar-slide-vertically-animation-easing: ease-out;
+}

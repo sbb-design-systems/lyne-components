@@ -42,6 +42,13 @@ describe(`sbb-tab-group`, () => {
       expect(content.textContent).to.be.equal('Test tab content 1');
     });
 
+    it('returns all tabs via tabs getter', () => {
+      const tabs = element.tabs;
+
+      expect(tabs).to.have.lengthOf(4);
+      expect(tabs[0].textContent?.trim()).to.be.equal('Test tab content 1');
+    });
+
     it('renders initial selected index', async () => {
       const initialSelectedTab = element.querySelector(':scope > sbb-tab-label#sbb-tab-2');
 
@@ -239,5 +246,131 @@ describe(`sbb-tab-group`, () => {
     expect(secondTabLabel).to.have.attribute('active');
     expect(secondTabLabel['internals'].ariaSelected).to.be.equal('true');
     expect(element.querySelector('sbb-tab:nth-of-type(2)')).to.match(':state(active)');
+  });
+
+  describe('tab removal', () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-tab-group initial-selected-index="1">
+          <sbb-tab-label id="sbb-tab-1">Test tab label 1</sbb-tab-label>
+          <sbb-tab>Test tab content 1</sbb-tab>
+          <sbb-tab-label id="sbb-tab-2">Test tab label 2</sbb-tab-label>
+          <sbb-tab>Test tab content 2</sbb-tab>
+          <sbb-tab-label id="sbb-tab-3">Test tab label 3</sbb-tab-label>
+          <sbb-tab>Test tab content 3</sbb-tab>
+        </sbb-tab-group>`,
+      );
+    });
+
+    it('should return updated tabs list via tabs getter after removal', async () => {
+      // Initial state: 3 tabs
+      let tabs = element.tabs;
+      expect(tabs).to.have.lengthOf(3);
+      expect(tabs[0].textContent?.trim()).to.be.equal('Test tab content 1');
+      expect(tabs[1].textContent?.trim()).to.be.equal('Test tab content 2');
+      expect(tabs[2].textContent?.trim()).to.be.equal('Test tab content 3');
+
+      // Remove the second tab
+      const tabToRemove = element.querySelector<SbbTabElement>(
+        'sbb-tab-label#sbb-tab-2 + sbb-tab',
+      )!;
+      tabToRemove.remove();
+
+      await waitForLitRender(element);
+
+      // After removal: 2 tabs
+      tabs = element.tabs;
+      expect(tabs).to.have.lengthOf(2);
+      expect(tabs[0].textContent?.trim()).to.be.equal('Test tab content 1');
+      expect(tabs[1].textContent?.trim()).to.be.equal('Test tab content 3');
+
+      // Verify that removed tab is no longer in the list
+      expect(tabs.some((tab) => tab.textContent?.trim() === 'Test tab content 2')).to.be.false;
+    });
+
+    it('should activate first available tab when active tab is removed', async () => {
+      // Verify that tab 2 is initially active
+      const activeTabLabel = element.querySelector<SbbTabLabelElement>('sbb-tab-label#sbb-tab-2')!;
+      expect(activeTabLabel).to.have.attribute('active');
+      expect(activeTabLabel.tab!).to.match(':state(active)');
+
+      const changeSpy = new EventSpy(SbbTabGroupElement.events.tabchange);
+
+      // Remove the active tab and its label
+      activeTabLabel.tab!.remove();
+      activeTabLabel.remove();
+
+      await waitForLitRender(element);
+
+      // The first available tab (tab 3) should now be active
+      const newActiveTabLabel =
+        element.querySelector<SbbTabLabelElement>('sbb-tab-label#sbb-tab-3')!;
+      expect(newActiveTabLabel).to.have.attribute('active');
+
+      // The tab content should also be active
+      expect(newActiveTabLabel.tab!).to.match(':state(active)');
+
+      // A tabchange event should have been fired
+      expect(changeSpy.count).to.be.greaterThan(0);
+    });
+
+    it('should not change active tab when inactive tab is removed', async () => {
+      // First, switch to tab 2
+      const tabLabel2 = element.querySelector<SbbTabLabelElement>('sbb-tab-label#sbb-tab-2')!;
+      tabLabel2.click();
+      await waitForLitRender(element);
+
+      // Verify that tab 1 is now active
+      expect(tabLabel2).to.have.attribute('active');
+
+      const changeSpy = new EventSpy(SbbTabGroupElement.events.tabchange);
+
+      // Remove an inactive tab (tab 1) and its content
+      const inactiveTabLabel =
+        element.querySelector<SbbTabLabelElement>('sbb-tab-label#sbb-tab-1')!;
+
+      inactiveTabLabel.tab!.remove();
+      await aTimeout(0);
+      inactiveTabLabel.remove();
+
+      await waitForLitRender(element);
+      // Await throttling
+      await aTimeout(10);
+
+      // Tab 1 should still be active
+      expect(tabLabel2).to.have.attribute('active');
+      expect(tabLabel2.tab!).to.match(':state(active)');
+
+      // No tabchange event should have been fired
+      expect(changeSpy.count).to.be.equal(0);
+    });
+
+    it('should activate first available tab when active tab is removed in inverse order', async () => {
+      // Verify that tab 2 is initially active
+      const activeTabLabel = element.querySelector<SbbTabLabelElement>('sbb-tab-label#sbb-tab-2')!;
+      expect(activeTabLabel).to.have.attribute('active');
+      expect(activeTabLabel.tab!).to.match(':state(active)');
+
+      const changeSpy = new EventSpy(SbbTabGroupElement.events.tabchange);
+
+      // Remove the active tab first, then the label (inverse order)
+      const activeTab = activeTabLabel.tab!;
+      activeTab.remove();
+      await aTimeout(0);
+      activeTabLabel.remove();
+
+      await waitForLitRender(element);
+
+      // The first available tab (tab 3) should now be active
+      const newActiveTabLabel =
+        element.querySelector<SbbTabLabelElement>('sbb-tab-label#sbb-tab-3')!;
+      expect(newActiveTabLabel).to.have.attribute('active');
+
+      // The tab content should also be active
+      expect(newActiveTabLabel.tab!).to.match(':state(active)');
+
+      // A tabchange event should have been fired
+      expect(changeSpy.count).to.be.greaterThan(0);
+    });
   });
 });

@@ -178,6 +178,7 @@ export async function preloadIcons(): Promise<PreloadedIcon[]> {
       preloadedIcons.push({ namespace, icon, svg: readFileSync(iconCachePath, 'utf8') });
     } else {
       const iconUrl = `https://icons.app.sbb.ch/${namespace === 'default' ? 'icons' : namespace}/${icon}.svg`;
+      // eslint-disable-next-line no-useless-assignment
       let svg = '';
       try {
         // We want to retry once, as we noticed sometimes the icon downloads are flakey.

@@ -146,6 +146,15 @@ describe(`sbb-expansion-panel`, () => {
       await closeSpy.calledOnce();
       expect(closeSpy.count).to.be.equal(1);
     });
+
+    it('should not reserve space below the panel', async () => {
+      const header = element.querySelector('sbb-expansion-panel-header')!;
+      const tolerance = 5;
+
+      expect(Math.abs(document.body.scrollHeight - header.scrollHeight)).to.be.lessThanOrEqual(
+        tolerance,
+      );
+    });
   });
 
   describe('with nested panels', () => {

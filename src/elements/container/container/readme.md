@@ -63,6 +63,12 @@ but it's up to the consumer to correctly set the `negative` property on slotted 
 | `color`              | `color`               | public  | `'transparent' \| 'white' \| 'milk' \| 'midnight' \| 'charcoal'` | `'white'` | Color of the container, like transparent, white etc.                            |
 | `expanded`           | `expanded`            | public  | `boolean`                                                        | `false`   | Whether the container is expanded.                                              |
 
+## CSS Properties
+
+| Name                         | Default | Description                                                                                                                                               |
+| ---------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-page-spacing-padding` |         | Use this variable to override the default page spacing. Note that overriding this will disable the standard responsive spacing behavior of the container. |
+
 ## Slots
 
 | Name         | Description                                                |

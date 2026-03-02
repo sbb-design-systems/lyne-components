@@ -49,6 +49,11 @@ class SbbTabElement extends SbbElementInternalsMixin(LitElement) {
 
     this.id ||= `sbb-tab-${nextId++}`;
     this.tabIndex = 0;
+
+    // As we can't include the scrollbar mixin on the host and to minimize
+    // payload, we decided to add the scrollbar class here.
+    // This is an exception as we normally don't alter the classList of the host.
+    this.classList.add('sbb-scrollbar');
   }
 
   /** @internal */

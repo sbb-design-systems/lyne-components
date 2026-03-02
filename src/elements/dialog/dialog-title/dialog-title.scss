@@ -19,6 +19,9 @@
   display: block;
   position: absolute;
 
+  // We need to use pointer-events: none here to ensure that the title remains selectable.
+  pointer-events: none;
+
   // We have to be wider than the title to also cover a possible close button. 10 rem should be enough.
   inset: 0 -10rem 0 0;
   transition: box-shadow var(--sbb-animation-easing) var(--sbb-dialog-shadow-animation-duration);

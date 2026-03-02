@@ -1,4 +1,4 @@
-@use '../core/styles' as sbb;
+@use '../../core/styles' as sbb;
 
 :host {
   display: block;
@@ -11,9 +11,12 @@
   --sbb-calendar-wide-cell-size: #{sbb.px-to-rem-build(70)};
   --sbb-calendar-header-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   --sbb-calendar-cell-background-color: transparent;
+  --sbb-calendar-cell-background-color-hover: var(--sbb-background-color-3);
+  --sbb-calendar-cell-background-color-active: var(--sbb-background-color-4);
   --sbb-calendar-cell-padding: #{sbb.px-to-rem-build(2)};
   --sbb-calendar-cell-color: var(--sbb-color-2);
-  --sbb-calendar-cell-selected-color: var(--sbb-color-1-inverted);
+  --sbb-calendar-cell-border-radius: var(--sbb-border-radius-4x);
+  --sbb-calendar-cell-selected-border: var(--sbb-border-width-2x) solid var(--sbb-border-color-2);
   --sbb-calendar-cell-selected-background-color: var(--sbb-background-color-2-inverted);
   --sbb-calendar-cell-disabled-height: #{sbb.px-to-rem-build(1.5)};
   --sbb-calendar-cell-disabled-width: #{sbb.px-to-rem-build(25.5)};
@@ -34,12 +37,18 @@
   --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(44)};
   --sbb-calendar-control-view-change-color: var(--sbb-color-3);
   --sbb-calendar-control-view-change-background: var(--sbb-background-color-1);
+  --sbb-calendar-cell-year-month-width: #{sbb.px-to-rem-build(77)};
+  --sbb-calendar-cell-year-month-height: #{sbb.px-to-rem-build(44)};
 
   @include sbb.mq($from: small) {
     --sbb-calendar-cell-size: #{sbb.px-to-rem-build(44)};
     --sbb-calendar-wide-cell-size: #{sbb.px-to-rem-build(77)};
     --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(48)};
   }
+}
+
+:host(:state(enhanced)) {
+  --sbb-calendar-cell-padding-block-end: var(--sbb-spacing-fixed-3x);
 }
 
 .sbb-calendar__wrapper {
@@ -219,7 +228,8 @@
   text-align: center;
 }
 
-.sbb-calendar__table-header-cell {
+.sbb-calendar__table-header-cell,
+.sbb-calendar__table-header-cell-vertical {
   @include sbb.text-xs--regular;
 
   width: var(--sbb-calendar-cell-size);
@@ -231,12 +241,17 @@
   }
 }
 
+.sbb-calendar__table-header-cell-vertical {
+  padding-block-end: var(--sbb-calendar-cell-padding-block-end);
+}
+
 .sbb-calendar__table-data {
   position: relative;
   padding: 0;
   text-align: center;
 }
 
+// FIXME: check whether is possible to avoid using z-index rules
 .sbb-calendar__header-cell,
 .sbb-calendar__cell {
   @include sbb.button-reset;
@@ -253,7 +268,7 @@
     position: absolute;
     inset: var(--sbb-calendar-cell-padding);
     background-color: var(--sbb-calendar-cell-background-color);
-    border-radius: 50%;
+    border-radius: var(--sbb-calendar-cell-border-radius);
     z-index: -1;
     transition-duration: var(--sbb-calendar-cell-transition-duration);
     transition-timing-function: var(--sbb-calendar-cell-transition-easing-function);
@@ -261,8 +276,8 @@
   }
 
   @include sbb.hover-mq($hover: true) {
-    &:not(.sbb-calendar__selected, :active, :disabled):hover {
-      --sbb-calendar-cell-background-color: var(--sbb-background-color-3);
+    &:not(:active, :disabled):hover {
+      --sbb-calendar-cell-background-color: var(--sbb-calendar-cell-background-color-hover);
 
       padding-block-end: var(--sbb-calendar-hover-shift);
 
@@ -288,8 +303,8 @@
     @include sbb.focus-outline;
   }
 
-  &:not(.sbb-calendar__selected, :disabled):active {
-    --sbb-calendar-cell-background-color: var(--sbb-background-color-4);
+  &:not(:disabled):active {
+    --sbb-calendar-cell-background-color: var(--sbb-calendar-cell-background-color-active);
 
     &::before {
       @include sbb.if-forced-colors {
@@ -309,23 +324,17 @@
   color: var(--sbb-calendar-header-color);
 }
 
-.sbb-calendar__weekday,
-.sbb-calendar__day {
-  border-radius: 50%;
-  width: var(--sbb-calendar-cell-size);
-
-  &::before {
-    border-radius: 50%;
-  }
+.sbb-calendar__cell {
+  height: var(--sbb-calendar-cell-year-month-height);
+  width: var(--sbb-calendar-cell-year-month-width);
 }
 
-.sbb-calendar__pill {
-  width: var(--sbb-calendar-wide-cell-size);
-  border-radius: var(--sbb-border-radius-infinity);
+.sbb-calendar__weekday {
+  width: var(--sbb-calendar-cell-size);
+}
 
-  &::before {
-    border-radius: var(--sbb-border-radius-infinity);
-  }
+.sbb-calendar__day-cell {
+  padding-block-end: var(--sbb-calendar-cell-padding-block-end);
 }
 
 .sbb-calendar__crossed-out::after {
@@ -343,13 +352,20 @@
   @include sbb.text-s--bold;
 }
 
-.sbb-calendar__selected {
-  --sbb-calendar-cell-color: var(--sbb-calendar-cell-selected-color);
-  --sbb-calendar-cell-background-color: var(--sbb-calendar-cell-selected-background-color);
+.sbb-calendar__selected::before {
+  border: var(--sbb-calendar-cell-selected-border);
+  border-radius: var(--sbb-calendar-cell-border-radius);
+}
 
-  @include sbb.if-forced-colors {
-    --sbb-calendar-cell-background-color: ButtonText !important;
-  }
+sbb-calendar-day {
+  --sbb-calendar-day-flex-direction: row;
+  --sbb-calendar-day-justify-content: center;
+  --sbb-calendar-day-align-items: center;
+  --sbb-calendar-day-extra-display: none;
+  --sbb-calendar-day-crossed-out-top: 50%;
+  --sbb-calendar-day-crossed-out-translate: translate(-50%, -50%) rotate(-45deg);
+  --sbb-calendar-day-height: #{sbb.px-to-rem-build(44)};
+  --sbb-calendar-day-value-height: unset;
 }
 
 @keyframes show {

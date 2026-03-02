@@ -84,11 +84,11 @@ type SbbTabChangedEventDetails = {
 
 ## Methods
 
-| Name          | Privacy | Description               | Parameters         | Return | Inherited From |
-| ------------- | ------- | ------------------------- | ------------------ | ------ | -------------- |
-| `activateTab` | public  | Activates a tab by index. | `tabIndex: number` | `void` |                |
-| `disableTab`  | public  | Disables a tab by index.  | `tabIndex: number` | `void` |                |
-| `enableTab`   | public  | Enables a tab by index.   | `tabIndex: number` | `void` |                |
+| Name          | Privacy | Description               | Parameters      | Return | Inherited From |
+| ------------- | ------- | ------------------------- | --------------- | ------ | -------------- |
+| `activateTab` | public  | Activates a tab by index. | `index: number` | `void` |                |
+| `disableTab`  | public  | Disables a tab by index.  | `index: number` | `void` |                |
+| `enableTab`   | public  | Enables a tab by index.   | `index: number` | `void` |                |
 
 ## Events
 
