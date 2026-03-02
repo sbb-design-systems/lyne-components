@@ -37,7 +37,7 @@ Consumers can listen to this event to dynamically create and slot the `sbb-calen
 
 ```html
 <!-- Slot days based on the current date, or the selected one if available.-->
-<sbb-calendar-enhanced selected="2025-01-15" @monthchange="(e) => monthChangeHandler(e)">
+<sbb-calendar selected="2025-01-15" @monthchange="(e) => monthChangeHandler(e)">
   <sbb-calendar-day slot="2025-01-01">
     <span class="sbb-text-xxs my-custom-content"> 19.99 </span>
   </sbb-calendar-day>
@@ -48,7 +48,7 @@ Consumers can listen to this event to dynamically create and slot the `sbb-calen
   <sbb-calendar-day slot="2025-01-31">
     <span class="sbb-text-xxs my-custom-content"> 99.99 </span>
   </sbb-calendar-day>
-</sbb-calendar-enhanced>
+</sbb-calendar>
 ```
 
 ```ts
