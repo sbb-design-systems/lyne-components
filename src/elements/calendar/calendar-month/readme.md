@@ -1,45 +1,18 @@
-> Explain the use and the purpose of the component; add minor details if needed and provide a basic example.<br>
-> If you reference other components, link their documentation at least once (the path must start from _/docs/..._ ).<br>
-> For the examples, use triple backticks with file extension (` ```html <code here>``` `).<br>
-> The following list of paragraphs is only suggested; remove, create and adapt as needed.
-
-The `sbb-calendar-month` is a component . . .
+The `sbb-calendar-month` is an 'internal-use-only' component used to display a month button
+inside the [sbb-calendar](/docs/elements-sbb-calendar-sbb-calendar--docs) in the month view.
+The value of the year is set using the `value` property, which accepts a date in ISOString format (YYYY-MM).
 
 ```html
-<sbb-calendar-month></sbb-calendar-month>
+<sbb-calendar-year .value="2025-01"></sbb-calendar-year>
 ```
-
-## Slots
-
-> Describe slot naming and usage and provide an example of slotted content.
 
 ## States
 
-> Describe the component states (`disabled`, `readonly`, etc.) and provide examples.
+The component has a `current` state, which is set if the provided value matches the current year.
 
-## Style
-
-> Describe the properties which change the component visualization (`size`, `negative`, etc.) and provide examples.
-
-## Interactions
-
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
-
-## Events
-
-> Describe events triggered by the component and possibly how to get information from the payload.
-
-## Keyboard interaction
-
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
-
-| Keyboard       | Action        |
-| -------------- | ------------- |
-| <kbd>Key</kbd> | What it does. |
-
-## Accessibility
-
-> Describe how accessibility is implemented and if there are issues or suggested best-practice for the consumers.
+Also, it has other states based on the properties of the parent `sbb-calendar`.
+The disabled and the crossed-out states are based on the value of the `min`, `max` and `dateFilter` properties,
+while the selected matches the parent `selected` properties, including the multiple variant.
 
 <!-- Auto Generated Below -->
 
