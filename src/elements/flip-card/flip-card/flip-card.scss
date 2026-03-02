@@ -63,7 +63,6 @@
   height: 100%;
   flex-flow: wrap;
   flex-direction: column;
-  gap: var(--sbb-flip-card-gap);
   min-height: var(--sbb-flip-card-min-height);
   background-color: var(--sbb-flip-card-background-color);
   border-radius: var(--sbb-flip-card-border-radius);
@@ -100,8 +99,8 @@
     opacity: 0;
     pointer-events: none;
     position: absolute;
-    inset-inline-start: var(--sbb-flip-card-inset);
-    inset-block-end: var(--sbb-flip-card-inset);
+    inset-inline-start: var(--sbb-flip-card-padding);
+    inset-block-end: var(--sbb-flip-card-padding);
     background-color: light-dark(var(--sbb-color-midnight), var(--sbb-color-iron));
     width: var(--sbb-flip-card-button-dimensions);
     height: var(--sbb-flip-card-button-dimensions);
@@ -124,8 +123,8 @@
 
 .sbb-flip-card--toggle-button {
   position: absolute;
-  inset-inline-start: var(--sbb-flip-card-inset);
-  inset-block-end: var(--sbb-flip-card-inset);
+  inset-inline-start: var(--sbb-flip-card-padding);
+  inset-block-end: var(--sbb-flip-card-padding);
 
   :host(:state(flipped)) & {
     --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);

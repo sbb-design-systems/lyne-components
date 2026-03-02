@@ -7,7 +7,8 @@
     var(--sbb-animation-duration-5x)
   );
   --sbb-flip-card-details-padding-block-end: calc(
-    var(--sbb-spacing-responsive-s) + var(--sbb-spacing-responsive-xs) + var(--sbb-size-element-m)
+    var(--sbb-flip-card-padding) + var(--sbb-spacing-responsive-xs) +
+      var(--sbb-button-min-height-size-s)
   );
 
   display: block;
@@ -27,6 +28,6 @@
 
 .sbb-flip-card-details {
   overflow: hidden;
-  padding: var(--sbb-flip-card-details-padding);
+  padding: var(--sbb-flip-card-padding);
   padding-block-end: var(--sbb-flip-card-details-padding-block-end);
 }

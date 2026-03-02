@@ -3,7 +3,7 @@
 $theme: 'standard' !default;
 
 @mixin base {
-  --sbb-flip-card-summary-title-padding-block: var(--sbb-spacing-responsive-s)
+  --sbb-flip-card-summary-title-padding-block: var(--sbb-flip-card-padding)
     var(--sbb-spacing-responsive-xs);
-  --sbb-flip-card-summary-title-padding-inline: var(--sbb-spacing-responsive-s);
+  --sbb-flip-card-summary-title-padding-inline: var(--sbb-flip-card-padding);
 }
