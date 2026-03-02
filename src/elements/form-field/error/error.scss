@@ -1,10 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-error-color: var(--sbb-color-error);
-  --sbb-error-height: calc(var(--sbb-typo-line-height-text) * 1em);
-  --sbb-error-icon-size: #{sbb.px-to-rem-build(17)};
-
   // Overrides sbb icon
   --sbb-icon-svg-width: var(--sbb-error-icon-size);
   --sbb-icon-svg-height: var(--sbb-error-icon-size);
@@ -13,12 +9,8 @@
   align-items: flex-start;
   color: var(--sbb-error-color);
   min-height: var(--sbb-error-height);
-
-  @include sbb.text-xs--regular;
-
-  @include sbb.if-forced-colors {
-    --sbb-error-color: LinkText !important;
-  }
+  font-size: var(--sbb-error-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 }
 
 :host([negative]) {

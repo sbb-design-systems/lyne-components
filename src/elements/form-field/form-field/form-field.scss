@@ -1,30 +1,9 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: inline-block;
-  color: var(--sbb-color-3);
-
-  --sbb-form-field-background-color: var(--sbb-background-color-1);
-  --sbb-form-field-border-color: var(--sbb-border-color-5);
-  --sbb-form-field-border-style: solid;
-  --sbb-form-field-border-radius: var(--sbb-border-radius-4x);
-  --sbb-form-field-border-width: var(--sbb-border-width-1x);
-  --sbb-form-field-min-height: var(--sbb-size-element-m);
-  --sbb-form-field-label-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
-  --sbb-form-field-prefix-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
-  --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-3x);
-  --sbb-form-field-text-color: var(--sbb-color-3);
-  --sbb-form-field-arrow-color: var(--sbb-color-3);
-  --sbb-form-field-error-divider-width: var(--sbb-spacing-fixed-1x);
-  --sbb-form-field-error-padding-block-start: var(--sbb-form-field-error-divider-width);
-  --sbb-form-field-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-form-field-label-to-input-overlapping: var(--sbb-spacing-fixed-1x);
   --sbb-form-field-select-inline-padding-end: calc(
     var(--sbb-icon-svg-width) + var(--sbb-form-field-gap)
   );
-  --sbb-form-field-overflow: hidden;
-  --sbb-form-field-input-text-size: var(--sbb-text-font-size-m);
-  --sbb-form-field-label-text-size: var(--sbb-text-font-size-xs);
   --sbb-form-field-label-size: calc(
     var(--sbb-form-field-label-text-size) * var(--sbb-typo-line-height-text)
   );
@@ -40,29 +19,13 @@
       ) /
       2
   );
-  --sbb-form-field-spacer-margin-block-end: calc(
-    -1 * var(--sbb-form-field-label-to-input-overlapping)
-  );
-  --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(8.5)};
 
   // Lock sbb-icon size
-  --sbb-icon-svg-width: var(--sbb-size-icon-ui-small);
-  --sbb-icon-svg-height: var(--sbb-size-icon-ui-small);
+  --sbb-icon-svg-width: var(--sbb-form-field-icon-size);
+  --sbb-icon-svg-height: var(--sbb-form-field-icon-size);
 
-  // As the form field has always a white background, we have to fix the focus outline color
-  // to default color for cases where the form field is used in a negative context.
-  --sbb-focus-outline-color: light-dark(
-    var(--sbb-focus-outline-color-default),
-    var(--sbb-focus-outline-color-dark)
-  );
-
-  @include sbb.mq($from: large) {
-    --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(10.5)};
-  }
-
-  @include sbb.if-forced-colors {
-    --sbb-form-field-border-color: ButtonBorder;
-  }
+  display: inline-block;
+  color: var(--sbb-form-field-color);
 }
 
 :host(:where(:not([width='collapse']))) {
@@ -103,6 +66,18 @@
     --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5)};
     --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8)};
   }
+}
+
+:host([size='m']) {
+  --sbb-form-field-min-height: var(--sbb-size-element-m);
+  --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-3x);
+  --sbb-form-field-input-text-size: var(--sbb-text-font-size-m);
+  --sbb-form-field-label-text-size: var(--sbb-text-font-size-xs);
+  --sbb-form-field-label-to-input-overlapping: var(--sbb-spacing-fixed-1x);
+  --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(8.5)};
+  --sbb-form-field-spacer-margin-block-end: calc(
+    -1 * var(--sbb-form-field-label-to-input-overlapping)
+  );
 }
 
 :host([size='l']) {
@@ -341,12 +316,8 @@
   position: absolute;
   inset-block-start: 0;
   color: var(--sbb-form-field-label-color);
-
-  @include sbb.text-xs--regular;
-
-  :host([size='s']) & {
-    @include sbb.text-xxs--regular;
-  }
+  font-size: var(--sbb-form-field-label-text-size);
+  letter-spacing: var(--sbb-form-field-label-letter-spacing);
 
   :host(:where(:state(input-type-select), :state(input-type-sbb-select))) & {
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);

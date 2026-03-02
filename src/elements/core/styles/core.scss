@@ -71,6 +71,9 @@ $theme: 'standard' !default;
 @use '../../divider/divider.global' as divider with (
   $theme: $theme
 );
+@use '../../form-field/error/error.global' as error with (
+  $theme: $theme
+);
 @use '../../expansion-panel/expansion-panel/expansion-panel.global' as expansion-panel with (
   $theme: $theme
 );
@@ -80,6 +83,9 @@ $theme: 'standard' !default;
 );
 @use '../../expansion-panel/expansion-panel-header/expansion-panel-header.global' as
   expansion-panel-header with (
+  $theme: $theme
+);
+@use '../../form-field/form-field/form-field.global' as form-field with (
   $theme: $theme
 );
 @use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
@@ -134,9 +140,11 @@ $theme: 'standard' !default;
   @include sticky-bar.base;
   @include clock.base;
   @include divider.base;
+  @include error.base;
   @include expansion-panel.base;
   @include expansion-panel-content.base;
   @include expansion-panel-header.base;
+  @include form-field.base;
   @include radio-button-common.base;
   @include radio-button-group.base;
   @include selection-action-panel.base;
@@ -151,7 +159,9 @@ $theme: 'standard' !default;
     @include breadcrumb.base-forced-colors;
     @include card.base-forced-colors;
     @include card-badge.base-forced-colors;
+    @include error.base-forced-colors;
     @include expansion-panel-header.base-forced-colors;
+    @include form-field.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
     @include radio-button-common.base-forced-colors;
   }
@@ -225,6 +235,7 @@ $theme: 'standard' !default;
     @include button.base-breakpoint-large;
 
     @include chip-group.base-breakpoint-large;
+    @include form-field.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage
@@ -254,6 +265,7 @@ $theme: 'standard' !default;
 
 // Components global styles
 @include container.rules;
+@include form-field.rules;
 @include tab-nav-bar.rules;
 
 // TODO: discuss where to add these classes
@@ -280,122 +292,6 @@ html {
 // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
 ::placeholder {
   @include typo.placeholder;
-}
-
-:is(sbb-form-field, sbb-timetable-form-field) {
-  :where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input) {
-    @include typo.text-m--regular;
-    @include helpers.ellipsis;
-    @include inputs.input-reset;
-
-    // Use !important here to not interfere with Firefox focus ring definition
-    // which appears in normalize CSS of several frameworks.
-    outline: none !important;
-    overflow: var(--sbb-form-field-overflow);
-    width: 100%;
-    box-sizing: border-box;
-    color: var(--sbb-form-field-text-color);
-
-    // Fill color needed for Safari
-    -webkit-text-fill-color: var(--sbb-form-field-text-color);
-    opacity: 1;
-    background-color: transparent;
-
-    // To be more specific than the styles in normalize.scss we need to use !important
-    // TODO: Find a better solution
-    font-size: var(--sbb-form-field-input-text-size) !important;
-    font-family: var(--sbb-typo-font-family) !important;
-    line-height: var(--sbb-typo-line-height-text) !important;
-
-    &::placeholder {
-      @include typo.placeholder;
-    }
-  }
-
-  &[floating-label] :where(input, select, textarea, sbb-select)::placeholder,
-  // This covers the placeholder of the sbb-date-input and sbb-time-input
-  &[floating-label] :where(sbb-date-input, sbb-time-input)::after {
-    color: transparent !important;
-    -webkit-text-fill-color: transparent !important;
-
-    @include a11y.if-forced-colors {
-      color: Canvas !important;
-      -webkit-text-fill-color: Canvas !important;
-    }
-  }
-
-  // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
-  &:not([floating-label]) :where(input, select, textarea, sbb-select):disabled::placeholder {
-    color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
-    -webkit-text-fill-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
-  }
-
-  // Fix positioning issue for select which occurs in Safari
-  :where(select) {
-    vertical-align: middle;
-  }
-
-  :where(select, sbb-select) {
-    padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
-  }
-
-  &[size='s'] :where(input, sbb-date-input, sbb-time-input) {
-    // We shrink the input's height to support all types of inputs (especially type=number).
-    // Factor 1.25 ensures, letters are not cut.
-    height: calc(var(--sbb-form-field-input-text-size) * 1.25);
-
-    // Avoids Safari bug, where text gets misaligned with type=number
-    line-height: 1 !important;
-
-    // We add the missing block spacing to fit the line-height
-    margin-block: calc(
-      0.5 * (var(--sbb-form-field-input-text-size) * (var(--sbb-typo-line-height-text) - 1.25))
-    );
-  }
-
-  :where(textarea) {
-    @include scrollbar.scrollbar;
-
-    position: relative;
-    resize: none;
-
-    // White-space break needed for Firefox
-    white-space: break-spaces;
-    overflow-y: auto;
-    min-height: calc((var(--sbb-typo-line-height-text) * 1em));
-    height: 100%;
-  }
-
-  &[size='l'] :where(textarea) {
-    padding-block-end: #{functions.px-to-rem-build(5.5)};
-  }
-
-  &[negative] :where(textarea) {
-    @include scrollbar.scrollbar($negative: true);
-  }
-
-  &:has(
-    :is(
-      :is(input, textarea, select):user-invalid,
-      :state(interacted):invalid,
-      .ng-touched.ng-invalid,
-      .sbb-invalid
-    )
-  ),
-  :is(.ng-submitted, .sbb-show-errors) &:has(:is(:invalid, .ng-invalid)) {
-    --sbb-form-field-border-color: var(--sbb-color-error);
-    --sbb-form-field-text-color: var(--sbb-color-error);
-
-    &[negative] {
-      --sbb-form-field-border-color: var(--sbb-color-red85);
-      --sbb-form-field-text-color: var(--sbb-color-red85);
-    }
-
-    @include a11y.if-forced-colors {
-      --sbb-form-field-border-color: LinkText !important;
-      --sbb-form-field-text-color: LinkText !important;
-    }
-  }
 }
 
 // Hiding components until they are instantiated
