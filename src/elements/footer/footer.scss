@@ -1,18 +1,9 @@
 @use '../core/styles' as sbb;
 
 :host {
-  display: block;
-
-  --sbb-footer-gap-horizontal: var(--sbb-grid-base-gutter-responsive);
-  --sbb-footer-gap-vertical: var(--sbb-spacing-responsive-l);
-  --sbb-footer-background-color: var(--sbb-background-color-3);
-  --sbb-footer-clock-width: #{sbb.px-to-rem-build(76)};
-  --sbb-footer-color: light-dark(var(--sbb-color-granite), var(--sbb-color-white));
   --sbb-link-text-decoration-line: none;
 
-  @include sbb.mq($from: small) {
-    --sbb-footer-clock-width: #{sbb.px-to-rem-build(112)};
-  }
+  display: block;
 }
 
 :host([negative]) {
@@ -23,10 +14,10 @@
 
 .sbb-footer {
   // Include text style and color as fallback for paragraph texts inside the footer.
-  @include sbb.text-s--regular;
-
+  font-size: var(--sbb-footer-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   color: var(--sbb-footer-color);
-  padding-block: var(--sbb-spacing-responsive-l);
+  padding-block: var(--sbb-footer-padding-block);
   background-color: var(--sbb-footer-background-color);
 
   @include sbb.if-forced-colors {
