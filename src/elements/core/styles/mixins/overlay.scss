@@ -1,4 +1,19 @@
+@use '../core/functions';
 @use './scrollbar';
+
+@mixin options-panel-overlay-variables--global($theme: 'standard') {
+  --sbb-options-panel-border-radius: var(--sbb-border-radius-4x);
+  --sbb-options-panel-animation-timing-function: ease;
+  --sbb-options-panel-background-color: var(--sbb-background-color-1);
+  --sbb-options-panel-divider-margin-block: var(--sbb-spacing-fixed-3x);
+  --sbb-options-panel-padding-block: #{functions.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-2x),
+        'lean': var(--sbb-spacing-fixed-1x),
+      ),
+      $theme
+    )};
+}
 
 @mixin options-panel-overlay-variables {
   @include scrollbar.scrollbar-variables;
@@ -12,24 +27,15 @@
     var(--sbb-options-panel-max-height, 100000em)
   );
   --sbb-options-panel-min-height: var(--sbb-options-panel-origin-height);
-  --sbb-options-panel-visibility: visible;
-  --sbb-options-panel-width: fit-content;
-  --sbb-options-panel-border-radius: var(--sbb-border-radius-4x);
   --sbb-options-panel-options-border-radius: 0 0 var(--sbb-options-panel-border-radius)
     var(--sbb-options-panel-border-radius);
   --sbb-options-panel-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-4x)
   );
-  --sbb-options-panel-animation-timing-function: ease;
-  --sbb-options-panel-gap-fix-opacity: 0;
-  --sbb-options-panel-gap-fix-transform: none;
   --sbb-options-panel-gap-fix-top: calc(
     var(--sbb-options-panel-position-y) - var(--sbb-options-panel-border-radius)
   );
-  --sbb-options-panel-background-color: var(--sbb-background-color-1);
-  --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-2x);
-  --sbb-options-panel-divider-margin-block: var(--sbb-spacing-fixed-3x);
 
   // As the overlays have always a white background, we have to fix the focus outline color
   // to default color for cases where the overlays are used in a negative context.
@@ -53,6 +59,10 @@
   --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-1x);
 }
 
+@mixin options-panel-overlay-size-m-variables {
+  --sbb-options-panel-padding-block: var(--sbb-spacing-fixed-2x);
+}
+
 @mixin options-panel-overlay-container {
   position: fixed;
   pointer-events: none;
@@ -64,14 +74,14 @@
   display: flex;
   justify-content: space-between;
   position: fixed;
-  visibility: var(--sbb-options-panel-visibility);
-  opacity: var(--sbb-options-panel-gap-fix-opacity);
+  visibility: var(--sbb-options-panel-visibility, visible);
+  opacity: var(--sbb-options-panel-gap-fix-opacity, 0);
   background-color: transparent;
-  width: var(--sbb-options-panel-width);
+  width: var(--sbb-options-panel-width, fit-content);
   height: var(--sbb-options-panel-border-radius);
   top: var(--sbb-options-panel-gap-fix-top);
   left: var(--sbb-options-panel-position-x);
-  transform: var(--sbb-options-panel-gap-fix-transform);
+  transform: var(--sbb-options-panel-gap-fix-transform, none);
   transition: opacity var(--sbb-options-panel-animation-duration)
     var(--sbb-options-panel-animation-timing-function);
 }
@@ -79,14 +89,14 @@
 @mixin options-panel-overlay {
   display: block;
   position: absolute;
-  visibility: var(--sbb-options-panel-visibility);
+  visibility: var(--sbb-options-panel-visibility, 'visible');
   overflow: hidden;
   background-color: transparent;
   border: none;
   border-radius: var(--sbb-options-panel-border-radius);
   top: var(--sbb-options-panel-position-y);
   left: var(--sbb-options-panel-position-x);
-  width: var(--sbb-options-panel-width);
+  width: var(--sbb-options-panel-width, fit-content);
   transition: box-shadow var(--sbb-options-panel-animation-duration)
     var(--sbb-options-panel-animation-timing-function);
 
