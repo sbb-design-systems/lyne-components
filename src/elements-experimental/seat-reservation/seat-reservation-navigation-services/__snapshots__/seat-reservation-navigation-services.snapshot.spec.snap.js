@@ -16,14 +16,12 @@ snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] =
     aria-hidden="true"
     class="auto-width"
     name="BICYCLE"
-    title="Bike area"
   >
   </sbb-seat-reservation-graphic>
   <sbb-seat-reservation-graphic
     aria-hidden="true"
     class="auto-width"
     name="SILENCE"
-    title="Quiet zone"
   >
   </sbb-seat-reservation-graphic>
 </div>

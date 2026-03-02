@@ -16,7 +16,7 @@ import type {
   BaseElement,
   PlaceSelection,
   SeatReservation,
-  NavigationCoachItem,
+  CoachItemDetails,
 } from '../common.ts';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.ts';
@@ -78,6 +78,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _initVehicleSeatReservationConstruction(): void {
     this._coachesHtmlTemplate = html`
+      ${this._renderTravelDirection()}
       <div class="sbb-sr__component">
         ${this._renderNavigation()}
         <div
@@ -145,7 +146,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       btnDisabled = false;
     } else if (
       btnDirection == 'DIRECTION_RIGHT' &&
-      this.selectedCoachIndex < this.coachNavData.length - 1
+      this.selectedCoachIndex < this.coachItemDetailsElements.length - 1
     ) {
       btnDisabled = false;
     }
@@ -167,6 +168,32 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
     </div>`;
   }
 
+  private _renderTravelDirection(): TemplateResult | null {
+    if (!this.travelDirection || this.travelDirection === 'NONE') return null;
+
+    const labelText = getI18nSeatReservation(
+      'SEAT_RESERVATION_TRAVEL_DIRECTION',
+      this._language.current,
+    );
+
+    const arrowDirection = this.alignVertical
+      ? this.travelDirection === 'RIGHT'
+        ? 'down'
+        : 'up'
+      : this.travelDirection === 'RIGHT'
+        ? 'right'
+        : 'left';
+
+    const iconName = `arrow-${arrowDirection}-small`;
+
+    return html`<div class="sbb-sr-travel-direction-wrapper">
+      <div class="sbb-sr__travel-direction--arrow">
+        <sbb-icon slot="icon" name="${iconName}"></sbb-icon>
+      </div>
+      <div class="sbb-sr__travel-direction--label">${labelText}</div>
+    </div>`;
+  }
+
   private _renderNavigation(): TemplateResult | null {
     if (!this.hasNavigation || !this.seatReservations) return null;
     return html`<div class="sbb-sr-navigation-wrapper">
@@ -180,29 +207,26 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
             this._language.current,
           )}"
         >
-          ${this.coachNavData.map((navigationCoach: NavigationCoachItem, index: number) => {
-            return html`<li>
-              <sbb-seat-reservation-navigation-coach
-                @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
-                @focuscoach=${() => this._onFocusNavCoach()}
-                @keyup=${(evt: KeyboardEvent) => this.onKeyNavigationNavCoachButton(evt, index)}
-                index="${index}"
-                coach-id="${navigationCoach.id}"
-                .freePlacesByType="${navigationCoach.freePlaces}"
-                .selected=${this.selectedCoachIndex === index}
-                .focused=${this.focusedCoachIndex === index}
-                .hovered=${this.hoveredCoachIndex === index}
-                .nativeFocusActive=${this.hasSeatReservationNativeFocus}
-                .propertyIds="${navigationCoach.propertyIds}"
-                .travelClass="${navigationCoach.travelClass}"
-                ?driver-area="${navigationCoach.isDriverArea}"
-                ?first="${navigationCoach?.driverAreaSide?.left}"
-                ?last="${navigationCoach?.driverAreaSide?.right}"
-                ?vertical="${this.alignVertical}"
-              >
-              </sbb-seat-reservation-navigation-coach>
-            </li>`;
-          })}
+          ${this.coachItemDetailsElements.map(
+            (coachItemDetails: CoachItemDetails, index: number) => {
+              return html`<li>
+                <sbb-seat-reservation-navigation-coach
+                  @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
+                  @focuscoach=${() => this._onFocusNavCoach()}
+                  @keyup=${(evt: KeyboardEvent) => this.onKeyNavigationNavCoachButton(evt, index)}
+                  index="${index}"
+                  .selected=${this.selectedCoachIndex === index}
+                  .focused=${this.focusedCoachIndex === index}
+                  .hovered=${this.hoveredCoachIndex === index}
+                  .nativeFocusActive=${this.hasSeatReservationNativeFocus}
+                  .coachItemDetails="${coachItemDetails}"
+                  ?vertical="${this.alignVertical}"
+                  ?showTitleInfo="${this.showTitleInfo}"
+                >
+                </sbb-seat-reservation-navigation-coach>
+              </li>`;
+            },
+          )}
         </ul>
         ${this._renderNavigationControlButton('DIRECTION_RIGHT')}
       </nav>
@@ -252,7 +276,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
         '--sbb-seat-reservation-scoped-height': calculatedCoachDimension.h,
       })}
     >
-      ${this._getRenderedCoachBorders(coachItem)}
+      ${this._getRenderedCoachBorders(coachItem, coachIndex)}
       ${this._getRenderedGraphicalElements(
         coachItem.graphicElements || [],
         coachItem.dimension,
@@ -280,12 +304,17 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
    * @returns Returns the border graphic (COACH_BORDER_MIDDLE) of a coach with calculated border gap and coach width,
    * depending on whether the coach is with a driver area or without.
    */
-  private _getRenderedCoachBorders(coachItem: CoachItem): TemplateResult | null {
+  private _getRenderedCoachBorders(
+    coachItem: CoachItem,
+    coachIndex: number,
+  ): TemplateResult | null {
     if (!coachItem.graphicElements) return null;
 
     const COACH_PASSAGE_WIDTH = 1;
-    const allElements = coachItem.graphicElements;
-    const driverArea = allElements?.find((element: BaseElement) => element.icon === 'DRIVER_AREA');
+    const driverArea = this.coachItemDetailsElements[coachIndex]?.driverAreaElements?.driverArea;
+    const driverAreaNoVerticalWall =
+      this.coachItemDetailsElements[coachIndex]?.driverAreaElements?.driverAreaNoVerticalWall;
+
     let borderWidth = driverArea
       ? coachItem.dimension.w - driverArea.dimension.w - COACH_PASSAGE_WIDTH
       : coachItem.dimension.w - COACH_PASSAGE_WIDTH * 2;
@@ -298,6 +327,17 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
       driverArea && driverArea.position.x === 0
         ? driverArea?.dimension.w * this.baseGridSize
         : this.baseGridSize;
+
+    //recalculate the border width and offset if there is a driver area without vertical wall on both sides
+    if (driverAreaNoVerticalWall) {
+      const coachWidth = this.getCalculatedDimension(coachItem.dimension).w;
+
+      //recalculated borderWidth = coachWidth - 2 * driver area width, since the driver area is on both sides
+      borderWidth = coachWidth - 2 * (driverAreaNoVerticalWall.dimension.w * this.baseGridSize);
+
+      //recalculated borderOffsetX = driver area width, since the border starts after the driver area on the left side
+      borderOffsetX = driverAreaNoVerticalWall.dimension.w * this.baseGridSize;
+    }
 
     const currentCoachOverlappingInfo = this.overHangingElementInformation.find(
       (el) => el.coachId == coachItem.id,
@@ -420,11 +460,13 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
               text=${place.number}
               type=${place.type}
               state=${place.state}
+              travel-direction=${this.travelDirection}
               coach-index=${coachIndex}
               deck-index=${placeCoachDeckIndex}
               data-deck-index=${deckIndex}
               .propertyIds=${place.propertyIds}
               .preventClick=${this.preventPlaceClick}
+              ?showTitleInfo="${this.showTitleInfo}"
             ></sbb-seat-reservation-place-control>
           </td>
         `;
@@ -578,12 +620,12 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
 
     // If the icon is the driver area, then here concat the vehicle type to get the right vehicle chassis icon
     const icon =
-      graphicalElement.icon && graphicalElement.icon.indexOf('DRIVER_AREA') === -1
-        ? graphicalElement.icon
-        : graphicalElement.icon?.concat(
+      graphicalElement.icon && graphicalElement.icon.endsWith('DRIVER_AREA')
+        ? graphicalElement.icon?.concat(
             '_',
             this.seatReservations[this.currSelectedDeckIndex].vehicleType,
-          );
+          )
+        : graphicalElement.icon;
 
     return html` <sbb-seat-reservation-graphic
       style=${styleMap({
@@ -721,6 +763,11 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _getDescriptionTableCoach(coachItem: CoachItem): string {
+    //show different table caption for screenreader if it is a locomotive
+    if (coachItem.type === 'LOCOMOTIVE_COACH') {
+      return getI18nSeatReservation('COACH_LOCOMOTIVE', this._language.current);
+    }
+
     if (!coachItem.places?.length) {
       return getI18nSeatReservation('COACH_BLOCKED_TABLE_CAPTION', this._language.current, [
         coachItem.id,

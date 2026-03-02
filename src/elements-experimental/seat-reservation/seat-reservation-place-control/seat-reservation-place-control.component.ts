@@ -7,11 +7,16 @@ import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common.ts';
-import type { PlaceSelection, PlaceState, PlaceType } from '../common.ts';
+import type { PlaceSelection, PlaceState, PlaceType, TravelDirection } from '../common.ts';
 
 import '../seat-reservation-graphic.ts';
 
 import style from './seat-reservation-place-control.scss?lit&inline';
+
+type TravelDirectionI18nKey =
+  | 'TRAVEL_DIRECTION_IN_DIRECTION'
+  | 'TRAVEL_DIRECTION_IN_OPPOSITE_DIRECTION'
+  | 'TRAVEL_DIRECTION_TRANSVERSELY';
 
 /**
  * Output the graphic of a seat or a bicycle place as a control element.
@@ -33,6 +38,10 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   @forceType()
   @property({ attribute: 'state', reflect: true })
   public accessor state: PlaceState = 'FREE';
+
+  /** direction of a whole train, used to compute an orientation of a place */
+  @property({ attribute: 'travel-direction' })
+  public accessor travelDirection: TravelDirection = 'NONE';
 
   /** property ids of the place, to display more info about the place */
   @property({ attribute: 'propertyIds', type: Array })
@@ -63,6 +72,13 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   @property({ attribute: 'keyfocus' })
   public accessor keyfocus: string = 'unfocus';
 
+  /** Disable the mouse over title information */
+  @forceType()
+  @property({ type: Boolean, useDefault: true })
+  public accessor showTitleInfo: boolean = false;
+
+  private _optionalScreenreaderInfo: string = '';
+
   private _language = new SbbLanguageController(this);
 
   public constructor() {
@@ -76,6 +92,15 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
     if (changedProperties.has('keyfocus')) {
       if (this.keyfocus === 'focus') {
         this.focus();
+      }
+    }
+
+    // if title was shown once, we cannot unset it completely, but this
+    // behaviour should not happen very often as the title should
+    // not switch from on to off and on again
+    if (changedProperties.has('showTitleInfo')) {
+      if (!this.showTitleInfo) {
+        this.title = '';
       }
     }
   }
@@ -94,7 +119,14 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
     const inverseRotationPlaceCheckIcon = Number(textRotation) - Number(rotation);
     const disabledClass = this.preventClick ? 'sbb-reservation-place-control--disabled' : null;
 
-    this.title = this._getTitleDescriptionPlace();
+    // only set title to the SbbButtonBaseElement if requested; otherwise provide the title
+    // information to screen readers via an additional element
+    if (this.showTitleInfo) {
+      this.title = this._getTitleDescriptionPlace(rotation);
+    } else {
+      this._optionalScreenreaderInfo = this._getTitleDescriptionPlace(rotation);
+    }
+
     this.tabIndex = -1;
 
     return html`
@@ -115,6 +147,11 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
         <span ${this.text ?? nothing} class="sbb-sr-place-ctrl__text" aria-hidden="true"
           >${text}</span
         >
+        ${!this.showTitleInfo
+          ? html`<sbb-screen-reader-only id="${this.id}"
+              >${this._optionalScreenreaderInfo}</sbb-screen-reader-only
+            >`
+          : nothing}
       </div>
     `;
   }
@@ -125,14 +162,17 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
     return `PLACE_${typeString}_${stateString}`;
   }
 
-  private _getTitleDescriptionPlace(): string {
+  private _getTitleDescriptionPlace(rotation: string | undefined): string {
     const translationKey = 'PLACE_CONTROL_' + this.type + '_' + this.state;
     let description = getI18nSeatReservation(translationKey, this._language.current, [this.text]);
 
-    if (this.propertyIds.length) {
+    const relativeTravelDirection = this._getRelativeTravelDirection(rotation);
+
+    if (this.propertyIds.length || relativeTravelDirection) {
       description +=
         '. ' + getI18nSeatReservation('PLACE_PROPERTY', this._language.current).concat(': ');
-      description += this.propertyIds
+
+      description += [relativeTravelDirection, ...this.propertyIds]
         .map((propertyId) =>
           getI18nSeatReservation('PLACE_PROPERTIES.' + propertyId, this._language.current),
         )
@@ -141,6 +181,35 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
     }
 
     return description;
+  }
+
+  private _getRelativeTravelDirection(
+    rotationValue: string | undefined,
+  ): TravelDirectionI18nKey | undefined {
+    if (
+      !this.travelDirection ||
+      this.travelDirection === 'NONE' ||
+      this.placeType !== 'SEAT' ||
+      !rotationValue
+    )
+      return undefined;
+    const rotation = Number(rotationValue);
+
+    if (rotation === 90 || rotation === 270) {
+      return 'TRAVEL_DIRECTION_TRANSVERSELY';
+    }
+
+    const inDirection =
+      (rotation === 0 && this.travelDirection === 'RIGHT') ||
+      (rotation === 180 && this.travelDirection === 'LEFT');
+
+    if (inDirection) {
+      return 'TRAVEL_DIRECTION_IN_DIRECTION';
+    } else if (rotation === 0 || rotation === 180) {
+      return 'TRAVEL_DIRECTION_IN_OPPOSITE_DIRECTION';
+    }
+
+    return undefined;
   }
 
   /** If the place selectable, we emit the placeSelection object which contains infos to the place state */

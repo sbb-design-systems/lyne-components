@@ -5,7 +5,8 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-import { MOCK_GIRUNO_TRAIN } from '../common/mapper/seat-reservation-sample-data.ts';
+import { MOCK_GIRUNO_TRAIN } from '../common/mapper/sample-data/seat-reservation-sample-data-giruno.ts';
+import { MOCK_TRAIN_LOCOMOTIVE_LAYOUT } from '../common/mapper/sample-data/seat-reservation-sample-data-others.ts';
 import { mapRawDataToSeatReservation, type CoachItem, type SeatReservation } from '../common.ts';
 
 import readme from './readme.md?raw';
@@ -18,6 +19,13 @@ const seatReservationType: InputType = {
   },
   description:
     'Seat Reservations Array<SeatReservation>. It is possible to display several decks from the vehicle scheme. Each SeatReservation object within the array represents one deck.',
+};
+
+const travelDirectionType: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['LEFT', 'RIGHT', 'NONE'],
 };
 
 const maxSeatReservationsType: InputType = {
@@ -64,6 +72,7 @@ const preselectCoachIndexType: InputType = {
 
 const defaultArgTypes: ArgTypes = {
   seatReservations: seatReservationType,
+  'travel-direction': travelDirectionType,
   'max-seat-reservations': maxSeatReservationsType,
   'max-bicycle-reservations': maxBicycleReservationsType,
   'has-navigation': navigationType,
@@ -82,6 +91,7 @@ const defaultArgs: Args = {
   'base-grid-size': 16,
   height: null,
   'prevent-place-click': false,
+  'show-title-info': false,
 };
 
 const Template = ({ seatReservations, ...args }: Args): TemplateResult =>
@@ -123,6 +133,7 @@ const trainLayersArgs: Args = {
   'base-grid-size': 16,
   height: null,
   'prevent-place-click': false,
+  'show-title-info': false,
 };
 
 export const TrainDecks: StoryObj = {
@@ -151,6 +162,7 @@ const trainDecksDiff: Args = {
   'base-grid-size': 16,
   height: null,
   'prevent-place-click': false,
+  'show-title-info': false,
 };
 export const TrainDifferentDecks: StoryObj = {
   render: Template,
@@ -166,6 +178,7 @@ const trainGirunoArgs: Args = {
   'base-grid-size': 16,
   height: null,
   'prevent-place-click': false,
+  'show-title-info': false,
 };
 
 export const TrainGiruno: StoryObj = {
@@ -181,6 +194,7 @@ const busArgs: Args = {
   'max-seat-reservations': 4,
   'align-vertical': false,
   'prevent-place-click': false,
+  'show-title-info': false,
 };
 
 export const Bus: StoryObj = {
@@ -222,6 +236,23 @@ export const trainToggleDecks: StoryObj = {
   render: Template,
   argTypes: toggleArgs,
   args: { seatReservations: 'LOWER_DECK' },
+};
+
+const trainWithNewLocomotives: Args = {
+  seatReservations: [MOCK_TRAIN_LOCOMOTIVE_LAYOUT],
+  'has-navigation': true,
+  'max-reservations': 4,
+  'align-vertical': false,
+  'base-grid-size': 16,
+  height: null,
+  'prevent-place-click': false,
+  'show-title-info': false,
+};
+
+export const TrainWithNewLocomotives: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: trainWithNewLocomotives,
 };
 
 const meta: Meta = {
