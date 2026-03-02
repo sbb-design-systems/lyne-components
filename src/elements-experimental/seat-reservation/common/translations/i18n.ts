@@ -73,6 +73,20 @@ const i18nObjects: I18nObjects = {
     fr: 'Terminer la réservation graphique de places',
     it: 'Uscita dalla prenotazione grafica dei posti',
   },
+  COACH_LOCOMOTIVE: {
+    de: 'Lokomotive',
+    en: 'Locomotive',
+    fr: 'Locomotive',
+    it: 'Locomotiva',
+  },
+
+  // TRAVEL DIRECTION
+  SEAT_RESERVATION_TRAVEL_DIRECTION: {
+    de: 'Fahrtrichtung',
+    en: 'Travel direction',
+    fr: 'Direction du voyage',
+    it: 'Direzione di viaggio',
+  },
 
   // NAVIGATION
   NAVIGATE_TO_COACH: {
@@ -749,6 +763,24 @@ const i18nObjects: I18nObjects = {
       it: '3 posti Deluxe',
     },
     TOURIST_SLEEPER_4: { de: '4er', en: '4-berth', fr: '4 places', it: '4 posti' },
+    TRAVEL_DIRECTION_TRANSVERSELY: {
+      de: 'quer zur Fahrtrichtung',
+      en: 'transversely to travel direction',
+      fr: 'Transversalement à la direction du voyage',
+      it: 'trasversalmente alla direzione di viaggio',
+    },
+    TRAVEL_DIRECTION_IN_DIRECTION: {
+      de: 'in Fahrtrichtung',
+      en: 'in travel direction',
+      fr: 'Dans le sens de la marche',
+      it: 'nella direzione di marcia',
+    },
+    TRAVEL_DIRECTION_IN_OPPOSITE_DIRECTION: {
+      de: 'gegen die Fahrtrichtung',
+      en: 'in opposite direction',
+      fr: 'Dans le sens inverse de la marche',
+      it: 'nella direzione opposta alla marcia',
+    },
     UPPER_BED: { de: 'oben', en: 'at the top', fr: 'en haut', it: 'in alto' },
     UPPER_DECK: { de: 'oben', en: 'at the top', fr: 'en haut', it: 'in alto' },
     VIDEO: {
