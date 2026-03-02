@@ -3,7 +3,7 @@ inside the [sbb-calendar](/docs/elements-sbb-calendar-sbb-calendar--docs) in the
 The value of the year is set using the `value` property, which accepts a date in ISOString format (YYYY-MM).
 
 ```html
-<sbb-calendar-year .value="2025-01"></sbb-calendar-year>
+<sbb-calendar-year .value=${"2025-01"}></sbb-calendar-year>
 ```
 
 ## States
