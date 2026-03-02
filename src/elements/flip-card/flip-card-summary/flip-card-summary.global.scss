@@ -7,3 +7,17 @@ $theme: 'standard' !default;
     var(--sbb-spacing-responsive-xs);
   --sbb-flip-card-summary-title-padding-inline: var(--sbb-flip-card-padding);
 }
+
+@mixin rules {
+  sbb-flip-card-summary {
+    > [slot='image']:is(sbb-image, img),
+    > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
+      --sbb-image-aspect-ratio: auto;
+      --sbb-image-object-fit: cover;
+
+      border-radius: 0;
+      display: block;
+      height: 100%;
+    }
+  }
+}

@@ -273,6 +273,7 @@ $theme: 'standard' !default;
 
 // Components global styles
 @include container.rules;
+@include flip-card-summary.rules;
 @include tab-nav-bar.rules;
 
 // TODO: discuss where to add these classes
@@ -491,19 +492,6 @@ img {
   aspect-ratio: var(--sbb-image-aspect-ratio);
   object-fit: var(--sbb-image-object-fit);
   object-position: var(--sbb-image-object-position);
-}
-
-// TODO: Move back to the sbb-flip-card-summary components when the global CSS refactoring happens
-sbb-flip-card-summary {
-  > [slot='image']:is(sbb-image, img),
-  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
-    --sbb-image-aspect-ratio: auto;
-    --sbb-image-object-fit: cover;
-
-    border-radius: 0;
-    display: block;
-    height: 100%;
-  }
 }
 
 // TODO: Move back to the sbb-lead-container components when the global CSS refactoring happens
