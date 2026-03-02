@@ -1,6 +1,7 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
+import { defaultDateAdapter } from '../../core/datetime.ts';
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import type { SbbDateInputElement } from '../../date-input.ts';
@@ -143,7 +144,8 @@ describe(`sbb-datepicker-previous-day`, () => {
     });
 
     it('navigates to invalid date', async () => {
-      input.dateFilter = (d) => d!.getTime() > 1674255599999;
+      const min = defaultDateAdapter.createDate(2023, 1, 21);
+      input.dateFilter = (d) => defaultDateAdapter.compareDate(min, d!) <= 0;
       expect(input.value).to.be.equal('Sa, 21.01.2023');
       const changeSpy = new EventSpy('change', input);
       expect(input.validity.valid).to.be.true;
