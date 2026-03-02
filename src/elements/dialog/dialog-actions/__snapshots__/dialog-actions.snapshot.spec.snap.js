@@ -26,8 +26,8 @@ snapshots["sbb-dialog-actions renders A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "ignored": true,
-      "role": "none"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
