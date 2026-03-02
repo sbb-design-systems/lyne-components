@@ -91,6 +91,9 @@ $theme: 'standard' !default;
 @use '../../flip-card/flip-card-summary/flip-card-summary.global' as flip-card-summary with (
   $theme: $theme
 );
+@use '../../footer/footer.global' as footer with (
+  $theme: $theme
+);
 @use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
   $theme: $theme
 );
@@ -149,6 +152,7 @@ $theme: 'standard' !default;
   @include flip-card.base;
   @include flip-card-details.base;
   @include flip-card-summary.base;
+  @include footer.base;
   @include radio-button-common.base;
   @include radio-button-group.base;
   @include selection-action-panel.base;
@@ -229,6 +233,8 @@ $theme: 'standard' !default;
 
   @include mediaqueries.mq($from: small) {
     @include sbb-css-tokens.breakpoint-small;
+
+    @include footer.base-breakpoint-small;
   }
 
   @include mediaqueries.mq($from: large) {
