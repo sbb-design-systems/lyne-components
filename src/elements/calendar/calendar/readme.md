@@ -99,7 +99,7 @@ The `sbb-calendar` can be directly displayed in one of these modalities using th
 ```
 
 Unwanted dates can be filtered out using the `dateFilter` property.
-Note that using the `dateFilter` function as a replacement for the `min` and `max` properties will most likely result in a significant loss of performance.
+Note that the `dateFilter` function should not be used as a replacement for the `min` and `max` properties.
 The `dateFilter` is applied in all the views, so if some months or years are not allowed they will be displayed as disabled in the corresponding view.
 
 ```ts

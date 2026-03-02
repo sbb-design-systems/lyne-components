@@ -139,6 +139,19 @@ describe(`sbb-datepicker-next-day`, () => {
       expect(input.value).to.be.equal('Su, 22.01.2023');
     });
 
+    it('navigates to invalid date', async () => {
+      input.dateFilter = (d) => d!.getTime() < 1674255600001;
+      expect(input.value).to.be.equal('Sa, 21.01.2023');
+      const changeSpy = new EventSpy('change', input);
+      expect(input.validity.valid).to.be.true;
+
+      element.click();
+      await changeSpy.calledOnce();
+      expect(changeSpy.count).to.be.equal(1);
+      expect(input.value).to.be.equal('Su, 22.01.2023');
+      expect(input.validity.valid).to.be.false;
+    });
+
     it('disabled due max value equals to value', async () => {
       const form: SbbFormFieldElement = await fixture(html`
         <sbb-form-field>

@@ -122,14 +122,19 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbDatepickerButtonB
     this.addEventListener?.('click', () => this._handleClick());
   }
 
-  protected abstract findAvailableDate(_date: T): T | null;
+  /** @deprecated Use `getFollowingDate(date: T)` instead. */
+  protected findAvailableDate(_date: T): T | null {
+    return this.getFollowingDate(_date);
+  }
+
+  protected abstract getFollowingDate(_date: T): T | null;
 
   private _handleClick(): void {
     if (!this.input || this.disabled) {
       return;
     }
     const startingDate: T = this.input.valueAsDate ?? this.dateAdapter.today();
-    const date = this.findAvailableDate(startingDate);
+    const date = this.getFollowingDate(startingDate);
     if (this.dateAdapter.isValid(date) && this.dateAdapter.compareDate(date, startingDate) !== 0) {
       this.input.valueAsDate = date;
       this.input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
@@ -148,10 +153,10 @@ export abstract class SbbDatepickerButton<T = Date> extends SbbDatepickerButtonB
       return;
     }
 
-    const availableDate = this.findAvailableDate(this.input!.valueAsDate);
+    const date = this.getFollowingDate(this.input!.valueAsDate);
     this._disabled =
-      !this.dateAdapter.isValid(availableDate) ||
-      this.dateAdapter.compareDate(availableDate, this.input!.valueAsDate) === 0;
+      !this.dateAdapter.isValid(date) ||
+      this.dateAdapter.compareDate(date, this.input!.valueAsDate) === 0;
     const currentDateString =
       this.dateAdapter.compareDate(this.dateAdapter.today(), this.input!.valueAsDate) === 0
         ? i18nToday[this.language.current].toLowerCase()

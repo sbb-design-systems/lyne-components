@@ -142,6 +142,19 @@ describe(`sbb-datepicker-previous-day`, () => {
       expect(input.value).to.be.equal('Fr, 20.01.2023');
     });
 
+    it('navigates to invalid date', async () => {
+      input.dateFilter = (d) => d!.getTime() > 1674255599999;
+      expect(input.value).to.be.equal('Sa, 21.01.2023');
+      const changeSpy = new EventSpy('change', input);
+      expect(input.validity.valid).to.be.true;
+
+      element.click();
+      await changeSpy.calledOnce();
+      expect(changeSpy.count).to.be.equal(1);
+      expect(input.value).to.be.equal('Fr, 20.01.2023');
+      expect(input.validity.valid).to.be.false;
+    });
+
     it('disabled due min value equals to value', async () => {
       const form: SbbFormFieldElement = await fixture(html`
         <sbb-form-field>
