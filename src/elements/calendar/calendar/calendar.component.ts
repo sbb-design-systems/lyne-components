@@ -133,9 +133,7 @@ export type CalendarView = 'day' | 'month' | 'year';
  */
 export
 @customElement('sbb-calendar')
-class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
-  SbbElementInternalsMixin(LitElement),
-) {
+class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     dateselected: 'dateselected',
@@ -813,7 +811,7 @@ class SbbCalendarElement<T extends Date = Date> extends SbbHydrationMixin(
     //  https://github.com/open-wc/custom-elements-manifest/issues/149
     const monthchange = (this.wide ? [...this._weeks, ...this._nextMonthWeeks] : this._weeks)
       .flat()
-      .sort((a, b) => a.value.localeCompare(b.value));
+      .sort((a, b) => a.value.localeCompare(b.value)) as Day[];
     /**
      * @type {SbbMonthChangeEvent}
      * Emits when the month changes.

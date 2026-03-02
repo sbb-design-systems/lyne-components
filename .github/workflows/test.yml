@@ -25,7 +25,7 @@ jobs:
         run: node scripts/preload-test-artifacts.ts
 
       - name: Store test artifacts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: test-artifacts
           path: node_modules/.cache/lyne-cdn/
@@ -51,7 +51,7 @@ jobs:
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
       - name: Restore test artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: test-artifacts
 
@@ -63,7 +63,7 @@ jobs:
         run: git diff --exit-code
       - name: Store coverage
         if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: matrix-coverage-${{ matrix.segment }}
           path: coverage/
@@ -80,7 +80,7 @@ jobs:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@v8
 
       - name: Assemble code coverage
         run: |
@@ -96,7 +96,7 @@ jobs:
           rm -rf coverage-matrix
       - name: Store coverage
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: coverage
           path: coverage/
