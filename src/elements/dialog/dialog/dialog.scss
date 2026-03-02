@@ -15,6 +15,13 @@
   position: fixed;
   inset: var(--sbb-dialog-inset);
   z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-default-z-index));
+
+  @include sbb.mq($from: large) {
+    --sbb-dialog-max-width: min(
+      calc(100vw - var(--sbb-spacing-fixed-30x) * 2),
+      var(--sbb-dialog-max-width-default)
+    );
+  }
 }
 
 :host(:state(top-shadow)) {

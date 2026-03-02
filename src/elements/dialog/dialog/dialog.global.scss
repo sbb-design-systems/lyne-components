@@ -31,8 +31,4 @@ $theme: 'standard' !default;
 @mixin base-breakpoint-large {
   --sbb-dialog-padding-inline: var(--sbb-spacing-responsive-s);
   --sbb-dialog-max-height: calc(100vh - var(--sbb-spacing-fixed-16x));
-  --sbb-dialog-max-width: min(
-    calc(100vw - var(--sbb-spacing-fixed-30x) * 2),
-    var(--sbb-dialog-max-width-default)
-  );
 }
