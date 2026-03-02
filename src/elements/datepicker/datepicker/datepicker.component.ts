@@ -157,6 +157,7 @@ class SbbDatepickerElement<T = Date>
             // Emit blur event when value is changed programmatically to notify
             // frameworks that rely on that event to update form status.
             this.input.dispatchEvent(new Event('blur', { composed: true }));
+            this.close();
           }
         }}
       ></sbb-calendar>

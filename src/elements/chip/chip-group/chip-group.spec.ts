@@ -178,6 +178,63 @@ describe('sbb-chip-group', () => {
       expect(input.value).not.to.be.empty; // The input should be emptied
     });
 
+    it('should add chip on blur when addOnBlur is true', async () => {
+      element.addOnBlur = true;
+      const changeEventSpy = new EventSpy(SbbChipGroupElement.events.change, element);
+
+      input.focus();
+      await sendKeys({ type: 'chip 4' });
+      await waitForLitRender(element);
+
+      // Blur the input
+      input.blur();
+      await waitForLitRender(element);
+
+      const addedChip = Array.from(element.querySelectorAll('sbb-chip')).at(-1)!;
+      expect(addedChip.value).to.be.equal('chip 4');
+      expect(element.value).to.include('chip 4');
+      expect(input.value).to.be.empty; // The input should be emptied
+
+      // We expect 2 change events: one of the input, and one of the chip group when the chips are added
+      expect(changeEventSpy.count).to.be.equal(2);
+    });
+
+    it('should not add chip on blur when addOnBlur is false', async () => {
+      element.addOnBlur = false;
+      const changeEventSpy = new EventSpy(SbbChipGroupElement.events.change, element);
+
+      input.focus();
+      await sendKeys({ type: 'chip 4' });
+      await waitForLitRender(element);
+
+      // Blur the input
+      input.blur();
+      await waitForLitRender(element);
+
+      expect(element.value).not.to.include('chip 4');
+      expect(input.value).to.be.equal('chip 4'); // Input should retain value
+
+      // We expect only 1 change event from typing in the input, and none from blurring (since addOnBlur is false)
+      expect(changeEventSpy.count).to.be.equal(1);
+    });
+
+    it('should not add empty chip on blur when addOnBlur is true', async () => {
+      element.addOnBlur = true;
+      const inputEventSpy = new EventSpy(SbbChipGroupElement.events.input, element);
+      const changeEventSpy = new EventSpy(SbbChipGroupElement.events.change, element);
+
+      input.focus();
+      await waitForLitRender(element);
+
+      // Blur the input without typing
+      input.blur();
+      await waitForLitRender(element);
+
+      expect(element.querySelectorAll('sbb-chip').length).to.be.equal(3); // No new chip added
+      expect(inputEventSpy.count).to.be.equal(0);
+      expect(changeEventSpy.count).to.be.equal(0);
+    });
+
     it('should inherit size from form-field', async () => {
       expect(element).to.match(':state(size-m)');
 
@@ -526,6 +583,21 @@ describe('sbb-chip-group', () => {
       expect(tokenEndEventSpy.count).to.be.equal(1);
       expect(tokenEndEventSpy.lastEvent!.detail.origin).to.be.equal('input');
       expect(element.value).to.contain('new chip');
+    });
+
+    it('should add chip on blur with addOnBlur and autocomplete', async () => {
+      element.addOnBlur = true;
+
+      input.focus();
+      await sendKeys({ type: 'new chip' });
+      await waitForLitRender(formField);
+
+      // Blur the input
+      input.blur();
+      await waitForLitRender(formField);
+
+      expect(element.value).to.contain('new chip');
+      expect(input.value).to.be.empty;
     });
   });
 

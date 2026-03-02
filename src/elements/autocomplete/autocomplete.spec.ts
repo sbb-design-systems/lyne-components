@@ -642,7 +642,7 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('a');
         expect(changeEventSpy.count).to.be.equal(0);
         expect(inputEventSpy.count).to.be.equal(1);
-        await sendKeys({ press: 'Escape' });
+        await sendKeys({ press: tabKey });
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(2);
@@ -659,7 +659,7 @@ describe(`sbb-autocomplete`, () => {
         await sendKeys({ press: 'ArrowDown' });
         expect(changeEventSpy.count).to.be.equal(0);
         expect(inputEventSpy.count).to.be.equal(0);
-        await sendKeys({ press: 'Escape' });
+        await sendKeys({ press: tabKey });
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(0);
         expect(inputEventSpy.count).to.be.equal(0);
@@ -678,7 +678,7 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('a');
         expect(changeEventSpy.count).to.be.equal(0);
         expect(inputEventSpy.count).to.be.equal(1);
-        await sendKeys({ press: 'Escape' });
+        await sendKeys({ press: tabKey });
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(2);
@@ -706,7 +706,7 @@ describe(`sbb-autocomplete`, () => {
 
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(1);
-        await sendKeys({ press: 'Escape' });
+        await sendKeys({ press: tabKey });
         expect(input.value).to.be.equal('2');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(1);
@@ -777,6 +777,7 @@ describe(`sbb-autocomplete`, () => {
         await sendKeys({ press: 'ArrowDown' });
         await sendKeys({ press: 'Enter' });
         await waitForLitRender(element);
+
         await closeSpy.calledOnce();
         expect(closeSpy.count).to.be.equal(1);
         expect(input.value).to.be.equal('1');
@@ -785,7 +786,7 @@ describe(`sbb-autocomplete`, () => {
         await sendKeys({ press: 'a' });
         expect(openSpy.count).to.be.equal(2);
         expect(inputEventSpy.count).to.be.equal(2);
-        await sendKeys({ press: 'Escape' });
+        await sendKeys({ press: tabKey });
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(2);
         expect(inputEventSpy.count).to.be.equal(3);

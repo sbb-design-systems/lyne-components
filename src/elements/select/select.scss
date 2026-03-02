@@ -23,6 +23,10 @@
   @include sbb.options-panel-overlay-size-s-variables;
 }
 
+:host([size='m']) {
+  @include sbb.options-panel-overlay-size-m-variables;
+}
+
 :host([negative]) {
   @include sbb.options-panel-overlay-negative-variables;
 

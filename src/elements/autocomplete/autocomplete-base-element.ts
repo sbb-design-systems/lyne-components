@@ -164,6 +164,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   /** Tracks input from keyboard. */
   private _lastUserInput: string | null = null;
 
+  /** If true, the 'change' event source is an option selection or a 'requireSelection' field cleanup */
+  private _isCustomChangeEvent = false;
+
   protected abstract get options(): SbbOptionBaseElement<T>[];
 
   public constructor() {
@@ -343,6 +346,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       this._setInputValue(selectedOption);
 
       // Manually trigger the change events
+      this._isCustomChangeEvent = true;
       this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
       this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
 
@@ -477,6 +481,20 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       { signal: this._triggerAbortController.signal },
     );
     this.triggerElement.addEventListener(
+      'change',
+      (event) => {
+        /**
+         * In 'requireSelection' mode, we block the native change events and
+         * let only pass the ones that come with a valid value (when an option is selected)
+         */
+        if (this.requireSelection && !this._isCustomChangeEvent) {
+          event.stopImmediatePropagation();
+        }
+        this._isCustomChangeEvent = false;
+      },
+      { signal: this._triggerAbortController.signal, capture: true },
+    );
+    this.triggerElement.addEventListener(
       'keydown',
       (event: KeyboardEvent) => this._closedPanelKeyboardInteraction(event),
       {
@@ -485,6 +503,31 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
         // interaction with other components (necessary for the 'sbb-chip-group' use case).
         capture: true,
       },
+    );
+
+    this.triggerElement.addEventListener(
+      'blur',
+      (e) => {
+        if (this.contains(e.relatedTarget as Node)) {
+          return;
+        }
+
+        // Clears the input if there's user interaction without selection (selection clears `_lastUserInput`).
+        if (this.requireSelection && this.triggerElement && this._lastUserInput) {
+          const setValue = Object.getOwnPropertyDescriptor(
+            HTMLInputElement.prototype,
+            'value',
+          )!.set!;
+          setValue.call(this.triggerElement, '');
+          this._highlightOptions('');
+          this._isCustomChangeEvent = true;
+          this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
+          this.triggerElement.dispatchEvent(
+            new InputEvent('input', { bubbles: true, composed: true }),
+          );
+        }
+      },
+      { signal: this._triggerAbortController.signal, capture: true },
     );
   }
 
@@ -532,14 +575,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.hidePopover?.();
     this.triggerElement?.setAttribute('aria-expanded', 'false');
 
-    // Clears the input if there's user interaction without selection (selection clears `_lastUserInput`).
-    if (this.requireSelection && this.triggerElement && this._lastUserInput) {
-      const setValue = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
-      setValue.call(this.triggerElement, '');
-      this._highlightOptions('');
-      this.triggerElement.dispatchEvent(new Event('change', { bubbles: true }));
-      this.triggerElement.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-    }
     this.resetActiveElement();
     this._optionContainer.scrollTop = 0;
     this._escapableOverlayController.disconnect();
@@ -616,6 +651,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       },
       {
         signal: this._openPanelEventsController.signal,
+        capture: true,
       },
     );
   }
