@@ -19,12 +19,10 @@ class SbbOptionHintElement extends SbbNegativeMixin(LitElement) {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-option-hint__wrapper">
-        <div class="sbb-optgroup__icon-space"></div>
-        <span class="sbb-option-hint">
-          <slot></slot>
-        </span>
-      </div>
+      <div class="sbb-optgroup__icon-space"></div>
+      <span class="sbb-option-hint">
+        <slot></slot>
+      </span>
     `;
   }
 }

@@ -1,11 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-optgroup-divider-display: block;
-  --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-2x);
-  --sbb-optgroup-label-padding-inline: var(--sbb-spacing-responsive-xxxs);
-  --sbb-optgroup-label-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
-
   display: block;
 }
 
@@ -23,10 +18,10 @@
 }
 
 .sbb-optgroup__label {
-  @include sbb.text-xxs--regular;
-
   display: flex;
   column-gap: var(--sbb-spacing-responsive-xxxs);
+  font-size: var(--sbb-optgroup-label-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   color: var(--sbb-optgroup-label-color);
   -webkit-text-fill-color: var(--sbb-optgroup-label-color);
   padding-inline: var(--sbb-optgroup-label-padding-inline);
@@ -34,7 +29,7 @@
 }
 
 .sbb-optgroup__divider {
-  display: var(--sbb-optgroup-divider-display);
+  display: var(--sbb-optgroup-divider-display, block);
   padding-block: var(--sbb-options-panel-divider-margin-block);
 }
 

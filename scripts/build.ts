@@ -182,7 +182,7 @@ const buildMap: Record<string, () => Builder> = {
     new PackageBuilder(elementsProduction, [
       buildLibrary,
       buildRootIndex,
-      buildStyles,
+      buildElementsStyles,
       buildSassLibrary,
       buildCustomElementsManifest,
       copyReadme,
@@ -195,6 +195,8 @@ const buildMap: Record<string, () => Builder> = {
     new PackageBuilder(elementsExperimentalProduction, [
       buildLibrary,
       buildRootIndex,
+      buildStylesExperimental,
+      buildSassLibrary,
       buildCustomElementsManifest,
       copyReadme,
       buildPackageJson,
@@ -443,7 +445,8 @@ function buildRootIndex(pkg: PackageBuilder): void {
   console.log(`=> Generated index files in ${relative(projectRoot, pkg.outDir)}`);
 }
 
-function buildStyles(pkg: PackageBuilder): void {
+type StyleSheet = { inputName: string; outputName: string };
+function buildElementsStyles(pkg: PackageBuilder): void {
   const sheets = [
     { inputName: 'core/styles/a11y.scss', outputName: 'a11y.css' },
     { inputName: 'core/styles/animation.scss', outputName: 'animation.css' },
@@ -468,6 +471,23 @@ function buildStyles(pkg: PackageBuilder): void {
     { inputName: 'core/styles/timetable-form.scss', outputName: 'timetable-form.css' },
     { inputName: 'core/styles/typography.scss', outputName: 'typography.css' },
   ];
+  buildStyles(pkg, sheets);
+}
+
+function buildStylesExperimental(pkg: PackageBuilder): void {
+  const sheets = [
+    { inputName: 'core/styles/core.scss', outputName: 'core.css' },
+    { inputName: 'core/styles/off-brand-theme.scss', outputName: 'off-brand-theme.css' },
+    {
+      inputName: 'core/styles/safety-theme.scss',
+      outputName: 'safety-theme.css',
+    },
+    { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
+  ];
+  buildStyles(pkg, sheets);
+}
+
+function buildStyles(pkg: PackageBuilder, sheets: StyleSheet[]): void {
   for (const entry of sheets) {
     const compiled = sass.compile(join(pkg.root, entry.inputName), {
       loadPaths: [projectRoot, join(projectRoot, '/node_modules/')],
