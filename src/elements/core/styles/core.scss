@@ -259,6 +259,7 @@ $theme: 'standard' !default;
 @include font-face.font-declarations;
 
 // Components global styles
+@include breadcrumb-group.rules;
 @include container.rules;
 @include tab-nav-bar.rules;
 
@@ -436,13 +437,6 @@ html {
   sbb-toast
 ) {
   @include popover.popover-reset;
-}
-
-// Ensure stable breadcrumb height during hydrating
-sbb-breadcrumb-group:not(:defined) {
-  display: block;
-  height: calc(var(--sbb-typo-line-height-text) * var(--sbb-text-font-size-xs));
-  overflow: hidden;
 }
 
 // Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
