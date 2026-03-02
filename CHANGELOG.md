@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.7.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.6.0...v4.7.0) (2026-03-02)
+
+
+### Features
+
+* **sbb-chip-group:** option to add chip on blur ([#4511](https://github.com/sbb-design-systems/lyne-components/issues/4511)) ([a4da1f0](https://github.com/sbb-design-systems/lyne-components/commit/a4da1f010386142415d61fadf752aa3cd4c74b9f))
+* **sbb-seat-reservation:** multiple optimizations ([#4566](https://github.com/sbb-design-systems/lyne-components/issues/4566)) ([dc40a34](https://github.com/sbb-design-systems/lyne-components/commit/dc40a3401287758bc83816bef87b618e8bd06f14))
+
+
+### Bug Fixes
+
+* **sbb-autocomplete:** avoid double 'change' emission when 'requiredSelection' is enabled ([#4545](https://github.com/sbb-design-systems/lyne-components/issues/4545)) ([49f8e95](https://github.com/sbb-design-systems/lyne-components/commit/49f8e95ba7855ae8fc6f3e138f48ccdc34db0390))
+* **sbb-calendar, sbb-calendar-day:** remove type extension ([#4561](https://github.com/sbb-design-systems/lyne-components/issues/4561)) ([568b256](https://github.com/sbb-design-systems/lyne-components/commit/568b256cb3a0034d0d3b6e5d551dcfa6466ccb7e))
+* **sbb-dialog:** fix actions divider width ([#4558](https://github.com/sbb-design-systems/lyne-components/issues/4558)) ([aa54ab5](https://github.com/sbb-design-systems/lyne-components/commit/aa54ab5b0b1f123f0be2c84f526aa5cdccf46504))
+
+
+### Documentation
+
+* **sbb-container:** add public var `--sbb-page-spacing-padding` entry ([#4536](https://github.com/sbb-design-systems/lyne-components/issues/4536)) ([a935eaf](https://github.com/sbb-design-systems/lyne-components/commit/a935eaffb3e72dd9d425ecb5940b317684d8ffba))
+
+
+### Code Refactoring
+
+* **sbb-footer:** css refactoring ([#4556](https://github.com/sbb-design-systems/lyne-components/issues/4556)) ([c8263d5](https://github.com/sbb-design-systems/lyne-components/commit/c8263d5719390619b06dd5a2930e1d344e219e05))
+
 ## [4.6.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.5.1...v4.6.0) (2026-02-25)
 
 
