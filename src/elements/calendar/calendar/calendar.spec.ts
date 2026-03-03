@@ -336,7 +336,7 @@ describe(`sbb-calendar`, () => {
           const yearButtonArray: SbbCalendarYearElement[] = Array.from(
             element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
           );
-          const yearButton = yearButtonArray.find((e) => e.value === 2030)!;
+          const yearButton = yearButtonArray.find((e) => e.value === '2030')!;
           expect(yearButton).not.to.be.null;
           yearButton.click();
           await waitForTransition(element);
@@ -405,7 +405,7 @@ describe(`sbb-calendar`, () => {
             const yearButtonArray: SbbCalendarYearElement[] = Array.from(
               element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
             );
-            const year2023Button = yearButtonArray.find((e) => e.value === 2023)!;
+            const year2023Button = yearButtonArray.find((e) => e.value === '2023')!;
             year2023Button.click();
             await waitForTransition(element);
 
@@ -451,7 +451,7 @@ describe(`sbb-calendar`, () => {
             const yearButtonArray: SbbCalendarYearElement[] = Array.from(
               element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
             );
-            const year2023Button = yearButtonArray.find((e) => e.value === 2023)!;
+            const year2023Button = yearButtonArray.find((e) => e.value === '2023')!;
             expect(document.activeElement!.shadowRoot!.activeElement).to.be.equal(year2023Button);
 
             year2023Button.click();
@@ -500,7 +500,7 @@ describe(`sbb-calendar`, () => {
             const yearButtonArray: SbbCalendarYearElement[] = Array.from(
               element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
             );
-            const yearButton = yearButtonArray.find((e) => e.value === 2024)!;
+            const yearButton = yearButtonArray.find((e) => e.value === '2024')!;
             yearButton.click();
             await waitForTransition(element);
 
@@ -935,7 +935,7 @@ describe(`sbb-calendar`, () => {
             const yearButtonArray: SbbCalendarYearElement[] = Array.from(
               element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
             );
-            const year2063Button = yearButtonArray.find((e) => e.value === 2063)!;
+            const year2063Button = yearButtonArray.find((e) => e.value === '2063')!;
             year2063Button!.click();
 
             await waitForTransition(element);
@@ -983,7 +983,7 @@ describe(`sbb-calendar`, () => {
             const yearButtonArray: SbbCalendarYearElement[] = Array.from(
               element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
             );
-            const year2023Button = yearButtonArray.find((e) => e.value === 2023)!;
+            const year2023Button = yearButtonArray.find((e) => e.value === '2023')!;
             year2023Button!.click();
 
             await waitForTransition(element);
@@ -1191,7 +1191,7 @@ describe(`sbb-calendar`, () => {
           );
           expect(years.length).to.equal(24);
 
-          const selectedYear = years.find((e) => e.value === 2023)!;
+          const selectedYear = years.find((e) => e.value === '2023')!;
           await waitForLitRender(element);
           selectedYear.focus();
         });
