@@ -1,6 +1,16 @@
 /** @entrypoint */
-export * from './dialog/dialog-actions.ts';
-export * from './dialog/dialog-content.ts';
-export * from './dialog/dialog-close-button.ts';
-export * from './dialog/dialog-title.ts';
-export * from './dialog/dialog.ts';
+import {
+  SbbDialogElement,
+  SbbDialogActionsElement,
+  SbbDialogCloseButtonElement,
+  SbbDialogContentElement,
+  SbbDialogTitleElement,
+} from './dialog.pure.ts';
+
+export * from './dialog.pure.ts';
+
+SbbDialogElement.define();
+SbbDialogActionsElement.define();
+SbbDialogCloseButtonElement.define();
+SbbDialogContentElement.define();
+SbbDialogTitleElement.define();

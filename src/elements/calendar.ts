@@ -1,3 +1,7 @@
 /** @entrypoint */
-export * from './calendar/calendar.ts';
-export * from './calendar/calendar-day.ts';
+import { SbbCalendarElement, SbbCalendarDayElement } from './calendar.pure.ts';
+
+export * from './calendar.pure.ts';
+
+SbbCalendarElement.define();
+SbbCalendarDayElement.define();

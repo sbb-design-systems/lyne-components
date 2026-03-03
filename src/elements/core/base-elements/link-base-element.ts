@@ -1,4 +1,4 @@
-import { html, isServer, nothing, type TemplateResult } from 'lit';
+import { html, isServer, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../controllers.ts';
@@ -6,9 +6,6 @@ import { forceType, omitEmptyConverter } from '../decorators.ts';
 import { i18nTargetOpensInNewWindow } from '../i18n.ts';
 
 import { SbbActionBaseElement } from './action-base-element.ts';
-
-// TODO: Remove this import. core should not import elements.
-import '../../screen-reader-only.ts';
 
 /** Enumeration for 'target' attribute in <a> HTML tag. */
 export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
@@ -80,6 +77,18 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
     return this.renderLink(this.renderTemplate());
   }
 
+  protected override updated(_changedProperties: PropertyValues): void {
+    super.updated(_changedProperties);
+    if (!isServer) {
+      // TODO: Validate screen reader support.
+      const newWindowInfo = this.shadowRoot!.querySelector('span.sbb-link-new-window');
+      const anchor = this.shadowRoot!.querySelector('a.sbb-action-base');
+      if (anchor) {
+        anchor.ariaDescribedByElements = newWindowInfo ? [newWindowInfo] : [];
+      }
+    }
+  }
+
   protected renderLink(renderContent: TemplateResult): TemplateResult {
     return html`
       <a
@@ -96,8 +105,8 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
       >
         ${renderContent}
         ${!!this.href && this.target === '_blank'
-          ? html`<sbb-screen-reader-only
-              >. ${i18nTargetOpensInNewWindow[this.language.current]}</sbb-screen-reader-only
+          ? html`<span id="sbb-link-new-window" hidden
+              >${i18nTargetOpensInNewWindow[this.language.current]}</span
             >`
           : nothing}
       </a>

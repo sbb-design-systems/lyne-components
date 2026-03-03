@@ -1,3 +1,6 @@
 /** @entrypoint */
-export * from './title/title.component.ts';
-export * from './title/title-base.ts';
+import { SbbTitleElement } from './title.pure.ts';
+
+export * from './title.pure.ts';
+
+SbbTitleElement.define();

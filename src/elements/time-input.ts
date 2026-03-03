@@ -1,2 +1,6 @@
 /** @entrypoint */
-export * from './time-input/time-input.component.ts';
+import { SbbTimeInputElement } from './time-input.pure.ts';
+
+export * from './time-input.pure.ts';
+
+SbbTimeInputElement.define();

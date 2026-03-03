@@ -1,2 +1,6 @@
 /** @entrypoint */
-export * from './tooltip/tooltip.component.ts';
+import { SbbTooltipElement } from './tooltip.pure.ts';
+
+export * from './tooltip.pure.ts';
+
+SbbTooltipElement.define();

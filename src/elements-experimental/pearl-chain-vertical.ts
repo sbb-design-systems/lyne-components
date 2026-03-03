@@ -1,2 +1,6 @@
 /** @entrypoint */
-export * from './pearl-chain-vertical/pearl-chain-vertical.component.ts';
+import { SbbPearlChainVerticalElement } from './pearl-chain-vertical.pure.ts';
+
+export * from './pearl-chain-vertical.pure.ts';
+
+SbbPearlChainVerticalElement.define();

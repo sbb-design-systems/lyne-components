@@ -1,5 +1,6 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import { html, type CSSResultGroup, type TemplateResult } from 'lit';
+
+import { SbbElement } from '../core/base-elements/element.ts';
 
 import style from './screen-reader-only.scss?lit&inline';
 
@@ -8,7 +9,7 @@ import style from './screen-reader-only.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to provide content.
  */
-export class SbbScreenReaderOnlyElement extends LitElement {
+export class SbbScreenReaderOnlyElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-screen-reader-only';
   public static override styles: CSSResultGroup = style;
 

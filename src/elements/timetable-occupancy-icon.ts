@@ -1,2 +1,6 @@
 /** @entrypoint */
-export * from './timetable-occupancy-icon/timetable-occupancy-icon.component.ts';
+import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.pure.ts';
+
+export * from './timetable-occupancy-icon.pure.ts';
+
+SbbTimetableOccupancyIconElement.define();

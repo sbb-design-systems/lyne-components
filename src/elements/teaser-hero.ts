@@ -1,2 +1,6 @@
 /** @entrypoint */
-export * from './teaser-hero/teaser-hero.component.ts';
+import { SbbTeaserHeroElement } from './teaser-hero.pure.ts';
+
+export * from './teaser-hero.pure.ts';
+
+SbbTeaserHeroElement.define();

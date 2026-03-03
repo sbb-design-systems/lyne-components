@@ -1,4 +1,12 @@
 /** @entrypoint */
-export * from './form-field/error.ts';
-export * from './form-field/form-field.ts';
-export * from './form-field/form-field-clear.ts';
+import {
+  SbbErrorElement,
+  SbbFormFieldElement,
+  SbbFormFieldClearElement,
+} from './form-field.pure.ts';
+
+export * from './form-field.pure.ts';
+
+SbbErrorElement.define();
+SbbFormFieldElement.define();
+SbbFormFieldClearElement.define();

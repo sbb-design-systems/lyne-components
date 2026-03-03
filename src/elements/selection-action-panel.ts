@@ -1,2 +1,6 @@
 /** @entrypoint */
-export * from './selection-action-panel/selection-action-panel.component.ts';
+import { SbbSelectionActionPanelElement } from './selection-action-panel.pure.ts';
+
+export * from './selection-action-panel.pure.ts';
+
+SbbSelectionActionPanelElement.define();

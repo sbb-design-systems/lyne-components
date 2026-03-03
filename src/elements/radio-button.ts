@@ -1,5 +1,12 @@
 /** @entrypoint */
-export * from './radio-button/radio-button.ts';
-export * from './radio-button/radio-button-group.ts';
-export * from './radio-button/radio-button-panel.ts';
-export * from './radio-button/common.ts';
+import {
+  SbbRadioButtonElement,
+  SbbRadioButtonGroupElement,
+  SbbRadioButtonPanelElement,
+} from './radio-button.pure.ts';
+
+export * from './radio-button.pure.ts';
+
+SbbRadioButtonElement.define();
+SbbRadioButtonGroupElement.define();
+SbbRadioButtonPanelElement.define();

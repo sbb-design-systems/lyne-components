@@ -1,3 +1,7 @@
 /** @entrypoint */
-export * from './chip/chip.ts';
-export * from './chip/chip-group.ts';
+import { SbbChipElement, SbbChipGroupElement } from './chip.pure.ts';
+
+export * from './chip.pure.ts';
+
+SbbChipElement.define();
+SbbChipGroupElement.define();

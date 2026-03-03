@@ -1,4 +1,12 @@
 /** @entrypoint */
-export * from './mini-calendar/mini-calendar.ts';
-export * from './mini-calendar/mini-calendar-day.ts';
-export * from './mini-calendar/mini-calendar-month.ts';
+import {
+  SbbMiniCalendarElement,
+  SbbMiniCalendarDayElement,
+  SbbMiniCalendarMonthElement,
+} from './mini-calendar.pure.ts';
+
+export * from './mini-calendar.pure.ts';
+
+SbbMiniCalendarElement.define();
+SbbMiniCalendarDayElement.define();
+SbbMiniCalendarMonthElement.define();

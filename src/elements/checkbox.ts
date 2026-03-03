@@ -1,5 +1,12 @@
 /** @entrypoint */
-export * from './checkbox/checkbox.ts';
-export * from './checkbox/checkbox-group.ts';
-export * from './checkbox/checkbox-panel.ts';
-export * from './checkbox/common.ts';
+import {
+  SbbCheckboxElement,
+  SbbCheckboxGroupElement,
+  SbbCheckboxPanelElement,
+} from './checkbox.pure.ts';
+
+export * from './checkbox.pure.ts';
+
+SbbCheckboxElement.define();
+SbbCheckboxGroupElement.define();
+SbbCheckboxPanelElement.define();

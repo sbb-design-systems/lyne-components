@@ -1,4 +1,12 @@
 /** @entrypoint */
-export * from './carousel/carousel.ts';
-export * from './carousel/carousel-item.ts';
-export * from './carousel/carousel-list.ts';
+import {
+  SbbCarouselElement,
+  SbbCarouselItemElement,
+  SbbCarouselListElement,
+} from './carousel.pure.ts';
+
+export * from './carousel.pure.ts';
+
+SbbCarouselElement.define();
+SbbCarouselItemElement.define();
+SbbCarouselListElement.define();

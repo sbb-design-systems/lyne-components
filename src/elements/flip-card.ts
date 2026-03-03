@@ -1,4 +1,12 @@
 /** @entrypoint */
-export * from './flip-card/flip-card.ts';
-export * from './flip-card/flip-card-summary.ts';
-export * from './flip-card/flip-card-details.ts';
+import {
+  SbbFlipCardElement,
+  SbbFlipCardDetailsElement,
+  SbbFlipCardSummaryElement,
+} from './flip-card.pure.ts';
+
+export * from './flip-card.pure.ts';
+
+SbbFlipCardElement.define();
+SbbFlipCardDetailsElement.define();
+SbbFlipCardSummaryElement.define();

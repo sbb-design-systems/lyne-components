@@ -1,2 +1,6 @@
 /** @entrypoint */
-export * from './clock/clock.component.ts';
+import { SbbClockElement } from './clock.pure.ts';
+
+export * from './clock.pure.ts';
+
+SbbClockElement.define();

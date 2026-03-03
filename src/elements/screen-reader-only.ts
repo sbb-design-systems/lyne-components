@@ -1,2 +1,6 @@
 /** @entrypoint */
-export * from './screen-reader-only/screen-reader-only.component.ts';
+import { SbbScreenReaderOnlyElement } from './screen-reader-only.pure.ts';
+
+export * from './screen-reader-only.pure.ts';
+
+SbbScreenReaderOnlyElement.define();

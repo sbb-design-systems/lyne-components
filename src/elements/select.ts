@@ -1,2 +1,6 @@
 /** @entrypoint */
-export * from './select/select.component.ts';
+import { SbbSelectElement } from './select.pure.ts';
+
+export * from './select.pure.ts';
+
+SbbSelectElement.define();

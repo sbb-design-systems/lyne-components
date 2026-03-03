@@ -1,4 +1,8 @@
 /** @entrypoint */
-export * from './stepper/step.ts';
-export * from './stepper/step-label.ts';
-export * from './stepper/stepper.ts';
+import { SbbStepElement, SbbStepLabelElement, SbbStepperElement } from './stepper.pure.ts';
+
+export * from './stepper.pure.ts';
+
+SbbStepElement.define();
+SbbStepLabelElement.define();
+SbbStepperElement.define();

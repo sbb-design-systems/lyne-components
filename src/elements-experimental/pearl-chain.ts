@@ -1,2 +1,6 @@
 /** @entrypoint */
-export * from './pearl-chain/pearl-chain.component.ts';
+import { SbbPearlChainElement } from './pearl-chain.pure.ts';
+
+export * from './pearl-chain.pure.ts';
+
+SbbPearlChainElement.define();
