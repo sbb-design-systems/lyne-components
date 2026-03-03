@@ -5,7 +5,11 @@ import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing
 import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover.component.js';
 import { html } from 'lit/static-html.js';
 
-import { mapRawDataToSeatReservation, type SeatReservation } from '../common.ts';
+import {
+  mapRawDataToSeatReservation,
+  type PlaceSelection,
+  type SeatReservation,
+} from '../common.ts';
 import type { SbbSeatReservationAreaElement } from '../seat-reservation-area/seat-reservation-area.component.ts';
 import { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
 
@@ -461,6 +465,28 @@ describe(`sbb-seat-reservation`, () => {
 
       expect(placeControl).not.to.be.null;
       expect(placeControl).to.not.have.attribute('title');
+    });
+
+    // this test is maybe not necessary because it's a duplicate
+    // @see also seat-reservation-place-control.spec.ts test "'should emit full placeSelection detail on click'"
+    it('emit details of selected place ', async () => {
+      const selectSpy = new EventSpy<CustomEvent<PlaceSelection>>('selectplace', element);
+      const placeControls: NodeListOf<SbbSeatReservationPlaceControlElement> =
+        element.shadowRoot!.querySelectorAll<SbbSeatReservationPlaceControlElement>(
+          'sbb-seat-reservation-place-control',
+        );
+      await waitForLitRender(element);
+      placeControls[0].click();
+
+      const evt = selectSpy.events[0];
+      await expect(evt.detail.id).to.equal(placeControls[0].getAttribute('id'));
+      await expect(evt.detail.deckIndex).to.equal(+!placeControls[0].getAttribute('deck-index'));
+      await expect(evt.detail.coachIndex).to.equal(+!placeControls[0].getAttribute('coach-index'));
+      await expect(evt.detail.number).to.equal(placeControls[0].getAttribute('text'));
+      await expect(evt.detail.placeType).to.equal(placeControls[0].getAttribute('type'));
+      await expect(evt.detail.state).to.equal(placeControls[0].getAttribute('state'));
+
+      await expect(selectSpy.count).to.equal(1);
     });
   });
 
