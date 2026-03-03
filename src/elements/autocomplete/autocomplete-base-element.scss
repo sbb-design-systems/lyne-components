@@ -20,6 +20,10 @@
   @include sbb.options-panel-overlay-size-s-variables;
 }
 
+:host([size='m']) {
+  @include sbb.options-panel-overlay-size-m-variables;
+}
+
 :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
   display: block;
 }

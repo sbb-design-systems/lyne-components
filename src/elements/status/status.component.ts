@@ -72,15 +72,13 @@ class SbbStatusElement extends SbbIconNameMixin(SbbElementInternalsMixin(LitElem
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-status">
-        <span class="sbb-status__icon"> ${this.renderIconSlot()} </span>
-        <span class="sbb-status__content">
-          <slot name="title" @slotchange=${this._configureTitle}></slot>
-          <p class="sbb-status__content-slot" @slotchange=${this._handleSlotchange}>
-            <slot></slot>
-          </p>
-        </span>
-      </div>
+      <span class="sbb-status__icon"> ${this.renderIconSlot()} </span>
+      <span class="sbb-status__content">
+        <slot name="title" @slotchange=${this._configureTitle}></slot>
+        <p class="sbb-status__content-slot" @slotchange=${this._handleSlotchange}>
+          <slot></slot>
+        </p>
+      </span>
     `;
   }
 }

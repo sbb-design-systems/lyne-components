@@ -259,30 +259,28 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-option__container">
-        <div class="sbb-option">
-          ${this.renderIcon()}
-          <span class="sbb-option__label">
-            <slot @slotchange=${this.handleHighlightState}></slot>
-            <span
-              aria-hidden=${
-                /**
-                 * Screen readers with Chromium read the option twice.
-                 * We therefore have to hide the option for the screen readers.
-                 * TODO: Recheck periodically if this is still necessary.
-                 * https://issues.chromium.org/issues/460165741
-                 */
-                isBlink ? 'true' : nothing
-              }
-            >
-              ${this.renderLabel()}
-            </span>
-            ${this._inertAriaGroups && this.groupLabel
-              ? html`<sbb-screen-reader-only> (${this.groupLabel})</sbb-screen-reader-only>`
-              : nothing}
+      <div class="sbb-option">
+        ${this.renderIcon()}
+        <span class="sbb-option__label">
+          <slot @slotchange=${this.handleHighlightState}></slot>
+          <span
+            aria-hidden=${
+              /**
+               * Screen readers with Chromium read the option twice.
+               * We therefore have to hide the option for the screen readers.
+               * TODO: Recheck periodically if this is still necessary.
+               * https://issues.chromium.org/issues/460165741
+               */
+              isBlink ? 'true' : nothing
+            }
+          >
+            ${this.renderLabel()}
           </span>
-          ${this.renderTick()}
-        </div>
+          ${this._inertAriaGroups && this.groupLabel
+            ? html`<sbb-screen-reader-only> (${this.groupLabel})</sbb-screen-reader-only>`
+            : nothing}
+        </span>
+        ${this.renderTick()}
       </div>
     `;
   }
