@@ -883,3 +883,10 @@ export const i18nSlide: Record<string, string> = {
   fr: 'Diapositive',
   it: 'Slide',
 };
+
+export const i18nRemainingCharacters = (remaining: number): Record<string, string> => ({
+  de: `${remaining} Zeichen übrig`,
+  en: `${remaining} characters remaining`,
+  fr: `${remaining} caractères restants`,
+  it: `${remaining} caratteri rimanenti`,
+});

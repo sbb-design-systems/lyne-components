@@ -9,6 +9,7 @@ import readme from './readme.md?raw';
 
 import './form-field.component.ts';
 import '../form-field-clear.ts';
+import '../form-field-remaining-chars.ts';
 import '../../button/mini-button.ts';
 import '../error.ts';
 import '../../link.ts';
@@ -225,6 +226,38 @@ const TemplateSelectWithIcons = (args: Args): TemplateResult =>
 
 const TemplateTextarea = (args: Args): TemplateResult =>
   formField(args, TemplateBasicTextarea(args));
+
+const TemplateTextareaWithRemainingChars = (args: Args): TemplateResult =>
+  formField(
+    args,
+    html`
+      <textarea
+        class=${args.cssClass}
+        placeholder=${args.placeholder}
+        ?disabled=${args.disabled}
+        ?readonly=${args.readonly}
+        .value=${args.value || nothing}
+        maxlength="200"
+      ></textarea>
+      <sbb-form-field-remaining-chars></sbb-form-field-remaining-chars>
+    `,
+  );
+
+const TemplateInputWithRemainingChars = (args: Args): TemplateResult =>
+  formField(
+    args,
+    html`
+      <input
+        class=${args.cssClass}
+        placeholder=${args.placeholder}
+        ?disabled=${args.disabled}
+        ?readonly=${args.readonly}
+        value=${args.value}
+        maxlength="50"
+      />
+      <sbb-form-field-remaining-chars></sbb-form-field-remaining-chars>
+    `,
+  );
 
 const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
   const error: SbbErrorElement = document.createElement('sbb-error');
@@ -708,6 +741,18 @@ export const TextareaFloatingWithIcon: StoryObj = {
     'floating-label': true,
     value: undefined,
   },
+};
+
+export const TextareaWithRemainingChars: StoryObj = {
+  render: TemplateTextareaWithRemainingChars,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
+};
+
+export const InputWithRemainingChars: StoryObj = {
+  render: TemplateInputWithRemainingChars,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs },
 };
 
 export const InputCollapsedWidth: StoryObj = {

@@ -1,0 +1,18 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --sbb-form-field-remaining-chars-color: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-smoke)
+  );
+
+  display: inline-block;
+  color: var(--sbb-form-field-remaining-chars-color);
+  font-size: var(--sbb-text-font-size-xxs);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  margin-block-start: var(--sbb-spacing-fixed-1x);
+}
+
+:host([negative]) {
+  --sbb-form-field-remaining-chars-color: var(--sbb-color-5);
+}

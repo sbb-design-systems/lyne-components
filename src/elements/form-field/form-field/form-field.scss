@@ -282,6 +282,12 @@
   }
 }
 
+::slotted(sbb-form-field-remaining-chars) {
+  :host(:where(:state(disabled), :state(readonly))) & {
+    display: none;
+  }
+}
+
 // As the calendar should be shown below the form field border, we have to stretch the toggle's height.
 // TODO: Maybe move this to the datepicker-toggle component.
 ::slotted(sbb-datepicker-toggle) {

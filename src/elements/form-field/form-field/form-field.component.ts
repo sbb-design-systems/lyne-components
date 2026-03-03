@@ -33,7 +33,7 @@ import '../../icon.ts';
 
 let nextId = 0;
 
-const patchedInputs = new WeakMap<HTMLInputElement, PropertyDescriptor>();
+const patchedInputs = new WeakMap<HTMLInputElement | HTMLTextAreaElement, PropertyDescriptor>();
 const nativeInputElements = ['input', 'textarea', 'select'];
 
 /** An interface which allows a control to work inside a `SbbFormField`. */
@@ -75,6 +75,7 @@ export class SbbFormFieldControlEvent extends Event {
  * @slot prefix - Use this slot to render an icon on the left side of the input.
  * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @slot error - Use this slot to render an error.
+ * @slot remaining-chars - Use this slot to render remaining characters count (sbb-form-field-remaining-chars).
  *
  * @cssprop [--sbb-form-field-outline-offset] - To override the focus outline offset,
  * @cssprop [--sbb-form-field-focus-underline-z-index] - To override the z-index of the focus underline effect,
@@ -176,6 +177,9 @@ class SbbFormFieldElement extends SbbNegativeMixin(
           this._readInputState();
           this._registerInputFormListener();
           this._checkAndUpdateInputEmpty();
+          // Used to notify the remaining chars component.
+          /** @internal */
+          this.dispatchEvent(new Event('ɵinputattributechange'));
         }
       })
     : null;
@@ -350,6 +354,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
 
     if (this._input.localName === 'textarea') {
       this._input.setAttribute('rows', this._input.getAttribute('rows') || '3');
+      this._patchInputValue();
     } else if (this._input.localName === 'input') {
       this._patchInputValue();
     } else if (
@@ -364,7 +369,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     this._formFieldAttributeObserver?.disconnect();
     this._formFieldAttributeObserver?.observe(this._input, {
       attributes: true,
-      attributeFilter: ['readonly', 'disabled', 'form', 'class', 'data-expanded'],
+      attributeFilter: ['readonly', 'disabled', 'form', 'class', 'data-expanded', 'maxlength'],
     });
     this.internals.states.add(`input-type-${this._input.localName}`);
     this._syncLabelInputReferences();
@@ -429,7 +434,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   // We need to patch the value property of the HTMLInputElement in order
   // to be able to reset the floating label in the empty state.
   private _patchInputValue(): void {
-    const inputElement = this._input as HTMLInputElement;
+    const inputElement = this._input as HTMLInputElement | HTMLTextAreaElement;
     if (!inputElement || patchedInputs.has(inputElement)) {
       return;
     }
@@ -446,7 +451,16 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     patchedInputs.set(inputElement, originalDescriptor);
 
     const { get: getter, set: setter } = originalDescriptor;
-    const checkAndUpdateInputEmpty = (): void => this._checkAndUpdateInputEmpty();
+    const checkAndUpdateInputEmpty = (): void => {
+      this._checkAndUpdateInputEmpty();
+
+      // Used to notify the remaining chars component to update its count
+      // when the value is changed via form reset or programmatically.
+      // We need a custom event for this, because the native input event is
+      // not triggered in these cases.
+      /** @internal */
+      this.dispatchEvent(new Event('ɵinput'));
+    };
 
     Object.defineProperty(inputElement, 'value', {
       ...originalDescriptor,
@@ -558,7 +572,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
 
   private _syncNegative(): void {
     this.querySelectorAll?.(
-      'sbb-error,sbb-mini-button,sbb-mini-button-link,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group',
+      'sbb-error,sbb-mini-button,sbb-mini-button-link,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group,sbb-form-field-remaining-chars',
     ).forEach((element) => element.toggleAttribute('negative', this.negative));
   }
 
@@ -599,6 +613,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
 
         <div class="sbb-form-field__error">
           <slot name="error" @slotchange=${this._onSlotErrorChange}></slot>
+          <slot name="remaining-chars" @slotchange=${this._syncNegative}></slot>
         </div>
       </div>
     `;
