@@ -4,8 +4,6 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-
 import readme from './readme.md?raw';
 
 import './form-field-text-counter.component.ts';
@@ -51,33 +49,39 @@ const defaultArgs: Args = {
 };
 
 const Template = (args: Args): TemplateResult => html`
-  <sbb-form-field ${sbbSpread({ negative: args.negative })}>
+  <sbb-form-field ?negative=${args.negative}>
     <label>Description</label>
     <textarea
       placeholder="Enter your description"
-      ${sbbSpread({ maxlength: args.maxlength, disabled: args.disabled, readonly: args.readonly })}
+      maxlength=${args.maxlength}
+      ?disabled=${args.disabled}
+      ?readonly=${args.readonly}
     ></textarea>
     <sbb-form-field-text-counter></sbb-form-field-text-counter>
   </sbb-form-field>
 `;
 
 const InputTemplate = (args: Args): TemplateResult => html`
-  <sbb-form-field ${sbbSpread({ negative: args.negative })}>
+  <sbb-form-field ?negative=${args.negative}>
     <label>Username</label>
     <input
       placeholder="Enter your username"
-      ${sbbSpread({ maxlength: args.maxlength, disabled: args.disabled, readonly: args.readonly })}
+      maxlength=${args.maxlength}
+      ?disabled=${args.disabled}
+      ?readonly=${args.readonly}
     />
     <sbb-form-field-text-counter></sbb-form-field-text-counter>
   </sbb-form-field>
 `;
 
 const WithErrorTemplate = (args: Args): TemplateResult => html`
-  <sbb-form-field ${sbbSpread({ negative: args.negative })}>
+  <sbb-form-field ?negative=${args.negative}>
     <label>Description</label>
     <textarea
       placeholder="Enter your description"
-      ${sbbSpread({ maxlength: args.maxlength, disabled: args.disabled, readonly: args.readonly })}
+      maxlength=${args.maxlength}
+      ?disabled=${args.disabled}
+      ?readonly=${args.readonly}
     ></textarea>
     <sbb-error>This field has an error</sbb-error>
     <sbb-form-field-text-counter></sbb-form-field-text-counter>

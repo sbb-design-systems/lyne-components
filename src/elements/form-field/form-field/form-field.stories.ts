@@ -243,22 +243,6 @@ const TemplateTextareaWithRemainingChars = (args: Args): TemplateResult =>
     `,
   );
 
-const TemplateInputWithRemainingChars = (args: Args): TemplateResult =>
-  formField(
-    args,
-    html`
-      <input
-        class=${args.cssClass}
-        placeholder=${args.placeholder}
-        ?disabled=${args.disabled}
-        ?readonly=${args.readonly}
-        value=${args.value}
-        maxlength="50"
-      />
-      <sbb-form-field-text-counter></sbb-form-field-text-counter>
-    `,
-  );
-
 const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
   const error: SbbErrorElement = document.createElement('sbb-error');
   error.setAttribute('slot', 'error');
@@ -745,12 +729,6 @@ export const TextareaFloatingWithIcon: StoryObj = {
 
 export const TextareaWithRemainingChars: StoryObj = {
   render: TemplateTextareaWithRemainingChars,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs },
-};
-
-export const InputWithRemainingChars: StoryObj = {
-  render: TemplateInputWithRemainingChars,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
 };

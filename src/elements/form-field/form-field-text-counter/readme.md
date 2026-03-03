@@ -1,9 +1,11 @@
 The `sbb-form-field-text-counter` is a component that displays the remaining characters count
 for input or textarea elements with a `maxlength` attribute within an `sbb-form-field`.
 
+If the input/textarea is `disabled` or `readonly`, the `sbb-form-field-text-counter` is hidden.
+
 ## Usage
 
-Place the component inside an `sbb-form-field` that contains an `input` or `textarea`
+Place the component inside an `sbb-form-field` that contains an `input` or `textarea` (or a custom element)
 with a `maxlength` attribute. The component will automatically detect the input element
 via the form field's `inputElement` property and display the remaining character count.
 
@@ -22,12 +24,6 @@ via the form field's `inputElement` property and display the remaining character
   <sbb-form-field-text-counter></sbb-form-field-text-counter>
 </sbb-form-field>
 ```
-
-## Behavior
-
-- It works with both `input`, `textarea` or custom elements that have a `maxlength` attribute
-- It displays the remaining characters count based on the element's `maxlength` attribute
-- If the input/textarea is `disabled` or `readonly`, the output is suppressed
 
 ## States
 
