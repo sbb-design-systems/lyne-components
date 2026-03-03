@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.7.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.6.0...v4.7.0) (2026-03-03)
+
+
+### Features
+
+* **sbb-chip-group:** option to add chip on blur ([#4511](https://github.com/sbb-design-systems/lyne-components/issues/4511)) ([a4da1f0](https://github.com/sbb-design-systems/lyne-components/commit/a4da1f010386142415d61fadf752aa3cd4c74b9f))
+* **sbb-seat-reservation:** multiple optimizations ([#4566](https://github.com/sbb-design-systems/lyne-components/issues/4566)) ([dc40a34](https://github.com/sbb-design-systems/lyne-components/commit/dc40a3401287758bc83816bef87b618e8bd06f14))
+
+
+### Bug Fixes
+
+* **sbb-autocomplete:** avoid double 'change' emission when 'requiredSelection' is enabled ([#4545](https://github.com/sbb-design-systems/lyne-components/issues/4545)) ([49f8e95](https://github.com/sbb-design-systems/lyne-components/commit/49f8e95ba7855ae8fc6f3e138f48ccdc34db0390))
+* **sbb-autocomplete:** fix interaction between 'autoSelectActiveOptionOnBlur' and 'requireSelection' ([#4573](https://github.com/sbb-design-systems/lyne-components/issues/4573)) ([c512028](https://github.com/sbb-design-systems/lyne-components/commit/c51202885f57d98a7a8d9a11a82b4d6b25256720))
+* **sbb-calendar, sbb-calendar-day:** remove type extension ([#4561](https://github.com/sbb-design-systems/lyne-components/issues/4561)) ([568b256](https://github.com/sbb-design-systems/lyne-components/commit/568b256cb3a0034d0d3b6e5d551dcfa6466ccb7e))
+* **sbb-datepicker-previous-day, sbb-datepicker-next-day:** remove dateFilter check ([#4513](https://github.com/sbb-design-systems/lyne-components/issues/4513)) ([a54febd](https://github.com/sbb-design-systems/lyne-components/commit/a54febddca9b29658c6e47ed26150ea4909eebad))
+* **sbb-dialog:** fix actions divider width ([#4558](https://github.com/sbb-design-systems/lyne-components/issues/4558)) ([aa54ab5](https://github.com/sbb-design-systems/lyne-components/commit/aa54ab5b0b1f123f0be2c84f526aa5cdccf46504))
+* **sbb-form-field:** allow pointer events on slotted content ([#4577](https://github.com/sbb-design-systems/lyne-components/issues/4577)) ([ab699e5](https://github.com/sbb-design-systems/lyne-components/commit/ab699e50267a16b44c23b1840ab54df2c7cc55b5)), closes [#4576](https://github.com/sbb-design-systems/lyne-components/issues/4576)
+* **sbb-pearl-chain:** fix colors for off-brand and safety themes ([#4464](https://github.com/sbb-design-systems/lyne-components/issues/4464)) ([2cfb527](https://github.com/sbb-design-systems/lyne-components/commit/2cfb527a00c1f6ac35832f1ee9a340947b3a7dc4)), closes [#4463](https://github.com/sbb-design-systems/lyne-components/issues/4463)
+
+
+### Documentation
+
+* **sbb-container:** add public var `--sbb-page-spacing-padding` entry ([#4536](https://github.com/sbb-design-systems/lyne-components/issues/4536)) ([a935eaf](https://github.com/sbb-design-systems/lyne-components/commit/a935eaffb3e72dd9d425ecb5940b317684d8ffba))
+* **sbb-mini-calendar:** fix wrong property documentation ([#4572](https://github.com/sbb-design-systems/lyne-components/issues/4572)) ([22102dd](https://github.com/sbb-design-systems/lyne-components/commit/22102dde7499c3ee3b4afd3e01f9e1f03d42ab42))
+
+
+### Code Refactoring
+
+* **dialog:** css refactoring ([#4498](https://github.com/sbb-design-systems/lyne-components/issues/4498)) ([e5a4fb7](https://github.com/sbb-design-systems/lyne-components/commit/e5a4fb7079bede0607c8d19a773304bf2d5b536c))
+* **sbb-autocomplete, sbb-select:** css refactoring ([#4441](https://github.com/sbb-design-systems/lyne-components/issues/4441)) ([af34a17](https://github.com/sbb-design-systems/lyne-components/commit/af34a176e9dc135d84a14f217ad097b3647bb2dd))
+* **sbb-breadcrumb-group:** move rules from core to global ([#4571](https://github.com/sbb-design-systems/lyne-components/issues/4571)) ([66e256c](https://github.com/sbb-design-systems/lyne-components/commit/66e256c4c0aff7f53c148d3d05ca0b9a45b0b06d))
+* **sbb-footer:** css refactoring ([#4556](https://github.com/sbb-design-systems/lyne-components/issues/4556)) ([c8263d5](https://github.com/sbb-design-systems/lyne-components/commit/c8263d5719390619b06dd5a2930e1d344e219e05))
+* **sbb-status:** css refactoring ([#4578](https://github.com/sbb-design-systems/lyne-components/issues/4578)) ([1606183](https://github.com/sbb-design-systems/lyne-components/commit/16061832922f0d00aa3ee6371aff6885211e1e74))
+
 ## [4.6.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.5.1...v4.6.0) (2026-02-25)
 
 
