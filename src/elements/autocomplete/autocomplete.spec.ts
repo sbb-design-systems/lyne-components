@@ -620,6 +620,30 @@ describe(`sbb-autocomplete`, () => {
         expect(inputEventSpy.count).to.be.equal(1);
         expect(inputAutocompleteSpy.count).to.be.equal(1);
       });
+
+      it('should work in combination with "requireSelection"', async () => {
+        element.requireSelection = true;
+        await waitForLitRender(element);
+
+        input.focus();
+        await openSpy.calledOnce();
+        expect(openSpy.count).to.be.equal(1);
+        await waitForLitRender(element);
+
+        await sendKeys({ type: 'a' });
+        await waitForLitRender(element);
+
+        expect(optOne).to.match(':state(active)');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('1');
+        expect(optOne).to.have.attribute('selected');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
+      });
     });
 
     describe('requireSelection', () => {
