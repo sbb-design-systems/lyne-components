@@ -6,7 +6,7 @@ import {
   type Constructor,
   SbbFormAssociatedRadioButtonMixin,
 } from '../../core/mixins.ts';
-import type { SbbRadioButtonGroupElement } from '../radio-button-group.ts';
+import type { SbbRadioButtonGroupElement } from '../../radio-button-group.ts';
 
 export type SbbRadioButtonSize = 'xs' | 's' | 'm';
 

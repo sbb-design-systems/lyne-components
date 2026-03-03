@@ -1,7 +1,7 @@
 /** @entrypoint */
-import { SbbRadioButtonPanelElement } from './radio-button-panel/radio-button-panel.component.ts';
+import { SbbRadioButtonPanelElement } from '../radio-button-panel/radio-button-panel.component.ts';
 
-export * from './radio-button-panel/radio-button-panel.component.ts';
+export * from '../radio-button-panel/radio-button-panel.component.ts';
 
 SbbRadioButtonPanelElement.define();
 

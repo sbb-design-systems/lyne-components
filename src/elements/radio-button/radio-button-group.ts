@@ -1,7 +1,7 @@
 /** @entrypoint */
-import { SbbRadioButtonGroupElement } from './radio-button-group/radio-button-group.component.ts';
+import { SbbRadioButtonGroupElement } from '../radio-button-group/radio-button-group.component.ts';
 
-export * from './radio-button-group/radio-button-group.component.ts';
+export * from '../radio-button-group/radio-button-group.component.ts';
 
 SbbRadioButtonGroupElement.define();
 

@@ -1,7 +1,7 @@
 /** @entrypoint */
-import { SbbCheckboxElement } from './checkbox/checkbox.component.ts';
+import { SbbCheckboxElement } from './checkbox.component.ts';
 
-export * from './checkbox/checkbox.component.ts';
+export * from './checkbox.component.ts';
 
 SbbCheckboxElement.define();
 

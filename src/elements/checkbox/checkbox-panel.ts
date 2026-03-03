@@ -1,7 +1,7 @@
 /** @entrypoint */
-import { SbbCheckboxPanelElement } from './checkbox-panel/checkbox-panel.component.ts';
+import { SbbCheckboxPanelElement } from '../checkbox-panel/checkbox-panel.component.ts';
 
-export * from './checkbox-panel/checkbox-panel.component.ts';
+export * from '../checkbox-panel/checkbox-panel.component.ts';
 
 SbbCheckboxPanelElement.define();
 

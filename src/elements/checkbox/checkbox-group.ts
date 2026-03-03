@@ -1,7 +1,7 @@
 /** @entrypoint */
-import { SbbCheckboxGroupElement } from './checkbox-group/checkbox-group.component.ts';
+import { SbbCheckboxGroupElement } from '../checkbox-group/checkbox-group.component.ts';
 
-export * from './checkbox-group/checkbox-group.component.ts';
+export * from '../checkbox-group/checkbox-group.component.ts';
 
 SbbCheckboxGroupElement.define();
 

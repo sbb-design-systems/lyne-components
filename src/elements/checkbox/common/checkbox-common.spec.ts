@@ -9,8 +9,8 @@ import type { SbbVisualCheckboxElement } from '../../visual-checkbox.ts';
 import type { SbbCheckboxPanelElement } from '../checkbox-panel.ts';
 import type { SbbCheckboxElement } from '../checkbox.ts';
 
-import '../checkbox.ts';
-import '../checkbox-panel.ts';
+import '../../checkbox.ts';
+import '../../checkbox-panel.ts';
 
 describe(`sbb-checkbox-common`, () => {
   ['sbb-checkbox', 'sbb-checkbox-panel'].forEach((selector) => {
