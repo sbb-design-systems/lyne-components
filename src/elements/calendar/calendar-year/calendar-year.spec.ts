@@ -27,7 +27,7 @@ describe('sbb-calendar-year', () => {
     const current = root.shadowRoot!.querySelectorAll('sbb-calendar-year:state(current)');
     expect(current.length).to.be.equal(1);
     assert.instanceOf(current[0], SbbCalendarYearElement);
-    expect((current[0] as SbbCalendarYearElement).value).to.equal(year);
+    expect((current[0] as SbbCalendarYearElement).value).to.equal(String(year));
     const crossedOut = root.shadowRoot!.querySelectorAll('sbb-calendar-year:state(crossed-out)');
     expect(crossedOut.length).to.be.equal(0);
     const selected = root.shadowRoot!.querySelectorAll('sbb-calendar-year:state(selected)');
@@ -49,8 +49,8 @@ describe('sbb-calendar-year', () => {
     expect((current[0] as SbbCalendarYearElement).value).to.equal(String(year));
     const crossedOut = root.shadowRoot!.querySelectorAll('sbb-calendar-year:state(crossed-out)');
     expect(crossedOut.length).to.be.equal(2);
-    expect((crossedOut[0] as SbbCalendarYearElement).value).to.be.equal(year - 1);
-    expect((crossedOut[1] as SbbCalendarYearElement).value).to.be.equal(year + 1);
+    expect((crossedOut[0] as SbbCalendarYearElement).value).to.be.equal(String(year - 1));
+    expect((crossedOut[1] as SbbCalendarYearElement).value).to.be.equal(String(year + 1));
     const selected = root.shadowRoot!.querySelectorAll('sbb-calendar-year:state(selected)');
     expect(selected.length).to.be.equal(1);
     expect((selected[0] as SbbCalendarYearElement).value).to.be.equal(String(year));
