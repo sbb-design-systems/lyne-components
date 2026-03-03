@@ -31,7 +31,7 @@ describe('sbb-calendar-day', () => {
     assert.instanceOf(todayElement, SbbCalendarDayElement);
   });
 
-  it('should have the right properties on todayElement', async () => {
+  it('should have the correct properties on todayElement', async () => {
     expect(todayElement).to.match(':state(current)');
     expect(todayElement).not.to.match(':state(crossed-out)');
     expect(todayElement).not.to.match(':state(selected)');
