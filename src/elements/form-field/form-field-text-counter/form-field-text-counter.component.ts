@@ -14,6 +14,7 @@ import style from './form-field-text-counter.scss?lit&inline';
  * It displays the remaining characters count for input/textarea elements with maxlength in the `sbb-form-field`.
  * The component automatically uses the form field's inputElement and displays the remaining character count.
  * If the input is disabled or readonly, the output is suppressed.
+ * @slot - Use the unnamed slot to display a custom description text after the counter.
  */
 export
 @customElement('sbb-form-field-text-counter')
@@ -70,17 +71,16 @@ class SbbFormFieldTextCounterElement extends SbbNegativeMixin(
       return;
     }
 
-    const maxLength = inputElement.maxLength ?? 0;
-    if (maxLength > 0) {
-      const currentLength = inputElement.value?.length ?? 0;
-      this._remainingChars = maxLength - currentLength;
-    } else {
-      this._remainingChars = 0;
-    }
+    this._remainingChars = Math.max(
+      (inputElement.maxLength ?? 0) - (inputElement.value?.length ?? 0),
+      0,
+    );
   }
 
   protected override render(): TemplateResult {
-    return html`${i18nRemainingCharacters(this._remainingChars)[this._language.current]}`;
+    return html`${this._remainingChars}<slot>
+        ${i18nRemainingCharacters[this._language.current]}
+      </slot>`;
   }
 }
 

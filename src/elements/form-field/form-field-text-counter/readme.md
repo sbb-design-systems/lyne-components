@@ -32,3 +32,17 @@ via the form field's `inputElement` property and display the remaining character
 ## States
 
 The component inherits the `negative` state from its parent `sbb-form-field`.
+
+<!-- Auto Generated Below -->
+
+## Properties
+
+| Name       | Attribute  | Privacy | Type      | Default | Description                     |
+| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
+| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
+
+## Slots
+
+| Name | Description                                                                  |
+| ---- | ---------------------------------------------------------------------------- |
+|      | Use the unnamed slot to display a custom description text after the counter. |
