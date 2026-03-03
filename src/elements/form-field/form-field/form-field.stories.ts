@@ -9,7 +9,7 @@ import readme from './readme.md?raw';
 
 import './form-field.component.ts';
 import '../form-field-clear.ts';
-import '../form-field-remaining-chars.ts';
+import '../form-field-text-counter.ts';
 import '../../button/mini-button.ts';
 import '../error.ts';
 import '../../link.ts';
@@ -239,7 +239,7 @@ const TemplateTextareaWithRemainingChars = (args: Args): TemplateResult =>
         .value=${args.value || nothing}
         maxlength="200"
       ></textarea>
-      <sbb-form-field-remaining-chars></sbb-form-field-remaining-chars>
+      <sbb-form-field-text-counter></sbb-form-field-text-counter>
     `,
   );
 
@@ -255,7 +255,7 @@ const TemplateInputWithRemainingChars = (args: Args): TemplateResult =>
         value=${args.value}
         maxlength="50"
       />
-      <sbb-form-field-remaining-chars></sbb-form-field-remaining-chars>
+      <sbb-form-field-text-counter></sbb-form-field-text-counter>
     `,
   );
 

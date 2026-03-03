@@ -8,7 +8,7 @@ import { SbbElementInternalsMixin, SbbNegativeMixin } from '../../core/mixins.ts
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field.component.ts';
 
-import style from './form-field-remaining-chars.scss?lit&inline';
+import style from './form-field-text-counter.scss?lit&inline';
 
 /**
  * It displays the remaining characters count for input/textarea elements with maxlength in the `sbb-form-field`.
@@ -16,8 +16,8 @@ import style from './form-field-remaining-chars.scss?lit&inline';
  * If the input is disabled or readonly, the output is suppressed.
  */
 export
-@customElement('sbb-form-field-remaining-chars')
-class SbbFormFieldRemainingCharsElement extends SbbNegativeMixin(
+@customElement('sbb-form-field-text-counter')
+class SbbFormFieldTextCounterElement extends SbbNegativeMixin(
   SbbElementInternalsMixin(LitElement),
 ) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
@@ -31,7 +31,7 @@ class SbbFormFieldRemainingCharsElement extends SbbNegativeMixin(
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    this.slot ||= 'remaining-chars';
+    this.slot ||= 'text-counter';
 
     this._abortController.abort();
     this._abortController = new AbortController();
@@ -87,6 +87,6 @@ class SbbFormFieldRemainingCharsElement extends SbbNegativeMixin(
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-form-field-remaining-chars': SbbFormFieldRemainingCharsElement;
+    'sbb-form-field-text-counter': SbbFormFieldTextCounterElement;
   }
 }

@@ -75,7 +75,7 @@ export class SbbFormFieldControlEvent extends Event {
  * @slot prefix - Use this slot to render an icon on the left side of the input.
  * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @slot error - Use this slot to render an error.
- * @slot remaining-chars - Use this slot to render remaining characters count (sbb-form-field-remaining-chars).
+ * @slot text-counter - Use this slot to render remaining characters count (sbb-form-field-text-counter).
  *
  * @cssprop [--sbb-form-field-outline-offset] - To override the focus outline offset,
  * @cssprop [--sbb-form-field-focus-underline-z-index] - To override the z-index of the focus underline effect,
@@ -317,6 +317,9 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   private _assignSlots(): void {
     this.querySelectorAll('label:not([slot])').forEach((e) => e.setAttribute('slot', 'label'));
     this.querySelectorAll('sbb-error:not([slot])').forEach((e) => e.setAttribute('slot', 'error'));
+    this.querySelectorAll('sbb-form-field-text-counter:not([slot])').forEach((e) =>
+      e.setAttribute('slot', 'text-counter'),
+    );
   }
 
   private _connectInputElement(): 'changed' | 'no-input' | 'unchanged' {
@@ -572,7 +575,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
 
   private _syncNegative(): void {
     this.querySelectorAll?.(
-      'sbb-error,sbb-mini-button,sbb-mini-button-link,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group,sbb-form-field-remaining-chars',
+      'sbb-error,sbb-mini-button,sbb-mini-button-link,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group,sbb-form-field-text-counter',
     ).forEach((element) => element.toggleAttribute('negative', this.negative));
   }
 
@@ -613,7 +616,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
 
         <div class="sbb-form-field__error">
           <slot name="error" @slotchange=${this._onSlotErrorChange}></slot>
-          <slot name="remaining-chars" @slotchange=${this._syncNegative}></slot>
+          <slot name="text-counter" @slotchange=${this._syncNegative}></slot>
         </div>
       </div>
     `;

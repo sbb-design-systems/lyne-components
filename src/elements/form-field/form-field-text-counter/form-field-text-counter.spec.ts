@@ -5,12 +5,12 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
 
-import { SbbFormFieldRemainingCharsElement } from './form-field-remaining-chars.component.ts';
+import { SbbFormFieldTextCounterElement } from './form-field-text-counter.component.ts';
 
 import '../form-field/form-field.component.ts';
 
-describe(`sbb-form-field-remaining-chars`, () => {
-  let element: SbbFormFieldRemainingCharsElement;
+describe(`sbb-form-field-text-counter`, () => {
+  let element: SbbFormFieldTextCounterElement;
   let formField: HTMLElement;
 
   const currentValue = (): string => {
@@ -25,15 +25,15 @@ describe(`sbb-form-field-remaining-chars`, () => {
         <sbb-form-field>
           <label>Description</label>
           <textarea maxlength="100"></textarea>
-          <sbb-form-field-remaining-chars></sbb-form-field-remaining-chars>
+          <sbb-form-field-text-counter></sbb-form-field-text-counter>
         </sbb-form-field>
       `);
-      element = formField.querySelector('sbb-form-field-remaining-chars')!;
+      element = formField.querySelector('sbb-form-field-text-counter')!;
       textarea = formField.querySelector('textarea')!;
     });
 
     it('renders', () => {
-      assert.instanceOf(element, SbbFormFieldRemainingCharsElement);
+      assert.instanceOf(element, SbbFormFieldTextCounterElement);
     });
 
     it('should display initial remaining characters', () => {
@@ -100,10 +100,10 @@ describe(`sbb-form-field-remaining-chars`, () => {
         <sbb-form-field>
           <label>Username</label>
           <input maxlength="20" />
-          <sbb-form-field-remaining-chars></sbb-form-field-remaining-chars>
+          <sbb-form-field-text-counter></sbb-form-field-text-counter>
         </sbb-form-field>
       `);
-      element = formField.querySelector('sbb-form-field-remaining-chars')!;
+      element = formField.querySelector('sbb-form-field-text-counter')!;
       input = formField.querySelector('input')!;
     });
 

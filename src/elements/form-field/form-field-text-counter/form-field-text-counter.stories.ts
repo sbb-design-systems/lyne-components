@@ -8,7 +8,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
-import './form-field-remaining-chars.component.ts';
+import './form-field-text-counter.component.ts';
 import '../form-field/form-field.component.ts';
 import '../error/error.component.ts';
 
@@ -57,7 +57,7 @@ const Template = (args: Args): TemplateResult => html`
       placeholder="Enter your description"
       ${sbbSpread({ maxlength: args.maxlength, disabled: args.disabled, readonly: args.readonly })}
     ></textarea>
-    <sbb-form-field-remaining-chars></sbb-form-field-remaining-chars>
+    <sbb-form-field-text-counter></sbb-form-field-text-counter>
   </sbb-form-field>
 `;
 
@@ -68,7 +68,7 @@ const InputTemplate = (args: Args): TemplateResult => html`
       placeholder="Enter your username"
       ${sbbSpread({ maxlength: args.maxlength, disabled: args.disabled, readonly: args.readonly })}
     />
-    <sbb-form-field-remaining-chars></sbb-form-field-remaining-chars>
+    <sbb-form-field-text-counter></sbb-form-field-text-counter>
   </sbb-form-field>
 `;
 
@@ -80,7 +80,7 @@ const WithErrorTemplate = (args: Args): TemplateResult => html`
       ${sbbSpread({ maxlength: args.maxlength, disabled: args.disabled, readonly: args.readonly })}
     ></textarea>
     <sbb-error>This field has an error</sbb-error>
-    <sbb-form-field-remaining-chars></sbb-form-field-remaining-chars>
+    <sbb-form-field-text-counter></sbb-form-field-text-counter>
   </sbb-form-field>
 `;
 
@@ -118,7 +118,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-form-field/sbb-form-field-remaining-chars',
+  title: 'elements/sbb-form-field/sbb-form-field-text-counter',
 };
 
 export default meta;

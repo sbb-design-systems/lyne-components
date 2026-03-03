@@ -3,10 +3,10 @@ import { html } from 'lit';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import './form-field-remaining-chars.component.ts';
+import './form-field-text-counter.component.ts';
 import '../form-field/form-field.component.ts';
 
-describe(`sbb-form-field-remaining-chars`, () => {
+describe(`sbb-form-field-text-counter`, () => {
   describe('renders', () => {
     let root: HTMLElement;
 
@@ -15,7 +15,7 @@ describe(`sbb-form-field-remaining-chars`, () => {
         <sbb-form-field>
           <label>Description</label>
           <textarea maxlength="100"></textarea>
-          <sbb-form-field-remaining-chars></sbb-form-field-remaining-chars>
+          <sbb-form-field-text-counter></sbb-form-field-text-counter>
         </sbb-form-field>
       `);
     });
@@ -25,7 +25,7 @@ describe(`sbb-form-field-remaining-chars`, () => {
     });
 
     it('Shadow DOM', async () => {
-      const element = root.querySelector('sbb-form-field-remaining-chars')!;
+      const element = root.querySelector('sbb-form-field-text-counter')!;
       await expect(element).shadowDom.to.be.equalSnapshot();
     });
 

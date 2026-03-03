@@ -282,7 +282,7 @@
   }
 }
 
-::slotted(sbb-form-field-remaining-chars) {
+::slotted(sbb-form-field-text-counter) {
   :host(:where(:state(disabled), :state(readonly))) & {
     display: none;
   }
