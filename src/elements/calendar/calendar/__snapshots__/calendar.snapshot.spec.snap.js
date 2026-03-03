@@ -3652,7 +3652,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
-                  tabindex="0"
+                  tabindex="-1"
                 >
                 </sbb-calendar-day>
               </slot>
@@ -4230,7 +4230,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
-                  tabindex="0"
+                  tabindex="-1"
                 >
                 </sbb-calendar-day>
               </slot>
@@ -5399,7 +5399,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
-                  tabindex="0"
+                  tabindex="-1"
                 >
                 </sbb-calendar-day>
               </slot>
@@ -6017,7 +6017,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
-                  tabindex="0"
+                  tabindex="-1"
                 >
                 </sbb-calendar-day>
               </slot>
@@ -7032,7 +7032,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
-                  tabindex="0"
+                  tabindex="-1"
                 >
                 </sbb-calendar-day>
               </slot>

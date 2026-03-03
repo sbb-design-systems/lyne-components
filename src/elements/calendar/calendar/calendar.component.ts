@@ -285,7 +285,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
   private get _cells(): SbbCalendarCellBaseElement[] {
     return Array.from<SbbCalendarCellBaseElement>(
       (this._calendarView === 'day'
-        ? this._getRootForQuerySelector()?.querySelectorAll('sbb-calendar-day')
+        ? (Array.from(this.shadowRoot!.querySelectorAll('slot')).flatMap((e: HTMLSlotElement) =>
+            e.assignedElements({ flatten: true }),
+          ) as SbbCalendarDayElement[])
         : this.shadowRoot?.querySelectorAll(`sbb-calendar-${this._calendarView}`)) ?? [],
     );
   }
@@ -337,10 +339,6 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
         );
       }
     });
-  }
-
-  private _getRootForQuerySelector(): this | ShadowRoot {
-    return this._enhancedVariant ? this : this.shadowRoot!;
   }
 
   private _dateFilter(date: T): boolean {
@@ -889,11 +887,9 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
   }
 
   private _setTabIndex(): void {
-    Array.from(
-      this._getRootForQuerySelector().querySelectorAll<SbbCalendarCellBaseElement<T>>(
-        `sbb-calendar-${this._calendarView}[tabindex="0"]`,
-      ) ?? [],
-    ).forEach((day) => (day.tabIndex = -1));
+    Array.from(this._cells.filter((e) => e.tabIndex === 0) ?? []).forEach(
+      (day) => (day.tabIndex = -1),
+    );
     const firstFocusable = this._getFirstFocusable();
     if (firstFocusable) {
       firstFocusable.tabIndex = 0;
@@ -902,11 +898,10 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
 
   /** Get the element in the calendar to assign focus. */
   private _getFirstFocusable(): SbbCalendarCellBaseElement | null {
-    const root = this._getRootForQuerySelector();
     if (this._calendarView === 'day') {
       const selectedOrCurrent =
-        root.querySelector<SbbCalendarDayElement>(':state(selected)') ??
-        root.querySelector<SbbCalendarDayElement>(':state(current)');
+        this._cells.find((e) => e.matches(':state(selected)')) ??
+        this._cells.find((e) => e.matches(':state(current)'));
       return selectedOrCurrent && !selectedOrCurrent.disabled
         ? selectedOrCurrent
         : this._getFirstFocusableDay();
@@ -930,8 +925,8 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
    * To solve this, the element with the lowest `value` is taken (ISO String are ordered).
    */
   private _getFirstFocusableDay(): SbbCalendarDayElement | null {
-    const daysInView: SbbCalendarDayElement[] = Array.from(
-      this._getRootForQuerySelector().querySelectorAll('sbb-calendar-day:not([disabled])'),
+    const daysInView: SbbCalendarDayElement[] = this._cells.filter(
+      (e): e is SbbCalendarDayElement => e.matches(':not([disabled])'),
     );
     if (!daysInView || daysInView.length === 0) {
       return null;
@@ -939,8 +934,10 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
       const firstElement = daysInView
         .map((e: SbbCalendarDayElement): string => this._dateAdapter.toIso8601(e.value! as T))
         .sort()[0];
-      return this._getRootForQuerySelector().querySelector(
-        `sbb-calendar-day[slot="${firstElement}"]`,
+      return (
+        this._cells.find((e): e is SbbCalendarDayElement =>
+          e.matches(`[slot="${firstElement}"]`),
+        )! ?? null
       );
     }
   }

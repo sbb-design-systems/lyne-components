@@ -7,6 +7,7 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 import { defaultDateAdapter } from '../../core/datetime.ts';
 import {
+  createPrice,
   createSlottedDays,
   monthChangeHandler,
 } from '../calendar-day/calendar-day.helper.private.ts';
@@ -106,6 +107,55 @@ const EnhancedTemplate = ({
       @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e, withPrice)}
       >${createDays(args.wide, withPrice)}</sbb-calendar
     >
+  `;
+};
+
+const MixedTemplate = ({
+  min,
+  max,
+  multiple,
+  selected,
+  dateFilter,
+  withPrice,
+  ...args
+}: Args): TemplateResult => {
+  if (selected) {
+    if (multiple) {
+      if (!Array.isArray(selected)) {
+        selected = [new Date(selected)];
+      } else {
+        selected = selected.map((e) => new Date(e));
+      }
+    } else {
+      if (Array.isArray(selected)) {
+        selected = new Date(selected[0]);
+      } else {
+        selected = new Date(selected);
+      }
+    }
+  }
+  return html`
+    <sbb-calendar
+      ?multiple=${multiple}
+      .selected=${selected}
+      .dateFilter="${dateFilter}"
+      ${sbbSpread(getCalendarAttr(min, max))}
+      ${sbbSpread(args)}
+    >
+      <sbb-calendar-day slot=${defaultDateAdapter.toIso8601(today)}>
+        ${createPrice(withPrice)}
+      </sbb-calendar-day>
+      <sbb-calendar-day
+        slot=${defaultDateAdapter.toIso8601(defaultDateAdapter.addCalendarDays(today, -5))}
+      >
+        ${createPrice(withPrice)}
+      </sbb-calendar-day>
+      <sbb-calendar-day
+        slot=${defaultDateAdapter.toIso8601(defaultDateAdapter.addCalendarDays(today, 10))}
+      >
+        ${createPrice(withPrice)}
+      </sbb-calendar-day>
+    </sbb-calendar>
   `;
 };
 
@@ -353,6 +403,12 @@ export const CalendarVerticalWideWeekNumbersMultiple: StoryObj = {
     multiple: true,
     selected: [today],
   },
+};
+
+export const CalendarMixed: StoryObj = {
+  render: MixedTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, withPrice: true },
 };
 
 export const CalendarEnhanced: StoryObj = {

@@ -321,14 +321,16 @@
 }
 
 sbb-calendar-day {
-  --sbb-calendar-day-flex-direction: row;
-  --sbb-calendar-day-justify-content: center;
-  --sbb-calendar-day-align-items: center;
-  --sbb-calendar-day-extra-display: none;
-  --sbb-calendar-day-crossed-out-top: 50%;
-  --sbb-calendar-day-crossed-out-translate: translate(-50%, -50%) rotate(-45deg);
-  --sbb-calendar-day-height: #{sbb.px-to-rem-build(44)};
-  --sbb-calendar-day-value-height: unset;
+  :host(:not(:state(enhanced))) & {
+    --sbb-calendar-day-flex-direction: row;
+    --sbb-calendar-day-justify-content: center;
+    --sbb-calendar-day-align-items: center;
+    --sbb-calendar-day-extra-display: none;
+    --sbb-calendar-day-crossed-out-top: 50%;
+    --sbb-calendar-day-crossed-out-translate: translate(-50%, -50%) rotate(-45deg);
+    --sbb-calendar-day-height: #{sbb.px-to-rem-build(44)};
+    --sbb-calendar-day-value-height: unset;
+  }
 }
 
 @keyframes show {
