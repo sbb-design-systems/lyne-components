@@ -249,7 +249,7 @@ describe(`sbb-datepicker`, () => {
     expect(calendar.shadowRoot!.querySelector('.sbb-calendar__table-year-view')!).not.to.be.null;
     expect(
       calendar.shadowRoot!.querySelector<SbbCalendarYearElement>(':state(selected)')!.value,
-    ).to.be.equal(2020);
+    ).to.be.equal('2020');
 
     // Close again
     await sendKeys({ press: 'Escape' });
