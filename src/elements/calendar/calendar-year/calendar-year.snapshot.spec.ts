@@ -11,7 +11,7 @@ describe(`sbb-calendar-year`, () => {
     let element: SbbCalendarYearElement;
 
     beforeEach(async () => {
-      element = await fixture(html`<sbb-calendar-year .value=${2026}></sbb-calendar-year>`);
+      element = await fixture(html`<sbb-calendar-year .value=${'2026'}></sbb-calendar-year>`);
     });
 
     it('DOM', async () => {

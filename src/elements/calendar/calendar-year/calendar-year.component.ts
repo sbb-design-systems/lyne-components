@@ -15,10 +15,10 @@ class SbbCalendarYearElement<T = Date> extends SbbCalendarCellBaseElement<T> {
 
   /** Value of the calendar-year element. */
   @state()
-  public set value(value: number | null) {
+  public set value(value: string | null) {
     const year = Number(value);
     if (!isNaN(year)) {
-      this._value = year;
+      this._value = value;
       const isToday = this.dateAdapter.getYear(this.dateAdapter.today()) === year;
       this.toggleState('current', isToday);
       this.internals.ariaLabel = String(year);
@@ -29,10 +29,10 @@ class SbbCalendarYearElement<T = Date> extends SbbCalendarCellBaseElement<T> {
       }
     }
   }
-  public get value(): number | null {
+  public get value(): string | null {
     return this._value;
   }
-  private _value: number | null = null;
+  private _value: string | null = null;
 
   public override connectedCallback(): void {
     super.connectedCallback();
@@ -42,9 +42,9 @@ class SbbCalendarYearElement<T = Date> extends SbbCalendarCellBaseElement<T> {
   protected override setSelectedState(parent: SbbCalendarElement<T>): void {
     const selected = parent.multiple
       ? ((parent.selected as Date[])?.some(
-          (date: Date) => this.value === this.dateAdapter.getYear(date),
+          (date: Date) => Number(this.value) === this.dateAdapter.getYear(date),
         ) ?? false)
-      : !!parent.selected && this.dateAdapter.getYear(parent.selected) === this.value;
+      : !!parent.selected && this.dateAdapter.getYear(parent.selected) === Number(this.value);
     this.toggleState('selected', selected);
     this.internals.ariaPressed = String(selected);
   }
@@ -63,10 +63,10 @@ class SbbCalendarYearElement<T = Date> extends SbbCalendarCellBaseElement<T> {
       return true;
     }
 
-    const firstOfYear = this.dateAdapter.createDate(this.value, 1, 1)!;
+    const firstOfYear = this.dateAdapter.createDate(Number(this.value), 1, 1)!;
     for (
       let date = firstOfYear;
-      this.dateAdapter.getYear(date) == this.value;
+      this.dateAdapter.getYear(date) == Number(this.value);
       date = this.dateAdapter.addCalendarDays(date, 1)
     ) {
       if (parent.dateFilter(date)) {
@@ -82,9 +82,9 @@ class SbbCalendarYearElement<T = Date> extends SbbCalendarCellBaseElement<T> {
       return true;
     }
     const isBeforeMin: boolean =
-      this.dateAdapter.isValid(min) && this.dateAdapter.getYear(min) > this.value;
+      this.dateAdapter.isValid(min) && this.dateAdapter.getYear(min) > Number(this.value);
     const isAfterMax: boolean =
-      this.dateAdapter.isValid(max) && this.dateAdapter.getYear(max) < this.value;
+      this.dateAdapter.isValid(max) && this.dateAdapter.getYear(max) < Number(this.value);
     return !(isBeforeMin || isAfterMax);
   }
 
