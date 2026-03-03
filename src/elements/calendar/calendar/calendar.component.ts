@@ -1778,7 +1778,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
                 return html`
                   <td class="sbb-calendar__table-data">
                     <sbb-calendar-year
-                      .value=${year}
+                      .value=${String(year)}
                       @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
                       @click=${() => this._onYearSelection(year, shiftRight)}
                     >

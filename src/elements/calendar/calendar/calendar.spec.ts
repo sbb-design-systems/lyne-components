@@ -284,12 +284,12 @@ describe(`sbb-calendar`, () => {
             element.shadowRoot!.querySelectorAll('sbb-calendar-year'),
           );
           expect(yearCells.length).to.be.equal(24);
-          expect(yearCells[0].value).to.be.equal(2016);
-          expect(yearCells[yearCells.length - 1].value).to.be.equal(2039);
+          expect(yearCells[0].value).to.be.equal('2016');
+          expect(yearCells[yearCells.length - 1].value).to.be.equal('2039');
 
           const yearButton =
             element.shadowRoot!.querySelector<SbbCalendarYearElement>(':state(selected)')!;
-          expect(yearButton.value).to.be.equal(2023);
+          expect(yearButton.value).to.be.equal('2023');
           yearButton.click();
           await waitForTransition(element);
 
