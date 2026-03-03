@@ -120,6 +120,9 @@ $theme: 'standard' !default;
   with (
   $theme: $theme
 );
+@use '../../status/status.global' as status with (
+  $theme: $theme
+);
 @use '../../tabs/common/tab-group-common.global' as tab-group-common with (
   $theme: $theme
 );
@@ -173,6 +176,7 @@ $theme: 'standard' !default;
   @include radio-button-group.base;
   @include selection-action-panel.base;
   @include selection-expansion-panel.base;
+  @include status.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
   @include visual-checkbox.base;
@@ -746,13 +750,6 @@ sbb-notification:has(sbb-title) {
     --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-6);
     --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-text);
   }
-}
-
-sbb-status:has(sbb-title) {
-  --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
-  --_sbb-status-text-color-override: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
-  --_sbb-status-title-font-size: var(--sbb-heading-font-size-5);
-  --_sbb-status-title-line-height: var(--sbb-typo-line-height-heading);
 }
 
 .sbb-overlay-outlet {
