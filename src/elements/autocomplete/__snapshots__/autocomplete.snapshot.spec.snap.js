@@ -128,6 +128,8 @@ snapshots["sbb-autocomplete renders in form field Safari Shadow DOM"] =
   <div class="sbb-form-field__error">
     <slot name="error">
     </slot>
+    <slot name="text-counter">
+    </slot>
   </div>
 </div>
 `;
@@ -247,6 +249,8 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox Shadow DOM"] =
   </div>
   <div class="sbb-form-field__error">
     <slot name="error">
+    </slot>
+    <slot name="text-counter">
     </slot>
   </div>
 </div>

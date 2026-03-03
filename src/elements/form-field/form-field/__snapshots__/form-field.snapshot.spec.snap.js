@@ -52,6 +52,8 @@ snapshots["sbb-form-field renders input Shadow DOM"] =
   <div class="sbb-form-field__error">
     <slot name="error">
     </slot>
+    <slot name="text-counter">
+    </slot>
   </div>
 </div>
 `;
@@ -109,6 +111,8 @@ snapshots["sbb-form-field renders disabled input Shadow DOM"] =
   </div>
   <div class="sbb-form-field__error">
     <slot name="error">
+    </slot>
+    <slot name="text-counter">
     </slot>
   </div>
 </div>
@@ -176,6 +180,8 @@ snapshots["sbb-form-field renders readonly input with error Shadow DOM"] =
   <div class="sbb-form-field__error">
     <slot name="error">
     </slot>
+    <slot name="text-counter">
+    </slot>
   </div>
 </div>
 `;
@@ -237,6 +243,8 @@ snapshots["sbb-form-field should render select without label Shadow DOM"] =
   </div>
   <div class="sbb-form-field__error">
     <slot name="error">
+    </slot>
+    <slot name="text-counter">
     </slot>
   </div>
 </div>
@@ -310,6 +318,8 @@ snapshots["sbb-form-field renders select with optional flag and borderless Shado
   </div>
   <div class="sbb-form-field__error">
     <slot name="error">
+    </slot>
+    <slot name="text-counter">
     </slot>
   </div>
 </div>
