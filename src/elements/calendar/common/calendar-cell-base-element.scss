@@ -12,13 +12,17 @@
   );
   --sbb-calendar-cell-transition-easing-function: var(--sbb-animation-easing);
   --sbb-calendar-cell-cursor: var(--sbb-cursor-pointer);
-  --sbb-calendar-cell-border-radius: var(--sbb-border-radius-4x);
+  --sbb-calendar-cell-border-width: var(--sbb-border-width-2x);
+  --sbb-calendar-cell-border-radius: calc(
+    var(--sbb-border-radius-4x) + var(--sbb-calendar-cell-border-width)
+  );
   --sbb-calendar-cell-year-month-width: #{sbb.px-to-rem-build(77)};
   --sbb-calendar-cell-year-month-height: #{sbb.px-to-rem-build(44)};
 }
 
 :host(:state(selected)) {
-  --sbb-calendar-cell-selected-border: var(--sbb-border-width-2x) solid var(--sbb-border-color-2);
+  --sbb-calendar-cell-selected-border: var(--sbb-calendar-cell-border-width) solid
+    var(--sbb-border-color-2);
 }
 
 :host(:disabled) {
