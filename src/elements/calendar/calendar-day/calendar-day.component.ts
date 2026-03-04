@@ -92,12 +92,16 @@ class SbbCalendarDayElement<T = Date> extends SbbCalendarCellBaseElement<T> {
     return this.dateAdapter.sameDate(this.value, this.dateAdapter.clampDate(this.value, min, max));
   }
 
+  private _handleSlotchange(e: Event): void {
+    this.internals.ariaDescribedByElements = (e.target as HTMLSlotElement).assignedElements();
+  }
+
   protected override renderTemplate(): TemplateResult {
     return html` <span class="sbb-calendar-day__value" aria-hidden="true">
         ${this.dateAdapter.getDate(this.value)}
       </span>
       <span class="sbb-calendar-day__extra">
-        <slot></slot>
+        <slot @slotchange=${(event: Event) => this._handleSlotchange(event)}></slot>
       </span>`;
   }
 }
