@@ -1179,7 +1179,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Monday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 M
               </button>
@@ -1187,7 +1187,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Tuesday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 T
               </button>
@@ -1195,7 +1195,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Wednesday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 W
               </button>
@@ -1203,7 +1203,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Thursday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 T
               </button>
@@ -1211,7 +1211,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Friday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 F
               </button>
@@ -1219,7 +1219,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Saturday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 S
               </button>
@@ -1227,7 +1227,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Sunday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 S
               </button>
@@ -5149,7 +5149,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Monday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 M
               </button>
@@ -5157,7 +5157,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Tuesday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 T
               </button>
@@ -5165,7 +5165,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Wednesday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 W
               </button>
@@ -5173,7 +5173,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Thursday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 T
               </button>
@@ -5181,7 +5181,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Friday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 F
               </button>
@@ -5189,7 +5189,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Saturday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 S
               </button>
@@ -5197,7 +5197,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Sunday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 S
               </button>
