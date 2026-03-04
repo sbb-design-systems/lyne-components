@@ -818,6 +818,28 @@ describe(`sbb-autocomplete`, () => {
         await aTimeout(0);
         expect(element).to.match(':state(state-closed)');
       });
+
+      it('should emit events if user manually clears the input after selection', async () => {
+        const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+
+        input.focus();
+        await openSpy.calledOnce();
+
+        await sendKeys({ press: 'ArrowDown' });
+        await sendKeys({ press: 'Enter' });
+        await waitForLitRender(element);
+
+        await closeSpy.calledOnce();
+        expect(input.value).to.be.equal('1');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+
+        await sendKeys({ press: 'ControlOrMeta+Backspace' });
+        await sendKeys({ press: tabKey });
+        expect(input.value).to.be.equal('');
+        expect(changeEventSpy.count).to.be.equal(2);
+        expect(inputEventSpy.count).to.be.equal(3);
+      });
     });
 
     it('should not close on disabled option click', async () => {
