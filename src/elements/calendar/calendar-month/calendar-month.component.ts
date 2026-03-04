@@ -14,29 +14,34 @@ export
 class SbbCalendarMonthElement<T = Date> extends SbbCalendarCellBaseElement<T> {
   public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle];
 
+  private static readonly _monthFormatRegex = /^\d{4}-(0[1-9]|1[0-2])$/;
   private _monthShortNames: string[] = this.dateAdapter.getMonthNames('short');
   private _monthLongNames: string[] = this.dateAdapter.getMonthNames('long');
   private _monthValue: number | null = null;
   private _yearValue: number | null = null;
 
-  /** Value of the calendar-month element. */
+  /**
+   * Value of the calendar-month element in ISO format (YYYY-MM).
+   */
   @state()
   public set value(value: string | null) {
-    if (value && value.match(/^\d{4}-(0[1-9]|1[0-2])$/)) {
-      this._value = value;
-      const splitDate = value.split('-');
-      this._yearValue = Number(splitDate[0]);
-      this._monthValue = Number(splitDate[1]);
-      const isToday =
-        this._yearValue === this.dateAdapter.getYear(this.dateAdapter.today()) &&
-        this.dateAdapter.getMonth(this.dateAdapter.today()) === this._monthValue;
-      this.toggleState('current', isToday);
-      this.internals.ariaLabel = `${this._monthLongNames[this._monthValue - 1]} ${this._yearValue}`;
-      const parent = this.getParent();
-      if (parent) {
-        this.setDisabledFilteredState(parent);
-        this.setSelectedState(parent);
-      }
+    if (!value || !SbbCalendarMonthElement._monthFormatRegex.test(value)) {
+      return;
+    }
+
+    this._value = value;
+    const splitDate = value.split('-');
+    this._yearValue = Number(splitDate[0]);
+    this._monthValue = Number(splitDate[1]);
+    const isToday =
+      this._yearValue === this.dateAdapter.getYear(this.dateAdapter.today()) &&
+      this.dateAdapter.getMonth(this.dateAdapter.today()) === this._monthValue;
+    this.toggleState('current', isToday);
+    this.internals.ariaLabel = `${this._monthLongNames[this._monthValue - 1]} ${this._yearValue}`;
+    const parent = this.getParent();
+    if (parent) {
+      this.setDisabledFilteredState(parent);
+      this.setSelectedState(parent);
     }
   }
   public get value(): string | null {

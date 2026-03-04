@@ -115,9 +115,15 @@ export interface Day<T = Date> {
   weekDayValue: number;
 }
 
+/** @deprecated use MonthCell */
 export interface Month {
   value: string;
   longValue: string;
+  monthValue: number;
+}
+
+export interface MonthCell {
+  value: string;
   monthValue: number;
 }
 
@@ -259,7 +265,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
   private _weeks: Day<T>[][] = [];
 
   /** Grid of calendar cells representing months. */
-  private _months!: Month[][];
+  private _months!: MonthCell[][];
 
   /** Grid of calendar cells representing years. */
   private _years!: number[][];
@@ -281,7 +287,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
 
   private _enhancedVariant: boolean = false;
 
-  /** A list of buttons corresponding to days, months or years depending on the view. */
+  /** A list of calendar's cells corresponding to days, months or years depending on the view. */
   private get _cells(): SbbCalendarCellBaseElement[] {
     return Array.from<SbbCalendarCellBaseElement>(
       (this._calendarView === 'day'
@@ -601,16 +607,14 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
 
   /** Creates the rows for the month selection view. */
   private _createMonthRows(): void {
-    const shortNames: string[] = this._dateAdapter.getMonthNames('short');
-    const months: Month[] = new Array(12).fill(null).map(
-      (_, i: number): Month => ({
-        value: shortNames[i],
-        longValue: this._monthNames[i],
+    const months: MonthCell[] = new Array(12).fill(null).map(
+      (_, i: number): MonthCell => ({
+        value: String(i + 1).padStart(2, '0'),
         monthValue: i + 1,
       }),
     );
     const rows: number = 12 / MONTHS_PER_ROW;
-    const monthArray: Month[][] = [];
+    const monthArray: MonthCell[][] = [];
     for (let i: number = 0; i < rows; i++) {
       monthArray.push(months.slice(MONTHS_PER_ROW * i, MONTHS_PER_ROW * (i + 1)));
     }
@@ -1644,7 +1648,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
   }
 
   /** Creates the table for the month selection view. */
-  private _createMonthTable(months: Month[][], year: number): TemplateResult {
+  private _createMonthTable(months: MonthCell[][], year: number): TemplateResult {
     return html`
       <table
         class="sbb-calendar__table"
@@ -1659,13 +1663,13 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
           : nothing}
         <tbody class="sbb-calendar__table-body">
           ${months.map(
-            (row: Month[]) => html`
+            (row: MonthCell[]) => html`
               <tr>
-                ${row.map((month: Month) => {
+                ${row.map((month: MonthCell) => {
                   return html`
                     <td class="sbb-calendar__table-data">
                       <sbb-calendar-month
-                        .value="${year}-${String(month.monthValue).padStart(2, '0')}"
+                        .value="${year}-${month.value}"
                         @click=${() => this._onMonthSelection(month.monthValue, year)}
                         @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
                       >

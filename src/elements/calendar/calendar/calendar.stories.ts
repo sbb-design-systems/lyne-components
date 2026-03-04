@@ -46,21 +46,26 @@ const getCalendarAttr = (min: number | string, max: number | string): Record<str
   return attr;
 };
 
+const setSelectedForTemplate = (multiple: boolean, selected: Date | Date[]): Date | Date[] => {
+  if (multiple) {
+    if (!Array.isArray(selected)) {
+      selected = [new Date(selected)];
+    } else {
+      selected = selected.map((e) => new Date(e));
+    }
+  } else {
+    if (Array.isArray(selected)) {
+      selected = new Date(selected[0]);
+    } else {
+      selected = new Date(selected);
+    }
+  }
+  return selected;
+};
+
 const Template = ({ min, max, multiple, selected, dateFilter, ...args }: Args): TemplateResult => {
   if (selected) {
-    if (multiple) {
-      if (!Array.isArray(selected)) {
-        selected = [new Date(selected)];
-      } else {
-        selected = selected.map((e) => new Date(e));
-      }
-    } else {
-      if (Array.isArray(selected)) {
-        selected = new Date(selected[0]);
-      } else {
-        selected = new Date(selected);
-      }
-    }
+    selected = setSelectedForTemplate(multiple, selected);
   }
   return html`
     <sbb-calendar
@@ -83,19 +88,7 @@ const EnhancedTemplate = ({
   ...args
 }: Args): TemplateResult => {
   if (selected) {
-    if (multiple) {
-      if (!Array.isArray(selected)) {
-        selected = [new Date(selected)];
-      } else {
-        selected = selected.map((e) => new Date(e));
-      }
-    } else {
-      if (Array.isArray(selected)) {
-        selected = new Date(selected[0]);
-      } else {
-        selected = new Date(selected);
-      }
-    }
+    selected = setSelectedForTemplate(multiple, selected);
   }
   return html`
     <sbb-calendar
@@ -120,19 +113,7 @@ const MixedTemplate = ({
   ...args
 }: Args): TemplateResult => {
   if (selected) {
-    if (multiple) {
-      if (!Array.isArray(selected)) {
-        selected = [new Date(selected)];
-      } else {
-        selected = selected.map((e) => new Date(e));
-      }
-    } else {
-      if (Array.isArray(selected)) {
-        selected = new Date(selected[0]);
-      } else {
-        selected = new Date(selected);
-      }
-    }
+    selected = setSelectedForTemplate(multiple, selected);
   }
   return html`
     <sbb-calendar
@@ -286,12 +267,7 @@ const defaultArgs: Args = {
 };
 
 const defaultArgsEnhanced: Args = {
-  wide: false,
-  orientation: orientation.options![0],
-  selected: today,
-  view: view.options![0],
-  'week-numbers': false,
-  multiple: false,
+  ...defaultArgs,
   withPrice: true,
 };
 

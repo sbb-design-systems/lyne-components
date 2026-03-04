@@ -13,20 +13,24 @@ export
 class SbbCalendarYearElement<T = Date> extends SbbCalendarCellBaseElement<T> {
   public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle];
 
-  /** Value of the calendar-year element. */
+  /**
+   * Value of the calendar-year element.
+   */
   @state()
   public set value(value: string | null) {
     const year = Number(value);
-    if (!isNaN(year)) {
-      this._value = value;
-      const isToday = this.dateAdapter.getYear(this.dateAdapter.today()) === year;
-      this.toggleState('current', isToday);
-      this.internals.ariaLabel = String(year);
-      const parent = this.getParent();
-      if (parent) {
-        this.setDisabledFilteredState(parent);
-        this.setSelectedState(parent);
-      }
+    if (isNaN(year)) {
+      return;
+    }
+
+    this._value = value;
+    const isToday = this.dateAdapter.getYear(this.dateAdapter.today()) === year;
+    this.toggleState('current', isToday);
+    this.internals.ariaLabel = String(year);
+    const parent = this.getParent();
+    if (parent) {
+      this.setDisabledFilteredState(parent);
+      this.setSelectedState(parent);
     }
   }
   public get value(): string | null {

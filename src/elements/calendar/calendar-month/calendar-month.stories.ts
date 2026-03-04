@@ -8,8 +8,8 @@ import '../../card.ts';
 
 const Template = (): TemplateResult => html`
   <sbb-card color="milk">
-    'sbb-calendar-month' should be used together with 'sbb-calendar'. See 'sbb-calendar' examples to
-    see it in action.
+    'sbb-calendar-month' is internally used in the month view of the 'sbb-calendar'. See
+    'sbb-calendar' examples to see it in action.
   </sbb-card>
 `;
 
@@ -23,7 +23,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/internals/sbb-calendar-month',
+  title: 'internals/sbb-calendar-month',
 };
 
 export default meta;
