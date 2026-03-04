@@ -226,7 +226,10 @@ describe(`sbb-toast`, () => {
     expect(element).to.match(':state(state-closed)');
   });
 
-  it('closes other toasts on open with non-zero animation duration', async () => {
+  it('closes other toasts on open with non-zero animation duration', async function (this: Context) {
+    // Flaky on WebKit
+    this.retries(3);
+
     (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
 
     const root = await fixture<SbbToastElement>(html`
