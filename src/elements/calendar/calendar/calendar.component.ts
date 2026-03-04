@@ -1389,7 +1389,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
                   ${this.multiple
                     ? html`
                         <button
-                          class="sbb-calendar__header-cell sbb-calendar__weekday"
+                          class="sbb-calendar__header-cell"
                           aria-label=${day.long}
                           @click=${() => {
                             // NOTE: Sundays have index 7, while their weekDayValue is 0
@@ -1423,7 +1423,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
                           ${this.multiple
                             ? html`
                                 <button
-                                  class="sbb-calendar__header-cell sbb-calendar__weekday"
+                                  class="sbb-calendar__header-cell"
                                   aria-label=${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[0]}`}
                                   @click=${() => {
                                     const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
@@ -1459,7 +1459,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
                         ${this.multiple
                           ? html`
                               <button
-                                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                                class="sbb-calendar__header-cell"
                                 aria-label=${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[rowIndex]}`}
                                 @click=${() => {
                                   const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
@@ -1525,7 +1525,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
                         ${this.multiple
                           ? html`
                               <button
-                                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                                class="sbb-calendar__header-cell"
                                 aria-label=${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumber}`}
                                 @click=${() => {
                                   const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
@@ -1563,7 +1563,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
                         ${this.multiple
                           ? html`
                               <button
-                                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                                class="sbb-calendar__header-cell"
                                 aria-label=${weekday.long}
                                 @click=${() => this._selectMultipleDates(selectableDays)}
                               >

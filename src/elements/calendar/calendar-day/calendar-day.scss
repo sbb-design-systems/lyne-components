@@ -54,5 +54,5 @@
 }
 
 ::slotted(*) {
-  height: #{sbb.px-to-rem-build(16)};
+  height: var(--sbb-calendar-day-extra-height);
 }
