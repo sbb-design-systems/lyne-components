@@ -136,6 +136,9 @@ describe(`sbb-seat-reservation`, () => {
   });
 
   describe('navigation checks', () => {
+    const maxCoachesInTrain = dataFull[0].coachItems.length - 1;
+    const TIMEOUT_NAVIGATION: number = 1000;
+
     let btn: SbbSecondaryButtonElement;
 
     beforeEach(async () => {
@@ -203,71 +206,39 @@ describe(`sbb-seat-reservation`, () => {
       });
     });
 
-    describe('navigation first navigation btn with preselected coach', () => {
-      let btn: SbbSecondaryButtonElement;
+    it('should NOT have a first navigation btn with disabled-interactive attr; selectable coaches are in front', async () => {
+      element.preselectCoachIndex = 2;
+      await waitForLitRender(element);
 
-      beforeEach(async () => {
-        element = await fixture(
-          html` <sbb-seat-reservation
-            .seatReservations=${dataFull}
-            max-seat-reservations="4"
-            has-navigation
-            base-grid-size="16"
-          ></sbb-seat-reservation>`,
-        );
-
-        btn = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
-          '#sbb-sr-navigation__wrapper-button-direction--left',
-        ) as SbbSecondaryButtonElement;
-
-        element.preselectCoachIndex = 2;
-      });
-
-      it('should NOT have a first navigation btn with disabled-interactive attr; selectable coaches are in front', async () => {
-        expect(btn).not.to.be.null;
-        !expect(btn.hasAttribute('disabled-interactive'));
-        !expect(btn.hasAttribute('disabled'));
-      });
+      expect(btn).not.to.be.null;
+      !expect(btn.hasAttribute('disabled-interactive'));
+      !expect(btn.hasAttribute('disabled'));
     });
 
-    describe('navigation with preselected coach', () => {
-      const TIMEOUT_NAVIGATION: number = 1000;
-      let btn: SbbSecondaryButtonElement;
-      const maxCoachesInTrain = dataFull[0].coachItems.length - 1;
+    it('should have a clickable last navigation btn even if there are no selectable coaches behind because last coach is selected', async () => {
+      btn = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
+        '#sbb-sr-navigation__wrapper-button-direction--right',
+      ) as SbbSecondaryButtonElement;
 
-      beforeEach(async () => {
-        element = await fixture(
-          html` <sbb-seat-reservation
-            .seatReservations=${dataFull}
-            max-seat-reservations="4"
-            has-navigation
-            base-grid-size="16"
-          ></sbb-seat-reservation>`,
+      element.preselectCoachIndex = maxCoachesInTrain - 1; // preselect second last coach because last one is a driver area
+      await waitForLitRender(element);
+      await aTimeout(TIMEOUT_NAVIGATION); // wait until navigation is re-rendered (takes a lot of time :/)
+
+      const clickSpy = new EventSpy('click');
+      btn.click();
+      expect(clickSpy.count).to.be.greaterThan(0);
+    });
+
+    it('should select the corresponding coach using preselected coach index', async () => {
+      element.preselectCoachIndex = maxCoachesInTrain - 1; // preselect second last coach because last one is a driver area
+      await waitForLitRender(element);
+
+      const selectedScreenreaderElement: HTMLElement | null =
+        element.shadowRoot!.querySelector<HTMLElement>(
+          `#sbb-sr-coach-caption-${element.preselectCoachIndex} sbb-screen-reader-only`,
         );
 
-        btn = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
-          '#sbb-sr-navigation__wrapper-button-direction--right',
-        ) as SbbSecondaryButtonElement;
-
-        element.preselectCoachIndex = maxCoachesInTrain - 1; // preselect second last coach because last one is a driver area
-        await waitForLitRender(element);
-        await aTimeout(TIMEOUT_NAVIGATION); // wait until navigation is re-rendered (takes a lot of time :/)
-      });
-
-      it('should have a clickable last navigation btn even if there are no selectable coaches behind because last coach is selected', async () => {
-        const clickSpy = new EventSpy('click');
-        btn.click();
-        expect(clickSpy.count).to.be.greaterThan(0);
-      });
-
-      it('should select the corresponding coach using preselected coach index', async () => {
-        const selectedScreenreaderElement: HTMLElement | null =
-          element.shadowRoot!.querySelector<HTMLElement>(
-            `#sbb-sr-coach-caption-${element.preselectCoachIndex} sbb-screen-reader-only`,
-          );
-
-        expect(selectedScreenreaderElement?.textContent).to.include(' selected.');
-      });
+      expect(selectedScreenreaderElement?.textContent).to.include(' selected.');
     });
   });
 
