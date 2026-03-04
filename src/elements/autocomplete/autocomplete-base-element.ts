@@ -526,7 +526,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
         }
 
         // Clears the input if there's user interaction without selection (selection clears `_lastUserInput`).
-        if (this.requireSelection && this.triggerElement && this._lastUserInput) {
+        if (this.requireSelection && this.triggerElement && this._lastUserInput != null) {
           const setValue = Object.getOwnPropertyDescriptor(
             HTMLInputElement.prototype,
             'value',
