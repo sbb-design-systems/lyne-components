@@ -6,14 +6,39 @@ import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover.compo
 import { html } from 'lit/static-html.js';
 
 import {
+  type CoachNumberOfFreePlaces,
   mapRawDataToSeatReservation,
+  type Place,
   type PlaceSelection,
   type SeatReservation,
 } from '../common.ts';
 import type { SbbSeatReservationAreaElement } from '../seat-reservation-area/seat-reservation-area.component.ts';
 import { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
 
+import { SeatReservationBaseElement } from './seat-reservation-base-element.ts';
 import { SbbSeatReservationElement } from './seat-reservation.component.ts';
+
+class SeatReservationSpec extends SeatReservationBaseElement {
+  public override currSelectedPlaceElementId: string | null = '';
+  public override currSelectedCoachIndex: number = -1;
+  public override seatReservationWithoutNavigationHasFocus: boolean = false;
+
+  public constructor() {
+    super();
+  }
+
+  public override onFocusTableCoachAndPreselectPlace(focusCoachIndex: number): void {
+    super.onFocusTableCoachAndPreselectPlace(focusCoachIndex);
+  }
+
+  public override getAvailableFreePlacesNumFromCoach(
+    places: Place[] | undefined,
+  ): CoachNumberOfFreePlaces {
+    return super.getAvailableFreePlacesNumFromCoach(places);
+  }
+}
+
+window.customElements.define('seat-reservation-spec', SeatReservationSpec);
 
 /**
  * Helper function to get the number of service icons in a coach.
@@ -205,7 +230,7 @@ describe(`sbb-seat-reservation`, () => {
       });
     });
 
-    describe('navigation last navigation btn with preselected coach', () => {
+    describe('navigation with preselected coach', () => {
       const TIMEOUT_NAVIGATION: number = 1000;
       let btn: SbbSecondaryButtonElement;
       const maxCoachesInTrain = dataFull[0].coachItems.length - 1;
@@ -233,6 +258,15 @@ describe(`sbb-seat-reservation`, () => {
         const clickSpy = new EventSpy('click');
         btn.click();
         expect(clickSpy.count).to.be.greaterThan(0);
+      });
+
+      it('should select the corresponding coach using preselected coach index', async () => {
+        const selectedScreenreaderElement: HTMLElement | null =
+          element.shadowRoot!.querySelector<HTMLElement>(
+            `#sbb-sr-coach-caption-${element.preselectCoachIndex} sbb-screen-reader-only`,
+          );
+
+        expect(selectedScreenreaderElement?.textContent).to.include(' selected.');
       });
     });
   });
@@ -541,11 +575,45 @@ describe(`sbb-seat-reservation`, () => {
 
     it('should work without throwing errors if no data is available', async () => {
       const itemCoachContainer =
-        element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-sr__item-coach');
+        element.shadowRoot!.querySelector<HTMLLIElement>('.sbb-sr__item-coach');
 
       assert.instanceOf(element, SbbSeatReservationElement);
       expect(itemCoachContainer).to.be.null;
       expect(() => element.focus()).to.not.throw();
     });
   });
+
+  describe('raw unit testing', () => {
+    beforeEach(async () => {
+      element = await fixture(
+        html`<sbb-seat-reservation .seatReservations=${dataFull}></sbb-seat-reservation>`,
+      );
+      await waitForLitRender(element);
+    });
+
+    it('should call methods in BaseElement Class with fake class', async () => {
+      const root = new SeatReservationSpec();
+      root.hasNavigation = false;
+      root.seatReservationWithoutNavigationHasFocus = false;
+
+      //call void method and check if it changes the currSelectedCoachIndex as expected
+      root.onFocusTableCoachAndPreselectPlace(1);
+      await expect(root.currSelectedCoachIndex).to.equal(0);
+
+      // call method with return value and check if it returns the expected number of free places for the given coach
+      const freePlacesNum = root.getAvailableFreePlacesNumFromCoach(
+        element.seatReservations[0].coachItems[1].places,
+      );
+      expect(freePlacesNum).not.to.be.null;
+      await expect(freePlacesNum.seats).to.equal(53);
+      await expect(freePlacesNum.bicycles).to.equal(4);
+    });
+  });
 });
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'seat-reservation-spec': SeatReservationSpec;
+  }
+}
