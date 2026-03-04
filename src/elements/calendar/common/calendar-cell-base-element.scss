@@ -42,15 +42,15 @@
   letter-spacing: var(--sbb-typo-letter-spacing-text);
   cursor: var(--sbb-calendar-cell-cursor);
   color: var(--sbb-calendar-cell-color);
+  background-color: var(--sbb-calendar-cell-background-color);
+  border-radius: var(--sbb-calendar-cell-border-radius);
 
   &::before {
     content: '';
     position: absolute;
     inset: var(--sbb-calendar-cell-inset);
-    background-color: var(--sbb-calendar-cell-background-color);
     border: var(--sbb-calendar-cell-selected-border);
     border-radius: var(--sbb-calendar-cell-border-radius);
-    z-index: -1;
     transition-duration: var(--sbb-calendar-cell-transition-duration);
     transition-timing-function: var(--sbb-calendar-cell-transition-easing-function);
     transition-property: background-color;

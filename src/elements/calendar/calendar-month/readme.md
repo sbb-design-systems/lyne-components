@@ -1,5 +1,5 @@
 The `sbb-calendar-month` is an 'internal-use-only' component used to display a month button
-inside the [sbb-calendar](/docs/elements-sbb-calendar-sbb-calendar--docs) in the month view.
+in the month view of the [sbb-calendar](/docs/elements-sbb-calendar-sbb-calendar--docs) .
 The value of the month is set using the `value` property, which accepts a date in ISOString format (YYYY-MM).
 
 ```html

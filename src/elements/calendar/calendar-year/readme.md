@@ -1,5 +1,5 @@
 The `sbb-calendar-year` is an 'internal-use-only' component used to display a year button
-inside the [sbb-calendar](/docs/elements-sbb-calendar-sbb-calendar--docs) in the year view.
+in the year view of the [sbb-calendar](/docs/elements-sbb-calendar-sbb-calendar--docs) .
 The value of the year is set using the `value` property, which accepts a stringified number.
 
 ```html

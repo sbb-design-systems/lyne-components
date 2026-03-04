@@ -35,7 +35,7 @@ class SbbCalendarMonthElement<T = Date> extends SbbCalendarCellBaseElement<T> {
     this._monthValue = Number(splitDate[1]);
     const isToday =
       this._yearValue === this.dateAdapter.getYear(this.dateAdapter.today()) &&
-      this.dateAdapter.getMonth(this.dateAdapter.today()) === this._monthValue;
+      this._monthValue === this.dateAdapter.getMonth(this.dateAdapter.today());
     this.toggleState('current', isToday);
     this.internals.ariaLabel = `${this._monthLongNames[this._monthValue - 1]} ${this._yearValue}`;
     const parent = this.getParent();

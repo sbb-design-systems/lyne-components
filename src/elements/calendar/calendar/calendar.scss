@@ -224,6 +224,7 @@
   color: var(--sbb-calendar-header-color);
   padding: 0;
   font-size: var(--sbb-text-font-size-xs);
+  font-weight: normal;
   letter-spacing: var(--sbb-typo-letter-spacing-text);
 
   :host(:not([multiple])) & {
@@ -251,14 +252,14 @@
   font-size: var(--sbb-text-font-size-xs);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
   cursor: var(--sbb-cursor-pointer);
+  background-color: var(--sbb-calendar-cell-background-color);
+  border-radius: var(--sbb-calendar-cell-border-radius);
 
   &::before {
     content: '';
     position: absolute;
     inset: var(--sbb-calendar-cell-padding);
-    background-color: var(--sbb-calendar-cell-background-color);
     border-radius: var(--sbb-calendar-cell-border-radius);
-    z-index: -1;
     transition-duration: var(--sbb-calendar-cell-transition-duration);
     transition-timing-function: var(--sbb-calendar-cell-transition-easing-function);
     transition-property: background-color;
