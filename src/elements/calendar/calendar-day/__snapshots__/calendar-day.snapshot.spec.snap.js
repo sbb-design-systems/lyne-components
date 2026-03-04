@@ -81,6 +81,7 @@ snapshots["sbb-calendar-day renders with content A11y tree Chrome"] =
     {
       "role": "button",
       "name": "January 1, 2025",
+      "description": "99.-",
       "invalid": false,
       "focusable": true
     }
