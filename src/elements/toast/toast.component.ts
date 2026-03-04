@@ -102,7 +102,7 @@ class SbbToastElement extends SbbIconNameMixin(
    * If there are other opened toasts in the page, close them first.
    */
   public open(): void {
-    if (this.state !== 'closed' || !this.dispatchBeforeOpenEvent()) {
+    if (this.state === 'opened' || this.state === 'opening' || !this.dispatchBeforeOpenEvent()) {
       return;
     }
 
@@ -121,7 +121,7 @@ class SbbToastElement extends SbbIconNameMixin(
    * Close the toast.
    */
   public close(): void {
-    if (this.state !== 'opened' || !this.dispatchBeforeCloseEvent()) {
+    if (this.state === 'closed' || this.state === 'closing' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
@@ -222,7 +222,7 @@ class SbbToastElement extends SbbIconNameMixin(
    */
   private _closeOtherToasts(): void {
     toastRefs.forEach((t) => {
-      if (t.isOpen) {
+      if (t.state === 'opened' || t.state === 'opening') {
         t.close();
       }
     });
