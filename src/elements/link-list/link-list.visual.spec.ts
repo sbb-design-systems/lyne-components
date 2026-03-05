@@ -5,10 +5,10 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../../core/testing/private.ts';
+} from '../core/testing/private.ts';
 
 import './link-list.component.ts';
-import '../../link/block-link.ts';
+import '../link/block-link.ts';
 
 describe(`sbb-link-list`, () => {
   let root: HTMLElement;

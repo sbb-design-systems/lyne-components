@@ -1,7 +1,7 @@
 import type { CSSResultGroup } from 'lit';
 
-import { boxSizingStyles } from '../../core/styles.ts';
-import { linkListBaseStyle, SbbLinkListBaseElement } from '../common.ts';
+import { boxSizingStyles } from '../core/styles.ts';
+import { linkListBaseStyle, SbbLinkListBaseElement } from '../link-list.pure.ts';
 
 import style from './link-list-anchor.scss?lit&inline';
 

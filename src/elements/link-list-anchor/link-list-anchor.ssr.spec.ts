@@ -1,10 +1,12 @@
 import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { ssrHydratedFixture } from '../../core/testing/private.ts';
+import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbLinkListAnchorElement } from './link-list-anchor.component.ts';
-import '../../link.ts';
+
+import '../link.ts';
+import '../link-list-anchor.ts';
 
 describe(`sbb-link-list-anchor ssr`, () => {
   let root: SbbLinkListAnchorElement;
@@ -16,7 +18,7 @@ describe(`sbb-link-list-anchor ssr`, () => {
         <sbb-block-link href="#">Link 2</sbb-block-link>
       </sbb-link-list-anchor>`,
       {
-        modules: ['./link-list-anchor.component.js', '../../link.js'],
+        modules: ['../link-list-anchor.ts', '../link.ts'],
       },
     );
   });

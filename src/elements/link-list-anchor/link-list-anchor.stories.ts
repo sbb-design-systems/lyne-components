@@ -1,56 +1,49 @@
-import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components-vite';
+import type {
+  Args,
+  ArgTypes,
+  Decorator,
+  Meta,
+  StoryContext,
+  StoryObj,
+} from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
+import '../link-list-anchor.ts';
 import '../link/block-link.ts';
-import '../link-list.ts';
 
 const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];
 
 const LinkTemplate = (args: Args): TemplateResult => html`
   <sbb-block-link
     href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
+    target="_blank"
   >
     ${args.linkTitle}
   </sbb-block-link>
 `;
 
-// SlottedTitle
 const TemplateSlottedTitle = ({
   'title-content': titleContent,
   ...args
 }: Args): TemplateResult => html`
-  <sbb-link-list ${sbbSpread(args)}>
+  <sbb-link-list-anchor ${sbbSpread(args)}>
     <span slot="title">${titleContent}</span>
     ${links.map((linkTitle) => html` ${LinkTemplate({ linkTitle })} `)}
-  </sbb-link-list>
+  </sbb-link-list-anchor>
 `;
 
-// TitleAsProperty
 const Template = (args: Args): TemplateResult => html`
-  <sbb-link-list ${sbbSpread(args)}>
+  <sbb-link-list-anchor ${sbbSpread(args)}>
     ${links.map((linkTitle) => html` ${LinkTemplate({ linkTitle })} `)}
-  </sbb-link-list>
+  </sbb-link-list-anchor>
 `;
-
-const orientation: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['vertical', 'horizontal'],
-};
-
-const horizontalFrom: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['zero', 'small', 'large', 'ultra'],
-};
 
 const negative: InputType = {
   control: {
@@ -86,32 +79,26 @@ const titleLevel: InputType = {
 };
 
 const defaultArgTypes: ArgTypes = {
-  orientation,
-  'horizontal-from': horizontalFrom,
-  size,
   negative,
+  size,
   'title-level': titleLevel,
   'title-content': titleContent,
 };
 
 const defaultArgs: Args = {
-  orientation: orientation.options![0],
-  'horizontal-from': undefined,
-  size: size.options![1],
   negative: false,
+  size: size.options![1],
   'title-level': titleLevel.options![0],
   'title-content': 'Help & Contact',
 };
 
-export const LinkListDefault: StoryObj = {
+export const Default: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-  },
+  args: { ...defaultArgs },
 };
 
-export const LinkListXS: StoryObj = {
+export const SizeXS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -120,7 +107,7 @@ export const LinkListXS: StoryObj = {
   },
 };
 
-export const LinkListM: StoryObj = {
+export const SizeM: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -129,16 +116,15 @@ export const LinkListM: StoryObj = {
   },
 };
 
-export const LinkListNoTitle: StoryObj = {
-  render: Template,
+export const SlottedTitle: StoryObj = {
+  render: TemplateSlottedTitle,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
-    'title-content': undefined,
   },
 };
 
-export const LinkListNegative: StoryObj = {
+export const Negative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -147,24 +133,8 @@ export const LinkListNegative: StoryObj = {
   },
 };
 
-export const LinkListHorizontalFrom: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    'horizontal-from': 'large',
-  },
-};
-
-export const LinkListWithSlottedTitle: StoryObj = {
-  render: TemplateSlottedTitle,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-  },
-};
-
 const meta: Meta = {
+  decorators: [withActions as Decorator],
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args.negative
@@ -174,7 +144,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-link-list/sbb-link-list',
+  title: 'elements/sbb-link-list/sbb-link-list-anchor',
 };
 
 export default meta;

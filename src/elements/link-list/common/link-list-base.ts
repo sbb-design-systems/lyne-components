@@ -20,6 +20,8 @@ import type { SbbTitleLevel } from '../../title.ts';
 
 import '../../title.ts';
 
+export { default as linkListBaseStyle } from './link-list-base.scss?lit&inline';
+
 /**
  * It displays a list of `sbb-block-link`.
  *
