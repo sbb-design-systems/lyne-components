@@ -4,8 +4,8 @@ import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-
 import type { SbbBreadcrumbGroupElement } from '../breadcrumb.ts';
+
 import readme from './readme.md?raw';
 
 import '../button/secondary-button.ts';

@@ -8,9 +8,6 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import readme from './readme.md?raw';
 import '../icon.ts';
 import '../train.ts';
-import './train-wagon.ts';
-import './train-blocked-passage.ts';
-import './train-formation.ts';
 
 const trainFormationWrapper = (content: TemplateResult): TemplateResult =>
   html`<sbb-train-formation><sbb-train>${content}</sbb-train></sbb-train-formation>`;
