@@ -35,4 +35,22 @@ $theme: 'standard' !default;
   sbb-header + :where(sbb-sidebar-container, sbb-icon-sidebar-container) {
     margin-block-start: var(--sbb-header-height);
   }
+
+  :root:has(sbb-header[size='m']) {
+    --sbb-header-height: var(--sbb-spacing-fixed-14x);
+  }
+
+  :root:has(sbb-header[size='s']) {
+    --sbb-header-height: #{sbb.px-to-rem-build(52)};
+  }
+
+  @include sbb.mq($from: large) {
+    :root:has(sbb-header[size='m']) {
+      --sbb-header-height: var(--sbb-spacing-fixed-24x);
+    }
+
+    :root:has(sbb-header[size='s']) {
+      --sbb-header-height: var(--sbb-spacing-fixed-14x);
+    }
+  }
 }

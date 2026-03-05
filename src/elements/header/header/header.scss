@@ -12,21 +12,7 @@
   height: var(--sbb-header-height);
 }
 
-:host([size='m']) {
-  --sbb-header-height: var(--sbb-spacing-fixed-14x);
-
-  @include sbb.mq($from: large) {
-    --sbb-header-height: var(--sbb-spacing-fixed-24x);
-  }
-}
-
 :host([size='s']) {
-  --sbb-header-height: #{sbb.px-to-rem-build(52)};
-
-  @include sbb.mq($from: large) {
-    --sbb-header-height: var(--sbb-spacing-fixed-14x);
-  }
-
   ::slotted(:is(sbb-header-button, sbb-header-link)) {
     --sbb-header-action-min-height: var(--sbb-size-element-xs);
     --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-4x);
