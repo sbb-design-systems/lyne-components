@@ -1,82 +1,18 @@
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-
-import readme from './readme.md?raw';
-
-import '../../card.ts';
-
-const Template = (): TemplateResult => html`
-  <sbb-card color="milk">
-    'sbb-flip-card-summary' is an element to be only used together with 'sbb-flip-card'. See
-    'sbb-flip-card' examples to see it in action.
-  </sbb-card>
-`;
-
-export const Default: StoryObj = {
-  render: Template,
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-flip-card/sbb-flip-card-summary',
-};
-
-export default meta;
-
-
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-
-import readme from './readme.md?raw';
-
-import '../../card.ts';
-
-const Template = (): TemplateResult => html`
-  <sbb-card color="milk">
-    'sbb-flip-card-details' is an element to be only used together with 'sbb-flip-card'. See
-    'sbb-flip-card' examples to see it in action.
-  </sbb-card>
-`;
-
-export const Default: StoryObj = {
-  render: Template,
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-flip-card/sbb-flip-card-details',
-};
-
-export default meta;
-
-
 import type { Args, ArgTypes, Meta, StoryObj, Decorator } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import sampleImages from '../../core/images.ts';
+import sampleImages from '../core/images.ts';
+import { SbbFlipCardElement } from '../flip-card.ts';
 
-import { SbbFlipCardElement } from './flip-card.component.ts';
 import readme from './readme.md?raw';
 
-import '../../chip-label.ts';
-import '../../image.ts';
-import '../../link/link.ts';
-import '../../title.ts';
-import '../flip-card-details.ts';
-import '../flip-card-summary.ts';
+import '../chip-label.ts';
+import '../image.ts';
+import '../link/link.ts';
+import '../title.ts';
 
 const imageAlignment: InputType = {
   control: {
