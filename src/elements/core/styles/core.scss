@@ -15,6 +15,9 @@ $theme: 'standard' !default;
 @use './mixins/scrollbar';
 @use './mixins/typo';
 
+@use '../../bar-container/bar-container.global' as bar-container with (
+  $theme: $theme
+);
 @use '../../breadcrumb/breadcrumb/breadcrumb.global' as breadcrumb with (
   $theme: $theme
 );
@@ -143,6 +146,7 @@ $theme: 'standard' !default;
   // Grab CSS vars defined by `@sbb-esta/lyne-design-tokens` package
   @include sbb-css-tokens.base;
 
+  @include bar-container.base;
   @include breadcrumb.base;
   @include breadcrumb-group.base;
   @include button.base;
@@ -264,6 +268,7 @@ $theme: 'standard' !default;
     @include button.base-breakpoint-large;
 
     @include chip-group.base-breakpoint-large;
+    @include bar-container.base-breakpoint-large;
     @include dialog.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
