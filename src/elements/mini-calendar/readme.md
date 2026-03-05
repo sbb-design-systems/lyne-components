@@ -1,10 +1,11 @@
-### sbb-mini-calendar-month
+The `sbb-mini-calendar` is a component used to display a minimal calendar.
 
-The `sbb-mini-calendar-month` is a component used to group
-many [sbb-mini-calendar-day](/docs/elements-sbb-mini-calendar-sbb-mini-calendar-day--docs).
+It must be used in combination with one or more `sbb-mini-calendar-month`,
+each one slotting the required `sbb-mini-calendar-day`.
 
-The component needs to be wrapped in a [sbb-mini-calendar](/docs/elements-sbb-mini-calendar-sbb-mini-calendar--docs),
-and it requires a `date` property in ISOString format (YYYY-MM).
+The `sbb-mini-calendar-month` requires usage of the `date` property/attribute in ISO string format (YYYY-MM).
+
+The `sbb-mini-calendar-day` requires usage of the `date` property/attribute in ISO string format (YYYY-MM-DD).
 
 ```html
 <sbb-mini-calendar>
@@ -12,41 +13,18 @@ and it requires a `date` property in ISOString format (YYYY-MM).
     <sbb-mini-calendar-day date="2025-01-01"></sbb-mini-calendar-day>
     ...
   </sbb-mini-calendar-month>
+  <sbb-mini-calendar-month date="2025-02">
+    <sbb-mini-calendar-day date="2025-02-01"></sbb-mini-calendar-day>
+    ...
+  </sbb-mini-calendar-month>
+  ...
 </sbb-mini-calendar>
 ```
 
-## Slots
-
-The `sbb-mini-calendar-day` are provided via an unnamed slot.
 Consumers should check the accuracy of the slotted data, since there's no check on missing or wrongly formatted data.
 
-## Style
-
-The month name is always displayed at the component's bottom;
-the year is displayed on top only for January and for the first slotted month in the `sbb-mini-calendar`.
-
-The `orientation` value of the `sbb-mini-calendar` parent controls the component's orientation via CSS rules.
-
-
-
-### sbb-mini-calendar-day
-
-The `sbb-mini-calendar-day` is a component used to display a single day
-in the [sbb-mini-calendar](/docs/elements-sbb-mini-calendar-sbb-mini-calendar--docs).
-
-The component needs to be wrapped in a [sbb-mini-calendar-month](/docs/elements-sbb-mini-calendar-sbb-mini-calendar-month--docs),
-and it requires a `date` property in ISOString format (YYYY-MM-DD).
-
-```html
-<sbb-mini-calendar>
-  <sbb-mini-calendar-month date="2025-01">
-    <sbb-mini-calendar-day date="2025-01-01"></sbb-mini-calendar-day>
-    ...
-  </sbb-mini-calendar-month>
-</sbb-mini-calendar>
-```
-
-It's also possible to display a tooltip on hover using the `sbb-tooltip` attribute, passing the date with the desired format.
+It's also possible to display a tooltip on hover using the `sbb-tooltip` attribute (when using the
+`tooltip` module), passing the date with the desired format.
 For better usability, it's suggested to set the `sbb-tooltip-open-delay` attribute too.
 
 ```html
@@ -64,7 +42,18 @@ For better usability, it's suggested to set the `sbb-tooltip-open-delay` attribu
 
 ## Style
 
-The component has a `color` property, which is used to change the dot color.
+The orientation of the days in each month can be set using the `orientation` property, which default value is `horizontal`.
+
+```html
+<sbb-mini-calendar orientation="vertical"> ... </sbb-mini-calendar>
+```
+
+For the `sbb-mini-calendar-month` the month name is always displayed at the component's bottom;
+the year is displayed on top only for January and for the first slotted month in the `sbb-mini-calendar`.
+
+The `orientation` value of the `sbb-mini-calendar` parent controls the component's orientation via CSS rules.
+
+The `sbb-mini-calendar-day` component has a `color` property, which is used to change the dot color.
 Default colors are provided for `charcoal`, `cloud`, `orange`, `red` and `sky` values;
 moreover, consumers can write their own CSS rules for custom values.
 
@@ -84,42 +73,6 @@ moreover, consumers can write their own CSS rules for custom values.
 Similarly, a property named `marker` determines the shape of the dot.
 Default styles are provided for `target`, `circle`, `slash` and `cross` values.
 Consumers can write their own CSS rules for different values.
-
-
-
-### sbb-mini-calendar
-
-The `sbb-mini-calendar` is a component used to display a minimal calendar.
-
-It must be used in combination with one or more [sbb-mini-calendar-month](/docs/elements-sbb-mini-calendar-sbb-mini-calendar-month--docs),
-each one slotting the requested [sbb-mini-calendar-day](/docs/elements-sbb-mini-calendar-sbb-mini-calendar-day--docs).
-
-```html
-<sbb-mini-calendar>
-  <sbb-mini-calendar-month date="2025-01">
-    <sbb-mini-calendar-day date="2025-01-01"></sbb-mini-calendar-day>
-    ...
-  </sbb-mini-calendar-month>
-  <sbb-mini-calendar-month date="2025-02">
-    <sbb-mini-calendar-day date="2025-02-01"></sbb-mini-calendar-day>
-    ...
-  </sbb-mini-calendar-month>
-  ...
-</sbb-mini-calendar>
-```
-
-## Slots
-
-The `sbb-mini-calendar-month` are provided via an unnamed slot.
-Consumers should check the accuracy of the slotted data, since there's no check on missing or wrongly formatted data.
-
-## Style
-
-The orientation of the days in each month can be set using the `orientation` property, which default value is `horizontal`.
-
-```html
-<sbb-mini-calendar orientation="vertical"> ... </sbb-mini-calendar>
-```
 
 ## Keyboard interaction
 
@@ -158,4 +111,3 @@ Even though some WCAG rules have been followed
 the component may not be fully accessible due to the small dimensions of `sbb-mini-calendar-day`s and
 the usage of a grid implementation for the `sbb-mini-calendar-month`
 (differently from the `sbb-calendar`, which has a table implementation).
-
