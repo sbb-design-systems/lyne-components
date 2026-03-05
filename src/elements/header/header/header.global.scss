@@ -1,0 +1,38 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-header-background: var(--sbb-background-color-1);
+  --sbb-header-box-shadow: var(--sbb-box-shadow-level-9-soft);
+  --sbb-header-inset-inline-end: 0;
+  --sbb-header-position: fixed;
+  --sbb-logo-height: #{sbb.px-to-rem-build(16)};
+  --sbb-signet-height: #{sbb.px-to-rem-build(16)};
+  --sbb-header-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-14x),
+        'lean': #{sbb.px-to-rem-build(52)},
+      ),
+      $theme
+    )};
+}
+
+@mixin base-breakpoint-large {
+  --sbb-logo-height: #{sbb.px-to-rem-build(20)};
+  --sbb-signet-height: #{sbb.px-to-rem-build(20)};
+  --sbb-header-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-24x),
+        'lean': var(--sbb-spacing-fixed-14x),
+      ),
+      $theme
+    )};
+}
+
+@mixin rules {
+  // Move container below header
+  sbb-header + :where(sbb-sidebar-container, sbb-icon-sidebar-container) {
+    margin-block-start: var(--sbb-header-height);
+  }
+}
