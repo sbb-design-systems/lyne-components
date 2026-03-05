@@ -7,8 +7,6 @@ $theme: 'standard' !default;
   --sbb-header-box-shadow: var(--sbb-box-shadow-level-9-soft);
   --sbb-header-inset-inline-end: 0;
   --sbb-header-position: fixed;
-  --sbb-logo-height: #{sbb.px-to-rem-build(16)};
-  --sbb-signet-height: #{sbb.px-to-rem-build(16)};
   --sbb-header-height: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-spacing-fixed-14x),
@@ -19,8 +17,6 @@ $theme: 'standard' !default;
 }
 
 @mixin base-breakpoint-large {
-  --sbb-logo-height: #{sbb.px-to-rem-build(20)};
-  --sbb-signet-height: #{sbb.px-to-rem-build(20)};
   --sbb-header-height: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-spacing-fixed-24x),
