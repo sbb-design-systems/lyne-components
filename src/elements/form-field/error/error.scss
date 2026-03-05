@@ -11,6 +11,10 @@
   min-height: var(--sbb-error-height);
   font-size: var(--sbb-error-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
+
+  @include sbb.if-forced-colors {
+    --sbb-error-color: LinkText !important;
+  }
 }
 
 :host([negative]) {

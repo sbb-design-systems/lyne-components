@@ -78,6 +78,10 @@
   --sbb-form-field-spacer-margin-block-end: calc(
     -1 * var(--sbb-form-field-label-to-input-overlapping)
   );
+
+  @include sbb.mq($from: large) {
+    --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(10.5)};
+  }
 }
 
 :host([size='l']) {

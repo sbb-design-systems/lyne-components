@@ -191,7 +191,6 @@ $theme: 'standard' !default;
     @include breadcrumb.base-forced-colors;
     @include card.base-forced-colors;
     @include card-badge.base-forced-colors;
-    @include error.base-forced-colors;
     @include expansion-panel-header.base-forced-colors;
     @include form-field.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
