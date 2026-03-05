@@ -1,161 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-
-import readme from './readme.md?raw';
-import '../../card.ts';
-
-const Template = (): TemplateResult => html`
-  <sbb-card color="milk">
-    <b>sbb-timetable-form-swap-button</b> is an element meant to be used in combination with the
-    'sbb-timetable-form'.
-    <p style="margin-block-end: 0">
-      See the <b>sbb-timetable-form</b> examples to see it in action.
-    </p>
-  </sbb-card>
-`;
-
-export const Default: StoryObj = {
-  render: Template,
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-timetable-form/sbb-timetable-form-swap-button',
-};
-
-export default meta;
-
-
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-import type { InputType } from 'storybook/internal/types';
-
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-
-import readme from './readme.md?raw';
-import './timetable-form-field.component.ts';
-import '../timetable-form.ts';
-import '../timetable-form-swap-button.ts';
-import '../../signet.ts';
-
-const disabled: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Input attribute',
-  },
-};
-
-const readonly: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Input attribute',
-  },
-};
-
-const defaultArgTypes: ArgTypes = {
-  disabled,
-  readonly,
-};
-
-const defaultArgs: Args = {
-  disabled: false,
-  readonly: false,
-};
-
-const Template = (args: Args): TemplateResult => html`
-  <form class="sbb-timetable-form">
-    <sbb-signet></sbb-signet>
-    <sbb-timetable-form>
-      <sbb-timetable-form-field>
-        <label>From</label>
-        <input type="text" name="from" ${sbbSpread(args)} />
-      </sbb-timetable-form-field>
-      <sbb-timetable-form-swap-button></sbb-timetable-form-swap-button>
-      <sbb-timetable-form-field>
-        <label>To</label>
-        <input type="text" name="to" />
-      </sbb-timetable-form-field>
-    </sbb-timetable-form>
-  </form>
-`;
-
-export const Default: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-    layout: 'fullscreen',
-  },
-  title: 'elements/sbb-timetable-form/sbb-timetable-form-field',
-};
-
-export default meta;
-
-
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-
-import readme from './readme.md?raw';
-import '../../card.ts';
-
-const Template = (): TemplateResult => html`
-  <sbb-card color="milk">
-    <b>sbb-timetable-form-details</b> is an element meant to be used in combination with the
-    'sbb-timetable-form'.
-    <p style="margin-block-end: 0">
-      See the <b>sbb-timetable-form</b> examples to see it in action.
-    </p>
-  </sbb-card>
-`;
-
-export const Default: StoryObj = {
-  render: Template,
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-timetable-form/sbb-timetable-form-details',
-};
-
-export default meta;
-
-
 import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
-import '../../button/button.ts';
-import '../../datepicker.ts';
-import '../../divider.ts';
-import '../../icon.ts';
-import '../../signet.ts';
-import '../../time-input.ts';
-import '../../toggle.ts';
-import '../timetable-form-field.ts';
-import '../timetable-form-swap-button.ts';
-import '../timetable-form-details.ts';
-import './timetable-form.component.ts';
+import '../button/button.ts';
+import '../datepicker.ts';
+import '../divider.ts';
+import '../icon.ts';
+import '../signet.ts';
+import '../time-input.ts';
+import '../toggle.ts';
+
+import '../timetable-form.ts';
 
 const defaultArgTypes: ArgTypes = {};
 
@@ -272,14 +127,14 @@ export const WithVia: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [(story) => html` <div style="padding: .25rem">${story()}</div> `],
+  decorators: [(story) => html`<div style="padding: .25rem">${story()}</div>`],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,
     },
     layout: 'fullscreen',
   },
-  title: 'elements/sbb-timetable-form/sbb-timetable-form',
+  title: 'elements/timetable-form',
 };
 
 export default meta;
