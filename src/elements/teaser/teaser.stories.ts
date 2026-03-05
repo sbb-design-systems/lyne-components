@@ -310,7 +310,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-teaser/sbb-teaser',
+  title: 'elements/teaser',
 };
 
 export default meta;
