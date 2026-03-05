@@ -125,7 +125,7 @@ $theme: 'standard' !default;
       // To be more specific than the styles in normalize.scss we need to use !important
       // TODO: Find a better solution
       font-size: var(--sbb-form-field-input-text-size) !important;
-      letter-spacing: var(--sbb-form-field-input-text-letter-spacing) !important;
+      letter-spacing: var(--sbb-typo-letter-spacing-text) !important;
       font-family: var(--sbb-typo-font-family) !important;
       line-height: var(--sbb-typo-line-height-text) !important;
 
