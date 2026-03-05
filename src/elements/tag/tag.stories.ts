@@ -5,15 +5,14 @@ import { repeat } from 'lit/directives/repeat.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-import type { SbbTagElement, SbbTagGroupElement } from '../../tag.ts';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbTagElement, SbbTagGroupElement } from '../tag.ts';
 
 import readme from './readme.md?raw';
-import './tag-group.component.ts';
+import '../action-group.ts';
+import '../button.ts';
+import '../card.ts';
 import '../tag.ts';
-import '../../action-group.ts';
-import '../../button.ts';
-import '../../card.ts';
 
 const uncheckAllTag = (event: Event): void => {
   const tagGroup = (event.currentTarget as SbbTagElement).closest(
@@ -31,7 +30,35 @@ const uncheckTags = (event: Event): void => {
     .forEach((e) => e.removeAttribute('checked'));
 };
 
-const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt quis, mattis eu quam.`;
+const tagChecked: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const tagDisabledInteractive: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const tagLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const tagIcon: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const tagAmount: InputType = {
+  control: {
+    type: 'number',
+  },
+};
 
 const multiple: InputType = {
   control: {
@@ -76,6 +103,30 @@ const size: InputType = {
   options: ['s', 'm'],
 };
 
+const tagDefaultArgTypes: ArgTypes = {
+  checked: tagChecked,
+  disabled,
+  'disabled-interactive': tagDisabledInteractive,
+  label: tagLabel,
+  value,
+  'icon-name': tagIcon,
+  amount: tagAmount,
+  'aria-label': ariaLabel,
+  size,
+};
+
+const tagDefaultArgs: Args = {
+  checked: false,
+  disabled: false,
+  'disabled-interactive': false,
+  label: 'Label',
+  value: 'Value',
+  'icon-name': undefined,
+  amount: undefined,
+  'aria-label': undefined,
+  size: size.options![1],
+};
+
 const defaultArgTypes: ArgTypes = {
   multiple,
   disabled,
@@ -96,7 +147,10 @@ const defaultArgs: Args = {
   size: size.options![1],
 };
 
-const tagTemplate = (label: string, checked = false, name?: string): TemplateResult => html`
+const TagTemplate = ({ label, ...args }: Args): TemplateResult =>
+  html`<sbb-tag ${sbbSpread(args)}>${label}</sbb-tag>`;
+
+const tagInGroupTemplate = (label: string, checked = false, name?: string): TemplateResult => html`
   <sbb-tag
     name="${name || nothing}"
     ?checked=${checked}
@@ -110,20 +164,15 @@ const tagTemplate = (label: string, checked = false, name?: string): TemplateRes
 
 const TagGroupTemplate = ({ numberOfTagsInGroup, ...args }: Args): TemplateResult => html`
   <sbb-tag-group ${sbbSpread(args)}>
-    ${repeat(new Array(numberOfTagsInGroup), (_e, i) => tagTemplate(`Label ${i + 1}`, i === 0))}
-  </sbb-tag-group>
-`;
-
-const TagGroupTemplateEllipsis = ({ numberOfTagsInGroup, ...args }: Args): TemplateResult => html`
-  <sbb-tag-group ${sbbSpread(args)}>
-    ${tagTemplate(longLabelText, true)}
-    ${repeat(new Array(numberOfTagsInGroup - 1), (_e, i) => tagTemplate(`Label ${i + 1}`))}
+    ${repeat(new Array(numberOfTagsInGroup), (_e, i) =>
+      tagInGroupTemplate(`Label ${i + 1}`, i === 0),
+    )}
   </sbb-tag-group>
 `;
 
 const ExclusiveTagGroupTemplate = ({ numberOfTagsInGroup, ...args }: Args): TemplateResult => html`
   <sbb-tag-group ${sbbSpread(args)}>
-    ${repeat(new Array(numberOfTagsInGroup), (_e, i) => tagTemplate(`Label ${i + 1}`))}
+    ${repeat(new Array(numberOfTagsInGroup), (_e, i) => tagInGroupTemplate(`Label ${i + 1}`))}
   </sbb-tag-group>
   <div style="margin-block-start: 1rem;">
     This sbb-tag-group behaves like a radio or a tab; when a tag is checked, the other become
@@ -163,11 +212,11 @@ const TemplateWithForm = ({ numberOfTagsInGroup, ...args }: Args): TemplateResul
   >
     <sbb-tag-group ${sbbSpread(args)} style="margin-block-end: 2rem;">
       ${repeat(new Array(numberOfTagsInGroup), (_e, i) =>
-        tagTemplate(`Label ${i + 1}`, i <= 2, `tag${i + 1}`),
+        tagInGroupTemplate(`Label ${i + 1}`, i <= 2, `tag${i + 1}`),
       )}
     </sbb-tag-group>
 
-    <sbb-tag-group disabled> ${tagTemplate('Disabled tag', false)}</sbb-tag-group>
+    <sbb-tag-group disabled> ${tagInGroupTemplate('Disabled tag', false)}</sbb-tag-group>
 
     <sbb-action-group style="margin-block: var(--sbb-spacing-responsive-s)">
       <sbb-secondary-button type="reset">Reset</sbb-secondary-button>
@@ -178,30 +227,25 @@ const TemplateWithForm = ({ numberOfTagsInGroup, ...args }: Args): TemplateResul
   </form>
 `;
 
-export const tagGroup: StoryObj = {
+export const Tag: StoryObj = {
+  render: TagTemplate,
+  argTypes: tagDefaultArgTypes,
+  args: { ...tagDefaultArgs },
+};
+
+export const TagGroup: StoryObj = {
   render: TagGroupTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
-export const disabledGroup: StoryObj = {
-  render: TagGroupTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, disabled: true },
-};
 
-export const tagGroupSizeS: StoryObj = {
+export const TagGroupSizeS: StoryObj = {
   render: TagGroupTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![0] },
 };
 
-export const ellipsisLabel: StoryObj = {
-  render: TagGroupTemplateEllipsis,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-export const exclusiveTagGroup: StoryObj = {
+export const Exclusive: StoryObj = {
   render: ExclusiveTagGroupTemplate,
   argTypes: defaultArgTypes,
   args: {
@@ -210,13 +254,13 @@ export const exclusiveTagGroup: StoryObj = {
   },
 };
 
-export const allChoiceTagGroup: StoryObj = {
+export const AllChoice: StoryObj = {
   render: AllChoiceTagGroupTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
 
-export const withForm: StoryObj = {
+export const WithForm: StoryObj = {
   render: TemplateWithForm,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
@@ -232,206 +276,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-tag/sbb-tag-group',
-};
-
-export default meta;
-
-
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-import { withActions } from 'storybook/actions/decorator';
-import type { InputType } from 'storybook/internal/types';
-
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-
-import readme from './readme.md?raw';
-import './tag.component.ts';
-
-const checked: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const disabled: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const disabledInteractive: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const label: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const value: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const icon: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const amount: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
-const ariaLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const size: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['s', 'm'],
-};
-
-const defaultArgTypes: ArgTypes = {
-  checked,
-  disabled,
-  'disabled-interactive': disabledInteractive,
-  label,
-  value,
-  'icon-name': icon,
-  amount,
-  'aria-label': ariaLabel,
-  size,
-};
-
-const defaultArgs: Args = {
-  checked: false,
-  disabled: false,
-  'disabled-interactive': false,
-  label: 'Label',
-  value: 'Value',
-  'icon-name': undefined,
-  amount: undefined,
-  'aria-label': undefined,
-  size: size.options![1],
-};
-
-const defaultArgsIconAndAmount: Args = {
-  ...defaultArgs,
-  amount: 123,
-  'icon-name': 'dog-small',
-};
-
-const Template = ({ label, ...args }: Args): TemplateResult =>
-  html`<sbb-tag ${sbbSpread(args)}>${label}</sbb-tag>`;
-
-const TemplateSlottedIconAndAmount = ({ label, ...args }: Args): TemplateResult => html`
-  <sbb-tag ${sbbSpread(args)}>
-    <sbb-icon slot="icon" name="pie-small"></sbb-icon>
-    ${label}
-    <span slot="amount">999</span>
-  </sbb-tag>
-`;
-
-export const basicTag: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-export const checkedTag: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, checked: true },
-};
-
-export const disabledTag: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, disabled: true },
-};
-
-export const checkedAndDisabledTag: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, checked: true, disabled: true },
-};
-
-export const basicTagSizeS: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![0] },
-};
-
-export const withAmount: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, amount: 123 },
-};
-
-export const withIcon: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'icon-name': 'dog-small' },
-};
-
-export const withAmountAndIcon: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgsIconAndAmount },
-};
-
-export const withAmountAndIconSlotted: StoryObj = {
-  render: TemplateSlottedIconAndAmount,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-export const withAmountAndIconChecked: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgsIconAndAmount, checked: true },
-};
-
-export const withAmountAndIconDisabled: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgsIconAndAmount, disabled: true },
-};
-
-export const withAmountAndIconCheckedAndDisabled: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgsIconAndAmount,
-    checked: true,
-    disabled: true,
-  },
-};
-
-const meta: Meta = {
-  decorators: [withActions as Decorator],
-  parameters: {
-    actions: {
-      handles: ['input', 'change'],
-    },
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-tag/sbb-tag',
+  title: 'elements/tag',
 };
 
 export default meta;

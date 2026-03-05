@@ -1,24 +1,20 @@
-### sbb-tag-group
+Tags categorize large amounts of information and filter content through user selection.
 
-The `sbb-tag-group` component is used as a container for one or multiple `sbb-tag` components,
-which are projected inside the unnamed slot.
-
-To work properly, it's mandatory to provide a value to each `sbb-tag`.
-See [its documentation](/docs/elements-sbb-tag-sbb-tag--docs) for more details.
+The `sbb-tag-group` is a container for one or more `sbb-tag` components.
+Each `sbb-tag` must have a `value` property.
 
 ```html
 <sbb-tag-group>
   <sbb-tag value="all">All</sbb-tag>
-  <sbb-tag value="phones">Phones</sbb-tag>
-  <sbb-tag value="computer">Computer</sbb-tag>
-  <sbb-tag value="laptop">Laptop</sbb-tag>
+  <sbb-tag value="phones" amount="23">Phones</sbb-tag>
+  <sbb-tag value="computer" amount="3">Computer</sbb-tag>
+  <sbb-tag value="laptop" amount="99">Laptop</sbb-tag>
 </sbb-tag-group>
 ```
 
 ## Style
 
-The component has a `size` property which can be used to change the size of all the inner `sbb-tag`.
-Two values are available, `s` and `m`, which is the default.
+The `size` property on `sbb-tag-group` (values: `m`, `s`) is applied to all contained `sbb-tag` elements.
 
 ```html
 <sbb-tag-group size="m">
@@ -38,11 +34,11 @@ Two values are available, `s` and `m`, which is the default.
 
 ### Exclusive selection vs. multiple selection
 
-By default, `sbb-tag-group` acts like a radio-button group: only one item can be selected.
-In this mode, the value of the `sbb-tag-group` will reflect the value of the selected `sbb-tag`.
+By default, `sbb-tag-group` behaves like a radio button group: only one tag can be selected at a time.
+The `value` of the `sbb-tag-group` reflects the `value` of the selected `sbb-tag`.
 
-Setting `multiple` property to `true` allows multiple items to be selected (checkbox behavior).
-In this mode the value of the `sbb-tag-group` is an array containing all values of the selected `sbb-tag` items.
+Set the `multiple` property to allow multiple selections (checkbox behavior).
+In this mode, the `value` is an array containing all selected tag values.
 
 ```html
 <sbb-tag-group multiple>
@@ -53,10 +49,7 @@ In this mode the value of the `sbb-tag-group` is an array containing all values 
 </sbb-tag-group>
 ```
 
-### Changing multiple property during run time
-
-There is no support for changing multiple mode during run time (e.g., update value automatically).
-So this flag should be provided at component's instantiation time.
+**Note:** Changing the `multiple` property at runtime is not supported. Set this property during initialization.
 
 ### Advanced usage: multiple and exclusive mixed
 
@@ -83,38 +76,7 @@ const uncheckTags = () => {
 
 ## States
 
-The component can disable all slotted `sbb-tag`s by setting the `disabled` property to `true`.
-
-## Accessibility
-
-The property `listAccessibilityLabel` is forwarded as `aria-label` to the inner list that the component uses to display the tags,
-to use the implicit `role="list"` of the `ul`.
-
-If the `listAccessibilityLabel` property is not defined, the `sbb-tag-group` surrounding the buttons applies `role="group"`
-to convey the association between the individual `sbb-tag`s.
-
-When using the `role="group"`, each `sbb-tag-group` element should be given a label with `aria-label` or `aria-labelledby`,
-that communicates the collective meaning of all `sbb-tag`s.
-
-```html
-<sbb-tag-group aria-label="Select your desired font styles to filter it">
-  <sbb-tag value="all" checked>All</sbb-tag>
-  <sbb-tag value="phones">Bold</sbb-tag>
-  <sbb-tag value="computer">Italic</sbb-tag>
-  <sbb-tag value="laptop">Underline</sbb-tag>
-</sbb-tag-group>
-```
-
-
-
-### sbb-tag
-
-The `sbb-tag` is a component that can be used as a filter in order to categorize a large amount of information.
-It's intended to be used inside the [sbb-tag-group](/docs/elements-sbb-tag-sbb-tag-group--docs) component.
-
-```html
-<sbb-tag value="All">All</sbb-tag>
-```
+Tags support `checked` and `disabled` states. Set `disabled` on the `sbb-tag-group` to disable all contained tags.
 
 ## Slots
 
@@ -133,24 +95,13 @@ It's also possible to display a numeric amount at the component's end using the 
 </sbb-tag>
 ```
 
-## States
+## Complex Values
 
-The component can be displayed in `checked` or `disabled` state using the self-named property.
-
-```html
-<sbb-tag checked value="All" amount="123">All</sbb-tag>
-
-<sbb-tag disabled value="All" icon-name="circle-information-small">All</sbb-tag>
-```
-
-## Style
-
-The component has two sizes, named `m` (default) and `s`. The `size` property can also be set on the `sbb-tag-group` where it will be applied to all tags inside the group.
+The `sbb-tag` element supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbTag<T>`.
 
 ```html
-<sbb-tag value="All" size="m">All</sbb-tag>
-
-<sbb-tag value="All" size="s">All</sbb-tag>
+<sbb-tag .value=${{value: 'value', name: 'name'}} name="name">Option</sbb-tag>
 ```
 
 ## Events
@@ -161,36 +112,24 @@ It's recommended to check the parent's `sbb-tag-group` for the value.
 
 ## Accessibility
 
-The component imitates an `button` element to provide an accessible experience.
+The `sbb-tag` imitates a `button` element to provide an accessible experience.
 The state is reflected via `aria-pressed` attribute.
 
-### Interactive disabled buttons
+The property `listAccessibilityLabel` on the `sbb-tag-group` is forwarded as `aria-label` to the
+inner list that the component uses to display the tags,
+to use the implicit `role="list"` of the `ul`.
 
-Native disabled elements cannot receive focus and do not dispatch any events. This can
-be problematic in some cases because it can prevent the app from telling the user why the button is
-disabled. Consumers can use the `disabledInteractive` property to style the button as disabled but allow for
-it to receive focus and dispatch events. The button will have `aria-disabled="true"` for assistive
-technology. It is the consumers responsibility to provide a reason for the element being disabled.
-This can be achieved by adding an `aria-label`, `aria-labelledby` or `aria-describedby` attribute.
+If the `listAccessibilityLabel` property is not defined, the `sbb-tag-group` surrounding the buttons applies `role="group"`
+to convey the association between the individual `sbb-tag`s.
 
-**Note:** Using the `disabledInteractive` property can result in buttons that previously prevented
-actions to no longer do so, for example a submit button in a form. When using this input, you should
-guard against such cases in your component.
-
-### Disabled elements
-
-Generally speaking, `disabled` elements are considered a bad pattern for accessibility. They are invisible to assistive
-technology and do not provide the reason for which they are disabled.
-To partially address the problem, disabled elements are kept focusable (other interactions are still prevented).
-However, it is still the consumers responsibility to provide a reason for the element being disabled.
-This can be achieved by adding an `aria-label`, `aria-labelledby` or `aria-describedby` attribute.
-
-## Complex Values
-
-This component supports any types of values, including complex objects.
-The type can be specified using the generic type parameter `T` of `SbbTag<T>`.
+When using the `role="group"`, each `sbb-tag-group` element should be given a label with `aria-label` or `aria-labelledby`,
+that communicates the collective meaning of all `sbb-tag`s.
 
 ```html
-<sbb-tag .value=${{value: 'value', name: 'name'}} name="name">Option</sbb-tag>
+<sbb-tag-group aria-label="Select your desired font styles to filter it">
+  <sbb-tag value="all" checked>All</sbb-tag>
+  <sbb-tag value="phones">Bold</sbb-tag>
+  <sbb-tag value="computer">Italic</sbb-tag>
+  <sbb-tag value="laptop">Underline</sbb-tag>
+</sbb-tag-group>
 ```
-
