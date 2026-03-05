@@ -351,7 +351,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/timetable/train-formation',
+  title: 'elements/timetable/train',
 };
 
 export default meta;

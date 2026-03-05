@@ -1,4 +1,4 @@
-The train formation module contains components to visualize train formations in a timetable context.
+The train module contains components to visualize train formations in a timetable context.
 It is divided into the following components:
 
 ```html
