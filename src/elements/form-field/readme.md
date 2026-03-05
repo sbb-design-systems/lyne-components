@@ -1,22 +1,3 @@
-### sbb-form-field-clear
-
-The `sbb-form-field-clear` component can be used with the [sbb-form-field](/docs/elements-sbb-form-field-sbb-form-field--docs) component
-to provide the possibility to display a clear button which can clear the input value.
-
-```html
-<sbb-form-field>
-  <label>Label</label>
-  <input type="text" placeholder="Input placeholder" value="Input value" />
-  <sbb-form-field-clear></sbb-form-field-clear>
-</sbb-form-field>
-```
-
-**Note:** it currently works with simple inputs and does not support, for example, `select` inputs.
-
-
-
-### sbb-form-field
-
 The `sbb-form-field` component is intended to be used as a form input wrapper with label and errors.
 
 ```html
@@ -52,7 +33,7 @@ The following components are designed to work inside a `sbb-form-field`:
 ### Label
 
 Use a `<label>` element to provide a label for a form input. The
-`sbb-form-field` will automatically assign the correct id reference between label and input.
+`sbb-form-field` will automatically configure the reference between label and input.
 
 It's possible to use the `floatingLabel` property to display the label inside the input.
 When using it and setting the value programmatically to empty or from empty to a specific value,
@@ -80,6 +61,15 @@ The component will automatically assign them to the `slot='error'`.
 
 In order to avoid the layout from "jumping" when an error is shown, the option of setting `error-space="reserve"`
 on the `sbb-form-field` will reserve space for a single line of an error message.
+
+It is also possible to provide a custom icon to the `sbb-error` component via the icon slot:
+
+```html
+<sbb-error>
+  <sbb-icon name="pie-small" slot="icon"></sbb-icon>
+  This is a required field.
+</sbb-error>
+```
 
 ### Prefix & Suffix
 
@@ -110,6 +100,21 @@ Some components, like the [sbb-form-field-clear](/docs/elements-sbb-form-field-s
 [sbb-slider](/docs/elements-sbb-slider--docs), when used within the form field, will automatically occupy
 one or both of these slots.
 Please refer to their documentation for more details.
+
+### Clear Button
+
+The `sbb-form-field-clear` component can be used to provide the possibility to display a button
+which can clear the input value.
+
+```html
+<sbb-form-field>
+  <label>Label</label>
+  <input type="text" placeholder="Input placeholder" value="Input value" />
+  <sbb-form-field-clear></sbb-form-field-clear>
+</sbb-form-field>
+```
+
+**Note:** it currently works with simple inputs and does not support, for example, `select` inputs.
 
 ## Style
 
@@ -238,27 +243,3 @@ If you like to visually hide a label, but still present it with screen readers, 
 
 When you provide informational text via `sbb-error`, it automatically adds these elements' IDs
 to the form element's `ariaErrorMessageElements` property (or `aria-errormessage` attribute as fallback).
-
-
-
-### sbb-error
-
-The `sbb-error` component can be used to provide an error message in inputs components like the
-[sbb-checkbox-group](/docs/elements-sbb-checkbox-sbb-checkbox-group--docs) and
-[sbb-radio-button-group](/docs/elements-sbb-radio-button-sbb-radio-button-group--docs),
-or within the [sbb-form-field](/docs/elements-sbb-form-field-sbb-form-field--docs).
-
-## Slots
-
-It is possible to provide the error message via an unnamed slot;
-the component displays an icon by default, that can be changed using the `icon` slot.
-
-```html
-<sbb-error> This is a required field. </sbb-error>
-
-<sbb-error>
-  <sbb-icon name="pie-small" slot="icon"></sbb-icon>
-  This is a required field.
-</sbb-error>
-```
-

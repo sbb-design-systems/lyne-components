@@ -1,136 +1,18 @@
-import type {
-  Meta,
-  StoryObj,
-  Decorator,
-  ArgTypes,
-  Args,
-  StoryContext,
-} from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-import { withActions } from 'storybook/actions/decorator';
-import type { InputType } from 'storybook/internal/types';
-
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-
-import readme from './readme.md?raw';
-import './form-field-clear.component.ts';
-import '../form-field.ts';
-
-const negative: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const disabled: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Input attribute',
-  },
-};
-
-const readonly: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Input attribute',
-  },
-};
-
-const basicArgTypes: ArgTypes = {
-  negative,
-  disabled,
-  readonly,
-};
-
-const basicArgs: Args = {
-  negative: false,
-  disabled: false,
-  readonly: false,
-};
-
-const DefaultTemplate = ({ negative, ...args }: Args): TemplateResult => html`
-  <sbb-form-field ?negative=${negative}>
-    <label>Label</label>
-    <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
-    <input type="text" placeholder="Input placeholder" value="Input value" ${sbbSpread(args)} />
-    <sbb-form-field-clear></sbb-form-field-clear>
-  </sbb-form-field>
-`;
-
-export const Default: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs },
-};
-
-export const Disabled: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true },
-};
-
-export const Readonly: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, readonly: true },
-};
-
-export const DefaultNegative: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, negative: true },
-};
-
-export const DisabledNegative: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true, negative: true },
-};
-
-export const ReadonlyNegative: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, readonly: true, negative: true },
-};
-
-const meta: Meta = {
-  decorators: [withActions as Decorator],
-  parameters: {
-    backgroundColor: (context: StoryContext) =>
-      context.args.negative
-        ? 'var(--sbb-background-color-1-negative)'
-        : 'var(--sbb-background-color-1)',
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-form-field/sbb-form-field-clear',
-};
-
-export default meta;
-
-
 import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import type { SbbErrorElement } from '../error.ts';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbErrorElement } from '../form-field.ts';
 
 import readme from './readme.md?raw';
 
-import './form-field.component.ts';
-import '../form-field-clear.ts';
-import '../../button/mini-button.ts';
-import '../error.ts';
-import '../../link.ts';
-import '../../popover.ts';
-import '../../title.ts';
+import '../button/mini-button.ts';
+import '../form-field.ts';
+import '../link.ts';
+import '../popover.ts';
+import '../title.ts';
 
 const formField = (
   {
@@ -1094,49 +976,69 @@ export const TextareaFloatingWithIconNegative: StoryObj = {
   },
 };
 
-const meta: Meta = {
-  parameters: {
-    backgroundColor: (context: StoryContext) =>
-      context.args.negative
-        ? 'var(--sbb-background-color-1-negative)'
-        : 'var(--sbb-background-color-1)',
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-form-field/sbb-form-field',
+// sbb-form-field-clear
+
+const clearArgTypes: ArgTypes = {
+  negative,
+  disabled,
+  readonly,
 };
 
-export default meta;
+const clearArgs: Args = {
+  negative: false,
+  disabled: false,
+  readonly: false,
+};
 
+const DefaultTemplate = ({ negative, ...args }: Args): TemplateResult => html`
+  <sbb-form-field ?negative=${negative}>
+    <label>Label</label>
+    <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
+    <input type="text" placeholder="Input placeholder" value="Input value" ${sbbSpread(args)} />
+    <sbb-form-field-clear></sbb-form-field-clear>
+  </sbb-form-field>
+`;
 
-import type { Meta, StoryContext, StoryObj, Args, ArgTypes } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-import type { InputType } from 'storybook/internal/types';
+export const Default: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: clearArgTypes,
+  args: { ...clearArgs },
+};
 
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
+export const Disabled: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: clearArgTypes,
+  args: { ...clearArgs, disabled: true },
+};
 
-import readme from './readme.md?raw';
-import '../../icon.ts';
-import './error.component.ts';
+export const Readonly: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: clearArgTypes,
+  args: { ...clearArgs, readonly: true },
+};
 
-const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
-quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
-lacus sollicitudin, quis malesuada lorem vehicula. Suspendisse at augue quis tellus vulputate tempor. Vivamus urna
-velit, varius nec est ac, mollis efficitur lorem. Quisque non nisl eget massa interdum tempus. Praesent vel feugiat
-metus. Donec pharetra odio at turpis bibendum, vel commodo dui vulputate. Aenean congue nec nisl vel bibendum.
-Praesent sit amet lorem augue. Suspendisse ornare a justo sagittis fermentum.`;
+export const DefaultNegative: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: clearArgTypes,
+  args: { ...clearArgs, negative: true },
+};
+
+export const DisabledNegative: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: clearArgTypes,
+  args: { ...clearArgs, disabled: true, negative: true },
+};
+
+export const ReadonlyNegative: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: clearArgTypes,
+  args: { ...clearArgs, readonly: true, negative: true },
+};
+
+// sbb-error
 
 const TemplateError = ({ errorText, ...args }: Args): TemplateResult => html`
   <sbb-error ${sbbSpread(args)}>${errorText}</sbb-error>
-`;
-
-const TemplateErrorWithIcon = ({ errorText, iconName, ...args }: Args): TemplateResult => html`
-  <sbb-error ${sbbSpread(args)}>
-    <sbb-icon name=${iconName} slot="icon"></sbb-icon>
-    ${errorText}
-  </sbb-error>
 `;
 
 const iconNameArg: InputType = {
@@ -1175,22 +1077,6 @@ export const Error: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const ErrorNegative: StoryObj = {
-  render: TemplateError,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true },
-};
-
-export const ErrorWithCustomIconAndLongMessage: StoryObj = {
-  render: TemplateErrorWithIcon,
-  argTypes: defaultArgTypes,
-  args: {
-    ...defaultArgs,
-    errorText: longText,
-    iconName: 'chevron-small-right-small',
-  },
-};
-
 const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
@@ -1201,7 +1087,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-form-field/sbb-error',
+  title: 'elements/sbb-form-field/sbb-form-field',
 };
 
 export default meta;
