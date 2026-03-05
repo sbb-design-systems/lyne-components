@@ -2,12 +2,6 @@
 
 $theme: 'standard' !default;
 
-@mixin base {
-  --sbb-flip-card-summary-title-padding-block: var(--sbb-flip-card-padding)
-    var(--sbb-spacing-responsive-xs);
-  --sbb-flip-card-summary-title-padding-inline: var(--sbb-flip-card-padding);
-}
-
 @mixin rules {
   sbb-flip-card-summary {
     > [slot='image']:is(sbb-image, img),

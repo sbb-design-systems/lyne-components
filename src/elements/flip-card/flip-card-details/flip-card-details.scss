@@ -7,7 +7,7 @@
     var(--sbb-animation-duration-5x)
   );
   --sbb-flip-card-details-padding-block-end: calc(
-    var(--sbb-flip-card-padding) + var(--sbb-spacing-responsive-xs) +
+    var(--sbb-flip-card-padding) + var(--sbb-flip-card-padding-block-end) +
       var(--sbb-button-min-height-size-s)
   );
 
