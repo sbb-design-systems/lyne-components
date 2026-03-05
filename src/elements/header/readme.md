@@ -1,11 +1,38 @@
-### sbb-header-link
+The `sbb-header` component is a container for actions and a logo, and it is displayed at the top of the page.
 
-The component represents a link element contained by the [sbb-header](/docs/elements-sbb-header-sbb-header--docs) component.
+The header can contain:
 
-## Slots
+- one or more actions with `sbb-header-button` or `sbb-header-link`
+- other action items like [sbb-button](/docs/elements-sbb-button-sbb-button--docs) or [sbb-link](/docs/elements-sbb-link-sbb-link--docs)
+- a logo or a signet with the `.sbb-header-logo` class (see [sbb-logo](/docs/elements-sbb-logo--docs))
 
-It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
-at the component start using the `iconName` property or via custom content using the `icon` slot.
+Slotted elements are aligned to the left. Use `<div class="sbb-header-spacer"></div>` to align elements
+after it to the right.
+
+```html
+<sbb-header>
+  <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere">
+    Menu
+  </sbb-header-link>
+  <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
+  <div class="sbb-header-spacer"></div>
+  <a aria-label="Homepage" href="/" class="sbb-header-logo">
+    <sbb-logo protective-room="none"></sbb-logo>
+  </a>
+</sbb-header>
+```
+
+## Header Link
+
+The `sbb-header-link` is equivalent to a native `anchor (a)` element and is internally rendered as a link,
+accepting its associated properties (`href`, `target`, `rel` and `download`).
+
+```html
+<sbb-header-link href="#info" target="_blank">Link</sbb-header-link>
+```
+
+The component can optionally display an `sbb-icon` at the component start using the `iconName`
+property or via custom content using the `icon` slot.
 
 ```html
 <sbb-header-link href="#">Text</sbb-header-link>
@@ -21,26 +48,7 @@ Without an icon, the label is always displayed.
 <sbb-header-link href="#" expand-from="large">Text</sbb-header-link>
 ```
 
-### Avatar image
-
-By slotting an `img` or a `sbb-image` into the `icon`-slot, an avatar style icon will be displayed,
-and it's possible to place a `sbb-badge` on it. However, for the `img`-elements it's not possible to directly
-place a `sbb-badge` on it. In this case, use a wrapping `<figure>` element.
-
-```html
-<figure sbb-badge="5" class="sbb-figure" slot="icon">
-  <img
-    src="..."
-    alt="Avatar Icon"
-    class="sbb-image-border-radius-round"
-    style="width: var(--sbb-size-icon-ui-small); height: var(--sbb-size-icon-ui-small);"
-  />
-</figure>
-```
-
-## Style
-
-To indicate an active state, the CSS class `sbb-active` should be set.
+To indicate an active state, the CSS class `sbb-active` should be used.
 
 From accessibility perspective `accessibility-current="page"` should be set whenever the CSS class `sbb-active` is set.
 
@@ -55,68 +63,6 @@ From accessibility perspective `accessibility-current="page"` should be set when
 </sbb-header-link>
 ```
 
-## Link properties
-
-The component is internally rendered as a link,
-accepting its associated properties (`href`, `target`, `rel` and `download`).
-
-```html
-<sbb-header-link href="#info" target="_blank">Link</sbb-header-link>
-```
-
-
-
-### sbb-header-environment
-
-The `sbb-header-environment` component displays a ribbon inside the header to indicate the current environment.
-
-**Note**: For the production environment, the sbb-header-environment is expected to be hidden.
-
-```html
-<sbb-header>
-  ...
-  <sbb-header-environment>dev</sbb-header-environment>
-</sbb-header>
-```
-
-## Style
-
-We provide default colors for `dev`, `edu`, `int`, `loc` and `test`. Any other environment is by default of color granite.
-
-It is possible to override the ribbon background color by overriding the `--sbb-header-environment-background-color` css var.
-Furthermore, the `--sbb-header-environment-color` var can be used change the text color.
-
-```scss
-sbb-header-environment {
-  --sbb-header-environment-background-color: custom-color;
-}
-```
-
-
-
-### sbb-header-button
-
-The component represents a button element contained by the [sbb-header](/docs/elements-sbb-header-sbb-header--docs) component.
-
-## Slots
-
-It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
-at the component start using the `iconName` property or via custom content using the `icon` slot.
-
-```html
-<sbb-header-button>Text</sbb-header-button>
-
-<sbb-header-button icon-name="pie-small">Another text</sbb-header-button>
-```
-
-If the component's icon is set, the property `expandFrom` can be used to define the minimum breakpoint
-from which the label is displayed; below that, only the icon is visible.
-Without an icon, the label is always displayed.
-
-```html
-<sbb-header-button expand-from="large">Text</sbb-header-button>
-```
-
 ### Avatar image
 
 By slotting an `img` or a `sbb-image` into the `icon`-slot, an avatar style icon will be displayed,
@@ -134,7 +80,31 @@ place a `sbb-badge` on it. In this case, use a wrapping `<figure>` element.
 </figure>
 ```
 
-## Style
+## Header Button
+
+The `sbb-header-button` is equivalent to a native `button` element and is accepting its associated
+properties (`type`, `name`, `value` and `form`).
+
+```html
+<sbb-header-button value="menu" name="menu">Button</sbb-header-button>
+```
+
+The component can optionally display an `sbb-icon` at the component start using the `iconName` property
+or via custom content using the `icon` slot.
+
+```html
+<sbb-header-button>Text</sbb-header-button>
+
+<sbb-header-button icon-name="pie-small">Another text</sbb-header-button>
+```
+
+If the component's icon is set, the property `expandFrom` can be used to define the minimum breakpoint
+from which the label is displayed; below that, only the icon is visible.
+Without an icon, the label is always displayed.
+
+```html
+<sbb-header-button expand-from="large">Text</sbb-header-button>
+```
 
 To indicate an active state, the CSS class `sbb-active` should be set.
 
@@ -151,42 +121,47 @@ From accessibility perspective `aria-current="page"` should be set whenever the 
 </sbb-header-button>
 ```
 
-## Button properties
+### Avatar image
 
-The component is internally rendered as a button,
-accepting its associated properties (`type`, `name`, `value` and `form`).
+By slotting an `img` or a `sbb-image` into the `icon`-slot, an avatar style icon will be displayed,
+and it's possible to place a `sbb-badge` on it. However, for the `img`-elements it's not possible to directly
+place a `sbb-badge` on it. In this case, use a wrapping `<figure>` element.
 
 ```html
-<sbb-header-button value="menu" name="menu">Button</sbb-header-button>
+<figure sbb-badge="5" class="sbb-figure" slot="icon">
+  <img
+    src="..."
+    alt="Avatar Icon"
+    class="sbb-image-border-radius-round"
+    style="width: var(--sbb-size-icon-ui-small); height: var(--sbb-size-icon-ui-small);"
+  />
+</figure>
 ```
 
+## Header Environment
 
+The `sbb-header-environment` component displays a ribbon inside the header to indicate the current environment.
 
-### sbb-header
-
-The `sbb-header` component is a container for actions and a logo, and it is displayed at the top of the page.
-
-## Slots
-
-The slot can contain:
-
-- one or more actions ([sbb-header-button](/docs/elements-sbb-header-sbb-header-button--docs) or [sbb-header-link](/docs/elements-sbb-header-sbb-header-link--docs))
-- other action items like [sbb-button](/docs/elements-sbb-button-sbb-button--docs) or [sbb-link](/docs/elements-sbb-link-sbb-link--docs)
-- a logo or a signet with the `.sbb-header-logo` class (see [sbb-logo](/docs/elements-sbb-logo--docs))
-
-Slotted elements are aligned to the left. Use `<div class="sbb-header-spacer">` to align elements after it to the right.
+**Note**: For the production environment, the sbb-header-environment is expected to be hidden.
 
 ```html
 <sbb-header>
-  <sbb-header-link icon-name="hamburger-menu-small" href="https://sbb.ch/somewhere">
-    Menu
-  </sbb-header-link>
-  <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
-  <div class="sbb-header-spacer"></div>
-  <a aria-label="Homepage" href="/" class="sbb-header-logo">
-    <sbb-logo protective-room="none"></sbb-logo>
-  </a>
+  ...
+  <sbb-header-environment>dev</sbb-header-environment>
 </sbb-header>
+```
+
+We provide default colors for `dev`, `edu`, `int`, `loc` and `test`. Any other environment is by default of
+color granite.
+
+It is possible to override the ribbon background color by overriding the
+`--sbb-header-environment-background-color` CSS variable.
+Furthermore, the `--sbb-header-environment-color` variable can be used change the text color.
+
+```scss
+sbb-header-environment {
+  --sbb-header-environment-background-color: custom-color;
+}
 ```
 
 ## Style
@@ -206,31 +181,6 @@ For the latter, the usage of the `sbb-signet` with `protective-room='panel'` is 
     Menu
   </sbb-header-link>
   <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
-  <div class="sbb-header-spacer"></div>
-  <a aria-label="Homepage" href="/" class="sbb-header-logo">
-    <sbb-signet protective-room="panel"></sbb-signet>
-  </a>
-</sbb-header>
-```
-
-### Active state
-
-To indicate an active state of the `sbb-header-link` or `sbb-header-button`,
-the CSS class `sbb-active` should be set on the corresponding element.
-
-From accessibility perspective `accessibility-current="page"` (or `aria-current="page"` for buttons)
-should be set whenever the CSS class `sbb-active` is set.
-
-```html
-<sbb-header size="s">
-  <sbb-header-link
-    icon-name="magnifying-glass-small"
-    href="https://sbb.ch/somewhere"
-    class="sbb-active"
-    accessibility-current="page"
-  >
-    Overview
-  </sbb-header-link>
   <div class="sbb-header-spacer"></div>
   <a aria-label="Homepage" href="/" class="sbb-header-logo">
     <sbb-signet protective-room="panel"></sbb-signet>
@@ -369,4 +319,3 @@ set the CSS class `sbb-header-shrinkable` on the desired `sbb-header-button`/`sb
 (\*) Technical note: Due the presence of media-query rules, it was not possible to add those rules directly
 in the component's stories (see also [this Storybook issue](https://github.com/storybookjs/storybook/issues/8820)),
 so they were wrapped into a `style` tag and added to the Storybook's configuration file named `preview-head.html`.
-
