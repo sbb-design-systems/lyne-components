@@ -82,7 +82,7 @@ place a `sbb-badge` on it. In this case, use a wrapping `<figure>` element.
 
 ## Header Button
 
-The `sbb-header-button` is equivalent to a native `button` element and is accepting its associated
+The `sbb-header-button` is equivalent to a native `button` element, accepting its associated
 properties (`type`, `name`, `value` and `form`).
 
 ```html

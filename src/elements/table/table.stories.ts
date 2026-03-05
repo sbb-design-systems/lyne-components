@@ -5,7 +5,8 @@ import { styleMap } from 'lit/directives/style-map.js';
 import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
-import './table-wrapper.component.ts';
+
+import '../table.ts';
 
 const columns = [
   'Line',
@@ -194,7 +195,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-table/sbb-table-wrapper',
+  title: 'elements/sbb-table',
 };
 
 export default meta;

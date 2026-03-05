@@ -1,4 +1,5 @@
-### sbb-table-wrapper
+For working with tables, the native `table` and its related elements should be used.
+With the `sbb-table` CSS class, styling the native element is possible.
 
 The `sbb-table-wrapper` is a wrapper for a table. Its goal is to enhance/automate the native table capabilities.
 
@@ -66,4 +67,3 @@ E.g. when the table-wrapper is placed inside a dark container, the focus outline
   </sbb-table-wrapper>
 </div>
 ```
-
