@@ -1,187 +1,26 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-import { withActions } from 'storybook/actions/decorator';
-import type { InputType } from 'storybook/internal/types';
-
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-
-import readme from './readme.md?raw';
-
-import './dialog-title.component.ts';
-
-const level: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: [1, 2, 3, 4, 5, 6],
-};
-
-const defaultArgTypes: ArgTypes = {
-  level,
-};
-
-const defaultArgs: Args = {
-  level: 2,
-};
-
-const Template = (args: Args): TemplateResult =>
-  html`<sbb-dialog-title ${sbbSpread(args)}>Dialog title</sbb-dialog-title>`;
-
-export const Default: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-const meta: Meta = {
-  decorators: [withActions as Decorator],
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-dialog/sbb-dialog-title',
-};
-
-export default meta;
-
-
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-
-import './dialog-content.component.ts';
-import readme from './readme.md?raw';
-
-const Template = (): TemplateResult =>
-  html`<sbb-dialog-content>This is a dialog content.</sbb-dialog-content>`;
-
-export const Default: StoryObj = { render: Template };
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-dialog/sbb-dialog-content',
-};
-
-export default meta;
-
-
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-import type { InputType } from 'storybook/internal/types';
-
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-
-import readme from './readme.md?raw';
-
-import './dialog-close-button.component.ts';
-
-const ariaLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const defaultArgTypes: ArgTypes = {
-  'aria-label': ariaLabel,
-};
-
-const defaultArgs: Args = {
-  'aria-label': undefined,
-};
-
-const Template = (args: Args): TemplateResult =>
-  html`<sbb-dialog-close-button ${sbbSpread(args)}></sbb-dialog-close-button>`;
-
-export const Default: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-dialog/sbb-dialog-close-button',
-};
-
-export default meta;
-
-
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-
-import './dialog-actions.component.ts';
-import readme from './readme.md?raw';
-
-import '../../button/button.ts';
-import '../../button/secondary-button.ts';
-import '../../link/block-link.ts';
-
-const Template = (): TemplateResult =>
-  html`<sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="large">
-    <sbb-block-link
-      align-self="start"
-      icon-name="chevron-small-left-small"
-      href="https://www.sbb.ch/en/"
-      sbb-dialog-close
-    >
-      Link
-    </sbb-block-link>
-    <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
-    <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
-  </sbb-dialog-actions>`;
-
-export const Default: StoryObj = { render: Template };
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-dialog/sbb-dialog-actions',
-};
-
-export default meta;
-
-
-import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-import sampleImages from '../../core/images.ts';
-import type { SbbTitleLevel } from '../../title.ts';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import sampleImages from '../core/images.ts';
+import type { SbbTitleLevel } from '../title.ts';
 
-import { SbbDialogElement } from './dialog.component.ts';
+import { SbbDialogElement } from './dialog/dialog.component.ts';
 import readme from './readme.md?raw';
 
-import '../../autocomplete.ts';
-import '../../option.ts';
-import '../../button.ts';
-import '../../card.ts';
-import '../../link.ts';
-import '../../form-field.ts';
-import '../../image.ts';
-import '../../popover.ts';
-import '../../stepper.ts';
-import '../dialog-actions.ts';
-import '../dialog-close-button.ts';
-import '../dialog-content.ts';
-import '../dialog-title.ts';
+import '../autocomplete.ts';
+import '../button.ts';
+import '../card.ts';
+import '../dialog.ts';
+import '../form-field.ts';
+import '../image.ts';
+import '../link.ts';
+import '../option.ts';
+import '../popover.ts';
+import '../stepper.ts';
 
 const loremIpsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -506,7 +345,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-dialog/sbb-dialog',
+  title: 'elements/sbb-dialog',
 };
 
 export default meta;

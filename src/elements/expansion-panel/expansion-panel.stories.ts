@@ -1,64 +1,3 @@
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-
-import readme from './readme.md?raw';
-
-import '../../card.ts';
-
-const Template = (): TemplateResult => html`
-  <sbb-card color="milk">
-    'sbb-expansion-panel-header' is an element to be only used together with 'sbb-expansion-panel'.
-    See 'sbb-expansion-panel' examples to see it in action.
-  </sbb-card>
-`;
-export const ExpansionPanelHeader: StoryObj = {
-  render: Template,
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-accordion/sbb-expansion-panel-header',
-};
-
-export default meta;
-
-
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-
-import readme from './readme.md?raw';
-
-import '../../card.ts';
-
-const Template = (): TemplateResult => html`
-  <sbb-card color="milk">
-    'sbb-expansion-panel-content' is an element to be only used together with 'sbb-expansion-panel'.
-    See 'sbb-expansion-panel' examples to see it in action.
-  </sbb-card>
-`;
-
-export const ExpansionPanelContent: StoryObj = {
-  render: Template,
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-accordion/sbb-expansion-panel-content',
-};
-
-export default meta;
-
-
 import type {
   Meta,
   StoryObj,
@@ -72,14 +11,12 @@ import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.ts';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { SbbExpansionPanelElement, SbbExpansionPanelHeaderElement } from '../expansion-panel.ts';
 
-import { SbbExpansionPanelElement } from './expansion-panel.component.ts';
 import readme from './readme.md?raw';
 
-import '../expansion-panel-content.ts';
-import '../../icon.ts';
+import '../icon.ts';
 
 const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et

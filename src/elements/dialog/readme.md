@@ -1,7 +1,39 @@
-### sbb-dialog-title
+The `sbb-dialog` component provides a way to present content on top of the app's content mainly to
+interact with the user.
+
+The component creates a backdrop to prevent interaction with content behind the modal, disables page
+scrolling while open, manages focus by setting it to the first focusable element, and automatically
+adds the appropriate ARIA roles.
+
+The dialog should always consist of a title and content. Optionally, a close button and actions can
+be provided.
+
+```html
+<sbb-dialog>
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+</sbb-dialog>
+```
+
+The component supports slotting the `sbb-dialog-title`, `sbb-dialog-close-button`, `sbb-dialog-content`
+and an `sbb-dialog-actions` elements for structuring the content of a dialog..
+
+```html
+<sbb-dialog>
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-close-button></sbb-dialog-close-button>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+  <sbb-dialog-actions>
+    <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
+    <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
+  </sbb-dialog-actions>
+</sbb-dialog>
+```
+
+## Title
 
 The `sbb-dialog-title` component extends the [sbb-title](/docs/elements-sbb-title--docs) component.
-Use it in combination with the [sbb-dialog](/docs/elements-sbb-dialog-sbb-dialog--docs) to display a header in the dialog.
+It should be used as a title for a dialog.
 
 ```html
 <sbb-dialog>
@@ -9,95 +41,24 @@ Use it in combination with the [sbb-dialog](/docs/elements-sbb-dialog-sbb-dialog
 </sbb-dialog>
 ```
 
-## States
+### States
 
 The title can have a `negative` state which is automatically synchronized with the negative state of the dialog.
 
-## Style
+### Style
 
 In scenarios where the visual representation needs to be different from the semantic meaning of the title level,
 it is possible to use the `visualLevel` property (default value: `4`).
 
+## Actions
 
-
-### sbb-dialog-content
-
-Use the `sbb-dialog-content` in combination with the [sbb-dialog](/docs/elements-sbb-dialog-sbb-dialog--docs) to display a content inside the dialog.
-
-```html
-<sbb-dialog>
-  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
-</sbb-dialog>
-```
-
-
-
-### sbb-dialog-close-button
-
-The `sbb-dialog-close-button` component extends the [sbb-secondary-button](/docs/elements-sbb-button-sbb-secondary-button--docs) component.
-Use it in inside the [sbb-dialog](/docs/elements-sbb-dialog-sbb-dialog--docs)
-to display a close button in the dialog.
-The slot `title-section` is automatically assigned to be properly positioned on the `sbb-dialog`.
-
-Clicking on the close button closes the corresponding dialog.
-
-```html
-<sbb-dialog>
-  <sbb-dialog-close-button></sbb-dialog-close-button>
-  <sbb-dialog-content>Content</sbb-dialog-content>
-</sbb-dialog>
-```
-
-## Accessibility
-
-An aria-label is automatically set. It's possible to override it.
-
-
-
-### sbb-dialog-actions
-
-The `sbb-dialog-actions` component extends the [sbb-action-group](/docs/elements-sbb-action-group--docs) component. Use it in combination with the [sbb-dialog](/docs/elements-sbb-dialog-sbb-dialog--docs) to display a footer with an action group.
+The `sbb-dialog-actions` component extends the [sbb-action-group](/docs/elements-sbb-action-group--docs)
+component. Use it to display a footer with an action group.
 
 ```html
 <sbb-dialog>
   <sbb-dialog-actions>
     <sbb-block-link sbb-dialog-close>Link</sbb-block-link>
-    <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
-    <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
-  </sbb-dialog-actions>
-</sbb-dialog>
-```
-
-
-
-### sbb-dialog
-
-The `sbb-dialog` component provides a way to present content on top of the app's content mainly to interact with the user.
-
-The component creates a backdrop to prevent interaction with content behind the modal, disables page scrolling while open,
-manages focus by setting it to the first focusable element, and automatically adds the appropriate ARIA roles.
-
-The dialog should always consist of a title and content. Optionally, a close button and actions can be provided.
-
-```html
-<sbb-dialog>
-  <sbb-dialog-title>Title</sbb-dialog-title>
-  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
-</sbb-dialog>
-```
-
-## Slots
-
-Consumers don't need to directly assign any slots; the dedicated components take care of assigning the correct slot.
-
-The component supports slotting the `sbb-dialog-title`, `sbb-dialog-close-button`, `sbb-dialog-content` and an `sbb-dialog-actions` elements.
-
-```html
-<sbb-dialog>
-  <sbb-dialog-title>Title</sbb-dialog-title>
-  <sbb-dialog-close-button></sbb-dialog-close-button>
-  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
-  <sbb-dialog-actions>
     <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
     <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
   </sbb-dialog-actions>
@@ -133,6 +94,10 @@ The dialog can be closed in several ways:
      <sbb-dialog-content>Dialog content.</sbb-dialog-content>
    </sbb-dialog>
    ```
+
+   The `sbb-dialog-close-button` component extends the
+   [sbb-secondary-button](/docs/elements-sbb-button-sbb-secondary-button--docs) component.
+   An aria-label is automatically set. It is however possible to override it, if necessary.
 
 2. **sbb-dialog-close attribute**: Add the `sbb-dialog-close` attribute to any element within the dialog
    (typically buttons in the actions section) to close the dialog when clicked. You can optionally provide a result value:
@@ -223,4 +188,3 @@ dialog opened by default. However, focus restoration can be disabled
 by setting the `skipFocusRestoration` property to `true`.
 As this is an accessibility feature, it is recommended to focus
 an alternative element by listening to the `didClose` event.
-
