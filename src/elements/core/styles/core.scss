@@ -95,6 +95,9 @@ $theme: 'standard' !default;
   expansion-panel-header with (
   $theme: $theme
 );
+@use '../../header/common/header-action.global' as header-common with (
+  $theme: $theme
+);
 @use '../../header/header/header.global' as header with (
   $theme: $theme
 );
@@ -172,6 +175,7 @@ $theme: 'standard' !default;
   @include expansion-panel-header.base;
   @include footer.base;
   @include header.base;
+  @include header-common.base;
   @include option.base;
   @include option-hint.base;
   @include optgroup.base;
@@ -191,6 +195,7 @@ $theme: 'standard' !default;
     @include breadcrumb.base-forced-colors;
     @include card.base-forced-colors;
     @include card-badge.base-forced-colors;
+    @include header-common.base-forced-colors;
     @include expansion-panel-header.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
     @include radio-button-common.base-forced-colors;
