@@ -1,22 +1,22 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
-
-  // Setting the height here reserves the space for the header which will else be lost with fixed position.
-  height: var(--sbb-header-height);
-
+  --sbb-logo-height: #{sbb.px-to-rem-build(16)};
+  --sbb-signet-height: #{sbb.px-to-rem-build(16)};
   --sbb-header-transition-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
-  --sbb-logo-height: #{sbb.px-to-rem-build(16)};
-  --sbb-signet-height: #{sbb.px-to-rem-build(16)};
 
   @include sbb.mq($from: large) {
     --sbb-logo-height: #{sbb.px-to-rem-build(20)};
     --sbb-signet-height: #{sbb.px-to-rem-build(20)};
   }
+
+  display: block;
+
+  // Setting the height here reserves the space for the header which will else be lost with fixed position.
+  height: var(--sbb-header-height);
 }
 
 :host([size='s']) {
