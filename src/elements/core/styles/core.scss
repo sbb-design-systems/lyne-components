@@ -10,6 +10,7 @@ $theme: 'standard' !default;
 @use './mixins/font-face';
 @use './mixins/helpers';
 @use './mixins/inputs';
+@use './mixins/overlay' as overlay;
 @use './mixins/popover';
 @use './mixins/scrollbar';
 @use './mixins/typo';
@@ -68,6 +69,18 @@ $theme: 'standard' !default;
 @use '../../container/sticky-bar/sticky-bar.global' as sticky-bar with (
   $theme: $theme
 );
+@use '../../dialog/dialog/dialog.global' as dialog with (
+  $theme: $theme
+);
+@use '../../dialog/dialog-close-button/dialog-close-button.global' as dialog-close-button with (
+  $theme: $theme
+);
+@use '../../dialog/dialog-content/dialog-content.global' as dialog-content with (
+  $theme: $theme
+);
+@use '../../dialog/dialog-title/dialog-title.global' as dialog-title with (
+  $theme: $theme
+);
 @use '../../divider/divider.global' as divider with (
   $theme: $theme
 );
@@ -94,6 +107,15 @@ $theme: 'standard' !default;
 @use '../../footer/footer.global' as footer with (
   $theme: $theme
 );
+@use '../../option/option/option.global' as option with (
+  $theme: $theme
+);
+@use '../../option/option-hint/option-hint.global' as option-hint with (
+  $theme: $theme
+);
+@use '../../option/optgroup/optgroup.global' as optgroup with (
+  $theme: $theme
+);
 @use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
   $theme: $theme
 );
@@ -105,6 +127,9 @@ $theme: 'standard' !default;
 );
 @use '../../selection-expansion-panel/selection-expansion-panel.global' as selection-expansion-panel
   with (
+  $theme: $theme
+);
+@use '../../status/status.global' as status with (
   $theme: $theme
 );
 @use '../../tabs/common/tab-group-common.global' as tab-group-common with (
@@ -145,6 +170,8 @@ $theme: 'standard' !default;
   @include container.base;
   @include sticky-bar.base;
   @include clock.base;
+  @include dialog.base;
+  @include dialog-close-button.base;
   @include divider.base;
   @include expansion-panel.base;
   @include expansion-panel-content.base;
@@ -153,10 +180,15 @@ $theme: 'standard' !default;
   @include flip-card-details.base;
   @include flip-card-summary.base;
   @include footer.base;
+  @include option.base;
+  @include option-hint.base;
+  @include optgroup.base;
+  @include overlay.options-panel-overlay-variables--global($theme);
   @include radio-button-common.base;
   @include radio-button-group.base;
   @include selection-action-panel.base;
   @include selection-expansion-panel.base;
+  @include status.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
   @include visual-checkbox.base;
@@ -234,6 +266,7 @@ $theme: 'standard' !default;
   @include mediaqueries.mq($from: small) {
     @include sbb-css-tokens.breakpoint-small;
 
+    @include dialog.base-breakpoint-small;
     @include footer.base-breakpoint-small;
   }
 
@@ -243,6 +276,7 @@ $theme: 'standard' !default;
     @include button.base-breakpoint-large;
 
     @include chip-group.base-breakpoint-large;
+    @include dialog.base-breakpoint-large;
     @include flip-card.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
@@ -272,8 +306,13 @@ $theme: 'standard' !default;
 @include font-face.font-declarations;
 
 // Components global styles
+@include breadcrumb-group.rules;
 @include container.rules;
+@include dialog-close-button.rules;
+@include dialog-content.rules;
+@include dialog-title.rules;
 @include flip-card-summary.rules;
+@include option.rules;
 @include tab-nav-bar.rules;
 
 // TODO: discuss where to add these classes
@@ -450,13 +489,6 @@ html {
   sbb-toast
 ) {
   @include popover.popover-reset;
-}
-
-// Ensure stable breadcrumb height during hydrating
-sbb-breadcrumb-group:not(:defined) {
-  display: block;
-  height: calc(var(--sbb-typo-line-height-text) * var(--sbb-text-font-size-xs));
-  overflow: hidden;
 }
 
 // Every element in the Light DOM of a sbb-card which is focusable should receive this attribute.
@@ -711,65 +743,6 @@ sbb-toggle:has(:focus-visible) {
   @include a11y.focus-outline;
 }
 
-:where(sbb-select, sbb-autocomplete, sbb-autocomplete-grid)[size='s'] {
-  :where(sbb-option, sbb-autocomplete-grid-option) {
-    --sbb-option-min-height: var(--sbb-size-element-xxs);
-    --sbb-focus-outline-offset: calc(-1 * var(--sbb-spacing-fixed-1x));
-    --sbb-option-focus-outline-inset: 0 var(--sbb-spacing-fixed-1x);
-  }
-
-  sbb-optgroup {
-    --sbb-optgroup-label-padding-end: var(--sbb-spacing-fixed-1x);
-  }
-
-  sbb-option-hint {
-    --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-1x);
-  }
-}
-
-sbb-dialog-title {
-  // Hide margin on the right side. Distance to button is defined by flex gap already.
-  sbb-dialog:has(> sbb-dialog-close-button) > &,
-  sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-close-button) > * > & {
-    padding-inline-end: 0;
-  }
-}
-
-sbb-dialog-content {
-  // If there is a title, remove top spacing for the content
-  sbb-dialog:has(> sbb-dialog-title) > &,
-  sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title) > * > & {
-    padding-block-start: var(--sbb-spacing-fixed-1x);
-  }
-
-  // Set the negative scrollbar colors for dialog content when dialog is negative
-  sbb-dialog[negative] > &,
-  sbb-dialog[negative]:state(has-intermediate-element) > * > & {
-    @include scrollbar.scrollbar-variables--color-negative;
-  }
-}
-
-sbb-dialog-close-button {
-  // If there is no dialog title, the close button should be positioned absolute
-  sbb-dialog:not(:has(> sbb-dialog-title)) > &,
-  sbb-dialog:state(has-intermediate-element):not(:has(> * > sbb-dialog-title)) > * > & {
-    position: absolute;
-    z-index: 1;
-  }
-
-  // The close button positioning needs the current dialog title size
-  sbb-dialog:has(> sbb-dialog-title[visual-level='3']) > &,
-  sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='3']) > * > & {
-    --_sbb-dialog-title-size: var(--sbb-heading-font-size-3);
-  }
-
-  // The close button positioning needs the current dialog title size
-  sbb-dialog:has(> sbb-dialog-title[visual-level='5']) > &,
-  sbb-dialog:state(has-intermediate-element):has(> * > sbb-dialog-title[visual-level='5']) > * > & {
-    --_sbb-dialog-title-size: var(--sbb-heading-font-size-5);
-  }
-}
-
 sbb-notification:has(sbb-title) {
   --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-5);
   --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-heading);
@@ -778,13 +751,6 @@ sbb-notification:has(sbb-title) {
     --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-6);
     --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-text);
   }
-}
-
-sbb-status:has(sbb-title) {
-  --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
-  --_sbb-status-text-color-override: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
-  --_sbb-status-title-font-size: var(--sbb-heading-font-size-5);
-  --_sbb-status-title-line-height: var(--sbb-typo-line-height-heading);
 }
 
 .sbb-overlay-outlet {

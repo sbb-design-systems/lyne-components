@@ -1,12 +1,13 @@
 @use '../core/styles' as sbb;
 
 :host {
-  --sbb-status-color: var(--sbb-color-4);
-  --sbb-status-gap: var(--sbb-spacing-fixed-1x);
   --sbb-status-text-color: var(--sbb-status-color);
-  --_sbb-status-icon-color: var(--sbb-status-color);
 
-  display: block;
+  display: flex;
+  gap: var(--sbb-status-gap);
+  color: var(--sbb-status-text-color);
+  font-size: var(--sbb-status-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 }
 
 :host([type='error']) {
@@ -38,22 +39,22 @@
   --sbb-status-color: var(--sbb-color-pink);
 }
 
-.sbb-status {
-  @include sbb.text-s--regular;
+:host(:state(slotted-title)) {
+  --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
+  --_sbb-status-title-font-size: var(--sbb-heading-font-size-5);
+  --_sbb-status-title-line-height: var(--sbb-typo-line-height-heading);
 
-  display: flex;
-  gap: var(--sbb-status-gap);
-  color: var(--_sbb-status-text-color-override, var(--sbb-status-text-color));
+  color: var(--sbb-status-title-color);
 }
 
 .sbb-status__icon {
   display: flex;
   flex-shrink: 0;
-  color: var(--_sbb-status-icon-color);
+  color: var(--sbb-status-color);
   margin-block-start: calc(
     (
         (
-            var(--_sbb-status-title-font-size, var(--sbb-text-font-size-s)) *
+            var(--_sbb-status-title-font-size, var(--sbb-status-font-size)) *
               var(--_sbb-status-title-line-height, var(--sbb-typo-line-height-text))
           ) - var(--sbb-size-icon-ui-small)
       ) /

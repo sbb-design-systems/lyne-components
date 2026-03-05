@@ -1,0 +1,10 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-status-color: var(--sbb-color-4);
+  --sbb-status-gap: var(--sbb-spacing-fixed-1x);
+  --sbb-status-font-size: var(--sbb-text-font-size-s);
+  --sbb-status-title-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+}

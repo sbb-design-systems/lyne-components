@@ -1,0 +1,13 @@
+$theme: 'standard' !default;
+
+@use 'sass:string';
+
+@use '../../autocomplete-grid/autocomplete-grid-row/autocomplete-grid-row.global' as
+  autocomplete-grid-row with (
+  $theme: $theme
+);
+
+// Core variables
+:root {
+  @include autocomplete-grid-row.base;
+}
