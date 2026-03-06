@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbTagElement } from './tag.component.ts';
 
+import '../../tag.ts';
+
 describe(`sbb-tag ssr`, () => {
   let root: SbbTagElement;
 

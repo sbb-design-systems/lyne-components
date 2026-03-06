@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbHeaderElement } from './header.component.ts';
 
+import '../../header.ts';
+
 describe(`sbb-header ssr`, () => {
   let root: SbbHeaderElement;
 

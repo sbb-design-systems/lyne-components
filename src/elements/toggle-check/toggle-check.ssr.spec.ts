@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbToggleCheckElement } from './toggle-check.component.ts';
 
+import '../toggle-check.ts';
+
 describe(`sbb-toggle-check ssr`, () => {
   let root: SbbToggleCheckElement;
 

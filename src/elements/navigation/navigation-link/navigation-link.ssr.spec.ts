@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbNavigationLinkElement } from './navigation-link.component.ts';
 
+import '../../navigation.ts';
+
 describe(`sbb-navigation-link ssr`, () => {
   let root: SbbNavigationLinkElement;
 

@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbTooltipElement } from './tooltip.component.ts';
 
+import '../tooltip.ts';
+
 describe(`sbb-tooltip ssr`, () => {
   let root: SbbTooltipElement;
 

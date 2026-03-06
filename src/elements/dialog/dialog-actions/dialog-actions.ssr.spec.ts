@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbDialogActionsElement } from './dialog-actions.component.ts';
 
+import '../../dialog.ts';
+
 describe(`sbb-dialog-actions ssr`, () => {
   let root: SbbDialogActionsElement;
 

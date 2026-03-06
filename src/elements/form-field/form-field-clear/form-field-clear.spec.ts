@@ -7,6 +7,8 @@ import { SbbFormFieldElement } from '../form-field/form-field.component.ts';
 
 import { SbbFormFieldClearElement } from './form-field-clear.component.ts';
 
+import '../../form-field.ts';
+
 describe(`sbb-form-field-clear`, () => {
   let element: SbbFormFieldClearElement;
   let formField: SbbFormFieldElement;

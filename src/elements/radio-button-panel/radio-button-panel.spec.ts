@@ -6,6 +6,8 @@ import { waitForLitRender } from '../core/testing.ts';
 
 import { SbbRadioButtonPanelElement } from './radio-button-panel.component.ts';
 
+import '../radio-button-panel.ts';
+
 describe(`sbb-radio-button-panel`, () => {
   let element: SbbRadioButtonPanelElement;
 

@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbTitleElement } from './title.component.ts';
 
+import '../title.ts';
+
 describe(`sbb-title ssr`, () => {
   let root: SbbTitleElement;
 

@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbCompactPaginatorElement } from './compact-paginator.component.ts';
 
+import '../../paginator.ts';
+
 describe(`sbb-compact-paginator ssr`, () => {
   let root: SbbCompactPaginatorElement;
 

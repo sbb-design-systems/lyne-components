@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbDialogTitleElement } from './dialog-title.component.ts';
 
+import '../../dialog.ts';
+
 describe(`sbb-dialog-title ssr`, () => {
   let root: SbbDialogTitleElement;
 

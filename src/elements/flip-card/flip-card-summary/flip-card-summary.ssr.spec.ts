@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbFlipCardSummaryElement } from './flip-card-summary.component.ts';
 
+import '../../flip-card.ts';
+
 describe(`sbb-flip-card-summary ssr`, () => {
   let root: SbbFlipCardSummaryElement;
 

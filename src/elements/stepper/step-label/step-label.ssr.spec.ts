@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbStepLabelElement } from './step-label.component.ts';
 
+import '../../stepper.ts';
+
 describe(`sbb-step-label ssr`, () => {
   let root: SbbStepLabelElement;
 

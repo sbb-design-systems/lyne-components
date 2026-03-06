@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbImageElement } from './image.component.ts';
 
+import '../image.ts';
+
 describe(`sbb-image ssr`, () => {
   let root: SbbImageElement;
   const url = import.meta.resolve('../core/testing/assets/lucerne.png');

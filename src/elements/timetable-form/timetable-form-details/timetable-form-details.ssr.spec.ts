@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbTimetableFormDetailsElement } from './timetable-form-details.component.ts';
 
+import '../../timetable-form.ts';
+
 describe(`sbb-timetable-form-details ssr`, () => {
   let root: SbbTimetableFormDetailsElement;
 

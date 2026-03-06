@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbMiniButtonLinkElement } from './mini-button-link.component.ts';
 
+import '../../button.ts';
+
 describe(`sbb-mini-button-link ssr`, () => {
   let root: SbbMiniButtonLinkElement;
 

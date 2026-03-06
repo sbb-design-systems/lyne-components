@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbIconSidebarContentElement } from './icon-sidebar-content.component.ts';
 
+import '../../icon-sidebar.ts';
+
 describe(`sbb-icon-sidebar-content ssr`, () => {
   let root: SbbIconSidebarContentElement;
 

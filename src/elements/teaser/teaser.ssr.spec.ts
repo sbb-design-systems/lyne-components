@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbTeaserElement } from './teaser.component.ts';
 
+import '../teaser.ts';
+
 describe(`sbb-teaser ssr`, () => {
   let root: SbbTeaserElement;
 

@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbTimeInputElement } from './time-input.component.ts';
 
+import '../time-input.ts';
+
 describe(`sbb-time-input ssr`, () => {
   let root: SbbTimeInputElement;
 

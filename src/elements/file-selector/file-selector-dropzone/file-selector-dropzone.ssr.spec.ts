@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.ts';
 
+import '../../file-selector.ts';
+
 describe(`sbb-file-selector-dropzone ssr`, () => {
   let root: SbbFileSelectorDropzoneElement;
 

@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbFileSelectorElement } from './file-selector.component.ts';
 
+import '../../file-selector.ts';
+
 describe(`sbb-file-selector ssr`, () => {
   let root: SbbFileSelectorElement;
 

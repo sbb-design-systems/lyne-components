@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbOverlayElement } from './overlay.component.ts';
 
+import '../overlay.ts';
+
 describe(`sbb-overlay ssr`, () => {
   let root: SbbOverlayElement;
 

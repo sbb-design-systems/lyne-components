@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbAccentButtonElement } from './accent-button.component.ts';
 
+import '../../button.ts';
+
 describe(`sbb-accent-button ssr`, () => {
   let root: SbbAccentButtonElement;
 

@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbTabLabelElement } from './tab-label.component.ts';
 
+import '../../tabs.ts';
+
 describe(`sbb-tab-label ssr`, () => {
   let root: SbbTabLabelElement;
 

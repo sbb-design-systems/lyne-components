@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbDividerElement } from './divider.component.ts';
 
+import '../divider.ts';
+
 describe(`sbb-divider ssr`, () => {
   let root: SbbDividerElement;
 

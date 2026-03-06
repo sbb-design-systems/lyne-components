@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbBreadcrumbElement } from './breadcrumb.component.ts';
 
+import '../../breadcrumb.ts';
+
 describe(`sbb-breadcrumb ssr`, () => {
   let root: SbbBreadcrumbElement;
 

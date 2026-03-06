@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbMenuLinkElement } from './menu-link.component.ts';
 
+import '../../menu.ts';
+
 describe(`sbb-menu-link ssr`, () => {
   let root: SbbMenuLinkElement;
 

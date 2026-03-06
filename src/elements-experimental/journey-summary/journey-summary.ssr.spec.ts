@@ -4,6 +4,8 @@ import { html } from 'lit';
 
 import { SbbJourneySummaryElement } from './journey-summary.component.ts';
 
+import '../journey-summary.ts';
+
 describe(`sbb-journey-summary ssr`, () => {
   let root: SbbJourneySummaryElement;
 

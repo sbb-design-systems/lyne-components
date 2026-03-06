@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbFormFieldElement } from './form-field.component.ts';
 
+import '../../form-field.ts';
+
 describe(`sbb-form-field ssr`, () => {
   let root: SbbFormFieldElement;
 

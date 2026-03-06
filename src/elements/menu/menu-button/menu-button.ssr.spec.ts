@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbMenuButtonElement } from './menu-button.component.ts';
 
+import '../../menu.ts';
+
 describe(`sbb-menu-button ssr`, () => {
   let root: SbbMenuButtonElement;
 

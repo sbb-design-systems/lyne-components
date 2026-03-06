@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbLinkStaticElement } from './link-static.component.ts';
 
+import '../../link.ts';
+
 describe(`sbb-link-static ssr`, () => {
   let root: SbbLinkStaticElement;
 

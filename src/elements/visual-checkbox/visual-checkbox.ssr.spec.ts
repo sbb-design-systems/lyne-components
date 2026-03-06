@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbVisualCheckboxElement } from './visual-checkbox.component.ts';
 
+import '../visual-checkbox.ts';
+
 describe(`sbb-visual-checkbox ssr`, () => {
   let root: SbbVisualCheckboxElement;
 

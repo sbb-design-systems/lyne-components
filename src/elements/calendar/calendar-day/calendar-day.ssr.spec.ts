@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbCalendarDayElement } from './calendar-day.component.ts';
 
+import '../../calendar.ts';
+
 describe(`sbb-calendar-day ssr`, () => {
   let root: SbbCalendarDayElement;
 

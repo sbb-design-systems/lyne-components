@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbSidebarCloseButtonElement } from './sidebar-close-button.component.ts';
 
+import '../../sidebar.ts';
+
 describe(`sbb-sidebar-close-button ssr`, () => {
   let root: SbbSidebarCloseButtonElement;
 

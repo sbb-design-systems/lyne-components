@@ -5,6 +5,8 @@ import { fixture } from '../core/testing/private.ts';
 
 import { SbbLoadingIndicatorCircleElement } from './loading-indicator-circle.component.ts';
 
+import '../loading-indicator-circle.ts';
+
 describe(`sbb-loading-indicator-circle`, () => {
   let element: SbbLoadingIndicatorCircleElement;
 

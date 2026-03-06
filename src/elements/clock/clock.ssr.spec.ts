@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbClockElement } from './clock.component.ts';
 
+import '../clock.ts';
+
 describe(`sbb-clock ssr`, () => {
   it('renders', async () => {
     const root = await ssrHydratedFixture(html`<sbb-clock></sbb-clock>`, {

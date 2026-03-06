@@ -4,6 +4,8 @@ import { html } from 'lit';
 
 import { SbbPearlChainElement } from './pearl-chain.component.ts';
 
+import '../pearl-chain.ts';
+
 describe(`sbb-pearl-chain ssr`, () => {
   let root: SbbPearlChainElement;
 

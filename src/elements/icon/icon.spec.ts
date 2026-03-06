@@ -5,6 +5,8 @@ import { fixture } from '../core/testing/private.ts';
 
 import { SbbIconElement } from './icon.component.ts';
 
+import '../icon.ts';
+
 describe(`sbb-icon`, () => {
   let element: SbbIconElement;
 

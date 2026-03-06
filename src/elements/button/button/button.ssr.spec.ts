@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbButtonElement } from './button.component.ts';
 
+import '../../button.ts';
+
 describe(`sbb-button ssr`, () => {
   let root: SbbButtonElement;
 

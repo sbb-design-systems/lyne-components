@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbTransparentButtonElement } from './transparent-button.component.ts';
 
+import '../../button.ts';
+
 describe(`sbb-transparent-button ssr`, () => {
   let root: SbbTransparentButtonElement;
 

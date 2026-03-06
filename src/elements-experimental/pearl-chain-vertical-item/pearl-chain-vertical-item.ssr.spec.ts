@@ -4,6 +4,8 @@ import { html } from 'lit';
 
 import { SbbPearlChainVerticalItemElement } from './pearl-chain-vertical-item.component.ts';
 
+import '../pearl-chain-vertical-item.ts';
+
 describe(`sbb-pearl-chain-vertical-item ssr`, () => {
   let root: SbbPearlChainVerticalItemElement;
 

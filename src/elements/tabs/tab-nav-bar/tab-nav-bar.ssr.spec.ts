@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbTabNavBarElement } from './tab-nav-bar.component.ts';
 
+import '../../tabs.ts';
+
 describe(`sbb-tab-nav-bar ssr`, () => {
   let root: SbbTabNavBarElement;
 

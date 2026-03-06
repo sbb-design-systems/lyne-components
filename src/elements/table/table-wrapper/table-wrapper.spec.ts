@@ -6,6 +6,8 @@ import { waitForLitRender, waitForCondition } from '../../core/testing.ts';
 
 import { SbbTableWrapperElement } from './table-wrapper.component.ts';
 
+import '../../table.ts';
+
 describe(`sbb-table-wrapper`, () => {
   let element: SbbTableWrapperElement;
 

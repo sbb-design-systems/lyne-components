@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbChipLabelElement } from './chip-label.component.ts';
 
+import '../chip-label.ts';
+
 describe(`sbb-chip-label ssr`, () => {
   let root: SbbChipLabelElement;
 

@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbTableWrapperElement } from './table-wrapper.component.ts';
 
+import '../../table.ts';
+
 describe(`sbb-table-wrapper ssr`, () => {
   let root: SbbTableWrapperElement;
 

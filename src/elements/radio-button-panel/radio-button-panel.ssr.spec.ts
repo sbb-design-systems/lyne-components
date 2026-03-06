@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbRadioButtonPanelElement } from './radio-button-panel.component.ts';
 
+import '../radio-button-panel.ts';
+
 describe(`sbb-radio-button-panel ssr`, () => {
   it('renders', async () => {
     const root = await ssrHydratedFixture(

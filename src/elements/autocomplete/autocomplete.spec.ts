@@ -13,6 +13,8 @@ import { SbbOptionElement } from '../option.ts';
 
 import { SbbAutocompleteElement } from './autocomplete.component.ts';
 
+import '../autocomplete.ts';
+
 // TODO: Create a 'sbb-autocomplete-base.spec' that factorize tests between the 'autocomplete' and the 'autocomplete-grid'
 
 describe(`sbb-autocomplete`, () => {

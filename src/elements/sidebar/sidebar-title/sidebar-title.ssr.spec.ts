@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbSidebarTitleElement } from './sidebar-title.component.ts';
 
+import '../../sidebar.ts';
+
 describe(`sbb-sidebar-title ssr`, () => {
   let root: SbbSidebarTitleElement;
 

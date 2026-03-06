@@ -5,6 +5,8 @@ import { fixture } from '../core/testing/private.ts';
 
 import { SbbScreenReaderOnlyElement } from './screen-reader-only.component.ts';
 
+import '../screen-reader-only.ts';
+
 describe(`sbb-screen-reader-only`, () => {
   let element: SbbScreenReaderOnlyElement;
 

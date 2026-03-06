@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbExpansionPanelHeaderElement } from './expansion-panel-header.component.ts';
 
+import '../../expansion-panel.ts';
+
 describe(`sbb-expansion-panel-header ssr`, () => {
   let root: SbbExpansionPanelHeaderElement;
 

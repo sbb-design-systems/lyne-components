@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbSecondaryButtonLinkElement } from './secondary-button-link.component.ts';
 
+import '../../button.ts';
+
 describe(`sbb-secondary-button-link ssr`, () => {
   let root: SbbSecondaryButtonLinkElement;
 

@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbDateInputElement } from './date-input.component.ts';
 
+import '../date-input.ts';
+
 describe(`sbb-date-input ssr`, () => {
   let root: SbbDateInputElement;
 

@@ -4,6 +4,8 @@ import { html } from 'lit/static-html.js';
 
 import { SbbAutocompleteGridCellElement } from './autocomplete-grid-cell.component.ts';
 
+import '../../autocomplete-grid.ts';
+
 describe(`sbb-autocomplete-grid-cell ssr`, () => {
   let element: SbbAutocompleteGridCellElement;
 

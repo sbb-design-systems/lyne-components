@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.component.ts';
 
+import '../timetable-occupancy-icon.ts';
+
 describe(`sbb-timetable-occupancy-icon ssr`, () => {
   let root: SbbTimetableOccupancyIconElement;
 

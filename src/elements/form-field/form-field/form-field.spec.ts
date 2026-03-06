@@ -14,6 +14,8 @@ import {
   type SbbFormFieldElementControl,
 } from './form-field.component.ts';
 
+import '../../form-field.ts';
+
 type Mutable<T> = {
   -readonly [P in keyof T]: T[P];
 };

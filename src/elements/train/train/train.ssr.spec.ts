@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbTrainElement } from './train.component.ts';
 
+import '../../train.ts';
+
 describe(`sbb-train ssr`, () => {
   let root: SbbTrainElement;
 

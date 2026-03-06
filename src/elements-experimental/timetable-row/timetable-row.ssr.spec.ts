@@ -4,6 +4,8 @@ import { html } from 'lit';
 
 import { SbbTimetableRowElement } from './timetable-row.component.ts';
 
+import '../timetable-row.ts';
+
 describe(`sbb-timetable-row ssr`, () => {
   let root: SbbTimetableRowElement;
 

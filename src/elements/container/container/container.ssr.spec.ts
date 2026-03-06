@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbContainerElement } from './container.component.ts';
 
+import '../../container.ts';
+
 describe(`sbb-container ssr`, () => {
   let root: SbbContainerElement;
 

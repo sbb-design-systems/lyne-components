@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbDialogCloseButtonElement } from './dialog-close-button.component.ts';
 
+import '../../dialog.ts';
+
 describe(`sbb-dialog-close-button ssr`, () => {
   let root: SbbDialogCloseButtonElement;
 

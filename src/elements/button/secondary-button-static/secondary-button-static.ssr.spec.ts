@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbSecondaryButtonStaticElement } from './secondary-button-static.component.ts';
 
+import '../../button.ts';
+
 describe(`sbb-secondary-button-static ssr`, () => {
   let root: SbbSecondaryButtonStaticElement;
 
