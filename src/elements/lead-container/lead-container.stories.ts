@@ -9,7 +9,7 @@ import '../link/block-link.ts';
 import '../link/link.ts';
 import '../notification.ts';
 import '../title.ts';
-import './lead-container.component.ts';
+import '../lead-container.ts';
 
 import images from '../core/images.ts';
 

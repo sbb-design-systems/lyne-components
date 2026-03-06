@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbCheckboxElement } from './checkbox.component.ts';
 
-import './checkbox.component.ts';
+import '../checkbox.ts';
 
 describe(`sbb-checkbox`, () => {
   let element: SbbCheckboxElement;

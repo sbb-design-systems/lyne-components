@@ -6,7 +6,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 import type { SbbLinkListElement } from './link-list.component.ts';
 
 import '../link/block-link.ts';
-import './link-list.component.ts';
+import '../link-list.ts';
 
 describe(`sbb-link-list`, () => {
   let element: SbbLinkListElement;

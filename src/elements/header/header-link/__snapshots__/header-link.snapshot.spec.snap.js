@@ -33,11 +33,13 @@ snapshots["sbb-header-link renders Shadow DOM"] =
       <slot>
       </slot>
     </span>
-  </span>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
-</a>
+  </span></a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-header-link renders Shadow DOM */
 

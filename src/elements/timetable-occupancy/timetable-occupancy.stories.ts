@@ -5,7 +5,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
-import './timetable-occupancy.component.ts';
+import '../timetable-occupancy.ts';
 
 import readme from './readme.md?raw';
 

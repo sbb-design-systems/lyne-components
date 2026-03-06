@@ -11,7 +11,7 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.ts';
 
-import './calendar-day.component.ts';
+import '../../calendar.ts';
 import '../calendar/calendar.component.ts';
 
 describe('sbb-calendar-day', () => {

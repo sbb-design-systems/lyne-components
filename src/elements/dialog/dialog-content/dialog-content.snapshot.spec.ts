@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbDialogContentElement } from './dialog-content.component.ts';
-import './dialog-content.component.ts';
+import '../../dialog.ts';
 
 describe('sbb-dialog-content', () => {
   describe('renders', async () => {

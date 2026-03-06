@@ -2,7 +2,7 @@ import { html } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './radio-button.component.ts';
+import '../radio-button.ts';
 
 const cases = {
   size: ['xs', 's', 'm'],

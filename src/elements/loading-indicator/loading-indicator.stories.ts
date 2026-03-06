@@ -8,7 +8,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import type { SbbLoadingIndicatorElement } from './loading-indicator.component.ts';
 import readme from './readme.md?raw';
 
-import './loading-indicator.component.ts';
+import '../loading-indicator.ts';
 import '../button/button.ts';
 import '../card.ts';
 

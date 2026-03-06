@@ -9,7 +9,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.ts';
 
-import './selection-expansion-panel.component.ts';
+import '../selection-expansion-panel.ts';
 import '../card.ts';
 import '../checkbox-panel.ts';
 import '../checkbox-group.ts';

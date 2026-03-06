@@ -6,6 +6,8 @@ import { EventSpy, waitForLitRender } from '../core/testing.ts';
 
 import { SbbRadioButtonElement } from './radio-button.component.ts';
 
+import '../radio-button.ts';
+
 describe(`sbb-radio-button`, () => {
   let element: SbbRadioButtonElement;
 

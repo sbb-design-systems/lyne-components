@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbMenuButtonElement } from './menu-button.component.ts';
 
-import './menu-button.component.ts';
+import '../../menu.ts';
 
 describe(`sbb-menu-button`, () => {
   describe('renders', () => {

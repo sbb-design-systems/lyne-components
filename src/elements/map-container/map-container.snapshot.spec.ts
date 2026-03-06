@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbMapContainerElement } from './map-container.component.ts';
 
-import './map-container.component.ts';
+import '../map-container.ts';
 
 describe(`sbb-map-container`, () => {
   let element: SbbMapContainerElement;

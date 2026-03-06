@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbStepElement } from './step.component.ts';
-import './step.component.ts';
+
+import '../../stepper.ts';
 
 describe('sbb-step', () => {
   describe('renders', () => {

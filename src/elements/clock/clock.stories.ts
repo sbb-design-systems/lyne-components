@@ -7,7 +7,7 @@ import type { SbbTime } from '../core/interfaces/types.ts';
 
 import readme from './readme.md?raw';
 
-import './clock.component.ts';
+import '../clock.ts';
 
 const hours: InputType = { control: { type: 'number', min: 0, max: 23 } };
 const minutes: InputType = { control: { type: 'number', min: 0, max: 59 } };

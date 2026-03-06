@@ -12,6 +12,8 @@ import { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place
 
 import { SbbSeatReservationElement } from './seat-reservation.component.ts';
 
+import '../../seat-reservation.ts';
+
 let element: SbbSeatReservationElement;
 const dataFull: SeatReservation[] = [mapRawDataToSeatReservation('TRAIN')];
 

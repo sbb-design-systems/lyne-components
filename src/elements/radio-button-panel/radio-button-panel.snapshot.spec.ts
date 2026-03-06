@@ -5,6 +5,8 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import { SbbRadioButtonPanelElement } from './radio-button-panel.component.ts';
 
+import '../radio-button-panel.ts';
+
 describe('sbb-radio-button-panel', () => {
   let element: SbbRadioButtonPanelElement;
 

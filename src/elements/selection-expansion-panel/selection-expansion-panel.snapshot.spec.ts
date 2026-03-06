@@ -7,7 +7,7 @@ import type { SbbSelectionExpansionPanelElement } from './selection-expansion-pa
 
 import '../card.ts';
 import '../checkbox-panel.ts';
-import './selection-expansion-panel.component.ts';
+import '../selection-expansion-panel.ts';
 
 describe(`sbb-selection-expansion-panel`, () => {
   let element: SbbSelectionExpansionPanelElement;

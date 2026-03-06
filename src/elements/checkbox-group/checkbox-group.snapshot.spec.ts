@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbCheckboxGroupElement } from './checkbox-group.component.ts';
 
-import './checkbox-group.component.ts';
+import '../checkbox-group.ts';
 import '../checkbox.ts';
 import '../checkbox-panel.ts';
 import '../selection-expansion-panel.ts';

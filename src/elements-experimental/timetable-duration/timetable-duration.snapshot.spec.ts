@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import type { SbbTimetableDurationElement } from './timetable-duration.component.ts';
 import sampleData from './timetable-duration.sample-data.private.ts';
 
-import './timetable-duration.component.ts';
+import '../timetable-duration.ts';
 
 const config = JSON.stringify(sampleData[2]);
 

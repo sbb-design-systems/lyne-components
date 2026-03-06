@@ -5,6 +5,8 @@ import { fixture } from '../core/testing/private.ts';
 
 import { SbbCheckboxElement } from './checkbox.component.ts';
 
+import '../checkbox.ts';
+
 describe(`sbb-checkbox`, () => {
   describe('general', () => {
     let element: SbbCheckboxElement;

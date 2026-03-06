@@ -27,11 +27,13 @@ snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link wit
   <span class="sbb-button__label">
     <slot>
     </slot>
-  </span>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
-</a>
+  </span></a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-transparent-button-link renders a sbb-transparent-button-link without icon Shadow DOM */
 

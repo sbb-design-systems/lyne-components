@@ -8,7 +8,7 @@ import type { SbbSelectionActionPanelElement } from './selection-action-panel.co
 import '../button/secondary-button.ts';
 import '../card.ts';
 import '../checkbox-panel.ts';
-import './selection-action-panel.component.ts';
+import '../selection-action-panel.ts';
 
 describe(`sbb-selection-action-panel`, () => {
   let element: SbbSelectionActionPanelElement;

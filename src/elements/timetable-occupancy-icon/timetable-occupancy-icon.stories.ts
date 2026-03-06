@@ -7,7 +7,7 @@ import type { InputType, StoryContext } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './timetable-occupancy-icon.component.ts';
+import '../timetable-occupancy-icon.ts';
 
 const negative: InputType = {
   control: {

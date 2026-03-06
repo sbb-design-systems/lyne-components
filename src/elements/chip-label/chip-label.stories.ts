@@ -7,7 +7,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
-import './chip-label.component.ts';
+import '../chip-label.ts';
 
 const size: InputType = {
   control: {

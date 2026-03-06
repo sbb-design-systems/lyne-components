@@ -9,7 +9,7 @@ import {
 } from '../../core/testing/private.ts';
 import { waitForImageReady } from '../../core/testing/wait-for-image-ready.ts';
 
-import './teaser-product.component.ts';
+import '../../teaser.ts';
 import '../../button/button-static.ts';
 import '../../chip-label.ts';
 import '../../image.ts';

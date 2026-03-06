@@ -5,7 +5,6 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
 
 import '../../datepicker.ts';
-
 import '../../date-input.ts';
 import '../../form-field.ts';
 

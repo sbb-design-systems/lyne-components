@@ -8,7 +8,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import readme from './readme.md?raw';
 
 import '../title.ts';
-import './status.component.ts';
+import '../status.ts';
 
 const type: InputType = {
   control: {

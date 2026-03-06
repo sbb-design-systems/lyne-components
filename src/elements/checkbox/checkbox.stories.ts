@@ -7,7 +7,7 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './checkbox.component.ts';
+import '../checkbox.ts';
 import '../card.ts';
 import '../button/button.ts';
 import '../button/secondary-button.ts';

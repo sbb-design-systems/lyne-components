@@ -25,11 +25,13 @@ snapshots["sbb-card-link renders Shadow DOM"] =
   <span class="sbb-screen-reader-only">
     <slot>
     </slot>
-  </span>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
-</a>
+  </span></a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-card-link renders Shadow DOM */
 

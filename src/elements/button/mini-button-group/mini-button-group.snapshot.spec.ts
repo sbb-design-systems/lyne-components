@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbMiniButtonGroupElement } from './mini-button-group.component.ts';
-import './mini-button-group.component.ts';
+
+import '../mini-button-group.ts';
 import '../mini-button/mini-button.component.ts';
 import '../../divider/divider.component.ts';
 

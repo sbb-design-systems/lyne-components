@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbTagElement } from './tag.component.ts';
 
-import './tag.component.ts';
+import '../../tag.ts';
 import '../../icon.ts';
 
 describe(`sbb-tag`, () => {

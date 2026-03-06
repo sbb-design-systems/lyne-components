@@ -6,7 +6,7 @@ import { describeViewports, visualDiffDefault } from '../../core/testing/private
 import { EventSpy, waitForCondition } from '../../core/testing.ts';
 import { SbbAlertElement } from '../alert/alert.component.ts';
 
-import './alert-group.component.ts';
+import '../../alert.ts';
 import '../../title.ts';
 
 describe(`sbb-alert-group`, () => {

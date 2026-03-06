@@ -11,7 +11,7 @@ import {
 } from '../core/testing/private.ts';
 import { waitForImageReady } from '../core/testing.ts';
 
-import './teaser.component.ts';
+import '../teaser.ts';
 import '../chip-label.ts';
 import '../container.ts';
 import '../image.ts';

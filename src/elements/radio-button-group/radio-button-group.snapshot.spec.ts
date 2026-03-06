@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbRadioButtonGroupElement } from './radio-button-group.component.ts';
 
-import './radio-button-group.component.ts';
+import '../radio-button-group.ts';
 import '../radio-button.ts';
 import '../radio-button-panel.ts';
 import '../selection-expansion-panel.ts';

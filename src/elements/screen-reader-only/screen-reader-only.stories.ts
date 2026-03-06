@@ -6,7 +6,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
 
-import './screen-reader-only.component.ts';
+import '../screen-reader-only.ts';
 
 const content: InputType = {
   control: {

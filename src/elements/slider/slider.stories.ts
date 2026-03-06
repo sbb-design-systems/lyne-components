@@ -8,7 +8,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 import type { SbbSliderElement } from './slider.component.ts';
-import './slider.component.ts';
+import '../slider.ts';
 import '../form-field.ts';
 import '../icon.ts';
 

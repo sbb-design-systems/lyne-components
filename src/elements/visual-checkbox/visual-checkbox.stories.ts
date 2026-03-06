@@ -6,7 +6,7 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './visual-checkbox.component.ts';
+import '../visual-checkbox.ts';
 
 const checked: InputType = {
   control: {

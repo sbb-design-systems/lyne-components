@@ -27,11 +27,13 @@ snapshots["sbb-secondary-button-link renders a sbb-secondary-button-link without
   <span class="sbb-button__label">
     <slot>
     </slot>
-  </span>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
-</a>
+  </span></a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-secondary-button-link renders a sbb-secondary-button-link without icon Shadow DOM */
 

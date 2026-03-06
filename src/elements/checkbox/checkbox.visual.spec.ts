@@ -2,7 +2,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
 
-import './checkbox.component.ts';
+import '../checkbox.ts';
 
 describe('sbb-checkbox', () => {
   const defaultArgs = {

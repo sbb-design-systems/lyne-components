@@ -1,4 +1,4 @@
-import { html, isServer, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import { html, isServer, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../controllers.ts';
@@ -77,19 +77,8 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
     return this.renderLink(this.renderTemplate());
   }
 
-  protected override updated(_changedProperties: PropertyValues): void {
-    super.updated(_changedProperties);
-    if (!isServer) {
-      // TODO: Validate screen reader support.
-      const newWindowInfo = this.shadowRoot!.querySelector('span.sbb-link-new-window');
-      const anchor = this.shadowRoot!.querySelector('a.sbb-action-base');
-      if (anchor) {
-        anchor.ariaDescribedByElements = newWindowInfo ? [newWindowInfo] : [];
-      }
-    }
-  }
-
   protected renderLink(renderContent: TemplateResult): TemplateResult {
+    const opensInNewWindow = !!this.href && this.target === '_blank';
     return html`
       <a
         class="sbb-action-base ${this.localName}"
@@ -102,14 +91,13 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
         aria-current=${this.accessibilityCurrent || nothing}
         tabindex=${this.maybeDisabled && !this.maybeDisabledInteractive ? '-1' : nothing}
         aria-disabled=${this.maybeDisabled ? 'true' : nothing}
+        aria-describedby=${opensInNewWindow ? 'sbb-link-new-window' : nothing}
       >
         ${renderContent}
-        ${!!this.href && this.target === '_blank'
-          ? html`<span id="sbb-link-new-window" hidden
-              >${i18nTargetOpensInNewWindow[this.language.current]}</span
-            >`
-          : nothing}
       </a>
+      <span id="sbb-link-new-window" hidden
+        >${opensInNewWindow ? i18nTargetOpensInNewWindow[this.language.current] : nothing}</span
+      >
     `;
   }
 }

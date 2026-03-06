@@ -10,6 +10,7 @@ import { SbbAlertElement } from '../alert/alert.component.ts';
 
 import { SbbAlertGroupElement } from './alert-group.component.ts';
 
+import '../../alert.ts';
 import '../../title.ts';
 
 describe(`sbb-alert-group`, () => {

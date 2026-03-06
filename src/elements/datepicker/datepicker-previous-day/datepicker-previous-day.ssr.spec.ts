@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.component.ts';
 
+import '../../datepicker.ts';
+
 describe(`sbb-datepicker-previous-day ssr`, () => {
   let root: SbbDatepickerPreviousDayElement;
 

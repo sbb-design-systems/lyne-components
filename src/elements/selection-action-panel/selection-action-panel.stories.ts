@@ -5,7 +5,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
-import './selection-action-panel.component.ts';
+import '../selection-action-panel.ts';
 import '../button/secondary-button.ts';
 import '../card.ts';
 import '../checkbox.ts';

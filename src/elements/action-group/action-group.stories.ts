@@ -7,7 +7,8 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './action-group.component.ts';
+
+import '../action-group.ts';
 import '../button.ts';
 import '../link/block-link.ts';
 

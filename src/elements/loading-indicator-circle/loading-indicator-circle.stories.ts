@@ -8,7 +8,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import type { SbbLoadingIndicatorCircleElement } from './loading-indicator-circle.component.ts';
 import readme from './readme.md?raw';
 
-import './loading-indicator-circle.component.ts';
+import '../loading-indicator-circle.ts';
 import '../button/button.ts';
 import '../title.ts';
 import '../card.ts';

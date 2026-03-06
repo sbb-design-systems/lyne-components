@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbSidebarTitleElement } from './sidebar-title.component.ts';
 
-import './sidebar-title.component.ts';
+import '../../sidebar.ts';
 
 describe('sbb-sidebar-title', () => {
   let element: SbbSidebarTitleElement;

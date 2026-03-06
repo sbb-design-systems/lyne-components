@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.ts';
 
-import './link-list.component.ts';
+import '../link-list.ts';
 import '../link/block-link.ts';
 
 describe(`sbb-link-list`, () => {

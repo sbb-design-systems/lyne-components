@@ -4,6 +4,8 @@ import { html } from 'lit/static-html.js';
 
 import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.component.ts';
 
+import '../../seat-reservation.ts';
+
 describe(`sbb-seat-reservation-navigation-coach ssr`, () => {
   let root: SbbSeatReservationNavigationCoachElement;
 
@@ -11,7 +13,7 @@ describe(`sbb-seat-reservation-navigation-coach ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-seat-reservation-navigation-coach></sbb-seat-reservation-navigation-coach>`,
       {
-        modules: ['./seat-reservation-navigation-coach.component.js'],
+        modules: ['../../seat-reservation.ts'],
       },
     );
   });

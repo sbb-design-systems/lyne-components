@@ -9,7 +9,8 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import { SbbExpansionPanelElement } from '../expansion-panel.ts';
 
 import readme from './readme.md?raw';
-import './accordion.component.ts';
+
+import '../accordion.ts';
 
 const numberOfPanels: InputType = {
   control: {

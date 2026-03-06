@@ -7,7 +7,7 @@ import type { SeatReservation } from '../common/types.ts';
 
 import type { SbbSeatReservationElement } from './seat-reservation.component.ts';
 
-import './seat-reservation.component.ts';
+import '../../seat-reservation.ts';
 
 describe(`sbb-seat-reservation`, () => {
   describe('renders', () => {

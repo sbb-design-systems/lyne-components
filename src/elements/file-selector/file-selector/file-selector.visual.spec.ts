@@ -11,7 +11,7 @@ import {
 import type { SbbFileSelectorElement } from './file-selector.component.ts';
 
 import '../../form-field.ts';
-import './file-selector.component.ts';
+import '../../file-selector.ts';
 
 describe(`sbb-file-selector`, () => {
   function addFilesToComponentInput(elem: SbbFileSelectorElement): void {

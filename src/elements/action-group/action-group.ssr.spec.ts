@@ -5,6 +5,7 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbActionGroupElement } from './action-group.component.ts';
 
+import '../action-group.ts';
 import '../button.ts';
 import '../link.ts';
 
@@ -25,7 +26,7 @@ describe(`sbb-action-group ssr`, () => {
           </sbb-block-link>
         </sbb-action-group>
       `,
-      { modules: ['./action-group.component.js', '../button.js', '../link.js'] },
+      { modules: ['../action-group.ts', '../button.ts', '../link.ts'] },
     );
   });
 

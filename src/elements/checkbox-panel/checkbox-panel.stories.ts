@@ -8,7 +8,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import '../button.ts';
 import '../card.ts';
 import '../icon.ts';
-import './checkbox-panel.component.ts';
+import '../checkbox-panel.ts';
 
 import readme from './readme.md?raw';
 

@@ -20,11 +20,13 @@ snapshots["sbb-link renders Shadow DOM"] =
   target="_blank"
 >
   <slot>
-  </slot>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
-</a>
+  </slot></a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-link renders Shadow DOM */
 
@@ -66,11 +68,13 @@ snapshots["sbb-link reflects properties Shadow DOM"] =
   target="_blank"
 >
   <slot>
-  </slot>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
-</a>
+  </slot></a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-link reflects properties Shadow DOM */
 

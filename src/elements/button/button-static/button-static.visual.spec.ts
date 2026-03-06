@@ -7,7 +7,7 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.ts';
 
-import './button-static.component.ts';
+import '../button-static.ts';
 
 // We test only the differences to the sbb-button and sbb-button-link
 describe(`sbb-button-static`, () => {

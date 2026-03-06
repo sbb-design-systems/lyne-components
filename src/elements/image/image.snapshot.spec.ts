@@ -6,7 +6,7 @@ import { waitForImageReady } from '../core/testing.ts';
 
 import type { SbbImageElement } from './image.component.ts';
 
-import './image.component.ts';
+import '../image.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 

@@ -6,7 +6,7 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './icon.component.ts';
+import '../icon.ts';
 
 const Template = (args: Args): TemplateResult => html`<sbb-icon ${sbbSpread(args)}></sbb-icon>`;
 

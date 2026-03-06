@@ -10,7 +10,7 @@ import type { SbbCheckboxElement } from '../checkbox.ts';
 
 import readme from './readme.md?raw';
 
-import './checkbox-group.component.ts';
+import '../checkbox-group.ts';
 import '../checkbox.ts';
 import '../checkbox-panel.ts';
 import '../form-field.ts';

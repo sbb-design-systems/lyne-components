@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbCheckboxPanelElement } from './checkbox-panel.component.ts';
 
+import '../checkbox-panel.ts';
+
 describe(`sbb-checkbox-panel ssr`, () => {
   let root: SbbCheckboxPanelElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-checkbox-panel ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-checkbox-panel value="Value">Value label</sbb-checkbox-panel>`,
       {
-        modules: ['./checkbox-panel.component.js'],
+        modules: ['../checkbox-panel.ts'],
       },
     );
   });

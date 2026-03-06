@@ -10,7 +10,7 @@ import type { SbbErrorElement } from '../form-field.ts';
 
 import type { SbbRadioButtonGroupElement } from './radio-button-group.component.ts';
 import readme from './readme.md?raw';
-import './radio-button-group.component.ts';
+import '../radio-button-group.ts';
 import '../radio-button.ts';
 import '../radio-button-panel.ts';
 import '../form-field.ts';

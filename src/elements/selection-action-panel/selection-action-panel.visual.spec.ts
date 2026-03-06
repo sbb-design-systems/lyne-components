@@ -8,7 +8,7 @@ import {
   visualDiffFocus,
 } from '../core/testing/private.ts';
 
-import './selection-action-panel.component.ts';
+import '../selection-action-panel.ts';
 import '../button/secondary-button.ts';
 import '../card.ts';
 import '../checkbox-panel.ts';

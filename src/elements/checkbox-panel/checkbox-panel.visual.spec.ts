@@ -4,7 +4,7 @@ import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/t
 
 import '../card.ts';
 import '../icon.ts';
-import './checkbox-panel.component.ts';
+import '../checkbox-panel.ts';
 
 describe('sbb-checkbox-panel', () => {
   const defaultArgs = {

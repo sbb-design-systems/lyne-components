@@ -4,7 +4,7 @@ import { describeViewports, visualDiffDefault } from '../../core/testing/private
 import { waitForImageReady } from '../../core/testing.ts';
 
 import '../carousel-item/carousel-item.component.ts';
-import './carousel-list.component.ts';
+import '../../carousel.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

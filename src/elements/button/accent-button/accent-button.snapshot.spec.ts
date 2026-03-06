@@ -7,7 +7,8 @@ import {
 } from '../common/button-test-utils.private.ts';
 
 import type { SbbAccentButtonElement } from './accent-button.component.ts';
-import './accent-button.component.ts';
+
+import '../accent-button.ts';
 
 describe(`sbb-accent-button`, () => {
   let element: SbbAccentButtonElement;

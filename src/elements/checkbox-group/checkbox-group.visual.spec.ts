@@ -8,7 +8,7 @@ import '../form-field.ts';
 import '../icon.ts';
 import '../checkbox.ts';
 import '../checkbox-panel.ts';
-import './checkbox-group.component.ts';
+import '../checkbox-group.ts';
 
 describe('sbb-checkbox-group', () => {
   const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
