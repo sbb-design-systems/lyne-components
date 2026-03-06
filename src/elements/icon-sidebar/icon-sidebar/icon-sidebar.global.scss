@@ -1,0 +1,16 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin rules {
+  // Move the current-page-border to the right side if the sidebar is right positioned
+  sbb-icon-sidebar-content + sbb-icon-sidebar :is(sbb-icon-sidebar-link, sbb-icon-sidebar-button) {
+    --sbb-icon-sidebar-button__current-border-inset-inline-start: auto;
+  }
+
+  // Set the border radius at the left top side if the sidebar is right positioned
+  sbb-icon-sidebar-content + sbb-icon-sidebar {
+    border-start-end-radius: 0;
+    border-start-start-radius: var(--sbb-icon-sidebar-border-radius);
+  }
+}

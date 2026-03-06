@@ -15,6 +15,10 @@
   --sbb-icon-sidebar-border-radius: var(--sbb-border-radius-8x);
 }
 
+:host([color='white']) {
+  background-color: var(--sbb-background-color-1);
+}
+
 :host([color='milk']) {
   background-color: var(--sbb-background-color-3);
 }
