@@ -8,10 +8,11 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common/translations.ts';
 import type { PlaceSelection, PlaceState, PlaceType } from '../common/types.ts';
-
-import '../seat-reservation-graphic/seat-reservation-graphic.component.ts';
+import { SbbSeatReservationGraphicElement } from '../seat-reservation-graphic/seat-reservation-graphic.component.ts';
 
 import style from './seat-reservation-place-control.scss?lit&inline';
+
+SbbSeatReservationGraphicElement.define();
 
 /**
  * Output the graphic of a seat or a bicycle place as a control element.

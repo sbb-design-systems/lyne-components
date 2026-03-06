@@ -9,7 +9,6 @@ import { waitForLitRender } from '../../core/testing.ts';
 import { SbbCalendarDayElement } from './calendar-day.component.ts';
 import { createSlottedDays } from './calendar-day.helper.private.ts';
 
-import '../calendar/calendar.component.ts';
 
 describe('sbb-calendar-day', () => {
   let root: SbbCalendarElement;

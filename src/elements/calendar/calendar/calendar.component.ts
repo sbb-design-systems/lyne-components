@@ -41,14 +41,15 @@ import {
 } from '../../core/i18n.ts';
 import type { SbbOrientation } from '../../core/interfaces.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
+import { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 
 import style from './calendar.scss?lit&inline';
 
 import '../../button/secondary-button.ts';
 import '../../icon.ts';
 import '../../screen-reader-only.ts';
-import '../calendar-day/calendar-day.component.ts';
+
+SbbCalendarDayElement.define();
 
 export class SbbMonthChangeEvent extends Event {
   private readonly _range: readonly Day[];

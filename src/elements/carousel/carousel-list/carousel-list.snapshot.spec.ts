@@ -6,7 +6,6 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 import type { SbbCarouselListElement } from './carousel-list.component.ts';
 
 import '../../carousel.ts';
-import '../carousel-item/carousel-item.component.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

@@ -7,11 +7,13 @@ import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { getI18nSeatReservation } from '../common/translations.ts';
+import { SbbSeatReservationGraphicElement } from '../seat-reservation-graphic/seat-reservation-graphic.component.ts';
 
 import style from './seat-reservation-navigation-services.scss?lit&inline';
 
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
-import '../seat-reservation-graphic/seat-reservation-graphic.component.ts';
+
+SbbSeatReservationGraphicElement.define();
 
 /**
  * Component displays the available service icons of one coach.

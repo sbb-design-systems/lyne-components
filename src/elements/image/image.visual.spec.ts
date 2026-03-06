@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 import { waitForImageReady } from '../core/testing.ts';
 
+import '../chip-label.ts';
 import '../image.ts';
-import '../chip-label/chip-label.component.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 const transparentImageUrl = import.meta.resolve('../core/testing/assets/transparent-image.png');

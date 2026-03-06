@@ -17,6 +17,11 @@ import type {
   SeatReservation,
   NavigationCoachItem,
 } from '../common/types.ts';
+import { SbbSeatReservationAreaElement } from '../seat-reservation-area/seat-reservation-area.component.ts';
+import { SbbSeatReservationGraphicElement } from '../seat-reservation-graphic/seat-reservation-graphic.component.ts';
+import { SbbSeatReservationNavigationCoachElement } from '../seat-reservation-navigation-coach/seat-reservation-navigation-coach.component.ts';
+import { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
+import { SbbSeatReservationScopedElement } from '../seat-reservation-scoped/seat-reservation-scoped.component.ts';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.ts';
 import style from './seat-reservation.scss?lit&inline';
@@ -24,11 +29,12 @@ import style from './seat-reservation.scss?lit&inline';
 import '@sbb-esta/lyne-elements/button.js';
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
 import '@sbb-esta/lyne-elements/popover.js';
-import '../seat-reservation-area/seat-reservation-area.component.ts';
-import '../seat-reservation-graphic/seat-reservation-graphic.component.ts';
-import '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
-import '../seat-reservation-navigation-coach/seat-reservation-navigation-coach.component.ts';
-import '../seat-reservation-scoped/seat-reservation-scoped.component.ts';
+
+SbbSeatReservationAreaElement.define();
+SbbSeatReservationGraphicElement.define();
+SbbSeatReservationPlaceControlElement.define();
+SbbSeatReservationNavigationCoachElement.define();
+SbbSeatReservationScopedElement.define();
 
 /**
  * Main component for the seat reservation.
