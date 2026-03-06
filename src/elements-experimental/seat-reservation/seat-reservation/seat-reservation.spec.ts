@@ -13,6 +13,7 @@ import {
   type SeatReservation,
 } from '../common.ts';
 import type { SbbSeatReservationAreaElement } from '../seat-reservation-area/seat-reservation-area.component.ts';
+import type { SbbSeatReservationNavigationCoachElement } from '../seat-reservation-navigation-coach/seat-reservation-navigation-coach.component.ts';
 import { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.ts';
@@ -137,7 +138,7 @@ describe(`sbb-seat-reservation`, () => {
 
   describe('navigation checks', () => {
     const maxCoachesInTrain = dataFull[0].coachItems.length - 1;
-    const TIMEOUT_NAVIGATION: number = 1000;
+    const TIMEOUT_NAVIGATION: number = 800;
 
     let btn: SbbSecondaryButtonElement;
 
@@ -151,11 +152,13 @@ describe(`sbb-seat-reservation`, () => {
           base-grid-size="16"
         ></sbb-seat-reservation>`,
       );
-      await waitForLitRender(element);
 
       btn = element.shadowRoot!.querySelector<SbbSecondaryButtonElement>(
         '#sbb-sr-navigation__wrapper-button-direction--left',
       ) as SbbSecondaryButtonElement;
+
+      element.preselectCoachIndex = 0;
+      await waitForLitRender(element);
     });
 
     it('should render the navigation-wrapper because hasNavigation is true', async () => {
@@ -239,6 +242,57 @@ describe(`sbb-seat-reservation`, () => {
         );
 
       expect(selectedScreenreaderElement?.textContent).to.include(' selected.');
+    });
+
+    it('should select the correct NavButton if a place is selected which is not in the currently focused coach', async () => {
+      await aTimeout(TIMEOUT_NAVIGATION); // wait until navigation is re-rendered (takes a lot of time :/)
+
+      const navigationFirstCoachElemeent: SbbSeatReservationNavigationCoachElement | null =
+        element.shadowRoot!.querySelector('sbb-seat-reservation-navigation-coach[index="0"]');
+
+      const navigationSecondCoachElement: SbbSeatReservationNavigationCoachElement | null =
+        element.shadowRoot!.querySelector('sbb-seat-reservation-navigation-coach[index="1"]');
+
+      expect(navigationFirstCoachElemeent).not.to.be.null;
+      expect(navigationSecondCoachElement).not.to.be.null;
+
+      const navButtonFirstCoach: HTMLDivElement | null =
+        navigationFirstCoachElemeent!.shadowRoot!.querySelector<HTMLDivElement>(
+          '.sbb-sr-navigation__item-coach',
+        );
+
+      const navButtonSecondCoach: HTMLDivElement | null =
+        navigationSecondCoachElement!.shadowRoot!.querySelector<HTMLDivElement>(
+          '.sbb-sr-navigation__item-coach',
+        );
+
+      //expect first nav button to be selected
+      expect(navButtonFirstCoach).not.to.be.null;
+      expect(navButtonSecondCoach).not.to.be.null;
+
+      // Initially, first coach should be selected (index=0 preselected)
+      expect(navButtonFirstCoach).to.have.class('sbb-sr-navigation__item-coach--selected');
+      expect(navButtonSecondCoach).to.not.have.class('sbb-sr-navigation__item-coach--selected');
+
+      //now select a place in the second coach
+      const placeControlSecondCoach: SbbSeatReservationPlaceControlElement =
+        element.shadowRoot?.querySelector<SbbSeatReservationPlaceControlElement>(
+          '#seat-reservation__place-button-0-1-16',
+        ) as SbbSeatReservationPlaceControlElement;
+
+      // Select the place in the second coach
+      const selectPlaceSpy = new EventSpy<CustomEvent<PlaceSelection>>('selectplace', element);
+      placeControlSecondCoach!.click();
+      await waitForLitRender(element);
+      await aTimeout(TIMEOUT_NAVIGATION); // wait for navigation to update
+
+      // Verify the selectplace event was emitted
+      await expect(selectPlaceSpy.count).to.equal(1);
+      await expect(selectPlaceSpy.events[0].detail.coachIndex).to.equal(1);
+
+      // Now the second coach should be selected in navigation
+      expect(navButtonFirstCoach).to.not.have.class('sbb-sr-navigation__item-coach--selected');
+      expect(navButtonSecondCoach).to.have.class('sbb-sr-navigation__item-coach--selected');
     });
   });
 
@@ -500,7 +554,7 @@ describe(`sbb-seat-reservation`, () => {
       element = await fixture(
         html`<sbb-seat-reservation .seatReservations=${dataFull}></sbb-seat-reservation>`,
       );
-      await waitForLitRender(element);
+      //await waitForLitRender(element);
     });
 
     it('should not be shown per default', async () => {
