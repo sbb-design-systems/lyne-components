@@ -2,7 +2,7 @@ import { aTimeout, expect } from '@open-wc/testing';
 import { html, LitElement, type TemplateResult } from 'lit';
 
 import { fixture } from '../testing/private/fixture.ts';
-import { EventSpy } from '../testing.ts';
+import { EventSpy } from '../testing/testing.component.ts';
 
 import { SbbSlotStateController } from './slot-state-controller.ts';
 

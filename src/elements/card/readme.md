@@ -100,7 +100,6 @@ as it is used for search engines and screen-reader users.
 <sbb-card-button>Buy a half-fare ticket now</sbb-card-button>
 ```
 
-
 ### Windows High Contrast Notes
 
 In high contrast mode, all the content of a link or a button receives a specific color which overrides every other color.

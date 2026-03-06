@@ -1,7 +1,7 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
 import { ɵstateController } from '../mixins/element-internals-mixin.ts';
-import type { SbbElementInternalsMixinType } from '../mixins.ts';
+import type { SbbElementInternalsMixinType } from '../mixins/mixins.component.ts';
 
 import { sbbInputModalityDetector } from './input-modality-detector.ts';
 

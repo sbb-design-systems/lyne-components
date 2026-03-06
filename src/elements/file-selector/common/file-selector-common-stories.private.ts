@@ -5,8 +5,8 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 import type { SbbErrorElement } from '../../form-field.ts';
-import type { SbbFileSelectorDropzoneElement } from '../file-selector-dropzone.ts';
-import type { SbbFileSelectorElement } from '../file-selector.ts';
+import type { SbbFileSelectorElement } from '../file-selector/file-selector.component.ts';
+import type { SbbFileSelectorDropzoneElement } from '../file-selector-dropzone/file-selector-dropzone.component.ts';
 
 import '../../form-field.ts';
 

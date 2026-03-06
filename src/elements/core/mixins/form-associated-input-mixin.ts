@@ -7,10 +7,13 @@ import {
 } from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
-import { sbbInputModalityDetector } from '../a11y.ts';
-import { SbbLanguageController, SbbMediaQueryPointerCoarse } from '../controllers.ts';
-import { isBlink, isWebkit } from '../dom.ts';
-import { i18nInputRequired } from '../i18n.ts';
+import { sbbInputModalityDetector } from '../a11y/a11y.component.ts';
+import {
+  SbbLanguageController,
+  SbbMediaQueryPointerCoarse,
+} from '../controllers/controllers.component.ts';
+import { isBlink, isWebkit } from '../dom/dom.component.ts';
+import { i18nInputRequired } from '../i18n/i18n.component.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 import { SbbDisabledMixin } from './disabled-mixin.ts';

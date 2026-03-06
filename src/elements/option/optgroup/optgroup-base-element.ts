@@ -7,7 +7,7 @@ import { forceType } from '../../core/decorators.ts';
 import { isSafari } from '../../core/dom.ts';
 import { SbbDisabledMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbOptionBaseElement } from '../option.ts';
+import type { SbbOptionBaseElement } from '../option/option.component.ts';
 
 import style from './optgroup-base-element.scss?lit&inline';
 

@@ -6,9 +6,8 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.ts';
 
-import './header.component.ts';
-import '../header-link.ts';
-import '../header-button.ts';
+import '../../header.ts';
+
 import '../../menu.ts';
 import '../../logo.ts';
 import '../../signet.ts';

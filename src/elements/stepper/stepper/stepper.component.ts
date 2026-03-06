@@ -15,7 +15,7 @@ import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.ts';
+import type { SbbStepElement, SbbStepValidateEventDetails } from '../step/step.component.ts';
 
 import style from './stepper.scss?lit&inline';
 

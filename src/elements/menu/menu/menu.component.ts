@@ -37,13 +37,13 @@ import {
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbMenuButtonElement } from '../menu-button.ts';
+import type { SbbMenuButtonElement } from '../menu-button/menu-button.component.ts';
 import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.ts';
 
 import style from './menu.scss?lit&inline';
 
 import '../../divider.ts';
-import '../menu-button.ts';
+import '../../menu.ts';
 
 const MENU_OFFSET = 8;
 const NESTED_MENU_OFFSET = -4;

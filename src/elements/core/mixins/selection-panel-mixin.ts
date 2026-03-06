@@ -4,7 +4,7 @@ import type { SbbCheckboxGroupElement } from '../../checkbox/checkbox-group.ts';
 import type { SbbCheckboxPanelElement } from '../../checkbox/checkbox-panel.ts';
 import type { SbbRadioButtonGroupElement } from '../../radio-button/radio-button-group.ts';
 import type { SbbRadioButtonPanelElement } from '../../radio-button/radio-button-panel.ts';
-import { SbbPropertyWatcherController } from '../controllers.ts';
+import { SbbPropertyWatcherController } from '../controllers/controllers.component.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 import {

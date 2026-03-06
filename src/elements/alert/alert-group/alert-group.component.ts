@@ -8,7 +8,7 @@ import { forceType } from '../../core/decorators.ts';
 import { isEventPrevented } from '../../core/eventing.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbTitleLevel } from '../../title.ts';
-import type { SbbAlertElement } from '../alert.ts';
+import type { SbbAlertElement } from '../alert/alert.component.ts';
 
 import style from './alert-group.scss?lit&inline';
 

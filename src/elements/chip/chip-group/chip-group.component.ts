@@ -18,7 +18,7 @@ import {
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbFormFieldElement } from '../../form-field/form-field/form-field.component.ts';
 import type { SbbOptionBaseElement } from '../../option/option/option-base-element.ts';
-import { SbbChipElement } from '../chip.ts';
+import { SbbChipElement } from '../chip/chip.component.ts';
 
 import style from './chip-group.scss?lit&inline';
 

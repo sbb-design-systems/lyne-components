@@ -5,12 +5,11 @@ import { html } from 'lit/static-html.js';
 import { elementInternalsSpy, fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import { SbbStepElement } from '../step/step.component.ts';
-import type { SbbStepLabelElement } from '../step-label.ts';
+import type { SbbStepLabelElement } from '../step-label/step-label.component.ts';
 
 import { SbbStepChangeEvent, SbbStepperElement } from './stepper.component.ts';
 
-import '../step-label.ts';
-import '../step.ts';
+import '../../stepper.ts';
 
 describe('sbb-stepper', () => {
   let element: SbbStepperElement;

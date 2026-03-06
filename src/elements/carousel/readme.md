@@ -73,7 +73,7 @@ Manually set dimensions will take precedence over the automatically read dimensi
 
 Following the [ARIA carousel pattern](https://www.w3.org/WAI/ARIA/apg/patterns/carousel/),
 the `sbb-carousel` component has `role="region"` and `aria-label="carousel"` and the `sbb-carousel-list` component has `aria-atomic='true'` and `aria-live='polite'`.
-If no `aria-label` is provided on the slotted `sbb-carousel-item` 
+If no `aria-label` is provided on the slotted `sbb-carousel-item`
 instances, the component sets a default value on them..
 
 To not break the accessibility when links are used together with images, please place the image within the anchor tag.

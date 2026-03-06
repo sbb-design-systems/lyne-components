@@ -6,8 +6,8 @@ import { isChromium, isFirefox } from '../../core/dom.ts';
 import { a11yTreeSnapshot, fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
 import type { SbbVisualCheckboxElement } from '../../visual-checkbox.ts';
-import type { SbbCheckboxPanelElement } from '../checkbox-panel.ts';
-import type { SbbCheckboxElement } from '../checkbox.ts';
+import type { SbbCheckboxElement } from '../checkbox/checkbox.component.ts';
+import type { SbbCheckboxPanelElement } from '../checkbox-panel/checkbox-panel.component.ts';
 
 import '../../checkbox.ts';
 import '../../checkbox-panel.ts';

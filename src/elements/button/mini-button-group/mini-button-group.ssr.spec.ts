@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbMiniButtonGroupElement } from './mini-button-group.component.ts';
-import '../mini-button.ts';
+import '../mini-button/mini-button.component.ts';
 import '../../divider/divider.component.ts';
 
 describe(`sbb-mini-button-group ssr`, () => {
@@ -19,9 +19,9 @@ describe(`sbb-mini-button-group ssr`, () => {
       </sbb-mini-button-group>`,
       {
         modules: [
-          './mini-button-group.component.js',
-          '../../divider/divider.component.js',
-          '../mini-button.js',
+          './mini-button-group.component.ts',
+          '../../divider/divider.component.ts',
+          '../mini-button/mini-button.component.ts',
         ],
       },
     );

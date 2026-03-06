@@ -18,7 +18,7 @@ import { i18nDateChangedTo } from '../../core/i18n.ts';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
 import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.ts';
 import { SbbPopoverBaseElement } from '../../popover.ts';
-import type { SbbDatepickerToggleElement } from '../datepicker-toggle.ts';
+import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker-toggle.component.ts';
 
 import style from './datepicker.scss?lit&inline';
 

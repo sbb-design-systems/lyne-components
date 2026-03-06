@@ -5,7 +5,7 @@ import { defaultDateAdapter } from '../../core/datetime.ts';
 import { ssrHydratedFixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
 import type { SbbDateInputElement } from '../../date-input.ts';
-import type { SbbDatepickerToggleElement } from '../datepicker-toggle.ts';
+import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker-toggle.component.ts';
 
 import { SbbDatepickerElement } from './datepicker.component.ts';
 

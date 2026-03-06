@@ -9,7 +9,7 @@ import {
 import { SbbDisabledTabIndexActionMixin, ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
-import type { SbbExpansionPanelElement } from '../expansion-panel.ts';
+import type { SbbExpansionPanelElement } from '../expansion-panel/expansion-panel.component.ts';
 
 import style from './expansion-panel-header.scss?lit&inline';
 

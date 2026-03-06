@@ -8,7 +8,7 @@ import { SbbMenuElement } from './menu.component.ts';
 import '../../button.ts';
 import '../../divider.ts';
 import '../../link.ts';
-import '../menu-button.ts';
+import '../../menu.ts';
 
 describe(`sbb-menu ssr`, () => {
   let root: HTMLDivElement;

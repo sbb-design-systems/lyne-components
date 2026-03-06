@@ -11,13 +11,12 @@ import {
   tabKey,
 } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
-import type { SbbNavigationButtonElement } from '../navigation-button.ts';
-import { SbbNavigationElement } from '../navigation.ts';
+import { SbbNavigationElement } from '../navigation/navigation.component.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 
 import { SbbNavigationSectionElement } from './navigation-section.component.ts';
 
-import '../navigation-list.ts';
-import '../navigation-button.ts';
+import '../../navigation.ts';
 
 describe(`sbb-navigation-section`, () => {
   let element: SbbNavigationSectionElement,

@@ -1,9 +1,13 @@
 import { isServer, type LitElement, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../a11y.ts';
-import { SbbLanguageController } from '../controllers.ts';
-import { i18nSelectionRequired } from '../i18n.ts';
+import {
+  getNextElementIndex,
+  interactivityChecker,
+  isArrowKeyPressed,
+} from '../a11y/a11y.component.ts';
+import { SbbLanguageController } from '../controllers/controllers.component.ts';
+import { i18nSelectionRequired } from '../i18n/i18n.component.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 import { SbbDisabledMixin } from './disabled-mixin.ts';

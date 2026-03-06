@@ -1,4 +1,3 @@
-
 The `sbb-breadcrumb` and `sbb-breadcrumb-group` components are meant to represent the hierarchy of visited pages before arriving to the current one.
 
 The `sbb-breadcrumb` is equivalent to a native [anchor (a)](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a) element.
@@ -46,6 +45,7 @@ Clicking on this `sbb-breadcrumb` will make the ellipsis disappear and will rest
 ## Accessibility
 
 <!-- TODO: Superfluous -->
+
 The `accessibility-current` property should be used to make the breadcrumb read correctly by screen-readers when the component
 is used in the `sbb-breadcrumb-group`.
 

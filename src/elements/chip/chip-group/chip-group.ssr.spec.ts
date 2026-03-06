@@ -5,7 +5,7 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
 
 import { SbbChipGroupElement } from './chip-group.component.ts';
-import '../chip.ts';
+import '../../chip.ts';
 import '../../form-field.ts';
 
 describe(`sbb-chip-group ssr`, () => {

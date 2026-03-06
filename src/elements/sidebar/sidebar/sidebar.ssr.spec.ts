@@ -2,7 +2,7 @@ import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { ssrHydratedFixture } from '../../core/testing/private.ts';
-import type { SbbSidebarContainerElement } from '../sidebar-container.ts';
+import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 
 import { SbbSidebarElement } from './sidebar.component.ts';
 

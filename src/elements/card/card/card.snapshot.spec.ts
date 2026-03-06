@@ -5,8 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbCardElement } from './card.component.ts';
 
-import './card.component.ts';
-import '../card-badge.ts';
+import '../../card.ts';
 
 describe(`sbb-card`, () => {
   let element: SbbCardElement;

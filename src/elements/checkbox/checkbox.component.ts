@@ -15,7 +15,6 @@ import {
   type SbbCheckboxSize,
 } from './common.ts';
 
-
 import '../visual-checkbox.ts';
 
 /**

@@ -5,8 +5,8 @@ import { SbbElement } from '../../core/base-elements.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { appendAriaElements, removeAriaElements } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbStepLabelElement } from '../step-label.ts';
-import type { SbbStepperElement } from '../stepper.ts';
+import type { SbbStepLabelElement } from '../step-label/step-label.component.ts';
+import type { SbbStepperElement } from '../stepper/stepper.component.ts';
 
 import style from './step.scss?lit&inline';
 

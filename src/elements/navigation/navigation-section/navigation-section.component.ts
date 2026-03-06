@@ -30,9 +30,9 @@ import {
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbNavigationButtonElement } from '../navigation-button.ts';
-import type { SbbNavigationLinkElement } from '../navigation-link.ts';
-import type { SbbNavigationElement } from '../navigation.ts';
+import type { SbbNavigationElement } from '../navigation/navigation.component.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
+import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 
 import style from './navigation-section.scss?lit&inline';
 

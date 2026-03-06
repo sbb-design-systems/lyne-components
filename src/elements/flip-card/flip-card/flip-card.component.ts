@@ -10,8 +10,8 @@ import { forceType } from '../../core/decorators.ts';
 import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.ts';
 import { ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbFlipCardDetailsElement } from '../flip-card-details.ts';
-import type { SbbFlipCardSummaryElement } from '../flip-card-summary.ts';
+import type { SbbFlipCardDetailsElement } from '../flip-card-details/flip-card-details.component.ts';
+import type { SbbFlipCardSummaryElement } from '../flip-card-summary/flip-card-summary.component.ts';
 
 import style from './flip-card.scss?lit&inline';
 

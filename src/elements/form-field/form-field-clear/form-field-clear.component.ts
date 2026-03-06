@@ -7,7 +7,7 @@ import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nClearInput } from '../../core/i18n.ts';
 import { SbbNegativeMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbFormFieldElement } from '../form-field.ts';
+import type { SbbFormFieldElement } from '../form-field/form-field.component.ts';
 
 import '../../icon.ts';
 

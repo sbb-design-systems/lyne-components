@@ -1,4 +1,4 @@
-import { type SbbElementInternalsMixinType, ɵstateController } from '../mixins.ts';
+import { type SbbElementInternalsMixinType, ɵstateController } from '../mixins/mixins.component.ts';
 
 import { getElementPosition } from './position.ts';
 

@@ -4,7 +4,7 @@ import { property } from 'lit/decorators.js';
 import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import { type Constructor, SbbFormAssociatedCheckboxMixin } from '../../core/mixins.ts';
-import type { SbbCheckboxGroupElement } from '../checkbox-group.ts';
+import type { SbbCheckboxGroupElement } from '../checkbox-group/checkbox-group.component.ts';
 
 export type SbbCheckboxSize = 'xs' | 's' | 'm';
 

@@ -6,7 +6,7 @@ import { idReference } from '../../core/decorators.ts';
 import { i18nShowCalendar } from '../../core/i18n.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { datepickerButtonStyle, SbbDatepickerButtonBase } from '../common.ts';
-import type { SbbDatepickerElement } from '../datepicker.ts';
+import type { SbbDatepickerElement } from '../datepicker/datepicker.component.ts';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.

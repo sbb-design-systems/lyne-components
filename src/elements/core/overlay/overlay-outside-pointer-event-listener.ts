@@ -1,4 +1,4 @@
-import { containsPierceShadowDom, isAndroid, isIOS } from '../dom.ts';
+import { containsPierceShadowDom, isAndroid, isIOS } from '../dom/dom.component.ts';
 
 /**
  * Listens globally to pointer events that happen outside the overlay area.

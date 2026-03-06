@@ -2,13 +2,11 @@ import { assert } from '@open-wc/testing';
 import { html } from 'lit';
 
 import { ssrHydratedFixture } from '../../core/testing/private.ts';
-import type { SbbNavigationElement } from '../navigation.ts';
+import type { SbbNavigationElement } from '../navigation/navigation.component.ts';
 
 import { SbbNavigationSectionElement } from './navigation-section.component.ts';
 
-import '../navigation.ts';
-import '../navigation-list.ts';
-import '../navigation-button.ts';
+import '../../navigation.ts';
 
 describe(`sbb-navigation-section ssr`, () => {
   let root: SbbNavigationElement;

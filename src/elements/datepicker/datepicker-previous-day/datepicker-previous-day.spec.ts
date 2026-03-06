@@ -8,7 +8,7 @@ import type { SbbFormFieldElement } from '../../form-field.ts';
 
 import { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.component.ts';
 
-import '../datepicker.ts';
+import '../../datepicker.ts';
 import '../../date-input.ts';
 import '../../form-field/form-field.ts';
 

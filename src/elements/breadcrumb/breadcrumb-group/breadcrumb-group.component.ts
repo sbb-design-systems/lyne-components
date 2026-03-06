@@ -12,7 +12,7 @@ import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n.ts';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbBreadcrumbElement } from '../breadcrumb.ts';
+import type { SbbBreadcrumbElement } from '../breadcrumb/breadcrumb.component.ts';
 
 import style from './breadcrumb-group.scss?lit&inline';
 

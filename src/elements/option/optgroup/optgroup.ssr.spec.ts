@@ -4,7 +4,7 @@ import { html } from 'lit';
 import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbOptGroupElement } from './optgroup.component.ts';
-import '../option.ts';
+import '../../option.ts';
 
 describe(`sbb-optgroup ssr`, () => {
   let root: SbbOptGroupElement;

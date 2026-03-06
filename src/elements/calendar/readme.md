@@ -80,7 +80,6 @@ Also, it has other states based on the properties of the parent `sbb-calendar`.
 The disabled and the crossed-out states are based on the value of the `min`, `max` and `dateFilter` properties,
 while the selected matches the parent `selected` properties, including the multiple variant.
 
-
 ## Configuration
 
 It's possible to set a date using the `dateSelected` property. Also, it's possible to place limits on the selection

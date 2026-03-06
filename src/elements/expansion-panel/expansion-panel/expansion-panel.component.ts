@@ -9,8 +9,8 @@ import type { SbbOpenedClosedState } from '../../core/interfaces.ts';
 import { ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbTitleLevel } from '../../title.ts';
-import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.ts';
-import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.ts';
+import type { SbbExpansionPanelContentElement } from '../expansion-panel-content/expansion-panel-content.component.ts';
+import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header/expansion-panel-header.component.ts';
 
 import style from './expansion-panel.scss?lit&inline';
 

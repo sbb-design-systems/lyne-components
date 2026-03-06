@@ -2,11 +2,11 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
-import { isChromium } from '../dom.ts';
-import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../mixins.ts';
+import { isChromium } from '../dom/dom.component.ts';
+import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../mixins/mixins.component.ts';
 import { tabKey } from '../testing/private/keys.ts';
 import { a11yTreeSnapshot, fixture, typeInElement } from '../testing/private.ts';
-import { EventSpy, waitForLitRender } from '../testing.ts';
+import { EventSpy, waitForLitRender } from '../testing/testing.component.ts';
 
 import { SbbButtonBaseElement } from './button-base-element.ts';
 

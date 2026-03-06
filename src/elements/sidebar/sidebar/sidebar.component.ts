@@ -9,7 +9,7 @@ import { forceType, handleDistinctChange } from '../../core/decorators.ts';
 import { isZeroAnimationDuration } from '../../core/dom.ts';
 import { SbbAnimationCompleteMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbSidebarContainerElement } from '../sidebar-container.ts';
+import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 
 import style from './sidebar.scss?lit&inline';
 

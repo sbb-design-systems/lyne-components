@@ -1,7 +1,7 @@
 import type { SbbAutocompleteBaseElement, SbbAutocompleteElement } from '../../autocomplete.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import type { SbbSelectElement } from '../../select/select.component.ts';
-import type { SbbOptionElement } from '../option.ts';
+import type { SbbOptionElement } from '../option/option.component.ts';
 
 import { SbbOptgroupBaseElement } from './optgroup-base-element.ts';
 

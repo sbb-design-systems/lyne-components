@@ -6,11 +6,10 @@ import { isChromium, isWebkit } from '../../core/dom.ts';
 import { radioButtonRegistry } from '../../core/mixins.ts';
 import { a11yTreeSnapshot, fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
-import type { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
-import type { SbbRadioButtonElement } from '../radio-button.ts';
+import type { SbbRadioButtonElement } from '../radio-button/radio-button.component.ts';
+import type { SbbRadioButtonPanelElement } from '../radio-button-panel/radio-button-panel.component.ts';
 
-import '../radio-button.ts';
-import '../radio-button-panel.ts';
+import '../../radio-button.ts';
 
 describe(`sbb-radio-button-common`, () => {
   ['sbb-radio-button', 'sbb-radio-button-panel'].forEach((selector) => {

@@ -10,8 +10,8 @@ import {
   type WithListChildren,
 } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbNavigationButtonElement } from '../navigation-button.ts';
-import type { SbbNavigationLinkElement } from '../navigation-link.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
+import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 
 import style from './navigation-marker.scss?lit&inline';
 
