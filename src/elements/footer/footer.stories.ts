@@ -283,7 +283,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'elements/sbb-footer',
+  title: 'elements/Footer',
 };
 
 export default meta;

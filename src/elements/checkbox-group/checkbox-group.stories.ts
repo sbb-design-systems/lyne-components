@@ -451,7 +451,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-checkbox/sbb-checkbox-group',
+  title: 'elements/Checkbox Group',
 };
 
 export default meta;

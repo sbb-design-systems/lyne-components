@@ -190,7 +190,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-status',
+  title: 'elements/Status',
 };
 
 export default meta;

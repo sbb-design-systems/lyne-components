@@ -276,7 +276,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/tag',
+  title: 'elements/Tag',
 };
 
 export default meta;

@@ -265,7 +265,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-carousel/sbb-carousel',
+  title: 'elements/Carousel',
 };
 
 export default meta;

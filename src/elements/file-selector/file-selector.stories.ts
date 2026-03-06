@@ -5,7 +5,7 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import type { SbbFileSelectorDropzoneElement} from '../file-selector.ts';
+import type { SbbFileSelectorDropzoneElement } from '../file-selector.ts';
 import { SbbFileSelectorElement } from '../file-selector.ts';
 import type { SbbErrorElement } from '../form-field.ts';
 
@@ -221,7 +221,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-file-selector/sbb-file-selector',
+  title: 'elements/File Selector',
 };
 
 export default meta;

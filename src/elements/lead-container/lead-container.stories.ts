@@ -102,7 +102,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'elements/sbb-lead-container',
+  title: 'elements/Lead Container',
 };
 
 export default meta;

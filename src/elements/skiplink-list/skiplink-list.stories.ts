@@ -136,7 +136,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-skiplink-list',
+  title: 'elements/Skiplink List',
 };
 
 export default meta;

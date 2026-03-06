@@ -247,7 +247,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/teaser-product',
+  title: 'elements/Teaser Product',
 };
 
 export default meta;

@@ -535,7 +535,7 @@ const meta: Meta = {
     layout: 'fullscreen',
   },
   decorators: [withActions],
-  title: 'elements/sbb-container/sbb-sticky-bar',
+  title: 'elements/Container',
 };
 
 export default meta;

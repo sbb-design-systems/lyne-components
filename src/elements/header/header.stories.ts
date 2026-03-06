@@ -632,7 +632,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'elements/sbb-header/sbb-header',
+  title: 'elements/Header',
 };
 
 export default meta;

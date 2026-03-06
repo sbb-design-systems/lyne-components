@@ -387,7 +387,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-option/sbb-option',
+  title: 'elements/Option',
 };
 
 export default meta;

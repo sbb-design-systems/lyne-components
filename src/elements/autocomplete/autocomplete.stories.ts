@@ -584,7 +584,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-autocomplete',
+  title: 'elements/Autocomplete',
 };
 
 export default meta;

@@ -80,7 +80,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-logo',
+  title: 'elements/Logo',
 };
 
 export default meta;

@@ -228,7 +228,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-popover',
+  title: 'elements/Popover',
 };
 
 export default meta;

@@ -390,7 +390,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-calendar/sbb-calendar',
+  title: 'elements/Calendar',
 };
 
 export default meta;

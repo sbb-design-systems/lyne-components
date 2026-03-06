@@ -41,7 +41,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-icon',
+  title: 'elements/Icon',
 };
 
 export default meta;

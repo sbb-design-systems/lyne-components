@@ -345,7 +345,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-dialog',
+  title: 'elements/Dialog',
 };
 
 export default meta;

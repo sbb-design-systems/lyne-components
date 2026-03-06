@@ -161,7 +161,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-tooltip',
+  title: 'elements/Tooltip',
 };
 
 export default meta;

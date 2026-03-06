@@ -452,7 +452,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-stepper/sbb-stepper',
+  title: 'elements/Stepper',
 };
 
 export default meta;

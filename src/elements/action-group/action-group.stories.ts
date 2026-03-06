@@ -299,7 +299,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-action-group',
+  title: 'elements/Action Group',
 };
 
 export default meta;

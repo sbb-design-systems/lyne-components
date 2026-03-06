@@ -83,7 +83,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'elements/sbb-map-container',
+  title: 'elements/Map Container',
 };
 
 export default meta;

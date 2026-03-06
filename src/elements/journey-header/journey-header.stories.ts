@@ -142,7 +142,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-journey-header',
+  title: 'elements/Journey Header',
 };
 
 export default meta;

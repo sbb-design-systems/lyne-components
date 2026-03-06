@@ -164,7 +164,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'internals/sbb-visual-checkbox',
+  title: 'elements/Visual Checkbox',
 };
 
 export default meta;

@@ -286,7 +286,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-paginator/sbb-paginator',
+  title: 'elements/Paginator',
 };
 
 export default meta;

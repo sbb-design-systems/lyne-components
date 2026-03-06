@@ -174,7 +174,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-navigation/sbb-navigation',
+  title: 'elements/Navigation',
 };
 
 export default meta;

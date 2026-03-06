@@ -129,7 +129,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-chip-label',
+  title: 'elements/Chip Label',
 };
 
 export default meta;

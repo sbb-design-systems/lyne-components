@@ -255,7 +255,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-image',
+  title: 'elements/Image',
 };
 
 export default meta;

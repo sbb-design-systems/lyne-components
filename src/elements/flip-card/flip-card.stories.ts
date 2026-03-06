@@ -212,7 +212,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-flip-card/sbb-flip-card',
+  title: 'elements/Flip Card',
 };
 
 export default meta;

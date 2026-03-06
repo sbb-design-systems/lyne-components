@@ -176,7 +176,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/teaser-hero',
+  title: 'elements/Teaser Hero',
 };
 
 export default meta;

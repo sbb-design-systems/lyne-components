@@ -250,7 +250,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-accordion/sbb-accordion',
+  title: 'elements/Accordion',
 };
 
 export default meta;

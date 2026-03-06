@@ -197,7 +197,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/toggle',
+  title: 'elements/Toggle',
 };
 
 export default meta;

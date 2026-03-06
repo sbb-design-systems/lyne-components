@@ -267,7 +267,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-menu/sbb-menu',
+  title: 'elements/Menu',
 };
 
 export default meta;

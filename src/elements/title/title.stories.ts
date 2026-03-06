@@ -114,7 +114,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-title',
+  title: 'elements/Title',
 };
 
 export default meta;

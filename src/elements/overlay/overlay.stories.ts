@@ -166,7 +166,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-overlay',
+  title: 'elements/Overlay',
 };
 
 export default meta;

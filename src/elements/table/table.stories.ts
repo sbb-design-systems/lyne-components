@@ -195,7 +195,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-table',
+  title: 'elements/Table',
 };
 
 export default meta;

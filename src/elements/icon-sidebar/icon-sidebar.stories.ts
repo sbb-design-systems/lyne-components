@@ -273,7 +273,7 @@ const meta: Meta = {
       story: { inline: false, iframeHeight: '500px' },
     },
   },
-  title: 'elements/sbb-icon-sidebar/sbb-icon-sidebar',
+  title: 'elements/Icon Sidebar',
 };
 
 export default meta;

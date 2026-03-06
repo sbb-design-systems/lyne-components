@@ -82,7 +82,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-message',
+  title: 'elements/Message',
 };
 
 export default meta;

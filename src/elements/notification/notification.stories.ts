@@ -222,7 +222,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-notification',
+  title: 'elements/Notification',
 };
 
 export default meta;

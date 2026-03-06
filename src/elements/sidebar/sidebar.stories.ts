@@ -370,7 +370,7 @@ const meta: Meta = {
       story: { inline: false, iframeHeight: '500px' },
     },
   },
-  title: 'elements/sbb-sidebar/sbb-sidebar',
+  title: 'elements/Sidebar',
 };
 
 export default meta;

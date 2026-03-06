@@ -239,7 +239,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-slider',
+  title: 'elements/Slider',
 };
 
 export default meta;

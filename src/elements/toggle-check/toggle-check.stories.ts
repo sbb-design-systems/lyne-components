@@ -312,7 +312,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-toggle-check',
+  title: 'elements/Toggle Check',
 };
 
 export default meta;

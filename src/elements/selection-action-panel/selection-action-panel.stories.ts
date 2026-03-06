@@ -334,7 +334,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-selection-action-panel',
+  title: 'elements/Selection Action Panel',
 };
 
 export default meta;

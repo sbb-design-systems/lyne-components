@@ -64,7 +64,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-signet',
+  title: 'elements/Signet',
 };
 
 export default meta;

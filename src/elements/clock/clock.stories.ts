@@ -55,7 +55,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-clock',
+  title: 'elements/Clock',
 };
 
 export default meta;

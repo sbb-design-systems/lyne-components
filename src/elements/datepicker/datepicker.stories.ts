@@ -390,7 +390,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-datepicker',
+  title: 'elements/Datepicker',
 };
 
 export default meta;

@@ -266,7 +266,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-sbb-radio-button-group',
+  title: 'elements/Radio Button Group',
 };
 
 export default meta;

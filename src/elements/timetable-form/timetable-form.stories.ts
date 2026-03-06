@@ -134,7 +134,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'elements/timetable-form',
+  title: 'elements/Timetable Form',
 };
 
 export default meta;

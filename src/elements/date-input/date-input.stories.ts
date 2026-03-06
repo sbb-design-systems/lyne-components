@@ -235,7 +235,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-date-input',
+  title: 'elements/Date Input',
 };
 
 export default meta;

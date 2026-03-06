@@ -93,7 +93,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-loading-indicator',
+  title: 'elements/Loading Indicator',
 };
 
 export default meta;

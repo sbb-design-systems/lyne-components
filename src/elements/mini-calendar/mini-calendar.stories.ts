@@ -240,7 +240,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-mini-calendar/sbb-mini-calendar',
+  title: 'elements/Mini Calendar',
 };
 
 export default meta;

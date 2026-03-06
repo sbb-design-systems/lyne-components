@@ -74,7 +74,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-divider',
+  title: 'elements/Divider',
 };
 
 export default meta;

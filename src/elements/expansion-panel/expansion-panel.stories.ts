@@ -277,7 +277,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-accordion/sbb-expansion-panel',
+  title: 'elements/Expansion Panel',
 };
 
 export default meta;

@@ -350,7 +350,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-card',
+  title: 'elements/Card',
 };
 
 export default meta;

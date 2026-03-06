@@ -549,7 +549,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-tab/sbb-tab-group',
+  title: 'elements/Tabs',
 };
 
 export default meta;

@@ -31,7 +31,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'internals/sbb-screen-reader-only',
+  title: 'elements/Screen Reader Only',
 };
 
 export default meta;
