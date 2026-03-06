@@ -8,7 +8,7 @@ import { forceType } from '../../core/decorators.ts';
 import { SbbDisabledMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
-import type { SbbToggleElement } from '../toggle.ts';
+import type { SbbToggleElement } from '../toggle/toggle.component.ts';
 
 import style from './toggle-option.scss?lit&inline';
 

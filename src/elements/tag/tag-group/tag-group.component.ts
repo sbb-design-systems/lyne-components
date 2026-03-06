@@ -10,7 +10,7 @@ import {
   type WithListChildren,
 } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbTagElement, SbbTagSize } from '../tag.ts';
+import type { SbbTagElement, SbbTagSize } from '../tag/tag.component.ts';
 
 import style from './tag-group.scss?lit&inline';
 

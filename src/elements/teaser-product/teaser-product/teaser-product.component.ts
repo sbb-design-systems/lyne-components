@@ -3,7 +3,10 @@ import { html } from 'lit/static-html.js';
 
 import { SbbLinkBaseElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbTeaserProductCommonElementMixin, teaserProductCommonStyle } from '../common.ts';
+import {
+  SbbTeaserProductCommonElementMixin,
+  teaserProductCommonStyle,
+} from '../common/teaser-product-common.ts';
 
 import style from './teaser-product.scss?lit&inline';
 

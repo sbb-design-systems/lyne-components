@@ -12,7 +12,7 @@ import {
   SbbFormAssociatedMixin,
 } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { type SbbToggleOptionElement } from '../toggle-option.ts';
+import type { SbbToggleOptionElement } from '../toggle-option/toggle-option.component.ts';
 
 import style from './toggle.scss?lit&inline';
 

@@ -6,7 +6,7 @@ import { SbbElement } from '../../core/base-elements.ts';
 import { isLean } from '../../core/dom/lean-context.ts';
 import { SbbNamedSlotListMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { tabGroupCommonStyles, tabLabelCommonStyles } from '../common.ts';
+import { tabGroupCommonStyles, tabLabelCommonStyles } from '../common/styles.ts';
 
 import style from './tab-nav-bar.scss?lit&inline';
 

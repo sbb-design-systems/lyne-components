@@ -7,11 +7,14 @@ import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
 import { SbbDisabledMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
-import type { SbbTitleLevel } from '../../title.ts';
-import { tabLabelCommonStyles } from '../common.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
+import type { SbbTitleLevel } from '../../title.pure.ts';
+import { tabLabelCommonStyles } from '../common/styles.ts';
 import type { SbbTabElement } from '../tab/tab.component.ts';
-import type { SbbTabChangedEventDetails, SbbTabGroupElement } from '../tab-group.ts';
+import type {
+  SbbTabChangedEventDetails,
+  SbbTabGroupElement,
+} from '../tab-group/tab-group.component.ts';
 
 import style from './tab-label.scss?lit&inline';
 

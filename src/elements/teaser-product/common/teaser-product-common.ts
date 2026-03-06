@@ -4,6 +4,8 @@ import { property } from 'lit/decorators.js';
 import type { SbbActionBaseElement } from '../../core/base-elements.ts';
 import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.ts';
 
+export { default as teaserProductCommonStyle } from './teaser-product-common.scss?lit&inline';
+
 export declare class SbbTeaserProductCommonElementMixinType extends SbbNegativeMixin(
   SbbActionBaseElement,
 ) {

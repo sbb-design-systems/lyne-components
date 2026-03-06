@@ -11,9 +11,9 @@ import { isLean } from '../../core/dom.ts';
 import { throttle } from '../../core/eventing.ts';
 import { ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { tabGroupCommonStyles } from '../common.ts';
-import type { SbbTabLabelElement } from '../tab-label.ts';
-import type { SbbTabElement } from '../tab.ts';
+import { tabGroupCommonStyles } from '../common/styles.ts';
+import type { SbbTabElement } from '../tab/tab.component.ts';
+import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
 import style from './tab-group.scss?lit&inline';
 

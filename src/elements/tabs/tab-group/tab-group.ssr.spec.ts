@@ -4,8 +4,8 @@ import { html } from 'lit';
 import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbTabGroupElement } from './tab-group.component.ts';
-import '../tab-label.ts';
-import '../tab.ts';
+
+import '../../tabs.ts';
 
 describe(`sbb-tab-group ssr`, () => {
   let root: SbbTabGroupElement;

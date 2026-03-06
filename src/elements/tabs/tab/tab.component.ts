@@ -4,7 +4,7 @@ import { html } from 'lit';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import type { SbbTabGroupElement } from '../tab-group/tab-group.component.ts';
-import type { SbbTabLabelElement } from '../tab-label.ts';
+import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
 import style from './tab.scss?lit&inline';
 

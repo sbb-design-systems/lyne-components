@@ -1,6 +1,6 @@
 import { type CSSResultGroup, html, isServer, type TemplateResult } from 'lit';
 
-import { SbbFormFieldElement } from '../../form-field/form-field.ts';
+import { SbbFormFieldElement } from '../../form-field.pure.ts';
 
 import style from './timetable-form-field.scss?lit&inline';
 

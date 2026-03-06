@@ -2,7 +2,10 @@ import type { CSSResultGroup } from 'lit';
 
 import { SbbActionBaseElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbTeaserProductCommonElementMixin, teaserProductCommonStyle } from '../common.ts';
+import {
+  SbbTeaserProductCommonElementMixin,
+  teaserProductCommonStyle,
+} from '../common/teaser-product-common.ts';
 
 /**
  * Displays a text and a footnote, combined with an image, to tease a product.

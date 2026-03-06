@@ -12,11 +12,8 @@ import '../../divider.ts';
 import '../../icon.ts';
 import '../../signet.ts';
 import '../../time-input.ts';
+import '../../timetable-form.ts';
 import '../../toggle.ts';
-import '../timetable-form-field.ts';
-import '../timetable-form-swap-button.ts';
-import '../timetable-form-details.ts';
-import './timetable-form.component.ts';
 
 const fromToFields = (opt: { hasVia?: boolean } = {}): TemplateResult => html`
   <sbb-timetable-form-field>
