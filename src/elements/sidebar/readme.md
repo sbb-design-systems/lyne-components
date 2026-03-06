@@ -1,133 +1,14 @@
-### sbb-sidebar-title
-
-The `sbb-sidebar-title` component extends the [sbb-title](/docs/elements-sbb-title--docs) component.
-
-Use it inside the [sbb-sidebar](/docs/elements-sbb-sidebar-sbb-sidebar--docs)
-to display a header in the sidebar with a title.
-The slot `title-section` is automatically assigned to be properly positioned on the `sbb-sidebar`.
-
-```html
-<sbb-sidebar role="navigation">
-  <sbb-sidebar-title>A describing title of the sidebar</sbb-sidebar-title>
-</sbb-sidebar>
-```
-
-## Style
-
-In scenarios where the visual representation needs to be different from the semantic meaning of the title level,
-it is possible to use the `visualLevel` property (default value: `5`).
-
-
-
-### sbb-sidebar-content
-
-The sbb-sidebar-content is a container which should be used inside a `sbb-sidebar-container` to wrap the content.
-
-```html
-<sbb-sidebar-container>
-  <sbb-sidebar role="navigation">Sidebar Content</sbb-sidebar>
-  <sbb-sidebar-content role="main"></sbb-sidebar-content>
-</sbb-sidebar-container>
-```
-
-## Accessibility
-
-The `<sbb-sidebar-content>` should be given a role based on what it contains. If it
-represents the primary content of the page, it may make sense to mark it `role="main"`. If no more
-specific role makes sense, `role="region"` is a good fallback.
-
-## Use with `sbb-header`
-
-Check [sbb-sidebar-container](/docs/elements-sbb-sidebar-sbb-sidebar-container--docs) on how to
-position and connect the `sbb-header` with the `sbb-sidebar-content`.
-
-
-
-### sbb-sidebar-container
-
-The `sbb-sidebar-container` is a component that holds together the `sbb-sidebar-content`
-and one or two `sbb-sidebar` elements. The container is responsible for orchestrating opening and closing of the sidebars
-depending on available space.
-
-Inside the `sbb-sidebar-content` another `sbb-sidebar-container` can be placed
-to achieve multiple nested icon sidebars.
-
-```html
-<sbb-sidebar-container>
-  <sbb-sidebar role="navigation">
-    <sbb-sidebar-title>Start</sbb-sidebar-title>
-    <sbb-sidebar-close-button></sbb-sidebar-close-button>
-    Sidebar content
-  </sbb-sidebar>
-  <sbb-sidebar-content role="main">Content</sbb-sidebar-content>
-  <sbb-sidebar position="end" role="navigation">
-    <sbb-sidebar-title>End</sbb-sidebar-title>
-    <sbb-sidebar-close-button></sbb-sidebar-close-button>
-    Sidebar content
-  </sbb-sidebar>
-</sbb-sidebar-container>
-```
-
-## Style
-
-If the `sbb-sidebar-container` is placed after the `sbb-header`, an automatic `margin-block-start` is added.
-In other contexts you may need to set the margin manually, e.g. `margin-block-start: var(--sbb-header-height);`.
-
-## Use with `sbb-header`
-
-In order to correctly display the shadow of the header when scrolled,
-you need to set the `scrollOrigin` property of the `<sbb-header>`.
-The value should be either the id of the `<sbb-sidebar-content>`
-or the element reference itself. Note that when using nested sidebars, it's required to
-continuously update the `scrollOrigin` property with the id/reference of the
-currently active `<sbb-sidebar-content>`. Also, depending
-on how e.g. a RouterOutlet (Angular) is used, it may also be necessary to update the `scrollOrigin`
-property when the navigation changes.
-
-```html
-<sbb-header scroll-origin="content">...</sbb-header>
-<sbb-sidebar-container>
-  <sbb-sidebar role="navigation">...</sbb-sidebar>
-  <sbb-sidebar-content id="content" role="main">Content</sbb-sidebar-content>
-</sbb-sidebar-container>
-```
-
-
-
-### sbb-sidebar-close-button
-
-The `sbb-sidebar-close-button` component extends the [sbb-secondary-button](/docs/elements-sbb-button-sbb-secondary-button--docs) component.
-Use it in inside the [sbb-sidebar](/docs/elements-sbb-sidebar-sbb-sidebar--docs)
-to display a close button in the sidebar.
-The slot `title-section` is automatically assigned to be properly positioned on the `sbb-sidebar`.
-
-Clicking the close button closes the parent sidebar.
-
-```html
-<sbb-sidebar role="navigation">
-  <sbb-sidebar-close-button></sbb-sidebar-close-button>
-  Content
-</sbb-sidebar>
-```
-
-## Accessibility
-
-An aria-label is automatically set. It's possible to override it.
-
-
-
-### sbb-sidebar
-
 The `<sbb-sidebar>` is a component that can display items on the left or right side of the viewport.
 Every slotted content will be displayed, but it's designed to be used for navigation.
 
 The sidebar components are designed to add side content to a fullscreen app.
-To set up a sidebar we use three components: `<sbb-sidebar-container>` which acts as a structural container for
-our content and sidebar, `<sbb-sidebar-content>` which represents the main content,
-and `<sbb-sidebar>` which represents the added side content.
+To set up a sidebar we use three components: `<sbb-sidebar-container>` which acts as a
+structural container for our content and sidebar, `<sbb-sidebar-content>` which represents
+the main content, and `<sbb-sidebar>` which represents the added side content.
 
 Per `<sbb-sidebar-container>` it's allowed to place one `<sbb-sidebar>` with `position="start"`
-and one `<sbb-sidebar>` with `position="end"`. More than one sidebar of the same position value is not allowed.
+and one `<sbb-sidebar>` with `position="end"`. More than one sidebar of the same position value
+is not allowed.
 
 ```html
 <sbb-sidebar-container>
@@ -150,6 +31,33 @@ and one `<sbb-sidebar>` with `position="end"`. More than one sidebar of the same
     </p>
   </sbb-sidebar-content>
 </sbb-sidebar-container>
+```
+
+The `sbb-sidebar-title` component extends the [sbb-title](/docs/elements-sbb-title--docs) component.
+
+Use it inside the `sbb-sidebar` to display a header in the sidebar with a title.
+The slot `title-section` is automatically assigned to be properly positioned on the `sbb-sidebar`.
+In scenarios where the visual representation needs to be different from the semantic meaning of
+the title level, it is possible to use the `visualLevel` property (default value: `5`).
+
+```html
+<sbb-sidebar role="navigation">
+  <sbb-sidebar-title>A describing title of the sidebar</sbb-sidebar-title>
+</sbb-sidebar>
+```
+
+The `sbb-sidebar-close-button` component extends the [sbb-secondary-button](/docs/elements-sbb-button-sbb-secondary-button--docs) component.
+Use it in inside the [sbb-sidebar](/docs/elements-sbb-sidebar-sbb-sidebar--docs)
+to display a close button in the sidebar.
+The slot `title-section` is automatically assigned to be properly positioned on the `sbb-sidebar`.
+
+Clicking the close button closes the parent sidebar.
+
+```html
+<sbb-sidebar role="navigation">
+  <sbb-sidebar-close-button></sbb-sidebar-close-button>
+  Content
+</sbb-sidebar>
 ```
 
 ## Opening and closing a sidebar
@@ -209,6 +117,11 @@ At maximum, one `<sbb-sidebar>` with `mode="over"` should be opened simultaneous
 ```html
 <sbb-sidebar mode="over" role="navigation"></sbb-sidebar>
 ```
+
+## Style
+
+If the `sbb-sidebar-container` is placed after the `sbb-header`, an automatic `margin-block-start` is added.
+In other contexts you may need to set the margin manually, e.g. `margin-block-start: var(--sbb-header-height);`.
 
 ## Color
 
@@ -350,6 +263,19 @@ It's possible the combine the `<sbb-sidebar>` with the `<sbb-icon-sidebar>` as f
 
 ## Use with `sbb-header`
 
-Check [sbb-sidebar-container](/docs/elements-sbb-sidebar-sbb-sidebar-container--docs) on how to
-position and connect the `<sbb-header>` with the sidebar.
+In order to correctly display the shadow of the header when scrolled,
+you need to set the `scrollOrigin` property of the `<sbb-header>`.
+The value should be either the id of the `<sbb-sidebar-content>`
+or the element reference itself. Note that when using nested sidebars, it's required to
+continuously update the `scrollOrigin` property with the id/reference of the
+currently active `<sbb-sidebar-content>`. Also, depending
+on how e.g. a RouterOutlet (Angular) is used, it may also be necessary to update the `scrollOrigin`
+property when the navigation changes.
 
+```html
+<sbb-header scroll-origin="content">...</sbb-header>
+<sbb-sidebar-container>
+  <sbb-sidebar role="navigation">...</sbb-sidebar>
+  <sbb-sidebar-content id="content" role="main">Content</sbb-sidebar-content>
+</sbb-sidebar-container>
+```

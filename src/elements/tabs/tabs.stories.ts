@@ -1,296 +1,17 @@
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-import type { InputType } from 'storybook/internal/types';
-
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-
-import readme from './readme.md?raw';
-import '../../icon.ts';
-import './tab-nav-bar.component.ts';
-
-const size: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['s', 'l', 'xl'],
-};
-
-const defaultArgTypes: ArgTypes = {
-  size,
-};
-
-const defaultArgs: Args = {
-  size: size.options![1],
-};
-
-const Template = (args: Args): TemplateResult => html`
-  <sbb-tab-nav-bar ${sbbSpread(args)}>
-    <a href="https://www.sbb.ch" class="sbb-active" aria-current="page">Nav item 1</a>
-    <a href="https://www.sbb.ch">Nav item 2</a>
-    <a class="sbb-disabled" aria-disabled="true" role="link">Nav item 3</a>
-    <a href="https://www.sbb.ch">Nav item 4</a>
-  </sbb-tab-nav-bar>
-  <div>Content</div>
-`;
-
-const withIconTemplate = (args: Args): TemplateResult => html`
-  <sbb-tab-nav-bar ${sbbSpread(args)}>
-    <a href="https://www.sbb.ch" class="sbb-active" aria-current="page">
-      <sbb-icon name="app-icon-small"></sbb-icon>
-      Nav item 1
-    </a>
-    <a href="https://www.sbb.ch">
-      <sbb-icon name="user-small"></sbb-icon>
-      Nav item 2
-    </a>
-    <a class="sbb-disabled" aria-disabled="true" role="link">
-      <sbb-icon name="circle-information-small"></sbb-icon>
-      Nav item 3
-    </a>
-    <a href="https://www.sbb.ch">
-      <sbb-icon name="pie-small"></sbb-icon>
-      Nav item 4
-    </a>
-  </sbb-tab-nav-bar>
-  <div>Content</div>
-`;
-
-const withAmountTemplate = (args: Args): TemplateResult => html`
-  <sbb-tab-nav-bar ${sbbSpread(args)}>
-    <a href="https://www.sbb.ch" class="sbb-active" aria-current="page">
-      Nav item 1
-      <p class="sbb-tab-amount">42 <span class="sbb-screen-reader-only">Items</span></p>
-    </a>
-    <a href="https://www.sbb.ch"
-      >Nav item 2
-      <p class="sbb-tab-amount">42 <span class="sbb-screen-reader-only">Items</span></p></a
-    >
-    <a class="sbb-disabled" aria-disabled="true" role="link">
-      Nav item 3
-      <p class="sbb-tab-amount">42 <span class="sbb-screen-reader-only">Items</span></p>
-    </a>
-    <a href="https://www.sbb.ch"
-      >Nav item 4
-      <p class="sbb-tab-amount">42 <span class="sbb-screen-reader-only">Items</span></p></a
-    >
-  </sbb-tab-nav-bar>
-  <div>Content</div>
-`;
-
-export const Default: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-export const WithIcon: StoryObj = {
-  render: withIconTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-export const WithAmount: StoryObj = {
-  render: withAmountTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-tab/sbb-tab-nav-bar',
-};
-
-export default meta;
-
-
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
-import type { InputType } from 'storybook/internal/types';
-
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-
-import readme from './readme.md?raw';
-import '../../icon.ts';
-import './tab-label.component.ts';
-
-const Template = ({ iconSlot, label, amountSlot, ...args }: Args): TemplateResult => html`
-  <sbb-tab-label ${sbbSpread(args)}>
-    ${iconSlot ? html`<sbb-icon slot="icon" name=${iconSlot}></sbb-icon>` : nothing} ${label}
-    ${amountSlot ? html`<span slot="amount">${amountSlot}</span>` : nothing}
-  </sbb-tab-label>
-`;
-
-const label: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const iconName: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['app-icon-small', 'train-small', 'swisspass-small', 'pie-small'],
-};
-
-const amount: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
-const amountSlot: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
-const activeArg: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Tab State',
-  },
-};
-
-const disabledArg: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Tab State',
-  },
-};
-
-const basicArgTypes: ArgTypes = {
-  label,
-  'icon-name': iconName,
-  iconSlot: iconName,
-  amount,
-  amountSlot,
-  active: activeArg,
-  disabled: disabledArg,
-};
-
-const basicArgs: Args = {
-  label: 'Tab title',
-  'icon-name': iconName.options![0],
-  iconSlot: undefined,
-  amount: 123,
-  amountSlot: undefined,
-  active: false,
-  disabled: false,
-};
-
-export const Default: StoryObj = {
-  render: Template,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs },
-};
-
-export const Active: StoryObj = {
-  render: Template,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, active: true },
-};
-
-export const Disabled: StoryObj = {
-  render: Template,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true },
-};
-
-export const ActiveAndDisabled: StoryObj = {
-  render: Template,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true, active: true },
-};
-
-export const WithoutIcon: StoryObj = {
-  render: Template,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, 'icon-name': undefined },
-};
-
-export const WithoutAmount: StoryObj = {
-  render: Template,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: undefined },
-};
-
-export const WithoutIconAndWithoutAmount: StoryObj = {
-  render: Template,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: undefined, 'icon-name': undefined },
-};
-
-export const SlottedIcon: StoryObj = {
-  render: Template,
-  argTypes: basicArgTypes,
-  args: {
-    ...basicArgs,
-    'icon-name': undefined,
-    iconSlot: 'train-small',
-  },
-};
-
-export const SlottedAmount: StoryObj = {
-  render: Template,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: undefined, amountSlot: 123 },
-};
-
-export const SlottedAmountDisabled: StoryObj = {
-  render: Template,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: undefined, amountSlot: 123, disabled: true },
-};
-
-export const WithEllipsis: StoryObj = {
-  render: Template,
-  argTypes: basicArgTypes,
-  args: {
-    ...basicArgs,
-    label: `A very long label which gets ellipsis when there is no more space to display it`,
-  },
-  decorators: [(story) => html`<div style="max-width: 400px;">${story()}</div>`],
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-tab/sbb-tab-label',
-};
-
-export default meta;
-
-
 import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-import { SbbTabElement } from '../tab.ts';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import { type SbbTabChangedEventDetails, SbbTabElement, SbbTabGroupElement } from '../tabs.ts';
 
 import readme from './readme.md?raw';
-import { type SbbTabChangedEventDetails, SbbTabGroupElement } from './tab-group.component.ts';
 
-import '../../card.ts';
-import '../../link.ts';
-import '../../title.ts';
-import '../tab-label.ts';
+import '../card.ts';
+import '../link.ts';
+import '../title.ts';
+import '../tabs.ts';
 
 const changeEventHandler = (event: CustomEvent<SbbTabChangedEventDetails>): void => {
   const evDetail = event.detail;
@@ -583,6 +304,241 @@ export const FixedHeight: StoryObj = {
   },
 };
 
+// sbb-tab-label
+
+const Template = ({ iconSlot, label, amountSlot, ...args }: Args): TemplateResult => html`
+  <sbb-tab-label ${sbbSpread(args)}>
+    ${iconSlot ? html`<sbb-icon slot="icon" name=${iconSlot}></sbb-icon>` : nothing} ${label}
+    ${amountSlot ? html`<span slot="amount">${amountSlot}</span>` : nothing}
+  </sbb-tab-label>
+`;
+
+const tabLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const tabIconName: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['app-icon-small', 'train-small', 'swisspass-small', 'pie-small'],
+};
+
+const tabAmount: InputType = {
+  control: {
+    type: 'number',
+  },
+};
+
+const amountSlot: InputType = {
+  control: {
+    type: 'number',
+  },
+};
+
+const activeArg: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Tab State',
+  },
+};
+
+const disabledArg: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Tab State',
+  },
+};
+
+const labelArgTypes: ArgTypes = {
+  label: tabLabel,
+  'icon-name': tabIconName,
+  iconSlot: tabIconName,
+  amount: tabAmount,
+  amountSlot,
+  active: activeArg,
+  disabled: disabledArg,
+};
+
+const labelArgs: Args = {
+  label: 'Tab title',
+  'icon-name': tabIconName.options![0],
+  iconSlot: undefined,
+  amount: 123,
+  amountSlot: undefined,
+  active: false,
+  disabled: false,
+};
+
+export const Default: StoryObj = {
+  render: Template,
+  argTypes: labelArgTypes,
+  args: { ...labelArgs },
+};
+
+export const Active: StoryObj = {
+  render: Template,
+  argTypes: labelArgTypes,
+  args: { ...labelArgs, active: true },
+};
+
+export const Disabled: StoryObj = {
+  render: Template,
+  argTypes: labelArgTypes,
+  args: { ...labelArgs, disabled: true },
+};
+
+export const ActiveAndDisabled: StoryObj = {
+  render: Template,
+  argTypes: labelArgTypes,
+  args: { ...labelArgs, disabled: true, active: true },
+};
+
+export const WithoutIcon: StoryObj = {
+  render: Template,
+  argTypes: labelArgTypes,
+  args: { ...labelArgs, 'icon-name': undefined },
+};
+
+export const WithoutAmount: StoryObj = {
+  render: Template,
+  argTypes: labelArgTypes,
+  args: { ...labelArgs, amount: undefined },
+};
+
+export const WithoutIconAndWithoutAmount: StoryObj = {
+  render: Template,
+  argTypes: labelArgTypes,
+  args: { ...labelArgs, amount: undefined, 'icon-name': undefined },
+};
+
+export const SlottedIcon: StoryObj = {
+  render: Template,
+  argTypes: labelArgTypes,
+  args: {
+    ...labelArgs,
+    'icon-name': undefined,
+    iconSlot: 'train-small',
+  },
+};
+
+export const SlottedAmount: StoryObj = {
+  render: Template,
+  argTypes: labelArgTypes,
+  args: { ...labelArgs, amount: undefined, amountSlot: 123 },
+};
+
+export const SlottedAmountDisabled: StoryObj = {
+  render: Template,
+  argTypes: labelArgTypes,
+  args: { ...labelArgs, amount: undefined, amountSlot: 123, disabled: true },
+};
+
+export const WithEllipsis: StoryObj = {
+  render: Template,
+  argTypes: labelArgTypes,
+  args: {
+    ...labelArgs,
+    label: `A very long label which gets ellipsis when there is no more space to display it`,
+  },
+  decorators: [(story) => html`<div style="max-width: 400px;">${story()}</div>`],
+};
+
+// sbb-tab-nav-bar
+
+const navBarSize: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['s', 'l', 'xl'],
+};
+
+const defaultArgTypes: ArgTypes = {
+  size: navBarSize,
+};
+
+const defaultArgs: Args = {
+  size: navBarSize.options![1],
+};
+
+const TabNavBarTemplate = (args: Args): TemplateResult => html`
+  <sbb-tab-nav-bar ${sbbSpread(args)}>
+    <a href="https://www.sbb.ch" class="sbb-active" aria-current="page">Nav item 1</a>
+    <a href="https://www.sbb.ch">Nav item 2</a>
+    <a class="sbb-disabled" aria-disabled="true" role="link">Nav item 3</a>
+    <a href="https://www.sbb.ch">Nav item 4</a>
+  </sbb-tab-nav-bar>
+  <div>Content</div>
+`;
+
+const withIconTemplate = (args: Args): TemplateResult => html`
+  <sbb-tab-nav-bar ${sbbSpread(args)}>
+    <a href="https://www.sbb.ch" class="sbb-active" aria-current="page">
+      <sbb-icon name="app-icon-small"></sbb-icon>
+      Nav item 1
+    </a>
+    <a href="https://www.sbb.ch">
+      <sbb-icon name="user-small"></sbb-icon>
+      Nav item 2
+    </a>
+    <a class="sbb-disabled" aria-disabled="true" role="link">
+      <sbb-icon name="circle-information-small"></sbb-icon>
+      Nav item 3
+    </a>
+    <a href="https://www.sbb.ch">
+      <sbb-icon name="pie-small"></sbb-icon>
+      Nav item 4
+    </a>
+  </sbb-tab-nav-bar>
+  <div>Content</div>
+`;
+
+const withAmountTemplate = (args: Args): TemplateResult => html`
+  <sbb-tab-nav-bar ${sbbSpread(args)}>
+    <a href="https://www.sbb.ch" class="sbb-active" aria-current="page">
+      Nav item 1
+      <p class="sbb-tab-amount">42 <span class="sbb-screen-reader-only">Items</span></p>
+    </a>
+    <a href="https://www.sbb.ch"
+      >Nav item 2
+      <p class="sbb-tab-amount">42 <span class="sbb-screen-reader-only">Items</span></p></a
+    >
+    <a class="sbb-disabled" aria-disabled="true" role="link">
+      Nav item 3
+      <p class="sbb-tab-amount">42 <span class="sbb-screen-reader-only">Items</span></p>
+    </a>
+    <a href="https://www.sbb.ch"
+      >Nav item 4
+      <p class="sbb-tab-amount">42 <span class="sbb-screen-reader-only">Items</span></p></a
+    >
+  </sbb-tab-nav-bar>
+  <div>Content</div>
+`;
+
+export const TabNavBarDefault: StoryObj = {
+  render: TabNavBarTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const TabNavBarWithIcon: StoryObj = {
+  render: withIconTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
+export const TabNavBarWithAmount: StoryObj = {
+  render: withAmountTemplate,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs },
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
@@ -594,36 +550,6 @@ const meta: Meta = {
     },
   },
   title: 'elements/sbb-tab/sbb-tab-group',
-};
-
-export default meta;
-
-
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-
-import readme from './readme.md?raw';
-import '../../card.ts';
-
-const Template = (): TemplateResult => html`
-  <sbb-card color="milk">
-    'sbb-tab' must be only used together with 'sbb-tab-label' in a 'sbb-tab-group'. See
-    'sbb-tab-group' examples to see it in action.
-  </sbb-card>
-`;
-
-export const Default: StoryObj = {
-  render: Template,
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-tab/sbb-tab',
 };
 
 export default meta;

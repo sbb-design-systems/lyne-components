@@ -1,172 +1,22 @@
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-import type { InputType } from 'storybook/internal/types';
-
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-
-import readme from './readme.md?raw';
-
-import './sidebar-title.component.ts';
-
-const level: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: [1, 2, 3, 4, 5, 6],
-};
-
-const defaultArgTypes: ArgTypes = {
-  level,
-};
-
-const defaultArgs: Args = {
-  level: undefined,
-};
-
-const Template = (args: Args): TemplateResult =>
-  html`<sbb-sidebar-title ${sbbSpread(args)}>Sidebar title</sbb-sidebar-title>`;
-
-export const Default: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-sidebar/sbb-sidebar-title',
-};
-
-export default meta;
-
-
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-
-import readme from './readme.md?raw';
-
-import '../../card.ts';
-
-const Template = (): TemplateResult => html`
-  <sbb-card color="milk"> See 'sbb-sidebar' examples to see it in action. </sbb-card>
-`;
-
-export const Default: StoryObj = {
-  render: Template,
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-sidebar/sbb-sidebar-content',
-};
-
-export default meta;
-
-
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-
-import readme from './readme.md?raw';
-
-import '../../card.ts';
-
-const Template = (): TemplateResult => html`
-  <sbb-card color="milk"> See 'sbb-sidebar' examples to see it in action. </sbb-card>
-`;
-
-export const Default: StoryObj = {
-  render: Template,
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-sidebar/sbb-sidebar-container',
-};
-
-export default meta;
-
-
-import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
-import type { InputType } from 'storybook/internal/types';
-
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-
-import readme from './readme.md?raw';
-
-import './sidebar-close-button.component.ts';
-
-const ariaLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const defaultArgTypes: ArgTypes = {
-  'aria-label': ariaLabel,
-};
-
-const defaultArgs: Args = {
-  'aria-label': undefined,
-};
-
-const Template = (args: Args): TemplateResult =>
-  html`<sbb-sidebar-close-button ${sbbSpread(args)}></sbb-sidebar-close-button>`;
-
-export const Default: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-sidebar/sbb-sidebar-close-button',
-};
-
-export default meta;
-
-
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-import type { SbbIconSidebarElement } from '../../icon-sidebar/icon-sidebar/icon-sidebar.component.ts';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbIconSidebarElement } from '../icon-sidebar.ts';
+import { SbbSidebarElement } from '../sidebar.ts';
 
 import readme from './readme.md?raw';
-import { SbbSidebarElement } from './sidebar.component.ts';
 
-import '../../chip-label.ts';
-import '../../header.ts';
-import '../../link/block-link.ts';
-import '../../link-list.ts';
-import '../../logo.ts';
-import '../../icon-sidebar.ts';
-import '../../sidebar.ts';
-import '../../title.ts';
-import '../../tooltip.ts';
+import '../chip-label.ts';
+import '../header.ts';
+import '../link/block-link.ts';
+import '../link-list.ts';
+import '../logo.ts';
+import '../icon-sidebar.ts';
+import '../title.ts';
+import '../tooltip.ts';
 
 const position: InputType = {
   control: {

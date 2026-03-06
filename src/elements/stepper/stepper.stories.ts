@@ -4,19 +4,18 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../../storybook/helpers/spread.ts';
-import type { SbbErrorElement } from '../../form-field.ts';
-import { SbbStepElement, type SbbStepValidateEventDetails } from '../step.ts';
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbErrorElement } from '../form-field.ts';
+import { SbbStepElement, type SbbStepValidateEventDetails, SbbStepperElement } from '../stepper.ts';
 
 import readme from './readme.md?raw';
-import { SbbStepperElement } from './stepper.component.ts';
 
-import '../step-label.ts';
-import '../../link/block-link-button.ts';
-import '../../button/button.ts';
-import '../../button/secondary-button.ts';
-import '../../form-field.ts';
-import '../../card.ts';
+import '../button/button.ts';
+import '../button/secondary-button.ts';
+import '../card.ts';
+import '../form-field.ts';
+import '../link/block-link-button.ts';
+import '../stepper.ts';
 
 const loremIpsum = `
   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
@@ -454,62 +453,6 @@ const meta: Meta = {
     },
   },
   title: 'elements/sbb-stepper/sbb-stepper',
-};
-
-export default meta;
-
-
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html, type TemplateResult } from 'lit';
-
-import readme from './readme.md?raw';
-
-import '../../card.ts';
-
-const Template = (): TemplateResult =>
-  html`<sbb-card color="milk">
-    'sbb-step-label' cannot be used on its own. See 'sbb-stepper' examples to see it in action.
-  </sbb-card>`;
-
-export const Default: StoryObj = {
-  render: Template,
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-stepper/sbb-step-label',
-};
-
-export default meta;
-
-
-import type { Meta, StoryObj } from '@storybook/web-components-vite';
-import { html, type TemplateResult } from 'lit';
-
-import readme from './readme.md?raw';
-
-import '../../card.ts';
-
-const Template = (): TemplateResult =>
-  html`<sbb-card color="milk">
-    'sbb-step' cannot be used on its own. See 'sbb-stepper' examples to see it in action.
-  </sbb-card>`;
-
-export const Default: StoryObj = {
-  render: Template,
-};
-
-const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'elements/sbb-stepper/sbb-step',
 };
 
 export default meta;
