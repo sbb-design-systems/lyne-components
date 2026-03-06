@@ -4,8 +4,8 @@ import { html } from 'lit/static-html.js';
 import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbCarouselElement } from './carousel.component.ts';
-import '../carousel-item/carousel-item.component.ts';
-import '../carousel-list/carousel-list.component.ts';
+
+import '../../carousel.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

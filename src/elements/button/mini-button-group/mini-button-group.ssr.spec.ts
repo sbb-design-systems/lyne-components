@@ -4,8 +4,10 @@ import { html } from 'lit/static-html.js';
 import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbMiniButtonGroupElement } from './mini-button-group.component.ts';
-import '../mini-button/mini-button.component.ts';
-import '../../divider/divider.component.ts';
+
+import '../mini-button-group.ts';
+import '../mini-button.ts';
+import '../../divider.ts';
 
 describe(`sbb-mini-button-group ssr`, () => {
   let root: SbbMiniButtonGroupElement;

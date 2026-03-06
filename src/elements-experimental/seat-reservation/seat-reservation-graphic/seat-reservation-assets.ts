@@ -2,10 +2,14 @@ import { html, type TemplateResult } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 import { mapIconToSvg } from '../common/mapper.ts';
+import { SbbSeatReservationAreaElement } from '../seat-reservation-area/seat-reservation-area.component.ts';
+
+import { SbbSeatReservationGraphicElement } from './seat-reservation-graphic.component.ts';
 
 import '@sbb-esta/lyne-elements/table.js';
-import './seat-reservation-graphic.component.ts';
-import '../seat-reservation-area/seat-reservation-area.component.ts';
+
+SbbSeatReservationGraphicElement.define();
+SbbSeatReservationAreaElement.define();
 
 const svgImage = (src: string): TemplateResult => {
   return html`

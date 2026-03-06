@@ -7,8 +7,8 @@ import {
 } from '../../core/testing/private.ts';
 
 import '../mini-button-group.ts';
-import '../mini-button/mini-button.component.ts';
-import '../../divider/divider.component.ts';
+import '../mini-button.ts';
+import '../../divider.ts';
 
 describe('sbb-mini-button-group', () => {
   const sizeCases = ['s', 'm', 'l', 'xl'];

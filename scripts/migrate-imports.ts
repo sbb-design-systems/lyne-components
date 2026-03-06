@@ -10,6 +10,7 @@ for (const file of globSync(join(projectRoot, 'src/**/*.ts'))) {
     if (file.endsWith('.component.ts')) {
       throw new Error(file);
     }
+    console.log(file + ' ' + matches.map((m) => m[0]).join(', '));
 
     let newContent = content;
     if (matches.length === 1 && matches[0][0].match(/.\/[\w-]+.component.ts/)) {
@@ -17,6 +18,8 @@ for (const file of globSync(join(projectRoot, 'src/**/*.ts'))) {
       const moduleName = parts[2];
       const newImport = `${'../'.repeat(parts.length - 3)}${moduleName}.ts`;
       newContent = content.replace(matches[0][0], `import '${newImport}';`);
+    } else {
+      console.log(file + ' ' + matches.map((m) => m[0]).join(', '));
     }
 
     if (content !== newContent) {

@@ -5,7 +5,7 @@ import type { SbbElement } from '../core/base-elements.ts';
 import { forceType, omitEmptyConverter } from '../core/decorators.ts';
 import type { AbstractConstructor, SbbElementInternalsMixinType } from '../core/mixins.ts';
 
-import './icon.component.ts';
+import '../icon.ts';
 
 export declare class SbbIconNameMixinType {
   public accessor iconName: string;

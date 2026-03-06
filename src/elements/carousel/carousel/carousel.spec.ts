@@ -10,8 +10,7 @@ import { type SbbCarouselItemEventDetail } from '../carousel-item/carousel-item.
 
 import { SbbCarouselElement } from './carousel.component.ts';
 
-import '../carousel-list/carousel-list.component.ts';
-import '../carousel-item/carousel-item.component.ts';
+import '../../carousel.ts';
 import '../../paginator.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
