@@ -12,7 +12,7 @@ describe(`sbb-sidebar-close-button ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-sidebar-close-button></sbb-sidebar-close-button>`, {
-      modules: ['./sidebar-close-button.component.js'],
+      modules: ['../../sidebar.ts'],
     });
   });
 

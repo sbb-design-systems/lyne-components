@@ -12,7 +12,7 @@ describe(`sbb-transparent-button ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-transparent-button>Button</sbb-transparent-button>`, {
-      modules: ['./transparent-button.component.js'],
+      modules: ['../../button.ts'],
     });
   });
 

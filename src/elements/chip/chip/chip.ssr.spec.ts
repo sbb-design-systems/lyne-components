@@ -12,14 +12,14 @@ describe(`sbb-chip ssr`, () => {
 
   it('renders', async () => {
     root = await ssrHydratedFixture(html`<sbb-chip value="Value"></sbb-chip>`, {
-      modules: ['./chip.component.js'],
+      modules: ['../../chip.ts'],
     });
     assert.instanceOf(root, SbbChipElement);
   });
 
   it('renders with label', async () => {
     root = await ssrHydratedFixture(html`<sbb-chip value="Value">Label</sbb-chip>`, {
-      modules: ['./chip.component.js'],
+      modules: ['../../chip.ts'],
     });
     assert.instanceOf(root, SbbChipElement);
   });

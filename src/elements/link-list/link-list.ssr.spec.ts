@@ -5,6 +5,7 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbLinkListElement } from './link-list.component.ts';
 
+import '../link-list.ts';
 import '../link.ts';
 
 describe(`sbb-link-list ssr`, () => {
@@ -37,7 +38,7 @@ describe(`sbb-link-list ssr`, () => {
           >
         </sbb-link-list>
       `,
-      { modules: ['./link-list.component.js', '../../link.js'] },
+      { modules: ['../link-list.ts', '../link.ts'] },
     );
   });
 

@@ -20,12 +20,7 @@ describe(`sbb-dialog ssr`, () => {
         </sbb-dialog>
       `,
       {
-        modules: [
-          './dialog.component.js',
-          '../dialog-actions.js',
-          '../dialog-content.js',
-          '../dialog-title.js',
-        ],
+        modules: ['../../dialog.ts'],
       },
     );
   });

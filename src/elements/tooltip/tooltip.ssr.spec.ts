@@ -17,7 +17,7 @@ describe(`sbb-tooltip ssr`, () => {
         <button id="trigger">Label</button>
       `,
       {
-        modules: ['./tooltip.component.js'],
+        modules: ['../tooltip.ts'],
       },
     );
   });

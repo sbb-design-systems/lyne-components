@@ -12,7 +12,7 @@ describe(`sbb-file-selector ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-file-selector></sbb-file-selector>`, {
-      modules: ['./file-selector.component.js'],
+      modules: ['../../file-selector.ts'],
     });
   });
 

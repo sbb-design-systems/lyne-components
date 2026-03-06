@@ -12,7 +12,7 @@ describe(`sbb-calendar-day ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-calendar-day slot="2025-01-01"></sbb-calendar-day>`, {
-      modules: ['./calendar-day.component.js'],
+      modules: ['../../calendar.ts'],
     });
   });
 

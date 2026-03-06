@@ -33,13 +33,7 @@ describe(`sbb-menu ssr`, () => {
         </div>
       `,
       {
-        modules: [
-          '../../button.js',
-          '../../divider.js',
-          '../../link.js',
-          '../menu-button.js',
-          './menu.component.js',
-        ],
+        modules: ['../../button.ts', '../../divider.ts', '../../link.ts', '../../menu.ts'],
       },
     );
   });

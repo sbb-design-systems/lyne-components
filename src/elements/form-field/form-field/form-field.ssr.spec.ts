@@ -12,7 +12,7 @@ describe(`sbb-form-field ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-form-field><input /></sbb-form-field>`, {
-      modules: ['./form-field.component.js'],
+      modules: ['../../form-field.ts'],
     });
   });
 

@@ -16,7 +16,7 @@ describe(`sbb-selection-expansion-panel ssr`, () => {
         <sbb-checkbox-panel>Value</sbb-checkbox-panel>
       </sbb-selection-expansion-panel>`,
       {
-        modules: ['./selection-expansion-panel.component.js', '../checkbox.js'],
+        modules: ['../checkbox.ts'],
       },
     );
   });

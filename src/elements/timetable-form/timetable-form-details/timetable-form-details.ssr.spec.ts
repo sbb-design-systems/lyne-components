@@ -14,7 +14,7 @@ describe(`sbb-timetable-form-details ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-timetable-form-details></sbb-timetable-form-details>`,
       {
-        modules: ['./timetable-form-details.component.js'],
+        modules: ['../../timetable-form.ts'],
       },
     );
   });

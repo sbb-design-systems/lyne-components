@@ -14,7 +14,7 @@ describe(`sbb-screen-reader-only ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-screen-reader-only>Hidden text.</sbb-screen-reader-only>`,
       {
-        modules: ['./screen-reader-only.component.js'],
+        modules: ['../screen-reader-only.ts'],
       },
     );
   });

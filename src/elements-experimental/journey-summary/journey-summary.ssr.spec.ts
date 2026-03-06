@@ -14,7 +14,7 @@ describe(`sbb-journey-summary ssr`, () => {
     // specific test.
     this.timeout(20000);
     root = await ssrHydratedFixture(html`<sbb-journey-summary></sbb-journey-summary>`, {
-      modules: ['./journey-summary.component.js'],
+      modules: ['../journey-summary.ts'],
     });
   });
 

@@ -14,7 +14,7 @@ describe(`sbb-datepicker-previous-day ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-datepicker-previous-day></sbb-datepicker-previous-day>`,
       {
-        modules: ['./datepicker-previous-day.component.js'],
+        modules: ['../../datepicker.ts'],
       },
     );
   });

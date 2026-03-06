@@ -12,7 +12,7 @@ describe(`sbb-accent-button ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-accent-button>Button</sbb-accent-button>`, {
-      modules: ['./accent-button.component.js'],
+      modules: ['../../button.ts'],
     });
   });
 

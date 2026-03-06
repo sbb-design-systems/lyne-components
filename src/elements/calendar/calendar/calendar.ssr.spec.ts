@@ -15,7 +15,7 @@ describe(`sbb-calendar ssr`, () => {
     this.timeout(20000);
     root = await ssrHydratedFixture(
       html`<sbb-calendar selected="2023-01-20T00:00:00"></sbb-calendar>`,
-      { modules: ['./calendar.component.js'] },
+      { modules: ['../../calendar.ts'] },
     );
   });
 

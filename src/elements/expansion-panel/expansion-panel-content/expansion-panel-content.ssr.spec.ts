@@ -14,7 +14,7 @@ describe(`sbb-expansion-panel-content ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-expansion-panel-content>Content</sbb-expansion-panel-content>`,
       {
-        modules: ['./expansion-panel-content.component.js'],
+        modules: ['../../expansion-panel.ts'],
       },
     );
   });

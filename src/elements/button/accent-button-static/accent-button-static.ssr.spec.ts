@@ -14,7 +14,7 @@ describe(`sbb-accent-button-static ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-accent-button-static>Button</sbb-accent-button-static>`,
       {
-        modules: ['./accent-button-static.component.js'],
+        modules: ['../../button.ts'],
       },
     );
   });

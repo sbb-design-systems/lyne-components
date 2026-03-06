@@ -12,7 +12,7 @@ describe(`sbb-loading-indicator ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-loading-indicator></sbb-loading-indicator>`, {
-      modules: ['./loading-indicator.component.js'],
+      modules: ['../loading-indicator.ts'],
     });
   });
 

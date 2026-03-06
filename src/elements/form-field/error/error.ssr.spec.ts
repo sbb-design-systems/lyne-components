@@ -12,7 +12,7 @@ describe(`sbb-error ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-error></sbb-error>`, {
-      modules: ['./error.component.js'],
+      modules: ['../../form-field.ts'],
     });
   });
 

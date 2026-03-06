@@ -22,7 +22,7 @@ describe(`sbb-radio-button-group ssr`, () => {
           <sbb-radio-button id="sbb-radio-4" value="Value four">Value four</sbb-radio-button>
         </sbb-radio-button-group>
       `,
-      { modules: ['./radio-button-group.component.js'] },
+      { modules: ['../radio-button.ts'] },
     );
   });
 

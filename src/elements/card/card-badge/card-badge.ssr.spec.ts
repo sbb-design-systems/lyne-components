@@ -12,7 +12,7 @@ describe(`sbb-card-badge ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-card-badge></sbb-card-badge>`, {
-      modules: ['./card-badge.component.js'],
+      modules: ['../../card.ts'],
     });
   });
 

@@ -28,7 +28,7 @@ describe(`sbb-map-container ssr`, () => {
           <div style="height: 1200px">map</div>
         </div>
       </sbb-map-container>`,
-      { modules: ['./map-container.component.js', '../title.js'] },
+      { modules: ['../title.ts'] },
     );
   });
 

@@ -12,7 +12,7 @@ describe(`sbb-divider ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-divider></sbb-divider>`, {
-      modules: ['./divider.component.js'],
+      modules: ['../divider.ts'],
     });
   });
 

@@ -18,7 +18,7 @@ describe(`sbb-optgroup ssr`, () => {
           <sbb-option id="option-3" value="option-3">Label 3</sbb-option>
         </sbb-optgroup>
       `,
-      { modules: ['./optgroup.component.js', '../option.js'] },
+      { modules: ['../../option.ts'] },
     );
   });
 

@@ -14,7 +14,7 @@ describe(`sbb-menu-button ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-menu-button id="focus-id">Menu Action</sbb-menu-button>`,
       {
-        modules: ['./menu-button.component.js'],
+        modules: ['../../menu.ts'],
       },
     );
   });

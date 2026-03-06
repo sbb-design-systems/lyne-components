@@ -12,7 +12,7 @@ describe(`sbb-teaser ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-teaser id="focus-id" href="#">Content</sbb-teaser>`, {
-      modules: ['./teaser.component.js'],
+      modules: ['../teaser.ts'],
     });
   });
 

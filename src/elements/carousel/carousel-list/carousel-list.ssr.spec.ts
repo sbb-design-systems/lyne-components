@@ -28,7 +28,7 @@ describe(`sbb-carousel-list ssr`, () => {
         </sbb-carousel-list>
       `,
       {
-        modules: ['./carousel-list.component.js', '../carousel-item/carousel-item.component.js'],
+        modules: ['../../carousel.ts'],
       },
     );
   });

@@ -21,7 +21,7 @@ describe(`sbb-chip-group ssr`, () => {
         <input />
       </sbb-form-field>`,
       {
-        modules: ['./chip-group.component.js', '../chip.js', '../../form-field.js'],
+        modules: ['../../chip.ts', '../../form-field.ts'],
       },
     );
     element = root.querySelector('sbb-chip-group')!;

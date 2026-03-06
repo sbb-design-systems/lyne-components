@@ -15,7 +15,7 @@ describe(`sbb-lead-container ssr`, () => {
       html`<sbb-lead-container>
         <sbb-image slot="image"></sbb-image>
       </sbb-lead-container>`,
-      { modules: ['./lead-container.component.js', '../image.js'] },
+      { modules: ['../image.ts'] },
     );
   });
 

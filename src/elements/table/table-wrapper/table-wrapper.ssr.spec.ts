@@ -19,7 +19,7 @@ describe(`sbb-table-wrapper ssr`, () => {
           </caption>
         </table>
       </sbb-table-wrapper>`,
-      { modules: ['./table-wrapper.component.js'] },
+      { modules: ['../../table.ts'] },
     );
   });
 

@@ -17,7 +17,7 @@ describe(`sbb-icon-sidebar-button ssr`, () => {
         aria-label="Go to the party"
       ></sbb-icon-sidebar-button>`,
       {
-        modules: ['./icon-sidebar-button.component.js'],
+        modules: ['../../icon-sidebar.ts'],
       },
     );
   });

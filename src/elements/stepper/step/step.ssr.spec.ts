@@ -12,7 +12,7 @@ describe(`sbb-step ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-step>Step</sbb-step>`, {
-      modules: ['./step.component.js'],
+      modules: ['../../stepper.ts'],
     });
   });
 

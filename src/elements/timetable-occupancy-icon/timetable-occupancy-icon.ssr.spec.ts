@@ -13,7 +13,7 @@ describe(`sbb-timetable-occupancy-icon ssr`, () => {
   beforeEach(async () => {
     root = await ssrHydratedFixture(
       html` <sbb-timetable-occupancy-icon occupancy="low"></sbb-timetable-occupancy-icon>`,
-      { modules: ['./timetable-occupancy-icon.component.js'] },
+      { modules: ['../timetable-occupancy-icon.ts'] },
     );
   });
 

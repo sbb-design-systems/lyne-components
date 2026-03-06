@@ -12,7 +12,7 @@ describe(`sbb-dialog-title ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-dialog-title>Title</sbb-dialog-title>`, {
-      modules: ['./dialog-title.component.js'],
+      modules: ['../../dialog.ts'],
     });
   });
 

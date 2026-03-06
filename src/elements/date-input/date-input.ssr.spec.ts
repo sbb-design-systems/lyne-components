@@ -12,7 +12,7 @@ describe(`sbb-date-input ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-date-input value="2024-12-11"></sbb-date-input>`, {
-      modules: ['./date-input.component.js'],
+      modules: ['../date-input.ts'],
     });
   });
 

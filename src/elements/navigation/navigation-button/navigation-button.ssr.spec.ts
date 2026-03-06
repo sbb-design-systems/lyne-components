@@ -13,7 +13,7 @@ describe(`sbb-navigation-button ssr`, () => {
   beforeEach(async () => {
     root = await ssrHydratedFixture(
       html`<sbb-navigation-button id="focus-id">Navigation Action</sbb-navigation-button>`,
-      { modules: ['./navigation-button.component.js'] },
+      { modules: ['../../navigation.ts'] },
     );
   });
 

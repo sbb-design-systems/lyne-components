@@ -17,7 +17,7 @@ describe(`sbb-overlay ssr`, () => {
           <p>Overlay content</p>
         </sbb-overlay>
       `,
-      { modules: ['./overlay.component.js'] },
+      { modules: ['../overlay.ts'] },
     );
   });
 

@@ -12,7 +12,7 @@ describe(`sbb-chip-label ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-chip-label>Label</sbb-chip-label>`, {
-      modules: ['./chip-label.component.js'],
+      modules: ['../chip-label.ts'],
     });
   });
 

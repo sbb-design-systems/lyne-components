@@ -22,7 +22,7 @@ describe(`sbb-block-link ssr`, () => {
           Travelcards &amp; tickets.
         </sbb-block-link>
       `,
-      { modules: ['./block-link.component.js'] },
+      { modules: ['../../link.ts'] },
     );
   });
 

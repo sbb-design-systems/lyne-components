@@ -32,7 +32,7 @@ describe(`sbb-autocomplete-grid-option ssr`, () => {
           </sbb-autocomplete-grid>
         </sbb-form-field>
       `,
-      { modules: ['../../autocomplete-grid.ts', '../../../elements/form-field.ts'] },
+      { modules: ['../../autocomplete-grid.ts'] },
     );
   });
 

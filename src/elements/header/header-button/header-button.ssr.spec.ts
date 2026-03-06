@@ -14,7 +14,7 @@ describe(`sbb-header-button ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-header-button id="focus-id">Action</sbb-header-button>`,
       {
-        modules: ['./header-button.component.js'],
+        modules: ['../../header.ts'],
       },
     );
   });

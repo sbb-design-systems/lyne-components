@@ -14,7 +14,7 @@ describe(`sbb-toggle-check ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-toggle-check id="focus-id" name="name" value="value"></sbb-toggle-check>`,
       {
-        modules: ['./toggle-check.component.js'],
+        modules: ['../toggle-check.ts'],
       },
     );
   });

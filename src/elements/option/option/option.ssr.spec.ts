@@ -16,7 +16,7 @@ describe(`sbb-option ssr`, () => {
 
     beforeEach(async () => {
       root = await ssrHydratedFixture(html`<sbb-option value="Option A">Option A</sbb-option>`, {
-        modules: ['./option.component.js'],
+        modules: ['../../autocomplete.ts', '../../select.ts'],
       });
     });
 
@@ -40,7 +40,7 @@ describe(`sbb-option ssr`, () => {
             </sbb-autocomplete>
           </div>
         `,
-        { modules: ['../../autocomplete.js', './option.component.js'] },
+        { modules: ['../../autocomplete.ts', '../../select.ts'] },
       );
     });
 
@@ -61,7 +61,7 @@ describe(`sbb-option ssr`, () => {
             <sbb-option value="3">Option 3</sbb-option>
           </sbb-select>
         `,
-        { modules: ['../../select.js', './option.component.js'] },
+        { modules: ['../../autocomplete.ts', '../../select.ts'] },
       );
     });
 
@@ -90,7 +90,7 @@ describe(`sbb-option ssr`, () => {
             <sbb-option value="3">Option 3</sbb-option>
           </sbb-select>
         `,
-        { modules: ['../../select.js', './option.component.js'] },
+        { modules: ['../../autocomplete.ts', '../../select.ts'] },
       );
     });
 

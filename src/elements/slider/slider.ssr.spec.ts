@@ -21,7 +21,7 @@ describe(`sbb-slider ssr`, () => {
           value="400"
         ></sbb-slider>
       `,
-      { modules: ['./slider.component.js'] },
+      { modules: ['../slider.ts'] },
     );
   });
 

@@ -18,7 +18,7 @@ describe(`sbb-navigation-marker ssr`, () => {
         <sbb-navigation-button id="nav-3">Travel information</sbb-navigation-button>
         <sbb-navigation-button id="nav-4">Help & Contact</sbb-navigation-button>
       </sbb-navigation-marker>`,
-      { modules: ['./navigation-marker.component.js', '../navigation-button.js'] },
+      { modules: ['../../navigation.ts'] },
     );
   });
 

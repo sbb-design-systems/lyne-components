@@ -22,7 +22,7 @@ describe(`sbb-tab-group ssr`, () => {
         <sbb-tab-label id="sbb-tab-4">Test tab label 4</sbb-tab-label>
         <sbb-tab> Test tab content 4 </sbb-tab>
       </sbb-tab-group>`,
-      { modules: ['./tab-group.component.js', '../tab-label.js', '../tab.js'] },
+      { modules: ['../../tabs.ts'] },
     );
   });
 

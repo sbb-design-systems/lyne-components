@@ -12,7 +12,7 @@ describe(`sbb-icon-sidebar ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-icon-sidebar></sbb-icon-sidebar>`, {
-      modules: ['./icon-sidebar.component.js'],
+      modules: ['../../icon-sidebar.ts'],
     });
   });
 

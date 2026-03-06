@@ -18,7 +18,7 @@ describe(`sbb-paginator ssr`, () => {
         page-size-options="[10, 25, 50]"
       ></sbb-paginator>`,
       {
-        modules: ['./paginator.component.js'],
+        modules: ['../../paginator.ts'],
       },
     );
   });

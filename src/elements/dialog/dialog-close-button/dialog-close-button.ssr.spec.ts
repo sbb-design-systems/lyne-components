@@ -12,7 +12,7 @@ describe(`sbb-dialog-close-button ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-dialog-close-button></sbb-dialog-close-button>`, {
-      modules: ['./dialog-close-button.component.js'],
+      modules: ['../../dialog.ts'],
     });
   });
 

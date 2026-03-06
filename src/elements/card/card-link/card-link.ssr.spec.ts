@@ -23,7 +23,7 @@ describe(`sbb-card-link ssr`, () => {
           Content text
         </sbb-card>
       `,
-      { modules: ['../card.js', './card-link.component.js'] },
+      { modules: ['../../card.ts'] },
     );
   });
 

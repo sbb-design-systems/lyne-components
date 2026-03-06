@@ -18,7 +18,7 @@ describe(`sbb-icon-sidebar-link ssr`, () => {
         accessibility-label="Go to the party"
       ></sbb-icon-sidebar-link>`,
       {
-        modules: ['./icon-sidebar-link.component.js'],
+        modules: ['../../icon-sidebar.ts'],
       },
     );
   });

@@ -12,7 +12,7 @@ describe(`sbb-pearl-chain-vertical-item ssr`, () => {
   beforeEach(async () => {
     root = await ssrHydratedFixture<SbbPearlChainVerticalItemElement>(
       html`<sbb-pearl-chain-vertical-item></sbb-pearl-chain-vertical-item>`,
-      { modules: ['./pearl-chain-vertical-item.component.js'] },
+      { modules: ['../pearl-chain-vertical-item.ts'] },
     );
   });
 

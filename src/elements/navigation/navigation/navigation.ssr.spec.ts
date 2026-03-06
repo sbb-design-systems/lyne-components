@@ -32,12 +32,7 @@ describe(`sbb-navigation ssr`, () => {
         </sbb-navigation>
       `,
       {
-        modules: [
-          './navigation.component.js',
-          '../navigation-button.js',
-          '../navigation-marker.js',
-          '../navigation-section.js',
-        ],
+        modules: ['../../navigation.ts'],
       },
     );
   });

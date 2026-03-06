@@ -20,7 +20,7 @@ describe(`sbb-skiplink-list ssr`, () => {
         </sbb-skiplink-list>
         <button id="button">Focus me</button>
       `,
-      { modules: ['./skiplink-list.component.js', '../link.js'] },
+      { modules: ['../link/block-link.ts'] },
     );
   });
 

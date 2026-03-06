@@ -14,7 +14,7 @@ describe(`sbb-menu-link ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-menu-link href="#" id="focus-id">Menu Action</sbb-menu-link>`,
       {
-        modules: ['./menu-link.component.js'],
+        modules: ['../../menu.ts'],
       },
     );
   });

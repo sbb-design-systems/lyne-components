@@ -19,7 +19,7 @@ describe(`sbb-checkbox-group ssr`, () => {
           <sbb-checkbox id="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
         </sbb-checkbox-group>
       `,
-      { modules: ['./checkbox-group.component.js', '../checkbox.js'] },
+      { modules: ['../checkbox.ts'] },
     );
   });
 

@@ -48,7 +48,7 @@ describe(`sbb-autocomplete-grid ssr`, () => {
           </sbb-autocomplete-grid>
         </sbb-form-field>
       `,
-      { modules: ['../../autocomplete-grid.ts', '../../../elements/form-field.ts'] },
+      { modules: ['../../autocomplete-grid.ts'] },
     );
     element = formField.querySelector<SbbAutocompleteGridElement>('sbb-autocomplete-grid')!;
   });

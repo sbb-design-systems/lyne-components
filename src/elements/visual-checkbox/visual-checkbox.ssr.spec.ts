@@ -12,7 +12,7 @@ describe(`sbb-visual-checkbox ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-visual-checkbox></sbb-visual-checkbox>`, {
-      modules: ['./visual-checkbox.component.js'],
+      modules: ['../visual-checkbox.ts'],
     });
   });
 

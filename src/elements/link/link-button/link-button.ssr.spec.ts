@@ -14,7 +14,7 @@ describe(`sbb-link-button ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-link-button id="focus-id">Link as Button</sbb-link-button>`,
       {
-        modules: ['./link-button.component.js'],
+        modules: ['../../link.ts'],
       },
     );
   });

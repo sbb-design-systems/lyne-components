@@ -5,6 +5,7 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbBlockLinkStaticElement } from './block-link-static.component.ts';
 
+import '../../icon.ts';
 import '../../link.ts';
 
 describe(`sbb-block-link-static ssr`, () => {
@@ -21,7 +22,7 @@ describe(`sbb-block-link-static ssr`, () => {
         ></sbb-icon>
         Travelcards &amp; tickets.
       </sbb-block-link-static>`,
-      { modules: ['./block-link-static.component.js'] },
+      { modules: ['../../icon.ts', '../../link.ts'] },
     );
   });
 

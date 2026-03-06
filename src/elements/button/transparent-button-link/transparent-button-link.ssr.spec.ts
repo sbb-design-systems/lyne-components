@@ -14,7 +14,7 @@ describe(`sbb-transparent-button-link ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-transparent-button-link>Button</sbb-transparent-button-link>`,
       {
-        modules: ['./transparent-button-link.component.js'],
+        modules: ['../../button.ts'],
       },
     );
   });

@@ -30,7 +30,7 @@ describe(`sbb-sticky-bar ssr`, () => {
           <sbb-sticky-bar></sbb-sticky-bar>
         </sbb-container>
       `,
-      { modules: ['../container.js', './sticky-bar.component.js'] },
+      { modules: ['../../container.ts'] },
     );
   });
 

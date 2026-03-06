@@ -12,7 +12,7 @@ describe(`sbb-link ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-link href="#" id="focus-id">Inline link</sbb-link>`, {
-      modules: ['./link.component.js'],
+      modules: ['../../link.ts'],
     });
   });
 

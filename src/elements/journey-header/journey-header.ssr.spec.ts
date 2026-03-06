@@ -12,7 +12,7 @@ describe(`sbb-journey-header ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-journey-header></sbb-journey-header>`, {
-      modules: ['./journey-header.component.js'],
+      modules: ['../journey-header.ts'],
     });
   });
 

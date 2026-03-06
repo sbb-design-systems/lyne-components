@@ -14,7 +14,7 @@ describe(`sbb-timetable-form-swap-button ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-timetable-form-swap-button></sbb-timetable-form-swap-button>`,
       {
-        modules: ['./timetable-form-swap-button.component.js'],
+        modules: ['../../timetable-form.ts'],
       },
     );
   });

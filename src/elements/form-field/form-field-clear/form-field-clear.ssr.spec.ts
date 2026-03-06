@@ -18,7 +18,7 @@ describe(`sbb-form-field-clear ssr`, () => {
         <input id="input" type="text" placeholder="Input placeholder" value="Input value" />
         <sbb-form-field-clear></sbb-form-field-clear>
       </sbb-form-field>`,
-      { modules: ['../form-field.js', './form-field-clear.component.js'] },
+      { modules: ['../../form-field.ts'] },
     );
   });
 

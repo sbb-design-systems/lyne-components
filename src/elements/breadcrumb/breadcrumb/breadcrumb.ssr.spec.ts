@@ -14,7 +14,7 @@ describe(`sbb-breadcrumb ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-breadcrumb id="focus-id" href="#">Test</sbb-breadcrumb>`,
       {
-        modules: ['./breadcrumb.component.js'],
+        modules: ['../../breadcrumb.ts'],
       },
     );
   });

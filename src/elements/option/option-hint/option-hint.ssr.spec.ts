@@ -12,7 +12,7 @@ describe(`sbb-option-hint ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-option-hint></sbb-option-hint>`, {
-      modules: ['./option-hint.component.js'],
+      modules: ['../../option.ts'],
     });
   });
 

@@ -13,7 +13,7 @@ describe(`sbb-navigation-link ssr`, () => {
   beforeEach(async () => {
     root = await ssrHydratedFixture(
       html`<sbb-navigation-link href="#" id="focus-id">Navigation Action</sbb-navigation-link>`,
-      { modules: ['./navigation-link.component.js'] },
+      { modules: ['../../navigation.ts'] },
     );
   });
 

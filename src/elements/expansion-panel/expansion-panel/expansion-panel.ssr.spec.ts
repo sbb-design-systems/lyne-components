@@ -19,11 +19,7 @@ describe(`sbb-expansion-panel ssr`, () => {
         </sbb-expansion-panel>
       `,
       {
-        modules: [
-          './expansion-panel.component.js',
-          '../expansion-panel-header.js',
-          '../expansion-panel-content.js',
-        ],
+        modules: ['../../expansion-panel.ts'],
       },
     );
   });

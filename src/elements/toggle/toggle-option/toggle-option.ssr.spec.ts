@@ -14,7 +14,7 @@ describe(`sbb-toggle-option ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-toggle-option value="Value">Value label</sbb-toggle-option>`,
       {
-        modules: ['./toggle-option.component.js'],
+        modules: ['../../toggle.ts'],
       },
     );
   });

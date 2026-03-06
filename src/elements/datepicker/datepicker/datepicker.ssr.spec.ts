@@ -32,7 +32,7 @@ describe(`sbb-datepicker ssr`, () => {
         </sbb-form-field>
       `,
       {
-        modules: ['../../date-input.js', '../../datepicker.js', '../../form-field.js'],
+        modules: ['../../date-input.ts', '../../datepicker.ts', '../../form-field.ts'],
       },
     );
   });

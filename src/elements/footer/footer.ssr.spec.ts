@@ -12,7 +12,7 @@ describe(`sbb-footer ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-footer></sbb-footer>`, {
-      modules: ['./footer.component.js'],
+      modules: ['../footer.ts'],
     });
   });
 

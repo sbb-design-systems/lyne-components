@@ -19,7 +19,7 @@ describe(`sbb-breadcrumb-group ssr`, () => {
           <sbb-breadcrumb href="#" id="breadcrumb-2">Two</sbb-breadcrumb>
         </sbb-breadcrumb-group>
       `,
-      { modules: ['./breadcrumb-group.component.js', '../breadcrumb.js'] },
+      { modules: ['../../breadcrumb.ts'] },
     );
   });
 

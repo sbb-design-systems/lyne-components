@@ -14,7 +14,7 @@ describe(`sbb-card-button ssr`, () => {
   beforeEach(async () => {
     root = await ssrHydratedFixture(
       html`<sbb-card><sbb-card-button active>Click me</sbb-card-button>Content</sbb-card>`,
-      { modules: ['../card.js', './card-button.component.js'] },
+      { modules: ['../../card.ts'] },
     );
   });
 

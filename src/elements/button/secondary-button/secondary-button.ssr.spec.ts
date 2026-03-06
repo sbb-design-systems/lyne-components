@@ -12,7 +12,7 @@ describe(`sbb-secondary-button ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-secondary-button>Button</sbb-secondary-button>`, {
-      modules: ['./secondary-button.component.js'],
+      modules: ['../../button.ts'],
     });
   });
 

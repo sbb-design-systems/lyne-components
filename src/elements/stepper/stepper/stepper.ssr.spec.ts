@@ -23,7 +23,7 @@ describe(`sbb-stepper ssr`, () => {
           <sbb-step-label>Test step label 4</sbb-step-label>
         </sbb-stepper>
       `,
-      { modules: ['./stepper.component.js', '../step.js', '../step-label.js'] },
+      { modules: ['../../stepper.ts'] },
     );
   });
 

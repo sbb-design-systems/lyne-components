@@ -20,9 +20,9 @@ describe(`sbb-selection-action-panel ssr`, () => {
       </sbb-selection-action-panel>`,
       {
         modules: [
-          '../selection-action-panel.ts',
           '../button/secondary-button.ts',
           '../checkbox.ts',
+          '../selection-action-panel.ts',
         ],
       },
     );

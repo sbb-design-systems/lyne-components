@@ -12,7 +12,7 @@ describe(`sbb-sidebar-content ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-sidebar-content>Some Content</sbb-sidebar-content>`, {
-      modules: ['./sidebar-content.component.js'],
+      modules: ['../../sidebar.ts'],
     });
   });
 

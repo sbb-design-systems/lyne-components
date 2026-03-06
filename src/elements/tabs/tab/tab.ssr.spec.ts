@@ -12,7 +12,7 @@ describe(`sbb-tab ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-tab>Content</sbb-tab>`, {
-      modules: ['./tab.component.js'],
+      modules: ['../../tabs.ts'],
     });
   });
 

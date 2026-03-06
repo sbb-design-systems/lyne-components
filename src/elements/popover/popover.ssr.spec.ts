@@ -27,7 +27,7 @@ describe(`sbb-popover ssr`, () => {
             </sbb-block-link>
           </span>
         `,
-        { modules: ['../button.js', './popover.component.js', '../link.js'] },
+        { modules: ['../button.ts', '../link.ts'] },
       );
     });
 
@@ -56,7 +56,7 @@ describe(`sbb-popover ssr`, () => {
             </sbb-block-link>
           </span>
         `,
-        { modules: ['../button.js', './popover.component.js', '../link.js'] },
+        { modules: ['../button.ts', '../link.ts'] },
       );
     });
 

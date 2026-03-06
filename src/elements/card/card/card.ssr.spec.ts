@@ -12,7 +12,7 @@ describe(`sbb-card ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-card color="transparent-bordered"></sbb-card>`, {
-      modules: ['./card.component.js'],
+      modules: ['../../card.ts'],
     });
   });
 

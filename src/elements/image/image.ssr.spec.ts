@@ -13,7 +13,7 @@ describe(`sbb-image ssr`, () => {
 
   it('renders', async () => {
     root = await ssrHydratedFixture(html`<sbb-image image-src=${url}></sbb-image>`, {
-      modules: ['./image.component.js'],
+      modules: ['../image.ts'],
     });
     assert.instanceOf(root, SbbImageElement);
   });
@@ -26,7 +26,7 @@ describe(`sbb-image ssr`, () => {
   for (const { name, url } of urls) {
     it(`should work with ${name}`, async () => {
       root = await ssrHydratedFixture(html`<sbb-image image-src=${url}></sbb-image>`, {
-        modules: ['./image.component.js'],
+        modules: ['../image.ts'],
       });
       const sources = Array.from(root.shadowRoot!.querySelectorAll('source'));
       expect(sources.length).greaterThan(0);

@@ -12,7 +12,7 @@ describe(`sbb-train-blocked-passage ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-train-blocked-passage></sbb-train-blocked-passage>`, {
-      modules: ['./train-blocked-passage.component.js'],
+      modules: ['../../train.ts'],
     });
   });
 

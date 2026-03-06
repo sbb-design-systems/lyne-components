@@ -14,7 +14,7 @@ describe(`sbb-link-static ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-link-static id="focus-id">Link static</sbb-link-static>`,
       {
-        modules: ['./link-static.component.js'],
+        modules: ['../../link.ts'],
       },
     );
   });

@@ -12,7 +12,7 @@ describe(`sbb-timetable-form-field ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-timetable-form-field></sbb-timetable-form-field>`, {
-      modules: ['./timetable-form-field.component.js'],
+      modules: ['../../timetable-form.ts'],
     });
   });
 

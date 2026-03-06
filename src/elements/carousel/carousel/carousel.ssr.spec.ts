@@ -30,11 +30,7 @@ describe(`sbb-carousel ssr`, () => {
         </sbb-carousel>
       `,
       {
-        modules: [
-          './carousel.component.js',
-          '../carousel-list/carousel-list.component.js',
-          '../carousel-item/carousel-item.component.js',
-        ],
+        modules: ['../../carousel.ts'],
       },
     );
   });

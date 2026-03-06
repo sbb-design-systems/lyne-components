@@ -12,7 +12,7 @@ describe(`sbb-autocomplete-grid-button ssr`, () => {
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-autocomplete-grid-button>Button</sbb-autocomplete-grid-button>`,
-      { modules: ['./autocomplete-grid-button.component.ts'] },
+      { modules: ['../../autocomplete-grid.ts'] },
     );
   });
 

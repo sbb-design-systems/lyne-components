@@ -12,7 +12,7 @@ describe(`sbb-flip-card-details ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-flip-card-details></sbb-flip-card-details>`, {
-      modules: ['./flip-card-details.component.js'],
+      modules: ['../../flip-card.ts'],
     });
   });
 

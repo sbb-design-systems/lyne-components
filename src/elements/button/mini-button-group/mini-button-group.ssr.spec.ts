@@ -20,11 +20,7 @@ describe(`sbb-mini-button-group ssr`, () => {
         <sbb-mini-button icon-name="pen-small"></sbb-mini-button>
       </sbb-mini-button-group>`,
       {
-        modules: [
-          './mini-button-group.component.ts',
-          '../../divider/divider.component.ts',
-          '../mini-button/mini-button.component.ts',
-        ],
+        modules: ['../mini-button-group.ts', '../mini-button.ts', '../../divider.ts'],
       },
     );
   });

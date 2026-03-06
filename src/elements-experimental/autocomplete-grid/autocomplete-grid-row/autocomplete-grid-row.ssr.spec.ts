@@ -11,7 +11,7 @@ describe(`sbb-autocomplete-grid-row ssr`, () => {
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-autocomplete-grid-row></sbb-autocomplete-grid-row>`, {
-      modules: ['./autocomplete-grid-row.component.ts'],
+      modules: ['../../autocomplete-grid.ts'],
     });
   });
 

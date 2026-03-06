@@ -12,7 +12,7 @@ describe(`sbb-icon ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-icon name="app-icon-small"></sbb-icon>`, {
-      modules: ['./icon.component.js'],
+      modules: ['../icon.ts'],
     });
   });
 

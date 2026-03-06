@@ -12,7 +12,7 @@ describe(`sbb-dialog-actions ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-dialog-actions></sbb-dialog-actions>`, {
-      modules: ['./dialog-actions.component.js'],
+      modules: ['../../dialog.ts'],
     });
   });
 

@@ -14,7 +14,7 @@ describe(`sbb-file-selector-dropzone ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-file-selector-dropzone></sbb-file-selector-dropzone>`,
       {
-        modules: ['./file-selector-dropzone.component.js'],
+        modules: ['../../file-selector.ts'],
       },
     );
   });

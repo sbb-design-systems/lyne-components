@@ -12,7 +12,7 @@ describe(`sbb-train ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-train></sbb-train>`, {
-      modules: ['./train.component.js'],
+      modules: ['../../train.ts'],
     });
   });
 

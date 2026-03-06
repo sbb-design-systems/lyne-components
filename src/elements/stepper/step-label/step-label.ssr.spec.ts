@@ -12,7 +12,7 @@ describe(`sbb-step-label ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-step-label>Label</sbb-step-label>`, {
-      modules: ['./step-label.component.js'],
+      modules: ['../../stepper.ts'],
     });
   });
 

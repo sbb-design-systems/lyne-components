@@ -18,7 +18,7 @@ describe(`sbb-link-list-anchor ssr`, () => {
         <sbb-block-link href="#">Link 2</sbb-block-link>
       </sbb-link-list-anchor>`,
       {
-        modules: ['../link-list-anchor.ts', '../link.ts'],
+        modules: ['../link.ts', '../link-list-anchor.ts'],
       },
     );
   });

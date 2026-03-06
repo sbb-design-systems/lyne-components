@@ -11,7 +11,7 @@ describe(`sbb-pearl-chain ssr`, () => {
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-pearl-chain></sbb-pearl-chain>`, {
-      modules: ['./pearl-chain.component.js'],
+      modules: ['../pearl-chain.ts'],
     });
   });
 

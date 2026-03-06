@@ -26,12 +26,7 @@ describe(`sbb-navigation-section ssr`, () => {
         </sbb-navigation>
       `,
       {
-        modules: [
-          '../navigation.js',
-          '../navigation-list.js',
-          '../navigation-button.js',
-          './navigation-section.component.js',
-        ],
+        modules: ['../../navigation.ts'],
       },
     );
   });

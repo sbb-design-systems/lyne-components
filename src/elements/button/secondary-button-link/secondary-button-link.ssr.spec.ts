@@ -14,7 +14,7 @@ describe(`sbb-secondary-button-link ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-secondary-button-link>Button</sbb-secondary-button-link>`,
       {
-        modules: ['./secondary-button-link.component.js'],
+        modules: ['../../button.ts'],
       },
     );
   });

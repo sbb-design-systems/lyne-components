@@ -14,7 +14,7 @@ describe(`sbb-mini-button-link ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-mini-button-link icon-name="pen-small" href="#"></sbb-mini-button-link>`,
       {
-        modules: ['../mini-button-link.js'],
+        modules: ['../../button.ts'],
       },
     );
   });

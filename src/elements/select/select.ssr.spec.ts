@@ -18,7 +18,7 @@ describe(`sbb-select ssr`, () => {
           <sbb-option id="option-3" value="3">Third</sbb-option>
         </sbb-select>
       `,
-      { modules: ['./select.component.js', '../option.js'] },
+      { modules: ['../option.ts'] },
     );
 
     assert.instanceOf(root, SbbSelectElement);
@@ -33,7 +33,7 @@ describe(`sbb-select ssr`, () => {
           <sbb-option id="option-3" value="3">Third</sbb-option>
         </sbb-select>
       `,
-      { modules: ['./select.component.js', '../option.js'] },
+      { modules: ['../option.ts'] },
     );
 
     assert.instanceOf(root, SbbSelectElement);

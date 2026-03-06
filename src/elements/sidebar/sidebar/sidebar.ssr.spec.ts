@@ -18,7 +18,7 @@ describe(`sbb-sidebar ssr`, () => {
         <sbb-sidebar-content>Content</sbb-sidebar-content>
       </sbb-sidebar-container>`,
       {
-        modules: ['./sidebar.component.js', '../sidebar-content.js', '../sidebar-container.js'],
+        modules: ['../../sidebar.ts'],
       },
     );
 
@@ -32,7 +32,7 @@ describe(`sbb-sidebar ssr`, () => {
         <sbb-sidebar-content>Content</sbb-sidebar-content>
       </sbb-sidebar-container>`,
       {
-        modules: ['./sidebar.component.js', '../sidebar-content.js', '../sidebar-container.js'],
+        modules: ['../../sidebar.ts'],
       },
     );
 
@@ -46,7 +46,7 @@ describe(`sbb-sidebar ssr`, () => {
         <sbb-sidebar-content>Content</sbb-sidebar-content>
       </sbb-sidebar-container>`,
       {
-        modules: ['./sidebar.component.js', '../sidebar-content.js', '../sidebar-container.js'],
+        modules: ['../../sidebar.ts'],
       },
     );
 

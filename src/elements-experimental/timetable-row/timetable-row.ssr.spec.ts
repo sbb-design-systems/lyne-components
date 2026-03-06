@@ -14,7 +14,7 @@ describe(`sbb-timetable-row ssr`, () => {
     // specific test.
     this.timeout(20000);
     root = await ssrHydratedFixture(html`<sbb-timetable-row></sbb-timetable-row>`, {
-      modules: ['./timetable-row.component.js'],
+      modules: ['../timetable-row.ts'],
     });
   });
 

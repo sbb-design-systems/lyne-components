@@ -20,7 +20,7 @@ describe(`sbb-notification ssr`, () => {
           <sbb-link href="/">Link one</sbb-link>
         </sbb-notification>
       `,
-      { modules: ['./notification.component.js', '../link.js', '../title.js'] },
+      { modules: ['../title.ts', '../link/link.ts'] },
     );
   });
 

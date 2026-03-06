@@ -21,7 +21,7 @@ describe(`sbb-pearl-chain-time ssr`, () => {
         >
         </sbb-pearl-chain-time>
       `,
-      { modules: ['./pearl-chain-time.component.js'] },
+      { modules: ['../pearl-chain-time.ts'] },
     );
   });
 
