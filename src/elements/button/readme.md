@@ -122,3 +122,34 @@ This can be achieved by adding an `aria-label`, `aria-labelledby` or `aria-descr
 **Note:** Using the `disabledInteractive` property can result in buttons that previously prevented
 actions to no longer do so, for example a submit button in a form. When using this input, you should
 guard against such cases in your component.
+
+## Mini Button Group
+
+The `sbb-mini-button-group` component displays a set of `sbb-mini-button`
+optionally separated by a [sbb-divider](/docs/elements-sbb-divider--docs).
+
+```html
+<sbb-mini-button-group accessibility-label="My group">
+  <sbb-mini-button icon-name="..." aria-label="..."></sbb-mini-button>
+  <sbb-mini-button icon-name="..." aria-label="..."></sbb-mini-button>
+  <sbb-divider orientation="vertical"></sbb-divider>
+  <sbb-mini-button icon-name="..." aria-label="..."></sbb-mini-button>
+</sbb-mini-button-group>
+```
+
+### Style
+
+The component has a negative variant which can be set using the `negative` property.
+
+There are four available sizes: `s`, `m` (default), `l` and `xl`.
+
+```html
+<sbb-mini-button-group negative size="l"> ... </sbb-mini-button-group>
+```
+
+### Accessibility
+
+Use the `accessibility-label` property to describe the purpose of the `sbb-mini-button-group` for screen-reader users.
+
+If `sbb-divider` components are used as separators, their `aria-hidden` property is automatically set to `true`
+to ensure that the button list is read by screen readers with the correct size.
