@@ -851,6 +851,282 @@ snapshots["sbb-calendar default renders vertical Shadow DOM"] =
 `;
 /* end snapshot sbb-calendar default renders vertical Shadow DOM */
 
+snapshots["sbb-calendar default renders in year view DOM"] = 
+`<sbb-calendar
+  orientation="horizontal"
+  selected="2023-01-20T00:00:00"
+  view="year"
+>
+</sbb-calendar>
+`;
+/* end snapshot sbb-calendar default renders in year view DOM */
+
+snapshots["sbb-calendar default renders in year view Shadow DOM"] = 
+`<div class="sbb-calendar__wrapper">
+  <div class="sbb-calendar__controls">
+    <sbb-secondary-button
+      aria-label="Change to the previous 24 years"
+      icon-name="chevron-small-left-small"
+      id="sbb-calendar__controls-previous"
+      size="m"
+      tabindex="0"
+    >
+    </sbb-secondary-button>
+    <div class="sbb-calendar__controls-month">
+      <button
+        aria-label="Choose date 2016 - 2039"
+        class="sbb-calendar__controls-change-date"
+        id="sbb-calendar__year-selection"
+        type="button"
+      >
+        2016 - 2039
+        <sbb-icon name="chevron-small-up-small">
+        </sbb-icon>
+      </button>
+      <sbb-screen-reader-only role="status">
+        2016 - 2039
+      </sbb-screen-reader-only>
+    </div>
+    <sbb-secondary-button
+      aria-label="Change to the next 24 years"
+      icon-name="chevron-small-right-small"
+      id="sbb-calendar__controls-next"
+      size="m"
+      tabindex="0"
+    >
+    </sbb-secondary-button>
+  </div>
+  <div class="sbb-calendar__table-overflow-break">
+    <div class="sbb-calendar__table-container sbb-calendar__table-year-view">
+      <table class="sbb-calendar__table">
+        <tbody class="sbb-calendar__table-body">
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+          </tr>
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="0">
+              </sbb-calendar-year>
+            </td>
+          </tr>
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+          </tr>
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+          </tr>
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+          </tr>
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+/* end snapshot sbb-calendar default renders in year view Shadow DOM */
+
+snapshots["sbb-calendar default renders in month view DOM"] = 
+`<sbb-calendar
+  orientation="horizontal"
+  selected="2023-01-20T00:00:00"
+  view="month"
+>
+</sbb-calendar>
+`;
+/* end snapshot sbb-calendar default renders in month view DOM */
+
+snapshots["sbb-calendar default renders in month view Shadow DOM"] = 
+`<div class="sbb-calendar__wrapper">
+  <div class="sbb-calendar__controls">
+    <sbb-secondary-button
+      aria-label="Change to the previous year"
+      icon-name="chevron-small-left-small"
+      id="sbb-calendar__controls-previous"
+      size="m"
+      tabindex="0"
+    >
+    </sbb-secondary-button>
+    <div class="sbb-calendar__controls-month">
+      <button
+        aria-label="Choose date 2023"
+        class="sbb-calendar__controls-change-date"
+        id="sbb-calendar__month-selection"
+        type="button"
+      >
+        2023
+        <sbb-icon name="chevron-small-up-small">
+        </sbb-icon>
+      </button>
+      <sbb-screen-reader-only role="status">
+        2023
+      </sbb-screen-reader-only>
+    </div>
+    <sbb-secondary-button
+      aria-label="Change to the next year"
+      icon-name="chevron-small-right-small"
+      id="sbb-calendar__controls-next"
+      size="m"
+      tabindex="0"
+    >
+    </sbb-secondary-button>
+  </div>
+  <div class="sbb-calendar__table-overflow-break">
+    <div class="sbb-calendar__table-container sbb-calendar__table-month-view">
+      <table class="sbb-calendar__table">
+        <tbody class="sbb-calendar__table-body">
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="0">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+          </tr>
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+          </tr>
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+/* end snapshot sbb-calendar default renders in month view Shadow DOM */
+
 snapshots["sbb-calendar default renders multiple DOM"] = 
 `<sbb-calendar
   multiple=""
@@ -903,7 +1179,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Monday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 M
               </button>
@@ -911,7 +1187,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Tuesday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 T
               </button>
@@ -919,7 +1195,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Wednesday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 W
               </button>
@@ -927,7 +1203,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Thursday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 T
               </button>
@@ -935,7 +1211,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Friday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 F
               </button>
@@ -943,7 +1219,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Saturday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 S
               </button>
@@ -951,7 +1227,7 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Sunday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 S
               </button>
@@ -3376,7 +3652,7 @@ snapshots["sbb-calendar enhanced renders Shadow DOM"] =
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
-                  tabindex="0"
+                  tabindex="-1"
                 >
                 </sbb-calendar-day>
               </slot>
@@ -3954,7 +4230,7 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
-                  tabindex="0"
+                  tabindex="-1"
                 >
                 </sbb-calendar-day>
               </slot>
@@ -4079,6 +4355,592 @@ snapshots["sbb-calendar enhanced renders vertical Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-calendar enhanced renders vertical Shadow DOM */
+
+snapshots["sbb-calendar enhanced renders in year view DOM"] = 
+`<sbb-calendar
+  orientation="horizontal"
+  selected="2023-01-20T00:00:00"
+  view="year"
+>
+  <sbb-calendar-day
+    slot="2023-01-01"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-02"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-03"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-04"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-05"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-06"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-07"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-08"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-09"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-10"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-11"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-12"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-13"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-14"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-15"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-16"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-17"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-18"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-19"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-20"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-21"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-22"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-23"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-24"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-25"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-26"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-27"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-28"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-29"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-30"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-31"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+</sbb-calendar>
+`;
+/* end snapshot sbb-calendar enhanced renders in year view DOM */
+
+snapshots["sbb-calendar enhanced renders in year view Shadow DOM"] = 
+`<div class="sbb-calendar__wrapper">
+  <div class="sbb-calendar__controls">
+    <sbb-secondary-button
+      aria-label="Change to the previous 24 years"
+      icon-name="chevron-small-left-small"
+      id="sbb-calendar__controls-previous"
+      size="m"
+      tabindex="0"
+    >
+    </sbb-secondary-button>
+    <div class="sbb-calendar__controls-month">
+      <button
+        aria-label="Choose date 2016 - 2039"
+        class="sbb-calendar__controls-change-date"
+        id="sbb-calendar__year-selection"
+        type="button"
+      >
+        2016 - 2039
+        <sbb-icon name="chevron-small-up-small">
+        </sbb-icon>
+      </button>
+      <sbb-screen-reader-only role="status">
+        2016 - 2039
+      </sbb-screen-reader-only>
+    </div>
+    <sbb-secondary-button
+      aria-label="Change to the next 24 years"
+      icon-name="chevron-small-right-small"
+      id="sbb-calendar__controls-next"
+      size="m"
+      tabindex="0"
+    >
+    </sbb-secondary-button>
+  </div>
+  <div class="sbb-calendar__table-overflow-break">
+    <div class="sbb-calendar__table-container sbb-calendar__table-year-view">
+      <table class="sbb-calendar__table">
+        <tbody class="sbb-calendar__table-body">
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+          </tr>
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="0">
+              </sbb-calendar-year>
+            </td>
+          </tr>
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+          </tr>
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+          </tr>
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+          </tr>
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-year tabindex="-1">
+              </sbb-calendar-year>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+/* end snapshot sbb-calendar enhanced renders in year view Shadow DOM */
+
+snapshots["sbb-calendar enhanced renders in month view DOM"] = 
+`<sbb-calendar
+  orientation="horizontal"
+  selected="2023-01-20T00:00:00"
+  view="month"
+>
+  <sbb-calendar-day
+    slot="2023-01-01"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-02"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-03"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-04"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-05"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-06"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-07"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-08"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-09"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-10"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-11"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-12"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-13"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-14"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-15"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-16"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-17"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-18"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-19"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-20"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-21"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-22"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-23"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-24"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-25"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-26"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-27"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-28"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-29"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-30"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+  <sbb-calendar-day
+    slot="2023-01-31"
+    tabindex="-1"
+  >
+  </sbb-calendar-day>
+</sbb-calendar>
+`;
+/* end snapshot sbb-calendar enhanced renders in month view DOM */
+
+snapshots["sbb-calendar enhanced renders in month view Shadow DOM"] = 
+`<div class="sbb-calendar__wrapper">
+  <div class="sbb-calendar__controls">
+    <sbb-secondary-button
+      aria-label="Change to the previous year"
+      icon-name="chevron-small-left-small"
+      id="sbb-calendar__controls-previous"
+      size="m"
+      tabindex="0"
+    >
+    </sbb-secondary-button>
+    <div class="sbb-calendar__controls-month">
+      <button
+        aria-label="Choose date 2023"
+        class="sbb-calendar__controls-change-date"
+        id="sbb-calendar__month-selection"
+        type="button"
+      >
+        2023
+        <sbb-icon name="chevron-small-up-small">
+        </sbb-icon>
+      </button>
+      <sbb-screen-reader-only role="status">
+        2023
+      </sbb-screen-reader-only>
+    </div>
+    <sbb-secondary-button
+      aria-label="Change to the next year"
+      icon-name="chevron-small-right-small"
+      id="sbb-calendar__controls-next"
+      size="m"
+      tabindex="0"
+    >
+    </sbb-secondary-button>
+  </div>
+  <div class="sbb-calendar__table-overflow-break">
+    <div class="sbb-calendar__table-container sbb-calendar__table-month-view">
+      <table class="sbb-calendar__table">
+        <tbody class="sbb-calendar__table-body">
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="0">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+          </tr>
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+          </tr>
+          <tr>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+            <td class="sbb-calendar__table-data">
+              <sbb-calendar-month tabindex="-1">
+              </sbb-calendar-month>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+/* end snapshot sbb-calendar enhanced renders in month view Shadow DOM */
 
 snapshots["sbb-calendar enhanced renders multiple DOM"] = 
 `<sbb-calendar
@@ -4287,7 +5149,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Monday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 M
               </button>
@@ -4295,7 +5157,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Tuesday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 T
               </button>
@@ -4303,7 +5165,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Wednesday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 W
               </button>
@@ -4311,7 +5173,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Thursday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 T
               </button>
@@ -4319,7 +5181,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Friday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 F
               </button>
@@ -4327,7 +5189,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Saturday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 S
               </button>
@@ -4335,7 +5197,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
             <th class="sbb-calendar__table-header-cell">
               <button
                 aria-label="Sunday"
-                class="sbb-calendar__header-cell sbb-calendar__weekday"
+                class="sbb-calendar__header-cell"
               >
                 S
               </button>
@@ -4537,7 +5399,7 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
-                  tabindex="0"
+                  tabindex="-1"
                 >
                 </sbb-calendar-day>
               </slot>
@@ -5155,7 +6017,7 @@ snapshots["sbb-calendar enhanced renders horizontal wide with week numbers Shado
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
-                  tabindex="0"
+                  tabindex="-1"
                 >
                 </sbb-calendar-day>
               </slot>
@@ -6170,7 +7032,7 @@ snapshots["sbb-calendar enhanced renders vertical wide with week numbers Shadow 
               <slot name="2023-01-20">
                 <sbb-calendar-day
                   slot="2023-01-20"
-                  tabindex="0"
+                  tabindex="-1"
                 >
                 </sbb-calendar-day>
               </slot>

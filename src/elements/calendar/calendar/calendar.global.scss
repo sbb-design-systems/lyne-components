@@ -1,0 +1,16 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-calendar-cell-background-color: transparent;
+  --sbb-calendar-cell-background-color-hover: var(--sbb-background-color-3);
+  --sbb-calendar-cell-background-color-active: var(--sbb-background-color-4);
+  --sbb-calendar-cell-padding: #{sbb.px-to-rem-build(2)};
+  --sbb-calendar-cell-border-width: var(--sbb-border-width-2x);
+  --sbb-calendar-cell-disabled-height: #{sbb.px-to-rem-build(1.5)};
+  --sbb-calendar-cell-disabled-width: #{sbb.px-to-rem-build(25.5)};
+  --sbb-calendar-cell-disabled-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+  --sbb-calendar-cell-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-calendar-cell-hover-shift: #{sbb.px-to-rem-build(1)};
+}
