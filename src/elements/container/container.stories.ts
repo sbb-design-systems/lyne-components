@@ -1,17 +1,16 @@
 import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import { html, nothing, type TemplateResult } from 'lit';
-import type { InputType } from 'storybook/internal/types';
 import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import sampleImages from '../core/images.ts';
 import { SbbStickyBarElement } from '../container.ts';
+import sampleImages from '../core/images.ts';
 
 import '../action-group.ts';
 import '../button/button.ts';
 import '../button/secondary-button.ts';
 import '../card.ts';
-import '../container.ts';
 import '../image.ts';
 import '../link.ts';
 import '../title.ts';

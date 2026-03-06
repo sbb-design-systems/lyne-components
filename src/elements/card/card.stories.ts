@@ -7,6 +7,7 @@ import type {
   StoryObj,
 } from '@storybook/web-components-vite';
 import { html, type TemplateResult } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
@@ -15,7 +16,6 @@ import readme from './readme.md?raw';
 
 import '../card.ts';
 import '../title.ts';
-import { withActions } from 'storybook/actions/decorator';
 
 const ContentText = (): TemplateResult => html`
   <span class="sbb-text-m">
