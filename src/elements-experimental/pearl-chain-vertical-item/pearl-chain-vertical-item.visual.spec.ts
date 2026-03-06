@@ -4,7 +4,7 @@ import {
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html, type TemplateResult } from 'lit';
 
-import './pearl-chain-vertical-item.component.ts';
+import '../pearl-chain-vertical-item.ts';
 
 describe(`sbb-pearl-chain-vertical-item`, () => {
   const defaultArgs = {

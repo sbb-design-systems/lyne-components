@@ -14,7 +14,8 @@ import {
   redirectedOnArrivalLeg,
   redirectedOnDepartureLeg,
 } from './pearl-chain.sample-data.private.ts';
-import './pearl-chain.component.ts';
+
+import '../pearl-chain.ts';
 
 describe(`sbb-pearl-chain`, () => {
   const cases = [

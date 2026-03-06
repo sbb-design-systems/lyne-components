@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbFlipCardSummaryElement } from './flip-card-summary.component.ts';
 
-import './flip-card-summary.component.ts';
+import '../../flip-card.ts';
 import '../../title.ts';
 import '../../image.ts';
 

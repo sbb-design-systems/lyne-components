@@ -11,7 +11,7 @@ import {
 import type { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.ts';
 
 import '../../form-field.ts';
-import './file-selector-dropzone.component.ts';
+import '../../file-selector.ts';
 
 describe(`sbb-file-selector-dropzone`, () => {
   function addFilesToComponentInput(elem: SbbFileSelectorDropzoneElement): void {
