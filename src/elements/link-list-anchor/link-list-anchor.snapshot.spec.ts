@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbLinkListAnchorElement } from './link-list-anchor.component.ts';
-import './link-list-anchor.component.ts';
+import '../link-list-anchor.ts';
 import '../link/block-link.ts';
 
 describe(`sbb-link-list-anchor`, () => {
