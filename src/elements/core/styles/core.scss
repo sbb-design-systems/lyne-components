@@ -85,7 +85,7 @@ $theme: 'standard' !default;
 @use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
   $theme: $theme
 );
-@use '../../radio-button/radio-button-group/radio-button-group.global' as radio-button-group with (
+@use '../../radio-button-group/radio-button-group.global' as radio-button-group with (
   $theme: $theme
 );
 @use '../../selection-action-panel/selection-action-panel.global' as selection-action-panel with (
