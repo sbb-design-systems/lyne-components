@@ -3,7 +3,7 @@ import { type CSSResultGroup, html, isServer, type PropertyValues, type Template
 import { SbbElement } from '../../core/base-elements.ts';
 import { ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { sidebarContainerCommonStyle } from '../common.ts';
+import { sidebarContainerCommonStyle } from '../common/styles.ts';
 import type { SbbSidebarElement } from '../sidebar/sidebar.component.ts';
 
 import style from './sidebar-container.scss?lit&inline';

@@ -10,7 +10,7 @@ import {
 
 import type { SbbFileSelectorElement } from './file-selector.component.ts';
 
-import '../../form-field/error.ts';
+import '../../form-field.ts';
 import './file-selector.component.ts';
 
 describe(`sbb-file-selector`, () => {

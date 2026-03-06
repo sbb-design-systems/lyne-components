@@ -4,10 +4,7 @@ import { withActions } from 'storybook/actions/decorator';
 
 import readme from './readme.md?raw';
 
-import './autocomplete-grid-row.component.ts';
-import '../autocomplete-grid-cell.ts';
-import '../autocomplete-grid-option.ts';
-import '../autocomplete-grid-button.ts';
+import '../../autocomplete-grid.ts';
 
 const Template = (): TemplateResult => html`
   <sbb-autocomplete-grid-row>

@@ -1,6 +1,6 @@
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.ts';
-import { SbbMenuActionCommonElementMixin } from '../common.ts';
+import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common.ts';
 
 /**
  * It displays a button element that can be used in the `sbb-menu` component.

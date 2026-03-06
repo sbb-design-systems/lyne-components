@@ -10,14 +10,14 @@ import {
 } from '../core/testing/private.ts';
 
 import './selection-expansion-panel.component.ts';
-import '../card/card-badge.ts';
-import '../checkbox/checkbox-panel.ts';
-import '../checkbox/checkbox-group.ts';
-import '../form-field/error.ts';
+import '../card.ts';
+import '../checkbox-panel.ts';
+import '../checkbox-group.ts';
+import '../form-field.ts';
 import '../icon.ts';
 import '../link/block-link-button.ts';
-import '../radio-button/radio-button-panel.ts';
-import '../radio-button/radio-button-group.ts';
+import '../radio-button-panel.ts';
+import '../radio-button-group.ts';
 
 describe(`sbb-selection-expansion-panel`, () => {
   let root: HTMLElement;

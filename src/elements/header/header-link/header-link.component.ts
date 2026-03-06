@@ -1,5 +1,5 @@
 import { SbbLinkBaseElement } from '../../core/base-elements.ts';
-import { SbbHeaderActionCommonElementMixin } from '../common.ts';
+import { SbbHeaderActionCommonElementMixin } from '../common/header-action-common.ts';
 
 /**
  * It displays a link element that can be used in the `sbb-header` component.

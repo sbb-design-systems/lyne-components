@@ -8,6 +8,8 @@ import {
 } from '../../core/mixins.ts';
 import type { SbbRadioButtonGroupElement } from '../../radio-button-group.ts';
 
+export { default as radioButtonCommonStyle } from './radio-button-common.scss?lit&inline';
+
 export type SbbRadioButtonSize = 'xs' | 's' | 'm';
 
 export declare abstract class SbbRadioButtonCommonElementMixinType extends SbbFormAssociatedRadioButtonMixin(

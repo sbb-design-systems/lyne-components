@@ -7,8 +7,8 @@ import {
   visualDiffFocus,
 } from '../core/testing/private.ts';
 
-import '../card/card-badge.ts';
-import '../form-field/error.ts';
+import '../card.ts';
+import '../form-field.ts';
 import '../icon.ts';
 import '../radio-button.ts';
 

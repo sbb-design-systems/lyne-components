@@ -7,7 +7,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { getI18nSeatReservation } from '../common.ts';
+import { getI18nSeatReservation } from '../common/translations.ts';
 import type {
   CoachItem,
   Place,
@@ -16,7 +16,7 @@ import type {
   PlaceSelection,
   SeatReservation,
   NavigationCoachItem,
-} from '../common.ts';
+} from '../common/types.ts';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.ts';
 import style from './seat-reservation.scss?lit&inline';
@@ -24,11 +24,11 @@ import style from './seat-reservation.scss?lit&inline';
 import '@sbb-esta/lyne-elements/button.js';
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
 import '@sbb-esta/lyne-elements/popover.js';
-import '../seat-reservation-area.ts';
-import '../seat-reservation-graphic.ts';
-import '../seat-reservation-place-control.ts';
-import '../seat-reservation-navigation-coach.ts';
-import '../seat-reservation-scoped.ts';
+import '../seat-reservation-area/seat-reservation-area.component.ts';
+import '../seat-reservation-graphic/seat-reservation-graphic.component.ts';
+import '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
+import '../seat-reservation-navigation-coach/seat-reservation-navigation-coach.component.ts';
+import '../seat-reservation-scoped/seat-reservation-scoped.component.ts';
 
 /**
  * Main component for the seat reservation.

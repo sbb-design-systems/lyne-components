@@ -7,7 +7,8 @@ import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
-import { getI18nSeatReservation, mapIconToSvg } from '../common.ts';
+import { mapIconToSvg } from '../common/mapper.ts';
+import { getI18nSeatReservation } from '../common/translations.ts';
 
 import style from './seat-reservation-graphic.scss?lit&inline';
 

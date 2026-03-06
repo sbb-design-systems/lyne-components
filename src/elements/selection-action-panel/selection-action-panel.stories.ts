@@ -9,7 +9,7 @@ import './selection-action-panel.component.ts';
 import '../button/secondary-button.ts';
 import '../card.ts';
 import '../checkbox.ts';
-import '../form-field/error.ts';
+import '../form-field.ts';
 import '../link/block-link-button.ts';
 import '../radio-button.ts';
 import '../selection-expansion-panel.ts';

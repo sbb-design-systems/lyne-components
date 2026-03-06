@@ -4,7 +4,7 @@ import { html } from 'lit';
 import type { SbbAutocompleteElement } from '../../autocomplete.ts';
 import type { SbbDialogElement } from '../../dialog.ts';
 import type { SbbMenuElement } from '../../menu.ts';
-import type { SbbOpenCloseBaseElement } from '../base-elements/base-elements.component.ts';
+import type { SbbOpenCloseBaseElement } from '../base-elements.ts';
 import { fixture } from '../testing/private.ts';
 
 import '../../autocomplete.ts';

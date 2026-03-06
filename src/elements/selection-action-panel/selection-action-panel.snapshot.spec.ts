@@ -6,8 +6,8 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 import type { SbbSelectionActionPanelElement } from './selection-action-panel.component.ts';
 
 import '../button/secondary-button.ts';
-import '../card/card-badge.ts';
-import '../checkbox/checkbox-panel.ts';
+import '../card.ts';
+import '../checkbox-panel.ts';
 import './selection-action-panel.component.ts';
 
 describe(`sbb-selection-action-panel`, () => {

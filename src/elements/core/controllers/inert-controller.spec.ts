@@ -1,7 +1,7 @@
 import { expect } from '@open-wc/testing';
 import { html, LitElement, type ReactiveControllerHost, type TemplateResult } from 'lit';
 
-import type { SbbOpenCloseBaseElement } from '../base-elements/base-elements.component.ts';
+import type { SbbOpenCloseBaseElement } from '../base-elements.ts';
 import { fixture } from '../testing/private.ts';
 
 import { SbbInertController } from './inert-controller.ts';

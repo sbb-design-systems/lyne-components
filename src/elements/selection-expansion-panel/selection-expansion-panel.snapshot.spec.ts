@@ -5,8 +5,8 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.ts';
 
-import '../card/card-badge.ts';
-import '../checkbox/checkbox-panel.ts';
+import '../card.ts';
+import '../checkbox-panel.ts';
 import './selection-expansion-panel.component.ts';
 
 describe(`sbb-selection-expansion-panel`, () => {

@@ -1,6 +1,6 @@
 import { isServer, type ReactiveElement } from 'lit';
 
-import type { AbstractConstructor } from '../mixins/mixins.component.ts';
+import type { AbstractConstructor } from '../mixins.ts';
 
 function applyAttributes(
   instance: ReactiveElement,

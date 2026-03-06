@@ -1,12 +1,12 @@
 import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbCheckboxGroupElement } from '../../checkbox/checkbox-group.ts';
 import type { SbbCheckboxSize } from '../../checkbox/common/checkbox-common.ts';
+import type { SbbCheckboxGroupElement } from '../../checkbox-group.ts';
 import type { SbbRadioButtonSize } from '../../radio-button/common/radio-button-common.ts';
-import type { SbbRadioButtonGroupElement } from '../../radio-button/radio-button-group.ts';
-import { forceType, getOverride } from '../decorators/decorators.component.ts';
-import { isLean } from '../dom/dom.component.ts';
+import type { SbbRadioButtonGroupElement } from '../../radio-button-group.ts';
+import { forceType, getOverride } from '../decorators.ts';
+import { isLean } from '../dom.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 

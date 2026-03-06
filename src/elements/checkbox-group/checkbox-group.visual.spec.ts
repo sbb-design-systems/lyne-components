@@ -4,7 +4,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
 
 import '../card.ts';
-import '../form-field/error.ts';
+import '../form-field.ts';
 import '../icon.ts';
 import '../checkbox.ts';
 import '../checkbox-panel.ts';

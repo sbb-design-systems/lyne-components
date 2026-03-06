@@ -1,11 +1,11 @@
 import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 
 import type { SbbCardBadgeElement } from '../card.ts';
-import type { SbbCheckboxPanelElement } from '../checkbox/checkbox-panel.ts';
+import type { SbbCheckboxPanelElement } from '../checkbox-panel.ts';
 import { SbbElement } from '../core/base-elements.ts';
 import { SbbSelectionPanelMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbRadioButtonPanelElement } from '../radio-button/radio-button-panel.ts';
+import type { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
 
 import style from './selection-action-panel.scss?lit&inline';
 

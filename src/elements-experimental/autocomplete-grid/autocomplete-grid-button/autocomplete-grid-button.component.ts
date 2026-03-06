@@ -8,8 +8,8 @@ import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { SbbIconNameMixin } from '@sbb-esta/lyne-elements/icon.js';
 import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 
-import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup.ts';
-import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.ts';
+import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup/autocomplete-grid-optgroup.component.ts';
+import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/autocomplete-grid-option.component.ts';
 
 let autocompleteButtonNextId = 0;
 

@@ -13,7 +13,7 @@ import {
   SbbCheckboxCommonElementMixin,
   checkboxCommonStyle,
   type SbbCheckboxSize,
-} from './common.ts';
+} from './common/checkbox-common.ts';
 
 import '../visual-checkbox.ts';
 

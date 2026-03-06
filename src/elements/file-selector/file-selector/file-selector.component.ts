@@ -5,7 +5,10 @@ import { html } from 'lit/static-html.js';
 import type { SbbSecondaryButtonStaticElement } from '../../button.ts';
 import { SbbElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { fileSelectorCommonStyle, SbbFileSelectorCommonElementMixin } from '../common.ts';
+import {
+  fileSelectorCommonStyle,
+  SbbFileSelectorCommonElementMixin,
+} from '../common/file-selector-common.ts';
 
 import '../../button/secondary-button-static.ts';
 

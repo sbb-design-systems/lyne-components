@@ -8,7 +8,7 @@ import { forceType } from '../../core/decorators.ts';
 import { i18nItemsPerPage, i18nPage } from '../../core/i18n.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbSelectElement } from '../../select.ts';
-import { SbbPaginatorCommonElementMixin } from '../common.ts';
+import { SbbPaginatorCommonElementMixin } from '../common/paginator-common.ts';
 
 import style from './paginator.scss?lit&inline';
 

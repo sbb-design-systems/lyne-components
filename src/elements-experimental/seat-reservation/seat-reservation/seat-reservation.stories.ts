@@ -6,7 +6,8 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 import { MOCK_GIRUNO_TRAIN } from '../common/mapper/seat-reservation-sample-data.ts';
-import { mapRawDataToSeatReservation, type CoachItem, type SeatReservation } from '../common.ts';
+import { mapRawDataToSeatReservation } from '../common/mapper.ts';
+import type { CoachItem, SeatReservation } from '../common/types.ts';
 
 import readme from './readme.md?raw';
 import { SbbSeatReservationElement } from './seat-reservation.component.ts';

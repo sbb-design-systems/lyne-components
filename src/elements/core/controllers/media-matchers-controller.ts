@@ -9,7 +9,7 @@ import {
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
 import { ɵstateController } from '../mixins/element-internals-mixin.ts';
-import type { SbbElementInternalsMixinType } from '../mixins/mixins.component.ts';
+import type { SbbElementInternalsMixinType } from '../mixins.ts';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export const SbbMediaQueryForcedColors = '(forced-colors: active)';

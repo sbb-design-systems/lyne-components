@@ -24,7 +24,7 @@ import type {
   SeatReservationPlaceSelection,
   SeatReservationSelectedCoach,
   SeatReservationSelectedPlaces,
-} from '../common.ts';
+} from '../common/types.ts';
 import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
 
 enum ScrollDirection {

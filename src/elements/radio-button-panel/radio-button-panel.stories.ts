@@ -10,7 +10,7 @@ import readme from './readme.md?raw';
 
 import '../icon.ts';
 import '../title.ts';
-import '../card/card-badge.ts';
+import '../card.ts';
 import '../radio-button-panel.ts';
 
 const value: InputType = {

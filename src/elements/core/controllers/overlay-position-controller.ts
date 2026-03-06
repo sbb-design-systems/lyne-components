@@ -1,6 +1,6 @@
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
-import type { SbbElementInternalsMixinType } from '../mixins/mixins.component.ts';
+import type { SbbElementInternalsMixinType } from '../mixins.ts';
 
 const cssAnchorPositionSupported = !isServer && CSS.supports('anchor-name', '--test');
 

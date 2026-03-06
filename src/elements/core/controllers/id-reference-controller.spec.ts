@@ -3,7 +3,7 @@ import { html, LitElement, type PropertyDeclaration } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { fixture } from '../testing/private.ts';
-import { waitForLitRender } from '../testing/testing.component.ts';
+import { waitForLitRender } from '../testing.ts';
 
 import { SbbIdReferenceController } from './id-reference-controller.ts';
 

@@ -9,9 +9,9 @@ import { isLean } from '../core/dom.ts';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.ts';
 import { SbbDisabledMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbRadioButtonSize } from '../radio-button/common.ts';
-import type { SbbRadioButtonPanelElement } from '../radio-button/radio-button-panel.ts';
-import type { SbbRadioButtonElement } from '../radio-button/radio-button.ts';
+import type { SbbRadioButtonSize } from '../radio-button/common/radio-button-common.ts';
+import type { SbbRadioButtonElement } from '../radio-button/radio-button.component.ts';
+import type { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
 
 import style from './radio-button-group.scss?lit&inline';
 

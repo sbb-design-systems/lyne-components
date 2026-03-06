@@ -8,12 +8,12 @@ import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
 import { getI18nSeatReservation } from '../common/translations.ts';
-import type { CoachNumberOfFreePlaces, PlaceTravelClass } from '../common.ts';
+import type { CoachNumberOfFreePlaces, PlaceTravelClass } from '../common/types.ts';
 
 import style from './seat-reservation-navigation-coach.scss?lit&inline';
 
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
-import '../seat-reservation-navigation-services.ts';
+import '../seat-reservation-navigation-services/seat-reservation-navigation-services.component.ts';
 
 export type SelectCoachEventDetails = number;
 

@@ -11,7 +11,7 @@ import {
   SbbRadioButtonCommonElementMixin,
   radioButtonCommonStyle,
   type SbbRadioButtonSize,
-} from './common.ts';
+} from './common/radio-button-common.ts';
 import radioButtonStyle from './radio-button.scss?lit&inline';
 
 /**

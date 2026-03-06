@@ -6,10 +6,10 @@ import { type CSSResultGroup, html, nothing, type TemplateResult, type PropertyV
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { getI18nSeatReservation } from '../common.ts';
-import type { PlaceSelection, PlaceState, PlaceType } from '../common.ts';
+import { getI18nSeatReservation } from '../common/translations.ts';
+import type { PlaceSelection, PlaceState, PlaceType } from '../common/types.ts';
 
-import '../seat-reservation-graphic.ts';
+import '../seat-reservation-graphic/seat-reservation-graphic.component.ts';
 
 import style from './seat-reservation-place-control.scss?lit&inline';
 

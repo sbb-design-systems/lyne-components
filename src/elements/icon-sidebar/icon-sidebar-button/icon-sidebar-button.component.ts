@@ -3,7 +3,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
-import { iconSidebarButtonCommonStyle } from '../../sidebar/common.ts';
+import { iconSidebarButtonCommonStyle } from '../../sidebar/common/styles.ts';
 import type { SbbTooltipDefaultPositions } from '../../tooltip.ts';
 
 /**

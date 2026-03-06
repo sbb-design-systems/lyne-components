@@ -28,6 +28,8 @@ import {
 
 import '../../button/secondary-button.ts';
 
+export { default as fileSelectorCommonStyle } from './file-selector-common.scss?lit&inline';
+
 export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbDisabledMixin(
   SbbFormAssociatedMixin(SbbElement),
 ) {

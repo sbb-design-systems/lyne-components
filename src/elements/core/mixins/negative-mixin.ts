@@ -1,7 +1,7 @@
 import type { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType } from '../decorators/decorators.component.ts';
+import { forceType } from '../decorators.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 

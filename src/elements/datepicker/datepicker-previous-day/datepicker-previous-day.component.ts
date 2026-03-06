@@ -3,7 +3,7 @@ import type { CSSResultGroup } from 'lit';
 import { miniButtonStyle } from '../../button/common.ts';
 import { i18nPreviousDay, i18nSelectPreviousDay } from '../../core/i18n.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { datepickerButtonStyle, SbbDatepickerButton } from '../common.ts';
+import { datepickerButtonStyle, SbbDatepickerButton } from '../common/datepicker-button.ts';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date back.

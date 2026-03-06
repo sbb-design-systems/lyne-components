@@ -1,5 +1,5 @@
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { SbbCardActionCommonElementMixin } from '../common.ts';
+import { SbbCardActionCommonElementMixin } from '../common/card-action-common.ts';
 
 /**
  * It turns the `sbb-card` into a button element.

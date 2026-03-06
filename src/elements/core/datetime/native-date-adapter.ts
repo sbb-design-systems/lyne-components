@@ -1,4 +1,4 @@
-import { SbbLanguageController } from '../controllers/controllers.component.ts';
+import { SbbLanguageController } from '../controllers.ts';
 
 import { DateAdapter } from './date-adapter.ts';
 

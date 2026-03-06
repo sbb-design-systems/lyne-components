@@ -2,7 +2,7 @@ import { html, type TemplateResult } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
-import type { SbbFormFieldElement } from '../../form-field/form-field.ts';
+import type { SbbFormFieldElement } from '../../form-field.ts';
 
 import '../../chip.ts';
 

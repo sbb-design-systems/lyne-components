@@ -6,8 +6,8 @@ import { setAriaComboBoxAttributes } from '@sbb-esta/lyne-elements/core/overlay.
 import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.js';
 import type { SbbOptGroupElement, SbbOptionHintElement } from '@sbb-esta/lyne-elements/option.js';
 
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.ts';
-import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.ts';
+import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button/autocomplete-grid-button.component.ts';
+import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/autocomplete-grid-option.component.ts';
 
 let nextId = 0;
 

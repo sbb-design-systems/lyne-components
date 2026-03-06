@@ -43,7 +43,7 @@ import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.ts';
 import style from './menu.scss?lit&inline';
 
 import '../../divider.ts';
-import '../../menu.ts';
+import '../menu-button/menu-button.component.ts';
 
 const MENU_OFFSET = 8;
 const NESTED_MENU_OFFSET = -4;

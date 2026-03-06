@@ -1,4 +1,4 @@
-import type { DateAdapter } from '../datetime/datetime.component.ts';
+import type { DateAdapter } from '../datetime.ts';
 
 export interface SbbIconConfig {
   interceptor?: (parameters: {

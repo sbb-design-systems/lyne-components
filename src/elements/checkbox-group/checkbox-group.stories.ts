@@ -13,9 +13,9 @@ import readme from './readme.md?raw';
 import './checkbox-group.component.ts';
 import '../checkbox.ts';
 import '../checkbox-panel.ts';
-import '../form-field/error.ts';
+import '../form-field.ts';
 import '../icon.ts';
-import '../card/card-badge.ts';
+import '../card.ts';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et

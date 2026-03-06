@@ -1,7 +1,7 @@
 import type { ComplexAttributeConverter, ReactiveElement } from 'lit';
 
-import { readConfig } from '../config/config.component.ts';
-import { type DateAdapter, defaultDateAdapter } from '../datetime/datetime.component.ts';
+import { readConfig } from '../config.ts';
+import { type DateAdapter, defaultDateAdapter } from '../datetime.ts';
 
 import type { Interface } from './base.ts';
 

@@ -1,5 +1,5 @@
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { SbbNavigationActionCommonElementMixin } from '../common.ts';
+import { SbbNavigationActionCommonElementMixin } from '../common/navigation-action-common.ts';
 
 /**
  * It displays a button element that can be used in the `sbb-navigation` component.

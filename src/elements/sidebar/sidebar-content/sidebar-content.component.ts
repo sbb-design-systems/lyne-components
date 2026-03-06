@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 
 import { SbbElement } from '../../core/base-elements.ts';
-import { sidebarContentCommonStyle } from '../common.ts';
+import { sidebarContentCommonStyle } from '../common/styles.ts';
 
 import style from './sidebar-content.scss?lit&inline';
 

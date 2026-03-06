@@ -11,7 +11,7 @@ import { SbbSelectionActionPanelElement } from './selection-action-panel.compone
 
 import '../link/block-link-button.ts';
 import '../button/secondary-button.ts';
-import '../card/card-badge.ts';
+import '../card.ts';
 
 describe(`sbb-selection-action-panel`, () => {
   let elements: SbbSelectionActionPanelElement[];

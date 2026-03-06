@@ -7,12 +7,11 @@ import { boxSizingStyles } from '../core/styles.ts';
 import {
   radioButtonCommonStyle,
   SbbRadioButtonCommonElementMixin,
-} from '../radio-button/common.ts';
+} from '../radio-button/common/radio-button-common.ts';
 
 import '../screen-reader-only.ts';
 
 /**
- /**
  * It displays a radio button enhanced with the panel design.
  *
  * @slot - Use the unnamed slot to add content to the radio label.

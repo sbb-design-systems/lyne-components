@@ -3,10 +3,10 @@ import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbButtonBaseElement } from '../base-elements/base-elements.component.ts';
-import { isChromium } from '../dom/dom.component.ts';
+import { SbbButtonBaseElement } from '../base-elements.ts';
+import { isChromium } from '../dom.ts';
 import { a11yTreeSnapshot, fixture, type A11yNode } from '../testing/private.ts';
-import { waitForLitRender } from '../testing/testing.component.ts';
+import { waitForLitRender } from '../testing.ts';
 
 import { SbbDisabledMixin, SbbDisabledTabIndexActionMixin } from './disabled-mixin.ts';
 

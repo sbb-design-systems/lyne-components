@@ -3,7 +3,7 @@ import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { fixture } from '../testing/private.ts';
-import { waitForLitRender } from '../testing/testing.component.ts';
+import { waitForLitRender } from '../testing.ts';
 
 import { idReference } from './id-reference.ts';
 

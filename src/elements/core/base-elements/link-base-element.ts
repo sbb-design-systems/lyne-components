@@ -1,9 +1,9 @@
 import { html, isServer, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../controllers/controllers.component.ts';
-import { forceType, omitEmptyConverter } from '../decorators/decorators.component.ts';
-import { i18nTargetOpensInNewWindow } from '../i18n/i18n.component.ts';
+import { SbbLanguageController } from '../controllers.ts';
+import { forceType, omitEmptyConverter } from '../decorators.ts';
+import { i18nTargetOpensInNewWindow } from '../i18n.ts';
 
 import { SbbActionBaseElement } from './action-base-element.ts';
 

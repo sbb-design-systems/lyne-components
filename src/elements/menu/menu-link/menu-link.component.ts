@@ -1,6 +1,6 @@
 import { SbbLinkBaseElement } from '../../core/base-elements.ts';
 import { SbbDisabledInteractiveMixin } from '../../core/mixins.ts';
-import { SbbMenuActionCommonElementMixin } from '../common.ts';
+import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common.ts';
 
 /**
  * It displays a link element that can be used in the `sbb-menu` component.

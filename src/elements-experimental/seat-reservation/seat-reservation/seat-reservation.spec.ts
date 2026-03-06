@@ -5,7 +5,8 @@ import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing
 import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover.component.js';
 import { html } from 'lit/static-html.js';
 
-import { mapRawDataToSeatReservation, type SeatReservation } from '../common.ts';
+import { mapRawDataToSeatReservation } from '../common/mapper.ts';
+import type { SeatReservation } from '../common/types.ts';
 import type { SbbSeatReservationAreaElement } from '../seat-reservation-area/seat-reservation-area.component.ts';
 import { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
 

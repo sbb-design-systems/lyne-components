@@ -10,7 +10,7 @@ import { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.compo
 
 import '../../datepicker.ts';
 import '../../date-input.ts';
-import '../../form-field/form-field.ts';
+import '../../form-field.ts';
 
 describe(`sbb-datepicker-previous-day`, () => {
   describe('standalone', () => {

@@ -11,7 +11,10 @@ import {
   i18nFileSelectorSubtitleLabelMultiple,
 } from '../../core/i18n.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { fileSelectorCommonStyle, SbbFileSelectorCommonElementMixin } from '../common.ts';
+import {
+  fileSelectorCommonStyle,
+  SbbFileSelectorCommonElementMixin,
+} from '../common/file-selector-common.ts';
 
 import '../../button/secondary-button-static.ts';
 import '../../icon.ts';

@@ -15,7 +15,7 @@ import '../radio-button.ts';
 import '../radio-button-panel.ts';
 import '../form-field.ts';
 import '../icon.ts';
-import '../card/card-badge.ts';
+import '../card.ts';
 
 const suffixStyle: Readonly<StyleInfo> = {
   display: 'flex',

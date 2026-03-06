@@ -7,7 +7,10 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { checkboxCommonStyle, SbbCheckboxCommonElementMixin } from '../checkbox/common.ts';
+import {
+  checkboxCommonStyle,
+  SbbCheckboxCommonElementMixin,
+} from '../checkbox/common/checkbox-common.ts';
 import { SbbElement } from '../core/base-elements.ts';
 import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';

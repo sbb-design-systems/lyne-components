@@ -5,7 +5,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { SbbElement } from '../../core/base-elements.ts';
 import { i18nPage, i18nPaginatorOf } from '../../core/i18n.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbPaginatorCommonElementMixin } from '../common.ts';
+import { SbbPaginatorCommonElementMixin } from '../common/paginator-common.ts';
 
 import style from './compact-paginator.scss?lit&inline';
 

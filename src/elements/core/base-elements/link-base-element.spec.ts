@@ -3,9 +3,9 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType } from '../decorators/decorators.component.ts';
+import { forceType } from '../decorators.ts';
 import { fixture } from '../testing/private.ts';
-import { EventSpy, waitForLitRender } from '../testing/testing.component.ts';
+import { EventSpy, waitForLitRender } from '../testing.ts';
 
 import { SbbLinkBaseElement } from './link-base-element.ts';
 

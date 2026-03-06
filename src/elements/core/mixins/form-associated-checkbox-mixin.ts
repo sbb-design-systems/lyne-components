@@ -1,10 +1,10 @@
 import { defaultConverter, type LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../controllers/controllers.component.ts';
-import { hostAttributes } from '../decorators/decorators.component.ts';
-import { preventScrollOnSpacebarPress } from '../eventing/eventing.component.ts';
-import { i18nCheckboxRequired } from '../i18n/i18n.component.ts';
+import { SbbLanguageController } from '../controllers.ts';
+import { hostAttributes } from '../decorators.ts';
+import { preventScrollOnSpacebarPress } from '../eventing.ts';
+import { i18nCheckboxRequired } from '../i18n.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 import { SbbDisabledMixin } from './disabled-mixin.ts';

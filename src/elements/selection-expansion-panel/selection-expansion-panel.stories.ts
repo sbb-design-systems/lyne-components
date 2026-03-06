@@ -14,7 +14,7 @@ import '../button/mini-button.ts';
 import '../card.ts';
 import '../checkbox.ts';
 import '../divider.ts';
-import '../form-field/error.ts';
+import '../form-field.ts';
 import '../icon.ts';
 import '../link/block-link-button.ts';
 import '../popover.ts';
