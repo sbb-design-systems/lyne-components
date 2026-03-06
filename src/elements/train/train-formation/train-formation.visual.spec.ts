@@ -8,10 +8,7 @@ import {
 } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
 
-import '../train.ts';
-import '../train-wagon.ts';
-import '../train-blocked-passage.ts';
-import './train-formation.component.ts';
+import '../../train.ts';
 
 describe(`sbb-train-formation`, () => {
   const train1 = html`<sbb-train

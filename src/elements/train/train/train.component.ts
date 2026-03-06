@@ -9,8 +9,8 @@ import { i18nTrain, i18nWagonsLabel } from '../../core/i18n.ts';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbTitleLevel } from '../../title.ts';
-import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage.ts';
-import type { SbbTrainWagonElement } from '../train-wagon.ts';
+import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage/train-blocked-passage.component.ts';
+import type { SbbTrainWagonElement } from '../train-wagon/train-wagon.component.ts';
 
 import style from './train.scss?lit&inline';
 

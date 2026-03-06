@@ -3,11 +3,10 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import type { SbbTrainWagonElement } from '../train-wagon.ts';
 
 import { SbbTrainElement } from './train.component.ts';
 
-import '../train-wagon.ts';
+import '../../train.ts';
 
 describe(`sbb-train`, () => {
   let element: SbbTrainElement;
@@ -27,7 +26,7 @@ describe(`sbb-train`, () => {
     `);
     const trainSlotChangeSpy = new EventSpy(SbbTrainElement.events.trainslotchange);
 
-    element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.remove();
+    element.querySelector('sbb-train-wagon')!.remove();
     await waitForLitRender(element);
 
     expect(trainSlotChangeSpy.count).to.be.equal(1);

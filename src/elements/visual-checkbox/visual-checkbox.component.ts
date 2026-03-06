@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbCheckboxSize } from '../checkbox/common.ts';
+import type { SbbCheckboxSize } from '../checkbox.pure.ts';
 import { SbbElement } from '../core/base-elements.ts';
 import { forceType } from '../core/decorators.ts';
 import { isLean } from '../core/dom.ts';

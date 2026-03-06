@@ -5,7 +5,7 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbToggleElement } from './toggle.component.ts';
 
-import '../toggle-option.ts';
+import '../../toggle.ts';
 
 describe(`sbb-toggle ssr`, () => {
   let root: SbbToggleElement;
@@ -22,7 +22,7 @@ describe(`sbb-toggle ssr`, () => {
           </sbb-toggle-option>
         </sbb-toggle>
       `,
-      { modules: ['./toggle.component.js', '../toggle-option.js'] },
+      { modules: ['../../toggle.ts'] },
     );
   });
 
