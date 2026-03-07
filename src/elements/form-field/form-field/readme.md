@@ -253,10 +253,11 @@ to the form element's `ariaErrorMessageElements` property (or `aria-errormessage
 
 ## Slots
 
-| Name     | Description                                                                |
-| -------- | -------------------------------------------------------------------------- |
-|          | Use this slot to render an input/select or a supported non-native element. |
-| `error`  | Use this slot to render an error.                                          |
-| `label`  | Use this slot to render a label.                                           |
-| `prefix` | Use this slot to render an icon on the left side of the input.             |
-| `suffix` | Use this slot to render an icon on the right side of the input.            |
+| Name           | Description                                                                       |
+| -------------- | --------------------------------------------------------------------------------- |
+|                | Use this slot to render an input/select or a supported non-native element.        |
+| `error`        | Use this slot to render an error.                                                 |
+| `label`        | Use this slot to render a label.                                                  |
+| `prefix`       | Use this slot to render an icon on the left side of the input.                    |
+| `suffix`       | Use this slot to render an icon on the right side of the input.                   |
+| `text-counter` | Use this slot to render remaining characters count (sbb-form-field-text-counter). |

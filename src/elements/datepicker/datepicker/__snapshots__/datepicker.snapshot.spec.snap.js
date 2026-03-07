@@ -73,6 +73,8 @@ snapshots["sbb-datepicker renders Shadow DOM"] =
   <div class="sbb-form-field__error">
     <slot name="error">
     </slot>
+    <slot name="text-counter">
+    </slot>
   </div>
 </div>
 `;
