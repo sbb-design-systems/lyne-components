@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.7.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.7.0...v4.7.1) (2026-03-07)
+
+
+### Bug Fixes
+
+* **sbb-autocomplete:** requiredSelection - emit events when the input is manually cleared ([#4582](https://github.com/sbb-design-systems/lyne-components/issues/4582)) ([15ca867](https://github.com/sbb-design-systems/lyne-components/commit/15ca867493f336f96f99a558d0d13195eebe8a8e))
+* **sbb-toast:** close other overlays in opening state ([#4583](https://github.com/sbb-design-systems/lyne-components/issues/4583)) ([7392d83](https://github.com/sbb-design-systems/lyne-components/commit/7392d83bc9eb3bb4c79635337fd9f4711525ea92))
+
 ## [4.7.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.6.0...v4.7.0) (2026-03-03)
 
 
