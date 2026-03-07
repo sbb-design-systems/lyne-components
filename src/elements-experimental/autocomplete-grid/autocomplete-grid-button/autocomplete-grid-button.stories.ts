@@ -13,9 +13,7 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import '../autocomplete-grid-row.ts';
-import '../autocomplete-grid-cell.ts';
-import './autocomplete-grid-button.component.ts';
+import '../../autocomplete-grid.ts';
 
 const disabled: InputType = {
   control: {

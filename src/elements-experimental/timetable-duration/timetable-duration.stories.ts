@@ -4,7 +4,8 @@ import { html } from 'lit';
 
 import readme from './readme.md?raw';
 import sampleData from './timetable-duration.sample-data.private.ts';
-import './timetable-duration.component.ts';
+
+import '../timetable-duration.ts';
 
 const Template = ({ config }: Args): TemplateResult => html`
   <sbb-timetable-duration config=${JSON.stringify(config)}></sbb-timetable-duration>

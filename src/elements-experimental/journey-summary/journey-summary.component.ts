@@ -1,3 +1,4 @@
+import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
@@ -6,8 +7,8 @@ import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { format, isValid } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { html, nothing } from 'lit';
+import { property } from 'lit/decorators.js';
 
 import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime.ts';
 import type { Leg } from '../core/timetable.ts';
@@ -36,9 +37,8 @@ export interface InterfaceSbbJourneySummaryAttributes {
  *
  * @slot content - Use this slot to add `sbb-button`s or other interactive elements.
  */
-export
-@customElement('sbb-journey-summary')
-class SbbJourneySummaryElement extends LitElement {
+export class SbbJourneySummaryElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-journey-summary';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**  The trip prop */

@@ -159,7 +159,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-toast',
+  title: 'elements/Toast',
 };
 
 export default meta;

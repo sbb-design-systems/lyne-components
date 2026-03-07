@@ -5,9 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbExpansionPanelElement } from './expansion-panel.component.ts';
 
-import './expansion-panel.component.ts';
-import '../expansion-panel-header.ts';
-import '../expansion-panel-content.ts';
+import '../../expansion-panel.ts';
 
 describe(`sbb-expansion-panel`, () => {
   describe('renders', () => {

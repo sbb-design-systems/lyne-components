@@ -1,4 +1,6 @@
-/**
- * @entrypoint
- */
-export * from './divider/divider.component.ts';
+/** @entrypoint */
+import { SbbDividerElement } from './divider.pure.ts';
+
+export * from './divider.pure.ts';
+
+SbbDividerElement.define();

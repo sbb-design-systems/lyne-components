@@ -8,6 +8,8 @@ import { waitForLitRender } from '../core/testing.ts';
 
 import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.component.ts';
 
+import '../timetable-occupancy-icon.ts';
+
 describe(`sbb-timetable-occupancy-icon`, () => {
   let matchMediaStub: SinonStub<[query: string], MediaQueryList>;
   const mediaQueryListArgs: MediaQueryList = {

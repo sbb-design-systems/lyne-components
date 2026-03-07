@@ -18,15 +18,13 @@ import {
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
 import type { SbbDateInputElement } from '../../date-input.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
-import type { SbbDatepickerToggleElement } from '../datepicker-toggle.ts';
+import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker-toggle.component.ts';
 
 import { SbbDatepickerElement } from './datepicker.component.ts';
 
 import '../../date-input.ts';
 import '../../form-field.ts';
-import '../datepicker-previous-day.ts';
-import '../datepicker-next-day.ts';
-import '../datepicker-toggle.ts';
+import '../../datepicker.ts';
 
 describe(`sbb-datepicker`, () => {
   let todayStub: SinonStub;

@@ -8,9 +8,9 @@ import type { SbbLeadContainerElement } from './lead-container.component.ts';
 
 import '../breadcrumb.ts';
 import '../image.ts';
-import '../link/block-link/block-link.component.ts';
+import '../lead-container.ts';
+import '../link.ts';
 import '../title.ts';
-import './lead-container.component.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 

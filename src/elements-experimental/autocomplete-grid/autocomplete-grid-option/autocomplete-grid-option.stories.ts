@@ -16,8 +16,7 @@ import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.com
 import readme from './readme.md?raw';
 
 import '@sbb-esta/lyne-elements/form-field.js';
-import '../autocomplete-grid.ts';
-import '../autocomplete-grid-row.ts';
+import '../../autocomplete-grid.ts';
 
 const preserveIconSpace: InputType = {
   control: {

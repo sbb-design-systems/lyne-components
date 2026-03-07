@@ -4,8 +4,7 @@ import {
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit';
 
-import '../autocomplete-grid-button.ts';
-import './autocomplete-grid-cell.component.ts';
+import '../../autocomplete-grid.ts';
 
 describe('sbb-autocomplete-grid-cell', () => {
   describeViewports({ viewports: ['zero', 'large'] }, () => {

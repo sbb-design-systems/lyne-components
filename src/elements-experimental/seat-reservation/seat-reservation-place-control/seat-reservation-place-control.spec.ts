@@ -7,6 +7,8 @@ import type { PlaceSelection } from '../common/types.ts';
 
 import { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.component.ts';
 
+import '../../seat-reservation.ts';
+
 describe('sbb-seat-reservation-place-control', () => {
   let element: SbbSeatReservationPlaceControlElement;
 

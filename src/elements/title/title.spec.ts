@@ -5,6 +5,8 @@ import { fixture } from '../core/testing/private.ts';
 
 import { SbbTitleElement } from './title.component.ts';
 
+import '../title.ts';
+
 describe(`sbb-title`, () => {
   let element: SbbTitleElement;
 

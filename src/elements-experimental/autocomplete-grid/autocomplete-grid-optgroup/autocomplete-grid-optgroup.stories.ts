@@ -3,13 +3,9 @@ import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
+
 import '@sbb-esta/lyne-elements/form-field.js';
-import './autocomplete-grid-optgroup.component.ts';
-import '../autocomplete-grid.ts';
-import '../autocomplete-grid-row.ts';
-import '../autocomplete-grid-option.ts';
-import '../autocomplete-grid-cell.ts';
-import '../autocomplete-grid-button.ts';
+import '../../autocomplete-grid.ts';
 
 const label: InputType = {
   control: {

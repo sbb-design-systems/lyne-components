@@ -7,7 +7,8 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.private.ts';
 
 import readme from './readme.md?raw';
-import './pearl-chain-time.component.ts';
+
+import '../pearl-chain-time.ts';
 
 const departureWalk: InputType = {
   control: {

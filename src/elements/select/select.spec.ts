@@ -12,6 +12,7 @@ import { SbbOptionElement } from '../option.ts';
 import { SbbSelectElement } from './select.component.ts';
 
 import '../form-field.ts';
+import '../select.ts';
 
 describe(`sbb-select`, () => {
   let element: SbbSelectElement, root: HTMLDivElement;

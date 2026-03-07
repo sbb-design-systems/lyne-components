@@ -7,6 +7,8 @@ import { waitForLitRender } from '../../core/testing.ts';
 
 import { SbbSidebarCloseButtonElement } from './sidebar-close-button.component.ts';
 
+import '../../sidebar.ts';
+
 describe('sbb-sidebar-close-button', () => {
   let element: SbbSidebarCloseButtonElement;
   const elementInternals = elementInternalsSpy();

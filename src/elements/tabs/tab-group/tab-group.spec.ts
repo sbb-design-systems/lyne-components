@@ -4,12 +4,12 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import type { SbbTabLabelElement } from '../tab-label.ts';
-import { SbbTabElement } from '../tab.ts';
+import { SbbTabElement } from '../tab/tab.component.ts';
+import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
 import { SbbTabGroupElement } from './tab-group.component.ts';
 
-import '../tab-label.ts';
+import '../../tabs.ts';
 
 describe(`sbb-tab-group`, () => {
   let element: SbbTabGroupElement;

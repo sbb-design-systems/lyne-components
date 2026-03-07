@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbSidebarContainerElement } from './sidebar-container.component.ts';
 
+import '../../sidebar.ts';
+
 describe(`sbb-sidebar-container ssr`, () => {
   let root: SbbSidebarContainerElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-sidebar-container></sbb-sidebar-container>`, {
-      modules: ['./sidebar-container.component.js'],
+      modules: ['../../sidebar.ts'],
     });
   });
 

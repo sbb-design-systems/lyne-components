@@ -11,8 +11,7 @@ import {
 } from '../../core/testing/private.ts';
 
 import '../../title.ts';
-import '../card.ts';
-import '../card-badge.ts';
+import '../../card.ts';
 
 export function cardActionVisualSpec(component: string): void {
   describe(component, () => {

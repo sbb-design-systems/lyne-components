@@ -7,14 +7,14 @@ import { fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
 import type { SbbOptionElement } from '../../option.ts';
-import type { SbbChipElement } from '../chip.ts';
+import type { SbbChipElement } from '../chip/chip.component.ts';
 
 import {
   SbbChipGroupElement,
   type SbbChipInputTokenEndEventDetails,
 } from './chip-group.component.ts';
 
-import '../chip.ts';
+import '../../chip.ts';
 import '../../autocomplete.ts';
 import '../../form-field.ts';
 import '../../option.ts';

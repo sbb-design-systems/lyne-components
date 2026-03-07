@@ -6,7 +6,7 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './divider.component.ts';
+import '../divider.ts';
 
 const Template = (args: Args): TemplateResult => html`
   <div style="height: 340px; padding: 20px;">
@@ -74,7 +74,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-divider',
+  title: 'elements/Divider',
 };
 
 export default meta;

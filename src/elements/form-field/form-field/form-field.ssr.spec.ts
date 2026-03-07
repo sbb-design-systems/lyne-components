@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbFormFieldElement } from './form-field.component.ts';
 
+import '../../form-field.ts';
+
 describe(`sbb-form-field ssr`, () => {
   let root: SbbFormFieldElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-form-field><input /></sbb-form-field>`, {
-      modules: ['./form-field.component.js'],
+      modules: ['../../form-field.ts'],
     });
   });
 

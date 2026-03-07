@@ -1,3 +1,7 @@
+import { globSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import eslint from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import { flatConfigs } from 'eslint-plugin-import-x';
@@ -14,6 +18,13 @@ const ignores = [
   'tools/generate-component/**/*',
   '**/__snapshots__/**/*',
 ];
+
+const deprecatedEntrypoints = globSync(
+  join(fileURLToPath(import.meta.url), '../src/**/*.ts'),
+).filter((file) => {
+  const content = readFileSync(file, 'utf-8');
+  return content.includes('@entrypoint') && content.includes('console.warn');
+});
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigFile} */
 export default [
@@ -120,6 +131,10 @@ export default [
       'import-x/newline-after-import': 'error',
       'import-x/no-absolute-path': 'error',
       'import-x/no-cycle': 'error',
+      'import-x/no-restricted-paths': [
+        'error',
+        { zones: [{ target: './src', from: deprecatedEntrypoints }] },
+      ],
       'import-x/no-self-import': 'error',
       'import-x/no-unresolved': [
         'error',

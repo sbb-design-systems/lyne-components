@@ -7,8 +7,6 @@ import { i18nTargetOpensInNewWindow } from '../i18n.ts';
 
 import { SbbActionBaseElement } from './action-base-element.ts';
 
-import '../../screen-reader-only.ts';
-
 /** Enumeration for 'target' attribute in <a> HTML tag. */
 export type LinkTargetType = '_blank' | '_self' | '_parent' | '_top';
 
@@ -80,6 +78,7 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   }
 
   protected renderLink(renderContent: TemplateResult): TemplateResult {
+    const opensInNewWindow = !!this.href && this.target === '_blank';
     return html`
       <a
         class="sbb-action-base ${this.localName}"
@@ -92,14 +91,15 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
         aria-current=${this.accessibilityCurrent || nothing}
         tabindex=${this.maybeDisabled && !this.maybeDisabledInteractive ? '-1' : nothing}
         aria-disabled=${this.maybeDisabled ? 'true' : nothing}
+        aria-describedby=${opensInNewWindow ? 'sbb-link-new-window' : nothing}
       >
         ${renderContent}
-        ${!!this.href && this.target === '_blank'
-          ? html`<sbb-screen-reader-only
-              >. ${i18nTargetOpensInNewWindow[this.language.current]}</sbb-screen-reader-only
-            >`
-          : nothing}
       </a>
+      ${opensInNewWindow
+        ? html`<span id="sbb-link-new-window" hidden
+            >${i18nTargetOpensInNewWindow[this.language.current]}</span
+          >`
+        : nothing}
     `;
   }
 }

@@ -8,7 +8,11 @@ import { i18nCheckboxRequired } from '../i18n.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 import { SbbDisabledMixin } from './disabled-mixin.ts';
-import { SbbElementInternalsMixin } from './element-internals-mixin.ts';
+import {
+  SbbElementInternalsMixin,
+  type SbbElementInternalsMixinType,
+  type SbbElementInternalsConstructor,
+} from './element-internals-mixin.ts';
 import {
   SbbFormAssociatedMixin,
   type FormRestoreReason,
@@ -40,13 +44,18 @@ export declare abstract class SbbFormAssociatedCheckboxMixinType extends SbbDisa
 export const SbbFormAssociatedCheckboxMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbFormAssociatedCheckboxMixinType> & T => {
+  // TODO(breaking-change): Remove SbbElementInternalsMixin and depend on SbbElement as base class instead of LitElement
+  const conditionalSuperClass = (superClass as unknown as Record<string, unknown>)['_$sbbElement$']
+    ? (superClass as unknown as AbstractConstructor<SbbElementInternalsMixinType> &
+        T &
+        SbbElementInternalsConstructor)
+    : SbbElementInternalsMixin(superClass);
+
   @hostAttributes({
     tabindex: '0',
   })
   abstract class SbbFormAssociatedCheckboxElement
-    extends SbbDisabledMixin(
-      SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superClass))),
-    )
+    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(conditionalSuperClass)))
     implements Partial<SbbFormAssociatedCheckboxMixinType>
   {
     public static override readonly role = 'checkbox';

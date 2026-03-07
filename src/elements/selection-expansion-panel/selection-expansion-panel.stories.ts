@@ -14,7 +14,7 @@ import '../button/mini-button.ts';
 import '../card.ts';
 import '../checkbox.ts';
 import '../divider.ts';
-import '../form-field/error.ts';
+import '../form-field.ts';
 import '../icon.ts';
 import '../link/block-link-button.ts';
 import '../popover.ts';
@@ -795,7 +795,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-selection-expansion-panel',
+  title: 'elements/Selection Expansion Panel',
 };
 
 export default meta;

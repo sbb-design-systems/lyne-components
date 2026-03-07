@@ -5,6 +5,8 @@ import { fixture } from '../../core/testing/private.ts';
 
 import { SbbSidebarContentElement } from './sidebar-content.component.ts';
 
+import '../../sidebar.ts';
+
 describe('sbb-sidebar-content', () => {
   let element: SbbSidebarContentElement;
 

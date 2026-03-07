@@ -5,11 +5,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbAutocompleteGridRowElement } from './autocomplete-grid-row.component.ts';
 
-import '../autocomplete-grid.ts';
-import './autocomplete-grid-row.component.ts';
-import '../autocomplete-grid-option.ts';
-import '../autocomplete-grid-cell.ts';
-import '../autocomplete-grid-button.ts';
+import '../../autocomplete-grid.ts';
 
 describe('sbb-autocomplete-grid-row', () => {
   const row: TemplateResult = html`

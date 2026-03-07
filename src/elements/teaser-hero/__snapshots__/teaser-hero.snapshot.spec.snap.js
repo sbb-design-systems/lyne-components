@@ -124,11 +124,13 @@ snapshots["sbb-teaser-hero renders with img Shadow DOM"] =
     </sbb-block-link-static>
   </span>
   <slot name="image">
-  </slot>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
-</a>
+  </slot></a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-teaser-hero renders with img Shadow DOM */
 

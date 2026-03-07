@@ -4,11 +4,11 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import type { SbbToggleOptionElement } from '../toggle-option.ts';
+import type { SbbToggleOptionElement } from '../toggle-option/toggle-option.component.ts';
 
 import { SbbToggleElement } from './toggle.component.ts';
 
-import '../toggle-option.ts';
+import '../../toggle.ts';
 
 describe(`sbb-toggle`, () => {
   let element: SbbToggleElement,

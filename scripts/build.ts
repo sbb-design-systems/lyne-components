@@ -42,9 +42,7 @@ const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 const currentDirectory = fileURLToPath(new URL('./', import.meta.url));
 const distDirectory = join(projectRoot, 'dist');
 const isCI = !!process.env.CI;
-const entrypointMarker = `/**
- * @entrypoint
- */
+const entrypointMarker = `/** @entrypoint */
 `;
 const gzipAsync = promisify(gzip);
 const brotliAsync = promisify(brotliCompress);

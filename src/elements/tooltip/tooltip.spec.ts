@@ -9,7 +9,9 @@ import { fixture, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../core/testing.ts';
 
 import { SbbTooltipElement } from './tooltip.component.ts';
+
 import '../button/button.ts';
+import '../tooltip.ts';
 
 describe('sbb-tooltip', () => {
   let element: SbbTooltipElement;

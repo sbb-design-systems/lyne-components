@@ -1,22 +1,19 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { html } from 'lit';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import { throttle } from '../../core/eventing.ts';
-import {
-  SbbElementInternalsMixin,
-  SbbHydrationMixin,
-  ɵstateController,
-} from '../../core/mixins.ts';
+import { ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { tabGroupCommonStyles } from '../common.ts';
-import type { SbbTabLabelElement } from '../tab-label.ts';
-import type { SbbTabElement } from '../tab.ts';
+import { tabGroupCommonStyles } from '../common/styles.ts';
+import type { SbbTabElement } from '../tab/tab.component.ts';
+import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
 import style from './tab-group.scss?lit&inline';
 
@@ -35,9 +32,8 @@ export type SbbTabChangedEventDetails = {
  * @slot - Use the unnamed slot to add content to the `sbb-tab-group` via `sbb-tab-label` and `sbb-tab` instances.
  * @event {CustomEvent<SbbTabChangedEventDetails>} tabchange - The tabchange event is dispatched when a tab is selected.
  */
-export
-@customElement('sbb-tab-group')
-class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitElement)) {
+export class SbbTabGroupElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-tab-group';
   public static override styles: CSSResultGroup = [boxSizingStyles, tabGroupCommonStyles, style];
   public static readonly events = {
     tabchange: 'tabchange',

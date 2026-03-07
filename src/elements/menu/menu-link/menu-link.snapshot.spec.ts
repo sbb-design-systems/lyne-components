@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbMenuLinkElement } from './menu-link.component.ts';
 
-import './menu-link.component.ts';
+import '../../menu.ts';
 
 describe(`sbb-menu-link`, () => {
   describe('renders', () => {

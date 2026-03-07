@@ -1,6 +1,7 @@
-/**
- * @entrypoint
- */
-export * from './teaser-product/teaser-product.ts';
-export * from './teaser-product/teaser-product-static.ts';
-export * from './teaser-product/common.ts';
+/** @entrypoint */
+import { SbbTeaserProductElement, SbbTeaserProductStaticElement } from './teaser-product.pure.ts';
+
+export * from './teaser-product.pure.ts';
+
+SbbTeaserProductElement.define();
+SbbTeaserProductStaticElement.define();

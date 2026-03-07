@@ -1,0 +1,62 @@
+@use '../core/styles' as sbb;
+
+@mixin horizontal-orientation {
+  --sbb-checkbox-group-orientation: row;
+  --sbb-checkbox-group-checkbox-width: auto;
+}
+
+$breakpoints: 'zero', 'small', 'large', 'ultra';
+
+:host {
+  display: block;
+}
+
+:host([orientation='vertical']) {
+  --sbb-checkbox-group-orientation: column;
+  --sbb-checkbox-group-width: 100%;
+  --sbb-checkbox-group-checkbox-width: 100%;
+}
+
+:host(:state(has-panel)) {
+  --sbb-checkbox-group-width: 100%;
+  --sbb-checkbox-group-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+
+  // Distribute available space to the panels
+  --sbb-checkbox-group-checkbox-flex: auto;
+}
+
+@each $breakpoint in $breakpoints {
+  @include sbb.mq($from: #{$breakpoint}) {
+    // horizontal-from overrides orientation vertical
+    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
+      @include horizontal-orientation;
+
+      // We need to unset the 100% width of the vertical mode if it starts to be horizontal
+      --sbb-checkbox-group-checkbox-width: initial;
+    }
+
+    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']:not(:state(has-panel))) {
+      --sbb-checkbox-group-width: max-content;
+    }
+  }
+}
+
+.sbb-checkbox-group {
+  display: flex;
+  flex-direction: var(--sbb-checkbox-group-orientation);
+  gap: var(--sbb-checkbox-group-gap);
+  align-items: flex-start;
+  width: var(--sbb-checkbox-group-width);
+
+  :host(:state(slotted-error)) & {
+    margin-block-end: var(--sbb-spacing-fixed-1x);
+  }
+}
+
+::slotted(:is(sbb-checkbox, sbb-checkbox-panel)) {
+  width: var(--sbb-checkbox-group-checkbox-width);
+}
+
+::slotted(sbb-checkbox-panel) {
+  flex: var(--sbb-checkbox-group-checkbox-flex);
+}

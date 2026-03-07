@@ -12,14 +12,14 @@ import {
   tabKey,
 } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
-import type { SbbMenuButtonElement } from '../menu-button.ts';
+import type { SbbMenuButtonElement } from '../menu-button/menu-button.component.ts';
 
 import { SbbMenuElement } from './menu.component.ts';
 
 import '../../button/button.ts';
 import '../../link.ts';
 import '../../divider.ts';
-import '../menu-button.ts';
+import '../../menu.ts';
 
 describe(`sbb-menu`, () => {
   let element: SbbMenuElement, trigger: SbbButtonElement;

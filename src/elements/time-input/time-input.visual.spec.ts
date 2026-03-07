@@ -7,7 +7,7 @@ import {
   visualDiffFocus,
 } from '../core/testing/private.ts';
 
-import './time-input.component.ts';
+import '../time-input.ts';
 import '../form-field.ts';
 import '../icon.ts';
 

@@ -7,6 +7,8 @@ import { EventSpy, waitForLitRender } from '../core/testing.ts';
 
 import { SbbSliderElement } from './slider.component.ts';
 
+import '../slider.ts';
+
 const keyboardPressTimes = async (element: HTMLElement, key: string, times = 1): Promise<void> => {
   element.focus();
   for (let i = 0; i < times; i++) {

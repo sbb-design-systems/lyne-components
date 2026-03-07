@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbTrainFormationElement } from './train-formation.component.ts';
 
+import '../../train.ts';
+
 describe(`sbb-train-formation ssr`, () => {
   let root: SbbTrainFormationElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-train-formation></sbb-train-formation>`, {
-      modules: ['./train-formation.component.js'],
+      modules: ['../../train.ts'],
     });
   });
 

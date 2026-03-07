@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbTabNavBarElement } from './tab-nav-bar.component.ts';
-import './tab-nav-bar.component.ts';
+
+import '../../tabs.ts';
 
 describe(`sbb-tab-nav-bar`, () => {
   describe('renders', () => {

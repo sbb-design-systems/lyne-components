@@ -5,7 +5,7 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbAlertGroupElement } from './alert-group.component.ts';
 
-import '../alert/alert.component.ts';
+import '../../alert.ts';
 import '../../title.ts';
 
 describe(`sbb-alert-group ssr`, () => {
@@ -25,7 +25,7 @@ describe(`sbb-alert-group ssr`, () => {
           </sbb-alert>
         </sbb-alert-group>
       `,
-      { modules: ['./alert-group.component.js', '../alert.js'] },
+      { modules: ['../../alert.ts', '../../title.ts'] },
     );
   });
 

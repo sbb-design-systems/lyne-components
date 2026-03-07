@@ -1,7 +1,8 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { html } from 'lit';
+import { property } from 'lit/decorators.js';
 
+import { SbbElement } from '../core/base-elements.ts';
 import { forceType } from '../core/decorators.ts';
 import type { SbbProtectiveRoom } from '../core/interfaces.ts';
 import { SbbNegativeMixin } from '../core/mixins.ts';
@@ -14,9 +15,8 @@ import style from './logo.scss?lit&inline';
  *
  * @cssprop [--sbb-logo-height=auto] - Can be used to set the height of the logo.
  */
-export
-@customElement('sbb-logo')
-class SbbLogoElement extends SbbNegativeMixin(LitElement) {
+export class SbbLogoElement extends SbbNegativeMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-logo';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Visual protective room around logo. */

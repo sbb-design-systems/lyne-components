@@ -3,8 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
-import '../carousel-item/carousel-item.component.ts';
 import { SbbCarouselListElement } from './carousel-list.component.ts';
+
+import '../../carousel.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
@@ -27,7 +28,7 @@ describe(`sbb-carousel-list ssr`, () => {
         </sbb-carousel-list>
       `,
       {
-        modules: ['./carousel-list.component.js', '../carousel-item/carousel-item.component.js'],
+        modules: ['../../carousel.ts'],
       },
     );
   });

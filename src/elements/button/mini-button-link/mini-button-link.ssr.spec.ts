@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbMiniButtonLinkElement } from './mini-button-link.component.ts';
 
+import '../../button.ts';
+
 describe(`sbb-mini-button-link ssr`, () => {
   let root: SbbMiniButtonLinkElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-mini-button-link ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-mini-button-link icon-name="pen-small" href="#"></sbb-mini-button-link>`,
       {
-        modules: ['../mini-button-link.js'],
+        modules: ['../../button.ts'],
       },
     );
   });

@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbFileSelectorElement } from './file-selector.component.ts';
-import './file-selector.component.ts';
+import '../../file-selector.ts';
 
 describe(`sbb-file-selector`, () => {
   describe('renders', () => {

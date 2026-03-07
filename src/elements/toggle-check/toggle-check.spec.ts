@@ -8,6 +8,8 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts
 
 import { SbbToggleCheckElement } from './toggle-check.component.ts';
 
+import '../toggle-check.ts';
+
 describe(`sbb-toggle-check`, () => {
   describe('general', () => {
     let element: SbbToggleCheckElement;

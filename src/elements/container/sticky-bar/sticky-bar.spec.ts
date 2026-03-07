@@ -4,11 +4,11 @@ import { html } from 'lit';
 
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
-import type { SbbContainerElement } from '../container.ts';
+import type { SbbContainerElement } from '../container/container.component.ts';
 
 import { SbbStickyBarElement } from './sticky-bar.component.ts';
 
-import '../container.ts';
+import '../../container.ts';
 
 describe(`sbb-sticky-bar`, () => {
   let container: SbbContainerElement;

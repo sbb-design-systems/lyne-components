@@ -5,8 +5,7 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbExpansionPanelElement } from './expansion-panel.component.ts';
 
-import '../expansion-panel-header.ts';
-import '../expansion-panel-content.ts';
+import '../../expansion-panel.ts';
 
 describe(`sbb-expansion-panel ssr`, () => {
   let root: SbbExpansionPanelElement;
@@ -20,11 +19,7 @@ describe(`sbb-expansion-panel ssr`, () => {
         </sbb-expansion-panel>
       `,
       {
-        modules: [
-          './expansion-panel.component.js',
-          '../expansion-panel-header.js',
-          '../expansion-panel-content.js',
-        ],
+        modules: ['../../expansion-panel.ts'],
       },
     );
   });

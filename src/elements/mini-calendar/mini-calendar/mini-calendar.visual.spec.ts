@@ -4,9 +4,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import { defaultDateAdapter } from '../../core/datetime.ts';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './mini-calendar.component.ts';
-import '../mini-calendar-month.ts';
-import '../mini-calendar-day.ts';
+import '../../mini-calendar.ts';
 
 describe('sbb-mini-calendar', () => {
   const createDays = (year: number, month: number): TemplateResult => {

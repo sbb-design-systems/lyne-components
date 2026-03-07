@@ -5,6 +5,7 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbAccordionElement } from './accordion.component.ts';
 
+import '../accordion.ts';
 import '../expansion-panel.ts';
 
 describe(`sbb-accordion ssr`, () => {
@@ -28,7 +29,7 @@ describe(`sbb-accordion ssr`, () => {
           </sbb-expansion-panel>
         </sbb-accordion>
       `,
-      { modules: ['./accordion.component.js', '../expansion-panel.js'] },
+      { modules: ['../accordion.ts', '../expansion-panel.ts'] },
     );
   });
 

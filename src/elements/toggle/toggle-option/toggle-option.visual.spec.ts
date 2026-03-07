@@ -2,7 +2,7 @@ import { html, nothing } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './toggle-option.component.ts';
+import '../../toggle.ts';
 
 describe(`sbb-toggle-option`, () => {
   describeViewports({ viewports: ['zero'] }, () => {

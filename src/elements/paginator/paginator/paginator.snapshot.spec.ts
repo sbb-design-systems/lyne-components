@@ -7,7 +7,7 @@ import { describeIf } from '../../core/testing.ts';
 
 import type { SbbPaginatorElement } from './paginator.component.ts';
 
-import './paginator.component.ts';
+import '../../paginator.ts';
 
 describe(`sbb-paginator`, () => {
   describe('renders', () => {

@@ -1,10 +1,11 @@
+import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { addMinutes, differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { html, nothing } from 'lit';
+import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { removeTimezoneFromISOTimeString } from '../core/datetime.ts';
@@ -22,9 +23,8 @@ type Time = {
 /**
  * It visually displays journey information.
  */
-export
-@customElement('sbb-pearl-chain')
-class SbbPearlChainElement extends LitElement {
+export class SbbPearlChainElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-pearl-chain';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

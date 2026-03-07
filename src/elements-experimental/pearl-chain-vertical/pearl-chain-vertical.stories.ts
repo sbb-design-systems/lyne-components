@@ -4,10 +4,11 @@ import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
-import './pearl-chain-vertical.component.ts';
-import '../pearl-chain-vertical-item.ts';
+
 import '@sbb-esta/lyne-elements/icon.js';
 import '@sbb-esta/lyne-elements/timetable-occupancy.js';
+import '../pearl-chain-vertical.ts';
+import '../pearl-chain-vertical-item.ts';
 
 const lineType: InputType = {
   options: ['dotted', 'standard', 'thin'],

@@ -8,13 +8,12 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.ts';
 import { waitForImageReady } from '../../core/testing/wait-for-image-ready.ts';
-import type { SbbFlipCardImageAlignment } from '../flip-card-summary.ts';
+import type { SbbFlipCardImageAlignment } from '../flip-card-summary/flip-card-summary.component.ts';
 
 import type { SbbFlipCardElement } from './flip-card.component.ts';
 
-import './flip-card.component.ts';
-import '../flip-card-summary.ts';
-import '../flip-card-details.ts';
+import '../../flip-card.ts';
+
 import '../../chip-label.ts';
 import '../../image.ts';
 import '../../link.ts';

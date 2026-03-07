@@ -1,6 +1,6 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, eventOptions, property } from 'lit/decorators.js';
+import { eventOptions, property } from 'lit/decorators.js';
 
 import { SbbFocusTrapController } from '../../core/a11y.ts';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
@@ -9,7 +9,7 @@ import { forceType, handleDistinctChange } from '../../core/decorators.ts';
 import { isZeroAnimationDuration } from '../../core/dom.ts';
 import { SbbAnimationCompleteMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbSidebarContainerElement } from '../sidebar-container.ts';
+import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 
 import style from './sidebar.scss?lit&inline';
 
@@ -19,9 +19,8 @@ import style from './sidebar.scss?lit&inline';
  * @slot - Use the unnamed slot to slot any content into the sidebar.
  * @slot title - Use the title slot to add an <sbb-title>.
  */
-export
-@customElement('sbb-sidebar')
-class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElement) {
+export class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElement) {
+  public static override readonly elementName: string = 'sbb-sidebar';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Background color of the sidebar. Either `white` or `milk`. */

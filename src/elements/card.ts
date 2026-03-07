@@ -1,8 +1,14 @@
-/**
- * @entrypoint
- */
-export * from './card/card.ts';
-export * from './card/card-badge.ts';
-export * from './card/card-button.ts';
-export * from './card/card-link.ts';
-export * from './card/common.ts';
+/** @entrypoint */
+import {
+  SbbCardElement,
+  SbbCardBadgeElement,
+  SbbCardButtonElement,
+  SbbCardLinkElement,
+} from './card.pure.ts';
+
+export * from './card.pure.ts';
+
+SbbCardElement.define();
+SbbCardBadgeElement.define();
+SbbCardButtonElement.define();
+SbbCardLinkElement.define();

@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.ts';
 
-import './journey-header.component.ts';
+import '../journey-header.ts';
 
 describe(`sbb-journey-header`, () => {
   let root: HTMLElement;

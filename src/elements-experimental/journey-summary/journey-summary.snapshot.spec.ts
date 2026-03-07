@@ -7,7 +7,7 @@ import type {
   SbbJourneySummaryElement,
 } from './journey-summary.component.ts';
 
-import './journey-summary.component.ts';
+import '../journey-summary.ts';
 
 const now = '2022-08-29T21:00:00Z';
 

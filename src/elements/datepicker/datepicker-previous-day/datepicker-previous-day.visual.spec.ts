@@ -7,8 +7,7 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.ts';
 
-import './datepicker-previous-day.component.ts';
-import '../datepicker.ts';
+import '../../datepicker.ts';
 import '../../date-input.ts';
 import '../../form-field.ts';
 

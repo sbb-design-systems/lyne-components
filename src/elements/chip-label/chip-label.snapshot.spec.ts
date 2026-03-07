@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbChipLabelElement } from './chip-label.component.ts';
 
-import './chip-label.component.ts';
+import '../chip-label.ts';
 
 describe(`sbb-chip-label`, () => {
   let element: SbbChipLabelElement;

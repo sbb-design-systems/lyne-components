@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 import { waitForImageReady } from '../core/testing.ts';
 
 import type { SbbTeaserHeroElement } from './teaser-hero.component.ts';
-import './teaser-hero.component.ts';
+import '../teaser-hero.ts';
 import '../image.ts';
 import '../chip-label.ts';
 

@@ -1,5 +1,4 @@
 import type { CSSResultGroup } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbActionBaseElement } from '../../core/base-elements.ts';
 import { SbbDisabledMixin } from '../../core/mixins.ts';
@@ -13,11 +12,10 @@ import { buttonCommonStyle, buttonPrimaryStyle, SbbButtonCommonElementMixin } fr
  * @slot icon - Slot used to display the icon, if one is set.
  * @cssprop [--sbb-button-loading-delay=300ms] - The delay before the loading animation starts, when setting the button into loading state.
  */
-export
-@customElement('sbb-button-static')
-class SbbButtonStaticElement extends SbbButtonCommonElementMixin(
+export class SbbButtonStaticElement extends SbbButtonCommonElementMixin(
   SbbDisabledMixin(SbbActionBaseElement),
 ) {
+  public static override readonly elementName: string = 'sbb-button-static';
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     buttonCommonStyle,
