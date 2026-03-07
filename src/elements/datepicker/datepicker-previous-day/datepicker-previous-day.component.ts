@@ -20,20 +20,10 @@ export class SbbDatepickerPreviousDayElement<T = Date> extends SbbDatepickerButt
   protected i18nOffBoundaryDay: Record<string, string> = i18nPreviousDay;
   protected i18nSelectOffBoundaryDay = i18nSelectPreviousDay;
 
-  protected findAvailableDate(date: T): T | null {
-    let availableDate = this.dateAdapter.addCalendarDays(date, -1);
+  protected getFollowingDate(date: T): T | null {
+    const availableDate = this.dateAdapter.addCalendarDays(date, -1);
     if (this._isBeforeMinDate(availableDate)) {
       return null;
-    }
-
-    const dateFilter = this.input!.dateFilter;
-    if (dateFilter) {
-      while (!dateFilter(availableDate)) {
-        availableDate = this.dateAdapter.addCalendarDays(availableDate, -1);
-        if (this._isBeforeMinDate(availableDate)) {
-          return null;
-        }
-      }
     }
 
     return availableDate;

@@ -16,3 +16,11 @@ $theme: 'standard' !default;
     var(--sbb-color-anthracite)
   );
 }
+
+@mixin rules {
+  sbb-breadcrumb-group:not(:defined) {
+    display: block;
+    height: calc(var(--sbb-typo-line-height-text) * var(--sbb-text-font-size-xs));
+    overflow: hidden;
+  }
+}

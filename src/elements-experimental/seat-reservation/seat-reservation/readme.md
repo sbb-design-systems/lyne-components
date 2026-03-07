@@ -131,7 +131,12 @@ type SeatReservationSelectedPlaces = {
 ```typescript
 type CoachDeckLevel = 'SINGLE_DECK' | 'LOWER_DECK' | 'MIDDLE_DECK' | 'UPPER_DECK';
 type PlaceType = 'SEAT' | 'BICYCLE';
-type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD';
+type CoachType =
+  | 'RESTAURANT_COACH'
+  | 'BICYCLE_COACH'
+  | 'LUGGAGE_COACH'
+  | 'TRAIN_HEAD'
+  | 'LOCOMOTIVE_COACH';
 type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
 type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
 type VehicleType = 'TRAIN' | 'BUS';
@@ -248,17 +253,19 @@ their current position within the reservation area.
 
 ## Properties
 
-| Name                     | Attribute                  | Privacy | Type                | Default | Description                                                     |
-| ------------------------ | -------------------------- | ------- | ------------------- | ------- | --------------------------------------------------------------- |
-| `alignVertical`          | `align-vertical`           | public  | `boolean`           | `false` | The seat reservation area is aligned vertically                 |
-| `baseGridSize`           | `base-grid-size`           | public  | `number`            | `16`    | The seat reservation area's base grid size                      |
-| `hasNavigation`          | `has-navigation`           | public  | `boolean`           | `true`  | The seat reservation navigation can be toggled by this property |
-| `height`                 | `height`                   | public  | `number`            | `null!` | The seat reservation area's width                               |
-| `maxBicycleReservations` | `max-bicycle-reservations` | public  | `number`            | `-1`    | Maximal number of possible clickable bicycle places             |
-| `maxSeatReservations`    | `max-seat-reservations`    | public  | `number`            | `-1`    | Maximal number of possible clickable seats                      |
-| `preselectCoachIndex`    | `preselect-coach-index`    | public  | `number`            | `-1`    |                                                                 |
-| `preventPlaceClick`      | `prevent-place-click`      | public  | `boolean`           | `false` | Any click functionality is prevented                            |
-| `seatReservations`       | `seat-reservations`        | public  | `SeatReservation[]` | `null!` | The seat reservations array contains all coaches and places     |
+| Name                     | Attribute                  | Privacy | Type                | Default  | Description                                                                                                                          |
+| ------------------------ | -------------------------- | ------- | ------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `alignVertical`          | `align-vertical`           | public  | `boolean`           | `false`  | The seat reservation area is aligned vertically                                                                                      |
+| `baseGridSize`           | `base-grid-size`           | public  | `number`            | `16`     | The seat reservation area's base grid size                                                                                           |
+| `hasNavigation`          | `has-navigation`           | public  | `boolean`           | `true`   | The seat reservation navigation can be toggled by this property                                                                      |
+| `height`                 | `height`                   | public  | `number`            | `null!`  | The seat reservation area's width                                                                                                    |
+| `maxBicycleReservations` | `max-bicycle-reservations` | public  | `number`            | `-1`     | Maximal number of possible clickable bicycle places                                                                                  |
+| `maxSeatReservations`    | `max-seat-reservations`    | public  | `number`            | `-1`     | Maximal number of possible clickable seats                                                                                           |
+| `preselectCoachIndex`    | `preselect-coach-index`    | public  | `number`            | `-1`     |                                                                                                                                      |
+| `preventPlaceClick`      | `prevent-place-click`      | public  | `boolean`           | `false`  | Any click functionality is prevented                                                                                                 |
+| `seatReservations`       | `seat-reservations`        | public  | `SeatReservation[]` | `null!`  | The seat reservations array contains all coaches and places                                                                          |
+| `showTitleInfo`          | `show-title-info`          | public  | `boolean`           | `false`  | The seat reservation title information at place-controls, navigation-coaches and navigation-services can be toggled by this property |
+| `travelDirection`        | `travel-direction`         | public  | `TravelDirection`   | `'NONE'` | Displays an arrow showing what direction does train drive                                                                            |
 
 ## Events
 

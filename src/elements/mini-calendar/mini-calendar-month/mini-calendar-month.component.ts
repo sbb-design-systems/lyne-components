@@ -20,7 +20,7 @@ export class SbbMiniCalendarMonthElement<T = Date> extends SbbElement {
   public static override readonly elementName: string = 'sbb-mini-calendar-month';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
-  /** Date as ISO string (YYYY-MM-DD) */
+  /** Date as ISO string (YYYY-MM) */
   @forceType()
   @property()
   public accessor date: string = '';

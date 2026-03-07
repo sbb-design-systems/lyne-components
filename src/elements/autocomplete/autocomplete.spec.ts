@@ -622,6 +622,30 @@ describe(`sbb-autocomplete`, () => {
         expect(inputEventSpy.count).to.be.equal(1);
         expect(inputAutocompleteSpy.count).to.be.equal(1);
       });
+
+      it('should work in combination with "requireSelection"', async () => {
+        element.requireSelection = true;
+        await waitForLitRender(element);
+
+        input.focus();
+        await openSpy.calledOnce();
+        expect(openSpy.count).to.be.equal(1);
+        await waitForLitRender(element);
+
+        await sendKeys({ type: 'a' });
+        await waitForLitRender(element);
+
+        expect(optOne).to.match(':state(active)');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('1');
+        expect(optOne).to.have.attribute('selected');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
+      });
     });
 
     describe('requireSelection', () => {
@@ -795,6 +819,28 @@ describe(`sbb-autocomplete`, () => {
 
         await aTimeout(0);
         expect(element).to.match(':state(state-closed)');
+      });
+
+      it('should emit events if user manually clears the input after selection', async () => {
+        const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+
+        input.focus();
+        await openSpy.calledOnce();
+
+        await sendKeys({ press: 'ArrowDown' });
+        await sendKeys({ press: 'Enter' });
+        await waitForLitRender(element);
+
+        await closeSpy.calledOnce();
+        expect(input.value).to.be.equal('1');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+
+        await sendKeys({ press: 'ControlOrMeta+Backspace' });
+        await sendKeys({ press: tabKey });
+        expect(input.value).to.be.equal('');
+        expect(changeEventSpy.count).to.be.equal(2);
+        expect(inputEventSpy.count).to.be.equal(3);
       });
     });
 

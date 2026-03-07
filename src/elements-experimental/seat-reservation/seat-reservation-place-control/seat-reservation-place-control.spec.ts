@@ -198,15 +198,6 @@ describe('sbb-seat-reservation-place-control', () => {
     expect(focused).to.be.true;
   });
 
-  it('should update title when propertyIds are set', async () => {
-    const initialTitle = element.title;
-
-    element.propertyIds = ['QUIET', 'TABLE'];
-    await waitForLitRender(element);
-
-    await expect(element.title).to.not.be.equal(initialTitle);
-  });
-
   it('should apply disabled class when preventClick is true', async () => {
     element.setAttribute('prevent-click', '');
 
@@ -223,5 +214,15 @@ describe('sbb-seat-reservation-place-control', () => {
     const wrapper = element.shadowRoot!.querySelector('.sbb-sr-place-ctrl')!;
     expect(wrapper.className).to.include('sbb-sr-place-ctrl--type-bicycle');
     expect(wrapper.className).to.include('sbb-sr-place-ctrl--state-selected');
+  });
+
+  it('should update title when propertyIds are set and showTitleInfo is set to true', async () => {
+    element.showTitleInfo = true;
+    const initialTitle = element.title;
+
+    element.propertyIds = ['QUIET', 'TABLE'];
+    await waitForLitRender(element);
+
+    await expect(element.title).to.not.be.equal(initialTitle);
   });
 });
