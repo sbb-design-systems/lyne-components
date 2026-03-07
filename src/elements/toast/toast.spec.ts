@@ -10,6 +10,7 @@ import { SbbToastElement } from './toast.component.ts';
 
 import '../button/transparent-button.ts';
 import '../link/link-button.ts';
+import '../toast.ts';
 
 describe(`sbb-toast`, () => {
   let element: SbbToastElement;

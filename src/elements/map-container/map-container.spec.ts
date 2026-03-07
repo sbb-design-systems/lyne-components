@@ -13,6 +13,7 @@ import { EventSpy, waitForCondition } from '../core/testing.ts';
 import { SbbMapContainerElement } from './map-container.component.ts';
 
 import '../title.ts';
+import '../map-container.ts';
 
 describe(`sbb-map-container`, () => {
   let element: SbbMapContainerElement;

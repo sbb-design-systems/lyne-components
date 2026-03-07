@@ -5,6 +5,7 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbSelectElement } from './select.component.ts';
 import '../option.ts';
+import '../select.ts';
 
 describe(`sbb-select ssr`, () => {
   let root: SbbSelectElement;
@@ -18,7 +19,7 @@ describe(`sbb-select ssr`, () => {
           <sbb-option id="option-3" value="3">Third</sbb-option>
         </sbb-select>
       `,
-      { modules: ['../option.ts'] },
+      { modules: ['../option.ts', '../select.ts'] },
     );
 
     assert.instanceOf(root, SbbSelectElement);
@@ -33,7 +34,7 @@ describe(`sbb-select ssr`, () => {
           <sbb-option id="option-3" value="3">Third</sbb-option>
         </sbb-select>
       `,
-      { modules: ['../option.ts'] },
+      { modules: ['../option.ts', '../select.ts'] },
     );
 
     assert.instanceOf(root, SbbSelectElement);

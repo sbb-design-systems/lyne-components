@@ -6,6 +6,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 import type { SbbTeaserProductElement } from './teaser-product.component.ts';
 import '../../teaser.ts';
 import '../../image.ts';
+import '../../teaser-product.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

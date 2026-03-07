@@ -6,6 +6,7 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 import { SbbRadioButtonGroupElement } from './radio-button-group.component.ts';
 
 import '../radio-button.ts';
+import '../radio-button-group.ts';
 
 describe(`sbb-radio-button-group ssr`, () => {
   let root: SbbRadioButtonGroupElement;
@@ -22,7 +23,7 @@ describe(`sbb-radio-button-group ssr`, () => {
           <sbb-radio-button id="sbb-radio-4" value="Value four">Value four</sbb-radio-button>
         </sbb-radio-button-group>
       `,
-      { modules: ['../radio-button.ts'] },
+      { modules: ['../radio-button.ts', '../radio-button-group.ts'] },
     );
   });
 

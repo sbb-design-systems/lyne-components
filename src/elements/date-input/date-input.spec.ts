@@ -10,6 +10,7 @@ import type { SbbFormFieldElement } from '../form-field.ts';
 
 import { SbbDateInputElement } from './date-input.component.ts';
 
+import '../date-input.ts';
 import '../form-field.ts';
 
 describe('sbb-date-input', () => {

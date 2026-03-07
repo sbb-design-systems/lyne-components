@@ -7,6 +7,7 @@ import { SbbNotificationElement } from './notification.component.ts';
 
 import '../title.ts';
 import '../link/link.ts';
+import '../notification.ts';
 
 describe(`sbb-notification ssr`, () => {
   let root: SbbNotificationElement;
@@ -20,7 +21,7 @@ describe(`sbb-notification ssr`, () => {
           <sbb-link href="/">Link one</sbb-link>
         </sbb-notification>
       `,
-      { modules: ['../title.ts', '../link/link.ts'] },
+      { modules: ['../title.ts', '../link/link.ts', '../notification.ts'] },
     );
   });
 

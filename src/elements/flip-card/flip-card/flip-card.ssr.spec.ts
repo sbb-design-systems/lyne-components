@@ -6,10 +6,9 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 import { SbbFlipCardElement } from './flip-card.component.ts';
 
 import '../../flip-card.ts';
-
-import '../../title.ts';
 import '../../image.ts';
 import '../../link.ts';
+import '../../title.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
@@ -33,7 +32,7 @@ describe(`sbb-flip-card ssr`, () => {
         </sbb-flip-card>
       `,
       {
-        modules: ['../../flip-card.ts', '../../title.ts', '../../image.ts', '../../link.ts'],
+        modules: ['../../flip-card.ts', '../../image.ts', '../../link.ts', '../../title.ts'],
       },
     );
   });

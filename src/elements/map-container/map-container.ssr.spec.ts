@@ -6,6 +6,7 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 import { SbbMapContainerElement } from './map-container.component.ts';
 
 import '../title.ts';
+import '../map-container.ts';
 
 describe(`sbb-map-container ssr`, () => {
   let root: SbbMapContainerElement;
@@ -28,7 +29,7 @@ describe(`sbb-map-container ssr`, () => {
           <div style="height: 1200px">map</div>
         </div>
       </sbb-map-container>`,
-      { modules: ['../title.ts'] },
+      { modules: ['../title.ts', '../map-container.ts'] },
     );
   });
 

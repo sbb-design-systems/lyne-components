@@ -9,6 +9,7 @@ import { waitForLitRender } from '../core/testing.ts';
 import { SbbCheckboxGroupElement } from './checkbox-group.component.ts';
 
 import '../checkbox-panel.ts';
+import '../checkbox-group.ts';
 
 describe(`sbb-checkbox-group`, () => {
   let element: SbbCheckboxGroupElement;

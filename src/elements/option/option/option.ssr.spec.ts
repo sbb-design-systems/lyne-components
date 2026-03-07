@@ -8,6 +8,7 @@ import type { SbbSelectElement } from '../../select.ts';
 import { SbbOptionElement } from './option.component.ts';
 
 import '../../autocomplete.ts';
+import '../../option.ts';
 import '../../select.ts';
 
 describe(`sbb-option ssr`, () => {
@@ -16,7 +17,7 @@ describe(`sbb-option ssr`, () => {
 
     beforeEach(async () => {
       root = await ssrHydratedFixture(html`<sbb-option value="Option A">Option A</sbb-option>`, {
-        modules: ['../../autocomplete.ts', '../../select.ts'],
+        modules: ['../../autocomplete.ts', '../../option.ts', '../../select.ts'],
       });
     });
 
@@ -40,7 +41,7 @@ describe(`sbb-option ssr`, () => {
             </sbb-autocomplete>
           </div>
         `,
-        { modules: ['../../autocomplete.ts', '../../select.ts'] },
+        { modules: ['../../autocomplete.ts', '../../option.ts', '../../select.ts'] },
       );
     });
 
@@ -61,7 +62,7 @@ describe(`sbb-option ssr`, () => {
             <sbb-option value="3">Option 3</sbb-option>
           </sbb-select>
         `,
-        { modules: ['../../autocomplete.ts', '../../select.ts'] },
+        { modules: ['../../autocomplete.ts', '../../option.ts', '../../select.ts'] },
       );
     });
 
@@ -90,7 +91,7 @@ describe(`sbb-option ssr`, () => {
             <sbb-option value="3">Option 3</sbb-option>
           </sbb-select>
         `,
-        { modules: ['../../autocomplete.ts', '../../select.ts'] },
+        { modules: ['../../autocomplete.ts', '../../option.ts', '../../select.ts'] },
       );
     });
 

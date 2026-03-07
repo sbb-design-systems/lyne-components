@@ -13,6 +13,7 @@ import { SbbPopoverElement } from './popover.component.ts';
 
 import '../button/button.ts';
 import '../link.ts';
+import '../popover.ts';
 
 describe(`sbb-popover`, () => {
   let element: SbbPopoverElement,

@@ -10,6 +10,7 @@ import type { SbbFormFieldElement } from '../form-field.ts';
 import { SbbTimeInputElement } from './time-input.component.ts';
 
 import '../form-field.ts';
+import '../time-input.ts';
 
 describe(`sbb-time-input`, () => {
   let element: SbbTimeInputElement;

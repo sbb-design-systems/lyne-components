@@ -6,6 +6,7 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 import { SbbCheckboxGroupElement } from './checkbox-group.component.ts';
 
 import '../checkbox.ts';
+import '../checkbox-group.ts';
 
 describe(`sbb-checkbox-group ssr`, () => {
   let root: SbbCheckboxGroupElement;
@@ -19,7 +20,7 @@ describe(`sbb-checkbox-group ssr`, () => {
           <sbb-checkbox id="checkbox-3" value="checkbox-3">Label 3</sbb-checkbox>
         </sbb-checkbox-group>
       `,
-      { modules: ['../checkbox.ts'] },
+      { modules: ['../checkbox.ts', '../checkbox-group.ts'] },
     );
   });
 

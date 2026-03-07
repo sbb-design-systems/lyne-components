@@ -10,6 +10,7 @@ import { SbbRadioButtonGroupElement } from './radio-button-group.component.ts';
 
 import '../radio-button.ts';
 import '../radio-button-panel.ts';
+import '../radio-button-group.ts';
 
 ['sbb-radio-button', 'sbb-radio-button-panel'].forEach((selector) => {
   const tagSingle = unsafeStatic(selector);

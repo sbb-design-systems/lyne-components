@@ -8,6 +8,7 @@ import { SbbPopoverElement } from './popover.component.ts';
 
 import '../button.ts';
 import '../link.ts';
+import '../popover.ts';
 
 describe(`sbb-popover ssr`, () => {
   let root: HTMLSpanElement;
@@ -27,7 +28,7 @@ describe(`sbb-popover ssr`, () => {
             </sbb-block-link>
           </span>
         `,
-        { modules: ['../button.ts', '../link.ts'] },
+        { modules: ['../button.ts', '../link.ts', '../popover.ts'] },
       );
     });
 
@@ -56,7 +57,7 @@ describe(`sbb-popover ssr`, () => {
             </sbb-block-link>
           </span>
         `,
-        { modules: ['../button.ts', '../link.ts'] },
+        { modules: ['../button.ts', '../link.ts', '../popover.ts'] },
       );
     });
 
