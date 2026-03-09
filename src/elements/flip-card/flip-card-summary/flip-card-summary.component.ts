@@ -30,11 +30,9 @@ export class SbbFlipCardSummaryElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-flip-card-summary">
-        <slot></slot>
-        <div class="sbb-flip-card-summary--image-wrapper">
-          <slot name="image"></slot>
-        </div>
+      <slot></slot>
+      <div class="sbb-flip-card-summary--image-wrapper">
+        <slot name="image"></slot>
       </div>
     `;
   }
