@@ -5,9 +5,9 @@ import { SbbElement } from '../../core/base-elements.ts';
 
 import style from './carousel-item.scss?lit&inline';
 
-export type SbbCarouselItemEventDetail = {
+export interface SbbCarouselItemEventDetail {
   index: number;
-};
+}
 
 /**
  * It displays an item contained into the `sbb-carousel` component.

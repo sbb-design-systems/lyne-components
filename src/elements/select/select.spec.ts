@@ -1459,7 +1459,10 @@ describe(`sbb-select`, () => {
   });
 
   describe('with complex value', () => {
-    type PropertyType = { property: string; otherProperty: string };
+    interface PropertyType {
+      property: string;
+      otherProperty: string;
+    }
     let element: SbbSelectElement<PropertyType>, firstOption: SbbOptionElement<PropertyType>;
 
     const value1 = { property: 'Option 1', otherProperty: 'test 1' };

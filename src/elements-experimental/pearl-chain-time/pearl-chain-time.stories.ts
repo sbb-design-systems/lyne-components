@@ -127,7 +127,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'experimental/sbb-pearl-chain-time',
+  title: 'experimental/Pearl Chain Time',
 };
 
 export default meta;

@@ -30,7 +30,10 @@ const memberDenyList = ['define', 'addController', 'removeController'];
 
 type UnwrapArray<A> = A extends unknown[] ? UnwrapArray<A[number]> : A;
 
-type OverrideTypeInfo = { memberName: string; memberOverrideType: string };
+interface OverrideTypeInfo {
+  memberName: string;
+  memberOverrideType: string;
+}
 
 /**
  * Docs: https://custom-elements-manifest.open-wc.org/analyzer/getting-started/

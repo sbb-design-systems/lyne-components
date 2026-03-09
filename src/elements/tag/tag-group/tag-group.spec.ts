@@ -700,7 +700,10 @@ describe(`sbb-tag-group`, () => {
   });
 
   describe('with complex value', () => {
-    type ValueType = { value: string; label: string };
+    interface ValueType {
+      value: string;
+      label: string;
+    }
     const values: ValueType[] = [
       { value: 'tag1', label: 'Tag 1' },
       { value: 'tag2', label: 'Tag 2' },

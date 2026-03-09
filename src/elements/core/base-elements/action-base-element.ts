@@ -7,11 +7,11 @@ import { SbbElement } from './element.ts';
  * or formDisabled if it's a form element.
  * Because we can't use types here directly we created this helper type.
  */
-type MaybeDisabled = {
+interface MaybeDisabled {
   disabled?: boolean;
   formDisabled?: boolean;
   disabledInteractive?: boolean;
-};
+}
 
 export abstract class SbbActionBaseElement extends SbbElement {
   protected get maybeDisabled(): boolean | undefined {

@@ -397,7 +397,7 @@ const meta: Meta = {
     },
     backgroundColor: () => 'var(--sbb-background-color-3)',
   },
-  title: 'experimental/sbb-timetable-row',
+  title: 'experimental/Timetable Row',
 };
 
 export default meta;

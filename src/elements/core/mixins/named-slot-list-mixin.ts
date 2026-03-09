@@ -9,10 +9,10 @@ import '../../screen-reader-only.ts';
 const SSR_CHILD_COUNT_ATTRIBUTE = 'data-ssr-child-count';
 const SLOTNAME_PREFIX = 'li';
 
-export type SbbNamedSlotProperties = {
+export interface SbbNamedSlotProperties {
   name: string;
   ariaHidden: boolean;
-};
+}
 
 /**
  * Helper type for willUpdate or similar checks.

@@ -602,7 +602,10 @@ describe('sbb-chip-group', () => {
   });
 
   describe('with complex value', () => {
-    type ComplexValue = { property: string; otherProp: string };
+    interface ComplexValue {
+      property: string;
+      otherProp: string;
+    }
     let options: SbbOptionElement<ComplexValue>[];
     const values: ComplexValue[] = [
       { property: 'Value 1', otherProp: 'test1' },

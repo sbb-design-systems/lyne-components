@@ -20,7 +20,10 @@ import {
 } from './form-associated-mixin.ts';
 import { SbbRequiredMixin } from './required-mixin.ts';
 
-type CheckedSetterValue = { value: boolean; attribute: boolean };
+interface CheckedSetterValue {
+  value: boolean;
+  attribute: boolean;
+}
 
 export declare abstract class SbbFormAssociatedCheckboxMixinType extends SbbDisabledMixin(
   SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement))),

@@ -63,7 +63,7 @@ const meta: Meta = {
       control: { type: 'select' },
     },
   },
-  title: 'experimental/sbb-pearl-chain-vertical-item',
+  title: 'experimental/Pearl Chain Vertical Item',
 };
 
 export default meta;

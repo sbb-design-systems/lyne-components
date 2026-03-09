@@ -12,14 +12,14 @@ import style from './test-title-chip-list.scss?lit&inline';
  */
 const paramsRegex = /(?<complex>[a-zA-Z]*=\(.*\))|(?<simple>[a-zA-Z]+=-{0,1}[a-zA-Z0-9]*)/gm;
 
-type DescribeEachItem = {
+interface DescribeEachItem {
   key: string;
   value: string;
   input: string;
   isBoolean: boolean;
   isUndefined: boolean;
   isComplex: boolean;
-};
+}
 
 /**
  *  Convert the `describeEach` test title format into a list of more readable chips.

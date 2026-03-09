@@ -624,7 +624,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'experimental/sbb-pearl-chain-vertical',
+  title: 'experimental/Pearl Chain Vertical',
 };
 
 export default meta;

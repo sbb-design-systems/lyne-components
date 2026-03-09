@@ -177,6 +177,7 @@ export default [
           },
         },
       ],
+      '@typescript-eslint/consistent-type-definitions': 'error',
     },
   },
   {

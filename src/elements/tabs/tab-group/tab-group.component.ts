@@ -17,14 +17,14 @@ import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
 import style from './tab-group.scss?lit&inline';
 
-export type SbbTabChangedEventDetails = {
+export interface SbbTabChangedEventDetails {
   activeIndex: number;
   activeTabLabel: SbbTabLabelElement;
   activeTab: SbbTabElement;
   previousIndex: number;
   previousTabLabel: SbbTabLabelElement | undefined;
   previousTab: SbbTabElement | undefined;
-};
+}
 
 /**
  * It displays one or more tabs, each one with a label and some content.

@@ -12,12 +12,12 @@ import style from './step.scss?lit&inline';
 
 let nextId = 0;
 
-export type SbbStepValidateEventDetails = {
+export interface SbbStepValidateEventDetails {
   currentIndex: number | null;
   currentStep: SbbStepElement | null;
   nextIndex: number | null;
   nextStep: SbbStepElement | null;
-};
+}
 
 /**
  * Combined with a `sbb-stepper`, it displays a step's content.

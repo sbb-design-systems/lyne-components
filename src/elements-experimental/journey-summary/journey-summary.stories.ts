@@ -266,7 +266,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'experimental/sbb-journey-summary',
+  title: 'experimental/Journey Summary',
 };
 
 export default meta;

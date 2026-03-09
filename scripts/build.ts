@@ -443,7 +443,10 @@ function buildRootIndex(pkg: PackageBuilder): void {
   console.log(`=> Generated index files in ${relative(projectRoot, pkg.outDir)}`);
 }
 
-type StyleSheet = { inputName: string; outputName: string };
+interface StyleSheet {
+  inputName: string;
+  outputName: string;
+}
 function buildElementsStyles(pkg: PackageBuilder): void {
   const sheets = [
     { inputName: 'core/styles/a11y.scss', outputName: 'a11y.css' },

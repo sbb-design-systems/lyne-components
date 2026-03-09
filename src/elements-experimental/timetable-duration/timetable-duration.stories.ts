@@ -51,7 +51,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'experimental/sbb-timetable-duration',
+  title: 'experimental/Timetable Duration',
 };
 
 export default meta;

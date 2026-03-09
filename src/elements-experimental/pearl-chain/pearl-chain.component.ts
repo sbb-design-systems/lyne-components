@@ -15,10 +15,10 @@ import { isRideLeg } from '../core/timetable.ts';
 import style from './pearl-chain.scss?lit&inline';
 
 type Status = 'progress' | 'future' | 'past';
-type Time = {
+interface Time {
   time?: Date;
   delay: number;
-};
+}
 
 /**
  * It visually displays journey information.
