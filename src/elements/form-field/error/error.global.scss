@@ -4,7 +4,6 @@ $theme: 'standard' !default;
 
 @mixin base {
   --sbb-error-color: var(--sbb-color-error);
-  --sbb-error-height: calc(var(--sbb-typo-line-height-text) * 1em);
   --sbb-error-icon-size: #{sbb.px-to-rem-build(17)};
   --sbb-error-font-size: var(--sbb-text-font-size-xs);
 }

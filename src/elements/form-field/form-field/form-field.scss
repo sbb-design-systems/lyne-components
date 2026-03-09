@@ -1,6 +1,8 @@
 @use '../../core/styles' as sbb;
 
 :host {
+  --sbb-form-field-error-divider-width: var(--sbb-spacing-fixed-1x);
+  --sbb-form-field-error-padding-block-start: var(--sbb-form-field-error-divider-width);
   --sbb-form-field-select-inline-padding-end: calc(
     var(--sbb-icon-svg-width) + var(--sbb-form-field-gap)
   );
@@ -15,7 +17,7 @@
         var(--sbb-form-field-min-height) - var(--sbb-form-field-label-size) - var(
             --sbb-form-field-text-line-height
           ) +
-          var(--sbb-form-field-label-to-input-overlapping)
+          var(--_sbb-form-field-label-to-input-overlapping)
       ) /
       2
   );
@@ -23,6 +25,13 @@
   // Lock sbb-icon size
   --sbb-icon-svg-width: var(--sbb-form-field-icon-size);
   --sbb-icon-svg-height: var(--sbb-form-field-icon-size);
+
+  // As the form field has always a white background, we have to fix the focus outline color
+  // to default color for cases where the form field is used in a negative context.
+  --sbb-focus-outline-color: light-dark(
+    var(--sbb-focus-outline-color-default),
+    var(--sbb-focus-outline-color-dark)
+  );
 
   display: inline-block;
   color: var(--sbb-form-field-color);
@@ -56,15 +65,15 @@
   --sbb-form-field-label-text-size: var(--sbb-text-font-size-xxs);
 
   // Values found by try and error
-  --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(10)};
+  --_sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(10)};
   --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5.5)};
-  --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8.5)};
+  --_sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8.5)};
 
   @include sbb.mq($from: large) {
     // Values found by try and error
-    --sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(11)};
+    --_sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(11)};
     --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5)};
-    --sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8)};
+    --_sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8)};
   }
 }
 
@@ -73,10 +82,10 @@
   --sbb-form-field-padding-inline: var(--sbb-spacing-fixed-3x);
   --sbb-form-field-input-text-size: var(--sbb-text-font-size-m);
   --sbb-form-field-label-text-size: var(--sbb-text-font-size-xs);
-  --sbb-form-field-label-to-input-overlapping: var(--sbb-spacing-fixed-1x);
+  --_sbb-form-field-label-to-input-overlapping: var(--sbb-spacing-fixed-1x);
   --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(8.5)};
-  --sbb-form-field-spacer-margin-block-end: calc(
-    -1 * var(--sbb-form-field-label-to-input-overlapping)
+  --_sbb-form-field-spacer-margin-block-end: calc(
+    -1 * var(--_sbb-form-field-label-to-input-overlapping)
   );
 
   @include sbb.mq($from: large) {
@@ -174,7 +183,7 @@
 
 :host(:is(:not(:state(slotted-label)), [hidden-label])) {
   --sbb-form-field-label-size: 0rem;
-  --sbb-form-field-label-to-input-overlapping: 0rem;
+  --_sbb-form-field-label-to-input-overlapping: 0rem;
 }
 
 // Should be after other definitions to override overflow
@@ -299,7 +308,7 @@
   height: calc(var(--sbb-form-field-label-text-size) * var(--sbb-typo-line-height-text));
 
   // Moves label down and input up to meet positioning requirements
-  margin-block-end: var(--sbb-form-field-spacer-margin-block-end);
+  margin-block-end: var(--_sbb-form-field-spacer-margin-block-end);
 }
 
 // To avoid doubled payload, we group the rules.
