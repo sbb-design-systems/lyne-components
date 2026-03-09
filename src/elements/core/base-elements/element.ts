@@ -99,15 +99,6 @@ export class SbbElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
       this._controllers?.forEach((controller) =>
         controller.hostPropertyUpdate?.(name, values, options),
       );
-      // TODO: Ausprobieren
-      if (options && values.value !== values.oldValue) {
-        if (!options.type || options.type === String) {
-          this.internals.states.delete(`${name.toString()}-${values.oldValue}`);
-          this.internals.states.add(`${name.toString()}-${values.value}`);
-        } else if (options.type === Boolean) {
-          this.toggleState(name.toString(), !!values.value);
-        }
-      }
     }
   }
 }
