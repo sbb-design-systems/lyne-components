@@ -74,4 +74,26 @@ describe(`sbb-journey-header`, () => {
       });
     }
   });
+
+  describeViewports({ viewports: ['zero'] }, () => {
+    for (const negative of [false, true]) {
+      describe(`negative=${negative}`, () => {
+        it(
+          `longContent=true`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html` <sbb-journey-header
+                style="word-break: break-word"
+                ?negative=${negative}
+                origin="Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu"
+                destination="Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch"
+              >
+              </sbb-journey-header>`,
+              { backgroundColor: negative ? 'var(--sbb-background-color-1-negative)' : undefined },
+            );
+          }),
+        );
+      });
+    }
+  });
 });
