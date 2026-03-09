@@ -111,7 +111,7 @@
   &::before {
     position: absolute;
     content: '';
-    inset: var(--sbb-header-action-background-inset);
+    inset: var(--sbb-header-action-background-inset, 0);
     border-radius: var(--sbb-border-radius-infinity);
     background-color: var(--sbb-header-action-background-color);
     transition-duration: var(--sbb-header-action-transition-duration);
@@ -141,7 +141,7 @@
       var(--sbb-header-action-active-border-color);
     inset: auto 0 calc(-1 * var(--sbb-header-action-active-border-width));
     margin-inline: var(--sbb-header-action-active-border-margin-inline);
-    scale: var(--sbb-header-action-active-border-scale);
+    scale: var(--sbb-header-action-active-border-scale, 0);
     transition: scale var(--sbb-header-action-transition-easing)
       var(--sbb-header-action-transition-duration);
   }
@@ -152,7 +152,7 @@
   align-items: center;
   gap: var(--sbb-header-action-gap);
   white-space: nowrap;
-  transform: translateY(var(--sbb-header-action-translate-y));
+  transform: translateY(var(--sbb-header-action-translate-y, 0));
   transition: transform var(--sbb-header-action-transition-duration)
     var(--sbb-header-action-transition-easing);
   will-change: transform;

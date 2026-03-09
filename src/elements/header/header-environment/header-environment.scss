@@ -7,6 +7,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: var(--sbb-text-font-size-xxs);
+  font-weight: bold;
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 }
 
 :host(:dir(rtl)) {
@@ -45,9 +48,6 @@
 .sbb-header-environment__text {
   position: absolute;
   color: var(--sbb-header-environment-color);
-  font-size: var(--sbb-text-font-size-xxs);
-  font-weight: bold;
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
   rotate: var(--sbb-header-environment-rotate);
   padding-block-end: var(--sbb-spacing-fixed-4x);
 }
