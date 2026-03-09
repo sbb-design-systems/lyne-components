@@ -90,7 +90,8 @@
 
 .sbb-calendar-year,
 .sbb-calendar-month {
-  display: flex;
+  position: relative;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   height: var(--sbb-calendar-cell-year-month-height);

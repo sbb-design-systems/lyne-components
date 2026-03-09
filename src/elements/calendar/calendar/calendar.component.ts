@@ -929,20 +929,15 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
    * To solve this, the element with the lowest `value` is taken (ISO String are ordered).
    */
   private _getFirstFocusableDay(): SbbCalendarDayElement | null {
-    const daysInView: SbbCalendarDayElement[] = this._cells.filter(
-      (e): e is SbbCalendarDayElement => e.matches(':not([disabled])'),
-    );
+    const cells = this._cells as SbbCalendarDayElement[];
+    const daysInView = cells.filter((e) => !e.disabled);
     if (!daysInView || daysInView.length === 0) {
       return null;
     } else {
       const firstElement = daysInView
-        .map((e: SbbCalendarDayElement): string => this._dateAdapter.toIso8601(e.value! as T))
+        .map((e): string => this._dateAdapter.toIso8601(e.value! as T))
         .sort()[0];
-      return (
-        this._cells.find((e): e is SbbCalendarDayElement =>
-          e.matches(`[slot="${firstElement}"]`),
-        )! ?? null
-      );
+      return cells.find((e) => e.matches(`[slot="${firstElement}"]`))! ?? null;
     }
   }
 
