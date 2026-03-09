@@ -1,0 +1,13 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-calendar-cell-color: var(--sbb-color-2);
+  --sbb-calendar-cell-cursor: var(--sbb-cursor-pointer);
+  --sbb-calendar-cell-inset: #{sbb.px-to-rem-build(1)};
+  --sbb-calendar-cell-selected-border: none;
+  --sbb-calendar-cell-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-calendar-cell-year-month-width: #{sbb.px-to-rem-build(77)};
+  --sbb-calendar-cell-year-month-height: #{sbb.px-to-rem-build(44)};
+}

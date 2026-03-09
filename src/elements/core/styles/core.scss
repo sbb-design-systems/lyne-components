@@ -33,6 +33,9 @@ $theme: 'standard' !default;
 @use '../../calendar/calendar/calendar.global' as calendar with (
   $theme: $theme
 );
+@use '../../calendar/common/calendar-cell-base-element.global' as calendar-cell with (
+  $theme: $theme
+);
 @use '../../card/card/card.global' as card with (
   $theme: $theme
 );
@@ -161,6 +164,7 @@ $theme: 'standard' !default;
   @include mini-button.base;
   @include mini-button-group.base;
   @include calendar.base;
+  @include calendar-cell.base;
   @include card.base;
   @include card-badge.base;
   @include carousel.base;
