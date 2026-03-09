@@ -1,4 +1,4 @@
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
@@ -14,20 +14,22 @@ import '../button.ts';
 import '../card.ts';
 import '../tag.ts';
 
-const uncheckAllTag = (event: Event): void => {
-  const tagGroup = (event.currentTarget as SbbTagElement).closest(
+const updateAllTag = (event: Event): void => {
+  const tagGroup = (event.currentTarget as SbbTagElement).closest<SbbTagGroupElement>(
     'sbb-tag-group',
-  ) as SbbTagGroupElement;
-  tagGroup.querySelector('.all')!.removeAttribute('checked');
+  )!;
+  tagGroup.querySelector<SbbTagElement>('.all')!.checked = Array.from(
+    tagGroup.querySelectorAll<SbbTagElement>('sbb-tag:not(.all)'),
+  ).every((e) => !e.checked);
 };
 
-const uncheckTags = (event: Event): void => {
-  const tagGroup = (event.currentTarget as SbbTagElement).closest(
-    'sbb-tag-group',
-  ) as SbbTagGroupElement;
-  Array.from(tagGroup.querySelectorAll('sbb-tag'))
-    .filter((e) => !e.classList.contains('all') && !e.getAttribute('disabled'))
-    .forEach((e) => e.removeAttribute('checked'));
+const updateTags = (event: Event): void => {
+  const allTag = event.currentTarget as SbbTagElement;
+  Array.from(
+    allTag
+      .closest<SbbTagGroupElement>('sbb-tag-group')!
+      .querySelectorAll<SbbTagElement>('sbb-tag:not(.all, [disabled])'),
+  ).forEach((e) => (e.checked = !allTag.checked));
 };
 
 const tagChecked: InputType = {
@@ -182,13 +184,13 @@ const ExclusiveTagGroupTemplate = ({ numberOfTagsInGroup, ...args }: Args): Temp
 
 const AllChoiceTagGroupTemplate = ({ numberOfTagsInGroup, ...args }: Args): TemplateResult => html`
   <sbb-tag-group ${sbbSpread(args)}>
-    <sbb-tag class="all" @change=${(ev: Event) => uncheckTags(ev)} value="All" checked>
+    <sbb-tag class="all" @change=${(ev: Event) => updateTags(ev)} value="All" checked>
       All
     </sbb-tag>
     ${repeat(
       new Array(numberOfTagsInGroup),
       (_e, i) => html`
-        <sbb-tag @change=${(ev: Event) => uncheckAllTag(ev)} amount="123" value=${`Label ${i + 1}`}>
+        <sbb-tag @change=${(ev: Event) => updateAllTag(ev)} amount="123" value=${`Label ${i + 1}`}>
           Label ${i + 1}
         </sbb-tag>
       `,

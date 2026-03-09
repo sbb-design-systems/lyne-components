@@ -1,8 +1,6 @@
-### sbb-stepper
-
-The `sbb-stepper` is a component that visually guides a user through a sequential, multistep process. It breaks down complex forms, flows, or other linear interactions into smaller, easier-to-follow steps. The current step is highlighted, and a progress bar connects the steps to visually represent progress.
-
-Use it with [sbb-step-label](/docs/elements-sbb-stepper-sbb-step-label--docs) and [sbb-step](/docs/elements-sbb-stepper-sbb-step--docs).
+The `sbb-stepper` is a component that visually guides a user through a sequential, multistep process.
+It breaks down complex forms, flows, or other linear interactions into smaller, easier-to-follow steps.
+The current step is highlighted, and a progress bar connects the steps to visually represent progress.
 
 ```html
 <sbb-stepper aria-label="Purpose of this flow">
@@ -20,8 +18,8 @@ The `sbb-step-label` can be disabled via the `disabled` attribute/property.
 <sbb-step-label disabled>Step label</sbb-step-label>
 ```
 
-By default the `sbb-step-label` displays a counter in the label prefix, which is aligned
-with the position in the `sbb-stepper`. This can be overridden via the `icon-name`.
+By default, the `sbb-step-label` displays a counter in the label prefix, which is aligned
+with the position in the `sbb-stepper`. This can be overridden via the `iconName` property.
 
 ```html
 <!-- Displays a number in the prefix circle -->

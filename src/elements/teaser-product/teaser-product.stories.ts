@@ -167,7 +167,7 @@ const Template = ({ withFooter, slottedImg, ...args }: Args): TemplateResult => 
 
 const WithChipTemplate = ({ withFooter, slottedImg, ...args }: Args): TemplateResult => html`
   <sbb-teaser-product ${sbbSpread(args)}>
-    ${chipInnerTemplate({ withFooter, slottedImg, imageAlignment: args.imageAlignment })}
+    ${chipInnerTemplate({ withFooter, slottedImg, imageAlignment: args['image-alignment'] })}
   </sbb-teaser-product>
 `;
 
@@ -182,7 +182,7 @@ const WithChipStaticTemplate = ({ withFooter, slottedImg, ...args }: Args): Temp
     ${chipInnerTemplate({
       withFooter,
       slottedImg,
-      imageAlignment: args.imageAlignment,
+      imageAlignment: args['image-alignment'],
       staticTeaser: true,
     })}
   </sbb-teaser-product-static>

@@ -1,3 +1,12 @@
+Tabs organize content into separate views where only one view is visible at a time.
+
+There are two variants available:
+
+- **[sbb-tab-group](#sbb-tab-group)**: For switching between different content blocks within the same view. Use this for content-based navigation.
+- **[sbb-tab-nav-bar](#sbb-tab-nav-bar)**: For navigation between routes using anchor links. Use this for page-level navigation.
+
+## sbb-tab-group
+
 The `sbb-tab-group` together with `sbb-tab-label` and `sbb-tab` are components used to organize and gather
 tabs that the user can navigate through.
 Use it when you want to provide navigation within blocks of content, instead of showing everything in one
