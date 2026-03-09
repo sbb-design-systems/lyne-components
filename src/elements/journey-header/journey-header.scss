@@ -31,4 +31,8 @@ sbb-icon {
       transform: rotate(-180deg);
     }
   }
+
+  > span {
+    max-width: 100%;
+  }
 }
