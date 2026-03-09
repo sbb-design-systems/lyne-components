@@ -579,7 +579,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'experimental/sbb-autocomplete-grid/sbb-autocomplete-grid',
+  title: 'experimental/sbb-autocomplete-grid',
 };
 
 export default meta;

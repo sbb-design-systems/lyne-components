@@ -164,7 +164,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/Visual Checkbox',
+  title: 'internals/Visual Checkbox',
 };
 
 export default meta;
