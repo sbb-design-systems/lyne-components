@@ -151,6 +151,29 @@ export function createManifestConfig(library = '') {
           };
         },
         analyzePhase({ ts, node, moduleDoc }) {
+          if (ts.isClassDeclaration(node)) {
+            const className = node.name?.getText();
+            const classDoc = (moduleDoc.declarations as undefined | CustomElement[])?.find(
+              (declaration) => declaration.name === className,
+            );
+            const elementNameProperty = node.members
+              .filter(ts.isPropertyDeclaration)
+              .find(
+                (m) =>
+                  m.name.getText() === 'elementName' &&
+                  m.modifiers?.some((o) => o.kind === ts.SyntaxKind.StaticKeyword),
+              );
+            if (
+              classDoc &&
+              elementNameProperty?.initializer &&
+              ts.isStringLiteral(elementNameProperty.initializer)
+            ) {
+              // eslint-disable-next-line lyne/local-name-rule
+              classDoc.tagName = elementNameProperty.initializer.text;
+              classDoc.customElement = true;
+            }
+          }
+
           /* Replace the typeName with the provided typeValue, matching only the word,
            * in a way that 'V | null' could be replaced with 'string | null', but 'ValidityState' is not changed.
            */
@@ -308,7 +331,11 @@ export function createManifestConfig(library = '') {
             ) ?? []) as CustomElement[]) {
               // Abstract base classes or mixins are considered components
               // even if they don't have the `customElement` annotation.
-              if (declaration.name.includes('Base') || declaration.name.includes('MixinType')) {
+              if (
+                declaration.name.includes('Base') ||
+                declaration.name.includes('MixinType') ||
+                declaration.name === 'SbbElement'
+              ) {
                 delete (declaration as Partial<CustomElement>).customElement;
               }
 
