@@ -1,4 +1,4 @@
-The `sbb-visual-checkbox` is an 'internal-use-only' component used to display a non-interactive checkbox within an interactive component.
+The `<sbb-visual-checkbox>` is an 'internal-use-only' component used to display a non-interactive checkbox within an interactive component.
 It is used in the [sbb-checkbox](/docs/elements-checkbox--docs) component,
 and in the [sbb-option](/docs/elements-option--docs) component
 when it's used within a multiple [sbb-select](/docs/elements-select--docs).

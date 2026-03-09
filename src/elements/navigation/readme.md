@@ -1,6 +1,6 @@
 ### sbb-navigation
 
-The `sbb-navigation` component provides a way to present a modal navigation menu.
+The `<sbb-navigation>` component provides a way to present a modal navigation menu.
 It creates a backdrop for disabling interaction behind the navigation and disables scrolling of the page
 content while open.
 Focus is managed properly by setting it on the first focusable element or the first action with the
@@ -16,12 +16,12 @@ Focus is managed properly by setting it on the first focusable element or the fi
 </sbb-navigation>
 ```
 
-It is possible to use it either with or without `sbb-navigation-section` instances.
+It is possible to use it either with or without `<sbb-navigation-section>` instances.
 
 ## Interactions
 
-To display the `sbb-navigation` component you can either provide a trigger element using the `trigger` property,
-or call the `open()` method on the `sbb-navigation` component.
+To display the `<sbb-navigation>` component you can either provide a trigger element using the `trigger` property,
+or call the `open()` method on the `<sbb-navigation>` component.
 
 ```html
 <!-- Trigger element -->
@@ -58,9 +58,9 @@ or call the `open()` method on the `sbb-navigation` component.
 
 ## Navigation Link
 
-The `sbb-navigation-link` component is equivalent to a native `anchor (a)` element and is internally
+The `<sbb-navigation-link>` component is equivalent to a native `anchor (a)` element and is internally
 rendered as a link, accepting its associated properties (`href`, `target`, `rel` and `download`).
-It can be used within an `sbb-navigation-list` component or an `sbb-navigation-marker` component.
+It can be used within an `<sbb-navigation-list>` component or an `<sbb-navigation-marker>` component.
 
 ```html
 <sbb-navigation-link href="#info" target="_blank">Link</sbb-navigation-link>
@@ -84,9 +84,9 @@ The component has three different sizes, which can be changed using the `size` p
 
 ## Navigation Button
 
-The `sbb-navigation-button` component is equivalent to a native `button` element,
+The `<sbb-navigation-button>` component is equivalent to a native `button` element,
 accepting its associated properties (`type`, `name`, `value` and `form`).
-It can be used within an `sbb-navigation-list` component or an `sbb-navigation-marker` component.
+It can be used within an `<sbb-navigation-list>` component or an `<sbb-navigation-marker>` component.
 
 ```html
 <sbb-navigation-button value="menu" name="menu">Button</sbb-navigation-button>
@@ -110,7 +110,7 @@ The component has three different sizes, which can be changed using the `size` p
 
 ## Navigation Marker
 
-The `sbb-navigation-marker` component is a collection of `sbb-navigation-button` and `sbb-navigation-link`.
+The `<sbb-navigation-marker>` component is a collection of `<sbb-navigation-button>` and `<sbb-navigation-link>`.
 
 ```html
 <sbb-navigation-marker>
@@ -122,7 +122,7 @@ The `sbb-navigation-marker` component is a collection of `sbb-navigation-button`
 
 ### Style
 
-The component has a property named `size` which is proxied to all the `sbb-navigation-button`/`sbb-navigation-link` within it.
+The component has a property named `size` which is proxied to all the `<sbb-navigation-button>`/`<sbb-navigation-link>` within it.
 Possible values are `l` (default) and `s`.
 
 ```html
@@ -134,7 +134,7 @@ Possible values are `l` (default) and `s`.
 
 ## Navigation List
 
-The `sbb-navigation-list` component is a collection of `sbb-navigation-button` and `sbb-navigation-link`.
+The `<sbb-navigation-list>` component is a collection of `<sbb-navigation-button>` and `<sbb-navigation-link>`.
 Optionally, a label can be provided via the `label` attribute/property or the `label` slot.
 
 ```html
@@ -147,12 +147,12 @@ Optionally, a label can be provided via the `label` attribute/property or the `l
 
 ## Navigation Section
 
-The `sbb-navigation-section` is a container for both `sbb-navigation-list` and `sbb-button`.
-Its intended use is inside a `sbb-navigation` component, in which it can be seen as a 'second-level' panel.
+The `<sbb-navigation-section>` is a container for both `<sbb-navigation-list>` and `<sbb-button>`.
+Its intended use is inside a `<sbb-navigation>` component, in which it can be seen as a 'second-level' panel.
 
 ## Trigger
 
-To display the `sbb-navigation-section` component you must provide a trigger element using the `trigger` property,
+To display the `<sbb-navigation-section>` component you must provide a trigger element using the `trigger` property,
 Optionally a label can be provided via slot or via the `titleContent` property.
 
 ```html
@@ -172,7 +172,7 @@ On opening, the focus will be automatically set on the first focusable element (
 If there is a trigger for a navigation section with the CSS class `.sbb-active`,
 the first occurrence automatically opens the connected section.
 When a navigation action is marked to indicate the user is currently on that page,
-`accessibility-current="page"` (for `sbb-navigation-link`s) or `aria-current="page"` (for `sbb-navigation-button`s)
+`accessibility-current="page"` (for `<sbb-navigation-link>`s) or `aria-current="page"` (for `<sbb-navigation-button>`s)
 should be set on that action.
 Similarly, if a navigation action is marked to indicate a selected option (e.g. the selected language),
 `aria-pressed` should be set on that action.

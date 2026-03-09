@@ -1,4 +1,4 @@
-The `sbb-overlay` component provides a way to present content on top of the app's content,
+The `<sbb-overlay>` component provides a way to present content on top of the app's content,
 and it's similar to the [sbb-dialog](/docs/elements-dialog--docs).
 It offers the following features:
 
@@ -19,7 +19,7 @@ There is only one unnamed slot to provide the overlay content.
 
 ## Style
 
-Setting the `expanded` property will cause the `sbb-overlay` component to take up the full width of the page.
+Setting the `expanded` property will cause the `<sbb-overlay>` component to take up the full width of the page.
 
 It's possible to display the component in `negative` variant using the self-named property.
 
@@ -31,7 +31,7 @@ It's possible to display the component in `negative` variant using the self-name
 
 ## Interactions
 
-In order to show the overlay, you need to provide a trigger or call the `open()` method on the `sbb-overlay` component.
+In order to show the overlay, you need to provide a trigger or call the `open()` method on the `<sbb-overlay>` component.
 
 ```html
 <sbb-button id="overlay-trigger">Open overlay</sbb-button>
@@ -69,7 +69,7 @@ The overlay can be closed in several ways:
 
 3. **Escape key**: Pressing the `Esc` key will close the overlay.
 
-4. **Programmatically**: Call the `close(result?: any)` method on the `sbb-overlay` element.
+4. **Programmatically**: Call the `close(result?: any)` method on the `<sbb-overlay>` element.
    This method closes the overlay and emits `beforeclose` and `close` events with the provided result as a payload.
 
    ```js

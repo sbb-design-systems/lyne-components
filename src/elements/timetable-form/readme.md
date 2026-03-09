@@ -1,4 +1,4 @@
-The `sbb-timetable-form` is a layout and interaction orchestrator for timetable forms.
+The `<sbb-timetable-form>` is a layout and interaction orchestrator for timetable forms.
 
 It arranges related form parts (like origin/destination fields, swap button, and a details section) and provides utility classes for consistent, responsive composition.
 Use it inside a native `<form>` and wrap the whole form with the `.sbb-timetable-form` class to enable the layout.
@@ -23,13 +23,13 @@ Use it inside a native `<form>` and wrap the whole form with the `.sbb-timetable
 
 ## Style
 
-Wrap the entire form with `.sbb-timetable-form` to enable spacing and positioning on various screen-sizes, including the placement of `sbb-signet`.
+Wrap the entire form with `.sbb-timetable-form` to enable spacing and positioning on various screen-sizes, including the placement of `<sbb-signet>`.
 
 ### Details section
 
-The `sbb-timetable-form-details` is a flex wrapper separated by the main fields by a divider.
+The `<sbb-timetable-form-details>` is a flex wrapper separated by the main fields by a divider.
 
-The `sbb-timetable-form` provide the following utility classes to compose the details section:
+The `<sbb-timetable-form>` provide the following utility classes to compose the details section:
 
 | Class                               | Effect                                   |
 | ----------------------------------- | ---------------------------------------- |
@@ -68,7 +68,7 @@ Example of a details section:
 
 ## Interactions
 
-The `sbb-timetable-form-swap-button`, when clicked, automatically swaps the values of the `sbb-timetable-form-field`
+The `<sbb-timetable-form-swap-button>`, when clicked, automatically swaps the values of the `<sbb-timetable-form-field>`
 and dispatches the `input` and `change` events. The default `aria-label` value is 'Swap from and to', localized in the supported languages.
 
 <!-- Auto Generated Below -->

@@ -1,8 +1,8 @@
-The `sbb-chip-group` component is a container for one or multiple
-`sbb-chip` instances.
-Generally, it is used in combination with an `sbb-form-field` to allow the input of multiple string values.
+The `<sbb-chip-group>` component is a container for one or multiple
+`<sbb-chip>` instances.
+Generally, it is used in combination with an `<sbb-form-field>` to allow the input of multiple string values.
 
-The `value` property reflects the list of slotted chips. Adding or removing an `sbb-chip` updates the value property, and vice versa.
+The `value` property reflects the list of slotted chips. Adding or removing an `<sbb-chip>` updates the value property, and vice versa.
 
 ```html
 <sbb-form-field>
@@ -15,13 +15,13 @@ The `value` property reflects the list of slotted chips. Adding or removing an `
 </sbb-form-field>
 ```
 
-The display value of an `sbb-chip` is either its content or the value
+The display value of an `<sbb-chip>` is either its content or the value
 of the `value` property.
 
 ## States
 
-The `sbb-chip-group` has a `disabled` and a `readonly` state and reacts to the respective `input` properties.
-The `disabled`/`readonly` properties are proxied to the slotted `sbb-chip`s.
+The `<sbb-chip-group>` has a `disabled` and a `readonly` state and reacts to the respective `input` properties.
+The `disabled`/`readonly` properties are proxied to the slotted `<sbb-chip>`s.
 
 ```html
 <sbb-form-field>
@@ -37,7 +37,7 @@ The `disabled`/`readonly` properties are proxied to the slotted `sbb-chip`s.
 
 ## Style
 
-The `sbb-chip-group` has a `negative` variant. If within an `sbb-form-field`, the properties automatically sync.
+The `<sbb-chip-group>` has a `negative` variant. If within an `<sbb-form-field>`, the properties automatically sync.
 
 ```html
 <sbb-form-field negative>
@@ -51,7 +51,7 @@ The `sbb-chip-group` has a `negative` variant. If within an `sbb-form-field`, th
 
 ## Usage
 
-By default, when the user presses `Enter`, the `sbb-chip-group` will create a new `sbb-chip` and add it to the slotted elements.
+By default, when the user presses `Enter`, the `<sbb-chip-group>` will create a new `<sbb-chip>` and add it to the slotted elements.
 
 Consumers can customize or prevent this behavior by listening to the `chipinputtokenend` event.
 
@@ -78,9 +78,9 @@ Consumers can customize or prevent this behavior by listening to the `chipinputt
 
 ### Use within forms
 
-The `sbb-chip-group` is a form-associated element that can be part of a form. Its value is an array of strings.
+The `<sbb-chip-group>` is a form-associated element that can be part of a form. Its value is an array of strings.
 
-**Note:** The `name` must be set on the `sbb-chip-group`, not on the `input`
+**Note:** The `name` must be set on the `<sbb-chip-group>`, not on the `input`
 
 ```html
 <form>
@@ -116,7 +116,7 @@ In this scenario, selecting an option will create a new chip using the option va
 
 ### Custom 'separator-keys'
 
-By default, the `sbb-chip-group` creates a new chip on `Enter` key press.
+By default, the `<sbb-chip-group>` creates a new chip on `Enter` key press.
 
 Consumers can customize the array of [keys](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values#special_values) that will trigger the chip creation by using the `separatorKeys` property.
 
@@ -126,7 +126,7 @@ Consumers can customize the array of [keys](https://developer.mozilla.org/en-US/
 
 ### Add on blur
 
-By default, the `sbb-chip-group` does not create a chip when the input loses focus.
+By default, the `<sbb-chip-group>` does not create a chip when the input loses focus.
 
 Consumers can enable this behavior by setting the `addOnBlur` property to `true`.
 When enabled, a chip will be automatically created from the input value when the input loses focus.
@@ -171,13 +171,13 @@ At any time, only a single chip (usually, the last one) is focusable and part of
 | --------------------------- | --------------------------------------------------------- |
 | <kbd>Enter</kbd>            | When the `input` is focused, add a new chip.              |
 | <kbd>Backspace</kbd>        | When the `input` is empty & focused, focus the last chip. |
-| <kbd>Backspace</kbd>        | When the `sbb-chip` is focused, delete it.                |
-| <kbd>Left/Up Arrow</kbd>    | Move the next `sbb-chip`.                                 |
-| <kbd>Right/Down Arrow</kbd> | Move the previous `sbb-chip`.                             |
+| <kbd>Backspace</kbd>        | When the `<sbb-chip>` is focused, delete it.              |
+| <kbd>Left/Up Arrow</kbd>    | Move the next `<sbb-chip>`.                               |
+| <kbd>Right/Down Arrow</kbd> | Move the previous `<sbb-chip>`.                           |
 
 ## Accessibility
 
-The `sbb-chip-group` follows the `grid` aria pattern.
+The `<sbb-chip-group>` follows the `grid` aria pattern.
 
 <!-- Auto Generated Below -->
 

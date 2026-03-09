@@ -1,4 +1,4 @@
-The `sbb-footer` component is used to display page related information like copyright, contact or other
+The `<sbb-footer>` component is used to display page related information like copyright, contact or other
 content related links; for these, the [sbb-link-list](/docs/elements-link-list--docs) component can be used.
 
 ## Variants
@@ -8,7 +8,7 @@ block element approach and the `variant='clock-columns'`, which uses a CSS-grid 
 breakpoints.
 
 **Note:**
-Content, like `sbb-link-list` that could come along with a button, needs to be wrapped with a `<div>` element with a helper
+Content, like `<sbb-link-list>` that could come along with a button, needs to be wrapped with a `<div>` element with a helper
 class (`class="sbb-link-list-button-group"`) to be displayed correctly.
 
 ```html
@@ -57,7 +57,7 @@ class (`class="sbb-link-list-button-group"`) to be displayed correctly.
 ## Style
 
 It's possible to display the footer in `negative` variant; please also apply the negative attribute
-to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`).
+to the content where needed (e.g. `<sbb-link-list>`, `<sbb-link>` and `<sbb-divider>`).
 
 ```html
 <sbb-footer negative accessibility-title="Footer">

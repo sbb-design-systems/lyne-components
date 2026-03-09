@@ -1,10 +1,10 @@
-The `sbb-carousel` is a slideshow component that can be used to display a
+The `<sbb-carousel>` is a slideshow component that can be used to display a
 series of items, as images, once at a time, allowing users to cycle
 through them via horizontal scrolling or using controls (e.g. a paginator).
 
 The component must be used together with a
 [sbb-compact-paginator](/docs/elements-paginator--docs)
-and a `sbb-carousel-list`, which accepts one or more `sbb-carousel-item`.
+and a `<sbb-carousel-list>`, which accepts one or more `<sbb-carousel-item>`.
 
 ```html
 <sbb-carousel>
@@ -30,14 +30,14 @@ and a `sbb-carousel-list`, which accepts one or more `sbb-carousel-item`.
 </sbb-carousel>
 ```
 
-The `length` and the `pageSize` properties of the `sbb-compact-paginator`
+The `length` and the `pageSize` properties of the `<sbb-compact-paginator>`
 are automatically set based on the number of slotted images.
 
 The values of the `accessibilityPageLabel`, `accessibilityPreviousPageLabel` and `accessibilityNextPageLabel` properties
 are also set, in order to automatically override the 'page' keyword to the 'slide' one.
 If needed, consumers can provide their own values.
 
-The `sbb-carousel-item` supports native `img` tags, `sbb-image`, `picture`
+The `<sbb-carousel-item>` supports native `img` tags, `<sbb-image>`, `picture`
 and also custom content, appropriately formatted.
 Since it doesn't have a fixed size, it's important for consumers to define
 the dimensions of slotted images to correctly render the component.
@@ -53,27 +53,27 @@ It's possible to switch between items using the paginator controls, or, if the c
 
 ## Events
 
-The `sbb-carousel-item` component provides the two events `beforeshow`
+The `<sbb-carousel-item>` component provides the two events `beforeshow`
 and `show`; their dispatch is related to scroll events in the
-`sbb-carousel-list`.
+`<sbb-carousel-list>`.
 The `beforeshow` is dispatched when an item is being scrolled into view
 and the `show` is dispatched when the item is fully visible.
 
 ## Style
 
-The carousel determines its dimensions by reading the dimensions from the first slotted `sbb-carousel-item` element.
+The carousel determines its dimensions by reading the dimensions from the first slotted `<sbb-carousel-item>` element.
 It is the consumers' responsibility to set the correct height and width of the items, and to ensure that they are all the same size.
 
 These dimensions are read only once, when the component is first connected to the DOM or first becomes visible.
 In special cases, such as when the carousel size needs to be responsive, it is recommended to manually
-set the width and height CSS properties on the `sbb-carousel-list` element.
+set the width and height CSS properties on the `<sbb-carousel-list>` element.
 Manually set dimensions will take precedence over the automatically read dimensions.
 
 ## Accessibility
 
 Following the [ARIA carousel pattern](https://www.w3.org/WAI/ARIA/apg/patterns/carousel/),
-the `sbb-carousel` component has `role="region"` and `aria-label="carousel"` and the `sbb-carousel-list` component has `aria-atomic='true'` and `aria-live='polite'`.
-If no `aria-label` is provided on the slotted `sbb-carousel-item`
+the `<sbb-carousel>` component has `role="region"` and `aria-label="carousel"` and the `<sbb-carousel-list>` component has `aria-atomic='true'` and `aria-live='polite'`.
+If no `aria-label` is provided on the slotted `<sbb-carousel-item>`
 instances, the component sets a default value on them..
 
 To not break the accessibility when links are used together with images, please place the image within the anchor tag.

@@ -1,6 +1,6 @@
-The `sbb-alert` is a component which should be used to display important messages to a client.
+The `<sbb-alert>` is a component which should be used to display important messages to a client.
 
-Multiple instances of this component can be used within the `sbb-alert-group` component.
+Multiple instances of this component can be used within the `<sbb-alert-group>` component.
 The group also manages the accessibility of one or multiple alert instances and also the
 visual gap between each other.
 
@@ -22,16 +22,16 @@ visual gap between each other.
 
 ## Interactions
 
-If all `sbb-alert` instances in a group are dismissed, it's recommended to completely
-remove the `sbb-alert-group` from DOM.
+If all `<sbb-alert>` instances in a group are dismissed, it's recommended to completely
+remove the `<sbb-alert-group>` from DOM.
 
 Listen to the `empty` event dispatched by the group and react accordingly.
 
 ## Slots
 
-The unnamed slot is used to project an `sbb-title`, text content and one or more `sbb-link` elements.
+The unnamed slot is used to project an `<sbb-title>`, text content and one or more `<sbb-link>` elements.
 
-The component can optionally display an `sbb-icon` at the component start using the `iconName` property or via custom content using the `icon` slot.
+The component can optionally display an `<sbb-icon>` at the component start using the `iconName` property or via custom content using the `icon` slot.
 
 ```html
 <sbb-alert icon-name="disruption">
@@ -52,7 +52,7 @@ The component can optionally display an `sbb-icon` at the component start using 
 
 ## Readonly
 
-Per default a `sbb-alert` can be dismissed by a user. If an alert should not be dismissable,
+Per default a `<sbb-alert>` can be dismissed by a user. If an alert should not be dismissable,
 use the `readonly` attribute/`readOnly` property.
 
 ```html
@@ -81,17 +81,17 @@ As a base rule, opening animations should be active if an alert arrives after th
 
 ## Accessibility
 
-Accessibility is mainly done by wrapping the alerts into the `sbb-alert-group`.
+Accessibility is mainly done by wrapping the alerts into the `<sbb-alert-group>`.
 
 The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
 
 Avoid slotting block elements (e.g. `<div>`) as this violates semantic rules and can have
 negative effects on screen readers.
 
-For the `sbb-alert-group` it's possible to add a hidden title by specifying the `accessibility-title`.
+For the `<sbb-alert-group>` it's possible to add a hidden title by specifying the `accessibility-title`.
 The heading level can be set via `accessibility-title-level`.
 
-By default, the `sbb-alert-group` has the role `status` which means that if a new alert
+By default, the `<sbb-alert-group>` has the role `status` which means that if a new alert
 arrives, it will be read out as soon as the user is idle
 (equal to [aria-live="polite"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions)).
 

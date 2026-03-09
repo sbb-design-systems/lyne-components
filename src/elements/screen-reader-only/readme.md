@@ -1,4 +1,4 @@
-The `sbb-screen-reader-only` is a component to visually hide content but present it to screen readers.
+The `<sbb-screen-reader-only>` is a component to visually hide content but present it to screen readers.
 
 ```html
 <sbb-screen-reader-only>

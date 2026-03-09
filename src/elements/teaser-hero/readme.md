@@ -1,4 +1,4 @@
-The `sbb-teaser-hero` is a component with a background image and an action call within a panel;
+The `<sbb-teaser-hero>` is a component with a background image and an action call within a panel;
 it should be an eye-catcher and should have an emotional effect on the user with its large image component.
 
 ## Slots
@@ -6,7 +6,7 @@ it should be an eye-catcher and should have an emotional effect on the user with
 It is possible to provide the panel label via an unnamed slot,
 while the link text can be provided using the `link-content` slot or the `linkContent` property;
 
-Use the `image` slot to pass an `sbb-image` or an `img` that will be used as background.
+Use the `image` slot to pass an `<sbb-image>` or an `img` that will be used as background.
 
 ```html
 <sbb-teaser-hero href="https://www.sbb.ch">
@@ -16,10 +16,10 @@ Use the `image` slot to pass an `sbb-image` or an `img` that will be used as bac
 </sbb-teaser-hero>
 ```
 
-Optionally, you can add an overlapping `sbb-chip-label` or image (e.g. logo) by wrapping the `sbb-image`
+Optionally, you can add an overlapping `<sbb-chip-label>` or image (e.g. logo) by wrapping the `<sbb-image>`
 in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
-If the `sbb-chip-label` or the image (e.g. logo) should appear on top of the red panel (e.g. on small screens),
-you need to set a `z-index` on the `sbb-chip-label` or the image (e.g. logo).
+If the `<sbb-chip-label>` or the image (e.g. logo) should appear on top of the red panel (e.g. on small screens),
+you need to set a `z-index` on the `<sbb-chip-label>` or the image (e.g. logo).
 Otherwise, it stays behind the red panel.
 
 ```html

@@ -1,4 +1,4 @@
-The `sbb-message` component can be used to display a complex message.
+The `<sbb-message>` component can be used to display a complex message.
 
 ## Slots
 

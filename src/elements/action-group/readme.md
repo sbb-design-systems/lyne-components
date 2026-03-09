@@ -1,4 +1,4 @@
-The `sbb-action-group` component is a generic content container which can contain up to three action items
+The `<sbb-action-group>` component is a generic content container which can contain up to three action items
 ([sbb-button](/docs/elements-button--docs) or [sbb-block-link](/docs/elements-link--docs) or other HTML elements)
 in various [allocations](#allocations).
 
@@ -28,8 +28,8 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
 
 ### Button-size and link-size
 
-The two props `button-size` and `link-size` can be used to override, respectively, the size of the inner `sbb-button` and `sbb-block-link`.
-The accepted values are `s`, `m` and `l` (default) for `sbb-button` and `xs`, `s` and `m` (default) for `sbb-block-link`.
+The two props `button-size` and `link-size` can be used to override, respectively, the size of the inner `<sbb-button>` and `<sbb-block-link>`.
+The accepted values are `s`, `m` and `l` (default) for `<sbb-button>` and `xs`, `s` and `m` (default) for `<sbb-block-link>`.
 
 ```html
 <sbb-action-group button-size="m" link-size="s">
@@ -51,8 +51,8 @@ possible values are `start`, `center`, `stretch` and `end`.
 It is also possible to set the `align-self` attribute on action items in order to move them in the
 opposite direction to the group; possible values are `start`, `center` or `end`.
 
-**NOTE**: The `sbb-action-group` will only accept `block-link` and will sync the `linkSize`
-property with nested `sbb-block-link` and the `buttonSize` property with the nested `sbb-button`
+**NOTE**: The `<sbb-action-group>` will only accept `block-link` and will sync the `linkSize`
+property with nested `<sbb-block-link>` and the `buttonSize` property with the nested `<sbb-button>`
 instances.
 
 ```html
@@ -65,7 +65,7 @@ instances.
 
 ## Allocations
 
-Items can be displayed inside `sbb-action-group` in different allocations.
+Items can be displayed inside `<sbb-action-group>` in different allocations.
 
 If we define the triad x-y-z as the number of elements aligned at the start, at the center and at the end of the component,
 and we consider a template like the following one (possibly removing the link for 2-elements allocations):

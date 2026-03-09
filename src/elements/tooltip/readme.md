@@ -1,4 +1,4 @@
-The `sbb-tooltip` component displays contextual information related to an element.
+The `<sbb-tooltip>` component displays contextual information related to an element.
 
 The standard way to use it is through the `trigger` property, referencing the element which activate the tooltip.
 
@@ -99,7 +99,7 @@ mergeConfig({
 
 ## Accessibility
 
-The `sbb-tooltip` adds an `ariaDescribedby` reference to an element containing the tooltip's message.
+The `<sbb-tooltip>` adds an `ariaDescribedby` reference to an element containing the tooltip's message.
 
 Avoid interactions that exclusively show a tooltip with pointer events like click and mouseenter.
 Always ensure that keyboard users can perform the same set of actions available to mouse and touch users.

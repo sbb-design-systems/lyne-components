@@ -1,11 +1,11 @@
-The `sbb-mini-calendar` is a component used to display a minimal calendar.
+The `<sbb-mini-calendar>` is a component used to display a minimal calendar.
 
-It must be used in combination with one or more `sbb-mini-calendar-month`,
-each one slotting the required `sbb-mini-calendar-day`.
+It must be used in combination with one or more `<sbb-mini-calendar-month>`,
+each one slotting the required `<sbb-mini-calendar-day>`.
 
-The `sbb-mini-calendar-month` requires usage of the `date` property/attribute in ISO string format (YYYY-MM).
+The `<sbb-mini-calendar-month>` requires usage of the `date` property/attribute in ISO string format (YYYY-MM).
 
-The `sbb-mini-calendar-day` requires usage of the `date` property/attribute in ISO string format (YYYY-MM-DD).
+The `<sbb-mini-calendar-day>` requires usage of the `date` property/attribute in ISO string format (YYYY-MM-DD).
 
 ```html
 <sbb-mini-calendar>
@@ -48,12 +48,12 @@ The orientation of the days in each month can be set using the `orientation` pro
 <sbb-mini-calendar orientation="vertical"> ... </sbb-mini-calendar>
 ```
 
-For the `sbb-mini-calendar-month` the month name is always displayed at the component's bottom;
-the year is displayed on top only for January and for the first slotted month in the `sbb-mini-calendar`.
+For the `<sbb-mini-calendar-month>` the month name is always displayed at the component's bottom;
+the year is displayed on top only for January and for the first slotted month in the `<sbb-mini-calendar>`.
 
-The `orientation` value of the `sbb-mini-calendar` parent controls the component's orientation via CSS rules.
+The `orientation` value of the `<sbb-mini-calendar>` parent controls the component's orientation via CSS rules.
 
-The `sbb-mini-calendar-day` component has a `color` property, which is used to change the dot color.
+The `<sbb-mini-calendar-day>` component has a `color` property, which is used to change the dot color.
 Default colors are provided for `charcoal`, `cloud`, `orange`, `red` and `sky` values;
 moreover, consumers can write their own CSS rules for custom values.
 
@@ -107,10 +107,10 @@ It's possible to move within the component using the keyboard.
 ## Accessibility
 
 Even though some WCAG rules have been followed
-(e.g., `aria-label`s on `sbb-mini-calendar-day`s, keyboard navigation, visible focus indicator, correct contrast...),
-the component may not be fully accessible due to the small dimensions of `sbb-mini-calendar-day`s and
-the usage of a grid implementation for the `sbb-mini-calendar-month`
-(differently from the `sbb-calendar`, which has a table implementation).
+(e.g., `aria-label`s on `<sbb-mini-calendar-day>`s, keyboard navigation, visible focus indicator, correct contrast...),
+the component may not be fully accessible due to the small dimensions of `<sbb-mini-calendar-day>`s and
+the usage of a grid implementation for the `<sbb-mini-calendar-month>`
+(differently from the `<sbb-calendar>`, which has a table implementation).
 
 <!-- Auto Generated Below -->
 

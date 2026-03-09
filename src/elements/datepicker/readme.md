@@ -17,7 +17,7 @@ its reference.
 It is however recommend to use it in an `<sbb-form-field>`, which will
 automatically take care of connecting the corresponding components.
 
-## In `sbb-form-field`
+## In `<sbb-form-field>`
 
 If the `<sbb-datepicker>` is used within a [sbb-form-field](/docs/elements-form-field--docs)
 with an `<sbb-date-input>`, they are automatically linked. This also
@@ -42,9 +42,9 @@ applies to the `<sbb-datepicker-previous-day>` and
 </sbb-form-field>
 ```
 
-## `sbb-datepicker-previous-day` & `sbb-datepicker-next-day`
+## `<sbb-datepicker-previous-day>` & `<sbb-datepicker-next-day>`
 
-The components `sbb-datepicker-previous-day` and `sbb-datepicker-next-day`
+The components `<sbb-datepicker-previous-day>` and `<sbb-datepicker-next-day>`
 can be used as quick navigation buttons to either decrement or increment
 the selected date.
 

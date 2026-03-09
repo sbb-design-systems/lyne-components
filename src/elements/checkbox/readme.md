@@ -1,8 +1,8 @@
-The `sbb-checkbox` component provides the same functionality as a native `<input type="checkbox"/>` enhanced with the SBB Design.
+The `<sbb-checkbox>` component provides the same functionality as a native `<input type="checkbox"/>` enhanced with the SBB Design.
 
 ## Slots
 
-It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon` using
+It is possible to provide a label via an unnamed slot; the component can optionally display a `<sbb-icon>` using
 the `iconName` property or via custom SVG using the `icon` slot.
 The icon can be placed before or after the label based on the value of the `iconPlacement` property (default: `end`).
 
@@ -27,7 +27,7 @@ The component could be checked or not depending on the value of the `checked` at
 It has a third state too, which is set if the `indeterminate` property is true.
 This is useful when multiple dependent checkboxes are used
 (e.g., a parent which is checked only if all the children are checked, otherwise is in indeterminate state).
-Clicking on a `sbb-checkbox` in this state sets `checked` to `true` and `indeterminate` to false.
+Clicking on a `<sbb-checkbox>` in this state sets `checked` to `true` and `indeterminate` to false.
 
 ```html
 <sbb-checkbox value="indeterminate-checkbox" indeterminate="true">Indeterminate state</sbb-checkbox>
@@ -51,7 +51,7 @@ The component has three possible `size` values, named `xs`, `s` and `m` (default
 <sbb-checkbox value="size" size="s">Size</sbb-checkbox>
 ```
 
-The component's label can be displayed in bold using the `sbb-text--bold` class on a wrapper tag:
+The component's label can be displayed in bold using the `<sbb-text--bold>` class on a wrapper tag:
 
 ```html
 <sbb-checkbox value="bold">
@@ -61,14 +61,14 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 
 ## Events
 
-Consumers can listen to the native `change` event on the `sbb-checkbox` component to intercept the input's change;
+Consumers can listen to the native `change` event on the `<sbb-checkbox>` component to intercept the input's change;
 the current state can be read from `event.target.checked`, while the value from `event.target.value`.
 
 ## Accessibility
 
 The component provides the same accessibility features as the native checkbox.
 
-Avoid adding other interactive controls into the content of `sbb-checkbox`, as this degrades the experience for users of assistive technology.
+Avoid adding other interactive controls into the content of `<sbb-checkbox>`, as this degrades the experience for users of assistive technology.
 
 Always provide an accessible label via `aria-label` for checkboxes without descriptive text content.
 If you don't want the label to appear next to the checkbox, you can use `aria-label` to specify an appropriate label.

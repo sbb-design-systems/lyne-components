@@ -1,4 +1,4 @@
-The `sbb-stepper` is a component that visually guides a user through a sequential, multistep process.
+The `<sbb-stepper>` is a component that visually guides a user through a sequential, multistep process.
 It breaks down complex forms, flows, or other linear interactions into smaller, easier-to-follow steps.
 The current step is highlighted, and a progress bar connects the steps to visually represent progress.
 
@@ -12,14 +12,14 @@ The current step is highlighted, and a progress bar connects the steps to visual
 </sbb-stepper>
 ```
 
-The `sbb-step-label` can be disabled via the `disabled` attribute/property.
+The `<sbb-step-label>` can be disabled via the `disabled` attribute/property.
 
 ```html
 <sbb-step-label disabled>Step label</sbb-step-label>
 ```
 
-By default, the `sbb-step-label` displays a counter in the label prefix, which is aligned
-with the position in the `sbb-stepper`. This can be overridden via the `iconName` property.
+By default, the `<sbb-step-label>` displays a counter in the label prefix, which is aligned
+with the position in the `<sbb-stepper>`. This can be overridden via the `iconName` property.
 
 ```html
 <!-- Displays a number in the prefix circle -->
@@ -104,7 +104,7 @@ There are two possible approaches. One is using a single form for the stepper, a
 </sbb-stepper>
 ```
 
-Calling the `reset()` method on the `sbb-stepper` will reset the wrapping `form` or, if they are present, every `form` in each step; then it will select the first step.
+Calling the `reset()` method on the `<sbb-stepper>` will reset the wrapping `form` or, if they are present, every `form` in each step; then it will select the first step.
 
 ## Events
 

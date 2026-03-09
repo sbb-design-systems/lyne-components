@@ -1,4 +1,4 @@
-The `sbb-dialog` component provides a way to present content on top of the app's content mainly to
+The `<sbb-dialog>` component provides a way to present content on top of the app's content mainly to
 interact with the user.
 
 The component creates a backdrop to prevent interaction with content behind the modal, disables page
@@ -15,8 +15,8 @@ be provided.
 </sbb-dialog>
 ```
 
-The component supports slotting the `sbb-dialog-title`, `sbb-dialog-close-button`, `sbb-dialog-content`
-and an `sbb-dialog-actions` elements for structuring the content of a dialog..
+The component supports slotting the `<sbb-dialog-title>`, `<sbb-dialog-close-button>`, `<sbb-dialog-content>`
+and an `<sbb-dialog-actions>` elements for structuring the content of a dialog..
 
 ```html
 <sbb-dialog>
@@ -32,7 +32,7 @@ and an `sbb-dialog-actions` elements for structuring the content of a dialog..
 
 ## Title
 
-The `sbb-dialog-title` component extends the [sbb-title](/docs/elements-title--docs) component.
+The `<sbb-dialog-title>` component extends the [sbb-title](/docs/elements-title--docs) component.
 It should be used as a title for a dialog.
 
 ```html
@@ -52,7 +52,7 @@ it is possible to use the `visualLevel` property (default value: `4`).
 
 ## Actions
 
-The `sbb-dialog-actions` component extends the [sbb-action-group](/docs/elements-action-group--docs)
+The `<sbb-dialog-actions>` component extends the [sbb-action-group](/docs/elements-action-group--docs)
 component. Use it to display a footer with an action group.
 
 ```html
@@ -68,7 +68,7 @@ component. Use it to display a footer with an action group.
 ## Interactions
 
 To display the dialog, a trigger can be connected via the `trigger` property,
-or the `open()` method on the `sbb-dialog` component can be called.
+or the `open()` method on the `<sbb-dialog>` component can be called.
 
 ```html
 <sbb-button id="dialog-trigger">Open dialog</sbb-button>
@@ -95,7 +95,7 @@ The dialog can be closed in several ways:
    </sbb-dialog>
    ```
 
-   The `sbb-dialog-close-button` component extends the
+   The `<sbb-dialog-close-button>` component extends the
    [sbb-secondary-button](/docs/elements-button--docs) component.
    An aria-label is automatically set. It is however possible to override it, if necessary.
 
@@ -127,7 +127,7 @@ The dialog can be closed in several ways:
 
 4. **Escape key**: Pressing the `Esc` key will close the dialog.
 
-5. **Programmatically**: Call the `close(result?: any)` method on the `sbb-dialog` element.
+5. **Programmatically**: Call the `close(result?: any)` method on the `<sbb-dialog>` element.
    This method closes the dialog and emits `beforeclose` and `close` events with the provided result as a payload.
 
    ```js
@@ -167,17 +167,17 @@ It's possible to display the component in `negative` variant using the self-name
 
 ## Accessibility
 
-We recommend to place at maximum two actions in the `sbb-dialog-actions` component.
+We recommend to place at maximum two actions in the `<sbb-dialog-actions>` component.
 More elements can potentially confuse users.
 
-If there is more complex content than just a simple text / question, we recommend to slot the `sbb-dialog-close-button`.
+If there is more complex content than just a simple text / question, we recommend to slot the `<sbb-dialog-close-button>`.
 This either provides an initial focus at the dialog start and also provides as a second exit possibility.
 
 ### Controlling initial focus
 
 The first element with the attribute `sbb-focus-initial` will receive focus on opening.
 If the attribute is not used, the first focusable element receives focus.
-In case there is no `sbb-dialog-close-button` and complex content,
+In case there is no `<sbb-dialog-close-button>` and complex content,
 there should be a focusable element at the dialog start, e.g. the title itself.
 This prevents screen reader users having to navigate backwards from the dialog actions.
 

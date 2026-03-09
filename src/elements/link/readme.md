@@ -59,8 +59,8 @@ Block links have three sizes (`xs`, `s`, which is the default, and `m`).
 
 ### Active state
 
-To show a currently active link, the CSS class `sbb-active` can be placed on the `sbb-block-link`.
-One possible use case would be to use it within the `sbb-sidebar`.
+To show a currently active link, the CSS class `<sbb-active>` can be placed on the `<sbb-block-link>`.
+One possible use case would be to use it within the `<sbb-sidebar>`.
 
 ```html
 <sbb-block-link class="sbb-active" accessibility-current="page">Refunds</sbb-block-link>

@@ -1,4 +1,4 @@
-The `sbb-radio-button-group` is a component which can be used as a wrapper for
+The `<sbb-radio-button-group>` is a component which can be used as a wrapper for
 a collection of either [sbb-radio-button](/docs/elements-radio-button--docs)s, [sbb-radio-button-panel](/docs/elements-radio-button-panel--docs)s,
 or [sbb-selection-expansion-panel](/docs/elements-selection-expansion-panel--docs)s.
 Individual radio-buttons inside a radio-group will inherit the `name` of the group.
@@ -12,11 +12,11 @@ Individual radio-buttons inside a radio-group will inherit the `name` of the gro
 </sbb-radio-button-group>
 ```
 
-Pressing a `sbb-radio-button` checks it and unchecks the previously selected one, if any.
+Pressing a `<sbb-radio-button>` checks it and unchecks the previously selected one, if any.
 They can also be controlled programmatically by setting the value property of the parent radio group to the value of the radio.
 
-Please note that within a `sbb-radio-button-group`, only one `sbb-radio-button` can be selected at a time;
-if you need to select more than one item, it is recommended to use the `sbb-checkbox-group` component.
+Please note that within a `<sbb-radio-button-group>`, only one `<sbb-radio-button>` can be selected at a time;
+if you need to select more than one item, it is recommended to use the `<sbb-checkbox-group>` component.
 
 ## States
 
@@ -37,9 +37,9 @@ The radio group can have different states:
 </sbb-radio-button-group>
 ```
 
-In order to deselect a `sbb-radio-button` inside the `sbb-radio-button-group`,
-you can use the `allowEmptySelection` property, which will be proxied to the inner `sbb-radio-button`
-enabling their deselection (by default, a selected `sbb-radio-button` cannot be deselected).
+In order to deselect a `<sbb-radio-button>` inside the `<sbb-radio-button-group>`,
+you can use the `allowEmptySelection` property, which will be proxied to the inner `<sbb-radio-button>`
+enabling their deselection (by default, a selected `<sbb-radio-button>` cannot be deselected).
 
 ```html
 <sbb-radio-button-group allow-empty-selection> ... </sbb-radio-button-group>
@@ -59,12 +59,12 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
 
 ## Events
 
-Consumers can listen to the native `change`/`input` event on the `sbb-radio-button-group` component
+Consumers can listen to the native `change`/`input` event on the `<sbb-radio-button-group>` component
 to intercept the selection's change; the current value can be read from `event.detail.value`.
 
 ## Accessibility
 
-In order to ensure readability for screen-readers, please provide an `aria-label` attribute for the `sbb-radio-button-group`.
+In order to ensure readability for screen-readers, please provide an `aria-label` attribute for the `<sbb-radio-button-group>`.
 
 ## Complex Values
 

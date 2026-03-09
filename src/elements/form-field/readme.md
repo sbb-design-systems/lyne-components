@@ -1,4 +1,4 @@
-The `sbb-form-field` component is intended to be used as a form input wrapper with label and errors.
+The `<sbb-form-field>` component is intended to be used as a form input wrapper with label and errors.
 
 ```html
 <sbb-form-field>
@@ -13,11 +13,11 @@ The `sbb-form-field` component is intended to be used as a form input wrapper wi
 </sbb-form-field>
 ```
 
-In this document, "form field" refers to the wrapper component `sbb-form-field` and
-"form field control" refers to the component that the `sbb-form-field` is wrapping
+In this document, "form field" refers to the wrapper component `<sbb-form-field>` and
+"form field control" refers to the component that the `<sbb-form-field>` is wrapping
 (e.g., the input, select, etc.)
 
-The following components are designed to work inside a `sbb-form-field`:
+The following components are designed to work inside a `<sbb-form-field>`:
 
 - `<input>`
 - `<select>`
@@ -33,11 +33,11 @@ The following components are designed to work inside a `sbb-form-field`:
 ### Label
 
 Use a `<label>` element to provide a label for a form input. The
-`sbb-form-field` will automatically configure the reference between label and input.
+`<sbb-form-field>` will automatically configure the reference between label and input.
 
 It's possible to use the `floatingLabel` property to display the label inside the input.
 When using it and setting the value programmatically to empty or from empty to a specific value,
-it's mandatory to call the `reset()` method of the `sbb-form-field` to update the state of the floating label.
+it's mandatory to call the `reset()` method of the `<sbb-form-field>` to update the state of the floating label.
 
 ```html
 <sbb-form-field>
@@ -48,7 +48,7 @@ it's mandatory to call the `reset()` method of the `sbb-form-field` to update th
 
 ### Error messages
 
-Error messages can be shown under the form field by adding `sbb-error` elements inside the form field.
+Error messages can be shown under the form field by adding `<sbb-error>` elements inside the form field.
 The component will automatically assign them to the `slot='error'`.
 
 ```html
@@ -60,9 +60,9 @@ The component will automatically assign them to the `slot='error'`.
 ```
 
 In order to avoid the layout from "jumping" when an error is shown, the option of setting `error-space="reserve"`
-on the `sbb-form-field` will reserve space for a single line of an error message.
+on the `<sbb-form-field>` will reserve space for a single line of an error message.
 
-It is also possible to provide a custom icon to the `sbb-error` component via the icon slot:
+It is also possible to provide a custom icon to the `<sbb-error>` component via the icon slot:
 
 ```html
 <sbb-error>
@@ -73,7 +73,7 @@ It is also possible to provide a custom icon to the `sbb-error` component via th
 
 ### Prefix & Suffix
 
-It is possible to add content as a prefix or suffix in a `sbb-form-field`.
+It is possible to add content as a prefix or suffix in a `<sbb-form-field>`.
 This can be done via the `prefix` and `suffix` slots.
 
 ```html
@@ -103,7 +103,7 @@ Please refer to their documentation for more details.
 
 ### Clear Button
 
-The `sbb-form-field-clear` component can be used to provide the possibility to display a button
+The `<sbb-form-field-clear>` component can be used to provide the possibility to display a button
 which can clear the input value.
 
 ```html
@@ -165,11 +165,11 @@ and is in an error state. This checks both for the native validity state (which 
 on `<input>`, `<select>` and `<textarea>` via validation attributes like `required` or
 via the `setCustomValidity(message)` method) and for the Angular Forms state classes.
 
-If you want to manually set the error state, you can add the `sbb-invalid` CSS class
+If you want to manually set the error state, you can add the `<sbb-invalid>` CSS class
 to the input element.
 
 If you want to directly show the error state without having had an interaction, you can use the
-`sbb-show-errors` class on an ancestor (e.g. `<form>`).
+`<sbb-show-errors>` class on an ancestor (e.g. `<form>`).
 
 ## Custom form control
 
@@ -226,22 +226,22 @@ myControl.addEventListener('custom-change-event', onFormControlChange);
 
 ## Accessibility
 
-By itself, the `sbb-form-field` does not apply any additional accessibility treatment to a form
+By itself, the `<sbb-form-field>` does not apply any additional accessibility treatment to a form
 element. However, several of the form field's optional features interact with the form element
 contained within the form field.
 
-When you provide a label, the `sbb-form-field` automatically
+When you provide a label, the `<sbb-form-field>` automatically
 associates this label with the form element using the `for`
 attribute to reference the control's ID.
 When using a non-native form element, the `aria-labelledby` is used to connect the
 form element with the label, by setting an id on the label and referencing this id in the
 `aria-labelledby` attribute placed on the form element.
 Please note that only one `<label>` element is supported. Additionally, if you place the `<label>`
-element outside the `sbb-form-field`, the automatic assignment is skipped, and it is up to the
+element outside the `<sbb-form-field>`, the automatic assignment is skipped, and it is up to the
 consumer to use the correct id references.
 If you like to visually hide a label, but still present it with screen readers, use the `hiddenLabel` property.
 
-When you provide informational text via `sbb-error`, it automatically adds these elements' IDs
+When you provide informational text via `<sbb-error>`, it automatically adds these elements' IDs
 to the form element's `ariaErrorMessageElements` property (or `aria-errormessage` attribute as fallback).
 
 <!-- Auto Generated Below -->

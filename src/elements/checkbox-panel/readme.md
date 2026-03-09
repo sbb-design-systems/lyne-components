@@ -1,4 +1,4 @@
-The `sbb-checkbox-panel` component provides the same functionality as a native `<input type="checkbox"/>` enhanced with the selection panel design and functionalities.
+The `<sbb-checkbox-panel>` component provides the same functionality as a native `<input type="checkbox"/>` enhanced with the selection panel design and functionalities.
 
 ## Slots
 
@@ -27,7 +27,7 @@ The component could be checked or not depending on the value of the `checked` at
 It has a third state too, which is set if the `indeterminate` property is true.
 This is useful when multiple dependent checkbox-panels are used
 (e.g., a parent which is checked only if all the children are checked, otherwise is in indeterminate state).
-Clicking on a `sbb-checkbox-panel` in this state sets `checked` to `true` and `indeterminate` to false.
+Clicking on a `<sbb-checkbox-panel>` in this state sets `checked` to `true` and `indeterminate` to false.
 
 ```html
 <sbb-checkbox-panel value="indeterminate-checkbox-panel" indeterminate="true"
@@ -43,7 +43,7 @@ The component can be disabled by using the `disabled` property.
 
 ## Style
 
-The component's label can be displayed in bold using the `sbb-text--bold` class on a wrapper tag:
+The component's label can be displayed in bold using the `<sbb-text--bold>` class on a wrapper tag:
 
 ```html
 <sbb-checkbox-panel value="bold">
@@ -60,7 +60,7 @@ If the component is used within a group, the size is inherited from the group.
 
 ## Events
 
-Consumers can listen to the native `change` event on the `sbb-checkbox-panel` component to intercept the input's change;
+Consumers can listen to the native `change` event on the `<sbb-checkbox-panel>` component to intercept the input's change;
 the current state can be read from `event.target.checked`, while the value from `event.target.value`.
 
 ## Accessibility

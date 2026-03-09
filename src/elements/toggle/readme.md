@@ -1,4 +1,4 @@
-The `sbb-toggle` component is a wrapper for `sbb-toggle-option` elements
+The `<sbb-toggle>` component is a wrapper for `<sbb-toggle-option>` elements
 that can be selected by the user; it is useful for switching between views within the content.
 
 ```html
@@ -10,7 +10,7 @@ that can be selected by the user; it is useful for switching between views withi
 
 ## Configuration
 
-### `sbb-toggle`
+### `<sbb-toggle>`
 
 The `even` property can be used to let the component expand to the parent component or adapt to the label's width.
 
@@ -20,9 +20,9 @@ The component has two different sizes, `s` and `m` (default), which can be set u
 <sbb-toggle size="s" even> ... </sbb-toggle>
 ```
 
-### `sbb-toggle-option`
+### `<sbb-toggle-option>`
 
-It is possible to provide a label via an unnamed slot; the component can optionally display an `sbb-icon`
+It is possible to provide a label via an unnamed slot; the component can optionally display an `<sbb-icon>`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
 Text and icon are not exclusive and can be used together.
 

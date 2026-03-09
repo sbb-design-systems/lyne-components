@@ -1,6 +1,6 @@
-The `sbb-menu` is a component that can be attached to any element to open and display a custom context menu,
-which allows to perform actions relevant to the current task by using the `sbb-menu-button`
-or to navigate within or outside the application by using the `sbb-menu-link` component along with it.
+The `<sbb-menu>` is a component that can be attached to any element to open and display a custom context menu,
+which allows to perform actions relevant to the current task by using the `<sbb-menu-button>`
+or to navigate within or outside the application by using the `<sbb-menu-link>` component along with it.
 
 ```html
 <!-- Trigger element -->
@@ -22,13 +22,13 @@ or to navigate within or outside the application by using the `sbb-menu-link` co
 
 The element that will trigger the menu dialog must be set using the `trigger` property.
 
-The `sbb-menu` appears on trigger left click, and it is displayed as a sheet with a backdrop on mobile,  
+The `<sbb-menu>` appears on trigger left click, and it is displayed as a sheet with a backdrop on mobile,  
 while on desktop it will be shown as a floating menu, and it will calculate the optimal position relative to the trigger element
 by evaluating the available space with the following priority: start/below, start/above, end/below, end/above.
 
 Clicking in the backdrop or pressing the `ESC` key closes the menu.
 
-You can also provide custom content inside the `sbb-menu`:
+You can also provide custom content inside the `<sbb-menu>`:
 
 ```html
 <!-- Trigger element -->
@@ -52,11 +52,11 @@ You can also provide custom content inside the `sbb-menu`:
 
 ## Nesting menus
 
-It is possible to create submenus by connecting a menu to a `sbb-menu-button`/`sbb-menu-link`
-element via trigger property / attribute of the `sbb-menu`.
+It is possible to create submenus by connecting a menu to a `<sbb-menu-button>`/`<sbb-menu-link>`
+element via trigger property / attribute of the `<sbb-menu>`.
 On smaller screens, submenus will automatically display a back button to navigate back to the parent menu.
 
-Please note that nesting the menus in DOM is not supported. The `sbb-menu` elements have to be siblings in order to work.
+Please note that nesting the menus in DOM is not supported. The `<sbb-menu>` elements have to be siblings in order to work.
 
 ```html
 <sbb-menu>
@@ -70,10 +70,10 @@ Please note that nesting the menus in DOM is not supported. The `sbb-menu` eleme
 
 ## Menu Link
 
-The `sbb-menu-link` component is equivalent to a native `anchor (a)` element and is internally rendered as
+The `<sbb-menu-link>` component is equivalent to a native `anchor (a)` element and is internally rendered as
 a link, accepting its associated properties (`href`, `target`, `rel` and `download`).
 
-The component can optionally display a `sbb-icon` at the component start using the `iconName` property
+The component can optionally display a `<sbb-icon>` at the component start using the `iconName` property
 or via custom content using the `icon` slot.
 
 ```html
@@ -86,7 +86,7 @@ or via custom content using the `icon` slot.
 
 ### Badge
 
-A badge can be rendered on the icon as white text in a red circle via the `sbb-badge` attribute.
+A badge can be rendered on the icon as white text in a red circle via the `<sbb-badge>` attribute.
 It's recommended to hide the badge when the menu link is disabled.
 It's mandatory to provide the badge information for screen readers either with the `accessibility-label` attribute
 or a hidden text (`<sbb-screen-reader-only>` for example).
@@ -104,12 +104,12 @@ or a hidden text (`<sbb-screen-reader-only>` for example).
 
 ## Menu Button
 
-The `sbb-menu-button` component is equivalent to a native `button` element, accepting its associated
+The `<sbb-menu-button>` component is equivalent to a native `button` element, accepting its associated
 properties (`type`, `name`, `value` and `form`).
 
 ## Slots
 
-It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
+It is possible to provide a label via an unnamed slot; the component can optionally display a `<sbb-icon>`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
 
 ```html
@@ -120,7 +120,7 @@ at the component start using the `iconName` property or via custom content using
 
 ## Badge
 
-A badge can be rendered on the icon as white text in a red circle via the `sbb-badge` attribute.
+A badge can be rendered on the icon as white text in a red circle via the `<sbb-badge>` attribute.
 It's recommended to hide the badge when the menu button is disabled.
 It's mandatory to provide the badge information for screen readers either with an `aria-label`
 or a hidden text (`<sbb-screen-reader-only>` for example).
@@ -137,14 +137,14 @@ or a hidden text (`<sbb-screen-reader-only>` for example).
 
 ## Accessibility
 
-The `sbb-menu` uses the roles `menu` and `menuitem` for children.
+The `<sbb-menu>` uses the roles `menu` and `menuitem` for children.
 
 As the menu opens, the focus will automatically be set to the first focusable
 item within the component (unless manually specified, see below).
-When using the `sbb-menu` as a select (e.g. language selection) it's recommended to use the `aria-pressed` attribute
+When using the `<sbb-menu>` as a select (e.g. language selection) it's recommended to use the `aria-pressed` attribute
 to identify which actions are active and which are not.
 
-It is possible to navigate the slotted `sbb-menu-button`/`sbb-menu-link` via keyboard using arrow keys or page keys
+It is possible to navigate the slotted `<sbb-menu-button>`/`<sbb-menu-link>` via keyboard using arrow keys or page keys
 (<kbd>Home</kbd>, <kbd>PageUp</kbd>, <kbd>End</kbd> and <kbd>PageDown</kbd>).
 If the trigger element for a nested menu is focused, <kbd>ArrowRight</kbd> will open and focus the submenu;
 if the focus is currently on a nested menu, <kbd>ArrowLeft</kbd> will close the current menu and go back to the parent menu.

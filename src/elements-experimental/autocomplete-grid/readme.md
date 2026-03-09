@@ -1,15 +1,15 @@
-The `sbb-autocomplete-grid` is a component that can be used to display a panel of suggested options connected to a text input,
+The `<sbb-autocomplete-grid>` is a component that can be used to display a panel of suggested options connected to a text input,
 with each option connected to one or more buttons.
 Use it when you need an autocomplete in which every selectable option in the panel needs one or more related button.
 If you don't need actions, use the [sbb-autocomplete](/docs/elements-autocomplete---docs).
 
 The component is strictly connected to:
 
-- the `sbb-autocomplete-grid-row`, which is a wrapper for both option and buttons;
-- the `sbb-autocomplete-grid-option`, which displays a selectable option within a panel;`
-- the `sbb-autocomplete-grid-cell`, which is a wrapper a for button element;
-- the `sbb-autocomplete-grid-button`, which displays a button within a row;
-- the `sbb-autocomplete-grid-optgroup`, which can be used to group more row within a group.
+- the `<sbb-autocomplete-grid-row>`, which is a wrapper for both option and buttons;
+- the `<sbb-autocomplete-grid-option>`, which displays a selectable option within a panel;`
+- the `<sbb-autocomplete-grid-cell>`, which is a wrapper a for button element;
+- the `<sbb-autocomplete-grid-button>`, which displays a button within a row;
+- the `<sbb-autocomplete-grid-optgroup>`, which can be used to group more row within a group.
 
 It's possible to set the element to which the component's panel will be attached using the `origin` prop,
 and the input which will work as a trigger using the `trigger` prop.
@@ -38,10 +38,10 @@ Both accept an id or an element reference.
 </sbb-autocomplete-grid>
 ```
 
-## In `sbb-form-field`
+## In `<sbb-form-field>`
 
 If the component is used within a [sbb-form-field](/docs/elements-form-field--docs),
-it will automatically connect to the native `<input>` as trigger and will display the option panel above or below the `sbb-form-field`.
+it will automatically connect to the native `<input>` as trigger and will display the option panel above or below the `<sbb-form-field>`.
 
 ```html
 <!-- Origin element -->
@@ -70,13 +70,13 @@ it will automatically connect to the native `<input>` as trigger and will displa
 
 ### Option highlight
 
-By default, the `sbb-autocomplete-grid` will highlight the label of the `sbb-autocomplete-grid-option` in the panel,
+By default, the `<sbb-autocomplete-grid>` will highlight the label of the `<sbb-autocomplete-grid-option>` in the panel,
 if it matches the typed text.
 See the [sbb-autocomplete-grid-option](/docs/experimental-sbb-autocomplete-grid-sbb-autocomplete-grid-option--docs) for more details.
 
 ### Option grouping
 
-The displayed `sbb-autocomplete-grid-option` can be collected into groups using `sbb-autocomplete-grid-optgroup` element:
+The displayed `<sbb-autocomplete-grid-option>` can be collected into groups using `<sbb-autocomplete-grid-optgroup>` element:
 
 ```html
 <!-- Origin element -->
@@ -109,7 +109,7 @@ The displayed `sbb-autocomplete-grid-option` can be collected into groups using 
 
 ### Size
 
-The component has no `size` property but, when slotted in a `sbb-form-field`, it adapts to the parent `size`.
+The component has no `size` property but, when slotted in a `<sbb-form-field>`, it adapts to the parent `size`.
 
 ```html
 <sbb-form-field size="s">
@@ -121,7 +121,7 @@ The component has no `size` property but, when slotted in a `sbb-form-field`, it
 
 ## Events
 
-The `sbb-autocomplete-grid-option` emits the `autocompleteoptionselected` event when selected via user interaction.
+The `<sbb-autocomplete-grid-option>` emits the `autocompleteoptionselected` event when selected via user interaction.
 
 ## Keyboard interaction
 
@@ -146,7 +146,7 @@ if the user does not explicitly select a value, via mouse click or keyboard sele
 
 ## Accessibility
 
-The `sbb-autocomplete-grid` implements the [ARIA combobox-grid interaction pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/grid-combo/).
+The `<sbb-autocomplete-grid>` implements the [ARIA combobox-grid interaction pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/grid-combo/).
 
 The text input trigger specifies `role="combobox"` while the content of the pop-up applies `role="grid"`.
 The inner option and actions have `role="gridcell"`, while the buttons inside the action have `role="button"`.

@@ -99,7 +99,7 @@ To prevent this, set the `weekday-style` attribute to `none`.
 
 ## Events
 
-Similar to the native `<input>` element, the `sbb-date-input` component
+Similar to the native `<input>` element, the `<sbb-date-input>` component
 dispatches the usual `input`, `change`, `blur`, `invalid` and keyboard
 and focus related events.
 

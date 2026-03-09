@@ -1,7 +1,7 @@
-The `sbb-status` is a component that has the purpose to show the user short messages to update the current status.
+The `<sbb-status>` is a component that has the purpose to show the user short messages to update the current status.
 The status element displays a brief text message preceded by the status icon.
 
-The `sbb-status` is structured in the following way:
+The `<sbb-status>` is structured in the following way:
 
 - Icon: informs user about the current status type
 - Title (optional): gives user an overview of the message
@@ -13,7 +13,7 @@ The `sbb-status` is structured in the following way:
 
 ## Variants
 
-The `sbb-status` supports eight types, based on the type of the information displayed:
+The `<sbb-status>` supports eight types, based on the type of the information displayed:
 
 - `info` (default)
 - `success`
@@ -37,7 +37,7 @@ The `sbb-status` supports eight types, based on the type of the information disp
 
 ## Title
 
-An optional `sbb-title` can be slotted.
+An optional `<sbb-title>` can be slotted.
 
 ```html
 <sbb-status>
@@ -53,7 +53,7 @@ However, it's possible to override this by using `iconName` property or `icon` s
 
 ## Style
 
-The `sbb-status` use default message colors, based on the chosen `type`.
+The `<sbb-status>` use default message colors, based on the chosen `type`.
 
 ## Accessibility
 

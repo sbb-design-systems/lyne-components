@@ -33,10 +33,10 @@ is not allowed.
 </sbb-sidebar-container>
 ```
 
-The `sbb-sidebar-title` component extends the [sbb-title](/docs/elements-title--docs) component.
+The `<sbb-sidebar-title>` component extends the [sbb-title](/docs/elements-title--docs) component.
 
-Use it inside the `sbb-sidebar` to display a header in the sidebar with a title.
-The slot `title-section` is automatically assigned to be properly positioned on the `sbb-sidebar`.
+Use it inside the `<sbb-sidebar>` to display a header in the sidebar with a title.
+The slot `title-section` is automatically assigned to be properly positioned on the `<sbb-sidebar>`.
 In scenarios where the visual representation needs to be different from the semantic meaning of
 the title level, it is possible to use the `visualLevel` property (default value: `5`).
 
@@ -46,10 +46,10 @@ the title level, it is possible to use the `visualLevel` property (default value
 </sbb-sidebar>
 ```
 
-The `sbb-sidebar-close-button` component extends the [sbb-secondary-button](/docs/elements-button--docs) component.
+The `<sbb-sidebar-close-button>` component extends the [sbb-secondary-button](/docs/elements-button--docs) component.
 Use it in inside the [sbb-sidebar](/docs/elements-sidebar--docs)
 to display a close button in the sidebar.
-The slot `title-section` is automatically assigned to be properly positioned on the `sbb-sidebar`.
+The slot `title-section` is automatically assigned to be properly positioned on the `<sbb-sidebar>`.
 
 Clicking the close button closes the parent sidebar.
 
@@ -120,7 +120,7 @@ At maximum, one `<sbb-sidebar>` with `mode="over"` should be opened simultaneous
 
 ## Style
 
-If the `sbb-sidebar-container` is placed after the `sbb-header`, an automatic `margin-block-start` is added.
+If the `<sbb-sidebar-container>` is placed after the `<sbb-header>`, an automatic `margin-block-start` is added.
 In other contexts you may need to set the margin manually, e.g. `margin-block-start: var(--sbb-header-height);`.
 
 ## Color
@@ -261,7 +261,7 @@ It's possible the combine the `<sbb-sidebar>` with the `<sbb-icon-sidebar>` as f
 </sbb-icon-sidebar-container>
 ```
 
-## Use with `sbb-header`
+## Use with `<sbb-header>`
 
 In order to correctly display the shadow of the header when scrolled,
 you need to set the `scrollOrigin` property of the `<sbb-header>`.

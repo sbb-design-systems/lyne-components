@@ -1,8 +1,8 @@
-The `sbb-teaser-product` is a component that can display a text and a footnote, combined with an image as background, to tease a product.
+The `<sbb-teaser-product>` is a component that can display a text and a footnote, combined with an image as background, to tease a product.
 The whole component behaves like a link, and it is clickable; on small screens, the content follows the image.
 
-The component can have at most a single interactive element in its static version (e.g. `sbb-button-static`).
-If it has to include more than one interactive element, use the `sbb-teaser-product-static` element instead.
+The component can have at most a single interactive element in its static version (e.g. `<sbb-button-static>`).
+If it has to include more than one interactive element, use the `<sbb-teaser-product-static>` element instead.
 
 ```html
 <sbb-teaser-product href="...">
@@ -16,13 +16,13 @@ If it has to include more than one interactive element, use the `sbb-teaser-prod
 
 ## Slots
 
-Use the `image` slot to pass an `sbb-image` or an `img` that will be used as background.
-Optionally, you can add an overlapping `sbb-chip-label` by wrapping the `sbb-image` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
+Use the `image` slot to pass an `<sbb-image>` or an `img` that will be used as background.
+Optionally, you can add an overlapping `<sbb-chip-label>` by wrapping the `<sbb-image>` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
 
 Use the optional `footnote` slot to add a text anchored to the bottom-end of the component.
 
 The default slot is reserved for the main content: it could be a simple text or a text combined with more elements,
-like the `sbb-title` or an interactive element, like a button or a link (needs to be in static variant!).
+like the `<sbb-title>` or an interactive element, like a button or a link (needs to be in static variant!).
 
 ```html
 <sbb-teaser-product href="...">
@@ -35,7 +35,7 @@ like the `sbb-title` or an interactive element, like a button or a link (needs t
 </sbb-teaser-product>
 ```
 
-If paragraphs, title and/or button are used, consumers can apply the helper class `sbb-teaser-product--spacing`
+If paragraphs, title and/or button are used, consumers can apply the helper class `<sbb-teaser-product--spacing>`
 to display the components with the correct spacings.
 
 ```html
@@ -72,7 +72,7 @@ It's important to set the `accessibilityLabel` on the `<sbb-teaser-product>`, wh
 
 ## Static variant
 
-The `sbb-teaser-product-static` is a non-interactive version of the `sbb-teaser-product` component,
+The `<sbb-teaser-product-static>` is a non-interactive version of the `<sbb-teaser-product>` component,
 which can be used to tease a product without making the whole component interactive.
 It should be used if there is more than one interactive action.
 

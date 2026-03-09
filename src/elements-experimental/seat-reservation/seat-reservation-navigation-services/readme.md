@@ -1,4 +1,4 @@
-The `sbb-seat-reservation-navigation-services` is a component which displays the available service icons of a coach
+The `<sbb-seat-reservation-navigation-services>` is a component which displays the available service icons of a coach
 
 The purpose of this component is to be used in the main
 [sbb-reservation-navigation-coach](/docs/experimental-sbb-seat-reservation-navigation-coach--docs) component

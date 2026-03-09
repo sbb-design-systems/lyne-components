@@ -31,14 +31,14 @@ interactive element (e.g. an `anchor (a)`).
 ```
 
 There is also a mini button variant, which can be used for specific contexts, such as inside
-a `sbb-form-field`.
+a `<sbb-form-field>`.
 
 ```html
 <sbb-mini-button>Button text</sbb-mini-button>
 <sbb-mini-button-link>Button text</sbb-mini-button-link>
 ```
 
-Each button component can optionally display an `sbb-icon` at the component start
+Each button component can optionally display an `<sbb-icon>` at the component start
 using the `iconName` property or via custom content using the `icon` slot.
 All button usages must either provide text content, an icon (for icon only) or both.
 
@@ -98,7 +98,7 @@ The loading state will be animated after a delay of 300ms, which can be configur
 ### Focus outline
 
 Please make sure that the focus outline appears in the correct color if the component is used on a dark background.
-You can set it by re-defining the CSS var on `sbb-button` or any parent element:
+You can set it by re-defining the CSS var on `<sbb-button>` or any parent element:
 
 ```css
 sbb-button {
@@ -108,7 +108,7 @@ sbb-button {
 
 ## Accessibility
 
-Use the accessibility properties in case of an icon-only button to describe the purpose of the `sbb-button` for screen-reader users.
+Use the accessibility properties in case of an icon-only button to describe the purpose of the `<sbb-button>` for screen-reader users.
 
 ### Interactive disabled buttons
 
@@ -125,7 +125,7 @@ guard against such cases in your component.
 
 ## Mini Button Group
 
-The `sbb-mini-button-group` component displays a set of `sbb-mini-button`
+The `<sbb-mini-button-group>` component displays a set of `<sbb-mini-button>`
 optionally separated by a [sbb-divider](/docs/elements-divider--docs).
 
 ```html
@@ -149,9 +149,9 @@ There are four available sizes: `s`, `m` (default), `l` and `xl`.
 
 ### Accessibility
 
-Use the `accessibility-label` property to describe the purpose of the `sbb-mini-button-group` for screen-reader users.
+Use the `accessibility-label` property to describe the purpose of the `<sbb-mini-button-group>` for screen-reader users.
 
-If `sbb-divider` components are used as separators, their `aria-hidden` property is automatically set to `true`
+If `<sbb-divider>` components are used as separators, their `aria-hidden` property is automatically set to `true`
 to ensure that the button list is read by screen readers with the correct size.
 
 <!-- Auto Generated Below -->

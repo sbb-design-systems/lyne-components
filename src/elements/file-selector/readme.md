@@ -1,4 +1,4 @@
-The `sbb-file-selector` and `sbb-file-selector-dropzone` are components which allows user to select
+The `<sbb-file-selector>` and `<sbb-file-selector-dropzone>` are components which allows user to select
 one or more files from storage devices.
 These are two variants with the same functionality.
 When files are selected, they appear as a list below the button/dropzone area.
@@ -18,7 +18,7 @@ It is possible to customize the area's title via the `titleContent` property.
 
 ## Slots
 
-The `error` named slot can be used to display an error message using the `sbb-error` component.
+The `error` named slot can be used to display an error message using the `<sbb-error>` component.
 
 ```html
 <sbb-file-selector>

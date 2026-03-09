@@ -1,4 +1,4 @@
-The `sbb-checkbox-group` component is used as a container for a collection of either
+The `<sbb-checkbox-group>` component is used as a container for a collection of either
 [sbb-checkbox](/docs/elements-checkbox--docs)s, [sbb-checkbox-panel](/docs/elements-checkbox-panel--docs)s,
 or [sbb-selection-expansion-panel](/docs/elements-selection-expansion-panel--docs).
 
@@ -28,7 +28,7 @@ or [sbb-selection-expansion-panel](/docs/elements-selection-expansion-panel--doc
 The content is projected in an unnamed slot.
 
 The component can display one or more [sbb-error](/docs/elements-form-field--docs) components
-right below the `sbb-checkbox-group` using the `error` slot.
+right below the `<sbb-checkbox-group>` using the `error` slot.
 
 ```html
 <sbb-checkbox-group>
@@ -63,7 +63,7 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
 ```
 
 The component has a `size` property, which can be used to change the size
-of all the inner `sbb-checkbox` or `sbb-checkbox-panel` elements. Available sizes are `xs`, `s` and `m`.
+of all the inner `<sbb-checkbox>` or `<sbb-checkbox-panel>` elements. Available sizes are `xs`, `s` and `m`.
 
 ```html
 <sbb-checkbox-group size="s"> ... </sbb-checkbox-group>

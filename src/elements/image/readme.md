@@ -1,4 +1,4 @@
-The `sbb-image` component is used to render an image.
+The `<sbb-image>` component is used to render an image.
 
 Mainly from cdn.img.sbb.ch (with `imageSrc`), but we can set an external image too.
 The size can be set with `pictureSizesConfig`.
@@ -9,7 +9,7 @@ The size can be set with `pictureSizesConfig`.
 
 ## Usage
 
-For image related elements, it is strongly recommended to wrap an `sbb-image` and all its related elements in a `figure` tag.
+For image related elements, it is strongly recommended to wrap an `<sbb-image>` and all its related elements in a `figure` tag.
 E.g. `<figcaption>` or `<sbb-chip-label>`.
 
 ```html
@@ -35,8 +35,8 @@ You can place overlapping content by using the `sbb-figure-overlap-${horizontal-
 </figure>
 ```
 
-Instead of a `sbb-chip-label`, it's also possible to slot images (e.g. logos).
-In that case, the `sbb-figure-overlap-image` CSS class needs to be set on the image.
+Instead of a `<sbb-chip-label>`, it's also possible to slot images (e.g. logos).
+In that case, the `<sbb-figure-overlap-image>` CSS class needs to be set on the image.
 
 ```html
 <figure class="sbb-figure">

@@ -1,8 +1,8 @@
-The `sbb-toast` is a component that can be used to display toast notifications.
+The `<sbb-toast>` is a component that can be used to display toast notifications.
 
 It can be shown/dismissed by calling the `open/close` methods.
 Only one toast can ever be opened at one time:
-if a new `sbb-toast` is opened while a previous message is still showing, the older message will be automatically dismissed.
+if a new `<sbb-toast>` is opened while a previous message is still showing, the older message will be automatically dismissed.
 
 ```html
 <sbb-button onclick="document.querySelector('sbb-toast').open()">Open toast</sbb-button>
@@ -11,18 +11,18 @@ if a new `sbb-toast` is opened while a previous message is still showing, the ol
 
 ## Important note
 
-You should carefully consider every use of the `sbb-toast` component since it can be a source of
+You should carefully consider every use of the `<sbb-toast>` component since it can be a source of
 stress for people with visual impairments (see the ["Accessibility"](#accessibility) section for more info).
 
 Here are a few tips for correct usage:
 
-- Try to avoid actions inside a `sbb-toast` since they are not easily reachable;
+- Try to avoid actions inside a `<sbb-toast>` since they are not easily reachable;
 - If an action is needed, you should provide an alternative way to perform it;
 - If not strictly necessary, use the `polite` (_default_) configuration since it is less aggressive for screen-reader users.
 
 ## Slots
 
-It is possible to provide a text via an unnamed slot; the component can optionally display a `sbb-icon`
+It is possible to provide a text via an unnamed slot; the component can optionally display a `<sbb-icon>`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
 
 ```html
@@ -30,7 +30,7 @@ at the component start using the `iconName` property or via custom content using
 <sbb-toast icon-name="dog-small">Toast content</sbb-toast>
 ```
 
-A `sbb-toast` can also be given a custom action that, if marked with the `sbb-toast-close` attribute, will also dismiss it.
+A `<sbb-toast>` can also be given a custom action that, if marked with the `sbb-toast-close` attribute, will also dismiss it.
 
 ```html
 <sbb-button onclick="document.querySelector('sbb-toast').open()">Open toast</sbb-button>
@@ -69,13 +69,13 @@ with the horizontal positions `left`, `start`, `center`, `right` and `end` (defa
 
 ## Accessibility
 
-The `sbb-toast` announces messages via an aria-live region.
+The `<sbb-toast>` announces messages via an aria-live region.
 Use the `politeness` property to customize the politeness announcement behaviour.
 Check [ARIA live regions](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions) for further info.
 
-The `sbb-toast` does not move focus to the toast element, because it would disrupt users in the middle of a workflow.
+The `<sbb-toast>` does not move focus to the toast element, because it would disrupt users in the middle of a workflow.
 
-For any action offered in the `sbb-toast`, your application should provide an alternative way to perform the action
+For any action offered in the `<sbb-toast>`, your application should provide an alternative way to perform the action
 (e.g. a keyboard combination).
 
 Avoid setting a `timeout` for toasts that have an action available,

@@ -1,9 +1,9 @@
 The `<sbb-icon-sidebar>` is a component that can display action items with an icon on the left or right side of the viewport.
 
-The `sbb-icon-sidebar-container` is a component that holds together the `sbb-icon-sidebar-content`
-and one or two `sbb-icon-sidebar` elements.
+The `<sbb-icon-sidebar-container>` is a component that holds together the `<sbb-icon-sidebar-content>`
+and one or two `<sbb-icon-sidebar>` elements.
 
-Inside the `sbb-icon-sidebar-content` another `sbb-icon-sidebar-container` can be placed
+Inside the `<sbb-icon-sidebar-content>` another `<sbb-icon-sidebar-container>` can be placed
 to achieve multiple nested icon sidebars.
 
 The icon sidebar components are designed to add side content to a fullscreen app.
@@ -42,7 +42,7 @@ and `<sbb-icon-sidebar>` which represents the added side content.
 
 ## Style
 
-If the `sbb-sidebar-container` is placed after the `sbb-header`, an automatic `margin-block-start` is added.
+If the `<sbb-sidebar-container>` is placed after the `<sbb-header>`, an automatic `margin-block-start` is added.
 In other contexts you may need to set the margin manually, e.g. `margin-block-start: var(--sbb-header-height);`.
 
 ## Color
@@ -95,7 +95,7 @@ As an alternative, the icon can be slotted:
 
 ### Active / current state
 
-Use `sbb-active` CSS class to visually indicate whether the icon sidebar button is currently selected.
+Use `<sbb-active>` CSS class to visually indicate whether the icon sidebar button is currently selected.
 
 ```html
 <sbb-icon-sidebar-link
@@ -130,7 +130,7 @@ As an alternative, the icon can be slotted:
 
 ### Active / current state
 
-Use `sbb-active` CSS class to visually indicate whether the icon sidebar button is currently selected.
+Use `<sbb-active>` CSS class to visually indicate whether the icon sidebar button is currently selected.
 
 ```html
 <sbb-icon-sidebar-button
@@ -141,7 +141,7 @@ Use `sbb-active` CSS class to visually indicate whether the icon sidebar button 
 ></sbb-icon-sidebar-button>
 ```
 
-## Combine with `sbb-sidebar`
+## Combine with `<sbb-sidebar>`
 
 It's possible the combine the `<sbb-icon-sidebar>` with the `<sbb-sidebar>` as following:
 
@@ -157,7 +157,7 @@ It's possible the combine the `<sbb-icon-sidebar>` with the `<sbb-sidebar>` as f
 </sbb-icon-sidebar-container>
 ```
 
-## Use with `sbb-header`
+## Use with `<sbb-header>`
 
 In order to correctly display the shadow of the header when scrolled,
 you need to set the `scrollOrigin` property of the `<sbb-header>`.
@@ -200,11 +200,11 @@ specific role makes sense, `role="region"` is a good fallback.
 </sbb-icon-sidebar-container>
 ```
 
-For the `sbb-icon-sidebar-button` and `sbb-icon-sidebar-link>` the definition of a meaningful
-`aria-label` or `accessibility-label` (`sbb-icon-sidebar-link>`, forwarded as `aria-label` to the
+For the `<sbb-icon-sidebar-button>` and `<sbb-icon-sidebar-link>>` the definition of a meaningful
+`aria-label` or `accessibility-label` (`<sbb-icon-sidebar-link>>`, forwarded as `aria-label` to the
 inner `<a>` element) is mandatory as only an icon is displayed.
 To show the user which entry is active, `accessibility-current='page'` (or `aria-current="page"`
-for `sbb-icon-sidebar-button`) should be set whenever `sbb-active` class is set.
+for `<sbb-icon-sidebar-button>`) should be set whenever `<sbb-active>` class is set.
 See https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current for more
 information.
 

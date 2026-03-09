@@ -1,8 +1,8 @@
-The `sbb-lead-container` can be used for product pages to display a lead image and following content.
+The `<sbb-lead-container>` can be used for product pages to display a lead image and following content.
 
 Please note that the gaps between elements inside the unnamed slot (main content) need to be controlled by the consumer.
 However, consumers can use the predefined classes
-(`sbb-lead-container-lead-spacing` and `sbb-lead-container-lead-text`) to achieve a correct spacing.
+(`<sbb-lead-container-lead-spacing>` and `<sbb-lead-container-lead-text>`) to achieve a correct spacing.
 
 As per design rules, the spacings are defined as following:
 
@@ -68,7 +68,7 @@ Full example with applied spacings (CSS classes) in content:
 </sbb-lead-container>
 ```
 
-Optionally, you can add an overlapping `sbb-chip-label` by wrapping the `sbb-image` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
+Optionally, you can add an overlapping `<sbb-chip-label>` by wrapping the `<sbb-image>` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
 
 ```html
 <sbb-lead-container>

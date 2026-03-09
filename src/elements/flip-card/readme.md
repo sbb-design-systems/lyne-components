@@ -1,6 +1,6 @@
 ### sbb-flip-card
 
-The `sbb-flip-card` component displays an informative card that reveals more information when clicked or toggled programmatically.
+The `<sbb-flip-card>` component displays an informative card that reveals more information when clicked or toggled programmatically.
 
 ```html
 <sbb-flip-card>
@@ -12,8 +12,8 @@ The `sbb-flip-card` component displays an informative card that reveals more inf
 </sbb-flip-card>
 ```
 
-With the `sbb-flip-card-summary` you can optionally add an overlapping `sbb-chip-label` by wrapping the
-`sbb-image` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
+With the `<sbb-flip-card-summary>` you can optionally add an overlapping `<sbb-chip-label>` by wrapping the
+`<sbb-image>` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
 
 ```html
 <sbb-flip-card>
@@ -32,7 +32,7 @@ With the `sbb-flip-card-summary` you can optionally add an overlapping `sbb-chip
 
 ## Style
 
-The `sbb-flip-card` component has a predefined minimum height that can be customized by specifying the `min-height` property directly in the style of the host element with a custom height. Alternatively, when used within a CSS grid layout alongside other cards, the height can be adjusted using the `grid-template-rows` property. For consistent behavior and flexibility, it is recommended to use the `minmax()` function, for example: `grid-template-rows: minmax(320px, 1fr)`.
+The `<sbb-flip-card>` component has a predefined minimum height that can be customized by specifying the `min-height` property directly in the style of the host element with a custom height. Alternatively, when used within a CSS grid layout alongside other cards, the height can be adjusted using the `grid-template-rows` property. For consistent behavior and flexibility, it is recommended to use the `minmax()` function, for example: `grid-template-rows: minmax(320px, 1fr)`.
 
 ```html
 <div
@@ -62,7 +62,7 @@ The component will display the content slotted in the `summary` slot in the main
 
 ## States
 
-The `sbb-flip-card` will switch to the flipped state after the user clicks on it or after the `toggle` method is called.
+The `<sbb-flip-card>` will switch to the flipped state after the user clicks on it or after the `toggle` method is called.
 
 <!-- Auto Generated Below -->
 

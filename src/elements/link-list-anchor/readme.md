@@ -1,4 +1,4 @@
-The `sbb-link-list-anchor` is a component that can be used to collect and display [sbb-block-link](/docs/elements-link--docs).
+The `<sbb-link-list-anchor>` is a component that can be used to collect and display [sbb-block-link](/docs/elements-link--docs).
 It is mainly intended to be used as a link list for page anchors.
 
 ```html
@@ -23,7 +23,7 @@ The title can be set using the `titleContent` property or, alternatively, can be
 
 ## Style
 
-The component will accept only `sbb-block-link` or `sbb-block-link-button` instances,
+The component will accept only `<sbb-block-link>` or `<sbb-block-link-button>` instances,
 and it will sync its `size` and `negative` property with the inner links.
 
 ```html

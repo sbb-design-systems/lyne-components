@@ -7,7 +7,7 @@ There are two variants available:
 
 ## sbb-tab-group
 
-The `sbb-tab-group` together with `sbb-tab-label` and `sbb-tab` are components used to organize and gather
+The `<sbb-tab-group>` together with `<sbb-tab-label>` and `<sbb-tab>` are components used to organize and gather
 tabs that the user can navigate through.
 Use it when you want to provide navigation within blocks of content, instead of showing everything in one
 place or requiring the user to navigate between several different views.
@@ -28,12 +28,12 @@ tab panels can present different sections of content and include text, images, f
 </sbb-tab-group>
 ```
 
-To display a tab label within the tab bar, provide a `sbb-tab-label` right before its related tab content.
-The content element must be wrapped in a `sbb-tab` and placed right after its relative `sbb-tab-label`.
-Tab groups can also be nested, which means that a `sbb-tab` can contain another `sbb-tab-group`,
+To display a tab label within the tab bar, provide a `<sbb-tab-label>` right before its related tab content.
+The content element must be wrapped in a `<sbb-tab>` and placed right after its relative `<sbb-tab-label>`.
+Tab groups can also be nested, which means that a `<sbb-tab>` can contain another `<sbb-tab-group>`,
 as shown in the "Nested Tab Groups" example.
 
-The `sbb-tab-label` component can optionally display a `sbb-icon` at the component start using the
+The `<sbb-tab-label>` component can optionally display a `<sbb-icon>` at the component start using the
 `iconName` property or via custom content using the `icon` slot.
 
 It's also possible to display a numeric amount at the component's end using the `amount` property or slot.
@@ -50,7 +50,7 @@ The label's heading tag can be changed using the `level` property.
 </sbb-tab-label>
 ```
 
-There is also a variant for using anchors (`<a>`) as tabs. See `sbb-tab-nav-bar` below.
+There is also a variant for using anchors (`<a>`) as tabs. See `<sbb-tab-nav-bar>` below.
 
 ## Fixed height
 
@@ -87,7 +87,7 @@ It's possible to set the first selected tab using the `initialSelectedIndex` pro
 ## Events
 
 Consumers can listen to the `tabchange` event, whose `event.detail` is typed as `SbbTabChangedEventDetails`.
-From it, it's possible to retrieve the information about the current `sbb-tab-label`, `sbb-tab` and index, and,
+From it, it's possible to retrieve the information about the current `<sbb-tab-label>`, `<sbb-tab>` and index, and,
 if available, also the information about the previous ones.
 
 ```ts
@@ -101,7 +101,7 @@ interface SbbTabChangedEventDetails {
 }
 ```
 
-The `sbb-tab` dispatches the `active` event when a tab becomes active.
+The `<sbb-tab>` dispatches the `active` event when a tab becomes active.
 
 ## Accessibility
 
@@ -114,12 +114,12 @@ to improve screen-reader usability due to its implicit role.
 </sbb-tab>
 ```
 
-The `sbb-tab-group` component manages the ARIA relationsship between components
+The `<sbb-tab-group>` component manages the ARIA relationsship between components
 (e.g. `aria-controls`, etc.).
 
 ## sbb-tab-nav-bar
 
-The `sbb-tab-nav-bar` provides a tab-like UI for navigating between routes.
+The `<sbb-tab-nav-bar>` provides a tab-like UI for navigating between routes.
 
 ```html
 <sbb-tab-nav-bar>
@@ -129,7 +129,7 @@ The `sbb-tab-nav-bar` provides a tab-like UI for navigating between routes.
 </sbb-tab-nav-bar>
 ```
 
-As the `sbb-tab-label` component, it supports a prefix icon and an amount.
+As the `<sbb-tab-label>` component, it supports a prefix icon and an amount.
 
 ```html
 <sbb-tab-nav-bar>

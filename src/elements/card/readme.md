@@ -1,15 +1,15 @@
-The `sbb-card` component is a generic content container; its task is to present content related to a single subject.
+The `<sbb-card>` component is a generic content container; its task is to present content related to a single subject.
 
 ```html
 <sbb-card>Card content</sbb-card>
 ```
 
-It is possible to use the component together with the `sbb-card-badge`
-and the `sbb-card-button`/`sbb-card-link`.
+It is possible to use the component together with the `<sbb-card-badge>`
+and the `<sbb-card-button>`/`<sbb-card-link>`.
 
-### With `sbb-card-badge`
+### With `<sbb-card-badge>`
 
-The `sbb-card-badge` component can be used to display a badge in the upper right corner.
+The `<sbb-card-badge>` component can be used to display a badge in the upper right corner.
 It can display information like prices or discounts.
 
 To achieve the correct spacing between elements inside the card badge, we recommend to use `span`-elements.
@@ -29,9 +29,9 @@ in the [sbb-selection-expansion-panel](/docs/elements-selection-expansion-panel-
 </sbb-card>
 ```
 
-### With `sbb-card-button`/`sbb-card-link`
+### With `<sbb-card-button>`/`<sbb-card-link>`
 
-To add an action to a card, add a `sbb-card-button` or a `sbb-card-link` to the card.
+To add an action to a card, add a `<sbb-card-button>` or a `<sbb-card-link>` to the card.
 With these components the card area becomes clickable.
 
 Also consult the accessibility section down below on what to consider
@@ -48,15 +48,15 @@ for these elements, as their content is only visible to screen readers.
 </sbb-card>
 ```
 
-The `sbb-card-link` is internally rendered as a link,
+The `<sbb-card-link>` is internally rendered as a link,
 accepting its associated properties (`href`, `target`, `rel` and `download`).
 
-The `sbb-card-button` is equivalent to a native `button`,
+The `<sbb-card-button>` is equivalent to a native `button`,
 accepting its associated properties (`type`, `name`, `value` and `form`).
 
 ## Style
 
-Generally, the padding of the `sbb-card` can be set directly on the host. However, it's possible to choose among
+Generally, the padding of the `<sbb-card>` can be set directly on the host. However, it's possible to choose among
 different preset spacing classes.
 
 ```html
@@ -79,16 +79,16 @@ The component has four different values to choose from for the `color` property;
 
 ## Accessibility
 
-Normally, a `sbb-card` should be a single action, however, it's possible to place other interactive elements
+Normally, a `<sbb-card>` should be a single action, however, it's possible to place other interactive elements
 in the card content. Interactive content will automatically be detected and made accessible to click / focus.
 In cases where there should be only a visual button or link inside the card content without a different action, the
 static component should be used (e.g. `<sbb-button-static></sbb-button-static>`).
 
-For the `sbb-card-badge` it is recommended to place an `aria-label` on
-`sbb-card-badge` to describe the displayed information in a full sentence,
+For the `<sbb-card-badge>` it is recommended to place an `aria-label` on
+`<sbb-card-badge>` to describe the displayed information in a full sentence,
 as in the example above.
 
-For the `sbb-card-link` and the `sbb-card-button` it is **important**
+For the `<sbb-card-link>` and the `<sbb-card-button>` it is **important**
 that a descriptive message is being added as content
 as it is used for search engines and screen-reader users.
 

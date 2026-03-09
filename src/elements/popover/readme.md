@@ -1,4 +1,4 @@
-The `sbb-popover` component can be useful for displaying contextual and additional information on mouse hover or click of a trigger element.
+The `<sbb-popover>` component can be useful for displaying contextual and additional information on mouse hover or click of a trigger element.
 
 The component could be used:
 
@@ -37,10 +37,10 @@ mergeConfig({
 
 ## Interactions
 
-The `sbb-popover` can be dismissed by clicking on an interactive element within its content,
+The `<sbb-popover>` can be dismissed by clicking on an interactive element within its content,
 by clicking on the close button or by performing another action on the page.
 
-You can also indicate that an element within the popover content should close the `sbb-popover` when clicked
+You can also indicate that an element within the popover content should close the `<sbb-popover>` when clicked
 by marking it with the `sbb-popover-close` attribute;
 it's also possible to hide the default close button using the `hideCloseButton` property.
 
@@ -55,12 +55,12 @@ it's also possible to hide the default close button using the `hideCloseButton` 
 </sbb-popover>
 ```
 
-You can also indicate that the `sbb-popover` should be shown on hover with the property `hoverTrigger`
+You can also indicate that the `<sbb-popover>` should be shown on hover with the property `hoverTrigger`
 and set a custom delay for the open and close animations (defaults to 0).
 In this case, the default close button is hidden.
 
 If hover is not supported by the current device, the component will be triggered on click/tap as default.
-The `sbb-popover` will automatically disappear after the hiding delay
+The `<sbb-popover>` will automatically disappear after the hiding delay
 if neither the trigger element nor the popover are on hover or if another action is performed on the page.
 
 ```html
@@ -80,7 +80,7 @@ if neither the trigger element nor the popover are on hover or if another action
 
 ## Style
 
-The `sbb-popover` automatically calculates where it should place itself, based on available space. Default is below and center.
+The `<sbb-popover>` automatically calculates where it should place itself, based on available space. Default is below and center.
 
 ## Accessibility
 

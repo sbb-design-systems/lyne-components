@@ -1,4 +1,4 @@
-The `sbb-chip` is a visual component used to display compact information, like a filter's name or a tag.
+The `<sbb-chip>` is a visual component used to display compact information, like a filter's name or a tag.
 
 ```html
 <sbb-chip>On sale</sbb-chip>

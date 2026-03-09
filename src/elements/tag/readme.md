@@ -1,7 +1,7 @@
 Tags categorize large amounts of information and filter content through user selection.
 
-The `sbb-tag-group` is a container for one or more `sbb-tag` components.
-Each `sbb-tag` must have a `value` property.
+The `<sbb-tag-group>` is a container for one or more `<sbb-tag>` components.
+Each `<sbb-tag>` must have a `value` property.
 
 ```html
 <sbb-tag-group>
@@ -14,7 +14,7 @@ Each `sbb-tag` must have a `value` property.
 
 ## Style
 
-The `size` property on `sbb-tag-group` (values: `m`, `s`) is applied to all contained `sbb-tag` elements.
+The `size` property on `<sbb-tag-group>` (values: `m`, `s`) is applied to all contained `<sbb-tag>` elements.
 
 ```html
 <sbb-tag-group size="m">
@@ -34,8 +34,8 @@ The `size` property on `sbb-tag-group` (values: `m`, `s`) is applied to all cont
 
 ### Exclusive selection vs. multiple selection
 
-By default, `sbb-tag-group` behaves like a radio button group: only one tag can be selected at a time.
-The `value` of the `sbb-tag-group` reflects the `value` of the selected `sbb-tag`.
+By default, `<sbb-tag-group>` behaves like a radio button group: only one tag can be selected at a time.
+The `value` of the `<sbb-tag-group>` reflects the `value` of the selected `<sbb-tag>`.
 
 Set the `multiple` property to allow multiple selections (checkbox behavior).
 In this mode, the `value` is an array containing all selected tag values.
@@ -76,11 +76,11 @@ const uncheckTags = () => {
 
 ## States
 
-Tags support `checked` and `disabled` states. Set `disabled` on the `sbb-tag-group` to disable all contained tags.
+Tags support `checked` and `disabled` states. Set `disabled` on the `<sbb-tag-group>` to disable all contained tags.
 
 ## Slots
 
-It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
+It is possible to provide a label via an unnamed slot; the component can optionally display a `<sbb-icon>`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
 
 It's also possible to display a numeric amount at the component's end using the `amount` property or slot.
@@ -97,7 +97,7 @@ It's also possible to display a numeric amount at the component's end using the 
 
 ## Complex Values
 
-The `sbb-tag` element supports any types of values, including complex objects.
+The `<sbb-tag>` element supports any types of values, including complex objects.
 The type can be specified using the generic type parameter `T` of `SbbTag<T>`.
 
 ```html
@@ -106,24 +106,24 @@ The type can be specified using the generic type parameter `T` of `SbbTag<T>`.
 
 ## Events
 
-Consumers can listen to the native `change` and `input` events on the `sbb-tag`.
+Consumers can listen to the native `change` and `input` events on the `<sbb-tag>`.
 The current state can be read from `event.target.checked`, while the value from `event.target.value`.
-It's recommended to check the parent's `sbb-tag-group` for the value.
+It's recommended to check the parent's `<sbb-tag-group>` for the value.
 
 ## Accessibility
 
-The `sbb-tag` imitates a `button` element to provide an accessible experience.
+The `<sbb-tag>` imitates a `button` element to provide an accessible experience.
 The state is reflected via `aria-pressed` attribute.
 
-The property `listAccessibilityLabel` on the `sbb-tag-group` is forwarded as `aria-label` to the
+The property `listAccessibilityLabel` on the `<sbb-tag-group>` is forwarded as `aria-label` to the
 inner list that the component uses to display the tags,
 to use the implicit `role="list"` of the `ul`.
 
-If the `listAccessibilityLabel` property is not defined, the `sbb-tag-group` surrounding the buttons applies `role="group"`
-to convey the association between the individual `sbb-tag`s.
+If the `listAccessibilityLabel` property is not defined, the `<sbb-tag-group>` surrounding the buttons applies `role="group"`
+to convey the association between the individual `<sbb-tag>`s.
 
-When using the `role="group"`, each `sbb-tag-group` element should be given a label with `aria-label` or `aria-labelledby`,
-that communicates the collective meaning of all `sbb-tag`s.
+When using the `role="group"`, each `<sbb-tag-group>` element should be given a label with `aria-label` or `aria-labelledby`,
+that communicates the collective meaning of all `<sbb-tag>`s.
 
 ```html
 <sbb-tag-group aria-label="Select your desired font styles to filter it">

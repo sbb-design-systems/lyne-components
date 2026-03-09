@@ -1,11 +1,11 @@
-The `sbb-loading-indicator-circle` is a component which can be used to indicate progress status
+The `<sbb-loading-indicator-circle>` is a component which can be used to indicate progress status
 or an ongoing activity which require some time to complete.
 
 ```html
 <sbb-loading-indicator-circle></sbb-loading-indicator-circle>
 ```
 
-It can be slotted in other components (e.g. `sbb-button`) in the icon slot.
+It can be slotted in other components (e.g. `<sbb-button>`) in the icon slot.
 
 ```html
 <sbb-button>
@@ -16,9 +16,9 @@ It can be slotted in other components (e.g. `sbb-button`) in the icon slot.
 
 ## Accessibility
 
-If the `sbb-loading-indicator-circle` should be announced by screen-readers, use an element with the correct aria attributes
+If the `<sbb-loading-indicator-circle>` should be announced by screen-readers, use an element with the correct aria attributes
 (`aria-live` set to `polite` or `assertive`, and possibly `aria-atomic` and `aria-relevant`)
-and then append the `sbb-loading-indicator` on it after giving it the correct `aria-label`.
+and then append the `<sbb-loading-indicator>` on it after giving it the correct `aria-label`.
 
 ```html
 <div class="loader-container" aria-live="polite">

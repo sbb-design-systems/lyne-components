@@ -1,8 +1,8 @@
-The `sbb-option` is a component which can be used to display items in components like
+The `<sbb-option>` is a component which can be used to display items in components like
 [sbb-autocomplete](/docs/elements-autocomplete--docs) or a [sbb-select](/docs/elements-select--docs).
 
 It is based on the native `option` element. As such, it can be labeled via its text content.
-The component can optionally display an `sbb-icon` at the component start using the `iconName` property
+The component can optionally display an `<sbb-icon>` at the component start using the `iconName` property
 or via custom content using the `icon` slot.
 
 ```html
@@ -13,9 +13,9 @@ or via custom content using the `icon` slot.
 
 Like the native `option`, the component has a `value` property.
 
-The state of the `sbb-option` can be configured via the `selected` and `disabled` attributes/properties.
+The state of the `<sbb-option>` can be configured via the `selected` and `disabled` attributes/properties.
 When disabled, the selection via click is prevented.
-If the `sbb-option` is nested in an `sbb-optgroup` component, it inherits the `disabled` state from
+If the `<sbb-option>` is nested in an `<sbb-optgroup>` component, it inherits the `disabled` state from
 the parent.
 
 ```html
@@ -26,14 +26,14 @@ the parent.
 
 ## Events
 
-Consumers can listen to the `optionselected` event on the `sbb-option` component to react to the selected
+Consumers can listen to the `optionselected` event on the `<sbb-option>` component to react to the selected
 value. The event is triggered if the element has been selected by user interaction. Alternatively,
 the `optionselectionchange` event can be listened to, which is triggered if the element has either been
 selected or deselected.
 
 ## Style
 
-If the label slot contains only a **text node**, it is possible to search for text in the `sbb-option`
+If the label slot contains only a **text node**, it is possible to search for text in the `<sbb-option>`
 using the `highlight` method, passing the desired text; if the text is present it will be highlighted
 in bold.
 
@@ -65,7 +65,7 @@ option.textContent = 'Example';
 
 ## sbb-optgroup
 
-The `sbb-optgroup` is a component used to group more `sbb-option` within an
+The `<sbb-optgroup>` is a component used to group more `<sbb-option>` within an
 [sbb-autocomplete](/docs/elements-autocomplete--docs) or an
 [sbb-select](/docs/elements-select--docs) component.
 
@@ -81,7 +81,7 @@ The component has a `label` property as the name of the group.
 
 ### States
 
-The component has a `disabled` property which sets all the `sbb-option` in the group as disabled.
+The component has a `disabled` property which sets all the `<sbb-option>` in the group as disabled.
 
 ```html
 <sbb-optgroup label="Disabled group" disabled>
@@ -93,7 +93,7 @@ The component has a `disabled` property which sets all the `sbb-option` in the g
 
 ## sbb-option-hint
 
-The `sbb-option-hint` is an optional component used to show a hint message within an
+The `<sbb-option-hint>` is an optional component used to show a hint message within an
 [sbb-autocomplete](/docs/elements-autocomplete--docs).
 
 ```html
@@ -107,7 +107,7 @@ The `sbb-option-hint` is an optional component used to show a hint message withi
 
 ### Style
 
-The `sbb-option-hint` has a `negative` property which will be automatically inherited from the parent `sbb-autocomplete`.
+The `<sbb-option-hint>` has a `negative` property which will be automatically inherited from the parent `<sbb-autocomplete>`.
 
 ```html
 <sbb-autocomplete>
@@ -119,9 +119,9 @@ The `sbb-option-hint` has a `negative` property which will be automatically inhe
 
 ## A11y
 
-By default, the `sbb-option-hint` is treated as a simple text from screen readers, and it is not easily accessible by screen reader users.
+By default, the `<sbb-option-hint>` is treated as a simple text from screen readers, and it is not easily accessible by screen reader users.
 
-If deemed necessary, the `sbb-option-hint` can be marked with the [aria-live](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-live) attribute.
+If deemed necessary, the `<sbb-option-hint>` can be marked with the [aria-live](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-live) attribute.
 
 <!-- Auto Generated Below -->
 

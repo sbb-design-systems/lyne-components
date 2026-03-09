@@ -1,4 +1,4 @@
-The `sbb-calendar` component displays a calendar that allows the user to select a date.
+The `<sbb-calendar>` component displays a calendar that allows the user to select a date.
 
 This is used internally in the datepicker component,
 but it can be used on its own.
@@ -9,10 +9,10 @@ but it can be used on its own.
 
 ## Slots and day customization
 
-The component uses the `sbb-calendar-day` component
+The component uses the `<sbb-calendar-day>` component
 to render day cells.
 
-Consumers can override this behavior by slotting their own customized `sbb-calendar-day`,
+Consumers can override this behavior by slotting their own customized `<sbb-calendar-day>`,
 mainly if some extra content is needed.
 The slot name is mandatory, and it requires a date in ISO8601 format (e.g. 2025-01-01).
 
@@ -20,15 +20,15 @@ The slot name is mandatory, and it requires a date in ISO8601 format (e.g. 2025-
 <sbb-calendar-day slot="2025-01-01"></sbb-calendar-day>
 ```
 
-The `sbb-calendar` creates its own slots based on the month to be displayed;
+The `<sbb-calendar>` creates its own slots based on the month to be displayed;
 during initialization, the month is the current one (if there's no `selected` date)
-so for the first render the slotted `sbb-calendar-days` must match that month.
+so for the first render the slotted `<sbb-calendar-days>` must match that month.
 For `wide` mode, also the following one must be taken into account.
 
 Each time the month changes due to user interaction with the previous/next month buttons,
 or via selecting a different year and then a month, a `monthchange` event is emitted, typed as `SbbMonthChangeEvent`.
 The event has a `range: Day[]` property, which can be accessed to have information about the days to render.
-Consumers can listen to this event to dynamically create and slot the `sbb-calendar-day`s of the chosen month.
+Consumers can listen to this event to dynamically create and slot the `<sbb-calendar-day>`s of the chosen month.
 
 ```css
 /* Custom CSS for the extra content */
@@ -65,7 +65,7 @@ function monthChangeHandler(e: SbbMonthChangeEvent): void {
   e.range.map((day) => {
     const child = document.createElement('sbb-calendar-day');
     // The day.value property is the date in ISO8601 format,
-    // the correct one for the `sbb-calendar-day`'s slot property.
+    // the correct one for the `<sbb-calendar-day>`'s slot property.
     child.setAttribute('slot', day.value);
     calendar.appendChild(child);
   });
@@ -76,7 +76,7 @@ function monthChangeHandler(e: SbbMonthChangeEvent): void {
 
 The component has a `current` state, which is set if the slot name matches the current day.
 
-Also, it has other states based on the properties of the parent `sbb-calendar`.
+Also, it has other states based on the properties of the parent `<sbb-calendar>`.
 The disabled and the crossed-out states are based on the value of the `min`, `max` and `dateFilter` properties,
 while the selected matches the parent `selected` properties, including the multiple variant.
 
@@ -103,7 +103,7 @@ It's also possible to select a specific date by clicking on the month label betw
 this action opens a list of twenty-four selectable years, and, after the year selection, the list of months of that year.
 Clicking on an element will set the month and restore the first view, allowing to select the desired day.
 
-The `sbb-calendar` can be directly displayed in one of these modalities using the `view` property (default: `day`).
+The `<sbb-calendar>` can be directly displayed in one of these modalities using the `view` property (default: `day`).
 
 ```html
 <sbb-calendar selected="1585699200" view="month"></sbb-calendar>
@@ -172,7 +172,7 @@ so on the left side in `horizontal` and on top in `vertical`.
 
 ## Events
 
-Consumers can listen to the `dateselected` event on the `sbb-calendar` component to intercept the selected date
+Consumers can listen to the `dateselected` event on the `<sbb-calendar>` component to intercept the selected date
 which can be read from `event.detail`.
 Check the [Slot and day customization](docs/elements-calendar--docs#slots-and-day-customization) paragraph
 for more information about the `monthchange` event.

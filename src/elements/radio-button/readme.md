@@ -1,4 +1,4 @@
-The `sbb-radio-button` component provides the same functionality as a native `<input type="radio"/>` enhanced with the SBB Design.
+The `<sbb-radio-button>` component provides the same functionality as a native `<input type="radio"/>` enhanced with the SBB Design.
 
 Radio-buttons should typically be placed inside a [sbb-radio-button-group](/docs/elements-radio-button-group--docs) component
 in order to display a radio input within a group. Individual radio-buttons inside a radio-group will inherit the `name` of the group.
@@ -40,7 +40,7 @@ The `allowEmptySelection` property allows user to deselect the component.
 ## Style
 
 The component has three different sizes, which can be changed using the `size` property (`m`, which is the default, `s` and `xs`).
-If used inside a `sbb-radio-button-group`, the `size` will be inherited from it.
+If used inside a `<sbb-radio-button-group>`, the `size` will be inherited from it.
 
 ```html
 <sbb-radio-button value="small" size="s">Size</sbb-radio-button>

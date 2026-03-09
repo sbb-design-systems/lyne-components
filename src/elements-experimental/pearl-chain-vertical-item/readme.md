@@ -1,4 +1,4 @@
-The `sbb-pearl-chain-vertical-item` is intended to be used
+The `<sbb-pearl-chain-vertical-item>` is intended to be used
 with the [sbb-pearl-chain-vertical](/docs/experimental-sbb-pearl-chain-vertical--docs)` component.
 
 It renders a table-row with three table-cells, and it is used to display the dots and line of the pearl-chain.

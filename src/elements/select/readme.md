@@ -1,9 +1,9 @@
-The `sbb-select` is a component which provides a list of selectable options in an overlay panel,
+The `<sbb-select>` is a component which provides a list of selectable options in an overlay panel,
 emulating the behaviour of a native `<select>`.
 
-## In `sbb-form-field`
+## In `<sbb-form-field>`
 
-If the component is used within a `sbb-form-field`, it will automatically display the option panel above or below it;
+If the component is used within a `<sbb-form-field>`, it will automatically display the option panel above or below it;
 otherwise, the panel takes the component's parent element as origin.
 Options or groups of options (see [sbb-option](/docs/elements-option--docs) /
 [sbb-option-group](/docs/elements-option--docs) components)
@@ -23,14 +23,14 @@ can be provided via an unnamed slot.
 The component has a `value` property, which can be a string or a string array (when `multiple` is set to true).
 If no `value` has been set, it is possible to display a placeholder using the `placeholder` property.
 
-Also note that if the `value` is set on the `sbb-select`, it will override all the `selected` attributes on the internal `sbb-option`s,
-so setting a default value should be done using the `value` attribute on the `sbb-select` and not by setting the
-`selected` attribute on the internal `sbb-option`s.
+Also note that if the `value` is set on the `<sbb-select>`, it will override all the `selected` attributes on the internal `<sbb-option>`s,
+so setting a default value should be done using the `value` attribute on the `<sbb-select>` and not by setting the
+`selected` attribute on the internal `<sbb-option>`s.
 
 ## States
 
 It is possible to display the component in `disabled` or `readonly` state by using the self-named properties. The component
-has a `required` property, which can be useful for setting a custom `sbb-error` message within a `sbb-form-field`.
+has a `required` property, which can be useful for setting a custom `<sbb-error>` message within a `<sbb-form-field>`.
 
 ```html
 <sbb-form-field>
@@ -72,7 +72,7 @@ the selected values will be displayed in selection order, separated by a comma.
 
 ## Style
 
-The component has no `size` property but, when slotted in a `sbb-form-field`, it adapts to the parent `size`.
+The component has no `size` property but, when slotted in a `<sbb-form-field>`, it adapts to the parent `size`.
 
 ```html
 <sbb-form-field size="s">
@@ -83,15 +83,15 @@ The component has no `size` property but, when slotted in a `sbb-form-field`, it
 
 ## Events
 
-Consumers can listen to the native `change`/`input` event on the `sbb-select` component to intercept the selection's change;
+Consumers can listen to the native `change`/`input` event on the `<sbb-select>` component to intercept the selection's change;
 the current value can be read from `event.target.value`.
-Additionally `sbb-option` will emit `optionSelected` when selected via user interaction.
+Additionally `<sbb-option>` will emit `optionSelected` when selected via user interaction.
 
 ## Accessibility
 
 The select follows the combobox pattern. As a technical difficulty, we have to copy the combobox element into the light DOM.
-As a consequence, linking labels is not fully supported. While `aria-label`, `aria-labelledby` and `aria-describedby` on the `sbb-select` work,
-using `<label>` together with `sbb-select` is only partially supported.
+As a consequence, linking labels is not fully supported. While `aria-label`, `aria-labelledby` and `aria-describedby` on the `<sbb-select>` work,
+using `<label>` together with `<sbb-select>` is only partially supported.
 As workaround, we copy the text into the aria-label of the combobox element, but this remains not synchronized.
 Whenever a `<label>` gets a change, we won't be able to detect it, and we won't be able to update the `aria-label`.
 The only two exceptions are when `connectedCallback()` gets called and when the document language changes.
@@ -113,12 +113,12 @@ Changes to the `<label>`-text might not be reflected after initialization:
 
 ## Keyboard interaction
 
-Closed panel, `sbb-select` has focus:
+Closed panel, `<sbb-select>` has focus:
 
 | Keyboard                                     | Action                                                                                                        |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| <kbd>Down Arrow</kbd> or <kbd>Up Arrow</kbd> | If the `sbb-select` is neither `disabled` or `readonly`, opens the panel.                                     |
-| <kbd>Enter</kbd> or <kbd>Spacebar</kbd>      | If the `sbb-select` is neither `disabled` or `readonly`, opens the panel.                                     |
+| <kbd>Down Arrow</kbd> or <kbd>Up Arrow</kbd> | If the `<sbb-select>` is neither `disabled` or `readonly`, opens the panel.                                   |
+| <kbd>Enter</kbd> or <kbd>Spacebar</kbd>      | If the `<sbb-select>` is neither `disabled` or `readonly`, opens the panel.                                   |
 | Any char or number                           | If exists, select the first non-disabled matching option after the selected value, without opening the panel. |
 
 Opened panel:

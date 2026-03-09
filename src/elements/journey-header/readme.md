@@ -1,4 +1,4 @@
-The `sbb-journey-header` is a component used to display the journey's details.
+The `<sbb-journey-header>` is a component used to display the journey's details.
 
 The component has two required properties, named `origin` and `destination`,
 which represents the two ends of the journey.
@@ -13,7 +13,7 @@ the icon is an arrow pointing to the `destination`, otherwise it is a double arr
 
 ## Style
 
-The component has a `level` property, which is passed to its inner `sbb-title` component;
+The component has a `level` property, which is passed to its inner `<sbb-title>` component;
 it is rendered as a heading from `h1` to `h6`. Default `level` is `3`.
 It also has a `visualLevel` property, which can be used in scenarios
 where the visual representation needs to be different from the semantic meaning of the title level.

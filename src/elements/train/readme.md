@@ -10,13 +10,13 @@ It is divided into the following components:
 </sbb-train-formation>
 ```
 
-- The **`sbb-train-formation`** is a container for one or more `sbb-train` components.
-  It ensures orchestration of the contained `sbb-train` components and provides a common context
+- The **`<sbb-train-formation>`** is a container for one or more `<sbb-train>` components.
+  It ensures orchestration of the contained `<sbb-train>` components and provides a common context
   for them, such as the perspective of the train (side or top view) and inline padding.
-- The **`sbb-train`** is a container for one or more `sbb-train-wagon` components and `sbb-train-blocked-passage` components.
+- The **`<sbb-train>`** is a container for one or more `<sbb-train-wagon>` components and `<sbb-train-blocked-passage>` components.
   It provides the context for the contained components, such as the direction of the train and the station label.
-- The **`sbb-train-wagon`** is a component which represents a train compartment.
-- The **`sbb-train-blocked-passage`** is a component which visually displays a blocked passage between two `sbb-train-wagon` components.
+- The **`<sbb-train-wagon>`** is a component which represents a train compartment.
+- The **`<sbb-train-blocked-passage>`** is a component which visually displays a blocked passage between two `<sbb-train-wagon>` components.
 
 ## sbb-train-formation
 
@@ -94,7 +94,7 @@ which can be either `left` (default) or `right`.
 The direction label and the level of its heading tag are set, respectively,
 with the property `directionLabel` and `directionLabelLevel`.
 
-The `accessibility-label` property should be used to give further information about the leaving direction of the `sbb-train`.
+The `accessibility-label` property should be used to give further information about the leaving direction of the `<sbb-train>`.
 It should refer to the section where the locomotive is placed.
 
 ## sbb-train-wagon
@@ -124,7 +124,7 @@ and a wagon number (property `label`) above the component.
 ```
 
 **Note:**
-An `sbb-train-wagon` with `type="wagon"` has the possibilities of slotting attribute icons.
+An `<sbb-train-wagon>` with `type="wagon"` has the possibilities of slotting attribute icons.
 They will be applied internally into a list (using `<ul>` and `<li>`) and requires an `aria-label` for each slotted icon.
 
 ```html
