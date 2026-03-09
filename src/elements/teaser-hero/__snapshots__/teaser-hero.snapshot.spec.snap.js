@@ -100,6 +100,7 @@ snapshots["sbb-teaser-hero renders with img DOM"] =
 
 snapshots["sbb-teaser-hero renders with img Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   aria-label="label"
   class="sbb-action-base sbb-teaser-hero"
   href="https://www.sbb.ch"
@@ -124,7 +125,8 @@ snapshots["sbb-teaser-hero renders with img Shadow DOM"] =
     </sbb-block-link-static>
   </span>
   <slot name="image">
-  </slot></a>
+  </slot>
+</a>
 <span
   hidden=""
   id="sbb-link-new-window"

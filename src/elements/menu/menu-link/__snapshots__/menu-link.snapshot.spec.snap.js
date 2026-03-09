@@ -14,6 +14,7 @@ snapshots["sbb-menu-link renders DOM"] =
 
 snapshots["sbb-menu-link renders Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   aria-label="a11y label"
   class="sbb-action-base sbb-menu-link"
   href="https://github.com/sbb-design-systems/lyne-components"
@@ -34,7 +35,8 @@ snapshots["sbb-menu-link renders Shadow DOM"] =
       <sbb-icon name="chevron-small-right-small">
       </sbb-icon>
     </span>
-  </span></a>
+  </span>
+</a>
 <span
   hidden=""
   id="sbb-link-new-window"
@@ -58,6 +60,7 @@ snapshots["sbb-menu-link renders component with icon DOM"] =
 
 snapshots["sbb-menu-link renders component with icon Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   aria-label="a11y label"
   class="sbb-action-base sbb-menu-link"
   href="https://github.com/sbb-design-systems/lyne-components"
@@ -80,7 +83,8 @@ snapshots["sbb-menu-link renders component with icon Shadow DOM"] =
       <sbb-icon name="chevron-small-right-small">
       </sbb-icon>
     </span>
-  </span></a>
+  </span>
+</a>
 <span
   hidden=""
   id="sbb-link-new-window"

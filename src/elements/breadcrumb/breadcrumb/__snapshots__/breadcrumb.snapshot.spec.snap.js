@@ -15,6 +15,7 @@ snapshots["sbb-breadcrumb renders with text DOM"] =
 
 snapshots["sbb-breadcrumb renders with text Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   class="sbb-action-base sbb-breadcrumb"
   download=""
   href="https://example.com/test"
@@ -26,7 +27,8 @@ snapshots["sbb-breadcrumb renders with text Shadow DOM"] =
   <span class="sbb-breadcrumb__label">
     <slot>
     </slot>
-  </span></a>
+  </span>
+</a>
 <span
   hidden=""
   id="sbb-link-new-window"

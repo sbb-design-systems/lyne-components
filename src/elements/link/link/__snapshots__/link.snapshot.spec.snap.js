@@ -14,13 +14,15 @@ snapshots["sbb-link renders DOM"] =
 
 snapshots["sbb-link renders Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   class="sbb-action-base sbb-link"
   href="https://sbb.ch"
   rel="external noopener nofollow"
   target="_blank"
 >
   <slot>
-  </slot></a>
+  </slot>
+</a>
 <span
   hidden=""
   id="sbb-link-new-window"
@@ -61,6 +63,7 @@ snapshots["sbb-link reflects properties DOM"] =
 
 snapshots["sbb-link reflects properties Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   class="sbb-action-base sbb-link"
   download=""
   href="https://sbb.ch/"
@@ -68,7 +71,8 @@ snapshots["sbb-link reflects properties Shadow DOM"] =
   target="_blank"
 >
   <slot>
-  </slot></a>
+  </slot>
+</a>
 <span
   hidden=""
   id="sbb-link-new-window"

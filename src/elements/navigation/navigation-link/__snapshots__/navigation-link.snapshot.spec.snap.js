@@ -15,6 +15,7 @@ snapshots["sbb-navigation-link renders DOM"] =
 
 snapshots["sbb-navigation-link renders Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   aria-label="a11y label"
   class="sbb-action-base sbb-navigation-link"
   href="https://www.sbb.ch"
@@ -24,7 +25,8 @@ snapshots["sbb-navigation-link renders Shadow DOM"] =
   <sbb-icon name="dash-small">
   </sbb-icon>
   <slot>
-  </slot></a>
+  </slot>
+</a>
 <span
   hidden=""
   id="sbb-link-new-window"
