@@ -77,14 +77,18 @@ The component inherits its style from the slotted panel component (`sbb-checkbox
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbSelectionActionPanelElement`, `sbb-selection-action-panel`
+
+#### Properties
 
 | Name    | Attribute | Privacy | Type                                                            | Default | Description              |
 | ------- | --------- | ------- | --------------------------------------------------------------- | ------- | ------------------------ |
 | `group` | -         | public  | `SbbRadioButtonGroupElement \| SbbCheckboxGroupElement \| null` |         | Group element if present |
 | `panel` | -         | public  | `SbbCheckboxPanelElement \| SbbRadioButtonPanelElement \| null` |         | Input panel element      |
 
-## Slots
+#### Slots
 
 | Name    | Description                                                                                                |
 | ------- | ---------------------------------------------------------------------------------------------------------- |

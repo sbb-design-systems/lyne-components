@@ -67,3 +67,22 @@ E.g. when the table-wrapper is placed inside a dark container, the focus outline
   </sbb-table-wrapper>
 </div>
 ```
+
+<!-- Auto Generated Below -->
+
+## API Documentation
+
+### class: `SbbTableWrapperElement`, `sbb-table-wrapper`
+
+#### Properties
+
+| Name        | Attribute   | Privacy | Type      | Default | Description                             |
+| ----------- | ----------- | ------- | --------- | ------- | --------------------------------------- |
+| `focusable` | `focusable` | public  | `boolean` | `false` | Whether the table wrapper is focusable. |
+| `negative`  | `negative`  | public  | `boolean` | `false` | Negative coloring variant flag.         |
+
+#### Slots
+
+| Name | Description                            |
+| ---- | -------------------------------------- |
+|      | Use the unnamed slot to add the table. |

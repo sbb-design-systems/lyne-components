@@ -62,14 +62,18 @@ In thinking about accessibility, it is useful to place icon use into one of thre
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbIconElement`, `sbb-icon`
+
+#### Properties
 
 | Name         | Attribute     | Privacy | Type      | Default | Description                                                                                                                                                                                                   |
 | ------------ | ------------- | ------- | --------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `name`       | `name`        | public  | `string`  | `''`    | The provided name consisting of the namespace and the name of the icon. If the namespace is missing, the default namespace "sbb" will be used. E.g. `name` (will use "sbb" as namespace) or `namespace:name`. |
 | `noSanitize` | `no-sanitize` | public  | `boolean` | `false` | When set to `true`, SVG content that is HTTP fetched will not be checked if the response SVG content has any `<script>` elements, or any attributes that start with `on`, such as `onclick`.                  |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                    | Default | Description                         |
 | ----------------------- | ------- | ----------------------------------- |

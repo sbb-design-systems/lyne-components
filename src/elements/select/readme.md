@@ -158,7 +158,11 @@ For types other than string, the `value` must be set via property.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbSelectElement`, `sbb-select`
+
+#### Properties
 
 | Name                | Attribute     | Privacy | Type                               | Default                          | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------- | ------------- | ------- | ---------------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -179,7 +183,7 @@ For types other than string, the `value` must be set via property.
 | `value`             | `value`       | public  | `(T = string \| string[]) \| null` | `null`                           | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `willValidate`      | -             | public  | `boolean`                          |                                  | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
 
-## Methods
+#### Methods
 
 | Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From          |
 | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ----------------------- |
@@ -191,7 +195,7 @@ For types other than string, the `value` must be set via property.
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin  |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin  |
 
-## Events
+#### Events
 
 | Name          | Type         | Description                                                                                                                                                                        | Inherited From          |
 | ------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
@@ -202,14 +206,14 @@ For types other than string, the `value` must be set via property.
 | `input`       | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                         |
 | `open`        | `Event`      | Emits whenever the component is opened.                                                                                                                                            | SbbOpenCloseBaseElement |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                             | Default                              | Description                                                                                                                                                                                                   |
 | -------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--sbb-options-panel-max-height` |                                      | Maximum height of the options panel. If the calculated remaining space is smaller, the value gets ignored.                                                                                                    |
 | `--sbb-select-z-index`           | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 
-## Slots
+#### Slots
 
 | Name | Description                          |
 | ---- | ------------------------------------ |

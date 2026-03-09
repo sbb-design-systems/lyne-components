@@ -89,3 +89,44 @@ To not break the accessibility when links are used together with images, please 
     ...
 </sbb-carousel>
 ```
+
+<!-- Auto Generated Below -->
+
+## API Documentation
+
+### class: `SbbCarouselElement`, `sbb-carousel`
+
+#### Properties
+
+| Name     | Attribute | Privacy | Type      | Default | Description                                        |
+| -------- | --------- | ------- | --------- | ------- | -------------------------------------------------- |
+| `shadow` | `shadow`  | public  | `boolean` | `false` | Used to display a box-shadow around the component. |
+
+#### Slots
+
+| Name | Description                                                                                         |
+| ---- | --------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add the `sbb-carousel-list` for content and a `sbb-paginator` for controls. |
+
+### class: `SbbCarouselItemElement`, `sbb-carousel-item`
+
+#### Events
+
+| Name         | Type                                      | Description                                                  | Inherited From |
+| ------------ | ----------------------------------------- | ------------------------------------------------------------ | -------------- |
+| `beforeshow` | `CustomEvent<SbbCarouselItemEventDetail>` | Event emitted when the item is starting scrolling.           |                |
+| `show`       | `CustomEvent<SbbCarouselItemEventDetail>` | Event emitted when the item is full visible after scrolling. |                |
+
+#### Slots
+
+| Name | Description                                                                                |
+| ---- | ------------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add images for the carousel, as <img>, <sbb-image>, <picture>, ... |
+
+### class: `SbbCarouselListElement`, `sbb-carousel-list`
+
+#### Slots
+
+| Name | Description                                               |
+| ---- | --------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-carousel-item` elements. |

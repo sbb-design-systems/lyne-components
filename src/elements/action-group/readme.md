@@ -118,7 +118,11 @@ The values for `align-group` and `align-self` for the various allocations are as
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbActionGroupElement`, `sbb-action-group`
+
+#### Properties
 
 | Name             | Attribute         | Privacy | Type                                        | Default             | Description                                                                                                             |
 | ---------------- | ----------------- | ------- | ------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------- |
@@ -128,7 +132,7 @@ The values for `align-group` and `align-self` for the various allocations are as
 | `linkSize`       | `link-size`       | public  | `SbbLinkSize`                               | `'m' / 'xs' (lean)` | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
 | `orientation`    | `orientation`     | public  | `SbbOrientation`                            | `'horizontal'`      | Indicates the orientation of the components inside the `<sbb-action-group>`.                                            |
 
-## Slots
+#### Slots
 
 | Name | Description                                                                                      |
 | ---- | ------------------------------------------------------------------------------------------------ |

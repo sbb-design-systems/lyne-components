@@ -16,20 +16,24 @@ and it can be set using the `title-content` property.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbSkiplinkListElement`, `sbb-skiplink-list`
+
+#### Properties
 
 | Name           | Attribute       | Privacy | Type            | Default | Description                                      |
 | -------------- | --------------- | ------- | --------------- | ------- | ------------------------------------------------ |
 | `titleContent` | `title-content` | public  | `string`        | `''`    | The title text we want to place before the list. |
 | `titleLevel`   | `title-level`   | public  | `SbbTitleLevel` | `'2'`   | The semantic level of the title, e.g. 2 = h2.    |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                          | Default                              | Description                                                                                                                                                                                                   |
 | ----------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--sbb-skiplink-list-z-index` | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 
-## Slots
+#### Slots
 
 | Name    | Description                                                                                               |
 | ------- | --------------------------------------------------------------------------------------------------------- |

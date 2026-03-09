@@ -26,6 +26,7 @@ import type {
 
 const overrideTypeKey = 'overrideType' as const;
 const classGenericsTypeKey = 'classGenerics' as const;
+const memberDenyList = ['define', 'addController', 'removeController'];
 
 type UnwrapArray<A> = A extends unknown[] ? UnwrapArray<A[number]> : A;
 
@@ -308,6 +309,18 @@ export function createManifestConfig(library = '') {
               });
             });
           }
+        },
+        moduleLinkPhase({ moduleDoc }) {
+          const classes = (moduleDoc?.declarations as undefined | Declaration[])?.filter(
+            (declaration) => declaration.kind === 'class',
+          );
+
+          classes?.forEach((klass) => {
+            if (!klass?.members) return;
+            klass.members = klass?.members?.filter(
+              (member) => !memberDenyList.includes(member.name),
+            );
+          });
         },
         packageLinkPhase({ customElementsManifest }) {
           function fixModulePaths(node: object, pathAction: (value: string) => string): void {

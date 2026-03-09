@@ -100,3 +100,67 @@ For example, you can set the `role` to `alert` which implicitly sets `aria-live`
 and therefore interrupts screen reader flow, to immediately read out the alert content.
 
 **Note that with role `alert`, in some combinations of screen readers and browsers not every part of the alert is fully read.**
+
+<!-- Auto Generated Below -->
+
+## API Documentation
+
+### class: `SbbAlertElement`, `sbb-alert`
+
+#### Properties
+
+| Name        | Attribute   | Privacy | Type                                   | Default            | Description                                                                                                                      |
+| ----------- | ----------- | ------- | -------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| `animation` | `animation` | public  | `'open' \| 'close' \| 'all' \| 'none'` | `'all'`            | The enabled animations.                                                                                                          |
+| `iconName`  | `icon-name` | public  | `string`                               | `''`               | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `isOpen`    | -           | public  | `boolean`                              |                    | Whether the element is open.                                                                                                     |
+| `readOnly`  | `readonly`  | public  | `boolean`                              | `false`            | Whether the component is readonly.                                                                                               |
+| `size`      | `size`      | public  | `'s' \| 'm' \| 'l'`                    | `'m' / 's' (lean)` | You can choose between `s`, `m` or `l` size.                                                                                     |
+
+#### Methods
+
+| Name             | Privacy | Description                                                                 | Parameters | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Close the alert.                                                            |            | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Open the alert.                                                             |            | `void` | SbbOpenCloseBaseElement |
+
+#### Events
+
+| Name          | Type    | Description                                                                  | Inherited From          |
+| ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `Event` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event` | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
+
+#### Slots
+
+| Name    | Description                                                                                                                        |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+|         | Use the unnamed slot to add content to the `sbb-alert`. At a minimum an `sbb-title` element and a descriptive text should be used. |
+| `icon`  | Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.                       |
+| `title` | Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.     |
+
+### class: `SbbAlertGroupElement`, `sbb-alert-group`
+
+#### Properties
+
+| Name                      | Attribute                   | Privacy | Type                            | Default    | Description                                                                                                                                                                              |
+| ------------------------- | --------------------------- | ------- | ------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityTitle`      | `accessibility-title`       | public  | `string`                        | `''`       | Title for this alert group which is only visible for screen reader users.                                                                                                                |
+| `accessibilityTitleLevel` | `accessibility-title-level` | public  | `SbbTitleLevel`                 | `'2'`      | Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2.                                                                                        |
+| `role`                    | `role`                      | public  | `'alert' \| 'status' \| string` | `'status'` | The role attribute defines how to announce alerts to the user. 'status': sets aria-live to polite and aria-atomic to true. 'alert': sets aria-live to assertive and aria-atomic to true. |
+
+#### Events
+
+| Name    | Type    | Description                                 | Inherited From |
+| ------- | ------- | ------------------------------------------- | -------------- |
+| `empty` | `Event` | Emits when `sbb-alert-group` becomes empty. |                |
+
+#### Slots
+
+| Name                  | Description                                                                     |
+| --------------------- | ------------------------------------------------------------------------------- |
+|                       | Use the unnamed slot to add `sbb-alert` elements to the `sbb-alert-group`.      |
+| `accessibility-title` | title for this `sbb-alert-group` which is only visible for screen reader users. |

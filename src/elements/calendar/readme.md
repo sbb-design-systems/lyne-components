@@ -213,3 +213,71 @@ pressing the `<kbd>Home</kbd>` when the first day of the month is disabled will 
 ## Accessibility
 
 For accessibility purposes, the component is rendered as a native table element and each day is a button.
+
+<!-- Auto Generated Below -->
+
+## API Documentation
+
+### class: `SbbCalendarDayElement`, `sbb-calendar-day`
+
+#### Properties
+
+| Name                | Attribute  | Privacy | Type                      | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ---------- | ------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`          | `disabled` | public  | `boolean`                 | `false` | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `form`              | -          | public  | `HTMLFormElement \| null` |         | Returns the form owner of this element.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `name`              | `name`     | public  | `string`                  |         | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `slot`              | `slot`     | public  | `string`                  |         |                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `validationMessage` | -          | public  | `string`                  |         | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -          | public  | `ValidityState`           |         | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | -          | public  | `T \| null`               | `null`  | Value of the calendar-day element.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `willValidate`      | -          | public  | `boolean`                 |         | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+#### Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Slots
+
+| Name | Description                                                 |
+| ---- | ----------------------------------------------------------- |
+|      | Use the unnamed slot to add some custom content to the day. |
+
+### class: `SbbCalendarElement`, `sbb-calendar`
+
+#### Properties
+
+| Name          | Attribute      | Privacy | Type                                     | Default        | Description                                                                                                                |
+| ------------- | -------------- | ------- | ---------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `dateFilter`  | `date-filter`  | public  | `((date: T \| null) => boolean) \| null` | `null`         | A function used to filter out dates.                                                                                       |
+| `max`         | `max`          | public  | `T \| null`                              | `null`         | The maximum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute. |
+| `min`         | `min`          | public  | `T \| null`                              | `null`         | The minimum valid date. Accepts a date object or null. Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute. |
+| `multiple`    | `multiple`     | public  | `boolean`                                | `false`        | Whether the calendar allows for multiple date selection.                                                                   |
+| `orientation` | `orientation`  | public  | `SbbOrientation`                         | `'horizontal'` | The orientation of days in the calendar.                                                                                   |
+| `selected`    | `selected`     | public  | `T \| T[] \| null`                       | `null`         | The selected date: accepts a date object, or, if `multiple`, an array of dates.                                            |
+| `view`        | `view`         | public  | `CalendarView`                           | `'day'`        | The initial view of the calendar which should be displayed on opening.                                                     |
+| `weekNumbers` | `week-numbers` | public  | `boolean`                                | `false`        | Whether it has to display the week numbers in addition to week days.                                                       |
+| `wide`        | `wide`         | public  | `boolean`                                | `false`        | If set to true, two months are displayed                                                                                   |
+
+#### Methods
+
+| Name            | Privacy | Description                                                         | Parameters | Return | Inherited From |
+| --------------- | ------- | ------------------------------------------------------------------- | ---------- | ------ | -------------- |
+| `resetPosition` | public  | Resets the active month according to the new state of the calendar. |            | `void` |                |
+
+#### Events
+
+| Name           | Type                    | Description                                                                                     | Inherited From |
+| -------------- | ----------------------- | ----------------------------------------------------------------------------------------------- | -------------- |
+| `dateselected` | `CustomEvent<T \| T[]>` | Event emitted on date selection.                                                                |                |
+| `monthchange`  | `SbbMonthChangeEvent`   | Emits when the month changes. The `range` property contains the days array of the chosen month. |                |
+
+#### Slots
+
+| Name | Description                                                         |
+| ---- | ------------------------------------------------------------------- |
+|      | Use the unnamed slot to add customized `sbb-calendar-day` elements. |

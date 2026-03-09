@@ -25,7 +25,11 @@ Please refer to its documentation for more details.
 
 <!-- Auto Generated Below -->
 
-## Slots
+## API Documentation
+
+### class: `SbbPearlChainVerticalElement`, `sbb-pearl-chain-vertical`
+
+#### Slots
 
 | Name | Description                                                                 |
 | ---- | --------------------------------------------------------------------------- |

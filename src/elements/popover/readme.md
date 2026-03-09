@@ -103,7 +103,11 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbPopoverElement`, `sbb-popover`
+
+#### Properties
 
 | Name                      | Attribute                   | Privacy | Type                  | Default | Description                                                                                                 |
 | ------------------------- | --------------------------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------- |
@@ -115,7 +119,7 @@ If the attribute is not used, the first focusable element receives focus (recomm
 | `openDelay`               | `open-delay`                | public  | `number`              | `0`     | Open the popover after a given delay in milliseconds. Global configuration is used as default, if not set.  |
 | `trigger`                 | `trigger`                   | public  | `HTMLElement \| null` | `null`  | The element that will trigger the popover overlay. For attribute usage, provide an id reference.            |
 
-## Methods
+#### Methods
 
 | Name             | Privacy | Description                                                                 | Parameters            | Return | Inherited From          |
 | ---------------- | ------- | --------------------------------------------------------------------------- | --------------------- | ------ | ----------------------- |
@@ -123,7 +127,7 @@ If the attribute is not used, the first focusable element receives focus (recomm
 | `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |                       | `void` | SbbOpenCloseBaseElement |
 | `open`           | public  | Opens the popover on trigger click.                                         |                       | `void` | SbbOpenCloseBaseElement |
 
-## Events
+#### Events
 
 | Name          | Type                                                | Description                                                                  | Inherited From          |
 | ------------- | --------------------------------------------------- | ---------------------------------------------------------------------------- | ----------------------- |
@@ -132,13 +136,13 @@ If the attribute is not used, the first focusable element receives focus (recomm
 | `close`       | `CustomEvent<{ closeTarget: HTMLElement \| null }>` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
 | `open`        | `Event`                                             | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                    | Default                              | Description                                                                                                                                                                                                   |
 | ----------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--sbb-popover-z-index` | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 
-## Slots
+#### Slots
 
 | Name | Description                                           |
 | ---- | ----------------------------------------------------- |

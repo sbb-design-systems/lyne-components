@@ -49,7 +49,11 @@ Avoid slotting block elements (e.g. `div`) as this violates semantic rules and c
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbTeaserHeroElement`, `sbb-teaser-hero`
+
+#### Properties
 
 | Name                   | Attribute               | Privacy | Type                       | Default | Description                                                         |
 | ---------------------- | ----------------------- | ------- | -------------------------- | ------- | ------------------------------------------------------------------- |
@@ -61,7 +65,7 @@ Avoid slotting block elements (e.g. `div`) as this violates semantic rules and c
 | `rel`                  | `rel`                   | public  | `string`                   | `''`    | The relationship of the linked URL as space-separated link types.   |
 | `target`               | `target`                | public  | `LinkTargetType \| string` | `''`    | Where to display the linked URL.                                    |
 
-## Slots
+#### Slots
 
 | Name           | Description                                                              |
 | -------------- | ------------------------------------------------------------------------ |

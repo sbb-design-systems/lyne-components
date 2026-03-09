@@ -71,7 +71,11 @@ of all the inner `sbb-checkbox` or `sbb-checkbox-panel` elements. Available size
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbCheckboxGroupElement`, `sbb-checkbox-group`
+
+#### Properties
 
 | Name             | Attribute         | Privacy | Type                                                | Default             | Description                                                                    |
 | ---------------- | ----------------- | ------- | --------------------------------------------------- | ------------------- | ------------------------------------------------------------------------------ |
@@ -82,7 +86,7 @@ of all the inner `sbb-checkbox` or `sbb-checkbox-panel` elements. Available size
 | `required`       | `required`        | public  | `boolean`                                           | `false`             | Whether the checkbox group is required.                                        |
 | `size`           | `size`            | public  | `SbbCheckboxSize`                                   | `'m' / 'xs' (lean)` | Size variant, either xs, s or m.                                               |
 
-## Slots
+#### Slots
 
 | Name    | Description                                                                      |
 | ------- | -------------------------------------------------------------------------------- |

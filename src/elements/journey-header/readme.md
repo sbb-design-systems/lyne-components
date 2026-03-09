@@ -51,7 +51,11 @@ The following one will be read as (locale: ENG): `Connection from Point A to Poi
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbJourneyHeaderElement`, `sbb-journey-header`
+
+#### Properties
 
 | Name          | Attribute      | Privacy | Type                    | Default            | Description                                                                       |
 | ------------- | -------------- | ------- | ----------------------- | ------------------ | --------------------------------------------------------------------------------- |

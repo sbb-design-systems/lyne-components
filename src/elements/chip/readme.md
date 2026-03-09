@@ -178,3 +178,65 @@ At any time, only a single chip (usually, the last one) is focusable and part of
 ## Accessibility
 
 The `sbb-chip-group` follows the `grid` aria pattern.
+
+<!-- Auto Generated Below -->
+
+## API Documentation
+
+### class: `SbbChipElement`, `sbb-chip`
+
+#### Properties
+
+| Name       | Attribute  | Privacy | Type                   | Default | Description                                                     |
+| ---------- | ---------- | ------- | ---------------------- | ------- | --------------------------------------------------------------- |
+| `disabled` | `disabled` | public  | `boolean`              | `false` | Whether the component is disabled.                              |
+| `negative` | `negative` | public  | `boolean`              | `false` | Negative coloring variant flag.                                 |
+| `readOnly` | `readonly` | public  | `boolean`              | `false` | Whether the component is readonly.                              |
+| `value`    | `value`    | public  | `(T = string) \| null` | `null`  | The value of chip. Will be used as label if nothing is slotted. |
+
+#### Slots
+
+| Name | Description                                                                               |
+| ---- | ----------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add the display value. If not provided, the 'value' will be used. |
+
+### class: `SbbChipGroupElement`, `sbb-chip-group`
+
+#### Properties
+
+| Name                | Attribute        | Privacy | Type                             | Default     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ---------------- | ------- | -------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `addOnBlur`         | `add-on-blur`    | public  | `boolean`                        | `false`     | Whether to automatically add a chip when the input loses focus if there's a value.                                                                                                                                                                                                                                                                                                                                                                      |
+| `disabled`          | `disabled`       | public  | `boolean`                        | `false`     | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `displayWith`       | -                | public  | `((value: T) => string) \| null` | `null`      | Function that maps a chip's value to its display value.                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `form`              | -                | public  | `HTMLFormElement \| null`        |             | Returns the form owner of this element.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `name`              | `name`           | public  | `string`                         |             | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `negative`          | `negative`       | public  | `boolean`                        | `false`     | Negative coloring variant flag.                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `required`          | `required`       | public  | `boolean`                        | `false`     | Whether the component is required.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `separatorKeys`     | `separator-keys` | public  | `string[]`                       | `['Enter']` | The array of keys that will trigger a `chipinputtokenend` event. Default `\['Enter']`                                                                                                                                                                                                                                                                                                                                                                   |
+| `validationMessage` | -                | public  | `string`                         |             | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -                | public  | `ValidityState`                  |             | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | `value`          | public  | `(T = string[]) \| null`         |             | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `willValidate`      | -                | public  | `boolean`                        |             | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+#### Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Events
+
+| Name                | Type                                            | Description                                                                                                                                                                        | Inherited From |
+| ------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `change`            | `Event`                                         | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
+| `chipinputtokenend` | `CustomEvent<SbbChipInputTokenEndEventDetails>` | Notifies that a chip is about to be created. Can be prevented.                                                                                                                     |                |
+| `input`             | `InputEvent`                                    | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                |
+
+#### Slots
+
+| Name | Description                                      |
+| ---- | ------------------------------------------------ |
+|      | Use the unnamed slot to add `sbb-chip` elements. |

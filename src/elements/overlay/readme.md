@@ -113,7 +113,11 @@ an alternative element by listening to the `didClose` event.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbOverlayElement`, `sbb-overlay`
+
+#### Properties
 
 | Name                      | Attribute                   | Privacy | Type                  | Default | Description                                                                                                                                                                                                                                                |
 | ------------------------- | --------------------------- | ------- | --------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -125,7 +129,7 @@ an alternative element by listening to the `didClose` event.
 | `skipFocusRestoration`    | `skipFocusRestoration`      | public  | `boolean`             | `false` | Whether to skip restoring focus to the previously-focused element when the overlay is closed. Note that automatic focus restoration is an accessibility feature, and it is recommended that you provide your own equivalent, if you decide to turn it off. |
 | `trigger`                 | `trigger`                   | public  | `HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. For attribute usage, provide an id reference.                                                                                                                                                              |
 
-## Methods
+#### Methods
 
 | Name             | Privacy | Description                                                                 | Parameters    | Return | Inherited From          |
 | ---------------- | ------- | --------------------------------------------------------------------------- | ------------- | ------ | ----------------------- |
@@ -133,7 +137,7 @@ an alternative element by listening to the `didClose` event.
 | `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |               | `void` | SbbOpenCloseBaseElement |
 | `open`           | public  | Opens the component.                                                        |               | `void` | SbbOpenCloseBaseElement |
 
-## Events
+#### Events
 
 | Name          | Type                   | Description                                                                  | Inherited From          |
 | ------------- | ---------------------- | ---------------------------------------------------------------------------- | ----------------------- |
@@ -142,13 +146,13 @@ an alternative element by listening to the `didClose` event.
 | `close`       | `SbbOverlayCloseEvent` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
 | `open`        | `Event`                | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                    | Default                              | Description                                                                                                                                                                                                   |
 | ----------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--sbb-overlay-z-index` | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 
-## Slots
+#### Slots
 
 | Name | Description                                                |
 | ---- | ---------------------------------------------------------- |

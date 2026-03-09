@@ -101,7 +101,11 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbToastElement`, `sbb-toast`
+
+#### Properties
 
 | Name         | Attribute    | Privacy | Type                               | Default           | Description                                                                                                                                                                                                                  |
 | ------------ | ------------ | ------- | ---------------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -112,7 +116,7 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 | `readOnly`   | `readonly`   | public  | `boolean`                          | `false`           | Whether the component is readonly.                                                                                                                                                                                           |
 | `timeout`    | `timeout`    | public  | `number`                           | `0`               | The length of time in milliseconds to wait before automatically dismissing the toast. If 0 (default), it stays open indefinitely. From accessibility perspective, it is recommended to set a timeout of at least 20 seconds. |
 
-## Methods
+#### Methods
 
 | Name             | Privacy | Description                                                                     | Parameters | Return | Inherited From          |
 | ---------------- | ------- | ------------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
@@ -120,7 +124,7 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 | `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close()     |            | `void` | SbbOpenCloseBaseElement |
 | `open`           | public  | Open the toast. If there are other opened toasts in the page, close them first. |            | `void` | SbbOpenCloseBaseElement |
 
-## Events
+#### Events
 
 | Name          | Type    | Description                                                                  | Inherited From          |
 | ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
@@ -129,13 +133,13 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 | `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
 | `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                  | Default                              | Description                                                                                                                                                                                                   |
 | --------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--sbb-toast-z-index` | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 
-## Slots
+#### Slots
 
 | Name     | Description                                             |
 | -------- | ------------------------------------------------------- |

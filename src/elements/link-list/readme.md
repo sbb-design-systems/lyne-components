@@ -68,7 +68,11 @@ The title will not be displayed in the horizontal orientation.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbLinkListElement`, `sbb-link-list`
+
+#### Properties
 
 | Name             | Attribute         | Privacy | Type                        | Default             | Description                                                                                                                  |
 | ---------------- | ----------------- | ------- | --------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
@@ -79,7 +83,7 @@ The title will not be displayed in the horizontal orientation.
 | `titleContent`   | `title-content`   | public  | `string`                    | `''`                | The title text we want to show before the list.                                                                              |
 | `titleLevel`     | `title-level`     | public  | `SbbTitleLevel`             | `'2'`               | The semantic level of the title, e.g. 2 = h2.                                                                                |
 
-## Slots
+#### Slots
 
 | Name    | Description                                               |
 | ------- | --------------------------------------------------------- |

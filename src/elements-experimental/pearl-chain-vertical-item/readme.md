@@ -34,14 +34,18 @@ The slots themselves are unstyled, so that they can be used in various ways.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbPearlChainVerticalItemElement`, `sbb-pearl-chain-vertical-item`
+
+#### Properties
 
 | Name                               | Attribute                              | Privacy | Type                               | Default | Description                                                                 |
 | ---------------------------------- | -------------------------------------- | ------- | ---------------------------------- | ------- | --------------------------------------------------------------------------- |
 | `disableAnimation`                 | `disable-animation`                    | public  | `boolean`                          | `false` | If true, the position won't be animated.                                    |
 | `pearlChainVerticalItemAttributes` | `pearl-chain-vertical-item-attributes` | public  | `PearlChainVerticalItemAttributes` | `null!` | The pearlChainVerticalItemAttributes Prop for styling the bullets and line. |
 
-## Slots
+#### Slots
 
 | Name    | Description                           |
 | ------- | ------------------------------------- |

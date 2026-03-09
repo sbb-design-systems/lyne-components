@@ -207,3 +207,95 @@ To show the user which entry is active, `accessibility-current='page'` (or `aria
 for `sbb-icon-sidebar-button`) should be set whenever `sbb-active` class is set.
 See https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current for more
 information.
+
+<!-- Auto Generated Below -->
+
+## API Documentation
+
+### class: `SbbIconSidebarButtonElement`, `sbb-icon-sidebar-button`
+
+#### Properties
+
+| Name                | Attribute   | Privacy | Type                      | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ----------- | ------- | ------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `form`              | `form`      | public  | `HTMLFormElement \| null` |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `iconName`          | `icon-name` | public  | `string`                  | `''`       | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                                                                                                                                                                                                                                                                                        |
+| `name`              | `name`      | public  | `string`                  |            | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `type`              | `type`      | public  | `SbbButtonType`           | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `validationMessage` | -           | public  | `string`                  |            | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -           | public  | `ValidityState`           |            | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | `value`     | public  | `string`                  | `''`       | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `willValidate`      | -           | public  | `boolean`                 |            | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+#### Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Slots
+
+| Name   | Description                    |
+| ------ | ------------------------------ |
+| `icon` | Slot used to display the icon. |
+
+### class: `SbbIconSidebarContainerElement`, `sbb-icon-sidebar-container`
+
+#### Properties
+
+| Name       | Attribute | Privacy | Type                            | Default | Description                                   |
+| ---------- | --------- | ------- | ------------------------------- | ------- | --------------------------------------------- |
+| `end`      | -         | public  | `SbbIconSidebarElement \| null` |         | The icon-sidebar child at the end position.   |
+| `sidebars` | -         | public  | `SbbIconSidebarElement[]`       |         | The icon-sidebar children.                    |
+| `start`    | -         | public  | `SbbIconSidebarElement \| null` |         | The icon-sidebar child at the start position. |
+
+#### Slots
+
+| Name | Description                                                                   |
+| ---- | ----------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-sidebar` and `sbb-sidebar-content` elements. |
+
+### class: `SbbIconSidebarContentElement`, `sbb-icon-sidebar-content`
+
+#### Slots
+
+| Name | Description                                       |
+| ---- | ------------------------------------------------- |
+|      | Use the unnamed slot to add any content elements. |
+
+### class: `SbbIconSidebarElement`, `sbb-icon-sidebar`
+
+#### Properties
+
+| Name        | Attribute | Privacy | Type                                     | Default   | Description                                                                      |
+| ----------- | --------- | ------- | ---------------------------------------- | --------- | -------------------------------------------------------------------------------- |
+| `color`     | `color`   | public  | `'white' \| 'milk'`                      | `'white'` | Background color of the icon sidebar. Either `white` or `milk`. \*               |
+| `container` | -         | public  | `SbbIconSidebarContainerElement \| null` |           | Returns the SbbIconSidebarContainerElement where this icon-sidebar is contained. |
+
+#### Slots
+
+| Name | Description                                                     |
+| ---- | --------------------------------------------------------------- |
+|      | Use the unnamed slot to slot any content into the icon-sidebar. |
+
+### class: `SbbIconSidebarLinkElement`, `sbb-icon-sidebar-link`
+
+#### Properties
+
+| Name                   | Attribute               | Privacy | Type                       | Default | Description                                                                                                                      |
+| ---------------------- | ----------------------- | ------- | -------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                   | `''`    | This will be forwarded as aria-current to the inner anchor element.                                                              |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                   | `''`    | This will be forwarded as aria-label to the inner anchor element.                                                                |
+| `download`             | `download`              | public  | `boolean`                  | `false` | Whether the browser will show the download dialog on click.                                                                      |
+| `href`                 | `href`                  | public  | `string`                   | `''`    | The href value you want to link to.                                                                                              |
+| `iconName`             | `icon-name`             | public  | `string`                   | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `rel`                  | `rel`                   | public  | `string`                   | `''`    | The relationship of the linked URL as space-separated link types.                                                                |
+| `target`               | `target`                | public  | `LinkTargetType \| string` | `''`    | Where to display the linked URL.                                                                                                 |
+
+#### Slots
+
+| Name   | Description                    |
+| ------ | ------------------------------ |
+| `icon` | Slot used to display the icon. |

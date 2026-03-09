@@ -75,3 +75,61 @@ It's important to set the `accessibilityLabel` on the `<sbb-teaser-product>`, wh
 The `sbb-teaser-product-static` is a non-interactive version of the `sbb-teaser-product` component,
 which can be used to tease a product without making the whole component interactive.
 It should be used if there is more than one interactive action.
+
+<!-- Auto Generated Below -->
+
+## API Documentation
+
+### class: `SbbTeaserProductElement`, `sbb-teaser-product`
+
+#### Properties
+
+| Name                   | Attribute               | Privacy | Type                       | Default   | Description                                                                                                                           |
+| ---------------------- | ----------------------- | ------- | -------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                   | `''`      | This will be forwarded as aria-current to the inner anchor element.                                                                   |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                   | `''`      | This will be forwarded as aria-label to the inner anchor element.                                                                     |
+| `download`             | `download`              | public  | `boolean`                  | `false`   | Whether the browser will show the download dialog on click.                                                                           |
+| `href`                 | `href`                  | public  | `string`                   | `''`      | The href value you want to link to.                                                                                                   |
+| `imageAlignment`       | `image-alignment`       | public  | `'after' \| 'before'`      | `'after'` | Whether the fully visible part of the image is aligned 'before' or 'after' the content. Only relevant starting from large breakpoint. |
+| `negative`             | `negative`              | public  | `boolean`                  | `false`   | Negative coloring variant flag.                                                                                                       |
+| `rel`                  | `rel`                   | public  | `string`                   | `''`      | The relationship of the linked URL as space-separated link types.                                                                     |
+| `target`               | `target`                | public  | `LinkTargetType \| string` | `''`      | Where to display the linked URL.                                                                                                      |
+
+#### CSS Properties
+
+| Name                                             | Default | Description                                                          |
+| ------------------------------------------------ | ------- | -------------------------------------------------------------------- |
+| `--sbb-teaser-product-background-gradient-end`   | `75%`   | At which percentage the background should be fully transparent.      |
+| `--sbb-teaser-product-background-gradient-start` | `25%`   | At which percentage the background should start getting transparent. |
+
+#### Slots
+
+| Name       | Description                                                         |
+| ---------- | ------------------------------------------------------------------- |
+|            | Use this slot to provide the main content.                          |
+| `footnote` | Use this slot to provide a footnote.                                |
+| `image`    | Use this slot to provide an image or a `sbb-image` as a background. |
+
+### class: `SbbTeaserProductStaticElement`, `sbb-teaser-product-static`
+
+#### Properties
+
+| Name             | Attribute         | Privacy | Type                  | Default   | Description                                                                                                                           |
+| ---------------- | ----------------- | ------- | --------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `imageAlignment` | `image-alignment` | public  | `'after' \| 'before'` | `'after'` | Whether the fully visible part of the image is aligned 'before' or 'after' the content. Only relevant starting from large breakpoint. |
+| `negative`       | `negative`        | public  | `boolean`             | `false`   | Negative coloring variant flag.                                                                                                       |
+
+#### CSS Properties
+
+| Name                                             | Default | Description                                                          |
+| ------------------------------------------------ | ------- | -------------------------------------------------------------------- |
+| `--sbb-teaser-product-background-gradient-end`   | `75%`   | At which percentage the background should be fully transparent.      |
+| `--sbb-teaser-product-background-gradient-start` | `25%`   | At which percentage the background should start getting transparent. |
+
+#### Slots
+
+| Name       | Description                                                         |
+| ---------- | ------------------------------------------------------------------- |
+|            | Use this slot to provide the main content.                          |
+| `footnote` | Use this slot to provide a footnote.                                |
+| `image`    | Use this slot to provide an image or a `sbb-image` as a background. |

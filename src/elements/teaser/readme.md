@@ -71,7 +71,11 @@ The description text is wrapped into an `<p>` element to guarantee the semantic 
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbTeaserElement`, `sbb-teaser`
+
+#### Properties
 
 | Name                   | Attribute               | Privacy | Type                                     | Default            | Description                                                               |
 | ---------------------- | ----------------------- | ------- | ---------------------------------------- | ------------------ | ------------------------------------------------------------------------- |
@@ -83,7 +87,7 @@ The description text is wrapped into an `<p>` element to guarantee the semantic 
 | `rel`                  | `rel`                   | public  | `string`                                 | `''`               | The relationship of the linked URL as space-separated link types.         |
 | `target`               | `target`                | public  | `LinkTargetType \| string`               | `''`               | Where to display the linked URL.                                          |
 
-## Slots
+#### Slots
 
 | Name    | Description                                                                                                                                 |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |

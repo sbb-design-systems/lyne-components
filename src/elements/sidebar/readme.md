@@ -279,3 +279,128 @@ property when the navigation changes.
   <sbb-sidebar-content id="content" role="main">Content</sbb-sidebar-content>
 </sbb-sidebar-container>
 ```
+
+<!-- Auto Generated Below -->
+
+## API Documentation
+
+### class: `SbbSidebarCloseButtonElement`, `sbb-sidebar-close-button`
+
+#### Properties
+
+| Name                  | Attribute              | Privacy | Type                      | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| --------------------- | ---------------------- | ------- | ------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`            | `disabled`             | public  | `boolean`                 | `false`    | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `disabledInteractive` | `disabled-interactive` | public  | `boolean`                 | `false`    | Whether the button should be aria-disabled but stay interactive.                                                                                                                                                                                                                                                                                                                                                                                        |
+| `form`                | `form`                 | public  | `HTMLFormElement \| null` |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `iconName`            | `icon-name`            | public  | `string`                  | `''`       | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                                                                                                                                                                                                                                                                                        |
+| `loading`             | `loading`              | public  | `boolean`                 | `false`    | Whether the button indicates a loading state. The animation kicks in after a delay of 300ms, configurable with --sbb-button-loading-delay CSS variable.                                                                                                                                                                                                                                                                                                 |
+| `name`                | `name`                 | public  | `string`                  |            | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `negative`            | `negative`             | public  | `boolean`                 | `false`    | Negative coloring variant flag.                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `size`                | `size`                 | public  | `SbbButtonSize`           | `'s'`      | Size variant, either l, m or s.                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `type`                | `type`                 | public  | `SbbButtonType`           | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `validationMessage`   | -                      | public  | `string`                  |            | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`            | -                      | public  | `ValidityState`           |            | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`               | `value`                | public  | `string`                  | `''`       | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `willValidate`        | -                      | public  | `boolean`                 |            | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+#### Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### CSS Properties
+
+| Name                         | Default | Description                                                                                |
+| ---------------------------- | ------- | ------------------------------------------------------------------------------------------ |
+| `--sbb-button-loading-delay` | `300ms` | The delay before the loading animation starts, when setting the button into loading state. |
+
+#### Slots
+
+| Name   | Description                                                                                               |
+| ------ | --------------------------------------------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the sidebar-close-button. Not intended to be used in this context. |
+| `icon` | Slot used to display the icon, if one is set. Not intended to be used in this context.                    |
+
+### class: `SbbSidebarContainerElement`, `sbb-sidebar-container`
+
+#### Properties
+
+| Name       | Attribute | Privacy | Type                        | Default | Description                                  |
+| ---------- | --------- | ------- | --------------------------- | ------- | -------------------------------------------- |
+| `end`      | -         | public  | `SbbSidebarElement \| null` |         | The sidebar child with the `end` position.   |
+| `sidebars` | -         | public  | `SbbSidebarElement[]`       |         | The sidebar children.                        |
+| `start`    | -         | public  | `SbbSidebarElement \| null` |         | The sidebar child with the `start` position. |
+
+#### Slots
+
+| Name | Description                                                                   |
+| ---- | ----------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-sidebar` and `sbb-sidebar-content` elements. |
+
+### class: `SbbSidebarContentElement`, `sbb-sidebar-content`
+
+#### Slots
+
+| Name | Description                                                                                      |
+| ---- | ------------------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add any content elements. Further `sbb-sidebar-container`s are possible. |
+
+### class: `SbbSidebarElement`, `sbb-sidebar`
+
+#### Properties
+
+| Name                | Attribute       | Privacy | Type                                 | Default   | Description                                                                                                                                                                                                                                              |
+| ------------------- | --------------- | ------- | ------------------------------------ | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `animationComplete` | -               | public  | `Promise<void>`                      |           | Returns a promise which completes whenever an animation ends. When a new animation starts, a new Promise is returned.                                                                                                                                    |
+| `color`             | `color`         | public  | `'white' \| 'milk'`                  | `'white'` | Background color of the sidebar. Either `white` or `milk`.                                                                                                                                                                                               |
+| `container`         | -               | public  | `SbbSidebarContainerElement \| null` | `null`    | Returns the SbbSidebarContainerElement where this sidebar is contained.                                                                                                                                                                                  |
+| `focusOnOpen`       | `focus-on-open` | public  | `boolean`                            | `false`   | Whether the sidebar should focus the first focusable element automatically when opened. Defaults to false in when mode is set to `side`, otherwise defaults to true. If explicitly enabled, focus will be moved into the sidebar in `side` mode as well. |
+| `isAnimating`       | -               | public  | `boolean`                            | `false`   | Whether the component is currently animating.                                                                                                                                                                                                            |
+| `isOpen`            | -               | public  | `boolean`                            |           | Whether the element is open.                                                                                                                                                                                                                             |
+| `mode`              | `mode`          | public  | `'side' \| 'over'`                   | `'side'`  | Mode of the sidebar; one of 'side' or 'over'.                                                                                                                                                                                                            |
+| `opened`            | `opened`        | public  | `boolean`                            | `false`   | Whether the sidebar is opened or closed. Can be used to initially set the opened state, where the animation will be skipped.                                                                                                                             |
+| `position`          | `position`      | public  | `'start' \| 'end'`                   | `'start'` | The side that the sidebar is attached to.                                                                                                                                                                                                                |
+
+#### Methods
+
+| Name             | Privacy | Description                                                                 | Parameters | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Closes the sidebar.                                                         |            | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the sidebar.                                                          |            | `void` | SbbOpenCloseBaseElement |
+| `toggle`         | public  | Toggles the sidebar visibility.                                             |            | `void` |                         |
+
+#### Events
+
+| Name          | Type    | Description                                                                  | Inherited From          |
+| ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `Event` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event` | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
+
+#### Slots
+
+| Name    | Description                                                |
+| ------- | ---------------------------------------------------------- |
+|         | Use the unnamed slot to slot any content into the sidebar. |
+| `title` | Use the title slot to add an <sbb-title>.                  |
+
+### class: `SbbSidebarTitleElement`, `sbb-sidebar-title`
+
+#### Properties
+
+| Name          | Attribute      | Privacy | Type                    | Default | Description                 |
+| ------------- | -------------- | ------- | ----------------------- | ------- | --------------------------- |
+| `level`       | `level`        | public  | `SbbTitleLevel`         | `'2'`   | Title level                 |
+| `visualLevel` | `visual-level` | public  | `SbbTitleLevel \| null` | `'5'`   | Visual level for the title. |
+
+#### Slots
+
+| Name | Description                                                |
+| ---- | ---------------------------------------------------------- |
+|      | Use the unnamed slot for the content of the sidebar-title. |

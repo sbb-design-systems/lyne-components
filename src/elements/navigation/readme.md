@@ -200,3 +200,175 @@ If the attribute is not used, the first focusable element receives focus (recomm
   </sbb-navigation-list>
 </sbb-navigation-section>
 ```
+
+<!-- Auto Generated Below -->
+
+## API Documentation
+
+### class: `SbbNavigationButtonElement`, `sbb-navigation-button`
+
+#### Properties
+
+| Name                | Attribute | Privacy | Type                                       | Default            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | --------- | ------- | ------------------------------------------ | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `connectedSection`  | -         | public  | `SbbNavigationSectionElement \| undefined` |                    | The section that is being controlled by the action, if any.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `form`              | `form`    | public  | `HTMLFormElement \| null`                  |                    | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `marker`            | -         | public  | `SbbNavigationMarkerElement \| null`       |                    | The navigation marker in which the action is nested.                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `name`              | `name`    | public  | `string`                                   |                    | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `section`           | -         | public  | `SbbNavigationSectionElement \| null`      |                    | The section in which the action is nested.                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `size`              | `size`    | public  | `SbbNavigationActionSize`                  | `'l' / 's' (lean)` | Action size variant, either s, m or l.                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `type`              | `type`    | public  | `SbbButtonType`                            | `'button'`         | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `validationMessage` | -         | public  | `string`                                   |                    | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -         | public  | `ValidityState`                            |                    | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | `value`   | public  | `string`                                   | `''`               | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `willValidate`      | -         | public  | `boolean`                                  |                    | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+#### Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Slots
+
+| Name | Description                                                         |
+| ---- | ------------------------------------------------------------------- |
+|      | Use the unnamed slot to add content to the `sbb-navigation-button`. |
+
+### class: `SbbNavigationElement`, `sbb-navigation`
+
+#### Properties
+
+| Name                      | Attribute                   | Privacy | Type                                  | Default | Description                                                                                 |
+| ------------------------- | --------------------------- | ------- | ------------------------------------- | ------- | ------------------------------------------------------------------------------------------- |
+| `accessibilityCloseLabel` | `accessibility-close-label` | public  | `string`                              | `''`    | This will be forwarded as aria-label to the close button element.                           |
+| `activeNavigationSection` | -                           | public  | `SbbNavigationSectionElement \| null` | `null`  | Returns the active navigation section element.                                              |
+| `closeButton`             | -                           | public  | `HTMLElement \| null`                 |         | Returns the close button element.                                                           |
+| `isOpen`                  | -                           | public  | `boolean`                             |         | Whether the element is open.                                                                |
+| `navigationContent`       | -                           | public  | `HTMLElement \| null`                 |         | Returns the navigation content element.                                                     |
+| `trigger`                 | `trigger`                   | public  | `HTMLElement \| null`                 | `null`  | The element that will trigger the navigation. For attribute usage, provide an id reference. |
+
+#### Methods
+
+| Name             | Privacy | Description                                                                 | Parameters | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Closes the navigation.                                                      |            | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the navigation.                                                       |            | `void` | SbbOpenCloseBaseElement |
+
+#### Events
+
+| Name          | Type    | Description                                                                  | Inherited From          |
+| ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `Event` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event` | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
+
+#### CSS Properties
+
+| Name                       | Default                              | Description                                                                                                                                                                                                   |
+| -------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--sbb-navigation-z-index` | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
+
+#### Slots
+
+| Name | Description                                                                                                      |
+| ---- | ---------------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-navigation-button`/`sbb-navigation-link` elements into the sbb-navigation menu. |
+
+### class: `SbbNavigationLinkElement`, `sbb-navigation-link`
+
+#### Properties
+
+| Name                   | Attribute               | Privacy | Type                                       | Default            | Description                                                         |
+| ---------------------- | ----------------------- | ------- | ------------------------------------------ | ------------------ | ------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                                   | `''`               | This will be forwarded as aria-current to the inner anchor element. |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                                   | `''`               | This will be forwarded as aria-label to the inner anchor element.   |
+| `connectedSection`     | -                       | public  | `SbbNavigationSectionElement \| undefined` |                    | The section that is being controlled by the action, if any.         |
+| `download`             | `download`              | public  | `boolean`                                  | `false`            | Whether the browser will show the download dialog on click.         |
+| `href`                 | `href`                  | public  | `string`                                   | `''`               | The href value you want to link to.                                 |
+| `marker`               | -                       | public  | `SbbNavigationMarkerElement \| null`       |                    | The navigation marker in which the action is nested.                |
+| `rel`                  | `rel`                   | public  | `string`                                   | `''`               | The relationship of the linked URL as space-separated link types.   |
+| `section`              | -                       | public  | `SbbNavigationSectionElement \| null`      |                    | The section in which the action is nested.                          |
+| `size`                 | `size`                  | public  | `SbbNavigationActionSize`                  | `'l' / 's' (lean)` | Action size variant, either s, m or l.                              |
+| `target`               | `target`                | public  | `LinkTargetType \| string`                 | `''`               | Where to display the linked URL.                                    |
+
+#### Slots
+
+| Name | Description                                                       |
+| ---- | ----------------------------------------------------------------- |
+|      | Use the unnamed slot to add content to the `sbb-navigation-link`. |
+
+### class: `SbbNavigationListElement`, `sbb-navigation-list`
+
+#### Properties
+
+| Name    | Attribute | Privacy | Type     | Default | Description                                   |
+| ------- | --------- | ------- | -------- | ------- | --------------------------------------------- |
+| `label` | `label`   | public  | `string` | `''`    | The label to be shown before the action list. |
+
+#### Slots
+
+| Name    | Description                                                       |
+| ------- | ----------------------------------------------------------------- |
+|         | Use the unnamed slot to add content to the `sbb-navigation-list`. |
+| `label` | Use this to provide a label element.                              |
+
+### class: `SbbNavigationMarkerElement`, `sbb-navigation-marker`
+
+#### Properties
+
+| Name   | Attribute | Privacy | Type         | Default            | Description                         |
+| ------ | --------- | ------- | ------------ | ------------------ | ----------------------------------- |
+| `size` | `size`    | public  | `'l' \| 's'` | `'l' / 's' (lean)` | Marker size variant, either s or l. |
+
+#### Methods
+
+| Name     | Privacy | Description | Parameters                                                       | Return | Inherited From |
+| -------- | ------- | ----------- | ---------------------------------------------------------------- | ------ | -------------- |
+| `reset`  | public  |             |                                                                  | `void` |                |
+| `select` | public  |             | `action: SbbNavigationButtonElement \| SbbNavigationLinkElement` | `void` |                |
+
+#### Slots
+
+| Name | Description                                                                                                          |
+| ---- | -------------------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add `sbb-navigation-button`/`sbb-navigation-link` elements into the `sbb-navigation-marker`. |
+
+### class: `SbbNavigationSectionElement`, `sbb-navigation-section`
+
+#### Properties
+
+| Name                     | Attribute                  | Privacy | Type                  | Default | Description                                                                                               |
+| ------------------------ | -------------------------- | ------- | --------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| `accessibilityBackLabel` | `accessibility-back-label` | public  | `string`              | `''`    | This will be forwarded as aria-label to the back button element.                                          |
+| `accessibilityLabel`     | `accessibility-label`      | public  | `string`              | `''`    | This will be forwarded as aria-label to the nav element and is read as a title of the navigation-section. |
+| `isOpen`                 | -                          | public  | `boolean`             |         | Whether the element is open.                                                                              |
+| `titleContent`           | `title-content`            | public  | `string`              | `''`    | The label to be shown before the action list.                                                             |
+| `trigger`                | `trigger`                  | public  | `HTMLElement \| null` | `null`  | The element that will trigger the navigation section. For attribute usage, provide an id reference.       |
+
+#### Methods
+
+| Name             | Privacy | Description                                                                 | Parameters | Return | Inherited From          |
+| ---------------- | ------- | --------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
+| `close`          | public  | Closes the navigation section.                                              |            | `void` | SbbOpenCloseBaseElement |
+| `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |            | `void` | SbbOpenCloseBaseElement |
+| `open`           | public  | Opens the navigation section on trigger click.                              |            | `void` | SbbOpenCloseBaseElement |
+
+#### Events
+
+| Name          | Type    | Description                                                                  | Inherited From          |
+| ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
+| `beforeclose` | `Event` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `beforeopen`  | `Event` | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
+| `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
+| `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
+
+#### Slots
+
+| Name | Description                                                            |
+| ---- | ---------------------------------------------------------------------- |
+|      | Use the unnamed slot to add content into the `sbb-navigation-section`. |

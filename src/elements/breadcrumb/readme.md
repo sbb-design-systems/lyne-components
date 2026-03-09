@@ -55,3 +55,36 @@ It is strongly recommended to place an `aria-label` attribute on the `sbb-breadc
 to describe what context the breadcrumbs have.
 Whenever the `sbb-breadcrumb` list within the component is loaded or updated,
 the last element of the list receives the attribute `accessibility-current="page"`.
+
+<!-- Auto Generated Below -->
+
+## API Documentation
+
+### class: `SbbBreadcrumbElement`, `sbb-breadcrumb`
+
+#### Properties
+
+| Name                   | Attribute               | Privacy | Type                       | Default | Description                                                                                                                      |
+| ---------------------- | ----------------------- | ------- | -------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityCurrent` | `accessibility-current` | public  | `string`                   | `''`    | This will be forwarded as aria-current to the inner anchor element.                                                              |
+| `accessibilityLabel`   | `accessibility-label`   | public  | `string`                   | `''`    | This will be forwarded as aria-label to the inner anchor element.                                                                |
+| `download`             | `download`              | public  | `boolean`                  | `false` | Whether the browser will show the download dialog on click.                                                                      |
+| `href`                 | `href`                  | public  | `string`                   | `''`    | The href value you want to link to.                                                                                              |
+| `iconName`             | `icon-name`             | public  | `string`                   | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `rel`                  | `rel`                   | public  | `string`                   | `''`    | The relationship of the linked URL as space-separated link types.                                                                |
+| `target`               | `target`                | public  | `LinkTargetType \| string` | `''`    | Where to display the linked URL.                                                                                                 |
+
+#### Slots
+
+| Name   | Description                                            |
+| ------ | ------------------------------------------------------ |
+|        | Use the unnamed slot to add content to the breadcrumb. |
+| `icon` | Use this to display an icon as breadcrumb.             |
+
+### class: `SbbBreadcrumbGroupElement`, `sbb-breadcrumb-group`
+
+#### Slots
+
+| Name | Description                                            |
+| ---- | ------------------------------------------------------ |
+|      | Use the unnamed slot to add `sbb-breadcrumb` elements. |

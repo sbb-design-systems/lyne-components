@@ -122,3 +122,67 @@ The `sbb-option-hint` has a `negative` property which will be automatically inhe
 By default, the `sbb-option-hint` is treated as a simple text from screen readers, and it is not easily accessible by screen reader users.
 
 If deemed necessary, the `sbb-option-hint` can be marked with the [aria-live](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-live) attribute.
+
+<!-- Auto Generated Below -->
+
+## API Documentation
+
+### class: `SbbOptGroupElement`, `sbb-optgroup`
+
+#### Properties
+
+| Name       | Attribute  | Privacy | Type      | Default | Description                        |
+| ---------- | ---------- | ------- | --------- | ------- | ---------------------------------- |
+| `disabled` | `disabled` | public  | `boolean` | `false` | Whether the component is disabled. |
+| `label`    | `label`    | public  | `string`  | `''`    | Option group label.                |
+
+#### Slots
+
+| Name | Description                                                              |
+| ---- | ------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add `sbb-option` elements to the `sbb-optgroup`. |
+
+### class: `SbbOptionElement`, `sbb-option`
+
+#### Properties
+
+| Name       | Attribute   | Privacy | Type                   | Default | Description                                                                                                                      |
+| ---------- | ----------- | ------- | ---------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `disabled`  | public  | `boolean`              | `false` | Whether the component is disabled.                                                                                               |
+| `iconName` | `icon-name` | public  | `string`               | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
+| `selected` | `selected`  | public  | `boolean`              |         | Whether the option is selected.                                                                                                  |
+| `value`    | `value`     | public  | `(T = string) \| null` | `null`  | Value of the option.                                                                                                             |
+
+#### Events
+
+| Name                    | Type    | Description                                                                             | Inherited From       |
+| ----------------------- | ------- | --------------------------------------------------------------------------------------- | -------------------- |
+| `optionselected`        | `Event` | Emits when an option was selected by user.                                              | SbbOptionBaseElement |
+| `optionselectionchange` | `Event` | The optionselectionchange event is dispatched when the option selection status changes. |                      |
+
+#### CSS Properties
+
+| Name                                  | Default | Description                                                                                                   |
+| ------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------- |
+| `--sbb-option-icon-container-display` | `none`  | Can be used to reserve space even when preserve-icon-space on autocomplete is not set or iconName is not set. |
+
+#### Slots
+
+| Name   | Description                                                                       |
+| ------ | --------------------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the option label.                          |
+| `icon` | Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used. |
+
+### class: `SbbOptionHintElement`, `sbb-option-hint`
+
+#### Properties
+
+| Name       | Attribute  | Privacy | Type      | Default | Description                     |
+| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
+| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
+
+#### Slots
+
+| Name | Description                                       |
+| ---- | ------------------------------------------------- |
+|      | Use the unnamed slot to display the hint message. |

@@ -54,7 +54,11 @@ The component inherits its style from the slotted panel component (`sbb-checkbox
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbSelectionExpansionPanelElement`, `sbb-selection-expansion-panel`
+
+#### Properties
 
 | Name        | Attribute    | Privacy | Type                                                            | Default | Description                                    |
 | ----------- | ------------ | ------- | --------------------------------------------------------------- | ------- | ---------------------------------------------- |
@@ -62,7 +66,7 @@ The component inherits its style from the slotted panel component (`sbb-checkbox
 | `group`     | -            | public  | `SbbRadioButtonGroupElement \| SbbCheckboxGroupElement \| null` |         | Group element if present                       |
 | `panel`     | -            | public  | `SbbCheckboxPanelElement \| SbbRadioButtonPanelElement \| null` |         | Input panel element                            |
 
-## Events
+#### Events
 
 | Name          | Type    | Description                                                       | Inherited From |
 | ------------- | ------- | ----------------------------------------------------------------- | -------------- |
@@ -71,7 +75,7 @@ The component inherits its style from the slotted panel component (`sbb-checkbox
 | `close`       | `Event` | Emits whenever the content section is closed.                     |                |
 | `open`        | `Event` | Emits whenever the content section is opened.                     |                |
 
-## Slots
+#### Slots
 
 | Name      | Description                                                                                                                   |
 | --------- | ----------------------------------------------------------------------------------------------------------------------------- |

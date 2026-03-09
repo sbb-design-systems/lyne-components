@@ -17,7 +17,11 @@ This is helpful if you need a specific state of the component.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbClockElement`, `sbb-clock`
+
+#### Properties
 
 | Name  | Attribute | Privacy | Type              | Default | Description                                                    |
 | ----- | --------- | ------- | ----------------- | ------- | -------------------------------------------------------------- |

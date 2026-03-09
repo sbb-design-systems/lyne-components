@@ -12,15 +12,14 @@ import { type StyleInfo, styleMap } from 'lit/directives/style-map.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button/autocomplete-grid-button.component.ts';
-import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/autocomplete-grid-option.component.ts';
-
-import { SbbAutocompleteGridElement } from './autocomplete-grid.component.ts';
+import { SbbAutocompleteGridElement } from './autocomplete-grid/autocomplete-grid.component.ts';
+import type { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button/autocomplete-grid-button.component.ts';
+import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option/autocomplete-grid-option.component.ts';
 import readme from './readme.md?raw';
 
 import '@sbb-esta/lyne-elements/card.js';
 import '@sbb-esta/lyne-elements/form-field.js';
-import '../../autocomplete-grid.ts';
+import '../autocomplete-grid.ts';
 
 const getOption = (event: Event): void => {
   const button = event.target as SbbAutocompleteGridButtonElement;

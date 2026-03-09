@@ -72,7 +72,11 @@ The type can be specified using the generic type parameter `T` of `SbbRadioButto
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbRadioButtonPanelElement`, `sbb-radio-button-panel`
+
+#### Properties
 
 | Name                  | Attribute               | Privacy | Type                                    | Default             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | --------------------- | ----------------------- | ------- | --------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -92,7 +96,7 @@ The type can be specified using the generic type parameter `T` of `SbbRadioButto
 | `value`               | `value`                 | public  | `(T = string) \| null`                  | `null`              | The value of the form element                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `willValidate`        | -                       | public  | `boolean`                               |                     | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
 
-## Methods
+#### Methods
 
 | Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From                   |
 | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | -------------------------------- |
@@ -101,14 +105,14 @@ The type can be specified using the generic type parameter `T` of `SbbRadioButto
 | `select`            | public  | Set the radio-button as 'checked'; if 'allowEmptySelection', toggle the checked property. In both cases it emits the change events.                                                        |                   | `void`    | SbbRadioButtonCommonElementMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin           |
 
-## Events
+#### Events
 
 | Name     | Type         | Description                                                                                                                                                                        | Inherited From                    |
 | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
 | `change` | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbFormAssociatedRadioButtonMixin |
 | `input`  | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         | SbbFormAssociatedRadioButtonMixin |
 
-## Slots
+#### Slots
 
 | Name      | Description                                             |
 | --------- | ------------------------------------------------------- |

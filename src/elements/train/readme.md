@@ -138,3 +138,67 @@ They will be applied internally into a list (using `<ul>` and `<li>`) and requir
   ></sbb-icon>
 </sbb-train-wagon>
 ```
+
+<!-- Auto Generated Below -->
+
+## API Documentation
+
+### class: `SbbTrainBlockedPassageElement`, `sbb-train-blocked-passage`
+
+### class: `SbbTrainElement`, `sbb-train`
+
+#### Properties
+
+| Name                  | Attribute               | Privacy | Type                | Default  | Description                                                                                  |
+| --------------------- | ----------------------- | ------- | ------------------- | -------- | -------------------------------------------------------------------------------------------- |
+| `accessibilityLabel`  | `accessibility-label`   | public  | `string`            | `''`     | Accessibility label for additional information regarding the leaving direction of the train. |
+| `direction`           | `direction`             | public  | `'left' \| 'right'` | `'left'` | Controls the direction indicator to show the arrow left or right. Default is left.           |
+| `directionLabel`      | `direction-label`       | public  | `string`            | `''`     | General label for "driving direction".                                                       |
+| `directionLabelLevel` | `direction-label-level` | public  | `SbbTitleLevel`     | `'6'`    | Heading level of the direction label, used for screen readers.                               |
+| `station`             | `station`               | public  | `string`            | `''`     | Label for the destination station of the train.                                              |
+
+#### Slots
+
+| Name | Description                                                                |
+| ---- | -------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add 'sbb-train-wagon' elements to the `sbb-train`. |
+
+### class: `SbbTrainFormationElement`, `sbb-train-formation`
+
+#### Properties
+
+| Name   | Attribute | Privacy | Type              | Default  | Description                                                     |
+| ------ | --------- | ------- | ----------------- | -------- | --------------------------------------------------------------- |
+| `view` | `view`    | public  | `'side' \| 'top'` | `'side'` | Whether the view of the wagons is from side or top perspective. |
+
+#### CSS Properties
+
+| Name                                   | Default | Description                                                      |
+| -------------------------------------- | ------- | ---------------------------------------------------------------- |
+| `--sbb-train-formation-padding-inline` | `0px`   | Defines the inline padding inside the horizontal scrolling area. |
+
+#### Slots
+
+| Name | Description                                                                    |
+| ---- | ------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add 'sbb-train' elements to the `sbb-train-formation`. |
+
+### class: `SbbTrainWagonElement`, `sbb-train-wagon`
+
+#### Properties
+
+| Name                          | Attribute                       | Privacy | Type                                                                                                                        | Default   | Description                                                                                                                  |
+| ----------------------------- | ------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `additionalAccessibilityText` | `additional-accessibility-text` | public  | `string`                                                                                                                    | `''`      | Additional accessibility text which will be appended to the end.                                                             |
+| `blockedPassage`              | `blocked-passage`               | public  | `'previous' \| 'next' \| 'both' \| 'none'`                                                                                  | `'none'`  | Accessibility text for blocked passages of the wagon.                                                                        |
+| `label`                       | `label`                         | public  | `string`                                                                                                                    | `''`      | Wagon number                                                                                                                 |
+| `occupancy`                   | `occupancy`                     | public  | `SbbOccupancy \| null`                                                                                                      | `null`    | Occupancy of a wagon.                                                                                                        |
+| `sector`                      | `sector`                        | public  | `string`                                                                                                                    | `''`      | Sector in which the wagon stops.                                                                                             |
+| `type`                        | `type`                          | public  | `'wagon' \| 'wagon-end-left' \| 'wagon-end-right' \| 'couchette' \| 'sleeping' \| 'restaurant' \| 'locomotive' \| 'closed'` | `'wagon'` | Wagon type. For `wagon-end-left` and `wagon-end-right`, please set the corresponding value of the `blockedPassage` property. |
+| `wagonClass`                  | `wagon-class`                   | public  | `'1' \| '2' \| null`                                                                                                        | `null`    | Class label                                                                                                                  |
+
+#### Slots
+
+| Name | Description                                                                                       |
+| ---- | ------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add one or more `sbb-icon` for meta-information of the `sbb-train-wagon`. |

@@ -138,3 +138,97 @@ Use an `aria-label` attribute to describe the purpose of the stepper.
 The components internally manage aria states, like `aria-setsize`, `aria-posinset`, `aria-controls` or
 `aria-labelledby`.
 If important content needs to be announced when a step is changed, use the `aria-live=‘polite’` attribute.
+
+<!-- Auto Generated Below -->
+
+## API Documentation
+
+### class: `SbbStepElement`, `sbb-step`
+
+#### Properties
+
+| Name      | Attribute | Privacy | Type                          | Default | Description            |
+| --------- | --------- | ------- | ----------------------------- | ------- | ---------------------- |
+| `label`   | -         | public  | `SbbStepLabelElement \| null` | `null`  | The label of the step. |
+| `stepper` | -         | public  | `SbbStepperElement \| null`   |         |                        |
+
+#### Events
+
+| Name       | Type                                       | Description                                                                                                 | Inherited From |
+| ---------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------- | -------------- |
+| `validate` | `CustomEvent<SbbStepValidateEventDetails>` | The validate event is dispatched when a step change is triggered. Can be canceled to abort the step change. |                |
+
+#### Slots
+
+| Name | Description                              |
+| ---- | ---------------------------------------- |
+|      | Use the unnamed slot to provide content. |
+
+### class: `SbbStepLabelElement`, `sbb-step-label`
+
+#### Properties
+
+| Name                | Attribute   | Privacy | Type                        | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ----------- | ------- | --------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`          | `disabled`  | public  | `boolean`                   | `false`    | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `form`              | `form`      | public  | `HTMLFormElement \| null`   |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `iconName`          | `icon-name` | public  | `string`                    | `''`       | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                                                                                                                                                                                                                                                                                                                        |
+| `name`              | `name`      | public  | `string`                    |            | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `step`              | -           | public  | `SbbStepElement \| null`    | `null`     | The step controlled by the label.                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `stepper`           | -           | public  | `SbbStepperElement \| null` |            |                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `type`              | `type`      | public  | `SbbButtonType`             | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `validationMessage` | -           | public  | `string`                    |            | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -           | public  | `ValidityState`             |            | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | `value`     | public  | `string`                    | `''`       | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `willValidate`      | -           | public  | `boolean`                   |            | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+#### Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Slots
+
+| Name   | Description                                      |
+| ------ | ------------------------------------------------ |
+|        | Use the unnamed slot to provide a label.         |
+| `icon` | Use this to display an icon in the label bubble. |
+
+### class: `SbbStepperElement`, `sbb-stepper`
+
+#### Properties
+
+| Name             | Attribute         | Privacy | Type                        | Default            | Description                                                                       |
+| ---------------- | ----------------- | ------- | --------------------------- | ------------------ | --------------------------------------------------------------------------------- |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom \| null` | `null`             | Overrides the behavior of `orientation` property.                                 |
+| `linear`         | `linear`          | public  | `boolean`                   | `false`            | If set to true, only the current and previous labels can be clicked and selected. |
+| `orientation`    | `orientation`     | public  | `SbbOrientation`            | `'horizontal'`     | Steps orientation, either horizontal or vertical.                                 |
+| `selected`       | -                 | public  | `SbbStepElement \| null`    |                    | The currently selected step.                                                      |
+| `selectedIndex`  | `selected-index`  | public  | `number \| null`            |                    | The currently selected step index.                                                |
+| `size`           | `size`            | public  | `'s' \| 'm'`                | `'m' / 's' (lean)` | Size variant, either s or m.                                                      |
+| `steps`          | -                 | public  | `SbbStepElement[]`          |                    | The steps of the stepper.                                                         |
+
+#### Methods
+
+| Name       | Privacy | Description                                                                        | Parameters | Return | Inherited From |
+| ---------- | ------- | ---------------------------------------------------------------------------------- | ---------- | ------ | -------------- |
+| `next`     | public  | Selects the next step.                                                             |            | `void` |                |
+| `previous` | public  | Selects the previous step.                                                         |            | `void` |                |
+| `reset`    | public  | Resets the form in which the stepper is nested or every form of each step, if any. |            | `void` |                |
+
+#### Events
+
+| Name         | Type                 | Description                        | Inherited From |
+| ------------ | -------------------- | ---------------------------------- | -------------- |
+| `stepchange` | `SbbStepChangeEvent` | Emits whenever a step was changed. |                |
+
+#### Slots
+
+| Name         | Description                                                                                |
+| ------------ | ------------------------------------------------------------------------------------------ |
+|              | Provide a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` to the stepper. |
+| `step`       | Use this slot to provide an `sbb-step`.                                                    |
+| `step-label` | Use this slot to provide an `sbb-step-label`.                                              |

@@ -51,7 +51,11 @@ This is helpful if you need a specific state of the component.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbPearlChainTimeElement`, `sbb-pearl-chain-time`
+
+#### Properties
 
 | Name               | Attribute           | Privacy | Type                   | Default | Description                                                                                                                                                                                                                                                                    |
 | ------------------ | ------------------- | ------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

@@ -81,7 +81,11 @@ The type can be specified using the generic type parameter `T` of `SbbCheckboxPa
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbCheckboxPanelElement`, `sbb-checkbox-panel`
+
+#### Properties
 
 | Name                | Attribute       | Privacy | Type                                    | Default             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------- | --------------- | ------- | --------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -101,7 +105,7 @@ The type can be specified using the generic type parameter `T` of `SbbCheckboxPa
 | `value`             | `value`         | public  | `(T = string) \| null`                  | `null`              | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `willValidate`      | -               | public  | `boolean`                               |                     | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
 
-## Methods
+#### Methods
 
 | Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
 | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
@@ -109,14 +113,14 @@ The type can be specified using the generic type parameter `T` of `SbbCheckboxPa
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
-## Events
+#### Events
 
 | Name     | Type         | Description                                                                                                                                                                        | Inherited From |
 | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | `change` | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
 | `input`  | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                |
 
-## Slots
+#### Slots
 
 | Name      | Description                                                                                     |
 | --------- | ----------------------------------------------------------------------------------------------- |

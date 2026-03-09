@@ -29,7 +29,11 @@ In `lean` mode, where the `sbb-lean` class is applied to the `<html>` tag, the t
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbTitleElement`, `sbb-title`
+
+#### Properties
 
 | Name          | Attribute      | Privacy | Type                    | Default | Description                                                                        |
 | ------------- | -------------- | ------- | ----------------------- | ------- | ---------------------------------------------------------------------------------- |
@@ -37,13 +41,13 @@ In `lean` mode, where the `sbb-lean` class is applied to the `<html>` tag, the t
 | `negative`    | `negative`     | public  | `boolean`               | `false` | Negative coloring variant flag.                                                    |
 | `visualLevel` | `visual-level` | public  | `SbbTitleLevel \| null` | `null`  | Visual level for the title. Optional, if not set, the value of level will be used. |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                       | Default | Description                |
 | -------------------------- | ------- | -------------------------- |
 | `--sbb-title-margin-block` |         | Margin block of the title. |
 
-## Slots
+#### Slots
 
 | Name | Description                                        |
 | ---- | -------------------------------------------------- |

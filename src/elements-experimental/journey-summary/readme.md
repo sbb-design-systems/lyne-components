@@ -22,7 +22,11 @@ This is helpful if you need a specific state of the component.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbJourneySummaryElement`, `sbb-journey-summary`
+
+#### Properties
 
 | Name               | Attribute           | Privacy | Type                                   | Default | Description                                                                                                                   |
 | ------------------ | ------------------- | ------- | -------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -34,7 +38,7 @@ This is helpful if you need a specific state of the component.
 | `trip`             | `trip`              | public  | `InterfaceSbbJourneySummaryAttributes` | `null!` | The trip prop                                                                                                                 |
 | `tripBack`         | `trip-back`         | public  | `InterfaceSbbJourneySummaryAttributes` | `null!` | The tripBack prop                                                                                                             |
 
-## Slots
+#### Slots
 
 | Name      | Description                                                       |
 | --------- | ----------------------------------------------------------------- |

@@ -53,7 +53,11 @@ and focus related events.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbTimeInputElement`, `sbb-time-input`
+
+#### Properties
 
 | Name                | Attribute  | Privacy | Type                      | Default  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------- | ---------- | ------- | ------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -70,7 +74,7 @@ and focus related events.
 | `valueAsDate`       | -          | public  | `Date \| null`            |          | Formats the current input's value as date.                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `willValidate`      | -          | public  | `boolean`                 |          | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
 
-## Methods
+#### Methods
 
 | Name                | Privacy | Description                                                                                                                                                                                | Parameters              | Return    | Inherited From              |
 | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- | --------- | --------------------------- |
@@ -80,7 +84,7 @@ and focus related events.
 | `select`            | public  | Makes the selection equal to the current object.                                                                                                                                           |                         | `void`    | SbbFormAssociatedInputMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string`       | `void`    | SbbFormAssociatedMixin      |
 
-## Events
+#### Events
 
 | Name     | Type         | Description                                                                                                                                                                        | Inherited From              |
 | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |

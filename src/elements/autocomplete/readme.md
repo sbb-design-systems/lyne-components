@@ -162,7 +162,11 @@ align with the type information.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbAutocompleteElement`, `sbb-autocomplete`
+
+#### Properties
 
 | Name                           | Attribute                           | Privacy | Type                             | Default            | Description                                                                                                                                                                                                                                                                                                                           |
 | ------------------------------ | ----------------------------------- | ------- | -------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -181,7 +185,7 @@ align with the type information.
 | `trigger`                      | `trigger`                           | public  | `HTMLInputElement \| null`       | `null`             | The input element that will trigger the autocomplete opening. By default, the autocomplete will open on focus, click, input or `ArrowDown` keypress of the 'trigger' element. If not set, will search for the first 'input' child of a 'sbb-form-field' ancestor. For attribute usage, provide an id reference.                       |
 | `triggerElement`               | -                                   | public  | `HTMLInputElement \| null`       |                    | Returns the trigger element.                                                                                                                                                                                                                                                                                                          |
 
-## Methods
+#### Methods
 
 | Name             | Privacy | Description                                                                 | Parameters | Return | Inherited From          |
 | ---------------- | ------- | --------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
@@ -189,7 +193,7 @@ align with the type information.
 | `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |            | `void` | SbbOpenCloseBaseElement |
 | `open`           | public  | Opens the autocomplete.                                                     |            | `void` | SbbOpenCloseBaseElement |
 
-## Events
+#### Events
 
 | Name          | Type    | Description                                                                  | Inherited From          |
 | ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
@@ -198,14 +202,14 @@ align with the type information.
 | `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
 | `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                             | Default                              | Description                                                                                                                                                                                                   |
 | -------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--sbb-autocomplete-z-index`     | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 | `--sbb-options-panel-max-height` |                                      | Maximum height of the options panel. If the calculated remaining space is smaller, the value gets ignored.                                                                                                    |
 
-## Slots
+#### Slots
 
 | Name | Description                                                                                    |
 | ---- | ---------------------------------------------------------------------------------------------- |

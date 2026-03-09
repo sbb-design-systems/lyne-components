@@ -48,7 +48,11 @@ In the following example, all the `sbb-expansion-panel-header` would be wrapped 
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbAccordionElement`, `sbb-accordion`
+
+#### Properties
 
 | Name         | Attribute     | Privacy | Type                    | Default            | Description                                                                             |
 | ------------ | ------------- | ------- | ----------------------- | ------------------ | --------------------------------------------------------------------------------------- |
@@ -56,7 +60,7 @@ In the following example, all the `sbb-expansion-panel-header` would be wrapped 
 | `size`       | `size`        | public  | `'s' \| 'l'`            | `'l' / 's' (lean)` | Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`. |
 | `titleLevel` | `title-level` | public  | `SbbTitleLevel \| null` | `null`             | The heading level for the sbb-expansion-panel-headers within the component.             |
 
-## Slots
+#### Slots
 
 | Name | Description                                                 |
 | ---- | ----------------------------------------------------------- |

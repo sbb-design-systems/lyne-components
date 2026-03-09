@@ -20,7 +20,11 @@ and a [sbb-button](/docs/elements-sbb-button-sbb-button--docs) to provide a cust
 
 <!-- Auto Generated Below -->
 
-## Slots
+## API Documentation
+
+### class: `SbbMessageElement`, `sbb-message`
+
+#### Slots
 
 | Name       | Description                                               |
 | ---------- | --------------------------------------------------------- |

@@ -24,7 +24,11 @@ The component has three `size`, named `xs`, `s` and `m` (default).
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbVisualCheckboxElement`, `sbb-visual-checkbox`
+
+#### Properties
 
 | Name            | Attribute       | Privacy | Type              | Default             | Description                              |
 | --------------- | --------------- | ------- | ----------------- | ------------------- | ---------------------------------------- |

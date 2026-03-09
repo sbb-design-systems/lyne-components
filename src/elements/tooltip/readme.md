@@ -106,7 +106,11 @@ Always ensure that keyboard users can perform the same set of actions available 
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbTooltipElement`, `sbb-tooltip`
+
+#### Properties
 
 | Name                  | Attribute                | Privacy | Type                  | Default | Description                                                                                                                |
 | --------------------- | ------------------------ | ------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
@@ -117,7 +121,7 @@ Always ensure that keyboard users can perform the same set of actions available 
 | `openDelay`           | `open-delay`             | public  | `number`              | `null`  | Open the tooltip after a given delay in milliseconds. Global configuration is used as default, if not set.                 |
 | `trigger`             | `trigger`                | public  | `HTMLElement \| null` | `null`  | The element that will trigger the tooltip overlay. For attribute usage, provide an id reference.                           |
 
-## Methods
+#### Methods
 
 | Name             | Privacy | Description                                                                 | Parameters | Return | Inherited From          |
 | ---------------- | ------- | --------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
@@ -125,7 +129,7 @@ Always ensure that keyboard users can perform the same set of actions available 
 | `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |            | `void` | SbbOpenCloseBaseElement |
 | `open`           | public  | Opens the component.                                                        |            | `void` | SbbOpenCloseBaseElement |
 
-## Events
+#### Events
 
 | Name          | Type    | Description                                                                  | Inherited From          |
 | ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
@@ -134,7 +138,7 @@ Always ensure that keyboard users can perform the same set of actions available 
 | `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
 | `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                                   | Default                                                                                                                           | Description                                                                                                                                                                                                   |
 | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -142,7 +146,7 @@ Always ensure that keyboard users can perform the same set of actions available 
 | `--sbb-overlay-position-try-fallbacks` | `block-end span-inline-end, block-end span-inline-start, block-start, block-start span-inline-end, block-start span-inline-start` | The list of fallback positions, separated by ',', for the tooltip                                                                                                                                             |
 | `--sbb-tooltip-z-index`                | `var(--sbb-overlay-default-z-index)`                                                                                              | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 
-## Slots
+#### Slots
 
 | Name | Description                                            |
 | ---- | ------------------------------------------------------ |

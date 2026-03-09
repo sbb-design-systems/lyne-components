@@ -90,7 +90,11 @@ to hide it from the accessibility tree.
 
 <!-- Auto Generated Below -->
 
-## Slots
+## API Documentation
+
+### class: `SbbLeadContainerElement`, `sbb-lead-container`
+
+#### Slots
 
 | Name    | Description                                                                                                                                                        |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

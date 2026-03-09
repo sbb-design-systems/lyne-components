@@ -168,3 +168,103 @@ Be aware that anchors do not support a `disabled` state. To achieve an equivalen
   <a class="sbb-disabled" aria-disabled="true" role="link"> Nav item 4 </a>
 </sbb-tab-nav-bar>
 ```
+
+<!-- Auto Generated Below -->
+
+## API Documentation
+
+### class: `SbbTabElement`, `sbb-tab`
+
+#### Properties
+
+| Name    | Attribute | Privacy | Type                         | Default | Description                                  |
+| ------- | --------- | ------- | ---------------------------- | ------- | -------------------------------------------- |
+| `group` | -         | public  | `SbbTabGroupElement \| null` |         | Get the parent `sbb-tab-group`.              |
+| `label` | -         | public  | `SbbTabLabelElement \| null` |         | The `sbb-tab-label` associated with the tab. |
+
+#### Events
+
+| Name     | Type    | Description                                                                                           | Inherited From |
+| -------- | ------- | ----------------------------------------------------------------------------------------------------- | -------------- |
+| `active` | `Event` | The `active` event fires when the sbb-tab has been activated via user selection on the sbb-tab-label. |                |
+
+#### Slots
+
+| Name | Description                              |
+| ---- | ---------------------------------------- |
+|      | Use the unnamed slot to provide content. |
+
+### class: `SbbTabGroupElement`, `sbb-tab-group`
+
+#### Properties
+
+| Name                   | Attribute                | Privacy | Type                   | Default            | Description                                                                                                                                                                                   |
+| ---------------------- | ------------------------ | ------- | ---------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fixedHeight`          | `fixed-height`           | public  | `boolean`              | `false`            | If set to true, the `sbb-tab` elements take 100% height of the `sbb-tab-group`. It enables controlling the height on the `sbb-tab-group` element. The content becomes scrollable on overflow. |
+| `initialSelectedIndex` | `initial-selected-index` | public  | `number`               | `0`                | Sets the initial tab. If it matches a disabled tab or exceeds the length of the tab group, the first enabled tab will be selected.                                                            |
+| `labels`               | -                        | public  | `SbbTabLabelElement[]` |                    | Gets the slotted `sbb-tab-label`s.                                                                                                                                                            |
+| `size`                 | `size`                   | public  | `'s' \| 'l' \| 'xl'`   | `'l' / 's' (lean)` | Size variant, either s, l or xl.                                                                                                                                                              |
+| `tabs`                 | -                        | public  | `SbbTabElement[]`      |                    | Gets the slotted `sbb-tab`s.                                                                                                                                                                  |
+
+#### Methods
+
+| Name          | Privacy | Description               | Parameters      | Return | Inherited From |
+| ------------- | ------- | ------------------------- | --------------- | ------ | -------------- |
+| `activateTab` | public  | Activates a tab by index. | `index: number` | `void` |                |
+| `disableTab`  | public  | Disables a tab by index.  | `index: number` | `void` |                |
+| `enableTab`   | public  | Enables a tab by index.   | `index: number` | `void` |                |
+
+#### Events
+
+| Name        | Type                                     | Description                                               | Inherited From |
+| ----------- | ---------------------------------------- | --------------------------------------------------------- | -------------- |
+| `tabchange` | `CustomEvent<SbbTabChangedEventDetails>` | The tabchange event is dispatched when a tab is selected. |                |
+
+#### Slots
+
+| Name | Description                                                                                             |
+| ---- | ------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add content to the `sbb-tab-group` via `sbb-tab-label` and `sbb-tab` instances. |
+
+### class: `SbbTabLabelElement`, `sbb-tab-label`
+
+#### Properties
+
+| Name       | Attribute   | Privacy | Type                         | Default | Description                                                                                                                                                   |
+| ---------- | ----------- | ------- | ---------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `active`   | `active`    | public  | `boolean`                    | `false` | Active tab state.                                                                                                                                             |
+| `amount`   | `amount`    | public  | `string`                     | `''`    | Amount displayed inside the tab.                                                                                                                              |
+| `disabled` | `disabled`  | public  | `boolean`                    | `false` | Whether the component is disabled.                                                                                                                            |
+| `group`    | -           | public  | `SbbTabGroupElement \| null` |         | Get the parent `sbb-tab-group`.                                                                                                                               |
+| `iconName` | `icon-name` | public  | `string`                     | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch.                              |
+| `level`    | `level`     | public  | `SbbTitleLevel`              | `'1'`   | The level will correspond to the heading tag generated in the title. Use this property to generate the appropriate header tag, taking SEO into consideration. |
+| `tab`      | -           | public  | `SbbTabElement \| null`      |         | Get the `sbb-tab` related to the `sbb-tab-label`.                                                                                                             |
+
+#### Methods
+
+| Name         | Privacy | Description                                                                              | Parameters | Return | Inherited From |
+| ------------ | ------- | ---------------------------------------------------------------------------------------- | ---------- | ------ | -------------- |
+| `activate`   | public  | Select the tab, deactivating the current selected one, and dispatch the tabchange event. |            | `void` |                |
+| `deactivate` | public  | Deactivate the tab.                                                                      |            | `void` |                |
+
+#### Slots
+
+| Name     | Description                                                                                       |
+| -------- | ------------------------------------------------------------------------------------------------- |
+|          | Use the unnamed slot to add content to the tab title.                                             |
+| `amount` | Provide a number to show an amount to the right of the title.                                     |
+| `icon`   | Use this slot to display an icon to the left of the title, by providing the `sbb-icon` component. |
+
+### class: `SbbTabNavBarElement`, `sbb-tab-nav-bar`
+
+#### Properties
+
+| Name   | Attribute | Privacy | Type                 | Default            | Description                      |
+| ------ | --------- | ------- | -------------------- | ------------------ | -------------------------------- |
+| `size` | `size`    | public  | `'s' \| 'l' \| 'xl'` | `'l' / 's' (lean)` | Size variant, either s, l or xl. |
+
+#### Slots
+
+| Name | Description                          |
+| ---- | ------------------------------------ |
+|      | Use the unnamed slot to add anchors. |

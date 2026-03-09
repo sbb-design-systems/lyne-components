@@ -14,7 +14,11 @@ It's also possible to display the component in `negative` variant using the self
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbDividerElement`, `sbb-divider`
+
+#### Properties
 
 | Name          | Attribute     | Privacy | Type             | Default        | Description                                                                                   |
 | ------------- | ------------- | ------- | ---------------- | -------------- | --------------------------------------------------------------------------------------------- |

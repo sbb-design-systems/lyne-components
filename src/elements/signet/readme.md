@@ -28,14 +28,18 @@ This is useful, for example, in the `sbb-header` with `size='s'`.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbSignetElement`, `sbb-signet`
+
+#### Properties
 
 | Name                 | Attribute             | Privacy | Type                      | Default   | Description                                                          |
 | -------------------- | --------------------- | ------- | ------------------------- | --------- | -------------------------------------------------------------------- |
 | `accessibilityLabel` | `accessibility-label` | public  | `string`                  | `'Logo'`  | Accessibility label which will be forwarded to the inner SVG signet. |
 | `protectiveRoom`     | `protective-room`     | public  | `SbbSignetProtectiveRoom` | `'ideal'` | Visual protective room around signet.                                |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                  | Default | Description                                  |
 | --------------------- | ------- | -------------------------------------------- |

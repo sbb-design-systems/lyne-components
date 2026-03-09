@@ -79,7 +79,11 @@ As a base rule, opening animations should be active if a notification arrives af
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbNotificationElement`, `sbb-notification`
+
+#### Properties
 
 | Name        | Attribute   | Privacy | Type                                                 | Default            | Description                                                                                                                      |
 | ----------- | ----------- | ------- | ---------------------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -89,13 +93,13 @@ As a base rule, opening animations should be active if a notification arrives af
 | `size`      | `size`      | public  | `'s' \| 'm'`                                         | `'m' / 's' (lean)` | Size variant, either s or m.                                                                                                     |
 | `type`      | `type`      | public  | `'info' \| 'note' \| 'success' \| 'warn' \| 'error'` | `'info'`           | The type of the notification.                                                                                                    |
 
-## Methods
+#### Methods
 
 | Name    | Privacy | Description | Parameters | Return | Inherited From |
 | ------- | ------- | ----------- | ---------- | ------ | -------------- |
 | `close` | public  |             |            | `void` |                |
 
-## Events
+#### Events
 
 | Name          | Type    | Description                                                                                     | Inherited From |
 | ------------- | ------- | ----------------------------------------------------------------------------------------------- | -------------- |
@@ -104,13 +108,13 @@ As a base rule, opening animations should be active if a notification arrives af
 | `close`       | `Event` | Emits when the closing animation ends.                                                          |                |
 | `open`        | `Event` | Emits when the opening animation ends.                                                          |                |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                        | Default | Description                                                                                                    |
 | --------------------------- | ------- | -------------------------------------------------------------------------------------------------------------- |
 | `--sbb-notification-margin` | `0`     | Can be used to modify the margin in order to get a smoother animation. See style section for more information. |
 
-## Slots
+#### Slots
 
 | Name    | Description                                                                                                                                |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |

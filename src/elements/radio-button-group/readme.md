@@ -87,7 +87,11 @@ const values = [
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbRadioButtonGroupElement`, `sbb-radio-button-group`
+
+#### Properties
 
 | Name                  | Attribute               | Privacy | Type                                                            | Default                                    | Description                                               |
 | --------------------- | ----------------------- | ------- | --------------------------------------------------------------- | ------------------------------------------ | --------------------------------------------------------- |
@@ -101,13 +105,13 @@ const values = [
 | `size`                | `size`                  | public  | `SbbRadioButtonSize`                                            | `'m' / 'xs' (lean)`                        | Size variant, either xs, s or m.                          |
 | `value`               | `value`                 | public  | `(T = string) \| null`                                          |                                            | The value of the radio group.                             |
 
-## Events
+#### Events
 
 | Name        | Type    | Description                                                                                             | Inherited From |
 | ----------- | ------- | ------------------------------------------------------------------------------------------------------- | -------------- |
 | `didChange` | `Event` | Deprecated. Mirrors change event for React. Will be removed once React properly supports change events. |                |
 
-## Slots
+#### Slots
 
 | Name    | Description                                                                              |
 | ------- | ---------------------------------------------------------------------------------------- |

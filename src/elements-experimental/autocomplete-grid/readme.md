@@ -5,11 +5,11 @@ If you don't need actions, use the [sbb-autocomplete](/docs/elements-sbb-autocom
 
 The component is strictly connected to:
 
-- the [sbb-autocomplete-grid-row](/docs/experimental-sbb-autocomplete-grid-sbb-autocomplete-grid-row--docs), which is a wrapper for both option and buttons;
-- the [sbb-autocomplete-grid-option](/docs/experimental-sbb-autocomplete-grid-sbb-autocomplete-grid-option--docs), which displays a selectable option within a panel;
-- the [sbb-autocomplete-grid-cell](/docs/experimental-sbb-autocomplete-grid-sbb-autocomplete-grid-cell--docs), which is a wrapper a for button element;
-- the [sbb-autocomplete-grid-button](/docs/experimental-sbb-autocomplete-grid-sbb-autocomplete-grid-button--docs), which displays a button within a row;
-- the [sbb-autocomplete-grid-optgroup](/docs/experimental-sbb-autocomplete-grid-sbb-autocomplete-grid-optgroup--docs), which can be used to group more row within a group.
+- the `sbb-autocomplete-grid-row`, which is a wrapper for both option and buttons;
+- the `sbb-autocomplete-grid-option`, which displays a selectable option within a panel;`
+- the `sbb-autocomplete-grid-cell`, which is a wrapper a for button element;
+- the `sbb-autocomplete-grid-button`, which displays a button within a row;
+- the `sbb-autocomplete-grid-optgroup`, which can be used to group more row within a group.
 
 It's possible to set the element to which the component's panel will be attached using the `origin` prop,
 and the input which will work as a trigger using the `trigger` prop.
@@ -196,15 +196,73 @@ align with the type information.
 
 <!-- Auto Generated Below -->
 
-## CSS Properties
+## API Documentation
+
+### class: `SbbAutocompleteGridButtonElement`, `sbb-autocomplete-grid-button`
+
+#### Properties
+
+| Name       | Attribute | Privacy | Type                                         | Default | Description                                                              |
+| ---------- | --------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| `optgroup` | -         | public  | `SbbAutocompleteGridOptgroupElement \| null` |         |                                                                          |
+| `option`   | -         | public  | `SbbAutocompleteGridOptionElement \| null`   |         | Gets the SbbAutocompleteGridOptionElement on the same row of the button. |
+
+#### Slots
+
+| Name   | Description                                  |
+| ------ | -------------------------------------------- |
+| `icon` | Slot used to display the icon, if one is set |
+
+### class: `SbbAutocompleteGridCellElement`, `sbb-autocomplete-grid-cell`
+
+#### Slots
+
+| Name | Description                                                           |
+| ---- | --------------------------------------------------------------------- |
+|      | Use the unnamed slot to add a `sbb-autocomplete-grid-button` element. |
+
+### class: `SbbAutocompleteGridElement`, `sbb-autocomplete-grid`
+
+#### CSS Properties
 
 | Name                             | Default                              | Description                                                                                                                                                                                                   |
 | -------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--sbb-autocomplete-z-index`     | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 | `--sbb-options-panel-max-height` |                                      | Maximum height of the options panel. If the calculated remaining space is smaller, the value gets ignored.                                                                                                    |
 
-## Slots
+#### Slots
 
 | Name | Description                                                                                                                          |
 | ---- | ------------------------------------------------------------------------------------------------------------------------------------ |
 |      | Use the unnamed slot to add `sbb-autocomplete-grid-row` or `sbb-autocomplete-grid-optgroup` elements to the `sbb-autocomplete-grid`. |
+
+### class: `SbbAutocompleteGridOptgroupElement`, `sbb-autocomplete-grid-optgroup`
+
+#### Slots
+
+| Name | Description                                                                                                  |
+| ---- | ------------------------------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add `sbb-autocomplete-grid-option` elements to the `sbb-autocomplete-grid-optgroup`. |
+
+### class: `SbbAutocompleteGridOptionElement`, `sbb-autocomplete-grid-option`
+
+#### CSS Properties
+
+| Name                                  | Default | Description                                                                                                   |
+| ------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------- |
+| `--sbb-option-icon-container-display` | `none`  | Can be used to reserve space even when preserve-icon-space on autocomplete is not set or iconName is not set. |
+
+#### Slots
+
+| Name   | Description                                                                       |
+| ------ | --------------------------------------------------------------------------------- |
+|        | Use the unnamed slot to add content to the option label.                          |
+| `icon` | Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used. |
+
+### class: `SbbAutocompleteGridRowElement`, `sbb-autocomplete-grid-row`
+
+#### Slots
+
+| Name | Description                                                                                                                                      |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+|      | Use the unnamed slot to add a `sbb-autocomplete-grid-option` and a `sbb-autocomplete-grid-cell` with one or more `sbb-autocomplete-grid-button`. |

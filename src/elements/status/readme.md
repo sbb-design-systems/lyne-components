@@ -68,21 +68,25 @@ If needed, the `role="status"` attribute can be added on the component's tag.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbStatusElement`, `sbb-status`
+
+#### Properties
 
 | Name       | Attribute   | Privacy | Type            | Default  | Description                                                                                                                      |
 | ---------- | ----------- | ------- | --------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `iconName` | `icon-name` | public  | `string`        | `''`     | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `type`     | `type`      | public  | `SbbStatusType` | `'info'` | The type of the status.                                                                                                          |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                      | Default                   | Description                                                                                                                  |
 | ------------------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `--sbb-status-color`      | `var(--sbb-color-iron)`   | Specify a custom color, which will override the predefined color for any type.                                               |
 | `--sbb-status-text-color` | `var(--sbb-status-color)` | Specify a custom text color, which will override the predefined color for any type. Only valid for a status without a title. |
 
-## Slots
+#### Slots
 
 | Name    | Description                                                                                                                    |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------ |

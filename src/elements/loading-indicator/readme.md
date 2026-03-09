@@ -23,7 +23,11 @@ and then append the `sbb-loading-indicator` on it after giving it the correct `a
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbLoadingIndicatorElement`, `sbb-loading-indicator`
+
+#### Properties
 
 | Name    | Attribute | Privacy | Type                                    | Default     | Description                  |
 | ------- | --------- | ------- | --------------------------------------- | ----------- | ---------------------------- |
