@@ -1,8 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-icon-sidebar-border-radius: var(--sbb-border-radius-8x);
-
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -15,7 +13,6 @@
   border-start-start-radius: 0;
 }
 
-:host(:not([color])),
 :host([color='white']) {
   --sbb-icon-sidebar-background-color: var(--sbb-background-color-1);
 }
