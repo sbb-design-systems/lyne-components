@@ -30,6 +30,9 @@ and an `<sbb-dialog-actions>` elements for structuring the content of a dialog..
 </sbb-dialog>
 ```
 
+<!-- #region intro-end -->
+<!-- #endregion -->
+
 ## Title
 
 The `<sbb-dialog-title>` component extends the [sbb-title](/docs/elements-title--docs) component.

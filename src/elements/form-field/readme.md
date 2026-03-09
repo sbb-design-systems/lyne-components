@@ -192,8 +192,12 @@ needs to be dispatched on the `<sbb-form-field>` instance.
 
 ### Angular
 
+<!-- #region custom-form-control-angular -->
+
 In `@sbb-esta/lyne-angular` we have an adaption layer to easily define a custom form control.
 Please consume the documentation of `@sbb-esta/lyne-angular` for an example.
+
+<!-- #endregion -->
 
 ### Example
 

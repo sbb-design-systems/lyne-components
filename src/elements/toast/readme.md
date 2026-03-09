@@ -9,6 +9,9 @@ if a new `<sbb-toast>` is opened while a previous message is still showing, the 
 <sbb-toast>Toast content</sbb-toast>
 ```
 
+<!-- #region intro-end -->
+<!-- #endregion -->
+
 ## Important note
 
 You should carefully consider every use of the `<sbb-toast>` component since it can be a source of

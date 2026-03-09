@@ -25,6 +25,9 @@ If using the SBB icons, the icon should be a medium size icon.
 <sbb-expansion-panel-header icon-name="swisspass-medium">Header</sbb-expansion-panel-header>
 ```
 
+<!-- #region intro-end -->
+<!-- #endregion -->
+
 ## States
 
 The visibility of the content is controlled by the value of the `expanded` property.

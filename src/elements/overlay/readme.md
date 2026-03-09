@@ -13,6 +13,9 @@ It offers the following features:
 </sbb-overlay>
 ```
 
+<!-- #region intro-end -->
+<!-- #endregion -->
+
 ## Slots
 
 There is only one unnamed slot to provide the overlay content.

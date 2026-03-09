@@ -52,6 +52,9 @@ The label's heading tag can be changed using the `level` property.
 
 There is also a variant for using anchors (`<a>`) as tabs. See `<sbb-tab-nav-bar>` below.
 
+<!-- #region intro-end -->
+<!-- #endregion -->
+
 ## Fixed height
 
 By default, the tab group adjusts its height based on the content of the active tab.

@@ -6,6 +6,8 @@ It's possible to set the element to which the component's panel will be attached
 and the input which will work as a trigger using the `trigger` prop.
 Both accept an id or an element reference.
 
+<!-- #region intro-example -->
+
 ```html
 <!-- Origin element -->
 <div id="autocomplete-origin">Another origin</div>
@@ -19,6 +21,11 @@ Both accept an id or an element reference.
   <sbb-option value="Option C">Option C</sbb-option>
 </sbb-autocomplete>
 ```
+
+<!-- #endregion -->
+
+<!-- #region intro-end -->
+<!-- #endregion -->
 
 ## In `<sbb-form-field>`
 
@@ -159,6 +166,9 @@ This function receives the selected value and should return a string.
 
 Please note that the parameter is the assigned value of the selected option which does not necessarily
 align with the type information.
+
+<!-- #region display-with -->
+<!-- #endregion -->
 
 <!-- Auto Generated Below -->
 
