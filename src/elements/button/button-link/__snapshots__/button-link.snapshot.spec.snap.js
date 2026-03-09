@@ -16,6 +16,7 @@ snapshots["sbb-button-link renders a sbb-button-link without icon DOM"] =
 
 snapshots["sbb-button-link renders a sbb-button-link without icon Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   class="sbb-action-base sbb-button-link"
   download=""
   href="https://www.sbb.ch"
@@ -27,7 +28,8 @@ snapshots["sbb-button-link renders a sbb-button-link without icon Shadow DOM"] =
   <span class="sbb-button__label">
     <slot>
     </slot>
-  </span></a>
+  </span>
+</a>
 <span
   hidden=""
   id="sbb-link-new-window"

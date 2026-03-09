@@ -16,6 +16,7 @@ snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon 
 
 snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   class="sbb-accent-button-link sbb-action-base"
   download=""
   href="https://www.sbb.ch"
@@ -27,7 +28,8 @@ snapshots["sbb-accent-button-link renders a sbb-accent-button-link without icon 
   <span class="sbb-button__label">
     <slot>
     </slot>
-  </span></a>
+  </span>
+</a>
 <span
   hidden=""
   id="sbb-link-new-window"

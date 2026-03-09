@@ -16,6 +16,7 @@ snapshots["sbb-secondary-button-link renders a sbb-secondary-button-link without
 
 snapshots["sbb-secondary-button-link renders a sbb-secondary-button-link without icon Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   class="sbb-action-base sbb-secondary-button-link"
   download=""
   href="https://www.sbb.ch"
@@ -27,7 +28,8 @@ snapshots["sbb-secondary-button-link renders a sbb-secondary-button-link without
   <span class="sbb-button__label">
     <slot>
     </slot>
-  </span></a>
+  </span>
+</a>
 <span
   hidden=""
   id="sbb-link-new-window"
