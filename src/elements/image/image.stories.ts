@@ -13,6 +13,7 @@ import readme from './readme.md?raw';
 
 import '../chip-label.ts';
 import '../link.ts';
+import '../image.ts';
 
 const ImageTemplate = ({ aspectRatio, borderRadius, ...args }: Args): TemplateResult => html`
   <sbb-image

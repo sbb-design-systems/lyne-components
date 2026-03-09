@@ -10,6 +10,8 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 import { SbbTooltipElement } from './tooltip.component.ts';
+
+import '../tooltip.ts';
 import '../button/button.ts';
 
 const position: InputType = {

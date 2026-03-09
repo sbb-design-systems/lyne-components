@@ -7,6 +7,7 @@ import type { SbbTimetableFormElement } from './timetable-form.component.ts';
 
 import '../../button/button.ts';
 import '../../divider.ts';
+import '../../form-field.ts';
 import '../../icon.ts';
 import '../../signet.ts';
 import '../../time-input.ts';

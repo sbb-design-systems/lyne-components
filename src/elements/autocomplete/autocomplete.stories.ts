@@ -18,6 +18,7 @@ import { SbbOptionElement } from '../option.ts';
 import { SbbAutocompleteElement } from './autocomplete.component.ts';
 import readme from './readme.md?raw';
 
+import '../autocomplete.ts';
 import '../card.ts';
 import '../form-field.ts';
 

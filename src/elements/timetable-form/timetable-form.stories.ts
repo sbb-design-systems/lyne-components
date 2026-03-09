@@ -5,6 +5,7 @@ import readme from './readme.md?raw';
 import '../button/button.ts';
 import '../datepicker.ts';
 import '../divider.ts';
+import '../form-field.ts';
 import '../icon.ts';
 import '../signet.ts';
 import '../time-input.ts';

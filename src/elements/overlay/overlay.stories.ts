@@ -15,6 +15,7 @@ import '../card.ts';
 import '../form-field.ts';
 import '../image.ts';
 import '../link.ts';
+import '../overlay.ts';
 import '../title.ts';
 
 const expanded: InputType = {

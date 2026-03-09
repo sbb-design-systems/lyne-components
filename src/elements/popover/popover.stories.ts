@@ -12,6 +12,7 @@ import readme from './readme.md?raw';
 import '../link.ts';
 import '../title.ts';
 import '../button/mini-button.ts';
+import '../popover.ts';
 
 const hoverTrigger: InputType = {
   control: {

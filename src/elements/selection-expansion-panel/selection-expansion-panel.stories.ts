@@ -10,6 +10,9 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import type { SbbErrorElement } from '../form-field.ts';
 import type { SbbRadioButtonGroupElement } from '../radio-button.ts';
 
+import readme from './readme.md?raw';
+import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.ts';
+
 import '../button/mini-button.ts';
 import '../card.ts';
 import '../checkbox.ts';
@@ -19,10 +22,8 @@ import '../icon.ts';
 import '../link/block-link-button.ts';
 import '../popover.ts';
 import '../radio-button.ts';
+import '../selection-expansion-panel.ts';
 import '../title.ts';
-
-import readme from './readme.md?raw';
-import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.ts';
 
 const forceOpen: InputType = {
   control: {

@@ -20,8 +20,9 @@ import { SbbOptionElement } from '../option.ts';
 import readme from './readme.md?raw';
 import { SbbSelectElement } from './select.component.ts';
 
-import '../form-field.ts';
 import '../card.ts';
+import '../form-field.ts';
+import '../select.ts';
 
 const borderless: InputType = {
   control: {

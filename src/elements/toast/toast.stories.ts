@@ -9,6 +9,8 @@ import type { SbbButtonElement } from '../button.ts';
 
 import readme from './readme.md?raw';
 import { SbbToastElement } from './toast.component.ts';
+
+import '../toast.ts';
 import '../button/button.ts';
 import '../button/transparent-button.ts';
 import '../link/link.ts';
