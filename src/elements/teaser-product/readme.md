@@ -2,7 +2,7 @@ The `sbb-teaser-product` is a component that can display a text and a footnote, 
 The whole component behaves like a link, and it is clickable; on small screens, the content follows the image.
 
 The component can have at most a single interactive element in its static version (e.g. `sbb-button-static`).
-If it has to include more than one interactive element, use the [sbb-teaser-product-static](/docs/elements-sbb-teaser-sbb-teaser-product-static--docs) instead.
+If it has to include more than one interactive element, use the `sbb-teaser-product-static` element instead.
 
 ```html
 <sbb-teaser-product href="...">
@@ -17,7 +17,7 @@ If it has to include more than one interactive element, use the [sbb-teaser-prod
 ## Slots
 
 Use the `image` slot to pass an `sbb-image` or an `img` that will be used as background.
-Optionally, you can add an overlapping `sbb-chip-label` by wrapping the `sbb-image` in a `figure` tag (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
+Optionally, you can add an overlapping `sbb-chip-label` by wrapping the `sbb-image` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
 
 Use the optional `footnote` slot to add a text anchored to the bottom-end of the component.
 

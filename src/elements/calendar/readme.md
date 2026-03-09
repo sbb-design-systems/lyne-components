@@ -174,7 +174,7 @@ so on the left side in `horizontal` and on top in `vertical`.
 
 Consumers can listen to the `dateselected` event on the `sbb-calendar` component to intercept the selected date
 which can be read from `event.detail`.
-Check the [Slot and day customization](docs/elements-sbb-calendar-sbb-calendar--docs#slots-and-day-customization) paragraph
+Check the [Slot and day customization](docs/elements-calendar--docs#slots-and-day-customization) paragraph
 for more information about the `monthchange` event.
 
 ## Keyboard interaction

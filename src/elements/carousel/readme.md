@@ -3,7 +3,7 @@ series of items, as images, once at a time, allowing users to cycle
 through them via horizontal scrolling or using controls (e.g. a paginator).
 
 The component must be used together with a
-[sbb-compact-paginator](/docs/elements-sbb-paginator-sbb-compact-paginator--docs)
+[sbb-compact-paginator](/docs/elements-paginator--docs)
 and a `sbb-carousel-list`, which accepts one or more `sbb-carousel-item`.
 
 ```html

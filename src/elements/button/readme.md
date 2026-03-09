@@ -126,7 +126,7 @@ guard against such cases in your component.
 ## Mini Button Group
 
 The `sbb-mini-button-group` component displays a set of `sbb-mini-button`
-optionally separated by a [sbb-divider](/docs/elements-sbb-divider--docs).
+optionally separated by a [sbb-divider](/docs/elements-divider--docs).
 
 ```html
 <sbb-mini-button-group accessibility-label="My group">

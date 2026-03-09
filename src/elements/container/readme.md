@@ -32,7 +32,7 @@ It's possible to override the padding by using the CSS variable
 `--sbb-container-padding`.
 
 Optionally, you can add an overlapping `sbb-chip-label` by wrapping the
-`sbb-image` in a `figure` tag (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
+`sbb-image` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
 
 ```html
 <sbb-container>

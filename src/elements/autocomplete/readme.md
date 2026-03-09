@@ -22,7 +22,7 @@ Both accept an id or an element reference.
 
 ## In `sbb-form-field`
 
-If the component is used within a [sbb-form-field](/docs/elements-sbb-form-field-sbb-form-field--docs),
+If the component is used within a [sbb-form-field](/docs/elements-form-field--docs),
 it will automatically connect to the native `<input>` as trigger and will display the option panel above or below the `sbb-form-field`.
 
 ```html
@@ -45,7 +45,7 @@ it will automatically connect to the native `<input>` as trigger and will displa
 ### Option highlight
 
 By default, the autocomplete will highlight the label of the `sbb-option` in the panel, if it matches the typed text.
-See the [sbb-option](/docs/elements-sbb-option-sbb-option--docs) for more details.
+See the [sbb-option](/docs/elements-option--docs) for more details.
 
 ### Option grouping
 

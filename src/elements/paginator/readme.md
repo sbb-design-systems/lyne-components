@@ -11,7 +11,7 @@ It can be controlled via the following properties:
 <sbb-paginator length="100" page-size="20"></sbb-paginator>
 ```
 
-By default, a [sbb-mini-button-group](/docs/elements-sbb-button-sbb-mini-button-group--docs) with two buttons is displayed,
+By default, a [sbb-mini-button-group](/docs/elements-button--docs) with two buttons is displayed,
 which allows moving to the previous/next pages.
 The positioning of this element relative to the page numbers is set using the `pagerPosition` property (default: `start`):
 

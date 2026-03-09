@@ -1,12 +1,12 @@
-The `sbb-selection-expansion-panel` component wraps either a [sbb-checkbox-panel](/docs/elements-sbb-checkbox-sbb-checkbox-panel--docs)
-or a [sbb-radio-button-panel](/docs/elements-sbb-radio-button-sbb-radio-button-panel--docs) that can toggle a content section.
+The `sbb-selection-expansion-panel` component wraps either a [sbb-checkbox-panel](/docs/elements-checkbox-panel--docs)
+or a [sbb-radio-button-panel](/docs/elements-radio-button-panel--docs) that can toggle a content section.
 
 The content section can be opened by checking `sbb-checkbox-panel` or selecting the `sbb-radio-button-panel`.
 Additionally, clicking on all the upper area sets the checked state and therefore opens the content;
 clicking on the content area does not toggle anything.
 
-The selection panel can also be used inside a [sbb-radio-button-group](/docs/elements-sbb-radio-button-sbb-radio-button-group--docs)
-or a [sbb-checkbox-group](/docs/elements-sbb-checkbox-sbb-checkbox-group--docs).
+The selection panel can also be used inside a [sbb-radio-button-group](/docs/elements-radio-button-group--docs)
+or a [sbb-checkbox-group](/docs/elements-checkbox-group--docs).
 
 ### With `sbb-radio-button-group`
 

@@ -8,7 +8,7 @@ The `expanded`-variant has a smaller inline spacing and no max-width.
 | `sbb-page-spacing`          | `page-spacing`          |
 | `sbb-page-spacing-expanded` | `page-spacing-expanded` |
 
-Alternatively the [sbb-container](/docs/elements-sbb-container-sbb-container--docs) component can be used to achieve the same result.
+Alternatively the [sbb-container](/docs/elements-container--docs) component can be used to achieve the same result.
 
 ### Usage
 

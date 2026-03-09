@@ -96,7 +96,7 @@ The `sbb-chip-group` is a form-associated element that can be part of a form. It
 
 ### Use with Autocomplete
 
-It is possible to combine the functionalities of `chip-group` and the [sbb-autocomplete](/docs/elements-sbb-autocomplete--docs).
+It is possible to combine the functionalities of `chip-group` and the [sbb-autocomplete](/docs/elements-autocomplete--docs).
 
 In this scenario, selecting an option will create a new chip using the option value.
 

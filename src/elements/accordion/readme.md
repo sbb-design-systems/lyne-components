@@ -1,5 +1,5 @@
 The `sbb-accordion` is a component which acts as a container
-for one or more [sbb-expansion-panel](/docs/elements-sbb-accordion-sbb-expansion-panel--docs).
+for one or more [sbb-expansion-panel](/docs/elements-expansion-panel--docs).
 
 ```html
 <sbb-accordion>

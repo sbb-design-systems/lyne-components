@@ -1,7 +1,7 @@
 The `sbb-autocomplete-grid` is a component that can be used to display a panel of suggested options connected to a text input,
 with each option connected to one or more buttons.
 Use it when you need an autocomplete in which every selectable option in the panel needs one or more related button.
-If you don't need actions, use the [sbb-autocomplete](/docs/elements-sbb-autocomplete---docs).
+If you don't need actions, use the [sbb-autocomplete](/docs/elements-autocomplete---docs).
 
 The component is strictly connected to:
 
@@ -40,7 +40,7 @@ Both accept an id or an element reference.
 
 ## In `sbb-form-field`
 
-If the component is used within a [sbb-form-field](/docs/elements-sbb-form-field-sbb-form-field--docs),
+If the component is used within a [sbb-form-field](/docs/elements-form-field--docs),
 it will automatically connect to the native `<input>` as trigger and will display the option panel above or below the `sbb-form-field`.
 
 ```html

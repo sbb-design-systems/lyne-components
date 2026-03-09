@@ -32,7 +32,7 @@ and an `sbb-dialog-actions` elements for structuring the content of a dialog..
 
 ## Title
 
-The `sbb-dialog-title` component extends the [sbb-title](/docs/elements-sbb-title--docs) component.
+The `sbb-dialog-title` component extends the [sbb-title](/docs/elements-title--docs) component.
 It should be used as a title for a dialog.
 
 ```html
@@ -52,7 +52,7 @@ it is possible to use the `visualLevel` property (default value: `4`).
 
 ## Actions
 
-The `sbb-dialog-actions` component extends the [sbb-action-group](/docs/elements-sbb-action-group--docs)
+The `sbb-dialog-actions` component extends the [sbb-action-group](/docs/elements-action-group--docs)
 component. Use it to display a footer with an action group.
 
 ```html
@@ -96,7 +96,7 @@ The dialog can be closed in several ways:
    ```
 
    The `sbb-dialog-close-button` component extends the
-   [sbb-secondary-button](/docs/elements-sbb-button-sbb-secondary-button--docs) component.
+   [sbb-secondary-button](/docs/elements-button--docs) component.
    An aria-label is automatically set. It is however possible to override it, if necessary.
 
 2. **sbb-dialog-close attribute**: Add the `sbb-dialog-close` attribute to any element within the dialog

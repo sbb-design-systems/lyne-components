@@ -1,6 +1,6 @@
 The `sbb-expansion-panel` is a component which acts as an expandable summary-details widget.
 
-It can be used standalone or inside an [sbb-accordion](/docs/elements-sbb-accordion-sbb-accordion--docs).
+It can be used standalone or inside an [sbb-accordion](/docs/elements-accordion--docs).
 
 In order to correctly display the component, it must be used together with
 the `sbb-expansion-panel-header` and `sbb-expansion-panel-content` components.

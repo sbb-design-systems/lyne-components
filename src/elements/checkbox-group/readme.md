@@ -1,6 +1,6 @@
 The `sbb-checkbox-group` component is used as a container for a collection of either
-[sbb-checkbox](/docs/elements-sbb-checkbox-sbb-checkbox--docs)s, [sbb-checkbox-panel](/docs/elements-sbb-checkbox-sbb-checkbox-panel--docs)s,
-or [sbb-selection-expansion-panel](/docs/elements-sbb-selection-expansion-panel--docs).
+[sbb-checkbox](/docs/elements-checkbox--docs)s, [sbb-checkbox-panel](/docs/elements-checkbox-panel--docs)s,
+or [sbb-selection-expansion-panel](/docs/elements-selection-expansion-panel--docs).
 
 ```html
 <sbb-checkbox-group>
@@ -27,7 +27,7 @@ or [sbb-selection-expansion-panel](/docs/elements-sbb-selection-expansion-panel-
 
 The content is projected in an unnamed slot.
 
-The component can display one or more [sbb-error](/docs/elements-sbb-form-field-sbb-error--docs) components
+The component can display one or more [sbb-error](/docs/elements-form-field--docs) components
 right below the `sbb-checkbox-group` using the `error` slot.
 
 ```html

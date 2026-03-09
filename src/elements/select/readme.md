@@ -5,8 +5,8 @@ emulating the behaviour of a native `<select>`.
 
 If the component is used within a `sbb-form-field`, it will automatically display the option panel above or below it;
 otherwise, the panel takes the component's parent element as origin.
-Options or groups of options (see [sbb-option](/docs/elements-sbb-option-sbb-option--docs) /
-[sbb-option-group](/docs/elements-sbb-option-sbb-option-group--docs) components)
+Options or groups of options (see [sbb-option](/docs/elements-option--docs) /
+[sbb-option-group](/docs/elements-option--docs) components)
 can be provided via an unnamed slot.
 
 ```html

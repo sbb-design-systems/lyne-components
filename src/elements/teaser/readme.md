@@ -14,11 +14,11 @@ Simple teaser example:
 ## Slots
 
 The default slot is reserved for the description and,
-optionally, a [sbb-title](/docs/elements-sbb-title--docs) and a [sbb-chip-label](/docs/elements-sbb-chip-label--docs).
+optionally, a [sbb-title](/docs/elements-title--docs) and a [sbb-chip-label](/docs/elements-chip-label--docs).
 The component displays the `image` with the self-named slot.
 
 Use the `image` slot to pass a `figure` containing an `sbb-image` or an `img` that will be used as background.
-Optionally, you can add an overlapping `sbb-chip-label` to the slotted `figure` (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
+Optionally, you can add an overlapping `sbb-chip-label` to the slotted `figure` (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
 
 ```html
 <sbb-teaser href="https://www.sbb.ch">

@@ -184,8 +184,8 @@ The `<sbb-sidebar-content>` should be given a role based on what it contains. If
 represents the primary content of the page, it may make sense to mark it `role="main"`. If no more
 specific role makes sense, `role="region"` is a good fallback.
 
-As described in [sbb-icon-sidebar-link](/docs/elements-sbb-sidebar-sbb-icon-sidebar-link--docs) and
-[sbb-icon-sidebar-button](/docs/elements-sbb-sidebar-sbb-icon-sidebar-button--docs), it's important to set
+As described in [sbb-icon-sidebar-link](/docs/elements-sidebar--docs) and
+[sbb-icon-sidebar-button](/docs/elements-icon-sidebar--docs), it's important to set
 both a label and a tooltip to the action elements.
 It's also described how to set the current icon as active (aria-current).
 

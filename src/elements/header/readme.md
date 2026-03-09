@@ -3,8 +3,8 @@ The `sbb-header` component is a container for actions and a logo, and it is disp
 The header can contain:
 
 - one or more actions with `sbb-header-button` or `sbb-header-link`
-- other action items like [sbb-button](/docs/elements-sbb-button-sbb-button--docs) or [sbb-link](/docs/elements-sbb-link-sbb-link--docs)
-- a logo or a signet with the `.sbb-header-logo` class (see [sbb-logo](/docs/elements-sbb-logo--docs))
+- other action items like [sbb-button](/docs/elements-button--docs) or [sbb-link](/docs/elements-link--docs)
+- a logo or a signet with the `.sbb-header-logo` class (see [sbb-logo](/docs/elements-logo--docs))
 
 Slotted elements are aligned to the left. Use `<div class="sbb-header-spacer"></div>` to align elements
 after it to the right.
@@ -212,7 +212,7 @@ using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of t
 Users can customize position and behaviour of actions inside the `sbb-header` component
 by adding classes to `sbb-header-button`/`sbb-header-link` elements and then defining their own style rules.
 
-[All the examples in Storybook](/story/elements-sbb-header-sbb-header--basic) have the following requirements:
+[All the examples in Storybook](/story/elements-header-sbb-header--basic) have the following requirements:
 
 1. four action items (with custom icons);
 2. the first item is always left aligned and has `expand-from` set to `small`;

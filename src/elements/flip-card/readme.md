@@ -13,7 +13,7 @@ The `sbb-flip-card` component displays an informative card that reveals more inf
 ```
 
 With the `sbb-flip-card-summary` you can optionally add an overlapping `sbb-chip-label` by wrapping the
-`sbb-image` in a `figure` tag (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
+`sbb-image` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
 
 ```html
 <sbb-flip-card>

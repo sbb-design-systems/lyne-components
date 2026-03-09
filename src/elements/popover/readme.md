@@ -9,7 +9,7 @@ The component could be used:
 
 The component must be connected with the trigger element using the `trigger` property,
 which accepts the id of the element, or directly its reference;
-the [sbb-menu-button](/docs/elements-sbb-button-sbb-mini-button--docs) is meant to be used as trigger.
+the [sbb-menu-button](/docs/elements-button--docs) is meant to be used as trigger.
 
 ```html
 <sbb-mini-button icon-name="circle-information-small" id="popover-trigger"></sbb-mini-button>

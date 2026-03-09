@@ -16,7 +16,7 @@ To achieve the correct spacing between elements inside the card badge, we recomm
 All content parts are presented with a predefined gap in between.
 
 Note: Additionally to using it in a card, the card badge can also be used
-in the [sbb-selection-expansion-panel](/docs/elements-sbb-selection-expansion-panel--docs) component.
+in the [sbb-selection-expansion-panel](/docs/elements-selection-expansion-panel--docs) component.
 
 ```html
 <sbb-card color="white">

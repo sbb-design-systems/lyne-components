@@ -1,7 +1,7 @@
 The `sbb-option` is a component which can be used to display items in components like
-[sbb-autocomplete](/docs/elements-sbb-autocomplete--docs) or a [sbb-select](/docs/elements-sbb-select--docs).
+[sbb-autocomplete](/docs/elements-autocomplete--docs) or a [sbb-select](/docs/elements-select--docs).
 
-It is based on the native `option` element. As such, it can labelled via its text content.
+It is based on the native `option` element. As such, it can be labeled via its text content.
 The component can optionally display an `sbb-icon` at the component start using the `iconName` property
 or via custom content using the `icon` slot.
 
@@ -66,8 +66,8 @@ option.textContent = 'Example';
 ## sbb-optgroup
 
 The `sbb-optgroup` is a component used to group more `sbb-option` within an
-[sbb-autocomplete](/docs/elements-sbb-autocomplete--docs) or an
-[sbb-select](/docs/elements-sbb-select--docs) component.
+[sbb-autocomplete](/docs/elements-autocomplete--docs) or an
+[sbb-select](/docs/elements-select--docs) component.
 
 The component has a `label` property as the name of the group.
 
@@ -94,7 +94,7 @@ The component has a `disabled` property which sets all the `sbb-option` in the g
 ## sbb-option-hint
 
 The `sbb-option-hint` is an optional component used to show a hint message within an
-[sbb-autocomplete](/docs/elements-sbb-autocomplete--docs).
+[sbb-autocomplete](/docs/elements-autocomplete--docs).
 
 ```html
 <sbb-autocomplete>

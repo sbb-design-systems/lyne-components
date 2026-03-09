@@ -1,4 +1,4 @@
-The `sbb-link-list` is a component that can be used to collect and display [sbb-block-link](/docs/elements-sbb-link-sbb-block-link--docs).
+The `sbb-link-list` is a component that can be used to collect and display [sbb-block-link](/docs/elements-link--docs).
 
 ```html
 <sbb-link-list>
@@ -17,7 +17,7 @@ The `sbb-link-list` is a component that can be used to collect and display [sbb-
 ## Slots
 
 The component can display an optional title,
-which is visually shown as a level-5 [sbb-title](/docs/elements-sbb-title--docs)
+which is visually shown as a level-5 [sbb-title](/docs/elements-title--docs)
 and is used as the `aria-labelledby` attribute of the `ul` element.
 
 The title can be set using the `titleContent` property or, alternatively, can be projected using the `title` slot.
