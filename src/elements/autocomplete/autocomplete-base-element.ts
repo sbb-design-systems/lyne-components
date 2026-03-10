@@ -172,6 +172,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   public constructor() {
     super();
     this.addEventListener?.('optionselected', (e: Event) => this.onOptionSelected(e));
+    this.addEventListener?.('ɵoptgroupslotchange', () => this._handleSlotchange(), {
+      capture: true,
+    });
     this.addController(
       new SbbPropertyWatcherController(
         this,
