@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbLoadingIndicatorCircleElement } from './loading-indicator-circle.component.ts';
 
-import './loading-indicator-circle.component.ts';
+import '../loading-indicator-circle.ts';
 
 describe(`sbb-loading-indicator-circle`, () => {
   let element: SbbLoadingIndicatorCircleElement;

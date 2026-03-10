@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbDialogTitleElement } from './dialog-title.component.ts';
 
-import './dialog-title.component.ts';
+import '../../dialog.ts';
 
 describe('sbb-dialog-title', () => {
   let element: SbbDialogTitleElement;

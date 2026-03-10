@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.ts';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
@@ -9,7 +9,7 @@ import { forceType } from '../core/decorators.ts';
 import { isLean, isZeroAnimationDuration } from '../core/dom.ts';
 import { composedPathHasAttribute } from '../core/eventing.ts';
 import { i18nCloseAlert } from '../core/i18n.ts';
-import { SbbHydrationMixin, SbbReadonlyMixin } from '../core/mixins.ts';
+import { SbbReadonlyMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import { SbbIconNameMixin } from '../icon.ts';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.ts';
@@ -36,11 +36,8 @@ const toastRefs = new Set<SbbToastElement>();
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export
-@customElement('sbb-toast')
-class SbbToastElement extends SbbIconNameMixin(
-  SbbHydrationMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)),
-) {
+export class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
+  public static override readonly elementName: string = 'sbb-toast';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

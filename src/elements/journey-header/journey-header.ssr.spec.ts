@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbJourneyHeaderElement } from './journey-header.component.ts';
 
+import '../journey-header.ts';
+
 describe(`sbb-journey-header ssr`, () => {
   let root: SbbJourneyHeaderElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-journey-header></sbb-journey-header>`, {
-      modules: ['./journey-header.component.js'],
+      modules: ['../journey-header.ts'],
     });
   });
 

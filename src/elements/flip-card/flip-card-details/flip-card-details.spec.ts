@@ -6,6 +6,8 @@ import { waitForLitRender } from '../../core/testing/wait-for-render.ts';
 
 import { SbbFlipCardDetailsElement } from './flip-card-details.component.ts';
 
+import '../../flip-card.ts';
+
 describe('sbb-flip-card-details', () => {
   let element: SbbFlipCardDetailsElement;
 

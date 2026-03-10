@@ -6,6 +6,8 @@ import { waitForLitRender } from '../../core/testing.ts';
 
 import { SbbFileSelectorElement } from './file-selector.component.ts';
 
+import '../../file-selector.ts';
+
 describe(`sbb-file-selector`, () => {
   let form: HTMLFormElement;
   let element: SbbFileSelectorElement;

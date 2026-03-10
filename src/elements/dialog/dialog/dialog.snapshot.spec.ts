@@ -5,10 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
 
 import type { SbbDialogElement } from './dialog.component.ts';
-import './dialog.component.ts';
-import '../dialog-title.ts';
-import '../dialog-close-button.ts';
-import '../dialog-content.ts';
+import '../../dialog.ts';
 
 describe(`sbb-dialog`, () => {
   describe('renders an open dialog', async () => {

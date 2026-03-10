@@ -4,9 +4,9 @@ import { html } from 'lit/static-html.js';
 import type { SbbTransparentButtonElement } from '../../button/transparent-button.ts';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition } from '../../core/testing.ts';
-import { SbbAlertElement } from '../alert.ts';
+import { SbbAlertElement } from '../alert/alert.component.ts';
 
-import './alert-group.component.ts';
+import '../../alert.ts';
 import '../../title.ts';
 
 describe(`sbb-alert-group`, () => {

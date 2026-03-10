@@ -1,6 +1,7 @@
-/**
- * @entrypoint
- */
-export * from './paginator/common.ts';
-export * from './paginator/compact-paginator.ts';
-export * from './paginator/paginator.ts';
+/** @entrypoint */
+import { SbbCompactPaginatorElement, SbbPaginatorElement } from './paginator.pure.ts';
+
+export * from './paginator.pure.ts';
+
+SbbCompactPaginatorElement.define();
+SbbPaginatorElement.define();

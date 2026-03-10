@@ -5,6 +5,8 @@ import { fixture } from '../core/testing/private.ts';
 
 import { SbbLoadingIndicatorElement } from './loading-indicator.component.ts';
 
+import '../loading-indicator.ts';
+
 describe(`sbb-loading-indicator`, () => {
   let element: SbbLoadingIndicatorElement;
 

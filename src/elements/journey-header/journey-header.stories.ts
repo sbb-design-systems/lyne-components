@@ -6,7 +6,7 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './journey-header.component.ts';
+import '../journey-header.ts';
 
 const origin: InputType = {
   control: {
@@ -142,7 +142,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-journey-header',
+  title: 'elements/Journey Header',
 };
 
 export default meta;

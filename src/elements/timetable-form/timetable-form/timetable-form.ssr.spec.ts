@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbTimetableFormElement } from './timetable-form.component.ts';
 
+import '../../timetable-form.ts';
+
 describe(`sbb-timetable-form ssr`, () => {
   let root: SbbTimetableFormElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-timetable-form></sbb-timetable-form>`, {
-      modules: ['./timetable-form.component.js'],
+      modules: ['../../timetable-form.ts'],
     });
   });
 

@@ -10,7 +10,7 @@ import type { SbbAutocompleteElement } from './autocomplete.component.ts';
 
 import '../form-field.ts';
 import '../option.ts';
-import './autocomplete.component.ts';
+import '../autocomplete.ts';
 
 describe(`sbb-autocomplete`, () => {
   describe('renders standalone', async () => {

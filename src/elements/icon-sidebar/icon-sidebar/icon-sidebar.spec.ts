@@ -3,12 +3,11 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
-import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container.ts';
+import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container/icon-sidebar-container.component.ts';
 
 import { SbbIconSidebarElement } from './icon-sidebar.component.ts';
 
-import '../icon-sidebar-container.ts';
-import '../icon-sidebar-content.ts';
+import '../../icon-sidebar.ts';
 
 describe('sbb-icon-sidebar', () => {
   let container: SbbIconSidebarContainerElement, element: SbbIconSidebarElement;

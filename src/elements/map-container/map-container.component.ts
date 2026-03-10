@@ -1,13 +1,13 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { html, nothing } from 'lit';
+import { property, state } from 'lit/decorators.js';
 
+import { SbbElement } from '../core/base-elements.ts';
 import { SbbLanguageController } from '../core/controllers.ts';
 import { forceType } from '../core/decorators.ts';
 import { forwardEvent } from '../core/eventing.ts';
 import { i18nMapContainerButtonLabel } from '../core/i18n.ts';
-import { SbbElementInternalsMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './map-container.scss?lit&inline';
@@ -29,9 +29,8 @@ import '../button/accent-button.ts';
  * this offset from the document's top. Only applied on mobile views.
  * Most commonly it can be set to `var(--sbb-header-height)`.
  */
-export
-@customElement('sbb-map-container')
-class SbbMapContainerElement extends SbbElementInternalsMixin(LitElement) {
+export class SbbMapContainerElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-map-container';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Flag to show/hide the scroll up button inside the sidebar on mobile. */

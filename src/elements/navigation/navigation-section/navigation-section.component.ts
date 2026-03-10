@@ -7,7 +7,7 @@ import {
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import {
   IS_FOCUSABLE_QUERY,
@@ -30,9 +30,9 @@ import {
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbNavigationButtonElement } from '../navigation-button.ts';
-import type { SbbNavigationLinkElement } from '../navigation-link.ts';
-import type { SbbNavigationElement } from '../navigation.ts';
+import type { SbbNavigationElement } from '../navigation/navigation.component.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
+import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 
 import style from './navigation-section.scss?lit&inline';
 
@@ -46,9 +46,8 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to add content into the `sbb-navigation-section`.
  */
-export
-@customElement('sbb-navigation-section')
-class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
+export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
+  public static override readonly elementName: string = 'sbb-navigation-section';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

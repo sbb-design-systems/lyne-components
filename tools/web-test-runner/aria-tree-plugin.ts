@@ -1,7 +1,9 @@
 import type { TestRunnerPlugin } from '@web/test-runner-core';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
 
-export type A11yTreePayload = { selector?: string };
+export interface A11yTreePayload {
+  selector?: string;
+}
 
 export function a11yTreePlugin(): TestRunnerPlugin<A11yTreePayload> {
   const toBoolean = (value: any): boolean | null =>

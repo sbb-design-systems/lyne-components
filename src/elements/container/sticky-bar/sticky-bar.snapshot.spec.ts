@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbStickyBarElement } from './sticky-bar.component.ts';
-import './sticky-bar.component.ts';
+import '../../container.ts';
 
 describe(`sbb-sticky-bar`, () => {
   describe('renders', () => {

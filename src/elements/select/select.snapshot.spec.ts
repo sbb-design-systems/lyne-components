@@ -6,7 +6,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 import { describeIf } from '../core/testing.ts';
 
 import type { SbbSelectElement } from './select.component.ts';
-import './select.component.ts';
+import '../select.ts';
 import '../option.ts';
 
 describe(`sbb-select`, () => {

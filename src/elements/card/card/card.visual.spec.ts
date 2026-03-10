@@ -8,8 +8,7 @@ import {
 } from '../../core/testing/private.ts';
 
 import '../../title.ts';
-import '../card-badge.ts';
-import './card.component.ts';
+import '../../card.ts';
 
 describe(`sbb-card`, () => {
   let root: HTMLElement;

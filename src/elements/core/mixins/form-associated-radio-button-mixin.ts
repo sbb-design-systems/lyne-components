@@ -7,7 +7,11 @@ import { i18nSelectionRequired } from '../i18n.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 import { SbbDisabledMixin } from './disabled-mixin.ts';
-import { SbbElementInternalsMixin } from './element-internals-mixin.ts';
+import {
+  SbbElementInternalsMixin,
+  type SbbElementInternalsMixinType,
+  type SbbElementInternalsConstructor,
+} from './element-internals-mixin.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -50,10 +54,15 @@ export declare abstract class SbbFormAssociatedRadioButtonMixinType extends SbbD
 export const SbbFormAssociatedRadioButtonMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbFormAssociatedRadioButtonMixinType> & T => {
+  // TODO(breaking-change): Remove SbbElementInternalsMixin and depend on SbbElement as base class instead of LitElement
+  const conditionalSuperClass = (superClass as unknown as Record<string, unknown>)['_$sbbElement$']
+    ? (superClass as unknown as AbstractConstructor<SbbElementInternalsMixinType> &
+        T &
+        SbbElementInternalsConstructor)
+    : SbbElementInternalsMixin(superClass);
+
   abstract class SbbFormAssociatedRadioButtonElement
-    extends SbbDisabledMixin(
-      SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superClass))),
-    )
+    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(conditionalSuperClass)))
     implements Partial<SbbFormAssociatedRadioButtonMixinType>
   {
     public static override readonly role = 'radio';

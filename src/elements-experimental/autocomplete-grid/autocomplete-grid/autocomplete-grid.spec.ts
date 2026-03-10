@@ -9,13 +9,12 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 import { type SinonSpy, spy } from 'sinon';
 
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.ts';
-import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.ts';
+import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button/autocomplete-grid-button.component.ts';
+import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/autocomplete-grid-option.component.ts';
 
 import { SbbAutocompleteGridElement } from './autocomplete-grid.component.ts';
-import '../autocomplete-grid-row.ts';
-import '../autocomplete-grid-cell.ts';
-import '../autocomplete-grid-button.ts';
+
+import '../../autocomplete-grid.ts';
 
 describe(`sbb-autocomplete-grid`, () => {
   let element: SbbAutocompleteGridElement, formField: SbbFormFieldElement, input: HTMLInputElement;

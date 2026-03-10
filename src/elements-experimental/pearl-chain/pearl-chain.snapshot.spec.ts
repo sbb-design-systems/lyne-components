@@ -5,7 +5,8 @@ import { html } from 'lit/static-html.js';
 import type { PtRideLeg } from '../core/timetable.ts';
 
 import type { SbbPearlChainElement } from './pearl-chain.component.ts';
-import './pearl-chain.component.ts';
+
+import '../pearl-chain.ts';
 
 const now = '2022-08-16T15:00:00';
 

@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbDialogContentElement } from './dialog-content.component.ts';
 
+import '../../dialog.ts';
+
 describe(`sbb-dialog-content ssr`, () => {
   let root: SbbDialogContentElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-dialog-content>Content</sbb-dialog-content>`, {
-      modules: ['./dialog-content.component.js'],
+      modules: ['../../dialog.ts'],
     });
   });
 

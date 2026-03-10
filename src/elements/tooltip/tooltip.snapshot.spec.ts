@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbTooltipElement } from './tooltip.component.ts';
-import './tooltip.component.ts';
+import '../tooltip.ts';
 
 describe(`sbb-tooltip`, () => {
   let wrapper: HTMLElement;

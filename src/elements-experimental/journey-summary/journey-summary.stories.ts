@@ -13,9 +13,9 @@ import {
 
 import readme from './readme.md?raw';
 
-import './journey-summary.component.ts';
 import '@sbb-esta/lyne-elements/button/button.js';
 import '@sbb-esta/lyne-elements/button/secondary-button.js';
+import '../journey-summary.ts';
 
 const disableAnimation: InputType = {
   control: {
@@ -266,7 +266,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'experimental/sbb-journey-summary',
+  title: 'experimental/Journey Summary',
 };
 
 export default meta;

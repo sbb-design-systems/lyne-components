@@ -1,6 +1,4 @@
-/**
- * @entrypoint
- */
+/** @entrypoint */
 export * from './decorators/force-type.ts';
 export * from './decorators/get-override.ts';
 export * from './decorators/handle-distinct-change.ts';

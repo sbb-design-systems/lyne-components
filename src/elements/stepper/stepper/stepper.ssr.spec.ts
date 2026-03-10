@@ -5,8 +5,7 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbStepperElement } from './stepper.component.ts';
 
-import '../step.ts';
-import '../step-label.ts';
+import '../../stepper.ts';
 
 describe(`sbb-stepper ssr`, () => {
   let root: SbbStepperElement;
@@ -24,7 +23,7 @@ describe(`sbb-stepper ssr`, () => {
           <sbb-step-label>Test step label 4</sbb-step-label>
         </sbb-stepper>
       `,
-      { modules: ['./stepper.component.js', '../step.js', '../step-label.js'] },
+      { modules: ['../../stepper.ts'] },
     );
   });
 

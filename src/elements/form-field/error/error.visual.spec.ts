@@ -8,7 +8,7 @@ import {
 } from '../../core/testing/private.ts';
 
 import '../../icon.ts';
-import './error.component.ts';
+import '../../form-field.ts';
 
 describe(`sbb-error`, () => {
   let root: HTMLElement;

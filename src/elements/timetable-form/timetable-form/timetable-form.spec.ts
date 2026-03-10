@@ -5,6 +5,8 @@ import { fixture } from '../../core/testing/private.ts';
 
 import { SbbTimetableFormElement } from './timetable-form.component.ts';
 
+import '../../timetable-form.ts';
+
 describe('sbb-timetable-form', () => {
   let element: SbbTimetableFormElement;
 

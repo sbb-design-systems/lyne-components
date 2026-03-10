@@ -4,7 +4,7 @@ import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/t
 
 import '../form-field.ts';
 import '../option.ts';
-import './select.component.ts';
+import '../select.ts';
 
 describe('sbb-select', () => {
   const valueEllipsis: string = 'This label name is so long that it needs ellipsis to fit.';

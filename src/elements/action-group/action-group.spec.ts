@@ -8,6 +8,7 @@ import type { SbbBlockLinkElement } from '../link.ts';
 
 import { SbbActionGroupElement } from './action-group.component.ts';
 
+import '../action-group.ts';
 import '../button/secondary-button.ts';
 import '../link/block-link.ts';
 

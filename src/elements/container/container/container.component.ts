@@ -1,14 +1,9 @@
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import { property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
-import { SbbElementInternalsMixin, ɵstateController } from '../../core/mixins.ts';
+import { ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './container.scss?lit&inline';
@@ -22,9 +17,8 @@ import style from './container.scss?lit&inline';
  * @cssprop --sbb-page-spacing-padding - Use this variable to override the default page spacing.
  * Note that overriding this will disable the standard responsive spacing behavior of the container.
  */
-export
-@customElement('sbb-container')
-class SbbContainerElement extends SbbElementInternalsMixin(LitElement) {
+export class SbbContainerElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-container';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Whether the container is expanded. */

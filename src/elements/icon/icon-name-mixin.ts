@@ -1,6 +1,7 @@
-import { html, type LitElement, nothing, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import type { SbbElement } from '../core/base-elements.ts';
 import { forceType, omitEmptyConverter } from '../core/decorators.ts';
 import type { AbstractConstructor, SbbElementInternalsMixinType } from '../core/mixins.ts';
 
@@ -17,7 +18,7 @@ export declare class SbbIconNameMixinType {
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbIconNameMixin = <
-  T extends AbstractConstructor<LitElement & SbbElementInternalsMixinType>,
+  T extends AbstractConstructor<SbbElement & SbbElementInternalsMixinType>,
 >(
   superClass: T,
 ): AbstractConstructor<SbbIconNameMixinType> & T => {

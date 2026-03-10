@@ -4,8 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture } from '../../core/testing/private.ts';
 
 import { SbbHeaderEnvironmentElement } from './header-environment.component.ts';
-import '../header-button.ts';
-import '../header.ts';
+import '../../header.ts';
 
 describe(`sbb-header-environment`, () => {
   let element: SbbHeaderEnvironmentElement;

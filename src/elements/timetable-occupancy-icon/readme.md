@@ -1,4 +1,4 @@
-The `sbb-timetable-occupancy-icon` displays the wagon occupancy depending on occupancy property
+The `<sbb-timetable-occupancy-icon>` displays the wagon occupancy depending on occupancy property
 and the page style (normal, negative, high contrast mode).
 
 ```html
@@ -20,7 +20,11 @@ In high contrast mode, the rendered icon changes for a better user experience.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbTimetableOccupancyIconElement`, `sbb-timetable-occupancy-icon`
+
+#### Properties
 
 | Name         | Attribute     | Privacy | Type           | Default  | Description                                                                                                                                                                                  |
 | ------------ | ------------- | ------- | -------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -28,7 +32,7 @@ In high contrast mode, the rendered icon changes for a better user experience.
 | `noSanitize` | `no-sanitize` | public  | `boolean`      | `false`  | When set to `true`, SVG content that is HTTP fetched will not be checked if the response SVG content has any `<script>` elements, or any attributes that start with `on`, such as `onclick`. |
 | `occupancy`  | `occupancy`   | public  | `SbbOccupancy` | `'none'` | Wagon occupancy.                                                                                                                                                                             |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                    | Default | Description                         |
 | ----------------------- | ------- | ----------------------------------- |

@@ -1,12 +1,14 @@
+import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { type CSSResultGroup, isServer, type TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { html } from 'lit';
+import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 
-import { getI18nSeatReservation, mapIconToSvg } from '../common.ts';
+import { mapIconToSvg } from '../common/mapper.ts';
+import { getI18nSeatReservation } from '../common/translations.ts';
 
 import style from './seat-reservation-graphic.scss?lit&inline';
 
@@ -15,9 +17,8 @@ import '@sbb-esta/lyne-elements/icon.js';
 /**
  * Output one of the SVG graphics based on its code.
  */
-export
-@customElement('sbb-seat-reservation-graphic')
-class SbbSeatReservationGraphicElement extends LitElement {
+export class SbbSeatReservationGraphicElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-seat-reservation-graphic';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Name of the SVG graphic to be displayed. */

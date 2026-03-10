@@ -11,7 +11,7 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.ts';
 
-import './chip.component.ts';
+import '../../chip.ts';
 
 const cases = {
   negative: [false, true],

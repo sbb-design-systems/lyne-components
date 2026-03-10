@@ -1,7 +1,8 @@
-import { html, type LitElement, type PropertyValues, type TemplateResult } from 'lit';
+import { html, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { sbbInputModalityDetector } from '../../core/a11y/input-modality-detector.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
@@ -12,19 +13,14 @@ import {
   i18nPreviousPage,
 } from '../../core/i18n.ts';
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.ts';
-import {
-  type AbstractConstructor,
-  SbbDisabledMixin,
-  SbbElementInternalsMixin,
-  SbbNegativeMixin,
-} from '../../core/mixins.ts';
+import { type AbstractConstructor, SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.ts';
 
 import '../../button/mini-button.ts';
 import '../../button/mini-button-group.ts';
 import '../../divider.ts';
 
 export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNegativeMixin(
-  SbbDisabledMixin(SbbElementInternalsMixin(LitElement)),
+  SbbDisabledMixin(SbbElement),
 ) {
   public accessor length: number;
   public accessor pageSize: number;
@@ -49,14 +45,14 @@ export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNega
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<LitElement>>(
+export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<SbbElement>>(
   superClass: T,
 ): AbstractConstructor<SbbPaginatorCommonElementMixinType> & T => {
   abstract class SbbPaginatorCommonElement
-    extends SbbNegativeMixin(SbbDisabledMixin(SbbElementInternalsMixin(superClass)))
+    extends SbbNegativeMixin(SbbDisabledMixin(superClass))
     implements Partial<SbbPaginatorCommonElementMixinType>
   {
-    public static override role = 'group';
+    public static role = 'group';
 
     /** Total number of items. */
     @forceType()

@@ -5,15 +5,12 @@ import type { Context } from 'mocha';
 
 import { fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
-import type { SbbSidebarCloseButtonElement } from '../sidebar-close-button.ts';
-import type { SbbSidebarContainerElement } from '../sidebar-container.ts';
+import type { SbbSidebarCloseButtonElement } from '../sidebar-close-button/sidebar-close-button.component.ts';
+import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 
 import { SbbSidebarElement } from './sidebar.component.ts';
 
-import '../sidebar-close-button.ts';
-import '../sidebar-container.ts';
-import '../sidebar-content.ts';
-import '../sidebar-title.ts';
+import '../../sidebar.ts';
 
 describe('sbb-sidebar', () => {
   let container: SbbSidebarContainerElement,

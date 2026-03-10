@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbCarouselItemElement } from './carousel-item.component.ts';
 
+import '../../carousel.ts';
+
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
 describe(`sbb-carousel-item ssr`, () => {
@@ -18,7 +20,7 @@ describe(`sbb-carousel-item ssr`, () => {
         </sbb-carousel-item>
       `,
       {
-        modules: ['./carousel-item.component.js'],
+        modules: ['../../carousel.ts'],
       },
     );
   });

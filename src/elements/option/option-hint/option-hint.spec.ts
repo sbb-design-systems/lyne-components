@@ -5,6 +5,8 @@ import { fixture } from '../../core/testing/private.ts';
 
 import { SbbOptionHintElement } from './option-hint.component.ts';
 
+import '../../option.ts';
+
 describe('sbb-option-hint', () => {
   let element: SbbOptionHintElement;
 

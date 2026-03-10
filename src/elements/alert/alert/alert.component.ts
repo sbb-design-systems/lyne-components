@@ -1,5 +1,5 @@
 import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
 import { SbbDarkModeController, SbbLanguageController } from '../../core/controllers.ts';
@@ -23,9 +23,8 @@ import '../../divider.ts';
  * @slot icon - Should be a `sbb-icon` which is displayed next to the title. Styling is optimized for icons of type HIM-CUS.
  * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
  */
-export
-@customElement('sbb-alert')
-class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
+export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
+  public static override readonly elementName: string = 'sbb-alert';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static override readonly events = {
     beforeopen: 'beforeopen',

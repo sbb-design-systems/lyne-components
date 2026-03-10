@@ -4,7 +4,9 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbTabLabelElement } from './tab-label.component.ts';
-import './tab-label.component.ts';
+
+import '../../stepper.ts';
+import '../../tabs.ts';
 
 describe(`sbb-tab-label`, () => {
   describe(`renders`, () => {

@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
-import './button-link.component.ts';
+import '../button-link.ts';
 
 // We test only the differences to the sbb-button
 describe(`sbb-button-link`, () => {

@@ -1,5 +1,5 @@
-The `sbb-accordion` is a component which acts as a container
-for one or more [sbb-expansion-panel](/docs/elements-sbb-accordion-sbb-expansion-panel--docs).
+The `<sbb-accordion>` is a component which acts as a container
+for one or more [sbb-expansion-panel](/docs/elements-expansion-panel--docs).
 
 ```html
 <sbb-accordion>
@@ -16,7 +16,7 @@ for one or more [sbb-expansion-panel](/docs/elements-sbb-accordion-sbb-expansion
 
 ## Interaction
 
-The `multi` property, if set, allows having more than one `sbb-expansion-panel` expanded at the same time.
+The `multi` property, if set, allows having more than one `<sbb-expansion-panel>` expanded at the same time.
 
 ```html
 <sbb-accordion multi> ... </sbb-accordion>
@@ -25,16 +25,16 @@ The `multi` property, if set, allows having more than one `sbb-expansion-panel` 
 ## Style
 
 The component has two different sizes, `l` (default) and `s`, which can be changed using the `size` property.
-The property overrides the `size` value of any inner `sbb-expansion-panel`.
+The property overrides the `size` value of any inner `<sbb-expansion-panel>`.
 
 ```html
 <sbb-accordion size="s"> ... </sbb-accordion>
 ```
 
-The component has a `titleLevel` property, which is proxied to each inner `sbb-expansion-panel-header`, and can be used
-to wrap the header of each `sbb-expansion-panel` in a heading tag; if the property is unset, a `div` is used.
+The component has a `titleLevel` property, which is proxied to each inner `<sbb-expansion-panel-header>`, and can be used
+to wrap the header of each `<sbb-expansion-panel>` in a heading tag; if the property is unset, a `div` is used.
 
-In the following example, all the `sbb-expansion-panel-header` would be wrapped in a `h3` heading tag.
+In the following example, all the `<sbb-expansion-panel-header>` would be wrapped in a `h3` heading tag.
 
 ```html
 <sbb-accordion title-level="3">
@@ -48,7 +48,11 @@ In the following example, all the `sbb-expansion-panel-header` would be wrapped 
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbAccordionElement`, `sbb-accordion`
+
+#### Properties
 
 | Name         | Attribute     | Privacy | Type                    | Default            | Description                                                                             |
 | ------------ | ------------- | ------- | ----------------------- | ------------------ | --------------------------------------------------------------------------------------- |
@@ -56,7 +60,7 @@ In the following example, all the `sbb-expansion-panel-header` would be wrapped 
 | `size`       | `size`        | public  | `'s' \| 'l'`            | `'l' / 's' (lean)` | Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`. |
 | `titleLevel` | `title-level` | public  | `SbbTitleLevel \| null` | `null`             | The heading level for the sbb-expansion-panel-headers within the component.             |
 
-## Slots
+#### Slots
 
 | Name | Description                                                 |
 | ---- | ----------------------------------------------------------- |

@@ -1,11 +1,11 @@
-The `sbb-notification` is a component which purpose is to inform users of updates.
+The `<sbb-notification>` is a component which purpose is to inform users of updates.
 A notification is an element that displays a brief, important message
 in a way that attracts the user's attention without interrupting the user's task.
 
 Inline notifications show up in task flows, to notify users of an action status or other information.
 They usually appear at the top of the primary content area or close to the item needing attention.
 
-The `sbb-notification` is structured in the following way:
+The `<sbb-notification>` is structured in the following way:
 
 - Icon: informs users of the notification type at a glance.
 - Title (optional): gives users a quick overview of the notification.
@@ -26,7 +26,7 @@ Note that the notification only supports inline links.
 
 ## Variants
 
-The `sbb-notification` supports the types `info` (default), `note`, `success`, `warn` and `error`, based on the type of the information displayed.
+The `<sbb-notification>` supports the types `info` (default), `note`, `success`, `warn` and `error`, based on the type of the information displayed.
 
 ```html
 <sbb-notification type="success">...</sbb-notification>
@@ -55,7 +55,7 @@ and should not be included if it is critical for a user to read or interact with
 
 ## Style
 
-If the `sbb-notification` host needs a margin, in order to properly animate it on open/close,
+If the `<sbb-notification>` host needs a margin, in order to properly animate it on open/close,
 we suggest using the `--sbb-notification-margin` variable to set it.
 For example, use `--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0` to apply a bottom margin.
 
@@ -79,7 +79,11 @@ As a base rule, opening animations should be active if a notification arrives af
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbNotificationElement`, `sbb-notification`
+
+#### Properties
 
 | Name        | Attribute   | Privacy | Type                                                 | Default            | Description                                                                                                                      |
 | ----------- | ----------- | ------- | ---------------------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -89,13 +93,13 @@ As a base rule, opening animations should be active if a notification arrives af
 | `size`      | `size`      | public  | `'s' \| 'm'`                                         | `'m' / 's' (lean)` | Size variant, either s or m.                                                                                                     |
 | `type`      | `type`      | public  | `'info' \| 'note' \| 'success' \| 'warn' \| 'error'` | `'info'`           | The type of the notification.                                                                                                    |
 
-## Methods
+#### Methods
 
 | Name    | Privacy | Description | Parameters | Return | Inherited From |
 | ------- | ------- | ----------- | ---------- | ------ | -------------- |
 | `close` | public  |             |            | `void` |                |
 
-## Events
+#### Events
 
 | Name          | Type    | Description                                                                                     | Inherited From |
 | ------------- | ------- | ----------------------------------------------------------------------------------------------- | -------------- |
@@ -104,13 +108,13 @@ As a base rule, opening animations should be active if a notification arrives af
 | `close`       | `Event` | Emits when the closing animation ends.                                                          |                |
 | `open`        | `Event` | Emits when the opening animation ends.                                                          |                |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                        | Default | Description                                                                                                    |
 | --------------------------- | ------- | -------------------------------------------------------------------------------------------------------------- |
 | `--sbb-notification-margin` | `0`     | Can be used to modify the margin in order to get a smoother animation. See style section for more information. |
 
-## Slots
+#### Slots
 
 | Name    | Description                                                                                                                                |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |

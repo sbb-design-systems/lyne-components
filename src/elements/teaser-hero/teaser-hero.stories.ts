@@ -8,7 +8,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import sampleImages from '../core/images.ts';
 
 import readme from './readme.md?raw';
-import './teaser-hero.component.ts';
+import '../teaser-hero.ts';
 import '../chip-label.ts';
 import '../image.ts';
 
@@ -176,7 +176,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-teaser/sbb-teaser-hero',
+  title: 'elements/Teaser Hero',
 };
 
 export default meta;

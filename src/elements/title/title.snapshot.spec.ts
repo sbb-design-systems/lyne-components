@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbTitleElement } from './title.component.ts';
 
-import './title.component.ts';
+import '../title.ts';
 
 describe(`sbb-title`, () => {
   describe('renders', async () => {

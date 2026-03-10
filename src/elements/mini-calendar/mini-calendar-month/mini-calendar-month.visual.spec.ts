@@ -3,9 +3,7 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './mini-calendar-month.component.ts';
-import '../mini-calendar-day.ts';
-import '../mini-calendar.ts';
+import '../../mini-calendar.ts';
 
 describe('sbb-mini-calendar-month', () => {
   describeViewports({ viewports: ['zero', 'large'] }, () => {

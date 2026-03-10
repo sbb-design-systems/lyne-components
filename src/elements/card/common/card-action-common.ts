@@ -7,7 +7,7 @@ import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
 import type { SbbActionBaseElement } from '../../core/base-elements.ts';
 import { ɵstateController, type AbstractConstructor } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbCardElement } from '../card.ts';
+import type { SbbCardElement } from '../card/card.component.ts';
 
 import style from './card-action.scss?lit&inline';
 

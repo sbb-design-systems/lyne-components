@@ -1,5 +1,5 @@
 import type { CSSResultGroup } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbTitleBase, type SbbTitleLevel } from '../../title.ts';
 
@@ -10,9 +10,8 @@ import style from './sidebar-title.scss?lit&inline';
  *
  * @slot - Use the unnamed slot for the content of the sidebar-title.
  */
-export
-@customElement('sbb-sidebar-title')
-class SbbSidebarTitleElement extends SbbTitleBase {
+export class SbbSidebarTitleElement extends SbbTitleBase {
+  public static override readonly elementName: string = 'sbb-sidebar-title';
   public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
 
   /** Title level */

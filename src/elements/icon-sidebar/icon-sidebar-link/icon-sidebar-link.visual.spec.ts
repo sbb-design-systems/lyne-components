@@ -8,7 +8,7 @@ import {
 } from '../../core/testing/private.ts';
 
 import '../../icon.ts';
-import './icon-sidebar-link.component.ts';
+import '../../icon-sidebar.ts';
 
 describe(`sbb-icon-sidebar-link`, () => {
   let root: HTMLElement;

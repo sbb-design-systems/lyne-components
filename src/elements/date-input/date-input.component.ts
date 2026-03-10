@@ -1,6 +1,7 @@
-import { type CSSResultGroup, isServer, LitElement, type PropertyDeclaration } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, isServer, type PropertyDeclaration } from 'lit';
+import { property } from 'lit/decorators.js';
 
+import { SbbElement } from '../core/base-elements.ts';
 import { readConfig } from '../core/config.ts';
 import { type DateAdapter, defaultDateAdapter } from '../core/datetime.ts';
 import { plainDate, plainDateConverter } from '../core/decorators.ts';
@@ -34,9 +35,8 @@ export interface SbbDateInputAssociated<T> {
 /**
  * Custom input for a date.
  */
-export
-@customElement('sbb-date-input')
-class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitElement) {
+export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-date-input';
   public static override styles: CSSResultGroup = style;
 
   /**

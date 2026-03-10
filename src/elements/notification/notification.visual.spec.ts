@@ -5,7 +5,7 @@ import { describeEach, describeViewports, visualDiffDefault } from '../core/test
 
 import '../link/link.ts';
 import '../title.ts';
-import './notification.component.ts';
+import '../notification.ts';
 
 describe(`sbb-notification`, () => {
   const defaultArgs = {

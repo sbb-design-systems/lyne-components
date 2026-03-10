@@ -4,6 +4,8 @@ import { html } from 'lit/static-html.js';
 import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbTeaserProductElement } from './teaser-product.component.ts';
+
+import '../../teaser-product.ts';
 import '../../image.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
@@ -24,7 +26,7 @@ describe(`sbb-teaser-product ssr`, () => {
           </sbb-teaser-product>
         `,
         {
-          modules: ['./teaser-product.component.js', '../../image.js'],
+          modules: ['../../teaser-product.ts', '../../image.ts'],
         },
       );
     });

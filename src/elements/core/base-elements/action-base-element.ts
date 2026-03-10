@@ -1,19 +1,19 @@
-import { html, LitElement, type TemplateResult } from 'lit';
+import { html, type TemplateResult } from 'lit';
 
-import { SbbElementInternalsMixin } from '../mixins.ts';
+import { SbbElement } from './element.ts';
 
 /**
  * Whenever an element can be disabled it has disabled property
  * or formDisabled if it's a form element.
  * Because we can't use types here directly we created this helper type.
  */
-type MaybeDisabled = {
+interface MaybeDisabled {
   disabled?: boolean;
   formDisabled?: boolean;
   disabledInteractive?: boolean;
-};
+}
 
-export abstract class SbbActionBaseElement extends SbbElementInternalsMixin(LitElement) {
+export abstract class SbbActionBaseElement extends SbbElement {
   protected get maybeDisabled(): boolean | undefined {
     const maybeDisabled = this as MaybeDisabled;
     return maybeDisabled.disabled || maybeDisabled.formDisabled;

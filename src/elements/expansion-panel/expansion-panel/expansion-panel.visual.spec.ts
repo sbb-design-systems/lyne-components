@@ -8,9 +8,8 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.ts';
 
-import './expansion-panel.component.ts';
-import '../expansion-panel-header.ts';
-import '../expansion-panel-content.ts';
+import '../../expansion-panel.ts';
+
 import '../../icon.ts';
 
 describe(`sbb-expansion-panel`, () => {

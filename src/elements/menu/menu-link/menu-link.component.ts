@@ -1,8 +1,6 @@
-import { customElement } from 'lit/decorators.js';
-
 import { SbbLinkBaseElement } from '../../core/base-elements.ts';
 import { SbbDisabledInteractiveMixin } from '../../core/mixins.ts';
-import { SbbMenuActionCommonElementMixin } from '../common.ts';
+import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common.ts';
 
 /**
  * It displays a link element that can be used in the `sbb-menu` component.
@@ -12,11 +10,10 @@ import { SbbMenuActionCommonElementMixin } from '../common.ts';
  * @cssprop [--sbb-menu-action-outer-horizontal-padding=var(--sbb-spacing-fixed-3x)] - Can be used
  * to modify horizontal padding.
  */
-export
-@customElement('sbb-menu-link')
-class SbbMenuLinkElement extends SbbDisabledInteractiveMixin(
+export class SbbMenuLinkElement extends SbbDisabledInteractiveMixin(
   SbbMenuActionCommonElementMixin(SbbLinkBaseElement),
 ) {
+  public static override readonly elementName: string = 'sbb-menu-link';
   protected override readonly anchorRole = 'menuitem';
 }
 

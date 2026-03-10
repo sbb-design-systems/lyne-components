@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbTeaserProductStaticElement } from './teaser-product-static.component.ts';
-import './teaser-product-static.component.ts';
+
+import '../../teaser-product.ts';
 import '../../image.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');

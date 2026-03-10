@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbBreadcrumbElement } from './breadcrumb.component.ts';
-import './breadcrumb.component.ts';
+
+import '../../breadcrumb.ts';
 
 describe(`sbb-breadcrumb`, () => {
   describe('renders with text', () => {

@@ -2,7 +2,7 @@ import { html } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './visual-checkbox.component.ts';
+import '../visual-checkbox.ts';
 
 describe(`sbb-visual-checkbox`, () => {
   const states = [

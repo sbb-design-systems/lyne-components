@@ -8,7 +8,7 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
-import './block-link-button.component.ts';
+import '../block-link-button.ts';
 
 describe(`sbb-block-link-button`, () => {
   const cases = {

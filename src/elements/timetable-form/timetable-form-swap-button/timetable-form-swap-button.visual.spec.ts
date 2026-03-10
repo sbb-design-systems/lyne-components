@@ -2,7 +2,7 @@ import { html } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './timetable-form-swap-button.component.ts';
+import '../../timetable-form.ts';
 
 describe('sbb-timetable-form-swap-button', () => {
   describeViewports({ viewports: ['small'] }, () => {

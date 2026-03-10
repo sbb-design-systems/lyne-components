@@ -7,7 +7,7 @@ import type {
   SbbPearlChainVerticalItemElement,
 } from './pearl-chain-vertical-item.component.ts';
 
-import './pearl-chain-vertical-item.component.ts';
+import '../pearl-chain-vertical-item.ts';
 
 describe(`sbb-pearl-chain-vertical-item`, () => {
   describe('renders component with charcoal standard line and bullet', () => {
