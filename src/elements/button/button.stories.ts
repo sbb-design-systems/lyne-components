@@ -9,6 +9,8 @@ import { html, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { Args, ArgTypes, InputType } from 'storybook/internal/types';
 
+import type { SbbButtonElement } from './button/button.component.ts';
+import type { SbbMiniButtonGroupElement } from './mini-button-group/mini-button-group.component.ts';
 import readme from './readme.md?raw';
 
 import '../button.ts';
@@ -28,7 +30,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm', 'l', null],
+  options: ['s', 'm', 'l', null] satisfies (SbbButtonElement['size'] | null)[],
 };
 
 const defaultArgTypes: ArgTypes = {
@@ -71,7 +73,6 @@ const controlsHint = html`<sbb-notification
 
 export const Overview: StoryObj = {
   render: ({ size, negative }: Args) => html`
-    ${html`
       ${tableHeader(
         negative,
         html`<tr>
@@ -96,9 +97,9 @@ export const Overview: StoryObj = {
               </sbb-secondary-button>
             </td>
             <td>
-              <sbb-accent-button size=${size} ?negative=${negative} disabled
-                >Label</sbb-accent-button
-              >
+              <sbb-accent-button size=${size} ?negative=${negative} disabled>
+                Label
+              </sbb-accent-button>
             </td>
             <td>
               <sbb-transparent-button size=${size} ?negative=${negative} disabled>
@@ -136,9 +137,9 @@ export const Overview: StoryObj = {
               </sbb-secondary-button>
             </td>
             <td>
-              <sbb-accent-button size=${size} ?negative=${negative} loading
-                >Label</sbb-accent-button
-              >
+              <sbb-accent-button size=${size} ?negative=${negative} loading>
+                Label
+              </sbb-accent-button>
             </td>
             <td>
               <sbb-transparent-button size=${size} ?negative=${negative} loading>
@@ -147,8 +148,7 @@ export const Overview: StoryObj = {
             </td>
           </tr>`,
       )}
-    `}
-    ${html`
+
     <div>
       <sbb-title ?negative=${negative} level="6" style="margin-block-start:0">Icon Variants</sbb-title>
       <sbb-table-wrapper>
@@ -181,13 +181,13 @@ export const Overview: StoryObj = {
       </table>
       </sbb-table-wrapper>
     </div>
-  `} ${controlsHint}
+   ${controlsHint}
   `,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
 
-export const LinkVariant: StoryObj = {
+export const LinkButton: StoryObj = {
   render: ({ size, negative }: Args) =>
     html`<sbb-notification
       type="info"
@@ -196,10 +196,9 @@ export const LinkVariant: StoryObj = {
     >
       The link variant can be used in contexts where the button is used as a link.
     </sbb-notification>
-      ${html`
         ${tableHeader(
           negative,
-          html` <tr>
+          html`<tr>
             <td>Default</td>
             <td>
               <sbb-button-link
@@ -207,8 +206,9 @@ export const LinkVariant: StoryObj = {
                 size=${size}
                 ?negative=${negative}
                 icon-name="link-external-small"
-                >Label</sbb-button-link
               >
+                Label
+              </sbb-button-link>
             </td>
             <td>
               <sbb-secondary-button-link
@@ -242,19 +242,19 @@ export const LinkVariant: StoryObj = {
             </td>
           </tr>`,
         )}
-      `} ${controlsHint}</sbb-notification
+      ${controlsHint}</sbb-notification
     >`,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
 
-export const StaticVariant: StoryObj = {
+export const StaticButton: StoryObj = {
   render: ({ size, negative }: Args) =>
     html`<sbb-notification type="info" readonly animation="none">
         The static variant can be used in contexts where interactive element is wrapping the button.
         E.g. inside a \`sbb-teaser-product\` element.
       </sbb-notification>
-      ${html`${tableHeader(
+      ${tableHeader(
         negative,
         html`
           <tr>
@@ -277,7 +277,7 @@ export const StaticVariant: StoryObj = {
             </td>
           </tr>
         `,
-      )}`}
+      )}
       ${controlsHint}`,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
@@ -291,7 +291,7 @@ const miniButtonGroupSize: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm', 'l', 'xl', null],
+  options: ['s', 'm', 'l', 'xl', null] satisfies (SbbMiniButtonGroupElement['size'] | null)[],
 };
 
 export const MiniButton: StoryObj = {
@@ -417,9 +417,9 @@ const meta: Meta = {
           ? '--sbb-focus-outline-color: var(--sbb-focus-outline-color-dark); color: var(--sbb-color-1-negative);'
           : ''};
 
-           & > *:not(sbb-table-wrapper) {
-             width: min(100%, 800px);
-           }
+          sbb-notification {
+            max-width: 800px;
+          }
 
           table {
             width: fit-content;
