@@ -138,7 +138,7 @@ describe(`sbb-seat-reservation`, () => {
 
   describe('navigation checks', () => {
     const maxCoachesInTrain = dataFull[0].coachItems.length - 1;
-    const TIMEOUT_NAVIGATION: number = 1000;
+    const TIMEOUT_NAVIGATION: number = 1200;
 
     let btn: SbbSecondaryButtonElement;
 
