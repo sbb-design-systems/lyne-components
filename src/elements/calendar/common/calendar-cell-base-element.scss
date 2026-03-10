@@ -49,6 +49,12 @@
   color: var(--sbb-calendar-cell-color);
   border-radius: var(--sbb-calendar-cell-border-radius);
 
+  :host(:focus-visible) & {
+    @include sbb.focus-outline;
+
+    --sbb-focus-outline-offset: 1px;
+  }
+
   &::before {
     content: '';
     position: absolute;
@@ -60,10 +66,6 @@
     transition-timing-function: var(--sbb-calendar-cell-transition-easing-function);
     transition-property: background-color;
     z-index: -1;
-
-    :host(:focus-visible) & {
-      @include sbb.focus-outline;
-    }
 
     :host(:not(:disabled):active) & {
       @include sbb.if-forced-colors {
@@ -83,6 +85,8 @@
       &::before {
         @include sbb.if-forced-colors {
           @include sbb.focus-outline;
+
+          --sbb-focus-outline-offset: 1px;
 
           // Basically the focus-outline mixin is made for use with focus-visible.
           // As we use it here with hover, we have to ensure that the outline is not overridden when mouse or touch is in use.
