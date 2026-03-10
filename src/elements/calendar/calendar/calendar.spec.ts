@@ -20,12 +20,12 @@ import {
 } from '../calendar-day/calendar-day.helper.private.ts';
 import type { SbbCalendarMonthElement } from '../calendar-month/calendar-month.component.ts';
 import type { SbbCalendarWeekdayElement } from '../calendar-weekday/calendar-weekday.component.ts';
+import type { SbbCalendarWeeknumberElement } from '../calendar-weeknumber/calendar-weeknumber.component.ts';
 import type { SbbCalendarYearElement } from '../calendar-year/calendar-year.component.ts';
 import type { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-element.ts';
 
 import type { SbbMonthChangeEvent } from './calendar.component.ts';
 import { SbbCalendarElement } from './calendar.component.ts';
-
 import '../../button.ts';
 
 describe(`sbb-calendar`, () => {
@@ -1679,9 +1679,10 @@ describe(`sbb-calendar`, () => {
             // Due to the multiple property, cells have buttons instead than span.
             expect(cells[0].querySelector('span')).to.be.null;
             // The first button is the weekday button (14th week, days from Apr 1 to Apr 6
-            const firstButton = cells[0].querySelector('button')!;
+            const firstButton =
+              cells[0].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             expect(firstButton).not.to.be.null;
-            expect(firstButton.textContent!.trim()).to.be.equal('14');
+            expect(firstButton.value).to.be.equal('14');
             // Adding / removing days is done without the use of ctrl/cmd
             firstButton.click();
             await selectedSpy.calledOnce();
@@ -1699,7 +1700,8 @@ describe(`sbb-calendar`, () => {
             expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
 
             // With the first row selected, add the second one
-            const secondButton = cells[1].querySelector('button')!;
+            const secondButton =
+              cells[1].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             firstButton.click();
             secondButton.click();
             await selectedSpy.calledTimes(4);
@@ -1786,14 +1788,30 @@ describe(`sbb-calendar`, () => {
             const cells = Array.from(rows).map((e) => e.querySelector('td')!);
             // In wide mode, we have two months displayed, so we have to consider the number of weeks in April and May
             expect(cells.length).to.be.equal(10);
-            expect(cells[0].querySelector('button')!.textContent!.trim()).to.be.equal('14');
-            expect(cells[1].querySelector('button')!.textContent!.trim()).to.be.equal('15');
-            expect(cells[4].querySelector('button')!.textContent!.trim()).to.be.equal('18');
-            expect(cells[5].querySelector('button')!.textContent!.trim()).to.be.equal('18');
-            expect(cells[9].querySelector('button')!.textContent!.trim()).to.be.equal('22');
+            expect(
+              cells[0].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
+                .value,
+            ).to.be.equal('14');
+            expect(
+              cells[1].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
+                .value,
+            ).to.be.equal('15');
+            expect(
+              cells[4].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
+                .value,
+            ).to.be.equal('18');
+            expect(
+              cells[5].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
+                .value,
+            ).to.be.equal('18');
+            expect(
+              cells[9].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
+                .value,
+            ).to.be.equal('22');
 
             // Clicking on the last week button must select all the days of the week, including the ones in the next month
-            const lastButtonFirstMonth = cells[4].querySelector('button')!;
+            const lastButtonFirstMonth =
+              cells[4].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             lastButtonFirstMonth.click();
             await selectedSpy.calledOnce();
             let selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
@@ -1807,7 +1825,8 @@ describe(`sbb-calendar`, () => {
             /**
              * Clicking on the first week button in the next month should not change the selection,  since the dates are the same as before.
              */
-            const firstButtonSecondMonth = cells[5].querySelector('button')!;
+            const firstButtonSecondMonth =
+              cells[5].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             firstButtonSecondMonth.click();
             expect(selectedSpy.calledTimes(2));
             selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
@@ -1815,7 +1834,8 @@ describe(`sbb-calendar`, () => {
             expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
 
             // Clicks on the first button of the first month does not select dates in the previous (not rendered) one
-            const firstButton = cells[0].querySelector('button')!;
+            const firstButton =
+              cells[0].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             firstButton.click();
             await selectedSpy.calledTimes(3);
             selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
@@ -1841,7 +1861,7 @@ describe(`sbb-calendar`, () => {
           });
         });
 
-        describe.only('vertical', () => {
+        describe('vertical', () => {
           it('renders', async () => {
             const calendar: SbbCalendarElement = await fixture(html`
               <sbb-calendar selected="2025-04-08" orientation="vertical" week-numbers>
@@ -1903,9 +1923,10 @@ describe(`sbb-calendar`, () => {
             expect(cells.length).to.be.equal(6);
             // Due to the multiple property, cells have buttons instead than span.
             expect(cells[1].querySelector('span')).to.be.null;
-            const firstButton = cells[1].querySelector('button')!;
+            const firstButton =
+              cells[1].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             expect(firstButton).not.to.be.null;
-            expect(firstButton.textContent!.trim()).to.be.equal('14');
+            expect(firstButton.value).to.be.equal('14');
             firstButton.click();
             await selectedSpy.calledOnce();
             let selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
@@ -1922,7 +1943,8 @@ describe(`sbb-calendar`, () => {
             expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
 
             // With the first row selected, add the second one
-            const secondButton = cells[2].querySelector('button')!;
+            const secondButton =
+              cells[2].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             firstButton.click();
             secondButton.click();
             await selectedSpy.calledTimes(4);
@@ -2022,15 +2044,34 @@ describe(`sbb-calendar`, () => {
             expect(cellsPrev.length).to.be.equal(6);
             const cellsNext = thead[1].querySelectorAll('th');
             expect(cellsNext.length).to.be.equal(5);
-            expect(cellsPrev[1].querySelector('button')!.textContent!.trim()).to.be.equal('14');
-            expect(cellsPrev[2].querySelector('button')!.textContent!.trim()).to.be.equal('15');
-            expect(cellsPrev[5].querySelector('button')!.textContent!.trim()).to.be.equal('18');
-            expect(cellsNext[0].querySelector('button')!.textContent!.trim()).to.be.equal('18');
-            expect(cellsNext[1].querySelector('button')!.textContent!.trim()).to.be.equal('19');
-            expect(cellsNext[4].querySelector('button')!.textContent!.trim()).to.be.equal('22');
+            expect(
+              cellsPrev[1].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
+                .value,
+            ).to.be.equal('14');
+            expect(
+              cellsPrev[2].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
+                .value,
+            ).to.be.equal('15');
+            expect(
+              cellsPrev[5].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
+                .value,
+            ).to.be.equal('18');
+            expect(
+              cellsNext[0].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
+                .value,
+            ).to.be.equal('18');
+            expect(
+              cellsNext[1].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
+                .value,
+            ).to.be.equal('19');
+            expect(
+              cellsNext[4].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!
+                .value,
+            ).to.be.equal('22');
 
             // Clicking on the last week button must select all the days of the week, including the ones in the next month
-            const lastButtonFirstMonth = cellsPrev[5].querySelector('button')!;
+            const lastButtonFirstMonth =
+              cellsPrev[5].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             lastButtonFirstMonth.click();
             await selectedSpy.calledOnce();
             let selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
@@ -2043,7 +2084,8 @@ describe(`sbb-calendar`, () => {
 
             // Clicking on the first week button in the next month should not change the selection,
             // since the dates are the same as before
-            const firstButtonSecondMonth = cellsNext[0].querySelector('button')!;
+            const firstButtonSecondMonth =
+              cellsNext[0].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             firstButtonSecondMonth.click();
             expect(selectedSpy.calledTimes(2));
             selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;
@@ -2051,7 +2093,8 @@ describe(`sbb-calendar`, () => {
             expect(selectedDates[0].toDateString()).to.be.equal('Tue Apr 08 2025');
 
             // Clicks on the first button of the first month does not select dates in the previous (not rendered) one
-            const firstButton = cellsPrev[1].querySelector('button')!;
+            const firstButton =
+              cellsPrev[1].querySelector<SbbCalendarWeeknumberElement>('sbb-calendar-weeknumber')!;
             firstButton.click();
             await selectedSpy.calledTimes(3);
             selectedDates = (selectedSpy.lastEvent as CustomEvent<Date[]>).detail;

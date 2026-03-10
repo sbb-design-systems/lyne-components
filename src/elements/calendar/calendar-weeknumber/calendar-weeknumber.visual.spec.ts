@@ -13,9 +13,9 @@ import {
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
 
 import '../calendar/calendar.component.ts';
-import './calendar-weekday.component.ts';
+import './calendar-weeknumber.component.ts';
 
-describe('sbb-calendar-weekday', () => {
+describe('sbb-calendar-weeknumber', () => {
   let todayStub: SinonStub;
 
   before(() => {
@@ -30,7 +30,9 @@ describe('sbb-calendar-weekday', () => {
     let root: SbbCalendarElement;
 
     beforeEach(async () => {
-      root = await visualRegressionFixture(html`<sbb-calendar multiple></sbb-calendar>`);
+      root = await visualRegressionFixture(
+        html`<sbb-calendar multiple week-numbers></sbb-calendar>`,
+      );
     });
 
     it(
@@ -47,7 +49,7 @@ describe('sbb-calendar-weekday', () => {
           setup.withSnapshotElement(root);
           const weekdayElement = root
             .querySelector('sbb-calendar')!
-            .shadowRoot!.querySelector('sbb-calendar-weekday')!;
+            .shadowRoot!.querySelector('sbb-calendar-weeknumber')!;
           setup.withStateElement(weekdayElement);
         }),
       );

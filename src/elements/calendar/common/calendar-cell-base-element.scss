@@ -109,3 +109,13 @@
     }
   }
 }
+
+.sbb-calendar-weekday,
+.sbb-calendar-weeknumber {
+  --sbb-calendar-cell-font-size: var(--sbb-text-font-size-xs);
+  --sbb-calendar-cell-font-weight: normal;
+
+  height: var(--sbb-calendar-day-width);
+  width: var(--sbb-calendar-day-width);
+  color: var(--sbb-calendar-header-color);
+}

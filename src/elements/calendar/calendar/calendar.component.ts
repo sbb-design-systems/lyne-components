@@ -53,6 +53,7 @@ import '../calendar-day/calendar-day.component.ts';
 import '../calendar-month/calendar-month.component.ts';
 import '../calendar-year/calendar-year.component.ts';
 import '../calendar-weekday/calendar-weekday.component.ts';
+import '../calendar-weeknumber/calendar-weeknumber.component.ts';
 
 export class SbbMonthChangeEvent extends Event {
   private readonly _range: readonly Day[];
@@ -1415,18 +1416,15 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
                         <td class="sbb-calendar__table-header-cell-vertical">
                           ${this.multiple
                             ? html`
-                                <button
-                                  class="sbb-calendar__header-cell"
-                                  aria-label=${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[0]}`}
+                                <sbb-calendar-weeknumber
+                                  .value=${weekNumbers[0]}
                                   @click=${() => {
                                     const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
                                       (day: Day<T>) => day.weekValue === weekNumbers[0],
                                     )!;
                                     this._selectMultipleDates(days);
                                   }}
-                                >
-                                  ${weekNumbers[0]}
-                                </button>
+                                ></sbb-calendar-weeknumber>
                               `
                             : html`
                                 <sbb-screen-reader-only
@@ -1451,18 +1449,15 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
                       <td class="sbb-calendar__table-header-cell-vertical">
                         ${this.multiple
                           ? html`
-                              <button
-                                class="sbb-calendar__header-cell"
-                                aria-label=${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[rowIndex]}`}
+                              <sbb-calendar-weeknumber
+                                .value=${weekNumbers[rowIndex]}
                                 @click=${() => {
                                   const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
                                     (day: Day<T>) => day.weekValue === weekNumbers[rowIndex],
                                   )!;
                                   this._selectMultipleDates(days);
                                 }}
-                              >
-                                ${weekNumbers[rowIndex]}
-                              </button>
+                              ></sbb-calendar-weeknumber>
                             `
                           : html`
                               <sbb-screen-reader-only
@@ -1517,18 +1512,15 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
                       <th class="sbb-calendar__table-header-cell">
                         ${this.multiple
                           ? html`
-                              <button
-                                class="sbb-calendar__header-cell"
-                                aria-label=${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumber}`}
+                              <sbb-calendar-weeknumber
+                                .value=${weekNumber}
                                 @click=${() => {
                                   const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
                                     (day: Day<T>) => day.weekValue === weekNumber,
                                   )!;
                                   this._selectMultipleDates(days);
                                 }}
-                              >
-                                ${weekNumber}
-                              </button>
+                              ></sbb-calendar-weeknumber>
                             `
                           : html`
                               <sbb-screen-reader-only
@@ -1584,7 +1576,7 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
   private _createDayCells(week: Day<T>[]): TemplateResult[] {
     return week.map((day: Day<T>) => {
       return html`
-        <td class=" sbb-calendar__table-data sbb-calendar__day-cell">
+        <td class="sbb-calendar__table-data sbb-calendar__day-cell">
           <slot name=${day.value}>
             <sbb-calendar-day
               slot=${day.value}

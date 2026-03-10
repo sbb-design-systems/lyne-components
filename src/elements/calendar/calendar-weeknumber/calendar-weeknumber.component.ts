@@ -2,31 +2,34 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
+import { SbbLanguageController } from '../../core/controllers/language-controller.ts';
+import { i18nCalendarWeekNumber } from '../../core/i18n/i18n.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { Weekday } from '../calendar/calendar.component.ts';
 import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts';
 
 /**
- * It displays a single week day cell in the `sbb-calendar` component.
+ * It displays a single week number cell in the `sbb-calendar` component.
  */
 export
-@customElement('sbb-calendar-weekday')
-class SbbCalendarWeekdayElement extends SbbCalendarCellBaseElement {
+@customElement('sbb-calendar-weeknumber')
+class SbbCalendarWeeknumberElement extends SbbCalendarCellBaseElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle];
 
-  /** Value of the week day element. */
+  private _language = new SbbLanguageController(this);
+
+  /** Value of the week number element. */
   @state()
-  public set value(value: Weekday | null) {
+  public set value(value: string | null) {
     if (!value) {
       return;
     }
-    this._value = value;
-    this.internals.ariaLabel = value.long;
+    this._value = String(value);
+    this.internals.ariaLabel = `${i18nCalendarWeekNumber[this._language.current]} ${value}`;
   }
-  public get value(): Weekday | null {
+  public get value(): string | null {
     return this._value;
   }
-  private _value: Weekday | null = null;
+  private _value: string | null = null;
 
   protected override setSelectedState(): void {
     // empty
@@ -36,13 +39,13 @@ class SbbCalendarWeekdayElement extends SbbCalendarCellBaseElement {
   }
 
   protected override renderTemplate(): TemplateResult {
-    return html`${this.value?.narrow}`;
+    return html`${this.value}`;
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'sbb-calendar-weekday': SbbCalendarWeekdayElement;
+    'sbb-calendar-weeknumber': SbbCalendarWeeknumberElement;
   }
 }

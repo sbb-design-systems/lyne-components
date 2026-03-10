@@ -428,22 +428,6 @@ snapshots["sbb-calendar default renders vertical DOM"] =
 `;
 /* end snapshot sbb-calendar default renders vertical DOM */
 
-snapshots["sbb-calendar default renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "generic",
-  "name": "Fixture Container",
-  "children": [
-    {
-      "role": "generic",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-calendar default renders A11y tree Chrome */
-
 snapshots["sbb-calendar default renders vertical Shadow DOM"] = 
 `<div class="sbb-calendar__wrapper">
   <div class="sbb-calendar__controls">
@@ -860,6 +844,22 @@ snapshots["sbb-calendar default renders in year view DOM"] =
 </sbb-calendar>
 `;
 /* end snapshot sbb-calendar default renders in year view DOM */
+
+snapshots["sbb-calendar default renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "generic",
+      "name": ""
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-calendar default renders A11y tree Chrome */
 
 snapshots["sbb-calendar default renders in year view Shadow DOM"] = 
 `<div class="sbb-calendar__wrapper">
