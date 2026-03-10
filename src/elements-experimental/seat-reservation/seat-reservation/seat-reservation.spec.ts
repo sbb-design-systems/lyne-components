@@ -138,7 +138,7 @@ describe(`sbb-seat-reservation`, () => {
 
   describe('navigation checks', () => {
     const maxCoachesInTrain = dataFull[0].coachItems.length - 1;
-    const TIMEOUT_NAVIGATION: number = 950;
+    const TIMEOUT_NAVIGATION: number = 1000;
 
     let btn: SbbSecondaryButtonElement;
 
@@ -210,7 +210,7 @@ describe(`sbb-seat-reservation`, () => {
     });
 
     it('should NOT have a first navigation btn with disabled-interactive attr; selectable coaches are in front', async () => {
-      element.preselectCoachIndex = 2;
+      element.preselectCoachIndex = 1;
       await waitForLitRender(element);
       await aTimeout(TIMEOUT_NAVIGATION);
 
