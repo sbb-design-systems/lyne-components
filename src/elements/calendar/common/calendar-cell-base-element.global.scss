@@ -3,6 +3,8 @@
 $theme: 'standard' !default;
 
 @mixin base {
+  --sbb-calendar-cell-border: var(--sbb-calendar-cell-border-width) solid
+    var(--sbb-border-color-1-inverted);
   --sbb-calendar-cell-color: var(--sbb-color-2);
   --sbb-calendar-cell-cursor: var(--sbb-cursor-pointer);
   --sbb-calendar-cell-inset: #{sbb.px-to-rem-build(1)};

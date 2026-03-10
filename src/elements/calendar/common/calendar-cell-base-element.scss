@@ -10,6 +10,10 @@
   --sbb-calendar-cell-border-radius: calc(
     var(--sbb-border-radius-4x) + var(--sbb-calendar-cell-border-width)
   );
+
+  @include sbb.if-forced-colors {
+    --sbb-calendar-cell-border: transparent;
+  }
 }
 
 :host(:state(current)) {
@@ -17,8 +21,7 @@
 }
 
 :host(:state(selected)) {
-  --sbb-calendar-cell-selected-border: var(--sbb-calendar-cell-border-width) solid
-    var(--sbb-border-color-2);
+  --sbb-calendar-cell-border: var(--sbb-calendar-cell-border-width) solid var(--sbb-border-color-2);
 }
 
 :host(:disabled) {
@@ -44,18 +47,19 @@
   letter-spacing: var(--sbb-typo-letter-spacing-text);
   cursor: var(--sbb-calendar-cell-cursor);
   color: var(--sbb-calendar-cell-color);
-  background-color: var(--sbb-calendar-cell-background-color);
   border-radius: var(--sbb-calendar-cell-border-radius);
 
   &::before {
     content: '';
     position: absolute;
+    background-color: var(--sbb-calendar-cell-background-color);
     inset: var(--sbb-calendar-cell-inset);
-    border: var(--sbb-calendar-cell-selected-border);
+    border: var(--sbb-calendar-cell-border);
     border-radius: var(--sbb-calendar-cell-border-radius);
     transition-duration: var(--sbb-calendar-cell-transition-duration);
     transition-timing-function: var(--sbb-calendar-cell-transition-easing-function);
     transition-property: background-color;
+    z-index: -1;
 
     :host(:focus-visible) & {
       @include sbb.focus-outline;
@@ -75,7 +79,6 @@
   :host(:not(:active, :disabled):hover) & {
     @include sbb.hover-mq($hover: true) {
       --sbb-calendar-cell-background-color: var(--sbb-calendar-cell-background-color-hover);
-      --sbb-calendar-cell-padding-hover: var(--sbb-calendar-cell-hover-shift);
 
       &::before {
         @include sbb.if-forced-colors {
@@ -94,7 +97,7 @@
 .sbb-calendar-month {
   height: var(--sbb-calendar-cell-year-month-height);
   width: var(--sbb-calendar-cell-year-month-width);
-  padding-block-end: var(--sbb-calendar-cell-padding-hover, var(--sbb-calendar-cell-padding));
+  padding-block-end: var(--sbb-calendar-cell-padding);
 
   :host(:state(crossed-out)) & {
     &::after {

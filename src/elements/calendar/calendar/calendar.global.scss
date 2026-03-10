@@ -12,7 +12,6 @@ $theme: 'standard' !default;
   --sbb-calendar-cell-disabled-width: #{sbb.px-to-rem-build(25.5)};
   --sbb-calendar-cell-disabled-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
   --sbb-calendar-cell-transition-easing-function: var(--sbb-animation-easing);
-  --sbb-calendar-cell-hover-shift: #{sbb.px-to-rem-build(1)};
   --sbb-calendar-control-gap: var(--sbb-spacing-fixed-2x);
   --sbb-calendar-control-margin-block-end: var(--sbb-spacing-fixed-4x);
   --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(44)};
