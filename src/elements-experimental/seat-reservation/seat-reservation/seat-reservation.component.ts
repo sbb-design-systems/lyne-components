@@ -3,21 +3,25 @@ import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.js';
 import { html, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { getI18nSeatReservation } from '../common.ts';
+import { getI18nSeatReservation } from '../common/translations.ts';
 import type {
   CoachItem,
+  CoachItemDetails,
   Place,
   ElementDimension,
   BaseElement,
   PlaceSelection,
   SeatReservation,
-  CoachItemDetails,
-} from '../common.ts';
+} from '../common/types.ts';
+import { SbbSeatReservationAreaElement } from '../seat-reservation-area/seat-reservation-area.component.ts';
+import { SbbSeatReservationGraphicElement } from '../seat-reservation-graphic/seat-reservation-graphic.component.ts';
+import { SbbSeatReservationNavigationCoachElement } from '../seat-reservation-navigation-coach/seat-reservation-navigation-coach.component.ts';
+import { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
+import { SbbSeatReservationScopedElement } from '../seat-reservation-scoped/seat-reservation-scoped.component.ts';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.ts';
 import style from './seat-reservation.scss?lit&inline';
@@ -25,19 +29,19 @@ import style from './seat-reservation.scss?lit&inline';
 import '@sbb-esta/lyne-elements/button.js';
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
 import '@sbb-esta/lyne-elements/popover.js';
-import '../seat-reservation-area.ts';
-import '../seat-reservation-graphic.ts';
-import '../seat-reservation-place-control.ts';
-import '../seat-reservation-navigation-coach.ts';
-import '../seat-reservation-scoped.ts';
+
+SbbSeatReservationAreaElement.define();
+SbbSeatReservationGraphicElement.define();
+SbbSeatReservationPlaceControlElement.define();
+SbbSeatReservationNavigationCoachElement.define();
+SbbSeatReservationScopedElement.define();
 
 /**
  * Main component for the seat reservation.
  *
  */
-export
-@customElement('sbb-seat-reservation')
-class SbbSeatReservationElement extends SeatReservationBaseElement {
+export class SbbSeatReservationElement extends SeatReservationBaseElement {
+  public static override readonly elementName: string = 'sbb-seat-reservation';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private _language = new SbbLanguageController(this);

@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbDividerElement } from './divider.component.ts';
 
+import '../divider.ts';
+
 describe(`sbb-divider ssr`, () => {
   let root: SbbDividerElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-divider></sbb-divider>`, {
-      modules: ['./divider.component.js'],
+      modules: ['../divider.ts'],
     });
   });
 

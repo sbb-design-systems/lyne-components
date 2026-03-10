@@ -1,5 +1,3 @@
-import { customElement } from 'lit/decorators.js';
-
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.ts';
 import { SbbBlockLinkCommonElementMixin } from '../common.ts';
@@ -10,11 +8,11 @@ import { SbbBlockLinkCommonElementMixin } from '../common.ts';
  * @slot - Use the unnamed slot to add content to the `sbb-block-link-button`.
  * @slot icon - Slot used to display the icon, if one is set.
  */
-export
-@customElement('sbb-block-link-button')
-class SbbBlockLinkButtonElement extends SbbBlockLinkCommonElementMixin(
+export class SbbBlockLinkButtonElement extends SbbBlockLinkCommonElementMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
-) {}
+) {
+  public static override readonly elementName: string = 'sbb-block-link-button';
+}
 
 declare global {
   interface HTMLElementTagNameMap {

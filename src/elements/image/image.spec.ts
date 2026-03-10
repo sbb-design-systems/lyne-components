@@ -6,7 +6,7 @@ import { spy } from 'sinon';
 import { fixture } from '../core/testing/private.ts';
 import { waitForCondition } from '../core/testing.ts';
 
-import './image.component.ts';
+import '../image.ts';
 import type { SbbImageElement } from './image.component.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');

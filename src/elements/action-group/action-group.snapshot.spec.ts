@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbActionGroupElement } from './action-group.component.ts';
-import './action-group.component.ts';
+
+import '../action-group.ts';
 import '../button/secondary-button.ts';
 import '../link/block-link.ts';
 

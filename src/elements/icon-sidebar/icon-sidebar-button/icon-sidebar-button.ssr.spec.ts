@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbIconSidebarButtonElement } from './icon-sidebar-button.component.ts';
 
+import '../../icon-sidebar.ts';
+
 describe(`sbb-icon-sidebar-button ssr`, () => {
   let root: SbbIconSidebarButtonElement;
 
@@ -15,7 +17,7 @@ describe(`sbb-icon-sidebar-button ssr`, () => {
         aria-label="Go to the party"
       ></sbb-icon-sidebar-button>`,
       {
-        modules: ['./icon-sidebar-button.component.js'],
+        modules: ['../../icon-sidebar.ts'],
       },
     );
   });

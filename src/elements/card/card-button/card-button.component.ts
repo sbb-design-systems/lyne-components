@@ -1,7 +1,5 @@
-import { customElement } from 'lit/decorators.js';
-
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { SbbCardActionCommonElementMixin } from '../common.ts';
+import { SbbCardActionCommonElementMixin } from '../common/card-action-common.ts';
 
 /**
  * It turns the `sbb-card` into a button element.
@@ -9,9 +7,8 @@ import { SbbCardActionCommonElementMixin } from '../common.ts';
  * @slot - Use the unnamed slot to add a descriptive label / title of the button (important!).
  *   This is relevant for SEO and screen readers.
  */
-export
-@customElement('sbb-card-button')
-class SbbCardButtonElement extends SbbCardActionCommonElementMixin(SbbButtonBaseElement) {
+export class SbbCardButtonElement extends SbbCardActionCommonElementMixin(SbbButtonBaseElement) {
+  public static override readonly elementName: string = 'sbb-card-button';
   protected override actionRole: 'link' | 'button' = 'button';
 }
 

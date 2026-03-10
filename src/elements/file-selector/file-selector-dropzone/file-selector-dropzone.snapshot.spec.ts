@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.ts';
-import './file-selector-dropzone.component.ts';
+
+import '../../file-selector.ts';
 
 describe(`sbb-file-selector-dropzone`, () => {
   describe('renders', () => {

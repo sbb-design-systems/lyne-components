@@ -20,6 +20,7 @@ import readme from './readme.md?raw';
 
 import '../form-field.ts';
 import '../title.ts';
+import '../date-input.ts';
 
 const toIso8601 = (date: number | null): string | typeof nothing =>
   date == null ? nothing : defaultDateAdapter.toIso8601(new Date(date));
@@ -235,7 +236,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-date-input',
+  title: 'elements/Date Input',
 };
 
 export default meta;

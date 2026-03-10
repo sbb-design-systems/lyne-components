@@ -1,4 +1,4 @@
-The `sbb-chip` is a visual component used to display compact information, like a filter's name or a tag.
+The `<sbb-chip>` is a visual component used to display compact information, like a filter's name or a tag.
 
 ```html
 <sbb-chip>On sale</sbb-chip>
@@ -19,14 +19,18 @@ and four different values for the `color` property (`charcoal`, `granite`, `whit
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbChipLabelElement`, `sbb-chip-label`
+
+#### Properties
 
 | Name    | Attribute | Privacy | Type                                           | Default  | Description        |
 | ------- | --------- | ------- | ---------------------------------------------- | -------- | ------------------ |
 | `color` | `color`   | public  | `'milk' \| 'charcoal' \| 'white' \| 'granite'` | `'milk'` | Color of the chip. |
 | `size`  | `size`    | public  | `'xxs' \| 'xs' \| 's'`                         | `'xxs'`  | Size of the chip.  |
 
-## Slots
+#### Slots
 
 | Name | Description                                                  |
 | ---- | ------------------------------------------------------------ |

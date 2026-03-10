@@ -8,18 +8,11 @@ import {
   SbbBreakpointZeroMax,
   SbbBreakpointZeroMin,
 } from '@sbb-esta/lyne-design-tokens';
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  nothing,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
-import { customElement, eventOptions, property } from 'lit/decorators.js';
+import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import { eventOptions, property } from 'lit/decorators.js';
 
+import { SbbElement } from '../core/base-elements.ts';
 import { forceType } from '../core/decorators.ts';
-import { SbbElementInternalsMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './image.scss?lit&inline';
@@ -139,9 +132,8 @@ const breakpointMap: Record<string, string> = {
  * @cssprop [--sbb-image-object-position] - Can be used to set the object-position CSS property of the image itself if the image itself is cropped.
  * @cssprop [--sbb-image-object-fit=cover] - Can be used to set the object-fit CSS property of the image itself if the image itself is cropped.
  */
-export
-@customElement('sbb-image')
-class SbbImageElement extends SbbElementInternalsMixin(LitElement) {
+export class SbbImageElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-image';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     error: 'error',

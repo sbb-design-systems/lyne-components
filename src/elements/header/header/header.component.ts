@@ -2,17 +2,16 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  LitElement,
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
 import { SbbFocusVisibleWithinController } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType, idReference } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
-import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './header.scss?lit&inline';
@@ -26,9 +25,8 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  * @cssprop [--sbb-header-z-index=10] - Can be used to modify the z-index of the header.
  * @cssprop [--sbb-header-height=zero-small:var(--sbb-spacing-fixed-14x);large-ultra:var(--sbb-spacing-fixed-24x)] - Can be used to modify height of the header.
  */
-export
-@customElement('sbb-header')
-class SbbHeaderElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
+export class SbbHeaderElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-header';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

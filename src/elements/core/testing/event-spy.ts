@@ -1,8 +1,8 @@
-type PromiseWithExecutor<T extends Event> = {
+interface PromiseWithExecutor<T extends Event> {
   promise: Promise<T>;
   resolve: (value: T) => void;
   reject: (reason?: any) => void;
-};
+}
 
 /**
  * This class exists to facilitate the test migration from stencil to lit.

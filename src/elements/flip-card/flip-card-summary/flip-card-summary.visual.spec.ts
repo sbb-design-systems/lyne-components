@@ -8,7 +8,6 @@ import {
 } from '../../core/testing/private.ts';
 import { waitForImageReady } from '../../core/testing/wait-for-image-ready.ts';
 
-import './flip-card-summary.component.ts';
 import '../../flip-card.ts';
 import '../../title.ts';
 import '../../image.ts';

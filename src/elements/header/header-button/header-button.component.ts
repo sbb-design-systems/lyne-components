@@ -1,7 +1,5 @@
-import { customElement } from 'lit/decorators.js';
-
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { SbbHeaderActionCommonElementMixin } from '../common.ts';
+import { SbbHeaderActionCommonElementMixin } from '../common/header-action-common.ts';
 
 /**
  * It displays a button element that can be used in the `sbb-header` component.
@@ -9,9 +7,11 @@ import { SbbHeaderActionCommonElementMixin } from '../common.ts';
  * @slot icon - Slot used to render the button icon.
  * @slot - Use the unnamed slot to add content to the `sbb-header-button`.
  */
-export
-@customElement('sbb-header-button')
-class SbbHeaderButtonElement extends SbbHeaderActionCommonElementMixin(SbbButtonBaseElement) {}
+export class SbbHeaderButtonElement extends SbbHeaderActionCommonElementMixin(
+  SbbButtonBaseElement,
+) {
+  public static override readonly elementName: string = 'sbb-header-button';
+}
 
 declare global {
   interface HTMLElementTagNameMap {

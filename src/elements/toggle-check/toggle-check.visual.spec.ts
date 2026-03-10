@@ -9,7 +9,7 @@ import {
 
 import '../icon.ts';
 import '../title.ts';
-import './toggle-check.component.ts';
+import '../toggle-check.ts';
 
 describe(`sbb-toggle-check`, () => {
   const longLabel = `For this example we need a very long label, like lorem ipsum dolor sit amet, consectetur adipiscing elit.

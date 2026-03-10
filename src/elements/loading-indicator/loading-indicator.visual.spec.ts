@@ -2,7 +2,7 @@ import { html } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './loading-indicator.component.ts';
+import '../loading-indicator.ts';
 
 describe(`sbb-loading-indicator`, () => {
   const colorCases = {

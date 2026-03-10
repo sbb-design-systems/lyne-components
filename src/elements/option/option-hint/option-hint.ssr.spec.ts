@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbOptionHintElement } from './option-hint.component.ts';
 
+import '../../option.ts';
+
 describe(`sbb-option-hint ssr`, () => {
   let root: SbbOptionHintElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-option-hint></sbb-option-hint>`, {
-      modules: ['./option-hint.component.js'],
+      modules: ['../../option.ts'],
     });
   });
 

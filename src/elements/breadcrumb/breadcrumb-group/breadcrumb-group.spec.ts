@@ -4,11 +4,11 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import type { SbbBreadcrumbElement } from '../breadcrumb.ts';
+import type { SbbBreadcrumbElement } from '../breadcrumb/breadcrumb.component.ts';
 
 import { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.ts';
 
-import '../breadcrumb.ts';
+import '../../breadcrumb.ts';
 
 describe(`sbb-breadcrumb-group`, () => {
   describe('without ellipsis', () => {

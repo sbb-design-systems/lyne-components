@@ -1,17 +1,15 @@
 import type { CSSResultGroup } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { miniButtonStyle } from '../../button/common.ts';
 import { i18nPreviousDay, i18nSelectPreviousDay } from '../../core/i18n.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { datepickerButtonStyle, SbbDatepickerButton } from '../common.ts';
+import { datepickerButtonStyle, SbbDatepickerButton } from '../common/datepicker-button.ts';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date back.
  */
-export
-@customElement('sbb-datepicker-previous-day')
-class SbbDatepickerPreviousDayElement<T = Date> extends SbbDatepickerButton<T> {
+export class SbbDatepickerPreviousDayElement<T = Date> extends SbbDatepickerButton<T> {
+  public static override readonly elementName: string = 'sbb-datepicker-previous-day';
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     miniButtonStyle,

@@ -18,10 +18,7 @@ import '../../form-field.ts';
 import '../../icon.ts';
 import '../../option.ts';
 import '../../stepper.ts';
-import '../dialog-title.ts';
-import '../dialog-close-button.ts';
-import '../dialog-content.ts';
-import '../dialog-actions.ts';
+import '../../dialog.ts';
 
 async function openDialog(element: SbbDialogElement): Promise<void> {
   const beforeOpenSpy = new EventSpy(SbbDialogElement.events.beforeopen, element);

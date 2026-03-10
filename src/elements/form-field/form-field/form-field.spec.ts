@@ -15,6 +15,7 @@ import {
   type SbbFormFieldElementControl,
 } from './form-field.component.ts';
 
+import '../../form-field.ts';
 import '../../tooltip.ts';
 
 type Mutable<T> = {

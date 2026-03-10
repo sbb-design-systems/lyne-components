@@ -3,11 +3,11 @@ import { html } from 'lit/static-html.js';
 
 import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import type { SbbTagElement } from '../tag.ts';
+import type { SbbTagElement } from '../tag/tag.component.ts';
 
 import { SbbTagGroupElement } from './tag-group.component.ts';
 
-import '../tag.ts';
+import '../../tag.ts';
 
 describe(`sbb-tag-group`, () => {
   let element: SbbTagGroupElement;
@@ -700,7 +700,10 @@ describe(`sbb-tag-group`, () => {
   });
 
   describe('with complex value', () => {
-    type ValueType = { value: string; label: string };
+    interface ValueType {
+      value: string;
+      label: string;
+    }
     const values: ValueType[] = [
       { value: 'tag1', label: 'Tag 1' },
       { value: 'tag2', label: 'Tag 2' },

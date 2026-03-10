@@ -1,6 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import type { SbbAutocompleteElement } from '../../autocomplete.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers.ts';
@@ -23,9 +22,8 @@ export type SbbOptionVariant = 'autocomplete' | 'select' | null;
  * when preserve-icon-space on autocomplete is not set or iconName is not set.
  * @overrideType value - (T = string) | null
  */
-export
-@customElement('sbb-option')
-class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
+export class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
+  public static override readonly elementName: string = 'sbb-option';
   public static override readonly role = 'option';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static override readonly events = {

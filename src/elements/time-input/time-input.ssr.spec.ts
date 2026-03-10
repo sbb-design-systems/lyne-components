@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbTimeInputElement } from './time-input.component.ts';
 
+import '../time-input.ts';
+
 describe(`sbb-time-input ssr`, () => {
   let root: SbbTimeInputElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html` <sbb-time-input value="13:30"></sbb-time-input> `, {
-      modules: ['./time-input.component.js'],
+      modules: ['../time-input.ts'],
     });
   });
 

@@ -1,5 +1,4 @@
 import type { CSSResultGroup } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbActionGroupElement } from '../../action-group.ts';
 import { isLean } from '../../core/dom/lean-context.ts';
@@ -11,9 +10,8 @@ import style from './dialog-actions.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-block-link` or `sbb-button` elements to the `sbb-dialog-actions`.
  */
-export
-@customElement('sbb-dialog-actions')
-class SbbDialogActionsElement extends SbbActionGroupElement {
+export class SbbDialogActionsElement extends SbbActionGroupElement {
+  public static override readonly elementName: string = 'sbb-dialog-actions';
   public static override styles: CSSResultGroup = [SbbActionGroupElement.styles, style];
 
   public constructor() {

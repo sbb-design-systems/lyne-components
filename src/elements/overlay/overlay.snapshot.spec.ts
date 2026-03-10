@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 import { waitForLitRender } from '../core/testing.ts';
 
 import type { SbbOverlayElement } from './overlay.component.ts';
-import './overlay.component.ts';
+import '../overlay.ts';
 
 describe('sbb-overlay', () => {
   describe('renders', () => {

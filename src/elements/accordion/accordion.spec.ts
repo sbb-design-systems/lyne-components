@@ -10,6 +10,9 @@ import {
 
 import { SbbAccordionElement } from './accordion.component.ts';
 
+import '../accordion.ts';
+import '../expansion-panel.ts';
+
 describe(`sbb-accordion`, () => {
   let element: SbbAccordionElement;
 

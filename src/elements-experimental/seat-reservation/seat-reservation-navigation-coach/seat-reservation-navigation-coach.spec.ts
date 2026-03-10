@@ -8,6 +8,8 @@ import type { CoachItemDetails } from '../common/types.ts';
 
 import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.component.ts';
 
+import '../../seat-reservation.ts';
+
 describe('sbb-seat-reservation-navigation-coach', () => {
   let element: SbbSeatReservationNavigationCoachElement;
   const coachItemDetails: CoachItemDetails = {

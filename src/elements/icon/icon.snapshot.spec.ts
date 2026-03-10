@@ -7,7 +7,7 @@ import { waitForLitRender } from '../core/testing.ts';
 
 import type { SbbIconElement } from './icon.component.ts';
 
-import './icon.component.ts';
+import '../icon.ts';
 
 describe(`sbb-icon`, () => {
   let iconConfig: SbbIconConfig;

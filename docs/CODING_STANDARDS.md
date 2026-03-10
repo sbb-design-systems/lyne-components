@@ -104,8 +104,9 @@ and they need to implement the `renderTemplate` method, which should return the 
 import { SbbButtonBaseElement } from '../../core/base-elements.js';
 import { html } from 'lit';
 
-@customElement('my-custom-button')
 class MyCustomButtonElement extends SbbButtonBaseElement {
+  public static override readonly elementName: string = 'my-custom-button';
+
   protected override renderTemplate(): TemplateResult {
     return html`<span>My button label</span>`;
   }
@@ -416,9 +417,9 @@ There are various ways to assign an ID to the host. One option is to do it in th
 ```ts
 let nextId = 0;
 
-@customElement('sbb-example')
-export class SbbExample extends LitElement {
-  ...
+export class SbbExample extends SbbElement {
+  public static override readonly elementName: string = 'sbb-example';
+...
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-example-${nextId++}`;

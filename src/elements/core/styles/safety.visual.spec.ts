@@ -26,7 +26,7 @@ import '../../signet.ts';
 import '../../slider.ts';
 import '../../teaser-hero.ts';
 import '../../toggle-check.ts';
-import '../../../elements-experimental/pearl-chain/pearl-chain.component.ts';
+import '../../../elements-experimental/pearl-chain.ts';
 
 import './safety-theme.scss';
 

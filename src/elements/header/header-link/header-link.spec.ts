@@ -7,6 +7,8 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
 import { SbbHeaderLinkElement } from './header-link.component.ts';
 
+import '../../header.ts';
+
 describe(`sbb-header-link`, () => {
   let element: SbbHeaderLinkElement;
 

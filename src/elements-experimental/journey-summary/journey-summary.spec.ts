@@ -4,6 +4,8 @@ import { html } from 'lit/static-html.js';
 
 import { SbbJourneySummaryElement } from './journey-summary.component.ts';
 
+import '../journey-summary.ts';
+
 describe(`sbb-journey-summary`, () => {
   it('renders', async () => {
     const element = await fixture(html`<sbb-journey-summary></sbb-journey-summary>`);

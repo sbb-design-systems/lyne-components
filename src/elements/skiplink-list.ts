@@ -1,4 +1,6 @@
-/**
- * @entrypoint
- */
-export * from './skiplink-list/skiplink-list.component.ts';
+/** @entrypoint */
+import { SbbSkiplinkListElement } from './skiplink-list.pure.ts';
+
+export * from './skiplink-list.pure.ts';
+
+SbbSkiplinkListElement.define();

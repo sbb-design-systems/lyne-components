@@ -3,7 +3,7 @@ import { html } from 'lit';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 import { waitForImageReady } from '../../core/testing.ts';
 
-import './carousel-item.component.ts';
+import '../../carousel.ts';
 import '../../image.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');

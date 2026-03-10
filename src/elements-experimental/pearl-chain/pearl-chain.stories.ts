@@ -15,7 +15,8 @@ import {
   redirectedOnArrivalLeg,
 } from './pearl-chain.sample-data.private.ts';
 import readme from './readme.md?raw';
-import './pearl-chain.component.ts';
+
+import '../pearl-chain.ts';
 
 const disableAnimation: InputType = {
   control: {
@@ -160,7 +161,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'experimental/sbb-pearl-chain',
+  title: 'experimental/Pearl Chain',
 };
 
 export default meta;

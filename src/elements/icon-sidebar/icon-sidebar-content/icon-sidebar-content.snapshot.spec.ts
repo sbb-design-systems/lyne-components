@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbIconSidebarContentElement } from './icon-sidebar-content.component.ts';
 
-import './icon-sidebar-content.component.ts';
+import '../../icon-sidebar.ts';
 
 describe(`sbb-icon-sidebar-content`, () => {
   describe('renders', () => {

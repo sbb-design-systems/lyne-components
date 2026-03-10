@@ -1,10 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
-import { iconSidebarButtonCommonStyle } from '../../sidebar/common.ts';
+import { iconSidebarButtonCommonStyle } from '../../sidebar/common/styles.ts';
 import type { SbbTooltipDefaultPositions } from '../../tooltip.ts';
 
 /**
@@ -12,12 +11,11 @@ import type { SbbTooltipDefaultPositions } from '../../tooltip.ts';
  *
  * @slot icon - Slot used to display the icon.
  */
-export
-@customElement('sbb-icon-sidebar-button')
-class SbbIconSidebarButtonElement
+export class SbbIconSidebarButtonElement
   extends SbbIconNameMixin(SbbButtonBaseElement)
   implements SbbTooltipDefaultPositions
 {
+  public static override readonly elementName: string = 'sbb-icon-sidebar-button';
   public static override styles: CSSResultGroup = [boxSizingStyles, iconSidebarButtonCommonStyle];
   /** @internal */
   public readonly tooltipPositions = ['inline-end', 'inline-start'];

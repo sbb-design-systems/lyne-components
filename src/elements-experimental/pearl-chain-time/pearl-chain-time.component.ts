@@ -1,3 +1,4 @@
+import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
@@ -9,8 +10,8 @@ import {
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { format } from 'date-fns';
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { html, nothing } from 'lit';
+import { property } from 'lit/decorators.js';
 
 import { removeTimezoneFromISOTimeString } from '../core/datetime.ts';
 import type { Leg, PtRideLeg } from '../core/timetable.ts';
@@ -23,9 +24,8 @@ import '../pearl-chain.ts';
 /**
  * Combined with `sbb-pearl-chain`, it displays walk time information.
  */
-export
-@customElement('sbb-pearl-chain-time')
-class SbbPearlChainTimeElement extends LitElement {
+export class SbbPearlChainTimeElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-pearl-chain-time';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

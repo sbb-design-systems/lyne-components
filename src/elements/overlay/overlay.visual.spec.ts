@@ -4,7 +4,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import type { VisualDiffSetupBuilder } from '../core/testing/private.ts';
 import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './overlay.component.ts';
+import '../overlay.ts';
 import type { SbbOverlayElement } from './overlay.component.ts';
 
 describe(`sbb-overlay`, () => {

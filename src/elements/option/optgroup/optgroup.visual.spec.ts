@@ -6,8 +6,7 @@ import { describeViewports, visualDiffDefault } from '../../core/testing/private
 import '../../form-field.ts';
 import '../../autocomplete.ts';
 import '../../select.ts';
-import '../option.ts';
-import './optgroup.component.ts';
+import '../../option.ts';
 
 describe(`sbb-optgroup`, () => {
   const defaultArgs = {

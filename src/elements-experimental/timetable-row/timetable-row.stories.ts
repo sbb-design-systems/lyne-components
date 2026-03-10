@@ -27,7 +27,8 @@ import {
   skippedFirstDepartureStopTrip,
   skippedLastArrivalStopTrip,
 } from './timetable-row.sample-data.private.ts';
-import './timetable-row.component.ts';
+
+import '../timetable-row.ts';
 
 const cardActionLabel: InputType = {
   control: {
@@ -396,7 +397,7 @@ const meta: Meta = {
     },
     backgroundColor: () => 'var(--sbb-background-color-3)',
   },
-  title: 'experimental/sbb-timetable-row',
+  title: 'experimental/Timetable Row',
 };
 
 export default meta;

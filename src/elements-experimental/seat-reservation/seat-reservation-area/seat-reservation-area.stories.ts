@@ -7,7 +7,7 @@ import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
-import './seat-reservation-area.component.ts';
+import '../../seat-reservation.ts';
 
 const mounting: InputType = {
   control: {

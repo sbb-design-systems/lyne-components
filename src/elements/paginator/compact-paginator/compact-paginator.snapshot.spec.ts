@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbCompactPaginatorElement } from './compact-paginator.component.ts';
-import './compact-paginator.component.ts';
+
+import '../../paginator.ts';
 
 describe(`sbb-compact-paginator`, () => {
   describe('renders', () => {

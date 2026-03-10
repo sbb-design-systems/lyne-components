@@ -6,7 +6,7 @@ import images from '../core/images.ts';
 import '../image.ts';
 import '../title.ts';
 import '../button/secondary-button.ts';
-import './message.component.ts';
+import '../message.ts';
 
 import readme from './readme.md?raw';
 
@@ -82,7 +82,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-message',
+  title: 'elements/Message',
 };
 
 export default meta;

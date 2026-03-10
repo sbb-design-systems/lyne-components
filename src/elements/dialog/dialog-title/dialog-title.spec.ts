@@ -3,6 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { SbbDialogTitleElement } from './dialog-title.component.ts';
 
+import '../../dialog.ts';
+
 describe('sbb-dialog-title', () => {
   let element: SbbDialogTitleElement;
 

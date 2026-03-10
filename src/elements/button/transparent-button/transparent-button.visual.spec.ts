@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
-import './transparent-button.component.ts';
+import '../transparent-button.ts';
 
 // We test only the differences to the sbb-button
 describe(`sbb-transparent-button`, () => {

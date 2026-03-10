@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 import { waitForImageReady } from '../core/testing.ts';
 
-import './message.component.ts';
+import '../message.ts';
 import '../chip-label.ts';
 import '../image.ts';
 import '../button/secondary-button.ts';

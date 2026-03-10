@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbIconSidebarButtonElement } from './icon-sidebar-button.component.ts';
 
-import './icon-sidebar-button.component.ts';
+import '../../icon-sidebar.ts';
 
 describe(`sbb-icon-sidebar-button`, () => {
   let element: SbbIconSidebarButtonElement;

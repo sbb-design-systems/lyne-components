@@ -1,8 +1,7 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './header-environment.scss?lit&inline';
@@ -15,9 +14,8 @@ import style from './header-environment.scss?lit&inline';
  * @cssprop [--sbb-header-environment-background-color=var(sbb-color-granite)] - Can be used change the ribbon color.
  * @cssprop [--sbb-header-environment-color=var(sbb-color-white)] - Can be used change the text color.
  */
-export
-@customElement('sbb-header-environment')
-class SbbHeaderEnvironmentElement extends SbbElementInternalsMixin(LitElement) {
+export class SbbHeaderEnvironmentElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-header-environment';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private _env: string | null = null;

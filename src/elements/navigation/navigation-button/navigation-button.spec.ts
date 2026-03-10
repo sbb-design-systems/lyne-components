@@ -7,6 +7,8 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
 import { SbbNavigationButtonElement } from './navigation-button.component.ts';
 
+import '../../navigation.ts';
+
 describe(`sbb-navigation-button`, () => {
   let element: SbbNavigationButtonElement;
 
