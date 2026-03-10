@@ -138,7 +138,7 @@ describe(`sbb-seat-reservation`, () => {
 
   describe('navigation checks', () => {
     const maxCoachesInTrain = dataFull[0].coachItems.length - 1;
-    const TIMEOUT_NAVIGATION: number = 800;
+    const TIMEOUT_NAVIGATION: number = 950;
 
     let btn: SbbSecondaryButtonElement;
 
@@ -212,10 +212,11 @@ describe(`sbb-seat-reservation`, () => {
     it('should NOT have a first navigation btn with disabled-interactive attr; selectable coaches are in front', async () => {
       element.preselectCoachIndex = 2;
       await waitForLitRender(element);
+      await aTimeout(TIMEOUT_NAVIGATION);
 
       expect(btn).not.to.be.null;
-      !expect(btn.hasAttribute('disabled-interactive'));
-      !expect(btn.hasAttribute('disabled'));
+      expect(btn.getAttribute('disabled-interactive')).to.be.null;
+      expect(btn.getAttribute('disabled')).to.be.null;
     });
 
     it('should have a clickable last navigation btn even if there are no selectable coaches behind because last coach is selected', async () => {
