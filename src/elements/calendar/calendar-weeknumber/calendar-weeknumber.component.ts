@@ -13,6 +13,7 @@ import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts'
 export
 @customElement('sbb-calendar-weeknumber')
 class SbbCalendarWeeknumberElement extends SbbCalendarCellBaseElement {
+  public static override readonly elementName: string = 'sbb-calendar-weeknumber';
   public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle];
 
   private _language = new SbbLanguageController(this);

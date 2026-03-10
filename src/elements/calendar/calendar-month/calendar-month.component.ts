@@ -12,6 +12,7 @@ import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts'
 export
 @customElement('sbb-calendar-month')
 class SbbCalendarMonthElement<T = Date> extends SbbCalendarCellBaseElement<T> {
+  public static override readonly elementName: string = 'sbb-calendar-month';
   public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle];
 
   private static readonly _monthFormatRegex = /^\d{4}-(0[1-9]|1[0-2])$/;

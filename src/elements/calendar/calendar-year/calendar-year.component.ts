@@ -11,6 +11,7 @@ import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts'
 export
 @customElement('sbb-calendar-year')
 class SbbCalendarYearElement<T = Date> extends SbbCalendarCellBaseElement<T> {
+  public static override readonly elementName: string = 'sbb-calendar-year';
   public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle];
 
   /**

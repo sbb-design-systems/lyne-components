@@ -12,6 +12,7 @@ import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts'
 export
 @customElement('sbb-calendar-weekday')
 class SbbCalendarWeekdayElement extends SbbCalendarCellBaseElement {
+  public static override readonly elementName: string = 'sbb-calendar-weekday';
   public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle];
 
   /** Value of the week day element. */
