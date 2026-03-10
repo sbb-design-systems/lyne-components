@@ -293,9 +293,6 @@
 sbb-calendar-day {
   :host(:not(:state(enhanced))) & {
     --sbb-calendar-day-height: #{sbb.px-to-rem-build(44)};
-    --sbb-calendar-day-flex-direction: row;
-    --sbb-calendar-day-justify-content: center;
-    --sbb-calendar-day-align-items: center;
     --sbb-calendar-day-extra-display: none;
     --sbb-calendar-day-value-height: unset;
     --sbb-calendar-day-crossed-out-top: 50%;

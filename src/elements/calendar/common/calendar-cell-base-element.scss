@@ -12,6 +12,10 @@
   );
 }
 
+:host(:state(current)) {
+  --sbb-calendar-cell-font-weight: bold;
+}
+
 :host(:state(selected)) {
   --sbb-calendar-cell-selected-border: var(--sbb-calendar-cell-border-width) solid
     var(--sbb-border-color-2);
@@ -31,7 +35,12 @@
 }
 
 .sbb-action-base {
-  font-size: var(--sbb-text-font-size-s);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-size: var(--sbb-calendar-cell-font-size);
+  font-weight: var(--sbb-calendar-cell-font-weight);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
   cursor: var(--sbb-calendar-cell-cursor);
   color: var(--sbb-calendar-cell-color);
@@ -83,17 +92,9 @@
 
 .sbb-calendar-year,
 .sbb-calendar-month {
-  position: relative;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
   height: var(--sbb-calendar-cell-year-month-height);
   width: var(--sbb-calendar-cell-year-month-width);
   padding-block-end: var(--sbb-calendar-cell-padding-hover, var(--sbb-calendar-cell-padding));
-
-  :host(:state(current)) & {
-    font-weight: bold;
-  }
 
   :host(:state(crossed-out)) & {
     &::after {

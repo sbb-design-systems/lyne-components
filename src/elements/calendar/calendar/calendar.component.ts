@@ -52,6 +52,7 @@ import '../../screen-reader-only.ts';
 import '../calendar-day/calendar-day.component.ts';
 import '../calendar-month/calendar-month.component.ts';
 import '../calendar-year/calendar-year.component.ts';
+import '../calendar-weekday/calendar-weekday.component.ts';
 
 export class SbbMonthChangeEvent extends Event {
   private readonly _range: readonly Day[];
@@ -1379,13 +1380,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
           <tr>
             ${this.weekNumbers ? html`<th class="sbb-calendar__table-header-cell"></th>` : nothing}
             ${this._weekdays.map(
-              (day: Weekday, index: number) => html`
+              (weekDay: Weekday, index: number) => html`
                 <th class="sbb-calendar__table-header-cell">
                   ${this.multiple
                     ? html`
-                        <button
-                          class="sbb-calendar__header-cell"
-                          aria-label=${day.long}
+                        <sbb-calendar-weekday
+                          .value=${weekDay}
                           @click=${() => {
                             // NOTE: Sundays have index 7, while their weekDayValue is 0
                             const days: Day<T>[] = weeksForSelectMultipleWeekDays.filter(
@@ -1393,13 +1393,11 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
                             )!;
                             this._selectMultipleDates(days);
                           }}
-                        >
-                          ${day.narrow}
-                        </button>
+                        ></sbb-calendar-weekday>
                       `
                     : html`
-                        <sbb-screen-reader-only>${day.long}</sbb-screen-reader-only>
-                        <span aria-hidden="true">${day.narrow}</span>
+                        <sbb-screen-reader-only>${weekDay.long}</sbb-screen-reader-only>
+                        <span aria-hidden="true">${weekDay.narrow}</span>
                       `}
                 </th>
               `,
@@ -1557,13 +1555,12 @@ class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternals
                       <td class="sbb-calendar__table-header-cell-vertical">
                         ${this.multiple
                           ? html`
-                              <button
-                                class="sbb-calendar__header-cell"
-                                aria-label=${weekday.long}
+                              <sbb-calendar-weekday
+                                .value=${weekday}
                                 @click=${() => this._selectMultipleDates(selectableDays)}
                               >
                                 ${weekday.narrow}
-                              </button>
+                              </sbb-calendar-weekday>
                             `
                           : html`
                               <sbb-screen-reader-only>${weekday.long}</sbb-screen-reader-only>

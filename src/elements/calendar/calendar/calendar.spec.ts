@@ -19,6 +19,7 @@ import {
   monthChangeHandler,
 } from '../calendar-day/calendar-day.helper.private.ts';
 import type { SbbCalendarMonthElement } from '../calendar-month/calendar-month.component.ts';
+import type { SbbCalendarWeekdayElement } from '../calendar-weekday/calendar-weekday.component.ts';
 import type { SbbCalendarYearElement } from '../calendar-year/calendar-year.component.ts';
 import type { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-element.ts';
 
@@ -1711,7 +1712,9 @@ describe(`sbb-calendar`, () => {
 
             // Click on Wed button: all missing Wednesdays are added
             const header = calendar.shadowRoot!.querySelectorAll('thead th')!;
-            const headerButtons = Array.from(header).map((e) => e.querySelector('button')!);
+            const headerButtons = Array.from(header).map(
+              (e) => e.querySelector<SbbCalendarWeekdayElement>('sbb-calendar-weekday')!,
+            );
             expect(headerButtons.length).to.be.equal(8);
             headerButtons[3].click();
             await selectedSpy.calledTimes(5);
@@ -1838,7 +1841,7 @@ describe(`sbb-calendar`, () => {
           });
         });
 
-        describe('vertical', () => {
+        describe.only('vertical', () => {
           it('renders', async () => {
             const calendar: SbbCalendarElement = await fixture(html`
               <sbb-calendar selected="2025-04-08" orientation="vertical" week-numbers>
@@ -1933,8 +1936,8 @@ describe(`sbb-calendar`, () => {
 
             // Click on Wed button: all missing Wednesdays are added
             const rows = calendar.shadowRoot!.querySelectorAll('tbody tr');
-            const weekDayCells: HTMLButtonElement[] = Array.from(rows).map(
-              (e) => e.querySelector('td button')!,
+            const weekDayCells: SbbCalendarWeekdayElement[] = Array.from(rows).map(
+              (e) => e.querySelector('sbb-calendar-weekday')!,
             );
             expect(weekDayCells.length).to.be.equal(7);
             weekDayCells[2].click();

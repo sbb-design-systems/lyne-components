@@ -419,6 +419,15 @@ snapshots["sbb-calendar default renders Shadow DOM"] =
 `;
 /* end snapshot sbb-calendar default renders Shadow DOM */
 
+snapshots["sbb-calendar default renders vertical DOM"] = 
+`<sbb-calendar
+  orientation="vertical"
+  selected="2023-01-20T00:00:00"
+>
+</sbb-calendar>
+`;
+/* end snapshot sbb-calendar default renders vertical DOM */
+
 snapshots["sbb-calendar default renders A11y tree Chrome"] = 
 `<p>
   {
@@ -434,15 +443,6 @@ snapshots["sbb-calendar default renders A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-calendar default renders A11y tree Chrome */
-
-snapshots["sbb-calendar default renders vertical DOM"] = 
-`<sbb-calendar
-  orientation="vertical"
-  selected="2023-01-20T00:00:00"
->
-</sbb-calendar>
-`;
-/* end snapshot sbb-calendar default renders vertical DOM */
 
 snapshots["sbb-calendar default renders vertical Shadow DOM"] = 
 `<div class="sbb-calendar__wrapper">
@@ -1177,60 +1177,32 @@ snapshots["sbb-calendar default renders multiple Shadow DOM"] =
         <thead class="sbb-calendar__table-header">
           <tr>
             <th class="sbb-calendar__table-header-cell">
-              <button
-                aria-label="Monday"
-                class="sbb-calendar__header-cell"
-              >
-                M
-              </button>
+              <sbb-calendar-weekday tabindex="0">
+              </sbb-calendar-weekday>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <button
-                aria-label="Tuesday"
-                class="sbb-calendar__header-cell"
-              >
-                T
-              </button>
+              <sbb-calendar-weekday tabindex="0">
+              </sbb-calendar-weekday>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <button
-                aria-label="Wednesday"
-                class="sbb-calendar__header-cell"
-              >
-                W
-              </button>
+              <sbb-calendar-weekday tabindex="0">
+              </sbb-calendar-weekday>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <button
-                aria-label="Thursday"
-                class="sbb-calendar__header-cell"
-              >
-                T
-              </button>
+              <sbb-calendar-weekday tabindex="0">
+              </sbb-calendar-weekday>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <button
-                aria-label="Friday"
-                class="sbb-calendar__header-cell"
-              >
-                F
-              </button>
+              <sbb-calendar-weekday tabindex="0">
+              </sbb-calendar-weekday>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <button
-                aria-label="Saturday"
-                class="sbb-calendar__header-cell"
-              >
-                S
-              </button>
+              <sbb-calendar-weekday tabindex="0">
+              </sbb-calendar-weekday>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <button
-                aria-label="Sunday"
-                class="sbb-calendar__header-cell"
-              >
-                S
-              </button>
+              <sbb-calendar-weekday tabindex="0">
+              </sbb-calendar-weekday>
             </th>
           </tr>
         </thead>
@@ -5147,60 +5119,32 @@ snapshots["sbb-calendar enhanced renders multiple Shadow DOM"] =
         <thead class="sbb-calendar__table-header">
           <tr>
             <th class="sbb-calendar__table-header-cell">
-              <button
-                aria-label="Monday"
-                class="sbb-calendar__header-cell"
-              >
-                M
-              </button>
+              <sbb-calendar-weekday tabindex="0">
+              </sbb-calendar-weekday>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <button
-                aria-label="Tuesday"
-                class="sbb-calendar__header-cell"
-              >
-                T
-              </button>
+              <sbb-calendar-weekday tabindex="0">
+              </sbb-calendar-weekday>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <button
-                aria-label="Wednesday"
-                class="sbb-calendar__header-cell"
-              >
-                W
-              </button>
+              <sbb-calendar-weekday tabindex="0">
+              </sbb-calendar-weekday>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <button
-                aria-label="Thursday"
-                class="sbb-calendar__header-cell"
-              >
-                T
-              </button>
+              <sbb-calendar-weekday tabindex="0">
+              </sbb-calendar-weekday>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <button
-                aria-label="Friday"
-                class="sbb-calendar__header-cell"
-              >
-                F
-              </button>
+              <sbb-calendar-weekday tabindex="0">
+              </sbb-calendar-weekday>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <button
-                aria-label="Saturday"
-                class="sbb-calendar__header-cell"
-              >
-                S
-              </button>
+              <sbb-calendar-weekday tabindex="0">
+              </sbb-calendar-weekday>
             </th>
             <th class="sbb-calendar__table-header-cell">
-              <button
-                aria-label="Sunday"
-                class="sbb-calendar__header-cell"
-              >
-                S
-              </button>
+              <sbb-calendar-weekday tabindex="0">
+              </sbb-calendar-weekday>
             </th>
           </tr>
         </thead>

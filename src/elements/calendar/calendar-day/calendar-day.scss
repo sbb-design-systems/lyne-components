@@ -1,23 +1,7 @@
 @use '../../core/styles' as sbb;
 
-:host {
-  --sbb-calendar-day-width: #{sbb.px-to-rem-build(44)};
-  --sbb-calendar-day-height: #{sbb.px-to-rem-build(48)};
-  --sbb-calendar-day-flex-direction: column;
-  --sbb-calendar-day-justify-content: initial;
-  --sbb-calendar-day-align-items: initial;
-  --sbb-calendar-day-value-height: var(--sbb-spacing-fixed-6x);
-  --sbb-calendar-day-extra-display: block;
-  --sbb-calendar-day-extra-height: var(--sbb-spacing-fixed-4x);
-  --sbb-calendar-day-crossed-out-top: 33%;
-  --sbb-calendar-day-crossed-out-translate: translate(-50%, -33%) rotate(-45deg);
-}
-
 .sbb-calendar-day {
-  display: flex;
-  flex-direction: var(--sbb-calendar-day-flex-direction);
-  justify-content: var(--sbb-calendar-day-justify-content);
-  align-items: var(--sbb-calendar-day-align-items);
+  flex-direction: column;
   height: var(--sbb-calendar-day-height);
   width: var(--sbb-calendar-day-width);
   padding: var(--sbb-calendar-cell-padding);
@@ -28,10 +12,6 @@
 
 .sbb-calendar-day__value {
   height: var(--sbb-calendar-day-value-height);
-
-  :host(:state(current)) & {
-    font-weight: bold;
-  }
 
   :host(:state(crossed-out)) & {
     &::after {
