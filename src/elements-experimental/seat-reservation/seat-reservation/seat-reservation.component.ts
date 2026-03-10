@@ -1,7 +1,7 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.js';
-import { html, nothing } from 'lit';
+import { html, isServer, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -195,7 +195,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _renderNavigation(): TemplateResult | null {
-    if (!this.hasNavigation || !this.seatReservations) return null;
+    if (isServer || !this.hasNavigation || !this.seatReservations) return null;
     return html`<div class="sbb-sr-navigation-wrapper">
       <nav id="sbb-sr-navigation" class="sbb-sr-navigation">
         ${this._renderNavigationControlButton('DIRECTION_LEFT')}
@@ -244,7 +244,7 @@ class SbbSeatReservationElement extends SeatReservationBaseElement {
   ): TemplateResult[] | null {
     const coaches: CoachItem[] = JSON.parse(JSON.stringify(seatReservation?.coachItems));
 
-    if (!coaches) {
+    if (!coaches || isServer) {
       return null;
     }
     return coaches.map((coachItem: CoachItem, coachIndex: number) => {
