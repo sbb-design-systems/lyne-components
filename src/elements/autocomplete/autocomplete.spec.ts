@@ -12,6 +12,7 @@ import { SbbFormFieldElement } from '../form-field.ts';
 import { SbbOptionElement } from '../option.ts';
 
 import { SbbAutocompleteElement } from './autocomplete.component.ts';
+import '../option/optgroup.ts';
 
 // TODO: Create a 'sbb-autocomplete-base.spec' that factorize tests between the 'autocomplete' and the 'autocomplete-grid'
 
@@ -1436,6 +1437,40 @@ describe(`sbb-autocomplete`, () => {
       await aTimeout(10);
 
       expect(submitSpy.count).to.be.equal(0);
+    });
+  });
+
+  describe('with optgroup', () => {
+    beforeEach(async () => {
+      formField = await fixture(html`
+        <sbb-form-field>
+          <input />
+          <sbb-autocomplete>
+            <sbb-optgroup label="Group 1">
+              <sbb-option id="option-1" value="1">1</sbb-option>
+              <sbb-option id="option-2" value="2">2</sbb-option>
+            </sbb-optgroup>
+          </sbb-autocomplete>
+        </sbb-form-field>
+      `);
+      input = formField.querySelector<HTMLInputElement>('input')!;
+      element = formField.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
+    });
+
+    it('should recalculate position when options in optgroup change', async () => {
+      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      const slotChangeSpy = new EventSpy('ɵoptgroupslotchange', element, { capture: true });
+      const options = Array.from(element.querySelectorAll('sbb-option'));
+      element.autoActiveFirstOption = true;
+
+      input.focus();
+      await openSpy.calledOnce();
+      expect(options[0]).to.match(':state(active)');
+      options[0].remove();
+      await waitForLitRender(element);
+
+      expect(slotChangeSpy.count).to.be.equal(1);
+      expect(options[1]).to.match(':state(active)');
     });
   });
 });

@@ -107,6 +107,9 @@ $theme: 'standard' !default;
 @use '../../footer/footer.global' as footer with (
   $theme: $theme
 );
+@use '../../icon-sidebar/icon-sidebar/icon-sidebar.global' as icon-sidebar with (
+  $theme: $theme
+);
 @use '../../lead-container/lead-container.global' as lead-container with (
   $theme: $theme
 );
@@ -182,6 +185,7 @@ $theme: 'standard' !default;
   @include flip-card.base;
   @include flip-card-details.base;
   @include footer.base;
+  @include icon-sidebar.base;
   @include lead-container.base;
   @include option.base;
   @include option-hint.base;
@@ -317,6 +321,7 @@ $theme: 'standard' !default;
 @include dialog-content.rules;
 @include dialog-title.rules;
 @include flip-card-summary.rules;
+@include icon-sidebar.rules;
 @include lead-container.rules;
 @include option.rules;
 @include tab-nav-bar.rules;
@@ -694,17 +699,6 @@ sbb-sidebar-container:has(
 ) {
   --sbb-sidebar-container__backdrop-visibility: visible;
   --sbb-sidebar-container-backdrop-opacity: 0.4;
-}
-
-// Move the current-page-border to the right side if the sidebar is right positioned
-sbb-icon-sidebar-content + sbb-icon-sidebar :is(sbb-icon-sidebar-link, sbb-icon-sidebar-button) {
-  --sbb-icon-sidebar-button__current-border-inset-inline-start: auto;
-}
-
-// Set the border radius at the left top side if the sidebar is right positioned
-sbb-icon-sidebar-content + sbb-icon-sidebar {
-  border-start-end-radius: 0;
-  border-start-start-radius: var(--sbb-icon-sidebar-border-radius);
 }
 
 // If there is no close button, avoid reserving any space for the button in the sidebar title
