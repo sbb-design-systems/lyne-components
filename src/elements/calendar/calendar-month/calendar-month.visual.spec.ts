@@ -30,6 +30,7 @@ describe('sbb-calendar-month', () => {
 
   describeViewports(() => {
     let root: SbbCalendarElement;
+    const selectedDate = [new Date(2025, 1, 20), new Date(2025, 4, 20), new Date(2025, 5, 20)];
 
     beforeEach(async () => {
       root = await visualRegressionFixture(html`
@@ -47,6 +48,15 @@ describe('sbb-calendar-month', () => {
       'default',
       visualDiffDefault.with(async (setup) => {
         setup.withSnapshotElement(root);
+      }),
+    );
+
+    it(
+      `multiple`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-calendar view="month" multiple .selected=${selectedDate}></sbb-calendar>
+        `);
       }),
     );
 

@@ -19,6 +19,7 @@ import './calendar-year.component.ts';
 
 describe('sbb-calendar-year', () => {
   let todayStub: SinonStub;
+  const selectedDate = [new Date(2023, 0, 20), new Date(2026, 0, 20), new Date(2027, 0, 21)];
 
   before(() => {
     todayStub = stub(defaultDateAdapter, 'today').callsFake(() => new Date(2025, 0, 1, 0, 0, 0, 0));
@@ -47,6 +48,15 @@ describe('sbb-calendar-year', () => {
       'default',
       visualDiffDefault.with(async (setup) => {
         setup.withSnapshotElement(root);
+      }),
+    );
+
+    it(
+      `multiple`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-calendar view="year" multiple .selected=${selectedDate}></sbb-calendar>
+        `);
       }),
     );
 
