@@ -12,7 +12,6 @@ import { SbbFormFieldElement } from '../form-field.ts';
 import { SbbOptionElement } from '../option.ts';
 
 import { SbbAutocompleteElement } from './autocomplete.component.ts';
-import '../option/optgroup.ts';
 
 import '../autocomplete.ts';
 
