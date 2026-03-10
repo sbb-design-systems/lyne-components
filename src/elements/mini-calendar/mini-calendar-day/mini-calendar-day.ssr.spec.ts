@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbMiniCalendarDayElement } from './mini-calendar-day.component.ts';
 
+import '../../mini-calendar.ts';
+
 describe(`sbb-mini-calendar-day ssr`, () => {
   let root: SbbMiniCalendarDayElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-mini-calendar-day ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-mini-calendar-day date="2025-01-01"></sbb-mini-calendar-day>`,
       {
-        modules: ['./mini-calendar-day.component.js'],
+        modules: ['../../mini-calendar.ts'],
       },
     );
   });

@@ -1,4 +1,6 @@
-/**
- * @entrypoint
- */
-export * from './action-group/action-group.component.ts';
+/** @entrypoint */
+import { SbbActionGroupElement } from './action-group.pure.ts';
+
+export * from './action-group.pure.ts';
+
+SbbActionGroupElement.define();

@@ -2,7 +2,7 @@ import { html } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './train-blocked-passage.component.ts';
+import '../../train.ts';
 
 describe(`sbb-train-blocked-passage`, () => {
   describeViewports({ viewports: ['zero'] }, () => {

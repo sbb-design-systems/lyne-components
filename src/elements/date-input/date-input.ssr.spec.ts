@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbDateInputElement } from './date-input.component.ts';
 
+import '../date-input.ts';
+
 describe(`sbb-date-input ssr`, () => {
   let root: SbbDateInputElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-date-input value="2024-12-11"></sbb-date-input>`, {
-      modules: ['./date-input.component.js'],
+      modules: ['../date-input.ts'],
     });
   });
 

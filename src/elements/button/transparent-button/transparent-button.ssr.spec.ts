@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbTransparentButtonElement } from './transparent-button.component.ts';
 
+import '../../button.ts';
+
 describe(`sbb-transparent-button ssr`, () => {
   let root: SbbTransparentButtonElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-transparent-button>Button</sbb-transparent-button>`, {
-      modules: ['./transparent-button.component.js'],
+      modules: ['../../button.ts'],
     });
   });
 

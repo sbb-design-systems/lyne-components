@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbHeaderLinkElement } from './header-link.component.ts';
 
+import '../../header.ts';
+
 describe(`sbb-header-link ssr`, () => {
   let root: SbbHeaderLinkElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-header-link ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-header-link id="focus-id" href="#">Action</sbb-header-link>`,
       {
-        modules: ['./header-link.component.js'],
+        modules: ['../../header.ts'],
       },
     );
   });

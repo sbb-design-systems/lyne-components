@@ -4,11 +4,8 @@ import { describeEach, describeViewports, visualDiffDefault } from '../../core/t
 
 import type { SbbDialogElement } from './dialog.component.ts';
 
-import './dialog.component.ts';
-import '../dialog-actions.ts';
-import '../dialog-close-button.ts';
-import '../dialog-content.ts';
-import '../dialog-title.ts';
+import '../../dialog.ts';
+
 import '../../link/block-link.ts';
 import '../../button/button.ts';
 import '../../button/secondary-button.ts';

@@ -9,9 +9,9 @@ import type { SbbFormFieldElement } from '../../form-field.ts';
 
 import { SbbDatepickerNextDayElement } from './datepicker-next-day.component.ts';
 
-import '../datepicker.ts';
+import '../../datepicker.ts';
 import '../../date-input.ts';
-import '../../form-field/form-field.ts';
+import '../../form-field.ts';
 
 describe(`sbb-datepicker-next-day`, () => {
   describe('standalone', () => {

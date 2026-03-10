@@ -5,9 +5,8 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbFlipCardElement } from './flip-card.component.ts';
 
-import './flip-card.component.ts';
-import '../flip-card-details.ts';
-import '../flip-card-summary.ts';
+import '../../flip-card.ts';
+
 import '../../title.ts';
 import '../../image.ts';
 import '../../link.ts';

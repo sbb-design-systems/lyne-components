@@ -1,7 +1,7 @@
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 
-import { sidebarContentCommonStyle } from '../common.ts';
+import { SbbElement } from '../../core/base-elements.ts';
+import { sidebarContentCommonStyle } from '../common/styles.ts';
 
 import style from './sidebar-content.scss?lit&inline';
 
@@ -11,9 +11,8 @@ import style from './sidebar-content.scss?lit&inline';
  * @slot - Use the unnamed slot to add any content elements.
  * Further `sbb-sidebar-container`s are possible.
  */
-export
-@customElement('sbb-sidebar-content')
-class SbbSidebarContentElement extends LitElement {
+export class SbbSidebarContentElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-sidebar-content';
   public static override styles: CSSResultGroup = [sidebarContentCommonStyle, style];
 
   public override connectedCallback(): void {

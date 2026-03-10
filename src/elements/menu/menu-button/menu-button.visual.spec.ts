@@ -9,7 +9,7 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.ts';
 
-import './menu-button.component.ts';
+import '../../menu.ts';
 
 describe(`sbb-menu-button`, () => {
   const defaultArgs = {

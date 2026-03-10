@@ -4,13 +4,15 @@ import { html } from 'lit/static-html.js';
 
 import { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.component.ts';
 
+import '../../autocomplete-grid.ts';
+
 describe(`sbb-autocomplete-grid-button ssr`, () => {
   let element: SbbAutocompleteGridButtonElement;
 
   beforeEach(async () => {
     element = await fixture(
       html`<sbb-autocomplete-grid-button>Button</sbb-autocomplete-grid-button>`,
-      { modules: ['./autocomplete-grid-button.component.ts'] },
+      { modules: ['../../autocomplete-grid.ts'] },
     );
   });
 

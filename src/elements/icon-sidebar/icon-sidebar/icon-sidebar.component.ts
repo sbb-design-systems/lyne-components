@@ -1,8 +1,8 @@
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { property } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
-import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container.ts';
+import { SbbElement } from '../../core/base-elements.ts';
+import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container/icon-sidebar-container.component.ts';
 
 import style from './icon-sidebar.scss?lit&inline';
 
@@ -11,9 +11,8 @@ import style from './icon-sidebar.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to slot any content into the icon-sidebar.
  */
-export
-@customElement('sbb-icon-sidebar')
-class SbbIconSidebarElement extends SbbElementInternalsMixin(LitElement) {
+export class SbbIconSidebarElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-icon-sidebar';
   public static override readonly role = 'navigation';
   public static override styles: CSSResultGroup = style;
 

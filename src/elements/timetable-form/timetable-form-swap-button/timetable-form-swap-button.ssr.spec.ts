@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbTimetableFormSwapButtonElement } from './timetable-form-swap-button.component.ts';
 
+import '../../timetable-form.ts';
+
 describe(`sbb-timetable-form-swap-button ssr`, () => {
   let root: SbbTimetableFormSwapButtonElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-timetable-form-swap-button ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-timetable-form-swap-button></sbb-timetable-form-swap-button>`,
       {
-        modules: ['./timetable-form-swap-button.component.js'],
+        modules: ['../../timetable-form.ts'],
       },
     );
   });

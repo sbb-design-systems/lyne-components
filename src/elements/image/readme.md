@@ -1,4 +1,4 @@
-The `sbb-image` component is used to render an image.
+The `<sbb-image>` component is used to render an image.
 
 Mainly from cdn.img.sbb.ch (with `imageSrc`), but we can set an external image too.
 The size can be set with `pictureSizesConfig`.
@@ -9,7 +9,7 @@ The size can be set with `pictureSizesConfig`.
 
 ## Usage
 
-For image related elements, it is strongly recommended to wrap an `sbb-image` and all its related elements in a `figure` tag.
+For image related elements, it is strongly recommended to wrap an `<sbb-image>` and all its related elements in a `figure` tag.
 E.g. `<figcaption>` or `<sbb-chip-label>`.
 
 ```html
@@ -35,8 +35,8 @@ You can place overlapping content by using the `sbb-figure-overlap-${horizontal-
 </figure>
 ```
 
-Instead of a `sbb-chip-label`, it's also possible to slot images (e.g. logos).
-In that case, the `sbb-figure-overlap-image` CSS class needs to be set on the image.
+Instead of a `<sbb-chip-label>`, it's also possible to slot images (e.g. logos).
+In that case, the `<sbb-figure-overlap-image>` CSS class needs to be set on the image.
 
 ```html
 <figure class="sbb-figure">
@@ -100,7 +100,11 @@ Use the `sbb-image-${ratio}` utility classes to set the image aspect ratio.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbImageElement`, `sbb-image`
+
+#### Properties
 
 | Name                 | Attribute              | Privacy | Type                          | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | -------------------- | ---------------------- | ------- | ----------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -118,14 +122,14 @@ Use the `sbb-image-${ratio}` utility classes to set the image aspect ratio.
 | `pictureSizesConfig` | `picture-sizes-config` | public  | `string`                      | `''`      | With the pictureSizesConfig object, you can pass in information into image about what kind of source elements should get rendered. mediaQueries accepts multiple Media Query entries which can get combined by defining a conditionOperator. Type is: stringified InterfaceImageAttributesSizesConfig-Object An example could look like this: { "breakpoints": \[ { "image": { "height": "675", "width": "1200" }, "mediaQueries": \[ { "conditionFeature": "min-width", "conditionFeatureValue": { "lyneDesignToken": true, "value": "sbb-breakpoint-large-min" }, "conditionOperator": false } ] }, { "image": { "height": "549", "width": "976" }, "mediaQueries": \[ { "conditionFeature": "min-width", "conditionFeatureValue": { "lyneDesignToken": true, "value": "sbb-breakpoint-small-min" }, "conditionOperator": false } ] }, { "image": { "height": "180", "width": "320" }, "mediaQueries": \[ { "conditionFeature": "max-width", "conditionFeatureValue": { "lyneDesignToken": true, "value": "sbb-breakpoint-small-max" }, "conditionOperator": "and" }, { "conditionFeature": "orientation", "conditionFeatureValue": { "lyneDesignToken": false, "value": "landscape" }, "conditionOperator": false } ] } ] } |
 | `skipLqip`           | `skip-lqip`            | public  | `boolean`                     | `false`   | If set to false, we show a blurred version of the image as placeholder before the actual image shows up. This will help to improve the perceived loading performance. Read more about the idea of lqip here: https://medium.com/@imgix/lqip-your-images-for-fast-loading-2523d9ee4a62                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
-## Events
+#### Events
 
 | Name    | Type    | Description                                                                                                 | Inherited From |
 | ------- | ------- | ----------------------------------------------------------------------------------------------------------- | -------------- |
 | `error` | `Event` | Emits when the image loading ended in an error.                                                             |                |
 | `load`  | `Event` | Emits each time an image loads. E.g. loading image for a different viewport, triggers the load event again. |                |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                          | Default | Description                                                                                                                                                                          |
 | ----------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

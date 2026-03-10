@@ -2,7 +2,7 @@ import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbCalendarElement } from '../calendar.ts';
+import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
 import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts';
 
 /**

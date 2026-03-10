@@ -1,12 +1,11 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 
 import { isArrowKeyPressed } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nCarouselItemAriaLabel } from '../../core/i18n.ts';
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
 import type {
   SbbCarouselItemElement,
   SbbCarouselItemEventDetail,
@@ -19,9 +18,8 @@ import style from './carousel-list.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-carousel-item` elements.
  */
-export
-@customElement('sbb-carousel-list')
-class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
+export class SbbCarouselListElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-carousel-list';
   public static override styles: CSSResultGroup = style;
 
   private _currentIndex = 0;

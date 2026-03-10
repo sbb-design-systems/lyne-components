@@ -5,8 +5,8 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbMenuElement } from './menu.component.ts';
 
-import './menu.component.ts';
-import '../menu-button.ts';
+import '../../menu.ts';
+
 import '../../button.ts';
 import '../../divider.ts';
 import '../../link.ts';

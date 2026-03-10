@@ -1,5 +1,6 @@
-/**
- * @entrypoint
- */
-export * from './overlay/overlay.component.ts';
-export * from './overlay/overlay-base-element.ts';
+/** @entrypoint */
+import { SbbOverlayElement } from './overlay.pure.ts';
+
+export * from './overlay.pure.ts';
+
+SbbOverlayElement.define();

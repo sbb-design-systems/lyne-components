@@ -27,6 +27,7 @@ import type { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-el
 import type { SbbMonthChangeEvent } from './calendar.component.ts';
 import { SbbCalendarElement } from './calendar.component.ts';
 import '../../button.ts';
+import '../../calendar.ts';
 
 describe(`sbb-calendar`, () => {
   const elementInternals = elementInternalsSpy();

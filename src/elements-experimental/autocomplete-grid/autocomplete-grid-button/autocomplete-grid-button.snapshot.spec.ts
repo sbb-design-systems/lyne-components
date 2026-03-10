@@ -4,11 +4,9 @@ import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.component.ts';
+
 import '@sbb-esta/lyne-elements/form-field.js';
-import '../autocomplete-grid.ts';
-import '../autocomplete-grid-row.ts';
-import '../autocomplete-grid-cell.ts';
-import './autocomplete-grid-button.component.ts';
+import '../../autocomplete-grid.ts';
 
 describe('sbb-autocomplete-grid-button', () => {
   describe('renders', () => {

@@ -10,7 +10,7 @@ import {
 } from '../../core/testing/private.ts';
 
 import '../../form-field.ts';
-import './mini-button-link.component.ts';
+import '../mini-button-link.ts';
 
 describe(`sbb-mini-button-link`, () => {
   let root: HTMLElement;

@@ -54,10 +54,10 @@ export interface ServiceAlteration {
 }
 
 /** Text template with optional formattable parameters. Useful to represent in UIs as clickable features like an e-Mail, phone or URL. */
-export type LinkedText = {
+export interface LinkedText {
   /** End-user text. */
   template?: string | null;
-};
+}
 
 /** vehicle journeys stop point state */
 export type StopStatusEnum =
@@ -110,15 +110,15 @@ export type VehicleModeEnum =
   | 'TRAMWAY'
   | 'UNKNOWN';
 
-export type Leg = {
+export interface Leg {
   /** duration from previous transfer point to current in minutes */
   duration?: number | null;
   /** Unique Index ordered within Trip */
   id: string;
-};
+}
 
 /** Wrapper for a Notice with image/picto name and text */
-export type Notice = {
+export interface Notice {
   __typename?: 'Notice';
   /** Hint whether a passenger should see such a Notice being advertised */
   advertised?: boolean | null;
@@ -133,10 +133,10 @@ export type Notice = {
   text?: LinkedText | null;
   /** Type of Notice */
   type: NoticeTypeEnum;
-};
+}
 
 /** A period during which the situation should be published. */
-export type PublicationWindow = {
+export interface PublicationWindow {
   /** Situation within this publication window. */
   dailyDuration?: string | null;
   dailyStartingAt?: string | null;
@@ -146,10 +146,10 @@ export type PublicationWindow = {
   /** Local start date of situation */
   startDate?: string | null;
   startTime?: string | null;
-};
+}
 
 /** A public transportation situation broadcast message affecting the planned PT operation */
-export type PtSituationMessage = {
+export interface PtSituationMessage {
   /** Complete Footer/text of message */
   detail: string;
   /** Abbreviated Footer/text of message */
@@ -161,10 +161,10 @@ export type PtSituationMessage = {
   priority: number;
   /** Heading of message */
   title: string;
-};
+}
 
 /** A public transportation situation message affecting the planned PT operation */
-export type PtSituation = {
+export interface PtSituation {
   /** Index of first involved StopPoint in the PT situation */
   affectedStopPointFromIdx?: number | null;
   /** Index of last involved StopPoint in the PT situation */
@@ -173,20 +173,20 @@ export type PtSituation = {
   broadcastMessages: PtSituationMessage[];
   /** A classification of what caused the SITUATION (HIM category) */
   cause?: PtSituationCauseEnum | null;
-};
+}
 
-export type Occupancy = {
+export interface Occupancy {
   /** occupancy first class */
   firstClass?: OccupancyEnum | null;
   /** occupancy second class */
   secondClass?: OccupancyEnum | null;
-};
+}
 
 /**
  * A passenger carrying Service (physical public transport vehicle)
  * provided and operated by a certain Operator allocated to a concrete ServiceJourney
  */
-export type ServiceProduct = {
+export interface ServiceProduct {
   /** Icon-identifier to represent the specific submode  e.g. the symbol for an EC 1 */
   corporateIdentityIcon?: string | null;
 
@@ -215,10 +215,10 @@ export type ServiceProduct = {
    * example: IC
    */
   vehicleSubModeShortName?: string | null;
-};
+}
 
 /** Realtime status of a Trip */
-export type TripStatus = {
+export interface TripStatus {
   /** false: Planned connection; true: Realtime alternative */
   alternative: boolean;
   /** Text intended for passengers about an alternative Trip, relates to alternative. */
@@ -235,10 +235,10 @@ export type TripStatus = {
   partiallyCancelled: boolean;
   /** Contains at least one platform change (de:Gleis-/Kante-/Steg-Änderung) on any PTRideLeg */
   quayChanged: boolean;
-};
+}
 
 /** Summary of most relevant aspects of the given Trip */
-export type TripSummary = {
+export interface TripSummary {
   arrival?: ScheduledStopPointDetail | null;
   /** minutes to walk from arrival station to home/searched arrival */
   arrivalWalk: number;
@@ -257,10 +257,10 @@ export type TripSummary = {
   product?: ServiceProduct | null;
   /** Overall Realtime status */
   tripStatus: TripStatus;
-};
+}
 
 /** public transport journey connection */
-export type ITripItem = {
+export interface ITripItem {
   /** contains all info for ZVS::Reise to get TripOffer price from NOVA */
   id: string;
   /** List of transfer points */
@@ -284,26 +284,26 @@ export type ITripItem = {
   summary?: TripSummary | null;
   /** Rideable whole Trip should be true to book, otherwise TariffOffer makes no sense */
   valid: boolean;
-};
+}
 
 /** Country of start and end Stop */
-export type LegCountryCodes = {
+export interface LegCountryCodes {
   __typename?: 'LegCountryCodes';
   end?: string | null;
   start?: string | null;
-};
+}
 
-export type Coordinate = {
+export interface Coordinate {
   __typename?: 'Coordinate';
   latitude: number;
   longitude: number;
-};
+}
 
-export type Place = {
+export interface Place {
   centroid?: Coordinate | null;
   id: string;
   name: string;
-};
+}
 
 /** Public Transport Leg */
 export type PtRideLeg = Leg & {
@@ -349,7 +349,7 @@ export type PtConnectionLeg = Leg & {
 };
 
 /** A passenger carrying vehicle journey for one specified operation day */
-export type ServiceJourney = {
+export interface ServiceJourney {
   /** (last) Direction information correlating to vehicle or perron (platform) display */
   direction?: string | null;
   /** ServiceJourney ID */
@@ -368,4 +368,4 @@ export type ServiceJourney = {
   situations: PtSituation[];
   /** List of stop points */
   stopPoints: ScheduledStopPoint[];
-};
+}

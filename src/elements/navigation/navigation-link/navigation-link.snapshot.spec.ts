@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbNavigationLinkElement } from './navigation-link.component.ts';
 
-import './navigation-link.component.ts';
+import '../../navigation.ts';
 
 describe(`sbb-navigation-link`, () => {
   let element: SbbNavigationLinkElement;

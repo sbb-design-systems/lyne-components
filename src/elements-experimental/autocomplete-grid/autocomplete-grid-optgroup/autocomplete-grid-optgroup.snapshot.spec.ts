@@ -7,12 +7,7 @@ import { html } from 'lit/static-html.js';
 
 import type { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.component.ts';
 
-import './autocomplete-grid-optgroup.component.ts';
-import '../autocomplete-grid.ts';
-import '../autocomplete-grid-row.ts';
-import '../autocomplete-grid-option.ts';
-import '../autocomplete-grid-cell.ts';
-import '../autocomplete-grid-button.ts';
+import '../../autocomplete-grid.ts';
 
 describe('sbb-autocomplete-grid-optgroup', () => {
   const opt: TemplateResult = html`

@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbTimeInputElement } from './time-input.component.ts';
 
-import './time-input.component.ts';
+import '../time-input.ts';
 
 describe(`sbb-time-input`, () => {
   describe('renders', () => {

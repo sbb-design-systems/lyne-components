@@ -1,7 +1,7 @@
 The `sbb-table` class is designed to handle the styling of common table use cases, ensuring a consistent and visually appealing presentation of tabular data.
 This guide will walk you through the various customization options and advanced scenarios for styling tables within our design system.
 
-In most of the cases, you might want to also use the [sbb-table-wrapper](/docs/elements-sbb-table-sbb-table-wrapper--docs).
+In most of the cases, you might want to also use the [sbb-table-wrapper](/docs/elements-table--docs).
 
 ### Basic usage
 

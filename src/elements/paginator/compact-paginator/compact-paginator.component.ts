@@ -1,11 +1,11 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { i18nPage, i18nPaginatorOf } from '../../core/i18n.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbPaginatorCommonElementMixin } from '../common.ts';
+import { SbbPaginatorCommonElementMixin } from '../common/paginator-common.ts';
 
 import style from './compact-paginator.scss?lit&inline';
 
@@ -15,9 +15,8 @@ import '../../screen-reader-only.ts';
 /**
  * It displays a paginator component in compact mode.
  */
-export
-@customElement('sbb-compact-paginator')
-class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(LitElement) {
+export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-compact-paginator';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events: Record<string, string> = {
     page: 'page',

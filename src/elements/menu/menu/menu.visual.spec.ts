@@ -9,9 +9,8 @@ import { describeViewports, tabKey, visualDiffDefault } from '../../core/testing
 import '../../button/button.ts';
 import '../../divider.ts';
 import '../../link.ts';
-import '../menu-link.ts';
-import '../menu-button.ts';
-import './menu.component.ts';
+import '../../menu.ts';
+
 import type { SbbMenuElement } from './menu.component.ts';
 
 describe(`sbb-menu`, () => {

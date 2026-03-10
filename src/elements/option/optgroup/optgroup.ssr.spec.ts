@@ -4,7 +4,7 @@ import { html } from 'lit';
 import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbOptGroupElement } from './optgroup.component.ts';
-import '../option.ts';
+import '../../option.ts';
 
 describe(`sbb-optgroup ssr`, () => {
   let root: SbbOptGroupElement;
@@ -18,7 +18,7 @@ describe(`sbb-optgroup ssr`, () => {
           <sbb-option id="option-3" value="option-3">Label 3</sbb-option>
         </sbb-optgroup>
       `,
-      { modules: ['./optgroup.component.js', '../option.js'] },
+      { modules: ['../../option.ts'] },
     );
   });
 

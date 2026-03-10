@@ -15,6 +15,7 @@ import '../card.ts';
 import '../form-field.ts';
 import '../image.ts';
 import '../link.ts';
+import '../overlay.ts';
 import '../title.ts';
 
 const expanded: InputType = {
@@ -166,7 +167,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-overlay',
+  title: 'elements/Overlay',
 };
 
 export default meta;

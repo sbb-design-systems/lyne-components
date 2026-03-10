@@ -5,6 +5,8 @@ import { fixture } from '../../core/testing/private.ts';
 
 import { SbbExpansionPanelContentElement } from './expansion-panel-content.component.ts';
 
+import '../../expansion-panel.ts';
+
 describe(`sbb-expansion-panel-content`, () => {
   let element: SbbExpansionPanelContentElement;
 

@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbScreenReaderOnlyElement } from './screen-reader-only.component.ts';
 
-import './screen-reader-only.component.ts';
+import '../screen-reader-only.ts';
 
 describe(`sbb-screen-reader-only`, () => {
   describe('renders', async () => {

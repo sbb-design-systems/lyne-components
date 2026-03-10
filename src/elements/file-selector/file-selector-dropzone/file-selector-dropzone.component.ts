@@ -1,16 +1,20 @@
-import { type CSSResultGroup, LitElement, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, type TemplateResult } from 'lit';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbSecondaryButtonStaticElement } from '../../button.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import {
   i18nFileSelectorSubtitleLabel,
   i18nFileSelectorSubtitleLabelMultiple,
 } from '../../core/i18n.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { fileSelectorCommonStyle, SbbFileSelectorCommonElementMixin } from '../common.ts';
+import {
+  fileSelectorCommonStyle,
+  SbbFileSelectorCommonElementMixin,
+} from '../common/file-selector-common.ts';
 
 import '../../button/secondary-button-static.ts';
 import '../../icon.ts';
@@ -22,9 +26,8 @@ import style from './file-selector-dropzone.scss?lit&inline';
  *
  * @slot error - Use this to provide a `sbb-error` to show an error message.
  */
-export
-@customElement('sbb-file-selector-dropzone')
-class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElementMixin(LitElement) {
+export class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElementMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-file-selector-dropzone';
   public static override styles: CSSResultGroup = [boxSizingStyles, fileSelectorCommonStyle, style];
   public static readonly events = {
     filechanged: 'filechanged',

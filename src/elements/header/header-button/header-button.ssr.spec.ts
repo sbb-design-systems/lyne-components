@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbHeaderButtonElement } from './header-button.component.ts';
 
+import '../../header.ts';
+
 describe(`sbb-header-button ssr`, () => {
   let root: SbbHeaderButtonElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-header-button ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-header-button id="focus-id">Action</sbb-header-button>`,
       {
-        modules: ['./header-button.component.js'],
+        modules: ['../../header.ts'],
       },
     );
   });

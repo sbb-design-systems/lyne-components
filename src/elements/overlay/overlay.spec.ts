@@ -12,6 +12,7 @@ import { SbbOverlayElement } from './overlay.component.ts';
 
 import '../button.ts';
 import '../icon.ts';
+import '../overlay.ts';
 
 async function openOverlay(element: SbbOverlayElement): Promise<void> {
   const beforeOpenSpy = new EventSpy(SbbOverlayElement.events.beforeopen, element);

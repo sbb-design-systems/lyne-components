@@ -1,4 +1,4 @@
-The `sbb-popover` component can be useful for displaying contextual and additional information on mouse hover or click of a trigger element.
+The `<sbb-popover>` component can be useful for displaying contextual and additional information on mouse hover or click of a trigger element.
 
 The component could be used:
 
@@ -9,7 +9,7 @@ The component could be used:
 
 The component must be connected with the trigger element using the `trigger` property,
 which accepts the id of the element, or directly its reference;
-the [sbb-menu-button](/docs/elements-sbb-button-sbb-mini-button--docs) is meant to be used as trigger.
+the [sbb-menu-button](/docs/elements-button--docs) is meant to be used as trigger.
 
 ```html
 <sbb-mini-button icon-name="circle-information-small" id="popover-trigger"></sbb-mini-button>
@@ -37,10 +37,10 @@ mergeConfig({
 
 ## Interactions
 
-The `sbb-popover` can be dismissed by clicking on an interactive element within its content,
+The `<sbb-popover>` can be dismissed by clicking on an interactive element within its content,
 by clicking on the close button or by performing another action on the page.
 
-You can also indicate that an element within the popover content should close the `sbb-popover` when clicked
+You can also indicate that an element within the popover content should close the `<sbb-popover>` when clicked
 by marking it with the `sbb-popover-close` attribute;
 it's also possible to hide the default close button using the `hideCloseButton` property.
 
@@ -55,12 +55,12 @@ it's also possible to hide the default close button using the `hideCloseButton` 
 </sbb-popover>
 ```
 
-You can also indicate that the `sbb-popover` should be shown on hover with the property `hoverTrigger`
+You can also indicate that the `<sbb-popover>` should be shown on hover with the property `hoverTrigger`
 and set a custom delay for the open and close animations (defaults to 0).
 In this case, the default close button is hidden.
 
 If hover is not supported by the current device, the component will be triggered on click/tap as default.
-The `sbb-popover` will automatically disappear after the hiding delay
+The `<sbb-popover>` will automatically disappear after the hiding delay
 if neither the trigger element nor the popover are on hover or if another action is performed on the page.
 
 ```html
@@ -80,7 +80,7 @@ if neither the trigger element nor the popover are on hover or if another action
 
 ## Style
 
-The `sbb-popover` automatically calculates where it should place itself, based on available space. Default is below and center.
+The `<sbb-popover>` automatically calculates where it should place itself, based on available space. Default is below and center.
 
 ## Accessibility
 
@@ -103,7 +103,11 @@ If the attribute is not used, the first focusable element receives focus (recomm
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbPopoverElement`, `sbb-popover`
+
+#### Properties
 
 | Name                      | Attribute                   | Privacy | Type                  | Default | Description                                                                                                 |
 | ------------------------- | --------------------------- | ------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------- |
@@ -115,7 +119,7 @@ If the attribute is not used, the first focusable element receives focus (recomm
 | `openDelay`               | `open-delay`                | public  | `number`              | `0`     | Open the popover after a given delay in milliseconds. Global configuration is used as default, if not set.  |
 | `trigger`                 | `trigger`                   | public  | `HTMLElement \| null` | `null`  | The element that will trigger the popover overlay. For attribute usage, provide an id reference.            |
 
-## Methods
+#### Methods
 
 | Name             | Privacy | Description                                                                 | Parameters            | Return | Inherited From          |
 | ---------------- | ------- | --------------------------------------------------------------------------- | --------------------- | ------ | ----------------------- |
@@ -123,7 +127,7 @@ If the attribute is not used, the first focusable element receives focus (recomm
 | `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |                       | `void` | SbbOpenCloseBaseElement |
 | `open`           | public  | Opens the popover on trigger click.                                         |                       | `void` | SbbOpenCloseBaseElement |
 
-## Events
+#### Events
 
 | Name          | Type                                                | Description                                                                  | Inherited From          |
 | ------------- | --------------------------------------------------- | ---------------------------------------------------------------------------- | ----------------------- |
@@ -132,13 +136,13 @@ If the attribute is not used, the first focusable element receives focus (recomm
 | `close`       | `CustomEvent<{ closeTarget: HTMLElement \| null }>` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
 | `open`        | `Event`                                             | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                    | Default                              | Description                                                                                                                                                                                                   |
 | ----------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--sbb-popover-z-index` | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 
-## Slots
+#### Slots
 
 | Name | Description                                           |
 | ---- | ----------------------------------------------------- |

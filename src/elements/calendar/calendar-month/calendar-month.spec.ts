@@ -4,11 +4,9 @@ import { html } from 'lit/static-html.js';
 import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
 import { fixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing/wait-for-render.ts';
-import { SbbCalendarElement } from '../calendar.ts';
+import { SbbCalendarElement } from '../calendar/calendar.component.ts';
 
 import { SbbCalendarMonthElement } from './calendar-month.component.ts';
-
-import '../calendar/calendar.component.ts';
 
 describe('sbb-calendar-month', () => {
   let root: SbbCalendarElement;

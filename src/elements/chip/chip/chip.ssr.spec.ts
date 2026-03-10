@@ -5,19 +5,21 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbChipElement } from './chip.component.ts';
 
+import '../../chip.ts';
+
 describe(`sbb-chip ssr`, () => {
   let root: SbbChipElement;
 
   it('renders', async () => {
     root = await ssrHydratedFixture(html`<sbb-chip value="Value"></sbb-chip>`, {
-      modules: ['./chip.component.js'],
+      modules: ['../../chip.ts'],
     });
     assert.instanceOf(root, SbbChipElement);
   });
 
   it('renders with label', async () => {
     root = await ssrHydratedFixture(html`<sbb-chip value="Value">Label</sbb-chip>`, {
-      modules: ['./chip.component.js'],
+      modules: ['../../chip.ts'],
     });
     assert.instanceOf(root, SbbChipElement);
   });

@@ -10,7 +10,7 @@ import {
 } from '../../core/testing/private.ts';
 import { waitForCondition } from '../../core/testing/wait-for-condition.ts';
 
-import './table-wrapper.component.ts';
+import '../../table.ts';
 
 describe(`sbb-table-wrapper`, () => {
   let root: HTMLElement;

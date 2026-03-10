@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbLinkElement } from './link.component.ts';
 
-import './link.component.ts';
+import '../../link.ts';
 
 describe(`sbb-link`, () => {
   let element: SbbLinkElement;

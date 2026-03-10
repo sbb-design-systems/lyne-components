@@ -7,7 +7,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
-import './chip-label.component.ts';
+import '../chip-label.ts';
 
 const size: InputType = {
   control: {
@@ -129,7 +129,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-chip-label',
+  title: 'elements/Chip Label',
 };
 
 export default meta;

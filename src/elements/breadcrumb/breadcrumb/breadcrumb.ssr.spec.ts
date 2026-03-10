@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbBreadcrumbElement } from './breadcrumb.component.ts';
 
+import '../../breadcrumb.ts';
+
 describe(`sbb-breadcrumb ssr`, () => {
   let root: SbbBreadcrumbElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-breadcrumb ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-breadcrumb id="focus-id" href="#">Test</sbb-breadcrumb>`,
       {
-        modules: ['./breadcrumb.component.js'],
+        modules: ['../../breadcrumb.ts'],
       },
     );
   });

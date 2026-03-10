@@ -4,12 +4,14 @@ import { html } from 'lit/static-html.js';
 
 import { SbbAutocompleteGridRowElement } from './autocomplete-grid-row.component.ts';
 
+import '../../autocomplete-grid.ts';
+
 describe(`sbb-autocomplete-grid-row ssr`, () => {
   let element: SbbAutocompleteGridRowElement;
 
   beforeEach(async () => {
     element = await fixture(html`<sbb-autocomplete-grid-row></sbb-autocomplete-grid-row>`, {
-      modules: ['./autocomplete-grid-row.component.ts'],
+      modules: ['../../autocomplete-grid.ts'],
     });
   });
 

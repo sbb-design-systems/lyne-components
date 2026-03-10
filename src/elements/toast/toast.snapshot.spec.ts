@@ -7,7 +7,7 @@ import { waitForCondition } from '../core/testing/wait-for-condition.ts';
 
 import type { SbbToastElement } from './toast.component.ts';
 
-import './toast.component.ts';
+import '../toast.ts';
 import '../link/link.ts';
 
 describe(`sbb-toast`, () => {

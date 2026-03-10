@@ -1,8 +1,9 @@
-import { type CSSResultGroup, LitElement, nothing, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
+import { property } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 import { html } from 'lit/static-html.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { forceType, handleDistinctChange, omitEmptyConverter } from '../../core/decorators.ts';
 import {
@@ -39,11 +40,10 @@ const typeToIconMap: Record<string, string> = {
  *
  * @slot - Use the unnamed slot to add one or more `sbb-icon` for meta-information of the `sbb-train-wagon`.
  */
-export
-@customElement('sbb-train-wagon')
-class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof LitElement>(
-  LitElement,
+export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof SbbElement>(
+  SbbElement,
 ) {
+  public static override readonly elementName: string = 'sbb-train-wagon';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     sectorchange: 'sectorchange',

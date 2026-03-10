@@ -5,8 +5,8 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbAlertGroupElement } from './alert-group.component.ts';
 
-import './alert-group.component.ts';
-import '../alert.ts';
+import '../../alert.ts';
+
 import '../../title.ts';
 
 describe(`sbb-alert-group`, () => {

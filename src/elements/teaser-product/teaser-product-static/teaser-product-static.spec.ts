@@ -6,6 +6,7 @@ import { fixture } from '../../core/testing/private.ts';
 import { SbbTeaserProductStaticElement } from './teaser-product-static.component.ts';
 
 import '../../image.ts';
+import '../../teaser-product.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

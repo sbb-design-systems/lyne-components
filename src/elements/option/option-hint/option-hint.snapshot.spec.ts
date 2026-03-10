@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbOptionHintElement } from './option-hint.component.ts';
-import './option-hint.component.ts';
+import '../../option.ts';
 
 describe(`sbb-option-hint`, () => {
   describe('renders', () => {

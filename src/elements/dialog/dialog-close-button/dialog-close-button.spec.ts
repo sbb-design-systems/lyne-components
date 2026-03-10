@@ -7,6 +7,8 @@ import { waitForLitRender } from '../../core/testing.ts';
 
 import { SbbDialogCloseButtonElement } from './dialog-close-button.component.ts';
 
+import '../../dialog.ts';
+
 describe('sbb-dialog-close-button', () => {
   let element: SbbDialogCloseButtonElement;
   const elementInternals = elementInternalsSpy();

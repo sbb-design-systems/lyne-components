@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbSidebarCloseButtonElement } from './sidebar-close-button.component.ts';
-import './sidebar-close-button.component.ts';
+
+import '../../sidebar.ts';
 
 describe(`sbb-sidebar-close-button`, () => {
   describe('renders', () => {

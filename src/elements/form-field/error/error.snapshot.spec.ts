@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbErrorElement } from './error.component.ts';
 
-import './error.component.ts';
+import '../../form-field.ts';
 
 describe(`sbb-error`, () => {
   let element: SbbErrorElement;

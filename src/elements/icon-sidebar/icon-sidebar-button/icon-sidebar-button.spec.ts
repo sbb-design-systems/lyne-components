@@ -7,6 +7,8 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
 import { SbbIconSidebarButtonElement } from './icon-sidebar-button.component.ts';
 
+import '../../icon-sidebar.ts';
+
 describe(`sbb-icon-sidebar-button`, () => {
   let element: SbbIconSidebarButtonElement;
 

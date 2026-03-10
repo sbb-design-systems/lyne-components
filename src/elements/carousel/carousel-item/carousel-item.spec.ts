@@ -5,6 +5,8 @@ import { fixture } from '../../core/testing/private.ts';
 
 import { SbbCarouselItemElement } from './carousel-item.component.ts';
 
+import '../../carousel.ts';
+
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 
 describe('sbb-carousel-item', () => {

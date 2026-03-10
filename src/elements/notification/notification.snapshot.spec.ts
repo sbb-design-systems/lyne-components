@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbNotificationElement } from './notification.component.ts';
 
-import './notification.component.ts';
+import '../notification.ts';
 import '../title.ts';
 
 describe(`sbb-notification`, () => {

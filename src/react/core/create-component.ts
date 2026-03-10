@@ -121,7 +121,9 @@ export interface Options<I extends HTMLElement, E extends EventNames = {}> {
   displayName?: string;
 }
 
-type Constructor<T> = { new (): T };
+interface Constructor<T> {
+  new (): T;
+}
 
 const reservedReactProperties = new Set([
   'children',

@@ -2,10 +2,8 @@ import { html, type TemplateResult } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './header-environment.component.ts';
-import '../header.ts';
-import '../header-link.ts';
-import '../header-button.ts';
+import '../../header.ts';
+
 import '../../menu.ts';
 import '../../logo.ts';
 

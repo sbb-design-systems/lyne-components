@@ -4,8 +4,9 @@ import {
   visualDiffDefault,
   visualRegressionFixture,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
-import './seat-reservation-place-control.component.ts';
 import { html } from 'lit';
+
+import '../../seat-reservation.ts';
 
 describe('sbb-seat-reservation-place-control', () => {
   let root: HTMLElement;

@@ -1,16 +1,16 @@
-import { customElement } from 'lit/decorators.js';
-
 import { SbbLinkBaseElement } from '../../core/base-elements.ts';
-import { SbbNavigationActionCommonElementMixin } from '../common.ts';
+import { SbbNavigationActionCommonElementMixin } from '../common/navigation-action-common.ts';
 
 /**
  * It displays a link element that can be used in the `sbb-navigation` component.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-navigation-link`.
  */
-export
-@customElement('sbb-navigation-link')
-class SbbNavigationLinkElement extends SbbNavigationActionCommonElementMixin(SbbLinkBaseElement) {}
+export class SbbNavigationLinkElement extends SbbNavigationActionCommonElementMixin(
+  SbbLinkBaseElement,
+) {
+  public static override readonly elementName: string = 'sbb-navigation-link';
+}
 
 declare global {
   interface HTMLElementTagNameMap {

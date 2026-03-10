@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbStatusElement } from './status.component.ts';
 
+import '../status.ts';
+
 describe(`sbb-status ssr`, () => {
   let root: SbbStatusElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-status>Status info text</sbb-status>`, {
-      modules: ['./status.component.js'],
+      modules: ['../status.ts'],
     });
   });
 

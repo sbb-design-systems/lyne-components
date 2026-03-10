@@ -1,5 +1,5 @@
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-group/radio-button-group.component.js';
+import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button-group.js';
 import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved

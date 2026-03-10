@@ -3,14 +3,14 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  LitElement,
   nothing,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
 import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { readConfig } from '../../core/config.ts';
 import {
   SbbLanguageController,
@@ -39,9 +39,12 @@ import {
   i18nYearMonthSelection,
 } from '../../core/i18n.ts';
 import type { SbbOrientation } from '../../core/interfaces.ts';
-import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
+import { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
+import { SbbCalendarMonthElement } from '../calendar-month/calendar-month.component.ts';
+import { SbbCalendarWeekdayElement } from '../calendar-weekday/calendar-weekday.component.ts';
+import { SbbCalendarWeeknumberElement } from '../calendar-weeknumber/calendar-weeknumber.component.ts';
+import { SbbCalendarYearElement } from '../calendar-year/calendar-year.component.ts';
 import type { SbbCalendarCellBaseElement } from '../common.ts';
 
 import style from './calendar.scss?lit&inline';
@@ -49,11 +52,12 @@ import style from './calendar.scss?lit&inline';
 import '../../button/secondary-button.ts';
 import '../../icon.ts';
 import '../../screen-reader-only.ts';
-import '../calendar-day/calendar-day.component.ts';
-import '../calendar-month/calendar-month.component.ts';
-import '../calendar-year/calendar-year.component.ts';
-import '../calendar-weekday/calendar-weekday.component.ts';
-import '../calendar-weeknumber/calendar-weeknumber.component.ts';
+
+SbbCalendarDayElement.define();
+SbbCalendarMonthElement.define();
+SbbCalendarYearElement.define();
+SbbCalendarWeekdayElement.define();
+SbbCalendarWeeknumberElement.define();
 
 export class SbbMonthChangeEvent extends Event {
   private readonly _range: readonly Day[];
@@ -141,9 +145,8 @@ export type CalendarView = 'day' | 'month' | 'year';
  *
  * @slot - Use the unnamed slot to add customized `sbb-calendar-day` elements.
  */
-export
-@customElement('sbb-calendar')
-class SbbCalendarElement<T = Date> extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
+export class SbbCalendarElement<T = Date> extends SbbElement {
+  public static override readonly elementName: string = 'sbb-calendar';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     dateselected: 'dateselected',

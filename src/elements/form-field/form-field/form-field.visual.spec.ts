@@ -9,9 +9,9 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.ts';
 
-import './form-field.component.ts';
+import '../../form-field.ts';
 import '../../button/mini-button.ts';
-import '../error.ts';
+
 import '../../popover.ts';
 
 describe(`sbb-form-field`, () => {

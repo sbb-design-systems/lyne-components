@@ -14,7 +14,7 @@ import { createSlottedDays } from '../calendar-day/calendar-day.helper.private.t
 
 import type { SbbCalendarElement } from './calendar.component.ts';
 
-import './calendar.component.ts';
+import '../../calendar.ts';
 
 describe(`sbb-calendar`, () => {
   let todayStub: SinonStub;

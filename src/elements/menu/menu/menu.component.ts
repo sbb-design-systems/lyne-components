@@ -6,7 +6,7 @@ import {
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
@@ -37,13 +37,14 @@ import {
   setAriaOverlayTriggerAttributes,
 } from '../../core/overlay.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbMenuButtonElement } from '../menu-button.ts';
+import { SbbMenuButtonElement } from '../menu-button/menu-button.component.ts';
 import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.ts';
 
 import style from './menu.scss?lit&inline';
 
 import '../../divider.ts';
-import '../menu-button.ts';
+
+SbbMenuButtonElement.define();
 
 const MENU_OFFSET = 8;
 const NESTED_MENU_OFFSET = -4;
@@ -70,9 +71,8 @@ let nextId = 0;
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export
-@customElement('sbb-menu')
-class SbbMenuElement extends SbbOpenCloseBaseElement {
+export class SbbMenuElement extends SbbOpenCloseBaseElement {
+  public static override readonly elementName: string = 'sbb-menu';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static override readonly role = 'menu';
 

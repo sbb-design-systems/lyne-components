@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
-import './train.component.ts';
+import '../../train.ts';
 
 describe(`sbb-train`, () => {
   const cases = { direction: ['left', 'right'], station: [undefined, 'Berne'] };

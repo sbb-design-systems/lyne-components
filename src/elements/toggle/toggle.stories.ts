@@ -1,0 +1,203 @@
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
+import type { TemplateResult } from 'lit';
+import { html } from 'lit';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
+
+import { sbbSpread } from '../../storybook/helpers/spread.ts';
+
+import readme from './readme.md?raw';
+import '../toggle.ts';
+
+const disabled: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Toggle',
+  },
+};
+
+const even: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Toggle',
+  },
+};
+
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 's'],
+  table: {
+    category: 'Toggle',
+  },
+};
+
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Toggle',
+  },
+};
+
+const label: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Toggle Option',
+  },
+};
+
+const labelTwo: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Toggle Option',
+  },
+};
+
+const iconName: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['arrow-right-small', 'app-icon-small', 'train-small', 'swisspass-small'],
+  table: {
+    category: 'Toggle Option',
+  },
+};
+
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Accessibility',
+  },
+};
+
+const defaultArgTypes: ArgTypes = {
+  disabled,
+  even,
+  size,
+  value,
+  label,
+  labelTwo,
+  iconName,
+  'aria-label': ariaLabel,
+};
+
+const defaultArgs: Args = {
+  disabled: false,
+  even: false,
+  size: size.options![0],
+  value: 'Value 1',
+  label: 'Bern',
+  labelTwo: 'Zürich',
+  iconName: undefined,
+  'aria-label': 'Origin',
+};
+
+const DefaultTemplate = ({ label, labelTwo, iconName, ...args }: Args): TemplateResult => html`
+  <sbb-toggle ${sbbSpread(args)}>
+    <sbb-toggle-option icon-name=${iconName} value="Value 1"> ${label} </sbb-toggle-option>
+    <sbb-toggle-option icon-name=${iconName && 'arrows-right-left-small'} value="Value 2">
+      ${labelTwo}
+    </sbb-toggle-option>
+  </sbb-toggle>
+`;
+
+const SlottedIconTemplate = ({ label, labelTwo, iconName, ...args }: Args): TemplateResult => html`
+  <sbb-toggle ${sbbSpread(args)}>
+    <sbb-toggle-option value="Value 1">
+      <sbb-icon slot="icon" name=${iconName}></sbb-icon>
+      ${label}
+    </sbb-toggle-option>
+
+    <sbb-toggle-option value="Value 2">
+      <sbb-icon slot="icon" name=${iconName && 'arrows-right-left-small'}></sbb-icon>
+      ${labelTwo}
+    </sbb-toggle-option>
+  </sbb-toggle>
+`;
+
+export const SizeM: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs },
+};
+
+export const SizeS: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, size: size.options![1] },
+};
+
+export const Disabled: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, disabled: true },
+};
+
+export const Even: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, even: true },
+};
+
+export const LabelAndIcon: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, iconName: iconName.options![0] },
+};
+
+export const LabelAndIconSlotted: StoryObj = {
+  render: SlottedIconTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, iconName: iconName.options![1] },
+};
+
+export const IconsOnly: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: {
+    ...defaultArgs,
+    iconName: iconName.options![0],
+    label: undefined,
+    labelTwo: undefined,
+    'aria-label': 'Chose between one way and return ticket',
+  },
+};
+
+export const DynamicWidth: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: {
+    ...defaultArgs,
+    label: 'Zürich',
+    labelTwo: 'Schwarzenbach SG, Schloss Schwarzenbach, Wilerstrasse',
+    iconName: iconName.options![1],
+  },
+};
+
+const meta: Meta = {
+  decorators: [withActions as Decorator],
+  parameters: {
+    actions: {
+      handles: ['change', 'input'],
+    },
+    docs: {
+      extractComponentDescription: () => readme,
+    },
+  },
+  title: 'elements/Toggle',
+};
+
+export default meta;

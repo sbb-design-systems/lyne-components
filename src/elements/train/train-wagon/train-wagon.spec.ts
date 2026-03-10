@@ -17,6 +17,8 @@ import type { SbbIconElement } from '../../icon.ts';
 
 import { SbbTrainWagonElement } from './train-wagon.component.ts';
 
+import '../../train.ts';
+
 describe(`sbb-train-wagon`, () => {
   let element: SbbTrainWagonElement;
   const elementInternals = elementInternalsSpy();

@@ -1,5 +1,5 @@
 import type { CSSResultGroup } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbNegativeMixin } from '../core/mixins.ts';
 
@@ -11,9 +11,8 @@ import style from './title.scss?lit&inline';
  *
  * @cssprop [--sbb-title-margin-block] - Margin block of the title.
  */
-export
-@customElement('sbb-title')
-class SbbTitleElement extends SbbNegativeMixin(SbbTitleBase) {
+export class SbbTitleElement extends SbbNegativeMixin(SbbTitleBase) {
+  public static override readonly elementName: string = 'sbb-title';
   public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
 
   /** Visual level for the title. Optional, if not set, the value of level will be used. */
