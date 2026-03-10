@@ -7,6 +7,7 @@ export const rules = (
       'class-decorator-position-rule',
       'custom-element-class-name-rule',
       'decorator-order-rule',
+      'entry-file-rule',
       'import-extension-rule',
       'local-name-rule',
       'missing-component-documentation-rule',
