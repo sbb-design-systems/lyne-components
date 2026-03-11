@@ -1,28 +1,18 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  nothing,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import { state } from 'lit/decorators.js';
 
 import {
   getNextElementIndex,
   isArrowKeyPressed,
   sbbInputModalityDetector,
 } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n.ts';
-import {
-  SbbElementInternalsMixin,
-  SbbNamedSlotListMixin,
-  type WithListChildren,
-} from '../../core/mixins.ts';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbBreadcrumbElement } from '../breadcrumb.ts';
+import type { SbbBreadcrumbElement } from '../breadcrumb/breadcrumb.component.ts';
 
 import style from './breadcrumb-group.scss?lit&inline';
 
@@ -35,11 +25,11 @@ const MIN_BREADCRUMBS_TO_COLLAPSE = 3;
  *
  * @slot - Use the unnamed slot to add `sbb-breadcrumb` elements.
  */
-export
-@customElement('sbb-breadcrumb-group')
-class SbbBreadcrumbGroupElement extends SbbElementInternalsMixin(
-  SbbNamedSlotListMixin<SbbBreadcrumbElement, typeof LitElement>(LitElement),
-) {
+export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
+  SbbBreadcrumbElement,
+  typeof SbbElement
+>(SbbElement) {
+  public static override readonly elementName: string = 'sbb-breadcrumb-group';
   public static override readonly role = 'navigation';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = ['sbb-breadcrumb'];

@@ -6,10 +6,10 @@ import type { SbbActionBaseElement } from '../../core/base-elements.ts';
 import { isLean } from '../../core/dom.ts';
 import type { AbstractConstructor } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbNavigationButtonElement } from '../navigation-button.ts';
-import type { SbbNavigationLinkElement } from '../navigation-link.ts';
-import type { SbbNavigationMarkerElement } from '../navigation-marker.ts';
-import type { SbbNavigationSectionElement } from '../navigation-section.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
+import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
+import type { SbbNavigationMarkerElement } from '../navigation-marker/navigation-marker.component.ts';
+import type { SbbNavigationSectionElement } from '../navigation-section/navigation-section.component.ts';
 
 import style from './navigation-action.scss?lit&inline';
 

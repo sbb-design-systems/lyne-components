@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbScreenReaderOnlyElement } from './screen-reader-only.component.ts';
 
+import '../screen-reader-only.ts';
+
 describe(`sbb-screen-reader-only ssr`, () => {
   let root: SbbScreenReaderOnlyElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-screen-reader-only ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-screen-reader-only>Hidden text.</sbb-screen-reader-only>`,
       {
-        modules: ['./screen-reader-only.component.js'],
+        modules: ['../screen-reader-only.ts'],
       },
     );
   });

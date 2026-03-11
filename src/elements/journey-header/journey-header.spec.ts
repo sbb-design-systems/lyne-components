@@ -5,6 +5,8 @@ import { fixture } from '../core/testing/private.ts';
 
 import { SbbJourneyHeaderElement } from './journey-header.component.ts';
 
+import '../journey-header.ts';
+
 describe(`sbb-journey-header`, () => {
   let element: SbbJourneyHeaderElement;
 

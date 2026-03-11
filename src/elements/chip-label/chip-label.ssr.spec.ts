@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbChipLabelElement } from './chip-label.component.ts';
 
+import '../chip-label.ts';
+
 describe(`sbb-chip-label ssr`, () => {
   let root: SbbChipLabelElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-chip-label>Label</sbb-chip-label>`, {
-      modules: ['./chip-label.component.js'],
+      modules: ['../chip-label.ts'],
     });
   });
 

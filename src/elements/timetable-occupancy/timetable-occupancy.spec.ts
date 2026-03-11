@@ -5,6 +5,8 @@ import { fixture } from '../core/testing/private.ts';
 
 import { SbbTimetableOccupancyElement } from './timetable-occupancy.component.ts';
 
+import '../timetable-occupancy.ts';
+
 describe(`sbb-timetable-occupancy`, () => {
   let element: SbbTimetableOccupancyElement;
 

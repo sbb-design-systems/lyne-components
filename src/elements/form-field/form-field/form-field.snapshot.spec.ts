@@ -3,8 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import './form-field.component.ts';
-import '../error.ts';
+import '../../form-field.ts';
+
 import type { SbbFormFieldElement } from './form-field.component.ts';
 
 describe(`sbb-form-field`, () => {

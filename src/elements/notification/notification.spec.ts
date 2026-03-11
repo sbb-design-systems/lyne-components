@@ -10,6 +10,7 @@ import { SbbNotificationElement } from './notification.component.ts';
 
 import '../link/link.ts';
 import '../title.ts';
+import '../notification.ts';
 
 describe(`sbb-notification`, () => {
   let element: SbbNotificationElement;

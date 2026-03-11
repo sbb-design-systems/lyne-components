@@ -7,7 +7,7 @@ import {
 } from '../common/button-test-utils.private.ts';
 
 import type { SbbButtonLinkElement } from './button-link.component.ts';
-import './button-link.component.ts';
+import '../button-link.ts';
 
 describe(`sbb-button-link`, () => {
   let element: SbbButtonLinkElement;

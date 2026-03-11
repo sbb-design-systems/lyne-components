@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.component.ts';
 
-import './datepicker-previous-day.component.ts';
+import '../../datepicker.ts';
 import '../../date-input.ts';
 
 describe(`sbb-datepicker-previous-day`, () => {

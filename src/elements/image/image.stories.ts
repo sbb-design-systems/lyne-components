@@ -13,6 +13,7 @@ import readme from './readme.md?raw';
 
 import '../chip-label.ts';
 import '../link.ts';
+import '../image.ts';
 
 const ImageTemplate = ({ aspectRatio, borderRadius, ...args }: Args): TemplateResult => html`
   <sbb-image
@@ -255,7 +256,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-image',
+  title: 'elements/Image',
 };
 
 export default meta;

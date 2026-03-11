@@ -6,7 +6,8 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './seat-reservation-navigation-services.component.ts';
+
+import '../../seat-reservation.ts';
 
 const propertyIdsType: InputType = {
   control: 'object',

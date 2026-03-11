@@ -16,7 +16,7 @@ import '../link/block-link.ts';
 import '../link/link.ts';
 import '../notification.ts';
 import '../title.ts';
-import './lead-container.component.ts';
+import '../lead-container.ts';
 
 const leadImageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 const leadImageBase64 = await loadAssetAsBase64(leadImageUrl);

@@ -8,10 +8,8 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.ts';
 
-import '../tab-group.ts';
-import '../tab-label.ts';
-import '../tab.ts';
 import '../../icon.ts';
+import '../../tabs.ts';
 
 const cases = {
   amount: [false, true],

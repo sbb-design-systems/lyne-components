@@ -7,6 +7,8 @@ import { waitForLitRender } from '../../core/testing.ts';
 
 import { SbbChipElement } from './chip.component.ts';
 
+import '../../chip.ts';
+
 describe('sbb-chip', () => {
   let element: SbbChipElement;
 

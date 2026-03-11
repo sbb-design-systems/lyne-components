@@ -1,5 +1,5 @@
 import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import { readConfig } from '../../core/config/config.ts';
@@ -12,9 +12,8 @@ import style from './mini-calendar-day.scss?lit&inline';
 /**
  * It displays a day in the `sbb-mini-calendar-month`.
  */
-export
-@customElement('sbb-mini-calendar-day')
-class SbbMiniCalendarDayElement<T = Date> extends SbbButtonBaseElement {
+export class SbbMiniCalendarDayElement<T = Date> extends SbbButtonBaseElement {
+  public static override readonly elementName: string = 'sbb-mini-calendar-day';
   public static override styles: CSSResultGroup = style;
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;

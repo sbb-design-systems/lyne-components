@@ -3,7 +3,7 @@ import { html } from 'lit';
 import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 import { waitForLitRender } from '../core/testing.ts';
 
-import './tooltip.component.ts';
+import '../tooltip.ts';
 import '../button/button.ts';
 
 const physicalSupportedPositions = [

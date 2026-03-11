@@ -5,6 +5,8 @@ import { fixture } from '../../core/testing/private.ts';
 
 import { SbbErrorElement } from './error.component.ts';
 
+import '../../form-field.ts';
+
 describe(`sbb-error`, () => {
   let element: SbbErrorElement;
 

@@ -5,8 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbToggleElement } from './toggle.component.ts';
 
-import './toggle.component.ts';
-import '../toggle-option.ts';
+import '../../toggle.ts';
 
 describe(`sbb-toggle`, () => {
   let element: SbbToggleElement;

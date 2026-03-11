@@ -1,5 +1,4 @@
 import type { CSSResultGroup } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbActionBaseElement } from '../../core/base-elements.ts';
 import { SbbDisabledMixin } from '../../core/mixins.ts';
@@ -17,11 +16,10 @@ import {
  * @slot icon - Slot used to display the icon, if one is set.
  * @cssprop [--sbb-button-loading-delay=300ms] - The delay before the loading animation starts, when setting the button into loading state.
  */
-export
-@customElement('sbb-transparent-button-static')
-class SbbTransparentButtonStaticElement extends SbbButtonCommonElementMixin(
+export class SbbTransparentButtonStaticElement extends SbbButtonCommonElementMixin(
   SbbDisabledMixin(SbbActionBaseElement),
 ) {
+  public static override readonly elementName: string = 'sbb-transparent-button-static';
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     buttonCommonStyle,

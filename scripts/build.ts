@@ -42,10 +42,7 @@ const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 const currentDirectory = fileURLToPath(new URL('./', import.meta.url));
 const distDirectory = join(projectRoot, 'dist');
 const isCI = !!process.env.CI;
-const entrypointMarker = `/**
- * @entrypoint
- */
-`;
+const entrypointMarker = `/** @entrypoint */\n`;
 const gzipAsync = promisify(gzip);
 const brotliAsync = promisify(brotliCompress);
 const calculateGzipSize = async (content: string): Promise<number> =>
@@ -408,25 +405,34 @@ function buildRootIndex(pkg: PackageBuilder): void {
   for (const fileEntry of pkg.tsFiles) {
     const file = fileEntry.path;
     const content = readFileSync(file, 'utf8');
-    if (content.includes('@customElement')) {
+    if (content.includes('elementName')) {
+      const moduleName = relative(pkg.root, file).split('/')[0];
       const sourceFile = ts.createSourceFile(file, content, ts.ScriptTarget.ES2022, true);
       const customElements = sourceFile.statements
-        .filter(
-          (s): s is ts.ClassDeclaration =>
-            ts.isClassDeclaration(s) &&
-            !!s.modifiers?.some(
-              (m) => ts.isDecorator(m) && m.getText().includes('@customElement'),
-            ) &&
-            !!s.name,
+        .filter(ts.isClassDeclaration)
+        .filter((c) =>
+          c.members
+            ?.filter(ts.isPropertyDeclaration)
+            .some(
+              (p) =>
+                p.modifiers?.some((o) => o.kind === ts.SyntaxKind.StaticKeyword) &&
+                ts.isIdentifier(p.name) &&
+                p.name.text === 'elementName',
+            ),
         )
-        .map((c) => c.name!.getText())
+        .map((c) => (c.name && ts.isIdentifier(c.name) ? c.name.text : null))
+        .filter((n): n is string => !!n)
         .sort();
-      customElementMap.set(`./${relative(pkg.root, file).replace(/\.ts$/, '.js')}`, customElements);
+      customElementMap.set(
+        moduleName,
+        customElements.concat(customElementMap.get(moduleName) ?? []),
+      );
     }
   }
 
   const imports = Array.from(customElementMap)
-    .map(([path, symbols]) => `import { ${symbols.join(', ')} } from "${path}";\n`)
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([path, symbols]) => `import { ${symbols.sort().join(', ')} } from "./${path}.js";\n`)
     .join('');
   const classSymbols = Array.from(customElementMap.values()).flat().sort();
   const globalAssignment = classSymbols.map((s) => `globalThis.${s} = ${s};\n`).join('');
@@ -445,7 +451,10 @@ function buildRootIndex(pkg: PackageBuilder): void {
   console.log(`=> Generated index files in ${relative(projectRoot, pkg.outDir)}`);
 }
 
-type StyleSheet = { inputName: string; outputName: string };
+interface StyleSheet {
+  inputName: string;
+  outputName: string;
+}
 function buildElementsStyles(pkg: PackageBuilder): void {
   const sheets = [
     { inputName: 'core/styles/a11y.scss', outputName: 'a11y.css' },
@@ -647,6 +656,7 @@ async function generateReactWrappers(pkg: PackageBuilder): Promise<Disposable> {
     }
   }
 
+  // Render components
   const exports = manifest.modules.reduce(
     (current, next) => current.concat(next.exports ?? []),
     [] as Export[],
@@ -665,6 +675,7 @@ async function generateReactWrappers(pkg: PackageBuilder): Promise<Disposable> {
     }
   }
 
+  // Render entry points
   for (const dirent of readdirSync(pkg.root, {
     withFileTypes: true,
     recursive: true,
@@ -676,13 +687,24 @@ async function generateReactWrappers(pkg: PackageBuilder): Promise<Disposable> {
 
     if (!existsSync(dirEntryPoint)) {
       generatedPaths.push(dirEntryPoint);
-      const directories = readdirSync(dir, { withFileTypes: true }).filter((d) => d.isDirectory());
-      const files = readdirSync(dir, { withFileTypes: true }).filter((d) => d.isFile());
-      const content =
+      const files = readdirSync(dir, { withFileTypes: true, recursive: true }).filter((d) =>
+        d.isFile(),
+      );
+      let content =
         entrypointMarker +
-        (directories.length ? directories : files)
-          .map((d) => `export * from './${dirent.name}/${d.name.replace(/\.ts$/, '')}.js';\n`)
+        files
+          .map(
+            (d) =>
+              `export * from './${relative(dirname(dirEntryPoint), join(d.parentPath, d.name)).replace(/\.ts$/, '.js')}';\n`,
+          )
           .join('');
+      if (dirname(dirEntryPoint) !== pkg.root) {
+        content += `
+        
+console.warn(\`The entrypoint '@sbb-esta/${basename(pkg.root)}/${relative(pkg.root, dirEntryPoint).replace(/\.ts$/, '.js')}' has been deprecated.
+Use '@sbb-esta/${basename(pkg.root)}/${relative(pkg.root, dirEntryPoint).split('/')[0]}.js' instead.\`);
+`;
+      }
       writeFileSync(dirEntryPoint, content, 'utf8');
       pkg.files.push(new FileEntry(dirEntryPoint));
     }
@@ -716,7 +738,9 @@ function renderTemplate(
     library === 'elements'
       ? `${!dirDepth ? './' : '../'.repeat(dirDepth)}core.js`
       : `@sbb-esta/lyne-react/core.js`;
-  const importPath = module.path.substring(0, module.path.lastIndexOf('/')) + '.js';
+  const moduleParts = module.path.split('/');
+  const moduleName = moduleParts[0];
+  const importPath = `${['button', 'link'].includes(moduleName) ? `${moduleName}/${moduleParts[1]}` : moduleName}.js`;
   const componentsImports = new Map<string, string[]>().set(importPath, [declaration.name]);
 
   if (declaration.events?.some((e) => !e.type)) {

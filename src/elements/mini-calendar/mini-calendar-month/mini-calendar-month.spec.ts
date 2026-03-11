@@ -6,7 +6,7 @@ import { fixture } from '../../core/testing/private.ts';
 
 import { SbbMiniCalendarMonthElement } from './mini-calendar-month.component.ts';
 
-import '../mini-calendar.ts';
+import '../../mini-calendar.ts';
 
 describe('sbb-mini-calendar-month', () => {
   let element: SbbMiniCalendarMonthElement;

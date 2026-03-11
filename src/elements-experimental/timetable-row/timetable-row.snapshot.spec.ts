@@ -10,7 +10,7 @@ import {
   trainTrip,
 } from './timetable-row.sample-data.private.ts';
 
-import './timetable-row.component.ts';
+import '../timetable-row.ts';
 
 const now = '2022-08-16T15:00:00Z';
 

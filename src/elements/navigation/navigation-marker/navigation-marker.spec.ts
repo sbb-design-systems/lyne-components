@@ -6,7 +6,7 @@ import { waitForLitRender } from '../../core/testing.ts';
 
 import { SbbNavigationMarkerElement } from './navigation-marker.component.ts';
 
-import '../navigation-button.ts';
+import '../../navigation.ts';
 
 describe(`sbb-navigation-marker`, () => {
   let element: SbbNavigationMarkerElement;

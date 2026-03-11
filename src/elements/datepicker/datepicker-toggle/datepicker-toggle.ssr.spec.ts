@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbDatepickerToggleElement } from './datepicker-toggle.component.ts';
 
+import '../../datepicker.ts';
+
 describe(`sbb-datepicker-toggle ssr`, () => {
   let root: SbbDatepickerToggleElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-datepicker-toggle ssr`, () => {
     // This test seems flaky for unknown reason, so we extend the timeout for this specific test.
     this.timeout(20000);
     root = await ssrHydratedFixture(html`<sbb-datepicker-toggle></sbb-datepicker-toggle>`, {
-      modules: ['./datepicker-toggle.component.js'],
+      modules: ['../../datepicker.ts'],
     });
   });
 

@@ -1,14 +1,8 @@
-import {
-  type CSSResultGroup,
-  html,
-  isServer,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
+import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController, SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom/lean-context.ts';
@@ -17,7 +11,6 @@ import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
-  SbbElementInternalsMixin,
   SbbFormAssociatedMixin,
   SbbNegativeMixin,
   SbbRequiredMixin,
@@ -25,7 +18,7 @@ import {
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbFormFieldElement } from '../../form-field/form-field/form-field.component.ts';
 import type { SbbOptionBaseElement } from '../../option/option/option-base-element.ts';
-import { SbbChipElement } from '../chip.ts';
+import { SbbChipElement } from '../chip/chip.component.ts';
 
 import style from './chip-group.scss?lit&inline';
 
@@ -53,11 +46,10 @@ export interface SbbChipInputTokenEndEventDetails<T = string> {
  * @slot - Use the unnamed slot to add `sbb-chip` elements.
  * @overrideType value - (T = string[]) | null
  */
-export
-@customElement('sbb-chip-group')
-class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
-  SbbDisabledMixin(SbbNegativeMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)))),
+export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
+  SbbDisabledMixin(SbbNegativeMixin(SbbFormAssociatedMixin(SbbElement))),
 ) {
+  public static override readonly elementName: string = 'sbb-chip-group';
   public static override readonly role = 'listbox';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {

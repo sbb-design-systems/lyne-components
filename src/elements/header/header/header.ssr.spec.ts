@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbHeaderElement } from './header.component.ts';
 
+import '../../header.ts';
+
 describe(`sbb-header ssr`, () => {
   let root: SbbHeaderElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-header></sbb-header>`, {
-      modules: ['./header.component.js'],
+      modules: ['../../header.ts'],
     });
   });
 

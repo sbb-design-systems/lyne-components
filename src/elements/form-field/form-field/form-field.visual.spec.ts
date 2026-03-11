@@ -9,9 +9,9 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.ts';
 
-import './form-field.component.ts';
+import '../../form-field.ts';
 import '../../button/mini-button.ts';
-import '../error.ts';
+
 import '../../popover.ts';
 
 describe(`sbb-form-field`, () => {
@@ -34,7 +34,7 @@ describe(`sbb-form-field`, () => {
     html`<sbb-form-field
       error-space=${errorSpace}
       ?optional=${optional}
-      size=${size}
+      size=${size || nothing}
       ?borderless=${borderless}
       width=${width}
       ?hidden-label=${hiddenLabel}
@@ -139,7 +139,7 @@ describe(`sbb-form-field`, () => {
   };
 
   const visualProp = {
-    size: ['s', 'm', 'l'],
+    size: ['s', 'm', 'l', null],
     width: ['default', 'collapse'],
     errorText: [true, false],
   };

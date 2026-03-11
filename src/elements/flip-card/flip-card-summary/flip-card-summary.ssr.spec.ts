@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbFlipCardSummaryElement } from './flip-card-summary.component.ts';
 
+import '../../flip-card.ts';
+
 describe(`sbb-flip-card-summary ssr`, () => {
   let root: SbbFlipCardSummaryElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-flip-card-summary ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-flip-card-summary image-alignment="after"></sbb-flip-card-summary>`,
       {
-        modules: ['./flip-card-summary.component.js'],
+        modules: ['../../flip-card.ts'],
       },
     );
   });

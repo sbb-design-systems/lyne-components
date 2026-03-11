@@ -3,13 +3,10 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
-import type { SbbTrainWagonElement } from '../train-wagon.ts';
-import type { SbbTrainElement } from '../train.ts';
 
 import { SbbTrainFormationElement } from './train-formation.component.ts';
-import '../train.ts';
-import '../train-wagon.ts';
-import '../train-blocked-passage.ts';
+
+import '../../train.ts';
 
 function extractAggregatedSectors(element: SbbTrainFormationElement): Record<string, string>[] {
   return Array.from(
@@ -201,7 +198,7 @@ describe(`sbb-train-formation`, () => {
         },
       ]);
 
-      element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.sector = 'Z';
+      element.querySelector('sbb-train-wagon')!.sector = 'Z';
       await waitForLitRender(element);
 
       expect(extractAggregatedSectors(element)).to.be.eql([
@@ -237,7 +234,7 @@ describe(`sbb-train-formation`, () => {
         },
       ]);
 
-      element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.setAttribute('sector', 'Z');
+      element.querySelector('sbb-train-wagon')!.setAttribute('sector', 'Z');
       await waitForLitRender(element);
 
       expect(extractAggregatedSectors(element)).to.be.eql([
@@ -265,7 +262,7 @@ describe(`sbb-train-formation`, () => {
         </sbb-train-formation>
       `);
 
-      element.querySelector<SbbTrainWagonElement>('sbb-train-wagon')!.remove();
+      element.querySelector('sbb-train-wagon')!.remove();
       await waitForLitRender(element);
 
       expect(extractAggregatedSectors(element)).to.be.eql([
@@ -294,7 +291,7 @@ describe(`sbb-train-formation`, () => {
         </sbb-train-formation>
       `);
 
-      element.querySelector<SbbTrainElement>('sbb-train')!.remove();
+      element.querySelector('sbb-train')!.remove();
       await waitForLitRender(element);
 
       expect(extractAggregatedSectors(element)).to.be.eql([

@@ -4,12 +4,9 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
 
-import '../datepicker-next-day.ts';
-import '../datepicker-previous-day.ts';
-import '../datepicker-toggle.ts';
+import '../../datepicker.ts';
 import '../../date-input.ts';
 import '../../form-field.ts';
-import './datepicker.component.ts';
 
 describe(`sbb-datepicker`, () => {
   let formField: SbbFormFieldElement;

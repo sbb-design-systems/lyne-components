@@ -26,10 +26,14 @@ import type {
 
 const overrideTypeKey = 'overrideType' as const;
 const classGenericsTypeKey = 'classGenerics' as const;
+const memberDenyList = ['define', 'addController', 'removeController'];
 
 type UnwrapArray<A> = A extends unknown[] ? UnwrapArray<A[number]> : A;
 
-type OverrideTypeInfo = { memberName: string; memberOverrideType: string };
+interface OverrideTypeInfo {
+  memberName: string;
+  memberOverrideType: string;
+}
 
 /**
  * Docs: https://custom-elements-manifest.open-wc.org/analyzer/getting-started/
@@ -151,6 +155,29 @@ export function createManifestConfig(library = '') {
           };
         },
         analyzePhase({ ts, node, moduleDoc }) {
+          if (ts.isClassDeclaration(node)) {
+            const className = node.name?.getText();
+            const classDoc = (moduleDoc.declarations as undefined | CustomElement[])?.find(
+              (declaration) => declaration.name === className,
+            );
+            const elementNameProperty = node.members
+              .filter(ts.isPropertyDeclaration)
+              .find(
+                (m) =>
+                  m.name.getText() === 'elementName' &&
+                  m.modifiers?.some((o) => o.kind === ts.SyntaxKind.StaticKeyword),
+              );
+            if (
+              classDoc &&
+              elementNameProperty?.initializer &&
+              ts.isStringLiteral(elementNameProperty.initializer)
+            ) {
+              // eslint-disable-next-line lyne/local-name-rule
+              classDoc.tagName = elementNameProperty.initializer.text;
+              classDoc.customElement = true;
+            }
+          }
+
           /* Replace the typeName with the provided typeValue, matching only the word,
            * in a way that 'V | null' could be replaced with 'string | null', but 'ValidityState' is not changed.
            */
@@ -286,6 +313,18 @@ export function createManifestConfig(library = '') {
             });
           }
         },
+        moduleLinkPhase({ moduleDoc }) {
+          const classes = (moduleDoc?.declarations as undefined | Declaration[])?.filter(
+            (declaration) => declaration.kind === 'class',
+          );
+
+          classes?.forEach((klass) => {
+            if (!klass?.members) return;
+            klass.members = klass?.members?.filter(
+              (member) => !memberDenyList.includes(member.name),
+            );
+          });
+        },
         packageLinkPhase({ customElementsManifest }) {
           function fixModulePaths(node: object, pathAction: (value: string) => string): void {
             for (const [key, value] of Object.entries(node)) {
@@ -308,7 +347,11 @@ export function createManifestConfig(library = '') {
             ) ?? []) as CustomElement[]) {
               // Abstract base classes or mixins are considered components
               // even if they don't have the `customElement` annotation.
-              if (declaration.name.includes('Base') || declaration.name.includes('MixinType')) {
+              if (
+                declaration.name.includes('Base') ||
+                declaration.name.includes('MixinType') ||
+                declaration.name === 'SbbElement'
+              ) {
                 delete (declaration as Partial<CustomElement>).customElement;
               }
 

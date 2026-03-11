@@ -4,6 +4,8 @@ import { html } from 'lit/static-html.js';
 
 import { SbbPearlChainElement } from './pearl-chain.component.ts';
 
+import '../pearl-chain.ts';
+
 describe(`sbb-pearl-chain`, () => {
   let element: SbbPearlChainElement;
 

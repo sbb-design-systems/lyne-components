@@ -6,7 +6,7 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
 } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
 import { readConfig } from '../core/config.ts';
@@ -50,9 +50,8 @@ let nextId = 0;
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export
-@customElement('sbb-tooltip')
-class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
+export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
+  public static override readonly elementName: string = 'sbb-tooltip';
   public static override readonly role = 'tooltip';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 

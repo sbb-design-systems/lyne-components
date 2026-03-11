@@ -6,6 +6,8 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
 import { SbbBreadcrumbElement } from './breadcrumb.component.ts';
 
+import '../../breadcrumb.ts';
+
 describe(`sbb-breadcrumb`, () => {
   let element: SbbBreadcrumbElement;
 

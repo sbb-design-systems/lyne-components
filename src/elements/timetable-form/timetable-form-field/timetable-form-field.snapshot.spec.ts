@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbTimetableFormFieldElement } from './timetable-form-field.component.ts';
-import './timetable-form-field.component.ts';
+
+import '../../timetable-form.ts';
 
 describe(`sbb-timetable-form-field`, () => {
   describe('renders', () => {

@@ -5,6 +5,8 @@ import { fixture } from '../../core/testing/private.ts';
 
 import { SbbContainerElement } from './container.component.ts';
 
+import '../../container.ts';
+
 describe(`sbb-container`, () => {
   let element: SbbContainerElement;
 

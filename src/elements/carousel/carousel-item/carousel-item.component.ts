@@ -1,14 +1,13 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { html } from 'lit';
 
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 
 import style from './carousel-item.scss?lit&inline';
 
-export type SbbCarouselItemEventDetail = {
+export interface SbbCarouselItemEventDetail {
   index: number;
-};
+}
 
 /**
  * It displays an item contained into the `sbb-carousel` component.
@@ -17,9 +16,8 @@ export type SbbCarouselItemEventDetail = {
  * @event {CustomEvent<SbbCarouselItemEventDetail>} beforeshow - Event emitted when the item is starting scrolling.
  * @event {CustomEvent<SbbCarouselItemEventDetail>} show - Event emitted when the item is full visible after scrolling.
  */
-export
-@customElement('sbb-carousel-item')
-class SbbCarouselItemElement extends SbbElementInternalsMixin(LitElement) {
+export class SbbCarouselItemElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-carousel-item';
   public static override styles: CSSResultGroup = style;
   public static readonly events: Record<string, string> = {
     beforeshow: 'beforeshow',

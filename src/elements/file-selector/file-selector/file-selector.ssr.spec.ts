@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbFileSelectorElement } from './file-selector.component.ts';
 
+import '../../file-selector.ts';
+
 describe(`sbb-file-selector ssr`, () => {
   let root: SbbFileSelectorElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-file-selector></sbb-file-selector>`, {
-      modules: ['./file-selector.component.js'],
+      modules: ['../../file-selector.ts'],
     });
   });
 

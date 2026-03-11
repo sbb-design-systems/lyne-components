@@ -15,6 +15,8 @@ import {
 } from './timetable-row.component.ts';
 import { partiallyCancelled, walkTimeTrip } from './timetable-row.sample-data.private.ts';
 
+import '../timetable-row.ts';
+
 describe(`sbb-timetable-row`, () => {
   let element: SbbTimetableRowElement;
 

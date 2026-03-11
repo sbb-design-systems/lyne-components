@@ -5,11 +5,11 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
-import './selection-action-panel.component.ts';
+import '../selection-action-panel.ts';
 import '../button/secondary-button.ts';
 import '../card.ts';
 import '../checkbox.ts';
-import '../form-field/error.ts';
+import '../form-field.ts';
 import '../link/block-link-button.ts';
 import '../radio-button.ts';
 import '../selection-expansion-panel.ts';
@@ -334,7 +334,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-selection-action-panel',
+  title: 'elements/Selection Action Panel',
 };
 
 export default meta;

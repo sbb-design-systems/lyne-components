@@ -2,28 +2,11 @@
 
 :host {
   display: block;
-
-  --sbb-lead-container-background-color: var(--sbb-background-color-1);
-  --sbb-lead-container-image-ratio: 2 / 1;
-  --sbb-lead-container-image-overlap: var(--sbb-spacing-fixed-24x);
-  --sbb-lead-container-content-padding-block: var(--sbb-spacing-responsive-l);
-  --sbb-lead-container-padding-block: 0 var(--sbb-spacing-responsive-l);
-  --sbb-lead-container-padding-inline: var(--sbb-layout-base-offset-responsive);
-  --sbb-lead-container-border-radius: var(--sbb-border-radius-6x);
-  --sbb-lead-container-image-border-radius: 0;
-
-  @include sbb.mq($from: ultra) {
-    --sbb-lead-container-image-ratio: 21 / 9;
-    --sbb-lead-container-image-border-radius: var(--sbb-lead-container-border-radius);
-  }
+  padding-block: var(--sbb-lead-container-padding-block);
 }
 
 :host(:not(:state(slotted-image))) {
   --sbb-lead-container-image-overlap: 0;
-}
-
-.sbb-lead-container {
-  padding-block: var(--sbb-lead-container-padding-block);
 }
 
 ::slotted([slot='image']) {

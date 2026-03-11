@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
@@ -32,9 +32,8 @@ let nextId = 0;
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export
-@customElement('sbb-overlay')
-class SbbOverlayElement extends SbbOverlayBaseElement {
+export class SbbOverlayElement extends SbbOverlayBaseElement {
+  public static override readonly elementName: string = 'sbb-overlay';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600

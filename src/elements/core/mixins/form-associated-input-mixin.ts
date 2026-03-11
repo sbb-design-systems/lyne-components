@@ -14,7 +14,11 @@ import { i18nInputRequired } from '../i18n.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 import { SbbDisabledMixin } from './disabled-mixin.ts';
-import { SbbElementInternalsMixin } from './element-internals-mixin.ts';
+import {
+  SbbElementInternalsMixin,
+  type SbbElementInternalsMixinType,
+  type SbbElementInternalsConstructor,
+} from './element-internals-mixin.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -75,11 +79,16 @@ const plaintextOnlySupported = checkPlaintextOnlySupport();
 export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbFormAssociatedInputMixinType> & T => {
+  // TODO(breaking-change): Remove SbbElementInternalsMixin and depend on SbbElement as base class instead of LitElement
+  const conditionalSuperClass = (superClass as unknown as Record<string, unknown>)['_$sbbElement$']
+    ? (superClass as unknown as AbstractConstructor<SbbElementInternalsMixinType> &
+        T &
+        SbbElementInternalsConstructor)
+    : SbbElementInternalsMixin(superClass);
+
   abstract class SbbFormAssociatedInputElement
     extends SbbReadonlyMixin(
-      SbbDisabledMixin(
-        SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superClass))),
-      ),
+      SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(conditionalSuperClass))),
     )
     implements Partial<SbbFormAssociatedInputMixinType>
   {

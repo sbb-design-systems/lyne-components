@@ -1,4 +1,4 @@
-The `sbb-seat-reservation-navigation-coach` is a component which represents one coach in
+The `<sbb-seat-reservation-navigation-coach>` is a component which represents one coach in
 a train or bus coach layout. Additionally service icons are also generated in this
 component if present in the incoming COACH_DATA.
 

@@ -3,6 +3,8 @@ import { html } from 'lit/static-html.js';
 
 import { SbbSidebarTitleElement } from './sidebar-title.component.ts';
 
+import '../../sidebar.ts';
+
 describe('sbb-sidebar-title', () => {
   let element: SbbSidebarTitleElement;
 

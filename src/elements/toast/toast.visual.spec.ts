@@ -7,7 +7,7 @@ import {
   visualDiffFocus,
 } from '../core/testing/private.ts';
 
-import './toast.component.ts';
+import '../toast.ts';
 import '../button.ts';
 import '../link.ts';
 

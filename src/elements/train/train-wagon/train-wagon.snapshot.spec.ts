@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbTrainWagonElement } from './train-wagon.component.ts';
 
-import './train-wagon.component.ts';
+import '../../train.ts';
 import '../../icon.ts';
 import '../../timetable-occupancy-icon.ts';
 

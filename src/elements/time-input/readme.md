@@ -1,4 +1,4 @@
-The `sbb-time-input` is an input component that displays the typed value as a formatted time (HH:mm).
+The `<sbb-time-input>` is an input component that displays the typed value as a formatted time (HH:mm).
 
 ```html
 <sbb-time-input value="15:00"></sbb-time-input>
@@ -7,9 +7,9 @@ The `sbb-time-input` is an input component that displays the typed value as a fo
 The component allows the insertion of up to 4 numbers, possibly with a separator char like `.`, `:`, `,` or `-`,
 then automatically formats the value as time and displays it (see ["Format example"](#format-example)).
 
-## In `sbb-form-field`
+## In `<sbb-form-field>`
 
-The `sbb-time-input` can be used within an `sbb-form-field`:
+The `<sbb-time-input>` can be used within an `<sbb-form-field>`:
 
 ```html
 <sbb-form-field width="collapse" size="s">
@@ -47,13 +47,17 @@ See the table below for some formatting examples:
 
 ## Events
 
-Similar to the native `<input>` element, the `sbb-time-input` component
+Similar to the native `<input>` element, the `<sbb-time-input>` component
 dispatches the usual `input`, `change`, `blur`, `invalid` and keyboard
 and focus related events.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbTimeInputElement`, `sbb-time-input`
+
+#### Properties
 
 | Name                | Attribute  | Privacy | Type                      | Default  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------- | ---------- | ------- | ------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -70,7 +74,7 @@ and focus related events.
 | `valueAsDate`       | -          | public  | `Date \| null`            |          | Formats the current input's value as date.                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `willValidate`      | -          | public  | `boolean`                 |          | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
 
-## Methods
+#### Methods
 
 | Name                | Privacy | Description                                                                                                                                                                                | Parameters              | Return    | Inherited From              |
 | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- | --------- | --------------------------- |
@@ -80,7 +84,7 @@ and focus related events.
 | `select`            | public  | Makes the selection equal to the current object.                                                                                                                                           |                         | `void`    | SbbFormAssociatedInputMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string`       | `void`    | SbbFormAssociatedMixin      |
 
-## Events
+#### Events
 
 | Name     | Type         | Description                                                                                                                                                                        | Inherited From              |
 | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |

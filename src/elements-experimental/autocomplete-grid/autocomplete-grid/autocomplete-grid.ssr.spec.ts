@@ -4,9 +4,8 @@ import { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbAutocompleteGridElement } from './autocomplete-grid.component.ts';
-import '../autocomplete-grid-row.ts';
-import '../autocomplete-grid-cell.ts';
-import '../autocomplete-grid-button.ts';
+
+import '../../autocomplete-grid.ts';
 
 describe(`sbb-autocomplete-grid ssr`, () => {
   let formField: SbbFormFieldElement;
@@ -49,7 +48,7 @@ describe(`sbb-autocomplete-grid ssr`, () => {
           </sbb-autocomplete-grid>
         </sbb-form-field>
       `,
-      { modules: ['../../autocomplete-grid.ts', '../../../elements/form-field.ts'] },
+      { modules: ['../../autocomplete-grid.ts'] },
     );
     element = formField.querySelector<SbbAutocompleteGridElement>('sbb-autocomplete-grid')!;
   });

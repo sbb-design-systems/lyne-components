@@ -18,7 +18,7 @@ import {
 } from '../core/controllers.ts';
 import { forceType, idReference } from '../core/decorators.ts';
 import { isLean, isSafari, isZeroAnimationDuration } from '../core/dom.ts';
-import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.ts';
+import { SbbNegativeMixin } from '../core/mixins.ts';
 import {
   isEventOnElement,
   overlayGapFixCorners,
@@ -38,7 +38,7 @@ import style from './autocomplete-base-element.scss?lit&inline';
 const ariaRoleOnHost = isSafari;
 
 export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
-  SbbHydrationMixin(SbbOpenCloseBaseElement),
+  SbbOpenCloseBaseElement,
 ) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
@@ -172,6 +172,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   public constructor() {
     super();
     this.addEventListener?.('optionselected', (e: Event) => this.onOptionSelected(e));
+    this.addEventListener?.('ɵoptgroupslotchange', () => this._handleSlotchange(), {
+      capture: true,
+    });
     this.addController(
       new SbbPropertyWatcherController(
         this,

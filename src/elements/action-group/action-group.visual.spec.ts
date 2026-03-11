@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.ts';
 
-import './action-group.component.ts';
+import '../action-group.ts';
 import '../button/button.ts';
 import '../button/secondary-button.ts';
 import '../link/block-link.ts';

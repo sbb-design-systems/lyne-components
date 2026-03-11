@@ -17,6 +17,7 @@ snapshots["sbb-card-link renders DOM"] =
 
 snapshots["sbb-card-link renders Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   class="sbb-action-base sbb-card-link"
   href="https://github.com/sbb-design-systems/lyne-components"
   rel="external noopener nofollow"
@@ -26,10 +27,13 @@ snapshots["sbb-card-link renders Shadow DOM"] =
     <slot>
     </slot>
   </span>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
 </a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-card-link renders Shadow DOM */
 

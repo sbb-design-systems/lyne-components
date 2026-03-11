@@ -1,13 +1,7 @@
-import {
-  type CSSResultGroup,
-  html,
-  isServer,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
+import { property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean, setOrRemoveAttribute } from '../../core/dom.ts';
 import {
@@ -16,7 +10,7 @@ import {
   type WithListChildren,
 } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbTagElement, SbbTagSize } from '../tag.ts';
+import type { SbbTagElement, SbbTagSize } from '../tag/tag.component.ts';
 
 import style from './tag-group.scss?lit&inline';
 
@@ -26,11 +20,10 @@ import style from './tag-group.scss?lit&inline';
  * @slot - Use the unnamed slot to add one or more 'sbb-tag' elements to the `sbb-tag-group`.
  * @overrideType value - (T = string | (string | null)[]) | null
  */
-export
-@customElement('sbb-tag-group')
-class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
-  SbbNamedSlotListMixin<SbbTagElement, typeof LitElement>(LitElement),
+export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
+  SbbNamedSlotListMixin<SbbTagElement, typeof SbbElement>(SbbElement),
 ) {
+  public static override readonly elementName: string = 'sbb-tag-group';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   // DIV is added here due to special requirements from sbb.ch.
   protected override readonly listChildLocalNames = ['sbb-tag', 'div'];

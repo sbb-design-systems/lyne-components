@@ -11,7 +11,6 @@ import type { SbbAutocompleteGridOptionElement } from './autocomplete-grid-optio
 
 import '@sbb-esta/lyne-elements/form-field.js';
 import '../../autocomplete-grid.ts';
-import './autocomplete-grid-option.component.ts';
 
 describe(`sbb-autocomplete-grid-option`, () => {
   const defaultArgs = {

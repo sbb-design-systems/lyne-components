@@ -12,6 +12,7 @@ import readme from './readme.md?raw';
 import '../link.ts';
 import '../title.ts';
 import '../button/mini-button.ts';
+import '../popover.ts';
 
 const hoverTrigger: InputType = {
   control: {
@@ -228,7 +229,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-popover',
+  title: 'elements/Popover',
 };
 
 export default meta;

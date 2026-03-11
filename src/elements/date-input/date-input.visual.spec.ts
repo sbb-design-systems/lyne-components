@@ -8,8 +8,8 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.ts';
 
-import './date-input.component.ts';
-import '../form-field/form-field.ts';
+import '../date-input.ts';
+import '../form-field.ts';
 
 describe('sbb-date-input', () => {
   let root: HTMLElement;

@@ -1,4 +1,4 @@
-The `sbb-slider` is an input component that allows for the selection of a value within a range.
+The `<sbb-slider>` is an input component that allows for the selection of a value within a range.
 
 This can be set using the `min` and `max` properties (default values are 0 and 100),
 while the initial value can be set using the `value` property (string), or the `valueAsNumber` (number).
@@ -10,9 +10,9 @@ If no value is provided, by default it is set halfway between the minimum and ma
 <sbb-slider value="0"></sbb-slider>
 ```
 
-## In `sbb-form-field`
+## In `<sbb-form-field>`
 
-The component can be used within a `sbb-form-field` component.
+The component can be used within a `<sbb-form-field>` component.
 
 ```html
 <sbb-form-field>
@@ -23,7 +23,7 @@ The component can be used within a `sbb-form-field` component.
 
 ## Slots
 
-The component can optionally display two `sbb-icon`s at either end;
+The component can optionally display two `<sbb-icon>`s at either end;
 consumers could set one/both of them using the `startIcon` and `endIcon` properties,
 or can provide their own using the two slots named `prefix` and `suffix`.
 
@@ -48,12 +48,12 @@ It is possible to display the component in `disabled` or `readonly` state by usi
 
 ## Events
 
-Consumers can listen to the native `change` event on the `sbb-slider` component to intercept the input's change `event`;
+Consumers can listen to the native `change` event on the `<sbb-slider>` component to intercept the input's change `event`;
 the current value can be read from `event.target.value` or `event.target.valueAsNumber`.
 
 ## Keyboard interaction
 
-The `sbb-slider` has the following behaviour on keypress when focused:
+The `<sbb-slider>` has the following behaviour on keypress when focused:
 
 | Key         | Action                                            |
 | ----------- | ------------------------------------------------- |
@@ -68,7 +68,11 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbSliderElement`, `sbb-slider`
+
+#### Properties
 
 | Name                | Attribute         | Privacy | Type                      | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------- | ----------------- | ------- | ------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -87,7 +91,7 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 | `valueAsNumber`     | `value-as-number` | public  | `number \| null`          |           | Numeric value for the inner HTMLInputElement.                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `willValidate`      | -                 | public  | `boolean`                 |           | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
 
-## Methods
+#### Methods
 
 | Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
 | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
@@ -95,7 +99,7 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
-## Events
+#### Events
 
 | Name        | Type         | Description                                                                                                                                                                        | Inherited From |
 | ----------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
@@ -103,7 +107,7 @@ The `sbb-slider` has the following behaviour on keypress when focused:
 | `didChange` | `Event`      | Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.                                                                            |                |
 | `input`     | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                |
 
-## Slots
+#### Slots
 
 | Name     | Description                                                     |
 | -------- | --------------------------------------------------------------- |

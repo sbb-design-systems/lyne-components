@@ -7,6 +7,7 @@ import { SbbSelectionActionPanelElement } from './selection-action-panel.compone
 
 import '../button/secondary-button.ts';
 import '../checkbox.ts';
+import '../selection-action-panel.ts';
 
 describe(`sbb-selection-action-panel ssr`, () => {
   let root: SbbSelectionActionPanelElement;
@@ -19,9 +20,9 @@ describe(`sbb-selection-action-panel ssr`, () => {
       </sbb-selection-action-panel>`,
       {
         modules: [
-          './selection-action-panel.component.js',
-          '../button/secondary-button.js',
-          '../checkbox.js',
+          '../button/secondary-button.ts',
+          '../checkbox.ts',
+          '../selection-action-panel.ts',
         ],
       },
     );

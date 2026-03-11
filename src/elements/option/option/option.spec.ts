@@ -6,13 +6,13 @@ import type { SbbAutocompleteElement } from '../../autocomplete.ts';
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
-import type { SbbOptGroupElement } from '../optgroup.ts';
+import type { SbbOptGroupElement } from '../optgroup/optgroup.component.ts';
 
 import { SbbOptionElement } from './option.component.ts';
 
 import '../../autocomplete.ts';
 import '../../form-field.ts';
-import '../optgroup.ts';
+import '../../option.ts';
 
 describe(`sbb-option`, () => {
   describe('autocomplete', () => {

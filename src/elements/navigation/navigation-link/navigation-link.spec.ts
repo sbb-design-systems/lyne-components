@@ -7,6 +7,8 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
 import { SbbNavigationLinkElement } from './navigation-link.component.ts';
 
+import '../../navigation.ts';
+
 describe(`sbb-navigation-link`, () => {
   let element: SbbNavigationLinkElement;
 

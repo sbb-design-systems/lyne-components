@@ -1,14 +1,15 @@
 import type { LitElement } from 'lit';
 
-import type { SbbCheckboxGroupElement } from '../../checkbox/checkbox-group.ts';
-import type { SbbCheckboxPanelElement } from '../../checkbox/checkbox-panel.ts';
-import type { SbbRadioButtonGroupElement } from '../../radio-button/radio-button-group.ts';
-import type { SbbRadioButtonPanelElement } from '../../radio-button/radio-button-panel.ts';
+import type { SbbCheckboxGroupElement } from '../../checkbox-group.ts';
+import type { SbbCheckboxPanelElement } from '../../checkbox-panel.ts';
+import type { SbbRadioButtonGroupElement } from '../../radio-button-group.ts';
+import type { SbbRadioButtonPanelElement } from '../../radio-button-panel.ts';
 import { SbbPropertyWatcherController } from '../controllers.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 import {
   SbbElementInternalsMixin,
+  type SbbElementInternalsConstructor,
   type SbbElementInternalsMixinType,
 } from './element-internals-mixin.ts';
 
@@ -26,8 +27,15 @@ export declare class SbbSelectionPanelMixinType {
 export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>>(
   superClass: T,
 ): AbstractConstructor<SbbSelectionPanelMixinType & SbbElementInternalsMixinType> & T => {
+  // TODO(breaking-change): Remove SbbElementInternalsMixin and depend on SbbElement as base class instead of LitElement
+  const conditionalSuperClass = (superClass as unknown as Record<string, unknown>)['_$sbbElement$']
+    ? (superClass as unknown as AbstractConstructor<SbbElementInternalsMixinType> &
+        T &
+        SbbElementInternalsConstructor)
+    : SbbElementInternalsMixin(superClass);
+
   abstract class SbbSelectionPanelElement
-    extends SbbElementInternalsMixin(superClass)
+    extends conditionalSuperClass
     implements Partial<SbbSelectionPanelMixinType>
   {
     /** Group element if present */

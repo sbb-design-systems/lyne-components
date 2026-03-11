@@ -7,7 +7,7 @@ import {
 } from '../common/button-test-utils.private.ts';
 
 import type { SbbTransparentButtonElement } from './transparent-button.component.ts';
-import './transparent-button.component.ts';
+import '../transparent-button.ts';
 
 describe(`sbb-transparent-button`, () => {
   let element: SbbTransparentButtonElement;

@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbBlockLinkButtonElement } from './block-link-button.component.ts';
 
+import '../../link.ts';
+
 describe(`sbb-block-link-button ssr`, () => {
   let root: SbbBlockLinkButtonElement;
 
@@ -21,7 +23,7 @@ describe(`sbb-block-link-button ssr`, () => {
         <sbb-icon name="chevron-small-right-small" slot="icon"></sbb-icon>
         Travelcards &amp; tickets.
       </sbb-block-link-button>`,
-      { modules: ['./block-link-button.component.js'] },
+      { modules: ['../../link.ts'] },
     );
   });
 

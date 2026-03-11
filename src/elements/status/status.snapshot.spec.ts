@@ -6,7 +6,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 import type { SbbStatusElement } from './status.component.ts';
 
 import '../title.ts';
-import './status.component.ts';
+import '../status.ts';
 
 describe(`sbb-status`, () => {
   let element: SbbStatusElement;

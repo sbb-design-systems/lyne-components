@@ -3,11 +3,8 @@ import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.component.ts';
-import '../autocomplete-grid.ts';
-import '../autocomplete-grid-row.ts';
-import '../autocomplete-grid-cell.ts';
-import '../autocomplete-grid-button.ts';
-import '../autocomplete-grid-option.ts';
+
+import '../../autocomplete-grid.ts';
 
 describe(`sbb-autocomplete-grid-optgroup ssr`, () => {
   let element: SbbAutocompleteGridOptgroupElement;

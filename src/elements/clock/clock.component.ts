@@ -1,10 +1,10 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, isServer, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { html, isServer } from 'lit';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import { SbbElement } from '../core/base-elements.ts';
 import type { SbbTime } from '../core/interfaces.ts';
-import { SbbElementInternalsMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
@@ -54,9 +54,8 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
 /**
  * It displays an analog clock with the classic SBB face.
  */
-export
-@customElement('sbb-clock')
-class SbbClockElement extends SbbElementInternalsMixin(LitElement) {
+export class SbbClockElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-clock';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

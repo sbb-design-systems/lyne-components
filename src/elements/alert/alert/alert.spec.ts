@@ -8,6 +8,7 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing
 
 import { SbbAlertElement } from './alert.component.ts';
 
+import '../../alert.ts';
 import '../../title.ts';
 import '../../link.ts';
 

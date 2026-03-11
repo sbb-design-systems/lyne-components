@@ -5,6 +5,8 @@ import { fixture } from '../core/testing/private.ts';
 
 import { SbbVisualCheckboxElement } from './visual-checkbox.component.ts';
 
+import '../visual-checkbox.ts';
+
 describe(`sbb-visual-checkbox`, (): void => {
   it('renders', async (): Promise<void> => {
     const element: SbbVisualCheckboxElement = await fixture(
