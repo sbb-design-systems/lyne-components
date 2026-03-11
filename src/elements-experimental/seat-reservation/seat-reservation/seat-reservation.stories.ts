@@ -13,6 +13,8 @@ import type { CoachItem, SeatReservation } from '../common/types.ts';
 import readme from './readme.md?raw';
 import { SbbSeatReservationElement } from './seat-reservation.component.ts';
 
+import '../../seat-reservation.ts';
+
 const seatReservationType: InputType = {
   control: { type: 'object' },
   table: {

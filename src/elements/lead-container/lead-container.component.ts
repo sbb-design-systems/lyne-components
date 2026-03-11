@@ -19,15 +19,13 @@ export class SbbLeadContainerElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-lead-container">
-        <div class="sbb-lead-container-image">
-          <slot name="image"></slot>
-        </div>
-        <!-- Content wrapper needed because grid needs to be applied but container image should not be touched by grid. -->
-        <div class="sbb-lead-container-content-wrapper">
-          <div class="sbb-lead-container-content">
-            <slot></slot>
-          </div>
+      <div class="sbb-lead-container-image">
+        <slot name="image"></slot>
+      </div>
+      <!-- Content wrapper needed because grid needs to be applied but container image should not be touched by grid. -->
+      <div class="sbb-lead-container-content-wrapper">
+        <div class="sbb-lead-container-content">
+          <slot></slot>
         </div>
       </div>
     `;

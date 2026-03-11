@@ -1,0 +1,31 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-lead-container-background-color: var(--sbb-background-color-1);
+  --sbb-lead-container-image-ratio: 2 / 1;
+  --sbb-lead-container-image-overlap: var(--sbb-spacing-fixed-24x);
+  --sbb-lead-container-content-padding-block: var(--sbb-spacing-responsive-l);
+  --sbb-lead-container-padding-block: 0 var(--sbb-spacing-responsive-l);
+  --sbb-lead-container-padding-inline: var(--sbb-layout-base-offset-responsive);
+  --sbb-lead-container-border-radius: var(--sbb-border-radius-6x);
+  --sbb-lead-container-image-border-radius: 0;
+}
+
+@mixin base-breakpoint-ultra {
+  --sbb-lead-container-image-ratio: 21 / 9;
+  --sbb-lead-container-image-border-radius: var(--sbb-lead-container-border-radius);
+}
+
+@mixin rules {
+  sbb-lead-container {
+    > [slot='image']:is(sbb-image, img, picture),
+    > [slot='image'] :is(sbb-image, img, picture):not(.sbb-figure-overlap-image) {
+      --sbb-image-aspect-ratio: var(--sbb-lead-container-image-ratio);
+      --sbb-image-object-fit: cover;
+
+      border-radius: var(--sbb-lead-container-image-border-radius);
+    }
+  }
+}
