@@ -110,6 +110,9 @@ $theme: 'standard' !default;
 @use '../../icon-sidebar/icon-sidebar/icon-sidebar.global' as icon-sidebar with (
   $theme: $theme
 );
+@use '../../lead-container/lead-container.global' as lead-container with (
+  $theme: $theme
+);
 @use '../../option/option/option.global' as option with (
   $theme: $theme
 );
@@ -183,6 +186,7 @@ $theme: 'standard' !default;
   @include flip-card-details.base;
   @include footer.base;
   @include icon-sidebar.base;
+  @include lead-container.base;
   @include option.base;
   @include option-hint.base;
   @include optgroup.base;
@@ -303,6 +307,8 @@ $theme: 'standard' !default;
 
   @include mediaqueries.mq($from: ultra) {
     @include sbb-css-tokens.breakpoint-ultra;
+
+    @include lead-container.base-breakpoint-ultra;
   }
 }
 
@@ -316,6 +322,7 @@ $theme: 'standard' !default;
 @include dialog-title.rules;
 @include flip-card-summary.rules;
 @include icon-sidebar.rules;
+@include lead-container.rules;
 @include option.rules;
 @include tab-nav-bar.rules;
 
@@ -528,17 +535,6 @@ img {
   aspect-ratio: var(--sbb-image-aspect-ratio);
   object-fit: var(--sbb-image-object-fit);
   object-position: var(--sbb-image-object-position);
-}
-
-// TODO: Move back to the sbb-lead-container components when the global CSS refactoring happens
-sbb-lead-container {
-  > [slot='image']:is(sbb-image, img, picture),
-  > [slot='image'] :is(sbb-image, img, picture):not(.sbb-figure-overlap-image) {
-    --sbb-image-aspect-ratio: var(--sbb-lead-container-image-ratio);
-    --sbb-image-object-fit: cover;
-
-    border-radius: var(--sbb-lead-container-image-border-radius);
-  }
 }
 
 // TODO: Move back to the sbb-message components when the global CSS refactoring happens
