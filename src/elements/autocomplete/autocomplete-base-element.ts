@@ -388,7 +388,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this._highlightOptions(this.triggerElement?.value);
 
     /**
-     * TOOD: delete this line
+     * TODO: delete this line
      * It's possible to filter out options with an opened panel on input change.
      * In this case, the panel's position must be recalculated considering the new option's list.
      */
