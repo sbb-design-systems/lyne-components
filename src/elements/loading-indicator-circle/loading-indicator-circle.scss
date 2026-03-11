@@ -8,10 +8,8 @@
     var(--sbb-loading-indicator-circle-color)
   );
 
-  display: inline-flex;
-  padding: var(--sbb-loading-indicator-circle-padding);
-  vertical-align: middle;
-  line-height: 1;
+  display: inline-block;
+  line-height: 0;
 
   @include sbb.if-forced-colors {
     --sbb-loading-indicator-circle-color: CanvasText !important;
@@ -25,6 +23,13 @@
 :host([color='white']) {
   --sbb-loading-indicator-circle-color: var(--sbb-color-white);
   --sbb-loading-indicator-circle-background-color: var(--sbb-color-iron);
+}
+
+.sbb-loading-indicator {
+  display: inline-flex;
+  padding: var(--sbb-loading-indicator-circle-padding);
+  vertical-align: middle;
+  line-height: 1;
 }
 
 .sbb-loading-indicator__animated-element {

@@ -24,7 +24,9 @@ export class SbbLoadingIndicatorCircleElement extends SbbElement {
   }
 
   protected override render(): TemplateResult {
-    return html` <span class="sbb-loading-indicator__animated-element"></span> `;
+    return html` <span class="sbb-loading-indicator">
+      <span class="sbb-loading-indicator__animated-element"></span>
+    </span>`;
   }
 }
 

@@ -8,7 +8,9 @@ snapshots["sbb-loading-indicator-circle renders with variant `circle` DOM"] =
 /* end snapshot sbb-loading-indicator-circle renders with variant `circle` DOM */
 
 snapshots["sbb-loading-indicator-circle renders with variant `circle` Shadow DOM"] = 
-`<span class="sbb-loading-indicator__animated-element">
+`<span class="sbb-loading-indicator">
+  <span class="sbb-loading-indicator__animated-element">
+  </span>
 </span>
 `;
 /* end snapshot sbb-loading-indicator-circle renders with variant `circle` Shadow DOM */
