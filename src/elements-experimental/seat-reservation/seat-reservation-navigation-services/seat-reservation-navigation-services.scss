@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  column-gap: var(--sbb-spacing-fixed-2x);
+  gap: var(--sbb-spacing-fixed-2x);
   overflow: hidden;
   line-height: normal;
   color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
@@ -15,11 +15,11 @@
   &:has(:nth-child(n + 3 of .auto-width)) {
     // adjustment for silence- and business-icons
     &:has([name^='SILENCE'], [name^='BUSINESS']) {
-      column-gap: sbb-sr-functions.sr-px-to-rem(6);
+      gap: sbb-sr-functions.sr-px-to-rem(6);
 
       // bicycle icon only needs further adjustment when combined with silence- and business-icons
       &:has([name^='BICYCLE']) {
-        column-gap: sbb-sr-functions.sr-px-to-rem(3);
+        gap: sbb-sr-functions.sr-px-to-rem(3);
       }
     }
   }

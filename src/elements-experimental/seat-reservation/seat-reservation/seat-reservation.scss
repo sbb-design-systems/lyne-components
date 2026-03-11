@@ -39,8 +39,8 @@ $scrollbar-height: 16px;
 // START - Vertical mode
 :host([align-vertical]) {
   $coach-navigation-padding: 5;
-  $coach-scollbar-width: 24;
-  $coach-grid-width: calc(var(--sbb-seat-reservation-height) + $coach-scollbar-width);
+  $coach-scrollbar-width: 24;
+  $coach-grid-width: calc(var(--sbb-seat-reservation-height) + $coach-scrollbar-width);
 
   .sbb-sr__component {
     flex-direction: row-reverse;
@@ -77,6 +77,12 @@ $scrollbar-height: 16px;
         // otherwise focus-visible style is cutted.
         padding: sbb-sr-functions.sr-px-to-rem($coach-navigation-padding);
         overflow: hidden scroll;
+
+        // in vertical mode, the li must be flexed; otherwise it would calculate the wrong height
+        // due to useragent style set to "list-item" for display
+        li {
+          display: flex;
+        }
       }
     }
   }
