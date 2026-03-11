@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import { fixture, tabKey } from '../core/testing/private.ts';
-import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 import type { SbbFormFieldElement } from '../form-field.ts';
 import { SbbOptionElement } from '../option.ts';
 
@@ -1319,8 +1319,7 @@ describe(`sbb-select`, () => {
       formField.style.width = '200px';
 
       // Wait for resizeObserver to apply the new size
-      await aTimeout(30);
-
+      await waitForCondition(() => selectPanel.clientWidth < oldPanelSize);
       expect(selectPanel.clientWidth).to.be.lessThan(oldPanelSize);
     });
   });
