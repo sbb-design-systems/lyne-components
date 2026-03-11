@@ -134,6 +134,9 @@ $theme: 'standard' !default;
 @use '../../logo/logo.global' as logo with (
   $theme: $theme
 );
+@use '../../message/message.global' as message with (
+  $theme: $theme
+);
 @use '../../option/option/option.global' as option with (
   $theme: $theme
 );
@@ -215,6 +218,7 @@ $theme: 'standard' !default;
   @include lead-container.base;
   @include block-link.base;
   @include logo.base;
+  @include message.base;
   @include option.base;
   @include option-hint.base;
   @include optgroup.base;
@@ -344,6 +348,7 @@ $theme: 'standard' !default;
 @include header.rules;
 @include icon-sidebar.rules;
 @include lead-container.rules;
+@include message.rules;
 @include option.rules;
 @include tab-nav-bar.rules;
 
@@ -440,14 +445,6 @@ img {
   aspect-ratio: var(--sbb-image-aspect-ratio);
   object-fit: var(--sbb-image-object-fit);
   object-position: var(--sbb-image-object-position);
-}
-
-// TODO: Move back to the sbb-message components when the global CSS refactoring happens
-sbb-message {
-  > [slot='image']:is(sbb-image, img),
-  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
-    border-radius: var(--sbb-message-image-border-radius);
-  }
 }
 
 // Target the slotted `sbb-image` which are generally wrapped by a <figure> (therefore are not reachable with the :slotted)
