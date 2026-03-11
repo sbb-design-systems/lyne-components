@@ -9006,10 +9006,10 @@ teex@^1.0.1:
   dependencies:
     streamx "^2.12.5"
 
-temporal-polyfill@0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/temporal-polyfill/-/temporal-polyfill-0.3.1.tgz#0503677e74ab820f1b2642a5ee40588bdf2f5cf5"
-  integrity sha512-3Ceqnjxa7nQ1VGRjehALmP9LdiJqalmoYh6o22s8skP+ZN6df1cTN/7h+p0k4v357pFsQN94gtJoxV6fqvlijA==
+temporal-polyfill@0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/temporal-polyfill/-/temporal-polyfill-0.3.2.tgz#eb0f4fd36c77eac43d6e5b52851bee3648234b81"
+  integrity sha512-TzHthD/heRK947GNiSu3Y5gSPpeUDH34+LESnfsq8bqpFhsB79HFBX8+Z834IVX68P3EUyRPZK5bL/1fh437Eg==
   dependencies:
     temporal-spec "0.3.1"
 
