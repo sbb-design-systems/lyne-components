@@ -12,6 +12,8 @@ import extraStylesFromParent from '../seat-reservation/seat-reservation.scss?lit
 import readme from './readme.md?raw';
 import { SbbSeatReservationNavigationCoachElement } from './seat-reservation-navigation-coach.component.ts';
 
+import '../../seat-reservation.ts';
+
 const mappedSeatReservation = mapRawDataToSeatReservation('TRAIN');
 
 const Template = (args: Args): TemplateResult =>
