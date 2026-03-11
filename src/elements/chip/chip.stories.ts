@@ -10,8 +10,6 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import { sbbSpread } from '../../storybook/helpers/spread.ts';
-
 import { SbbChipGroupElement } from './chip-group/chip-group.component.ts';
 import readme from './readme.md?raw';
 
@@ -208,60 +206,6 @@ export const AddOnBlur: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, addOnBlur: true },
-};
-
-const value: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const accessibilityLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const chipArgTypes: ArgTypes = {
-  value,
-  disabled,
-  negative,
-  readonly,
-  'accessibility-label': accessibilityLabel,
-};
-
-const chipArgs: Args = {
-  value: 'Value',
-  disabled: false,
-  negative: false,
-  readonly: false,
-  'accessibility-label': undefined,
-};
-
-const ChipTemplate = (args: Args): TemplateResult => html`<sbb-chip ${sbbSpread(args)}></sbb-chip>`;
-
-export const ChipDefault: StoryObj = {
-  render: ChipTemplate,
-  argTypes: chipArgTypes,
-  args: { ...chipArgs },
-};
-
-export const ChipDisabled: StoryObj = {
-  render: ChipTemplate,
-  argTypes: chipArgTypes,
-  args: { ...chipArgs, disabled: true },
-};
-
-export const ChipReadonly: StoryObj = {
-  render: ChipTemplate,
-  argTypes: chipArgTypes,
-  args: { ...chipArgs, readonly: true },
-};
-
-export const ChipNegative: StoryObj = {
-  render: ChipTemplate,
-  argTypes: chipArgTypes,
-  args: { ...chipArgs, negative: true },
 };
 
 const meta: Meta = {

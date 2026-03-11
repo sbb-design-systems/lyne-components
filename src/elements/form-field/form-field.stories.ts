@@ -107,9 +107,6 @@ const TemplateBasicTextarea = ({
 
 const TemplateInput = (args: Args): TemplateResult => formField(args, TemplateBasicInput(args));
 
-const TemplateInputWithSlottedSpanLabel = (args: Args): TemplateResult =>
-  formField({ ...args, slottedLabel: true }, TemplateBasicInput(args));
-
 const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
   const error: SbbErrorElement = document.createElement('sbb-error');
   error.setAttribute('slot', 'error');
@@ -151,18 +148,6 @@ const TemplateInputWithIcons = (args: Args): TemplateResult =>
     args,
     html`<sbb-icon slot="prefix" name="pie-small"></sbb-icon> ${TemplateBasicInput(args)}
       ${PopoverTrigger()}`,
-  );
-
-const TemplateInputWithMiniButton = ({ disabled, readonly, ...args }: Args): TemplateResult =>
-  formField(
-    args,
-    html`${TemplateBasicInput({ disabled, readonly, ...args })}
-      <sbb-mini-button
-        slot="suffix"
-        icon-name="pie-small"
-        ?disabled=${disabled || readonly}
-        aria-label="Input button"
-      ></sbb-mini-button>`,
   );
 
 const TemplateInputWithClearButton = (args: Args): TemplateResult =>
@@ -211,58 +196,8 @@ const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
   `;
 };
 
-const TemplateSelectWithIcons = (args: Args): TemplateResult =>
-  formField(
-    args,
-    html`
-      <span slot="prefix">
-        <sbb-icon name="pie-small"></sbb-icon>
-      </span>
-      ${TemplateBasicSelect(args)} ${PopoverTrigger()}
-    `,
-  );
-
 const TemplateTextarea = (args: Args): TemplateResult =>
   formField(args, TemplateBasicTextarea(args));
-
-const TemplateTextareaWithErrorSpace = (args: Args): TemplateResult => {
-  const error: SbbErrorElement = document.createElement('sbb-error');
-  error.setAttribute('slot', 'error');
-  error.textContent = args.errorText;
-
-  return html`
-    <form>
-      <div>
-        ${formField(
-          args,
-          html`<textarea
-              @keyup=${(event: KeyboardEvent) => {
-                const input = event.currentTarget as HTMLInputElement;
-                if (input.value !== '') {
-                  error.remove();
-                  input.classList.remove(args.cssClass);
-                } else {
-                  input.closest('sbb-form-field')!.append(error);
-                  input.classList.add(args.cssClass);
-                }
-              }}
-              class=${args.cssClass}
-              placeholder=${args.placeholder}
-              ?disabled=${args.disabled}
-              ?readonly=${args.readonly}
-              .value=${args.value || nothing}
-            ></textarea>
-            ${error}`,
-        )}
-      </div>
-      <div>
-        <div style="color: var(--sbb-color-smoke);">
-          Some text, right below the form-field, inside a div.
-        </div>
-      </div>
-    </form>
-  `;
-};
 
 const TemplateTextareaWithIcon = (args: Args): TemplateResult =>
   formField(
@@ -450,7 +385,17 @@ const basicArgs: Args = {
 export const Input: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, value: 'This input value is so long that it needs ellipsis to fit.' },
+  args: { ...basicArgs, value: 'Input text' },
+};
+
+export const InputSizeS: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: {
+    ...basicArgs,
+    value: 'Input text',
+    size: 's',
+  },
 };
 
 export const InputSizeL: StoryObj = {
@@ -458,15 +403,9 @@ export const InputSizeL: StoryObj = {
   argTypes: basicArgTypes,
   args: {
     ...basicArgs,
-    value: 'This input value is so long that it needs ellipsis to fit.',
-    size: size.options![2],
+    value: 'Input text',
+    size: 'l',
   },
-};
-
-export const InputSizeS: StoryObj = {
-  render: TemplateInput,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, size: size.options![0] },
 };
 
 export const InputNoLabel: StoryObj = {
@@ -475,28 +414,10 @@ export const InputNoLabel: StoryObj = {
   args: { ...basicArgs, label: undefined },
 };
 
-export const InputHiddenLabel: StoryObj = {
-  render: TemplateInput,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, 'hidden-label': true },
-};
-
-export const InputWithSlottedSpanLabel: StoryObj = {
-  render: TemplateInputWithSlottedSpanLabel,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, value: 'Random value' },
-};
-
 export const InputWithoutBorder: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
   args: { ...basicArgs, borderless: true },
-};
-
-export const InputDisabled: StoryObj = {
-  render: TemplateInput,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true },
 };
 
 export const InputReadonly: StoryObj = {
@@ -511,26 +432,14 @@ export const InputOptionalAndIcons: StoryObj = {
   args: { ...basicArgs, optional: true },
 };
 
-export const InputOptionalAndIconsSizeS: StoryObj = {
+export const InputOptionalAndIconsNegative: StoryObj = {
   render: TemplateInputWithIcons,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, size: size.options![0] },
+  args: { ...basicArgs, optional: true, negative: true },
 };
 
-export const InputOptionalAndIconsSizeL: StoryObj = {
+export const InputOptionalAndIconsDisabled: StoryObj = {
   render: TemplateInputWithIcons,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, size: size.options![2] },
-};
-
-export const InputWithMiniButton: StoryObj = {
-  render: TemplateInputWithMiniButton,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs },
-};
-
-export const InputWithMiniButtonDisabled: StoryObj = {
-  render: TemplateInputWithMiniButton,
   argTypes: basicArgTypes,
   args: { ...basicArgs, disabled: true },
 };
@@ -539,24 +448,6 @@ export const InputWithClearButton: StoryObj = {
   render: TemplateInputWithClearButton,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
-};
-
-export const InputWithClearButtonDisabled: StoryObj = {
-  render: TemplateInputWithClearButton,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true },
-};
-
-export const InputLongLabelAndErrorSpace: StoryObj = {
-  render: TemplateInputWithErrorSpace,
-  argTypes: basicArgTypes,
-  args: {
-    ...basicArgs,
-    'error-space': 'reserve',
-    cssClass: 'sbb-invalid',
-    label: 'This label name is so long that it needs ellipsis to fit.',
-    value: 'This input value is so long that it needs ellipsis to fit.',
-  },
 };
 
 export const InputFloatingLabel: StoryObj = {
@@ -586,52 +477,28 @@ export const InputFloatingWithIcons: StoryObj = {
   },
 };
 
+export const InputCollapsedWidth: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, width: width.options![1] },
+};
+
 export const Select: StoryObj = {
   render: TemplateSelect,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
 };
 
-export const SelectWithoutBorder: StoryObj = {
+export const SelectNegative: StoryObj = {
   render: TemplateSelect,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, borderless: true },
-};
-
-export const SelectDisabled: StoryObj = {
-  render: TemplateSelect,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true },
-};
-
-export const SelectErrorSpace: StoryObj = {
-  render: TemplateSelectWithErrorSpace,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, 'error-space': 'reserve', cssClass: 'sbb-invalid' },
+  args: { ...basicArgs, negative: true },
 };
 
 export const SelectFloatingLabel: StoryObj = {
   render: TemplateSelectWithErrorSpace,
   argTypes: basicArgTypes,
   args: { ...basicArgs, 'floating-label': true, value: undefined },
-};
-
-export const SelectOptionalAndIcons: StoryObj = {
-  render: TemplateSelectWithIcons,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true },
-};
-
-export const SelectOptionalAndIconsSizeS: StoryObj = {
-  render: TemplateSelectWithIcons,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, size: size.options![0] },
-};
-
-export const SelectOptionalAndIconsSizeL: StoryObj = {
-  render: TemplateSelectWithIcons,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, size: size.options![2] },
 };
 
 export const Textarea: StoryObj = {
@@ -646,40 +513,10 @@ export const TextareaWithoutBorder: StoryObj = {
   args: { ...basicArgs, borderless: true },
 };
 
-export const TextareaDisabled: StoryObj = {
-  render: TemplateTextarea,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true },
-};
-
-export const TextareaReadonly: StoryObj = {
-  render: TemplateTextarea,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, readonly: true },
-};
-
-export const TextareaErrorSpace: StoryObj = {
-  render: TemplateTextareaWithErrorSpace,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, 'error-space': 'reserve', cssClass: 'sbb-invalid' },
-};
-
 export const TextareaOptionalAndIcon: StoryObj = {
   render: TemplateTextareaWithIcon,
   argTypes: basicArgTypes,
   args: { ...basicArgs, optional: true },
-};
-
-export const TextareaOptionalAndIconSizeS: StoryObj = {
-  render: TemplateTextareaWithIcon,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, size: size.options![0] },
-};
-
-export const TextareaOptionalAndIconSizeL: StoryObj = {
-  render: TemplateTextareaWithIcon,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, size: size.options![2] },
 };
 
 export const TextareaFloatingLabel: StoryObj = {
@@ -699,105 +536,13 @@ export const TextareaFloatingLongLabel: StoryObj = {
   },
 };
 
-export const TextareaFloatingWithIcon: StoryObj = {
-  render: TemplateTextareaWithIcon,
-  argTypes: basicArgTypes,
-  args: {
-    ...basicArgs,
-    'floating-label': true,
-    value: undefined,
-  },
-};
-
-export const InputCollapsedWidth: StoryObj = {
-  render: TemplateInput,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, width: width.options![1] },
-};
-
-export const InputWithIconsDisabled: StoryObj = {
-  render: TemplateInputWithIcons,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true },
-};
-
-export const InputNegative: StoryObj = {
-  render: TemplateInput,
-  argTypes: basicArgTypes,
-  args: {
-    ...basicArgs,
-    value: 'This input value is so long that it needs ellipsis to fit.',
-    negative: true,
-  },
-};
-
-export const InputWithSlottedSpanLabelNegative: StoryObj = {
-  render: TemplateInputWithSlottedSpanLabel,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, value: 'Random value', negative: true },
-};
-
-export const InputWithoutBorderNegative: StoryObj = {
-  render: TemplateInput,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, borderless: true, negative: true },
-};
-
-export const InputDisabledNegative: StoryObj = {
-  render: TemplateInput,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true, negative: true },
-};
-
-export const InputReadonlyNegative: StoryObj = {
-  render: TemplateInput,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, readonly: true, negative: true },
-};
-
-export const InputOptionalAndIconsNegative: StoryObj = {
-  render: TemplateInputWithIcons,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, negative: true },
-};
-
-export const InputOptionalAndIconsNegativeSizeS: StoryObj = {
-  render: TemplateInputWithIcons,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, negative: true, size: size.options![0] },
-};
-
-export const InputOptionalAndIconsNegativeSizeL: StoryObj = {
-  render: TemplateInputWithIcons,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, negative: true, size: size.options![2] },
-};
-
-export const InputWithMiniButtonNegative: StoryObj = {
-  render: TemplateInputWithMiniButton,
+export const TextareaNegative: StoryObj = {
+  render: TemplateTextarea,
   argTypes: basicArgTypes,
   args: { ...basicArgs, negative: true },
 };
 
-export const InputWithMiniButtonDisabledNegative: StoryObj = {
-  render: TemplateInputWithMiniButton,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true, negative: true },
-};
-
-export const InputWithClearButtonNegative: StoryObj = {
-  render: TemplateInputWithClearButton,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, negative: true },
-};
-
-export const InputWithClearButtonDisabledNegative: StoryObj = {
-  render: TemplateInputWithClearButton,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true, negative: true },
-};
-
-export const InputLongLabelAndErrorSpaceNegative: StoryObj = {
+export const ErrorReservedSpace: StoryObj = {
   render: TemplateInputWithErrorSpace,
   argTypes: basicArgTypes,
   args: {
@@ -806,233 +551,7 @@ export const InputLongLabelAndErrorSpaceNegative: StoryObj = {
     cssClass: 'sbb-invalid',
     label: 'This label name is so long that it needs ellipsis to fit.',
     value: 'This input value is so long that it needs ellipsis to fit.',
-    negative: true,
   },
-};
-
-export const InputFloatingLabelNegative: StoryObj = {
-  render: TemplateInput,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, 'floating-label': true, value: undefined, negative: true },
-};
-
-export const InputFloatingLongLabelNegative: StoryObj = {
-  render: TemplateInput,
-  argTypes: basicArgTypes,
-  args: {
-    ...basicArgs,
-    'floating-label': true,
-    value: undefined,
-    label: 'This is a very long label which receives ellipsis',
-    negative: true,
-  },
-};
-
-export const InputFloatingWithIconsNegative: StoryObj = {
-  render: TemplateInputWithIcons,
-  argTypes: basicArgTypes,
-  args: {
-    ...basicArgs,
-    'floating-label': true,
-    value: undefined,
-    negative: true,
-  },
-};
-
-export const SelectNegative: StoryObj = {
-  render: TemplateSelect,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, negative: true },
-};
-
-export const SelectWithoutBorderNegative: StoryObj = {
-  render: TemplateSelect,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, borderless: true, negative: true },
-};
-
-export const SelectDisabledNegative: StoryObj = {
-  render: TemplateSelect,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true, negative: true },
-};
-
-export const SelectErrorSpaceNegative: StoryObj = {
-  render: TemplateSelectWithErrorSpace,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, 'error-space': 'reserve', cssClass: 'sbb-invalid', negative: true },
-};
-
-export const SelectFloatingLabelNegative: StoryObj = {
-  render: TemplateSelectWithErrorSpace,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, 'floating-label': true, value: undefined, negative: true },
-};
-
-export const SelectOptionalAndIconsNegative: StoryObj = {
-  render: TemplateSelectWithIcons,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, negative: true },
-};
-
-export const SelectOptionalAndIconsNegativeSizeS: StoryObj = {
-  render: TemplateSelectWithIcons,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, negative: true, size: size.options![0] },
-};
-
-export const SelectOptionalAndIconsNegativeSizeL: StoryObj = {
-  render: TemplateSelectWithIcons,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, negative: true, size: size.options![2] },
-};
-
-export const InputCollapsedWidthNegative: StoryObj = {
-  render: TemplateInput,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, width: width.options![1], negative: true },
-};
-
-export const InputWithIconsDisabledNegative: StoryObj = {
-  render: TemplateInputWithIcons,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true, negative: true },
-};
-
-export const TextareaNegative: StoryObj = {
-  render: TemplateTextarea,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, negative: true },
-};
-
-export const TextareaWithoutBorderNegative: StoryObj = {
-  render: TemplateTextarea,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, borderless: true, negative: true },
-};
-
-export const TextareaDisabledNegative: StoryObj = {
-  render: TemplateTextarea,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, disabled: true, negative: true },
-};
-
-export const TextareaReadonlyNegative: StoryObj = {
-  render: TemplateTextarea,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, readonly: true, negative: true },
-};
-
-export const TextareaErrorSpaceNegative: StoryObj = {
-  render: TemplateTextareaWithErrorSpace,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, 'error-space': 'reserve', cssClass: 'sbb-invalid', negative: true },
-};
-
-export const TextareaOptionalAndIconNegative: StoryObj = {
-  render: TemplateTextareaWithIcon,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, negative: true },
-};
-
-export const TextareaOptionalAndIconNegativeSizeS: StoryObj = {
-  render: TemplateTextareaWithIcon,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, negative: true, size: size.options![0] },
-};
-
-export const TextareaOptionalAndIconNegativeSizeL: StoryObj = {
-  render: TemplateTextareaWithIcon,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, optional: true, negative: true, size: size.options![2] },
-};
-
-export const TextareaFloatingLabelNegative: StoryObj = {
-  render: TemplateTextarea,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, 'floating-label': true, value: undefined, negative: true },
-};
-
-export const TextareaFloatingLongLabelNegative: StoryObj = {
-  render: TemplateTextarea,
-  argTypes: basicArgTypes,
-  args: {
-    ...basicArgs,
-    'floating-label': true,
-    value: undefined,
-    label: 'This is a very long label which receives ellipsis',
-    negative: true,
-  },
-};
-
-export const TextareaFloatingWithIconNegative: StoryObj = {
-  render: TemplateTextareaWithIcon,
-  argTypes: basicArgTypes,
-  args: {
-    ...basicArgs,
-    'floating-label': true,
-    value: undefined,
-    negative: true,
-  },
-};
-
-// sbb-form-field-clear
-
-const clearArgTypes: ArgTypes = {
-  negative,
-  disabled,
-  readonly,
-};
-
-const clearArgs: Args = {
-  negative: false,
-  disabled: false,
-  readonly: false,
-};
-
-const DefaultTemplate = ({ negative, ...args }: Args): TemplateResult => html`
-  <sbb-form-field ?negative=${negative}>
-    <label>Label</label>
-    <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
-    <input type="text" placeholder="Input placeholder" value="Input value" ${sbbSpread(args)} />
-    <sbb-form-field-clear></sbb-form-field-clear>
-  </sbb-form-field>
-`;
-
-export const Default: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: clearArgTypes,
-  args: { ...clearArgs },
-};
-
-export const Disabled: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: clearArgTypes,
-  args: { ...clearArgs, disabled: true },
-};
-
-export const Readonly: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: clearArgTypes,
-  args: { ...clearArgs, readonly: true },
-};
-
-export const DefaultNegative: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: clearArgTypes,
-  args: { ...clearArgs, negative: true },
-};
-
-export const DisabledNegative: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: clearArgTypes,
-  args: { ...clearArgs, disabled: true, negative: true },
-};
-
-export const ReadonlyNegative: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: clearArgTypes,
-  args: { ...clearArgs, readonly: true, negative: true },
 };
 
 // sbb-error
