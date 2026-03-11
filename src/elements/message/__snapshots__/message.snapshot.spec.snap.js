@@ -30,18 +30,16 @@ snapshots["sbb-message renders DOM"] =
 /* end snapshot sbb-message renders DOM */
 
 snapshots["sbb-message renders Shadow DOM"] = 
-`<div class="sbb-message__container">
-  <slot name="image">
-  </slot>
-  <slot name="title">
-  </slot>
-  <slot name="subtitle">
-  </slot>
-  <slot name="legend">
-  </slot>
-  <slot name="action">
-  </slot>
-</div>
+`<slot name="image">
+</slot>
+<slot name="title">
+</slot>
+<slot name="subtitle">
+</slot>
+<slot name="legend">
+</slot>
+<slot name="action">
+</slot>
 `;
 /* end snapshot sbb-message renders Shadow DOM */
 
@@ -62,18 +60,16 @@ snapshots["sbb-message renders without optional slots DOM"] =
 /* end snapshot sbb-message renders without optional slots DOM */
 
 snapshots["sbb-message renders without optional slots Shadow DOM"] = 
-`<div class="sbb-message__container">
-  <slot name="image">
-  </slot>
-  <slot name="title">
-  </slot>
-  <slot name="subtitle">
-  </slot>
-  <slot name="legend">
-  </slot>
-  <slot name="action">
-  </slot>
-</div>
+`<slot name="image">
+</slot>
+<slot name="title">
+</slot>
+<slot name="subtitle">
+</slot>
+<slot name="legend">
+</slot>
+<slot name="action">
+</slot>
 `;
 /* end snapshot sbb-message renders without optional slots Shadow DOM */
 
@@ -100,20 +96,44 @@ snapshots["sbb-message renders A11y tree Chrome"] =
                   "name": ""
                 }
               ]
-            },
+            }
+          ]
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
             {
               "role": "heading",
               "name": "Title.",
               "level": 3
-            },
+            }
+          ]
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
             {
               "role": "paragraph",
               "name": ""
-            },
+            }
+          ]
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
             {
               "role": "paragraph",
               "name": ""
-            },
+            }
+          ]
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
             {
               "role": "button",
               "name": "",
