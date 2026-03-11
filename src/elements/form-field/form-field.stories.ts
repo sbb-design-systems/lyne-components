@@ -164,6 +164,12 @@ const TemplateInputWithTextCounter = (args: Args): TemplateResult =>
     html`${TemplateBasicInput(args)} <sbb-form-field-text-counter></sbb-form-field-text-counter>`,
   );
 
+const TemplateInputWithHint = (args: Args): TemplateResult =>
+  formField(args, html`${TemplateBasicInput(args)} <sbb-hint>${args.hintText}</sbb-hint>`);
+
+const TemplateTextareaWithHint = (args: Args): TemplateResult =>
+  formField(args, html`${TemplateBasicTextarea(args)} <sbb-hint>${args.hintText}</sbb-hint>`);
+
 const TemplateTextareaWithTextCounter = (args: Args): TemplateResult =>
   formField(
     args,
@@ -294,6 +300,15 @@ const errorText: InputType = {
   },
   table: {
     category: 'Error slot',
+  },
+};
+
+const hintText: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Hint slot',
   },
 };
 
@@ -493,6 +508,12 @@ export const InputWithTextCounter: StoryObj = {
   args: { ...basicArgs, maxlength: 25 },
 };
 
+export const InputWithHint: StoryObj = {
+  render: TemplateInputWithHint,
+  argTypes: { ...basicArgTypes, hintText },
+  args: { ...basicArgs, hintText: 'This is a hint.' },
+};
+
 export const InputFloatingLabel: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
@@ -589,6 +610,12 @@ export const TextareaWithTextCounter: StoryObj = {
   render: TemplateTextareaWithTextCounter,
   argTypes: basicArgTypes,
   args: { ...basicArgs, maxlength: 200 },
+};
+
+export const TextareaWithHint: StoryObj = {
+  render: TemplateTextareaWithHint,
+  argTypes: { ...basicArgTypes, hintText },
+  args: { ...basicArgs, hintText: 'This is a hint.' },
 };
 
 export const TextareaWithTextCounterAndError: StoryObj = {

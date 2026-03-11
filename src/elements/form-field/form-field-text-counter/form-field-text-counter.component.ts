@@ -30,7 +30,7 @@ export class SbbFormFieldTextCounterElement extends SbbNegativeMixin(SbbElement)
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    this.slot ||= 'text-counter';
+    this.slot ||= 'hint';
 
     this._abortController.abort();
     this._abortController = new AbortController();

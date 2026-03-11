@@ -342,14 +342,14 @@ to the form element's `ariaErrorMessageElements` property (or `aria-errormessage
 
 #### Slots
 
-| Name           | Description                                                                       |
-| -------------- | --------------------------------------------------------------------------------- |
-|                | Use this slot to render an input/select or a supported non-native element.        |
-| `error`        | Use this slot to render an error.                                                 |
-| `label`        | Use this slot to render a label.                                                  |
-| `prefix`       | Use this slot to render an icon on the left side of the input.                    |
-| `suffix`       | Use this slot to render an icon on the right side of the input.                   |
-| `text-counter` | Use this slot to render remaining characters count (sbb-form-field-text-counter). |
+| Name     | Description                                                                     |
+| -------- | ------------------------------------------------------------------------------- |
+|          | Use this slot to render an input/select or a supported non-native element.      |
+| `error`  | Use this slot to render an error.                                               |
+| `hint`   | Use this slot to render an `<sbb-hint>` or the `<sbb-form-field-text-counter>`. |
+| `label`  | Use this slot to render a label.                                                |
+| `prefix` | Use this slot to render an icon on the left side of the input.                  |
+| `suffix` | Use this slot to render an icon on the right side of the input.                 |
 
 ### class: `SbbFormFieldTextCounterElement`, `sbb-form-field-text-counter`
 
@@ -364,3 +364,17 @@ to the form element's `ariaErrorMessageElements` property (or `aria-errormessage
 | Name | Description                                                                  |
 | ---- | ---------------------------------------------------------------------------- |
 |      | Use the unnamed slot to display a custom description text after the counter. |
+
+### class: `SbbHintElement`, `sbb-hint`
+
+#### Properties
+
+| Name       | Attribute  | Privacy | Type      | Default | Description                     |
+| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
+| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
+
+#### Slots
+
+| Name | Description                                |
+| ---- | ------------------------------------------ |
+|      | Use this slot to display the hint message. |

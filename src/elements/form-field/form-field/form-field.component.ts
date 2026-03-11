@@ -73,7 +73,7 @@ export class SbbFormFieldControlEvent extends Event {
  * @slot prefix - Use this slot to render an icon on the left side of the input.
  * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @slot error - Use this slot to render an error.
- * @slot text-counter - Use this slot to render remaining characters count (sbb-form-field-text-counter).
+ * @slot hint - Use this slot to render an `<sbb-hint>` or the `<sbb-form-field-text-counter>`.
  *
  * @cssprop [--sbb-form-field-outline-offset] - To override the focus outline offset,
  * @cssprop [--sbb-form-field-focus-underline-z-index] - To override the z-index of the focus underline effect,
@@ -567,7 +567,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
 
   private _syncNegative(): void {
     this.querySelectorAll?.(
-      'sbb-error,sbb-mini-button,sbb-mini-button-link,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group,sbb-form-field-text-counter',
+      'sbb-error,sbb-mini-button,sbb-mini-button-link,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group,sbb-hint,sbb-form-field-text-counter',
     ).forEach((element) => element.toggleAttribute('negative', this.negative));
   }
 
@@ -607,8 +607,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
         </div>
 
         <div class="sbb-form-field__error">
+          <slot name="hint" @slotchange=${this._syncNegative}></slot>
           <slot name="error" @slotchange=${this._onSlotErrorChange}></slot>
-          <slot name="text-counter" @slotchange=${this._syncNegative}></slot>
         </div>
       </div>
     `;
