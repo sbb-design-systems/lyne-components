@@ -1,5 +1,5 @@
 The `<sbb-paginator>` is a component which provides navigation for content split across multiple pages,
-e.g. a table with many rows.
+e.g. a table with many rows. An alternative, more compact variant is available as [`<sbb-compact-paginator>`](#compact-paginator).
 
 It can be controlled via the following properties:
 
@@ -28,6 +28,8 @@ The dropdown menu and the previous / next buttons are facing each other with the
 ```html
 <sbb-paginator length="100" page-size="20" page-size-options="[10, 20, 50]"></sbb-paginator>
 ```
+
+### Compact Paginator
 
 An alternative, more compact variant with the same functionality is the `<sbb-compact-paginator>`.
 In contrast to the `<sbb-paginator>`, it displays only the current page and the total number of pages

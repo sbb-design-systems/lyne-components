@@ -1,6 +1,6 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
-import { html, type TemplateResult } from 'lit';
-import { unsafeStatic } from 'lit/static-html.js';
+import { type TemplateResult } from 'lit';
+import { html, unsafeStatic } from 'lit/static-html.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
@@ -124,7 +124,7 @@ const titleContent: InputType = {
 const defaultArgTypes: ArgTypes = { ...fileSelectorDefaultArgTypes };
 const defaultArgs: Args = { ...fileSelectorDefaultArgs, tag: 'sbb-file-selector' };
 
-export const FileSelector: StoryObj = {
+export const Default: StoryObj = {
   render: FileSelectorTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
@@ -171,22 +171,22 @@ const fileSelectorDropzoneArgs: Args = {
   tag: 'sbb-file-selector-dropzone',
 };
 
-export const FileSelectorDropzone: StoryObj = {
+export const Dropzone: StoryObj = {
   render: FileSelectorTemplate,
   argTypes: fileSelectorDropzoneArgTypes,
   args: { ...fileSelectorDropzoneArgs },
 };
-export const DisabledDropzone: StoryObj = {
+export const DropzoneDisabled: StoryObj = {
   render: FileSelectorTemplate,
   argTypes: fileSelectorDropzoneArgTypes,
   args: { ...fileSelectorDropzoneArgs, disabled: true },
 };
-export const MultiDropzone: StoryObj = {
+export const DropzoneMulti: StoryObj = {
   render: FileSelectorTemplate,
   argTypes: fileSelectorDropzoneArgTypes,
   args: { ...fileSelectorDropzoneArgs, ...fileSelectorMultipleDefaultArgs },
 };
-export const MultiPersistentDropzone: StoryObj = {
+export const DropzoneMultiPersistent: StoryObj = {
   render: FileSelectorTemplate,
   argTypes: fileSelectorDropzoneArgTypes,
   args: {
@@ -195,17 +195,17 @@ export const MultiPersistentDropzone: StoryObj = {
     'multiple-mode': 'persistent',
   },
 };
-export const WithErrorDropzone: StoryObj = {
+export const DropzoneWithError: StoryObj = {
   render: FileSelectorTemplateWithError,
   argTypes: fileSelectorDropzoneArgTypes,
   args: { ...fileSelectorDropzoneArgs },
 };
-export const OnlyPDFDropzone: StoryObj = {
+export const DropzoneOnlyPDF: StoryObj = {
   render: FileSelectorTemplate,
   argTypes: fileSelectorDropzoneArgTypes,
   args: { ...fileSelectorDropzoneArgs, accept: '.pdf' },
 };
-export const MultiSizeSDropzone: StoryObj = {
+export const DropzoneMultiSizeS: StoryObj = {
   render: FileSelectorTemplate,
   argTypes: fileSelectorDropzoneArgTypes,
   args: { ...fileSelectorDropzoneArgs, ...fileSelectorMultipleDefaultArgs, size: 's' },

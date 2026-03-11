@@ -381,7 +381,7 @@ const WithContentAfterTemplate = ({
   </sbb-container>
 `;
 
-export const Standalone: StoryObj = {
+export const StickyBarStandalone: StoryObj = {
   render: Template,
 };
 
@@ -421,13 +421,13 @@ export const StickyBarMilk: StoryObj = {
   args: { ...stickyBarArgs, containerColor: color.options![2] },
 };
 
-export const MilkStickyBarWithWhiteContainer: StoryObj = {
+export const StickyBarMilkWithWhiteContainer: StoryObj = {
   render: StickyTemplate,
   argTypes: stickyBarArgTypes,
   args: { ...stickyBarArgs, containerColor: color.options![1], color: color.options![2] },
 };
 
-export const MilkWithContainerBackgroundExpanded: StoryObj = {
+export const StickyBarMilkWithContainerBackgroundExpanded: StoryObj = {
   render: StickyTemplate,
   argTypes: stickyBarArgTypes,
   args: { ...stickyBarArgs, containerColor: color.options![2], containerBackgroundExpanded: true },
@@ -439,7 +439,7 @@ export const StickyBarMidnight: StoryObj = {
   args: { ...stickyBarArgs, containerColor: color.options![3] },
 };
 
-export const MidnightWithContainerBackgroundExpanded: StoryObj = {
+export const StickyBarMidnightWithContainerBackgroundExpanded: StoryObj = {
   render: StickyTemplate,
   argTypes: stickyBarArgTypes,
   args: { ...stickyBarArgs, containerColor: color.options![3], containerBackgroundExpanded: true },
@@ -451,31 +451,31 @@ export const StickyBarCharcoal: StoryObj = {
   args: { ...stickyBarArgs, containerColor: color.options![4] },
 };
 
-export const CharcoalWithContainerBackgroundExpanded: StoryObj = {
+export const StickyBarCharcoalWithContainerBackgroundExpanded: StoryObj = {
   render: StickyTemplate,
   argTypes: stickyBarArgTypes,
   args: { ...stickyBarArgs, containerColor: color.options![4], containerBackgroundExpanded: true },
 };
 
-export const ShortContent: StoryObj = {
+export const StickyBarShortContent: StoryObj = {
   render: ShortTemplate,
   argTypes: stickyBarArgTypes,
   args: stickyBarArgs,
 };
 
-export const ShortContentMilk: StoryObj = {
+export const StickyBarShortContentMilk: StoryObj = {
   render: ShortTemplate,
   argTypes: stickyBarArgTypes,
   args: { ...stickyBarArgs, containerColor: containerColor.options![2] },
 };
 
-export const WithContentAfter: StoryObj = {
+export const StickyBarWithContentAfter: StoryObj = {
   render: WithContentAfterTemplate,
   argTypes: stickyBarArgTypes,
   args: { ...stickyBarArgs, containerColor: 'milk', color: 'white' },
 };
 
-export const ControlStickyState: StoryObj = {
+export const StickyBarControlStickyState: StoryObj = {
   render: WithContentAfterTemplate,
   argTypes: stickyBarArgTypes,
   args: { ...stickyBarArgs, containerColor: 'milk', color: 'white' },

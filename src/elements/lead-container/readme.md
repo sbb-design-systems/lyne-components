@@ -2,14 +2,14 @@ The `<sbb-lead-container>` can be used for product pages to display a lead image
 
 Please note that the gaps between elements inside the unnamed slot (main content) need to be controlled by the consumer.
 However, consumers can use the predefined classes
-(`<sbb-lead-container-lead-spacing>` and `<sbb-lead-container-lead-text>`) to achieve a correct spacing.
+(`sbb-lead-container-lead-spacing` and `sbb-lead-container-lead-text`) to achieve a correct spacing.
 
 As per design rules, the spacings are defined as following:
 
 ```html
 <sbb-alert-group></sbb-alert-group>
 <!-- var(--sbb-spacing-responsive-m) -->
-<sbb-breadcrump-group></sbb-breadcrump-group>
+<sbb-breadcrumb-group></sbb-breadcrumb-group>
 <!-- var(--sbb-spacing-4x) -->
 <sbb-block-link></sbb-block-link>
 <!-- var(--sbb-spacing-4x) -->
