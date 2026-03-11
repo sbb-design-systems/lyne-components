@@ -32,13 +32,11 @@ export class SbbMessageElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-message__container">
-        <slot name="image"></slot>
-        <slot name="title" @slotchange=${this._configureTitle}></slot>
-        <slot name="subtitle"></slot>
-        <slot name="legend"></slot>
-        <slot name="action"></slot>
-      </div>
+      <slot name="image"></slot>
+      <slot name="title" @slotchange=${this._configureTitle}></slot>
+      <slot name="subtitle"></slot>
+      <slot name="legend"></slot>
+      <slot name="action"></slot>
     `;
   }
 }
