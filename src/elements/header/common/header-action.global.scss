@@ -1,0 +1,25 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-header-action-color: var(--sbb-color-1);
+  --sbb-header-action-background-color: transparent;
+  --sbb-header-action-min-height: var(--sbb-size-element-s);
+  --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-5x);
+  --sbb-header-action-transition-easing: var(--sbb-animation-easing);
+  --sbb-header-action-border-color: transparent;
+  --sbb-header-action-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-header-action-icon-dimension: var(--sbb-size-icon-ui-small);
+  --sbb-header-action-active-border-width: var(--sbb-border-width-2x);
+  --sbb-header-action-active-border-color: var(--sbb-header-action-color);
+  --sbb-header-first-item-icon-shift: #{sbb.px-to-rem-build(2)};
+}
+
+@mixin base-forced-colors {
+  --sbb-header-action-border-color: CanvasText;
+  --sbb-header-action-color: LinkText;
+
+  // Hide border with forced colors, as state is displayed on border
+  --sbb-header-action-active-border-width: 0;
+}
