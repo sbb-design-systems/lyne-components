@@ -1,0 +1,24 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: block;
+}
+
+.sbb-calendar__controls {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sbb-calendar-control-gap);
+  margin-block-end: var(--sbb-calendar-control-margin-block-end);
+}
+
+.sbb-calendar__controls-month {
+  width: 100%;
+  display: flex;
+  gap: var(--sbb-calendar-tables-gap);
+}
+
+#sbb-calendar__controls-previous,
+#sbb-calendar__controls-next {
+  -webkit-tap-highlight-color: transparent;
+}

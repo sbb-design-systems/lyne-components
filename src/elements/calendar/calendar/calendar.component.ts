@@ -40,6 +40,10 @@ import {
 } from '../../core/i18n.ts';
 import type { SbbOrientation } from '../../core/interfaces.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  type SbbCalendarControls,
+  SbbCalendarControlsElement,
+} from '../calendar-controls/calendar-controls.component.ts';
 import { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 import { SbbCalendarMonthElement } from '../calendar-month/calendar-month.component.ts';
 import { SbbCalendarWeekdayElement } from '../calendar-weekday/calendar-weekday.component.ts';
@@ -53,6 +57,7 @@ import '../../button/secondary-button.ts';
 import '../../icon.ts';
 import '../../screen-reader-only.ts';
 
+SbbCalendarControlsElement.define();
 SbbCalendarDayElement.define();
 SbbCalendarMonthElement.define();
 SbbCalendarYearElement.define();
@@ -1276,28 +1281,22 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
     const nextMonthActiveDate = this._wide
       ? this._dateAdapter.addCalendarMonths(this._activeDate, 1)
       : undefined;
+    const c: SbbCalendarControls = {
+      prevButtonFn: () => this._goToDifferentMonth(-1),
+      nextButtonFn: () => this._goToDifferentMonth(1),
+      prevButtonDisabled: this._previousMonthDisabled(),
+      nextButtonDisabled: this._nextMonthDisabled(),
+      prevButtonAriaLabel: i18nPreviousMonth[this._language.current],
+      nextButtonAriaLabel: i18nNextMonth[this._language.current],
+    };
     return html`
-      <div class="sbb-calendar__controls">
-        ${this._getArrow(
-          'left',
-          () => this._goToDifferentMonth(-1),
-          i18nPreviousMonth[this._language.current],
-          this._previousMonthDisabled(),
-        )}
-        <div class="sbb-calendar__controls-month">
-          ${this._createLabelForDayView(this._activeDate)}
-          ${this._wide ? this._createLabelForDayView(nextMonthActiveDate!) : nothing}
-          <sbb-screen-reader-only role="status">
-            ${this._createAriaLabelForDayView(this._activeDate, nextMonthActiveDate!)}
-          </sbb-screen-reader-only>
-        </div>
-        ${this._getArrow(
-          'right',
-          () => this._goToDifferentMonth(1),
-          i18nNextMonth[this._language.current],
-          this._nextMonthDisabled(),
-        )}
-      </div>
+      <sbb-calendar-controls .controls=${c}>
+        ${this._createLabelForDayView(this._activeDate)}
+        ${this._wide ? this._createLabelForDayView(nextMonthActiveDate!) : nothing}
+        <sbb-screen-reader-only role="status">
+          ${this._createAriaLabelForDayView(this._activeDate, nextMonthActiveDate!)}
+        </sbb-screen-reader-only>
+      </sbb-calendar-controls>
       <div class="sbb-calendar__table-overflow-break">
         <div class="sbb-calendar__table-container sbb-calendar__table-day-view">
           ${this.orientation === 'horizontal'
@@ -1594,22 +1593,18 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
 
   /** Render the view for the month selection. */
   private _renderMonthView(): TemplateResult {
+    const c: SbbCalendarControls = {
+      prevButtonFn: () => this._goToDifferentYear(-1),
+      nextButtonFn: () => this._goToDifferentYear(1),
+      prevButtonDisabled: this._previousYearDisabled(),
+      nextButtonDisabled: this._nextYearDisabled(),
+      prevButtonAriaLabel: i18nPreviousYear[this._language.current],
+      nextButtonAriaLabel: i18nNextYear[this._language.current],
+    };
     return html`
-      <div class="sbb-calendar__controls">
-        ${this._getArrow(
-          'left',
-          () => this._goToDifferentYear(-1),
-          i18nPreviousYear[this._language.current],
-          this._previousYearDisabled(),
-        )}
-        <div class="sbb-calendar__controls-month">${this._createLabelForMonthView()}</div>
-        ${this._getArrow(
-          'right',
-          () => this._goToDifferentYear(1),
-          i18nNextYear[this._language.current],
-          this._nextYearDisabled(),
-        )}
-      </div>
+      <sbb-calendar-controls .controls=${c}>
+        ${this._createLabelForMonthView()}
+      </sbb-calendar-controls>
       <div class="sbb-calendar__table-overflow-break">
         <div class="sbb-calendar__table-container sbb-calendar__table-month-view">
           ${this._createMonthTable(this._months, this._chosenYear!)}
@@ -1689,22 +1684,18 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
 
   /** Render the view for the year selection. */
   private _renderYearView(): TemplateResult {
+    const c: SbbCalendarControls = {
+      prevButtonFn: () => this._goToDifferentYearRange(-YEARS_PER_PAGE),
+      nextButtonFn: () => this._goToDifferentYearRange(YEARS_PER_PAGE),
+      prevButtonDisabled: this._previousYearRangeDisabled(),
+      nextButtonDisabled: this._nextYearRangeDisabled(),
+      prevButtonAriaLabel: i18nPreviousYearRange(YEARS_PER_PAGE)[this._language.current],
+      nextButtonAriaLabel: i18nNextYearRange(YEARS_PER_PAGE)[this._language.current],
+    };
     return html`
-      <div class="sbb-calendar__controls">
-        ${this._getArrow(
-          'left',
-          () => this._goToDifferentYearRange(-YEARS_PER_PAGE),
-          i18nPreviousYearRange(YEARS_PER_PAGE)[this._language.current],
-          this._previousYearRangeDisabled(),
-        )}
-        <div class="sbb-calendar__controls-month">${this._createLabelForYearView()}</div>
-        ${this._getArrow(
-          'right',
-          () => this._goToDifferentYearRange(YEARS_PER_PAGE),
-          i18nNextYearRange(YEARS_PER_PAGE)[this._language.current],
-          this._nextYearRangeDisabled(),
-        )}
-      </div>
+      <sbb-calendar-controls .controls=${c}>
+        ${this._createLabelForYearView()}
+      </sbb-calendar-controls>
       <div class="sbb-calendar__table-overflow-break">
         <div class="sbb-calendar__table-container sbb-calendar__table-year-view">
           ${this._createYearTable(this._years)}
@@ -1712,23 +1703,6 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
         </div>
       </div>
     `;
-  }
-
-  /** Creates the button arrow for all the views. */
-  private _getArrow(
-    direction: 'left' | 'right',
-    click: () => void,
-    ariaLabel: string,
-    disabled: boolean,
-  ): TemplateResult {
-    return html`<sbb-secondary-button
-      size="m"
-      icon-name="chevron-small-${direction}-small"
-      aria-label=${ariaLabel}
-      @click=${click}
-      ?disabled=${disabled}
-      id="sbb-calendar__controls-${direction === 'left' ? 'previous' : 'next'}"
-    ></sbb-secondary-button>`;
   }
 
   /** Creates the label with the year range for the yearly view. */
