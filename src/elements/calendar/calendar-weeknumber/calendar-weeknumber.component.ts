@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { state } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers/language-controller.ts';
 import { i18nCalendarWeekNumber } from '../../core/i18n/i18n.ts';
@@ -10,9 +10,7 @@ import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts'
 /**
  * It displays a single week number cell in the `sbb-calendar` component.
  */
-export
-@customElement('sbb-calendar-weeknumber')
-class SbbCalendarWeeknumberElement extends SbbCalendarCellBaseElement {
+export class SbbCalendarWeeknumberElement extends SbbCalendarCellBaseElement {
   public static override readonly elementName: string = 'sbb-calendar-weeknumber';
   public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle];
 

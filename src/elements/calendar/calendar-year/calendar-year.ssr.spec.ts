@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbCalendarYearElement } from './calendar-year.component.ts';
 
+import '../../calendar.ts';
+
 describe(`sbb-calendar-year ssr`, () => {
   let root: SbbCalendarYearElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-calendar-year ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-calendar-year .value=${'2025'}></sbb-calendar-year>`,
       {
-        modules: ['./calendar-year.component.js'],
+        modules: ['../../calendar.ts'],
       },
     );
   });

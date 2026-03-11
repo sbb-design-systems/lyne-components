@@ -14,8 +14,7 @@ import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
 
 import type { SbbCalendarYearElement } from './calendar-year.component.ts';
 
-import '../calendar/calendar.component.ts';
-import './calendar-year.component.ts';
+import '../../calendar.ts';
 
 describe('sbb-calendar-year', () => {
   let todayStub: SinonStub;

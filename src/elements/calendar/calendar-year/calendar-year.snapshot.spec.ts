@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbCalendarYearElement } from './calendar-year.component.ts';
-import './calendar-year.component.ts';
+
+import '../../calendar.ts';
 
 describe(`sbb-calendar-year`, () => {
   describe('renders', () => {

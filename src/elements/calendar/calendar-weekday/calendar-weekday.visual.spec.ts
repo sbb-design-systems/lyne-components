@@ -12,8 +12,7 @@ import {
 } from '../../core/testing/private.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
 
-import '../calendar/calendar.component.ts';
-import './calendar-weekday.component.ts';
+import '../../calendar.ts';
 
 describe('sbb-calendar-weekday', () => {
   let todayStub: SinonStub;

@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { state } from 'lit/decorators.js';
 
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
@@ -9,9 +9,7 @@ import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts'
 /**
  * It displays a single month cell in the `sbb-calendar` months view.
  */
-export
-@customElement('sbb-calendar-month')
-class SbbCalendarMonthElement<T = Date> extends SbbCalendarCellBaseElement<T> {
+export class SbbCalendarMonthElement<T = Date> extends SbbCalendarCellBaseElement<T> {
   public static override readonly elementName: string = 'sbb-calendar-month';
   public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle];
 

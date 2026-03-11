@@ -6,7 +6,7 @@ import type { Weekday } from '../calendar/calendar.component.ts';
 
 import type { SbbCalendarWeekdayElement } from './calendar-weekday.component.ts';
 
-import './calendar-weekday.component.ts';
+import '../../calendar.ts';
 
 describe(`sbb-calendar-weekday`, () => {
   describe('renders', () => {

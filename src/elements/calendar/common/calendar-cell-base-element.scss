@@ -52,7 +52,7 @@
   :host(:focus-visible) & {
     @include sbb.focus-outline;
 
-    --sbb-focus-outline-offset: 1px;
+    --sbb-focus-outline-offset: #{sbb.px-to-rem-build(1)};
   }
 
   &::before {
@@ -86,7 +86,7 @@
         @include sbb.if-forced-colors {
           @include sbb.focus-outline;
 
-          --sbb-focus-outline-offset: 1px;
+          --sbb-focus-outline-offset: #{sbb.px-to-rem-build(1)};
 
           // Basically the focus-outline mixin is made for use with focus-visible.
           // As we use it here with hover, we have to ensure that the outline is not overridden when mouse or touch is in use.

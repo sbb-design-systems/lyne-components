@@ -5,6 +5,8 @@ import { fixture } from '../../core/testing/private.ts';
 
 import { SbbCalendarWeeknumberElement } from './calendar-weeknumber.component.ts';
 
+import '../../calendar.ts';
+
 describe('sbb-calendar-weeknumber', () => {
   let element: SbbCalendarWeeknumberElement;
 

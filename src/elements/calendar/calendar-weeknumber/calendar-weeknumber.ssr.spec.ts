@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbCalendarWeeknumberElement } from './calendar-weeknumber.component.ts';
 
+import '../../calendar.ts';
+
 describe(`sbb-calendar-weeknumber ssr`, () => {
   let root: SbbCalendarWeeknumberElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-calendar-weeknumber ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-calendar-weeknumber .value=${'42'}></sbb-calendar-weeknumber>`,
       {
-        modules: ['./calendar-weeknumber.component.js'],
+        modules: ['../../calendar.ts'],
       },
     );
   });

@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbCalendarMonthElement } from './calendar-month.component.ts';
-import './calendar-month.component.ts';
+
+import '../../calendar.ts';
 
 describe(`sbb-calendar-month`, () => {
   describe('renders', () => {

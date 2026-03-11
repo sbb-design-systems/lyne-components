@@ -6,6 +6,8 @@ import type { Weekday } from '../calendar/calendar.component.ts';
 
 import { SbbCalendarWeekdayElement } from './calendar-weekday.component.ts';
 
+import '../../calendar.ts';
+
 describe(`sbb-calendar-weekday ssr`, () => {
   let root: SbbCalendarWeekdayElement;
 
@@ -14,7 +16,7 @@ describe(`sbb-calendar-weekday ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-calendar-weekday .value=${weekDay}></sbb-calendar-weekday>`,
       {
-        modules: ['./calendar-weekday.component.js'],
+        modules: ['../../calendar.ts'],
       },
     );
   });

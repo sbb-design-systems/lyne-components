@@ -1,5 +1,5 @@
 import { type CSSResultGroup, html, type TemplateResult } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { state } from 'lit/decorators.js';
 
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
@@ -8,9 +8,7 @@ import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts'
 /**
  * It displays a single year cell in the `sbb-calendar` years view.
  */
-export
-@customElement('sbb-calendar-year')
-class SbbCalendarYearElement<T = Date> extends SbbCalendarCellBaseElement<T> {
+export class SbbCalendarYearElement<T = Date> extends SbbCalendarCellBaseElement<T> {
   public static override readonly elementName: string = 'sbb-calendar-year';
   public static override styles: CSSResultGroup = [boxSizingStyles, calendarCellBaseStyle];
 

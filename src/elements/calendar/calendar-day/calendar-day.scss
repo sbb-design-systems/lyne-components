@@ -5,9 +5,6 @@
   height: var(--sbb-calendar-day-height);
   width: var(--sbb-calendar-day-width);
   padding: var(--sbb-calendar-cell-padding);
-  padding-block-end: var(--sbb-calendar-cell-padding-hover, var(--sbb-calendar-cell-padding));
-  margin: auto;
-  position: relative;
 }
 
 .sbb-calendar-day__value {

@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbCalendarMonthElement } from './calendar-month.component.ts';
 
+import '../../calendar.ts';
+
 describe(`sbb-calendar-month ssr`, () => {
   let root: SbbCalendarMonthElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-calendar-month ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-calendar-month .value=${'2025-01'}></sbb-calendar-month>`,
       {
-        modules: ['./calendar-month.component.js'],
+        modules: ['../../calendar.ts'],
       },
     );
   });

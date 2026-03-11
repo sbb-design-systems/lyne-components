@@ -8,6 +8,8 @@ import { SbbCalendarElement } from '../calendar/calendar.component.ts';
 
 import { SbbCalendarMonthElement } from './calendar-month.component.ts';
 
+import '../../calendar.ts';
+
 describe('sbb-calendar-month', () => {
   let root: SbbCalendarElement;
   const today = new Date();
