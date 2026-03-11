@@ -43,7 +43,7 @@ The component can be disabled by using the `disabled` property.
 
 ## Style
 
-The component's label can be displayed in bold using the `<sbb-text--bold>` class on a wrapper tag:
+The component's label can be displayed in bold using the `sbb-text--bold` class on a wrapper tag:
 
 ```html
 <sbb-checkbox-panel value="bold">

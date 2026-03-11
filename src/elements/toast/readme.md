@@ -73,7 +73,7 @@ with the horizontal positions `left`, `start`, `center`, `right` and `end` (defa
 ## Accessibility
 
 The `<sbb-toast>` announces messages via an aria-live region.
-Use the `politeness` property to customize the politeness announcement behaviour.
+Use the `politeness` property to customize the politeness announcement behavior.
 Check [ARIA live regions](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions) for further info.
 
 The `<sbb-toast>` does not move focus to the toast element, because it would disrupt users in the middle of a workflow.
