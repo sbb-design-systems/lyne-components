@@ -128,6 +128,9 @@ $theme: 'standard' !default;
 @use '../../lead-container/lead-container.global' as lead-container with (
   $theme: $theme
 );
+@use '../../link/common/block-link.global' as block-link with (
+  $theme: $theme
+);
 @use '../../option/option/option.global' as option with (
   $theme: $theme
 );
@@ -206,6 +209,7 @@ $theme: 'standard' !default;
   @include header-common.base;
   @include header-environment.base;
   @include icon-sidebar.base;
+  @include block-link.base;
   @include lead-container.base;
   @include option.base;
   @include option-hint.base;
