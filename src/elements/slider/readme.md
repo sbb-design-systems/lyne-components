@@ -53,7 +53,7 @@ the current value can be read from `event.target.value` or `event.target.valueAs
 
 ## Keyboard interaction
 
-The `<sbb-slider>` has the following behaviour on keypress when focused:
+The `<sbb-slider>` has the following behavior on keypress when focused:
 
 | Key         | Action                                            |
 | ----------- | ------------------------------------------------- |

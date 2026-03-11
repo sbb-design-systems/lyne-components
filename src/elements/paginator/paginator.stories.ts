@@ -140,37 +140,13 @@ export const Default: StoryObj = {
   args: { ...defaultArgs },
 };
 
-export const Negative: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true },
-};
-
-export const Disabled: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, disabled: true },
-};
-
-export const SizeS: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, size: size.options![1] },
-};
-
-export const NegativeSizeS: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true, size: size.options![1] },
-};
-
 export const WithPageSizeOptions: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, length: 1000, pageSizeOptions: pageSizeOptions.options![1] },
 };
 
-export const WithPageSizeOptionsDisabled: StoryObj = {
+export const Disabled: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -181,7 +157,7 @@ export const WithPageSizeOptionsDisabled: StoryObj = {
   },
 };
 
-export const WithPageSizeOptionsNegative: StoryObj = {
+export const Negative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -192,7 +168,7 @@ export const WithPageSizeOptionsNegative: StoryObj = {
   },
 };
 
-export const WithPageSizeOptionsNegativeSizeS: StoryObj = {
+export const SizeS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -205,12 +181,6 @@ export const WithPageSizeOptionsNegativeSizeS: StoryObj = {
 };
 
 export const PagerPositionEnd: StoryObj = {
-  render: Template,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'pager-position': 'end' },
-};
-
-export const PagerPositionEndPageSizeOptions: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -258,12 +228,6 @@ export const CompactSizeS: StoryObj = {
   render: CompactTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, size: size.options![1] },
-};
-
-export const CompactNegativeSizeS: StoryObj = {
-  render: CompactTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, negative: true, size: size.options![1] },
 };
 
 export const CompactPagerPositionEnd: StoryObj = {
