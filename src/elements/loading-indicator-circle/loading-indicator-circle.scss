@@ -2,11 +2,20 @@
 
 :host {
   --sbb-loading-indicator-circle-duration: var(--sbb-disable-animation-duration, 1.5s);
+  --sbb-loading-indicator-circle-background: conic-gradient(
+    from 90deg,
+    transparent,
+    var(--sbb-loading-indicator-circle-color)
+  );
 
   display: inline-flex;
   padding: var(--sbb-loading-indicator-circle-padding);
   vertical-align: middle;
   line-height: 1;
+
+  @include sbb.if-forced-colors {
+    --sbb-loading-indicator-circle-color: CanvasText !important;
+  }
 }
 
 :host([color='smoke']) {
