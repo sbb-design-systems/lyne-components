@@ -9,10 +9,10 @@ import '../../screen-reader-only.ts';
 const SSR_CHILD_COUNT_ATTRIBUTE = 'data-ssr-child-count';
 const SLOTNAME_PREFIX = 'li';
 
-export type SbbNamedSlotProperties = {
+export interface SbbNamedSlotProperties {
   name: string;
   ariaHidden: boolean;
-};
+}
 
 /**
  * Helper type for willUpdate or similar checks.
@@ -56,13 +56,18 @@ export const SbbNamedSlotListMixin = <
 >(
   superClass: T,
 ): AbstractConstructor<SbbNamedSlotListMixinType<C>> & T => {
+  // TODO(breaking-change): Remove SbbElementInternalsMixin and depend on SbbElement as base class instead of LitElement
+  const conditionalSuperClass = (superClass as unknown as Record<string, unknown>)['_$sbbElement$']
+    ? (superClass as unknown as AbstractConstructor<SbbHydrationMixinType> & T)
+    : SbbHydrationMixin(superClass);
+
   /**
    * This base class provides named slot list observer functionality.
    * This allows using the pattern of rendering a named slot for each child, which allows
    * wrapping children in an ul/li list.
    */
   abstract class NamedSlotListElement<C extends HTMLElement = HTMLElement>
-    extends SbbHydrationMixin(superClass)
+    extends conditionalSuperClass
     implements Partial<SbbNamedSlotListMixinType<C>>
   {
     /** A list of lower-cased tag names to match against. (e.g. `sbb-link`) */

@@ -5,7 +5,7 @@ import { fixture } from '../../core/testing/private.ts';
 
 import { SbbCardElement } from './card.component.ts';
 
-import '../card-badge.ts';
+import '../../card.ts';
 
 describe(`sbb-card`, () => {
   let element: SbbCardElement;

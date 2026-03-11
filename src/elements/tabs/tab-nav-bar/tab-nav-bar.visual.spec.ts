@@ -8,7 +8,7 @@ import {
 } from '../../core/testing/private.ts';
 
 import '../../icon.ts';
-import './tab-nav-bar.component.ts';
+import '../../tabs.ts';
 
 describe('sbb-tab-nav-bar', () => {
   describeViewports({ viewports: ['zero', 'small', 'large'] }, () => {

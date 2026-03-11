@@ -6,7 +6,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 import type { SbbOptionElement } from './option.component.ts';
 
 import '../../autocomplete.ts';
-import './option.component.ts';
+import '../../option.ts';
 
 describe(`sbb-option`, () => {
   describe('autocomplete', () => {

@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import {
   SbbDarkModeController,
@@ -17,9 +17,8 @@ import style from './timetable-occupancy-icon.scss?lit&inline';
 /**
  * It displays a wagon's occupancy icon.
  */
-export
-@customElement('sbb-timetable-occupancy-icon')
-class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
+export class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
+  public static override readonly elementName: string = 'sbb-timetable-occupancy-icon';
   public static override styles: CSSResultGroup = [SbbIconBase.styles, style];
 
   /** Wagon occupancy. */

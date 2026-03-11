@@ -10,8 +10,8 @@ import { waitForLitRender } from '../../core/testing.ts';
 
 import type { SbbStickyBarElement } from './sticky-bar.component.ts';
 
-import './sticky-bar.component.ts';
-import '../container.ts';
+import '../../container.ts';
+
 import '../../action-group.ts';
 import '../../button.ts';
 import '../../link.ts';

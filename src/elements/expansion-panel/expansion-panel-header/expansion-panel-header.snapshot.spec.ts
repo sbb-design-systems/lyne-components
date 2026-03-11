@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbExpansionPanelHeaderElement } from './expansion-panel-header.component.ts';
-import './expansion-panel-header.component.ts';
+
+import '../../expansion-panel.ts';
 import '../../icon.ts';
 
 describe(`sbb-expansion-panel-header`, () => {

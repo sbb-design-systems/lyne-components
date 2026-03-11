@@ -5,6 +5,8 @@ import { html } from 'lit/static-html.js';
 
 import { SbbSeatReservationNavigationServicesElement } from './seat-reservation-navigation-services.component.ts';
 
+import '../../seat-reservation.ts';
+
 let element: SbbSeatReservationNavigationServicesElement;
 
 describe('sbb-seat-reservation-navigation-services', () => {

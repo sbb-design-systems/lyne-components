@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbIconSidebarLinkElement } from './icon-sidebar-link.component.ts';
 
+import '../../icon-sidebar.ts';
+
 describe(`sbb-icon-sidebar-link ssr`, () => {
   let root: SbbIconSidebarLinkElement;
 
@@ -16,7 +18,7 @@ describe(`sbb-icon-sidebar-link ssr`, () => {
         accessibility-label="Go to the party"
       ></sbb-icon-sidebar-link>`,
       {
-        modules: ['./icon-sidebar-link.component.js'],
+        modules: ['../../icon-sidebar.ts'],
       },
     );
   });

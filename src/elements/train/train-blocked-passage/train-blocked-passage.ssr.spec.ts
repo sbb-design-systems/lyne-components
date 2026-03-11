@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbTrainBlockedPassageElement } from './train-blocked-passage.component.ts';
 
+import '../../train.ts';
+
 describe(`sbb-train-blocked-passage ssr`, () => {
   let root: SbbTrainBlockedPassageElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-train-blocked-passage></sbb-train-blocked-passage>`, {
-      modules: ['./train-blocked-passage.component.js'],
+      modules: ['../../train.ts'],
     });
   });
 

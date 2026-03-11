@@ -1,17 +1,17 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
+import { property } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { isLean } from '../../core/dom.ts';
 import {
-  SbbElementInternalsMixin,
   SbbNamedSlotListMixin,
   ɵstateController,
   type WithListChildren,
 } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbNavigationButtonElement } from '../navigation-button.ts';
-import type { SbbNavigationLinkElement } from '../navigation-link.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
+import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 
 import style from './navigation-marker.scss?lit&inline';
 
@@ -20,13 +20,11 @@ import style from './navigation-marker.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-navigation-button`/`sbb-navigation-link` elements into the `sbb-navigation-marker`.
  */
-export
-@customElement('sbb-navigation-marker')
-class SbbNavigationMarkerElement extends SbbElementInternalsMixin(
-  SbbNamedSlotListMixin<SbbNavigationButtonElement | SbbNavigationLinkElement, typeof LitElement>(
-    LitElement,
-  ),
-) {
+export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
+  SbbNavigationButtonElement | SbbNavigationLinkElement,
+  typeof SbbElement
+>(SbbElement) {
+  public static override readonly elementName: string = 'sbb-navigation-marker';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = [
     'sbb-navigation-button',

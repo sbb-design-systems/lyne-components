@@ -3,7 +3,11 @@ here to show the various configuration options to component developers. !!
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbTimetableDurationElement`, `sbb-timetable-duration`
+
+#### Properties
 
 | Name     | Attribute | Privacy | Type     | Default | Description                                                                                                                               |
 | -------- | --------- | ------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |

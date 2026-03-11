@@ -10,7 +10,7 @@ import type { SbbOptionElement } from './option.component.ts';
 import '../../form-field.ts';
 import '../../select.ts';
 import '../../autocomplete.ts';
-import './option.component.ts';
+import '../../option.ts';
 
 describe(`sbb-option`, () => {
   const defaultArgs = {

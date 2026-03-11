@@ -5,13 +5,14 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import { fixture, tabKey } from '../core/testing/private.ts';
-import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 import type { SbbFormFieldElement } from '../form-field.ts';
 import { SbbOptionElement } from '../option.ts';
 
 import { SbbSelectElement } from './select.component.ts';
 
 import '../form-field.ts';
+import '../select.ts';
 
 describe(`sbb-select`, () => {
   let element: SbbSelectElement, root: HTMLDivElement;
@@ -1318,8 +1319,7 @@ describe(`sbb-select`, () => {
       formField.style.width = '200px';
 
       // Wait for resizeObserver to apply the new size
-      await aTimeout(30);
-
+      await waitForCondition(() => selectPanel.clientWidth < oldPanelSize);
       expect(selectPanel.clientWidth).to.be.lessThan(oldPanelSize);
     });
   });
@@ -1458,7 +1458,10 @@ describe(`sbb-select`, () => {
   });
 
   describe('with complex value', () => {
-    type PropertyType = { property: string; otherProperty: string };
+    interface PropertyType {
+      property: string;
+      otherProperty: string;
+    }
     let element: SbbSelectElement<PropertyType>, firstOption: SbbOptionElement<PropertyType>;
 
     const value1 = { property: 'Option 1', otherProperty: 'test 1' };

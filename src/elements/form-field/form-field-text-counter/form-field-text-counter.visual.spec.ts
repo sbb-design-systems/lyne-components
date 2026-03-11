@@ -2,9 +2,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './form-field-text-counter.component.ts';
-import '../form-field/form-field.component.ts';
-import '../error/error.component.ts';
+import '../../form-field.ts';
 
 describe(`sbb-form-field-text-counter`, () => {
   const defaultArgs = {

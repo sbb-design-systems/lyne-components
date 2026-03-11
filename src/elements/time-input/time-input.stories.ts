@@ -18,7 +18,7 @@ import type { SbbFormFieldElement } from '../form-field.ts';
 import readme from './readme.md?raw';
 import type { SbbTimeInputElement } from './time-input.component.ts';
 
-import './time-input.component.ts';
+import '../time-input.ts';
 import '../button/secondary-button.ts';
 import '../form-field.ts';
 
@@ -334,7 +334,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-time-input',
+  title: 'elements/Time Input',
 };
 
 export default meta;

@@ -1,4 +1,4 @@
-The `sbb-journey-summary` displays the main information of a journey.
+The `<sbb-journey-summary>` displays the main information of a journey.
 It contains information about the arrival and departure, the date when the journey takes place and how long the trip will be.
 It also consists of a pearl-chain with arrival and departure time.
 In addition to that, it is also possible to display the walktimes at the start and end of a journey.
@@ -22,7 +22,11 @@ This is helpful if you need a specific state of the component.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbJourneySummaryElement`, `sbb-journey-summary`
+
+#### Properties
 
 | Name               | Attribute           | Privacy | Type                                   | Default | Description                                                                                                                   |
 | ------------------ | ------------------- | ------- | -------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -34,7 +38,7 @@ This is helpful if you need a specific state of the component.
 | `trip`             | `trip`              | public  | `InterfaceSbbJourneySummaryAttributes` | `null!` | The trip prop                                                                                                                 |
 | `tripBack`         | `trip-back`         | public  | `InterfaceSbbJourneySummaryAttributes` | `null!` | The tripBack prop                                                                                                             |
 
-## Slots
+#### Slots
 
 | Name      | Description                                                       |
 | --------- | ----------------------------------------------------------------- |

@@ -6,6 +6,8 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
 import { SbbToggleOptionElement } from './toggle-option.component.ts';
 
+import '../../toggle.ts';
+
 describe(`sbb-toggle-option`, () => {
   let element: SbbToggleOptionElement;
 

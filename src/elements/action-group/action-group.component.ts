@@ -1,8 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { html } from 'lit';
+import { property } from 'lit/decorators.js';
 
 import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.ts';
+import { SbbElement } from '../core/base-elements.ts';
 import { isLean } from '../core/dom.ts';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.ts';
 import { boxSizingStyles } from '../core/styles.ts';
@@ -20,9 +21,8 @@ import style from './action-group.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add `sbb-block-link` or `sbb-button` elements to the `sbb-action-group`.
  */
-export
-@customElement('sbb-action-group')
-class SbbActionGroupElement extends LitElement {
+export class SbbActionGroupElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-action-group';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
@@ -32,7 +32,7 @@ class SbbActionGroupElement extends LitElement {
   public accessor alignGroup: 'start' | 'center' | 'stretch' | 'end' = 'start';
 
   /**
-   * Overrides the behaviour of `orientation` property.
+   * Overrides the behavior of `orientation` property.
    */
   // TODO: Needs a breaking change to work with the 'no-default-reflect' behavior
   @property({ attribute: 'horizontal-from', reflect: true })

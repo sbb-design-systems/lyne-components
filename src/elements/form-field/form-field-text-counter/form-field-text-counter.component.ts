@@ -1,10 +1,11 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { html } from 'lit';
+import { state } from 'lit/decorators.js';
 
+import { SbbElement } from '../../core/base-elements/element.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nRemainingCharacters } from '../../core/i18n.ts';
-import { SbbElementInternalsMixin, SbbNegativeMixin } from '../../core/mixins.ts';
+import { SbbNegativeMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field.component.ts';
 
@@ -16,11 +17,8 @@ import style from './form-field-text-counter.scss?lit&inline';
  * If the input is disabled or readonly, the output is suppressed.
  * @slot - Use the unnamed slot to display a custom description text after the counter.
  */
-export
-@customElement('sbb-form-field-text-counter')
-class SbbFormFieldTextCounterElement extends SbbNegativeMixin(
-  SbbElementInternalsMixin(LitElement),
-) {
+export class SbbFormFieldTextCounterElement extends SbbNegativeMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-form-field-text-counter';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   @state() private accessor _remainingChars: number = 0;

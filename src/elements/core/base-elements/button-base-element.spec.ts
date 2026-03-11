@@ -10,7 +10,9 @@ import { EventSpy, waitForLitRender } from '../testing.ts';
 
 import { SbbButtonBaseElement } from './button-base-element.ts';
 
-type FormDataEntry = { [p: string]: FormDataEntryValue };
+interface FormDataEntry {
+  [p: string]: FormDataEntryValue;
+}
 
 interface ButtonAccessibilitySnapshot {
   role: string;

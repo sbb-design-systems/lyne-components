@@ -1,24 +1,28 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
-
-  // Setting the height here reserves the space for the header which will else be lost with fixed position.
-  height: var(--sbb-header-height);
-
-  // Overwrites logo in slotted and default case
   --sbb-logo-height: #{sbb.px-to-rem-build(16)};
   --sbb-signet-height: #{sbb.px-to-rem-build(16)};
-  --sbb-header-position: fixed;
   --sbb-header-transition-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
-  --sbb-header-inset-inline-end: 0;
 
   @include sbb.mq($from: large) {
     --sbb-logo-height: #{sbb.px-to-rem-build(20)};
     --sbb-signet-height: #{sbb.px-to-rem-build(20)};
+  }
+
+  display: block;
+
+  // Setting the height here reserves the space for the header which will else be lost with fixed position.
+  height: var(--sbb-header-height);
+}
+
+:host([size='s']) {
+  ::slotted(:is(sbb-header-button, sbb-header-link)) {
+    --sbb-header-action-min-height: var(--sbb-size-element-xs);
+    --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-4x);
   }
 }
 
@@ -54,7 +58,7 @@
 .sbb-header {
   position: var(--sbb-header-position);
   inset: 0 var(--sbb-header-inset-inline-end) auto 0;
-  background: var(--sbb-background-color-1);
+  background: var(--sbb-header-background);
   z-index: var(--sbb-header-z-index, 10);
   transform: var(--sbb-header-transform);
   transition: {
@@ -69,7 +73,7 @@
   }
 
   :host(:is(:state(shadow), :state(has-visible-focus-within):state(fixed))) & {
-    box-shadow: var(--sbb-box-shadow-level-9-soft);
+    box-shadow: var(--sbb-header-box-shadow);
   }
 
   @include sbb.if-forced-colors {
@@ -96,13 +100,6 @@
 // The value of the offset is calculated inside sbb-header-button/sbb-header-link styles.
 ::slotted(:is(sbb-header-button, sbb-header-link):first-child) {
   margin-inline-start: var(--sbb-header-first-item-margin-inline-start);
-}
-
-::slotted(:is(sbb-header-button, sbb-header-link)) {
-  :host([size='s']) & {
-    --sbb-header-action-min-height: var(--sbb-size-element-xs);
-    --sbb-header-action-padding-inline: var(--sbb-spacing-fixed-4x);
-  }
 }
 
 ::slotted(*) {

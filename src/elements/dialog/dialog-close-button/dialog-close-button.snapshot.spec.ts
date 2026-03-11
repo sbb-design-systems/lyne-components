@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbDialogCloseButtonElement } from './dialog-close-button.component.ts';
 
-import './dialog-close-button.component.ts';
+import '../../dialog.ts';
 
 describe(`sbb-dialog-close-button`, () => {
   describe('renders', () => {

@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyDeclaration, PropertyValues, TemplateResult } from 'lit';
 import { html, isServer, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
@@ -20,7 +20,7 @@ import { forceType, idReference } from '../core/decorators.ts';
 import { isZeroAnimationDuration } from '../core/dom.ts';
 import { composedPathHasAttribute } from '../core/eventing.ts';
 import { i18nClosePopover } from '../core/i18n.ts';
-import { SbbHydrationMixin, ɵstateController } from '../core/mixins.ts';
+import { ɵstateController } from '../core/mixins.ts';
 import {
   getElementPosition,
   isEventOnElement,
@@ -41,7 +41,7 @@ let nextId = 0;
 const popoversRef = new Set<SbbPopoverBaseElement>();
 const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).matches;
 
-export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
+export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**
@@ -420,9 +420,8 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export
-@customElement('sbb-popover')
-class SbbPopoverElement extends SbbPopoverBaseElement {
+export class SbbPopoverElement extends SbbPopoverBaseElement {
+  public static override readonly elementName: string = 'sbb-popover';
   /** Whether the close button should be hidden. */
   @forceType()
   @property({ attribute: 'hide-close-button', type: Boolean, reflect: true })

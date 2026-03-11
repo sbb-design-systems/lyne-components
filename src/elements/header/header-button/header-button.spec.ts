@@ -7,6 +7,8 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
 import { SbbHeaderButtonElement } from './header-button.component.ts';
 
+import '../../header.ts';
+
 describe(`sbb-header-button`, () => {
   let element: SbbHeaderButtonElement;
 

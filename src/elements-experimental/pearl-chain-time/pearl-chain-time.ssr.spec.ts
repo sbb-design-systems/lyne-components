@@ -4,6 +4,8 @@ import { html } from 'lit';
 
 import { SbbPearlChainTimeElement } from './pearl-chain-time.component.ts';
 
+import '../pearl-chain-time.ts';
+
 const now = '2022-08-16T15:00:00Z';
 
 describe(`sbb-pearl-chain-time ssr`, () => {
@@ -19,7 +21,7 @@ describe(`sbb-pearl-chain-time ssr`, () => {
         >
         </sbb-pearl-chain-time>
       `,
-      { modules: ['./pearl-chain-time.component.js'] },
+      { modules: ['../pearl-chain-time.ts'] },
     );
   });
 

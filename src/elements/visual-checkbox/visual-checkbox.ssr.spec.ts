@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbVisualCheckboxElement } from './visual-checkbox.component.ts';
 
+import '../visual-checkbox.ts';
+
 describe(`sbb-visual-checkbox ssr`, () => {
   let root: SbbVisualCheckboxElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-visual-checkbox></sbb-visual-checkbox>`, {
-      modules: ['./visual-checkbox.component.js'],
+      modules: ['../visual-checkbox.ts'],
     });
   });
 

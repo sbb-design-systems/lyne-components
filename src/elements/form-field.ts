@@ -1,7 +1,14 @@
-/**
- * @entrypoint
- */
-export * from './form-field/error.ts';
-export * from './form-field/form-field.ts';
-export * from './form-field/form-field-clear.ts';
-export * from './form-field/form-field-text-counter.ts';
+/** @entrypoint */
+import {
+  SbbErrorElement,
+  SbbFormFieldClearElement,
+  SbbFormFieldElement,
+  SbbFormFieldTextCounterElement,
+} from './form-field.pure.ts';
+
+export * from './form-field.pure.ts';
+
+SbbErrorElement.define();
+SbbFormFieldClearElement.define();
+SbbFormFieldElement.define();
+SbbFormFieldTextCounterElement.define();

@@ -6,7 +6,7 @@ import {
   visualDiffStandardStates,
 } from '../../core/testing/private.ts';
 
-import './mini-calendar-day.component.ts';
+import '../../mini-calendar.ts';
 
 describe('sbb-mini-calendar-day', () => {
   describeViewports({ viewports: ['zero'] }, () => {

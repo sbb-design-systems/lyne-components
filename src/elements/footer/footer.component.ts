@@ -1,8 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { nothing } from 'lit';
+import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
+import { SbbElement } from '../core/base-elements.ts';
 import { forceType } from '../core/decorators.ts';
 import { SbbNegativeMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
@@ -15,9 +16,8 @@ import style from './footer.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add elements like `sbb-block-link`, `sbb-link-list`, `sbb-divider` and so on.
  */
-export
-@customElement('sbb-footer')
-class SbbFooterElement extends SbbNegativeMixin(LitElement) {
+export class SbbFooterElement extends SbbNegativeMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-footer';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /**

@@ -6,13 +6,13 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import type { SbbDateInputElement } from '../../date-input.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
 import { SbbPopoverElement } from '../../popover.ts';
-import type { SbbDatepickerElement } from '../datepicker.ts';
+import type { SbbDatepickerElement } from '../datepicker/datepicker.component.ts';
 
 import { SbbDatepickerToggleElement } from './datepicker-toggle.component.ts';
 
-import '../datepicker.ts';
+import '../../datepicker.ts';
 import '../../date-input.ts';
-import '../../form-field/form-field.ts';
+import '../../form-field.ts';
 
 describe(`sbb-datepicker-toggle`, () => {
   it('renders', async () => {

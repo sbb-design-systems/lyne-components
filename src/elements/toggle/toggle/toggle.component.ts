@@ -1,25 +1,18 @@
-import {
-  type CSSResultGroup,
-  html,
-  isServer,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
+import { property } from 'lit/decorators.js';
 
 import { interactivityChecker } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
-  SbbElementInternalsMixin,
   SbbFormAssociatedMixin,
 } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { type SbbToggleOptionElement } from '../toggle-option.ts';
+import type { SbbToggleOptionElement } from '../toggle-option/toggle-option.component.ts';
 
 import style from './toggle.scss?lit&inline';
 
@@ -29,11 +22,10 @@ import style from './toggle.scss?lit&inline';
  * @slot - Use the unnamed slot to add `<sbb-toggle-option>` elements to the toggle.
  * @overrideType value - (T = string) | null
  */
-export
-@customElement('sbb-toggle')
-class SbbToggleElement<T = string> extends SbbDisabledMixin(
-  SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)),
+export class SbbToggleElement<T = string> extends SbbDisabledMixin(
+  SbbFormAssociatedMixin(SbbElement),
 ) {
+  public static override readonly elementName: string = 'sbb-toggle';
   public static override readonly role = 'radiogroup';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {

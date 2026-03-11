@@ -8,8 +8,7 @@ import { describeIf } from '../../core/testing.ts';
 import type { SbbOptGroupElement } from './optgroup.component.ts';
 
 import '../../autocomplete.ts';
-import '../option.ts';
-import './optgroup.component.ts';
+import '../../option.ts';
 
 describe(`sbb-optgroup`, () => {
   describe('autocomplete', () => {

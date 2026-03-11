@@ -1,5 +1,4 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbSecondaryButtonElement } from '../../button/secondary-button.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
@@ -11,9 +10,8 @@ import style from './timetable-form-swap-button.scss?lit&inline';
  * An extension of `sbb-secondary-button` to be used inside the `sbb-timetable-form`.
  * When placed between two `sbb-timetable-form-field`, the 'click' swaps the value of the sibling inputs.
  */
-export
-@customElement('sbb-timetable-form-swap-button')
-class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement {
+export class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement {
+  public static override readonly elementName: string = 'sbb-timetable-form-swap-button';
   public static override styles: CSSResultGroup = [SbbSecondaryButtonElement.styles, style];
 
   private _languageController = new SbbLanguageController(this);

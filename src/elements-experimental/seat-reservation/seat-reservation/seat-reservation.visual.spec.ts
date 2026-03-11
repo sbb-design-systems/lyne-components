@@ -5,12 +5,14 @@ import {
   visualDiffFocus,
   visualRegressionFixture,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
-import './seat-reservation.component.ts';
 import { html } from 'lit';
 
-import { mapRawDataToSeatReservation, type SeatReservation } from '../common.ts';
+import { mapRawDataToSeatReservation } from '../common/mapper.ts';
+import type { SeatReservation } from '../common/types.ts';
 
 import type { SbbSeatReservationElement } from './seat-reservation.component.ts';
+
+import '../../seat-reservation.ts';
 
 describe('sbb-seat-reservation', () => {
   let root: SbbSeatReservationElement;

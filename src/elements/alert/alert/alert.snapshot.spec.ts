@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbAlertElement } from './alert.component.ts';
 
-import './alert.component.ts';
+import '../../alert.ts';
 import '../../link/link.ts';
 import '../../title.ts';
 

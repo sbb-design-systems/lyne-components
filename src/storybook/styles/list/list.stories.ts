@@ -172,7 +172,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'styles/list',
+  title: 'styles/List',
 };
 
 export default meta;

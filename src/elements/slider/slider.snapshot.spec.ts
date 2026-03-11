@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbSliderElement } from './slider.component.ts';
 
-import './slider.component.ts';
+import '../slider.ts';
 
 describe(`sbb-slider`, () => {
   let element: SbbSliderElement;

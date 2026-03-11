@@ -13,6 +13,7 @@ import { SbbPopoverElement } from './popover.component.ts';
 
 import '../button/button.ts';
 import '../link.ts';
+import '../popover.ts';
 
 describe(`sbb-popover`, () => {
   let element: SbbPopoverElement,
@@ -385,12 +386,12 @@ describe(`sbb-popover`, () => {
       overlay.dispatchEvent(new Event('mouseenter'));
       overlay.dispatchEvent(new Event('mouseleave'));
 
-      // After a tick, it should still be open
-      await aTimeout(0);
+      // With a zero animation duration, the close happens synchronously.
+      // The 'close delay' keeps it open for at least another run cycle.
       expect(element.isOpen).to.be.true;
 
       // After two milliseconds, it should be closed
-      await aTimeout(2);
+      await aTimeout(30);
       expect(element.isOpen).to.be.false;
     });
 

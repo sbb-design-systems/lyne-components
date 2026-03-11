@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbContainerElement } from './container.component.ts';
-import './container.component.ts';
+import '../../container.ts';
 
 describe(`sbb-container`, () => {
   describe('renders', () => {

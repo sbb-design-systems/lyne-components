@@ -1,4 +1,6 @@
-/**
- * @entrypoint
- */
-export * from './date-input/date-input.component.ts';
+/** @entrypoint */
+import { SbbDateInputElement } from './date-input.pure.ts';
+
+export * from './date-input.pure.ts';
+
+SbbDateInputElement.define();

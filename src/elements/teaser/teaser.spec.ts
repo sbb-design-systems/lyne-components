@@ -6,6 +6,8 @@ import { EventSpy, waitForLitRender } from '../core/testing.ts';
 
 import { SbbTeaserElement } from './teaser.component.ts';
 
+import '../teaser.ts';
+
 describe(`sbb-teaser`, () => {
   let element: SbbTeaserElement;
 

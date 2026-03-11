@@ -3,15 +3,16 @@ import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { type CSSResultGroup, html, nothing, type TemplateResult, type PropertyValues } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { getI18nSeatReservation } from '../common.ts';
-import type { PlaceSelection, PlaceState, PlaceType, TravelDirection } from '../common.ts';
-
-import '../seat-reservation-graphic.ts';
+import { getI18nSeatReservation } from '../common/translations.ts';
+import type { PlaceSelection, PlaceState, PlaceType, TravelDirection } from '../common/types.ts';
+import { SbbSeatReservationGraphicElement } from '../seat-reservation-graphic/seat-reservation-graphic.component.ts';
 
 import style from './seat-reservation-place-control.scss?lit&inline';
+
+SbbSeatReservationGraphicElement.define();
 
 type TravelDirectionI18nKey =
   | 'TRAVEL_DIRECTION_IN_DIRECTION'
@@ -21,9 +22,8 @@ type TravelDirectionI18nKey =
 /**
  * Output the graphic of a seat or a bicycle place as a control element.
  */
-export
-@customElement('sbb-seat-reservation-place-control')
-class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
+export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
+  public static override readonly elementName: string = 'sbb-seat-reservation-place-control';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     selectplace: 'selectplace',
@@ -96,7 +96,7 @@ class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
     }
 
     // if title was shown once, we cannot unset it completely, but this
-    // behaviour should not happen very often as the title should
+    // behavior should not happen very often as the title should
     // not switch from on to off and on again
     if (changedProperties.has('showTitleInfo')) {
       if (!this.showTitleInfo) {

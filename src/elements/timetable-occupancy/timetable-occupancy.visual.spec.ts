@@ -2,7 +2,7 @@ import { html, nothing } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './timetable-occupancy.component.ts';
+import '../timetable-occupancy.ts';
 
 describe(`sbb-timetable-occupancy`, () => {
   const cases = {

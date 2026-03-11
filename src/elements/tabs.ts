@@ -1,7 +1,14 @@
-/**
- * @entrypoint
- */
-export * from './tabs/tab.ts';
-export * from './tabs/tab-group.ts';
-export * from './tabs/tab-label.ts';
-export * from './tabs/tab-nav-bar/tab-nav-bar.component.ts';
+/** @entrypoint */
+import {
+  SbbTabElement,
+  SbbTabGroupElement,
+  SbbTabLabelElement,
+  SbbTabNavBarElement,
+} from './tabs.pure.ts';
+
+export * from './tabs.pure.ts';
+
+SbbTabElement.define();
+SbbTabGroupElement.define();
+SbbTabLabelElement.define();
+SbbTabNavBarElement.define();

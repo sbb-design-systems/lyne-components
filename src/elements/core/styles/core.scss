@@ -51,10 +51,10 @@ $theme: 'standard' !default;
 @use '../../core/mixins/panel-common.global' as panel-common with (
   $theme: $theme
 );
-@use '../../checkbox/checkbox/checkbox.global' as checkbox with (
+@use '../../checkbox/checkbox.global' as checkbox with (
   $theme: $theme
 );
-@use '../../checkbox/checkbox-group/checkbox-group.global' as checkbox-group with (
+@use '../../checkbox-group/checkbox-group.global' as checkbox-group with (
   $theme: $theme
 );
 @use '../../checkbox/common/checkbox-common.global' as checkbox-common with (
@@ -95,7 +95,37 @@ $theme: 'standard' !default;
   expansion-panel-header with (
   $theme: $theme
 );
+@use '../../flip-card/flip-card/flip-card.global' as flip-card with (
+  $theme: $theme
+);
+@use '../../flip-card/flip-card-details/flip-card-details.global' as flip-card-details with (
+  $theme: $theme
+);
+@use '../../flip-card/flip-card-summary/flip-card-summary.global' as flip-card-summary with (
+  $theme: $theme
+);
+@use '../../header/common/header-action.global' as header-common with (
+  $theme: $theme
+);
+@use '../../header/header-environment/header-environment.global' as header-environment with (
+  $theme: $theme
+);
+@use '../../header/header/header.global' as header with (
+  $theme: $theme
+);
 @use '../../footer/footer.global' as footer with (
+  $theme: $theme
+);
+@use '../../form-field/error/error.global' as error with (
+  $theme: $theme
+);
+@use '../../form-field/form-field/form-field.global' as form-field with (
+  $theme: $theme
+);
+@use '../../icon-sidebar/icon-sidebar/icon-sidebar.global' as icon-sidebar with (
+  $theme: $theme
+);
+@use '../../lead-container/lead-container.global' as lead-container with (
   $theme: $theme
 );
 @use '../../option/option/option.global' as option with (
@@ -110,7 +140,7 @@ $theme: 'standard' !default;
 @use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
   $theme: $theme
 );
-@use '../../radio-button/radio-button-group/radio-button-group.global' as radio-button-group with (
+@use '../../radio-button-group/radio-button-group.global' as radio-button-group with (
   $theme: $theme
 );
 @use '../../selection-action-panel/selection-action-panel.global' as selection-action-panel with (
@@ -118,6 +148,9 @@ $theme: 'standard' !default;
 );
 @use '../../selection-expansion-panel/selection-expansion-panel.global' as selection-expansion-panel
   with (
+  $theme: $theme
+);
+@use '../../status/status.global' as status with (
   $theme: $theme
 );
 @use '../../tabs/common/tab-group-common.global' as tab-group-common with (
@@ -161,10 +194,19 @@ $theme: 'standard' !default;
   @include dialog.base;
   @include dialog-close-button.base;
   @include divider.base;
+  @include error.base;
   @include expansion-panel.base;
   @include expansion-panel-content.base;
   @include expansion-panel-header.base;
+  @include flip-card.base;
+  @include flip-card-details.base;
   @include footer.base;
+  @include form-field.base;
+  @include header.base;
+  @include header-common.base;
+  @include header-environment.base;
+  @include icon-sidebar.base;
+  @include lead-container.base;
   @include option.base;
   @include option-hint.base;
   @include optgroup.base;
@@ -173,6 +215,7 @@ $theme: 'standard' !default;
   @include radio-button-group.base;
   @include selection-action-panel.base;
   @include selection-expansion-panel.base;
+  @include status.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
   @include visual-checkbox.base;
@@ -183,7 +226,9 @@ $theme: 'standard' !default;
     @include breadcrumb.base-forced-colors;
     @include card.base-forced-colors;
     @include card-badge.base-forced-colors;
+    @include header-common.base-forced-colors;
     @include expansion-panel-header.base-forced-colors;
+    @include form-field.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
     @include radio-button-common.base-forced-colors;
   }
@@ -192,9 +237,6 @@ $theme: 'standard' !default;
   --sbb-train-formation-wagon-width: #{functions.px-to-rem-build(80)};
   --sbb-train-formation-wagon-height: #{functions.px-to-rem-build(40)};
   --sbb-train-formation-wagon-gap: var(--sbb-spacing-fixed-1x);
-
-  // Header
-  --sbb-header-height: var(--sbb-spacing-fixed-14x);
 
   // Time Input
   --sbb-time-input-max-width: #{functions.px-to-rem-build(58)};
@@ -235,10 +277,6 @@ $theme: 'standard' !default;
     }
   }
 
-  &:has(sbb-header[size='s']) {
-    --sbb-header-height: #{functions.px-to-rem-build(52)};
-  }
-
   // When the input modality is either mouse or touch,
   // the focus outline should be hidden.
   // We achieve this by setting the outline style to none.
@@ -261,6 +299,9 @@ $theme: 'standard' !default;
 
     @include chip-group.base-breakpoint-large;
     @include dialog.base-breakpoint-large;
+    @include flip-card.base-breakpoint-large;
+    @include form-field.base-breakpoint-large;
+    @include header.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage
@@ -270,19 +311,14 @@ $theme: 'standard' !default;
       }
     }
 
-    // Header
-    --sbb-header-height: var(--sbb-spacing-fixed-24x);
-
     // Time Input
     --sbb-time-input-max-width: #{functions.px-to-rem-build(65)};
-
-    &:has(sbb-header[size='s']) {
-      --sbb-header-height: var(--sbb-spacing-fixed-14x);
-    }
   }
 
   @include mediaqueries.mq($from: ultra) {
     @include sbb-css-tokens.breakpoint-ultra;
+
+    @include lead-container.base-breakpoint-ultra;
   }
 }
 
@@ -294,6 +330,11 @@ $theme: 'standard' !default;
 @include dialog-close-button.rules;
 @include dialog-content.rules;
 @include dialog-title.rules;
+@include flip-card-summary.rules;
+@include form-field.rules;
+@include header.rules;
+@include icon-sidebar.rules;
+@include lead-container.rules;
 @include option.rules;
 @include tab-nav-bar.rules;
 
@@ -321,122 +362,6 @@ html {
 // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
 ::placeholder {
   @include typo.placeholder;
-}
-
-:is(sbb-form-field, sbb-timetable-form-field) {
-  :where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input) {
-    @include typo.text-m--regular;
-    @include helpers.ellipsis;
-    @include inputs.input-reset;
-
-    // Use !important here to not interfere with Firefox focus ring definition
-    // which appears in normalize CSS of several frameworks.
-    outline: none !important;
-    overflow: var(--sbb-form-field-overflow);
-    width: 100%;
-    box-sizing: border-box;
-    color: var(--sbb-form-field-text-color);
-
-    // Fill color needed for Safari
-    -webkit-text-fill-color: var(--sbb-form-field-text-color);
-    opacity: 1;
-    background-color: transparent;
-
-    // To be more specific than the styles in normalize.scss we need to use !important
-    // TODO: Find a better solution
-    font-size: var(--sbb-form-field-input-text-size) !important;
-    font-family: var(--sbb-typo-font-family) !important;
-    line-height: var(--sbb-typo-line-height-text) !important;
-
-    &::placeholder {
-      @include typo.placeholder;
-    }
-  }
-
-  &[floating-label] :where(input, select, textarea, sbb-select)::placeholder,
-  // This covers the placeholder of the sbb-date-input and sbb-time-input
-  &[floating-label] :where(sbb-date-input, sbb-time-input)::after {
-    color: transparent !important;
-    -webkit-text-fill-color: transparent !important;
-
-    @include a11y.if-forced-colors {
-      color: Canvas !important;
-      -webkit-text-fill-color: Canvas !important;
-    }
-  }
-
-  // TODO: Remove if webkit bug is resolved: https://bugs.webkit.org/show_bug.cgi?id=223814
-  &:not([floating-label]) :where(input, select, textarea, sbb-select):disabled::placeholder {
-    color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
-    -webkit-text-fill-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
-  }
-
-  // Fix positioning issue for select which occurs in Safari
-  :where(select) {
-    vertical-align: middle;
-  }
-
-  :where(select, sbb-select) {
-    padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
-  }
-
-  &[size='s'] :where(input, sbb-date-input, sbb-time-input) {
-    // We shrink the input's height to support all types of inputs (especially type=number).
-    // Factor 1.25 ensures, letters are not cut.
-    height: calc(var(--sbb-form-field-input-text-size) * 1.25);
-
-    // Avoids Safari bug, where text gets misaligned with type=number
-    line-height: 1 !important;
-
-    // We add the missing block spacing to fit the line-height
-    margin-block: calc(
-      0.5 * (var(--sbb-form-field-input-text-size) * (var(--sbb-typo-line-height-text) - 1.25))
-    );
-  }
-
-  :where(textarea) {
-    @include scrollbar.scrollbar;
-
-    position: relative;
-    resize: none;
-
-    // White-space break needed for Firefox
-    white-space: break-spaces;
-    overflow-y: auto;
-    min-height: calc((var(--sbb-typo-line-height-text) * 1em));
-    height: 100%;
-  }
-
-  &[size='l'] :where(textarea) {
-    padding-block-end: #{functions.px-to-rem-build(5.5)};
-  }
-
-  &[negative] :where(textarea) {
-    @include scrollbar.scrollbar($negative: true);
-  }
-
-  &:has(
-    :is(
-      :is(input, textarea, select):user-invalid,
-      :state(interacted):invalid,
-      .ng-touched.ng-invalid,
-      .sbb-invalid
-    )
-  ),
-  :is(.ng-submitted, .sbb-show-errors) &:has(:is(:invalid, .ng-invalid)) {
-    --sbb-form-field-border-color: var(--sbb-color-error);
-    --sbb-form-field-text-color: var(--sbb-color-error);
-
-    &[negative] {
-      --sbb-form-field-border-color: var(--sbb-color-red85);
-      --sbb-form-field-text-color: var(--sbb-color-red85);
-    }
-
-    @include a11y.if-forced-colors {
-      --sbb-form-field-border-color: LinkText !important;
-      --sbb-form-field-text-color: LinkText !important;
-    }
-  }
 }
 
 // Hiding components until they are instantiated
@@ -506,30 +431,6 @@ img {
   aspect-ratio: var(--sbb-image-aspect-ratio);
   object-fit: var(--sbb-image-object-fit);
   object-position: var(--sbb-image-object-position);
-}
-
-// TODO: Move back to the sbb-flip-card-summary components when the global CSS refactoring happens
-sbb-flip-card-summary {
-  > [slot='image']:is(sbb-image, img),
-  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
-    --sbb-image-aspect-ratio: auto;
-    --sbb-image-object-fit: cover;
-
-    border-radius: 0;
-    display: block;
-    height: 100%;
-  }
-}
-
-// TODO: Move back to the sbb-lead-container components when the global CSS refactoring happens
-sbb-lead-container {
-  > [slot='image']:is(sbb-image, img, picture),
-  > [slot='image'] :is(sbb-image, img, picture):not(.sbb-figure-overlap-image) {
-    --sbb-image-aspect-ratio: var(--sbb-lead-container-image-ratio);
-    --sbb-image-object-fit: cover;
-
-    border-radius: var(--sbb-lead-container-image-border-radius);
-  }
 }
 
 // TODO: Move back to the sbb-message components when the global CSS refactoring happens
@@ -696,17 +597,6 @@ sbb-sidebar-container:has(
   --sbb-sidebar-container-backdrop-opacity: 0.4;
 }
 
-// Move the current-page-border to the right side if the sidebar is right positioned
-sbb-icon-sidebar-content + sbb-icon-sidebar :is(sbb-icon-sidebar-link, sbb-icon-sidebar-button) {
-  --sbb-icon-sidebar-button__current-border-inset-inline-start: auto;
-}
-
-// Set the border radius at the left top side if the sidebar is right positioned
-sbb-icon-sidebar-content + sbb-icon-sidebar {
-  border-start-end-radius: 0;
-  border-start-start-radius: var(--sbb-icon-sidebar-border-radius);
-}
-
 // If there is no close button, avoid reserving any space for the button in the sidebar title
 sbb-sidebar:not(:has(sbb-sidebar-title)) sbb-sidebar-close-button {
   position: absolute;
@@ -715,11 +605,6 @@ sbb-sidebar:not(:has(sbb-sidebar-title)) sbb-sidebar-close-button {
 // If there is a title, remove top spacing for the content
 sbb-sidebar:has(sbb-sidebar-title) {
   --sbb-sidebar__padding-block-start: 0;
-}
-
-// Move container below header
-sbb-header + :where(sbb-sidebar-container, sbb-icon-sidebar-container) {
-  margin-block-start: var(--sbb-header-height);
 }
 
 // We set some dimension to the selects trigger element in order that the screen reader's outline box looks more accurate.
@@ -746,13 +631,6 @@ sbb-notification:has(sbb-title) {
     --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-6);
     --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-text);
   }
-}
-
-sbb-status:has(sbb-title) {
-  --sbb-status-gap: var(--sbb-spacing-responsive-xxxs);
-  --_sbb-status-text-color-override: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
-  --_sbb-status-title-font-size: var(--sbb-heading-font-size-5);
-  --_sbb-status-title-line-height: var(--sbb-typo-line-height-heading);
 }
 
 .sbb-overlay-outlet {

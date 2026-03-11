@@ -7,6 +7,8 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
 import { SbbLinkStaticElement } from './link-static.component.ts';
 
+import '../../link.ts';
+
 describe(`sbb-link-static`, () => {
   let element: SbbLinkStaticElement;
 

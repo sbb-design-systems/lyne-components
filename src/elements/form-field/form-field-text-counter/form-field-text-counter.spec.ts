@@ -7,7 +7,7 @@ import { waitForLitRender } from '../../core/testing.ts';
 
 import { SbbFormFieldTextCounterElement } from './form-field-text-counter.component.ts';
 
-import '../form-field/form-field.component.ts';
+import '../../form-field.ts';
 
 describe(`sbb-form-field-text-counter`, () => {
   let element: SbbFormFieldTextCounterElement;

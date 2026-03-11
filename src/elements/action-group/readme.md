@@ -1,5 +1,5 @@
-The `sbb-action-group` component is a generic content container which can contain up to three action items
-([sbb-button](/docs/elements-sbb-button-sbb-button--docs) or [sbb-block-link](/docs/elements-sbb-link-sbb-block-link--docs) or other HTML elements)
+The `<sbb-action-group>` component is a generic content container which can contain up to three action items
+([sbb-button](/docs/elements-button--docs) or [sbb-block-link](/docs/elements-link--docs) or other HTML elements)
 in various [allocations](#allocations).
 
 ## Style
@@ -28,8 +28,8 @@ indicate the minimum breakpoint from which the orientation changes to `horizonta
 
 ### Button-size and link-size
 
-The two props `button-size` and `link-size` can be used to override, respectively, the size of the inner `sbb-button` and `sbb-block-link`.
-The accepted values are `s`, `m` and `l` (default) for `sbb-button` and `xs`, `s` and `m` (default) for `sbb-block-link`.
+The two props `button-size` and `link-size` can be used to override, respectively, the size of the inner `<sbb-button>` and `<sbb-block-link>`.
+The accepted values are `s`, `m` and `l` (default) for `<sbb-button>` and `xs`, `s` and `m` (default) for `<sbb-block-link>`.
 
 ```html
 <sbb-action-group button-size="m" link-size="s">
@@ -51,8 +51,8 @@ possible values are `start`, `center`, `stretch` and `end`.
 It is also possible to set the `align-self` attribute on action items in order to move them in the
 opposite direction to the group; possible values are `start`, `center` or `end`.
 
-**NOTE**: The `sbb-action-group` will only accept `block-link` and will sync the `linkSize`
-property with nested `sbb-block-link` and the `buttonSize` property with the nested `sbb-button`
+**NOTE**: The `<sbb-action-group>` will only accept `block-link` and will sync the `linkSize`
+property with nested `<sbb-block-link>` and the `buttonSize` property with the nested `<sbb-button>`
 instances.
 
 ```html
@@ -65,7 +65,7 @@ instances.
 
 ## Allocations
 
-Items can be displayed inside `sbb-action-group` in different allocations.
+Items can be displayed inside `<sbb-action-group>` in different allocations.
 
 If we define the triad x-y-z as the number of elements aligned at the start, at the center and at the end of the component,
 and we consider a template like the following one (possibly removing the link for 2-elements allocations):
@@ -118,17 +118,21 @@ The values for `align-group` and `align-self` for the various allocations are as
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbActionGroupElement`, `sbb-action-group`
+
+#### Properties
 
 | Name             | Attribute         | Privacy | Type                                        | Default             | Description                                                                                                             |
 | ---------------- | ----------------- | ------- | ------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'` | `'start'`           | Set the slotted `<sbb-action-group>` children's alignment.                                                              |
 | `buttonSize`     | `button-size`     | public  | `SbbButtonSize`                             | `'l' / 's' (lean)`  | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.         |
-| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                         | `'large'`           | Overrides the behaviour of `orientation` property.                                                                      |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                         | `'large'`           | Overrides the behavior of `orientation` property.                                                                       |
 | `linkSize`       | `link-size`       | public  | `SbbLinkSize`                               | `'m' / 'xs' (lean)` | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
 | `orientation`    | `orientation`     | public  | `SbbOrientation`                            | `'horizontal'`      | Indicates the orientation of the components inside the `<sbb-action-group>`.                                            |
 
-## Slots
+#### Slots
 
 | Name | Description                                                                                      |
 | ---- | ------------------------------------------------------------------------------------------------ |

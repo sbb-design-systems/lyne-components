@@ -2,16 +2,16 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  LitElement,
   nothing,
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
 import type { SbbChipGroupElement } from '../../chip.ts';
 import { sbbInputModalityDetector } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
@@ -19,9 +19,7 @@ import { i18nOptional } from '../../core/i18n.ts';
 import {
   appendAriaElements,
   removeAriaElements,
-  SbbElementInternalsMixin,
   type SbbFormAssociatedInputMixinType,
-  SbbHydrationMixin,
   SbbNegativeMixin,
 } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
@@ -80,11 +78,8 @@ export class SbbFormFieldControlEvent extends Event {
  * @cssprop [--sbb-form-field-outline-offset] - To override the focus outline offset,
  * @cssprop [--sbb-form-field-focus-underline-z-index] - To override the z-index of the focus underline effect,
  */
-export
-@customElement('sbb-form-field')
-class SbbFormFieldElement extends SbbNegativeMixin(
-  SbbElementInternalsMixin(SbbHydrationMixin(LitElement)),
-) {
+export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-form-field';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   // List of elements that should not focus input on click

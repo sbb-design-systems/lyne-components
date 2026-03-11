@@ -9,7 +9,7 @@ import {
 import { waitForImageReady } from '../core/testing.ts';
 import type { SbbImageElement } from '../image.ts';
 
-import './teaser-hero.component.ts';
+import '../teaser-hero.ts';
 import '../image.ts';
 import '../chip-label.ts';
 

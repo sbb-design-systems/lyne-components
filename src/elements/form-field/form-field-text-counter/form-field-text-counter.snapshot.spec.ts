@@ -3,8 +3,7 @@ import { html } from 'lit';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
-import './form-field-text-counter.component.ts';
-import '../form-field/form-field.component.ts';
+import '../../form-field.ts';
 
 describe(`sbb-form-field-text-counter`, () => {
   describe('renders', () => {

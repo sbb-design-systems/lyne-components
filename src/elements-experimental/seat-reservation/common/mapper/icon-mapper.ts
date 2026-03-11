@@ -4,10 +4,10 @@ import { svgs } from '../svgs.ts';
  * Map Object from OSDM Code to SVG icon name represented in svg-icon
  * component regarding the namespace "fpl".
  */
-export type SeatReservationIcon = {
+export interface SeatReservationIcon {
   svgName?: string;
   svg?: string;
-};
+}
 
 export const mapIconToSvg: Record<string, SeatReservationIcon> = {
   BICYCLE: { svgName: 'sa-vo' },

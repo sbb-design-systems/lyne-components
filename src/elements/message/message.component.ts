@@ -1,7 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { html } from 'lit';
 
+import { SbbElement } from '../core/base-elements.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import type { SbbTitleElement } from '../title.ts';
 
@@ -16,9 +16,8 @@ import style from './message.scss?lit&inline';
  * @slot legend - Use this slot to provide a legend, must be a paragraph.
  * @slot action - Use this slot to provide an `sbb-secondary-button`.
  */
-export
-@customElement('sbb-message')
-class SbbMessageElement extends LitElement {
+export class SbbMessageElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-message';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   private _configureTitle(event: Event): void {

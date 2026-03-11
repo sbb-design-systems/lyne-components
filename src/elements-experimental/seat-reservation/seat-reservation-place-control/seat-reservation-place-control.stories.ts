@@ -9,6 +9,8 @@ import { sbbSpread } from '../../../storybook/helpers/spread.ts';
 import readme from './readme.md?raw';
 import { SbbSeatReservationPlaceControlElement } from './seat-reservation-place-control.component.ts';
 
+import '../../seat-reservation.ts';
+
 const type: InputType = {
   control: {
     type: 'select',

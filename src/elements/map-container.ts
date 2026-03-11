@@ -1,4 +1,6 @@
-/**
- * @entrypoint
- */
-export * from './map-container/map-container.component.ts';
+/** @entrypoint */
+import { SbbMapContainerElement } from './map-container.pure.ts';
+
+export * from './map-container.pure.ts';
+
+SbbMapContainerElement.define();

@@ -1,8 +1,6 @@
-import { customElement } from 'lit/decorators.js';
-
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.ts';
-import { SbbMenuActionCommonElementMixin } from '../common.ts';
+import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common.ts';
 
 /**
  * It displays a button element that can be used in the `sbb-menu` component.
@@ -12,11 +10,10 @@ import { SbbMenuActionCommonElementMixin } from '../common.ts';
  * @cssprop [--sbb-menu-action-outer-horizontal-padding=var(--sbb-spacing-fixed-3x)] - Can be used
  * to modify horizontal padding.
  */
-export
-@customElement('sbb-menu-button')
-class SbbMenuButtonElement extends SbbDisabledTabIndexActionMixin(
+export class SbbMenuButtonElement extends SbbDisabledTabIndexActionMixin(
   SbbMenuActionCommonElementMixin(SbbButtonBaseElement),
 ) {
+  public static override readonly elementName: string = 'sbb-menu-button';
   public static override readonly role: ElementInternals['role'] = 'menuitem';
 }
 
