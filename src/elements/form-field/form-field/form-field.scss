@@ -66,13 +66,13 @@
 
   // Values found by try and error
   --_sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(10)};
-  --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5.5)};
+  --_sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5.5)};
   --_sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8.5)};
 
   @include sbb.mq($from: large) {
     // Values found by try and error
     --_sbb-form-field-label-to-input-overlapping: #{sbb.px-to-rem-build(11)};
-    --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5)};
+    --_sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(5)};
     --_sbb-form-field-spacer-margin-block-end: #{sbb.px-to-rem-build(-8)};
   }
 }
@@ -83,13 +83,13 @@
   --sbb-form-field-input-text-size: var(--sbb-text-font-size-m);
   --sbb-form-field-label-text-size: var(--sbb-text-font-size-xs);
   --_sbb-form-field-label-to-input-overlapping: var(--sbb-spacing-fixed-1x);
-  --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(8.5)};
+  --_sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(8.5)};
   --_sbb-form-field-spacer-margin-block-end: calc(
     -1 * var(--_sbb-form-field-label-to-input-overlapping)
   );
 
   @include sbb.mq($from: large) {
-    --sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(10.5)};
+    --_sbb-form-field-floating-label-transform: #{sbb.px-to-rem-build(10.5)};
   }
 }
 
@@ -364,7 +364,7 @@
     )
     & {
     font-size: var(--sbb-form-field-input-text-size);
-    transform: translateY(var(--sbb-form-field-floating-label-transform));
+    transform: translateY(var(--_sbb-form-field-floating-label-transform));
   }
 
   // :where is to align specificity

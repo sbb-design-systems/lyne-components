@@ -50,7 +50,7 @@ $theme: 'standard' !default;
       ),
       $theme
     )};
-  --sbb-form-field-floating-label-transform: #{sbb.theme-pattern-select(
+  --_sbb-form-field-floating-label-transform: #{sbb.theme-pattern-select(
       (
         'standard': #{sbb.px-to-rem-build(8.5)},
         'lean': #{sbb.px-to-rem-build(5.5)},
@@ -78,7 +78,7 @@ $theme: 'standard' !default;
       ),
       $theme
     )};
-  --sbb-form-field-floating-label-transform: #{sbb.theme-pattern-select(
+  --_sbb-form-field-floating-label-transform: #{sbb.theme-pattern-select(
       (
         'standard': #{sbb.px-to-rem-build(10.5)},
         'lean': #{sbb.px-to-rem-build(5)},
