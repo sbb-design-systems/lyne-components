@@ -128,6 +128,9 @@ $theme: 'standard' !default;
 @use '../../lead-container/lead-container.global' as lead-container with (
   $theme: $theme
 );
+@use '../../map-container/map-container.global' as map-container with (
+  $theme: $theme
+);
 @use '../../option/option/option.global' as option with (
   $theme: $theme
 );
@@ -207,6 +210,7 @@ $theme: 'standard' !default;
   @include header-environment.base;
   @include icon-sidebar.base;
   @include lead-container.base;
+  @include map-container.base;
   @include option.base;
   @include option-hint.base;
   @include optgroup.base;
@@ -319,6 +323,7 @@ $theme: 'standard' !default;
     @include sbb-css-tokens.breakpoint-ultra;
 
     @include lead-container.base-breakpoint-ultra;
+    @include map-container.base-breakpoint-ultra;
   }
 }
 
