@@ -1,6 +1,12 @@
-/**
- * @entrypoint
- */
-export * from './expansion-panel/expansion-panel.ts';
-export * from './expansion-panel/expansion-panel-content.ts';
-export * from './expansion-panel/expansion-panel-header.ts';
+/** @entrypoint */
+import {
+  SbbExpansionPanelElement,
+  SbbExpansionPanelContentElement,
+  SbbExpansionPanelHeaderElement,
+} from './expansion-panel.pure.ts';
+
+export * from './expansion-panel.pure.ts';
+
+SbbExpansionPanelElement.define();
+SbbExpansionPanelContentElement.define();
+SbbExpansionPanelHeaderElement.define();

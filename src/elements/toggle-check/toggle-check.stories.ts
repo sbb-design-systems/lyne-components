@@ -7,7 +7,7 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './toggle-check.component.ts';
+import '../toggle-check.ts';
 import '../button/button.ts';
 import '../button/secondary-button.ts';
 import '../card.ts';
@@ -312,7 +312,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-toggle/sbb-toggle-check',
+  title: 'elements/Toggle Check',
 };
 
 export default meta;

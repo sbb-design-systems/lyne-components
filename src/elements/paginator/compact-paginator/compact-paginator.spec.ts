@@ -10,6 +10,8 @@ import { waitForLitRender } from '../../core/testing.ts';
 
 import { SbbCompactPaginatorElement } from './compact-paginator.component.ts';
 
+import '../../paginator.ts';
+
 describe('sbb-compact-paginator', () => {
   let element: SbbCompactPaginatorElement;
   let pageEventSpy: SinonSpy<CustomEvent<SbbPaginatorPageEventDetails>[]>;

@@ -6,7 +6,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 import { describeIf } from '../core/testing.ts';
 
 import type { SbbDateInputElement } from './date-input.component.ts';
-import './date-input.component.ts';
+import '../date-input.ts';
 
 describe(`sbb-date-input`, () => {
   describe('renders', () => {

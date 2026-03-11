@@ -1,4 +1,6 @@
-/**
- * @entrypoint
- */
-export * from './selection-expansion-panel/selection-expansion-panel.component.ts';
+/** @entrypoint */
+import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.pure.ts';
+
+export * from './selection-expansion-panel.pure.ts';
+
+SbbSelectionExpansionPanelElement.define();

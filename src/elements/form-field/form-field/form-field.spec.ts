@@ -1,5 +1,5 @@
 import { assert, expect, nextFrame } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { spy } from 'sinon';
 
@@ -7,12 +7,16 @@ import { fixture, tabKey } from '../../core/testing/private.ts';
 import { waitForCondition, waitForLitRender } from '../../core/testing.ts';
 import { SbbOptionElement } from '../../option.ts';
 import { SbbSelectElement } from '../../select.ts';
+import type { SbbTooltipElement } from '../../tooltip/tooltip.component.ts';
 
 import {
   SbbFormFieldControlEvent,
   SbbFormFieldElement,
   type SbbFormFieldElementControl,
 } from './form-field.component.ts';
+
+import '../../form-field.ts';
+import '../../tooltip.ts';
 
 type Mutable<T> = {
   -readonly [P in keyof T]: T[P];
@@ -532,6 +536,35 @@ describe(`sbb-form-field`, () => {
       element.querySelector('label')!.click();
       expect(containerClickSpy).to.have.been.calledOnce;
       expect(input).to.have.focus;
+    });
+  });
+
+  describe('with icon and tooltip', () => {
+    it('should open tooltip on icon hover', async () => {
+      const element = await fixture(html`
+        <sbb-form-field>
+          <label>Example</label>
+          <input />
+          <sbb-icon
+            slot="suffix"
+            name="circle-information-small"
+            sbb-tooltip="Tooltip text"
+          ></sbb-icon>
+        </sbb-form-field>
+      `);
+
+      const iconRect = element.querySelector<HTMLElement>('sbb-icon')!.getBoundingClientRect();
+
+      // Simulate mouse hover in the center of the icon
+      await sendMouse({
+        type: 'move',
+        position: [iconRect.x + iconRect.width / 2, iconRect.y + iconRect.height / 2],
+      });
+      await waitForLitRender(element);
+
+      // Verify that tooltip is open
+      const tooltip = document.querySelector<SbbTooltipElement>('sbb-tooltip')!;
+      expect(tooltip.isOpen).to.be.true;
     });
   });
 });

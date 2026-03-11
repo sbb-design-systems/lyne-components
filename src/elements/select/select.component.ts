@@ -2,7 +2,7 @@ import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import type { CSSResultGroup, PropertyDeclaration, PropertyValues, TemplateResult } from 'lit';
 import { html, isServer, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
 
@@ -27,7 +27,6 @@ import {
   type FormRestoreState,
   SbbDisabledMixin,
   SbbFormAssociatedMixin,
-  SbbHydrationMixin,
   SbbNegativeMixin,
   SbbReadonlyMixin,
   SbbRequiredMixin,
@@ -60,21 +59,18 @@ let nextId = 0;
  * If the calculated remaining space is smaller, the value gets ignored.
  * @overrideType value - (T = string | string[]) | null
  */
-export
-@customElement('sbb-select')
-class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
+export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   SbbDisabledMixin(
     SbbNegativeMixin(
-      SbbHydrationMixin(
-        SbbRequiredMixin(
-          SbbReadonlyMixin(
-            SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement>(SbbOpenCloseBaseElement),
-          ),
+      SbbRequiredMixin(
+        SbbReadonlyMixin(
+          SbbFormAssociatedMixin<typeof SbbOpenCloseBaseElement>(SbbOpenCloseBaseElement),
         ),
       ),
     ),
   ),
 ) {
+  public static override readonly elementName: string = 'sbb-select';
   public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 

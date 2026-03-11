@@ -9,7 +9,7 @@ import { mapIconToSvg } from '../common/mapper/icon-mapper.ts';
 import readme from './readme.md?raw';
 import { assetsTemplate } from './seat-reservation-assets.ts';
 
-import './seat-reservation-graphic.component.ts';
+import '../../seat-reservation.ts';
 
 const name: InputType = {
   control: {

@@ -8,7 +8,7 @@ import {
 } from '../core/testing/private.ts';
 
 import '../title.ts';
-import './status.component.ts';
+import '../status.ts';
 
 describe(`sbb-status`, () => {
   const cases = {

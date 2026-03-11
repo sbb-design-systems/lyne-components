@@ -6,7 +6,7 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './title.component.ts';
+import '../title.ts';
 
 // we don't need to pass the args.text to the <sbb-title> tag, but Storybook wants all in it.
 const Template = ({ text, ...args }: Args): TemplateResult =>
@@ -114,7 +114,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-title',
+  title: 'elements/Title',
 };
 
 export default meta;

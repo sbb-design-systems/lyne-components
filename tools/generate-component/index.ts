@@ -2,6 +2,8 @@ import type { Stats } from 'fs';
 import { existsSync, mkdirSync, promises, readFileSync, writeFileSync } from 'fs';
 import { join, relative } from 'path';
 
+throw new Error('This script needs a fix to work with the new component structure.');
+
 const config = {
   boilerplateComponentName: 'component',
   boilerplateDirectory: 'tools/generate-component/boilerplate',

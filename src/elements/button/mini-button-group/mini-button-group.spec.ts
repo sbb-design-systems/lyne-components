@@ -5,8 +5,10 @@ import { fixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing/wait-for-render.ts';
 
 import { SbbMiniButtonGroupElement } from './mini-button-group.component.ts';
+
+import '../mini-button-group.ts';
 import '../mini-button.ts';
-import '../../divider/divider.component.ts';
+import '../../divider.ts';
 
 describe('sbb-mini-button-group', () => {
   let element: SbbMiniButtonGroupElement;

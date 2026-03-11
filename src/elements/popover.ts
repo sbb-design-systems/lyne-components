@@ -1,4 +1,6 @@
-/**
- * @entrypoint
- */
-export * from './popover/popover.component.ts';
+/** @entrypoint */
+import { SbbPopoverElement } from './popover.pure.ts';
+
+export * from './popover.pure.ts';
+
+SbbPopoverElement.define();

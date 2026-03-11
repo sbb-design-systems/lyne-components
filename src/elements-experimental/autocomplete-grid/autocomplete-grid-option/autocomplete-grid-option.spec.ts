@@ -5,17 +5,13 @@ import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js'
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup.ts';
-import type { SbbAutocompleteGridElement } from '../autocomplete-grid.ts';
+import type { SbbAutocompleteGridElement } from '../autocomplete-grid/autocomplete-grid.component.ts';
+import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup/autocomplete-grid-optgroup.component.ts';
 
 import { SbbAutocompleteGridOptionElement } from './autocomplete-grid-option.component.ts';
 
 import '@sbb-esta/lyne-elements/form-field.js';
-import '../autocomplete-grid.ts';
-import '../autocomplete-grid-optgroup.ts';
-import '../autocomplete-grid-row.ts';
-import '../autocomplete-grid-cell.ts';
-import '../autocomplete-grid-button.ts';
+import '../../autocomplete-grid.ts';
 
 describe(`sbb-autocomplete-grid-option`, () => {
   let element: SbbFormFieldElement;

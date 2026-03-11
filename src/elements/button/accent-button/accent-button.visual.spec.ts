@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
-import './accent-button.component.ts';
+import '../accent-button.ts';
 
 // We test only the differences to the sbb-button
 describe(`sbb-accent-button`, () => {

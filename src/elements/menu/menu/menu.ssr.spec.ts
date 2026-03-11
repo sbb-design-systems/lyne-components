@@ -8,7 +8,7 @@ import { SbbMenuElement } from './menu.component.ts';
 import '../../button.ts';
 import '../../divider.ts';
 import '../../link.ts';
-import '../menu-button.ts';
+import '../../menu.ts';
 
 describe(`sbb-menu ssr`, () => {
   let root: HTMLDivElement;
@@ -33,13 +33,7 @@ describe(`sbb-menu ssr`, () => {
         </div>
       `,
       {
-        modules: [
-          '../../button.js',
-          '../../divider.js',
-          '../../link.js',
-          '../menu-button.js',
-          './menu.component.js',
-        ],
+        modules: ['../../button.ts', '../../divider.ts', '../../link.ts', '../../menu.ts'],
       },
     );
   });

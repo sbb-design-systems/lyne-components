@@ -6,6 +6,8 @@ import { waitForLitRender } from '../../core/testing.ts';
 
 import { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.ts';
 
+import '../../file-selector.ts';
+
 describe(`sbb-file-selector-dropzone`, () => {
   let form: HTMLFormElement;
   let element: SbbFileSelectorDropzoneElement;

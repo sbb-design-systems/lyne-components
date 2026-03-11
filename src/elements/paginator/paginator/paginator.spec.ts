@@ -12,6 +12,8 @@ import { SbbSelectElement } from '../../select.ts';
 
 import { SbbPaginatorElement } from './paginator.component.ts';
 
+import '../../paginator.ts';
+
 describe('sbb-paginator', () => {
   let element: SbbPaginatorElement;
   let pageEventSpy: SinonSpy<CustomEvent<SbbPaginatorPageEventDetails>[]>;

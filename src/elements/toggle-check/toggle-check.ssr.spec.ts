@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbToggleCheckElement } from './toggle-check.component.ts';
 
+import '../toggle-check.ts';
+
 describe(`sbb-toggle-check ssr`, () => {
   let root: SbbToggleCheckElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-toggle-check ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-toggle-check id="focus-id" name="name" value="value"></sbb-toggle-check>`,
       {
-        modules: ['./toggle-check.component.js'],
+        modules: ['../toggle-check.ts'],
       },
     );
   });

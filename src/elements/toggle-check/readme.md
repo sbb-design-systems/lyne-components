@@ -1,4 +1,4 @@
-The `sbb-toggle-check` is a component which provides the same functionality as a native `<input type="checkbox" />`
+The `<sbb-toggle-check>` is a component which provides the same functionality as a native `<input type="checkbox" />`
 enhanced with the SBB Design.
 
 ```html
@@ -7,7 +7,7 @@ enhanced with the SBB Design.
 
 ## Slots
 
-It is possible to provide a label via an unnamed slot; the component can optionally display a `sbb-icon`
+It is possible to provide a label via an unnamed slot; the component can optionally display a `<sbb-icon>`
 using the `iconName` property or via custom content using the `icon` slot.
 The icon can be at the component start or end based on the value of the `labelPosition` property (default: `after`).
 
@@ -44,16 +44,16 @@ which can be changed using the `size` property.
 
 ## Events
 
-Consumers can listen to the native `change` event on the `sbb-toggle-check` component to intercept the input's change;
+Consumers can listen to the native `change` event on the `<sbb-toggle-check>` component to intercept the input's change;
 the current state can be read from `event.target.checked` and the value from `event.target.value`.
 
 ## Accessibility
 
 The component provides the same accessibility features as the native checkbox.
 
-Avoid adding other interactive controls into the content of `sbb-toggle-check`, as this degrades the experience for users of assistive technology.
+Avoid adding other interactive controls into the content of `<sbb-toggle-check>`, as this degrades the experience for users of assistive technology.
 
-If you don't want the label to appear next to the `sbb-toggle-check` component,
+If you don't want the label to appear next to the `<sbb-toggle-check>` component,
 you can not provide it and then use `aria-label` to specify an appropriate label for screen-readers.
 
 ```html
@@ -71,7 +71,11 @@ The type can be specified using the generic type parameter `T` of `SbbToggleChec
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbToggleCheckElement`, `sbb-toggle-check`
+
+#### Properties
 
 | Name                | Attribute        | Privacy | Type                      | Default             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------- | ---------------- | ------- | ------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -89,7 +93,7 @@ The type can be specified using the generic type parameter `T` of `SbbToggleChec
 | `value`             | `value`          | public  | `(T = string) \| null`    | `null`              | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `willValidate`      | -                | public  | `boolean`                 |                     | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
 
-## Methods
+#### Methods
 
 | Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
 | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
@@ -97,14 +101,14 @@ The type can be specified using the generic type parameter `T` of `SbbToggleChec
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
-## Events
+#### Events
 
 | Name     | Type         | Description                                                                                                                                                                        | Inherited From |
 | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | `change` | `Event`      | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
 | `input`  | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                |
 
-## Slots
+#### Slots
 
 | Name   | Description                                                                       |
 | ------ | --------------------------------------------------------------------------------- |

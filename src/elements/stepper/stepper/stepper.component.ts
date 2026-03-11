@@ -1,14 +1,9 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
+import { SbbElement } from '../../core/base-elements.ts';
 import {
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointLargeAndAbove,
@@ -19,9 +14,8 @@ import {
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';
-import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.ts';
+import type { SbbStepElement, SbbStepValidateEventDetails } from '../step/step.component.ts';
 
 import style from './stepper.scss?lit&inline';
 
@@ -67,9 +61,8 @@ export class SbbStepChangeEvent extends Event {
  * @slot step - Use this slot to provide an `sbb-step`.
  * @event {SbbStepChangeEvent} stepchange - Emits whenever a step was changed.
  */
-export
-@customElement('sbb-stepper')
-class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
+export class SbbStepperElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-stepper';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     stepchange: 'stepchange',

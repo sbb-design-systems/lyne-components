@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbFooterElement } from './footer.component.ts';
-import './footer.component.ts';
+import '../footer.ts';
 
 describe(`sbb-footer`, () => {
   describe('renders', () => {

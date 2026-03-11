@@ -11,8 +11,7 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.ts';
 
-import './calendar-day.component.ts';
-import '../calendar/calendar.component.ts';
+import '../../calendar.ts';
 
 describe('sbb-calendar-day', () => {
   let todayStub: SinonStub;

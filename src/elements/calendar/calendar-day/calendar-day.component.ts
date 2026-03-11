@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
 import { SbbButtonLikeBaseElement } from '../../core/base-elements.ts';
 import { readConfig } from '../../core/config/config.ts';
@@ -22,9 +22,8 @@ import style from './calendar-day.scss?lit&inline';
  *
  * @slot - Use the unnamed slot to add some custom content to the day.
  */
-export
-@customElement('sbb-calendar-day')
-class SbbCalendarDayElement<T = Date> extends SbbDisabledMixin(SbbButtonLikeBaseElement) {
+export class SbbCalendarDayElement<T = Date> extends SbbDisabledMixin(SbbButtonLikeBaseElement) {
+  public static override readonly elementName: string = 'sbb-calendar-day';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected dateAdapter: DateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 

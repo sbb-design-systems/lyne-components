@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbToggleCheckElement } from './toggle-check.component.ts';
 
-import './toggle-check.component.ts';
+import '../toggle-check.ts';
 
 describe(`sbb-toggle-check`, () => {
   describe('renders', async () => {

@@ -5,6 +5,8 @@ import { fixture } from '../core/testing/private.ts';
 
 import { SbbMessageElement } from './message.component.ts';
 
+import '../message.ts';
+
 describe(`sbb-message`, () => {
   let element: SbbMessageElement;
 

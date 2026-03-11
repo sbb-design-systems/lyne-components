@@ -9,7 +9,7 @@ import { ref } from 'lit/directives/ref.js';
 
 import type { SbbAutocompleteGridButtonElement } from './autocomplete-grid-button.component.ts';
 
-import './autocomplete-grid-button.component.ts';
+import '../../autocomplete-grid.ts';
 
 describe(`sbb-autocomplete-grid-button`, () => {
   const defaultArgs = {

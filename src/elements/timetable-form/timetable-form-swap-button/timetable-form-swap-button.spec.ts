@@ -5,8 +5,7 @@ import { fixture } from '../../core/testing/private.ts';
 import { EventSpy } from '../../core/testing.ts';
 
 import { SbbTimetableFormSwapButtonElement } from './timetable-form-swap-button.component.ts';
-import '../timetable-form.ts';
-import '../timetable-form-field.ts';
+import '../../timetable-form.ts';
 
 describe('sbb-timetable-form-swap-button', () => {
   let element: SbbTimetableFormSwapButtonElement;

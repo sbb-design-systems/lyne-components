@@ -9,12 +9,10 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
-import '../datepicker-previous-day.ts';
-import '../datepicker-next-day.ts';
-import '../datepicker-toggle.ts';
+import '../../datepicker.ts';
 import '../../date-input.ts';
 import '../../form-field.ts';
-import './datepicker.component.ts';
+
 import type { SbbDatepickerElement } from './datepicker.component.ts';
 
 describe(`sbb-datepicker`, () => {

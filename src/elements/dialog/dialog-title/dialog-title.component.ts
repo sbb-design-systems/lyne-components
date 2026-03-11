@@ -1,5 +1,4 @@
 import type { CSSResultGroup } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
 import { SbbNegativeMixin } from '../../core/mixins.ts';
 import { SbbTitleBase } from '../../title.ts';
@@ -11,9 +10,8 @@ import style from './dialog-title.scss?lit&inline';
  *
  * @slot - Use the unnamed slot for the content of the dialog-title.
  */
-export
-@customElement('sbb-dialog-title')
-class SbbDialogTitleElement extends SbbNegativeMixin(SbbTitleBase) {
+export class SbbDialogTitleElement extends SbbNegativeMixin(SbbTitleBase) {
+  public static override readonly elementName: string = 'sbb-dialog-title';
   public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
 
   public constructor() {

@@ -1,7 +1,13 @@
-/**
- * @entrypoint
- */
-export * from './radio-button/radio-button.ts';
-export * from './radio-button/radio-button-group.ts';
-export * from './radio-button/radio-button-panel.ts';
-export * from './radio-button/common.ts';
+/** @entrypoint */
+import { SbbRadioButtonGroupElement } from './radio-button-group.pure.ts';
+import { SbbRadioButtonPanelElement } from './radio-button-panel.pure.ts';
+import { SbbRadioButtonElement } from './radio-button.pure.ts';
+
+export * from './radio-button.pure.ts';
+export * from './radio-button-group.pure.ts';
+export * from './radio-button-panel.pure.ts';
+// TODO(breaking-change): Remove group and panel exports/imports.
+
+SbbRadioButtonElement.define();
+SbbRadioButtonGroupElement.define();
+SbbRadioButtonPanelElement.define();

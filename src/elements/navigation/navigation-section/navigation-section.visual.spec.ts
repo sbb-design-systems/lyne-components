@@ -2,14 +2,9 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import type { VisualDiffSetupBuilder } from '../../core/testing/private.ts';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
-import type { SbbNavigationElement } from '../navigation.ts';
+import type { SbbNavigationElement } from '../navigation/navigation.component.ts';
 
-import './navigation-section.component.ts';
-import '../navigation.ts';
-import '../navigation-marker.ts';
-import '../navigation-list.ts';
-import '../navigation-button.ts';
-import '../navigation-link.ts';
+import '../../navigation.ts';
 
 describe(`sbb-navigation-section`, () => {
   const navigationActions = (): TemplateResult => html`

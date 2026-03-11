@@ -4,6 +4,8 @@ import { html } from 'lit/static-html.js';
 
 import { SbbSeatReservationNavigationServicesElement } from './seat-reservation-navigation-services.component.ts';
 
+import '../../seat-reservation.ts';
+
 describe(`sbb-seat-reservation-navigation-services ssr`, () => {
   let root: SbbSeatReservationNavigationServicesElement;
 
@@ -11,7 +13,7 @@ describe(`sbb-seat-reservation-navigation-services ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-seat-reservation-navigation-services></sbb-seat-reservation-navigation-services>`,
       {
-        modules: ['./seat-reservation-navigation-services.component.js'],
+        modules: ['../../seat-reservation.ts'],
       },
     );
   });

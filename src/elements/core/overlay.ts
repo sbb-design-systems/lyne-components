@@ -1,6 +1,4 @@
-/**
- * @entrypoint
- */
+/** @entrypoint */
 export * from './overlay/overlay.ts';
 export * from './overlay/overlay-option-panel.ts';
 export * from './overlay/overlay-outside-pointer-event-listener.ts';

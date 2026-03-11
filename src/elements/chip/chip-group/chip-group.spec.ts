@@ -7,14 +7,14 @@ import { fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
 import type { SbbOptionElement } from '../../option.ts';
-import type { SbbChipElement } from '../chip.ts';
+import type { SbbChipElement } from '../chip/chip.component.ts';
 
 import {
   SbbChipGroupElement,
   type SbbChipInputTokenEndEventDetails,
 } from './chip-group.component.ts';
 
-import '../chip.ts';
+import '../../chip.ts';
 import '../../autocomplete.ts';
 import '../../form-field.ts';
 import '../../option.ts';
@@ -602,7 +602,10 @@ describe('sbb-chip-group', () => {
   });
 
   describe('with complex value', () => {
-    type ComplexValue = { property: string; otherProp: string };
+    interface ComplexValue {
+      property: string;
+      otherProp: string;
+    }
     let options: SbbOptionElement<ComplexValue>[];
     const values: ComplexValue[] = [
       { property: 'Value 1', otherProp: 'test1' },

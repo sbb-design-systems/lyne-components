@@ -12,6 +12,8 @@ import { SbbDateInputElement, type SbbDateInputAssociated } from '../../date-inp
 
 import '../../icon.ts';
 
+export { default as datepickerButtonStyle } from './datepicker-button.scss?lit&inline';
+
 export abstract class SbbDatepickerButtonBase<T = Date>
   extends SbbNegativeMixin(SbbButtonBaseElement)
   implements SbbDateInputAssociated<T>

@@ -4,7 +4,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
 import type { SbbMonthChangeEvent, SbbCalendarElement } from '../calendar/calendar.component.ts';
 
-import './calendar-day.component.ts';
+import '../../calendar.ts';
 
 export const priceStyle = (greenBold: boolean): string => {
   return `display: flex; flex-direction: column; justify-content: center; ${greenBold ? 'color: var(--sbb-color-green); font-weight: bold;' : 'color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));'}`;

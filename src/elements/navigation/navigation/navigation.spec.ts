@@ -6,14 +6,12 @@ import type { SbbButtonElement } from '../../button.ts';
 import { pageScrollDisabled } from '../../core/dom.ts';
 import { fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
-import type { SbbNavigationButtonElement } from '../navigation-button.ts';
-import type { SbbNavigationSectionElement } from '../navigation-section.ts';
+import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
+import type { SbbNavigationSectionElement } from '../navigation-section/navigation-section.component.ts';
 
 import { SbbNavigationElement } from './navigation.component.ts';
 
-import '../navigation-button.ts';
-import '../navigation-marker.ts';
-import '../navigation-section.ts';
+import '../../navigation.ts';
 
 describe(`sbb-navigation`, () => {
   let element: SbbNavigationElement, trigger: HTMLElement;

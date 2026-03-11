@@ -14,7 +14,7 @@ import '../../card.ts';
 import '../../chip-label.ts';
 import '../../image.ts';
 import '../../title.ts';
-import './container.component.ts';
+import '../../container.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 const imageBase64 = await loadAssetAsBase64(imageUrl);

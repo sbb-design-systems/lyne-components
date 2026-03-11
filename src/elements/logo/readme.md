@@ -1,5 +1,5 @@
-The `sbb-logo` is used as a wrapper for the SBB logo and ensures his aspect ratio and protective room.
-To use the component, please define the desired height or width on `sbb-logo`.
+The `<sbb-logo>` is used as a wrapper for the SBB logo and ensures his aspect ratio and protective room.
+To use the component, please define the desired height or width on `<sbb-logo>`.
 
 ```html
 <style>
@@ -27,7 +27,11 @@ Possible values are `ideal` (default), `minimal` and `none`.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbLogoElement`, `sbb-logo`
+
+#### Properties
 
 | Name                 | Attribute             | Privacy | Type                | Default   | Description                                                  |
 | -------------------- | --------------------- | ------- | ------------------- | --------- | ------------------------------------------------------------ |
@@ -35,7 +39,7 @@ Possible values are `ideal` (default), `minimal` and `none`.
 | `negative`           | `negative`            | public  | `boolean`           | `false`   | Negative coloring variant flag.                              |
 | `protectiveRoom`     | `protective-room`     | public  | `SbbProtectiveRoom` | `'ideal'` | Visual protective room around logo.                          |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                | Default | Description                                |
 | ------------------- | ------- | ------------------------------------------ |

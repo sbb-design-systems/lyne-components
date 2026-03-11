@@ -1,21 +1,15 @@
-import {
-  type CSSResultGroup,
-  html,
-  LitElement,
-  nothing,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import { property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
+import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nSector, i18nSectorShort, i18nTrains } from '../../core/i18n.ts';
 import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage.ts';
-import type { SbbTrainWagonElement } from '../train-wagon.ts';
-import type { SbbTrainElement } from '../train.ts';
+import type { SbbTrainElement } from '../train/train.component.ts';
+import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage/train-blocked-passage.component.ts';
+import type { SbbTrainWagonElement } from '../train-wagon/train-wagon.component.ts';
 
 import style from './train-formation.scss?lit&inline';
 
@@ -31,11 +25,11 @@ interface AggregatedSector {
  * @slot - Use the unnamed slot to add 'sbb-train' elements to the `sbb-train-formation`.
  * @cssprop [--sbb-train-formation-padding-inline=0px] - Defines the inline padding inside the horizontal scrolling area.
  */
-export
-@customElement('sbb-train-formation')
-class SbbTrainFormationElement extends SbbNamedSlotListMixin<SbbTrainElement, typeof LitElement>(
-  LitElement,
-) {
+export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
+  SbbTrainElement,
+  typeof SbbElement
+>(SbbElement) {
+  public static override readonly elementName: string = 'sbb-train-formation';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
   protected override readonly listChildLocalNames = ['sbb-train'];
 

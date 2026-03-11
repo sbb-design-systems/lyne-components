@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbSecondaryButtonLinkElement } from './secondary-button-link.component.ts';
 
+import '../../button.ts';
+
 describe(`sbb-secondary-button-link ssr`, () => {
   let root: SbbSecondaryButtonLinkElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-secondary-button-link ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-secondary-button-link>Button</sbb-secondary-button-link>`,
       {
-        modules: ['./secondary-button-link.component.js'],
+        modules: ['../../button.ts'],
       },
     );
   });

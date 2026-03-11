@@ -220,6 +220,7 @@
     border: var(--sbb-form-field-border-width) var(--sbb-form-field-border-style)
       var(--sbb-form-field-border-color);
     border-radius: var(--sbb-form-field-border-radius);
+    pointer-events: none;
   }
 
   // :where is to align specificity

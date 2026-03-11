@@ -7,7 +7,7 @@ import {
   type PropertyValues,
   type TemplateResult,
 } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
 import type { CalendarView } from '../../calendar.ts';
 import { readConfig } from '../../core/config.ts';
@@ -18,7 +18,7 @@ import { i18nDateChangedTo } from '../../core/i18n.ts';
 import { SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
 import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.ts';
 import { SbbPopoverBaseElement } from '../../popover.ts';
-import type { SbbDatepickerToggleElement } from '../datepicker-toggle.ts';
+import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker-toggle.component.ts';
 
 import style from './datepicker.scss?lit&inline';
 
@@ -30,12 +30,11 @@ let nextId = 0;
  * A datepicker component that allows users to select a date from a calendar view.
  * @event {CustomEvent<T>} dateselected - Event emitted on date selection.
  */
-export
-@customElement('sbb-datepicker')
-class SbbDatepickerElement<T = Date>
+export class SbbDatepickerElement<T = Date>
   extends SbbUpdateSchedulerMixin(SbbPopoverBaseElement)
   implements SbbDateInputAssociated<T>
 {
+  public static override readonly elementName: string = 'sbb-datepicker';
   public static override styles: CSSResultGroup = [SbbPopoverBaseElement.styles, style];
   public static readonly sbbDateInputAssociated = true;
 

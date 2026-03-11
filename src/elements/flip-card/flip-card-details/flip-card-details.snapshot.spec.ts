@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbFlipCardDetailsElement } from './flip-card-details.component.ts';
-import './flip-card-details.component.ts';
+
+import '../../flip-card.ts';
 
 describe(`sbb-flip-card-details`, () => {
   let element: SbbFlipCardDetailsElement;

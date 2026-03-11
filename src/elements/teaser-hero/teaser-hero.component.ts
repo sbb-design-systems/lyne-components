@@ -1,5 +1,5 @@
 import { type CSSResultGroup, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbLinkBaseElement } from '../core/base-elements.ts';
@@ -18,9 +18,8 @@ import '../link/block-link-static.ts';
  * @slot image - The background image that can be a `sbb-image`
  * @slot chip - The `sbb-chip-label` component that will be displayed on top-left corner
  */
-export
-@customElement('sbb-teaser-hero')
-class SbbTeaserHeroElement extends SbbLinkBaseElement {
+export class SbbTeaserHeroElement extends SbbLinkBaseElement {
+  public static override readonly elementName: string = 'sbb-teaser-hero';
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
   /** Panel link text. */

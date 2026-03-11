@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbTimetableOccupancyElement } from './timetable-occupancy.component.ts';
 
-import './timetable-occupancy.component.ts';
+import '../timetable-occupancy.ts';
 
 describe(`sbb-timetable-occupancy`, () => {
   let element: SbbTimetableOccupancyElement;

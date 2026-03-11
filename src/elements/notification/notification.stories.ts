@@ -11,6 +11,7 @@ import { SbbNotificationElement } from './notification.component.ts';
 import readme from './readme.md?raw';
 import '../button/secondary-button.ts';
 import '../link/link.ts';
+import '../notification.ts';
 import '../title.ts';
 
 const type: InputType = {
@@ -222,7 +223,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-notification',
+  title: 'elements/Notification',
 };
 
 export default meta;

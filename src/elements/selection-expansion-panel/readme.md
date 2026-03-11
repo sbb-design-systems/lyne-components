@@ -1,14 +1,14 @@
-The `sbb-selection-expansion-panel` component wraps either a [sbb-checkbox-panel](/docs/elements-sbb-checkbox-sbb-checkbox-panel--docs)
-or a [sbb-radio-button-panel](/docs/elements-sbb-radio-button-sbb-radio-button-panel--docs) that can toggle a content section.
+The `<sbb-selection-expansion-panel>` component wraps either a [sbb-checkbox-panel](/docs/elements-checkbox-panel--docs)
+or a [sbb-radio-button-panel](/docs/elements-radio-button-panel--docs) that can toggle a content section.
 
-The content section can be opened by checking `sbb-checkbox-panel` or selecting the `sbb-radio-button-panel`.
+The content section can be opened by checking `<sbb-checkbox-panel>` or selecting the `<sbb-radio-button-panel>`.
 Additionally, clicking on all the upper area sets the checked state and therefore opens the content;
 clicking on the content area does not toggle anything.
 
-The selection panel can also be used inside a [sbb-radio-button-group](/docs/elements-sbb-radio-button-sbb-radio-button-group--docs)
-or a [sbb-checkbox-group](/docs/elements-sbb-checkbox-sbb-checkbox-group--docs).
+The selection panel can also be used inside a [sbb-radio-button-group](/docs/elements-radio-button-group--docs)
+or a [sbb-checkbox-group](/docs/elements-checkbox-group--docs).
 
-### With `sbb-radio-button-group`
+### With `<sbb-radio-button-group>`
 
 ```html
 <sbb-radio-button-group>
@@ -28,7 +28,7 @@ or a [sbb-checkbox-group](/docs/elements-sbb-checkbox-sbb-checkbox-group--docs).
 </sbb-radio-button-group>
 ```
 
-### With `sbb-checkbox-group`
+### With `<sbb-checkbox-group>`
 
 ```html
 <sbb-checkbox-group>
@@ -50,11 +50,15 @@ or a [sbb-checkbox-group](/docs/elements-sbb-checkbox-sbb-checkbox-group--docs).
 
 ## Style
 
-The component inherits its style from the slotted panel component (`sbb-checkbox-panel` or `sbb-radio-button-panel`).
+The component inherits its style from the slotted panel component (`<sbb-checkbox-panel>` or `<sbb-radio-button-panel>`).
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbSelectionExpansionPanelElement`, `sbb-selection-expansion-panel`
+
+#### Properties
 
 | Name        | Attribute    | Privacy | Type                                                            | Default | Description                                    |
 | ----------- | ------------ | ------- | --------------------------------------------------------------- | ------- | ---------------------------------------------- |
@@ -62,7 +66,7 @@ The component inherits its style from the slotted panel component (`sbb-checkbox
 | `group`     | -            | public  | `SbbRadioButtonGroupElement \| SbbCheckboxGroupElement \| null` |         | Group element if present                       |
 | `panel`     | -            | public  | `SbbCheckboxPanelElement \| SbbRadioButtonPanelElement \| null` |         | Input panel element                            |
 
-## Events
+#### Events
 
 | Name          | Type    | Description                                                       | Inherited From |
 | ------------- | ------- | ----------------------------------------------------------------- | -------------- |
@@ -71,7 +75,7 @@ The component inherits its style from the slotted panel component (`sbb-checkbox
 | `close`       | `Event` | Emits whenever the content section is closed.                     |                |
 | `open`        | `Event` | Emits whenever the content section is opened.                     |                |
 
-## Slots
+#### Slots
 
 | Name      | Description                                                                                                                   |
 | --------- | ----------------------------------------------------------------------------------------------------------------------------- |

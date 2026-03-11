@@ -5,6 +5,7 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbAutocompleteElement } from './autocomplete.component.ts';
 
+import '../autocomplete.ts';
 import '../form-field.ts';
 import '../option.ts';
 
@@ -24,7 +25,7 @@ describe(`sbb-autocomplete ssr`, () => {
         </sbb-form-field>
         <button>Use this for backdrop click</button>
       `,
-      { modules: ['../form-field.js', './autocomplete.component.js', '../option.js'] },
+      { modules: ['../autocomplete.ts', '../form-field.ts', '../option.ts'] },
     );
   });
 

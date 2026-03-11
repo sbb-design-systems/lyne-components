@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbTableWrapperElement } from './table-wrapper.component.ts';
-import './table-wrapper.component.ts';
+import '../../table.ts';
 
 describe(`sbb-table-wrapper`, () => {
   describe('renders', () => {

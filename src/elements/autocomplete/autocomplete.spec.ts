@@ -13,6 +13,8 @@ import { SbbOptionElement } from '../option.ts';
 
 import { SbbAutocompleteElement } from './autocomplete.component.ts';
 
+import '../autocomplete.ts';
+
 // TODO: Create a 'sbb-autocomplete-base.spec' that factorize tests between the 'autocomplete' and the 'autocomplete-grid'
 
 describe(`sbb-autocomplete`, () => {
@@ -620,6 +622,30 @@ describe(`sbb-autocomplete`, () => {
         expect(inputEventSpy.count).to.be.equal(1);
         expect(inputAutocompleteSpy.count).to.be.equal(1);
       });
+
+      it('should work in combination with "requireSelection"', async () => {
+        element.requireSelection = true;
+        await waitForLitRender(element);
+
+        input.focus();
+        await openSpy.calledOnce();
+        expect(openSpy.count).to.be.equal(1);
+        await waitForLitRender(element);
+
+        await sendKeys({ type: 'a' });
+        await waitForLitRender(element);
+
+        expect(optOne).to.match(':state(active)');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('1');
+        expect(optOne).to.have.attribute('selected');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
+      });
     });
 
     describe('requireSelection', () => {
@@ -793,6 +819,28 @@ describe(`sbb-autocomplete`, () => {
 
         await aTimeout(0);
         expect(element).to.match(':state(state-closed)');
+      });
+
+      it('should emit events if user manually clears the input after selection', async () => {
+        const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+
+        input.focus();
+        await openSpy.calledOnce();
+
+        await sendKeys({ press: 'ArrowDown' });
+        await sendKeys({ press: 'Enter' });
+        await waitForLitRender(element);
+
+        await closeSpy.calledOnce();
+        expect(input.value).to.be.equal('1');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+
+        await sendKeys({ press: 'ControlOrMeta+Backspace' });
+        await sendKeys({ press: tabKey });
+        expect(input.value).to.be.equal('');
+        expect(changeEventSpy.count).to.be.equal(2);
+        expect(inputEventSpy.count).to.be.equal(3);
       });
     });
 
@@ -1390,6 +1438,40 @@ describe(`sbb-autocomplete`, () => {
       await aTimeout(10);
 
       expect(submitSpy.count).to.be.equal(0);
+    });
+  });
+
+  describe('with optgroup', () => {
+    beforeEach(async () => {
+      formField = await fixture(html`
+        <sbb-form-field>
+          <input />
+          <sbb-autocomplete>
+            <sbb-optgroup label="Group 1">
+              <sbb-option id="option-1" value="1">1</sbb-option>
+              <sbb-option id="option-2" value="2">2</sbb-option>
+            </sbb-optgroup>
+          </sbb-autocomplete>
+        </sbb-form-field>
+      `);
+      input = formField.querySelector<HTMLInputElement>('input')!;
+      element = formField.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
+    });
+
+    it('should recalculate position when options in optgroup change', async () => {
+      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      const slotChangeSpy = new EventSpy('ɵoptgroupslotchange', element, { capture: true });
+      const options = Array.from(element.querySelectorAll('sbb-option'));
+      element.autoActiveFirstOption = true;
+
+      input.focus();
+      await openSpy.calledOnce();
+      expect(options[0]).to.match(':state(active)');
+      options[0].remove();
+      await waitForLitRender(element);
+
+      expect(slotChangeSpy.count).to.be.equal(1);
+      expect(options[1]).to.match(':state(active)');
     });
   });
 });

@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbExpansionPanelHeaderElement } from './expansion-panel-header.component.ts';
 
+import '../../expansion-panel.ts';
+
 describe(`sbb-expansion-panel-header ssr`, () => {
   let root: SbbExpansionPanelHeaderElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-expansion-panel-header ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-expansion-panel-header>Header</sbb-expansion-panel-header>`,
       {
-        modules: ['./expansion-panel-header.component.js'],
+        modules: ['../../expansion-panel.ts'],
       },
     );
   });

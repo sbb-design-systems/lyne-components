@@ -12,7 +12,7 @@ import '../divider.ts';
 import '../link.ts';
 import '../link-list.ts';
 import '../title.ts';
-import './footer.component.ts';
+import '../footer.ts';
 
 const variant: InputType = {
   control: {
@@ -283,7 +283,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'elements/sbb-footer',
+  title: 'elements/Footer',
 };
 
 export default meta;

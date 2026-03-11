@@ -1,4 +1,4 @@
-The `sbb-pearl-chain` component displays all parts of a journey, including changes of trains or other kinds of transports.
+The `<sbb-pearl-chain>` component displays all parts of a journey, including changes of trains or other kinds of transports.
 Also, it is possible to render the current position.
 
 The `legs` property is mandatory.
@@ -52,7 +52,11 @@ This is helpful if you need a specific state of the component.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbPearlChainElement`, `sbb-pearl-chain`
+
+#### Properties
 
 | Name               | Attribute           | Privacy | Type                   | Default | Description                                                                                                                                                                                                                                                                    |
 | ------------------ | ------------------- | ------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

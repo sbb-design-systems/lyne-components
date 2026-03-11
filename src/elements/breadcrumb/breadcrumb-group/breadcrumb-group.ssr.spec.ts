@@ -5,7 +5,7 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.ts';
 
-import '../breadcrumb.ts';
+import '../../breadcrumb.ts';
 
 describe(`sbb-breadcrumb-group ssr`, () => {
   let root: SbbBreadcrumbGroupElement;
@@ -19,7 +19,7 @@ describe(`sbb-breadcrumb-group ssr`, () => {
           <sbb-breadcrumb href="#" id="breadcrumb-2">Two</sbb-breadcrumb>
         </sbb-breadcrumb-group>
       `,
-      { modules: ['./breadcrumb-group.component.js', '../breadcrumb.js'] },
+      { modules: ['../../breadcrumb.ts'] },
     );
   });
 

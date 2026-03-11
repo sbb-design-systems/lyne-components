@@ -18,7 +18,7 @@ import {
 } from '../core/controllers.ts';
 import { forceType, idReference } from '../core/decorators.ts';
 import { isLean, isSafari, isZeroAnimationDuration } from '../core/dom.ts';
-import { SbbHydrationMixin, SbbNegativeMixin } from '../core/mixins.ts';
+import { SbbNegativeMixin } from '../core/mixins.ts';
 import {
   isEventOnElement,
   overlayGapFixCorners,
@@ -38,7 +38,7 @@ import style from './autocomplete-base-element.scss?lit&inline';
 const ariaRoleOnHost = isSafari;
 
 export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
-  SbbHydrationMixin(SbbOpenCloseBaseElement),
+  SbbOpenCloseBaseElement,
 ) {
   public static override styles: CSSResultGroup = [boxSizingStyles, style];
 
@@ -172,6 +172,9 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   public constructor() {
     super();
     this.addEventListener?.('optionselected', (e: Event) => this.onOptionSelected(e));
+    this.addEventListener?.('ɵoptgroupslotchange', () => this._handleSlotchange(), {
+      capture: true,
+    });
     this.addController(
       new SbbPropertyWatcherController(
         this,
@@ -508,12 +511,25 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.triggerElement.addEventListener(
       'blur',
       (e) => {
+        // If the new focus is the autocomplete or inside of it then an option
+        // was selected. Therefore, the focus is still on the component.
         if (this.contains(e.relatedTarget as Node)) {
           return;
         }
 
+        // If 'autoSelectActiveOptionOnBlur' is enabled, select the active option on blur
+        if (
+          this.autoSelectActiveOptionOnBlur &&
+          this.activeOption &&
+          this._lastUserInput &&
+          this.triggerElement?.value
+        ) {
+          this.activeOption.selected = true;
+          this._setValueAndDispatchEvents(this.activeOption, true);
+        }
+
         // Clears the input if there's user interaction without selection (selection clears `_lastUserInput`).
-        if (this.requireSelection && this.triggerElement && this._lastUserInput) {
+        if (this.requireSelection && this.triggerElement && this._lastUserInput != null) {
           const setValue = Object.getOwnPropertyDescriptor(
             HTMLInputElement.prototype,
             'value',
@@ -526,6 +542,8 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
             new InputEvent('input', { bubbles: true, composed: true }),
           );
         }
+
+        this.close();
       },
       { signal: this._triggerAbortController.signal, capture: true },
     );
@@ -626,31 +644,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
         signal: this._openPanelEventsController.signal,
         // We need key event to run before any other subscription to guarantee a correct
         // interaction with other components (necessary for the 'sbb-chip-group' use case).
-        capture: true,
-      },
-    );
-
-    this.triggerElement?.addEventListener(
-      'blur',
-      (e) => {
-        // If the new focus is the autocomplete or inside of it then an option
-        // was selected and there is a separate mechanism that closes this instance.
-        if (!this.contains(e.relatedTarget as Node)) {
-          if (
-            this.autoSelectActiveOptionOnBlur &&
-            this.activeOption &&
-            this._lastUserInput &&
-            this.triggerElement?.value
-          ) {
-            this.activeOption.selected = true;
-            this._setValueAndDispatchEvents(this.activeOption, true);
-          }
-
-          this.close();
-        }
-      },
-      {
-        signal: this._openPanelEventsController.signal,
         capture: true,
       },
     );

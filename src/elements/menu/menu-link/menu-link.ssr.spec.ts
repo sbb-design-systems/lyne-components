@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbMenuLinkElement } from './menu-link.component.ts';
 
+import '../../menu.ts';
+
 describe(`sbb-menu-link ssr`, () => {
   let root: SbbMenuLinkElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-menu-link ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-menu-link href="#" id="focus-id">Menu Action</sbb-menu-link>`,
       {
-        modules: ['./menu-link.component.js'],
+        modules: ['../../menu.ts'],
       },
     );
   });

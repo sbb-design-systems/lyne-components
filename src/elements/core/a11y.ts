@@ -1,6 +1,4 @@
-/**
- * @entrypoint
- */
+/** @entrypoint */
 export * from './a11y/arrow-navigation.ts';
 export * from './a11y/fake-event-detection.ts';
 export * from './a11y/focus-visible-within-controller.ts';
