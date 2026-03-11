@@ -128,6 +128,13 @@ $theme: 'standard' !default;
 @use '../../lead-container/lead-container.global' as lead-container with (
   $theme: $theme
 );
+@use '../../loading-indicator/loading-indicator.global' as loading-indicator with (
+  $theme: $theme
+);
+@use '../../loading-indicator-circle/loading-indicator-circle.global' as loading-indicator-circle
+  with (
+  $theme: $theme
+);
 @use '../../option/option/option.global' as option with (
   $theme: $theme
 );
@@ -207,6 +214,8 @@ $theme: 'standard' !default;
   @include header-environment.base;
   @include icon-sidebar.base;
   @include lead-container.base;
+  @include loading-indicator.base;
+  @include loading-indicator-circle.base;
   @include option.base;
   @include option-hint.base;
   @include optgroup.base;
@@ -229,6 +238,7 @@ $theme: 'standard' !default;
     @include header-common.base-forced-colors;
     @include expansion-panel-header.base-forced-colors;
     @include form-field.base-forced-colors;
+    @include loading-indicator-circle.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
     @include radio-button-common.base-forced-colors;
   }
