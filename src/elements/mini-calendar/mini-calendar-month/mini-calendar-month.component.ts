@@ -48,13 +48,11 @@ export class SbbMiniCalendarMonthElement<T = Date> extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-mini-calendar-month">
-        <div class="sbb-mini-calendar-month-label-year">${this._yearLabel}</div>
-        <div class="sbb-mini-calendar-month-wrapper">
-          <slot></slot>
-        </div>
-        <div class="sbb-mini-calendar-month-label-month">${this._monthLabel}</div>
+      <div class="sbb-mini-calendar-month-label-year">${this._yearLabel}</div>
+      <div class="sbb-mini-calendar-month-wrapper">
+        <slot></slot>
       </div>
+      <div class="sbb-mini-calendar-month-label-month">${this._monthLabel}</div>
     `;
   }
 }
