@@ -31,7 +31,7 @@
 }
 
 .sbb-action-base {
-  gap: var(--sbb-link-gap);
+  gap: var(--sbb-block-link-gap);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
   font-size: var(--sbb-block-link-font-size);
 }
@@ -39,7 +39,7 @@
 .sbb-link__icon {
   position: relative;
   height: calc(var(--sbb-typo-line-height-text) * 1em);
-  width: var(--sbb-link-icon-size);
+  width: var(--sbb-block-link-icon-size);
   flex: 0 0 auto;
   align-self: start;
 

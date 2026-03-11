@@ -3,8 +3,8 @@
 $theme: 'standard' !default;
 
 @mixin base {
-  --sbb-link-gap: var(--sbb-spacing-fixed-1x);
-  --sbb-link-icon-size: var(--sbb-size-icon-ui-small);
+  --sbb-block-link-gap: var(--sbb-spacing-fixed-1x);
+  --sbb-block-link-icon-size: var(--sbb-size-icon-ui-small);
   --sbb-block-link-font-size: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-text-font-size-s),
