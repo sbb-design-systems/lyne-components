@@ -104,6 +104,15 @@ $theme: 'standard' !default;
 @use '../../flip-card/flip-card-summary/flip-card-summary.global' as flip-card-summary with (
   $theme: $theme
 );
+@use '../../header/common/header-action.global' as header-common with (
+  $theme: $theme
+);
+@use '../../header/header-environment/header-environment.global' as header-environment with (
+  $theme: $theme
+);
+@use '../../header/header/header.global' as header with (
+  $theme: $theme
+);
 @use '../../footer/footer.global' as footer with (
   $theme: $theme
 );
@@ -193,6 +202,9 @@ $theme: 'standard' !default;
   @include flip-card-details.base;
   @include footer.base;
   @include form-field.base;
+  @include header.base;
+  @include header-common.base;
+  @include header-environment.base;
   @include icon-sidebar.base;
   @include lead-container.base;
   @include option.base;
@@ -214,6 +226,7 @@ $theme: 'standard' !default;
     @include breadcrumb.base-forced-colors;
     @include card.base-forced-colors;
     @include card-badge.base-forced-colors;
+    @include header-common.base-forced-colors;
     @include expansion-panel-header.base-forced-colors;
     @include form-field.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
@@ -224,9 +237,6 @@ $theme: 'standard' !default;
   --sbb-train-formation-wagon-width: #{functions.px-to-rem-build(80)};
   --sbb-train-formation-wagon-height: #{functions.px-to-rem-build(40)};
   --sbb-train-formation-wagon-gap: var(--sbb-spacing-fixed-1x);
-
-  // Header
-  --sbb-header-height: var(--sbb-spacing-fixed-14x);
 
   // Time Input
   --sbb-time-input-max-width: #{functions.px-to-rem-build(58)};
@@ -267,10 +277,6 @@ $theme: 'standard' !default;
     }
   }
 
-  &:has(sbb-header[size='s']) {
-    --sbb-header-height: #{functions.px-to-rem-build(52)};
-  }
-
   // When the input modality is either mouse or touch,
   // the focus outline should be hidden.
   // We achieve this by setting the outline style to none.
@@ -295,6 +301,7 @@ $theme: 'standard' !default;
     @include dialog.base-breakpoint-large;
     @include flip-card.base-breakpoint-large;
     @include form-field.base-breakpoint-large;
+    @include header.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage
@@ -304,15 +311,8 @@ $theme: 'standard' !default;
       }
     }
 
-    // Header
-    --sbb-header-height: var(--sbb-spacing-fixed-24x);
-
     // Time Input
     --sbb-time-input-max-width: #{functions.px-to-rem-build(65)};
-
-    &:has(sbb-header[size='s']) {
-      --sbb-header-height: var(--sbb-spacing-fixed-14x);
-    }
   }
 
   @include mediaqueries.mq($from: ultra) {
@@ -332,6 +332,7 @@ $theme: 'standard' !default;
 @include dialog-title.rules;
 @include flip-card-summary.rules;
 @include form-field.rules;
+@include header.rules;
 @include icon-sidebar.rules;
 @include lead-container.rules;
 @include option.rules;
@@ -604,11 +605,6 @@ sbb-sidebar:not(:has(sbb-sidebar-title)) sbb-sidebar-close-button {
 // If there is a title, remove top spacing for the content
 sbb-sidebar:has(sbb-sidebar-title) {
   --sbb-sidebar__padding-block-start: 0;
-}
-
-// Move container below header
-sbb-header + :where(sbb-sidebar-container, sbb-icon-sidebar-container) {
-  margin-block-start: var(--sbb-header-height);
 }
 
 // We set some dimension to the selects trigger element in order that the screen reader's outline box looks more accurate.
