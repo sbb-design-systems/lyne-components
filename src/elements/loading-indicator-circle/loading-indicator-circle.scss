@@ -1,6 +1,8 @@
 @use '../core/styles' as sbb;
 
 :host {
+  --sbb-loading-indicator-circle-duration: var(--sbb-disable-animation-duration, 1.5s);
+
   display: inline-flex;
   padding: var(--sbb-loading-indicator-circle-padding);
   vertical-align: middle;
