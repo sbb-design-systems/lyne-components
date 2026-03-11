@@ -178,8 +178,6 @@ set the CSS class `sbb-header-shrinkable` on the desired `<sbb-header-button>`/`
 in the component's stories (see also [this Storybook issue](https://github.com/storybookjs/storybook/issues/8820)),
 so they were wrapped into a `style` tag and added to the Storybook's configuration file named `preview-head.html`.
 
-<!-- Auto Generated Below -->
-
 ## Header Actions
 
 There are two types of header actions: links and buttons, represented by the `<sbb-header-link>`
@@ -264,6 +262,8 @@ sbb-header-environment {
   --sbb-header-environment-background-color: custom-color;
 }
 ```
+
+<!-- Auto Generated Below -->
 
 ## API Documentation
 
