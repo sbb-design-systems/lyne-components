@@ -20,6 +20,7 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
 :host(:state(has-panel)) {
   --sbb-checkbox-group-width: 100%;
   --sbb-checkbox-group-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+  --sbb-checkbox-group-flex-wrap: nowrap;
 
   // Distribute available space to the panels
   --sbb-checkbox-group-checkbox-flex: auto;
@@ -36,14 +37,14 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
     }
 
     :host([orientation='vertical'][horizontal-from='#{$breakpoint}']:not(:state(has-panel))) {
-      --sbb-checkbox-group-width: max-content;
+      --sbb-checkbox-group-width: auto;
     }
   }
 }
 
 .sbb-checkbox-group {
   display: flex;
-  flex-direction: var(--sbb-checkbox-group-orientation);
+  flex-flow: var(--sbb-checkbox-group-orientation) var(--sbb-checkbox-group-flex-wrap, wrap);
   gap: var(--sbb-checkbox-group-gap);
   align-items: flex-start;
   width: var(--sbb-checkbox-group-width);
