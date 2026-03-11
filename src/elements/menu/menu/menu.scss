@@ -6,36 +6,17 @@
   // should be ignored when using CSS grid or similar layout techniques.
   display: contents;
 
-  --sbb-menu-position-x: 0;
-  --sbb-menu-position-y: 0;
   --sbb-menu-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
-  --sbb-menu-animation-easing: ease;
-  --sbb-menu-transform-y: 100%;
-  --sbb-menu-transform-x: 0%;
-  --sbb-menu-max-width: 100%;
-  --sbb-menu-min-width: 100%;
-  --sbb-menu-inset: 0 auto auto 0;
-  --sbb-menu-container-height: 100dvh;
-
-  // 85vh is not an exact value but looks optimized for mobile view.
-  --sbb-menu-max-height: calc(85vh - var(--sbb-spacing-fixed-8x));
-  --sbb-menu-min-height: #{sbb.px-to-rem-build(48.5)};
-  --sbb-menu-border-radius: var(--sbb-border-radius-4x);
-  --sbb-menu-visibility: hidden;
-  --sbb-menu-backdrop-color: transparent;
-  --sbb-menu-color: var(--sbb-color-2-inverted);
-  --sbb-menu-background-color: var(--sbb-background-color-1-inverted);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+  --_sbb-menu-inset: 0 auto auto 0;
 
   @include sbb.scrollbar-variables($negative: true);
 
   @include sbb.mq($from: large) {
     --sbb-menu-transform-y: var(--sbb-spacing-fixed-2x);
-    --sbb-menu-max-width: #{sbb.px-to-rem-build(320)};
-    --sbb-menu-min-width: #{sbb.px-to-rem-build(180)};
     --sbb-menu-back-button-display: none;
   }
 }
@@ -54,7 +35,7 @@
 }
 
 :host(:not(:state(state-closed))) {
-  --sbb-menu-inset: 0;
+  --_sbb-menu-inset: 0;
 }
 
 :host(:state(dark)) {
@@ -103,19 +84,19 @@ sbb-divider,
 .sbb-menu__container {
   position: fixed;
   pointer-events: none;
-  inset: var(--sbb-menu-inset);
+  inset: var(--_sbb-menu-inset);
   height: var(--sbb-menu-container-height);
   z-index: var(--sbb-menu-z-index, var(--sbb-overlay-default-z-index));
 
   // Menu backdrop (only visible on mobile)
   &::before {
     content: '';
-    visibility: var(--sbb-menu-visibility);
+    visibility: var(--sbb-menu-visibility, hidden);
     pointer-events: all;
     position: fixed;
-    inset: var(--sbb-menu-inset);
+    inset: var(--_sbb-menu-inset);
     height: var(--sbb-menu-container-height);
-    background-color: var(--sbb-menu-backdrop-color);
+    background-color: var(--sbb-menu-backdrop-color, transparent);
     transition: {
       duration: var(--sbb-menu-animation-duration);
       timing-function: var(--sbb-menu-animation-easing);
@@ -147,7 +128,7 @@ sbb-divider,
   background-color: var(--sbb-menu-background-color);
   padding: 0;
   overflow: hidden;
-  translate: var(--sbb-menu-transform-x) 0;
+  translate: var(--sbb-menu-transform-x, 0) 0;
 
   // Used when navigating back from nested menu in mobile view
   transition: translate var(--sbb-menu-animation-duration);
@@ -182,8 +163,8 @@ sbb-divider,
     border-radius: var(--sbb-menu-border-radius);
 
     :host(:not(:state(state-closed))) & {
-      top: var(--sbb-menu-position-y);
-      left: var(--sbb-menu-position-x);
+      top: var(--sbb-menu-position-y, 0);
+      left: var(--sbb-menu-position-x, 0);
       max-height: var(--sbb-menu-max-height);
       min-height: var(--sbb-menu-min-height);
     }
@@ -227,7 +208,7 @@ sbb-divider,
 @keyframes open {
   from {
     opacity: 0;
-    translate: 0 var(--sbb-menu-transform-y);
+    translate: 0 var(--sbb-menu-transform-y, 100%);
   }
 
   to {
@@ -244,7 +225,7 @@ sbb-divider,
 
   to {
     opacity: 0;
-    translate: 0 var(--sbb-menu-transform-y);
+    translate: 0 var(--sbb-menu-transform-y, 100%);
   }
 }
 

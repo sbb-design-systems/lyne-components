@@ -128,6 +128,12 @@ $theme: 'standard' !default;
 @use '../../lead-container/lead-container.global' as lead-container with (
   $theme: $theme
 );
+@use '../../menu/menu/menu.global' as menu with (
+  $theme: $theme
+);
+@use '../../menu/common/menu-action.global' as menu-action with (
+  $theme: $theme
+);
 @use '../../option/option/option.global' as option with (
   $theme: $theme
 );
@@ -207,6 +213,8 @@ $theme: 'standard' !default;
   @include header-environment.base;
   @include icon-sidebar.base;
   @include lead-container.base;
+  @include menu.base;
+  @include menu-action.base;
   @include option.base;
   @include option-hint.base;
   @include optgroup.base;
@@ -302,6 +310,7 @@ $theme: 'standard' !default;
     @include flip-card.base-breakpoint-large;
     @include form-field.base-breakpoint-large;
     @include header.base-breakpoint-large;
+    @include menu.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage
