@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-form-field renders input DOM"] =
+snapshots["sbb-form-field renders input DOM"] = 
 `<sbb-form-field
   error-space="none"
   size="m"
@@ -21,7 +21,7 @@ snapshots["sbb-form-field renders input DOM"] =
 `;
 /* end snapshot sbb-form-field renders input DOM */
 
-snapshots["sbb-form-field renders input Shadow DOM"] =
+snapshots["sbb-form-field renders input Shadow DOM"] = 
 `<div class="sbb-form-field__space-wrapper">
   <div
     class="sbb-form-field__wrapper"
@@ -59,7 +59,7 @@ snapshots["sbb-form-field renders input Shadow DOM"] =
 `;
 /* end snapshot sbb-form-field renders input Shadow DOM */
 
-snapshots["sbb-form-field renders disabled input DOM"] =
+snapshots["sbb-form-field renders disabled input DOM"] = 
 `<sbb-form-field
   error-space="none"
   size="m"
@@ -81,7 +81,7 @@ snapshots["sbb-form-field renders disabled input DOM"] =
 `;
 /* end snapshot sbb-form-field renders disabled input DOM */
 
-snapshots["sbb-form-field renders disabled input Shadow DOM"] =
+snapshots["sbb-form-field renders disabled input Shadow DOM"] = 
 `<div class="sbb-form-field__space-wrapper">
   <div
     class="sbb-form-field__wrapper"
@@ -119,7 +119,7 @@ snapshots["sbb-form-field renders disabled input Shadow DOM"] =
 `;
 /* end snapshot sbb-form-field renders disabled input Shadow DOM */
 
-snapshots["sbb-form-field renders readonly input with error DOM"] =
+snapshots["sbb-form-field renders readonly input with error DOM"] = 
 `<sbb-form-field
   error-space="none"
   size="m"
@@ -149,7 +149,7 @@ snapshots["sbb-form-field renders readonly input with error DOM"] =
 `;
 /* end snapshot sbb-form-field renders readonly input with error DOM */
 
-snapshots["sbb-form-field renders readonly input with error Shadow DOM"] =
+snapshots["sbb-form-field renders readonly input with error Shadow DOM"] = 
 `<div class="sbb-form-field__space-wrapper">
   <div
     class="sbb-form-field__wrapper"
@@ -187,7 +187,7 @@ snapshots["sbb-form-field renders readonly input with error Shadow DOM"] =
 `;
 /* end snapshot sbb-form-field renders readonly input with error Shadow DOM */
 
-snapshots["sbb-form-field should render select without label DOM"] =
+snapshots["sbb-form-field should render select without label DOM"] = 
 `<sbb-form-field
   error-space="none"
   size="m"
@@ -208,7 +208,7 @@ snapshots["sbb-form-field should render select without label DOM"] =
 `;
 /* end snapshot sbb-form-field should render select without label DOM */
 
-snapshots["sbb-form-field should render select without label Shadow DOM"] =
+snapshots["sbb-form-field should render select without label Shadow DOM"] = 
 `<div class="sbb-form-field__space-wrapper">
   <div
     class="sbb-form-field__wrapper"
@@ -251,7 +251,7 @@ snapshots["sbb-form-field should render select without label Shadow DOM"] =
 `;
 /* end snapshot sbb-form-field should render select without label Shadow DOM */
 
-snapshots["sbb-form-field renders select with optional flag and borderless DOM"] =
+snapshots["sbb-form-field renders select with optional flag and borderless DOM"] = 
 `<sbb-form-field
   borderless=""
   error-space="none"
@@ -280,7 +280,7 @@ snapshots["sbb-form-field renders select with optional flag and borderless DOM"]
 `;
 /* end snapshot sbb-form-field renders select with optional flag and borderless DOM */
 
-snapshots["sbb-form-field renders select with optional flag and borderless Shadow DOM"] =
+snapshots["sbb-form-field renders select with optional flag and borderless Shadow DOM"] = 
 `<div class="sbb-form-field__space-wrapper">
   <div
     class="sbb-form-field__wrapper"
@@ -326,7 +326,7 @@ snapshots["sbb-form-field renders select with optional flag and borderless Shado
 `;
 /* end snapshot sbb-form-field renders select with optional flag and borderless Shadow DOM */
 
-snapshots["sbb-form-field A11y tree Chrome"] =
+snapshots["sbb-form-field A11y tree Chrome"] = 
 `<p>
   {
   "role": "generic",

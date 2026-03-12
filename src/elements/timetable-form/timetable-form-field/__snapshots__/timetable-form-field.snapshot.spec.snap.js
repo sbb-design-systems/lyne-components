@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-timetable-form-field renders DOM"] =
+snapshots["sbb-timetable-form-field renders DOM"] = 
 `<sbb-timetable-form-field
   borderless=""
   error-space="none"
@@ -24,7 +24,7 @@ snapshots["sbb-timetable-form-field renders DOM"] =
 `;
 /* end snapshot sbb-timetable-form-field renders DOM */
 
-snapshots["sbb-timetable-form-field renders Shadow DOM"] =
+snapshots["sbb-timetable-form-field renders Shadow DOM"] = 
 `<sbb-icon
   class="sbb-timetable-form-field__start-route-icon"
   name="route-circle-start-small"
@@ -67,7 +67,7 @@ snapshots["sbb-timetable-form-field renders Shadow DOM"] =
 `;
 /* end snapshot sbb-timetable-form-field renders Shadow DOM */
 
-snapshots["sbb-timetable-form-field renders A11y tree Chrome"] =
+snapshots["sbb-timetable-form-field renders A11y tree Chrome"] = 
 `<p>
   {
   "role": "generic",
