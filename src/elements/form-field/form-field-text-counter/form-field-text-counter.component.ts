@@ -7,16 +7,17 @@ import { i18nRemainingCharacters } from '../../core/i18n.ts';
 import { SbbHintElement } from '../hint/hint.component.ts';
 
 /**
- * It displays the remaining characters count for input/textarea elements with maxlength in the `sbb-form-field`.
+ * It displays the remaining characters count for input/textarea elements with a configured
+ * maxlength property in the `sbb-form-field`.
  * The component automatically uses the form field's inputElement and displays the remaining character count.
- * If the input is disabled or readonly, the output is suppressed.
+ * If the input is disabled, readonly or an `sbb-error` is present, the output is suppressed.
  * @slot - Use the unnamed slot to display a custom description text after the counter.
  */
 export class SbbFormFieldTextCounterElement extends SbbHintElement {
   public static override readonly elementName: string = 'sbb-form-field-text-counter';
   public static override styles: CSSResultGroup = [SbbHintElement.styles];
 
-  @state() private accessor _remainingChars: number = 0;
+  @state() private accessor _remainingCharacters: number = 0;
 
   private _language = new SbbLanguageController(this);
   private _abortController: AbortController | null = null;
@@ -59,14 +60,14 @@ export class SbbFormFieldTextCounterElement extends SbbHintElement {
       return;
     }
 
-    this._remainingChars = Math.max(
+    this._remainingCharacters = Math.max(
       (inputElement.maxLength ?? 0) - (inputElement.value?.length ?? 0),
       0,
     );
   }
 
   protected override render(): TemplateResult {
-    return html`${this._remainingChars}<slot>
+    return html`${this._remainingCharacters}<slot>
         ${i18nRemainingCharacters[this._language.current]}
       </slot>`;
   }

@@ -69,3 +69,72 @@ snapshots["sbb-form-field-text-counter renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-form-field-text-counter renders A11y tree Chrome */
 
+snapshots["sbb-form-field-text-counter renders with custom slot text DOM"] = 
+`<sbb-form-field
+  error-space="none"
+  size="m"
+  width="default"
+>
+  <label
+    for="sbb-form-field-input-3"
+    slot="label"
+  >
+    Description
+  </label>
+  <textarea
+    id="sbb-form-field-input-3"
+    maxlength="100"
+    rows="3"
+  >
+  </textarea>
+  <sbb-form-field-text-counter slot="hint">
+    characters left
+  </sbb-form-field-text-counter>
+</sbb-form-field>
+`;
+/* end snapshot sbb-form-field-text-counter renders with custom slot text DOM */
+
+snapshots["sbb-form-field-text-counter renders with custom slot text Shadow DOM"] = 
+`100
+<slot>
+  characters remaining
+</slot>
+`;
+/* end snapshot sbb-form-field-text-counter renders with custom slot text Shadow DOM */
+
+snapshots["sbb-form-field-text-counter renders with custom slot text A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "generic",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-form-field-text-counter renders with custom slot text A11y tree Chrome */
+

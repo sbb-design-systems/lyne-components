@@ -103,7 +103,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   ];
 
   /**
-   * Whether to reserve space for an error message.
+   * Whether to reserve space for an error message, hint or text-counter.
    * `none` does not reserve any space.
    * `reserve` does reserve one row for an error message.
    */
@@ -563,6 +563,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
 
     this._hintElements = hintElements;
     this._assignAriaDescribedByElements();
+    this.toggleState('has-hint', !!this._hintElements.length);
+    this.toggleState('has-text-counter', !!this.querySelector('sbb-form-field-text-counter'));
     this._syncNegative();
   }
 
@@ -633,7 +635,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
           <slot name="suffix" @slotchange=${this._syncNegative}></slot>
         </div>
 
-        <div class="sbb-form-field__error">
+        <div class="sbb-form-field__hint">
           <slot name="hint" @slotchange=${this._onSlotHintChange}></slot>
           <slot name="error" @slotchange=${this._onSlotErrorChange}></slot>
         </div>

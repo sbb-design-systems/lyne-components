@@ -12,7 +12,14 @@ describe(`sbb-hint`, () => {
 
   describe('renders', async () => {
     beforeEach(async () => {
-      element = await fixture(html`<sbb-hint>Hint text</sbb-hint>`);
+      const root = await fixture(html`
+        <sbb-form-field>
+          <label>Description</label>
+          <input placeholder="Enter text" />
+          <sbb-hint>Hint text</sbb-hint>
+        </sbb-form-field>
+      `);
+      element = root.querySelector<SbbHintElement>('sbb-hint')!;
     });
 
     it('DOM', async () => {

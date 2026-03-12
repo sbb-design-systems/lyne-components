@@ -78,7 +78,7 @@ snapshots["sbb-chip-group renders with form-field Shadow DOM"] =
     <slot name="suffix">
     </slot>
   </div>
-  <div class="sbb-form-field__error">
+  <div class="sbb-form-field__hint">
     <slot name="error">
     </slot>
     <slot name="hint">

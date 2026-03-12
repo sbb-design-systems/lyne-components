@@ -21,8 +21,28 @@ snapshots["sbb-hint renders A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "generic",
-      "name": ""
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "generic",
+              "name": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

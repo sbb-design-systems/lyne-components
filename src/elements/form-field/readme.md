@@ -132,14 +132,10 @@ When an `<sbb-error>` is present, the hint is automatically hidden and no longer
 ### Text Counter
 
 The `sbb-form-field-text-counter` is a specific `<sbb-hint>` that displays the remaining characters count
-for input or textarea elements with a `maxlength` attribute within an `sbb-form-field`.
+for `<input>` or `<textarea>` elements with a `maxlength` attribute within an `sbb-form-field`.
 
 If the input/textarea is `disabled`, `readonly` or there is an `<sbb-error>` present,
 the `sbb-form-field-text-counter` is hidden.
-
-Place the component inside an `sbb-form-field` that contains an `input` or `textarea` (or a custom element)
-with a `maxlength` attribute. The component will automatically detect the input element
-display the remaining character count.
 
 ```html
 <sbb-form-field>
@@ -335,7 +331,7 @@ via `ariaDescribedByElements` as its content is purely visual.
 | Name            | Attribute        | Privacy | Type                                                           | Default            | Description                                                                                                                                                           |
 | --------------- | ---------------- | ------- | -------------------------------------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `borderless`    | `borderless`     | public  | `boolean`                                                      | `false`            | Whether to display the form field without a border.                                                                                                                   |
-| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                          | `'none'`           | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.                                |
+| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                          | `'none'`           | Whether to reserve space for an error message, hint or text-counter. `none` does not reserve any space. `reserve` does reserve one row for an error message.          |
 | `floatingLabel` | `floating-label` | public  | `boolean`                                                      | `false`            | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 |
 | `hiddenLabel`   | `hidden-label`   | public  | `boolean`                                                      | `false`            | Whether to visually hide the label. If hidden, screen readers will still read it.                                                                                     |
 | `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| null` |                    | Returns the input element.                                                                                                                                            |

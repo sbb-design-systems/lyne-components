@@ -30,4 +30,29 @@ describe(`sbb-form-field-text-counter`, () => {
 
     testA11yTreeSnapshot();
   });
+
+  describe('renders with custom slot text', () => {
+    let root: HTMLElement;
+
+    beforeEach(async () => {
+      root = await fixture(html`
+        <sbb-form-field>
+          <label>Description</label>
+          <textarea maxlength="100"></textarea>
+          <sbb-form-field-text-counter>characters left</sbb-form-field-text-counter>
+        </sbb-form-field>
+      `);
+    });
+
+    it('DOM', async () => {
+      await expect(root).dom.to.be.equalSnapshot();
+    });
+
+    it('Shadow DOM', async () => {
+      const element = root.querySelector('sbb-form-field-text-counter')!;
+      await expect(element).shadowDom.to.be.equalSnapshot();
+    });
+
+    testA11yTreeSnapshot();
+  });
 });
