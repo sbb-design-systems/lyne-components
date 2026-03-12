@@ -1,0 +1,12 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-mini-calendar-month-offset: 0;
+  --sbb-mini-calendar-month-visibilty-year: hidden;
+  --sbb-mini-calendar-month-label-color: light-dark(
+    var(--sbb-color-granite),
+    var(--sbb-color-silver)
+  );
+}
