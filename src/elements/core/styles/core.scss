@@ -131,6 +131,9 @@ $theme: 'standard' !default;
 @use '../../link/common/block-link.global' as block-link with (
   $theme: $theme
 );
+@use '../../logo/logo.global' as logo with (
+  $theme: $theme
+);
 @use '../../message/message.global' as message with (
   $theme: $theme
 );
@@ -212,8 +215,9 @@ $theme: 'standard' !default;
   @include header-common.base;
   @include header-environment.base;
   @include icon-sidebar.base;
-  @include block-link.base;
   @include lead-container.base;
+  @include block-link.base;
+  @include logo.base;
   @include message.base;
   @include option.base;
   @include option-hint.base;
@@ -237,6 +241,7 @@ $theme: 'standard' !default;
     @include header-common.base-forced-colors;
     @include expansion-panel-header.base-forced-colors;
     @include form-field.base-forced-colors;
+    @include logo.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
     @include radio-button-common.base-forced-colors;
   }
