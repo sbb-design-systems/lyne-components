@@ -192,20 +192,10 @@ export const WithUserMenu: StoryObj = {
   args: basicArgs,
 };
 
-export const BasicScrollHide: StoryObj = {
+export const ScrollHide: StoryObj = {
   render: Template,
   argTypes,
   args: { ...basicArgs, 'hide-on-scroll': true },
-};
-
-export const ExpandedScrollHide: StoryObj = {
-  render: Template,
-  argTypes,
-  args: {
-    ...basicArgs,
-    expanded: true,
-    'hide-on-scroll': true,
-  },
 };
 
 export const ContainerScrollOriginScrollHide: StoryObj = {
@@ -226,20 +216,6 @@ export const ContainerScrollOriginScrollHide: StoryObj = {
 
 const ButtonTemplateSingle = ({ active, text, ...args }: Args): TemplateResult => html`
   <sbb-header-button ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>
-    ${text}
-  </sbb-header-button>
-`;
-
-const ButtonAvatarSbbImageTemplate = ({ active, text, ...args }: Args): TemplateResult => html`
-  <sbb-header-button ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>
-    <sbb-image image-src=${sampleImages[6]} slot="icon" sbb-badge="5" alt="Avatar Icon"></sbb-image>
-    ${text}
-  </sbb-header-button>
-`;
-
-const ButtonAvatarImgTemplate = ({ active, text, ...args }: Args): TemplateResult => html`
-  <sbb-header-button ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>
-    <img src=${sampleImages[6]} slot="icon" alt="Avatar Icon" />
     ${text}
   </sbb-header-button>
 `;
@@ -348,31 +324,31 @@ const buttonArgs: Args = {
   'aria-label': undefined,
 };
 
-export const Default: StoryObj = {
+export const Button: StoryObj = {
   render: ButtonTemplateSingle,
   argTypes: buttonArgTypes,
   args: { ...buttonArgs },
 };
 
-export const IconOnly: StoryObj = {
+export const ButtonIconOnly: StoryObj = {
   render: ButtonTemplateSingle,
   argTypes: buttonArgTypes,
   args: { ...buttonArgs, text: '', 'aria-label': 'hamburger-menu-small' },
 };
 
-export const TextOnly: StoryObj = {
+export const ButtonTextOnly: StoryObj = {
   render: ButtonTemplateSingle,
   argTypes: buttonArgTypes,
   args: { ...buttonArgs, 'icon-name': '' },
 };
 
-export const Active: StoryObj = {
+export const ButtonActive: StoryObj = {
   render: ButtonTemplateSingle,
   argTypes: buttonArgTypes,
   args: { ...buttonArgs, active: true, 'icon-name': 'magnifying-glass-small', text: 'Label' },
 };
 
-export const ExpandFromLarge: StoryObj = {
+export const ButtonExpandFromLarge: StoryObj = {
   render: ButtonTemplateSingle,
   argTypes: buttonArgTypes,
   args: {
@@ -383,19 +359,7 @@ export const ExpandFromLarge: StoryObj = {
   },
 };
 
-export const AvatarSbbImage: StoryObj = {
-  render: ButtonAvatarSbbImageTemplate,
-  argTypes: buttonArgTypes,
-  args: { ...buttonArgs },
-};
-
-export const AvatarImg: StoryObj = {
-  render: ButtonAvatarImgTemplate,
-  argTypes: buttonArgTypes,
-  args: { ...buttonArgs },
-};
-
-export const AvatarImgBadge: StoryObj = {
+export const ButtonAvatarImgBadge: StoryObj = {
   render: ButtonAvatarImgBadgeTemplate,
   argTypes: buttonArgTypes,
   args: { ...buttonArgs },
@@ -403,36 +367,8 @@ export const AvatarImgBadge: StoryObj = {
 
 // sbb-header-link
 
-const LinkTemplateSingle = ({ active, text, ...args }: Args): TemplateResult => html`
+const LinkTemplate = ({ active, text, ...args }: Args): TemplateResult => html`
   <sbb-header-link ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>
-    ${text}
-  </sbb-header-link>
-`;
-
-const LinkAvatarSbbImageTemplate = ({ active, text, ...args }: Args): TemplateResult => html`
-  <sbb-header-link ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>
-    <sbb-image image-src=${sampleImages[6]} slot="icon" sbb-badge="5" alt="Avatar Icon"></sbb-image>
-    ${text}
-  </sbb-header-link>
-`;
-
-const LinkAvatarImgTemplate = ({ active, text, ...args }: Args): TemplateResult => html`
-  <sbb-header-link ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>
-    <img src=${sampleImages[6]} slot="icon" alt="Avatar Icon" />
-    ${text}
-  </sbb-header-link>
-`;
-
-const LinkAvatarImgBadgeTemplate = ({ active, text, ...args }: Args): TemplateResult => html`
-  <sbb-header-link ${sbbSpread(args)} class=${active ? 'sbb-active' : ''}>
-    <figure sbb-badge="5" class="sbb-figure" slot="icon">
-      <img
-        src=${sampleImages[6]}
-        alt="Avatar Icon"
-        class="sbb-image-border-radius-round"
-        style="aspect-ratio: 1 / 16; object-fit: cover; width: var(--sbb-size-icon-ui-small); height: var(--sbb-size-icon-ui-small);"
-      />
-    </figure>
     ${text}
   </sbb-header-link>
 `;
@@ -484,81 +420,30 @@ const accessibilityLabel: InputType = {
   control: { type: 'text' },
 };
 
-const linkArgTypes: ArgTypes = {
-  text,
-  'expand-from': expandFrom,
-  'icon-name': iconName,
-  active,
-  href,
-  target,
-  rel,
-  download,
-  'accessibility-label': accessibilityLabel,
-};
-
-const linkArgs: Args = {
-  text: 'Menu',
-  'expand-from': expandFrom.options![0],
-  'icon-name': 'hamburger-menu-small',
-  active: false,
-  href: href.options![1],
-  target: '_blank',
-  rel: undefined,
-  download: false,
-  'accessibility-label': undefined,
-};
-
-export const LinkDefault: StoryObj = {
-  render: LinkTemplateSingle,
-  argTypes: linkArgTypes,
-  args: { ...linkArgs },
-};
-
-export const LinkIconOnly: StoryObj = {
-  render: LinkTemplateSingle,
-  argTypes: linkArgTypes,
-  args: { ...linkArgs, text: '', 'accessibility-label': 'hamburger-menu-small' },
-};
-
-export const LinkTextOnly: StoryObj = {
-  render: LinkTemplateSingle,
-  argTypes: linkArgTypes,
-  args: { ...linkArgs, 'icon-name': '' },
-};
-
-export const LinkActive: StoryObj = {
-  render: LinkTemplateSingle,
-  argTypes: linkArgTypes,
-  args: { ...linkArgs, active: true, 'icon-name': 'magnifying-glass-small', text: 'Label' },
-};
-
-export const LinkExpandFromLarge: StoryObj = {
-  render: LinkTemplateSingle,
-  argTypes: linkArgTypes,
-  args: {
-    ...linkArgs,
-    'icon-name': 'magnifying-glass-small',
-    text: 'Label',
-    'expand-from': 'large',
+export const Link: StoryObj = {
+  render: LinkTemplate,
+  argTypes: {
+    text,
+    'expand-from': expandFrom,
+    'icon-name': iconName,
+    active,
+    href,
+    target,
+    rel,
+    download,
+    'accessibility-label': accessibilityLabel,
   },
-};
-
-export const LinkAvatarSbbImage: StoryObj = {
-  render: LinkAvatarSbbImageTemplate,
-  argTypes: linkArgTypes,
-  args: { ...linkArgs },
-};
-
-export const LinkAvatarImg: StoryObj = {
-  render: LinkAvatarImgTemplate,
-  argTypes: linkArgTypes,
-  args: { ...linkArgs },
-};
-
-export const LinkAvatarImgBadge: StoryObj = {
-  render: LinkAvatarImgBadgeTemplate,
-  argTypes: linkArgTypes,
-  args: { ...linkArgs },
+  args: {
+    text: 'Menu',
+    'expand-from': expandFrom.options![0],
+    'icon-name': 'hamburger-menu-small',
+    active: false,
+    href: href.options![1],
+    target: '_blank',
+    rel: undefined,
+    download: false,
+    'accessibility-label': undefined,
+  },
 };
 
 // sbb-header-environment
@@ -610,7 +495,7 @@ const environment: InputType = {
   options: ['dev', 'edu', 'int', 'loc', 'test', 'any'],
 };
 
-export const BasicHeaderEnvironment: StoryObj = {
+export const HeaderEnvironment: StoryObj = {
   render: TemplateHeaderEnvironment,
   argTypes: { environment },
   args: { environment: environment.options![0] },

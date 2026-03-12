@@ -32,7 +32,7 @@ export class SbbActionGroupElement extends SbbElement {
   public accessor alignGroup: 'start' | 'center' | 'stretch' | 'end' = 'start';
 
   /**
-   * Overrides the behaviour of `orientation` property.
+   * Overrides the behavior of `orientation` property.
    */
   // TODO: Needs a breaking change to work with the 'no-default-reflect' behavior
   @property({ attribute: 'horizontal-from', reflect: true })

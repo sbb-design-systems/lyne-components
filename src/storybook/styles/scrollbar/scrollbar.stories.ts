@@ -122,7 +122,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'styles/scrollbar',
+  title: 'styles/Scrollbar',
 };
 
 export default meta;

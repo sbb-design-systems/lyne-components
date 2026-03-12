@@ -128,11 +128,20 @@ $theme: 'standard' !default;
 @use '../../lead-container/lead-container.global' as lead-container with (
   $theme: $theme
 );
+@use '../../link/common/block-link.global' as block-link with (
+  $theme: $theme
+);
 @use '../../loading-indicator/loading-indicator.global' as loading-indicator with (
   $theme: $theme
 );
 @use '../../loading-indicator-circle/loading-indicator-circle.global' as loading-indicator-circle
   with (
+  $theme: $theme
+);
+@use '../../logo/logo.global' as logo with (
+  $theme: $theme
+);
+@use '../../message/message.global' as message with (
   $theme: $theme
 );
 @use '../../option/option/option.global' as option with (
@@ -214,8 +223,11 @@ $theme: 'standard' !default;
   @include header-environment.base;
   @include icon-sidebar.base;
   @include lead-container.base;
+  @include block-link.base;
   @include loading-indicator.base;
   @include loading-indicator-circle.base;
+  @include logo.base;
+  @include message.base;
   @include option.base;
   @include option-hint.base;
   @include optgroup.base;
@@ -239,6 +251,7 @@ $theme: 'standard' !default;
     @include expansion-panel-header.base-forced-colors;
     @include form-field.base-forced-colors;
     @include loading-indicator-circle.base-forced-colors;
+    @include logo.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
     @include radio-button-common.base-forced-colors;
   }
@@ -345,6 +358,7 @@ $theme: 'standard' !default;
 @include header.rules;
 @include icon-sidebar.rules;
 @include lead-container.rules;
+@include message.rules;
 @include option.rules;
 @include tab-nav-bar.rules;
 
@@ -441,14 +455,6 @@ img {
   aspect-ratio: var(--sbb-image-aspect-ratio);
   object-fit: var(--sbb-image-object-fit);
   object-position: var(--sbb-image-object-position);
-}
-
-// TODO: Move back to the sbb-message components when the global CSS refactoring happens
-sbb-message {
-  > [slot='image']:is(sbb-image, img),
-  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
-    border-radius: var(--sbb-message-image-border-radius);
-  }
 }
 
 // Target the slotted `sbb-image` which are generally wrapped by a <figure> (therefore are not reachable with the :slotted)

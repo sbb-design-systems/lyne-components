@@ -21,8 +21,8 @@ The slot name is mandatory, and it requires a date in ISO8601 format (e.g. 2025-
 ```
 
 The `<sbb-calendar>` creates its own slots based on the month to be displayed;
-during initialization, the month is the current one (if there's no `selected` date)
-so for the first render the slotted `<sbb-calendar-days>` must match that month.
+during initialization, the month is the current one (if there's no `selected` date).
+So for the first render, the slotted `<sbb-calendar-day>` elements must match that month.
 For `wide` mode, also the following one must be taken into account.
 
 Each time the month changes due to user interaction with the previous/next month buttons,

@@ -1,11 +1,4 @@
-import type {
-  Meta,
-  StoryObj,
-  ArgTypes,
-  Args,
-  Decorator,
-  StoryContext,
-} from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
@@ -60,12 +53,23 @@ const numberOfOptions: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 's'],
+  table: {
+    category: 'Form field',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   value,
   'icon-name': iconName,
   disabled,
   numberOfOptions,
   preserveIconSpace,
+  size,
 };
 
 const defaultArgs: Args = {
@@ -74,6 +78,7 @@ const defaultArgs: Args = {
   disabled: false,
   numberOfOptions: 5,
   preserveIconSpace: false,
+  size: size.options![0],
 };
 
 const createOptions = ({
@@ -106,66 +111,34 @@ const createOptions = ({
   ];
 };
 
-const StandaloneTemplate = (args: Args): TemplateResult => html`${createOptions(args)}`;
-
-const AutocompleteTemplate = (args: Args): TemplateResult => html`
-  <sbb-form-field ?negative=${args.negative}>
+const AutocompleteTemplate = ({ size, ...args }: Args): TemplateResult => html`
+  <sbb-form-field ?negative=${args.negative} size=${size}>
     <label>sbb-autocomplete</label>
     <input placeholder="Please select." />
     <sbb-autocomplete>${createOptions(args)}</sbb-autocomplete>
   </sbb-form-field>
 `;
 
-const SelectTemplate = (args: Args): TemplateResult => html`
-  <sbb-form-field ?negative=${args.negative}>
+const SelectTemplate = ({ size, ...args }: Args): TemplateResult => html`
+  <sbb-form-field ?negative=${args.negative} size=${size}>
     <label>sbb-select</label>
     <sbb-select placeholder="Please select.">${createOptions(args)}</sbb-select>
   </sbb-form-field>
 `;
 
-const borderDecorator: Decorator = (story) => html`
-  <div
-    style="border-width: var(--sbb-spacing-fixed-2x); border-style: dashed; border-color: #ad00ff; width: 350px;"
-  >
-    ${story()}
-  </div>
-`;
-
-export const Standalone: StoryObj = {
-  render: StandaloneTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs },
-  decorators: [borderDecorator],
-};
-
-export const WithIcon: StoryObj = {
-  render: StandaloneTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, 'icon-name': 'clock-small' },
-  decorators: [borderDecorator],
-};
-
-export const WithDisabledState: StoryObj = {
-  render: StandaloneTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, disabled: true },
-  decorators: [borderDecorator],
-};
-
-export const WithIconSpace: StoryObj = {
-  render: StandaloneTemplate,
-  argTypes: defaultArgTypes,
-  args: { ...defaultArgs, preserveIconSpace: true },
-  decorators: [borderDecorator],
-};
-
-export const AutocompleteOptions: StoryObj = {
+export const OptionsAutocomplete: StoryObj = {
   render: AutocompleteTemplate,
   argTypes: { ...defaultArgTypes, negative },
   args: { ...defaultArgs, negative: false },
 };
 
-export const SelectOptions: StoryObj = {
+export const OptionsWithIconAutocomplete: StoryObj = {
+  render: AutocompleteTemplate,
+  argTypes: { ...defaultArgTypes, negative },
+  args: { ...defaultArgs, negative: false, 'icon-name': 'unicorn-small' },
+};
+
+export const OptionsSelect: StoryObj = {
   render: SelectTemplate,
   argTypes: { ...defaultArgTypes, negative },
   args: { ...defaultArgs, negative: false },
@@ -207,6 +180,7 @@ const groupArgTypes: ArgTypes = {
   disabled,
   disabledSingle,
   numberOfOptions,
+  size,
 };
 
 const groupArgs: Args = {
@@ -216,15 +190,8 @@ const groupArgs: Args = {
   disabled: false,
   disabledSingle: false,
   numberOfOptions: 3,
+  size: size.options![0],
 };
-
-const borderDecoratorGroup: Decorator = (story) => html`
-  <div
-    style="border-width: var(--sbb-spacing-fixed-2x); border-style: dashed; border-color: #ad00ff;"
-  >
-    ${story()}
-  </div>
-`;
 
 const createGroupOptions = (args: Args, groupId: string): TemplateResult[] =>
   new Array(args.numberOfOptions).fill(null).map((_, i) => {
@@ -247,9 +214,9 @@ const Template = ({ label, disabled, ...args }: Args): TemplateResult => html`
   </sbb-optgroup>
 `;
 
-const TemplateAutocomplete = (args: Args): TemplateResult => {
+const TemplateAutocomplete = ({ size, ...args }: Args): TemplateResult => {
   return html`
-    <sbb-form-field ?negative=${args.negative}>
+    <sbb-form-field ?negative=${args.negative} size=${size}>
       <label>Autocomplete</label>
       <input placeholder="Placeholder" />
       <sbb-autocomplete>${Template(args)}</sbb-autocomplete>
@@ -257,35 +224,28 @@ const TemplateAutocomplete = (args: Args): TemplateResult => {
   `;
 };
 
-const TemplateSelect = (args: Args): TemplateResult => {
+const TemplateSelect = ({ size, ...args }: Args): TemplateResult => {
   return html`
-    <sbb-form-field ?negative=${args.negative}>
+    <sbb-form-field ?negative=${args.negative} size=${size}>
       <label>Select</label>
       <sbb-select ?multiple=${args.multiple} placeholder="Select"> ${Template(args)} </sbb-select>
     </sbb-form-field>
   `;
 };
 
-export const GroupStandalone: StoryObj = {
-  render: Template,
-  argTypes: groupArgTypes,
-  args: { ...groupArgs },
-  decorators: [borderDecoratorGroup],
-};
-
-export const Autocomplete: StoryObj = {
+export const OptgroupAutocomplete: StoryObj = {
   render: TemplateAutocomplete,
   argTypes: { ...groupArgTypes, negative },
   args: { ...groupArgs, negative: false },
 };
 
-export const Select: StoryObj = {
+export const OptgroupSelect: StoryObj = {
   render: TemplateSelect,
   argTypes: { ...groupArgTypes, negative, multiple },
   args: { ...groupArgs, multiple: false, negative: false },
 };
 
-export const MultipleSelect: StoryObj = {
+export const OptgroupMultipleSelect: StoryObj = {
   render: TemplateSelect,
   argTypes: { ...groupArgTypes, negative, multiple },
   args: { ...groupArgs, multiple: true, negative: false },
@@ -296,16 +256,6 @@ export const MultipleSelect: StoryObj = {
 const divider: InputType = {
   control: {
     type: 'boolean',
-  },
-};
-
-const size: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['m', 's'],
-  table: {
-    category: 'Form field',
   },
 };
 
@@ -321,8 +271,8 @@ const hintArgs: Args = {
   size: size.options![0],
 };
 
-const WithAutocompleteTemplate = (args: Args): TemplateResult => html`
-  <sbb-form-field ?negative=${args.negative} size=${args.size}>
+const WithAutocompleteTemplate = ({ size, ...args }: Args): TemplateResult => html`
+  <sbb-form-field ?negative=${args.negative} size=${size}>
     <label>Autocomplete</label>
     <input />
     <sbb-autocomplete>
@@ -336,8 +286,8 @@ const WithAutocompleteTemplate = (args: Args): TemplateResult => html`
   </sbb-form-field>
 `;
 
-const WithAutocompleteGroupTemplate = (args: Args): TemplateResult => html`
-  <sbb-form-field ?negative=${args.negative} size=${args.size}>
+const WithAutocompleteGroupTemplate = ({ size, ...args }: Args): TemplateResult => html`
+  <sbb-form-field ?negative=${args.negative} size=${size}>
     <label>Autocomplete</label>
     <input />
     <sbb-autocomplete preserve-icon-space>

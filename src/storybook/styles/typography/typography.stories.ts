@@ -59,7 +59,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'styles/typography',
+  title: 'styles/Typography',
 };
 
 export default meta;
