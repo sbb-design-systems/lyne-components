@@ -68,28 +68,30 @@ Please note that nesting the menus in DOM is not supported. The `<sbb-menu>` ele
 </sbb-menu>
 ```
 
-## Menu Link
+## Menu Actions
 
-The `<sbb-menu-link>` component is equivalent to a native `anchor (a)` element and is internally rendered as
-a link, accepting its associated properties (`href`, `target`, `rel` and `download`).
+There are two types of menu actions: links and buttons, represented by the `<sbb-menu-link>`
+and `<sbb-menu-button>` components respectively.
 
-The component can optionally display a `<sbb-icon>` at the component start using the `iconName` property
+```html
+<sbb-menu-link href="#info" target="_blank">Link</sbb-menu-link>
+<sbb-menu-button>Button</sbb-menu-button>
+```
+
+The components can optionally display an `<sbb-icon>` at the component start using the `iconName` property
 or via custom content using the `icon` slot.
 
 ```html
-<sbb-menu-link href="#">Text</sbb-menu-link>
-
-<sbb-menu-link href="#info" target="_blank">Link</sbb-menu-link>
-
 <sbb-menu-link href="#" icon-name="pie-small">Another text</sbb-menu-link>
+<sbb-menu-button><sbb-icon slot="icon" name="pie-small" />Another text</sbb-menu-button>
 ```
 
 ### Badge
 
-A badge can be rendered on the icon as white text in a red circle via the `<sbb-badge>` attribute.
-It's recommended to hide the badge when the menu link is disabled.
-It's mandatory to provide the badge information for screen readers either with the `accessibility-label` attribute
-or a hidden text (`<sbb-screen-reader-only>` for example).
+A badge can be rendered on the icon as white text in a red circle via the `sbb-badge` attribute.
+It's recommended to hide the badge when the menu action is disabled.
+It's mandatory to provide the badge information for screen readers either with an `aria-label`
+(or `accessibility-label` for `<sbb-menu-link>`) or a hidden text (`<sbb-screen-reader-only>` for example).
 
 ```html
 <sbb-menu-link
@@ -100,32 +102,6 @@ or a hidden text (`<sbb-screen-reader-only>` for example).
 >
   Messages
 </sbb-menu-link>
-```
-
-## Menu Button
-
-The `<sbb-menu-button>` component is equivalent to a native `button` element, accepting its associated
-properties (`type`, `name`, `value` and `form`).
-
-## Slots
-
-It is possible to provide a label via an unnamed slot; the component can optionally display a `<sbb-icon>`
-at the component start using the `iconName` property or via custom content using the `icon` slot.
-
-```html
-<sbb-menu-button>Text</sbb-menu-button>
-
-<sbb-menu-button icon-name="pie-small">Another text</sbb-menu-button>
-```
-
-## Badge
-
-A badge can be rendered on the icon as white text in a red circle via the `<sbb-badge>` attribute.
-It's recommended to hide the badge when the menu button is disabled.
-It's mandatory to provide the badge information for screen readers either with an `aria-label`
-or a hidden text (`<sbb-screen-reader-only>` for example).
-
-```html
 <sbb-menu-button
   sbb-badge="2"
   aria-label="Show messages, 2 new messages available"

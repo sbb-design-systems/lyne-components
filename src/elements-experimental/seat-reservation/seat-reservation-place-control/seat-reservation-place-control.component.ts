@@ -96,7 +96,7 @@ export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement 
     }
 
     // if title was shown once, we cannot unset it completely, but this
-    // behaviour should not happen very often as the title should
+    // behavior should not happen very often as the title should
     // not switch from on to off and on again
     if (changedProperties.has('showTitleInfo')) {
       if (!this.showTitleInfo) {

@@ -1,10 +1,8 @@
-### sbb-navigation
-
 The `<sbb-navigation>` component provides a way to present a modal navigation menu.
 It creates a backdrop for disabling interaction behind the navigation and disables scrolling of the page
 content while open.
 Focus is managed properly by setting it on the first focusable element or the first action with the
-`.sbb-active` class.
+`sbb-active` class.
 
 ```html
 <sbb-navigation>
@@ -56,19 +54,20 @@ or call the `open()` method on the `<sbb-navigation>` component.
 </sbb-navigation>
 ```
 
-## Navigation Link
+## Navigation Actions
 
-The `<sbb-navigation-link>` component is equivalent to a native `anchor (a)` element and is internally
-rendered as a link, accepting its associated properties (`href`, `target`, `rel` and `download`).
-It can be used within an `<sbb-navigation-list>` component or an `<sbb-navigation-marker>` component.
+There are two types of navigation actions: links and buttons, represented by the `<sbb-navigation-link>`
+and `<sbb-navigation-button>` components respectively.
+They can be used within an `<sbb-navigation-list>` component or an `<sbb-navigation-marker>` component.
 
 ```html
 <sbb-navigation-link href="#info" target="_blank">Link</sbb-navigation-link>
+<sbb-navigation-button value="menu" name="menu">Button</sbb-navigation-button>
 ```
 
 ### State
 
-The navigation button can have an initial active state which can be set by using the class `.sbb-active`.
+The navigation actions can have an initial active state which can be set by using the class `sbb-active`.
 
 ```html
 <sbb-navigation-link class="sbb-active" href="#info" target="_blank">Link</sbb-navigation-link>
@@ -76,36 +75,10 @@ The navigation button can have an initial active state which can be set by using
 
 ### Style
 
-The component has three different sizes, which can be changed using the `size` property (`l`, which is the default, `m` and `s`).
+The action components have three different sizes, which can be changed using the `size` property (`l`, which is the default, `m` and `s`).
 
 ```html
 <sbb-navigation-link href="#info" size="m">Link</sbb-navigation-link>
-```
-
-## Navigation Button
-
-The `<sbb-navigation-button>` component is equivalent to a native `button` element,
-accepting its associated properties (`type`, `name`, `value` and `form`).
-It can be used within an `<sbb-navigation-list>` component or an `<sbb-navigation-marker>` component.
-
-```html
-<sbb-navigation-button value="menu" name="menu">Button</sbb-navigation-button>
-```
-
-### State
-
-The navigation button can have an initial active state which can be set by using the class `.sbb-active`.
-
-```html
-<sbb-navigation-button class="sbb-active" value="menu" name="menu">Button</sbb-navigation-button>
-```
-
-### Style
-
-The component has three different sizes, which can be changed using the `size` property (`l`, which is the default, `m` and `s`).
-
-```html
-<sbb-navigation-button value="menu" name="menu" size="m">Button</sbb-navigation-button>
 ```
 
 ## Navigation Marker
@@ -169,7 +142,7 @@ Optionally a label can be provided via slot or via the `titleContent` property.
 ## Accessibility
 
 On opening, the focus will be automatically set on the first focusable element (unless manually specified, see below).
-If there is a trigger for a navigation section with the CSS class `.sbb-active`,
+If there is a trigger for a navigation section with the CSS class `sbb-active`,
 the first occurrence automatically opens the connected section.
 When a navigation action is marked to indicate the user is currently on that page,
 `accessibility-current="page"` (for `<sbb-navigation-link>`s) or `aria-current="page"` (for `<sbb-navigation-button>`s)

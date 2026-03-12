@@ -66,7 +66,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'styles/layout',
+  title: 'styles/Layout',
 };
 
 export default meta;

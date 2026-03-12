@@ -128,7 +128,23 @@ $theme: 'standard' !default;
 @use '../../lead-container/lead-container.global' as lead-container with (
   $theme: $theme
 );
+@use '../../link/common/block-link.global' as block-link with (
+  $theme: $theme
+);
+@use '../../logo/logo.global' as logo with (
+  $theme: $theme
+);
 @use '../../map-container/map-container.global' as map-container with (
+  $theme: $theme
+);
+@use '../../message/message.global' as message with (
+  $theme: $theme
+);
+@use '../../mini-calendar/mini-calendar-day/mini-calendar-day.global' as mini-calendar-day with (
+  $theme: $theme
+);
+@use '../../mini-calendar/mini-calendar-month/mini-calendar-month.global' as mini-calendar-month
+  with (
   $theme: $theme
 );
 @use '../../option/option/option.global' as option with (
@@ -210,7 +226,12 @@ $theme: 'standard' !default;
   @include header-environment.base;
   @include icon-sidebar.base;
   @include lead-container.base;
+  @include block-link.base;
+  @include logo.base;
   @include map-container.base;
+  @include message.base;
+  @include mini-calendar-day.base;
+  @include mini-calendar-month.base;
   @include option.base;
   @include option-hint.base;
   @include optgroup.base;
@@ -233,6 +254,7 @@ $theme: 'standard' !default;
     @include header-common.base-forced-colors;
     @include expansion-panel-header.base-forced-colors;
     @include form-field.base-forced-colors;
+    @include logo.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
     @include radio-button-common.base-forced-colors;
   }
@@ -340,6 +362,7 @@ $theme: 'standard' !default;
 @include header.rules;
 @include icon-sidebar.rules;
 @include lead-container.rules;
+@include message.rules;
 @include option.rules;
 @include tab-nav-bar.rules;
 
@@ -436,14 +459,6 @@ img {
   aspect-ratio: var(--sbb-image-aspect-ratio);
   object-fit: var(--sbb-image-object-fit);
   object-position: var(--sbb-image-object-position);
-}
-
-// TODO: Move back to the sbb-message components when the global CSS refactoring happens
-sbb-message {
-  > [slot='image']:is(sbb-image, img),
-  > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
-    border-radius: var(--sbb-message-image-border-radius);
-  }
 }
 
 // Target the slotted `sbb-image` which are generally wrapped by a <figure> (therefore are not reachable with the :slotted)
@@ -649,30 +664,4 @@ sbb-notification:has(sbb-title) {
   --sbb-option-text-overflow: ellipsis;
   --sbb-option-overflow: hidden;
   --sbb-option-white-space: nowrap;
-}
-
-sbb-mini-calendar[orientation='horizontal'] {
-  sbb-mini-calendar-month {
-    --sbb-mini-calendar-grid-auto-flow: row;
-    --sbb-mini-calendar-month-height: #{functions.px-to-rem-build(48)};
-    --sbb-mini-calendar-month-grid-template-rows: none;
-    --sbb-mini-calendar-month-grid-template-columns: repeat(7, 1fr);
-
-    sbb-mini-calendar-day:first-child {
-      grid-column-start: var(--sbb-mini-calendar-month-offset);
-    }
-  }
-}
-
-sbb-mini-calendar[orientation='vertical'] {
-  sbb-mini-calendar-month {
-    --sbb-mini-calendar-grid-auto-flow: column;
-    --sbb-mini-calendar-month-height: auto;
-    --sbb-mini-calendar-month-grid-template-rows: repeat(7, 1fr);
-    --sbb-mini-calendar-month-grid-template-columns: none;
-
-    sbb-mini-calendar-day:first-child {
-      grid-row-start: var(--sbb-mini-calendar-month-offset);
-    }
-  }
 }

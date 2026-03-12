@@ -205,13 +205,13 @@ const teaserTemplate = ({ shadow }: Args): TemplateResult => html`
   </sbb-carousel>
 `;
 
-export const Native: StoryObj = {
+export const NativeImage: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs },
 };
 
-export const NativeMobile: StoryObj = {
+export const NativeImageMobile: StoryObj = {
   render: Template,
   argTypes: { ...defaultArgTypes },
   args: { ...defaultArgs, imgType: imgType.options![1] },
