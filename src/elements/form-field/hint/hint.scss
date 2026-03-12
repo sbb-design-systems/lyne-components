@@ -1,3 +1,5 @@
+@use '../../core/styles' as sbb;
+
 :host {
   display: inline-block;
   color: var(--sbb-form-field-label-color);

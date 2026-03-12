@@ -2,14 +2,9 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements/element.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nRemainingCharacters } from '../../core/i18n.ts';
-import { SbbNegativeMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbFormFieldElement } from '../form-field/form-field.component.ts';
-
-import style from './form-field-text-counter.scss?lit&inline';
+import { SbbHintElement } from '../hint/hint.component.ts';
 
 /**
  * It displays the remaining characters count for input/textarea elements with maxlength in the `sbb-form-field`.
@@ -17,34 +12,29 @@ import style from './form-field-text-counter.scss?lit&inline';
  * If the input is disabled or readonly, the output is suppressed.
  * @slot - Use the unnamed slot to display a custom description text after the counter.
  */
-export class SbbFormFieldTextCounterElement extends SbbNegativeMixin(SbbElement) {
+export class SbbFormFieldTextCounterElement extends SbbHintElement {
   public static override readonly elementName: string = 'sbb-form-field-text-counter';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [SbbHintElement.styles];
 
   @state() private accessor _remainingChars: number = 0;
 
   private _language = new SbbLanguageController(this);
-  private _formField: SbbFormFieldElement | null = null;
-  private _abortController = new AbortController();
+  private _abortController: AbortController | null = null;
 
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    this.slot ||= 'hint';
-
-    this._abortController.abort();
+    this._abortController?.abort();
     this._abortController = new AbortController();
-    this._formField = this.closest('sbb-form-field');
 
-    if (this._formField) {
-      this.negative = this._formField.hasAttribute('negative');
-      this._formField.addEventListener('ɵinput', () => this._onInputUpdate(), {
+    if (this.formField) {
+      this.formField.addEventListener('ɵinput', () => this._onInputUpdate(), {
         signal: this._abortController.signal,
       });
-      this._formField.addEventListener('input', () => this._onInputUpdate(), {
+      this.formField.addEventListener('input', () => this._onInputUpdate(), {
         signal: this._abortController.signal,
       });
-      this._formField.addEventListener('ɵinputattributechange', () => this._onInputUpdate(), {
+      this.formField.addEventListener('ɵinputattributechange', () => this._onInputUpdate(), {
         signal: this._abortController.signal,
       });
 
@@ -54,11 +44,11 @@ export class SbbFormFieldTextCounterElement extends SbbNegativeMixin(SbbElement)
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._abortController.abort();
+    this._abortController?.abort();
   }
 
   private _onInputUpdate(): void {
-    const inputElement = this._formField?.inputElement as
+    const inputElement = this.formField?.inputElement as
       | {
           maxLength?: number;
           value?: string;
