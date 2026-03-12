@@ -144,6 +144,9 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   /** It is used internally to get the `error` slot. */
   @state() private accessor _errorElements: Element[] = [];
 
+  /** It is used internally to get the `hint` slot. */
+  @state() private accessor _hintElements: Element[] = [];
+
   /** Reference to the slotted input element. */
   @state() private accessor _input: HTMLInputElement | HTMLSelectElement | HTMLElement | null =
     null;
@@ -226,7 +229,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
     this.addEventListener('formfieldcontrol', (e: SbbFormFieldControlEvent) => {
       this._control = e.control;
       if (this._connectInputElement() === 'unchanged') {
-        this._assignErrorMessageElements();
+        this._assignAriaDescribedByElements();
         this._readInputState();
         this._checkAndUpdateInputEmpty();
       }
@@ -343,7 +346,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
 
     this._input = newInput;
     this._registerInputFormListener();
-    this._assignErrorMessageElements();
+    this._assignAriaDescribedByElements();
     this._readInputState();
     this._checkAndUpdateInputEmpty();
 
@@ -527,6 +530,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
       this._input.ariaDescribedByElements = removeAriaElements(
         this._input.ariaDescribedByElements,
         ...(this._errorElements ?? []),
+        // Also remove hint elements since their visibility depends on error state
+        ...(this._hintElements ?? []),
       );
     }
 
@@ -537,16 +542,38 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
       el.role ||= 'status';
     }
 
-    this._assignErrorMessageElements();
+    this._assignAriaDescribedByElements();
     this.toggleState('has-error', !!this._errorElements.length);
     this._syncNegative();
   }
 
-  private _assignErrorMessageElements(): void {
+  /**
+   * It is used internally to set the aria-describedby attribute for the slotted input referencing available <sbb-hint> instances.
+   */
+  private _onSlotHintChange(event: Event): void {
+    const hintElements = (event.target as HTMLSlotElement)
+      .assignedElements()
+      .filter((el) => el.localName !== 'sbb-form-field-text-counter');
+    if (this._input && this._input.ariaDescribedByElements?.length) {
+      this._input.ariaDescribedByElements = removeAriaElements(
+        this._input.ariaDescribedByElements,
+        ...(this._hintElements ?? []),
+      );
+    }
+
+    this._hintElements = hintElements;
+    this._assignAriaDescribedByElements();
+    this._syncNegative();
+  }
+
+  private _assignAriaDescribedByElements(): void {
     if (this._input) {
+      // Hint elements are only linked when there are no errors
+      const hintElements = this._errorElements.length ? [] : this._hintElements;
       this._input.ariaDescribedByElements = appendAriaElements(
         this._input.ariaDescribedByElements,
         ...this._errorElements,
+        ...hintElements,
       );
     }
   }
@@ -607,7 +634,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
         </div>
 
         <div class="sbb-form-field__error">
-          <slot name="hint" @slotchange=${this._syncNegative}></slot>
+          <slot name="hint" @slotchange=${this._onSlotHintChange}></slot>
           <slot name="error" @slotchange=${this._onSlotErrorChange}></slot>
         </div>
       </div>

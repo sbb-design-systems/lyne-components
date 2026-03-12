@@ -375,6 +375,6 @@ to the form element's `ariaErrorMessageElements` property (or `aria-errormessage
 
 #### Slots
 
-| Name | Description                                |
-| ---- | ------------------------------------------ |
-|      | Use this slot to display the hint message. |
+| Name | Description                                       |
+| ---- | ------------------------------------------------- |
+|      | Use the unnamed slot to display the hint message. |

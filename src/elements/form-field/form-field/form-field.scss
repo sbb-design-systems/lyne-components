@@ -271,7 +271,13 @@
 }
 
 ::slotted(sbb-form-field-text-counter) {
-  :host(:where(:state(disabled), :state(readonly))) & {
+  :host(:where(:state(disabled), :state(readonly), :state(has-error))) & {
+    display: none;
+  }
+}
+
+::slotted(sbb-hint) {
+  :host(:state(has-error)) & {
     display: none;
   }
 }
