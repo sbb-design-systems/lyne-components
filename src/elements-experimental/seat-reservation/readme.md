@@ -290,115 +290,54 @@ The component `<sbb-seat-reservation-area>` represents a grey or white backgroun
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbSeatReservationAreaElement`, `sbb-seat-reservation-area`
+
+#### Properties
 
 | Name         | Attribute    | Privacy | Type                                                                    | Default   | Description                |
 | ------------ | ------------ | ------- | ----------------------------------------------------------------------- | --------- | -------------------------- |
 | `background` | `background` | public  | `'light' \| 'dark'`                                                     | `'light'` | the background of the area |
 | `mounting`   | `mounting`   | public  | `'free' \| 'upper-border' \| 'lower-border' \| 'upper-to-lower-border'` | `'free'`  | Mounting Prop              |
 
-## Seat Reservation Graphic
+### class: `SbbSeatReservationElement`, `sbb-seat-reservation`
 
-The `seat-reservation-graphic` is a component used for integrating and displaying the available SVG graphics based on the OSDM code. Other properties such as dimension and rotation can be defined via style custom properties.
+#### Properties
 
-```html
-<seat-reservation-graphic></seat-reservation-graphic>
-```
+| Name                     | Attribute                  | Privacy | Type                | Default  | Description                                                                                                                          |
+| ------------------------ | -------------------------- | ------- | ------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `alignVertical`          | `align-vertical`           | public  | `boolean`           | `false`  | The seat reservation area is aligned vertically                                                                                      |
+| `baseGridSize`           | `base-grid-size`           | public  | `number`            | `16`     | The seat reservation area's base grid size                                                                                           |
+| `hasNavigation`          | `has-navigation`           | public  | `boolean`           | `true`   | The seat reservation navigation can be toggled by this property                                                                      |
+| `height`                 | `height`                   | public  | `number`            | `null!`  | The seat reservation area's width                                                                                                    |
+| `maxBicycleReservations` | `max-bicycle-reservations` | public  | `number`            | `-1`     | Maximal number of possible clickable bicycle places                                                                                  |
+| `maxSeatReservations`    | `max-seat-reservations`    | public  | `number`            | `-1`     | Maximal number of possible clickable seats                                                                                           |
+| `preselectCoachIndex`    | `preselect-coach-index`    | public  | `number`            | `-1`     |                                                                                                                                      |
+| `preventPlaceClick`      | `prevent-place-click`      | public  | `boolean`           | `false`  | Any click functionality is prevented                                                                                                 |
+| `seatReservations`       | `seat-reservations`        | public  | `SeatReservation[]` | `null!`  | The seat reservations array contains all coaches and places                                                                          |
+| `showTitleInfo`          | `show-title-info`          | public  | `boolean`           | `false`  | The seat reservation title information at place-controls, navigation-coaches and navigation-services can be toggled by this property |
+| `travelDirection`        | `travel-direction`         | public  | `TravelDirection`   | `'NONE'` | Displays an arrow showing what direction does train drive                                                                            |
 
-## Style Custom Properties
+#### Events
 
-| Name                                      | Type       | Default | Description      |
-| ----------------------------------------- | ---------- | ------- | ---------------- |
-| `--sbb-seat-reservation-graphic-width`    | `<number>` | 16      | Graphic width    |
-| `--sbb-seat-reservation-graphic-height`   | `<number>` | 16      | Graphic height   |
-| `--sbb-seat-reservation-graphic-rotation` | `<number>` | 0       | Graphic rotation |
+| Name             | Type                                         | Description                                                                         | Inherited From             |
+| ---------------- | -------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------- |
+| `selectedcoach`  | `CustomEvent<SeatReservationSelectedCoach>`  | Emits when a coach was selected and returns a CoachSelection                        | SeatReservationBaseElement |
+| `selectedplaces` | `CustomEvent<SeatReservationSelectedPlaces>` | Emits when a place was selected and returns a Place array with all selected places. | SeatReservationBaseElement |
 
-<!-- Auto Generated Below -->
+### class: `SbbSeatReservationGraphicElement`, `sbb-seat-reservation-graphic`
 
-## Properties
+#### Properties
 
 | Name      | Attribute | Privacy | Type      | Default | Description                                                                        |
 | --------- | --------- | ------- | --------- | ------- | ---------------------------------------------------------------------------------- |
 | `name`    | `name`    | public  | `string`  | `''`    | Name of the SVG graphic to be displayed.                                           |
 | `stretch` | `stretch` | public  | `boolean` | `false` | if true, scale the graphic content of the given element non-uniformly if necessary |
 
-## Seat Reservation Navigation Coach
+### class: `SbbSeatReservationNavigationCoachElement`, `sbb-seat-reservation-navigation-coach`
 
-The `<sbb-seat-reservation-navigation-coach>` is a component which represents one coach in
-a train or bus coach layout. Additionally service icons are also generated in this
-component if present in the incoming COACH_DATA.
-
-The purpose of this component is to be used in the main [sbb-reservation-navigation](/docs/experimental-sbb-seat-reservation-navigation--docs) component
-
-```html
-<sbb-seat-reservation-navigation-coach
-  index="0"
-  ?selected="true"
-  ?focused="false"
-  ?hovered="false"
-  ?nativeFocusActive="false"
-  .coachItemDetails="{
-    coachId: '80',
-    freePlacesByType: {
-      seats: 0,
-      bicycles: 0
-    },
-    isDriverArea: false,
-    travelClass: 'FIRST',
-    propertyIds: ['WIFI', 'POWER_OUTLET']
-  }"
-  ?vertical="false"
->
-</sbb-seat-reservation-navigation-coach>
-```
-
-## Events
-
-> @event selectcoach - Emits when a coach was selected and returns the coach index number.
-> @event focuscoach - Emits when a coach was focused
-
-## Data structure of SeatReservationNavigationCoach
-
-#### SeatReservation
-
-```typescript
-interface CoachItemDetails {
-  id: string;
-  travelClass: PlaceTravelClass;
-  propertyIds: string[];
-  freePlaces: CoachNumberOfFreePlaces;
-  isDriverArea: boolean;
-  driverAreaSide?: Record<string, boolean>;
-  driverAreaElements: {
-    driverArea: BaseElement | undefined;
-    driverAreaNoVerticalWall: BaseElement | undefined;
-  };
-}
-```
-
-#### Other
-
-```typescript
-type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
-interface CoachNumberOfFreePlaces {
-  seats: number;
-  bicycles: number;
-}
-```
-
-## Keyboard interaction
-
-| Keyboard         | Action                                                                      |
-| ---------------- | --------------------------------------------------------------------------- |
-| <kbd>Enter</kbd> | Selects the coach as the active/selected coach and emits selectCoach Event. |
-
-## Accessibility
-
-> Component was successfully tested with different High-Contrast Modes
-
-<!-- Auto Generated Below -->
-
-## Properties
+#### Properties
 
 | Name                | Attribute            | Privacy | Type               | Default                | Description                                                                             |
 | ------------------- | -------------------- | ------- | ------------------ | ---------------------- | --------------------------------------------------------------------------------------- |
@@ -412,29 +351,16 @@ interface CoachNumberOfFreePlaces {
 | `showTitleInfo`     | `showTitleInfo`      | public  | `boolean`          | `false`                | Disable the mouse over title information                                                |
 | `vertical`          | `vertical`           | public  | `boolean`          | `false`                | If the coach navigation should be displayed vertically                                  |
 
-## Events
+#### Events
 
 | Name          | Type                                   | Description                                                                                    | Inherited From |
 | ------------- | -------------------------------------- | ---------------------------------------------------------------------------------------------- | -------------- |
 | `focuscoach`  | `Event`                                | Emits when a nav coach has the focus                                                           |                |
 | `selectcoach` | `CustomEvent<SelectCoachEventDetails>` | Emits when a coach within the navigation was selected and returns the clicked coach nav index. |                |
 
-## Seat Reservation Navigation Services
+### class: `SbbSeatReservationNavigationServicesElement`, `sbb-seat-reservation-navigation-services`
 
-The `<sbb-seat-reservation-navigation-services>` is a component which displays the available service icons of a coach
-
-The purpose of this component is to be used in the main
-[sbb-reservation-navigation-coach](/docs/experimental-sbb-seat-reservation-navigation-coach--docs) component
-and should not be used on its own even if it's possible.
-
-```html
-<sbb-seat-reservation-navigation-services .propertyIds="PROPERTY_IDS">
-</sbb-seat-reservation-navigation-services>
-```
-
-<!-- Auto Generated Below -->
-
-## Properties
+#### Properties
 
 | Name            | Attribute       | Privacy | Type       | Default | Description                                                                          |
 | --------------- | --------------- | ------- | ---------- | ------- | ------------------------------------------------------------------------------------ |
@@ -442,27 +368,9 @@ and should not be used on its own even if it's possible.
 | `showTitleInfo` | `showTitleInfo` | public  | `boolean`  | `false` | Disable the mouse over title information                                             |
 | `vertical`      | `vertical`      | public  | `boolean`  | `false` | If true, the service icons are displayed vertically                                  |
 
-## Seat Reservation Place Control
+### class: `SbbSeatReservationPlaceControlElement`, `sbb-seat-reservation-place-control`
 
-The `seat-reservation-place-control` is a component that renders a control element for a seat or a bicycle space. Type, status and place test can be defined through properties. Other properties such as dimension and rotation can be defined via style custom properties. The graphic is integrated via [sbb-seat-reservation-graphic](/docs/experimental-sbb-seat-reservation-sbb-seat-reservation-graphic--docs). An event `selectplace` is emitted on click.
-
-```html
-<seat-reservation-place-control></seat-reservation-place-control>
-```
-
-## Style Custom Properties
-
-| Name                                                    | Type       | Default | Description                 |
-| ------------------------------------------------------- | ---------- | ------- | --------------------------- |
-| `--sbb-seat-reservation-place-control-width`            | `<number>` | 16      | Place control width         |
-| `--sbb-seat-reservation-place-control-height`           | `<number>` | 16      | Place control height        |
-| `--sbb-seat-reservation-place-control-rotation`         | `<number>` | 0       | Place control rotation      |
-| `--sbb-seat-reservation-place-control-text-rotation`    | `<number>` | 0       | Place control text rotation |
-| `--sbb-seat-reservation-place-control-text-scale-value` | `<number>` | 1       | Place control text scaling  |
-
-<!-- Auto Generated Below -->
-
-## Properties
+#### Properties
 
 | Name              | Attribute          | Privacy | Type              | Default     | Description                                                           |
 | ----------------- | ------------------ | ------- | ----------------- | ----------- | --------------------------------------------------------------------- |
@@ -477,8 +385,10 @@ The `seat-reservation-place-control` is a component that renders a control eleme
 | `text`            | `text`             | public  | `string`          | `''`        | label of the place, e.g. '1A', '2B'                                   |
 | `travelDirection` | `travel-direction` | public  | `TravelDirection` | `'NONE'`    | direction of a whole train, used to compute an orientation of a place |
 
-## Events
+#### Events
 
 | Name          | Type                          | Description                                                                                                                | Inherited From |
 | ------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | `selectplace` | `CustomEvent<PlaceSelection>` | Emits when a place was selected via user interaction and returns a PlaceSelection object with necessary place information. |                |
+
+### class: `SbbSeatReservationScopedElement`, `sbb-seat-reservation-scoped`
