@@ -134,9 +134,6 @@ $theme: 'standard' !default;
 @use '../../message/message.global' as message with (
   $theme: $theme
 );
-@use '../../mini-calendar/mini-calendar/mini-calendar.global' as mini-calendar with (
-  $theme: $theme
-);
 @use '../../mini-calendar/mini-calendar-day/mini-calendar-day.global' as mini-calendar-day with (
   $theme: $theme
 );
@@ -356,7 +353,6 @@ $theme: 'standard' !default;
 @include icon-sidebar.rules;
 @include lead-container.rules;
 @include message.rules;
-@include mini-calendar.rules;
 @include option.rules;
 @include tab-nav-bar.rules;
 

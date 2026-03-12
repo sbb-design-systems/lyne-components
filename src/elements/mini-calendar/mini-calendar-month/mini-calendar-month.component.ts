@@ -4,9 +4,11 @@ import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { readConfig } from '../../core/config/config.ts';
+import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { type DateAdapter } from '../../core/datetime/date-adapter.ts';
 import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
 import { forceType } from '../../core/decorators.ts';
+import type { SbbOrientation } from '../../core/interfaces.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './mini-calendar-month.scss?lit&inline';
@@ -29,6 +31,24 @@ export class SbbMiniCalendarMonthElement<T = Date> extends SbbElement {
   private _monthNames = this._dateAdapter.getMonthNames('short');
   private _monthLabel: string | null = null;
   private _yearLabel: string | null = null;
+  private _previousOrientation: SbbOrientation | null = null;
+
+  public constructor() {
+    super();
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-mini-calendar'), {
+        orientation: (parent) => {
+          if (this._previousOrientation) {
+            this.internals.states.delete(`orientation-${this._previousOrientation}`);
+          }
+          this._previousOrientation = parent.orientation;
+          if (this._previousOrientation) {
+            this.internals.states.add(`orientation-${this._previousOrientation}`);
+          }
+        },
+      }),
+    );
+  }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
