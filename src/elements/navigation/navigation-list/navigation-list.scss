@@ -10,16 +10,17 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--sbb-spacing-fixed-2x);
-  margin-block: var(--sbb-spacing-fixed-1x);
+  gap: var(--sbb-navigation-list-gap);
+  margin-block: var(--sbb-navigation-list-margin-block);
 }
 
 .sbb-navigation-list__label {
-  @include sbb.text-xxs--bold;
-
   display: block;
   color: var(--sbb-color-5);
-  padding-block-end: var(--sbb-spacing-fixed-2x);
+  padding-block-end: var(--sbb-navigation-list-padding-block-end);
+  font-weight: bold;
+  font-size: var(--sbb-text-font-size-xxs);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 
   :host(:not(:state(slotted-label), [label])) & {
     display: none;

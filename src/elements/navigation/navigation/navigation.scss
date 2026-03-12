@@ -9,29 +9,10 @@
 }
 
 :host {
-  --sbb-navigation-grid-column: 1 / -1;
   --sbb-navigation-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-3x)
   );
-  --sbb-navigation-animation-easing: ease-in;
-  --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive);
-  --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-l);
-  --sbb-navigation-padding-block-end: var(--sbb-spacing-responsive-xl);
-  --sbb-navigation-backdrop-visibility: hidden;
-  --sbb-navigation-backdrop-pointer-events: none;
-  --sbb-navigation-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 70%, transparent);
-  --sbb-navigation-backdrop-animation-name: backdrop-open;
-  --sbb-navigation-background-color: var(--sbb-background-color-1-negative);
-  --sbb-navigation-color: var(--sbb-color-1-negative);
-  --sbb-navigation-list-margin-block-start: var(--sbb-spacing-responsive-xxl);
-  --sbb-navigation-inline-start: 0;
-  --sbb-navigation-expanded-width: 100%;
-  --sbb-navigation-inset: 0 auto auto 0;
-  --sbb-navigation-translate: -100% 0;
-  --sbb-navigation-content-translate: 0;
-  --sbb-navigation-width: 100%;
-  --sbb-navigation-height: 100dvh;
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
   display: none;
@@ -41,21 +22,11 @@
   overflow: hidden;
 
   @include sbb.mq($from: large) {
-    --sbb-navigation-grid-column: 1 / 5;
     --sbb-navigation-animation-duration: var(
       --sbb-disable-animation-duration,
       var(--sbb-animation-duration-6x)
     );
-    --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xl);
-    --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive) 0;
-    --sbb-navigation-list-margin-block-start: var(--sbb-spacing-fixed-1x);
-    --sbb-navigation-inline-start: calc(var(--sbb-layout-base-offset-responsive) * -1);
     --sbb-navigation-width: calc(100% + var(--sbb-layout-base-offset-responsive));
-  }
-
-  @include sbb.mq($from: ultra) {
-    --sbb-navigation-grid-column: 1 / 6;
-    --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xxl);
   }
 }
 
@@ -74,7 +45,7 @@
 
 :host(:not(:state(state-closed))) {
   --sbb-navigation-inset: 0;
-  --sbb-navigation-translate: ;
+  --sbb-navigation-translate: none;
 }
 
 :host(:state(state-closing)) {
@@ -115,8 +86,8 @@
       }
 
       content: '';
-      visibility: var(--sbb-navigation-backdrop-visibility);
-      pointer-events: var(--sbb-navigation-backdrop-pointer-events);
+      visibility: var(--sbb-navigation-backdrop-visibility, hidden);
+      pointer-events: var(--sbb-navigation-backdrop-pointer-events, none);
       position: fixed;
       inset: var(--sbb-navigation-inset);
       background-color: var(--sbb-navigation-backdrop-color);
@@ -133,7 +104,7 @@
   padding: 0;
   margin: 0;
   position: relative;
-  inset-inline-start: var(--sbb-navigation-inline-start);
+  inset-inline-start: var(--sbb-navigation-inline-start, 0);
   inset-block-start: 0;
   border: none;
   pointer-events: none;
@@ -148,7 +119,7 @@
     position: absolute;
     width: var(--sbb-navigation-expanded-width);
     height: var(--sbb-navigation-height);
-    background: var(--sbb-navigation-background-color);
+    background-color: var(--sbb-navigation-background-color);
   }
 
   :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
@@ -198,7 +169,7 @@
 
   display: flex;
   flex-direction: column;
-  gap: var(--sbb-spacing-responsive-xxl);
+  gap: var(--sbb-navigation-content-gap);
   position: relative;
   height: var(--sbb-navigation-height);
   padding-inline: var(--sbb-navigation-padding-inline);

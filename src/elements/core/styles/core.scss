@@ -137,6 +137,21 @@ $theme: 'standard' !default;
 @use '../../message/message.global' as message with (
   $theme: $theme
 );
+@use '../../navigation/navigation/navigation.global' as navigation with (
+  $theme: $theme
+);
+@use '../../navigation/common/navigation-action.global' as navigation-action with (
+  $theme: $theme
+);
+@use '../../navigation/navigation-list/navigation-list.global' as navigation-list with (
+  $theme: $theme
+);
+@use '../../navigation/navigation-marker/navigation-marker.global' as navigation-marker with (
+  $theme: $theme
+);
+@use '../../navigation/navigation-section/navigation-section.global' as navigation-section with (
+  $theme: $theme
+);
 @use '../../option/option/option.global' as option with (
   $theme: $theme
 );
@@ -219,6 +234,11 @@ $theme: 'standard' !default;
   @include block-link.base;
   @include logo.base;
   @include message.base;
+  @include navigation.base;
+  @include navigation-action.base;
+  @include navigation-list.base;
+  @include navigation-marker.base;
+  @include navigation-section.base;
   @include option.base;
   @include option-hint.base;
   @include optgroup.base;
@@ -315,6 +335,8 @@ $theme: 'standard' !default;
     @include flip-card.base-breakpoint-large;
     @include form-field.base-breakpoint-large;
     @include header.base-breakpoint-large;
+    @include navigation.base-breakpoint-large;
+    @include navigation-section.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage
@@ -332,6 +354,8 @@ $theme: 'standard' !default;
     @include sbb-css-tokens.breakpoint-ultra;
 
     @include lead-container.base-breakpoint-ultra;
+    @include navigation.base-breakpoint-ultra;
+    @include navigation-section.base-breakpoint-ultra;
   }
 }
 
