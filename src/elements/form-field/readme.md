@@ -116,16 +116,30 @@ which can clear the input value.
 
 **Note:** it currently works with simple inputs and does not support, for example, `select` inputs.
 
+### Hint
+
+The `<sbb-hint>` component can be used to display a hint message below the form field.
+When an `<sbb-error>` is present, the hint is automatically hidden and no longer linked to the input.
+
+```html
+<sbb-form-field>
+  <label>Description</label>
+  <input placeholder="Enter text" />
+  <sbb-hint>This is a hint.</sbb-hint>
+</sbb-form-field>
+```
+
 ### Text Counter
 
-The `sbb-form-field-text-counter` is a component that displays the remaining characters count
+The `sbb-form-field-text-counter` is a specific `<sbb-hint>` that displays the remaining characters count
 for input or textarea elements with a `maxlength` attribute within an `sbb-form-field`.
 
-If the input/textarea is `disabled` or `readonly`, the `sbb-form-field-text-counter` is hidden.
+If the input/textarea is `disabled`, `readonly` or there is an `<sbb-error>` present,
+the `sbb-form-field-text-counter` is hidden.
 
 Place the component inside an `sbb-form-field` that contains an `input` or `textarea` (or a custom element)
 with a `maxlength` attribute. The component will automatically detect the input element
-via the form field's `inputElement` property and display the remaining character count.
+display the remaining character count.
 
 ```html
 <sbb-form-field>
@@ -266,6 +280,11 @@ If you like to visually hide a label, but still present it with screen readers, 
 
 When you provide informational text via `<sbb-error>`, it automatically adds these elements' IDs
 to the form element's `ariaErrorMessageElements` property (or `aria-errormessage` attribute as fallback).
+
+When you provide a hint via `<sbb-hint>`, it automatically links the hint element to the form element
+via `ariaDescribedByElements`. When an `<sbb-error>` is present, the hint is unlinked and hidden,
+as the error takes precedence. The `<sbb-form-field-text-counter>` is intentionally not linked
+via `ariaDescribedByElements` as its content is purely visual.
 
 <!-- Auto Generated Below -->
 
