@@ -177,14 +177,6 @@ const TemplateTextareaWithTextCounter = (args: Args): TemplateResult =>
       <sbb-form-field-text-counter></sbb-form-field-text-counter>`,
   );
 
-const TemplateTextareaWithTextCounterAndError = (args: Args): TemplateResult =>
-  formField(
-    args,
-    html`${TemplateBasicTextarea(args)}
-      <sbb-error>This field has an error</sbb-error>
-      <sbb-form-field-text-counter></sbb-form-field-text-counter>`,
-  );
-
 const TemplateSelect = (args: Args): TemplateResult => formField(args, TemplateBasicSelect(args));
 
 const TemplateSelectWithErrorSpace = (args: Args): TemplateResult => {
@@ -616,12 +608,6 @@ export const TextareaWithHint: StoryObj = {
   render: TemplateTextareaWithHint,
   argTypes: { ...basicArgTypes, hintText },
   args: { ...basicArgs, hintText: 'This is a hint.' },
-};
-
-export const TextareaWithTextCounterAndError: StoryObj = {
-  render: TemplateTextareaWithTextCounterAndError,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, maxlength: 200 },
 };
 
 export const ErrorReservedSpace: StoryObj = {
