@@ -5,19 +5,21 @@ import { EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing
 import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover.component.js';
 import { html } from 'lit/static-html.js';
 
-import {
-  type CoachNumberOfFreePlaces,
-  mapRawDataToSeatReservation,
-  type Place,
-  type PlaceSelection,
-  type SeatReservation,
-} from '../common.ts';
+import { mapRawDataToSeatReservation } from '../common/mapper/mapper.ts';
+import type {
+  CoachNumberOfFreePlaces,
+  Place,
+  PlaceSelection,
+  SeatReservation,
+} from '../common/types.ts';
 import type { SbbSeatReservationAreaElement } from '../seat-reservation-area/seat-reservation-area.component.ts';
 import type { SbbSeatReservationNavigationCoachElement } from '../seat-reservation-navigation-coach/seat-reservation-navigation-coach.component.ts';
 import { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.ts';
 import { SbbSeatReservationElement } from './seat-reservation.component.ts';
+
+import '../../seat-reservation.ts';
 
 class SeatReservationSpec extends SeatReservationBaseElement {
   public override currSelectedPlaceElementId: string | null = '';
