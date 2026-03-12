@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-datepicker renders DOM"] = 
+snapshots["sbb-datepicker renders DOM"] =
 `<sbb-form-field
   error-space="none"
   size="m"
@@ -42,7 +42,7 @@ snapshots["sbb-datepicker renders DOM"] =
 `;
 /* end snapshot sbb-datepicker renders DOM */
 
-snapshots["sbb-datepicker renders Shadow DOM"] = 
+snapshots["sbb-datepicker renders Shadow DOM"] =
 `<div class="sbb-form-field__space-wrapper">
   <div
     class="sbb-form-field__wrapper"
@@ -73,14 +73,14 @@ snapshots["sbb-datepicker renders Shadow DOM"] =
   <div class="sbb-form-field__error">
     <slot name="error">
     </slot>
-    <slot name="text-counter">
+    <slot name="hint">
     </slot>
   </div>
 </div>
 `;
 /* end snapshot sbb-datepicker renders Shadow DOM */
 
-snapshots["sbb-datepicker renders A11y tree Chrome"] = 
+snapshots["sbb-datepicker renders A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",

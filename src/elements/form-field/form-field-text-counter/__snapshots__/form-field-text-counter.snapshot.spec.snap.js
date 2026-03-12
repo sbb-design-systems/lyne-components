@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-form-field-text-counter renders DOM"] = 
+snapshots["sbb-form-field-text-counter renders DOM"] =
 `<sbb-form-field
   error-space="none"
   size="m"
@@ -19,13 +19,13 @@ snapshots["sbb-form-field-text-counter renders DOM"] =
     rows="3"
   >
   </textarea>
-  <sbb-form-field-text-counter slot="text-counter">
+  <sbb-form-field-text-counter slot="hint">
   </sbb-form-field-text-counter>
 </sbb-form-field>
 `;
 /* end snapshot sbb-form-field-text-counter renders DOM */
 
-snapshots["sbb-form-field-text-counter renders Shadow DOM"] = 
+snapshots["sbb-form-field-text-counter renders Shadow DOM"] =
 `100
 <slot>
   characters remaining
@@ -33,7 +33,7 @@ snapshots["sbb-form-field-text-counter renders Shadow DOM"] =
 `;
 /* end snapshot sbb-form-field-text-counter renders Shadow DOM */
 
-snapshots["sbb-form-field-text-counter renders A11y tree Chrome"] = 
+snapshots["sbb-form-field-text-counter renders A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",

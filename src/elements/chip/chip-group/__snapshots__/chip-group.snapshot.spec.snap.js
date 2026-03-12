@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-chip-group renders DOM"] = 
+snapshots["sbb-chip-group renders DOM"] =
 `<sbb-chip-group>
   <sbb-chip
     tabindex="-1"
@@ -12,13 +12,13 @@ snapshots["sbb-chip-group renders DOM"] =
 `;
 /* end snapshot sbb-chip-group renders DOM */
 
-snapshots["sbb-chip-group renders Shadow DOM"] = 
+snapshots["sbb-chip-group renders Shadow DOM"] =
 `<slot>
 </slot>
 `;
 /* end snapshot sbb-chip-group renders Shadow DOM */
 
-snapshots["sbb-chip-group renders with form-field DOM"] = 
+snapshots["sbb-chip-group renders with form-field DOM"] =
 `<sbb-form-field
   error-space="none"
   size="m"
@@ -50,7 +50,7 @@ snapshots["sbb-chip-group renders with form-field DOM"] =
 `;
 /* end snapshot sbb-chip-group renders with form-field DOM */
 
-snapshots["sbb-chip-group renders with form-field Shadow DOM"] = 
+snapshots["sbb-chip-group renders with form-field Shadow DOM"] =
 `<div class="sbb-form-field__space-wrapper">
   <div
     class="sbb-form-field__wrapper"
@@ -81,14 +81,14 @@ snapshots["sbb-chip-group renders with form-field Shadow DOM"] =
   <div class="sbb-form-field__error">
     <slot name="error">
     </slot>
-    <slot name="text-counter">
+    <slot name="hint">
     </slot>
   </div>
 </div>
 `;
 /* end snapshot sbb-chip-group renders with form-field Shadow DOM */
 
-snapshots["sbb-chip-group renders with form-field A11y tree Chrome"] = 
+snapshots["sbb-chip-group renders with form-field A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",
