@@ -42,11 +42,28 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
   @property({ attribute: 'accessibility-current' })
   public accessor accessibilityCurrent: string = '';
 
+  @property({ attribute: 'aria-label' })
+  public override set ariaLabel(value: string | null) {
+    super.ariaLabel = value;
+  }
+  public override get ariaLabel(): string | null {
+    return super.ariaLabel;
+  }
+
+  @property({ attribute: 'aria-current' })
+  public override set ariaCurrent(value: string | null) {
+    super.ariaCurrent = value;
+  }
+  public override get ariaCurrent(): string | null {
+    return super.ariaCurrent;
+  }
+
   protected language = new SbbLanguageController(this);
   protected readonly anchorRole: string | null = null;
 
   public constructor() {
     super();
+    this.internals.role = 'presentation';
     this.internals.states.add('link');
     if (!isServer) {
       this.setupBaseEventHandlers();
@@ -87,8 +104,8 @@ export abstract class SbbLinkBaseElement extends SbbActionBaseElement {
         target=${this.target || nothing}
         rel=${this._evaluateRelAttribute()}
         role=${this.anchorRole || nothing}
-        aria-label=${this.accessibilityLabel || nothing}
-        aria-current=${this.accessibilityCurrent || nothing}
+        aria-label=${this.ariaLabel || this.accessibilityLabel || nothing}
+        aria-current=${this.ariaCurrent || this.accessibilityCurrent || nothing}
         tabindex=${this.maybeDisabled && !this.maybeDisabledInteractive ? '-1' : nothing}
         aria-disabled=${this.maybeDisabled ? 'true' : nothing}
         aria-describedby=${opensInNewWindow ? 'sbb-link-new-window' : nothing}
