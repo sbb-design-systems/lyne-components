@@ -152,6 +152,13 @@ $theme: 'standard' !default;
 @use '../../navigation/navigation-section/navigation-section.global' as navigation-section with (
   $theme: $theme
 );
+@use '../../mini-calendar/mini-calendar-day/mini-calendar-day.global' as mini-calendar-day with (
+  $theme: $theme
+);
+@use '../../mini-calendar/mini-calendar-month/mini-calendar-month.global' as mini-calendar-month
+  with (
+  $theme: $theme
+);
 @use '../../option/option/option.global' as option with (
   $theme: $theme
 );
@@ -239,6 +246,8 @@ $theme: 'standard' !default;
   @include navigation-list.base;
   @include navigation-marker.base;
   @include navigation-section.base;
+  @include mini-calendar-day.base;
+  @include mini-calendar-month.base;
   @include option.base;
   @include option-hint.base;
   @include optgroup.base;
@@ -674,30 +683,4 @@ sbb-notification:has(sbb-title) {
   --sbb-option-text-overflow: ellipsis;
   --sbb-option-overflow: hidden;
   --sbb-option-white-space: nowrap;
-}
-
-sbb-mini-calendar[orientation='horizontal'] {
-  sbb-mini-calendar-month {
-    --sbb-mini-calendar-grid-auto-flow: row;
-    --sbb-mini-calendar-month-height: #{functions.px-to-rem-build(48)};
-    --sbb-mini-calendar-month-grid-template-rows: none;
-    --sbb-mini-calendar-month-grid-template-columns: repeat(7, 1fr);
-
-    sbb-mini-calendar-day:first-child {
-      grid-column-start: var(--sbb-mini-calendar-month-offset);
-    }
-  }
-}
-
-sbb-mini-calendar[orientation='vertical'] {
-  sbb-mini-calendar-month {
-    --sbb-mini-calendar-grid-auto-flow: column;
-    --sbb-mini-calendar-month-height: auto;
-    --sbb-mini-calendar-month-grid-template-rows: repeat(7, 1fr);
-    --sbb-mini-calendar-month-grid-template-columns: none;
-
-    sbb-mini-calendar-day:first-child {
-      grid-row-start: var(--sbb-mini-calendar-month-offset);
-    }
-  }
 }
