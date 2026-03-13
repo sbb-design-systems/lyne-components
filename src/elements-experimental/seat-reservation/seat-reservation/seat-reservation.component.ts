@@ -46,6 +46,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _language = new SbbLanguageController(this);
   private _coachesHtmlTemplate?: TemplateResult;
+  private _iconSize = 1;
 
   // Area icons that should not be fixed during rotation when vertical mode is selected
   private _notFixedRotatableAreaIcons = ['ENTRY_EXIT'];
@@ -273,6 +274,8 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
   ): TemplateResult {
     const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
     const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem);
+
+    this.iconSize = coachItem.serviceElements.at(0)?.dimension.w | 0;
 
     return html`<sbb-seat-reservation-scoped
       style=${styleMap({
@@ -552,6 +555,11 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
       true,
     );
 
+    const rawElement: BaseElement = graphicalElement;
+    rawElement.dimension.h = this._iconSize;
+    rawElement.dimension.w = this._iconSize;
+    const calculatedIconDimension = this.getCalculatedDimension(rawElement.dimension);
+
     //generate unique index number for the trigger element
     const triggerId = `popover-trigger-${coachDeckIndex}-${coachIndex}-${calculatedPosition.x}-${calculatedPosition.y}`;
     let elementMounting = 'free';
@@ -591,14 +599,13 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
           ? html`
               <sbb-seat-reservation-graphic
                 style=${styleMap({
-                  '--sbb-seat-reservation-graphic-max-width': calculatedDimension.w,
-                  '--sbb-seat-reservation-graphic-height': this.baseGridSize,
+                  '--sbb-seat-reservation-graphic-width': calculatedIconDimension.w,
+                  '--sbb-seat-reservation-graphic-height': calculatedIconDimension.h,
                   '--sbb-seat-reservation-graphic-rotation': rotation,
                 })}
                 name=${areaProperty}
                 role="img"
                 aria-hidden="true"
-                class="auto-width"
               ></sbb-seat-reservation-graphic>
             `
           : nothing}
