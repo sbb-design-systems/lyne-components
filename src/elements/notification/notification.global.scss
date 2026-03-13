@@ -1,0 +1,63 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-notification-base-border-radius: var(--sbb-border-radius-4x);
+  --sbb-notification-border-width: var(--sbb-border-width-1x);
+  --sbb-notification-color: var(--sbb-color-2-negative-inverted);
+  --sbb-notification-margin: 0;
+  --sbb-notification-timing-function: ease-in;
+  --sbb-notification-font-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-text-font-size-s),
+        'lean': var(--sbb-text-font-size-xs),
+      ),
+      $theme
+    )};
+  --sbb-notification-padding-block: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-responsive-xxs),
+        'lean': var(--sbb-spacing-responsive-xxxs),
+      ),
+      $theme
+    )};
+  --sbb-notification-padding-inline: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-responsive-xs),
+        'lean': var(--sbb-spacing-responsive-xxs) var(--sbb-spacing-responsive-xxxs),
+      ),
+      $theme
+    )};
+  --sbb-notification-content-margin-block-start: var(--sbb-spacing-fixed-2x);
+  --sbb-notification-content-padding-inline: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-responsive-xxxs) var(--sbb-spacing-responsive-xs),
+        'lean': var(--sbb-spacing-responsive-xxxs) var(--sbb-spacing-responsive-xxs),
+      ),
+      $theme
+    )};
+  --sbb-notification-close-wrapper-gap: var(--sbb-spacing-responsive-xxs);
+}
+
+@mixin base-breakpoint-small {
+  --sbb-notification-padding-inline: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-responsive-xs),
+        'lean': var(--sbb-spacing-responsive-xxs),
+      ),
+      $theme
+    )};
+}
+
+@mixin rules {
+  sbb-notification:has(sbb-title) {
+    --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-5);
+    --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-heading);
+
+    &[size='s'] {
+      --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-6);
+      --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-text);
+    }
+  }
+}
