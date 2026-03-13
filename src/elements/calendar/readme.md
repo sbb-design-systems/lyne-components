@@ -121,7 +121,7 @@ const dateFilterFn: (d: Day) => boolean = d.getDay() !== 6 && d.getDay() !== 0;
 ```
 
 ```html
-<sbb-calendar date-filter="${dateFilterFn}"></sbb-calendar>
+<sbb-calendar .dateFilter="${dateFilterFn}"></sbb-calendar>
 ```
 
 ### Multiple mode
