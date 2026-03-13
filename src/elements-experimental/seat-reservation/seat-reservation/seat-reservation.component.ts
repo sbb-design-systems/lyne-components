@@ -344,7 +344,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     }
 
     const currentCoachOverlappingInfo = this.overHangingElementInformation.find(
-      el => el.coachId === coachItem.id,
+      (el) => el.coachId === coachItem.id,
     );
 
     // check if there are overhanging places or graphical elements to adjust the border width and offset + gap
