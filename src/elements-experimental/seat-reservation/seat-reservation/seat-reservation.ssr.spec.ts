@@ -7,7 +7,9 @@ import type { SeatReservation } from '../common/types.ts';
 
 import { SbbSeatReservationElement } from './seat-reservation.component.ts';
 
-const data: SeatReservation[] = [mapRawDataToSeatReservation('TRAIN')];
+import '../../seat-reservation.ts';
+
+const data: SeatReservation[] = [mapRawDataToSeatReservation('BUS')];
 
 describe(`sbb-seat-reservation ssr`, () => {
   let root: SbbSeatReservationElement;
@@ -15,9 +17,8 @@ describe(`sbb-seat-reservation ssr`, () => {
   beforeEach(async () => {
     root = await ssrHydratedFixture(
       html`<sbb-seat-reservation .seatReservations=${data}></sbb-seat-reservation>`,
-
       {
-        modules: ['./seat-reservation.component.js'],
+        modules: ['../../seat-reservation.ts'],
       },
     );
   });
