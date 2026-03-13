@@ -28,16 +28,14 @@ export class SbbLoadingIndicatorElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <span class="sbb-loading-indicator">
-        <span class="sbb-loading-indicator__animated-element">
+      <span class="sbb-loading-indicator__animated-element">
+        <span>
           <span>
-            <span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
           </span>
         </span>
       </span>
