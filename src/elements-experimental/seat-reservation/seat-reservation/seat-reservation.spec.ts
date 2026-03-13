@@ -26,10 +26,6 @@ class SeatReservationSpec extends SeatReservationBaseElement {
   public override currSelectedCoachIndex: number = -1;
   public override seatReservationWithoutNavigationHasFocus: boolean = false;
 
-  public constructor() {
-    super();
-  }
-
   public override onFocusTableCoachAndPreselectPlace(focusCoachIndex: number): void {
     super.onFocusTableCoachAndPreselectPlace(focusCoachIndex);
   }
