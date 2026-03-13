@@ -10,7 +10,7 @@
 }
 
 :host([size='l']) {
-  --sbb-navigation-marker-font-size: var(--sbb-navigation-marker-font-size-l);
+  --sbb-navigation-marker-font-size: var(--sbb-heading-font-size-4);
   --sbb-navigation-marker-letter-spacing: var(--sbb-typo-letter-spacing-heading);
   --sbb-navigation-marker-line-height: var(
     --sbb-title-line-height,

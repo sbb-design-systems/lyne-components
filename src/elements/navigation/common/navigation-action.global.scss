@@ -5,16 +5,9 @@ $theme: 'standard' !default;
 @mixin base {
   --sbb-navigation-action-color: var(--sbb-color-4-negative);
   --sbb-navigation-action-icon-display: none;
-  --sbb-navigation-action-font-size-l: #{sbb.theme-pattern-select(
-      (
-        'standard': var(--sbb-heading-font-size-4),
-        'lean': var(--sbb-heading-font-size-5),
-      ),
-      $theme
-    )};
   --sbb-navigation-action-font-size: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-heading-font-size-4),
+        'standard': var(--sbb-text-font-size-xl),
         'lean': var(--sbb-text-font-size-xxs),
       ),
       $theme

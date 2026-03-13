@@ -1,10 +1,10 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-navigation-action-inset-inline-start: calc(
+  --_sbb-navigation-action-inset-inline-start: calc(
     (var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-1x)) * -1
   );
-  --sbb-navigation-action-inset-block-start: calc(1em * (var(--sbb-typo-line-height-text) / 2));
+  --_sbb-navigation-action-inset-block-start: calc(1em * (var(--sbb-typo-line-height-text) / 2));
   --sbb-navigation-action-transition-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-3x)
@@ -32,8 +32,8 @@
 sbb-icon {
   display: var(--sbb-navigation-action-icon-display);
   position: absolute;
-  inset-inline-start: var(--sbb-navigation-action-inset-inline-start);
-  inset-block-start: var(--sbb-navigation-action-inset-block-start);
+  inset-inline-start: var(--_sbb-navigation-action-inset-inline-start);
+  inset-block-start: var(--_sbb-navigation-action-inset-block-start);
   translate: 0 -50%;
 }
 
@@ -50,7 +50,7 @@ sbb-icon {
 }
 
 :host([size='l']) {
-  --sbb-navigation-action-font-size: var(--sbb-navigation-action-font-size-l);
+  --sbb-navigation-action-font-size: var(--sbb-heading-font-size-4);
   --sbb-navigation-action-letter-spacing: var(--sbb-typo-letter-spacing-heading);
   --sbb-navigation-action-line-height: var(
     --sbb-title-line-height,

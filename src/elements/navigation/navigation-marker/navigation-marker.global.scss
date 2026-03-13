@@ -11,13 +11,6 @@ $theme: 'standard' !default;
   --sbb-navigation-marker-padding-inline-start: var(--sbb-spacing-fixed-6x);
   --sbb-navigation-marker-typo-line-height: var(--sbb-typo-line-height-heading);
   --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-3x);
-  --sbb-navigation-marker-font-size-l: #{sbb.theme-pattern-select(
-      (
-        'standard': var(--sbb-text-font-size-xl),
-        'lean': var(--sbb-text-font-size-l),
-      ),
-      $theme
-    )};
   --sbb-navigation-marker-font-size: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-text-font-size-xl),

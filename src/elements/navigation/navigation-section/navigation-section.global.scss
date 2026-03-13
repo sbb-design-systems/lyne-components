@@ -13,13 +13,7 @@ $theme: 'standard' !default;
   --sbb-navigation-section-content-padding-inline-start: var(--sbb-spacing-fixed-12x);
   --sbb-navigation-section-width: 100dvw;
   --sbb-navigation-section-height: 100dvh;
-  --sbb-navigation-section-font-size: #{sbb.theme-pattern-select(
-      (
-        'standard': var(--sbb-heading-font-size-4),
-        'lean': var(--sbb-heading-font-size-5),
-      ),
-      $theme
-    )};
+  --sbb-navigation-section-font-size: var(--sbb-heading-font-size-4);
 }
 
 @mixin base-breakpoint-large {
@@ -30,13 +24,7 @@ $theme: 'standard' !default;
   --sbb-navigation-section-position: relative;
   --sbb-navigation-section-translate: 0;
   --sbb-navigation-section-content-padding-inline-start: 0;
-  --sbb-navigation-section-font-size: #{sbb.theme-pattern-select(
-      (
-        'standard': var(--sbb-heading-font-size-2),
-        'lean': var(--sbb-heading-font-size-3),
-      ),
-      $theme
-    )};
+  --sbb-navigation-section-font-size: var(--sbb-heading-font-size-2);
 }
 
 @mixin base-breakpoint-ultra {
