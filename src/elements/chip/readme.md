@@ -124,7 +124,7 @@ By default, the `<sbb-chip-group>` creates a new chip on `Enter` key press.
 Consumers can customize the array of [keys](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values#special_values) that will trigger the chip creation by using the `separatorKeys` property.
 
 ```html
-<sbb-chip-group name="field-name" separator-keys='["Enter", "Space"]'> ... </sbb-chip-group>
+<sbb-chip-group name="field-name" separator-keys="['Enter', 'Space']"> ... </sbb-chip-group>
 ```
 
 ### Add on blur
