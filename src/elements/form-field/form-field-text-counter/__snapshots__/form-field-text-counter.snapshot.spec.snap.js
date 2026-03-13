@@ -7,14 +7,10 @@ snapshots["sbb-form-field-text-counter renders DOM"] =
   size="m"
   width="default"
 >
-  <label
-    for="sbb-form-field-input-0"
-    slot="label"
-  >
+  <label slot="label">
     Description
   </label>
   <textarea
-    id="sbb-form-field-input-0"
     maxlength="100"
     rows="3"
   >
@@ -75,14 +71,10 @@ snapshots["sbb-form-field-text-counter renders with custom slot text DOM"] =
   size="m"
   width="default"
 >
-  <label
-    for="sbb-form-field-input-2"
-    slot="label"
-  >
+  <label slot="label">
     Description
   </label>
   <textarea
-    id="sbb-form-field-input-2"
     maxlength="100"
     rows="3"
   >

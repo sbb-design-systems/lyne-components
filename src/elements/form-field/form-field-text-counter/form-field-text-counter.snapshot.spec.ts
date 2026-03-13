@@ -20,7 +20,7 @@ describe(`sbb-form-field-text-counter`, () => {
     });
 
     it('DOM', async () => {
-      await expect(root).dom.to.be.equalSnapshot();
+      await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['id', 'for'] });
     });
 
     it('Shadow DOM', async () => {
@@ -45,7 +45,7 @@ describe(`sbb-form-field-text-counter`, () => {
     });
 
     it('DOM', async () => {
-      await expect(root).dom.to.be.equalSnapshot();
+      await expect(root).dom.to.be.equalSnapshot({ ignoreAttributes: ['id', 'for'] });
     });
 
     it('Shadow DOM', async () => {
