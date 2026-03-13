@@ -141,6 +141,9 @@ $theme: 'standard' !default;
 @use '../../logo/logo.global' as logo with (
   $theme: $theme
 );
+@use '../../map-container/map-container.global' as map-container with (
+  $theme: $theme
+);
 @use '../../message/message.global' as message with (
   $theme: $theme
 );
@@ -234,6 +237,7 @@ $theme: 'standard' !default;
   @include loading-indicator.base;
   @include loading-indicator-circle.base;
   @include logo.base;
+  @include map-container.base;
   @include message.base;
   @include mini-calendar-day.base;
   @include mini-calendar-month.base;
@@ -351,6 +355,7 @@ $theme: 'standard' !default;
     @include sbb-css-tokens.breakpoint-ultra;
 
     @include lead-container.base-breakpoint-ultra;
+    @include map-container.base-breakpoint-ultra;
   }
 }
 
