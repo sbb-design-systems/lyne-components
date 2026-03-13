@@ -210,8 +210,7 @@ $disabled: '.sbb-reservation-place-control--disabled';
     line-height: initial;
 
     #{$root}--state-free &,
-    #{$root}--state-allocated &,
-    #{$root}--state-restricted#{$root}--type-bicycle & {
+    #{$root}--state-allocated & {
       display: block;
     }
 
