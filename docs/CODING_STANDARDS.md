@@ -136,7 +136,7 @@ The `SbbLanguageController` does automatically update the view if needed.
 ```ts
 import { SbbLanguageController } from '../core/controllers.js';
 
-export class Component extends LitElement {
+export class Component extends SbbElement {
   private _language = new SbbLanguageController(this);
 
   protected override render(): TemplateResult {
