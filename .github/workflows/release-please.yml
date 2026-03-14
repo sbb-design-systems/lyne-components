@@ -39,7 +39,7 @@ jobs:
 
       - name: Get token
         id: get_token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ secrets.MAINTENANCE_APP_ID }}
           private-key: ${{ secrets.MAINTENANCE_APP_PEM }}
