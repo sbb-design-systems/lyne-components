@@ -108,9 +108,7 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(SbbElement) {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-checkbox-group">
-        <slot></slot>
-      </div>
+      <slot></slot>
       <slot name="error"></slot>
     `;
   }

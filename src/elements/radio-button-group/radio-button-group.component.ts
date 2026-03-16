@@ -186,14 +186,12 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(Sbb
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-radio-group">
-        <slot
-          @slotchange=${() => {
-            this._updateRadiosName();
-            this._updateRadioState();
-          }}
-        ></slot>
-      </div>
+      <slot
+        @slotchange=${() => {
+          this._updateRadiosName();
+          this._updateRadioState();
+        }}
+      ></slot>
       <slot name="error"></slot>
     `;
   }

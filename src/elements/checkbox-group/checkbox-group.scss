@@ -8,7 +8,11 @@
 $breakpoints: 'zero', 'small', 'large', 'ultra';
 
 :host {
-  display: block;
+  display: flex;
+  flex-flow: var(--sbb-checkbox-group-orientation) var(--sbb-checkbox-group-flex-wrap, wrap);
+  gap: var(--sbb-checkbox-group-gap);
+  align-items: flex-start;
+  width: var(--sbb-checkbox-group-width);
 }
 
 :host([orientation='vertical']) {
@@ -42,16 +46,8 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
   }
 }
 
-.sbb-checkbox-group {
-  display: flex;
-  flex-flow: var(--sbb-checkbox-group-orientation) var(--sbb-checkbox-group-flex-wrap, wrap);
-  gap: var(--sbb-checkbox-group-gap);
-  align-items: flex-start;
-  width: var(--sbb-checkbox-group-width);
-
-  :host(:state(slotted-error)) & {
-    margin-block-end: var(--sbb-spacing-fixed-1x);
-  }
+:host(:state(slotted-error)) {
+  flex-basis: 100%;
 }
 
 ::slotted(:is(sbb-checkbox, sbb-checkbox-panel)) {
