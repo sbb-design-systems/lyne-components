@@ -9,7 +9,7 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
 
 :host {
   display: flex;
-  flex-flow: var(--sbb-checkbox-group-orientation) var(--sbb-checkbox-group-flex-wrap, wrap);
+  flex-flow: var(--sbb-checkbox-group-orientation) wrap;
   gap: var(--sbb-checkbox-group-gap);
   align-items: flex-start;
   width: var(--sbb-checkbox-group-width);
@@ -24,7 +24,6 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
 :host(:state(has-panel)) {
   --sbb-checkbox-group-width: 100%;
   --sbb-checkbox-group-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
-  --sbb-checkbox-group-flex-wrap: nowrap;
 
   // Distribute available space to the panels
   --sbb-checkbox-group-checkbox-flex: auto;
