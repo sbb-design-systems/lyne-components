@@ -46,7 +46,7 @@ $breakpoints: 'zero', 'small', 'large', 'ultra';
   }
 }
 
-:host(:state(slotted-error)) {
+slot[name='error']::slotted(*) {
   flex-basis: 100%;
 }
 
