@@ -20,6 +20,13 @@ if (dryRun) {
 const packages = readdirSync(distDir, { withFileTypes: true, recursive: true })
   .filter((d) => d.name === 'package.json')
   .map((d) => join(d.parentPath, d.name));
+const publish = (packagePath: string, pkg: PackageJson, tag: string): void => {
+  console.log(`Publishing ${pkg.name} with version ${pkg.version} to npm with tag ${tag}`);
+  execSync(`npm publish --tag ${tag}${dryRun ? ' --dry-run' : ''}`, {
+    stdio: 'inherit',
+    cwd: dirname(packagePath),
+  });
+};
 for (const packagePath of packages) {
   const packageContent = readFileSync(packagePath, 'utf-8');
   const pkg = JSON.parse(packageContent) as PackageJson;
@@ -32,21 +39,14 @@ for (const packagePath of packages) {
   )) as PackageJson;
   const latestMajor = parseInt(latestInfo.version.split('.')[0]);
   const releaseMajor = parseInt(pkg.version.split('.')[0]);
-  const tag = pkg.version.includes('-')
-    ? 'next'
-    : latestMajor <= releaseMajor
-      ? 'latest'
-      : `v${releaseMajor}-lts`;
-  const publish = (): void => {
-    console.log(`Publishing ${pkg.name} with version ${pkg.version} to npm with tag ${tag}`);
-    execSync(`npm publish --tag ${tag}${dryRun ? ' --dry-run' : ''}`, {
-      stdio: 'inherit',
-      cwd: dirname(packagePath),
-    });
-  };
 
   if (releaseVersion) {
-    publish();
+    const tag = pkg.version.includes('-')
+      ? 'next'
+      : latestMajor <= releaseMajor
+        ? 'latest'
+        : `v${releaseMajor}-lts`;
+    publish(packagePath, pkg, tag);
   }
 
   pkg.name += '-dev';
@@ -57,7 +57,7 @@ for (const packagePath of packages) {
   ];
   try {
     writeFileSync(packagePath, JSON.stringify(pkg, null, 2), 'utf8');
-    publish();
+    publish(packagePath, pkg, `v${releaseMajor}-dev`);
   } finally {
     writeFileSync(packagePath, packageContent, 'utf8');
   }
