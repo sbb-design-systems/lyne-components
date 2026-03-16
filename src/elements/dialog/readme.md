@@ -16,7 +16,7 @@ be provided.
 ```
 
 The component supports slotting the `<sbb-dialog-title>`, `<sbb-dialog-close-button>`, `<sbb-dialog-content>`
-and an `<sbb-dialog-actions>` elements for structuring the content of a dialog..
+and an `<sbb-dialog-actions>` elements for structuring the content of a dialog.
 
 ```html
 <sbb-dialog>

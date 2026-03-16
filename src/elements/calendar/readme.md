@@ -120,8 +120,8 @@ The `dateFilter` is applied in all the views, so if some months or years are not
 const dateFilterFn: (d: Day) => boolean = d.getDay() !== 6 && d.getDay() !== 0;
 ```
 
-```tsx
-<sbb-calendar date-filter=${dateFilterFn}></sbb-calendar>
+```html
+<sbb-calendar .dateFilter="${dateFilterFn}"></sbb-calendar>
 ```
 
 ### Multiple mode

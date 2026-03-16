@@ -26,10 +26,6 @@
       "enabled": false
     },
     {
-      "matchPackageNames": ["jackspeak", "@web/dev-server-core"],
-      "enabled": false
-    },
-    {
       "groupName": "esta",
       "prPriority": 10,
       "automerge": false,

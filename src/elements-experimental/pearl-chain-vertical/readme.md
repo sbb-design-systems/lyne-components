@@ -16,7 +16,7 @@ Please refer to its documentation for more details.
 
 ```html
 <sbb-pearl-chain-vertical>
-  <sbb-pearl-chain-vertical-item pearlChainVerticalItemAttributes={pearlChainVerticalItemAttributes}>
+  <sbb-pearl-chain-vertical-item .pearlChainVerticalItemAttributes=${pearlChainVerticalItemAttributes}>
     <div slot="right">content</div>
     <div slot="left">content</div>
   <sbb-pearl-chain-vertical-item>

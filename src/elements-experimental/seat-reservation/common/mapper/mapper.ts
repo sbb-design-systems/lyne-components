@@ -11,12 +11,12 @@ import type {
   VehicleType,
 } from '../types.ts';
 
-import { MOCK_COACHES_RAW_BUS } from './sample-data/seat-reservation-sample-data-bus.ts';
+import { MOCK_COACHES_RAW_BUS } from './sample-data/seat-reservation-sample-data-bus.private.ts';
 import {
   MOCK_COACHE_RAW_DECK_LOWER,
   MOCK_COACHE_RAW_DECK_UPPPER,
-} from './sample-data/seat-reservation-sample-data-decks.ts';
-import { MOCK_COACHES_RAW_TRAIN } from './sample-data/seat-reservation-sample-data-train.ts';
+} from './sample-data/seat-reservation-sample-data-decks.private.ts';
+import { MOCK_COACHES_RAW_TRAIN } from './sample-data/seat-reservation-sample-data-train.private.ts';
 
 /**
  * Handle mock data based on vehicle type or coach deck level
