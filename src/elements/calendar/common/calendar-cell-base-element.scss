@@ -39,7 +39,7 @@
 
 .sbb-action-base {
   display: inline-flex;
-  justify-content: center;
+  justify-content: var(--sbb-calendar-cell-justify-content);
   align-items: center;
   position: relative;
   font-size: var(--sbb-calendar-cell-font-size);

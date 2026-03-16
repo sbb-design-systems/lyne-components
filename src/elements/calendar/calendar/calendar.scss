@@ -234,6 +234,7 @@
 
 sbb-calendar-day {
   :host(:not(:state(enhanced))) & {
+    --sbb-calendar-cell-justify-content: center;
     --sbb-calendar-day-height: #{sbb.px-to-rem-build(44)};
     --sbb-calendar-day-extra-display: none;
     --sbb-calendar-day-value-height: unset;
