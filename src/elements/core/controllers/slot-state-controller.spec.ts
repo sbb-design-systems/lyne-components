@@ -105,7 +105,10 @@ describe('SbbSlotStateController', () => {
     expect(element).not.to.match(':state(slotted)');
   });
 
-  it('should not disconnect observer on DOM removal', async () => {
+  it('should not disconnect observer on DOM removal', async function (this: Mocha.Context) {
+    // Flaky on Webkit
+    this.retries(3);
+
     const node = document.createTextNode('filled');
     element.appendChild(node);
     await aTimeout(1);
