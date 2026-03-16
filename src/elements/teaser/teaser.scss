@@ -101,6 +101,10 @@
   border-radius: var(--sbb-teaser-border-radius);
   transition: box-shadow var(--sbb-teaser-image-animation-duration) var(--sbb-animation-easing);
 
+  :host(:not(:state(slotted-image))) & {
+    display: none;
+  }
+
   @include sbb.hover-mq($hover: true) {
     :host(:hover) & {
       box-shadow: var(--sbb-box-shadow-level-9-hard);
