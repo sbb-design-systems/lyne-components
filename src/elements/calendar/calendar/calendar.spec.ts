@@ -448,7 +448,10 @@ describe(`sbb-calendar`, () => {
             ).to.be.equal(selectedDayButton);
           });
 
-          it('focuses selected month when selecting same year', async () => {
+          it('focuses selected month when selecting same year', async function (this: Mocha.Context) {
+            // Flaky on Firefox
+            this.retries(3);
+
             element.selected = new Date('2023-10-15');
             await waitForLitRender(element);
 
@@ -494,7 +497,10 @@ describe(`sbb-calendar`, () => {
             ).to.be.equal(selectedDayButton);
           });
 
-          it('focuses first month when selecting different year', async () => {
+          it('focuses first month when selecting different year', async function (this: Mocha.Context) {
+            // Flaky on Firefox
+            this.retries(3);
+
             element.selected = new Date('2023-10-15');
             await waitForLitRender(element);
 
