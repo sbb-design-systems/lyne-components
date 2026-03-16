@@ -42,30 +42,24 @@ snapshots["sbb-mini-calendar renders A11y tree Chrome"] =
               "role": "none",
               "children": [
                 {
+                  "role": "generic",
+                  "name": ""
+                },
+                {
                   "ignored": true,
                   "role": "none",
                   "children": [
                     {
-                      "role": "generic",
-                      "name": ""
-                    },
-                    {
-                      "ignored": true,
-                      "role": "none",
-                      "children": [
-                        {
-                          "role": "button",
-                          "name": "January 1, 2025",
-                          "invalid": false,
-                          "focusable": true
-                        }
-                      ]
-                    },
-                    {
-                      "role": "generic",
-                      "name": ""
+                      "role": "button",
+                      "name": "January 1, 2025",
+                      "invalid": false,
+                      "focusable": true
                     }
                   ]
+                },
+                {
+                  "role": "generic",
+                  "name": ""
                 }
               ]
             }

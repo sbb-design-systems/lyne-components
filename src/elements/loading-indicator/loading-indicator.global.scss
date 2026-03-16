@@ -1,0 +1,10 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-loading-indicator-color: var(--sbb-color-primary);
+  --sbb-loading-indicator-window-element-rotation: 55.24deg;
+  --sbb-loading-indicator-window-height: #{sbb.px-to-rem-build(18)};
+  --sbb-loading-indicator-window-element-width: #{sbb.px-to-rem-build(55)};
+}
