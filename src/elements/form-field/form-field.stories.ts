@@ -26,10 +26,12 @@ const formField = (
     'hidden-label': hiddenLabel,
     'floating-label': floatingLabel,
     slottedLabel,
+    hostClass,
   }: Args,
   template: TemplateResult,
 ): TemplateResult =>
   html`<sbb-form-field
+    class=${hostClass || nothing}
     error-space=${errorSpace}
     ?optional=${optional}
     size=${size}
@@ -552,6 +554,12 @@ export const ErrorReservedSpace: StoryObj = {
     label: 'This label name is so long that it needs ellipsis to fit.',
     value: 'This input value is so long that it needs ellipsis to fit.',
   },
+};
+
+export const VisuallyRequired: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, hostClass: 'sbb-visually-required', value: undefined },
 };
 
 // sbb-error

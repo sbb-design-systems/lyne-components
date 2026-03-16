@@ -1,6 +1,11 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
+import {
+  describeEach,
+  describeViewports,
+  visualDiffDefault,
+  visualDiffFocus,
+} from '../core/testing/private.ts';
 
 import '../form-field.ts';
 import '../option.ts';
@@ -309,6 +314,54 @@ describe('sbb-select', () => {
         }
       }
     }
+
+    describe('sbb-visually-required', () => {
+      const visuallyRequiredStates = {
+        negative: [false, true],
+        state: [
+          { disabled: false, readonly: false },
+          { disabled: true, readonly: false },
+          { disabled: false, readonly: true },
+        ],
+      };
+
+      for (const { darkMode, forcedColors } of [
+        { forcedColors: false, darkMode: false },
+        { forcedColors: true, darkMode: false },
+        { forcedColors: false, darkMode: true },
+      ]) {
+        describe(`forcedColors=${forcedColors} darkMode=${darkMode}`, () => {
+          describeEach(visuallyRequiredStates, ({ negative, state }) => {
+            it(
+              visualDiffDefault.name,
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(
+                  html`<sbb-form-field class="sbb-visually-required" ?negative=${negative}>
+                    <label>Select</label>
+                    <sbb-select
+                      placeholder="Select"
+                      ?disabled=${state.disabled}
+                      ?readonly=${state.readonly}
+                    >
+                      <sbb-option value="1">Option 1</sbb-option>
+                      <sbb-option value="2">Option 2</sbb-option>
+                      <sbb-option value="3">Option 3</sbb-option>
+                    </sbb-select>
+                  </sbb-form-field>`,
+                  {
+                    backgroundColor: negative
+                      ? 'var(--sbb-background-color-2-negative)'
+                      : undefined,
+                    forcedColors,
+                    darkMode,
+                  },
+                );
+              }),
+            );
+          });
+        });
+      }
+    });
 
     it(
       `with custom max height`,

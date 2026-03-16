@@ -210,4 +210,26 @@ $theme: 'standard' !default;
       }
     }
   }
+
+  :is(sbb-form-field, sbb-timetable-form-field):state(empty):not(
+      :state(readonly),
+      :state(disabled)
+    ) {
+    :root.sbb-visually-required
+      &:has(:where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input)[required]),
+    &.sbb-visually-required {
+      --sbb-form-field-background-color: light-dark(
+        color-mix(in srgb, var(--sbb-color-peach) 5%, var(--sbb-background-color-1)),
+        color-mix(in srgb, var(--sbb-color-peach) 10%, var(--sbb-background-color-1))
+      );
+
+      &[negative] {
+        --sbb-form-field-background-color: color-mix(
+          in srgb,
+          var(--sbb-color-peach) 10%,
+          var(--sbb-background-color-1-negative)
+        );
+      }
+    }
+  }
 }
