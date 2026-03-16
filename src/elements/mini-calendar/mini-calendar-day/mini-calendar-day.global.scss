@@ -1,0 +1,9 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-mini-calendar-day-animation-easing: var(--sbb-animation-easing);
+  --sbb-mini-calendar-day-dimensions: #{sbb.px-to-rem-build(6)};
+  --sbb-mini-calendar-day-scale: 1.333;
+}

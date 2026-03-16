@@ -58,6 +58,7 @@ export default [
     files: ['src/visual-regression-app/**/*.ts'],
     rules: {
       'lyne/custom-element-class-name-rule': 'off',
+      'lyne/no-custom-element-decorator-rule': 'off',
       'import-x/namespace': 'off',
     },
   },
@@ -71,6 +72,7 @@ export default [
     files: ['**/*.spec.ts'],
     rules: {
       '@typescript-eslint/no-unused-expressions': 'off',
+      'lyne/no-custom-element-decorator-rule': 'off',
     },
   },
   {

@@ -17,24 +17,6 @@ const getDecoratorName = (node: TSESTree.Decorator): string =>
 export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
     return {
-      ['ClassDeclaration > Decorator[expression.callee.name="customElement"]'](
-        node: TSESTree.Decorator,
-      ) {
-        const classDeclaration = node.parent as TSESTree.ClassDeclaration;
-        if (classDeclaration.decorators[0] !== node) {
-          context.report({
-            node,
-            messageId: 'classDecoratorOrder',
-            fix: (fixer) => [
-              fixer.remove(node),
-              fixer.insertTextBefore(
-                classDeclaration.decorators[0],
-                context.sourceCode.getText(node),
-              ),
-            ],
-          });
-        }
-      },
       // eslint-disable-next-line @typescript-eslint/naming-convention
       AccessorProperty(node) {
         if (!node.decorators.length) {
@@ -68,7 +50,6 @@ export default ESLintUtils.RuleCreator.withoutDocs({
   },
   meta: {
     messages: {
-      classDecoratorOrder: 'Class decorator customElement must be first',
       accessorDecoratorOrder: `Accessor decorator order must be ${[...accessorDecoratorOrder].join(' > ')}`,
     },
     fixable: 'code',

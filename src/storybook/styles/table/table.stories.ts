@@ -200,7 +200,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'styles/table',
+  title: 'styles/Table',
 };
 
 export default meta;

@@ -175,7 +175,7 @@ export class SbbHeaderElement extends SbbElement {
       }
     } else {
       // Check if header in its original position, scroll position < header height.
-      // Reset header behaviour when scroll hits top of the page, on scroll position = 0.
+      // Reset header behavior when scroll hits top of the page, on scroll position = 0.
       if (currentScroll === 0) {
         this._headerOnTop = true;
       }

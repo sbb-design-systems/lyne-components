@@ -9,10 +9,7 @@ import type { SbbFormFieldElement } from '../../form-field.ts';
 import type { SbbOptionElement } from '../../option.ts';
 import type { SbbChipElement } from '../chip/chip.component.ts';
 
-import {
-  SbbChipGroupElement,
-  type SbbChipInputTokenEndEventDetails,
-} from './chip-group.component.ts';
+import { SbbChipGroupElement, type SbbChipInputTokenEndEvent } from './chip-group.component.ts';
 
 import '../../chip.ts';
 import '../../autocomplete.ts';
@@ -73,14 +70,12 @@ describe('sbb-chip-group', () => {
     });
 
     it('should customize new chip value and label', async () => {
-      element.addEventListener(SbbChipGroupElement.events.chipinputtokenend, (ev: Event) => {
-        const detail = (ev as CustomEvent<SbbChipInputTokenEndEventDetails>).detail;
+      element.addEventListener(SbbChipGroupElement.events.chipinputtokenend, (event) => {
+        expect(event.origin).to.be.equal('input');
+        expect(event.value).to.be.equal('chip 4');
 
-        expect(detail.origin).to.be.equal('input');
-        expect(detail.value).to.be.equal('chip 4');
-
-        detail.setValue('chip 5');
-        detail.setLabel('chip Custom');
+        event.setValue('chip 5');
+        event.setLabel('chip Custom');
       });
 
       input.focus();
@@ -518,7 +513,7 @@ describe('sbb-chip-group', () => {
 
     it('should create chip when option is selected', async () => {
       const inputAutocompleteEventSpy = new EventSpy('inputAutocomplete', input);
-      const tokenEndEventSpy = new EventSpy<CustomEvent<SbbChipInputTokenEndEventDetails>>(
+      const tokenEndEventSpy = new EventSpy<SbbChipInputTokenEndEvent>(
         SbbChipGroupElement.events.chipinputtokenend,
         element,
       );
@@ -569,7 +564,7 @@ describe('sbb-chip-group', () => {
 
     it('should allow creating chips from input', async () => {
       const inputAutocompleteEventSpy = new EventSpy('inputAutocomplete', input);
-      const tokenEndEventSpy = new EventSpy<CustomEvent<SbbChipInputTokenEndEventDetails>>(
+      const tokenEndEventSpy = new EventSpy<SbbChipInputTokenEndEvent>(
         SbbChipGroupElement.events.chipinputtokenend,
         element,
       );
@@ -643,7 +638,7 @@ describe('sbb-chip-group', () => {
     });
 
     it('should create chip when option is selected', async () => {
-      const tokenEndEventSpy = new EventSpy<CustomEvent<SbbChipInputTokenEndEventDetails>>(
+      const tokenEndEventSpy = new EventSpy<SbbChipInputTokenEndEvent>(
         SbbChipGroupElement.events.chipinputtokenend,
         element,
       );
@@ -669,15 +664,16 @@ describe('sbb-chip-group', () => {
     it('should allow creating chips from input', async () => {
       element.addEventListener(
         SbbChipGroupElement.events.chipinputtokenend,
-        (e: CustomEvent<SbbChipInputTokenEndEventDetails<ComplexValue>>) => {
+        (e: SbbChipInputTokenEndEvent<ComplexValue>) => {
           // Transform input value into object
           const detail = e.detail;
           detail.setValue({ property: detail.value as string, otherProp: 'new' });
         },
       );
-      const tokenEndEventSpy = new EventSpy<
-        CustomEvent<SbbChipInputTokenEndEventDetails<ComplexValue>>
-      >(SbbChipGroupElement.events.chipinputtokenend, element);
+      const tokenEndEventSpy = new EventSpy<CustomEvent<SbbChipInputTokenEndEvent>>(
+        SbbChipGroupElement.events.chipinputtokenend,
+        element,
+      );
 
       input.focus();
 

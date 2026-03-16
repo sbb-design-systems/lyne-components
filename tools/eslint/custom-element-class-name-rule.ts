@@ -3,29 +3,27 @@ import { AST_NODE_TYPES, ESLintUtils, type TSESTree } from '@typescript-eslint/u
 export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
     return {
-      ['ClassDeclaration > Decorator[expression.callee.name="customElement"]'](
-        node: TSESTree.Decorator,
-      ) {
-        const isClassDeclaration = (node: TSESTree.Node): node is TSESTree.ClassDeclaration => {
-          return node.type === AST_NODE_TYPES.ClassDeclaration;
-        };
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      ClassDeclaration(node: TSESTree.ClassDeclaration) {
+        // Check if class has a static elementName property
+        const hasElementName = node.body.body.some(
+          (member) =>
+            member.type === AST_NODE_TYPES.PropertyDefinition &&
+            member.key.type === AST_NODE_TYPES.Identifier &&
+            member.key.name === 'elementName' &&
+            member.static,
+        );
 
-        const getClassName = (node: TSESTree.Node): string | undefined => {
-          if (isClassDeclaration(node)) {
-            return node.id?.name;
-          }
-          if (node.parent) {
-            return getClassName(node.parent);
-          }
-          return undefined;
-        };
+        // Only check classes that have elementName property
+        if (!hasElementName) {
+          return;
+        }
 
-        const classParent = node.parent as TSESTree.ClassDeclaration;
-        const className = getClassName(classParent);
+        const className = node.id?.name;
 
         if (!className || !className.startsWith('Sbb') || !className.endsWith('Element')) {
           context.report({
-            node: classParent.id ? classParent.id : classParent,
+            node: node.id ? node.id : node,
             messageId: 'customElementClassName',
           });
         }

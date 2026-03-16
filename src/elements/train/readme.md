@@ -4,8 +4,8 @@ It is divided into the following components:
 ```html
 <sbb-train-formation>
   <sbb-train>
-    <sbb-wagon></sbb-wagon>
-    <sbb-blocked-passage></sbb-blocked-passage>
+    <sbb-train-wagon></sbb-train-wagon>
+    <sbb-train-blocked-passage></sbb-train-blocked-passage>
   </sbb-train>
 </sbb-train-formation>
 ```

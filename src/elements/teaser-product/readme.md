@@ -35,7 +35,7 @@ like the `<sbb-title>` or an interactive element, like a button or a link (needs
 </sbb-teaser-product>
 ```
 
-If paragraphs, title and/or button are used, consumers can apply the helper class `<sbb-teaser-product--spacing>`
+If paragraphs, title and/or button are used, consumers can apply the helper class `sbb-teaser-product--spacing`
 to display the components with the correct spacings.
 
 ```html
