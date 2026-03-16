@@ -34,6 +34,8 @@ $open-anim-height-to: calc(
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
 
   display: block;
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  font-size: var(--sbb-notification-font-size);
 }
 
 // By default, the open animation is disabled
@@ -166,18 +168,16 @@ $open-anim-height-to: calc(
     var(--sbb-notification-border-radius-start);
   overflow: hidden;
   background-color: var(--sbb-notification-background-color);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
-  font-size: var(--sbb-notification-font-size);
 
   @include sbb.mq($from: small) {
-    grid-template-columns: auto 1fr auto;
-    align-items: flex-start;
+    grid-template-columns: auto 1fr auto auto;
   }
 }
 
 .sbb-notification__icon,
 ::slotted(sbb-icon) {
   color: var(--sbb-notification-icon-color);
+  align-self: flex-start;
 
   // This is an undocumented feature for sbb.ch, to have the ability to hide the icon.
   --sbb-icon-svg-width: var(--sbb-notification-icon-size);
@@ -221,13 +221,6 @@ $open-anim-height-to: calc(
   padding: 0;
 }
 
-.sbb-notification__close-wrapper {
-  display: flex;
-  align-items: center;
-  gap: var(--sbb-notification-close-wrapper-gap);
-  height: 100%;
-}
-
 .sbb-notification__divider {
   --sbb-divider-color: light-dark(
     color-mix(
@@ -248,6 +241,7 @@ $open-anim-height-to: calc(
 
   @include sbb.mq($from: small) {
     display: block;
+    margin-inline-end: var(--sbb-notification-close-wrapper-gap);
     height: calc(100% - (var(--sbb-spacing-fixed-1x) * 2));
   }
 }
