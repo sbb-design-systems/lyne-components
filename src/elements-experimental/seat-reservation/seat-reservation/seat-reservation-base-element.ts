@@ -1559,30 +1559,29 @@ export class SeatReservationBaseElement extends SbbElement {
 
   private _prepareCoachWidthAndGapCalculations(): void {
     if (this.seatReservations) {
-      const coachItems: CoachItem[] =
-        this.seatReservations[this.seatReservations.length - 1]?.coachItems;
+      this.seatReservations.forEach((seatReservation: SeatReservation) => {
+        seatReservation?.coachItems?.forEach((coachItem: CoachItem) => {
+          const hasOverhangingPlaces = this._isOverhangingElementsPresent(
+            coachItem.dimension.w,
+            coachItem.places,
+          );
 
-      coachItems?.forEach((coachItem: CoachItem) => {
-        const hasOverhangingPlaces = this._isOverhangingElementsPresent(
-          coachItem.dimension.w,
-          coachItem.places,
-        );
+          //Must  be done also for graphical elements, as they can also protrude the coach border
+          // Check only graphical elements that are not area elements
+          const filteredElements = coachItem.graphicElements?.filter(
+            (e) => e.icon && !this.notAreaElements.includes(e.icon),
+          );
 
-        //Must  be done also for graphical elements, as they can also protrude the coach border
-        // Check only graphical elements that are not area elements
-        const filteredElements = coachItem.graphicElements?.filter(
-          (e) => e.icon && !this.notAreaElements.includes(e.icon),
-        );
+          const hasOverhangingGraphicAreas = this._isOverhangingElementsPresent(
+            coachItem.dimension.w,
+            filteredElements,
+          );
 
-        const hasOverhangingGraphicAreas = this._isOverhangingElementsPresent(
-          coachItem.dimension.w,
-          filteredElements,
-        );
-
-        this.overHangingElementInformation.push({
-          coachId: coachItem.id,
-          overhangingPlaces: hasOverhangingPlaces,
-          overhangingGraphicAreas: hasOverhangingGraphicAreas,
+          this.overHangingElementInformation.push({
+            coachId: coachItem.id,
+            overhangingPlaces: hasOverhangingPlaces,
+            overhangingGraphicAreas: hasOverhangingGraphicAreas,
+          });
         });
       });
     }

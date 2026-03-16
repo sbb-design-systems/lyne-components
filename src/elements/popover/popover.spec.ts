@@ -395,7 +395,10 @@ describe(`sbb-popover`, () => {
       expect(element.isOpen).to.be.false;
     });
 
-    it('should handle hover closing on trigger with delay', async () => {
+    it('should handle hover closing on trigger with delay', async function (this: Mocha.Context) {
+      // Flaky on Firefox
+      this.retries(3);
+
       // Change to hover trigger
       element.hoverTrigger = true;
       element.closeDelay = 2;

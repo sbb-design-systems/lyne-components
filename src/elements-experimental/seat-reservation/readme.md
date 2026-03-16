@@ -11,9 +11,7 @@ sbb-seat-reservation-area => For the representation of certain areas within a wa
 sbb-seat-reservation-graphics => Contains various graphics that are required to render a wagon
 
 ```html
-<sbb-seat-reservation
-  seatReservations="seatReservationArray<SeatReservation>[]"
-></sbb-seat-reservation>
+<sbb-seat-reservation .seatReservations="${seatReservationArray}"></sbb-seat-reservation>
 ```
 
 ## Data structure of SeatReservation
