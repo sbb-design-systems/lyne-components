@@ -1,5 +1,9 @@
 @use '../../core/styles' as sbb;
 
+:host {
+  --sbb-calendar-day-value-height: var(--sbb-spacing-fixed-6x);
+}
+
 .sbb-calendar-day {
   flex-direction: column;
   justify-content: var(--sbb-calendar-cell-justify-content);
