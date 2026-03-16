@@ -51,6 +51,16 @@ $open-anim-height-to: calc(
   @include sbb.disable-animation;
 }
 
+:host(:state(slotted-title)) {
+  --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-5);
+  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-heading);
+}
+
+:host(:state(slotted-title)[size='s']) {
+  --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-6);
+  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-text);
+}
+
 :host([size='m']) {
   --sbb-notification-font-size: var(--sbb-text-font-size-s);
   --sbb-notification-padding-block: var(--sbb-spacing-responsive-xxs);

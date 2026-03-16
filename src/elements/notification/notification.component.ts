@@ -212,8 +212,11 @@ export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(Sb
   private _configureTitle(): void {
     const title = this.querySelector?.<SbbTitleElement>('sbb-title');
     if (title) {
+      this.internals.states.add('slotted-title');
       customElements.upgrade(title);
       title.visualLevel = this.size === 'm' ? '5' : '6';
+    } else {
+      this.internals.states.delete('slotted-title');
     }
   }
 
