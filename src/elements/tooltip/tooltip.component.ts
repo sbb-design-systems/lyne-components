@@ -1,10 +1,10 @@
 import {
+  type CSSResultGroup,
   html,
   isServer,
-  type CSSResultGroup,
-  type TemplateResult,
   type PropertyDeclaration,
   type PropertyValues,
+  type TemplateResult,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -196,6 +196,11 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
   private static _handleTooltipTrigger(triggerElement: HTMLElement): void {
     const tooltipMessage = triggerElement.getAttribute('sbb-tooltip');
     let tooltip = tooltipTriggers.get(triggerElement);
+
+    // If a consumer overrides the `sbb-tooltip`, the following code should not be executed, as it relies on the fact that the tooltip is an instance of `SbbTooltipElement`.
+    if (!customElements.get('sbb-tooltip') || !(tooltip instanceof SbbTooltipElement)) {
+      return;
+    }
 
     if (tooltipMessage && triggerElement.isConnected) {
       if (!tooltip) {
