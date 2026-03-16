@@ -254,7 +254,7 @@ export class SbbImageElement extends SbbElement {
    * Performance monitoring tools like SpeedCurve or Lighthouse are
    * then able to grab these entries from the PerformanceEntry API
    * and give us additional information and insights about our page
-   * loading behaviour. We are then also able to monitor these
+   * loading behavior. We are then also able to monitor these
    * values over a long period to see if our performance
    * increases or decreases over time. Best to use lowercase strings
    * here, separate words with underscores or dashes.

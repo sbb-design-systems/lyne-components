@@ -3,8 +3,6 @@
 :host {
   @include sbb.block-link-variables;
 
-  --sbb-link-gap: var(--sbb-spacing-fixed-1x);
-
   display: block;
 }
 
@@ -20,26 +18,28 @@
   @include sbb.block-link-variables--active-negative;
 }
 
+:host([size='xs']) {
+  --sbb-block-link-font-size: var(--sbb-text-font-size-xs);
+}
+
+:host([size='s']) {
+  --sbb-block-link-font-size: var(--sbb-text-font-size-s);
+}
+
+:host([size='m']) {
+  --sbb-block-link-font-size: var(--sbb-text-font-size-m);
+}
+
 .sbb-action-base {
-  gap: var(--sbb-link-gap);
-
-  :host([size='xs']) & {
-    @include sbb.text-xs--regular;
-  }
-
-  :host([size='s']) & {
-    @include sbb.text-s--regular;
-  }
-
-  :host([size='m']) & {
-    @include sbb.text-m--regular;
-  }
+  gap: var(--sbb-block-link-gap);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  font-size: var(--sbb-block-link-font-size);
 }
 
 .sbb-link__icon {
   position: relative;
   height: calc(var(--sbb-typo-line-height-text) * 1em);
-  width: var(--sbb-size-icon-ui-small);
+  width: var(--sbb-block-link-icon-size);
   flex: 0 0 auto;
   align-self: start;
 

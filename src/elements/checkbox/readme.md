@@ -51,7 +51,7 @@ The component has three possible `size` values, named `xs`, `s` and `m` (default
 <sbb-checkbox value="size" size="s">Size</sbb-checkbox>
 ```
 
-The component's label can be displayed in bold using the `<sbb-text--bold>` class on a wrapper tag:
+The component's label can be displayed in bold using the `sbb-text--bold` class on a wrapper tag:
 
 ```html
 <sbb-checkbox value="bold">

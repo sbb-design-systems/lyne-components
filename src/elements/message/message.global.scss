@@ -1,0 +1,20 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-message-action-margin-block: var(--sbb-spacing-responsive-xxxs) 0;
+  --sbb-message-image-margin-block: 0 var(--sbb-spacing-responsive-s);
+  --sbb-message-image-border-radius: var(--sbb-border-radius-4x);
+  --sbb-message-subtitle-color: light-dark(var(--sbb-color-granite), var(--sbb-color-platinum));
+  --sbb-message-legend-margin-block: var(--sbb-spacing-responsive-xxxs) 0;
+}
+
+@mixin rules {
+  sbb-message {
+    > [slot='image']:is(sbb-image, img),
+    > [slot='image'] :is(sbb-image, img):not(.sbb-figure-overlap-image) {
+      border-radius: var(--sbb-message-image-border-radius);
+    }
+  }
+}

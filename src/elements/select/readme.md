@@ -1,5 +1,5 @@
 The `<sbb-select>` is a component which provides a list of selectable options in an overlay panel,
-emulating the behaviour of a native `<select>`.
+emulating the behavior of a native `<select>`.
 
 ## In `<sbb-form-field>`
 

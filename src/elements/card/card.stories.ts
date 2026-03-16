@@ -35,12 +35,16 @@ const Template = ({ spacing, color }: Args): TemplateResult => html`
   <sbb-card ${sbbSpread({ color })} class=${`sbb-card-spacing-${spacing}`}>${Content()}</sbb-card>
 `;
 
-const TemplateWithBadge = ({ spacing, color }: Args): TemplateResult => html`
+const TemplateWithBadge = ({ spacing, color, badgeColor }: Args): TemplateResult => html`
   <sbb-card ${sbbSpread({ color })} class=${`sbb-card-spacing-${spacing}`}>
-    <sbb-card-badge>
+    <sbb-card-badge
+      color=${badgeColor}
+      aria-label="Super saver sales ticket price starts at CHF 92.50 Black Friday Special"
+    >
       <span>%</span>
       <span>from CHF</span>
-      <span>19.99</span>
+      <span>92.50</span>
+      <span><time datetime="2021-11-25">Black Friday</time> Special </span>
     </sbb-card-badge>
     ${Content()}
   </sbb-card>
@@ -66,11 +70,15 @@ const TemplateCardActionWithBadge = ({
   spacing,
   color,
   label,
+  badgeColor,
   ...args
 }: Args): TemplateResult => html`
   <sbb-card ${sbbSpread({ color })} class=${`sbb-card-spacing-${spacing}`}>
     ${TemplateAction({ label, ...args })}
-    <sbb-card-badge>
+    <sbb-card-badge
+      color="${badgeColor}"
+      aria-label="Super saver sales ticket price starts at CHF 19.99"
+    >
       <span>%</span>
       <span>from CHF</span>
       <span>19.99</span>
@@ -198,6 +206,16 @@ const value: InputType = {
   },
 };
 
+const badgeColor: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['charcoal', 'white'],
+  table: {
+    category: 'Card Badge',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   spacing,
   color,
@@ -258,10 +276,11 @@ export const Default: StoryObj = {
 
 export const WithBadge: StoryObj = {
   render: TemplateWithBadge,
-  argTypes: defaultArgTypes,
+  argTypes: { ...defaultArgTypes, badgeColor },
   args: {
     ...defaultArgs,
     spacing: spacing.options![2],
+    badgeColor: 'charcoal',
   },
 };
 
@@ -279,61 +298,8 @@ export const Button: StoryObj = {
 
 export const Multiple: StoryObj = {
   render: TemplateCardActionMultipleCards,
-  argTypes: defaultArgTypesLink,
-  args: { ...defaultArgsLink },
-};
-
-// Badge
-
-const ariaLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const badgeColor: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['charcoal', 'white'],
-};
-
-const badgeArgTypes: ArgTypes = {
-  'aria-label': ariaLabel,
-  color: badgeColor,
-};
-
-const badgeArgs: Args = {
-  'aria-label': 'Super saver sales ticket price starts at CHF 92.50 Black Friday Special',
-  color: badgeColor.options![0],
-};
-
-const BadgeTemplate = (args: Args): TemplateResult => html`
-  <sbb-card color="milk">
-    <sbb-card-badge ${sbbSpread(args)}>
-      <span>%</span>
-      <span>from CHF</span>
-      <span>92.50</span>
-      <span> <time datetime="2021-11-25">Black Friday</time> Special </span>
-    </sbb-card-badge>
-  </sbb-card>
-`;
-
-export const Charcoal: StoryObj = {
-  render: BadgeTemplate,
-  argTypes: badgeArgTypes,
-  args: {
-    ...badgeArgs,
-  },
-};
-
-export const White: StoryObj = {
-  render: BadgeTemplate,
-  argTypes: badgeArgTypes,
-  args: {
-    ...badgeArgs,
-    color: badgeColor.options![1],
-  },
+  argTypes: { ...defaultArgTypesLink, badgeColor },
+  args: { ...defaultArgsLink, badgeColor: 'charcoal' },
 };
 
 const meta: Meta = {

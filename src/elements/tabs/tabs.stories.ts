@@ -239,48 +239,31 @@ const basicArgs: Args = {
   size: size.options![1],
 };
 
-export const defaultTabsSizeL: StoryObj = {
+export const Default: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
 };
 
-export const numbersAndIconsSizeL: StoryObj = {
-  render: IconsAndNumbersTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![1] },
-};
-
-export const defaultTabsSizeXL: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, size: size.options![2] },
-};
-
-export const numbersAndIconsSizeXL: StoryObj = {
+export const NumbersAndIconsSizeXL: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0], size: size.options![2] },
 };
-export const defaultTabsSizeS: StoryObj = {
+
+export const SizeS: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, size: size.options![0] },
 };
 
-export const numbersAndIconsSizeS: StoryObj = {
-  render: IconsAndNumbersTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0], size: size.options![0] },
-};
-
-export const nestedTabGroups: StoryObj = {
+export const NestedTabGroups: StoryObj = {
   render: NestedTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![1] },
 };
 
-export const tintedBackground: StoryObj = {
+export const TintedBackground: StoryObj = {
   render: IconsAndNumbersTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, amount: 16, 'icon-name': iconName.options![0] },
@@ -376,49 +359,25 @@ const labelArgs: Args = {
   disabled: false,
 };
 
-export const Default: StoryObj = {
+export const TabLabelDefault: StoryObj = {
   render: Template,
   argTypes: labelArgTypes,
   args: { ...labelArgs },
 };
 
-export const Active: StoryObj = {
+export const TabLabelActive: StoryObj = {
   render: Template,
   argTypes: labelArgTypes,
   args: { ...labelArgs, active: true },
 };
 
-export const Disabled: StoryObj = {
+export const TabLabelDisabled: StoryObj = {
   render: Template,
   argTypes: labelArgTypes,
   args: { ...labelArgs, disabled: true },
 };
 
-export const ActiveAndDisabled: StoryObj = {
-  render: Template,
-  argTypes: labelArgTypes,
-  args: { ...labelArgs, disabled: true, active: true },
-};
-
-export const WithoutIcon: StoryObj = {
-  render: Template,
-  argTypes: labelArgTypes,
-  args: { ...labelArgs, 'icon-name': undefined },
-};
-
-export const WithoutAmount: StoryObj = {
-  render: Template,
-  argTypes: labelArgTypes,
-  args: { ...labelArgs, amount: undefined },
-};
-
-export const WithoutIconAndWithoutAmount: StoryObj = {
-  render: Template,
-  argTypes: labelArgTypes,
-  args: { ...labelArgs, amount: undefined, 'icon-name': undefined },
-};
-
-export const SlottedIcon: StoryObj = {
+export const TabLabelSlottedIcon: StoryObj = {
   render: Template,
   argTypes: labelArgTypes,
   args: {
@@ -428,26 +387,10 @@ export const SlottedIcon: StoryObj = {
   },
 };
 
-export const SlottedAmount: StoryObj = {
+export const TabLabelSlottedAmount: StoryObj = {
   render: Template,
   argTypes: labelArgTypes,
   args: { ...labelArgs, amount: undefined, amountSlot: 123 },
-};
-
-export const SlottedAmountDisabled: StoryObj = {
-  render: Template,
-  argTypes: labelArgTypes,
-  args: { ...labelArgs, amount: undefined, amountSlot: 123, disabled: true },
-};
-
-export const WithEllipsis: StoryObj = {
-  render: Template,
-  argTypes: labelArgTypes,
-  args: {
-    ...labelArgs,
-    label: `A very long label which gets ellipsis when there is no more space to display it`,
-  },
-  decorators: [(story) => html`<div style="max-width: 400px;">${story()}</div>`],
 };
 
 // sbb-tab-nav-bar

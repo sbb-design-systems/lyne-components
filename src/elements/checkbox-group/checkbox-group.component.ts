@@ -36,7 +36,7 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(SbbElement) {
    */
   @property() public accessor size: SbbCheckboxSize = isLean() ? 'xs' : 'm';
 
-  /** Overrides the behaviour of `orientation` property. */
+  /** Overrides the behavior of `orientation` property. */
   @property({ attribute: 'horizontal-from', reflect: true })
   public accessor horizontalFrom: SbbHorizontalFrom | null = null;
 

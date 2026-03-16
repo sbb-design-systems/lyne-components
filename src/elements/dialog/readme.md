@@ -16,7 +16,7 @@ be provided.
 ```
 
 The component supports slotting the `<sbb-dialog-title>`, `<sbb-dialog-close-button>`, `<sbb-dialog-content>`
-and an `<sbb-dialog-actions>` elements for structuring the content of a dialog..
+and an `<sbb-dialog-actions>` elements for structuring the content of a dialog.
 
 ```html
 <sbb-dialog>
@@ -204,7 +204,7 @@ an alternative element by listening to the `didClose` event.
 | ---------------- | ----------------- | ------- | ------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'` | `'start'`           | Set the slotted `<sbb-action-group>` children's alignment.                                                              |
 | `buttonSize`     | `button-size`     | public  | `SbbButtonSize`                             | `'m' / 's' (lean)`  | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.         |
-| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                         | `'large'`           | Overrides the behaviour of `orientation` property.                                                                      |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                         | `'large'`           | Overrides the behavior of `orientation` property.                                                                       |
 | `linkSize`       | `link-size`       | public  | `SbbLinkSize`                               | `'s' / 'xs' (lean)` | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
 | `orientation`    | `orientation`     | public  | `SbbOrientation`                            | `'horizontal'`      | Indicates the orientation of the components inside the `<sbb-action-group>`.                                            |
 

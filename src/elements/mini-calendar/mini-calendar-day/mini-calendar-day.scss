@@ -1,17 +1,15 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-mini-calendar-day-scale: 1.333;
-  --sbb-mini-calendar-day-animation-easing: var(--sbb-animation-easing);
   --sbb-mini-calendar-day-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
 
   display: block;
-  height: sbb.px-to-rem-build(6);
-  width: sbb.px-to-rem-build(6);
-  margin: sbb.px-to-rem-build(1);
+  height: var(--sbb-mini-calendar-day-dimensions);
+  width: var(--sbb-mini-calendar-day-dimensions);
+  margin: #{sbb.px-to-rem-build(1)};
   border-radius: var(--sbb-border-radius-infinity);
   color: light-dark(var(--sbb-color-storm), var(--sbb-color-smoke));
   background-color: currentcolor;
@@ -28,7 +26,7 @@
 :host(:focus-visible) {
   @include sbb.focus-outline;
 
-  outline-offset: sbb.px-to-rem-build(2);
+  outline-offset: #{sbb.px-to-rem-build(2)};
 }
 
 :host([color='charcoal']) {
@@ -53,7 +51,7 @@
 
 :host([marker='circle']) {
   background-color: var(--sbb-color-1-inverted);
-  border: sbb.px-to-rem-build(1) solid currentcolor;
+  border: #{sbb.px-to-rem-build(1)} solid currentcolor;
 }
 
 :host([marker='target']) {

@@ -57,7 +57,7 @@ Consumers can customize or prevent this behavior by listening to the `chipinputt
 
 ```html
 <!-- Preventing the event will stop the chip-group from converting the input value into a chip -->
-<sbb-chip-group name="field-name" @chipinputtokenend="${(ev: Event) => ev.preventDefault()}">
+<sbb-chip-group name="field-name" @chipinputtokenend="${(event) => event.preventDefault()}">
   ...
   <input />
 </sbb-chip-group>
@@ -67,10 +67,13 @@ Consumers can customize or prevent this behavior by listening to the `chipinputt
 <!-- Use the event.detail object to override the default behavior -->
 <sbb-chip-group
   name="field-name"
-  @chipinputtokenend=${(ev: CustomEvent<SbbChipInputTokenEndEventDetails>) => {
-    ev.detail.setValue(transformedValue);
-    ev.detail.setLabel('Custom label');
-  }}>
+  @chipinputtokenend="${(event) =>
+    { 
+      event.setValue(transformedValue); 
+      event.setLabel('Custom label');
+    }
+  }"
+>
   ...
   <input />
 </sbb-chip-group>
@@ -121,7 +124,7 @@ By default, the `<sbb-chip-group>` creates a new chip on `Enter` key press.
 Consumers can customize the array of [keys](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values#special_values) that will trigger the chip creation by using the `separatorKeys` property.
 
 ```html
-<sbb-chip-group name="field-name" separator-keys='["Enter", "Space"]'> ... </sbb-chip-group>
+<sbb-chip-group name="field-name" separator-keys="['Enter', 'Space']"> ... </sbb-chip-group>
 ```
 
 ### Add on blur
@@ -229,11 +232,11 @@ The `<sbb-chip-group>` follows the `grid` aria pattern.
 
 #### Events
 
-| Name                | Type                                            | Description                                                                                                                                                                        | Inherited From |
-| ------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `change`            | `Event`                                         | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
-| `chipinputtokenend` | `CustomEvent<SbbChipInputTokenEndEventDetails>` | Notifies that a chip is about to be created. Can be prevented.                                                                                                                     |                |
-| `input`             | `InputEvent`                                    | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                |
+| Name                | Type                           | Description                                                                                                                                                                        | Inherited From |
+| ------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `change`            | `Event`                        | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
+| `chipinputtokenend` | `SbbChipInputTokenEndEvent<T>` | Notifies that a chip is about to be created. Can be prevented.                                                                                                                     |                |
+| `input`             | `InputEvent`                   | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                |
 
 #### Slots
 

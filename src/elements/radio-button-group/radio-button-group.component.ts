@@ -81,7 +81,7 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(Sbb
   @property() public accessor size: SbbRadioButtonSize = isLean() ? 'xs' : 'm';
 
   /**
-   * Overrides the behaviour of `orientation` property.
+   * Overrides the behavior of `orientation` property.
    */
   @property({ attribute: 'horizontal-from', reflect: true })
   public accessor horizontalFrom: SbbHorizontalFrom | null = null;
