@@ -197,11 +197,6 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
     const tooltipMessage = triggerElement.getAttribute('sbb-tooltip');
     let tooltip = tooltipTriggers.get(triggerElement);
 
-    // If a consumer overrides the `sbb-tooltip`, the following code should not be executed, as it relies on the fact that the tooltip is an instance of `SbbTooltipElement`.
-    if (!customElements.get('sbb-tooltip') || !(tooltip instanceof SbbTooltipElement)) {
-      return;
-    }
-
     if (tooltipMessage && triggerElement.isConnected) {
       if (!tooltip) {
         // Create a new sbb-tooltip in the outlet and attach it to the trigger
@@ -240,7 +235,9 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
     } else if (tooltip) {
       // The trigger or the attribute has been deleted => delete the connected tooltip
       tooltipTriggers.delete(triggerElement);
-      tooltip._destroy();
+      // If a consumer overrides the `sbb-tooltip`, the following code should not be
+      // executed as we can't expect that private methods are mocked.
+      tooltip._destroy?.();
     }
   }
 
