@@ -6,6 +6,7 @@ $theme: 'standard' !default;
   --sbb-notification-base-border-radius: var(--sbb-border-radius-4x);
   --sbb-notification-border-width: var(--sbb-border-width-1x);
   --sbb-notification-color: var(--sbb-color-2-negative-inverted);
+  --sbb-notification-icon-align-self: center;
   --sbb-notification-margin: 0;
   --sbb-notification-timing-function: ease-in;
   --sbb-notification-font-size: #{sbb.theme-pattern-select(
@@ -41,6 +42,7 @@ $theme: 'standard' !default;
 }
 
 @mixin base-breakpoint-small {
+  --sbb-notification-icon-align-self: flex-start;
   --sbb-notification-padding-inline: #{sbb.theme-pattern-select(
       (
         'standard': var(--sbb-spacing-responsive-xs),

@@ -187,7 +187,7 @@ $open-anim-height-to: calc(
 .sbb-notification__icon,
 ::slotted(sbb-icon) {
   color: var(--sbb-notification-icon-color);
-  align-self: flex-start;
+  align-self: var(--sbb-notification-icon-align-self);
 
   // This is an undocumented feature for sbb.ch, to have the ability to hide the icon.
   --sbb-icon-svg-width: var(--sbb-notification-icon-size);
