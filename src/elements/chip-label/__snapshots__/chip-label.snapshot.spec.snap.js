@@ -26,8 +26,14 @@ snapshots["sbb-chip-label renders A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "role": "generic",
-      "name": ""
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "StaticText",
+          "name": "Label"
+        }
+      ]
     }
   ]
 }
