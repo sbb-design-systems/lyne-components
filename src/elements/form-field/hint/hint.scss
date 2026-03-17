@@ -1,0 +1,12 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: inline-block;
+  color: var(--sbb-form-field-label-color);
+  font-size: var(--sbb-text-font-size-xxs);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+}
+
+:host([negative]) {
+  --sbb-form-field-label-color: var(--sbb-color-5);
+}

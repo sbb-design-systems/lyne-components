@@ -98,7 +98,7 @@ and dispatches the `input` and `change` events. The default `aria-label` value i
 | Name            | Attribute        | Privacy | Type                                                           | Default      | Description                                                                                                                                                           |
 | --------------- | ---------------- | ------- | -------------------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `borderless`    | `borderless`     | public  | `boolean`                                                      | `true`       | Whether to display the form field without a border.                                                                                                                   |
-| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                          | `'none'`     | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.                                |
+| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                          | `'none'`     | Whether to reserve space for an error message, hint or text-counter. `none` does not reserve any space. `reserve` does reserve one row for an error message.          |
 | `floatingLabel` | `floating-label` | public  | `boolean`                                                      | `true`       | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 |
 | `hiddenLabel`   | `hidden-label`   | public  | `boolean`                                                      | `false`      | Whether to visually hide the label. If hidden, screen readers will still read it.                                                                                     |
 | `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| null` |              | Returns the input element.                                                                                                                                            |
@@ -124,13 +124,14 @@ and dispatches the `input` and `change` events. The default `aria-label` value i
 
 #### Slots
 
-| Name     | Description                                                                |
-| -------- | -------------------------------------------------------------------------- |
-|          | Use this slot to render an input/select or a supported non-native element. |
-| `error`  | Use this slot to render an error.                                          |
-| `label`  | Use this slot to render a label.                                           |
-| `prefix` | Use this slot to render an icon on the left side of the input.             |
-| `suffix` | Use this slot to render an icon on the right side of the input.            |
+| Name     | Description                                                                     |
+| -------- | ------------------------------------------------------------------------------- |
+|          | Use this slot to render an input/select or a supported non-native element.      |
+| `error`  | Use this slot to render an error.                                               |
+| `hint`   | Use this slot to render an `<sbb-hint>` or the `<sbb-form-field-text-counter>`. |
+| `label`  | Use this slot to render a label.                                                |
+| `prefix` | Use this slot to render an icon on the left side of the input.                  |
+| `suffix` | Use this slot to render an icon on the right side of the input.                 |
 
 ### class: `SbbTimetableFormSwapButtonElement`, `sbb-timetable-form-swap-button`
 

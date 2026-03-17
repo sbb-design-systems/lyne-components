@@ -7,8 +7,6 @@ import { boxSizingStyles } from '../../core/styles.ts';
 
 import style from './error.scss?lit&inline';
 
-let nextId = 0;
-
 /**
  * It displays an error message in the `sbb-form-field`.
  *
@@ -21,7 +19,6 @@ export class SbbErrorElement extends SbbNegativeMixin(SbbElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.id ||= `sbb-error-${nextId++}`;
     const formField = this.closest?.('sbb-form-field');
     if (formField) {
       this.negative = formField.hasAttribute('negative');
