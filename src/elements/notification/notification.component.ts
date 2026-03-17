@@ -234,7 +234,7 @@ export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(Sb
           </span>
 
           ${!this.readOnly
-            ? html`<span class="sbb-notification__close-wrapper">
+            ? html`
                 <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
                 <sbb-secondary-button
                   size=${this.size}
@@ -243,7 +243,7 @@ export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(Sb
                   aria-label=${i18nCloseNotification[this._language.current]}
                   class="sbb-notification__close"
                 ></sbb-secondary-button>
-              </span>`
+              `
             : nothing}
         </div>
       </div>
