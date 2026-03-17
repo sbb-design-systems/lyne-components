@@ -135,6 +135,22 @@ describe(`sbb-teaser`, () => {
               }),
             );
           });
+
+          it(
+            `without image`,
+            visualDiffDefault.with(async (setup) => {
+              await setup.withFixture(
+                html`
+                  <sbb-teaser href="#" alignment=${alignment}>
+                    <sbb-chip-label>This is a chip.</sbb-chip-label>
+                    <sbb-title level="2">This is a title</sbb-title>
+                    This is a paragraph
+                  </sbb-teaser>
+                `,
+                { maxWidth: '760px' },
+              );
+            }),
+          );
         });
       }
 

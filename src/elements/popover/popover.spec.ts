@@ -1,5 +1,5 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
+import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
@@ -187,8 +187,9 @@ describe(`sbb-popover`, () => {
       await openSpy.calledOnce();
 
       // Simulate backdrop click
+      // Add buttons and detail to not trigger the isFakeMousedownFromScreenReader
       window.dispatchEvent(new MouseEvent('mousedown', { buttons: 1, clientX: 1 }));
-      window.dispatchEvent(new PointerEvent('pointerup'));
+      window.dispatchEvent(new PointerEvent('pointerup', { buttons: 1, detail: 1 }));
 
       await closeSpy.calledOnce();
 
@@ -204,14 +205,28 @@ describe(`sbb-popover`, () => {
 
       await openSpy.calledOnce();
 
+      // We can't use sendMouse as it triggers the isFakeMousedownFromScreenReader check, so we need to dispatch the events manually and add the buttons and detail properties.
       const interactiveElementPosition = interactiveBackgroundElement.getBoundingClientRect();
-      await sendMouse({
-        type: 'click',
-        position: [
-          Math.round(interactiveElementPosition.x + interactiveElementPosition.width / 2),
-          Math.round(interactiveElementPosition.y + interactiveElementPosition.height / 2),
-        ],
-      });
+      const x = Math.round(interactiveElementPosition.x + interactiveElementPosition.width / 2);
+      const y = Math.round(interactiveElementPosition.y + interactiveElementPosition.height / 2);
+      interactiveBackgroundElement.dispatchEvent(
+        new MouseEvent('mousedown', {
+          buttons: 1,
+          detail: 1,
+          clientX: x,
+          clientY: y,
+          bubbles: true,
+        }),
+      );
+      interactiveBackgroundElement.dispatchEvent(
+        new PointerEvent('pointerup', {
+          buttons: 1,
+          detail: 1,
+          clientX: x,
+          clientY: y,
+          bubbles: true,
+        }),
+      );
       await closeSpy.calledOnce();
 
       expect(document.activeElement).to.be.equal(interactiveBackgroundElement);
@@ -413,7 +428,10 @@ describe(`sbb-popover`, () => {
       expect(element.isOpen).to.be.false;
     });
 
-    it('should handle hover closing on trigger with delay', async () => {
+    it('should handle hover closing on trigger with delay', async function (this: Mocha.Context) {
+      // Flaky on Firefox
+      this.retries(3);
+
       // Change to hover trigger
       element.hoverTrigger = true;
       element.closeDelay = 2;

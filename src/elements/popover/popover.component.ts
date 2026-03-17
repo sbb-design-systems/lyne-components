@@ -270,6 +270,7 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
     if (
       !this._isPointerDownEventOnPopover &&
       !isEventOnElement(this.overlay!, event) &&
+      !isFakeMousedownFromScreenReader(event) &&
       (!this.trigger || !composedPath.includes(this.trigger))
     ) {
       this._nextFocusedElement = composedPath
