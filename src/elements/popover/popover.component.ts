@@ -316,7 +316,7 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
 
               // In Safari on iOS it can occur, that a blur event triggers on the popover
               // although the focus remains inside the popover.
-              // Therefore, we need to stop the closing if the relatedTarget is contained in the popover.
+              // Therefore, we need to stop the closing if the relatedTarget is contained in the popover or it is the trigger.
               if (this.contains(e.relatedTarget as Node) || e.relatedTarget === this.trigger) {
                 return;
               }
