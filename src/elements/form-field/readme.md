@@ -171,26 +171,26 @@ to the input element.
 If you want to directly show the error state without having had an interaction, you can use the
 `sbb-show-errors` class on an ancestor (e.g. `<form>`).
 
-### Visually Required
+### Visualization of `required` state
 
 Some applications need a stronger visual representation of the `required` state.
 
-In such cases it's possible to add the `sbb-visually-required` CSS class to the `<sbb-form-field>` element.
+In such cases it's possible to add the `sbb-form-field-required-highlight` CSS class to the `<sbb-form-field>` element.
 This changes the background color to a subtle peach tint, giving users a clear visual cue.
-It only has an effect as long as the input is empty, not `readonly` and not `disabled`.
+It only has an effect as long as the input is empty and neither `readonly` nor `disabled`.
 
 ```html
-<sbb-form-field class="sbb-visually-required">
+<sbb-form-field class="sbb-form-field-required-highlight">
   <label>Required Field</label>
   <input required />
 </sbb-form-field>
 ```
 
-It's also possible to opt in globally by setting the CSS class `sbb-visually-required` on the `<html>` element.
-The styling is then applied to all `<sbb-form-field>` elements that contain an input with `required` attribute.
+It's also possible to opt in globally by setting the CSS class `sbb-form-field-required-highlight` on the `<html>` element.
+The styling is then applied to all `<sbb-form-field>` elements that contain an input with a `required` attribute.
 
 ```html
-<html class="sbb-visually-required">
+<html class="sbb-form-field-required-highlight">
   ...
 </html>
 ```

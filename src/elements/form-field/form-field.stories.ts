@@ -559,7 +559,7 @@ export const ErrorReservedSpace: StoryObj = {
 export const VisuallyRequired: StoryObj = {
   render: TemplateInput,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, hostClass: 'sbb-visually-required', value: undefined },
+  args: { ...basicArgs, hostClass: 'sbb-form-field-required-highlight', value: undefined },
 };
 
 // sbb-error

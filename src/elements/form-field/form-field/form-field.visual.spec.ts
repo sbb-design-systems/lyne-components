@@ -165,13 +165,13 @@ describe(`sbb-form-field`, () => {
     forcedColors: boolean;
     darkMode: boolean;
   }): void {
-    describe('sbb-visually-required', () => {
+    describe('sbb-form-field-required-highlight', () => {
       describeEach(visuallyRequiredStates, ({ negative, state }) => {
         it(
           visualDiffDefault.name,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
-              html`<sbb-form-field class="sbb-visually-required" ?negative=${negative}>
+              html`<sbb-form-field class="sbb-form-field-required-highlight" ?negative=${negative}>
                 <label>Required Field</label>
                 <input
                   placeholder="Input placeholder"

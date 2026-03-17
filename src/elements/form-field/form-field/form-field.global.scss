@@ -215,9 +215,9 @@ $theme: 'standard' !default;
       :state(readonly),
       :state(disabled)
     ) {
-    :root.sbb-visually-required
+    :root.sbb-form-field-required-highlight
       &:has(:where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input)[required]),
-    &.sbb-visually-required {
+    &.sbb-form-field-required-highlight {
       --sbb-form-field-background-color: light-dark(
         color-mix(in srgb, var(--sbb-color-peach) 5%, var(--sbb-background-color-1)),
         color-mix(in srgb, var(--sbb-color-peach) 10%, var(--sbb-background-color-1))

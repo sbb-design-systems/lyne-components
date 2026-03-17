@@ -353,7 +353,7 @@ describe('sbb-select', () => {
       },
       ({ negative, state, emulateMedia: { darkMode, forcedColors } }) => {
         it(
-          'sbb-visually-required',
+          'sbb-form-field-required-highlight',
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
               template({
@@ -361,7 +361,7 @@ describe('sbb-select', () => {
                 negative,
                 disabled: state.disabled,
                 readonly: state.readonly,
-                hostClass: 'sbb-visually-required',
+                hostClass: 'sbb-form-field-required-highlight',
               }),
               {
                 backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
