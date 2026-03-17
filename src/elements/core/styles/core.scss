@@ -30,6 +30,12 @@ $theme: 'standard' !default;
 @use '../../button/mini-button-group/mini-button-group.global' as mini-button-group with (
   $theme: $theme
 );
+@use '../../calendar/calendar/calendar.global' as calendar with (
+  $theme: $theme
+);
+@use '../../calendar/common/calendar-cell-base-element.global' as calendar-cell with (
+  $theme: $theme
+);
 @use '../../card/card/card.global' as card with (
   $theme: $theme
 );
@@ -151,6 +157,9 @@ $theme: 'standard' !default;
   with (
   $theme: $theme
 );
+@use '../../notification/notification.global' as notification with (
+  $theme: $theme
+);
 @use '../../option/option/option.global' as option with (
   $theme: $theme
 );
@@ -201,6 +210,8 @@ $theme: 'standard' !default;
   @include button.base;
   @include mini-button.base;
   @include mini-button-group.base;
+  @include calendar.base;
+  @include calendar-cell.base;
   @include card.base;
   @include card-badge.base;
   @include carousel.base;
@@ -237,6 +248,7 @@ $theme: 'standard' !default;
   @include message.base;
   @include mini-calendar-day.base;
   @include mini-calendar-month.base;
+  @include notification.base;
   @include option.base;
   @include option-hint.base;
   @include optgroup.base;
@@ -322,6 +334,7 @@ $theme: 'standard' !default;
 
     @include dialog.base-breakpoint-small;
     @include footer.base-breakpoint-small;
+    @include notification.base-breakpoint-small;
   }
 
   @include mediaqueries.mq($from: large) {
@@ -647,16 +660,6 @@ sbb-sidebar:has(sbb-sidebar-title) {
 
 sbb-toggle:has(:focus-visible) {
   @include a11y.focus-outline;
-}
-
-sbb-notification:has(sbb-title) {
-  --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-5);
-  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-heading);
-
-  &[size='s'] {
-    --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-6);
-    --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-text);
-  }
 }
 
 .sbb-overlay-outlet {

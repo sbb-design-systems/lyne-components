@@ -30,21 +30,19 @@ snapshots["sbb-notification renders Shadow DOM"] =
         </slot>
       </p>
     </span>
-    <span class="sbb-notification__close-wrapper">
-      <sbb-divider
-        class="sbb-notification__divider"
-        orientation="vertical"
-      >
-      </sbb-divider>
-      <sbb-secondary-button
-        aria-label="Close message"
-        class="sbb-notification__close"
-        icon-name="cross-small"
-        size="m"
-        tabindex="0"
-      >
-      </sbb-secondary-button>
-    </span>
+    <sbb-divider
+      class="sbb-notification__divider"
+      orientation="vertical"
+    >
+    </sbb-divider>
+    <sbb-secondary-button
+      aria-label="Close message"
+      class="sbb-notification__close"
+      icon-name="cross-small"
+      size="m"
+      tabindex="0"
+    >
+    </sbb-secondary-button>
   </div>
 </div>
 `;
@@ -86,79 +84,23 @@ snapshots["sbb-notification renders with a title Shadow DOM"] =
         </slot>
       </p>
     </span>
-    <span class="sbb-notification__close-wrapper">
-      <sbb-divider
-        class="sbb-notification__divider"
-        orientation="vertical"
-      >
-      </sbb-divider>
-      <sbb-secondary-button
-        aria-label="Close message"
-        class="sbb-notification__close"
-        icon-name="cross-small"
-        size="m"
-        tabindex="0"
-      >
-      </sbb-secondary-button>
-    </span>
+    <sbb-divider
+      class="sbb-notification__divider"
+      orientation="vertical"
+    >
+    </sbb-divider>
+    <sbb-secondary-button
+      aria-label="Close message"
+      class="sbb-notification__close"
+      icon-name="cross-small"
+      size="m"
+      tabindex="0"
+    >
+    </sbb-secondary-button>
   </div>
 </div>
 `;
 /* end snapshot sbb-notification renders with a title Shadow DOM */
-
-snapshots["sbb-notification renders with a slotted title DOM"] = 
-`<sbb-notification
-  animation="all"
-  size="m"
-  type="info"
->
-  <span slot="title">
-    Slotted title
-  </span>
-  The quick brown fox jumps over the lazy dog.
-</sbb-notification>
-`;
-/* end snapshot sbb-notification renders with a slotted title DOM */
-
-snapshots["sbb-notification renders with a slotted title Shadow DOM"] = 
-`<div class="sbb-notification__wrapper">
-  <div class="sbb-notification">
-    <sbb-icon
-      class="sbb-notification__icon"
-      name="circle-information-small"
-    >
-    </sbb-icon>
-    <span class="sbb-notification__content">
-      <sbb-title
-        class="sbb-notification__title"
-        level="3"
-        visual-level="5"
-      >
-        <slot name="title">
-        </slot>
-      </sbb-title>
-      <slot>
-      </slot>
-    </span>
-    <span class="sbb-notification__close-wrapper">
-      <sbb-divider
-        class="sbb-notification__divider"
-        orientation="vertical"
-      >
-      </sbb-divider>
-      <sbb-secondary-button
-        aria-label="Close message"
-        class="sbb-notification__close"
-        icon-name="cross-small"
-        size="m"
-        tabindex="0"
-      >
-      </sbb-secondary-button>
-    </span>
-  </div>
-</div>
-`;
-/* end snapshot sbb-notification renders with a slotted title Shadow DOM */
 
 snapshots["sbb-notification renders without the close button DOM"] = 
 `<sbb-notification
@@ -238,21 +180,19 @@ snapshots["sbb-notification renders size s Shadow DOM"] =
         </slot>
       </p>
     </span>
-    <span class="sbb-notification__close-wrapper">
-      <sbb-divider
-        class="sbb-notification__divider"
-        orientation="vertical"
-      >
-      </sbb-divider>
-      <sbb-secondary-button
-        aria-label="Close message"
-        class="sbb-notification__close"
-        icon-name="cross-small"
-        size="s"
-        tabindex="0"
-      >
-      </sbb-secondary-button>
-    </span>
+    <sbb-divider
+      class="sbb-notification__divider"
+      orientation="vertical"
+    >
+    </sbb-divider>
+    <sbb-secondary-button
+      aria-label="Close message"
+      class="sbb-notification__close"
+      icon-name="cross-small"
+      size="s"
+      tabindex="0"
+    >
+    </sbb-secondary-button>
   </div>
 </div>
 `;
