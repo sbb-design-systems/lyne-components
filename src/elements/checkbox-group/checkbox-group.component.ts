@@ -1,82 +1,30 @@
-import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
-import { property } from 'lit/decorators.js';
-
 import type { SbbCheckboxPanelElement } from '../checkbox-panel.ts';
-import type { SbbCheckboxElement, SbbCheckboxSize } from '../checkbox.ts';
+import type { SbbCheckboxElement } from '../checkbox.ts';
 import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../core/a11y.ts';
-import { SbbElement } from '../core/base-elements.ts';
-import { forceType } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.ts';
-import { SbbDisabledMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-
-import style from './checkbox-group.scss?lit&inline';
+import { SbbSelectionGroupBaseElement } from '../core/base-elements.ts';
 
 /**
- * It can be used as a container for one or more `sbb-checkbox`.
+ * It can be used as a container for checkbox elements.
  *
- * @slot - Use the unnamed slot to add `sbb-checkbox` elements to the `sbb-checkbox-group`.
+ * @slot - Use the unnamed slot to add `sbb-checkbox`, `sbb-checkbox-panel`, `sbb-selection-action-panel`
+ * and `sbb-selection-expansion-panel` elements to the `sbb-checkbox-group`.
  * @slot error - Slot used to render a `sbb-error` inside the `sbb-checkbox-group`.
  */
-export class SbbCheckboxGroupElement extends SbbDisabledMixin(SbbElement) {
+export class SbbCheckboxGroupElement extends SbbSelectionGroupBaseElement<
+  SbbCheckboxElement | SbbCheckboxPanelElement
+> {
   public static override readonly elementName: string = 'sbb-checkbox-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
-
-  /** Whether the checkbox group is required. */
-  @forceType()
-  @property({ reflect: true, type: Boolean })
-  public accessor required: boolean = false;
-
-  /**
-   * Size variant, either xs, s or m.
-   * @default 'm' / 'xs' (lean)
-   */
-  @property() public accessor size: SbbCheckboxSize = isLean() ? 'xs' : 'm';
-
-  /** Overrides the behavior of `orientation` property. */
-  @property({ attribute: 'horizontal-from', reflect: true })
-  public accessor horizontalFrom: SbbHorizontalFrom | null = null;
-
-  /** Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`. */
-  @property({ reflect: true })
-  public accessor orientation: SbbOrientation = 'horizontal';
+  protected override selectionElementSelectors = 'sbb-checkbox, sbb-checkbox-panel';
+  protected override panelElementSelector = 'sbb-checkbox-panel';
 
   /** List of contained checkbox elements. */
   public get checkboxes(): (SbbCheckboxElement | SbbCheckboxPanelElement)[] {
-    return <(SbbCheckboxElement | SbbCheckboxPanelElement)[]>(
-      Array.from(this.querySelectorAll?.('sbb-checkbox, sbb-checkbox-panel') ?? []).filter(
-        (el) => el.closest('sbb-checkbox-group') === this,
-      )
-    );
+    return this.selectionElements;
   }
 
   public constructor() {
     super();
     this.addEventListener?.('keydown', (e) => this._handleKeyDown(e));
-    this.addController(
-      new MutationController(this, {
-        config: { childList: true, subtree: true },
-        callback: () => this.toggleState('has-panel', !!this.querySelector?.('sbb-checkbox-panel')),
-      }),
-    );
-  }
-
-  protected override willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    // TODO: Use PropertyWatcherController in checkbox
-    if (changedProperties.has('disabled')) {
-      this.checkboxes.forEach((c) => c.requestUpdate?.('disabled'));
-    }
-    if (changedProperties.has('required')) {
-      this.checkboxes.forEach((c) => c.requestUpdate?.('required'));
-    }
-    if (changedProperties.has('size')) {
-      this.checkboxes.forEach((c) => c.requestUpdate?.('size'));
-    }
   }
 
   private _handleKeyDown(evt: KeyboardEvent): void {
@@ -104,15 +52,6 @@ export class SbbCheckboxGroupElement extends SbbDisabledMixin(SbbElement) {
       const nextIndex: number = getNextElementIndex(evt, current, enabledCheckboxes.length);
       enabledCheckboxes[nextIndex]?.focus();
     }
-  }
-
-  protected override render(): TemplateResult {
-    return html`
-      <div class="sbb-checkbox-group">
-        <slot></slot>
-      </div>
-      <slot name="error"></slot>
-    `;
   }
 }
 
