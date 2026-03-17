@@ -64,6 +64,7 @@
 @mixin chip-label-rules-ellipsis {
   @include helpers.ellipsis;
 
+  // Display inline-block is required to make the ellipsis work.
   display: inline-block;
 
   // For backwards compatibility reasons, the line-height is also defined without the round function.
