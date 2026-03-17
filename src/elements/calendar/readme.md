@@ -1,7 +1,6 @@
 The `<sbb-calendar>` component displays a calendar that allows the user to select a date.
 
-This is used internally in the datepicker component,
-but it can be used on its own.
+This is used internally in the datepicker component, but it can be used on its own.
 
 ```html
 <sbb-calendar></sbb-calendar>
@@ -9,8 +8,7 @@ but it can be used on its own.
 
 ## Slots and day customization
 
-The component uses the `<sbb-calendar-day>` component
-to render day cells.
+The component uses the `<sbb-calendar-day>` component to render day cells.
 
 Consumers can override this behavior by slotting their own customized `<sbb-calendar-day>`,
 mainly if some extra content is needed.
@@ -30,6 +28,8 @@ or via selecting a different year and then a month, a `monthchange` event is emi
 The event has a `range: Day[]` property, which can be accessed to have information about the days to render.
 Consumers can listen to this event to dynamically create and slot the `<sbb-calendar-day>`s of the chosen month.
 
+<!-- #region calendar-day-example -->
+
 ```css
 /* Custom CSS for the extra content */
 .my-custom-content {
@@ -42,7 +42,7 @@ Consumers can listen to this event to dynamically create and slot the `<sbb-cale
 
 ```html
 <!-- Slot days based on the current date, or the selected one if available.-->
-<sbb-calendar selected="2025-01-15" @monthchange="(e) => monthChangeHandler(e)">
+<sbb-calendar selected="2025-01-15" @monthchange="(event) => monthChangeHandler(event)">
   <sbb-calendar-day slot="2025-01-01">
     <span class="sbb-text-xxs my-custom-content"> 19.99 </span>
   </sbb-calendar-day>
@@ -72,9 +72,11 @@ function monthChangeHandler(e: SbbMonthChangeEvent): void {
 }
 ```
 
+<!-- #endregion -->
+
 ### States
 
-The component has a `current` state, which is set if the slot name matches the current day.
+The `<sbb-calendar-day>` component has a `current` state, which is set if the slot name matches the current day.
 
 Also, it has other states based on the properties of the parent `<sbb-calendar>`.
 The disabled and the crossed-out states are based on the value of the `min`, `max` and `dateFilter` properties,
@@ -110,6 +112,10 @@ The `<sbb-calendar>` can be directly displayed in one of these modalities using 
 
 <sbb-calendar selected="1585699200" view="year"></sbb-calendar>
 ```
+
+The `<sbb-calendar>` uses two different components to render years and months in their view,
+named `<sbb-calendar-month>` and `<sbb-calendar-year>`.
+These are 'internal-use-only' components, and they are **not** meant to be used by consumers.
 
 Unwanted dates can be filtered out using the `dateFilter` property.
 Note that the `dateFilter` function should not be used as a replacement for the `min` and `max` properties.
@@ -169,6 +175,10 @@ so on the left side in `horizontal` and on top in `vertical`.
 
 <sbb-calendar orientation="vertical" week-numbers></sbb-calendar>
 ```
+
+Two more components, named `<sbb-calendar-weeknumber>` and `<sbb-calendar-weekday>`, are used to render
+a single week number and a single week day cell.
+These are 'internal-use-only' components too, and they are **not** meant to be used by consumers.
 
 ## Events
 
@@ -281,3 +291,91 @@ For accessibility purposes, the component is rendered as a native table element 
 | Name | Description                                                         |
 | ---- | ------------------------------------------------------------------- |
 |      | Use the unnamed slot to add customized `sbb-calendar-day` elements. |
+
+### class: `SbbCalendarMonthElement`, `sbb-calendar-month`
+
+#### Properties
+
+| Name                | Attribute  | Privacy | Type                      | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ---------- | ------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`          | `disabled` | public  | `boolean`                 | `false` | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `form`              | -          | public  | `HTMLFormElement \| null` |         | Returns the form owner of this element.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `name`              | `name`     | public  | `string`                  |         | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `validationMessage` | -          | public  | `string`                  |         | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -          | public  | `ValidityState`           |         | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | -          | public  | `string \| null`          | `null`  | Value of the calendar-month element in ISO format (YYYY-MM).                                                                                                                                                                                                                                                                                                                                                                                            |
+| `willValidate`      | -          | public  | `boolean`                 |         | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+#### Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+### class: `SbbCalendarWeekdayElement`, `sbb-calendar-weekday`
+
+#### Properties
+
+| Name                | Attribute  | Privacy | Type                      | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ---------- | ------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`          | `disabled` | public  | `boolean`                 | `false` | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `form`              | -          | public  | `HTMLFormElement \| null` |         | Returns the form owner of this element.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `name`              | `name`     | public  | `string`                  |         | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `validationMessage` | -          | public  | `string`                  |         | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -          | public  | `ValidityState`           |         | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | -          | public  | `Weekday \| null`         | `null`  | Value of the week day element.                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `willValidate`      | -          | public  | `boolean`                 |         | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+#### Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+### class: `SbbCalendarWeeknumberElement`, `sbb-calendar-weeknumber`
+
+#### Properties
+
+| Name                | Attribute  | Privacy | Type                      | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ---------- | ------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`          | `disabled` | public  | `boolean`                 | `false` | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `form`              | -          | public  | `HTMLFormElement \| null` |         | Returns the form owner of this element.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `name`              | `name`     | public  | `string`                  |         | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `validationMessage` | -          | public  | `string`                  |         | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -          | public  | `ValidityState`           |         | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | -          | public  | `string \| null`          | `null`  | Value of the week number element.                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `willValidate`      | -          | public  | `boolean`                 |         | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+#### Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+### class: `SbbCalendarYearElement`, `sbb-calendar-year`
+
+#### Properties
+
+| Name                | Attribute  | Privacy | Type                      | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ---------- | ------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled`          | `disabled` | public  | `boolean`                 | `false` | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `form`              | -          | public  | `HTMLFormElement \| null` |         | Returns the form owner of this element.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `name`              | `name`     | public  | `string`                  |         | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `validationMessage` | -          | public  | `string`                  |         | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -          | public  | `ValidityState`           |         | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | -          | public  | `string \| null`          | `null`  | Value of the calendar-year element.                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `willValidate`      | -          | public  | `boolean`                 |         | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+#### Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
