@@ -3,25 +3,25 @@
 :host {
   @include sbb.scrollbar-variables;
 
-  --sbb-overlay-background-color: var(--sbb-background-color-3);
-  --sbb-overlay-height: 100%;
-  --sbb-overlay-inset: 0 auto auto 0;
-  --sbb-overlay-padding-block: calc(var(--sbb-spacing-fixed-14x) + var(--sbb-spacing-responsive-l));
+  --_sbb-overlay-padding-block: calc(
+    var(--sbb-spacing-fixed-14x) + var(--sbb-spacing-responsive-l)
+  );
+  --sbb-overlay-display: none;
+  --sbb-overlay-container-display: none;
   --sbb-overlay-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
-  --sbb-overlay-animation-easing: ease;
-  --sbb-overlay-pointer-events: none;
 
-  display: none;
+  display: var(--sbb-overlay-display);
   position: fixed;
   inset: var(--sbb-overlay-inset);
   z-index: var(--sbb-overlay-z-index, var(--sbb-overlay-default-z-index));
 }
 
 :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
-  display: block;
+  --sbb-overlay-display: block;
+  --sbb-overlay-container-display: flex;
 }
 
 :host(:is(:state(state-opening), :state(state-opened))) {
@@ -43,13 +43,12 @@
 .sbb-overlay__container {
   background-color: var(--sbb-overlay-background-color);
   pointer-events: var(--sbb-overlay-pointer-events);
-  display: none;
+  display: var(--sbb-overlay-container-display);
   align-items: center;
   position: fixed;
   inset: var(--sbb-overlay-inset);
 
   :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) & {
-    display: flex;
     animation: {
       name: open;
       duration: var(--sbb-overlay-animation-duration);
@@ -131,7 +130,7 @@
 }
 
 .sbb-overlay__content-container {
-  padding-block: var(--sbb-overlay-padding-block);
+  padding-block: var(--_sbb-overlay-padding-block);
 }
 
 // It is necessary to use animations with keyframes instead of transitions in order not to alter

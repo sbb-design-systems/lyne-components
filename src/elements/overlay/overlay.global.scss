@@ -1,0 +1,11 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-overlay-background-color: var(--sbb-background-color-3);
+  --sbb-overlay-height: 100%;
+  --sbb-overlay-inset: 0 auto auto 0;
+  --sbb-overlay-animation-easing: ease;
+  --sbb-overlay-pointer-events: none;
+}
