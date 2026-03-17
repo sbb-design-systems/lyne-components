@@ -54,9 +54,6 @@ $theme: 'standard' !default;
 @use '../../checkbox/checkbox.global' as checkbox with (
   $theme: $theme
 );
-@use '../../checkbox-group/checkbox-group.global' as checkbox-group with (
-  $theme: $theme
-);
 @use '../../checkbox/common/checkbox-common.global' as checkbox-common with (
   $theme: $theme
 );
@@ -166,7 +163,7 @@ $theme: 'standard' !default;
 @use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
   $theme: $theme
 );
-@use '../../radio-button-group/radio-button-group.global' as radio-button-group with (
+@use '../base-elements/selection-group-base-element.global' as selection-group with (
   $theme: $theme
 );
 @use '../../selection-action-panel/selection-action-panel.global' as selection-action-panel with (
@@ -212,7 +209,6 @@ $theme: 'standard' !default;
   @include chip-group.base;
   @include panel-common.base;
   @include checkbox.base;
-  @include checkbox-group.base;
   @include checkbox-common.base;
   @include container.base;
   @include sticky-bar.base;
@@ -246,7 +242,7 @@ $theme: 'standard' !default;
   @include optgroup.base;
   @include overlay.options-panel-overlay-variables--global($theme);
   @include radio-button-common.base;
-  @include radio-button-group.base;
+  @include selection-group.base;
   @include selection-action-panel.base;
   @include selection-expansion-panel.base;
   @include status.base;

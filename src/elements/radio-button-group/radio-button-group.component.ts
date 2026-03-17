@@ -1,38 +1,32 @@
-import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import type { PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
+import { SbbSelectionGroupBaseElement } from '../core/base-elements.ts';
 import { forceType } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.ts';
-import { SbbDisabledMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbRadioButtonSize } from '../radio-button/common/radio-button-common.ts';
 import type { SbbRadioButtonElement } from '../radio-button/radio-button.component.ts';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
-
-import style from './radio-button-group.scss?lit&inline';
 
 let nextId = 0;
 
 /**
- * It can be used as a container for one or more `sbb-radio-button`.
+ * It can be used as a container for radio button elements.
  *
- * @slot - Use the unnamed slot to add `sbb-radio-button` elements to the `sbb-radio-button-group`.
+ * @slot - Use the unnamed slot to add `sbb-radio-button`, `sbb-radio-button-panel`, `sbb-selection-action-panel` and `sbb-selection-expansion-panel` elements to the `sbb-radio-button-group`.
  * @slot error - Use this to provide a `sbb-error` to show an error message.
  * @overrideType value - (T = string) | null
  */
-export class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(SbbElement) {
+export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBaseElement<
+  SbbRadioButtonElement<T> | SbbRadioButtonPanelElement<T>
+> {
   public static override readonly elementName: string = 'sbb-radio-button-group';
   public static override readonly role = 'radiogroup';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
   public static readonly events = {
     didChange: 'didChange',
     change: 'change',
     input: 'input',
   } as const;
+  protected readonly selectionElementSelectors = 'sbb-radio-button, sbb-radio-button-panel';
+  protected readonly panelElementSelector: string = 'sbb-radio-button-panel';
 
   /**
    * Whether the radios can be deselected.
@@ -40,13 +34,6 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(Sbb
   @forceType()
   @property({ attribute: 'allow-empty-selection', type: Boolean })
   public accessor allowEmptySelection: boolean = false;
-
-  /**
-   * Whether the radio group is required.
-   */
-  @forceType()
-  @property({ type: Boolean })
-  public accessor required: boolean = false;
 
   /**
    * The value of the radio group.
@@ -58,83 +45,43 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(Sbb
       return;
     }
     if (val == null) {
-      this.radioButtons.forEach((r) => (r.checked = false));
+      this.selectionElements.forEach((r) => (r.checked = false));
       return;
     }
-    const toCheck = this.radioButtons.find((r) => r.value === val);
+    const toCheck = this.selectionElements.find((r) => r.value === val);
     if (toCheck) {
       toCheck.checked = true;
     }
   }
   public get value(): T | null {
-    return this.radioButtons.find((r) => r.checked && !r.disabled)?.value ?? this._fallbackValue;
+    return (
+      this.selectionElements.find((r) => r.checked && !r.disabled)?.value ?? this._fallbackValue
+    );
   }
   /**
    * Used to preserve the `value` in case the radios are not yet 'loaded'
    */
   private _fallbackValue: T | null = null;
 
-  /**
-   * Size variant, either xs, s or m.
-   * @default 'm' / 'xs' (lean)
-   */
-  @property() public accessor size: SbbRadioButtonSize = isLean() ? 'xs' : 'm';
-
-  /**
-   * Overrides the behavior of `orientation` property.
-   */
-  @property({ attribute: 'horizontal-from', reflect: true })
-  public accessor horizontalFrom: SbbHorizontalFrom | null = null;
-
-  /**
-   * Radio group's orientation, either horizontal or vertical.
-   */
-  @property({ reflect: true })
-  public accessor orientation: SbbOrientation = 'horizontal';
-
+  /** Name for the group. Will be propagated to the child radio buttons. Must be unique if multiple groups are used on the same page. */
   @forceType()
   @property()
   // eslint-disable-next-line no-useless-assignment
   public accessor name: string = `sbb-radio-button-group-${++nextId}`;
 
-  /**
-   * List of contained radio buttons.
-   */
+  /** List of contained radio buttons. */
   public get radioButtons(): (SbbRadioButtonElement<T> | SbbRadioButtonPanelElement<T>)[] {
-    return (
-      Array.from(this.querySelectorAll?.('sbb-radio-button, sbb-radio-button-panel') ?? []) as (
-        | SbbRadioButtonElement<T>
-        | SbbRadioButtonPanelElement<T>
-      )[]
-    ).filter((el) => el.closest?.('sbb-radio-button-group') === this);
+    return this.selectionElements;
   }
 
   public constructor() {
     super();
-
-    this.addController(
-      new MutationController(this, {
-        config: { childList: true, subtree: true },
-        callback: () =>
-          this.toggleState('has-panel', !!this.querySelector?.('sbb-radio-button-panel')),
-      }),
-    );
-
     this.addEventListener?.('change', (e: Event) => this._onRadioChange(e));
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('disabled')) {
-      this.radioButtons.forEach((r) => r.requestUpdate?.('disabled'));
-    }
-    if (changedProperties.has('required')) {
-      this.radioButtons.forEach((r) => r.requestUpdate?.('required'));
-    }
-    if (changedProperties.has('size')) {
-      this.radioButtons.forEach((r) => r.requestUpdate?.('size'));
-    }
     if (changedProperties.has('name')) {
       this._updateRadiosName();
     }
@@ -170,7 +117,7 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(Sbb
    * Proxy 'name' to child radio-buttons
    */
   private _updateRadiosName(): void {
-    this.radioButtons.forEach((r) => (r.name = this.name));
+    this.selectionElements.forEach((r) => (r.name = this.name));
   }
 
   /**
@@ -184,16 +131,11 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbDisabledMixin(Sbb
     }
   }
 
-  protected override render(): TemplateResult {
-    return html`
-      <slot
-        @slotchange=${() => {
-          this._updateRadiosName();
-          this._updateRadioState();
-        }}
-      ></slot>
-      <slot name="error"></slot>
-    `;
+  protected override onSlotChange(): void {
+    super.onSlotChange();
+
+    this._updateRadiosName();
+    this._updateRadioState();
   }
 }
 

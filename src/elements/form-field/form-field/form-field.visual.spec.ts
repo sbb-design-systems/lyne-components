@@ -46,8 +46,7 @@ describe(`sbb-form-field`, () => {
         : label && slottedLabel
           ? html`<span slot="label">${label}</span>`
           : nothing}
-      ${template}
-      ${errorText ? html`<sbb-error slot="error">This is a required field.</sbb-error>` : nothing}
+      ${template} ${errorText ? html`<sbb-error>This is a required field.</sbb-error>` : nothing}
     </sbb-form-field>`;
 
   const basicInput = ({
