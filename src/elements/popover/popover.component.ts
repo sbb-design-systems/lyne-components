@@ -266,7 +266,11 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
 
   // Close popover on backdrop click.
   private _closeOnBackdropClick = (event: PointerEvent): void => {
-    if (!this._isPointerDownEventOnPopover && !isEventOnElement(this.overlay!, event)) {
+    if (
+      !this._isPointerDownEventOnPopover &&
+      !isEventOnElement(this.overlay!, event) &&
+      !isFakeMousedownFromScreenReader(event)
+    ) {
       this._nextFocusedElement = event
         .composedPath()
         .filter((el) => el instanceof window.HTMLElement)
