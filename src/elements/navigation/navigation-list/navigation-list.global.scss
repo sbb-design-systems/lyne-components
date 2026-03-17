@@ -1,0 +1,10 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-navigation-list-font-size: var(--sbb-text-font-size-xxs);
+  --sbb-navigation-list-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-navigation-list-margin-block: var(--sbb-spacing-fixed-1x);
+  --sbb-navigation-list-padding-block-end: var(--sbb-spacing-fixed-2x);
+}
