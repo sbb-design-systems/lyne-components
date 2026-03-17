@@ -28,6 +28,8 @@ or via selecting a different year and then a month, a `monthchange` event is emi
 The event has a `range: Day[]` property, which can be accessed to have information about the days to render.
 Consumers can listen to this event to dynamically create and slot the `<sbb-calendar-day>`s of the chosen month.
 
+<!-- #region calendar-day-example -->
+
 ```css
 /* Custom CSS for the extra content */
 .my-custom-content {
@@ -40,7 +42,7 @@ Consumers can listen to this event to dynamically create and slot the `<sbb-cale
 
 ```html
 <!-- Slot days based on the current date, or the selected one if available.-->
-<sbb-calendar selected="2025-01-15" @monthchange="(e) => monthChangeHandler(e)">
+<sbb-calendar selected="2025-01-15" @monthchange="(event) => monthChangeHandler(event)">
   <sbb-calendar-day slot="2025-01-01">
     <span class="sbb-text-xxs my-custom-content"> 19.99 </span>
   </sbb-calendar-day>
@@ -69,6 +71,8 @@ function monthChangeHandler(e: SbbMonthChangeEvent): void {
   });
 }
 ```
+
+<!-- #endregion -->
 
 ### States
 
