@@ -10,7 +10,7 @@ Focus is managed properly by setting it on the first focusable element or the fi
     <sbb-navigation-button aria-current="page" id="nav-section-1">Label 1</sbb-navigation-button>
     <sbb-navigation-button id="nav-section-2">Label 2</sbb-navigation-button>
     <sbb-navigation-link href="https://www.sbb.ch/some/route">Label 3</sbb-navigation-link>
-  <sbb-navigation-marker>
+  </sbb-navigation-marker>
 </sbb-navigation>
 ```
 
@@ -31,13 +31,13 @@ or call the `open()` method on the `<sbb-navigation>` component.
     <sbb-navigation-button aria-current="page" id="nav-section-1">Label 1</sbb-navigation-button>
     <sbb-navigation-button id="nav-section-2">Label 2</sbb-navigation-button>
     <sbb-navigation-link href="https://www.sbb.ch/some/route">Label 3</sbb-navigation-link>
-  <sbb-navigation-marker>
+  </sbb-navigation-marker>
 
   <sbb-navigation-marker>
     <sbb-navigation-button aria-pressed="true">Language 1</sbb-navigation-button>
     <sbb-navigation-button aria-pressed="false">Language 2</sbb-navigation-button>
     <sbb-navigation-button aria-pressed="false">Language 3</sbb-navigation-button>
-  <sbb-navigation-marker>
+  </sbb-navigation-marker>
 
   <sbb-navigation-section trigger="nav-section-1">
     <span slot="label">Title 1</span>
