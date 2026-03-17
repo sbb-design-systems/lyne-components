@@ -51,6 +51,7 @@ export class SbbJourneyHeaderElement extends SbbNegativeMixin(SbbTitleBase) {
   /**
    * Journey header size, either s, m or l.
    * @default 'm' / 's' (lean)
+   * @deprecated Use visualLevel instead.
    */
   @property({ reflect: true }) public accessor size: JourneyHeaderSize = isLean() ? 's' : 'm';
 
