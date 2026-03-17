@@ -1,10 +1,10 @@
 import {
+  type CSSResultGroup,
   html,
   isServer,
-  type CSSResultGroup,
-  type TemplateResult,
   type PropertyDeclaration,
   type PropertyValues,
+  type TemplateResult,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -235,7 +235,9 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
     } else if (tooltip) {
       // The trigger or the attribute has been deleted => delete the connected tooltip
       tooltipTriggers.delete(triggerElement);
-      tooltip._destroy();
+      // If a consumer overrides the `sbb-tooltip`, the following code should not be
+      // executed as we can't expect that private methods are mocked.
+      tooltip._destroy?.();
     }
   }
 

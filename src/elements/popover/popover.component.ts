@@ -266,9 +266,14 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
 
   // Close popover on backdrop click.
   private _closeOnBackdropClick = (event: PointerEvent): void => {
-    if (!this._isPointerDownEventOnPopover && !isEventOnElement(this.overlay!, event)) {
-      this._nextFocusedElement = event
-        .composedPath()
+    const composedPath = event.composedPath();
+    if (
+      !this._isPointerDownEventOnPopover &&
+      !isEventOnElement(this.overlay!, event) &&
+      !isFakeMousedownFromScreenReader(event) &&
+      (!this.trigger || !composedPath.includes(this.trigger))
+    ) {
+      this._nextFocusedElement = composedPath
         .filter((el) => el instanceof window.HTMLElement)
         .find((el) => (el as HTMLElement).matches(IS_FOCUSABLE_QUERY)) as HTMLElement;
       clearTimeout(this.closeTimeout);
@@ -312,8 +317,8 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
 
               // In Safari on iOS it can occur, that a blur event triggers on the popover
               // although the focus remains inside the popover.
-              // Therefore, we need to stop the closing if the relatedTarget is contained in the popover.
-              if (this.contains(e.relatedTarget as Node)) {
+              // Therefore, we need to stop the closing if the relatedTarget is contained in the popover or it is the trigger.
+              if (this.contains(e.relatedTarget as Node) || e.relatedTarget === this.trigger) {
                 return;
               }
 
