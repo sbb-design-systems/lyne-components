@@ -200,6 +200,8 @@ accessibility information on the trigger button should be set.
 - `aria-expanded="true"` or `aria-expanded="false"` (should be updated to the opened state of the sidebar)
 - `aria-label` (Describes the toggle action)
 
+<!-- #region trigger-button-example -->
+
 ```html
 <sbb-header expanded scroll-origin="content" size="s">
   <sbb-header-button
@@ -227,6 +229,8 @@ accessibility information on the trigger button should be set.
   <sbb-sidebar-content role="main" id="content">Content</sbb-sidebar-content>
 </sbb-sidebar-container>
 ```
+
+<!-- #endregion -->
 
 ### Controlling initial focus
 
