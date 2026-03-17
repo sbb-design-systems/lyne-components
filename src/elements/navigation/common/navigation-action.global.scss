@@ -21,7 +21,7 @@ $theme: 'standard' !default;
     )};
   --sbb-navigation-action-line-height: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-title-line-height, var(--sbb-typo-line-height-heading)),
+        'standard': var(--sbb-typo-line-height-heading),
         'lean': var(--sbb-typo-line-height-text),
       ),
       $theme
