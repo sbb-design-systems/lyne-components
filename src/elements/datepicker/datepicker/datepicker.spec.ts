@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 import { type SinonStub, stub } from 'sinon';
 
-import type { SbbCalendarDayElement } from '../../calendar.ts';
+import type { SbbCalendarDayElement, SbbCalendarYearElement } from '../../calendar.ts';
 import { SbbCalendarElement } from '../../calendar.ts';
 import { defaultDateAdapter } from '../../core/datetime.ts';
 import { i18nDateChangedTo } from '../../core/i18n.ts';
@@ -221,12 +221,12 @@ describe(`sbb-datepicker`, () => {
     expect(calendar.shadowRoot!.querySelector('.sbb-calendar__table-year-view')!).not.to.be.null;
 
     // Select year
-    calendar.shadowRoot!.querySelectorAll('button')[5].click();
+    calendar.shadowRoot!.querySelectorAll('sbb-calendar-year')[4].click();
     await waitForLitRender(root);
     await waitForCondition(() => !calendar.matches(':state(transition)'));
 
     // Select month
-    calendar.shadowRoot!.querySelectorAll('button')[5].click();
+    calendar.shadowRoot!.querySelectorAll('sbb-calendar-month')[4].click();
     await waitForLitRender(root);
     await waitForCondition(() => !calendar.matches(':state(transition)'));
 
@@ -246,7 +246,7 @@ describe(`sbb-datepicker`, () => {
     // Should open with year view again
     expect(calendar.shadowRoot!.querySelector('.sbb-calendar__table-year-view')!).not.to.be.null;
     expect(
-      calendar.shadowRoot!.querySelector('.sbb-calendar__selected')!.textContent!.trim(),
+      calendar.shadowRoot!.querySelector<SbbCalendarYearElement>(':state(selected)')!.value,
     ).to.be.equal('2020');
 
     // Close again

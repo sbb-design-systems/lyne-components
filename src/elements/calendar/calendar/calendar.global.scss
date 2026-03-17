@@ -1,0 +1,31 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-calendar-cell-background-color: transparent;
+  --sbb-calendar-cell-background-color-hover: var(--sbb-background-color-3);
+  --sbb-calendar-cell-background-color-active: var(--sbb-background-color-4);
+  --sbb-calendar-cell-padding: #{sbb.px-to-rem-build(2)};
+  --sbb-calendar-cell-border-width: var(--sbb-border-width-2x);
+  --sbb-calendar-cell-disabled-height: #{sbb.px-to-rem-build(1.5)};
+  --sbb-calendar-cell-disabled-width: #{sbb.px-to-rem-build(25.5)};
+  --sbb-calendar-cell-disabled-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+  --sbb-calendar-cell-transition-easing-function: var(--sbb-animation-easing);
+  --sbb-calendar-control-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-calendar-control-margin-block-end: var(--sbb-spacing-fixed-4x);
+  --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(44)};
+  --sbb-calendar-control-view-change-color: var(--sbb-color-3);
+  --sbb-calendar-control-view-change-background: var(--sbb-background-color-1);
+  --sbb-calendar-control-view-change-padding-inline: var(--sbb-spacing-fixed-5x)
+    var(--sbb-spacing-fixed-2x);
+  --sbb-calendar-header-color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+  --sbb-calendar-table-animation-shift: #{sbb.px-to-rem-build(0.1)};
+  --sbb-calendar-table-column-spaces: 12;
+  --sbb-calendar-tables-gap: var(--sbb-spacing-fixed-10x);
+
+  // While changing views, there would be a few frames where the height of the calendar collapses to just
+  // the height of the controls and then grow back to the height of the next view.
+  // By using 0.1ms this can be avoided.
+  --sbb-calendar-table-animation-duration: 0.1ms;
+}
