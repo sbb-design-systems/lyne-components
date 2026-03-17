@@ -173,11 +173,11 @@ If you want to directly show the error state without having had an interaction, 
 
 ### Visually Required
 
-Some applications need a stronger visual representation of the required state.
+Some applications need a stronger visual representation of the `required` state.
 
 In such cases it's possible to add the `sbb-visually-required` CSS class to the `<sbb-form-field>` element.
 This changes the background color to a subtle peach tint, giving users a clear visual cue.
-It only has an effect as long as the input is empty, not readonly and not disabled.
+It only has an effect as long as the input is empty, not `readonly` and not `disabled`.
 
 ```html
 <sbb-form-field class="sbb-visually-required">
@@ -187,7 +187,7 @@ It only has an effect as long as the input is empty, not readonly and not disabl
 ```
 
 It's also possible to opt in globally by setting the CSS class `sbb-visually-required` on the `<html>` element.
-The styling is then applied to all `<sbb-form-field>` elements that contain an input with required attribute.
+The styling is then applied to all `<sbb-form-field>` elements that contain an input with `required` attribute.
 
 ```html
 <html class="sbb-visually-required">
