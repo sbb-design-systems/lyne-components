@@ -175,7 +175,7 @@ If you want to directly show the error state without having had an interaction, 
 
 Some applications need a stronger visual representation of the required state.
 
-For that reason it's possible to add the `sbb-visually-required` CSS class to the `<sbb-form-field>` element.
+In such cases it's possible to add the `sbb-visually-required` CSS class to the `<sbb-form-field>` element.
 This changes the background color to a subtle peach tint, giving users a clear visual cue.
 It only has an effect as long as the input is empty, not readonly and not disabled.
 
