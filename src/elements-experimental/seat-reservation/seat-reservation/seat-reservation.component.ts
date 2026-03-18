@@ -46,7 +46,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _language = new SbbLanguageController(this);
   private _coachesHtmlTemplate?: TemplateResult;
-  private _iconSize = 1;
+  private _iconSize: number | null = null;
 
   // Area icons that should not be fixed during rotation when vertical mode is selected
   private _notFixedRotatableAreaIcons = ['ENTRY_EXIT'];
@@ -275,7 +275,9 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     const calculatedCoachDimension = this.getCalculatedDimension(coachItem.dimension);
     const descriptionTableCoachWithServices = this._getDescriptionTableCoach(coachItem);
 
-    this.iconSize = coachItem.serviceElements.at(0)?.dimension.w | 0;
+    if (this._iconSize === null) {
+      this._iconSize = coachItem.serviceElements?.[0]?.dimension?.w ?? 0;
+    }
 
     return html`<sbb-seat-reservation-scoped
       style=${styleMap({
@@ -600,7 +602,10 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
               <sbb-seat-reservation-graphic
                 style=${styleMap({
                   '--sbb-seat-reservation-graphic-width': calculatedIconDimension.w,
-                  '--sbb-seat-reservation-graphic-height': calculatedIconDimension.h,
+                  '--sbb-seat-reservation-graphic-height': Math.min(
+                    calculatedDimension.h,
+                    calculatedIconDimension.h,
+                  ),
                   '--sbb-seat-reservation-graphic-rotation': rotation,
                 })}
                 name=${areaProperty}
