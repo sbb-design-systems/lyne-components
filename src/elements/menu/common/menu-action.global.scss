@@ -1,0 +1,14 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-menu-action-border-radius: var(--sbb-border-radius-infinity);
+  --sbb-menu-action-outer-horizontal-padding: var(--sbb-spacing-fixed-3x);
+  --sbb-menu-action-outer-vertical-padding: var(--sbb-spacing-fixed-1x);
+  --sbb-menu-action-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-menu-action-color: var(--sbb-color-2-inverted);
+  --sbb-menu-action-content-padding-inline: var(--sbb-spacing-fixed-2x);
+  --sbb-menu-action-content-padding-block: var(--sbb-spacing-fixed-1x);
+  --sbb-menu-action-forced-color-border-color: CanvasText;
+}

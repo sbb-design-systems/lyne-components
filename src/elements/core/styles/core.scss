@@ -147,6 +147,12 @@ $theme: 'standard' !default;
 @use '../../map-container/map-container.global' as map-container with (
   $theme: $theme
 );
+@use '../../menu/menu/menu.global' as menu with (
+  $theme: $theme
+);
+@use '../../menu/common/menu-action.global' as menu-action with (
+  $theme: $theme
+);
 @use '../../message/message.global' as message with (
   $theme: $theme
 );
@@ -245,6 +251,8 @@ $theme: 'standard' !default;
   @include loading-indicator-circle.base;
   @include logo.base;
   @include map-container.base;
+  @include menu.base;
+  @include menu-action.base;
   @include message.base;
   @include mini-calendar-day.base;
   @include mini-calendar-month.base;
@@ -347,6 +355,7 @@ $theme: 'standard' !default;
     @include flip-card.base-breakpoint-large;
     @include form-field.base-breakpoint-large;
     @include header.base-breakpoint-large;
+    @include menu.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage
