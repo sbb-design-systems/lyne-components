@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.8.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.8.0...v4.8.1) (2026-03-18)
+
+
+### Bug Fixes
+
+* fix root index.js imports ([#4662](https://github.com/sbb-design-systems/lyne-components/issues/4662)) ([2e84221](https://github.com/sbb-design-systems/lyne-components/commit/2e842212599267977b57095acf4efa3d5c21f069))
+* **popover:** remove obsolete background click check ([#4664](https://github.com/sbb-design-systems/lyne-components/issues/4664)) ([a266eff](https://github.com/sbb-design-systems/lyne-components/commit/a266eff8958efcbc4874af3e16365db8dfaf0895))
+
+
+### Documentation
+
+* update docs app url ([#4660](https://github.com/sbb-design-systems/lyne-components/issues/4660)) ([11e211a](https://github.com/sbb-design-systems/lyne-components/commit/11e211a76adf08110b930b0276c3be317fafb069))
+
 ## [4.8.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.7.0...v4.8.0) (2026-03-18)
 
 
