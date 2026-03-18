@@ -70,7 +70,7 @@ using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of t
 Users can customize position and behavior of actions inside the `<sbb-header>` component
 by adding classes to `<sbb-header-button>`/`<sbb-header-link>` elements and then defining their own style rules.
 
-[All the examples in Storybook](/story/elements-header--basic) have the following requirements:
+All the examples have the following requirements:
 
 1. four action items (with custom icons);
 2. the first item is always left aligned and has `expand-from` set to `small`;
@@ -86,8 +86,6 @@ To achieve the alignment requirements, two `div` tags with a CSS class named `sb
 We also need a class (in this example `last-element`) on the last `<sbb-header-button>` to achieve requirement n° 4.
 
 Finally, the following custom CSS has been added(\*).
-
-The result can also be seen in the [home](/story/pages-home--home) and [home-logged-in](/story/pages-home--home-logged-in) stories.
 
 ```css
 .last-element,
