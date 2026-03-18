@@ -1,7 +1,10 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
+  display: flex;
+  gap: var(--sbb-compact-paginator-gap);
+  justify-content: var(--sbb-paginator-compact-justify-content, start);
+  min-height: var(--sbb-compact-paginator-height);
 }
 
 :host([size='s']) {
@@ -18,13 +21,6 @@
 
 :host([pager-position='end']) {
   --sbb-paginator-compact-justify-content: end;
-}
-
-.sbb-compact-paginator {
-  display: flex;
-  gap: var(--sbb-compact-paginator-gap);
-  justify-content: var(--sbb-paginator-compact-justify-content, start);
-  min-height: var(--sbb-compact-paginator-height);
 }
 
 .sbb-paginator__pages {
