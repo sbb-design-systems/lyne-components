@@ -188,6 +188,9 @@ $theme: 'standard' !default;
   with (
   $theme: $theme
 );
+@use '../../slider/slider.global' as slider with (
+  $theme: $theme
+);
 @use '../../status/status.global' as status with (
   $theme: $theme
 );
@@ -265,6 +268,7 @@ $theme: 'standard' !default;
   @include selection-group.base;
   @include selection-action-panel.base;
   @include selection-expansion-panel.base;
+  @include slider.base;
   @include status.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
@@ -283,6 +287,7 @@ $theme: 'standard' !default;
     @include logo.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
     @include radio-button-common.base-forced-colors;
+    @include slider.base-forced-colors;
   }
 
   // Train formation
