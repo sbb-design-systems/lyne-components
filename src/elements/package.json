@@ -5,8 +5,7 @@
   "keywords": [
     "design system",
     "web components",
-    "lit",
-    "storybook"
+    "lit"
   ],
   "type": "module",
   "exports": {
