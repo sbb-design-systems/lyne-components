@@ -1,3 +1,5 @@
+<!-- #region table-docs -->
+
 For working with tables, the native `table` and its related elements should be used.
 With the `sbb-table` CSS class, styling the native element is possible.
 
@@ -15,6 +17,8 @@ The `<sbb-table-wrapper>` is a wrapper for a table. Its goal is to enhance/autom
   </table>
 </sbb-table-wrapper>
 ```
+
+<!-- #endregion -->
 
 ## Style
 
