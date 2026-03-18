@@ -1,3 +1,5 @@
+<!-- #region table-docs -->
+
 For working with tables, the native `table` and its related elements should be used.
 With the `sbb-table` CSS class, styling the native element is possible.
 
@@ -67,6 +69,8 @@ E.g. when the table-wrapper is placed inside a dark container, the focus outline
   </sbb-table-wrapper>
 </div>
 ```
+
+<!-- #endregion -->
 
 <!-- Auto Generated Below -->
 
