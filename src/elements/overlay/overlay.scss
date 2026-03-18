@@ -6,8 +6,6 @@
   --_sbb-overlay-padding-block: calc(
     var(--sbb-spacing-fixed-14x) + var(--sbb-spacing-responsive-l)
   );
-  --sbb-overlay-display: none;
-  --sbb-overlay-container-display: none;
   --sbb-overlay-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
