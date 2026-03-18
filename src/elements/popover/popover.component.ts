@@ -363,10 +363,10 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
       this._triggerElement.clientWidth / 2 -
       8; // half the size of the popover arrow
 
-    this.style.setProperty('--sbb-popover-position-x', `${popoverPosition.left}px`);
-    this.style.setProperty('--sbb-popover-position-y', `${popoverPosition.top}px`);
-    this.style.setProperty('--sbb-popover-arrow-position-x', `${arrowXPosition}px`);
-    this.style.setProperty('--sbb-popover-max-height', popoverPosition.maxHeight);
+    this.style.setProperty('--_sbb-popover-position-x', `${popoverPosition.left}px`);
+    this.style.setProperty('--_sbb-popover-position-y', `${popoverPosition.top}px`);
+    this.style.setProperty('--_sbb-popover-arrow-position-x', `${arrowXPosition}px`);
+    this.style.setProperty('--_sbb-popover-max-height', popoverPosition.maxHeight);
   }
 
   protected abstract renderContent(): TemplateResult;
