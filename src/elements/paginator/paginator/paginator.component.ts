@@ -130,7 +130,7 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(SbbEleme
               borderless
               width="collapse"
               ?negative=${this.negative}
-              size=${this.size}
+              size=${this.size || nothing}
             >
               <sbb-select
                 id="select"
