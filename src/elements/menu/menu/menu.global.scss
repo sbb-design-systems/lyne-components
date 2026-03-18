@@ -19,4 +19,5 @@ $theme: 'standard' !default;
 @mixin base-breakpoint-large {
   --sbb-menu-max-width: #{sbb.px-to-rem-build(320)};
   --sbb-menu-min-width: #{sbb.px-to-rem-build(180)};
+  --sbb-menu-transform-y: var(--sbb-spacing-fixed-2x);
 }

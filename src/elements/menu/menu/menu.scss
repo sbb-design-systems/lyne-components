@@ -16,7 +16,6 @@
   @include sbb.scrollbar-variables($negative: true);
 
   @include sbb.mq($from: large) {
-    --sbb-menu-transform-y: var(--sbb-spacing-fixed-2x);
     --sbb-menu-back-button-display: none;
   }
 }
