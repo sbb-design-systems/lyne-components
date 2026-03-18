@@ -2,6 +2,9 @@
 
 :host {
   display: block;
+
+  // Allows size calculation even if in grid or flex context.
+  min-width: 0;
 }
 
 :host(:state(loaded)) {
