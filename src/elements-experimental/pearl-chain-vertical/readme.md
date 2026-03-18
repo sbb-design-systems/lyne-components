@@ -1,5 +1,5 @@
 The `<sbb-pearl-chain-vertical>` is a wrapper component for a
-[sbb-pearl-chain-vertical-item](/docs/experimental-sbb-pearl-chain-vertical-item--docs) component,
+[sbb-pearl-chain-vertical-item](/docs/experimental-pearl-chain-vertical-item--docs) component,
 which is projected within an unnamed slot.
 Please refer to its documentation for more details.
 

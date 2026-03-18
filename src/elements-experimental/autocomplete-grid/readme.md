@@ -72,7 +72,6 @@ it will automatically connect to the native `<input>` as trigger and will displa
 
 By default, the `<sbb-autocomplete-grid>` will highlight the label of the `<sbb-autocomplete-grid-option>` in the panel,
 if it matches the typed text.
-See the [sbb-autocomplete-grid-option](/docs/experimental-sbb-autocomplete-grid-sbb-autocomplete-grid-option--docs) for more details.
 
 ### Option grouping
 
