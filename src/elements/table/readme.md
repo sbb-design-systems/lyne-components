@@ -18,6 +18,8 @@ The `<sbb-table-wrapper>` is a wrapper for a table. Its goal is to enhance/autom
 </sbb-table-wrapper>
 ```
 
+<!-- #endregion -->
+
 ## Style
 
 See the [Table](/docs/styles-table--docs) style section.
@@ -69,8 +71,6 @@ E.g. when the table-wrapper is placed inside a dark container, the focus outline
   </sbb-table-wrapper>
 </div>
 ```
-
-<!-- #endregion -->
 
 <!-- Auto Generated Below -->
 
