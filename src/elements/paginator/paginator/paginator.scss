@@ -93,8 +93,10 @@
 .sbb-paginator__page--number-item {
   @include sbb.button-reset;
 
-  font-size: var(--sbb-paginator-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  // The text mixin is needed to override the button base style
+  --sbb-text-font-size: var(--sbb-paginator-font-size);
+  @include sbb.text;
+
   position: relative;
   cursor: var(--sbb-paginator-page-cursor);
   outline: none !important;
