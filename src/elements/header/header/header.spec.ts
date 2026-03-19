@@ -175,6 +175,195 @@ describe(`sbb-header`, () => {
     expect(element).to.match(':state(shadow)');
   });
 
+  describe('sbb-header-scroll-origin attribute', () => {
+    it('should use element with sbb-header-scroll-origin attribute as scroll origin', async () => {
+      const root = await fixture(html`
+        <div>
+          <sbb-header></sbb-header>
+          <div sbb-header-scroll-origin style="height: 300px; overflow: auto;">
+            <div style="height: 2000px">Content</div>
+          </div>
+        </div>
+      `);
+
+      element = root.querySelector<SbbHeaderElement>('sbb-header')!;
+      const scrollContainer = root.querySelector<HTMLDivElement>('[sbb-header-scroll-origin]')!;
+      const scrollEventSpy = new EventSpy('scroll', scrollContainer, { passive: true });
+
+      scrollContainer.scrollTo({ top: 200, behavior: 'instant' });
+      await scrollEventSpy.calledOnce();
+
+      expect(element).to.match(':state(shadow)');
+    });
+
+    it('should use the last sbb-header-scroll-origin element in DOM order when multiple exist', async () => {
+      const root = await fixture(html`
+        <div>
+          <sbb-header></sbb-header>
+          <div id="first" sbb-header-scroll-origin style="height: 300px; overflow: auto;">
+            <div style="height: 2000px">
+              <div id="last" sbb-header-scroll-origin style="height: 300px; overflow: auto;">
+                <div style="height: 2000px">Last</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `);
+
+      element = root.querySelector<SbbHeaderElement>('sbb-header')!;
+      const firstContainer = root.querySelector<HTMLDivElement>('#first')!;
+      const lastContainer = root.querySelector<HTMLDivElement>('#last')!;
+
+      // Scroll in the first container – header should NOT react (last one takes priority)
+      const scrollOnFirstSpy = new EventSpy('scroll', firstContainer, { passive: true });
+      firstContainer.scrollTo({ top: 200, behavior: 'instant' });
+      await scrollOnFirstSpy.calledOnce();
+
+      expect(element).not.to.match(':state(shadow)');
+
+      // Scroll in the last container – header should react
+      const scrollOnLastSpy = new EventSpy('scroll', lastContainer, { passive: true });
+      lastContainer.scrollTo({ top: 200, behavior: 'instant' });
+      await scrollOnLastSpy.calledOnce();
+
+      expect(element).to.match(':state(shadow)');
+    });
+
+    it('should react when sbb-header-scroll-origin attribute is added dynamically', async () => {
+      const root = await fixture(html`
+        <div>
+          <sbb-header></sbb-header>
+          <div id="container" style="height: 300px; overflow: auto;">
+            <div style="height: 2000px">Content</div>
+          </div>
+        </div>
+      `);
+
+      element = root.querySelector<SbbHeaderElement>('sbb-header')!;
+      const scrollContainer = root.querySelector<HTMLDivElement>('#container')!;
+
+      // Before adding the attribute, scrolling in the container should have no effect on the header.
+      const scrollSpy = new EventSpy('scroll', scrollContainer, { passive: true });
+      scrollContainer.scrollTo({ top: 200, behavior: 'instant' });
+      await scrollSpy.calledOnce();
+      expect(element).not.to.match(':state(shadow)');
+
+      // Reset scroll position
+      scrollContainer.scrollTo({ top: 0, behavior: 'instant' });
+      await scrollSpy.calledTimes(2);
+
+      // Dynamically add the attribute
+      scrollContainer.setAttribute('sbb-header-scroll-origin', '');
+      await aTimeout(30);
+      await waitForLitRender(element);
+
+      // Now the container should be the scroll origin
+      scrollContainer.scrollTo({ top: 200, behavior: 'instant' });
+      await scrollSpy.calledTimes(3);
+
+      await aTimeout(0);
+
+      expect(element).to.match(':state(shadow)');
+    });
+
+    it('should fall back to document when sbb-header-scroll-origin attribute is removed dynamically', async () => {
+      const root = await fixture(html`
+        <div>
+          <sbb-header></sbb-header>
+          <div id="container" sbb-header-scroll-origin style="height: 300px; overflow: auto;">
+            <div style="height: 2000px">Content</div>
+          </div>
+        </div>
+      `);
+
+      element = root.querySelector<SbbHeaderElement>('sbb-header')!;
+      const scrollContainer = root.querySelector<HTMLDivElement>('#container')!;
+
+      // Verify it is active
+      const scrollSpy = new EventSpy('scroll', scrollContainer, { passive: true });
+      scrollContainer.scrollTo({ top: 200, behavior: 'instant' });
+      await scrollSpy.calledOnce();
+      await aTimeout(0);
+      expect(element).to.match(':state(shadow)');
+
+      // Reset
+      scrollContainer.scrollTo({ top: 0, behavior: 'instant' });
+      await scrollSpy.calledTimes(2);
+
+      expect(element).not.to.match(':state(shadow)');
+
+      // Remove the attribute
+      scrollContainer.removeAttribute('sbb-header-scroll-origin');
+      await aTimeout(50);
+      await waitForLitRender(element);
+
+      // Scroll in the container should no longer affect the header
+      scrollContainer.scrollTo({ top: 200, behavior: 'instant' });
+      await scrollSpy.calledTimes(3);
+      await aTimeout(0);
+
+      expect(element).not.to.match(':state(shadow)');
+    });
+
+    it('should react when an element with sbb-header-scroll-origin is added to the DOM dynamically', async () => {
+      const root = await fixture(html`
+        <div>
+          <sbb-header></sbb-header>
+          <div style="height: 2000px">Content</div>
+        </div>
+      `);
+
+      element = root.querySelector<SbbHeaderElement>('sbb-header')!;
+
+      // Dynamically insert element with the attribute
+      const scrollContainer = document.createElement('div');
+      scrollContainer.setAttribute('sbb-header-scroll-origin', '');
+      scrollContainer.style.cssText = 'height: 300px; overflow: auto;';
+      scrollContainer.innerHTML = '<div style="height: 2000px">Content</div>';
+      root.appendChild(scrollContainer);
+      await aTimeout(50);
+      await waitForLitRender(element);
+
+      const scrollSpy = new EventSpy('scroll', scrollContainer, { passive: true });
+      scrollContainer.scrollTo({ top: 200, behavior: 'instant' });
+      await scrollSpy.calledOnce();
+
+      expect(element).to.match(':state(shadow)');
+    });
+
+    it('should take priority over the scroll-origin property', async () => {
+      const root = await fixture(html`
+        <div>
+          <sbb-header scroll-origin="prop-container"></sbb-header>
+          <div id="prop-container" style="height: 300px; overflow: auto;">
+            <div style="height: 2000px">Prop container</div>
+          </div>
+          <div id="attr-container" sbb-header-scroll-origin style="height: 300px; overflow: auto;">
+            <div style="height: 2000px">Attr container</div>
+          </div>
+        </div>
+      `);
+
+      element = root.querySelector<SbbHeaderElement>('sbb-header')!;
+      const propContainer = root.querySelector<HTMLDivElement>('#prop-container')!;
+      const attrContainer = root.querySelector<HTMLDivElement>('#attr-container')!;
+
+      // Scrolling in prop-container should NOT set shadow (not the active origin)
+      const propScrollSpy = new EventSpy('scroll', propContainer, { passive: true });
+      propContainer.scrollTo({ top: 200, behavior: 'instant' });
+      await propScrollSpy.calledOnce();
+
+      expect(element).not.to.match(':state(shadow)');
+
+      // Scrolling in attr-container should set shadow
+      const attrScrollSpy = new EventSpy('scroll', attrContainer, { passive: true });
+      attrContainer.scrollTo({ top: 200, behavior: 'instant' });
+      await attrScrollSpy.calledOnce();
+
+      expect(element).to.match(':state(shadow)');
+    });
+  });
+
   it('should close menu on scroll', async () => {
     const root = await fixture(html`
       <div>

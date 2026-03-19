@@ -46,17 +46,23 @@ For the latter, the usage of the `<sbb-signet>` with `protective-room='panel'` i
 </sbb-header>
 ```
 
-### Positioning and visibility
+### Scroll behavior
 
-By default, the `<sbb-header>` has a fixed position at the top of the page;
-when the page is scrolled down, a box-shadow appears below it and the component remains visible.
-It's possible to change this behavior by setting the `hideOnScroll` property to `true`, or adding the `hide-on-scroll`
-attribute: in this case, the box-shadow is still set, but the component disappears when the page is scrolled down and
-then reappears as soon as it's scrolled up. It's also possible to bind this behavior to something other than the `document`,
-using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of the element to search for.
+By default, the `<sbb-header>` listens to scroll events on the `document`. Whenever the page is
+scrolled down, a box-shadow appears beneath the header to visually separate it from the content.
+
+> **Note:** In applications where the page itself does not scroll — such as layouts with an
+> [icon sidebar](/docs/elements-icon-sidebar--docs) or [sidebar](/docs/elements-sidebar--docs) where only the
+> content area scrolls — the shadow will never appear unless the correct scroll container is
+> configured. Always set a scroll origin in such setups (see below).
+
+#### Hide on scroll
+
+Setting the `hide-on-scroll` attribute causes the header to slide out of view when scrolling down
+and reappear when scrolling back up. The box-shadow behavior is retained.
 
 ```html
-<sbb-header expanded hideOnScroll>
+<sbb-header hide-on-scroll>
   <sbb-header-button icon-name="magnifying-glass-small">Search</sbb-header-button>
   <div class="sbb-header-spacer"></div>
   <a aria-label="Homepage" href="/" class="sbb-header-logo">
@@ -64,6 +70,64 @@ using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of t
   </a>
 </sbb-header>
 ```
+
+#### Scroll origin
+
+By default, the header listens to scroll events on the `document`. To attach the scroll listener to
+a different element, use the `scroll-origin` attribute with the `id` of the element, or set the
+`scrollOrigin` property directly with an `HTMLElement` reference.
+
+```html
+<sbb-header hide-on-scroll scroll-origin="main-content">...</sbb-header>
+
+<div id="main-content" style="overflow: auto;">
+  <!-- scrollable page content -->
+</div>
+```
+
+#### Global scroll origin via `sbb-header-scroll-origin` attribute
+
+As an alternative to the `scroll-origin` property, any element in the page can be designated as the
+scroll origin by placing the `sbb-header-scroll-origin` attribute on it. This approach is
+particularly powerful in the following scenarios:
+
+- **Micro-frontend or shell architectures** where the header and the scroll container are owned by
+  different teams or applications and a direct property binding is not feasible.
+- **Router-based applications** where each route renders its own scrollable outlet or sub-component.
+  Each routed view can simply add `sbb-header-scroll-origin` to its scroll container on mount and
+  remove it on unmount — no reference to the header element is needed.
+
+```html
+<sbb-header hide-on-scroll>...</sbb-header>
+<sbb-icon-sidebar-container>
+  <sbb-icon-sidebar color="milk">...</sbb-icon-sidebar>
+  <sbb-icon-sidebar-content sbb-header-scroll-origin>
+    <sbb-sidebar-container>
+      <sbb-sidebar mode="side" opened>...</sbb-sidebar>
+      <sbb-sidebar-content sbb-header-scroll-origin>
+      </sbb-sidebar-content>
+    </sbb-sidebar-container>
+  </sbb-icon-sidebar-contentsbb-header-scroll-origin>
+</sbb-icon-sidebar-container>
+```
+
+The `<sbb-header>` uses a `MutationObserver` on the document to automatically detect elements
+carrying the `sbb-header-scroll-origin` attribute, including those added to or removed from the DOM
+after the initial render. The attribute can also be set and removed dynamically at runtime, so
+navigating to a new route automatically hands over the scroll origin to the new container without
+any explicit coordination with the header.
+
+If multiple elements carry the `sbb-header-scroll-origin` attribute simultaneously, the one that
+appears **last in DOM order** is used as the active scroll origin. This includes deeply nested
+elements: an element inside a child component will be considered later in DOM order than its
+ancestor, and will therefore take priority. In the icon sidebar and sidebar example above,
+`sbb-sidebar-content` is a descendant of `sbb-icon-sidebar-content`, so it will always win and
+become the active scroll origin — which is exactly the desired behavior.
+
+The `sbb-header-scroll-origin` attribute takes **priority** over the `scroll-origin` property.
+When at least one element with the attribute is present, the `scroll-origin` property is ignored.
+Once all `sbb-header-scroll-origin` elements are removed, the header falls back to the
+`scroll-origin` property, or to the `document` if that is also absent.
 
 ### Customizing
 
