@@ -131,7 +131,7 @@ export class SbbHeaderElement extends SbbElement {
       } else {
         header._scrollOriginFromObserver =
           Array.from(this._headerScrollOrigins)
-            .sort((c1, c2) => c1.compareDocumentPosition(c2) & Node.DOCUMENT_POSITION_FOLLOWING)
+            .sort((c1, c2) => c1.compareDocumentPosition(c2) & Node.DOCUMENT_POSITION_CONTAINS)
             .at(-1) ?? null;
       }
       header._updateScrollListener();

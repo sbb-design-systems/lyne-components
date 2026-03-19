@@ -3,7 +3,7 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
 import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.ts';
-import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
 import { SbbMenuElement } from '../../menu.ts';
 import type { SbbHeaderButtonElement } from '../header-button/header-button.component.ts';
 
@@ -193,6 +193,7 @@ describe(`sbb-header`, () => {
       scrollContainer.scrollTo({ top: 200, behavior: 'instant' });
       await scrollEventSpy.calledOnce();
 
+      await waitForCondition(() => element.matches(':state(shadow)'));
       expect(element).to.match(':state(shadow)');
     });
 
@@ -219,13 +220,14 @@ describe(`sbb-header`, () => {
       firstContainer.scrollTo({ top: 200, behavior: 'instant' });
       await scrollOnFirstSpy.calledOnce();
 
-      expect(element).not.to.match(':state(shadow)');
+      await waitForCondition(() => !element.matches(':state(shadow)'));
 
       // Scroll in the last container – header should react
       const scrollOnLastSpy = new EventSpy('scroll', lastContainer, { passive: true });
       lastContainer.scrollTo({ top: 200, behavior: 'instant' });
       await scrollOnLastSpy.calledOnce();
 
+      await waitForCondition(() => element.matches(':state(shadow)'));
       expect(element).to.match(':state(shadow)');
     });
 
@@ -246,7 +248,7 @@ describe(`sbb-header`, () => {
       const scrollSpy = new EventSpy('scroll', scrollContainer, { passive: true });
       scrollContainer.scrollTo({ top: 200, behavior: 'instant' });
       await scrollSpy.calledOnce();
-      expect(element).not.to.match(':state(shadow)');
+      await waitForCondition(() => !element.matches(':state(shadow)'));
 
       // Reset scroll position
       scrollContainer.scrollTo({ top: 0, behavior: 'instant' });
@@ -261,8 +263,7 @@ describe(`sbb-header`, () => {
       scrollContainer.scrollTo({ top: 200, behavior: 'instant' });
       await scrollSpy.calledTimes(3);
 
-      await aTimeout(0);
-
+      await waitForCondition(() => element.matches(':state(shadow)'));
       expect(element).to.match(':state(shadow)');
     });
 
@@ -283,14 +284,13 @@ describe(`sbb-header`, () => {
       const scrollSpy = new EventSpy('scroll', scrollContainer, { passive: true });
       scrollContainer.scrollTo({ top: 200, behavior: 'instant' });
       await scrollSpy.calledOnce();
-      await aTimeout(0);
-      expect(element).to.match(':state(shadow)');
+      await waitForCondition(() => element.matches(':state(shadow)'));
 
       // Reset
       scrollContainer.scrollTo({ top: 0, behavior: 'instant' });
       await scrollSpy.calledTimes(2);
 
-      expect(element).not.to.match(':state(shadow)');
+      await waitForCondition(() => !element.matches(':state(shadow)'));
 
       // Remove the attribute
       scrollContainer.removeAttribute('sbb-header-scroll-origin');
@@ -300,8 +300,8 @@ describe(`sbb-header`, () => {
       // Scroll in the container should no longer affect the header
       scrollContainer.scrollTo({ top: 200, behavior: 'instant' });
       await scrollSpy.calledTimes(3);
-      await aTimeout(0);
 
+      await waitForCondition(() => !element.matches(':state(shadow)'));
       expect(element).not.to.match(':state(shadow)');
     });
 
@@ -328,6 +328,7 @@ describe(`sbb-header`, () => {
       scrollContainer.scrollTo({ top: 200, behavior: 'instant' });
       await scrollSpy.calledOnce();
 
+      await waitForCondition(() => element.matches(':state(shadow)'));
       expect(element).to.match(':state(shadow)');
     });
 
@@ -353,13 +354,14 @@ describe(`sbb-header`, () => {
       attrContainer.scrollTo({ top: 200, behavior: 'instant' });
       await attrScrollSpy.calledOnce();
 
-      expect(element).not.to.match(':state(shadow)');
+      await waitForCondition(() => !element.matches(':state(shadow)'));
 
       // Scrolling in prop-container should set shadow
       const propScrollSpy = new EventSpy('scroll', propContainer, { passive: true });
       propContainer.scrollTo({ top: 200, behavior: 'instant' });
       await propScrollSpy.calledOnce();
 
+      await waitForCondition(() => element.matches(':state(shadow)'));
       expect(element).to.match(':state(shadow)');
     });
   });
