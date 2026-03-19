@@ -1,0 +1,24 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-sidebar-background-color: var(--sbb-background-color-1);
+  --sbb-sidebar-title-padding-block: var(--sbb-spacing-fixed-3x);
+  --sbb-sidebar-padding: var(--sbb-spacing-responsive-xs);
+  --sbb-sidebar-border-radius: var(--sbb-border-radius-8x);
+  --sbb-sidebar-margin: var(--sbb-spacing-fixed-3x);
+  --sbb-sidebar-title-gap: var(--sbb-spacing-fixed-2x);
+}
+
+@mixin rules {
+  // If there is no close button, avoid reserving any space for the button in the sidebar title
+  sbb-sidebar:not(:has(sbb-sidebar-title)) sbb-sidebar-close-button {
+    position: absolute;
+  }
+
+  // If there is a title, remove top spacing for the content
+  sbb-sidebar:has(sbb-sidebar-title) {
+    --sbb-sidebar__padding-block-start: 0;
+  }
+}
