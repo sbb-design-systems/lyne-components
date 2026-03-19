@@ -1,9 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
-  width: #{sbb.px-to-rem-build(320)};
-
   --sbb-link-text-decoration-line: none;
   --sbb-sidebar-background-color: var(--sbb-background-color-1);
   --sbb-sidebar-title-padding-block: var(--sbb-spacing-fixed-3x);
@@ -21,6 +18,10 @@
   --sbb-sidebar__border-radius-start: var(--sbb-sidebar-border-radius);
   --sbb-sidebar__border-radius-end: 0;
   --sbb-sidebar__close-button-size: var(--sbb-size-element-xs);
+  --_sbb-sidebar-max-width: calc(100% - 2 * var(--sbb-sidebar__margin));
+
+  display: block;
+  width: #{sbb.px-to-rem-build(320)};
 
   // Subtract the width of the scrollbar from the padding (Exclude iOS browsers because they use overlay scrollbars)
   @supports (scrollbar-gutter: stable) and (not (-webkit-touch-callout: none)) {
@@ -30,8 +31,18 @@
   }
 }
 
+:host([color='white']) {
+  --sbb-sidebar-background-color: var(--sbb-background-color-1);
+}
+
 :host([color='milk']) {
   --sbb-sidebar-background-color: var(--sbb-background-color-3);
+}
+
+:host([mode='side']) {
+  --sbb-sidebar__margin: 0;
+  --sbb-sidebar__border-radius-end: 0;
+  --sbb-sidebar__z-index: 2;
 }
 
 :host(:is([mode='over'], :state(mode-over-forced):not(:state(mode-over-forced-closing)))) {
@@ -50,7 +61,7 @@
 
 .sbb-sidebar {
   width: inherit;
-  max-width: calc(100% - 2 * var(--sbb-sidebar__margin));
+  max-width: var(--_sbb-sidebar-max-width);
   background-color: var(--sbb-sidebar-background-color);
   display: flex;
   flex-direction: column;
