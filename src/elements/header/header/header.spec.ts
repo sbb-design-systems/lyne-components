@@ -331,7 +331,7 @@ describe(`sbb-header`, () => {
       expect(element).to.match(':state(shadow)');
     });
 
-    it('should take priority over the scroll-origin property', async () => {
+    it('scroll-origin property should take priority over sbb-header-scroll-origin attribute', async () => {
       const root = await fixture(html`
         <div>
           <sbb-header scroll-origin="prop-container"></sbb-header>
@@ -348,17 +348,17 @@ describe(`sbb-header`, () => {
       const propContainer = root.querySelector<HTMLDivElement>('#prop-container')!;
       const attrContainer = root.querySelector<HTMLDivElement>('#attr-container')!;
 
-      // Scrolling in prop-container should NOT set shadow (not the active origin)
-      const propScrollSpy = new EventSpy('scroll', propContainer, { passive: true });
-      propContainer.scrollTo({ top: 200, behavior: 'instant' });
-      await propScrollSpy.calledOnce();
-
-      expect(element).not.to.match(':state(shadow)');
-
-      // Scrolling in attr-container should set shadow
+      // Scrolling in attr-container should NOT set shadow (prop-container takes priority)
       const attrScrollSpy = new EventSpy('scroll', attrContainer, { passive: true });
       attrContainer.scrollTo({ top: 200, behavior: 'instant' });
       await attrScrollSpy.calledOnce();
+
+      expect(element).not.to.match(':state(shadow)');
+
+      // Scrolling in prop-container should set shadow
+      const propScrollSpy = new EventSpy('scroll', propContainer, { passive: true });
+      propContainer.scrollTo({ top: 200, behavior: 'instant' });
+      await propScrollSpy.calledOnce();
 
       expect(element).to.match(':state(shadow)');
     });

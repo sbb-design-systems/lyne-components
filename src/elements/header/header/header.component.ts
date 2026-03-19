@@ -123,11 +123,11 @@ export class SbbHeaderElement extends SbbElement {
   }
 
   private static _updateHeaderElements(): void {
-    this._headerElements.forEach((header) => {
+    for (const header of this._headerElements) {
       if (this._headerScrollOrigins.size === 0) {
         header._scrollOriginFromObserver = null;
       } else if (this._headerScrollOrigins.size === 1) {
-        header._scrollOriginFromObserver = this._headerScrollOrigins.values().next().value;
+        header._scrollOriginFromObserver = this._headerScrollOrigins.values().next().value ?? null;
       } else {
         header._scrollOriginFromObserver =
           Array.from(this._headerScrollOrigins)
@@ -135,7 +135,7 @@ export class SbbHeaderElement extends SbbElement {
             .at(-1) ?? null;
       }
       header._updateScrollListener();
-    });
+    }
   }
 
   /** If `hideOnScroll` is set, checks the element to hook the listener on, and possibly add it.*/
@@ -173,7 +173,7 @@ export class SbbHeaderElement extends SbbElement {
   }
 
   private _updateScrollListener(): void {
-    const scrollElement = this._scrollOriginFromObserver ?? this.scrollOrigin ?? document;
+    const scrollElement = this.scrollOrigin ?? this._scrollOriginFromObserver ?? document;
     if (scrollElement === this._scrollElement) {
       return;
     }

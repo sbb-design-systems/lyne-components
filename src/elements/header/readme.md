@@ -124,10 +124,10 @@ ancestor, and will therefore take priority. In the icon sidebar and sidebar exam
 `sbb-sidebar-content` is a descendant of `sbb-icon-sidebar-content`, so it will always win and
 become the active scroll origin — which is exactly the desired behavior.
 
-The `sbb-header-scroll-origin` attribute takes **priority** over the `scroll-origin` property.
-When at least one element with the attribute is present, the `scroll-origin` property is ignored.
-Once all `sbb-header-scroll-origin` elements are removed, the header falls back to the
-`scroll-origin` property, or to the `document` if that is also absent.
+The `scroll-origin` property takes **priority** over the `sbb-header-scroll-origin` attribute.
+When `scroll-origin` is set, it is always used as the active scroll origin regardless of any
+elements carrying the `sbb-header-scroll-origin` attribute. The attribute acts as a convenient
+fallback for cases where no explicit `scroll-origin` property is provided.
 
 ### Customizing
 
