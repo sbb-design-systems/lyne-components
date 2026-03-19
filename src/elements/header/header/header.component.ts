@@ -127,7 +127,7 @@ export class SbbHeaderElement extends SbbElement {
       if (this._headerScrollOrigins.size === 0) {
         header._scrollOriginFromObserver = null;
       } else if (this._headerScrollOrigins.size === 1) {
-        header._scrollOriginFromObserver = [...this._headerScrollOrigins][0];
+        header._scrollOriginFromObserver = this._headerScrollOrigins.values().next();
       } else {
         header._scrollOriginFromObserver =
           Array.from(this._headerScrollOrigins)
