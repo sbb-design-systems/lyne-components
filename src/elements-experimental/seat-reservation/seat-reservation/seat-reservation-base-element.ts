@@ -123,6 +123,9 @@ export class SeatReservationBaseElement extends SbbElement {
   protected gapBetweenCoachDecks = 48;
   // Describes the fix width of coach navigation button
   protected coachNavButtonDim: number = 0;
+  // Describes the calculated dimension for the area icons, which is used to set the max width and height of the area icons
+  protected globalAreaIconDim: ElementDimension = { w: 2, h: 2 };
+  protected globalAreaIconPadding: number = 0.8;
   protected coachItemDetailsElements: CoachItemDetails[] = [];
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
   protected maxCalcCoachesWidth: number = 0;
@@ -165,6 +168,7 @@ export class SeatReservationBaseElement extends SbbElement {
     'COMPARTMENT_PASSAGE_HIGH',
     'COMPARTMENT_PASSAGE_MIDDLE',
     'COMPARTMENT_PASSAGE_LOW',
+    'COMPARTMENT_WALL',
   ];
 
   protected overHangingElementInformation: {
@@ -259,6 +263,7 @@ export class SeatReservationBaseElement extends SbbElement {
     }
 
     this._prepareCoachItemDetailsData();
+    this._prepareOptimizeAreaIconDimensionByMedian();
   }
 
   /** Init scroll event handling for coach navigation */
@@ -1496,6 +1501,40 @@ export class SeatReservationBaseElement extends SbbElement {
           driverAreaElements: this._setDriverAreasElements(coach),
         });
       });
+    }
+  }
+
+  // #TIMO-45858
+  // Finds the optimal icon size based on all serviceElements and their dimension.
+  // This sets the globalAreaIconDim and is used when creating the seat reservation area elements.
+  // This gives us a maximum uniform icon size within the area elements
+  private _prepareOptimizeAreaIconDimensionByMedian(): void {
+    if (this.seatReservations) {
+      const allServiceDimensions = this.seatReservations
+        .map((deck) =>
+          deck.coachItems.map((coach) => coach.serviceElements?.map((icon) => icon.dimension)),
+        )
+        .flat(3);
+
+      if (allServiceDimensions.length) {
+        allServiceDimensions.sort(
+          (dim1: ElementDimension | undefined, dim2: ElementDimension | undefined) => {
+            if (dim1 && dim2) {
+              const maxDim1 = dim1.w + dim1.h;
+              const maxDim2 = dim2.w + dim2.h;
+              if (maxDim1 > maxDim2) return 1;
+              else if (maxDim1 < maxDim2) return -1;
+              else return 0;
+            }
+            return 0;
+          },
+        );
+        // calculate best icon size by median
+        const medianIconSize = allServiceDimensions[Math.floor(allServiceDimensions.length / 2)]!;
+
+        // Set the determined median icon size as global clalculated area icon dimension
+        this.globalAreaIconDim = this.getCalculatedDimension(medianIconSize);
+      }
     }
   }
 
