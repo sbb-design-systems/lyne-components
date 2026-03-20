@@ -1532,7 +1532,7 @@ export class SeatReservationBaseElement extends SbbElement {
         // calculate best icon size by median
         const medianIconSize = allServiceDimensions[Math.floor(allServiceDimensions.length / 2)]!;
 
-        // Set the determined median icon size as global clalculated area icon dimension
+        // Set the determined median icon size as global calculated area icon dimension
         this.globalAreaIconDim = this.getCalculatedDimension(medianIconSize);
       }
     }
