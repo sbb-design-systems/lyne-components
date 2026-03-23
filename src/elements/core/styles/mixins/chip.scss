@@ -41,8 +41,6 @@
 }
 
 @mixin chip-label-rules {
-  // We need an even value to make it work smoothly in Safari
-  line-height: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -57,9 +55,6 @@
   font-size: var(--sbb-chip-label-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
 
-  // Overflow hidden needed because line-height can be taller than height which can cause weird layout shifting
-  overflow: hidden;
-
   @include a11y.if-forced-colors {
     outline: var(--sbb-border-width-1x) solid CanvasText;
     outline-offset: calc(-1 * var(--sbb-border-width-1x));
@@ -69,7 +64,18 @@
 @mixin chip-label-rules-ellipsis {
   @include helpers.ellipsis;
 
+  // Display inline-block is required to make the ellipsis work.
   display: inline-block;
+
+  // For backwards compatibility reasons, the line-height is also defined without the round function.
+  line-height: calc(var(--sbb-typo-line-height-text) * var(--sbb-chip-label-font-size));
+
+  // To overcome a Safari rendering issue, we have to round the line-height to a multiple of 2px. Otherwise, the text will be vertically misaligned.
+  line-height: round(
+    down,
+    calc(var(--sbb-typo-line-height-text) * var(--sbb-chip-label-font-size)),
+    2px
+  );
 }
 
 @mixin chip($color: milk, $size: xxs) {
