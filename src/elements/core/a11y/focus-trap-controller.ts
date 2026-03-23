@@ -123,7 +123,9 @@ export class SbbFocusTrapController implements ReactiveController {
     const children = root.shadowRoot
       ? root.shadowRoot.children
       : root.localName === 'slot'
-        ? (root as HTMLSlotElement).assignedElements()
+        ? (root as HTMLSlotElement).assignedElements().length > 0
+          ? (root as HTMLSlotElement).assignedElements()
+          : root.children
         : root.children;
 
     for (let i = 0; i < children.length; i++) {
@@ -155,7 +157,9 @@ export class SbbFocusTrapController implements ReactiveController {
     const children = root.shadowRoot
       ? root.shadowRoot.children
       : root.localName === 'slot'
-        ? (root as HTMLSlotElement).assignedElements()
+        ? (root as HTMLSlotElement).assignedElements().length > 0
+          ? (root as HTMLSlotElement).assignedElements()
+          : root.children
         : root.children;
 
     // Iterate in reverse DOM order.
