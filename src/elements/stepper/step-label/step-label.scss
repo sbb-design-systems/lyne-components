@@ -1,54 +1,53 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-step-label-color: var(--sbb-color-4);
   --sbb-step-label-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
-  --sbb-step-label-prefix-size: var(--sbb-size-element-xxs);
-  --sbb-step-label-prefix-border-style: solid;
-  --sbb-step-label-prefix-border-color: var(--sbb-border-color-4-inverted);
-  --sbb-step-label-prefix-background-color: var(--sbb-background-color-1);
-  --sbb-step-label-gap: var(--sbb-spacing-fixed-4x);
+  --_sbb-step-label-inset-block-start: calc(
+    var(--sbb-text-font-size-l) * (var(--sbb-typo-line-height-text) / 2) +
+      (var(--sbb-border-width-1x) / 2)
+  );
+  --_sbb-step-label-inset-inline-start: calc(var(--sbb-step-label-prefix-size) / 2);
+  --_sbb-step-label-transform-y: calc(
+    -50% + var(--sbb-step-label-translate-y-content-hover, #{sbb.px-to-rem-build(0)})
+  );
+  --_sbb-step-label-prefix-inset-block-start: calc(
+    1em * (var(--sbb-typo-line-height-text) / 2) + (var(--sbb-border-width-1x) / 2) -
+      (var(--sbb-step-label-prefix-size) / 2)
+  );
 
   position: relative;
+  display: flex;
   min-width: 0;
   max-width: fit-content;
+  gap: var(--sbb-step-label-gap);
+  cursor: var(--sbb-step-label-cursor);
+  color: var(--sbb-step-label-color);
+  font-size: var(--sbb-step-label-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 
   &::before {
-    @include sbb.text-xxs--regular;
     @include sbb.absolute-center-x-y;
 
-    cursor: var(--sbb-step-label-cursor);
-    color: var(--sbb-step-label-color);
+    font-size: var(--sbb-text-font-size-xxs);
+    font-weight: var(--sbb-step-label-font-weight-selected, normal);
 
     // The `--sbb-text-font-size-l` is being used here to align the bubble's inner text to
     // the label text which includes the `sbb.text-l--bold` mixin.
-    inset-block-start: calc(
-      var(--sbb-text-font-size-l) * (var(--sbb-typo-line-height-text) / 2) +
-        (var(--sbb-border-width-1x) / 2)
-    );
-    inset-inline-start: calc(var(--sbb-step-label-prefix-size) / 2);
+    inset-block-start: var(--_sbb-step-label-inset-block-start);
+    inset-inline-start: var(--_sbb-step-label-inset-inline-start);
     line-height: 1;
     z-index: 1;
-    transform: translate(
-      -50%,
-      calc(-50% + var(--sbb-step-label-translate-y-content-hover, #{sbb.px-to-rem-build(0)}))
-    );
+    transform: translate(-50%, var(--_sbb-step-label-transform-y));
     transition: transform var(--sbb-step-label-animation-duration) var(--sbb-animation-easing);
-  }
-
-  @include sbb.if-forced-colors {
-    --sbb-step-label-color: ButtonText;
-    --sbb-step-label-prefix-border-color: ButtonText;
   }
 }
 
 :host(:state(selected)) {
-  @include sbb.text-xxs--bold;
-
   --sbb-step-label-color: var(--sbb-color-3);
+  --sbb-step-label-font-weight-selected: bold;
 
   @include sbb.if-forced-colors {
     --sbb-step-label-color: Highlight !important;
@@ -58,15 +57,14 @@
 :host(:state(size-s)) {
   --sbb-step-label-gap: var(--sbb-spacing-fixed-3x);
   --sbb-step-label-prefix-size: var(--sbb-size-element-xxxs);
+  --sbb-step-label-font-size: var(--sbb-text-font-size-m);
 
-  &::before {
-    // The `--sbb-text-font-size-m` is being used here to align the bubble's inner text to
-    // the label text which includes the `sbb.text-m--bold` mixin.
-    inset-block-start: calc(
-      var(--sbb-text-font-size-m) * (var(--sbb-typo-line-height-text) / 2) +
-        (var(--sbb-border-width-1x) / 2)
-    );
-  }
+  // The `--sbb-text-font-size-m` is being used here to align the bubble's inner text to
+  // the label text which includes the `sbb.text-m--bold` mixin.
+  --_sbb-step-label-inset-block-start: calc(
+    var(--sbb-text-font-size-m) * (var(--sbb-typo-line-height-text) / 2) +
+      (var(--sbb-border-width-1x) / 2)
+  );
 }
 
 :host(:disabled) {
@@ -105,20 +103,6 @@
   margin-block-end: var(--sbb-spacing-fixed-8x);
 }
 
-.sbb-step-label {
-  @include sbb.text-l--bold;
-
-  cursor: var(--sbb-step-label-cursor);
-  position: relative;
-  display: flex;
-  gap: var(--sbb-step-label-gap);
-  color: var(--sbb-step-label-color);
-
-  :host(:state(size-s)) & {
-    @include sbb.text-m--bold;
-  }
-}
-
 .sbb-step-label__prefix {
   position: relative;
   display: flex;
@@ -127,10 +111,7 @@
   justify-content: center;
   width: var(--sbb-step-label-prefix-size);
   height: var(--sbb-step-label-prefix-size);
-  inset-block-start: calc(
-    1em * (var(--sbb-typo-line-height-text) / 2) + (var(--sbb-border-width-1x) / 2) -
-      (var(--sbb-step-label-prefix-size) / 2)
-  );
+  inset-block-start: var(--_sbb-step-label-prefix-inset-block-start);
 
   &::before {
     content: '';
@@ -149,6 +130,8 @@
 }
 
 .sbb-step-label__text {
+  font-weight: bold;
+
   :host(:state(orientation-horizontal)) & {
     @include sbb.ellipsis;
   }

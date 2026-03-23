@@ -1,0 +1,18 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-step-label-color: var(--sbb-color-4);
+  --sbb-step-label-font-size: var(--sbb-text-font-size-l);
+  --sbb-step-label-prefix-size: var(--sbb-size-element-xxs);
+  --sbb-step-label-prefix-border-style: solid;
+  --sbb-step-label-prefix-border-color: var(--sbb-border-color-4-inverted);
+  --sbb-step-label-prefix-background-color: var(--sbb-background-color-1);
+  --sbb-step-label-gap: var(--sbb-spacing-fixed-4x);
+}
+
+@mixin base-forced-colors {
+  --sbb-step-label-color: ButtonText;
+  --sbb-step-label-prefix-border-color: ButtonText;
+}
