@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.9.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.8.1...v4.9.0) (2026-03-23)
+
+
+### Features
+
+* **header:** add support for scroll origin detection with sbb-header-scroll-origin attribute ([#4673](https://github.com/sbb-design-systems/lyne-components/issues/4673)) ([045dcc7](https://github.com/sbb-design-systems/lyne-components/commit/045dcc79bff0fd752a0cda363cdfd9b4163706a3))
+* **sbb-seat-reservation:** add function to get the best service icon… ([#4681](https://github.com/sbb-design-systems/lyne-components/issues/4681)) ([f8055af](https://github.com/sbb-design-systems/lyne-components/commit/f8055af23b6c4453b82393888a29dbadd5871118))
+
+
+### Bug Fixes
+
+* **checkbox-panel, radio-button-panel:** adapt height to parent ([#4693](https://github.com/sbb-design-systems/lyne-components/issues/4693)) ([b84097b](https://github.com/sbb-design-systems/lyne-components/commit/b84097b460c617a5acb73aa4a4553ceb01598c90)), closes [#4674](https://github.com/sbb-design-systems/lyne-components/issues/4674)
+* focus-trap checks on slot's fallback elements ([#4689](https://github.com/sbb-design-systems/lyne-components/issues/4689)) ([8952670](https://github.com/sbb-design-systems/lyne-components/commit/895267098af9aa23055879c8ac2dbae845ff5d14))
+* **radio-button-group:** update group state when value changes ([#4690](https://github.com/sbb-design-systems/lyne-components/issues/4690)) ([600dc27](https://github.com/sbb-design-systems/lyne-components/commit/600dc27e36fd41e13c778fab662c373247d76f07))
+* revert to esbuild CSS minifier ([#4676](https://github.com/sbb-design-systems/lyne-components/issues/4676)) ([12fd2dd](https://github.com/sbb-design-systems/lyne-components/commit/12fd2dddc014383ae06c68eac6d25dba9204487b))
+
+
+### Documentation
+
+* **autocomplete-grid:** fix examples in readme ([#4691](https://github.com/sbb-design-systems/lyne-components/issues/4691)) ([e24f6c2](https://github.com/sbb-design-systems/lyne-components/commit/e24f6c255bc7cea07dcb4482dd6436f41f61c147))
+
+
+### Code Refactoring
+
+* **popover:** css refactoring ([#4667](https://github.com/sbb-design-systems/lyne-components/issues/4667)) ([e48a8b2](https://github.com/sbb-design-systems/lyne-components/commit/e48a8b2c17e74dc5b9bd40a87e40ef6403d2af22))
+* **sbb-signet:** css refactoring ([#4671](https://github.com/sbb-design-systems/lyne-components/issues/4671)) ([bffc26b](https://github.com/sbb-design-systems/lyne-components/commit/bffc26b7eef7b4df53616ef8b57c156c345c4ddf))
+* **skiplink-list:** css refactoring ([#4682](https://github.com/sbb-design-systems/lyne-components/issues/4682)) ([0dfd08b](https://github.com/sbb-design-systems/lyne-components/commit/0dfd08bab44bf1a9bef13af4f075801e54c5a08c))
+
 ## [4.8.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.8.0...v4.8.1) (2026-03-18)
 
 
