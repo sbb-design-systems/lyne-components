@@ -191,6 +191,9 @@ $theme: 'standard' !default;
 @use '../../sidebar/sidebar/sidebar.global' as sidebar with (
   $theme: $theme
 );
+@use '../../sidebar/sidebar-close-button/sidebar-close-button.global' as sidebar-close-button with (
+  $theme: $theme
+);
 @use '../../sidebar/sidebar-container/sidebar-container.global' as sidebar-container with (
   $theme: $theme
 );
@@ -405,6 +408,7 @@ $theme: 'standard' !default;
 @include message.rules;
 @include option.rules;
 @include sidebar.rules;
+@include sidebar-close-button.rules;
 @include sidebar-container.rules;
 @include tab-nav-bar.rules;
 

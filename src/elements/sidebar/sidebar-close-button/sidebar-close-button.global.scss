@@ -1,0 +1,10 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin rules {
+  // If there is no close button, avoid reserving any space for the button in the sidebar title
+  sbb-sidebar:not(:has(sbb-sidebar-title)) sbb-sidebar-close-button {
+    position: absolute;
+  }
+}
