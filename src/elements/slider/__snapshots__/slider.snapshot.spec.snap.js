@@ -4,7 +4,7 @@ export const snapshots = {};
 snapshots["sbb-slider renders DOM"] = 
 `<sbb-slider
   id="slider-1"
-  style="--sbb-slider-value-fraction: 0.01;"
+  style="--_sbb-slider-value-fraction: 0.01;"
   tabindex="0"
   value="1"
 >
@@ -46,7 +46,7 @@ snapshots["sbb-slider renders with properties DOM"] =
   max="500"
   min="0"
   start-icon="walk-slow-small"
-  style="--sbb-slider-value-fraction: 0.2;"
+  style="--_sbb-slider-value-fraction: 0.2;"
   tabindex="0"
   value="100"
 >
@@ -93,7 +93,7 @@ snapshots["sbb-slider renders disabled DOM"] =
   max="500"
   min="0"
   start-icon="walk-slow-small"
-  style="--sbb-slider-value-fraction: 0.2;"
+  style="--_sbb-slider-value-fraction: 0.2;"
   tabindex="0"
   value="100"
 >
@@ -141,7 +141,7 @@ snapshots["sbb-slider renders readonly DOM"] =
   min="0"
   readonly=""
   start-icon="walk-slow-small"
-  style="--sbb-slider-value-fraction: 0.2;"
+  style="--_sbb-slider-value-fraction: 0.2;"
   tabindex="0"
   value="100"
 >
@@ -182,7 +182,7 @@ snapshots["sbb-slider renders readonly Shadow DOM"] =
 `;
 /* end snapshot sbb-slider renders readonly Shadow DOM */
 
-snapshots["sbb-slider renders A11y tree Chrome"] = 
+snapshots["sbb-slider renders A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",
@@ -198,7 +198,7 @@ snapshots["sbb-slider renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-slider renders A11y tree Chrome */
 
-snapshots["sbb-slider renders with properties A11y tree Chrome"] = 
+snapshots["sbb-slider renders with properties A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",
@@ -222,7 +222,7 @@ snapshots["sbb-slider renders with properties A11y tree Chrome"] =
 `;
 /* end snapshot sbb-slider renders with properties A11y tree Chrome */
 
-snapshots["sbb-slider renders disabled A11y tree Chrome"] = 
+snapshots["sbb-slider renders disabled A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",
@@ -245,7 +245,7 @@ snapshots["sbb-slider renders disabled A11y tree Chrome"] =
 `;
 /* end snapshot sbb-slider renders disabled A11y tree Chrome */
 
-snapshots["sbb-slider renders readonly A11y tree Chrome"] = 
+snapshots["sbb-slider renders readonly A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",
@@ -273,7 +273,7 @@ snapshots["sbb-slider renders in form DOM"] =
   max="10"
   min="0"
   name="sbb-slider"
-  style="--sbb-slider-value-fraction: 0.1;"
+  style="--_sbb-slider-value-fraction: 0.1;"
   tabindex="0"
   value="1"
 >
@@ -309,7 +309,7 @@ snapshots["sbb-slider renders in form Shadow DOM"] =
 `;
 /* end snapshot sbb-slider renders in form Shadow DOM */
 
-snapshots["sbb-slider renders in form A11y tree Chrome"] = 
+snapshots["sbb-slider renders in form A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",
