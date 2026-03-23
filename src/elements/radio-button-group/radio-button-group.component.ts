@@ -77,6 +77,7 @@ export class SbbRadioButtonGroupElement<T = string> extends SbbSelectionGroupBas
   public constructor() {
     super();
     this.addEventListener?.('change', (e: Event) => this._onRadioChange(e));
+    this.addEventListener?.('ɵradiobuttonvaluechange', () => this._updateRadioState());
   }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
