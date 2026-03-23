@@ -294,7 +294,7 @@ async function buildLibrary(pkg: PackageBuilder): Promise<void> {
           formats: ['es'],
         },
         outDir: pkg.outDir,
-        cssMinify: pkg.production,
+        cssMinify: pkg.production ? 'esbuild' : false,
         minify: pkg.production,
         emptyOutDir: false,
         sourcemap: pkg.production ? false : 'inline',
