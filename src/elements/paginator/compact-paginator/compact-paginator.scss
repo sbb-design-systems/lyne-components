@@ -12,7 +12,7 @@
 }
 
 :host([size='m']) {
-  --sbb-paginator-height: var(--sbb-size-element-m);
+  --sbb-compact-paginator-height: var(--sbb-size-element-m);
 }
 
 :host([negative]) {
