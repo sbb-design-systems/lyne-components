@@ -194,6 +194,9 @@ $theme: 'standard' !default;
 @use '../../sidebar/sidebar-container/sidebar-container.global' as sidebar-container with (
   $theme: $theme
 );
+@use '../../signet/signet.global' as signet with (
+  $theme: $theme
+);
 @use '../../status/status.global' as status with (
   $theme: $theme
 );
@@ -272,6 +275,7 @@ $theme: 'standard' !default;
   @include selection-action-panel.base;
   @include selection-expansion-panel.base;
   @include sidebar.base;
+  @include signet.base;
   @include status.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
@@ -290,6 +294,7 @@ $theme: 'standard' !default;
     @include logo.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
     @include radio-button-common.base-forced-colors;
+    @include signet.base-forced-colors;
   }
 
   // Train formation
