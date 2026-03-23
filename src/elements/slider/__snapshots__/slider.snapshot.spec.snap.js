@@ -1,8 +1,8 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-slider renders DOM"] = 
-`<sbb-slider
+snapshots['sbb-slider renders DOM'] =
+  `<sbb-slider
   id="slider-1"
   style="--_sbb-slider-value-fraction: 0.01;"
   tabindex="0"
@@ -12,8 +12,8 @@ snapshots["sbb-slider renders DOM"] =
 `;
 /* end snapshot sbb-slider renders DOM */
 
-snapshots["sbb-slider renders Shadow DOM"] = 
-`<div class="sbb-slider__height-container">
+snapshots['sbb-slider renders Shadow DOM'] =
+  `<div class="sbb-slider__height-container">
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
     </slot>
@@ -40,8 +40,8 @@ snapshots["sbb-slider renders Shadow DOM"] =
 `;
 /* end snapshot sbb-slider renders Shadow DOM */
 
-snapshots["sbb-slider renders with properties DOM"] = 
-`<sbb-slider
+snapshots['sbb-slider renders with properties DOM'] =
+  `<sbb-slider
   end-icon="walk-fast-small"
   max="500"
   min="0"
@@ -54,8 +54,8 @@ snapshots["sbb-slider renders with properties DOM"] =
 `;
 /* end snapshot sbb-slider renders with properties DOM */
 
-snapshots["sbb-slider renders with properties Shadow DOM"] = 
-`<div class="sbb-slider__height-container">
+snapshots['sbb-slider renders with properties Shadow DOM'] =
+  `<div class="sbb-slider__height-container">
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
       <sbb-icon name="walk-slow-small">
@@ -86,8 +86,8 @@ snapshots["sbb-slider renders with properties Shadow DOM"] =
 `;
 /* end snapshot sbb-slider renders with properties Shadow DOM */
 
-snapshots["sbb-slider renders disabled DOM"] = 
-`<sbb-slider
+snapshots['sbb-slider renders disabled DOM'] =
+  `<sbb-slider
   disabled=""
   end-icon="walk-fast-small"
   max="500"
@@ -101,8 +101,8 @@ snapshots["sbb-slider renders disabled DOM"] =
 `;
 /* end snapshot sbb-slider renders disabled DOM */
 
-snapshots["sbb-slider renders disabled Shadow DOM"] = 
-`<div class="sbb-slider__height-container">
+snapshots['sbb-slider renders disabled Shadow DOM'] =
+  `<div class="sbb-slider__height-container">
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
       <sbb-icon name="walk-slow-small">
@@ -134,8 +134,8 @@ snapshots["sbb-slider renders disabled Shadow DOM"] =
 `;
 /* end snapshot sbb-slider renders disabled Shadow DOM */
 
-snapshots["sbb-slider renders readonly DOM"] = 
-`<sbb-slider
+snapshots['sbb-slider renders readonly DOM'] =
+  `<sbb-slider
   end-icon="walk-fast-small"
   max="500"
   min="0"
@@ -149,8 +149,8 @@ snapshots["sbb-slider renders readonly DOM"] =
 `;
 /* end snapshot sbb-slider renders readonly DOM */
 
-snapshots["sbb-slider renders readonly Shadow DOM"] = 
-`<div class="sbb-slider__height-container">
+snapshots['sbb-slider renders readonly Shadow DOM'] =
+  `<div class="sbb-slider__height-container">
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
       <sbb-icon name="walk-slow-small">
@@ -182,8 +182,8 @@ snapshots["sbb-slider renders readonly Shadow DOM"] =
 `;
 /* end snapshot sbb-slider renders readonly Shadow DOM */
 
-snapshots["sbb-slider renders A11y tree Chrome"] =
-`<p>
+snapshots['sbb-slider renders A11y tree Chrome'] =
+  `<p>
   {
   "role": "generic",
   "name": "Fixture Container",
@@ -198,8 +198,8 @@ snapshots["sbb-slider renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-slider renders A11y tree Chrome */
 
-snapshots["sbb-slider renders with properties A11y tree Chrome"] =
-`<p>
+snapshots['sbb-slider renders with properties A11y tree Chrome'] =
+  `<p>
   {
   "role": "generic",
   "name": "Fixture Container",
@@ -222,8 +222,8 @@ snapshots["sbb-slider renders with properties A11y tree Chrome"] =
 `;
 /* end snapshot sbb-slider renders with properties A11y tree Chrome */
 
-snapshots["sbb-slider renders disabled A11y tree Chrome"] =
-`<p>
+snapshots['sbb-slider renders disabled A11y tree Chrome'] =
+  `<p>
   {
   "role": "generic",
   "name": "Fixture Container",
@@ -245,8 +245,8 @@ snapshots["sbb-slider renders disabled A11y tree Chrome"] =
 `;
 /* end snapshot sbb-slider renders disabled A11y tree Chrome */
 
-snapshots["sbb-slider renders readonly A11y tree Chrome"] =
-`<p>
+snapshots['sbb-slider renders readonly A11y tree Chrome'] =
+  `<p>
   {
   "role": "generic",
   "name": "Fixture Container",
@@ -268,8 +268,8 @@ snapshots["sbb-slider renders readonly A11y tree Chrome"] =
 `;
 /* end snapshot sbb-slider renders readonly A11y tree Chrome */
 
-snapshots["sbb-slider renders in form DOM"] = 
-`<sbb-slider
+snapshots['sbb-slider renders in form DOM'] =
+  `<sbb-slider
   max="10"
   min="0"
   name="sbb-slider"
@@ -281,8 +281,8 @@ snapshots["sbb-slider renders in form DOM"] =
 `;
 /* end snapshot sbb-slider renders in form DOM */
 
-snapshots["sbb-slider renders in form Shadow DOM"] = 
-`<div class="sbb-slider__height-container">
+snapshots['sbb-slider renders in form Shadow DOM'] =
+  `<div class="sbb-slider__height-container">
   <div class="sbb-slider__wrapper">
     <slot name="prefix">
     </slot>
@@ -309,8 +309,8 @@ snapshots["sbb-slider renders in form Shadow DOM"] =
 `;
 /* end snapshot sbb-slider renders in form Shadow DOM */
 
-snapshots["sbb-slider renders in form A11y tree Chrome"] =
-`<p>
+snapshots['sbb-slider renders in form A11y tree Chrome'] =
+  `<p>
   {
   "role": "generic",
   "name": "Fixture Container",
