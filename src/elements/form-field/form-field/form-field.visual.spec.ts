@@ -148,6 +148,15 @@ describe(`sbb-form-field`, () => {
     .set('select', basicSelect)
     .set('textarea', basicTextarea);
 
+  const visuallyRequiredStates = {
+    negative: [false, true],
+    state: [
+      { disabled: false, readonly: false },
+      { disabled: true, readonly: false },
+      { disabled: false, readonly: true },
+    ],
+  };
+
   function testFormField({
     forcedColors,
     darkMode,
@@ -155,6 +164,35 @@ describe(`sbb-form-field`, () => {
     forcedColors: boolean;
     darkMode: boolean;
   }): void {
+    describe('sbb-form-field-required-highlight', () => {
+      describeEach(visuallyRequiredStates, ({ negative, state }) => {
+        it(
+          visualDiffDefault.name,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-form-field class="sbb-form-field-required-highlight" ?negative=${negative}>
+                <label>Required Field</label>
+                <input
+                  placeholder="Input placeholder"
+                  ?disabled=${state.disabled}
+                  ?readonly=${state.readonly}
+                  required
+                />
+              </sbb-form-field>`,
+              {
+                backgroundColor: negative
+                  ? 'var(--sbb-background-color-2-negative)'
+                  : 'var(--sbb-background-color-2)',
+                focusOutlineDark: negative,
+                forcedColors,
+                darkMode,
+              },
+            );
+          }),
+        );
+      });
+    });
+
     for (const [name, template] of component.entries()) {
       describe(`input=${name}`, () => {
         // visual states
