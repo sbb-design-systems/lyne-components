@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.9.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.8.1...v4.9.0) (2026-03-23)
+
+
+### Features
+
+* **header:** add support for scroll origin detection with sbb-header-scroll-origin attribute ([#4673](https://github.com/sbb-design-systems/lyne-components/issues/4673)) ([045dcc7](https://github.com/sbb-design-systems/lyne-components/commit/045dcc79bff0fd752a0cda363cdfd9b4163706a3))
+
+
+### Bug Fixes
+
+* revert to esbuild CSS minifier ([#4676](https://github.com/sbb-design-systems/lyne-components/issues/4676)) ([12fd2dd](https://github.com/sbb-design-systems/lyne-components/commit/12fd2dddc014383ae06c68eac6d25dba9204487b))
+
+
+### Code Refactoring
+
+* **sbb-signet:** css refactoring ([#4671](https://github.com/sbb-design-systems/lyne-components/issues/4671)) ([bffc26b](https://github.com/sbb-design-systems/lyne-components/commit/bffc26b7eef7b4df53616ef8b57c156c345c4ddf))
+
 ## [4.8.1](https://github.com/sbb-design-systems/lyne-components/compare/v4.8.0...v4.8.1) (2026-03-18)
 
 
