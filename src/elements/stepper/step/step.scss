@@ -1,16 +1,12 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-step-position: initial;
-  --sbb-step-inset-block-start: unset;
   --sbb-step-opacity: 0;
-  --sbb-step-display: none;
-  --sbb-step-height: 0;
+  --sbb-step-margin-inline-start: var(--sbb-spacing-fixed-4x);
   --sbb-step-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
-  --sbb-step-animation-delay: 0;
 
   display: contents;
 }
@@ -33,7 +29,7 @@
 
 .sbb-step--wrapper {
   :host(:state(orientation-vertical)) & {
-    margin-inline-start: var(--sbb-spacing-fixed-4x);
+    margin-inline-start: var(--sbb-step-margin-inline-start);
     opacity: 0;
     height: 0;
     transition:
@@ -60,18 +56,18 @@
 }
 
 .sbb-step {
-  @include sbb.text-m--regular;
-
-  position: var(--sbb-step-position);
+  position: var(--sbb-step-position, initial);
   width: 100%;
-  inset-block-start: var(--sbb-step-inset-block-start);
+  inset-block-start: var(--sbb-step-inset-block-start, unset);
   opacity: var(--sbb-step-opacity);
-  display: var(--sbb-step-display);
-  height: var(--sbb-step-height);
+  display: var(--sbb-step-display, none);
+  height: var(--sbb-step-height, 0);
+  font-size: var(--sbb-text-font-size-m);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   transition: {
     property: display, opacity;
     duration: var(--sbb-step-animation-duration);
-    delay: var(--sbb-step-animation-delay);
+    delay: var(--sbb-step-animation-delay, 0);
     timing-function: var(--sbb-animation-easing);
   }
 
