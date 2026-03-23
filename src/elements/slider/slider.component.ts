@@ -235,30 +235,34 @@ class SbbSliderElement extends SbbDisabledMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <slot name="prefix">
-        ${this.startIcon ? html`<sbb-icon name="${this.startIcon}"></sbb-icon>` : nothing}
-      </slot>
-      <div class="sbb-slider__container">
-        <input
-          tabindex="-1"
-          min=${this.min}
-          max=${this.max}
-          ?disabled=${this.disabled || this.formDisabled || this.readOnly}
-          value=${this.value || nothing}
-          class="sbb-slider__range-input"
-          type="range"
-          @change=${() => this._dispatchChangeEvent()}
-          @input=${() => (this.value = this._rangeInput.value)}
-          ${ref((input?: Element) => (this._rangeInput = input as HTMLInputElement))}
-        />
-        <div class="sbb-slider__line">
-          <div class="sbb-slider__selected-line"></div>
+      <div class="sbb-slider__height-container">
+        <div class="sbb-slider__wrapper">
+          <slot name="prefix">
+            ${this.startIcon ? html`<sbb-icon name="${this.startIcon}"></sbb-icon>` : nothing}
+          </slot>
+          <div class="sbb-slider__container">
+            <input
+              tabindex="-1"
+              min=${this.min}
+              max=${this.max}
+              ?disabled=${this.disabled || this.formDisabled || this.readOnly}
+              value=${this.value || nothing}
+              class="sbb-slider__range-input"
+              type="range"
+              @change=${() => this._dispatchChangeEvent()}
+              @input=${() => (this.value = this._rangeInput.value)}
+              ${ref((input?: Element) => (this._rangeInput = input as HTMLInputElement))}
+            />
+            <div class="sbb-slider__line">
+              <div class="sbb-slider__selected-line"></div>
+            </div>
+            <div class="sbb-slider__knob"></div>
+          </div>
+          <slot name="suffix">
+            ${this.endIcon ? html`<sbb-icon name="${this.endIcon}"></sbb-icon>` : nothing}
+          </slot>
         </div>
-        <div class="sbb-slider__knob"></div>
       </div>
-      <slot name="suffix">
-        ${this.endIcon ? html`<sbb-icon name="${this.endIcon}"></sbb-icon>` : nothing}
-      </slot>
     `;
   }
 }

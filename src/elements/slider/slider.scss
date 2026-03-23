@@ -6,12 +6,9 @@
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
-  display: inline-flex;
+  display: inline-block;
   min-width: var(--sbb-slider-min-width);
   width: min(var(--sbb-slider-width), 100%);
-  gap: var(--sbb-slider-gap);
-  padding-block: var(--sbb-slider-padding-block);
-  color: var(--sbb-slider-icon-color);
 }
 
 :host(:disabled) {
@@ -36,6 +33,20 @@
     --sbb-slider-selected-line-disabled-color: GrayText;
     --sbb-slider-line-disabled-color: GrayText;
   }
+}
+
+.sbb-slider__height-container {
+  display: flex;
+  flex-direction: column;
+
+  @include sbb.zero-width-space;
+}
+
+.sbb-slider__wrapper {
+  display: flex;
+  gap: var(--sbb-slider-gap);
+  padding-block: var(--sbb-slider-padding-block);
+  color: var(--sbb-slider-icon-color);
 }
 
 .sbb-slider__container {
