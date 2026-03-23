@@ -1,0 +1,62 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin rules {
+  sbb-sidebar-container {
+    // Skip animation for the container, content and sidebars when a sidebar requests it
+    // (during initialization or if animation is disabled, but only during transition)
+    &:has(> sbb-sidebar:state(skip-animation)) {
+      --sbb-sidebar-container-animation-duration: 0s;
+    }
+
+    // Toggles visibility of backdrop if there is an affected sidebar inside the container.
+    &:has(
+      > sbb-sidebar:is([mode='over'], :state(mode-over-forced)):is(
+          :state(state-opening),
+          :state(state-opened)
+        )
+    ) {
+      --sbb-sidebar-container__backdrop-visibility: visible;
+      --sbb-sidebar-container-backdrop-opacity: 0.4;
+    }
+
+    // Controls the start margin of the sbb-sidebar-content.
+    // Whenever the sidebar with position start is in a closed state in over mode (or forced over mode),
+    // or if there is no sidebar with position start, then override the margin with 0.
+    // Direct child selector is mandatory to enable nested sidebars.
+    &:is(
+        :has(
+          > sbb-sidebar[position='end']:is(
+              :state(state-closing),
+              :state(state-closed),
+              [mode='over'],
+              :state(mode-over-forced)
+            )
+        ),
+        :not(:has(> sbb-sidebar[position='end']))
+      )
+      > sbb-sidebar-content {
+      --sbb-sidebar-content__margin-inline-end: 0;
+    }
+
+    // Controls the end margin of the sbb-sidebar-content.
+    // Whenever the sidebar with position end is in a closed state in over mode (or forced over mode),
+    // or if there is no sidebar with position end, then override the margin with 0.
+    // Direct child selector is mandatory to enable nested sidebars.
+    &:is(
+        :has(
+          > sbb-sidebar:not([position='end']):is(
+              :state(state-closing),
+              :state(state-closed),
+              [mode='over'],
+              :state(mode-over-forced)
+            )
+        ),
+        :not(:has(> sbb-sidebar:not([position='end'])))
+      )
+      > sbb-sidebar-content {
+      --sbb-sidebar-content__margin-inline-start: 0;
+    }
+  }
+}
