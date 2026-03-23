@@ -5,10 +5,7 @@
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
-  --_sbb-step-label-inset-block-start: calc(
-    var(--sbb-text-font-size-l) * (var(--sbb-typo-line-height-text) / 2) +
-      (var(--sbb-border-width-1x) / 2)
-  );
+  --_sbb-step-label-inset-block-start: var(--sbb-step-label-inset-block-start-size-m);
   --_sbb-step-label-inset-inline-start: calc(var(--sbb-step-label-prefix-size) / 2);
   --_sbb-step-label-transform-y: calc(
     -50% + var(--sbb-step-label-translate-y-content-hover, #{sbb.px-to-rem-build(0)})
@@ -33,9 +30,6 @@
 
     font-size: var(--sbb-text-font-size-xxs);
     font-weight: var(--sbb-step-label-font-weight-selected, normal);
-
-    // The `--sbb-text-font-size-l` is being used here to align the bubble's inner text to
-    // the label text which includes the `sbb.text-l--bold` mixin.
     inset-block-start: var(--_sbb-step-label-inset-block-start);
     inset-inline-start: var(--_sbb-step-label-inset-inline-start);
     line-height: 1;
@@ -58,13 +52,7 @@
   --sbb-step-label-gap: var(--sbb-spacing-fixed-3x);
   --sbb-step-label-prefix-size: var(--sbb-size-element-xxxs);
   --sbb-step-label-font-size: var(--sbb-text-font-size-m);
-
-  // The `--sbb-text-font-size-m` is being used here to align the bubble's inner text to
-  // the label text which includes the `sbb.text-m--bold` mixin.
-  --_sbb-step-label-inset-block-start: calc(
-    var(--sbb-text-font-size-m) * (var(--sbb-typo-line-height-text) / 2) +
-      (var(--sbb-border-width-1x) / 2)
-  );
+  --_sbb-step-label-inset-block-start: var(--sbb-step-label-inset-block-start-size-s);
 }
 
 :host(:disabled) {

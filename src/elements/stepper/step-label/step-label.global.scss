@@ -4,12 +4,47 @@ $theme: 'standard' !default;
 
 @mixin base {
   --sbb-step-label-color: var(--sbb-color-4);
-  --sbb-step-label-font-size: var(--sbb-text-font-size-l);
-  --sbb-step-label-prefix-size: var(--sbb-size-element-xxs);
+  --sbb-step-label-font-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-text-font-size-l),
+        'lean': var(--sbb-text-font-size-m),
+      ),
+      $theme
+    )};
+  --sbb-step-label-prefix-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-size-element-xxs),
+        'lean': var(--sbb-size-element-xxxs),
+      ),
+      $theme
+    )};
   --sbb-step-label-prefix-border-style: solid;
   --sbb-step-label-prefix-border-color: var(--sbb-border-color-4-inverted);
   --sbb-step-label-prefix-background-color: var(--sbb-background-color-1);
-  --sbb-step-label-gap: var(--sbb-spacing-fixed-4x);
+  --sbb-step-label-gap: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-spacing-fixed-4x),
+        'lean': var(--sbb-spacing-fixed-3x),
+      ),
+      $theme
+    )};
+
+  // The `--sbb-text-font-size` in l/m variant has being used here to align the bubble's inner text to the label text.
+  --sbb-step-label-inset-block-start-size-m: calc(
+    var(--sbb-text-font-size-l) * (var(--sbb-typo-line-height-text) / 2) +
+      (var(--sbb-border-width-1x) / 2)
+  );
+  --sbb-step-label-inset-block-start-size-s: calc(
+    var(--sbb-text-font-size-m) * (var(--sbb-typo-line-height-text) / 2) +
+      (var(--sbb-border-width-1x) / 2)
+  );
+  --sbb-step-label-inset-block-start: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-step-label-inset-block-start-size-m),
+        'lean': var(--sbb-step-label-inset-block-start-size-s),
+      ),
+      $theme
+    )};
 }
 
 @mixin base-forced-colors {

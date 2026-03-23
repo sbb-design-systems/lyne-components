@@ -197,6 +197,9 @@ $theme: 'standard' !default;
 @use '../../stepper/step-label/step-label.global' as step-label with (
   $theme: $theme
 );
+@use '../../stepper/stepper/stepper.global' as stepper with (
+  $theme: $theme
+);
 @use '../../tabs/common/tab-group-common.global' as tab-group-common with (
   $theme: $theme
 );
@@ -274,6 +277,7 @@ $theme: 'standard' !default;
   @include signet.base;
   @include status.base;
   @include step-label.base;
+  @include stepper.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
   @include visual-checkbox.base;
