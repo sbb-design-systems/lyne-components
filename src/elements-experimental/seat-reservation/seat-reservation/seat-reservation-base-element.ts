@@ -125,6 +125,9 @@ export class SeatReservationBaseElement extends SbbElement {
   protected coachNavButtonDim: number = 0;
   // Describes the calculated dimension for the area icons, which is used to set the max width and height of the area icons
   protected globalAreaIconDim: ElementDimension = { w: 2, h: 2 };
+  // #TIMO-45858
+  // Describes the padding for the icon within the area as a percentage size of the area self. 80% (0.8 percent) corresponds
+  // to a good optical size and creates a good padding from the area ti icon
   protected globalAreaIconPadding: number = 0.8;
   protected coachItemDetailsElements: CoachItemDetails[] = [];
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
@@ -215,6 +218,7 @@ export class SeatReservationBaseElement extends SbbElement {
         this.coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
         this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
 
+        this._initPrepareSeatReservationData();
         this.initNavigationSelectionByScrollEvent();
       }
     }
@@ -1510,11 +1514,12 @@ export class SeatReservationBaseElement extends SbbElement {
   // This gives us a maximum uniform icon size within the area elements
   private _prepareOptimizeAreaIconDimensionByMedian(): void {
     if (this.seatReservations) {
-      const allServiceDimensions = this.seatReservations
-        .map((deck) =>
-          deck.coachItems.map((coach) => coach.serviceElements?.map((icon) => icon.dimension)),
-        )
-        .flat(3);
+      const allServiceDimensions: ElementDimension[] = [];
+      this.seatReservations.forEach((deck) =>
+        deck.coachItems.forEach((coach) =>
+          coach.serviceElements?.forEach((icon) => allServiceDimensions.push(icon.dimension)),
+        ),
+      );
 
       if (allServiceDimensions.length) {
         allServiceDimensions.sort(
