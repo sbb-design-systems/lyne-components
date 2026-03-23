@@ -328,9 +328,7 @@ const CompareWithTemplate = ({
         ${sbbSpread(args)}
         .value=${value ? complexValueArray.find((v) => value === v.name) : undefined}
         @change=${(event: Event) => changeEventHandler(event)}
-        .compareWith=${(v1: any, v2: any) => {
-          return v1?.id === v2?.id;
-        }}
+        .compareWith=${(v1: any, v2: any) => v1?.id === v2?.id}
       >
         ${createComplexValueOptions(numberOfOptions, disableOption)}
       </sbb-select>

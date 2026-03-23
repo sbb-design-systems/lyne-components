@@ -1730,6 +1730,7 @@ describe(`sbb-select`, () => {
       expect(element.getDisplayValue()).to.be.equal('First');
       expect(firstOption.selected).to.be.true;
     });
+
     it('should serialize and deserialize complex value with multiple', async () => {
       const secondOption = element.querySelector<SbbOptionElement<PropertyType>>('#option-2')!;
       element.multiple = true;

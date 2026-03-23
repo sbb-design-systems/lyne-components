@@ -99,7 +99,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   public accessor multiple: boolean = false;
 
   /** Function used to compare option values. */
-  @property({ type: Function })
+  @property({ attribute: false })
   public accessor compareWith: (v1: T | null, v2: T | null) => boolean = (v1, v2) => v1 === v2;
 
   @forceType()
@@ -607,7 +607,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       this._value = [option.value!];
     } else if (
       Array.isArray(this.value) &&
-      this.value.findIndex((v) => this.compareWith(v, option.value!)) == -1
+      !this.value.some((v) => this.compareWith(v, option.value!))
     ) {
       this._value = [...this.value, option.value!];
     }
@@ -878,7 +878,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     const displayValues = [];
     for (const option of this.options) {
-      option.selected = value.findIndex((v) => this.compareWith(v, option.value)) >= 0;
+      option.selected = value.some((v) => this.compareWith(v, option.value));
       if (option.selected) {
         displayValues.push(option);
       }
