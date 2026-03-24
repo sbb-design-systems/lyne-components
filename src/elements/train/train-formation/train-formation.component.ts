@@ -1,4 +1,11 @@
-import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -11,7 +18,7 @@ import type { SbbTrainElement } from '../train/train.component.ts';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage/train-blocked-passage.component.ts';
 import type { SbbTrainWagonElement } from '../train-wagon/train-wagon.component.ts';
 
-import style from './train-formation.scss?lit&inline';
+import style from './train-formation.scss?inline';
 
 interface AggregatedSector {
   label: string;
@@ -30,7 +37,7 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-train-formation';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   protected override readonly listChildLocalNames = ['sbb-train'];
 
   /** Whether the view of the wagons is from side or top perspective. */

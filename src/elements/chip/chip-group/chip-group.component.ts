@@ -1,4 +1,11 @@
-import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
@@ -20,7 +27,7 @@ import type { SbbFormFieldElement } from '../../form-field/form-field/form-field
 import type { SbbOptionBaseElement } from '../../option/option/option-base-element.ts';
 import { SbbChipElement } from '../chip/chip.component.ts';
 
-import style from './chip-group.scss?lit&inline';
+import style from './chip-group.scss?inline';
 
 let displayWithWarningLogged = false;
 
@@ -97,7 +104,7 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
 ) {
   public static override readonly elementName: string = 'sbb-chip-group';
   public static override readonly role = 'listbox';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     input: 'input',
     change: 'change',

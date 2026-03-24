@@ -6,6 +6,7 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
@@ -32,7 +33,7 @@ import type { SbbNavigationButtonElement } from '../navigation-button/navigation
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 import type { SbbNavigationSectionElement } from '../navigation-section/navigation-section.component.ts';
 
-import style from './navigation.scss?lit&inline';
+import style from './navigation.scss?inline';
 
 // TODO(breaking-change): Remove call to define.
 SbbTransparentButtonElement.define();
@@ -51,7 +52,7 @@ const DEBOUNCE_TIME = 150;
 export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-navigation';
   public static override readonly role = 'navigation';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * The element that will trigger the navigation.

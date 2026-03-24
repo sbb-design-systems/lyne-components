@@ -5,6 +5,7 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -14,7 +15,7 @@ import { forceType, idReference } from '../../core/decorators.ts';
 import { isLean, queueDomContentLoaded } from '../../core/dom.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
-import style from './header.scss?lit&inline';
+import style from './header.scss?inline';
 
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 
@@ -27,7 +28,7 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  */
 export class SbbHeaderElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-header';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   private static _headerScrollOrigins = new Set<HTMLElement>();
   private static _headerElements = new Set<SbbHeaderElement>();

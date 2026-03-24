@@ -1,5 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, type CSSResultGroup, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../../core/controllers/language-controller.ts';

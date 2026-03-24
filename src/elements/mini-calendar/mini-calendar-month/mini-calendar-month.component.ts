@@ -1,5 +1,10 @@
-import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -11,7 +16,7 @@ import { forceType } from '../../core/decorators.ts';
 import type { SbbOrientation } from '../../core/interfaces.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
-import style from './mini-calendar-month.scss?lit&inline';
+import style from './mini-calendar-month.scss?inline';
 
 /**
  * It displays a month in the `sbb-mini-calendar`.
@@ -20,7 +25,7 @@ import style from './mini-calendar-month.scss?lit&inline';
  */
 export class SbbMiniCalendarMonthElement<T = Date> extends SbbElement {
   public static override readonly elementName: string = 'sbb-mini-calendar-month';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Date as ISO string (YYYY-MM) */
   @forceType()

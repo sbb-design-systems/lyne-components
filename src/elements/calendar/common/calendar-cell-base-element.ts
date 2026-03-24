@@ -1,3 +1,5 @@
+import { unsafeCSS } from 'lit';
+
 import { SbbButtonLikeBaseElement } from '../../core/base-elements/button-base-element.ts';
 import { readConfig } from '../../core/config/config.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers/property-watcher-controller.ts';
@@ -9,6 +11,10 @@ import type {
   FormRestoreState,
 } from '../../core/mixins/form-associated-mixin.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
+
+import calendarCellBaseStyleString from './calendar-cell-base-element.scss?inline';
+
+export const calendarCellBaseStyle = unsafeCSS(calendarCellBaseStyleString);
 
 export abstract class SbbCalendarCellBaseElement<T = Date> extends SbbDisabledMixin(
   SbbButtonLikeBaseElement,

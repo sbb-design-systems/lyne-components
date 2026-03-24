@@ -5,6 +5,7 @@ import {
   nothing,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -25,7 +26,7 @@ import {
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbSelectElement } from '../../select.ts';
 
-import style from './form-field.scss?lit&inline';
+import style from './form-field.scss?inline';
 
 import '../../icon.ts';
 
@@ -79,7 +80,7 @@ export class SbbFormFieldControlEvent extends Event {
  */
 export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-form-field';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['button', 'sbb-popover', 'sbb-option', 'sbb-chip'];
@@ -373,7 +374,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
 
     if (
       nativeInputElements.includes(this._input.localName) ||
-      (customElements.get(this._input.localName) as { formAssociated: boolean } | undefined)
+      (customElements.get(this._input.localName) as { formAssociated?: boolean } | undefined)
         ?.formAssociated
     ) {
       // For native input elements we use the `for` attribute on the label to reference the input
@@ -398,7 +399,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   private _isInputElement(input: Element): boolean {
     return (
       nativeInputElements.includes(input.localName) ||
-      !!(customElements.get(input.localName) as { formAssociated: boolean } | undefined)
+      !!(customElements.get(input.localName) as { formAssociated?: boolean } | undefined)
         ?.formAssociated
     );
   }

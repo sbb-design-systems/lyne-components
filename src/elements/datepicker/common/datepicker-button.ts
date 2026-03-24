@@ -1,4 +1,4 @@
-import { html, type PropertyDeclaration, type TemplateResult } from 'lit';
+import { html, unsafeCSS, type PropertyDeclaration, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
@@ -10,9 +10,11 @@ import { i18nToday } from '../../core/i18n.ts';
 import { SbbNegativeMixin } from '../../core/mixins.ts';
 import { SbbDateInputElement, type SbbDateInputAssociated } from '../../date-input.ts';
 
+import datepickerButtonStyleString from './datepicker-button.scss?inline';
+
 import '../../icon.ts';
 
-export { default as datepickerButtonStyle } from './datepicker-button.scss?lit&inline';
+export const datepickerButtonStyle = unsafeCSS(datepickerButtonStyleString);
 
 export abstract class SbbDatepickerButtonBase<T = Date>
   extends SbbNegativeMixin(SbbButtonBaseElement)

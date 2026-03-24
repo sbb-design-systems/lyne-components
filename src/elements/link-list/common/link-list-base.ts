@@ -1,5 +1,4 @@
-import type { PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { html, nothing, unsafeCSS, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -18,9 +17,11 @@ import type {
 } from '../../link.ts';
 import type { SbbTitleLevel } from '../../title.ts';
 
+import linkListBaseStyleString from './link-list-base.scss?inline';
+
 import '../../title.ts';
 
-export { default as linkListBaseStyle } from './link-list-base.scss?lit&inline';
+export const linkListBaseStyle = unsafeCSS(linkListBaseStyleString);
 
 /**
  * It displays a list of `sbb-block-link`.

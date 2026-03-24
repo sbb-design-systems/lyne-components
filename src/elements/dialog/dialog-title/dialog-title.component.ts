@@ -1,9 +1,9 @@
-import type { CSSResultGroup } from 'lit';
+import { unsafeCSS, type CSSResultGroup } from 'lit';
 
 import { SbbNegativeMixin } from '../../core/mixins.ts';
 import { SbbTitleBase } from '../../title.ts';
 
-import style from './dialog-title.scss?lit&inline';
+import style from './dialog-title.scss?inline';
 
 /**
  * It displays a title inside a dialog header.
@@ -12,7 +12,7 @@ import style from './dialog-title.scss?lit&inline';
  */
 export class SbbDialogTitleElement extends SbbNegativeMixin(SbbTitleBase) {
   public static override readonly elementName: string = 'sbb-dialog-title';
-  public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
+  public static override styles: CSSResultGroup = [SbbTitleBase.styles, unsafeCSS(style)];
 
   public constructor() {
     super();
