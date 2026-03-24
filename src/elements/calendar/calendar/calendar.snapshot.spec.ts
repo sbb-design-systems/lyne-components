@@ -4,12 +4,12 @@ import { nothing } from 'lit';
 import { html } from 'lit/static-html.js';
 import { type SinonStub, stub } from 'sinon';
 
-import { defaultDateAdapter } from '../../core/datetime.ts';
 import {
   fixture,
   sbbBreakpointLargeMinPx,
   testA11yTreeSnapshot,
 } from '../../core/testing/private.ts';
+import { defaultDateAdapter } from '../../core.ts';
 import { createSlottedDays } from '../calendar-day/calendar-day.helper.private.ts';
 
 import type { SbbCalendarElement } from './calendar.component.ts';

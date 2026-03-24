@@ -1,6 +1,6 @@
 import { unsafeCSS, type CSSResultGroup } from 'lit';
 
-import { boxSizingStyles } from '../core/styles.ts';
+import { boxSizingStyles } from '../core.ts';
 import { linkListBaseStyle, SbbLinkListBaseElement } from '../link-list.pure.ts';
 
 import style from './link-list-anchor.scss?inline';

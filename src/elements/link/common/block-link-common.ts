@@ -1,10 +1,8 @@
 import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.ts';
-import type { SbbIconPlacement } from '../../core/interfaces.ts';
-import type { AbstractConstructor } from '../../core/mixins.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+import type { SbbActionBaseElement, SbbIconPlacement, AbstractConstructor } from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 
 import { SbbLinkCommonElementMixin } from './link-common.ts';
 // eslint-disable-next-line import-x/order

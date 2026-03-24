@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-import type { LitElement, PropertyDeclaration, PropertyValues } from 'lit';
+import type { PropertyDeclaration, PropertyValues } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { isWebkit } from '../dom.ts';
+import type { SbbElement } from '../base-elements/element.ts';
+import { isWebkit } from '../dom/platform.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
-import type { SbbElementInternalsMixinType } from './element-internals-mixin.ts';
 
 declare global {
   /**
@@ -91,9 +91,7 @@ export declare abstract class SbbFormAssociatedMixinType {
  * The FormAssociatedMixin enables native form support for custom controls.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedMixin = <
-  T extends AbstractConstructor<LitElement & SbbElementInternalsMixinType>,
->(
+export const SbbFormAssociatedMixin = <T extends AbstractConstructor<SbbElement>>(
   superClass: T,
 ): AbstractConstructor<SbbFormAssociatedMixinType> & T => {
   abstract class SbbFormAssociatedElement

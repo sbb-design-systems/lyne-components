@@ -4,19 +4,20 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import { isZeroAnimationDuration } from '../../core/dom.ts';
-import type { SbbOverlayCloseEventDetails } from '../../core/interfaces/overlay-close-details.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbElementType, SbbOverlayCloseEventDetails } from '../../core.ts';
+import {
+  isZeroAnimationDuration,
+  boxSizingStyles,
+  SbbScreenReaderOnlyElement,
+} from '../../core.ts';
 import {
   overlayRefs,
   SbbOverlayBaseElement,
   SbbOverlayCloseEvent as SbbDialogCloseEvent,
-} from '../../overlay.ts';
+} from '../../overlay.pure.ts';
 import type { SbbDialogContentElement } from '../dialog-content/dialog-content.component.ts';
 
 import style from './dialog.scss?inline';
-
-import '../../screen-reader-only.ts';
 
 export {
   assignOverlayResult as assignDialogResult,
@@ -35,6 +36,7 @@ let nextId = 0;
  */
 export class SbbDialogElement extends SbbOverlayBaseElement {
   public static override readonly elementName: string = 'sbb-dialog';
+  public static override elementDependencies: SbbElementType[] = [SbbScreenReaderOnlyElement];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Backdrop click action. */

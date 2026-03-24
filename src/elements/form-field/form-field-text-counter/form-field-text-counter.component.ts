@@ -2,12 +2,14 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import { sbbLiveAnnouncer } from '../../core/a11y/live-announcer.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { i18nRemainingCharacters } from '../../core/i18n.ts';
+import {
+  i18nRemainingCharacters,
+  SbbLanguageController,
+  sbbLiveAnnouncer,
+  SbbScreenReaderOnlyElement,
+  type SbbElementType,
+} from '../../core.ts';
 import { SbbHintElement } from '../hint/hint.component.ts';
-
-import '../../screen-reader-only.ts';
 
 const percentagesToRead = [100, 50, 25, 10, 0];
 
@@ -20,6 +22,7 @@ const percentagesToRead = [100, 50, 25, 10, 0];
  */
 export class SbbFormFieldTextCounterElement extends SbbHintElement {
   public static override readonly elementName: string = 'sbb-form-field-text-counter';
+  public static override elementDependencies: SbbElementType[] = [SbbScreenReaderOnlyElement];
   public static override styles: CSSResultGroup = [SbbHintElement.styles];
 
   @state() private accessor _remainingCharacters: number = 0;

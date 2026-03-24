@@ -2,9 +2,9 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { SbbCalendarElement } from '../../calendar.ts';
-import { defaultDateAdapter } from '../../core/datetime.ts';
 import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
+import { defaultDateAdapter } from '../../core.ts';
 
 import { SbbCalendarDayElement } from './calendar-day.component.ts';
 import { createSlottedDays } from './calendar-day.helper.private.ts';

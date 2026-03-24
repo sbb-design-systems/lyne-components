@@ -1,13 +1,9 @@
 import { unsafeCSS, type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
 
 import { SbbSecondaryButtonElement } from '../../button.pure.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { i18nCloseDialog } from '../../core/i18n.ts';
+import { SbbLanguageController, i18nCloseDialog } from '../../core.ts';
 
 import style from './dialog-close-button.scss?inline';
-
-// TODO(breaking-change): Remove call to define.
-SbbSecondaryButtonElement.define();
 
 /**
  * Dialog close button, intended to be placed inside sbb-dialog.

@@ -1,16 +1,16 @@
 import { unsafeCSS, type CSSResultGroup, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import type { SbbOccupancy } from '../core.ts';
 import {
   SbbDarkModeController,
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryForcedColors,
-} from '../core/controllers.ts';
-import { i18nOccupancy } from '../core/i18n.ts';
-import type { SbbOccupancy } from '../core/interfaces.ts';
-import { SbbNegativeMixin } from '../core/mixins.ts';
-import { SbbIconBase } from '../icon.ts';
+  i18nOccupancy,
+  SbbNegativeMixin,
+} from '../core.ts';
+import { SbbIconBase } from '../icon.pure.ts';
 
 import style from './timetable-occupancy-icon.scss?inline';
 

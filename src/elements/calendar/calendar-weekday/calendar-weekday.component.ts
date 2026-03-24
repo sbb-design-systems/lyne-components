@@ -1,9 +1,12 @@
 import { html, type CSSResultGroup, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core/styles.ts';
+import { boxSizingStyles } from '../../core.ts';
 import type { Weekday } from '../calendar/calendar.component.ts';
-import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts';
+import {
+  SbbCalendarCellBaseElement,
+  calendarCellBaseStyle,
+} from '../common/calendar-cell-base-element.ts';
 
 /**
  * It displays a single week day cell in the `sbb-calendar` component.

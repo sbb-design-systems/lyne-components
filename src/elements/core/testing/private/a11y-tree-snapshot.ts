@@ -3,7 +3,7 @@ import { executeServerCommand } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { isChromium } from '../../dom.ts';
+import { isChromium } from '../../dom/platform.ts';
 import { testIf } from '../mocha-extensions.ts';
 import { waitForLitRender } from '../wait-for-render.ts';
 

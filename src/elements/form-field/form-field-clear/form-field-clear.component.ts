@@ -1,20 +1,22 @@
 import { html, type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
 
 import { miniButtonStyle } from '../../button.pure.ts';
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { i18nClearInput } from '../../core/i18n.ts';
-import { SbbNegativeMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbButtonBaseElement, type SbbElementType } from '../../core.ts';
+import {
+  SbbLanguageController,
+  i18nClearInput,
+  SbbNegativeMixin,
+  boxSizingStyles,
+} from '../../core.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field.component.ts';
-
-import '../../icon.ts';
 
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
  */
 export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
   public static override readonly elementName: string = 'sbb-form-field-clear';
+  public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle];
 
   private _formField?: SbbFormFieldElement | null;

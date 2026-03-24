@@ -8,7 +8,7 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../../core/testing/private.ts';
-import { waitForCondition } from '../../core/testing/wait-for-condition.ts';
+import { waitForCondition } from '../../core/testing.ts';
 
 import '../../table.ts';
 

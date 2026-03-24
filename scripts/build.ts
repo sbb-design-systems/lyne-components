@@ -799,12 +799,13 @@ function renderTemplate(
   // If a type or interface needs to be imported, the custom elements analyzer will not detect/extract these,
   // and therefore we need to have a manual list of required types/interfaces.
   const interfaces = new Map<string, string>()
-    .set('SbbOverlayCloseEventDetails', 'core/interfaces.js')
-    .set('SbbPaginatorPageEventDetails', 'core/interfaces.js')
-    .set('SeatReservationPlaceSelection', 'seat-reservation/common.js')
-    .set('SeatReservationSelectedCoach', 'seat-reservation/common.js')
-    .set('SeatReservationSelectedPlaces', 'seat-reservation/common.js')
-    .set('PlaceSelection', 'seat-reservation/common.js');
+    .set('SbbOverlayCloseEventDetails', 'core.js')
+    .set('SbbPaginatorPageEventDetails', 'core.js')
+    .set('SeatReservationPlaceSelection', 'seat-reservation.pure.js')
+    .set('SeatReservationSelectedCoach', 'seat-reservation.pure.js')
+    .set('SeatReservationSelectedPlaces', 'seat-reservation.pure.js')
+    .set('PlaceSelection', 'seat-reservation.pure.js')
+    .set('SbbPaginatorPageEventDetails', 'paginator.pure.js');
 
   // In case of properties that are not string, but can be used as a string attribute in
   // React (e.g. trigger), we need to patch the class property types to allow string as

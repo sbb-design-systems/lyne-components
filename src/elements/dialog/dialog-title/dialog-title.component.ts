@@ -1,7 +1,7 @@
 import { unsafeCSS, type CSSResultGroup } from 'lit';
 
-import { SbbNegativeMixin } from '../../core/mixins.ts';
-import { SbbTitleBase } from '../../title.ts';
+import { SbbNegativeMixin } from '../../core.ts';
+import { SbbTitleBase } from '../../title.pure.ts';
 
 import style from './dialog-title.scss?inline';
 

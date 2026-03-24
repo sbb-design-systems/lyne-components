@@ -1,8 +1,10 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { setOrRemoveAttribute } from '../../core/dom.ts';
+import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import {
+  setOrRemoveAttribute,
   i18nBlockedPassage,
   i18nClass,
   i18nLocomotiveLabel,
@@ -10,10 +12,8 @@ import {
   i18nRestaurantWagonLabel,
   i18nSleepingWagonLabel,
   i18nWagonLabel,
-} from '../../core/i18n.ts';
-import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
-import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import type { SbbIconElement } from '../../icon.ts';
+} from '../../core.ts';
+import type { SbbIconElement } from '../../icon.pure.ts';
 
 import { SbbTrainWagonElement } from './train-wagon.component.ts';
 

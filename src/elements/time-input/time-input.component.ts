@@ -1,16 +1,16 @@
 import { type CSSResultGroup, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { sbbLiveAnnouncer } from '../core/a11y.ts';
-import { SbbElement } from '../core/base-elements.ts';
-import { SbbLanguageController } from '../core/controllers.ts';
 import {
+  sbbLiveAnnouncer,
+  SbbElement,
+  SbbLanguageController,
   i18nTimeInputChange,
   i18nTimeInvalid,
   i18nTimeMax,
   i18nTimeMaxLength,
-} from '../core/i18n.ts';
-import { SbbFormAssociatedInputMixin } from '../core/mixins.ts';
+  SbbFormAssociatedInputMixin,
+} from '../core.ts';
 
 import style from './time-input.scss?inline';
 
