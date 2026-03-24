@@ -44,6 +44,8 @@
     }
   }
 
+  // In Angular the CDK table always adds a thead even if there are no headers.
+  // Due to this fact we have to also insert `tr` in the `:has()` selector.
   &:has(thead tr) thead,
   &:not(:has(thead tr)) tbody {
     tr:first-of-type > :is(th, td) {
