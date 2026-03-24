@@ -64,15 +64,13 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
 
     /* eslint-disable lit/binding-positions */
     return html`
-      <div class="sbb-skiplink-list__wrapper">
-        <${unsafeStatic(TITLE_TAG_NAME)}
-          class="sbb-skiplink-list-title"
-          id="sbb-skiplink-list-title-id"
-        >
-          <slot name="title">${this.titleContent}</slot>
-        </${unsafeStatic(TITLE_TAG_NAME)}>
-        ${this.renderList({ ariaLabelledby: 'sbb-skiplink-list-title-id' })}
-      </div>
+      <${unsafeStatic(TITLE_TAG_NAME)}
+        class="sbb-skiplink-list-title"
+        id="sbb-skiplink-list-title-id"
+      >
+        <slot name="title">${this.titleContent}</slot>
+      </${unsafeStatic(TITLE_TAG_NAME)}>
+      ${this.renderList({ ariaLabelledby: 'sbb-skiplink-list-title-id' })}
     `;
     /* eslint-enable lit/binding-positions */
   }

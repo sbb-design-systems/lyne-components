@@ -210,7 +210,7 @@ bootstrapApplication(App).catch((err) => console.error(err));
 ## Components
 
 Component documentation is available on [digital.sbb.ch](https://digital.sbb.ch)
-and on [storybook](https://lyne-storybook.app.sbb.ch).
+and on [Docs App](https://lyne-elements.app.sbb.ch).
 
 ## Styles
 
@@ -461,10 +461,10 @@ For available Sass mixins, check [Sass Mixins](https://github.com/sbb-design-sys
 As a base rule, styles are included in components. However, there are a few exceptions
 where we provide CSS classes to consumers:
 
-- [Layout styles](https://lyne-storybook.app.sbb.ch/?path=/docs/styles-layout--docs)
-- [List styles](https://lyne-storybook.app.sbb.ch/?path=/docs/styles-list--docs)
-- [Scrollbar styles](https://lyne-storybook.app.sbb.ch/?path=/docs/styles-scrollbar--docs)
-- [Text styles](https://lyne-storybook.app.sbb.ch/?path=/docs/styles-typography--docs)
+- [Layout styles](https://lyne-elements.app.sbb.ch/?path=/docs/styles-layout--docs)
+- [List styles](https://lyne-elements.app.sbb.ch/?path=/docs/styles-list--docs)
+- [Scrollbar styles](https://lyne-elements.app.sbb.ch/?path=/docs/styles-scrollbar--docs)
+- [Text styles](https://lyne-elements.app.sbb.ch/?path=/docs/styles-typography--docs)
 
 ### Manipulating styles of components
 
@@ -553,7 +553,7 @@ Lyne only intends to use these three fonts.
 To apply the SBB font family you can use the CSS var `var(--sbb-typo-font-family)`. However,
 this only includes the family but no letter spacing, so we recommend always
 using our Sass mixins or CSS classes which contain all necessary properties.
-See [Text styles](https://lyne-storybook.app.sbb.ch/?path=/docs/styles-typography--docs) for what's available.
+See [Text styles](https://lyne-elements.app.sbb.ch/?path=/docs/styles-typography--docs) for what's available.
 
 ```html
 <p class="sbb-text-s sbb-text--bold"></p>

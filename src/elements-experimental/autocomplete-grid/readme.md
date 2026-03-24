@@ -45,7 +45,8 @@ it will automatically connect to the native `<input>` as trigger and will displa
 
 ```html
 <!-- Origin element -->
-<sbb-form-field label="Label">
+<sbb-form-field>
+  <label>Label</label>
   <!-- Trigger element -->
   <input placeholder="Trigger element" />
 
@@ -79,7 +80,8 @@ The displayed `<sbb-autocomplete-grid-option>` can be collected into groups usin
 
 ```html
 <!-- Origin element -->
-<sbb-form-field label="Label">
+<sbb-form-field>
+  <label>Label</label>
   <!-- Trigger element -->
   <input placeholder="Trigger element" />
 

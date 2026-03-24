@@ -21,7 +21,7 @@ let title = 'Size Check';
 try {
   const previousStatsURL = process.env.CI
     ? 'http://localhost:8050/lyne-stats.json'
-    : 'https://lyne-storybook-dev.app.sbb.ch/lyne-stats.json';
+    : 'https://lyne-elements-dev.app.sbb.ch/lyne-stats.json';
   previousStats = (await fetch(previousStatsURL).then((r) => r.json())) as Stats;
 } catch {
   /* empty */

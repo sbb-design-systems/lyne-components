@@ -328,6 +328,18 @@ import '../radio-button-group.ts';
         expect(radioOne.checked).to.be.true;
       });
 
+      it('should match group value when the radio value changes', async () => {
+        const radioOne = element.querySelector<SbbRadioButtonElement>(
+          'sbb-radio-button[value="42"]',
+        )!;
+
+        radioOne.value = 'Value one';
+        await waitForLitRender(element);
+
+        expect(element.value).to.equal('Value one');
+        expect(radioOne.checked).to.be.true;
+      });
+
       it('checked radios should have priority over group value', async () => {
         const radioOne = document.createElement('sbb-radio-button');
         radioOne.value = 'Value one';
