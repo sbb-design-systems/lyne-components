@@ -40,10 +40,12 @@ sbb-table-wrapper[negative] .sbb-table,
   }
 }
 
+// @deprecated
 .sbb-table-header-row {
   @include table.table-header-row;
 }
 
+// @deprecated
 .sbb-table-header-cell {
   @include table.table-header-cell;
 }
@@ -52,10 +54,12 @@ sbb-table-wrapper[negative] .sbb-table,
   @include table.table-row--striped;
 }
 
+// @deprecated
 .sbb-table-data-cell {
   @include table.table-data-cell;
 }
 
+// @deprecated
 .sbb-table-caption {
   @include table.table-caption;
 }
@@ -119,4 +123,30 @@ sbb-table-wrapper[negative] .sbb-table,
 // TODO: In future, move to the 'sbb-lean' theme
 html.sbb-lean .sbb-table:not(.sbb-table-xs, .sbb-table-m) {
   @include table.table--s;
+}
+
+.sbb-table-align-start {
+  text-align: start;
+}
+
+.sbb-table-align-center {
+  text-align: center;
+}
+
+.sbb-table-align-end {
+  text-align: end;
+}
+
+.sbb-table-align-justify {
+  text-align: justify;
+}
+
+// Backwards compatibility for sbb-angular
+.sbb-table-align-left {
+  text-align: left;
+}
+
+// Backwards compatibility for sbb-angular
+.sbb-table-align-right {
+  text-align: right;
 }
