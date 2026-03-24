@@ -5,7 +5,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import images from '../core/images.ts';
+import { sampleImages } from '../core/images.private.ts';
 
 import readme from './readme.md?raw';
 import '../chip-label.ts';
@@ -95,7 +95,7 @@ const TemplateDefault = ({
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
       <figure slot="image" class="sbb-figure">
-        <img src=${images[9]} alt="400x300" width="400" />
+        <img src=${sampleImages[9]} alt="400x300" width="400" />
         <sbb-chip-label class="sbb-figure-overlap-start-start">AI Generated</sbb-chip-label>
       </figure>
       ${chipContent && chipContent !== ''
@@ -115,7 +115,7 @@ const TemplateDefaultFixedWidth = ({
 }: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)} style="width:400px">
-      <img src=${images[9]} alt="400x300" slot="image" width="400" />
+      <img src=${sampleImages[9]} alt="400x300" slot="image" width="400" />
       ${title && chipContent !== ''
         ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
         : nothing}
@@ -134,7 +134,7 @@ const TemplateCustom = ({
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
       <img
-        src=${images[9]}
+        src=${sampleImages[9]}
         alt="200x100"
         class="sbb-image-2-1"
         style="width: 200px;"
@@ -157,7 +157,7 @@ const TemplateSlots = ({
 }: Args): TemplateResult => {
   return html`
     <sbb-teaser ${sbbSpread(remainingArgs)}>
-      <img src=${images[9]} alt="400x300" slot="image" width="400" />
+      <img src=${sampleImages[9]} alt="400x300" slot="image" width="400" />
       ${chipContent && chipContent !== ''
         ? html`<sbb-chip-label>${chipContent}</sbb-chip-label>`
         : nothing}
@@ -183,7 +183,7 @@ const TemplateGrid = ({ description, ...remainingArgs }: Args): TemplateResult =
       () => html`
         <sbb-teaser ${sbbSpread(remainingArgs)} style="--sbb-teaser-align-items: stretch;">
           <figure slot="image" class="sbb-figure" style="width: 100%;">
-            <sbb-image image-src=${images[6]} alt="400x300"></sbb-image>
+            <sbb-image image-src=${sampleImages[6]} alt="400x300"></sbb-image>
           </figure>
           ${description}
         </sbb-teaser>

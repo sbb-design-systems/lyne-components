@@ -9,11 +9,15 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbFocusVisibleWithinController } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType, idReference } from '../../core/decorators.ts';
-import { isLean, queueDomContentLoaded } from '../../core/dom.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  SbbFocusVisibleWithinController,
+  SbbElement,
+  forceType,
+  idReference,
+  isLean,
+  queueDomContentLoaded,
+  boxSizingStyles,
+} from '../../core.ts';
 
 import style from './header.scss?inline';
 

@@ -1,10 +1,9 @@
 import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import { SbbIconNameMixin } from '../icon.ts';
-import type { SbbTitleElement } from '../title.ts';
+import { SbbElement, boxSizingStyles } from '../core.ts';
+import { SbbIconNameMixin } from '../icon.pure.ts';
+import type { SbbTitleElement } from '../title.pure.ts';
 
 import style from './status.scss?inline';
 

@@ -7,16 +7,20 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbButtonLikeBaseElement } from '../../core/base-elements.ts';
-import { forceType, getOverride, omitEmptyConverter } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
+import {
+  SbbButtonLikeBaseElement,
+  forceType,
+  getOverride,
+  omitEmptyConverter,
+  isLean,
+  boxSizingStyles,
+} from '../../core.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledTabIndexActionMixin,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbTagGroupElement } from '../tag-group/tag-group.component.ts';
 
 import style from './tag.scss?inline';

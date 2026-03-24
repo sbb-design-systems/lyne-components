@@ -2,18 +2,20 @@ import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.ts';
-import { isLean } from '../../core/dom.ts';
-import type { AbstractConstructor } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import type {
+  SbbActionBaseElement,
+  SbbElementConstructor,
+  SbbElementType,
+  AbstractConstructor,
+} from '../../core.ts';
+import { isLean, boxSizingStyles } from '../../core.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 import type { SbbNavigationMarkerElement } from '../navigation-marker/navigation-marker.component.ts';
 import type { SbbNavigationSectionElement } from '../navigation-section/navigation-section.component.ts';
 
 import style from './navigation-action.scss?inline';
-
-import '../../icon.ts';
 
 export type SbbNavigationActionSize = 's' | 'm' | 'l';
 
@@ -26,7 +28,7 @@ export declare class SbbNavigationActionCommonElementMixinType {
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbNavigationActionCommonElementMixin = <
-  T extends AbstractConstructor<SbbActionBaseElement>,
+  T extends AbstractConstructor<SbbActionBaseElement> & SbbElementConstructor,
 >(
   superClass: T,
 ): AbstractConstructor<SbbNavigationActionCommonElementMixinType> & T => {
@@ -34,6 +36,7 @@ export const SbbNavigationActionCommonElementMixin = <
     extends superClass
     implements Partial<SbbNavigationActionCommonElementMixinType>
   {
+    public static override elementDependencies: SbbElementType[] = [SbbIconElement];
     public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
     /**

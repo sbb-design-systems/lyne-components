@@ -10,17 +10,16 @@ import {
 import { property, state } from 'lit/decorators.js';
 
 import { SbbAccentButtonElement } from '../button.pure.ts';
-import { SbbElement } from '../core/base-elements.ts';
-import { SbbLanguageController } from '../core/controllers.ts';
-import { forceType } from '../core/decorators.ts';
-import { forwardEvent } from '../core/eventing.ts';
-import { i18nMapContainerButtonLabel } from '../core/i18n.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { SbbElement, type SbbElementType } from '../core.ts';
+import {
+  SbbLanguageController,
+  forceType,
+  forwardEvent,
+  i18nMapContainerButtonLabel,
+  boxSizingStyles,
+} from '../core.ts';
 
 import style from './map-container.scss?inline';
-
-// TODO(breaking-change): Remove call to define.
-SbbAccentButtonElement.define();
 
 /**
  * It can be used as a container for maps.
@@ -39,6 +38,7 @@ SbbAccentButtonElement.define();
  */
 export class SbbMapContainerElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-map-container';
+  public static override elementDependencies: SbbElementType[] = [SbbAccentButtonElement];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Flag to show/hide the scroll up button inside the sidebar on mobile. */

@@ -8,8 +8,7 @@ import {
 } from '@sbb-esta/lyne-design-tokens';
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
-import { ɵstateController } from '../mixins/element-internals-mixin.ts';
-import type { SbbElementInternalsMixinType } from '../mixins.ts';
+import type { SbbElement } from '../base-elements/element.ts';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export const SbbMediaQueryForcedColors = '(forced-colors: active)';
@@ -137,12 +136,12 @@ export class SbbDarkModeController extends SbbMediaMatcherController {
   private readonly _onChangeWithStateUpdater: () => void;
 
   public constructor(
-    private _host: ReactiveControllerHost & HTMLElement & SbbElementInternalsMixinType,
+    private _host: ReactiveControllerHost & SbbElement,
     onChange: SbbMediaMatcherHandler,
   ) {
     const onChangeWithStateUpdater: () => void = () => {
       onChange(this.matches());
-      ɵstateController(this._host).toggle('dark', this.matches());
+      this._host['toggleState']?.('dark', this.matches());
     };
     super(_host, {
       [SbbMediaQueryDarkMode]: onChangeWithStateUpdater,

@@ -9,17 +9,22 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
-import { readConfig } from '../core/config.ts';
 import {
+  appendAriaElements,
+  removeAriaElements,
+  SbbOpenCloseBaseElement,
+  readConfig,
   SbbEscapableOverlayController,
   SbbOverlayPositionController,
-} from '../core/controllers.ts';
-import { idReference } from '../core/decorators.ts';
-import { isAndroid, isIOS, isZeroAnimationDuration, queueDomContentLoaded } from '../core/dom.ts';
-import { appendAriaElements, removeAriaElements, SbbDisabledMixin } from '../core/mixins.ts';
-import { sbbOverlayOutsidePointerEventListener } from '../core/overlay.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+  idReference,
+  isAndroid,
+  isIOS,
+  isZeroAnimationDuration,
+  queueDomContentLoaded,
+  SbbDisabledMixin,
+  sbbOverlayOutsidePointerEventListener,
+  boxSizingStyles,
+} from '../core.ts';
 
 import style from './tooltip.scss?inline';
 

@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { type SinonStub, stub } from 'sinon';
 
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
 import {
   describeViewports,
   visualDiffActive,
@@ -10,6 +9,7 @@ import {
   visualDiffHover,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
+import { defaultDateAdapter } from '../../core.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
 
 import type { SbbCalendarYearElement } from './calendar-year.component.ts';

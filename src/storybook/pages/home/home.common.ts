@@ -2,7 +2,7 @@ import type { Args } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import images from '../../../elements/core/images.ts';
+import { sampleImages } from '../../../elements/core/images.private.ts';
 
 import '../../../elements/button.ts';
 import '../../../elements/card.ts';
@@ -211,7 +211,7 @@ export const teaserHero = (): TemplateResult => html`
   <section class="sbb-page-spacing">
     <sbb-teaser-hero class="teaser-hero" link-content="Learn more" href="https://www.sbb.ch">
       Considerate with SBB Green Class.
-      <sbb-image slot="image" image-src="${images[0]}"></sbb-image>
+      <sbb-image slot="image" image-src="${sampleImages[0]}"></sbb-image>
     </sbb-teaser-hero>
   </section>
 `;

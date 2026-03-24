@@ -9,9 +9,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { SbbNegativeMixin } from '../../core/mixins.ts';
+import { SbbElement, forceType, SbbNegativeMixin } from '../../core.ts';
 
 import style from './table-wrapper.scss?inline';
 

@@ -8,19 +8,20 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
+import type { SbbHorizontalFrom, SbbOrientation } from '../../core.ts';
 import {
+  getNextElementIndex,
+  isArrowKeyPressed,
+  SbbElement,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointLargeAndAbove,
   SbbMediaQueryBreakpointSmallAndAbove,
   SbbMediaQueryBreakpointUltraAndAbove,
   SbbMediaQueryBreakpointZeroAndAbove,
-} from '../../core/controllers/media-matchers-controller.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
-import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+  forceType,
+  isLean,
+  boxSizingStyles,
+} from '../../core.ts';
 import type { SbbStepElement, SbbStepValidateEventDetails } from '../step/step.component.ts';
 
 import style from './stepper.scss?inline';

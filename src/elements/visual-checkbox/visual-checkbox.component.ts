@@ -2,11 +2,14 @@ import { html, nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } fr
 import { property } from 'lit/decorators.js';
 
 import type { SbbCheckboxSize } from '../checkbox.pure.ts';
-import { SbbElement } from '../core/base-elements.ts';
-import { forceType } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import { SbbDisabledMixin, SbbNegativeMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import {
+  SbbElement,
+  forceType,
+  isLean,
+  SbbDisabledMixin,
+  SbbNegativeMixin,
+  boxSizingStyles,
+} from '../core.ts';
 
 import style from './visual-checkbox.scss?inline';
 

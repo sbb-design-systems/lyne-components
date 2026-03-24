@@ -1,5 +1,5 @@
-import type { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.js';
-import { SbbPropertyWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
+import type { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.pure.js';
+import { SbbPropertyWatcherController } from '@sbb-esta/lyne-elements/core.js';
 import { SbbOptgroupBaseElement } from '@sbb-esta/lyne-elements/option.pure.js';
 
 import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/autocomplete-grid-option.component.ts';

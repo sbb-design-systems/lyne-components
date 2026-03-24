@@ -8,7 +8,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import type { SbbErrorElement } from '../form-field.ts';
-import type { SbbRadioButtonGroupElement } from '../radio-button.ts';
+import type { SbbRadioButtonGroupElement } from '../radio-button-group.ts';
 
 import readme from './readme.md?raw';
 import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.ts';
@@ -16,12 +16,16 @@ import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.c
 import '../button.ts';
 import '../card.ts';
 import '../checkbox.ts';
+import '../checkbox-group.ts';
+import '../checkbox-panel.ts';
 import '../divider.ts';
 import '../form-field.ts';
 import '../icon.ts';
 import '../link.ts';
 import '../popover.ts';
 import '../radio-button.ts';
+import '../radio-button-group.ts';
+import '../radio-button-panel.ts';
 import '../selection-expansion-panel.ts';
 import '../title.ts';
 

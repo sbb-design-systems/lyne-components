@@ -1,24 +1,15 @@
-import {
-  html,
-  isServer,
-  type LitElement,
-  type PropertyDeclaration,
-  type PropertyValues,
-} from 'lit';
+import { html, isServer, type PropertyDeclaration, type PropertyValues } from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
-import { sbbInputModalityDetector } from '../a11y.ts';
-import { SbbLanguageController, SbbMediaQueryPointerCoarse } from '../controllers.ts';
-import { isBlink, isWebkit } from '../dom.ts';
-import { i18nInputRequired } from '../i18n.ts';
+import { sbbInputModalityDetector } from '../a11y/input-modality-detector.ts';
+import type { SbbElement, SbbElementConstructor } from '../base-elements/element.ts';
+import { SbbLanguageController } from '../controllers/language-controller.ts';
+import { SbbMediaQueryPointerCoarse } from '../controllers/media-matchers-controller.ts';
+import { isBlink, isWebkit } from '../dom/platform.ts';
+import { i18nInputRequired } from '../i18n/i18n.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 import { SbbDisabledMixin } from './disabled-mixin.ts';
-import {
-  SbbElementInternalsMixin,
-  type SbbElementInternalsMixinType,
-  type SbbElementInternalsConstructor,
-} from './element-internals-mixin.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -28,7 +19,7 @@ import { SbbReadonlyMixin } from './readonly-mixin.ts';
 import { SbbRequiredMixin } from './required-mixin.ts';
 
 export declare abstract class SbbFormAssociatedInputMixinType extends SbbRequiredMixin(
-  SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)),
+  SbbFormAssociatedMixin(SbbElement),
 ) {
   public static readonly formFieldAssociated = true;
 
@@ -76,20 +67,13 @@ const plaintextOnlySupported = checkPlaintextOnlySupport();
  * The SbbFormAssociatedInputMixin enables native form support for text input controls.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedInputMixin = <T extends AbstractConstructor<LitElement>>(
+export const SbbFormAssociatedInputMixin = <
+  T extends AbstractConstructor<SbbElement> & SbbElementConstructor,
+>(
   superClass: T,
 ): AbstractConstructor<SbbFormAssociatedInputMixinType> & T => {
-  // TODO(breaking-change): Remove SbbElementInternalsMixin and depend on SbbElement as base class instead of LitElement
-  const conditionalSuperClass = (superClass as unknown as Record<string, unknown>)['_$sbbElement$']
-    ? (superClass as unknown as AbstractConstructor<SbbElementInternalsMixinType> &
-        T &
-        SbbElementInternalsConstructor)
-    : SbbElementInternalsMixin(superClass);
-
   abstract class SbbFormAssociatedInputElement
-    extends SbbReadonlyMixin(
-      SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(conditionalSuperClass))),
-    )
+    extends SbbReadonlyMixin(SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass))))
     implements Partial<SbbFormAssociatedInputMixinType>
   {
     public static override readonly role = 'textbox';

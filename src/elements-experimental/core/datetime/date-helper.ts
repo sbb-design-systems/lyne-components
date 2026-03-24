@@ -2,7 +2,7 @@ import {
   i18nDurationHour,
   i18nDurationMinute,
   i18nDurationDay,
-} from '@sbb-esta/lyne-elements/core/i18n.js';
+} from '@sbb-esta/lyne-elements/core.js';
 import {
   isValid,
   parseISO,

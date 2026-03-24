@@ -2,14 +2,11 @@ import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbChipLabelElement } from '../chip-label.ts';
-import { SbbLinkBaseElement } from '../core/base-elements.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbTitleElement } from '../title.ts';
+import type { SbbChipLabelElement } from '../chip-label.pure.ts';
+import { SbbLinkBaseElement, boxSizingStyles } from '../core.ts';
+import type { SbbTitleElement } from '../title.pure.ts';
 
 import style from './teaser.scss?inline';
-
-import '../screen-reader-only.ts';
 
 /**
  * It displays an interactive image with caption.

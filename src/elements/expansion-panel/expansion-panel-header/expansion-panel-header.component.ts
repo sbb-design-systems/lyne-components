@@ -1,14 +1,15 @@
 import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import {
+  ɵstateController,
+  SbbButtonBaseElement,
   SbbMediaQueryHover,
   SbbMediaMatcherController,
   SbbPropertyWatcherController,
-} from '../../core/controllers.ts';
-import { SbbDisabledTabIndexActionMixin, ɵstateController } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+  SbbDisabledTabIndexActionMixin,
+  boxSizingStyles,
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbExpansionPanelElement } from '../expansion-panel/expansion-panel.component.ts';
 
 import style from './expansion-panel-header.scss?inline';

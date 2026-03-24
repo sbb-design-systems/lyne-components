@@ -9,13 +9,16 @@ import {
 } from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
-import { SbbFocusTrapController } from '../../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
-import { SbbEscapableOverlayController } from '../../core/controllers.ts';
-import { forceType, handleDistinctChange } from '../../core/decorators.ts';
-import { isZeroAnimationDuration } from '../../core/dom.ts';
-import { SbbAnimationCompleteMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  SbbFocusTrapController,
+  SbbOpenCloseBaseElement,
+  SbbEscapableOverlayController,
+  forceType,
+  handleDistinctChange,
+  isZeroAnimationDuration,
+  SbbAnimationCompleteMixin,
+  boxSizingStyles,
+} from '../../core.ts';
 import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 
 import style from './sidebar.scss?inline';

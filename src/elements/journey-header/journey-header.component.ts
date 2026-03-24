@@ -7,18 +7,22 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/controllers.ts';
-import { forceType } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n.ts';
-import { SbbNegativeMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import { SbbTitleBase, type SbbTitleLevel } from '../title.ts';
+import {
+  SbbLanguageController,
+  forceType,
+  isLean,
+  i18nConnectionFrom,
+  i18nConnectionRoundtrip,
+  i18nConnectionTo,
+  SbbNegativeMixin,
+  boxSizingStyles,
+  SbbScreenReaderOnlyElement,
+  type SbbElementType,
+} from '../core.ts';
+import { SbbIconElement } from '../icon.pure.ts';
+import { SbbTitleBase, type SbbTitleLevel } from '../title.pure.ts';
 
 import style from './journey-header.scss?inline';
-
-import '../icon.ts';
-import '../screen-reader-only.ts';
 
 export type JourneyHeaderSize = 's' | 'm' | 'l';
 
@@ -36,6 +40,10 @@ const sizeToLevel: Map<JourneyHeaderSize, SbbTitleLevel> = new Map<
  */
 export class SbbJourneyHeaderElement extends SbbNegativeMixin(SbbTitleBase) {
   public static override readonly elementName: string = 'sbb-journey-header';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbIconElement,
+    SbbScreenReaderOnlyElement,
+  ];
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     SbbTitleBase.styles,

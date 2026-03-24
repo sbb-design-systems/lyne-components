@@ -8,18 +8,19 @@ import {
 import { property } from 'lit/decorators.js';
 
 import { SbbMiniButtonElement } from '../../button.pure.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { i18nChipDelete } from '../../core/i18n.ts';
-import { SbbDisabledMixin, SbbNegativeMixin, SbbReadonlyMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  SbbLanguageController,
+  i18nChipDelete,
+  SbbDisabledMixin,
+  SbbNegativeMixin,
+  SbbReadonlyMixin,
+  boxSizingStyles,
+  SbbElement,
+  type SbbElementType,
+  SbbScreenReaderOnlyElement,
+} from '../../core.ts';
 
 import style from './chip.scss?inline';
-
-import '../../screen-reader-only.ts';
-
-// TODO(breaking-change): Remove call to define.
-SbbMiniButtonElement.define();
 
 /**
  * It displays a chip. Usually used in combination with `sbb-chip-group`.
@@ -31,6 +32,10 @@ export class SbbChipElement<T = string> extends SbbNegativeMixin(
   SbbDisabledMixin(SbbReadonlyMixin(SbbElement)),
 ) {
   public static override readonly elementName: string = 'sbb-chip';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbMiniButtonElement,
+    SbbScreenReaderOnlyElement,
+  ];
   public static override readonly role = 'option';
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {

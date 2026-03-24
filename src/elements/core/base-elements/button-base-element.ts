@@ -1,13 +1,14 @@
 import { isServer } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType, hostAttributes } from '../decorators.ts';
-import { isEventPrevented } from '../eventing.ts';
+import { forceType } from '../decorators/force-type.ts';
+import { hostAttributes } from '../decorators/host-attributes.ts';
+import { isEventPrevented } from '../eventing/is-event-prevented.ts';
 import {
-  type FormRestoreReason,
-  type FormRestoreState,
   SbbFormAssociatedMixin,
-} from '../mixins.ts';
+  type FormRestoreState,
+  type FormRestoreReason,
+} from '../mixins/form-associated-mixin.ts';
 
 import { SbbActionBaseElement } from './action-base-element.ts';
 

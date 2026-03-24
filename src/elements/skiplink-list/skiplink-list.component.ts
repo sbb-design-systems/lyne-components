@@ -2,14 +2,17 @@ import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCS
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { SbbDarkModeController } from '../core/controllers.ts';
-import { forceType, omitEmptyConverter } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.ts';
-import type { SbbTitleLevel } from '../title.ts';
+import {
+  SbbElement,
+  SbbDarkModeController,
+  forceType,
+  omitEmptyConverter,
+  isLean,
+  boxSizingStyles,
+} from '../core.ts';
+import { SbbNamedSlotListMixin, type WithListChildren } from '../core.ts';
+import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.pure.ts';
+import type { SbbTitleLevel } from '../title.pure.ts';
 
 import style from './skiplink-list.scss?inline';
 

@@ -229,7 +229,14 @@ export default {
     },
   },
   coverageConfig: {
-    exclude: ['**/node_modules/**/*', '**/assets/*.svg', '**/assets/*.png', '**/*.scss'],
+    exclude: [
+      '**/node_modules/**/*',
+      '**/assets/*.svg',
+      '**/assets/*.png',
+      '**/*.scss',
+      '**/core/mixins/constructor.ts',
+      '**/core/interfaces/*',
+    ],
     reporters: cliArgs.ci ? ['json'] : undefined,
   },
   filterBrowserLogs: (log) => !suppressedLogs.includes(log.args[0]),
