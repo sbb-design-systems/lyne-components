@@ -16,14 +16,14 @@ Moreover, we provide the Sass mixin `badge` which contains the badge styling for
 #### Position default/after
 
 ```html
-<sbb-icon icon-name="controls-small" sbb-badge="2"></sbb-icon>
+<sbb-icon name="controls-small" sbb-badge="2"></sbb-icon>
 <sbb-screen-reader-only>Currently 2 settings changed.</sbb-screen-reader-only>
 ```
 
 #### Position before
 
 ```html
-<sbb-icon icon-name="controls-small" sbb-badge="2" sbb-badge-position="before"></sbb-icon>
+<sbb-icon name="controls-small" sbb-badge="2" sbb-badge-position="before"></sbb-icon>
 <sbb-screen-reader-only>Currently 2 settings changed.</sbb-screen-reader-only>
 ```
 
