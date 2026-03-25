@@ -16,15 +16,24 @@ Moreover, we provide the Sass mixin `badge` which contains the badge styling for
 #### Position default/after
 
 ```html
-<sbb-icon name="controls-small" sbb-badge="2"></sbb-icon>
-<sbb-screen-reader-only>Currently 2 settings changed.</sbb-screen-reader-only>
+<sbb-icon
+  name="controls-small"
+  sbb-badge="2"
+  aria-hidden="false"
+  aria-label="Currently 2 settings changed."
+></sbb-icon>
 ```
 
 #### Position before
 
 ```html
-<sbb-icon name="controls-small" sbb-badge="2" sbb-badge-position="before"></sbb-icon>
-<sbb-screen-reader-only>Currently 2 settings changed.</sbb-screen-reader-only>
+<sbb-icon
+  name="controls-small"
+  sbb-badge="2"
+  sbb-badge-position="before"
+  aria-hidden="false"
+  aria-label="Currently 2 settings changed."
+></sbb-icon>
 ```
 
 #### On img element
@@ -42,15 +51,4 @@ As workaround, a figure element can be used:
 ### Accessibility
 
 For screen readers it's important to output the meaning of the badge. This attribute itself doesn't
-output anything to screen readers. Setting an `aria-label` attribute on the same element or adding
-`<sbb-screen-reader-only>` inside the element can be used to provide the relevant information.
-
-## Using the mixin
-
-```scss
-@use '@sbb-esta/lyne-elements' as sbb;
-
-.some-element {
-  @include sbb.badge;
-}
-```
+output anything to screen readers. As an example, add `aria-label` text or `aria-describedby` references.

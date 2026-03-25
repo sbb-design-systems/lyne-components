@@ -91,7 +91,7 @@ or via custom content using the `icon` slot.
 A badge can be rendered on the icon as white text in a red circle via the `sbb-badge` attribute.
 It's recommended to hide the badge when the menu action is disabled.
 It's mandatory to provide the badge information for screen readers either with an `aria-label`
-(or `accessibility-label` for `<sbb-menu-link>`) or a hidden text (`<sbb-screen-reader-only>` for example).
+(or `accessibility-label` for `<sbb-menu-link>`) or a hidden text.
 
 ```html
 <sbb-menu-link
