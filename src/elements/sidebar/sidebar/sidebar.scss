@@ -34,12 +34,6 @@
   --sbb-sidebar-background-color: var(--sbb-background-color-3);
 }
 
-:host([mode='side']) {
-  --sbb-sidebar__margin: 0;
-  --sbb-sidebar__border-radius-end: 0;
-  --sbb-sidebar__z-index: 2;
-}
-
 :host(:is([mode='over'], :state(mode-over-forced):not(:state(mode-over-forced-closing)))) {
   --sbb-sidebar__margin: var(--sbb-sidebar-margin);
   --sbb-sidebar__border-radius-end: var(--sbb-sidebar-border-radius);
