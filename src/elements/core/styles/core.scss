@@ -175,6 +175,15 @@ $theme: 'standard' !default;
 @use '../../option/optgroup/optgroup.global' as optgroup with (
   $theme: $theme
 );
+@use '../../paginator/paginator/paginator.global' as paginator with (
+  $theme: $theme
+);
+@use '../../paginator/compact-paginator/compact-paginator.global' as compact-paginator with (
+  $theme: $theme
+);
+@use '../../popover/popover.global' as popover-component with (
+  $theme: $theme
+);
 @use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
   $theme: $theme
 );
@@ -198,6 +207,9 @@ $theme: 'standard' !default;
   $theme: $theme
 );
 @use '../../signet/signet.global' as signet with (
+  $theme: $theme
+);
+@use '../../slider/slider.global' as slider with (
   $theme: $theme
 );
 @use '../../status/status.global' as status with (
@@ -273,12 +285,16 @@ $theme: 'standard' !default;
   @include option-hint.base;
   @include optgroup.base;
   @include overlay.options-panel-overlay-variables--global($theme);
+  @include paginator.base;
+  @include compact-paginator.base;
+  @include popover-component.base;
   @include radio-button-common.base;
   @include selection-group.base;
   @include selection-action-panel.base;
   @include selection-expansion-panel.base;
   @include sidebar.base;
   @include signet.base;
+  @include slider.base;
   @include status.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
@@ -298,6 +314,7 @@ $theme: 'standard' !default;
     @include visual-checkbox.base-forced-colors;
     @include radio-button-common.base-forced-colors;
     @include signet.base-forced-colors;
+    @include slider.base-forced-colors;
   }
 
   // Train formation

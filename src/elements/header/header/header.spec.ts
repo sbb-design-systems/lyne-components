@@ -332,6 +332,36 @@ describe(`sbb-header`, () => {
       expect(element).to.match(':state(shadow)');
     });
 
+    it('should not consider a disconnected element as scroll origin when a connected one exists', async () => {
+      const root = await fixture(html`
+        <div>
+          <sbb-header></sbb-header>
+          <div id="remaining" sbb-header-scroll-origin style="height: 300px; overflow: auto;">
+            <div style="height: 2000px">Remaining container</div>
+          </div>
+          <div id="removed-parent">
+            <div id="removed-child" sbb-header-scroll-origin style="height: 300px; overflow: auto;">
+              <div style="height: 2000px">Removed child container</div>
+            </div>
+          </div>
+        </div>
+      `);
+
+      element = root.querySelector<SbbHeaderElement>('sbb-header')!;
+      const removedParent = root.querySelector<HTMLDivElement>('#removed-parent')!;
+      const remainingContainer = root.querySelector<HTMLDivElement>('#remaining')!;
+
+      // Remove the parent.
+      removedParent.remove();
+      await aTimeout(30);
+
+      // The remaining connected container must now be the sole active scroll origin.
+      remainingContainer.scrollTo({ top: 200, behavior: 'instant' });
+
+      await waitForCondition(() => element.matches(':state(shadow)'));
+      expect(element).to.match(':state(shadow)');
+    });
+
     it('scroll-origin property should take priority over sbb-header-scroll-origin attribute', async () => {
       const root = await fixture(html`
         <div>

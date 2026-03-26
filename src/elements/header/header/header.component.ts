@@ -115,7 +115,7 @@ export class SbbHeaderElement extends SbbElement {
   }
 
   private static _handleScrollOriginElement(element: HTMLElement): void {
-    if (element.hasAttribute('sbb-header-scroll-origin')) {
+    if (element.isConnected && element.hasAttribute('sbb-header-scroll-origin')) {
       this._headerScrollOrigins.add(element);
     } else {
       this._headerScrollOrigins.delete(element);
