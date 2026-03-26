@@ -24,43 +24,62 @@ describe(`sbb-header`, () => {
       ante, mollis eu lorem id, commodo cursus risus.
   `;
 
-  const template = (
-    expanded: boolean = false,
-    size: 'm' | 's' = 'm',
-    noIcon = false,
-  ): TemplateResult => html`
-    <style>
-      ${' .last-element, .sbb-header-spacer-logo {display: none;} '}
-      ${' @media screen and (width >= 600px) { .last-element { display: block; } }'}
-      ${' @media screen and (width < 1024px) { .sbb-header-spacer { display: none; } .sbb-header-spacer-logo { display: block; } }'}
-    </style>
-    <sbb-header ?expanded=${expanded} size=${size}>
-      <sbb-header-button icon-name=${noIcon ? nothing : 'hamburger-menu-small'} expand-from="small">
-        Menu
-      </sbb-header-button>
-      <div class="sbb-header-spacer"></div>
-      <sbb-header-link href="https://www.sbb.ch" target="_blank" icon-name="magnifying-glass-small">
-        Search
-      </sbb-header-link>
-      <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
-        Christina Müller
-      </sbb-header-button>
-      <sbb-header-button icon-name="globe-small" class="last-element" expand-from="small">
-        English
-      </sbb-header-button>
-      <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
-      ${size === 's'
-        ? html`<a href="#" class="sbb-header-logo"
-            ><sbb-signet protective-room="panel"></sbb-signet
-          ></a>`
-        : html`<a href="#" class="sbb-header-logo"
-            ><sbb-logo protective-room="none"></sbb-logo
-          ></a>`}
-    </sbb-header>
-    <div class=${expanded ? 'sbb-page-spacing-expanded' : 'sbb-page-spacing'}>
-      ${loremIpsumTemplate}
-    </div>
-  `;
+  const template = (options?: {
+    expanded?: boolean;
+    size?: 'm' | 's';
+    noIcon?: boolean;
+    noLogoLink?: boolean;
+  }): TemplateResult => {
+    const opt = {
+      expanded: false,
+      size: 'm',
+      noIcon: false,
+      noLogoLink: false,
+      ...options,
+    };
+    return html`
+      <style>
+        ${' .last-element, .sbb-header-spacer-logo {display: none;} '}
+        ${' @media screen and (width >= 600px) { .last-element { display: block; } }'}
+        ${' @media screen and (width < 1024px) { .sbb-header-spacer { display: none; } .sbb-header-spacer-logo { display: block; } }'}
+      </style>
+      <sbb-header ?expanded=${opt.expanded} size=${opt.size}>
+        <sbb-header-button
+          icon-name=${opt.noIcon ? nothing : 'hamburger-menu-small'}
+          expand-from="small"
+        >
+          Menu
+        </sbb-header-button>
+        <div class="sbb-header-spacer"></div>
+        <sbb-header-link
+          href="https://www.sbb.ch"
+          target="_blank"
+          icon-name="magnifying-glass-small"
+        >
+          Search
+        </sbb-header-link>
+        <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
+          Christina Müller
+        </sbb-header-button>
+        <sbb-header-button icon-name="globe-small" class="last-element" expand-from="small">
+          English
+        </sbb-header-button>
+        <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
+        ${opt.noLogoLink
+          ? opt.size === 's'
+            ? html`<sbb-signet class="sbb-header-logo" protective-room="panel"></sbb-signet>`
+            : html`<sbb-logo class="sbb-header-logo" protective-room="none"></sbb-logo>`
+          : html`<a href="#" class="sbb-header-logo">
+              ${opt.size === 's'
+                ? html`<sbb-signet protective-room="panel"></sbb-signet>`
+                : html`<sbb-logo protective-room="none"></sbb-logo>`}
+            </a>`}
+      </sbb-header>
+      <div class=${opt.expanded ? 'sbb-page-spacing-expanded' : 'sbb-page-spacing'}>
+        ${loremIpsumTemplate}
+      </div>
+    `;
+  };
 
   describeViewports({ viewports: ['zero', 'ultra'], viewportHeight: 300 }, () => {
     beforeEach(() => {
@@ -72,7 +91,7 @@ describe(`sbb-header`, () => {
       it(
         `expanded=${expanded}`,
         visualDiffDefault.with(async (setup) => {
-          await setup.withFixture(template(expanded), { padding: '0' });
+          await setup.withFixture(template({ expanded }), { padding: '0' });
         }),
       );
     }
@@ -82,11 +101,23 @@ describe(`sbb-header`, () => {
         it(
           'focus',
           visualDiffFocus.with(async (setup) => {
-            await setup.withFixture(template(false, logoOrSignet === 'signet' ? 's' : 'm'), {
+            await setup.withFixture(template({ size: logoOrSignet === 'signet' ? 's' : 'm' }), {
               padding: '0',
             });
             setup.withStateElement(
               setup.snapshotElement.querySelector<HTMLAnchorElement>('.sbb-header-logo')!,
+            );
+          }),
+        );
+
+        it(
+          'without link',
+          visualDiffFocus.with(async (setup) => {
+            await setup.withFixture(
+              template({ size: logoOrSignet === 'signet' ? 's' : 'm', noLogoLink: true }),
+              {
+                padding: '0',
+              },
             );
           }),
         );
@@ -96,7 +127,7 @@ describe(`sbb-header`, () => {
     it(
       `size=s`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template(false, 's'), { padding: '0' });
+        await setup.withFixture(template({ size: 's' }), { padding: '0' });
       }),
     );
 
@@ -127,7 +158,7 @@ describe(`sbb-header`, () => {
     it(
       `first item with no icon`,
       visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(template(false, 'm', true), { padding: '0' });
+        await setup.withFixture(template({ size: 'm', noIcon: true }), { padding: '0' });
       }),
     );
   });
