@@ -6,7 +6,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 import type { SbbBlockLinkButtonElement } from './block-link-button.component.ts';
 
 import '../../icon.ts';
-import '../block-link-button.ts';
+import '../../link.ts';
 
 describe(`sbb-block-link-button`, () => {
   let element: SbbBlockLinkButtonElement;

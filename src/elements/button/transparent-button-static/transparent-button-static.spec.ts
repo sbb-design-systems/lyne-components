@@ -5,7 +5,7 @@ import {
   buttonIconTestTemplate,
   buttonSpaceIconTestTemplate,
 } from '../common/button-test-utils.private.ts';
-import '../transparent-button-static.ts';
+import '../../button.ts';
 
 describe(`sbb-transparent-button-static`, () => {
   it('should detect icon in sbb-transparent-button-static', async () => {

@@ -5,10 +5,12 @@ import { html } from 'lit/static-html.js';
 import { SbbLinkBaseElement } from '../core/base-elements.ts';
 import { forceType, omitEmptyConverter } from '../core/decorators.ts';
 import { boxSizingStyles } from '../core/styles.ts';
+import { SbbBlockLinkStaticElement } from '../link.pure.ts';
 
 import style from './teaser-hero.scss?lit&inline';
 
-import '../link/block-link-static.ts';
+// TODO(breaking-change): Remove call to define.
+SbbBlockLinkStaticElement.define();
 
 /**
  * It displays an image and an action call within a panel.

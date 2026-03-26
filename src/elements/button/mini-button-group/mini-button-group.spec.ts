@@ -6,8 +6,7 @@ import { waitForLitRender } from '../../core/testing/wait-for-render.ts';
 
 import { SbbMiniButtonGroupElement } from './mini-button-group.component.ts';
 
-import '../mini-button-group.ts';
-import '../mini-button.ts';
+import '../../button.ts';
 import '../../divider.ts';
 
 describe('sbb-mini-button-group', () => {

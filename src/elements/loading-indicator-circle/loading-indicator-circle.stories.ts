@@ -9,7 +9,7 @@ import type { SbbLoadingIndicatorCircleElement } from './loading-indicator-circl
 import readme from './readme.md?raw';
 
 import '../loading-indicator-circle.ts';
-import '../button/button.ts';
+import '../button.ts';
 import '../title.ts';
 import '../card.ts';
 

@@ -2,7 +2,10 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.ts';
+import {
+  SbbTransparentButtonElement,
+  type SbbTransparentButtonLinkElement,
+} from '../button.pure.ts';
 import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
 import { SbbDarkModeController, SbbLanguageController } from '../core/controllers.ts';
 import { forceType } from '../core/decorators.ts';
@@ -16,8 +19,10 @@ import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from 
 
 import style from './toast.scss?lit&inline';
 
-import '../button/transparent-button.ts';
 import '../divider.ts';
+
+// TODO(breaking-change): Remove call to define.
+SbbTransparentButtonElement.define();
 
 type SbbToastPositionVertical = 'top' | 'bottom';
 type SbbToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';

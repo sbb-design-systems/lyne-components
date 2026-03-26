@@ -3,7 +3,7 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import '../link/link.ts';
+import '../link.ts';
 import '../title.ts';
 import '../notification.ts';
 

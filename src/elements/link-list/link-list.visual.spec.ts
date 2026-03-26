@@ -8,7 +8,7 @@ import {
 } from '../core/testing/private.ts';
 
 import '../link-list.ts';
-import '../link/block-link.ts';
+import '../link.ts';
 
 describe(`sbb-link-list`, () => {
   let root: HTMLElement;

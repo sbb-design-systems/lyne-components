@@ -14,4 +14,4 @@ export * from './button/button-static/button-static.component.ts';
 export * from './button/secondary-button-static/secondary-button-static.component.ts';
 export * from './button/accent-button-static/accent-button-static.component.ts';
 export * from './button/transparent-button-static/transparent-button-static.component.ts';
-export * from './button/common.ts';
+export * from './button/common/button-common.ts';

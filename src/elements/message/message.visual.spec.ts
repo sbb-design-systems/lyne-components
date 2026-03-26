@@ -6,7 +6,7 @@ import { waitForImageReady } from '../core/testing.ts';
 import '../message.ts';
 import '../chip-label.ts';
 import '../image.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../title.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');

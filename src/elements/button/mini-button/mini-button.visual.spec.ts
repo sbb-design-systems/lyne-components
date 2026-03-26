@@ -11,7 +11,7 @@ import {
 } from '../../core/testing/private.ts';
 
 import '../../form-field.ts';
-import '../mini-button.ts';
+import '../../button.ts';
 
 describe(`sbb-mini-button`, () => {
   let root: HTMLElement;
