@@ -9,7 +9,6 @@
   display: block;
   position: relative;
   counter-reset: step-label;
-  width: 100%;
 
   @include sbb.if-forced-colors {
     --sbb-stepper-marker-color: ButtonText;

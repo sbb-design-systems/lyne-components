@@ -9,6 +9,8 @@
   );
 
   display: contents;
+  font-size: var(--sbb-text-font-size-m);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 }
 
 :host(:state(selected)) {
@@ -62,8 +64,6 @@
   opacity: var(--sbb-step-opacity);
   display: var(--sbb-step-display, none);
   height: var(--sbb-step-height, 0);
-  font-size: var(--sbb-text-font-size-m);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
   transition: {
     property: display, opacity;
     duration: var(--sbb-step-animation-duration);
