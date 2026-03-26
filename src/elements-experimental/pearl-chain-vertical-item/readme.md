@@ -1,5 +1,5 @@
 The `<sbb-pearl-chain-vertical-item>` is intended to be used
-with the [sbb-pearl-chain-vertical](/docs/experimental-sbb-pearl-chain-vertical--docs)` component.
+with the [sbb-pearl-chain-vertical](/docs/experimental-pearl-chain-vertical--docs) component.
 
 It renders a table-row with three table-cells, and it is used to display the dots and line of the pearl-chain.
 There are two slots named `left` and `right` which make it possible to display content on the component sides.

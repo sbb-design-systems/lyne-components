@@ -147,6 +147,12 @@ $theme: 'standard' !default;
 @use '../../map-container/map-container.global' as map-container with (
   $theme: $theme
 );
+@use '../../menu/menu/menu.global' as menu with (
+  $theme: $theme
+);
+@use '../../menu/common/menu-action.global' as menu-action with (
+  $theme: $theme
+);
 @use '../../message/message.global' as message with (
   $theme: $theme
 );
@@ -172,6 +178,15 @@ $theme: 'standard' !default;
 @use '../../option/optgroup/optgroup.global' as optgroup with (
   $theme: $theme
 );
+@use '../../paginator/paginator/paginator.global' as paginator with (
+  $theme: $theme
+);
+@use '../../paginator/compact-paginator/compact-paginator.global' as compact-paginator with (
+  $theme: $theme
+);
+@use '../../popover/popover.global' as popover-component with (
+  $theme: $theme
+);
 @use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
   $theme: $theme
 );
@@ -183,6 +198,12 @@ $theme: 'standard' !default;
 );
 @use '../../selection-expansion-panel/selection-expansion-panel.global' as selection-expansion-panel
   with (
+  $theme: $theme
+);
+@use '../../signet/signet.global' as signet with (
+  $theme: $theme
+);
+@use '../../slider/slider.global' as slider with (
   $theme: $theme
 );
 @use '../../status/status.global' as status with (
@@ -248,6 +269,8 @@ $theme: 'standard' !default;
   @include loading-indicator-circle.base;
   @include logo.base;
   @include map-container.base;
+  @include menu.base;
+  @include menu-action.base;
   @include message.base;
   @include mini-calendar-day.base;
   @include mini-calendar-month.base;
@@ -257,10 +280,15 @@ $theme: 'standard' !default;
   @include optgroup.base;
   @include overlay.base;
   @include overlay-mixin.options-panel-overlay-variables--global($theme);
+  @include paginator.base;
+  @include compact-paginator.base;
+  @include popover-component.base;
   @include radio-button-common.base;
   @include selection-group.base;
   @include selection-action-panel.base;
   @include selection-expansion-panel.base;
+  @include signet.base;
+  @include slider.base;
   @include status.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
@@ -279,6 +307,8 @@ $theme: 'standard' !default;
     @include logo.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
     @include radio-button-common.base-forced-colors;
+    @include signet.base-forced-colors;
+    @include slider.base-forced-colors;
   }
 
   // Train formation
@@ -351,6 +381,7 @@ $theme: 'standard' !default;
     @include flip-card.base-breakpoint-large;
     @include form-field.base-breakpoint-large;
     @include header.base-breakpoint-large;
+    @include menu.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage

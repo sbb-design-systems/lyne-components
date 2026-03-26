@@ -41,11 +41,9 @@ export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(S
 
   protected override renderPaginator(): TemplateResult {
     return html`
-      <div class="sbb-compact-paginator">
-        ${this.pagerPosition === 'start'
-          ? html`${this.renderPrevNextButtons()} ${this._renderPageNumbers()}`
-          : html`${this._renderPageNumbers()} ${this.renderPrevNextButtons()}`}
-      </div>
+      ${this.pagerPosition === 'start'
+        ? html`${this.renderPrevNextButtons()} ${this._renderPageNumbers()}`
+        : html`${this._renderPageNumbers()} ${this.renderPrevNextButtons()}`}
     `;
   }
 }

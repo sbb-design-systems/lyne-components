@@ -1,29 +1,18 @@
 @use '../core/styles' as sbb;
 
 :host {
-  --sbb-popover-position: absolute;
-  --sbb-popover-position-x: 0;
-  --sbb-popover-position-y: 0;
-  --sbb-popover-arrow-size: var(--sbb-spacing-fixed-4x);
-  --sbb-popover-arrow-position-x: 0;
-  --sbb-popover-max-width: calc(100% - var(--sbb-spacing-fixed-2x));
-  --sbb-popover-inset: 0 auto auto 0;
-  --sbb-popover-border-radius: var(--sbb-border-radius-8x);
-  --sbb-popover-padding: var(--sbb-spacing-fixed-4x);
-  --sbb-popover-background: var(--sbb-background-color-1);
-  --sbb-popover-animation-duration: var(
-    --sbb-disable-animation-duration,
-    var(--sbb-animation-duration-4x)
-  );
-  --sbb-popover-animation-easing: ease-out;
-  --sbb-popover-transform: translateY(var(--sbb-spacing-fixed-2x));
-
   // As the popover has always a white background, we have to fix the focus outline color
   // to default color for cases where the popover is used in a negative context.
   --sbb-focus-outline-color: light-dark(
     var(--sbb-focus-outline-color-default),
     var(--sbb-focus-outline-color-dark)
   );
+  --sbb-popover-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-4x)
+  );
+  --_sbb-popover-inset: 0 auto auto 0;
+  --_sbb-popover-transform: translateY(var(--sbb-spacing-fixed-2x));
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
@@ -32,13 +21,13 @@
 }
 
 :host(:is(:state(state-opening), :state(state-opened), :state(state-closing))) {
-  display: block;
+  --_sbb-popover-inset: 0;
 
-  --sbb-popover-inset: 0;
+  display: block;
 }
 
 :host(:state(position-above)) {
-  --sbb-popover-transform: translateY(calc(var(--sbb-spacing-fixed-2x) * -1));
+  --_sbb-popover-transform: translateY(calc(var(--sbb-spacing-fixed-2x) * -1));
 }
 
 :host(:not([hide-close-button], :state(hover-trigger))) {
@@ -53,7 +42,7 @@
   display: block;
   width: var(--sbb-popover-arrow-size);
   height: var(--sbb-popover-arrow-size);
-  left: var(--sbb-popover-arrow-position-x);
+  left: var(--_sbb-popover-arrow-position-x, 0);
   bottom: calc(100% - calc(var(--sbb-popover-arrow-size) / 2));
   background-color: var(--sbb-popover-background);
   border-radius: var(--sbb-border-radius-2x) 0;
@@ -62,7 +51,7 @@
 
 .sbb-popover__container {
   position: fixed;
-  inset: var(--sbb-popover-inset);
+  inset: var(--_sbb-popover-inset);
   pointer-events: none;
   z-index: var(--sbb-popover-z-index, var(--sbb-overlay-default-z-index));
 }
@@ -70,11 +59,11 @@
 .sbb-popover {
   box-shadow: var(--sbb-box-shadow-level-5-hard);
   display: none;
-  position: var(--sbb-popover-position);
+  position: var(--sbb-popover-position, absolute);
   pointer-events: all;
-  top: var(--sbb-popover-position-y);
+  top: var(--_sbb-popover-position-y, 0);
   bottom: unset;
-  left: var(--sbb-popover-position-x);
+  left: var(--_sbb-popover-position-x, 0);
   right: unset;
   border: none;
   border-radius: var(--sbb-popover-border-radius);
@@ -167,14 +156,14 @@
 
   display: block;
   padding-block-end: var(--sbb-popover-padding);
-  max-height: calc(var(--sbb-popover-max-height));
+  max-height: calc(var(--_sbb-popover-max-height));
   overflow: auto;
 }
 
 @keyframes open {
   from {
     opacity: 0;
-    transform: var(--sbb-popover-transform);
+    transform: var(--_sbb-popover-transform);
   }
 
   to {
@@ -191,6 +180,6 @@
 
   to {
     opacity: 0;
-    transform: var(--sbb-popover-transform);
+    transform: var(--_sbb-popover-transform);
   }
 }

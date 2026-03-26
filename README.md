@@ -3,7 +3,7 @@
 > Lyne Components are the building blocks of the Lyne Design System
 > and are based on standard compliant Web Components
 > created using [Lit](https://lit.dev/) and
-> browsable through [Storybook](https://lyne-storybook.app.sbb.ch/)
+> browsable through [Docs App](https://lyne-elements.app.sbb.ch/)
 
 ## 🎯 Our aim
 
@@ -17,7 +17,7 @@ Lyne Design Tokens and Lyne Components are available for developers and designer
 ## 📚 Documentation
 
 - General docs: [digital.sbb.ch](https://digital.sbb.ch)
-- Component docs: [Storybook](https://lyne-storybook.app.sbb.ch)
+- [Component docs](https://lyne-elements.app.sbb.ch)
 - [Getting started guide](./docs/GETTING_STARTED.md)
 
 ## 🔗 Packages
