@@ -73,7 +73,7 @@ export class SbbFormFieldControlEvent extends Event {
  * @slot prefix - Use this slot to render an icon on the left side of the input.
  * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @slot error - Use this slot to render an error.
- * @slot hint - Use this slot to render an `<sbb-hint>` or the `<sbb-form-field-text-counter>`.
+ * @slot hint - Use this slot to render an `<sbb-hint>` or an `<sbb-form-field-text-counter>` element.
  *
  * @cssprop [--sbb-form-field-outline-offset] - To override the focus outline offset,
  * @cssprop [--sbb-form-field-focus-underline-z-index] - To override the z-index of the focus underline effect,
@@ -259,7 +259,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
     super.disconnectedCallback();
     this._formFieldAttributeObserver?.disconnect();
     this._inputFormAbortController.abort();
-    if (this._input?.localName === 'input') {
+    if (this._input?.localName === 'input' || this._input?.localName === 'textarea') {
       this._unpatchInputValue();
     }
   }
@@ -334,7 +334,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
       return 'unchanged';
     } else if (this._input) {
       this.internals.states.delete(`input-type-${this._input.localName}`);
-      if (this._input.localName === 'input') {
+      if (this._input.localName === 'input' || this._input.localName === 'textarea') {
         this._unpatchInputValue();
       }
     }
@@ -551,9 +551,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
    * It is used internally to set the aria-describedby attribute for the slotted input referencing available <sbb-hint> instances.
    */
   private _onSlotHintChange(event: Event): void {
-    const hintElements = (event.target as HTMLSlotElement)
-      .assignedElements()
-      .filter((el) => el.localName !== 'sbb-form-field-text-counter');
+    const hintElements = (event.target as HTMLSlotElement).assignedElements();
     if (this._input && this._input.ariaDescribedByElements?.length) {
       this._input.ariaDescribedByElements = removeAriaElements(
         this._input.ariaDescribedByElements,
@@ -564,7 +562,6 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
     this._hintElements = hintElements;
     this._assignAriaDescribedByElements();
     this.toggleState('has-hint', !!this._hintElements.length);
-    this.toggleState('has-text-counter', !!this.querySelector('sbb-form-field-text-counter'));
     this._syncNegative();
   }
 

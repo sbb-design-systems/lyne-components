@@ -24,9 +24,7 @@ export class SbbHintElement extends SbbNegativeMixin(SbbElement) {
     this.slot ||= 'hint';
 
     this.formField = this.closest?.('sbb-form-field');
-    if (this.formField) {
-      this.negative = this.formField.hasAttribute('negative');
-    }
+    this.negative = this.formField?.hasAttribute('negative') ?? false;
   }
 
   protected override render(): TemplateResult {

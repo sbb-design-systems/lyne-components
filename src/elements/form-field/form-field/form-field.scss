@@ -169,7 +169,7 @@
 }
 
 // :where is to align specificity
-:host(:not(:where(:state(has-error), :state(has-hint), :state(has-text-counter)))) {
+:host(:not(:where(:state(has-error), :state(has-hint)))) {
   --sbb-form-field-hint-padding-block-start: 0;
 }
 
