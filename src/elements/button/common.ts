@@ -8,3 +8,6 @@ export { default as buttonAccentStyle } from './common/accent-button.scss?lit&in
 export { default as buttonTransparentStyle } from './common/transparent-button.scss?lit&inline';
 export { default as miniButtonStyle } from './common/mini-button-common.scss?lit&inline';
 export { default as miniButtonLabelStyle } from './common/mini-button-label-common.scss?lit&inline';
+
+console.warn(`The entrypoint '@sbb-esta/elements/button/common.js' has been deprecated.
+Use either '@sbb-esta/elements/button.js' or '@sbb-esta/elements/button.pure.js' instead.`);
