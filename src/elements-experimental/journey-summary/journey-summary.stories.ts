@@ -13,8 +13,7 @@ import {
 
 import readme from './readme.md?raw';
 
-import '@sbb-esta/lyne-elements/button/button.js';
-import '@sbb-esta/lyne-elements/button/secondary-button.js';
+import '@sbb-esta/lyne-elements/button.js';
 import '../journey-summary.ts';
 
 const disableAnimation: InputType = {

@@ -6,7 +6,7 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.ts';
 
-import '../../button/button.ts';
+import '../../button.ts';
 import '../../datepicker.ts';
 import '../../divider.ts';
 import '../../form-field.ts';

@@ -10,12 +10,12 @@ import style from './overview.scss?lit&inline';
 
 import '@sbb-esta/lyne-elements/accordion.js';
 import '@sbb-esta/lyne-elements/action-group.js';
-import '@sbb-esta/lyne-elements/button/button-link.js';
+import '@sbb-esta/lyne-elements/button.js';
 import '@sbb-esta/lyne-elements/card.js';
 import '@sbb-esta/lyne-elements/container.js';
 import '@sbb-esta/lyne-elements/expansion-panel.js';
 import '@sbb-esta/lyne-elements/link-list.js';
-import '@sbb-esta/lyne-elements/link/block-link.js';
+import '@sbb-esta/lyne-elements/link.js';
 import '@sbb-esta/lyne-elements/title.js';
 
 /**

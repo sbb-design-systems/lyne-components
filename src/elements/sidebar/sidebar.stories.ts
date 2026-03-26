@@ -11,7 +11,7 @@ import readme from './readme.md?raw';
 
 import '../chip-label.ts';
 import '../header.ts';
-import '../link/block-link.ts';
+import '../link.ts';
 import '../link-list.ts';
 import '../logo.ts';
 import '../icon-sidebar.ts';

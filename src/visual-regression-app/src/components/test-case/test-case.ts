@@ -15,7 +15,7 @@ import { screenshots, type ScreenshotTestCase } from '../../screenshots.ts';
 import type { TestCaseFilter } from './test-case-filter/test-case-filter.ts';
 import style from './test-case.scss?lit&inline';
 
-import '@sbb-esta/lyne-elements/button/secondary-button-link.js';
+import '@sbb-esta/lyne-elements/button.js';
 import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/container.js';
 import '@sbb-esta/lyne-elements/header.js';

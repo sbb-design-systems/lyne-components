@@ -9,8 +9,7 @@ import { SbbNavigationElement } from '../navigation.ts';
 
 import readme from './readme.md?raw';
 
-import '../button/button.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 
 const ariaLabel: InputType = {
   control: {

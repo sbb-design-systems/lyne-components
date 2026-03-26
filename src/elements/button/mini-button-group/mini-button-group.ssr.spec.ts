@@ -5,8 +5,7 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbMiniButtonGroupElement } from './mini-button-group.component.ts';
 
-import '../mini-button-group.ts';
-import '../mini-button.ts';
+import '../../button.ts';
 import '../../divider.ts';
 
 describe(`sbb-mini-button-group ssr`, () => {
@@ -20,7 +19,7 @@ describe(`sbb-mini-button-group ssr`, () => {
         <sbb-mini-button icon-name="pen-small"></sbb-mini-button>
       </sbb-mini-button-group>`,
       {
-        modules: ['../mini-button-group.ts', '../mini-button.ts', '../../divider.ts'],
+        modules: ['../../button.ts', '../../divider.ts'],
       },
     );
   });

@@ -7,7 +7,7 @@ import {
   buttonCommonStyle,
   buttonTransparentStyle,
   SbbButtonCommonElementMixin,
-} from '../common.ts';
+} from '../common/button-common.ts';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'transparent' variant, which will behave as a link.

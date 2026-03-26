@@ -15,7 +15,7 @@ import '../checkbox-panel.ts';
 import '../checkbox-group.ts';
 import '../form-field.ts';
 import '../icon.ts';
-import '../link/block-link-button.ts';
+import '../link.ts';
 import '../radio-button-panel.ts';
 import '../radio-button-group.ts';
 

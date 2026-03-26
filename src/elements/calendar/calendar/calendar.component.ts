@@ -9,6 +9,7 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
+import { SbbSecondaryButtonElement } from '../../button.pure.ts';
 import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
 import { readConfig } from '../../core/config.ts';
@@ -49,9 +50,11 @@ import type { SbbCalendarCellBaseElement } from '../common.ts';
 
 import style from './calendar.scss?lit&inline';
 
-import '../../button/secondary-button.ts';
 import '../../icon.ts';
 import '../../screen-reader-only.ts';
+
+// TODO(breaking-change): Remove call to define.
+SbbSecondaryButtonElement.define();
 
 SbbCalendarDayElement.define();
 SbbCalendarMonthElement.define();

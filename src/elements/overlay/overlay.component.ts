@@ -3,6 +3,7 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
+import { SbbSecondaryButtonElement, SbbTransparentButtonElement } from '../button.pure.ts';
 import { forceType } from '../core/decorators.ts';
 import { isZeroAnimationDuration } from '../core/dom.ts';
 import { forwardEvent } from '../core/eventing.ts';
@@ -17,10 +18,12 @@ import {
 } from './overlay-base-element.ts';
 import style from './overlay.scss?lit&inline';
 
-import '../button/secondary-button.ts';
-import '../button/transparent-button.ts';
 import '../container.ts';
 import '../screen-reader-only.ts';
+
+// TODO(breaking-change): Remove call to define.
+SbbSecondaryButtonElement.define();
+SbbTransparentButtonElement.define();
 
 let nextId = 0;
 

@@ -1,7 +1,7 @@
 import type { CSSResultGroup, PropertyDeclaration } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { miniButtonStyle } from '../../button/common.ts';
+import { miniButtonStyle } from '../../button.pure.ts';
 import { idReference } from '../../core/decorators.ts';
 import { i18nShowCalendar } from '../../core/i18n.ts';
 import { boxSizingStyles } from '../../core/styles.ts';

@@ -1,9 +1,6 @@
 The button components from Lyne provide the same functionality as a native `<button>` element
 enhanced with SBB Design, accepting its associated properties (`type`, `name`, `value` and `form`).
 
-Note: In contrast with other modules, each button component has its own entry point
-(e.g. `@sbb-esta/lyne-elements/button/button.js`). This is due to the amount of button variants.
-
 ```html
 <sbb-button>Button text</sbb-button>
 <sbb-secondary-button>Button text</sbb-secondary-button>

@@ -3,6 +3,7 @@ import { html, isServer, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import { SbbSecondaryButtonElement } from '../button.pure.ts';
 import {
   IS_FOCUSABLE_QUERY,
   isFakeMousedownFromScreenReader,
@@ -31,7 +32,8 @@ import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './popover.scss?lit&inline';
 
-import '../button/secondary-button.ts';
+// TODO(breaking-change): Remove call to define.
+SbbSecondaryButtonElement.define();
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;

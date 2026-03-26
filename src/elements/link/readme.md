@@ -1,9 +1,6 @@
 The link components from Lyne provide the same functionality as a native `anchor (a)` element
 enhanced with SBB Design, accepting its associated properties (`href`, `target`, `rel` and `download`).
 
-Note: In contrast with other modules, each link component has its own entry point
-(e.g. `@sbb-esta/lyne-elements/link/link.js`). This is due to the amount of button variants.
-
 ```html
 <sbb-link href="http://www.sbb.ch">Link text</sbb-link>
 <sbb-block-link href="http://www.sbb.ch">Link text</sbb-block-link>

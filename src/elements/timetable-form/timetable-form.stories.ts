@@ -2,7 +2,7 @@ import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-v
 import { html, nothing, type TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
-import '../button/button.ts';
+import '../button.ts';
 import '../datepicker.ts';
 import '../divider.ts';
 import '../form-field.ts';

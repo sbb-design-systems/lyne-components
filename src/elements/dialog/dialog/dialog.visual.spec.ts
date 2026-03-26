@@ -6,9 +6,8 @@ import type { SbbDialogElement } from './dialog.component.ts';
 
 import '../../dialog.ts';
 
-import '../../link/block-link.ts';
-import '../../button/button.ts';
-import '../../button/secondary-button.ts';
+import '../../link.ts';
+import '../../button.ts';
 
 describe(`sbb-dialog`, () => {
   const negativeCases = [false, true];

@@ -1,6 +1,7 @@
 import { html, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { SbbMiniButtonElement, SbbMiniButtonGroupElement } from '../../button.pure.ts';
 import { sbbInputModalityDetector } from '../../core/a11y/input-modality-detector.ts';
 import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
@@ -15,9 +16,11 @@ import {
 import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.ts';
 import { type AbstractConstructor, SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.ts';
 
-import '../../button/mini-button.ts';
-import '../../button/mini-button-group.ts';
 import '../../divider.ts';
+
+// TODO(breaking-change): Remove call to define.
+SbbMiniButtonElement.define();
+SbbMiniButtonGroupElement.define();
 
 export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNegativeMixin(
   SbbDisabledMixin(SbbElement),

@@ -1,6 +1,6 @@
 import { SbbActionBaseElement } from '../../core/base-elements.ts';
 import { SbbDisabledMixin } from '../../core/mixins.ts';
-import { SbbInlineLinkCommonElementMixin } from '../common.ts';
+import { SbbInlineLinkCommonElementMixin } from '../common/inline-link-common.ts';
 
 /**
  * It displays a static link enhanced with the SBB Design.
