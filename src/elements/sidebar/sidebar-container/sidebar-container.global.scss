@@ -37,7 +37,7 @@ $theme: 'standard' !default;
         :not(:has(> sbb-sidebar[position='end']))
       )
       > sbb-sidebar-content {
-      --sbb-sidebar-content__margin-inline-end: 0;
+      --_sbb-sidebar-content-margin-inline-end: 0;
     }
 
     // Controls the end margin of the sbb-sidebar-content.
@@ -56,7 +56,7 @@ $theme: 'standard' !default;
         :not(:has(> sbb-sidebar:not([position='end'])))
       )
       > sbb-sidebar-content {
-      --sbb-sidebar-content__margin-inline-start: 0;
+      --_sbb-sidebar-content-margin-inline-start: 0;
     }
   }
 }

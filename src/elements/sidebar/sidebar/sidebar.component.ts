@@ -279,7 +279,7 @@ export class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBas
   }
 
   private _buildCssWidthVar(position = this.position): string {
-    return `--sbb-sidebar-container__${position}-width`;
+    return `--_sbb-sidebar-container-${position}-width`;
   }
 
   private _isModeOver(): boolean {
