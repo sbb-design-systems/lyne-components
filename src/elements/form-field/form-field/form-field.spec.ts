@@ -252,6 +252,23 @@ describe(`sbb-form-field`, () => {
       expect(textarea.ariaDescribedByElements).to.be.null;
     });
 
+    it('should reference sbb-form-field-text-counter', async () => {
+      // When adding a sbb-hint
+      const textCounter = document.createElement('sbb-form-field-text-counter');
+      element.append(textCounter);
+      await waitForLitRender(element);
+
+      // Then textarea should be linked
+      expect(textarea.ariaDescribedByElements).to.have.same.members([textCounter]);
+
+      // When removing sbb-form-field-text-counter
+      textCounter.remove();
+      await waitForLitRender(element);
+
+      // Then ariaDescribedByElements should be removed
+      expect(textarea.ariaDescribedByElements).to.be.null;
+    });
+
     it('should not reference sbb-hint when sbb-error is present', async () => {
       // When adding both a sbb-hint and a sbb-error
       const hint = document.createElement('sbb-hint');
@@ -278,16 +295,6 @@ describe(`sbb-form-field`, () => {
       // Then the hint should be linked again
       expect(textarea.ariaDescribedByElements).to.have.same.members([hint]);
       expect(element).not.to.have.match(':state(has-error)');
-    });
-
-    it('should not link sbb-form-field-text-counter to ariaDescribedByElements', async () => {
-      // When adding a sbb-form-field-text-counter
-      const textCounter = document.createElement('sbb-form-field-text-counter');
-      element.append(textCounter);
-      await waitForLitRender(element);
-
-      // Then it should not be linked via ariaDescribedByElements
-      expect(textarea.ariaDescribedByElements).to.be.null;
     });
   });
 

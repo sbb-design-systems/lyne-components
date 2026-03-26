@@ -2,9 +2,14 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { state } from 'lit/decorators.js';
 
+import { sbbLiveAnnouncer } from '../../core/a11y/live-announcer.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nRemainingCharacters } from '../../core/i18n.ts';
 import { SbbHintElement } from '../hint/hint.component.ts';
+
+import '../../screen-reader-only.ts';
+
+const percentagesToRead = [100, 50, 25, 10, 0];
 
 /**
  * It displays the remaining characters count for input/textarea elements with a configured
@@ -60,10 +65,19 @@ export class SbbFormFieldTextCounterElement extends SbbHintElement {
       return;
     }
 
-    this._remainingCharacters = Math.max(
-      (inputElement.maxLength ?? 0) - (inputElement.value?.length ?? 0),
-      0,
-    );
+    const maxLength = inputElement.maxLength ?? 0;
+    const currentLength = inputElement.value?.length ?? 0;
+    this._remainingCharacters = Math.max(maxLength - currentLength, 0);
+
+    if (
+      [...percentagesToRead.map((e) => Math.round((e / 100) * maxLength))].includes(
+        this._remainingCharacters,
+      )
+    ) {
+      sbbLiveAnnouncer.announce(
+        `${this._remainingCharacters} ${i18nRemainingCharacters[this._language.current]}`,
+      );
+    }
   }
 
   protected override render(): TemplateResult {

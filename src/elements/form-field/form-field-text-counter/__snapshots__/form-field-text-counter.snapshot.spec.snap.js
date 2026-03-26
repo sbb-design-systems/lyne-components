@@ -11,6 +11,7 @@ snapshots["sbb-form-field-text-counter renders DOM"] =
     Description
   </label>
   <textarea
+    aria-describedby=""
     maxlength="100"
     rows="3"
   >
@@ -75,6 +76,7 @@ snapshots["sbb-form-field-text-counter renders with custom slot text DOM"] =
     Description
   </label>
   <textarea
+    aria-describedby=""
     maxlength="100"
     rows="3"
   >
