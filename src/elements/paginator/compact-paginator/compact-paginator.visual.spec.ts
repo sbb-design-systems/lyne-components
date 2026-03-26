@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
@@ -63,7 +63,7 @@ describe('sbb-compact-paginator', () => {
           }),
         );
 
-        for (const size of ['s', 'm']) {
+        for (const size of ['s', 'm', null]) {
           describe(`size=${size}`, () => {
             for (const pageIndex of [0, 5, 9]) {
               it(
@@ -74,7 +74,7 @@ describe('sbb-compact-paginator', () => {
                       length="50"
                       page-size="5"
                       page-index=${pageIndex}
-                      size=${size}
+                      size=${size || nothing}
                       ?negative=${negative}
                     ></sbb-compact-paginator>`,
                     wrapperStyle,
