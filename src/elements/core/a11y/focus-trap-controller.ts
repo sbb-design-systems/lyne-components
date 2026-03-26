@@ -120,11 +120,11 @@ export class SbbFocusTrapController implements ReactiveController {
       return root;
     }
 
-    const children = root.shadowRoot
-      ? root.shadowRoot.children
-      : root.localName === 'slot'
+    const children =
+      root.shadowRoot?.children ??
+      (root.localName === 'slot' && (root as HTMLSlotElement).assignedElements().length > 0
         ? (root as HTMLSlotElement).assignedElements()
-        : root.children;
+        : root.children);
 
     for (let i = 0; i < children.length; i++) {
       const tabbableChild =
@@ -152,11 +152,11 @@ export class SbbFocusTrapController implements ReactiveController {
       result = root;
     }
 
-    const children = root.shadowRoot
-      ? root.shadowRoot.children
-      : root.localName === 'slot'
+    const children =
+      root.shadowRoot?.children ??
+      (root.localName === 'slot' && (root as HTMLSlotElement).assignedElements().length > 0
         ? (root as HTMLSlotElement).assignedElements()
-        : root.children;
+        : root.children);
 
     // Iterate in reverse DOM order.
     for (let i = children.length - 1; i >= 0; i--) {

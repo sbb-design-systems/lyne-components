@@ -33,6 +33,12 @@ const inlineFilters: InputType = {
   },
 };
 
+const groupWithNext: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const colorTheme: InputType = {
   options: ['none', 'iron'],
   control: {
@@ -45,6 +51,7 @@ const defaultArgTypes: ArgTypes = {
   negative,
   striped,
   inlineFilters,
+  groupWithNext,
   'color-theme': colorTheme,
 };
 
@@ -53,6 +60,7 @@ const defaultArgs: Args = {
   negative: false,
   striped: true,
   'inline-filters': false,
+  groupWithNext: false,
   'color-theme': colorTheme.options![0],
 };
 
@@ -62,20 +70,22 @@ const caption: () => TemplateResult = () => html`
   </caption>
 `;
 
-const header: () => TemplateResult = () => html`
+const header: (groupWithNext?: boolean) => TemplateResult = (groupWithNext = false) => html`
   <thead>
     <tr>
-      <th>Person</th>
+      <th class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Person</th>
       <th>Most interest in</th>
       <th>Age</th>
     </tr>
   </thead>
 `;
 
-const headerWithFilters: () => TemplateResult = () => html`
+const headerWithFilters: (groupWithNext?: boolean) => TemplateResult = (
+  groupWithNext = false,
+) => html`
   <thead>
     <tr>
-      <th>Person</th>
+      <th class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Person</th>
       <th>Most interest in</th>
       <th>Age</th>
     </tr>
@@ -93,58 +103,51 @@ const headerWithFilters: () => TemplateResult = () => html`
   </thead>
 `;
 
-const body: () => TemplateResult = () => html`
+const body: (groupWithNext?: boolean) => TemplateResult = (groupWithNext = false) => html`
   <tbody>
     <tr>
-      <td>Chris</td>
+      <td class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Chris</td>
       <td>HTML tables</td>
       <td>22</td>
     </tr>
     <tr>
-      <td>Dennis</td>
+      <td class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Dennis</td>
       <td>Web accessibility</td>
       <td>45</td>
     </tr>
     <tr>
-      <td>Sarah</td>
+      <td class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Sarah</td>
       <td>JavaScript frameworks</td>
       <td>29</td>
     </tr>
     <tr>
-      <td>KAREN</td>
+      <td class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>KAREN</td>
       <td>Web performance</td>
       <td>36</td>
     </tr>
   </tbody>
 `;
 
+const tableClasses = (args: Args): Record<string, boolean> => ({
+  'sbb-table--negative': args.negative,
+  'sbb-table-xs': args.size === 'xs',
+  'sbb-table-s': args.size === 's',
+  'sbb-table-m': args.size === 'm',
+  'sbb-table--unstriped': !args.striped,
+  'sbb-table--theme-iron': args['color-theme'] === 'iron',
+});
+
 const Template = (args: Args): TemplateResult => html`
-  <table
-    class=${classMap({
-      'sbb-table--negative': args.negative,
-      'sbb-table-xs': args.size === 'xs',
-      'sbb-table-s': args.size === 's',
-      'sbb-table-m': args.size === 'm',
-      'sbb-table--unstriped': !args.striped,
-      'sbb-table--theme-iron': args['color-theme'] === 'iron',
-    })}
-  >
-    ${caption()} ${args['inline-filters'] ? headerWithFilters() : header()} ${body()}
+  <table class=${classMap(tableClasses(args))}>
+    ${caption()}
+    ${args['inline-filters'] ? headerWithFilters(args.groupWithNext) : header(args.groupWithNext)}
+    ${body(args.groupWithNext)}
   </table>
 `;
 
 const WithoutHeaderTemplate = (args: Args): TemplateResult => html`
-  <table
-    class=${classMap({
-      'sbb-table--negative': args.negative,
-      'sbb-table-xs': args.size === 'xs',
-      'sbb-table-s': args.size === 's',
-      'sbb-table-m': args.size === 'm',
-      'sbb-table--unstriped': !args.striped,
-      'sbb-table--theme-iron': args['color-theme'] === 'iron',
-    })}
-  >
-    ${caption()} ${body()}
+  <table class=${classMap(tableClasses(args))}>
+    ${caption()} ${body(args.groupWithNext)}
   </table>
 `;
 
@@ -188,6 +191,12 @@ export const WithoutHeader: StoryObj = {
   render: WithoutHeaderTemplate,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, 'inline-filters': true, size: 's' },
+};
+
+export const GroupWithNext: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: { ...defaultArgs, groupWithNext: true },
 };
 
 const meta: Meta = {

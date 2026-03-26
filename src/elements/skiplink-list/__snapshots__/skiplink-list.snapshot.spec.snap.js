@@ -2,36 +2,34 @@
 export const snapshots = {};
 
 snapshots["sbb-skiplink-list should render named slots if data-ssr-child-count attribute is set"] = 
-`<div class="sbb-skiplink-list__wrapper">
-  <h2
-    class="sbb-skiplink-list-title"
-    id="sbb-skiplink-list-title-id"
-  >
-    <slot name="title">
+`<h2
+  class="sbb-skiplink-list-title"
+  id="sbb-skiplink-list-title-id"
+>
+  <slot name="title">
+  </slot>
+</h2>
+<ul
+  aria-labelledby="sbb-skiplink-list-title-id"
+  class="sbb-skiplink-list"
+>
+  <li>
+    <slot name="li-0">
     </slot>
-  </h2>
-  <ul
-    aria-labelledby="sbb-skiplink-list-title-id"
-    class="sbb-skiplink-list"
-  >
-    <li>
-      <slot name="li-0">
-      </slot>
-    </li>
-    <li>
-      <slot name="li-1">
-      </slot>
-    </li>
-    <li>
-      <slot name="li-2">
-      </slot>
-    </li>
-  </ul>
-  <span hidden="">
-    <slot>
+  </li>
+  <li>
+    <slot name="li-1">
     </slot>
-  </span>
-</div>
+  </li>
+  <li>
+    <slot name="li-2">
+    </slot>
+  </li>
+</ul>
+<span hidden="">
+  <slot>
+  </slot>
+</span>
 `;
 /* end snapshot sbb-skiplink-list should render named slots if data-ssr-child-count attribute is set */
 
@@ -69,36 +67,34 @@ snapshots["sbb-skiplink-list renders DOM"] =
 /* end snapshot sbb-skiplink-list renders DOM */
 
 snapshots["sbb-skiplink-list renders Shadow DOM"] = 
-`<div class="sbb-skiplink-list__wrapper">
-  <h2
-    class="sbb-skiplink-list-title"
-    id="sbb-skiplink-list-title-id"
-  >
-    <slot name="title">
+`<h2
+  class="sbb-skiplink-list-title"
+  id="sbb-skiplink-list-title-id"
+>
+  <slot name="title">
+  </slot>
+</h2>
+<ul
+  aria-labelledby="sbb-skiplink-list-title-id"
+  class="sbb-skiplink-list"
+>
+  <li>
+    <slot name="li-0">
     </slot>
-  </h2>
-  <ul
-    aria-labelledby="sbb-skiplink-list-title-id"
-    class="sbb-skiplink-list"
-  >
-    <li>
-      <slot name="li-0">
-      </slot>
-    </li>
-    <li>
-      <slot name="li-1">
-      </slot>
-    </li>
-    <li>
-      <slot name="li-2">
-      </slot>
-    </li>
-  </ul>
-  <span hidden="">
-    <slot>
+  </li>
+  <li>
+    <slot name="li-1">
     </slot>
-  </span>
-</div>
+  </li>
+  <li>
+    <slot name="li-2">
+    </slot>
+  </li>
+</ul>
+<span hidden="">
+  <slot>
+  </slot>
+</span>
 `;
 /* end snapshot sbb-skiplink-list renders Shadow DOM */
 
@@ -139,37 +135,35 @@ snapshots["sbb-skiplink-list renders with title DOM"] =
 /* end snapshot sbb-skiplink-list renders with title DOM */
 
 snapshots["sbb-skiplink-list renders with title Shadow DOM"] = 
-`<div class="sbb-skiplink-list__wrapper">
-  <h3
-    class="sbb-skiplink-list-title"
-    id="sbb-skiplink-list-title-id"
-  >
-    <slot name="title">
-      Skip to
+`<h3
+  class="sbb-skiplink-list-title"
+  id="sbb-skiplink-list-title-id"
+>
+  <slot name="title">
+    Skip to
+  </slot>
+</h3>
+<ul
+  aria-labelledby="sbb-skiplink-list-title-id"
+  class="sbb-skiplink-list"
+>
+  <li>
+    <slot name="li-0">
     </slot>
-  </h3>
-  <ul
-    aria-labelledby="sbb-skiplink-list-title-id"
-    class="sbb-skiplink-list"
-  >
-    <li>
-      <slot name="li-0">
-      </slot>
-    </li>
-    <li>
-      <slot name="li-1">
-      </slot>
-    </li>
-    <li>
-      <slot name="li-2">
-      </slot>
-    </li>
-  </ul>
-  <span hidden="">
-    <slot>
+  </li>
+  <li>
+    <slot name="li-1">
     </slot>
-  </span>
-</div>
+  </li>
+  <li>
+    <slot name="li-2">
+    </slot>
+  </li>
+</ul>
+<span hidden="">
+  <slot>
+  </slot>
+</span>
 `;
 /* end snapshot sbb-skiplink-list renders with title Shadow DOM */
 

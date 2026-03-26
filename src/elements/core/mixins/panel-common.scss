@@ -72,6 +72,9 @@
   padding: var(--sbb-selection-panel-input-padding);
   background-color: var(--sbb-selection-panel-background);
 
+  // Allow the panel to grow in height, e.g. in flex context;
+  height: 100%;
+
   transition: {
     duration: var(--sbb-selection-panel-animation-duration);
     timing-function: var(--sbb-animation-easing);
