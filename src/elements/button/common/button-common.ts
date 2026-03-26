@@ -9,6 +9,14 @@ import type { AbstractConstructor } from '../../core/mixins.ts';
 import { SbbNegativeMixin } from '../../core/mixins.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 
+export { default as buttonCommonStyle } from './button-common.scss?lit&inline';
+export { default as buttonPrimaryStyle } from './primary-button.scss?lit&inline';
+export { default as buttonSecondaryStyle } from './secondary-button.scss?lit&inline';
+export { default as buttonAccentStyle } from './accent-button.scss?lit&inline';
+export { default as buttonTransparentStyle } from './transparent-button.scss?lit&inline';
+export { default as miniButtonStyle } from './mini-button-common.scss?lit&inline';
+export { default as miniButtonLabelStyle } from './mini-button-label-common.scss?lit&inline';
+
 export type SbbButtonSize = 'l' | 'm' | 's';
 
 export declare class SbbButtonCommonElementMixinType extends SbbNegativeMixin(

@@ -12,7 +12,7 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
-import '../button.ts';
+import '../../button.ts';
 
 describe(`sbb-button`, () => {
   let root: HTMLElement;

@@ -1,7 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import { miniButtonStyle } from '../../button/common.ts';
+import { miniButtonStyle } from '../../button.pure.ts';
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nClearInput } from '../../core/i18n.ts';

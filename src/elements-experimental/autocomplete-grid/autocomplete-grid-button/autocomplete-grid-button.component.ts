@@ -1,4 +1,4 @@
-import { miniButtonStyle } from '@sbb-esta/lyne-elements/button/common.js';
+import { miniButtonStyle } from '@sbb-esta/lyne-elements/button.pure.js';
 import { SbbActionBaseElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { SbbPropertyWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { hostAttributes } from '@sbb-esta/lyne-elements/core/decorators.js';

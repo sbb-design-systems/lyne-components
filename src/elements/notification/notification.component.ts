@@ -2,6 +2,7 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { SbbSecondaryButtonElement } from '../button.pure.ts';
 import { SbbElement } from '../core/base-elements.ts';
 import { SbbLanguageController } from '../core/controllers.ts';
 import { isLean, isZeroAnimationDuration } from '../core/dom.ts';
@@ -14,8 +15,10 @@ import type { SbbTitleElement } from '../title.ts';
 
 import style from './notification.scss?lit&inline';
 
-import '../button/secondary-button.ts';
 import '../divider.ts';
+
+// TODO(breaking-change): Remove call to define.
+SbbSecondaryButtonElement.define();
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],

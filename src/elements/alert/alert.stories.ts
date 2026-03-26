@@ -9,7 +9,7 @@ import { SbbAlertElement, SbbAlertGroupElement } from '../alert.ts';
 
 import readme from './readme.md?raw';
 
-import '../link/link.ts';
+import '../link.ts';
 import '../title.ts';
 
 // Group

@@ -9,8 +9,8 @@ import type { SbbSecondaryButtonElement } from '../button.ts';
 
 import { SbbNotificationElement } from './notification.component.ts';
 import readme from './readme.md?raw';
-import '../button/secondary-button.ts';
-import '../link/link.ts';
+import '../button.ts';
+import '../link.ts';
 import '../notification.ts';
 import '../title.ts';
 

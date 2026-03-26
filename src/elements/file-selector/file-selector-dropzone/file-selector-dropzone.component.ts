@@ -3,7 +3,7 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonStaticElement } from '../../button.ts';
+import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
 import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import {
@@ -16,10 +16,12 @@ import {
   SbbFileSelectorCommonElementMixin,
 } from '../common/file-selector-common.ts';
 
-import '../../button/secondary-button-static.ts';
 import '../../icon.ts';
 
 import style from './file-selector-dropzone.scss?lit&inline';
+
+// TODO(breaking-change): Remove call to define.
+SbbSecondaryButtonStaticElement.define();
 
 /**
  * It allows to select one or more file from storage devices via button click or drag and drop, and display them.

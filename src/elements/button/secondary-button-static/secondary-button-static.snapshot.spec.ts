@@ -8,7 +8,7 @@ import {
 
 import type { SbbSecondaryButtonStaticElement } from './secondary-button-static.component.ts';
 
-import '../secondary-button-static.ts';
+import '../../button.ts';
 
 describe(`sbb-secondary-button-static`, () => {
   let element: SbbSecondaryButtonStaticElement;

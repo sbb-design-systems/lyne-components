@@ -6,11 +6,11 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import '../selection-action-panel.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../card.ts';
 import '../checkbox.ts';
 import '../form-field.ts';
-import '../link/block-link-button.ts';
+import '../link.ts';
 import '../radio-button.ts';
 import '../selection-expansion-panel.ts';
 

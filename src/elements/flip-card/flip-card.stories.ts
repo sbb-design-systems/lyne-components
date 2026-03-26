@@ -11,7 +11,7 @@ import readme from './readme.md?raw';
 
 import '../chip-label.ts';
 import '../image.ts';
-import '../link/link.ts';
+import '../link.ts';
 import '../title.ts';
 
 const imageAlignment: InputType = {

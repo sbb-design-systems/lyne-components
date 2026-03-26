@@ -11,7 +11,7 @@ import type { SbbLinkElement } from '../link.ts';
 
 import { SbbPopoverElement } from './popover.component.ts';
 
-import '../button/button.ts';
+import '../button.ts';
 import '../link.ts';
 import '../popover.ts';
 

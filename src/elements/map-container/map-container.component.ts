@@ -3,6 +3,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
+import { SbbAccentButtonElement } from '../button.pure.ts';
 import { SbbElement } from '../core/base-elements.ts';
 import { SbbLanguageController } from '../core/controllers.ts';
 import { forceType } from '../core/decorators.ts';
@@ -12,7 +13,8 @@ import { boxSizingStyles } from '../core/styles.ts';
 
 import style from './map-container.scss?lit&inline';
 
-import '../button/accent-button.ts';
+// TODO(breaking-change): Remove call to define.
+SbbAccentButtonElement.define();
 
 /**
  * It can be used as a container for maps.

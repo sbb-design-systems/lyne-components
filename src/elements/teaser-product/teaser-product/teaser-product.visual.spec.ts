@@ -10,7 +10,7 @@ import {
 import { waitForImageReady } from '../../core/testing/wait-for-image-ready.ts';
 
 import '../../teaser.ts';
-import '../../button/button-static.ts';
+import '../../button.ts';
 import '../../chip-label.ts';
 import '../../image.ts';
 import '../../title.ts';
