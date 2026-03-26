@@ -82,6 +82,8 @@ After receiving the response, the property should be set back to `false`.
 The loading state will be animated after a delay of 300ms, which can be configured with the
 `--sbb-button-loading-delay` CSS variable.
 
+<!-- #region loading-example -->
+
 ```html
 <sbb-button
   @click="${(e: PointerEvent) =>
@@ -94,6 +96,8 @@ The loading state will be animated after a delay of 300ms, which can be configur
   Button
 </sbb-button>
 ```
+
+<!-- #endregion -->
 
 ### Focus outline
 

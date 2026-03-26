@@ -16,8 +16,8 @@
 
   display: block;
   position: relative;
-  flex: 1 1 auto;
-  width: 100%;
+  flex: auto;
+  width: var(--sbb-selection-group-elements-width, 100%);
 }
 
 :host(:where(:state(color-milk))) {

@@ -71,6 +71,46 @@ describe(`sbb-calendar`, () => {
         });
       });
 
+      describe('renders in year view', () => {
+        let element: SbbCalendarElement;
+
+        beforeEach(async () => {
+          element = await fixture(html`
+            <sbb-calendar selected="2023-01-20T00:00:00" view="year"
+              >${variant === 'default' ? nothing : createSlottedDays(2023, 1)}</sbb-calendar
+            >
+          `);
+        });
+
+        it('DOM', async () => {
+          await expect(element).dom.to.be.equalSnapshot();
+        });
+
+        it('Shadow DOM', async () => {
+          await expect(element).shadowDom.to.be.equalSnapshot();
+        });
+      });
+
+      describe('renders in month view', () => {
+        let element: SbbCalendarElement;
+
+        beforeEach(async () => {
+          element = await fixture(html`
+            <sbb-calendar selected="2023-01-20T00:00:00" view="month"
+              >${variant === 'default' ? nothing : createSlottedDays(2023, 1)}</sbb-calendar
+            >
+          `);
+        });
+
+        it('DOM', async () => {
+          await expect(element).dom.to.be.equalSnapshot();
+        });
+
+        it('Shadow DOM', async () => {
+          await expect(element).shadowDom.to.be.equalSnapshot();
+        });
+      });
+
       describe('renders multiple', () => {
         let element: SbbCalendarElement;
 

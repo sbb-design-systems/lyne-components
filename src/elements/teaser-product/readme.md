@@ -17,7 +17,7 @@ If it has to include more than one interactive element, use the `<sbb-teaser-pro
 ## Slots
 
 Use the `image` slot to pass an `<sbb-image>` or an `img` that will be used as background.
-Optionally, you can add an overlapping `<sbb-chip-label>` by wrapping the `<sbb-image>` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
+Optionally, you can add an overlapping `<sbb-chip-label>` by wrapping the `<sbb-image>` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility-classes)).
 
 Use the optional `footnote` slot to add a text anchored to the bottom-end of the component.
 

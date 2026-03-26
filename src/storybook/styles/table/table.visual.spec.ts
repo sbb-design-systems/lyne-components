@@ -175,5 +175,94 @@ describe(`table`, () => {
         `);
       }),
     );
+
+    it(
+      'sbb-table-group-with-next',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <table class="sbb-table">
+            <thead>
+              <tr>
+                <th class="sbb-table-group-with-next">Person</th>
+                <th>Most interest in</th>
+                <th>Age</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="sbb-table-group-with-next">Chris</td>
+                <td>HTML tables</td>
+                <td>22</td>
+              </tr>
+              <tr>
+                <td class="sbb-table-group-with-next">Dennis</td>
+                <td>Web accessibility</td>
+                <td>45</td>
+              </tr>
+            </tbody>
+          </table>
+        `);
+      }),
+    );
+
+    it(
+      'th column in header and body',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <table class="sbb-table">
+            <thead>
+              <tr>
+                <th>Person</th>
+                <th>Most interest in</th>
+                <th>Age</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Chris</th>
+                <td>HTML tables</td>
+                <td>22</td>
+              </tr>
+              <tr>
+                <th>Dennis</th>
+                <td>Web accessibility</td>
+                <td>45</td>
+              </tr>
+            </tbody>
+          </table>
+        `);
+      }),
+    );
+
+    for (const align of ['start', 'center', 'end', 'justify'] as const) {
+      it(
+        `align=${align}`,
+        visualDiffDefault.with(async (setup) => {
+          await setup.withFixture(html`
+            <table class="sbb-table">
+              <thead>
+                <tr>
+                  <th class=${`sbb-table-align-${align}`}>Person</th>
+                  <th class=${`sbb-table-align-${align}`}>Most interest in</th>
+                  <th class=${`sbb-table-align-${align}`}>Age</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class=${`sbb-table-align-${align}`}>Chris</td>
+                  <td class=${`sbb-table-align-${align}`}>HTML tables</td>
+                  <td class=${`sbb-table-align-${align}`}>22</td>
+                </tr>
+                <tr>
+                  <td class=${`sbb-table-align-${align}`}>Dennis</td>
+                  <td class=${`sbb-table-align-${align}`}>Web accessibility</td>
+                  <td class=${`sbb-table-align-${align}`}>45</td>
+                </tr>
+              </tbody>
+            </table>
+          `);
+        }),
+      );
+    }
   });
 });

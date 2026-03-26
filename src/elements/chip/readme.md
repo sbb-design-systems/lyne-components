@@ -1,8 +1,10 @@
 The `<sbb-chip-group>` component is a container for one or multiple
 `<sbb-chip>` instances.
-Generally, it is used in combination with an `<sbb-form-field>` to allow the input of multiple string values.
+Generally, it is used in combination with an `<sbb-form-field>` to allow the
+input of multiple string values.
 
-The `value` property reflects the list of slotted chips. Adding or removing an `<sbb-chip>` updates the value property, and vice versa.
+The `value` property reflects the list of slotted chips. Adding or removing an
+`<sbb-chip>` updates the value property, and vice versa.
 
 ```html
 <sbb-form-field>
@@ -15,70 +17,50 @@ The `value` property reflects the list of slotted chips. Adding or removing an `
 </sbb-form-field>
 ```
 
-The display value of an `<sbb-chip>` is either its content or the value
-of the `value` property.
+The display value of an `<sbb-chip>` is either its content or the value of the
+`value` property.
 
-## States
+By default, when the user presses `Enter`, the `<sbb-chip-group>` will create a
+new `<sbb-chip>` and add it to the slotted elements.
 
-The `<sbb-chip-group>` has a `disabled` and a `readonly` state and reacts to the respective `input` properties.
-The `disabled`/`readonly` properties are proxied to the slotted `<sbb-chip>`s.
+Consumers can customize or prevent this behavior by listening to the
+`chipinputtokenend` event.
 
-```html
-<sbb-form-field>
-  <sbb-chip-group name="field-name">
-    <sbb-chip value="Value 1"></sbb-chip>
-    ...
-    <input disabled />
-    <!-- Or -->
-    <input readonly />
-  </sbb-chip-group>
-</sbb-form-field>
-```
-
-## Style
-
-The `<sbb-chip-group>` has a `negative` variant. If within an `<sbb-form-field>`, the properties automatically sync.
-
-```html
-<sbb-form-field negative>
-  <sbb-chip-group name="field-name">
-    <sbb-chip value="Value 1"></sbb-chip>
-    ...
-    <input />
-  </sbb-chip-group>
-</sbb-form-field>
-```
-
-## Usage
-
-By default, when the user presses `Enter`, the `<sbb-chip-group>` will create a new `<sbb-chip>` and add it to the slotted elements.
-
-Consumers can customize or prevent this behavior by listening to the `chipinputtokenend` event.
+<!-- #region chipinputtokenend-prevent-default-example -->
 
 ```html
 <!-- Preventing the event will stop the chip-group from converting the input value into a chip -->
-<sbb-chip-group name="field-name" @chipinputtokenend="${(ev: Event) => ev.preventDefault()}">
+<sbb-chip-group name="field-name" @chipinputtokenend="${(event) => event.preventDefault()}">
   ...
   <input />
 </sbb-chip-group>
 ```
 
+<!-- #endregion -->
+
+<!-- #region custom-value-label-example -->
+
 ```html
-<!-- Use the event.detail object to override the default behavior -->
 <sbb-chip-group
   name="field-name"
-  @chipinputtokenend=${(ev: CustomEvent<SbbChipInputTokenEndEventDetails>) => {
-    ev.detail.setValue(transformedValue);
-    ev.detail.setLabel('Custom label');
-  }}>
+  @chipinputtokenend="${(event) =>
+    { 
+      event.setValue(transformedValue); 
+      event.setLabel('Custom label');
+    }
+  }"
+>
   ...
   <input />
 </sbb-chip-group>
 ```
+
+<!-- #endregion -->
 
 ### Use within forms
 
-The `<sbb-chip-group>` is a form-associated element that can be part of a form. Its value is an array of strings.
+The `<sbb-chip-group>` is a form-associated element that can be part of a form.
+Its value is an array of strings.
 
 **Note:** The `name` must be set on the `<sbb-chip-group>`, not on the `input`
 
@@ -118,10 +100,11 @@ In this scenario, selecting an option will create a new chip using the option va
 
 By default, the `<sbb-chip-group>` creates a new chip on `Enter` key press.
 
-Consumers can customize the array of [keys](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values#special_values) that will trigger the chip creation by using the `separatorKeys` property.
+Consumers can customize the array of [keys](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values#special_values)
+that will trigger the chip creation by using the `separatorKeys` property.
 
 ```html
-<sbb-chip-group name="field-name" separator-keys='["Enter", "Space"]'> ... </sbb-chip-group>
+<sbb-chip-group name="field-name" separator-keys="['Enter', 'Space']"> ... </sbb-chip-group>
 ```
 
 ### Add on blur
@@ -133,6 +116,23 @@ When enabled, a chip will be automatically created from the input value when the
 
 ```html
 <sbb-chip-group add-on-blur> ... </sbb-chip-group>
+```
+
+## States
+
+The `<sbb-chip-group>` has a `disabled` and a `readonly` state and reacts to the respective `input` properties.
+The `disabled`/`readonly` properties are proxied to the slotted `<sbb-chip>`s.
+
+```html
+<sbb-form-field>
+  <sbb-chip-group name="field-name">
+    <sbb-chip value="Value 1"></sbb-chip>
+    ...
+    <input disabled />
+    <!-- Or -->
+    <input readonly />
+  </sbb-chip-group>
+</sbb-form-field>
 ```
 
 ## Complex Values
@@ -174,6 +174,20 @@ At any time, only a single chip (usually, the last one) is focusable and part of
 | <kbd>Backspace</kbd>        | When the `<sbb-chip>` is focused, delete it.              |
 | <kbd>Left/Up Arrow</kbd>    | Move the next `<sbb-chip>`.                               |
 | <kbd>Right/Down Arrow</kbd> | Move the previous `<sbb-chip>`.                           |
+
+## Style
+
+The `<sbb-chip-group>` has a `negative` variant. If within an `<sbb-form-field>`, the properties automatically sync.
+
+```html
+<sbb-form-field negative>
+  <sbb-chip-group name="field-name">
+    <sbb-chip value="Value 1"></sbb-chip>
+    ...
+    <input />
+  </sbb-chip-group>
+</sbb-form-field>
+```
 
 ## Accessibility
 
@@ -229,11 +243,11 @@ The `<sbb-chip-group>` follows the `grid` aria pattern.
 
 #### Events
 
-| Name                | Type                                            | Description                                                                                                                                                                        | Inherited From |
-| ------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `change`            | `Event`                                         | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
-| `chipinputtokenend` | `CustomEvent<SbbChipInputTokenEndEventDetails>` | Notifies that a chip is about to be created. Can be prevented.                                                                                                                     |                |
-| `input`             | `InputEvent`                                    | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                |
+| Name                | Type                           | Description                                                                                                                                                                        | Inherited From |
+| ------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `change`            | `Event`                        | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
+| `chipinputtokenend` | `SbbChipInputTokenEndEvent<T>` | Notifies that a chip is about to be created. Can be prevented.                                                                                                                     |                |
+| `input`             | `InputEvent`                   | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                |
 
 #### Slots
 

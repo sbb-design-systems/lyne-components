@@ -30,6 +30,12 @@ $theme: 'standard' !default;
 @use '../../button/mini-button-group/mini-button-group.global' as mini-button-group with (
   $theme: $theme
 );
+@use '../../calendar/calendar/calendar.global' as calendar with (
+  $theme: $theme
+);
+@use '../../calendar/common/calendar-cell-base-element.global' as calendar-cell with (
+  $theme: $theme
+);
 @use '../../card/card/card.global' as card with (
   $theme: $theme
 );
@@ -52,9 +58,6 @@ $theme: 'standard' !default;
   $theme: $theme
 );
 @use '../../checkbox/checkbox.global' as checkbox with (
-  $theme: $theme
-);
-@use '../../checkbox-group/checkbox-group.global' as checkbox-group with (
   $theme: $theme
 );
 @use '../../checkbox/common/checkbox-common.global' as checkbox-common with (
@@ -131,7 +134,23 @@ $theme: 'standard' !default;
 @use '../../link/common/block-link.global' as block-link with (
   $theme: $theme
 );
+@use '../../loading-indicator/loading-indicator.global' as loading-indicator with (
+  $theme: $theme
+);
+@use '../../loading-indicator-circle/loading-indicator-circle.global' as loading-indicator-circle
+  with (
+  $theme: $theme
+);
 @use '../../logo/logo.global' as logo with (
+  $theme: $theme
+);
+@use '../../map-container/map-container.global' as map-container with (
+  $theme: $theme
+);
+@use '../../menu/menu/menu.global' as menu with (
+  $theme: $theme
+);
+@use '../../menu/common/menu-action.global' as menu-action with (
   $theme: $theme
 );
 @use '../../message/message.global' as message with (
@@ -144,6 +163,9 @@ $theme: 'standard' !default;
   with (
   $theme: $theme
 );
+@use '../../notification/notification.global' as notification with (
+  $theme: $theme
+);
 @use '../../option/option/option.global' as option with (
   $theme: $theme
 );
@@ -153,10 +175,13 @@ $theme: 'standard' !default;
 @use '../../option/optgroup/optgroup.global' as optgroup with (
   $theme: $theme
 );
+@use '../../popover/popover.global' as popover-component with (
+  $theme: $theme
+);
 @use '../../radio-button/common/radio-button-common.global' as radio-button-common with (
   $theme: $theme
 );
-@use '../../radio-button-group/radio-button-group.global' as radio-button-group with (
+@use '../base-elements/selection-group-base-element.global' as selection-group with (
   $theme: $theme
 );
 @use '../../selection-action-panel/selection-action-panel.global' as selection-action-panel with (
@@ -164,6 +189,12 @@ $theme: 'standard' !default;
 );
 @use '../../selection-expansion-panel/selection-expansion-panel.global' as selection-expansion-panel
   with (
+  $theme: $theme
+);
+@use '../../signet/signet.global' as signet with (
+  $theme: $theme
+);
+@use '../../slider/slider.global' as slider with (
   $theme: $theme
 );
 @use '../../status/status.global' as status with (
@@ -194,6 +225,8 @@ $theme: 'standard' !default;
   @include button.base;
   @include mini-button.base;
   @include mini-button-group.base;
+  @include calendar.base;
+  @include calendar-cell.base;
   @include card.base;
   @include card-badge.base;
   @include carousel.base;
@@ -202,7 +235,6 @@ $theme: 'standard' !default;
   @include chip-group.base;
   @include panel-common.base;
   @include checkbox.base;
-  @include checkbox-group.base;
   @include checkbox-common.base;
   @include container.base;
   @include sticky-bar.base;
@@ -224,18 +256,27 @@ $theme: 'standard' !default;
   @include icon-sidebar.base;
   @include lead-container.base;
   @include block-link.base;
+  @include loading-indicator.base;
+  @include loading-indicator-circle.base;
   @include logo.base;
+  @include map-container.base;
+  @include menu.base;
+  @include menu-action.base;
   @include message.base;
   @include mini-calendar-day.base;
   @include mini-calendar-month.base;
+  @include notification.base;
   @include option.base;
   @include option-hint.base;
   @include optgroup.base;
   @include overlay.options-panel-overlay-variables--global($theme);
+  @include popover-component.base;
   @include radio-button-common.base;
-  @include radio-button-group.base;
+  @include selection-group.base;
   @include selection-action-panel.base;
   @include selection-expansion-panel.base;
+  @include signet.base;
+  @include slider.base;
   @include status.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
@@ -250,9 +291,12 @@ $theme: 'standard' !default;
     @include header-common.base-forced-colors;
     @include expansion-panel-header.base-forced-colors;
     @include form-field.base-forced-colors;
+    @include loading-indicator-circle.base-forced-colors;
     @include logo.base-forced-colors;
     @include visual-checkbox.base-forced-colors;
     @include radio-button-common.base-forced-colors;
+    @include signet.base-forced-colors;
+    @include slider.base-forced-colors;
   }
 
   // Train formation
@@ -312,6 +356,7 @@ $theme: 'standard' !default;
 
     @include dialog.base-breakpoint-small;
     @include footer.base-breakpoint-small;
+    @include notification.base-breakpoint-small;
   }
 
   @include mediaqueries.mq($from: large) {
@@ -324,6 +369,7 @@ $theme: 'standard' !default;
     @include flip-card.base-breakpoint-large;
     @include form-field.base-breakpoint-large;
     @include header.base-breakpoint-large;
+    @include menu.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage
@@ -341,6 +387,7 @@ $theme: 'standard' !default;
     @include sbb-css-tokens.breakpoint-ultra;
 
     @include lead-container.base-breakpoint-ultra;
+    @include map-container.base-breakpoint-ultra;
   }
 }
 
@@ -636,16 +683,6 @@ sbb-sidebar:has(sbb-sidebar-title) {
 
 sbb-toggle:has(:focus-visible) {
   @include a11y.focus-outline;
-}
-
-sbb-notification:has(sbb-title) {
-  --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-5);
-  --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-heading);
-
-  &[size='s'] {
-    --_sbb-notification-icon-authoritative-font-size: var(--sbb-heading-font-size-6);
-    --_sbb-notification-icon-authoritative-line-height: var(--sbb-typo-line-height-text);
-  }
 }
 
 .sbb-overlay-outlet {

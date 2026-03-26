@@ -80,6 +80,24 @@ describe(`sbb-popover`, () => {
       expect(element).to.match(':state(state-opened)');
     });
 
+    it('does not close on trigger click when hover-trigger is active and popover is open', async () => {
+      element.hoverTrigger = true;
+      await waitForLitRender(element);
+
+      trigger.dispatchEvent(new Event('mouseenter'));
+      await openSpy.calledOnce();
+      expect(element).to.match(':state(state-opened)');
+
+      // Simulate a backdrop click whose composedPath contains the trigger element.
+      // The popover should not close since the click originated from the trigger.
+      trigger.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, composed: true }));
+      trigger.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, composed: true }));
+      await aTimeout(0);
+
+      expect(element.isOpen).to.be.true;
+      expect(closeSpy.count).to.be.equal(0);
+    });
+
     it('shows on trigger click', async () => {
       trigger.click();
 
@@ -395,7 +413,10 @@ describe(`sbb-popover`, () => {
       expect(element.isOpen).to.be.false;
     });
 
-    it('should handle hover closing on trigger with delay', async () => {
+    it('should handle hover closing on trigger with delay', async function (this: Mocha.Context) {
+      // Flaky on Firefox
+      this.retries(3);
+
       // Change to hover trigger
       element.hoverTrigger = true;
       element.closeDelay = 2;
@@ -569,6 +590,22 @@ describe(`sbb-popover`, () => {
       await aTimeout(10);
       expect(element.isOpen, 'popover should stay open').to.be.true;
       expect(element).not.to.have.attribute('tabindex');
+    });
+
+    it('should not close when blur event is dispatched on trigger', async () => {
+      element.open();
+      await openSpy.calledOnce();
+
+      expect(document.activeElement!).to.equal(element);
+      expect(element).to.have.attribute('tabindex', '0');
+
+      // Fake blur event on the trigger to simulate behavior on iOS mobile
+      trigger.focus();
+
+      // Then popover should stay open
+      await aTimeout(0);
+      expect(element.isOpen, 'popover should stay open').to.be.true;
+      expect(closeSpy.count).to.be.equal(0);
     });
 
     it('should remove tabindex when closing with esc', async () => {

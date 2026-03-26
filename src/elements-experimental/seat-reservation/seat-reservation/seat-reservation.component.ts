@@ -1,7 +1,7 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.js';
-import { html, nothing } from 'lit';
+import { html, isServer, nothing } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { repeat } from 'lit/directives/repeat.js';
@@ -199,7 +199,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _renderNavigation(): TemplateResult | null {
-    if (!this.hasNavigation || !this.seatReservations) return null;
+    if (isServer || !this.hasNavigation || !this.seatReservations) return null;
     return html`<div class="sbb-sr-navigation-wrapper">
       <nav id="sbb-sr-navigation" class="sbb-sr-navigation">
         ${this._renderNavigationControlButton('DIRECTION_LEFT')}
@@ -248,7 +248,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
   ): TemplateResult[] | null {
     const coaches: CoachItem[] = JSON.parse(JSON.stringify(seatReservation?.coachItems));
 
-    if (!coaches) {
+    if (!coaches || isServer) {
       return null;
     }
     return coaches.map((coachItem: CoachItem, coachIndex: number) => {
@@ -344,7 +344,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     }
 
     const currentCoachOverlappingInfo = this.overHangingElementInformation.find(
-      (el) => el.coachId == coachItem.id,
+      (el) => el.coachId === coachItem.id,
     );
 
     // check if there are overhanging places or graphical elements to adjust the border width and offset + gap
@@ -591,14 +591,18 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
           ? html`
               <sbb-seat-reservation-graphic
                 style=${styleMap({
-                  '--sbb-seat-reservation-graphic-max-width': calculatedDimension.w,
-                  '--sbb-seat-reservation-graphic-height': this.baseGridSize,
+                  '--sbb-seat-reservation-graphic-max-width': this.globalAreaIconDim.w,
+                  '--sbb-seat-reservation-graphic-max-height': this.globalAreaIconDim.h,
+                  '--sbb-seat-reservation-graphic-width': calculatedDimension.w,
+                  '--sbb-seat-reservation-graphic-height': calculatedDimension.h,
                   '--sbb-seat-reservation-graphic-rotation': rotation,
+                  '--sbb-seat-reservation-graphic-padding-percent':
+                    areaProperty !== 'ENTRY_EXIT' ? this.globalAreaIconPadding : 1,
                 })}
                 name=${areaProperty}
                 role="img"
                 aria-hidden="true"
-                class="auto-width"
+                class="sbb-sr-graphic__dimension--square-dim"
               ></sbb-seat-reservation-graphic>
             `
           : nothing}

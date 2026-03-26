@@ -123,6 +123,12 @@ export class SeatReservationBaseElement extends SbbElement {
   protected gapBetweenCoachDecks = 48;
   // Describes the fix width of coach navigation button
   protected coachNavButtonDim: number = 0;
+  // Describes the calculated dimension for the area icons, which is used to set the max width and height of the area icons
+  protected globalAreaIconDim: ElementDimension = { w: 2, h: 2 };
+  // #TIMO-45858
+  // Describes the padding for the icon within the area as a percentage size of the area self. 80% (0.8 percent) corresponds
+  // to a good optical size and creates a good padding from the area ti icon
+  protected globalAreaIconPadding: number = 0.8;
   protected coachItemDetailsElements: CoachItemDetails[] = [];
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
   protected maxCalcCoachesWidth: number = 0;
@@ -165,6 +171,7 @@ export class SeatReservationBaseElement extends SbbElement {
     'COMPARTMENT_PASSAGE_HIGH',
     'COMPARTMENT_PASSAGE_MIDDLE',
     'COMPARTMENT_PASSAGE_LOW',
+    'COMPARTMENT_WALL',
   ];
 
   protected overHangingElementInformation: {
@@ -211,6 +218,7 @@ export class SeatReservationBaseElement extends SbbElement {
         this.coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
         this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
 
+        this._initPrepareSeatReservationData();
         this.initNavigationSelectionByScrollEvent();
       }
     }
@@ -259,6 +267,7 @@ export class SeatReservationBaseElement extends SbbElement {
     }
 
     this._prepareCoachItemDetailsData();
+    this._prepareOptimizeAreaIconDimensionByMedian();
   }
 
   /** Init scroll event handling for coach navigation */
@@ -1499,6 +1508,41 @@ export class SeatReservationBaseElement extends SbbElement {
     }
   }
 
+  // #TIMO-45858
+  // Finds the optimal icon size based on all serviceElements and their dimension.
+  // This sets the globalAreaIconDim and is used when creating the seat reservation area elements.
+  // This gives us a maximum uniform icon size within the area elements
+  private _prepareOptimizeAreaIconDimensionByMedian(): void {
+    if (this.seatReservations) {
+      const allServiceDimensions: ElementDimension[] = [];
+      this.seatReservations.forEach((deck) =>
+        deck.coachItems.forEach((coach) =>
+          coach.serviceElements?.forEach((icon) => allServiceDimensions.push(icon.dimension)),
+        ),
+      );
+
+      if (allServiceDimensions.length) {
+        allServiceDimensions.sort(
+          (dim1: ElementDimension | undefined, dim2: ElementDimension | undefined) => {
+            if (dim1 && dim2) {
+              const maxDim1 = dim1.w + dim1.h;
+              const maxDim2 = dim2.w + dim2.h;
+              if (maxDim1 > maxDim2) return 1;
+              else if (maxDim1 < maxDim2) return -1;
+              else return 0;
+            }
+            return 0;
+          },
+        );
+        // calculate best icon size by median
+        const medianIconSize = allServiceDimensions[Math.floor(allServiceDimensions.length / 2)]!;
+
+        // Set the determined median icon size as global calculated area icon dimension
+        this.globalAreaIconDim = this.getCalculatedDimension(medianIconSize);
+      }
+    }
+  }
+
   private _prepareTravelClassNavigation(travelClasses: PlaceTravelClass[]): PlaceTravelClass {
     if (travelClasses.indexOf('FIRST') !== -1) return 'FIRST';
     if (travelClasses.indexOf('SECOND') !== -1) return 'SECOND';
@@ -1559,30 +1603,29 @@ export class SeatReservationBaseElement extends SbbElement {
 
   private _prepareCoachWidthAndGapCalculations(): void {
     if (this.seatReservations) {
-      const coachItems: CoachItem[] =
-        this.seatReservations[this.seatReservations.length - 1]?.coachItems;
+      this.seatReservations.forEach((seatReservation: SeatReservation) => {
+        seatReservation?.coachItems?.forEach((coachItem: CoachItem) => {
+          const hasOverhangingPlaces = this._isOverhangingElementsPresent(
+            coachItem.dimension.w,
+            coachItem.places,
+          );
 
-      coachItems?.forEach((coachItem: CoachItem) => {
-        const hasOverhangingPlaces = this._isOverhangingElementsPresent(
-          coachItem.dimension.w,
-          coachItem.places,
-        );
+          //Must  be done also for graphical elements, as they can also protrude the coach border
+          // Check only graphical elements that are not area elements
+          const filteredElements = coachItem.graphicElements?.filter(
+            (e) => e.icon && !this.notAreaElements.includes(e.icon),
+          );
 
-        //Must  be done also for graphical elements, as they can also protrude the coach border
-        // Check only graphical elements that are not area elements
-        const filteredElements = coachItem.graphicElements?.filter(
-          (e) => e.icon && !this.notAreaElements.includes(e.icon),
-        );
+          const hasOverhangingGraphicAreas = this._isOverhangingElementsPresent(
+            coachItem.dimension.w,
+            filteredElements,
+          );
 
-        const hasOverhangingGraphicAreas = this._isOverhangingElementsPresent(
-          coachItem.dimension.w,
-          filteredElements,
-        );
-
-        this.overHangingElementInformation.push({
-          coachId: coachItem.id,
-          overhangingPlaces: hasOverhangingPlaces,
-          overhangingGraphicAreas: hasOverhangingGraphicAreas,
+          this.overHangingElementInformation.push({
+            coachId: coachItem.id,
+            overhangingPlaces: hasOverhangingPlaces,
+            overhangingGraphicAreas: hasOverhangingGraphicAreas,
+          });
         });
       });
     }

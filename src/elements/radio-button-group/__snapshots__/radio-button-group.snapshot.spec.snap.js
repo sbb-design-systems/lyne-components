@@ -30,10 +30,8 @@ snapshots["sbb-radio-button-group renders DOM"] =
 /* end snapshot sbb-radio-button-group renders DOM */
 
 snapshots["sbb-radio-button-group renders Shadow DOM"] = 
-`<div class="sbb-radio-group">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 <slot name="error">
 </slot>
 `;
@@ -68,10 +66,8 @@ snapshots["sbb-radio-button-group renders with panel DOM"] =
 /* end snapshot sbb-radio-button-group renders with panel DOM */
 
 snapshots["sbb-radio-button-group renders with panel Shadow DOM"] = 
-`<div class="sbb-radio-group">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 <slot name="error">
 </slot>
 `;
@@ -110,10 +106,8 @@ snapshots["sbb-radio-button-group renders with selection-expansion-panel DOM"] =
 /* end snapshot sbb-radio-button-group renders with selection-expansion-panel DOM */
 
 snapshots["sbb-radio-button-group renders with selection-expansion-panel Shadow DOM"] = 
-`<div class="sbb-radio-group">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 <slot name="error">
 </slot>
 `;

@@ -94,28 +94,26 @@ export class SbbMapContainerElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-map-container">
-        <div class="sbb-map-container__map">
-          <slot name="map"></slot>
-        </div>
-        <div class="sbb-map-container__sidebar" @scroll=${(e: Event) => forwardEvent(e, document)}>
-          <span id="intersector"></span>
+      <div class="sbb-map-container__map">
+        <slot name="map"></slot>
+      </div>
+      <div class="sbb-map-container__sidebar" @scroll=${(e: Event) => forwardEvent(e, document)}>
+        <span id="intersector"></span>
 
-          <slot></slot>
+        <slot></slot>
 
-          ${!this.hideScrollUpButton
-            ? html`<sbb-accent-button
-                class="sbb-map-container__sidebar-button"
-                size="l"
-                icon-name="location-pin-map-small"
-                type="button"
-                @click=${() => this._onScrollButtonClick()}
-                ?inert=${!this._scrollUpButtonVisible}
-              >
-                ${i18nMapContainerButtonLabel[this._language.current]}
-              </sbb-accent-button>`
-            : nothing}
-        </div>
+        ${!this.hideScrollUpButton
+          ? html`<sbb-accent-button
+              class="sbb-map-container__sidebar-button"
+              size="l"
+              icon-name="location-pin-map-small"
+              type="button"
+              @click=${() => this._onScrollButtonClick()}
+              ?inert=${!this._scrollUpButtonVisible}
+            >
+              ${i18nMapContainerButtonLabel[this._language.current]}
+            </sbb-accent-button>`
+          : nothing}
       </div>
     `;
   }

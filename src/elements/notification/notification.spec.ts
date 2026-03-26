@@ -104,9 +104,8 @@ describe(`sbb-notification`, () => {
 
   describe('with non-zero animation duration', () => {
     it('closes the notification and removes it from the DOM with animationend event', async function (this: Context) {
-      // Flaky on webkit
+      // Test is flaky on WebKit
       this.retries(3);
-
       (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
 
       openSpy = new EventSpy(SbbNotificationElement.events.open, null, {

@@ -11,9 +11,7 @@ sbb-seat-reservation-area => For the representation of certain areas within a wa
 sbb-seat-reservation-graphics => Contains various graphics that are required to render a wagon
 
 ```html
-<sbb-seat-reservation
-  seatReservations="seatReservationArray<SeatReservation>[]"
-></sbb-seat-reservation>
+<sbb-seat-reservation .seatReservations="${seatReservationArray}"></sbb-seat-reservation>
 ```
 
 ## Data structure of SeatReservation
@@ -275,7 +273,7 @@ their current position within the reservation area.
 
 ## Seat Reservation Area
 
-The component `<sbb-seat-reservation-area>` represents a grey or white background area within a wagon and is currently integrated directly into [sbb-seat-reservation](/docs/experimental-sbb-seat-reservation-sbb-seat-reservation--docs). The dimension properties of the area can be defined via style custom properties. It is still unclear whether areas will be defined in the data once, and an icon will then be automatically included, or if the data for an icon will need to be passed separately and drawn independently. In the first scenario, it would be useful to be able to include a sbb-seat-reservation-graphic through a slot or by passing an icon code within the [sbb-seat-reservation-area](/docs/experimental-sbb-seat-reservation-sbb-seat-reservation-graphic--docs).
+The component `<sbb-seat-reservation-area>` represents a grey or white background area within a wagon and is currently integrated directly into the `<sbb-seat-reservation>`. The dimension properties of the area can be defined via style custom properties. It is still unclear whether areas will be defined in the data once, and an icon will then be automatically included, or if the data for an icon will need to be passed separately and drawn independently. In the first scenario, it would be useful to be able to include a sbb-seat-reservation-graphic through a slot or by passing an icon code within the `<sbb-seat-reservation-area>`.
 
 ```html
 <sbb-seat-reservation-area></sbb-seat-reservation-area>

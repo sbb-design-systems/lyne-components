@@ -24,6 +24,51 @@ import style from './chip-group.scss?lit&inline';
 
 let displayWithWarningLogged = false;
 
+// TODO(breaking-change): Replace base class with Event
+export class SbbChipInputTokenEndEvent<T = string> extends CustomEvent<
+  SbbChipInputTokenEndEventDetails<T>
+> {
+  /** The element that triggered the chip creation */
+  public origin: 'input' | 'autocomplete';
+  /**
+   * The value of the new chip. Either the input or the option value depending on the origin.
+   * Either the value from the input which is always `string` or the value from the selected option
+   * from an autocomplete, which can be either a string or any other type.
+   */
+  public value: T | string;
+  public label?: string;
+
+  /**
+   * @deprecated Use event properties directly.
+   */
+  public override get detail(): SbbChipInputTokenEndEventDetails<T> {
+    return this;
+  }
+
+  public constructor(options: Pick<SbbChipInputTokenEndEvent, 'origin' | 'value' | 'label'>) {
+    super('chipinputtokenend', {
+      cancelable: true,
+      bubbles: true,
+      composed: true,
+    });
+    this.origin = options.origin;
+    this.value = options.value;
+    this.label = options.label;
+  }
+
+  /** Set a new value for the chip that will be created */
+  public setValue(value: T): void {
+    this.value = value;
+  }
+  /** Set a label for the chip that will be created */
+  public setLabel(label: string): void {
+    this.label = label;
+  }
+}
+
+/**
+ * @deprecated Use `SbbChipInputTokenEndEvent` instead.
+ */
 export interface SbbChipInputTokenEndEventDetails<T = string> {
   /** The element that triggered the chip creation */
   origin: 'input' | 'autocomplete';
@@ -44,6 +89,7 @@ export interface SbbChipInputTokenEndEventDetails<T = string> {
  * The `sbb-chip-group` component is used as a container for one or multiple `sbb-chip`.
  *
  * @slot - Use the unnamed slot to add `sbb-chip` elements.
+ * @event {SbbChipInputTokenEndEvent<T>} chipinputtokenend - Notifies that a chip is about to be created. Can be prevented.
  * @overrideType value - (T = string[]) | null
  */
 export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
@@ -320,36 +366,18 @@ export class SbbChipGroupElement<T = string> extends SbbRequiredMixin(
       return;
     }
 
-    const eventDetail: SbbChipInputTokenEndEventDetails<T> = {
-      origin: origin,
-      value: inputValue,
+    const event = new SbbChipInputTokenEndEvent<T>({
+      origin,
+      value: inputValue as string,
       label: (value ? this.displayWith?.(value) : null) ?? undefined,
-      setValue: (value: T) => (eventDetail.value = value),
-      setLabel: (label: string) => (eventDetail.label = label),
-    };
-
-    if (!this._dispatchChipInputTokenEnd(eventDetail)) {
+    });
+    if (!this.dispatchEvent(event)) {
       return; // event prevented; do nothing (the consumer has to create the chip)
     }
 
-    this._createChipElement(eventDetail.value as T, eventDetail.label);
+    this._createChipElement(event.value as T, event.label);
     this._inputElement!.value = ''; // Empty the input
     this._emitInputEvents();
-  }
-
-  private _dispatchChipInputTokenEnd(eventDetail: SbbChipInputTokenEndEventDetails<T>): boolean {
-    /**
-     * @type {CustomEvent<SbbChipInputTokenEndEventDetails>}
-     * Notifies that a chip is about to be created. Can be prevented.
-     */
-    return this.dispatchEvent(
-      new CustomEvent<SbbChipInputTokenEndEventDetails<T>>('chipinputtokenend', {
-        detail: eventDetail,
-        cancelable: true,
-        bubbles: true,
-        composed: true,
-      }),
-    );
   }
 
   private _deleteChip(chip: SbbChipElement<T>): void {
@@ -458,10 +486,8 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'sbb-chip-group': SbbChipGroupElement;
   }
-}
 
-declare global {
   interface HTMLElementEventMap {
-    chipinputtokenend: CustomEvent<SbbChipInputTokenEndEventDetails<any>>;
+    chipinputtokenend: SbbChipInputTokenEndEvent<any>;
   }
 }
