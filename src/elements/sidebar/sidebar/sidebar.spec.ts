@@ -145,19 +145,19 @@ describe('sbb-sidebar', () => {
 
     it('should update sidebar width when changing position', () => {
       expect(
-        getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width'),
+        getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-start-width'),
       ).to.be.equal('320px');
       expect(
-        getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__end-width'),
+        getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-end-width'),
       ).to.be.equal('');
 
       element.position = 'end';
 
       expect(
-        getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width'),
+        getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-start-width'),
       ).to.be.equal('');
       expect(
-        getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__end-width'),
+        getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-end-width'),
       ).to.be.equal('320px');
     });
 
@@ -573,31 +573,31 @@ describe('sbb-sidebar', () => {
       element.remove();
       element.style.width = '200px';
 
-      expect(getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width'))
+      expect(getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-start-width'))
         .to.be.empty;
 
       container.appendChild(element);
 
       expect(
-        getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width'),
+        getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-start-width'),
       ).to.be.equal('200px');
     });
 
     it('should update sidebar width when resizing', async () => {
       expect(
-        getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width'),
+        getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-start-width'),
       ).to.be.equal('320px');
 
       element.style.width = '330px';
       // It takes around 30ms to get the resize observer triggered
       await waitForCondition(
         () =>
-          getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width') ===
+          getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-start-width') ===
           '330px',
       );
 
       expect(
-        getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width'),
+        getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-start-width'),
       ).to.be.equal('330px');
     });
 
