@@ -11,10 +11,10 @@
   // However, in over mode, or if there is not enough space, the margin must be overridden to 0.
   // Overriding is done in core.scss via the --_sbb-sidebar-content-margin-inline-start / --_sbb-sidebar-content-margin-inline-end variable.
   margin-inline: var(
-      --sbb-sidebar-content__margin-inline-start,
+      --_sbb-sidebar-content-margin-inline-start,
       var(--_sbb-sidebar-container-start-width, 0)
     )
-    var(--sbb-sidebar-content__margin-inline-end, var(--_sbb-sidebar-container-end-width, 0));
+    var(--_sbb-sidebar-content-margin-inline-end, var(--_sbb-sidebar-container-end-width, 0));
   transition: margin var(--sbb-sidebar-container-animation-duration)
     var(--sbb-sidebar-container-animation-easing);
 }
