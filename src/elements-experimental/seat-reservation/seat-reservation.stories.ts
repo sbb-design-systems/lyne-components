@@ -409,6 +409,7 @@ const coachItemDetailsTypeNavigationCoach: InputType = {
 };
 
 const driverAreaSideTypeNavigationCoach = {
+  name: 'driver area side',
   control: 'select' as const,
   options: ['none', 'left', 'right'],
   description: 'driver area side',
