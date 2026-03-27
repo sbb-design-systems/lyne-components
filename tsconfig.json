@@ -22,7 +22,6 @@
       "@sbb-esta/lyne-react/*": ["./src/react/*"]
     },
     "verbatimModuleSyntax": true,
-    "strict": true,
     "importHelpers": true,
 
     /** linting **/
@@ -31,7 +30,7 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitOverride": true,
 
-    "types": ["mocha"],
+    //"types": ["mocha"],
 
     "plugins": [
       {

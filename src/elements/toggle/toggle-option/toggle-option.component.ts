@@ -1,6 +1,6 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult, unsafeCSS } from 'lit';
+import { html, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -10,7 +10,7 @@ import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 import type { SbbToggleElement } from '../toggle/toggle.component.ts';
 
-import style from './toggle-option.scss?lit&inline';
+import style from './toggle-option.scss?inline';
 
 /**
  * It displays a toggle option within a `sbb-toggle`.
@@ -24,7 +24,7 @@ export class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
 ) {
   public static override readonly elementName: string = 'sbb-toggle-option';
   public static override readonly role = 'radio';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Whether the toggle-option is checked. */
   @forceType()

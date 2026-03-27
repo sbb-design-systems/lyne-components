@@ -6,7 +6,7 @@ import type { SbbActionBaseElement } from '../../core/base-elements.ts';
 import { isLean } from '../../core/dom.ts';
 import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.ts';
 
-import style from './link.scss?lit&inline';
+import style from './link.scss?inline';
 
 export type SbbLinkSize = 'xs' | 's' | 'm';
 
@@ -22,7 +22,7 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
     extends SbbNegativeMixin(superClass)
     implements Partial<SbbLinkCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = style;
+    public static styles: CSSResultGroup = unsafeCSS(style);
 
     /**
      * Text size, the link should get in the non-button variation.

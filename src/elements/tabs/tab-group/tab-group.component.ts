@@ -1,6 +1,6 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult, unsafeCSS } from 'lit';
+import { html, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -15,7 +15,7 @@ import { tabGroupCommonStyles } from '../common/styles.ts';
 import type { SbbTabElement } from '../tab/tab.component.ts';
 import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
-import style from './tab-group.scss?lit&inline';
+import style from './tab-group.scss?inline';
 
 export interface SbbTabChangedEventDetails {
   activeIndex: number;
@@ -34,7 +34,11 @@ export interface SbbTabChangedEventDetails {
  */
 export class SbbTabGroupElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-tab-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, tabGroupCommonStyles, style];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    tabGroupCommonStyles,
+    unsafeCSS(style),
+  ];
   public static readonly events = {
     tabchange: 'tabchange',
   } as const;

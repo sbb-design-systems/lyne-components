@@ -6,7 +6,7 @@ import { meta } from 'virtual:meta';
 
 import { screenshots } from '../../screenshots.ts';
 
-import style from './overview.scss?lit&inline';
+import style from './overview.scss?inline';
 
 import '@sbb-esta/lyne-elements/accordion.js';
 import '@sbb-esta/lyne-elements/action-group.js';

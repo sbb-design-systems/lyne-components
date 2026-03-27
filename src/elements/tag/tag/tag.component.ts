@@ -1,5 +1,5 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult, unsafeCSS } from 'lit';
+import { html, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbButtonLikeBaseElement } from '../../core/base-elements.ts';
@@ -14,7 +14,7 @@ import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 import type { SbbTagGroupElement } from '../tag-group/tag-group.component.ts';
 
-import style from './tag.scss?lit&inline';
+import style from './tag.scss?inline';
 
 export type SbbTagSize = 's' | 'm';
 
@@ -30,7 +30,7 @@ export class SbbTagElement<T = string> extends SbbIconNameMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonLikeBaseElement),
 ) {
   public static override readonly elementName: string = 'sbb-tag';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     input: 'input',
     didChange: 'didChange',

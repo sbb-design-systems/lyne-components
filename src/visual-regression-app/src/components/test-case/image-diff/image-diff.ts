@@ -9,7 +9,7 @@ import { meta } from 'virtual:meta';
 
 import type { ScreenshotFiles } from '../../../interfaces.ts';
 
-import style from './image-diff.scss?lit&inline';
+import style from './image-diff.scss?inline';
 
 import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/status.js';

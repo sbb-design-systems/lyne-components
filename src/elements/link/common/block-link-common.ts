@@ -10,8 +10,8 @@ import { SbbIconNameMixin } from '../../icon.ts';
 
 import { SbbLinkCommonElementMixin } from './link-common.ts';
 // eslint-disable-next-line import-x/order
-import blockStyle from './block-link.scss?lit&inline';
-import style from './link.scss?lit&inline';
+import blockStyle from './block-link.scss?inline';
+import style from './link.scss?inline';
 
 export declare class SbbBlockLinkCommonElementMixinType extends SbbLinkCommonElementMixin(
   SbbIconNameMixin(SbbActionBaseElement),

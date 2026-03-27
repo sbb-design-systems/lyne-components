@@ -1,4 +1,4 @@
-import { nothing, type PropertyValues, type TemplateResult } from 'lit';
+import { nothing, unsafeCSS, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
@@ -8,6 +8,22 @@ import { isLean } from '../../core/dom.ts';
 import type { AbstractConstructor } from '../../core/mixins.ts';
 import { SbbNegativeMixin } from '../../core/mixins.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
+
+import buttonAccentStyleString from './accent-button.scss?inline';
+import buttonCommonStyleString from './button-common.scss?inline';
+import miniButtonStyleString from './mini-button-common.scss?inline';
+import miniButtonLabelStyleString from './mini-button-label-common.scss?inline';
+import buttonPrimaryStyleString from './primary-button.scss?inline';
+import buttonSecondaryStyleString from './secondary-button.scss?inline';
+import buttonTransparentStyleString from './transparent-button.scss?inline';
+
+export const buttonCommonStyle = unsafeCSS(buttonCommonStyleString);
+export const buttonPrimaryStyle = unsafeCSS(buttonPrimaryStyleString);
+export const buttonSecondaryStyle = unsafeCSS(buttonSecondaryStyleString);
+export const buttonAccentStyle = unsafeCSS(buttonAccentStyleString);
+export const buttonTransparentStyle = unsafeCSS(buttonTransparentStyleString);
+export const miniButtonStyle = unsafeCSS(miniButtonStyleString);
+export const miniButtonLabelStyle = unsafeCSS(miniButtonLabelStyleString);
 
 export type SbbButtonSize = 'l' | 'm' | 's';
 

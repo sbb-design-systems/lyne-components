@@ -1,5 +1,6 @@
 import type { TestRunnerPlugin } from '@web/test-runner-core';
 import type { PlaywrightLauncher } from '@web/test-runner-playwright';
+import type { A11yNode } from 'aria-tree-type';
 
 export interface A11yTreePayload {
   selector?: string;
@@ -163,57 +164,4 @@ export function a11yTreePlugin(): TestRunnerPlugin<A11yTreePayload> {
       }
     },
   };
-}
-
-export interface A11yNode {
-  /**
-   * Whether this node is ignored for accessibility
-   */
-  ignored?: boolean;
-  /**
-   * This `Node`'s role, whether explicit or implicit.
-   */
-  role?: string;
-  /**
-   * The accessible name for this `Node`.
-   */
-  name?: string;
-  /**
-   * The accessible description for this `Node`.
-   */
-  description?: string;
-  /**
-   * The value for this `Node`.
-   */
-  value?: string;
-
-  atomic?: boolean;
-  autocomplete?: string;
-  busy?: boolean | string;
-  checked?: boolean | string;
-  describedby?: string;
-  disabled?: boolean;
-  editable?: boolean | string;
-  expanded?: boolean;
-  focusable?: boolean;
-  focused?: boolean;
-  hasPopup?: string;
-  invalid?: boolean | string;
-  labelledby?: string;
-  level?: string;
-  live?: string;
-  multiline?: boolean;
-  multiselectable?: boolean;
-  orientation?: string;
-  pressed?: boolean | string;
-  readonly?: boolean;
-  relevant?: string;
-  required?: boolean;
-  roledescription?: string;
-  selected?: boolean;
-  settable?: boolean;
-  valuemin?: string;
-  valuemax?: string;
-  valuetext?: string;
-  children?: A11yNode[];
 }

@@ -1,5 +1,5 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult, unsafeCSS } from 'lit';
+import { html, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
@@ -11,7 +11,7 @@ import { boxSizingStyles } from '../core/styles.ts';
 import type { SbbExpansionPanelElement } from '../expansion-panel.ts';
 import type { SbbTitleLevel } from '../title.ts';
 
-import style from './accordion.scss?lit&inline';
+import style from './accordion.scss?inline';
 
 /**
  * It can be used as a container for one or more `sbb-expansion-panel` component.
@@ -20,7 +20,7 @@ import style from './accordion.scss?lit&inline';
  */
 export class SbbAccordionElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-accordion';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`.

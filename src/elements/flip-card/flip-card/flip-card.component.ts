@@ -1,5 +1,5 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, isServer, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, isServer, type TemplateResult, unsafeCSS } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 
@@ -13,7 +13,7 @@ import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details/flip-card-details.component.ts';
 import type { SbbFlipCardSummaryElement } from '../flip-card-summary/flip-card-summary.component.ts';
 
-import style from './flip-card.scss?lit&inline';
+import style from './flip-card.scss?inline';
 
 import '../../button/secondary-button-static.ts';
 import '../../screen-reader-only.ts';
@@ -26,7 +26,7 @@ import '../../screen-reader-only.ts';
  */
 export class SbbFlipCardElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-flip-card';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     flip: 'flip',
   } as const;

@@ -1,5 +1,4 @@
-import type { TemplateResult } from 'lit';
-import { nothing } from 'lit';
+import { nothing, unsafeCSS, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
@@ -26,9 +25,11 @@ import {
   ɵstateController,
 } from '../../core/mixins.ts';
 
+import fileSelectorCommonStyleString from './file-selector-common.scss?inline';
+
 import '../../button/secondary-button.ts';
 
-export { default as fileSelectorCommonStyle } from './file-selector-common.scss?lit&inline';
+export const fileSelectorCommonStyle = unsafeCSS(fileSelectorCommonStyleString);
 
 export declare abstract class SbbFileSelectorCommonElementMixinType extends SbbDisabledMixin(
   SbbFormAssociatedMixin(SbbElement),

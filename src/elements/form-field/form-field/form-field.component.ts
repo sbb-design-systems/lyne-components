@@ -25,7 +25,7 @@ import {
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbSelectElement } from '../../select.ts';
 
-import style from './form-field.scss?lit&inline';
+import style from './form-field.scss?inline';
 
 import '../../icon.ts';
 
@@ -79,7 +79,7 @@ export class SbbFormFieldControlEvent extends Event {
  */
 export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-form-field';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['button', 'sbb-popover', 'sbb-option', 'sbb-chip'];

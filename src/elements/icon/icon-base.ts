@@ -11,7 +11,7 @@ import { forceType } from '../core/decorators.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
 import { getSvgContent } from './icon-request.ts';
-import style from './icon.scss?lit&inline';
+import style from './icon.scss?inline';
 
 const defaultNamespace = 'default';
 

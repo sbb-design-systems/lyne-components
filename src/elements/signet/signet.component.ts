@@ -1,5 +1,5 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import type { CSSResultGroup, TemplateResult, unsafeCSS } from 'lit';
+import { html, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
@@ -7,7 +7,7 @@ import { forceType } from '../core/decorators.ts';
 import type { SbbProtectiveRoom } from '../core/interfaces.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
-import style from './signet.scss?lit&inline';
+import style from './signet.scss?inline';
 
 export type SbbSignetProtectiveRoom = SbbProtectiveRoom | 'panel';
 
@@ -18,7 +18,7 @@ export type SbbSignetProtectiveRoom = SbbProtectiveRoom | 'panel';
  */
 export class SbbSignetElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-signet';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Visual protective room around signet. */
   @property({ attribute: 'protective-room', reflect: true })

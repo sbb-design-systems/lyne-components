@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -12,7 +12,7 @@ import type { SbbTitleLevel } from '../../title.ts';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content/expansion-panel-content.component.ts';
 import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header/expansion-panel-header.component.ts';
 
-import style from './expansion-panel.scss?lit&inline';
+import style from './expansion-panel.scss?inline';
 
 let nextId = 0;
 
@@ -23,7 +23,7 @@ let nextId = 0;
  */
 export class SbbExpansionPanelElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-expansion-panel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

@@ -3,7 +3,7 @@ import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } f
 import { customElement, property } from 'lit/decorators.js';
 
 import '@sbb-esta/lyne-elements/chip-label.js';
-import style from './test-title-chip-list.scss?lit&inline';
+import style from './test-title-chip-list.scss?inline';
 
 /**
  * Captures two groups

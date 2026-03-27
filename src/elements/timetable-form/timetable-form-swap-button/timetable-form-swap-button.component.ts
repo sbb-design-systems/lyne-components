@@ -1,10 +1,10 @@
-import type { CSSResultGroup, PropertyValues } from 'lit';
+import type { CSSResultGroup, PropertyValues, unsafeCSS } from 'lit';
 
 import { SbbSecondaryButtonElement } from '../../button/secondary-button.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nTimetableFormSwapButtonLabel } from '../../core/i18n.ts';
 
-import style from './timetable-form-swap-button.scss?lit&inline';
+import style from './timetable-form-swap-button.scss?inline';
 
 /**
  * An extension of `sbb-secondary-button` to be used inside the `sbb-timetable-form`.
@@ -12,7 +12,10 @@ import style from './timetable-form-swap-button.scss?lit&inline';
  */
 export class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement {
   public static override readonly elementName: string = 'sbb-timetable-form-swap-button';
-  public static override styles: CSSResultGroup = [SbbSecondaryButtonElement.styles, style];
+  public static override styles: CSSResultGroup = [
+    SbbSecondaryButtonElement.styles,
+    unsafeCSS(style),
+  ];
 
   private _languageController = new SbbLanguageController(this);
 

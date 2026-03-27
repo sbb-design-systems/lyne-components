@@ -11,7 +11,7 @@ import type { SbbNavigationLinkElement } from '../navigation-link/navigation-lin
 import type { SbbNavigationMarkerElement } from '../navigation-marker/navigation-marker.component.ts';
 import type { SbbNavigationSectionElement } from '../navigation-section/navigation-section.component.ts';
 
-import style from './navigation-action.scss?lit&inline';
+import style from './navigation-action.scss?inline';
 
 import '../../icon.ts';
 

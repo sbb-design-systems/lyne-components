@@ -1,4 +1,10 @@
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -10,7 +16,7 @@ import { boxSizingStyles } from '../../core/styles.ts';
 import '../../button/mini-button.ts';
 import '../../screen-reader-only.ts';
 
-import style from './chip.scss?lit&inline';
+import style from './chip.scss?inline';
 
 /**
  * It displays a chip. Usually used in combination with `sbb-chip-group`.
@@ -23,7 +29,7 @@ export class SbbChipElement<T = string> extends SbbNegativeMixin(
 ) {
   public static override readonly elementName: string = 'sbb-chip';
   public static override readonly role = 'option';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     requestdelete: 'requestdelete',
   } as const;

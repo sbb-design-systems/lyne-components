@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { type ScreenshotTestCase } from '../../../screenshots.ts';
 
-import style from './test-case-filter.scss?lit&inline';
+import style from './test-case-filter.scss?inline';
 
 import '@sbb-esta/lyne-elements/title.js';
 import '@sbb-esta/lyne-elements/tag.js';

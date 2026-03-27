@@ -29,7 +29,7 @@ import { boxSizingStyles } from '../core/styles.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
 import type { SbbOptionBaseElement } from '../option.ts';
 
-import style from './autocomplete-base-element.scss?lit&inline';
+import style from './autocomplete-base-element.scss?inline';
 
 /**
  * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.

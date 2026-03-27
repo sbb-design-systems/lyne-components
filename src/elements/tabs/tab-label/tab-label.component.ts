@@ -1,4 +1,4 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -16,7 +16,7 @@ import type {
   SbbTabGroupElement,
 } from '../tab-group/tab-group.component.ts';
 
-import style from './tab-label.scss?lit&inline';
+import style from './tab-label.scss?inline';
 
 /**
  * Combined with a `sbb-tab-group`, it displays a tab's title.
@@ -28,7 +28,11 @@ import style from './tab-label.scss?lit&inline';
 export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbElement)) {
   public static override readonly elementName: string = 'sbb-tab-label';
   public static override role = 'tab';
-  public static override styles: CSSResultGroup = [boxSizingStyles, tabLabelCommonStyles, style];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    tabLabelCommonStyles,
+    unsafeCSS(style),
+  ];
 
   /** Whether the tab is selected. */
   private _selected: boolean = false;

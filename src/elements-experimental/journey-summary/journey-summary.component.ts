@@ -6,14 +6,14 @@ import { i18nTripDuration } from '@sbb-esta/lyne-elements/core/i18n.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { format, isValid } from 'date-fns';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import type { CSSResultGroup, TemplateResult, unsafeCSS } from 'lit';
+import { html, nothing, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime.ts';
 import type { Leg } from '../core/timetable.ts';
 
-import style from './journey-summary.scss?lit&inline';
+import style from './journey-summary.scss?inline';
 
 import '@sbb-esta/lyne-elements/divider.js';
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
@@ -39,7 +39,7 @@ export interface InterfaceSbbJourneySummaryAttributes {
  */
 export class SbbJourneySummaryElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-journey-summary';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**  The trip prop */
   @property({ type: Object }) public accessor trip: InterfaceSbbJourneySummaryAttributes = null!;

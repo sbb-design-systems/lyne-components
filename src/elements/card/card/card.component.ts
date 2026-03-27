@@ -1,11 +1,11 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import type { CSSResultGroup, TemplateResult, unsafeCSS } from 'lit';
+import { html, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
-import style from './card.scss?lit&inline';
+import style from './card.scss?inline';
 
 /**
  * It displays content related to a single subject.
@@ -16,7 +16,7 @@ import style from './card.scss?lit&inline';
  */
 export class SbbCardElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-card';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Option to set the component's background color. */
   @property({ reflect: true }) public accessor color:

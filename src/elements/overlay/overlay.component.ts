@@ -1,4 +1,4 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
@@ -15,7 +15,7 @@ import {
   SbbOverlayBaseElement,
   SbbOverlayCloseEvent,
 } from './overlay-base-element.ts';
-import style from './overlay.scss?lit&inline';
+import style from './overlay.scss?inline';
 
 import '../button/secondary-button.ts';
 import '../button/transparent-button.ts';
@@ -34,7 +34,7 @@ let nextId = 0;
  */
 export class SbbOverlayElement extends SbbOverlayBaseElement {
   public static override readonly elementName: string = 'sbb-overlay';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {

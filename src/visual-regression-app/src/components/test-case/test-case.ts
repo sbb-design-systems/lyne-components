@@ -13,7 +13,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { screenshots, type ScreenshotTestCase } from '../../screenshots.ts';
 
 import type { TestCaseFilter } from './test-case-filter/test-case-filter.ts';
-import style from './test-case.scss?lit&inline';
+import style from './test-case.scss?inline';
 
 import '@sbb-esta/lyne-elements/button/secondary-button-link.js';
 import '@sbb-esta/lyne-elements/chip-label.js';

@@ -1,4 +1,4 @@
-import { type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
@@ -6,7 +6,7 @@ import { SbbLinkBaseElement } from '../core/base-elements.ts';
 import { forceType, omitEmptyConverter } from '../core/decorators.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
-import style from './teaser-hero.scss?lit&inline';
+import style from './teaser-hero.scss?inline';
 
 import '../link/block-link-static.ts';
 
@@ -20,7 +20,7 @@ import '../link/block-link-static.ts';
  */
 export class SbbTeaserHeroElement extends SbbLinkBaseElement {
   public static override readonly elementName: string = 'sbb-teaser-hero';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Panel link text. */
   @forceType()

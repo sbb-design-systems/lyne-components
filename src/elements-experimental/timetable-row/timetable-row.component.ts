@@ -23,15 +23,15 @@ import {
 import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { format } from 'date-fns';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult, unsafeCSS } from 'lit';
+import { html, nothing, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime.ts';
 import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetable.ts';
 import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.ts';
 
-import style from './timetable-row.scss?lit&inline';
+import style from './timetable-row.scss?inline';
 
 import '@sbb-esta/lyne-elements/card.js';
 import '@sbb-esta/lyne-elements/icon.js';
@@ -209,7 +209,7 @@ export const handleNotices = (notices: Notice[]): Notice[] => {
  * */
 export class SbbTimetableRowElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-timetable-row';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** The trip Prop. */
   @property({ type: Object }) public accessor trip: ITripItem = null!;

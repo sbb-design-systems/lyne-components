@@ -47,7 +47,7 @@ import { SbbCalendarWeeknumberElement } from '../calendar-weeknumber/calendar-we
 import { SbbCalendarYearElement } from '../calendar-year/calendar-year.component.ts';
 import type { SbbCalendarCellBaseElement } from '../common.ts';
 
-import style from './calendar.scss?lit&inline';
+import style from './calendar.scss?inline';
 
 import '../../button/secondary-button.ts';
 import '../../icon.ts';
@@ -147,7 +147,7 @@ export type CalendarView = 'day' | 'month' | 'year';
  */
 export class SbbCalendarElement<T = Date> extends SbbElement {
   public static override readonly elementName: string = 'sbb-calendar';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     dateselected: 'dateselected',
     monthchange: 'monthchange',

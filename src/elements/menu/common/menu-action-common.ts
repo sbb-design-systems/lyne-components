@@ -6,7 +6,7 @@ import { type AbstractConstructor, SbbDisabledMixin } from '../../core/mixins.ts
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 
-import style from './menu-action.scss?lit&inline';
+import style from './menu-action.scss?inline';
 
 export declare class SbbMenuActionCommonElementMixinType extends SbbIconNameMixin(
   SbbDisabledMixin(SbbActionBaseElement),

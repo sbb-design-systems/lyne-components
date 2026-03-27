@@ -1,5 +1,12 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
 import { SbbFocusTrapController } from '../../core/a11y.ts';
@@ -11,7 +18,7 @@ import { SbbAnimationCompleteMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 
-import style from './sidebar.scss?lit&inline';
+import style from './sidebar.scss?inline';
 
 /**
  * This component corresponds to a sidebar that can be opened on the sidebar container.
@@ -21,7 +28,7 @@ import style from './sidebar.scss?lit&inline';
  */
 export class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-sidebar';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Background color of the sidebar. Either `white` or `milk`. */
   @property({ reflect: true })

@@ -9,7 +9,7 @@ import { SbbDisabledMixin, SbbRequiredMixin } from '../mixins.ts';
 import { boxSizingStyles } from '../styles.ts';
 
 import { SbbElement } from './element.ts';
-import style from './selection-group-base-element.scss?lit&inline';
+import style from './selection-group-base-element.scss?inline';
 
 /**
  * It can be used as a container for one or more `sbb-checkbox`.

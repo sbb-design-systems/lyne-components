@@ -1,5 +1,4 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
 
 import { miniButtonStyle } from '../../button/common.ts';
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';

@@ -9,7 +9,7 @@ import { SbbDisabledMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbOptionBaseElement } from '../option/option-base-element.ts';
 
-import style from './optgroup-base-element.scss?lit&inline';
+import style from './optgroup-base-element.scss?inline';
 
 import '../../divider.ts';
 

@@ -20,7 +20,7 @@ import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-inp
 import { SbbPopoverBaseElement } from '../../popover.ts';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker-toggle.component.ts';
 
-import style from './datepicker.scss?lit&inline';
+import style from './datepicker.scss?inline';
 
 import '../../calendar.ts';
 
@@ -35,7 +35,7 @@ export class SbbDatepickerElement<T = Date>
   implements SbbDateInputAssociated<T>
 {
   public static override readonly elementName: string = 'sbb-datepicker';
-  public static override styles: CSSResultGroup = [SbbPopoverBaseElement.styles, style];
+  public static override styles: CSSResultGroup = [SbbPopoverBaseElement.styles, unsafeCSS(style)];
   public static readonly sbbDateInputAssociated = true;
 
   /** If set to true, two months are displayed. */

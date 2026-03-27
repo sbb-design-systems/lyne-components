@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { SbbElement } from '../core/base-elements.ts';
 
-import style from './title-common.scss?lit&inline';
+import style from './title-common.scss?inline';
 
 export type SbbTitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
 
@@ -13,7 +13,7 @@ export type SbbTitleLevel = '1' | '2' | '3' | '4' | '5' | '6';
  */
 export abstract class SbbTitleBase extends SbbElement {
   public static override role = 'heading';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = unsafeCSS(style);
 
   /** Title level */
   @property({ reflect: true }) public accessor level: SbbTitleLevel = '1';

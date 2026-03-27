@@ -9,7 +9,7 @@ import { ɵstateController, type AbstractConstructor } from '../../core/mixins.t
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCardElement } from '../card/card.component.ts';
 
-import style from './card-action.scss?lit&inline';
+import style from './card-action.scss?inline';
 
 export declare class SbbCardActionCommonElementMixinType {
   public accessor active: boolean;

@@ -7,7 +7,7 @@ import { meta } from 'virtual:meta';
 
 import type { ScreenshotFiles } from '../../../../interfaces.ts';
 
-import style from './fullscreen-diff.scss?lit&inline';
+import style from './fullscreen-diff.scss?inline';
 
 import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/radio-button.js';

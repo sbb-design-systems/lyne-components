@@ -1,11 +1,11 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import type { CSSResultGroup, TemplateResult, unsafeCSS } from 'lit';
+import { html, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
-import style from './loading-indicator-circle.scss?lit&inline';
+import style from './loading-indicator-circle.scss?inline';
 
 /**
  * It displays a circle loading indicator.
@@ -13,7 +13,7 @@ import style from './loading-indicator-circle.scss?lit&inline';
 export class SbbLoadingIndicatorCircleElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-loading-indicator-circle';
   public static override readonly role = 'progressbar';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Color variant. */
   @property({ reflect: true }) public accessor color: 'default' | 'smoke' | 'white' = 'default';

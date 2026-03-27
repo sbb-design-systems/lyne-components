@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
+    "rootDir": "..",
     "outDir": "../dist/dev-infra-scripts",
     "module": "nodenext",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es2024",
-    "lib": ["es2024"],
-    "strict": true,
+    "lib": ["esnext"],
     "skipLibCheck": true,
+    "types": ["node"],
     "erasableSyntaxOnly": true,
-    "rewriteRelativeImportExtensions": true
+    "rewriteRelativeImportExtensions": true,
+    "paths": {
+      "aria-tree-type": ["../src/elements/core/testing/private/a11y-tree-snapshot.ts"]
+    }
   },
   "include": ["**/*.ts"],
   "exclude": ["generate-component"]

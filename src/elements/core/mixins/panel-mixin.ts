@@ -1,4 +1,4 @@
-import type { LitElement } from 'lit';
+import { unsafeCSS, type LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbCheckboxSize } from '../../checkbox/common/checkbox-common.ts';
@@ -9,6 +9,9 @@ import { forceType, getOverride } from '../decorators.ts';
 import { isLean } from '../dom.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
+import panelCommonStyleString from './panel-common.scss?inline';
+
+export const panelCommonStyle = unsafeCSS(panelCommonStyleString);
 
 interface SbbPanelWithGroup {
   group: SbbCheckboxGroupElement | SbbRadioButtonGroupElement | null;

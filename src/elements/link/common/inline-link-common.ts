@@ -6,8 +6,8 @@ import { boxSizingStyles } from '../../core/styles.ts';
 
 import { SbbLinkCommonElementMixin } from './link-common.ts';
 // eslint-disable-next-line import-x/order
-import inlineStyle from './inline-link.scss?lit&inline';
-import style from './link.scss?lit&inline';
+import inlineStyle from './inline-link.scss?inline';
+import style from './link.scss?inline';
 
 export declare class SbbInlineLinkCommonElementMixinType extends SbbLinkCommonElementMixin(
   SbbActionBaseElement,

@@ -11,7 +11,7 @@ import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 import { miniButtonLabelStyle, miniButtonStyle } from '../common.ts';
 
-import style from './mini-button-link.scss?lit&inline';
+import style from './mini-button-link.scss?inline';
 
 /**
  * It displays an icon-only button enhanced with the SBB Design as link variant;

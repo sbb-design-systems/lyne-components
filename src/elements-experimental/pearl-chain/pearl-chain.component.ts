@@ -3,8 +3,8 @@ import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { addMinutes, differenceInMinutes, isAfter, isBefore } from 'date-fns';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import type { CSSResultGroup, TemplateResult, unsafeCSS } from 'lit';
+import { html, nothing, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -12,7 +12,7 @@ import { removeTimezoneFromISOTimeString } from '../core/datetime.ts';
 import type { Leg, PtRideLeg } from '../core/timetable.ts';
 import { isRideLeg } from '../core/timetable.ts';
 
-import style from './pearl-chain.scss?lit&inline';
+import style from './pearl-chain.scss?inline';
 
 type Status = 'progress' | 'future' | 'past';
 interface Time {
@@ -25,7 +25,7 @@ interface Time {
  */
 export class SbbPearlChainElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * Define the legs of the pearl-chain.

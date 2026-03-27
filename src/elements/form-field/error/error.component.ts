@@ -1,11 +1,11 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import type { CSSResultGroup, TemplateResult, unsafeCSS } from 'lit';
+import { html, unsafeCSS } from 'lit';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { SbbNegativeMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
-import style from './error.scss?lit&inline';
+import style from './error.scss?inline';
 
 let nextId = 0;
 
@@ -17,7 +17,7 @@ let nextId = 0;
  */
 export class SbbErrorElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-error';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   public override connectedCallback(): void {
     super.connectedCallback();

@@ -1,6 +1,6 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import { isArrowKeyPressed } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
@@ -11,7 +11,7 @@ import type {
   SbbCarouselItemEventDetail,
 } from '../carousel-item/carousel-item.component.ts';
 
-import style from './carousel-list.scss?lit&inline';
+import style from './carousel-list.scss?inline';
 
 /**
  * It displays a list of `sbb-carousel-item` components.
@@ -20,7 +20,7 @@ import style from './carousel-list.scss?lit&inline';
  */
 export class SbbCarouselListElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-carousel-list';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = unsafeCSS(style);
 
   private _currentIndex = 0;
   private _language = new SbbLanguageController(this);

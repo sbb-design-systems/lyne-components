@@ -9,15 +9,15 @@ import {
 } from '@sbb-esta/lyne-elements/core/i18n.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { format } from 'date-fns';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import type { CSSResultGroup, TemplateResult, unsafeCSS } from 'lit';
+import { html, nothing, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { removeTimezoneFromISOTimeString } from '../core/datetime.ts';
 import type { Leg, PtRideLeg } from '../core/timetable.ts';
 import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.ts';
 
-import style from './pearl-chain-time.scss?lit&inline';
+import style from './pearl-chain-time.scss?inline';
 
 import '../pearl-chain.ts';
 
@@ -26,7 +26,7 @@ import '../pearl-chain.ts';
  */
 export class SbbPearlChainTimeElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain-time';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * define the legs of the pearl-chain.

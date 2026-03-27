@@ -53,7 +53,8 @@ function typescriptTransform(): PluginOption {
     },
 
     transform(code: string, file: string): Rollup.TransformResult {
-      if (!file.split('?')[0].endsWith('.ts')) {
+      const filePath = file.split('?')[0];
+      if (!filePath.endsWith('.ts') || filePath.endsWith('.d.ts')) {
         return;
       }
 

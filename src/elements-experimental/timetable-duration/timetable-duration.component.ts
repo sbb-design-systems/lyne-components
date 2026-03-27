@@ -3,18 +3,18 @@ import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.
 import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import { i18nDurationHour, i18nDurationMinute } from '@sbb-esta/lyne-elements/core/i18n.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import type { CSSResultGroup, TemplateResult, unsafeCSS } from 'lit';
+import { html, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import style from './timetable-duration.scss?lit&inline';
+import style from './timetable-duration.scss?inline';
 
 /**
  * Used in `sbb-timetable-row`, it displays information about the trip duration.
  */
 export class SbbTimetableDurationElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-timetable-duration';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * Stringified JSON which defines most of the

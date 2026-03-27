@@ -2,10 +2,10 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "rootDir": "../..",
-    "baseUrl": ".",
+    "types": ["vite/client"],
     "paths": {
       "@sbb-esta/lyne-elements/*": ["./*"]
     }
   },
-  "include": ["./**/*.ts", "../vite-env.d.ts"]
+  "include": ["./**/*.ts"]
 }

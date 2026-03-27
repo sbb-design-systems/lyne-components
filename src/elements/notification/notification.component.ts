@@ -1,5 +1,12 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
@@ -12,7 +19,7 @@ import { boxSizingStyles } from '../core/styles.ts';
 import { SbbIconNameMixin } from '../icon.ts';
 import type { SbbTitleElement } from '../title.ts';
 
-import style from './notification.scss?lit&inline';
+import style from './notification.scss?inline';
 
 import '../button/secondary-button.ts';
 import '../divider.ts';
@@ -38,7 +45,7 @@ const DEBOUNCE_TIME = 150;
  */
 export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbElement)) {
   public static override readonly elementName: string = 'sbb-notification';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

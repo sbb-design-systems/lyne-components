@@ -1,8 +1,8 @@
-import { html, type CSSResultGroup, type TemplateResult } from 'lit';
+import { html, type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 
 import { SbbElement } from '../core/base-elements/element.ts';
 
-import style from './screen-reader-only.scss?lit&inline';
+import style from './screen-reader-only.scss?inline';
 
 /**
  * This component can be used to visually hide content but present it to screen readers.
@@ -11,7 +11,7 @@ import style from './screen-reader-only.scss?lit&inline';
  */
 export class SbbScreenReaderOnlyElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-screen-reader-only';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = unsafeCSS(style);
 
   protected override render(): TemplateResult {
     return html`<slot></slot>`;
