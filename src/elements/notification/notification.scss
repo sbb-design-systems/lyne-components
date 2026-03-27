@@ -214,6 +214,7 @@ $open-anim-height-to: calc(
   color-scheme: only light;
   order: 3;
   grid-area: 2 / 1 / 3 / 3;
+  align-self: flex-start;
   margin-block-start: var(--sbb-notification-content-margin-block-start);
 
   @include sbb.mq($from: small) {
