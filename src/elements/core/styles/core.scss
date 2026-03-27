@@ -227,6 +227,9 @@ $theme: 'standard' !default;
 @use '../../tabs/tab-nav-bar/tab-nav-bar.global' as tab-nav-bar with (
   $theme: $theme
 );
+@use '../../tag/tag/tag.global' as tag with (
+  $theme: $theme
+);
 @use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
   $theme: $theme
 );
@@ -302,6 +305,7 @@ $theme: 'standard' !default;
   @include status.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
+  @include tag.base;
   @include visual-checkbox.base;
 
   @include a11y.if-forced-colors {
@@ -319,6 +323,7 @@ $theme: 'standard' !default;
     @include radio-button-common.base-forced-colors;
     @include signet.base-forced-colors;
     @include slider.base-forced-colors;
+    @include tag.base-forced-colors;
   }
 
   // Train formation
