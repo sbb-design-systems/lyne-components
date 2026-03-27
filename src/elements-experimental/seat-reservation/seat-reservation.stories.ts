@@ -1,6 +1,7 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { keyed } from 'lit/directives/keyed.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
@@ -316,7 +317,7 @@ const TemplateAreaComponent = (args: Args): TemplateResult => {
   ></sbb-seat-reservation-area>`;
 };
 
-export const AreaDefault: StoryObj = {
+export const Area: StoryObj = {
   render: TemplateAreaComponent,
   argTypes: defaultArgTypesAreaComponent,
   args: {
@@ -357,7 +358,7 @@ const defaultArgsGraphic: Args = {
 const TemplateGraphic = (args: Args): TemplateResult =>
   html`<sbb-seat-reservation-graphic ${sbbSpread(args)}></sbb-seat-reservation-graphic>`;
 
-export const GraphicDefault: StoryObj = {
+export const Graphic: StoryObj = {
   render: TemplateGraphic,
   argTypes: defaultArgTypesGraphic,
   args: { ...defaultArgsGraphic },
@@ -442,7 +443,7 @@ const defaultArgsNavigationCoach: Args = {
   driverAreaSide: 'none',
 };
 
-export const NavigationCoachDefault: StoryObj = {
+export const NavigationCoach: StoryObj = {
   render: (args) => {
     let details: CoachItemDetails;
 
@@ -478,28 +479,6 @@ export const NavigationCoachDefault: StoryObj = {
 
 /****************************************************************************
  *                                                                          *
- *              BEGIN seat-reservation-navigation-services Component        *
- *                                                                          *
- * *************************************************************************/
-
-const defaultArgsNavigationServices: Args = {
-  'property-ids': JSON.stringify(['BISTRO']),
-};
-
-const TemplateNavigationServices = (args: Args): TemplateResult =>
-  html`<sbb-seat-reservation-navigation-services ${sbbSpread(args)}>
-  </sbb-seat-reservation-navigation-services>`;
-
-export const NavigationServicesMultipleServiceIcons: StoryObj = {
-  render: TemplateNavigationServices,
-  args: {
-    ...defaultArgsNavigationServices,
-    'property-ids': JSON.stringify(['BISTRO', 'SILENCE', 'WHEELCHAIR']),
-  },
-};
-
-/****************************************************************************
- *                                                                          *
  *              BEGIN seat-reservation-place-control Component              *
  *                                                                          *
  * *************************************************************************/
@@ -517,38 +496,51 @@ const defaultArgTypesPlaceControl: ArgTypes = {
     },
     options: ['FREE', 'SELECTED', 'RESTRICTED', 'ALLOCATED'],
   },
+  rotation: {
+    control: { type: 'select' },
+    options: [0, 90, 180, 270],
+    description: 'place control rotation',
+  },
+  textRotation: {
+    name: 'text-rotation',
+    control: { type: 'select' },
+    options: [0, 90, 180, 270],
+    description: 'text-rotation',
+  },
 };
 
 const defaultArgsPlaceControl: Args = {
   type: 'SEAT',
   state: 'FREE',
   text: '',
-  style:
-    '--sbb-seat-reservation-place-control-text-scale-value: 32;--sbb-seat-reservation-place-control-width: 32;--sbb-seat-reservation-place-control-height: 32;--sbb-seat-reservation-place-control-rotation: 0; --sbb-seat-reservation-place-control-text-rotation: 0;',
+  rotation: 0,
+  textRotation: 0,
 };
 
-const TemplatePlaceControl = (args: Args): TemplateResult =>
-  html`<sbb-seat-reservation-place-control
-    ${sbbSpread(args)}
-  ></sbb-seat-reservation-place-control>`;
-
-export const PlaceControlDefault: StoryObj = {
-  render: TemplatePlaceControl,
-  argTypes: defaultArgTypesPlaceControl,
-  args: defaultArgsPlaceControl,
+const TemplatePlaceControl = (args: Args): TemplateResult => {
+  const { rotation, textRotation } = args;
+  const style =
+    `--sbb-seat-reservation-place-control-text-scale-value: 32;` +
+    `--sbb-seat-reservation-place-control-width: 32;` +
+    `--sbb-seat-reservation-place-control-height: 32;` +
+    `--sbb-seat-reservation-place-control-rotation: ${rotation};` +
+    `--sbb-seat-reservation-place-control-text-rotation: ${textRotation};`;
+  return html`${keyed(
+    `${args.type}-${args.state}-${args.text}-${args.rotation}`,
+    html`<sbb-seat-reservation-place-control
+      style="${style}"
+      type="${args.type}"
+      state="${args.state}"
+      text="${args.text}"
+    ></sbb-seat-reservation-place-control>`,
+  )}`;
 };
 
-export const PlaceControlPlaceSeatFreeRotation90TextRotationMinus90: StoryObj = {
+export const PlaceControl: StoryObj = {
   render: TemplatePlaceControl,
   argTypes: defaultArgTypesPlaceControl,
   args: {
     ...defaultArgsPlaceControl,
-    text: '123',
-    type: 'SEAT',
-    state: 'FREE',
-    style: defaultArgsPlaceControl.style.concat(
-      '--sbb-seat-reservation-place-control-rotation: 90; --sbb-seat-reservation-place-control-text-rotation:-90',
-    ),
   },
 };
 
