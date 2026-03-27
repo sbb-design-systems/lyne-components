@@ -3,10 +3,10 @@ import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import type { SbbButtonElement } from '../../button/button.ts';
+import type { SbbButtonElement } from '../../button.ts';
 import { describeViewports, tabKey, visualDiffDefault } from '../../core/testing/private.ts';
 
-import '../../button/button.ts';
+import '../../button.ts';
 import '../../divider.ts';
 import '../../link.ts';
 import '../../menu.ts';

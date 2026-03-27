@@ -10,6 +10,7 @@ import {
 import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import { SbbFocusTrapController } from '../../core/a11y.ts';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
 import {
@@ -33,7 +34,8 @@ import type { SbbNavigationSectionElement } from '../navigation-section/navigati
 
 import style from './navigation.scss?lit&inline';
 
-import '../../button/transparent-button.ts';
+// TODO(breaking-change): Remove call to define.
+SbbTransparentButtonElement.define();
 
 let nextId = 0;
 const DEBOUNCE_TIME = 150;

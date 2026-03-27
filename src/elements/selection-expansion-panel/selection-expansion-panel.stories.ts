@@ -13,13 +13,13 @@ import type { SbbRadioButtonGroupElement } from '../radio-button.ts';
 import readme from './readme.md?raw';
 import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.ts';
 
-import '../button/mini-button.ts';
+import '../button.ts';
 import '../card.ts';
 import '../checkbox.ts';
 import '../divider.ts';
 import '../form-field.ts';
 import '../icon.ts';
-import '../link/block-link-button.ts';
+import '../link.ts';
 import '../popover.ts';
 import '../radio-button.ts';
 import '../selection-expansion-panel.ts';

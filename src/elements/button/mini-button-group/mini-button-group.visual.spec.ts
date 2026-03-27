@@ -6,8 +6,7 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.ts';
 
-import '../mini-button-group.ts';
-import '../mini-button.ts';
+import '../../button.ts';
 import '../../divider.ts';
 
 describe('sbb-mini-button-group', () => {

@@ -10,7 +10,7 @@ import {
 } from '../../core/testing/private.ts';
 
 import '../../form-field.ts';
-import '../../button/mini-button.ts';
+import '../../button.ts';
 
 import '../../popover.ts';
 

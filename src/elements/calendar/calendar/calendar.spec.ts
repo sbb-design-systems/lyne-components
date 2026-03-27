@@ -4,7 +4,7 @@ import { nothing } from 'lit';
 import { html } from 'lit/static-html.js';
 import { type SinonStub, stub } from 'sinon';
 
-import type { SbbSecondaryButtonElement } from '../../button/secondary-button.ts';
+import type { SbbSecondaryButtonElement } from '../../button.ts';
 import { defaultDateAdapter } from '../../core/datetime.ts';
 import {
   elementInternalsSpy,

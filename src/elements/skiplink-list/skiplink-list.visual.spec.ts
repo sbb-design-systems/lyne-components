@@ -3,7 +3,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
 
 import '../skiplink-list.ts';
-import '../link/block-link.ts';
+import '../link.ts';
 
 const template = (title?: string): TemplateResult => html`
   <sbb-skiplink-list title-content=${title || nothing}>

@@ -8,7 +8,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import readme from './readme.md?raw';
 
 import '../skiplink-list.ts';
-import '../link/block-link.ts';
+import '../link.ts';
 import '../title.ts';
 
 const titleContent: InputType = {

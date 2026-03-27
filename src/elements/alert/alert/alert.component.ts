@@ -1,6 +1,7 @@
 import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
 import { SbbDarkModeController, SbbLanguageController } from '../../core/controllers.ts';
 import { isLean, isZeroAnimationDuration } from '../../core/dom.ts';
@@ -13,8 +14,10 @@ import type { SbbTitleElement } from '../../title.ts';
 
 import style from './alert.scss?lit&inline';
 
-import '../../button/transparent-button.ts';
 import '../../divider.ts';
+
+// TODO(breaking-change): Remove call to define.
+SbbTransparentButtonElement.define();
 
 /**
  * It displays messages which require user's attention.

@@ -4,7 +4,10 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonStaticElement } from '../../button.ts';
+import {
+  SbbSecondaryButtonElement,
+  type SbbSecondaryButtonStaticElement,
+} from '../../button.pure.ts';
 import { sbbInputModalityDetector } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
@@ -26,7 +29,8 @@ import {
   ɵstateController,
 } from '../../core/mixins.ts';
 
-import '../../button/secondary-button.ts';
+// TODO(breaking-change): Remove call to define.
+SbbSecondaryButtonElement.define();
 
 export { default as fileSelectorCommonStyle } from './file-selector-common.scss?lit&inline';
 

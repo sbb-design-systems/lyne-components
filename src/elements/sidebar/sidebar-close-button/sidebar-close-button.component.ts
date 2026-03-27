@@ -1,10 +1,13 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 
-import { SbbSecondaryButtonElement } from '../../button/secondary-button.ts';
+import { SbbSecondaryButtonElement } from '../../button.pure.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nCloseSidebar } from '../../core/i18n.ts';
 
 import style from './sidebar-close-button.scss?lit&inline';
+
+// TODO(breaking-change): Remove call to define.
+SbbSecondaryButtonElement.define();
 
 /**
  * Sidebar close button, intended to be placed inside sbb-sidebar.

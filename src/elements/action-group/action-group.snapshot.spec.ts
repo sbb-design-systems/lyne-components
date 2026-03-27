@@ -6,8 +6,8 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 import type { SbbActionGroupElement } from './action-group.component.ts';
 
 import '../action-group.ts';
-import '../button/secondary-button.ts';
-import '../link/block-link.ts';
+import '../button.ts';
+import '../link.ts';
 
 describe(`sbb-action-group`, () => {
   describe('renders', () => {

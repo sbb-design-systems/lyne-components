@@ -5,7 +5,7 @@ import { fixture } from '../core/testing/private.ts';
 import { waitForLitRender } from '../core/testing.ts';
 
 import { SbbLinkListElement } from './link-list.component.ts';
-import '../link/block-link.ts';
+import '../link.ts';
 import '../link-list.ts';
 
 describe(`sbb-link-list`, () => {
