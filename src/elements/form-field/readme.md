@@ -171,7 +171,7 @@ to the input element.
 If you want to directly show the error state without having had an interaction, you can use the
 `sbb-show-errors` class on an ancestor (e.g. `<form>`).
 
-### Visualization of `required` state
+### Visualization of `required` / optional state
 
 Generally, as an SBB standard, all form elements are considered required and optional inputs are marked with `(optional)` in the label.
 
