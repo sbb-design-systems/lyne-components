@@ -148,7 +148,7 @@ describe(`sbb-form-field`, () => {
     .set('select', basicSelect)
     .set('textarea', basicTextarea);
 
-  const visuallyRequiredStates = {
+  const requiredHighlightStates = {
     negative: [false, true],
     state: [
       { disabled: false, readonly: false },
@@ -165,7 +165,7 @@ describe(`sbb-form-field`, () => {
     darkMode: boolean;
   }): void {
     describe('sbb-form-field-required-highlight', () => {
-      describeEach(visuallyRequiredStates, ({ negative, state }) => {
+      describeEach(requiredHighlightStates, ({ negative, state }) => {
         it(
           visualDiffDefault.name,
           visualDiffDefault.with(async (setup) => {

@@ -232,4 +232,18 @@ $theme: 'standard' !default;
       }
     }
   }
+
+  // In high contrast we set, regardless of any state, an Asterix (*) for required fields, to ensure the requirement is visible.
+  :is(sbb-form-field, sbb-timetable-form-field) {
+    :root.sbb-form-field-required-highlight
+      &:has(:where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input)[required]),
+    &.sbb-form-field-required-highlight {
+      @include sbb.if-forced-colors {
+        label::after {
+          content: ' *';
+          color: Highlight;
+        }
+      }
+    }
+  }
 }
