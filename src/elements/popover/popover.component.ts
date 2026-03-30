@@ -1,5 +1,13 @@
-import type { CSSResultGroup, PropertyDeclaration, PropertyValues, TemplateResult } from 'lit';
-import { html, isServer, nothing } from 'lit';
+import {
+  html,
+  isServer,
+  nothing,
+  unsafeCSS,
+  type CSSResultGroup,
+  type PropertyDeclaration,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -30,7 +38,7 @@ import {
 } from '../core/overlay.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
-import style from './popover.scss?lit&inline';
+import style from './popover.scss?inline';
 
 // TODO(breaking-change): Remove call to define.
 SbbSecondaryButtonElement.define();
@@ -44,7 +52,7 @@ const popoversRef = new Set<SbbPopoverBaseElement>();
 const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).matches;
 
 export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * The element that will trigger the popover overlay.

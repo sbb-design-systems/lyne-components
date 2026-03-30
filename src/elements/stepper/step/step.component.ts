@@ -1,5 +1,11 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers.ts';
@@ -8,7 +14,7 @@ import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbStepLabelElement } from '../step-label/step-label.component.ts';
 import type { SbbStepperElement } from '../stepper/stepper.component.ts';
 
-import style from './step.scss?lit&inline';
+import style from './step.scss?inline';
 
 let nextId = 0;
 
@@ -27,7 +33,7 @@ export interface SbbStepValidateEventDetails {
 export class SbbStepElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-step';
   public static override readonly role = 'tabpanel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     validate: 'validate',
     resizechange: 'resizechange',

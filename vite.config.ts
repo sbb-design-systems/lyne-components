@@ -2,7 +2,6 @@ import { EOL } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import postcssLit from 'rollup-plugin-postcss-lit';
 import * as ts from 'typescript';
 import type { CompilerOptions, DiagnosticMessageChain } from 'typescript';
 import { defineConfig } from 'vite';
@@ -21,11 +20,6 @@ export default defineConfig({
     },
   },
   plugins: [
-    // We apply the postcssLit plugin (which transforms .scss files to Lit
-    // CSS tagged templates) as this should apply in almost all cases.
-    postcssLit({
-      exclude: ['**/core/styles/**/!(box-sizing.scss*)', '**/storybook/**/*'],
-    }),
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     typescriptTransform(),
   ],
@@ -53,7 +47,8 @@ function typescriptTransform(): PluginOption {
     },
 
     transform(code: string, file: string): Rollup.TransformResult {
-      if (!file.split('?')[0].endsWith('.ts')) {
+      const filePath = file.split('?')[0];
+      if (!filePath.endsWith('.ts') || filePath.endsWith('.d.ts')) {
         return;
       }
 

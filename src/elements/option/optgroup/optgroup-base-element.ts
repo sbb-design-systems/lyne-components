@@ -1,4 +1,11 @@
-import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
@@ -9,7 +16,7 @@ import { SbbDisabledMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbOptionBaseElement } from '../option/option-base-element.ts';
 
-import style from './optgroup-base-element.scss?lit&inline';
+import style from './optgroup-base-element.scss?inline';
 
 import '../../divider.ts';
 
@@ -22,7 +29,7 @@ const inertAriaGroups = isSafari;
 
 export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbElement) {
   public static override readonly role = !inertAriaGroups ? 'group' : null;
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Option group label. */
   @forceType()

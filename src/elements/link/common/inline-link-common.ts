@@ -1,13 +1,11 @@
-import type { CSSResultGroup } from 'lit';
+import { unsafeCSS, type CSSResultGroup } from 'lit';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.ts';
 import type { AbstractConstructor } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
 
 import { SbbLinkCommonElementMixin } from './link-common.ts';
 // eslint-disable-next-line import-x/order
-import inlineStyle from './inline-link.scss?lit&inline';
-import style from './link.scss?lit&inline';
+import inlineStyle from './inline-link.scss?inline';
 
 export declare class SbbInlineLinkCommonElementMixinType extends SbbLinkCommonElementMixin(
   SbbActionBaseElement,
@@ -23,7 +21,7 @@ export const SbbInlineLinkCommonElementMixin = <
     extends SbbLinkCommonElementMixin(superClass)
     implements Partial<SbbInlineLinkCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, style, inlineStyle];
+    public static override styles: CSSResultGroup = [super.styles, unsafeCSS(inlineStyle)];
   }
   return SbbInlineLinkCommonElement as unknown as AbstractConstructor<SbbInlineLinkCommonElementMixinType> &
     T;

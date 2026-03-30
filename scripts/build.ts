@@ -376,14 +376,11 @@ function dts(): Plugin {
       }
     },
     beforeWriteFile: (filePath, content) => {
-      if (content.includes('.scss?lit&inline') || content.includes('.scss?inline&lit')) {
+      if (content.includes('.scss?inline')) {
         return {
           filePath,
           // Remove lines with scss modules
-          content: content.replace(
-            /export \{[^}]+\}\s+from\s+'[^']+\.scss\?(lit&inline|inline&lit)';\n?/gm,
-            '',
-          ),
+          content: content.replace(/export \{[^}]+\}\s+from\s+'[^']+\.scss\?inline';\n?/gm, ''),
         };
       }
     },

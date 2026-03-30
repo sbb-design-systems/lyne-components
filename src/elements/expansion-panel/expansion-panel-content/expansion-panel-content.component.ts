@@ -1,11 +1,10 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
-import style from './expansion-panel-content.scss?lit&inline';
+import style from './expansion-panel-content.scss?inline';
 
 /**
  * It can be used as a container for the content of the `sbb-expansion-panel` component.
@@ -15,7 +14,7 @@ import style from './expansion-panel-content.scss?lit&inline';
 export class SbbExpansionPanelContentElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-expansion-panel-content';
   public static override readonly role = 'region';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   private _previousSize?: string;
 
@@ -42,7 +41,7 @@ export class SbbExpansionPanelContentElement extends SbbElement {
   }
 
   protected override render(): TemplateResult {
-    return html` <slot></slot> `;
+    return html`<slot></slot>`;
   }
 }
 

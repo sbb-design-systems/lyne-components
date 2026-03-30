@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 
 import { describeViewports, visualDiffDefault } from '../../../elements/core/testing/private.ts';
 
-import style from './layout.scss?lit&inline';
+import style from './layout.scss?inline';
 
 describe(`layout`, () => {
   const wrapperStyles = { padding: '0' };

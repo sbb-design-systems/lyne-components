@@ -1,4 +1,11 @@
-import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { interactivityChecker } from '../../core/a11y.ts';
@@ -14,7 +21,7 @@ import {
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbToggleOptionElement } from '../toggle-option/toggle-option.component.ts';
 
-import style from './toggle.scss?lit&inline';
+import style from './toggle.scss?inline';
 
 /**
  * It can be used as a container for two `sbb-toggle-option`, acting as a toggle button.
@@ -27,7 +34,7 @@ export class SbbToggleElement<T = string> extends SbbDisabledMixin(
 ) {
   public static override readonly elementName: string = 'sbb-toggle';
   public static override readonly role = 'radiogroup';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     change: 'change',
   } as const;

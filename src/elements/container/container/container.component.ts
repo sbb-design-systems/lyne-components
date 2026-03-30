@@ -1,4 +1,10 @@
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -6,7 +12,7 @@ import { forceType } from '../../core/decorators.ts';
 import { ɵstateController } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
-import style from './container.scss?lit&inline';
+import style from './container.scss?inline';
 
 /**
  * It displays its content with the default page spacing.
@@ -19,7 +25,7 @@ import style from './container.scss?lit&inline';
  */
 export class SbbContainerElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-container';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Whether the container is expanded. */
   @forceType()

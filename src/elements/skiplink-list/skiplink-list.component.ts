@@ -1,4 +1,4 @@
-import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -11,7 +11,7 @@ import { boxSizingStyles } from '../core/styles.ts';
 import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.ts';
 import type { SbbTitleLevel } from '../title.ts';
 
-import style from './skiplink-list.scss?lit&inline';
+import style from './skiplink-list.scss?inline';
 
 /**
  * It displays a list of `sbb-block-link`/`sbb-block-link-button` which are visible only when focused.
@@ -27,7 +27,7 @@ export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-skiplink-list';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   protected override readonly listChildLocalNames = ['sbb-block-link', 'sbb-block-link-button'];
 
   /** The title text we want to place before the list. */

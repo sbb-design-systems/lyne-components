@@ -1,4 +1,4 @@
-import { type CSSResultGroup, html, nothing, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import {
@@ -11,7 +11,7 @@ import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 import type { SbbExpansionPanelElement } from '../expansion-panel/expansion-panel.component.ts';
 
-import style from './expansion-panel-header.scss?lit&inline';
+import style from './expansion-panel-header.scss?inline';
 
 /**
  * It acts as a native `summary` tag for the `sbb-expansion-panel` component.
@@ -23,7 +23,7 @@ export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMix
   SbbIconNameMixin(SbbButtonBaseElement),
 ) {
   public static override readonly elementName: string = 'sbb-expansion-panel-header';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     toggleexpanded: 'toggleexpanded',
   } as const;

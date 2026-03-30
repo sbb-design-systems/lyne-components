@@ -1,4 +1,4 @@
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers.ts';
@@ -8,7 +8,7 @@ import { SbbIconNameMixin } from '../../icon.ts';
 import type { SbbStepElement } from '../step/step.component.ts';
 import type { SbbStepperElement } from '../stepper/stepper.component.ts';
 
-import style from './step-label.scss?lit&inline';
+import style from './step-label.scss?inline';
 
 let nextId = 0;
 
@@ -21,7 +21,7 @@ let nextId = 0;
 export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
   public static override readonly elementName: string = 'sbb-step-label';
   public static override readonly role = 'tab';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** The step controlled by the label. */
   public get step(): SbbStepElement | null {

@@ -1,4 +1,10 @@
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
@@ -10,7 +16,7 @@ import type { SbbOpenedClosedState } from '../core/interfaces.ts';
 import { SbbSelectionPanelMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
-import style from './selection-expansion-panel.scss?lit&inline';
+import style from './selection-expansion-panel.scss?inline';
 
 import '../divider.ts';
 
@@ -23,7 +29,7 @@ import '../divider.ts';
 export class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-selection-expansion-panel';
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

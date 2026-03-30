@@ -1,7 +1,15 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import type { CSSResultGroup, PropertyDeclaration, PropertyValues, TemplateResult } from 'lit';
-import { html, isServer, nothing } from 'lit';
+import {
+  html,
+  isServer,
+  nothing,
+  unsafeCSS,
+  type CSSResultGroup,
+  type PropertyDeclaration,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
@@ -38,7 +46,7 @@ import type { SbbDividerElement } from '../divider.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
 import type { SbbOptionElement, SbbOptionHintElement } from '../option.ts';
 
-import style from './select.scss?lit&inline';
+import style from './select.scss?inline';
 
 /**
  * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
@@ -72,7 +80,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 ) {
   public static override readonly elementName: string = 'sbb-select';
   public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
