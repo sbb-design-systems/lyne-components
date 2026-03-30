@@ -1,12 +1,11 @@
-import { type CSSResultGroup, type TemplateResult } from 'lit';
-import { html } from 'lit/static-html.js';
+import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 
 import type { SbbActionBaseElement } from '../../core/base-elements.ts';
 import { type AbstractConstructor, SbbDisabledMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 
-import style from './menu-action.scss?lit&inline';
+import style from './menu-action.scss?inline';
 
 export declare class SbbMenuActionCommonElementMixinType extends SbbIconNameMixin(
   SbbDisabledMixin(SbbActionBaseElement),
@@ -22,7 +21,7 @@ export const SbbMenuActionCommonElementMixin = <
     extends SbbIconNameMixin(SbbDisabledMixin(superClass))
     implements SbbMenuActionCommonElementMixinType
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, style];
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
     protected override renderTemplate(): TemplateResult {
       return html`

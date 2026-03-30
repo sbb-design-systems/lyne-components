@@ -2,9 +2,9 @@ import { SbbPropertyWatcherController } from '@sbb-esta/lyne-elements/core/contr
 import { ɵstateController } from '@sbb-esta/lyne-elements/core/mixins.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option.js';
-import type { CSSResultGroup, PropertyValues } from 'lit';
+import { unsafeCSS, type CSSResultGroup, type PropertyValues } from 'lit';
 
-import style from './autocomplete-grid-option.scss?lit&inline';
+import style from './autocomplete-grid-option.scss?inline';
 
 export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
 
@@ -20,7 +20,7 @@ export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
 export class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseElement<T> {
   public static override readonly elementName: string = 'sbb-autocomplete-grid-option';
   public static override readonly role = 'gridcell';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   protected optionId = autocompleteGridOptionId;
 

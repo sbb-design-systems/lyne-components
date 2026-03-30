@@ -1,6 +1,5 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.ts';
@@ -13,7 +12,7 @@ import { ɵstateController } from '../../core/mixins.ts';
 import type { SbbMiniCalendarDayElement } from '../mini-calendar-day/mini-calendar-day.component.ts';
 import type { SbbMiniCalendarMonthElement } from '../mini-calendar-month/mini-calendar-month.component.ts';
 
-import style from './mini-calendar.scss?lit&inline';
+import style from './mini-calendar.scss?inline';
 
 /**
  * It displays a minimal calendar, together with the `sbb-mini-calendar-month` and `sbb-mini-calendar-day`.
@@ -22,7 +21,7 @@ import style from './mini-calendar.scss?lit&inline';
  */
 export class SbbMiniCalendarElement<T = Date> extends SbbElement {
   public static override readonly elementName: string = 'sbb-mini-calendar';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = unsafeCSS(style);
 
   /** The orientation of days in the calendar. */
   @property({ reflect: true })

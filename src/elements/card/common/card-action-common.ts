@@ -1,5 +1,5 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
@@ -9,7 +9,7 @@ import { ɵstateController, type AbstractConstructor } from '../../core/mixins.t
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCardElement } from '../card/card.component.ts';
 
-import style from './card-action.scss?lit&inline';
+import style from './card-action.scss?inline';
 
 export declare class SbbCardActionCommonElementMixinType {
   public accessor active: boolean;
@@ -26,7 +26,7 @@ export const SbbCardActionCommonElementMixin = <
     extends superClass
     implements Partial<SbbCardActionCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, style];
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
     /** Whether the card is active. */
     @property({ reflect: true, type: Boolean })

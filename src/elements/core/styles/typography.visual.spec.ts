@@ -2,7 +2,7 @@ import { html } from 'lit/static-html.js';
 
 import '../../title.ts';
 
-import style from '../../../storybook/styles/typography/typo-internal.scss?lit&inline';
+import style from '../../../storybook/styles/typography/typo-internal.scss?inline';
 import {
   describeViewports,
   visualDiffDefault,

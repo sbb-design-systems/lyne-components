@@ -1,5 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, type CSSResultGroup, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
 import { boxSizingStyles } from '../../core/styles.ts';

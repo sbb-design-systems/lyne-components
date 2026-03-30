@@ -1,4 +1,10 @@
-import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
@@ -12,7 +18,7 @@ import type { SbbTitleLevel } from '../../title.ts';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage/train-blocked-passage.component.ts';
 import type { SbbTrainWagonElement } from '../train-wagon/train-wagon.component.ts';
 
-import style from './train.scss?lit&inline';
+import style from './train.scss?inline';
 
 import '../../icon.ts';
 
@@ -26,7 +32,7 @@ export class SbbTrainElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-train';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     trainslotchange: 'trainslotchange',
   } as const;

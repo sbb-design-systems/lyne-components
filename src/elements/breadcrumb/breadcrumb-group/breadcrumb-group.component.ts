@@ -1,5 +1,12 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { state } from 'lit/decorators.js';
 
 import {
@@ -14,7 +21,7 @@ import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbBreadcrumbElement } from '../breadcrumb/breadcrumb.component.ts';
 
-import style from './breadcrumb-group.scss?lit&inline';
+import style from './breadcrumb-group.scss?inline';
 
 import '../../icon.ts';
 
@@ -31,7 +38,7 @@ export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-breadcrumb-group';
   public static override readonly role = 'navigation';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   protected override readonly listChildLocalNames = ['sbb-breadcrumb'];
 
   /** The state of the breadcrumb group. */

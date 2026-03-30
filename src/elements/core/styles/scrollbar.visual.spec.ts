@@ -1,6 +1,6 @@
 import { html } from 'lit/static-html.js';
 
-import style from '../../../storybook/styles/scrollbar/scrollbar-internal.scss?lit&inline';
+import style from '../../../storybook/styles/scrollbar/scrollbar-internal.scss?inline';
 import {
   describeEach,
   describeViewports,

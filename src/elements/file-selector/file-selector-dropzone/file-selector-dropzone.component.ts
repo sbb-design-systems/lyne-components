@@ -1,4 +1,4 @@
-import { type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
@@ -18,7 +18,7 @@ import {
 
 import '../../icon.ts';
 
-import style from './file-selector-dropzone.scss?lit&inline';
+import style from './file-selector-dropzone.scss?inline';
 
 // TODO(breaking-change): Remove call to define.
 SbbSecondaryButtonStaticElement.define();
@@ -30,7 +30,11 @@ SbbSecondaryButtonStaticElement.define();
  */
 export class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElementMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-file-selector-dropzone';
-  public static override styles: CSSResultGroup = [boxSizingStyles, fileSelectorCommonStyle, style];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    fileSelectorCommonStyle,
+    unsafeCSS(style),
+  ];
   public static readonly events = {
     filechanged: 'filechanged',
   } as const;

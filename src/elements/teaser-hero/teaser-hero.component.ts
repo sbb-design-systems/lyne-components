@@ -1,4 +1,4 @@
-import { type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
@@ -7,7 +7,7 @@ import { forceType, omitEmptyConverter } from '../core/decorators.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import { SbbBlockLinkStaticElement } from '../link.pure.ts';
 
-import style from './teaser-hero.scss?lit&inline';
+import style from './teaser-hero.scss?inline';
 
 // TODO(breaking-change): Remove call to define.
 SbbBlockLinkStaticElement.define();
@@ -22,7 +22,7 @@ SbbBlockLinkStaticElement.define();
  */
 export class SbbTeaserHeroElement extends SbbLinkBaseElement {
   public static override readonly elementName: string = 'sbb-teaser-hero';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Panel link text. */
   @forceType()

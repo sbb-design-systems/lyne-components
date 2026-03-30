@@ -1,9 +1,9 @@
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { sidebarContentCommonStyle } from '../../sidebar/common/styles.ts';
 
-import style from './icon-sidebar-content.scss?lit&inline';
+import style from './icon-sidebar-content.scss?inline';
 
 /**
  * Container for the icon sidebar content. Intended to be placed inside an `sbb-icon-sidebar-container` element.
@@ -12,7 +12,7 @@ import style from './icon-sidebar-content.scss?lit&inline';
  */
 export class SbbIconSidebarContentElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-icon-sidebar-content';
-  public static override styles: CSSResultGroup = [sidebarContentCommonStyle, style];
+  public static override styles: CSSResultGroup = [sidebarContentCommonStyle, unsafeCSS(style)];
 
   public override connectedCallback(): void {
     super.connectedCallback();

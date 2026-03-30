@@ -2,7 +2,7 @@ import type { TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { html } from 'lit/static-html.js';
 
-import style from '../../../storybook/styles/layout/layout.scss?lit&inline';
+import style from '../../../storybook/styles/layout/layout.scss?inline';
 import { describeViewports, visualDiffDefault } from '../testing/private.ts';
 
 describe(`layout`, () => {

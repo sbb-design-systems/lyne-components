@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
@@ -7,7 +7,7 @@ import { SbbLinkBaseElement } from '../core/base-elements.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import type { SbbTitleElement } from '../title.ts';
 
-import style from './teaser.scss?lit&inline';
+import style from './teaser.scss?inline';
 
 import '../screen-reader-only.ts';
 
@@ -21,7 +21,7 @@ import '../screen-reader-only.ts';
  */
 export class SbbTeaserElement extends SbbLinkBaseElement {
   public static override readonly elementName: string = 'sbb-teaser';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Teaser variant - define the position and the alignment of the text block. */
   @property({ reflect: true }) public accessor alignment: 'after-centered' | 'after' | 'below' =

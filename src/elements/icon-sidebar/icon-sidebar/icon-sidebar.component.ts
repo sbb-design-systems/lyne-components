@@ -1,10 +1,10 @@
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container/icon-sidebar-container.component.ts';
 
-import style from './icon-sidebar.scss?lit&inline';
+import style from './icon-sidebar.scss?inline';
 
 /**
  * Icon sidebar, can be placed inside a `sbb-icon-sidebar-container` element.
@@ -14,7 +14,7 @@ import style from './icon-sidebar.scss?lit&inline';
 export class SbbIconSidebarElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-icon-sidebar';
   public static override readonly role = 'navigation';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = unsafeCSS(style);
 
   /** Background color of the icon sidebar. Either `white` or `milk`. **/
   @property({ reflect: true })
