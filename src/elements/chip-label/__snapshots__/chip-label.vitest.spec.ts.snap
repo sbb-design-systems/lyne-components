@@ -1,0 +1,60 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sbb-chip-label > snapshots > A11y tree 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "name": "Label",
+                      "role": "InlineTextBox",
+                    },
+                  ],
+                  "name": "Label",
+                  "role": "StaticText",
+                },
+              ],
+              "ignored": true,
+              "role": "none",
+            },
+          ],
+          "ignored": true,
+          "role": "none",
+        },
+      ],
+      "name": "test-aria-label",
+      "role": "generic",
+    },
+  ],
+  "name": "Fixture Container",
+  "role": "generic",
+}
+`;
+
+exports[`sbb-chip-label > snapshots > DOM 1`] = `
+"<sbb-chip-label
+  aria-label="test-aria-label"
+  color="milk"
+  id="a11y-test"
+  size="xxs"
+>
+  Label
+</sbb-chip-label>
+"
+`;
+
+exports[`sbb-chip-label > snapshots > Shadow DOM 1`] = `
+"<span class="sbb-chip-label">
+  <span class="sbb-chip__text-wrapper">
+    <slot>
+    </slot>
+  </span>
+</span>
+"
+`;
