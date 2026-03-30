@@ -1,5 +1,10 @@
-import type { CSSResultGroup, PropertyDeclaration, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  html,
+  unsafeCSS,
+  type CSSResultGroup,
+  type PropertyDeclaration,
+  type TemplateResult,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
@@ -8,7 +13,7 @@ import { SbbFormAssociatedCheckboxMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import { SbbIconNameMixin } from '../icon.ts';
 
-import style from './toggle-check.scss?lit&inline';
+import style from './toggle-check.scss?inline';
 
 /**
  * It displays a toggle checkbox.
@@ -23,7 +28,7 @@ export class SbbToggleCheckElement<T = string> extends SbbIconNameMixin(
   SbbFormAssociatedCheckboxMixin(SbbElement),
 ) {
   public static override readonly elementName: string = 'sbb-toggle-check';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Value of the form element. */
   @property()

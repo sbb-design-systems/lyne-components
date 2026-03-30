@@ -1,6 +1,11 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  html,
+  unsafeCSS,
+  type CSSResultGroup,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { isLean } from '../dom.ts';
@@ -9,7 +14,7 @@ import { SbbDisabledMixin, SbbRequiredMixin } from '../mixins.ts';
 import { boxSizingStyles } from '../styles.ts';
 
 import { SbbElement } from './element.ts';
-import style from './selection-group-base-element.scss?lit&inline';
+import style from './selection-group-base-element.scss?inline';
 
 /**
  * It can be used as a container for one or more `sbb-checkbox`.
@@ -20,7 +25,7 @@ import style from './selection-group-base-element.scss?lit&inline';
 export abstract class SbbSelectionGroupBaseElement<T extends SbbElement> extends SbbDisabledMixin(
   SbbRequiredMixin(SbbElement),
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * Size variant, either xs, s or m.

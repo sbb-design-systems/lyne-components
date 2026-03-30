@@ -1,4 +1,10 @@
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbMiniButtonElement } from '../../button.pure.ts';
@@ -8,7 +14,7 @@ import { i18nChipDelete } from '../../core/i18n.ts';
 import { SbbDisabledMixin, SbbNegativeMixin, SbbReadonlyMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
-import style from './chip.scss?lit&inline';
+import style from './chip.scss?inline';
 
 import '../../screen-reader-only.ts';
 
@@ -26,7 +32,7 @@ export class SbbChipElement<T = string> extends SbbNegativeMixin(
 ) {
   public static override readonly elementName: string = 'sbb-chip';
   public static override readonly role = 'option';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     requestdelete: 'requestdelete',
   } as const;

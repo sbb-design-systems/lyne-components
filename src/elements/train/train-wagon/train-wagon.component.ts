@@ -1,4 +1,4 @@
-import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 import { html } from 'lit/static-html.js';
@@ -24,7 +24,7 @@ import { SbbNamedSlotListMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbIconElement } from '../../icon.ts';
 
-import style from './train-wagon.scss?lit&inline';
+import style from './train-wagon.scss?inline';
 
 import '../../icon.ts';
 import '../../timetable-occupancy-icon.ts';
@@ -44,7 +44,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
   SbbElement,
 ) {
   public static override readonly elementName: string = 'sbb-train-wagon';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     sectorchange: 'sectorchange',
   } as const;

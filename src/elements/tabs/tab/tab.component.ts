@@ -1,12 +1,11 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import type { SbbTabGroupElement } from '../tab-group/tab-group.component.ts';
 import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
-import style from './tab.scss?lit&inline';
+import style from './tab.scss?inline';
 
 let nextId = 0;
 
@@ -19,7 +18,7 @@ let nextId = 0;
 export class SbbTabElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-tab';
   public static override role = 'tabpanel';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = unsafeCSS(style);
   public static readonly events = {
     active: 'active',
   } as const;

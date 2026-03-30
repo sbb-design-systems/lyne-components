@@ -5,6 +5,7 @@ import {
   nothing,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
@@ -51,7 +52,7 @@ import { SbbCalendarWeeknumberElement } from '../calendar-weeknumber/calendar-we
 import { SbbCalendarYearElement } from '../calendar-year/calendar-year.component.ts';
 import type { SbbCalendarCellBaseElement } from '../common.ts';
 
-import style from './calendar.scss?lit&inline';
+import style from './calendar.scss?inline';
 
 import '../../icon.ts';
 import '../../screen-reader-only.ts';
@@ -153,7 +154,7 @@ export type CalendarView = 'day' | 'month' | 'year';
  */
 export class SbbCalendarElement<T = Date> extends SbbElement {
   public static override readonly elementName: string = 'sbb-calendar';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     dateselected: 'dateselected',
     monthchange: 'monthchange',

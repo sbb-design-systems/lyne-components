@@ -1,2 +1,2 @@
 /** @entrypoint */
-export { default as boxSizingStyles } from './styles/box-sizing.scss?lit&inline';
+export * from './styles/styles.ts';

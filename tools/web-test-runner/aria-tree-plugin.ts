@@ -165,7 +165,8 @@ export function a11yTreePlugin(): TestRunnerPlugin<A11yTreePayload> {
   };
 }
 
-export interface A11yNode {
+// Keep in sync with src/elements/core/testing/private/a11y-tree-snapshot.ts
+interface A11yNode {
   /**
    * Whether this node is ignored for accessibility
    */

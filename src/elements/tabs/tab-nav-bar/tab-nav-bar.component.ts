@@ -1,5 +1,5 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { unsafeCSS, type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -8,7 +8,7 @@ import { SbbNamedSlotListMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { tabGroupCommonStyles, tabLabelCommonStyles } from '../common/styles.ts';
 
-import style from './tab-nav-bar.scss?lit&inline';
+import style from './tab-nav-bar.scss?inline';
 
 /**
  * It displays one or more tab-label-like elements, each one is an anchor element.
@@ -21,7 +21,7 @@ export class SbbTabNavBarElement extends SbbNamedSlotListMixin(SbbElement) {
     boxSizingStyles,
     tabLabelCommonStyles,
     tabGroupCommonStyles,
-    style,
+    unsafeCSS(style),
   ];
   public static override readonly role = 'navigation';
 

@@ -1,8 +1,15 @@
 import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
 import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.js';
-import { html, isServer, nothing } from 'lit';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import {
+  html,
+  isServer,
+  nothing,
+  unsafeCSS,
+  type CSSResultGroup,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -24,7 +31,7 @@ import { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place
 import { SbbSeatReservationScopedElement } from '../seat-reservation-scoped/seat-reservation-scoped.component.ts';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.ts';
-import style from './seat-reservation.scss?lit&inline';
+import style from './seat-reservation.scss?inline';
 
 import '@sbb-esta/lyne-elements/button.js';
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
@@ -42,7 +49,7 @@ SbbSeatReservationScopedElement.define();
  */
 export class SbbSeatReservationElement extends SeatReservationBaseElement {
   public static override readonly elementName: string = 'sbb-seat-reservation';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   private _language = new SbbLanguageController(this);
   private _coachesHtmlTemplate?: TemplateResult;
