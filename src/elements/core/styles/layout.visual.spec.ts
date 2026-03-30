@@ -2,9 +2,8 @@ import type { TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { html } from 'lit/static-html.js';
 
-import { describeViewports, visualDiffDefault } from '../../../elements/core/testing/private.ts';
-
-import style from './layout.scss?lit&inline';
+import style from '../../../storybook/styles/layout/layout.scss?lit&inline';
+import { describeViewports, visualDiffDefault } from '../testing/private.ts';
 
 describe(`layout`, () => {
   const wrapperStyles = { padding: '0' };
