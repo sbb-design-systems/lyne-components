@@ -30,6 +30,8 @@ export class SbbFormFieldTextCounterElement extends SbbHintElement {
   public override connectedCallback(): void {
     super.connectedCallback();
 
+    this.internals.ariaHidden = 'true';
+
     this._abortController?.abort();
     this._abortController = new AbortController();
 

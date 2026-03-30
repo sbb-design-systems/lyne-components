@@ -53,8 +53,24 @@ snapshots["sbb-form-field-text-counter renders A11y tree Chrome"] =
           "role": "none",
           "children": [
             {
-              "role": "generic",
-              "name": ""
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none"
+                },
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
@@ -119,8 +135,24 @@ snapshots["sbb-form-field-text-counter renders with custom slot text A11y tree C
           "role": "none",
           "children": [
             {
-              "role": "generic",
-              "name": ""
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "ignored": true,
+                  "role": "none"
+                },
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "ignored": true,
+                      "role": "none"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
