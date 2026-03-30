@@ -1,11 +1,20 @@
+export const FORMAT_DATE =
+  /(0?[1-9]|[12][0-9]|3[01])[.,\\/\-\s](0?[1-9]|1[0-2])[.,\\/\-\s]([0-9]{1,4}$)?/;
+export const ISO8601_FORMAT_DATE = /^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-3][0-9])$/;
+export const MONDAY = 1;
+export const TUESDAY = 2;
+export const WEDNESDAY = 3;
+export const THURSDAY = 4;
+export const FRIDAY = 5;
+export const SATURDAY = 6;
+export const SUNDAY = 0;
+
+// TODO(breaking-change): Move these variables to calendar
 export const DAYS_PER_ROW: number = 7;
 export const MONTHS_PER_ROW: number = 4;
 export const YEARS_PER_ROW: number = 4;
 export const MONTHS_PER_PAGE: number = 12;
 export const YEARS_PER_PAGE: number = 24;
-export const FORMAT_DATE =
-  /(0?[1-9]|[12][0-9]|3[01])[.,\\/\-\s](0?[1-9]|1[0-2])[.,\\/\-\s]([0-9]{1,4}$)?/;
-export const ISO8601_FORMAT_DATE = /^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-3][0-9])$/;
 
 /**
  * Abstract date functionality.
@@ -260,9 +269,7 @@ export abstract class DateAdapter<T = any> {
    */
   public getFirstWeekOffset(date: T): number {
     const firstOfMonth = this.createDate(this.getYear(date), this.getMonth(date), 1)!;
-    return (
-      (DAYS_PER_ROW + this.getDayOfWeek(firstOfMonth) - this.getFirstDayOfWeek()) % DAYS_PER_ROW
-    );
+    return (7 + this.getDayOfWeek(firstOfMonth) - this.getFirstDayOfWeek()) % 7;
   }
 
   /**

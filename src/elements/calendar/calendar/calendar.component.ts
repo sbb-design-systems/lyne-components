@@ -1,4 +1,3 @@
-import { eachWeekOfInterval, endOfMonth, getWeek, startOfMonth } from 'date-fns';
 import {
   type CSSResultGroup,
   html,
@@ -22,8 +21,12 @@ import type { DateAdapter } from '../../core/datetime.ts';
 import {
   DAYS_PER_ROW,
   defaultDateAdapter,
+  MONDAY,
   MONTHS_PER_PAGE,
   MONTHS_PER_ROW,
+  THURSDAY,
+  TUESDAY,
+  WEDNESDAY,
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
 } from '../../core/datetime.ts';
@@ -450,14 +453,26 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
       (this._mediaMatcher.matches(SbbMediaQueryBreakpointLargeAndAbove) ?? false) && this.wide;
     this._weeks = this._createWeekRows(this._activeDate);
     this._years = this._createYearRows();
-    this._weekNumbers = this._createWeekNumbers(this._activeDate);
+    this._weekNumbers =
+      this.orientation === 'horizontal'
+        ? this._weeks.map((week: Day<T>[]) => week[0].weekValue)
+        : this._weeks
+            .slice()
+            .sort((a, b) => b.length - a.length)[0]
+            .map((day: Day<T>) => day.weekValue);
     this._nextMonthWeeks = [[]];
     this._nextMonthYears = [[]];
     if (this._wide) {
       const nextMonthDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
       this._nextMonthWeeks = this._createWeekRows(nextMonthDate, true);
       this._nextMonthYears = this._createYearRows(YEARS_PER_PAGE);
-      this._nextMonthWeekNumbers = this._createWeekNumbers(nextMonthDate);
+      this._nextMonthWeekNumbers =
+        this.orientation === 'horizontal'
+          ? this._nextMonthWeeks.map((week: Day<T>[]) => week[0].weekValue)
+          : this._nextMonthWeeks
+              .slice()
+              .sort((a, b) => b.length - a.length)[0]
+              .map((day: Day<T>) => day.weekValue);
     }
     this._initialized = true;
   }
@@ -482,26 +497,6 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
     // Rotates the labels for days of the week based on the configured first day of the week.
     const firstDayOfWeek: number = this._dateAdapter.getFirstDayOfWeek();
     this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
-  }
-
-  /**
-   * Given a date, it returns the week numbers for the month the date belongs to.
-   * TODO: check if date-fns can be replaced with custom logic.
-   *
-   * Since the calculation is not simple (see https://en.wikipedia.org/wiki/Week#Numbering),
-   * the date-fns library has been used this way:
-   * the first and the last day of the month are calculated and then passed to the `eachWeekOfInterval` function,
-   * which returns an array containing the starting day of every ISO week of the month,
-   * considering Monday as the first day.
-   * Then, this array is mapped via the `getWeek` function, which returns the ISO week number for that date.
-   */
-  private _createWeekNumbers(date: T): number[] {
-    return eachWeekOfInterval(
-      { start: startOfMonth(date as Date), end: endOfMonth(date as Date) },
-      { weekStartsOn: 1 },
-    ).map((firstDayOfWeek: Date) =>
-      getWeek(firstDayOfWeek, { weekStartsOn: 1, firstWeekContainsDate: 4 }),
-    );
   }
 
   /** Creates the rows along the horizontal direction and sets the parameters used in keyboard navigation. */
@@ -603,9 +598,34 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
       dayValue: String(this._dateAdapter.getDate(date)),
       monthValue: String(this._dateAdapter.getMonth(date)),
       yearValue: String(this._dateAdapter.getYear(date)),
-      weekValue: getWeek(isoDate, { weekStartsOn: 1, firstWeekContainsDate: 4 }),
+      // TODO: Improve performance of this, by keeping track of the
+      // week number while iterating through the days.
+      weekValue: this._getWeek(date),
       weekDayValue: this._dateAdapter.getDayOfWeek(date),
     };
+  }
+
+  private _getWeek(date: T): number {
+    const firstDayOfYear = this._dateAdapter.createDate(this._dateAdapter.getYear(date), 1, 1);
+    const weekday = this._dateAdapter.getDayOfWeek(firstDayOfYear);
+
+    let weekIndex = [MONDAY, TUESDAY, WEDNESDAY, THURSDAY].includes(weekday) ? 1 : 0;
+    let weekStart = this._dateAdapter.addCalendarDays(
+      firstDayOfYear,
+      this._dateAdapter.getFirstWeekOffset(firstDayOfYear) * -1,
+    );
+    while (this._dateAdapter.compareDate(weekStart, date) <= 0) {
+      const weekEnd = this._dateAdapter.addCalendarDays(weekStart, 6);
+      if (this._dateAdapter.compareDate(date, weekEnd) <= 0) {
+        return weekIndex > 0
+          ? weekIndex
+          : this._getWeek(this._dateAdapter.addCalendarDays(firstDayOfYear, -1));
+      }
+      weekStart = this._dateAdapter.addCalendarDays(weekStart, DAYS_PER_ROW);
+      weekIndex++;
+    }
+
+    throw new Error('The provided date is invalid');
   }
 
   /** Force the conversion to ISO8601 formatted string. */
