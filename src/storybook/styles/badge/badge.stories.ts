@@ -75,7 +75,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'styles/Badge',
+  title: 'elements/Badge',
 };
 
 export default meta;
