@@ -7,7 +7,7 @@ import { waitForCondition } from '../../core/testing.ts';
 import type { SbbSidebarElement } from './sidebar.component.ts';
 
 import '../../header.ts';
-import '../../link/block-link.ts';
+import '../../link.ts';
 import '../../link-list.ts';
 import '../../logo.ts';
 import '../../sidebar.ts';

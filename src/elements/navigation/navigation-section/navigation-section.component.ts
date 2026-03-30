@@ -9,6 +9,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
   IS_FOCUSABLE_QUERY,
   SbbFocusTrapController,
@@ -36,8 +37,10 @@ import type { SbbNavigationLinkElement } from '../navigation-link/navigation-lin
 
 import style from './navigation-section.scss?lit&inline';
 
-import '../../button/transparent-button.ts';
 import '../../divider.ts';
+
+// TODO(breaking-change): Remove call to define.
+SbbTransparentButtonElement.define();
 
 let nextId = 0;
 

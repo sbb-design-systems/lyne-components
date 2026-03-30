@@ -3,12 +3,11 @@ import { html } from 'lit';
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
 import '../footer.ts';
-import '../button/button-link.ts';
-import '../button/secondary-button-link.ts';
+import '../button.ts';
 import '../clock.ts';
 import '../divider.ts';
 import '../link-list.ts';
-import '../link/block-link.ts';
+import '../link.ts';
 
 describe(`sbb-footer`, () => {
   const colorCases = {

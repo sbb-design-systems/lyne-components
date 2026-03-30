@@ -9,8 +9,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import readme from './readme.md?raw';
 import '../checkbox.ts';
 import '../card.ts';
-import '../button/button.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 
 const longLabelText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et

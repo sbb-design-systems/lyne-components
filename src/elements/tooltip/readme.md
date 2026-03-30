@@ -86,7 +86,7 @@ The value of the attribute is a comma-separated list of positions.
 The open and close delays can be configured via global configuration. These values will be used as default, unless explicitly set on the element.
 
 ```ts
-import { mergeConfig } from '@sbb-esta/lyne-elements/core/config.js';
+import { mergeConfig } from '@sbb-esta/lyne-elements/core.js';
 
 mergeConfig({
   tooltip: {

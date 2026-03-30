@@ -5,7 +5,7 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbSkiplinkListElement } from './skiplink-list.component.ts';
 
-import '../link/block-link.ts';
+import '../link.ts';
 import '../skiplink-list.ts';
 
 describe(`sbb-skiplink-list ssr`, () => {
@@ -21,7 +21,7 @@ describe(`sbb-skiplink-list ssr`, () => {
         </sbb-skiplink-list>
         <button id="button">Focus me</button>
       `,
-      { modules: ['../link/block-link.ts', '../skiplink-list.ts'] },
+      { modules: ['../link.ts', '../skiplink-list.ts'] },
     );
   });
 

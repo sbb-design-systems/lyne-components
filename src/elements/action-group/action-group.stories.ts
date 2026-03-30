@@ -10,7 +10,7 @@ import readme from './readme.md?raw';
 
 import '../action-group.ts';
 import '../button.ts';
-import '../link/block-link.ts';
+import '../link.ts';
 
 const secondaryButtonTemplate = (alignSelf?: string): TemplateResult => html`
   <sbb-secondary-button align-self=${alignSelf || nothing}> Button 1 </sbb-secondary-button>

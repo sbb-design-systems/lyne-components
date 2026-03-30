@@ -8,8 +8,7 @@ import { SbbStickyBarElement } from '../container.ts';
 import sampleImages from '../core/images.ts';
 
 import '../action-group.ts';
-import '../button/button.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../card.ts';
 import '../image.ts';
 import '../link.ts';

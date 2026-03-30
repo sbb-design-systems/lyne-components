@@ -3,7 +3,7 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import '../link/link.ts';
+import '../link.ts';
 import '../title.ts';
 import '../notification.ts';
 
@@ -14,6 +14,7 @@ describe(`sbb-notification`, () => {
     readonly: false,
     showTitle: true,
     iconName: '',
+    hasText: true,
   };
 
   const notificationTemplate = ({
@@ -22,6 +23,7 @@ describe(`sbb-notification`, () => {
     readonly,
     showTitle,
     iconName,
+    hasText,
   }: typeof defaultArgs): TemplateResult => html`
     <sbb-notification
       size=${size}
@@ -30,8 +32,11 @@ describe(`sbb-notification`, () => {
       style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
       icon-name=${iconName || nothing}
     >
-      ${showTitle ? html`<sbb-title>Title</sbb-title>` : nothing} The quick brown fox jumps over the
-      lazy dog. The quick brown fox jumps over the lazy dog.
+      ${showTitle ? html`<sbb-title>Title</sbb-title>` : nothing}
+      ${hasText
+        ? html` The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
+          dog.`
+        : nothing}
       <sbb-link href="/">Link one</sbb-link>
       <sbb-link href="/">Link two</sbb-link>
       <sbb-link href="/">Link three</sbb-link>
@@ -48,6 +53,7 @@ describe(`sbb-notification`, () => {
   const states = {
     readonly: [false, true],
     showTitle: [false, true],
+    hasText: [false, true],
   };
 
   const types = ['info', 'note', 'success', 'warn', 'error'];
@@ -57,7 +63,7 @@ describe(`sbb-notification`, () => {
   };
 
   describeViewports({ viewports: ['zero', 'small', 'large'] }, () => {
-    describeEach(states, ({ readonly, showTitle }) => {
+    describeEach(states, ({ readonly, showTitle, hasText }) => {
       it(
         visualDiffDefault.name,
         visualDiffDefault.with(async (setup) => {
@@ -65,6 +71,7 @@ describe(`sbb-notification`, () => {
             ...defaultArgs,
             readonly,
             showTitle,
+            hasText,
           } satisfies typeof defaultArgs;
           await setup.withFixture(html`${notificationTemplate(args)} ${textTemplate}`);
         }),

@@ -3,6 +3,7 @@ import { type CSSResultGroup, html, isServer, type TemplateResult } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 
+import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController, SbbPropertyWatcherController } from '../../core/controllers.ts';
@@ -15,8 +16,10 @@ import type { SbbFlipCardSummaryElement } from '../flip-card-summary/flip-card-s
 
 import style from './flip-card.scss?lit&inline';
 
-import '../../button/secondary-button-static.ts';
 import '../../screen-reader-only.ts';
+
+// TODO(breaking-change): Remove call to define.
+SbbSecondaryButtonStaticElement.define();
 
 /**
  * Displays an informative card that reveals more information upon being clicked.

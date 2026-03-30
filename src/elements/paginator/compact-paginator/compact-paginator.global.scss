@@ -1,0 +1,17 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-compact-paginator-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-size-element-m),
+        'lean': var(--sbb-size-element-xs),
+      ),
+      $theme
+    )};
+  --sbb-compact-paginator-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-compact-paginator-font-size: var(--sbb-text-font-size-m);
+  --sbb-compact-paginator-gap: var(--sbb-spacing-fixed-5x);
+  --sbb-compact-paginator-pages-gap: var(--sbb-spacing-fixed-2x);
+}

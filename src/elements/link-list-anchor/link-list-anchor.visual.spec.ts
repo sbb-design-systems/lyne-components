@@ -10,7 +10,7 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.ts';
 
-import '../link/block-link.ts';
+import '../link.ts';
 import '../link-list-anchor.ts';
 
 const links = (): TemplateResult[] =>

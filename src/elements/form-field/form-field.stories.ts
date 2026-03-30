@@ -8,7 +8,7 @@ import type { SbbErrorElement } from '../form-field.ts';
 
 import readme from './readme.md?raw';
 
-import '../button/mini-button.ts';
+import '../button.ts';
 import '../form-field.ts';
 import '../link.ts';
 import '../popover.ts';

@@ -16,7 +16,7 @@ import type { SbbMenuButtonElement } from '../menu-button/menu-button.component.
 
 import { SbbMenuElement } from './menu.component.ts';
 
-import '../../button/button.ts';
+import '../../button.ts';
 import '../../link.ts';
 import '../../divider.ts';
 import '../../menu.ts';

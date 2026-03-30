@@ -2,7 +2,7 @@ import { type CSSResultGroup, type TemplateResult } from 'lit';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbSecondaryButtonStaticElement } from '../../button.ts';
+import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
 import { SbbElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import {
@@ -10,7 +10,8 @@ import {
   SbbFileSelectorCommonElementMixin,
 } from '../common/file-selector-common.ts';
 
-import '../../button/secondary-button-static.ts';
+// TODO(breaking-change): Remove call to define.
+SbbSecondaryButtonStaticElement.define();
 
 /**
  * It allows to select one or more file from storage devices and display them.
