@@ -2,13 +2,14 @@ import { html } from 'lit/static-html.js';
 
 import '../../title.ts';
 
-import style from '../../../storybook/styles/typography/typo-internal.scss?inline';
 import {
   describeViewports,
   visualDiffDefault,
   visualDiffStandardStates,
   visualRegressionFixture,
 } from '../testing/private.ts';
+
+import style from './typography.private.scss?inline';
 
 describe(`typography`, () => {
   const text: string = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut

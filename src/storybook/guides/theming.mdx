@@ -4,13 +4,19 @@ import { InlineStory } from './inline-story';
 
 <Meta title="guides/Theming" />
 
-# Typography
+# Theming
 
-## Lean variant
+INTRO TBD.
 
-Lean uses a more compact design by defaulting the `size` property to the smallest available value.
+## Themes
+
+### Standard / Lean
+
+Without any additional configuration, the standard theme is applied.
+
+The lean theme uses a more compact design by defaulting the `size` property to the smallest available value.
 Components that do not have a `size` property remain unchanged.
-To enable lean mode, add the CSS class `sbb-lean` to the `html` tag.
+To enable lean mode, add the CSS class `sbb-lean` to the `<html>` tag.
 
 ```html
 <html lang="en" class="sbb-lean">
@@ -23,13 +29,82 @@ To enable lean mode, add the CSS class `sbb-lean` to the `html` tag.
 </html>
 ```
 
-## Dark Mode
+### Theme variants
+
+- `off-brand`: for non SBB applications, where the primary color is set to an alternative color (blue).
+- `safety`: for safety relevant applications, where the primary and brand colors are set to an alternative color (gray).
+
+`off-brand`and `safety` themes can also be combined with the lean theme.
+
+#### Safety relevant theme
+
+To align with safety relevant themes, there is more than just changing the primary color.
+We provide further utilities to improve the safety relevant theme:
+
+##### Font Customization
+
+Note that the font family should support changing the font-weight.
+
+| CSS variable                        | Description                                                      |
+| ----------------------------------- | ---------------------------------------------------------------- |
+| `--sbb-typo-font-family`            | Can be used to override the font family for all texts and titles |
+| `--sbb-typo-letter-spacing-text`    | Can be used to override letter spacing for texts                 |
+| `--sbb-typo-letter-spacing-heading` | Can be used to override letter spacing for titles                |
+
+##### Cursor customization
+
+In certain safety relevant applications, it might be necessary to change the cursor style.
+
+| CSS variable           | Description                                      |
+| ---------------------- | ------------------------------------------------ |
+| `--sbb-cursor-default` | Can be used to override the default cursor style |
+| `--sbb-cursor-pointer` | Can be used to override the pointer cursor style |
+
+### Exposed CSS files
+
+Basically, all our styles are included in the theme files (e.g. `standard-theme.css`) which should be included in your application.
+However, if you would like to more specifically pick what you need, consider the following CSS files available.
+
+| File name                       | Description                                                                                   |
+| ------------------------------- | --------------------------------------------------------------------------------------------- |
+| `standard-theme.css`            | Contains normalizing, core styles and available CSS classes.                                  |
+| `off-brand-theme.css`           | Contains the standard theme with primary color set to an alternative color (blue).            |
+| `safety-theme.css`              | Contains the standard theme with primary and brand colors set to an alternative color (gray). |
+|                                 |                                                                                               |
+| `font-characters-extension.css` | Provides full character set of SBB fonts, needs larger files to load.                         |
+|                                 |                                                                                               |
+| `normalize.css`                 | Contains general browser resetting styles which can be useful for your application.           |
+|                                 |                                                                                               |
+| `core.css`                      | Contains mandatory basics to use lyne-components (including design tokens).                   |
+|                                 |                                                                                               |
+| `a11y.css`                      | Provides accessibility related CSS classes.                                                   |
+| `animation.css`                 | Provides CSS classes to disable animation (e.g. for testing) on any level.                    |
+| `badge.css`                     | Provides badge styling.                                                                       |
+| `disable-animation.css`         | Disables animations on root level, ideally for a global test setup.                           |
+| `layout.css`                    | Provides layout related CSS classes (e.g. page spacing, grid).                                |
+| `lists.css`                     | Provides CSS classes to style lists.                                                          |
+| `scrollbar.css`                 | Provides CSS classes to style a scrollbar.                                                    |
+| `table.css`                     | Provides CSS classes to style a table.                                                        |
+| `timetable-form.css`            | Provides CSS classes to style a timetable form.                                               |
+| `typography.css`                | Provides typography related CSS classes.                                                      |
+
+### Full Font
+
+The `standard-theme.css` (or `core.css`) file only contains a subset of the SBB fonts and does not contain all characters (e.g. the French "œ").
+To include the full font set, we provide the `font-characters-extension.css` file which can be added after the `standard-theme.css` (or `core.css`) file.
+
+```css
+@import '@sbb-esta/lyne-elements/standard-theme.css';
+@import '@sbb-esta/lyne-elements/font-characters-extension.css';
+```
+
+### Dark Mode
 
 We use the browser native functionality
 [color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/color-scheme)
 to provide support for light and dark modes.
 
-Per default, lyne components adapt to the user's system color scheme preference (light or dark mode).
+Per default, Lyne components adapt to the user's system color scheme preference (light or dark mode).
 Alternatively, you can opt out and force one mode or the other by applying either the `sbb-light` or `sbb-dark` CSS class,
 which overrides the automatic `color-scheme` setting, thus forcing either a light or a dark mode.
 
@@ -47,7 +122,7 @@ For example, the red used for errors or all colors in the additional color set.
 Note that JavaScript tokens are only available for primitive values. Please use CSS variables whenever possible.
 They automatically adapt their colors. Using JavaScript variables requires you to handle light and dark modes manually.
 
-### Compatibility
+#### Compatibility
 
 As a browser compatibility fallback, we ship our styles with the light color value defined before `light-dark()`.
 So, whenever you define our own `light-dark()` color pair, consider using this fallback as well for compatibility.
@@ -59,14 +134,135 @@ So, whenever you define our own `light-dark()` color pair, consider using this f
 }
 ```
 
+## General information and customization
+
+### Manipulating styles of components
+
+In general, the styles of components should not be changed.
+However, some specific cases may require overriding some styles of a component.
+For these cases, you can use the CSS variables of a component. Please check a specific component for available CSS variables.
+
+> IMPORTANT: CSS variable names which are not documented in the component docs section can be changed at any time.
+
+Please reach out to the Lyne team if you think a component needs a new variant.
+
+### Animations
+
+Generally, animations are part of the design and should not be suppressed.
+However, e.g. for testing purposes, it makes sense to deactivate them.
+
+Add the `sbb-disable-animation` CSS class to disable animations and transition effects for the element and all its children.
+
+Sometimes, you might need to disable animations only for a specific element.
+To achieve that, you can add the `sbb-disable-animation-locally` class or re-enable animations using the `sbb-enable-animation` CSS class.
+
+```html
+<sbb-component class="sbb-disable-animation-locally">
+  <!-- animations will play -->
+</sbb-component>
+
+<!-- Or alternatively-->
+
+<sbb-component class="sbb-disable-animation">
+  <sbb-component class="sbb-enable-animation">
+    <!-- animations will play -->
+  </sbb-component>
+</sbb-component>
+```
+
+### Units
+
+All our tokens and components use `rem` as the size unit.
+We strongly recommend using the `rem` unit to guarantee consistent scaling
+when font size changes in browsers.
+
+### Focus outline
+
+Focus outlines should only be displayed when users are navigating by keyboard.
+Lyne components use the CSS selector `:focus-visible` to achieve that. Whenever you have custom interactive elements,
+you should use the `:focus-visible` selector as well and include our Sass mixin `focus-outline`.
+
+```scss
+@use '../../core/styles' as sbb;
+
+button:focus-visible {
+  @include sbb.focus-outline;
+}
+```
+
+#### Focus outline on dark background
+
+If a container element has a dark background color, all contained interactive elements should get a white outline.
+By setting `--sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);` all descendant elements using the
+Lyne focus outline mixin (Lyne components included) receive the white outline because the variable gets inherited.
+Note: If a Lyne component has a `negative` property, the correct focus outline color gets automatically applied
+to all contained interactive elements.
+
+### Stacking
+
+Our overlay components internally use the Popover API to take advantage of positioning elements on the top layer.
+As of January 2025, browser support for the Popover API is at
+[90%](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover#browser_compatibility)
+and available for all [supported browsers](https://github.com/sbb-design-systems/lyne-components?tab=readme-ov-file#-browser-and-screen-reader-support).
+If you need to support older browsers, you can either attempt to use a polyfill or
+manually configure the stacking order of the overlays.
+Doing it manually may interfere with the z-index of your components.
+Therefore, each overlay component provides a CSS variable to override its z-index.
+Additionally, there is a global CSS variable `--sbb-overlay-default-z-index` which has a default z-index of 1000.
+This allows developers to change the z-index either globally or at component level.
+In some cases, it's not possible to break out of a particular stacking context. In this case, keep the trigger within
+your component, but moving the overlay component out of the stacking context can help.
+
+### Sass Mixins
+
+Lyne Components provides various Sass mixins which can be used by consumers.
+For available Sass mixins, check [Sass Mixins](https://github.com/sbb-design-systems/lyne-components/tree/main/src/elements/core/styles/mixins).
+
+```scss
+@use '@sbb-esta/lyne-elements' as sbb;
+
+.my-class {
+  @include sbb.grid-base;
+}
+```
+
+### CSS Classes
+
+As a base rule, styles are included in components. However, there are a few exceptions
+where we provide CSS classes to consumers:
+
+- [Layout styles](https://lyne-elements.app.sbb.ch/?path=/docs/guides-layout--docs)
+- [List styles](#lists)
+- [Scrollbar styles](#scrollbar)
+- [Text styles](#typography)
+
+## Design Tokens
+
+The `@sbb-esta/lyne-elements` package provides CSS variable design tokens
+from `@sbb-esta/lyne-design-tokens` in `standard-theme.css` (or `core.css`).
+
+> If you need to use design tokens within a JavaScript context,
+> please also add the `@sbb-esta/lyne-design-tokens` package to your project.
+
+Please check `node_modules/@sbb-esta/lyne-elements/standard-theme.css` for available design tokens.
+
+### How to work with design tokens
+
+Designers use design tokens in Figma, from which developers can get the name to be used.
+Some design tokens are responsive: they change their value depending on the current breakpoint.
+
+> Whenever a design token ends with `-{breakpoint}`, e.g. `--sbb-spacing-responsive-s-zero`,
+> There is a corresponding responsive CSS variable without the `-breakpoint` suffix,
+> e.g. `sbb-spacing-responsive-s` which should be used.
+
+## Colors
+
 We provide CSS variables for the most commonly used color combinations, which can be used directly.
 
-## Context specific colors
+### Context specific colors
 
 We provide a few context-specific colors that can be used for errors, states,
 or simply to make things look right in light and dark modes.
-
-### General colors
 
 | CSS variable name        | Description                                 |
 | ------------------------ | ------------------------------------------- |
@@ -125,9 +321,6 @@ All border color CSS variables (except level 5) are also available with suffixes
 
 ### Shadow colors
 
-Note: All shadow color CSS variables are also available with the suffix `-negative`.
-Please also consider our shadow SASS mixins when including a shadow.
-
 | CSS variable name           | Description                   |
 | --------------------------- | ----------------------------- |
 | `--sbb-shadow-color-soft-1` | Shadow color for soft level 1 |
@@ -135,98 +328,12 @@ Please also consider our shadow SASS mixins when including a shadow.
 | `--sbb-shadow-color-hard-1` | Shadow color for hard level 1 |
 | `--sbb-shadow-color-hard-2` | Shadow color for hard level 2 |
 
-## Themes
-
-We provide the following themes.
-
-- `standard`: for SBB applications.
-- `off-brand`: for non SBB applications, where the primary color is set to an alternative color (blue).
-- `safety`: for safety relevant applications, where the primary and brand colors are set to an alternative color (grey).
-
-### Safety relevant theme
-
-To align with safety relevant themes, there is more than just changing the primary color.
-We provide further utilities to improve the safety relevant theme:
-
-#### Font Customization
-
-Note that the font family should support changing the font-weight.
-
-| CSS variable                        | Description                                                      |
-| ----------------------------------- | ---------------------------------------------------------------- |
-| `--sbb-typo-font-family`            | Can be used to override the font family for all texts and titles |
-| `--sbb-typo-letter-spacing-text`    | Can be used to override letter spacing for texts                 |
-| `--sbb-typo-letter-spacing-heading` | Can be used to override letter spacing for titles                |
-
-#### Cursor customization
-
-In certain safety relevant applications, it might be necessary to change the cursor style.
-
-| CSS variable           | Description                                      |
-| ---------------------- | ------------------------------------------------ |
-| `--sbb-cursor-default` | Can be used to override the default cursor style |
-| `--sbb-cursor-pointer` | Can be used to override the pointer cursor style |
-
-## CSS files
-
-Basically, all our styles are included in the theme files (e.g. `standard-theme.css`) which should be included in your application.
-However, if you would like to more specifically pick what you need, consider the following CSS files available.
-
-| File name                       | Description                                                                                   |
-| ------------------------------- | --------------------------------------------------------------------------------------------- |
-| `standard-theme.css`            | Contains normalizing, core styles and available CSS classes.                                  |
-| `off-brand-theme.css`           | Contains the standard theme with primary color set to an alternative color (blue).            |
-| `safety-theme.css`              | Contains the standard theme with primary and brand colors set to an alternative color (gray). |
-|                                 |                                                                                               |
-| `font-characters-extension.css` | Provides full character set of SBB fonts, needs larger files to load.                         |
-|                                 |                                                                                               |
-| `normalize.css`                 | Contains general browser resetting styles which can be useful for your application.           |
-|                                 |                                                                                               |
-| `core.css`                      | Contains mandatory basics to use lyne-components (including design tokens).                   |
-|                                 |                                                                                               |
-| `a11y.css`                      | Provides accessibility related CSS classes.                                                   |
-| `animation.css`                 | Provides CSS classes to disable animation (e.g. for testing) on any level.                    |
-| `badge.css`                     | Provides badge styling.                                                                       |
-| `disable-animation.css`         | Disables animations on root level, ideally for a global test setup.                           |
-| `layout.css`                    | Provides layout related CSS classes (e.g. page spacing, grid).                                |
-| `lists.css`                     | Provides CSS classes to style lists.                                                          |
-| `scrollbar.css`                 | Provides CSS classes to style a scrollbar.                                                    |
-| `table.css`                     | Provides CSS classes to style a table.                                                        |
-| `timetable-form.css`            | Provides CSS classes to style a timetable form.                                               |
-| `typography.css`                | Provides typography related CSS classes.                                                      |
-
-## Full Font
-
-The `standard-theme.css` (or `core.css`) file only contains a subset of the SBB fonts and does not contain all characters (e.g. the French "œ").
-To include the full font set, we provide the `font-characters-extension.css` file which can be added after the `standard-theme.css` (or `core.css`) file.
-
-```css
-@import '@sbb-esta/lyne-elements/standard-theme.css';
-@import '@sbb-esta/lyne-elements/font-characters-extension.css';
-```
-
-## Design Tokens
-
-The `@sbb-esta/lyne-elements` package provides CSS variable design tokens
-from `@sbb-esta/lyne-design-tokens` in `standard-theme.css` (or `core.css`).
-
-> If you need to use design tokens within a JavaScript context,
-> please also add the `@sbb-esta/lyne-design-tokens` package to your project.
-
-Please check `node_modules/@sbb-esta/lyne-elements/standard-theme.css` for available design tokens.
-
-### How to work with design tokens
-
-Designers use design tokens in Figma, from which developers can get the name to be used.
-Some design tokens are responsive: they change their value depending on the current breakpoint.
-
-> Whenever a design token ends with `-{breakpoint}`, e.g. `--sbb-spacing-responsive-s-zero`,
-> There is a corresponding responsive CSS variable without the `-breakpoint` suffix,
-> e.g. `sbb-spacing-responsive-s` which should be used.
+Note: All shadow color CSS variables are also available with the suffix `-negative`.
+Please also consider our shadow Sass mixins when including a shadow.
 
 ### Alpha values
 
-For alpha values, we recommend to use the CSS color-mix() function.
+For alpha values, we recommend to use the CSS `color-mix()` function.
 
 ```css
 .a {
@@ -235,107 +342,9 @@ For alpha values, we recommend to use the CSS color-mix() function.
 }
 ```
 
-## Sass Mixins
+## Typography
 
-Lyne Components provides various Sass mixins which can be used by consumers.
-For available Sass mixins, check [Sass Mixins](https://github.com/sbb-design-systems/lyne-components/tree/main/src/elements/core/styles/mixins).
-
-```scss
-@use '@sbb-esta/lyne-elements' as sbb;
-
-.my-class {
-  @include sbb.grid-base;
-}
-```
-
-## CSS Classes
-
-As a base rule, styles are included in components. However, there are a few exceptions
-where we provide CSS classes to consumers:
-
-- [Layout styles](https://lyne-elements.app.sbb.ch/?path=/docs/guides-layout--docs)
-- [List styles](https://lyne-elements.app.sbb.ch/?path=/docs/guides-lists--docs)
-- [Scrollbar styles](https://lyne-elements.app.sbb.ch/?path=/docs/guides-scrollbar--docs)
-- [Text styles](https://lyne-elements.app.sbb.ch/?path=/docs/guides-typography--docs)
-
-## Manipulating styles of components
-
-In general, the styles of components should not be changed.
-However, some specific cases may require overriding some styles of a component.
-For these cases, you can use the CSS variables of a component. Please check a specific component for available CSS variables.
-
-> IMPORTANT: CSS variable names which are not documented in the component docs section can be changed at any time.
-
-Please reach out to the Lyne team if you think a component needs a new variant.
-
-## Animations
-
-Generally, animations are part of the design and should not be suppressed.
-However, e.g. for testing purposes, it makes sense to deactivate them.
-
-Add the `sbb-disable-animation` CSS class to disable animations and transition effects for the element and all its children.
-
-Sometimes, you might need to disable animations only for a specific element.
-To achieve that, you can add the `sbb-disable-animation-locally` class or re-enable animations using the `sbb-enable-animation` CSS class.
-
-```html
-<sbb-component class="sbb-disable-animation-locally">
-  <!-- animations will play -->
-</sbb-component>
-
-<!-- Or alternatively-->
-
-<sbb-component class="sbb-disable-animation">
-  <sbb-component class="sbb-enable-animation">
-    <!-- animations will play -->
-  </sbb-component>
-</sbb-component>
-```
-
-## Units
-
-All our tokens and components use `rem` as the size unit.
-We strongly recommend using the `rem` unit to guarantee consistent scaling
-when font size changes in browsers.
-
-## Focus outline
-
-Focus outlines should only be displayed when users are navigating by keyboard.
-Lyne components use the CSS selector `:focus-visible` to achieve that. Whenever you have custom interactive elements,
-you should use the `:focus-visible` selector as well and include our Sass mixin `focus-outline`.
-
-```scss
-@use '../../core/styles' as sbb;
-
-button:focus-visible {
-  @include sbb.focus-outline;
-}
-```
-
-### Dark background
-
-If a container element has a dark background color, all contained interactive elements should get a white outline.
-By setting `--sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);` all descendant elements using the
-Lyne focus outline mixin (Lyne components included) receive the white outline because the variable gets inherited.
-Note: If a Lyne component has a `negative` property, the correct focus outline color gets automatically applied
-to all contained interactive elements.
-
-## Stacking
-
-Our overlay components internally use the Popover API to take advantage of positioning elements on the top layer.
-As of January 2025, browser support for the Popover API is at
-[90%](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover#browser_compatibility)
-and available for all [supported browsers](https://github.com/sbb-design-systems/lyne-components?tab=readme-ov-file#-browser-and-screen-reader-support).
-If you need to support older browsers, you can either attempt to use a polyfill or
-manually configure the stacking order of the overlays.
-Doing it manually may interfere with the z-index of your components.
-Therefore, each overlay component provides a CSS variable to override its z-index.
-Additionally, there is a global CSS variable `--sbb-overlay-default-z-index` which has a default z-index of 1000.
-This allows developers to change the z-index either globally or at component level.
-In some cases, it's not possible to break out of a particular stacking context. In this case, keep the trigger within
-your component, but moving the overlay component out of the stacking context can help.
-
-## Fonts
+### Fonts
 
 SBB provides different fonts depending on the font-weight: `Roman`, `Bold` and `Light`.
 Lyne maps these fonts to the CSS `font-weight` property so that consumers
@@ -345,7 +354,6 @@ Lyne only intends to use these three fonts.
 To apply the SBB font family you can use the CSS var `var(--sbb-typo-font-family)`. However,
 this only includes the family but no letter spacing, so we recommend always
 using our Sass mixins or CSS classes which contain all necessary properties.
-See [Text styles](https://lyne-elements.app.sbb.ch/?path=/docs/styles-typography--docs) for what's available.
 
 ```html
 <p class="sbb-text-s sbb-text--bold"></p>
@@ -359,11 +367,66 @@ p {
 }
 ```
 
-import { Meta } from '@storybook/addon-docs/blocks';
+### Text styles
 
-import { InlineStory } from './inline-story';
+Every text size (xxs, xs, s, m, l and xl) is available as Sass mixin or CSS class.
+It also includes line-height, letter-spacing and font-family.
 
-<Meta title="guides/Lists" />
+The native browser margins (1em) between paragraph elements `<p>` correctly corresponds
+to the defined paragraph spacing. Due to this there are no additional rules for paragraph spacing.
+
+| CSS class      | CSS class bold                | Sass mixin          | Sass mixin bold  |
+| -------------- | ----------------------------- | ------------------- | ---------------- |
+| `sbb-text-xxs` | `sbb-text-xxs sbb-text--bold` | `text-xxs--regular` | `text-xxs--bold` |
+| `sbb-text-xs`  | `sbb-text-xs sbb-text--bold`  | `text-xs--regular`  | `text-xs--bold`  |
+| `sbb-text-s`   | `sbb-text-s sbb-text--bold`   | `text-s--regular`   | `text-s--bold`   |
+| `sbb-text-m`   | `sbb-text-m sbb-text--bold`   | `text-m--regular`   | `text-m--bold`   |
+| `sbb-text-l`   | `sbb-text-l sbb-text--bold`   | `text-l--regular`   | `text-l--bold`   |
+| `sbb-text-xl`  | `sbb-text-xl sbb-text--bold`  | `text-xl--regular`  | `text-xl--bold`  |
+
+#### Usage
+
+```html
+<p class="sbb-text-m">Text</p>
+```
+
+<InlineStory>
+  <p class="sbb-text-m">
+    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+    ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+    dolores et ea rebum. Stet clita kasd gubergren.
+  </p>
+  <p class="sbb-text-m sbb-text--bold">Other Paragraph</p>
+</InlineStory>
+
+### Legend
+
+| CSS class    | Sass mixin |
+| ------------ | ---------- |
+| `sbb-legend` | `legend`   |
+
+### Sub
+
+The `<sub>`-tag is also overridden globally as long as you include our global styles.
+
+| Sass mixin |
+| ---------- |
+| `sub`      |
+
+### Sup
+
+The `<sup>`-tag is also overridden globally as long as you include our global styles.
+
+| Sass mixin |
+| ---------- |
+| `sup`      |
+
+<InlineStory>
+  <p class="sbb-text-m">A sentence with a<sub>subscript</sub> character.</p>
+  <span class="sbb-legend">
+    <sup>1</sup>&nbsp;Legend text which is small and should be placed at the end.
+  </span>
+</InlineStory>
 
 ## Lists
 
