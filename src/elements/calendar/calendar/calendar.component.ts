@@ -453,26 +453,22 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
       (this._mediaMatcher.matches(SbbMediaQueryBreakpointLargeAndAbove) ?? false) && this.wide;
     this._weeks = this._createWeekRows(this._activeDate);
     this._years = this._createYearRows();
-    this._weekNumbers =
-      this.orientation === 'horizontal'
-        ? this._weeks.map((week: Day<T>[]) => week[0].weekValue)
-        : this._weeks
-            .slice()
-            .sort((a, b) => b.length - a.length)[0]
-            .map((day: Day<T>) => day.weekValue);
+    this._weekNumbers = this._weeks
+      .flat()
+      .sort((a, b) => a.value.localeCompare(b.value))
+      .map((day: Day<T>) => day.weekValue)
+      .filter((v, i, a) => a.indexOf(v) === i);
     this._nextMonthWeeks = [[]];
     this._nextMonthYears = [[]];
     if (this._wide) {
       const nextMonthDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
       this._nextMonthWeeks = this._createWeekRows(nextMonthDate, true);
       this._nextMonthYears = this._createYearRows(YEARS_PER_PAGE);
-      this._nextMonthWeekNumbers =
-        this.orientation === 'horizontal'
-          ? this._nextMonthWeeks.map((week: Day<T>[]) => week[0].weekValue)
-          : this._nextMonthWeeks
-              .slice()
-              .sort((a, b) => b.length - a.length)[0]
-              .map((day: Day<T>) => day.weekValue);
+      this._nextMonthWeekNumbers = this._nextMonthWeeks
+        .flat()
+        .sort((a, b) => a.value.localeCompare(b.value))
+        .map((day: Day<T>) => day.weekValue)
+        .filter((v, i, a) => a.indexOf(v) === i);
     }
     this._initialized = true;
   }
