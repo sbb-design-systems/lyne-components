@@ -167,8 +167,13 @@ than the text, the CSS variable `--sbb-icon-list-marker-icon-color` can be used.
 ```
 
 <InlineStory>
-  <style>{` ul.sbb-icon-list { --sbb-icon-list-marker-icon-color: var(--sbb-color-error); --sbb-icon-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-cross-small.svg');} `}</style>
-  <ul class="sbb-icon-list sbb-text-m">
+  <style>{`
+    .sbb-icon-list.custom-icon-list {
+      --sbb-icon-list-marker-icon-color: var(--sbb-color-error);
+      --sbb-icon-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-cross-small.svg');
+     }
+   `}</style>
+  <ul class="sbb-icon-list sbb-text-m custom-icon-list">
     <li>Something invalid</li>
     <li>Other invalid stuff</li>
   </ul>
