@@ -115,6 +115,7 @@
     "postcss-value-parser": "4.2.0",
     "prettier": "3.8.1",
     "react": "19.2.4",
+    "remark-gfm": "^4.0.1",
     "rollup-plugin-postcss-lit": "2.2.0",
     "sass": "1.98.0",
     "sinon": "21.0.3",
