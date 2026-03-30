@@ -1,10 +1,13 @@
 import type { CSSResultGroup, PropertyValues } from 'lit';
 
-import { SbbSecondaryButtonElement } from '../../button/secondary-button.ts';
+import { SbbSecondaryButtonElement } from '../../button.pure.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nTimetableFormSwapButtonLabel } from '../../core/i18n.ts';
 
 import style from './timetable-form-swap-button.scss?lit&inline';
+
+// TODO(breaking-change): Remove call to define.
+SbbSecondaryButtonElement.define();
 
 /**
  * An extension of `sbb-secondary-button` to be used inside the `sbb-timetable-form`.

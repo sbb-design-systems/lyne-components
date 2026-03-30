@@ -9,8 +9,8 @@ import { type SbbRadioButtonGroupElement, SbbRadioButtonPanelElement } from '../
 
 import { SbbSelectionActionPanelElement } from './selection-action-panel.component.ts';
 
-import '../link/block-link-button.ts';
-import '../button/secondary-button.ts';
+import '../link.ts';
+import '../button.ts';
 import '../card.ts';
 import '../selection-action-panel.ts';
 

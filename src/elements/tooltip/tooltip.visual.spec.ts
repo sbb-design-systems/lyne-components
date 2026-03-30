@@ -4,7 +4,7 @@ import { describeViewports, visualDiffDefault } from '../core/testing/private.ts
 import { waitForLitRender } from '../core/testing.ts';
 
 import '../tooltip.ts';
-import '../button/button.ts';
+import '../button.ts';
 
 const physicalSupportedPositions = [
   'top',

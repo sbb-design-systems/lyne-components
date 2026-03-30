@@ -1,0 +1,12 @@
+@use '../styles' as sbb;
+@use './selection-group-base-element' as group;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  @include group.horizontal-orientation;
+
+  --sbb-selection-group-width: auto;
+  --sbb-selection-group-gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-6x);
+  --sbb-selection-group-elements-flex: none;
+}

@@ -10,11 +10,10 @@ import { SbbStepElement, type SbbStepValidateEventDetails, SbbStepperElement } f
 
 import readme from './readme.md?raw';
 
-import '../button/button.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../card.ts';
 import '../form-field.ts';
-import '../link/block-link-button.ts';
+import '../link.ts';
 import '../stepper.ts';
 
 const loremIpsum = `

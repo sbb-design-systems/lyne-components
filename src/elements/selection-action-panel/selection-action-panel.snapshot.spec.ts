@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbSelectionActionPanelElement } from './selection-action-panel.component.ts';
 
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../card.ts';
 import '../checkbox-panel.ts';
 import '../selection-action-panel.ts';

@@ -591,14 +591,18 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
           ? html`
               <sbb-seat-reservation-graphic
                 style=${styleMap({
-                  '--sbb-seat-reservation-graphic-max-width': calculatedDimension.w,
-                  '--sbb-seat-reservation-graphic-height': this.baseGridSize,
+                  '--sbb-seat-reservation-graphic-max-width': this.globalAreaIconDim.w,
+                  '--sbb-seat-reservation-graphic-max-height': this.globalAreaIconDim.h,
+                  '--sbb-seat-reservation-graphic-width': calculatedDimension.w,
+                  '--sbb-seat-reservation-graphic-height': calculatedDimension.h,
                   '--sbb-seat-reservation-graphic-rotation': rotation,
+                  '--sbb-seat-reservation-graphic-padding-percent':
+                    areaProperty !== 'ENTRY_EXIT' ? this.globalAreaIconPadding : 1,
                 })}
                 name=${areaProperty}
                 role="img"
                 aria-hidden="true"
-                class="auto-width"
+                class="sbb-sr-graphic__dimension--square-dim"
               ></sbb-seat-reservation-graphic>
             `
           : nothing}

@@ -19,7 +19,7 @@ import {
 
 import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.ts';
 
-import '../link/block-link-button.ts';
+import '../link.ts';
 import '../selection-expansion-panel.ts';
 
 describe(`sbb-selection-expansion-panel`, () => {

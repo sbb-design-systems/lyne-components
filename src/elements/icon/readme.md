@@ -14,7 +14,7 @@ Note that if you do not provide a namespace, the default namespace will be used 
 ** Register custom icon namespace **
 
 ```ts
-import { mergeConfig } from '@sbb-esta/lyne-elements/core/config.js';
+import { mergeConfig } from '@sbb-esta/lyne-elements/core.js';
 
 mergeConfig({
   icon: {
@@ -26,7 +26,7 @@ mergeConfig({
 ** Register custom interceptor **
 
 ```ts
-import { mergeConfig } from '@sbb-esta/lyne-elements/core/config.js';
+import { mergeConfig } from '@sbb-esta/lyne-elements/core.js';
 
 mergeConfig({
   icon: {

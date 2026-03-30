@@ -5,7 +5,7 @@ import { html } from 'lit';
 import images from '../core/images.ts';
 import '../image.ts';
 import '../title.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../message.ts';
 
 import readme from './readme.md?raw';

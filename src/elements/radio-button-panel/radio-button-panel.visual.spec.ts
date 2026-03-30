@@ -4,6 +4,7 @@ import { describeEach, describeViewports, visualDiffDefault } from '../core/test
 import type { SbbRadioButtonSize } from '../radio-button/common/radio-button-common.ts';
 
 import '../icon.ts';
+import '../radio-button-group.ts';
 import '../radio-button-panel.ts';
 
 const cases: { checked: boolean[]; disabled: boolean[]; size: SbbRadioButtonSize[] } = {
@@ -80,6 +81,24 @@ describe(`sbb-radio-button-panel`, () => {
           html`<sbb-radio-button-panel>Value ${suffixAndSubtext()}</sbb-radio-button-panel>`,
           { forcedColors: true },
         );
+      }),
+    );
+
+    it(
+      `horizontal group with align-items=stretch renders panels at equal height`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-radio-button-group
+            orientation="horizontal"
+            value="Value one"
+            style="align-items: stretch;"
+          >
+            <sbb-radio-button-panel value="Value one"> Short label </sbb-radio-button-panel>
+            <sbb-radio-button-panel value="Value two">
+              Label with subtext ${suffixAndSubtext()}
+            </sbb-radio-button-panel>
+          </sbb-radio-button-group>
+        `);
       }),
     );
 

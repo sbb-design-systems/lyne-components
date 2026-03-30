@@ -25,7 +25,7 @@ the [sbb-menu-button](/docs/elements-button--docs) is meant to be used as trigge
 The open and close delays can be configured via global configuration. This values will be used as default, unless explicitly set on the element.
 
 ```ts
-import { mergeConfig } from '@sbb-esta/lyne-elements/core/config.js';
+import { mergeConfig } from '@sbb-esta/lyne-elements/core.js';
 
 mergeConfig({
   popover: {

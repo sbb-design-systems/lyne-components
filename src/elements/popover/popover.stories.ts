@@ -11,7 +11,7 @@ import { SbbPopoverElement } from './popover.component.ts';
 import readme from './readme.md?raw';
 import '../link.ts';
 import '../title.ts';
-import '../button/mini-button.ts';
+import '../button.ts';
 import '../popover.ts';
 
 const hoverTrigger: InputType = {

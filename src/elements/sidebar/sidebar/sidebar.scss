@@ -1,33 +1,33 @@
 @use '../../core/styles' as sbb;
 
 :host {
+  --sbb-link-text-decoration-line: none;
+  --sbb-sidebar-background-color: var(--sbb-background-color-1);
+  --sbb-sidebar-scrollbar-placeholder-width: var(--sbb-spacing-fixed-3x);
+  --_sbb-sidebar-margin: 0;
+  --_sbb-sidebar-margin-block-start: var(--sbb-sidebar-margin);
+  --_sbb-sidebar-translate-x: -100%;
+  --_sbb-sidebar-z-index: 2;
+  --_sbb-sidebar-padding-inline-end: var(--sbb-sidebar-padding);
+  --_sbb-sidebar-padding-block-start: var(--sbb-sidebar-padding);
+  --_sbb-sidebar-border-radius-start: var(--sbb-sidebar-border-radius);
+  --_sbb-sidebar-border-radius-end: 0;
+  --_sbb-sidebar-close-button-size: var(--sbb-size-element-xs);
+  --_sbb-sidebar-max-width: calc(100% - 2 * var(--_sbb-sidebar-margin));
+
   display: block;
   width: #{sbb.px-to-rem-build(320)};
 
-  --sbb-link-text-decoration-line: none;
-  --sbb-sidebar-background-color: var(--sbb-background-color-1);
-  --sbb-sidebar-title-padding-block: var(--sbb-spacing-fixed-3x);
-  --sbb-sidebar-padding: var(--sbb-spacing-responsive-xs);
-  --sbb-sidebar-scrollbar-placeholder-width: var(--sbb-spacing-fixed-3x);
-  --sbb-sidebar-border-radius: var(--sbb-border-radius-8x);
-  --sbb-sidebar-margin: var(--sbb-spacing-fixed-3x);
-  --sbb-sidebar-title-gap: var(--sbb-spacing-fixed-2x);
-  --sbb-sidebar__margin: 0;
-  --sbb-sidebar__margin-block-start: var(--sbb-sidebar-margin);
-  --sbb-sidebar__translate-x: -100%;
-  --sbb-sidebar__z-index: 2;
-  --sbb-sidebar__padding-inline-end: var(--sbb-sidebar-padding);
-  --sbb-sidebar__padding-block-start: var(--sbb-sidebar-padding);
-  --sbb-sidebar__border-radius-start: var(--sbb-sidebar-border-radius);
-  --sbb-sidebar__border-radius-end: 0;
-  --sbb-sidebar__close-button-size: var(--sbb-size-element-xs);
-
   // Subtract the width of the scrollbar from the padding (Exclude iOS browsers because they use overlay scrollbars)
   @supports (scrollbar-gutter: stable) and (not (-webkit-touch-callout: none)) {
-    --sbb-sidebar__padding-inline-end: calc(
+    --_sbb-sidebar-padding-inline-end: calc(
       var(--sbb-sidebar-padding) - var(--sbb-sidebar-scrollbar-placeholder-width)
     );
   }
+}
+
+:host([color='white']) {
+  --sbb-sidebar-background-color: var(--sbb-background-color-1);
 }
 
 :host([color='milk']) {
@@ -35,35 +35,35 @@
 }
 
 :host(:is([mode='over'], :state(mode-over-forced):not(:state(mode-over-forced-closing)))) {
-  --sbb-sidebar__margin: var(--sbb-sidebar-margin);
-  --sbb-sidebar__border-radius-end: var(--sbb-sidebar-border-radius);
-  --sbb-sidebar__z-index: 3;
+  --_sbb-sidebar-margin: var(--sbb-sidebar-margin);
+  --_sbb-sidebar-border-radius-end: var(--sbb-sidebar-border-radius);
+  --_sbb-sidebar-z-index: 3;
 }
 
 :host(:is(:dir(rtl), [position='end'])) {
-  --sbb-sidebar__translate-x: 100%;
+  --_sbb-sidebar-translate-x: 100%;
 }
 
 :host(:dir(rtl)[position='end']) {
-  --sbb-sidebar__translate-x: -100%;
+  --_sbb-sidebar-translate-x: -100%;
 }
 
 .sbb-sidebar {
   width: inherit;
-  max-width: calc(100% - 2 * var(--sbb-sidebar__margin));
+  max-width: var(--_sbb-sidebar-max-width);
   background-color: var(--sbb-sidebar-background-color);
   display: flex;
   flex-direction: column;
   position: absolute;
   overflow: hidden;
   inset-block: 0;
-  z-index: var(--sbb-sidebar__z-index);
-  border-start-start-radius: var(--sbb-sidebar__border-radius-start);
-  border-start-end-radius: var(--sbb-sidebar__border-radius-start);
-  border-end-start-radius: var(--sbb-sidebar__border-radius-end);
-  border-end-end-radius: var(--sbb-sidebar__border-radius-end);
-  margin: var(--sbb-sidebar__margin);
-  margin-block-start: var(--sbb-sidebar__margin-block-start);
+  z-index: var(--_sbb-sidebar-z-index);
+  border-start-start-radius: var(--_sbb-sidebar-border-radius-start);
+  border-start-end-radius: var(--_sbb-sidebar-border-radius-start);
+  border-end-start-radius: var(--_sbb-sidebar-border-radius-end);
+  border-end-end-radius: var(--_sbb-sidebar-border-radius-end);
+  margin: var(--_sbb-sidebar-margin);
+  margin-block-start: var(--_sbb-sidebar-margin-block-start);
   transition-duration: var(--sbb-sidebar-container-animation-duration);
   transition-timing-function: var(--sbb-sidebar-container-animation-easing);
   transition-property: width, translate;
@@ -81,7 +81,7 @@
   }
 
   :host(:is(:state(state-closing), :state(state-closed))) & {
-    translate: var(--sbb-sidebar__translate-x) 0;
+    translate: var(--_sbb-sidebar-translate-x) 0;
   }
 }
 
@@ -102,8 +102,8 @@
 .sbb-sidebar-content-section {
   @include sbb.scrollbar;
 
-  padding-block-start: var(--sbb-sidebar__padding-block-start);
-  padding-inline: var(--sbb-sidebar-padding) var(--sbb-sidebar__padding-inline-end);
+  padding-block-start: var(--_sbb-sidebar-padding-block-start);
+  padding-inline: var(--sbb-sidebar-padding) var(--_sbb-sidebar-padding-inline-end);
   overflow-y: auto;
   flex-grow: 1;
 

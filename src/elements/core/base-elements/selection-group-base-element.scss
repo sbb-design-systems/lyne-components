@@ -1,0 +1,56 @@
+@use '../styles' as sbb;
+
+@mixin horizontal-orientation {
+  --sbb-selection-group-orientation: row;
+  --sbb-selection-group-elements-width: auto;
+}
+
+$breakpoints: 'zero', 'small', 'large', 'ultra';
+
+:host {
+  display: flex;
+  flex-flow: var(--sbb-selection-group-orientation) wrap;
+  gap: var(--sbb-selection-group-gap);
+  align-items: flex-start;
+  width: var(--sbb-selection-group-width);
+}
+
+:host([orientation='vertical']) {
+  --sbb-selection-group-orientation: column;
+  --sbb-selection-group-width: 100%;
+  --sbb-selection-group-elements-width: 100%;
+}
+
+:host(:state(has-panel)) {
+  --sbb-selection-group-width: 100%;
+  --sbb-selection-group-gap: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+
+  // Distribute available space to the panels
+  --sbb-selection-group-elements-flex: auto;
+}
+
+@each $breakpoint in $breakpoints {
+  @include sbb.mq($from: #{$breakpoint}) {
+    // horizontal-from overrides orientation vertical
+    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']) {
+      @include horizontal-orientation;
+    }
+
+    :host([orientation='vertical'][horizontal-from='#{$breakpoint}']:not(:state(has-panel))) {
+      --sbb-selection-group-width: auto;
+    }
+  }
+}
+
+// Move the error message to a separate line.
+slot[name='error']::slotted(*) {
+  flex-basis: 100%;
+}
+
+::slotted(:is(sbb-checkbox-panel, sbb-radio-button-panel)) {
+  flex: var(--sbb-selection-group-elements-flex);
+}
+
+::slotted(:is(sbb-checkbox, sbb-checkbox-panel, sbb-radio-button-panel)) {
+  width: var(--sbb-selection-group-elements-width);
+}

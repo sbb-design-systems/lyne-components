@@ -9,7 +9,7 @@ import {
 
 import type { SbbButtonElement } from './button.component.ts';
 
-import '../button.ts';
+import '../../button.ts';
 
 describe(`sbb-button`, () => {
   let element: SbbButtonElement;

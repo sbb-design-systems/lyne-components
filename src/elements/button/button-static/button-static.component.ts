@@ -3,7 +3,11 @@ import type { CSSResultGroup } from 'lit';
 import { SbbActionBaseElement } from '../../core/base-elements.ts';
 import { SbbDisabledMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
-import { buttonCommonStyle, buttonPrimaryStyle, SbbButtonCommonElementMixin } from '../common.ts';
+import {
+  buttonCommonStyle,
+  buttonPrimaryStyle,
+  SbbButtonCommonElementMixin,
+} from '../common/button-common.ts';
 
 /**
  * It displays a static button enhanced with the SBB Design in the 'primary' variant.

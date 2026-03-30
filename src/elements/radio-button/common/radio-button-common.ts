@@ -1,3 +1,4 @@
+import type { PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -83,6 +84,15 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<SbbElemen
       } else if (!this.checked) {
         this.checked = true;
         this.emitChangeEvents();
+      }
+    }
+
+    protected override willUpdate(changedProperties: PropertyValues<this>): void {
+      super.willUpdate(changedProperties);
+
+      if (changedProperties.has('value')) {
+        /** @internal */
+        this.dispatchEvent(new Event('ɵradiobuttonvaluechange', { bubbles: true }));
       }
     }
 

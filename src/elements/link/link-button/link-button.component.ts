@@ -1,6 +1,6 @@
 import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.ts';
-import { SbbInlineLinkCommonElementMixin } from '../common.ts';
+import { SbbInlineLinkCommonElementMixin } from '../common/inline-link-common.ts';
 
 /**
  * It displays a link enhanced with the SBB Design, which will behave as a button.

@@ -8,8 +8,8 @@ import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts
 
 import { SbbToastElement } from './toast.component.ts';
 
-import '../button/transparent-button.ts';
-import '../link/link-button.ts';
+import '../button.ts';
+import '../link.ts';
 import '../toast.ts';
 
 describe(`sbb-toast`, () => {
