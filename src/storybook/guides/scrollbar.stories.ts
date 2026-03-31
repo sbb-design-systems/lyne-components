@@ -3,8 +3,7 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import readme from './readme.md?raw';
-import './scrollbar-internal.scss';
+import '../../elements/core/styles/scrollbar.private.scss';
 
 const text: string = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
   ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
@@ -117,12 +116,8 @@ export const ThickNegativeTrackVisible: StoryObj = {
 };
 
 const meta: Meta = {
-  parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
-  },
-  title: 'styles/Scrollbar',
+  tags: ['!autodocs'],
+  title: 'guides/Theming Scrollbar Stories',
 };
 
 export default meta;

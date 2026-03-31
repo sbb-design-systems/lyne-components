@@ -1,12 +1,13 @@
 import { html } from 'lit/static-html.js';
 
-import style from '../../../storybook/styles/scrollbar/scrollbar-internal.scss?inline';
 import {
   describeEach,
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
 } from '../testing/private.ts';
+
+import style from './scrollbar.private.scss?inline';
 
 describe(`scrollbar`, () => {
   let root: HTMLElement;

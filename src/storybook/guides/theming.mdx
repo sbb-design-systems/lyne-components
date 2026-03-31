@@ -213,6 +213,66 @@ This allows developers to change the z-index either globally or at component lev
 In some cases, it's not possible to break out of a particular stacking context. In this case, keep the trigger within
 your component, but moving the overlay component out of the stacking context can help.
 
+### Scrollbar
+
+The scrollbar styles optimize the scrollbar for the most common use cases and provide consistent look (best-effort) across browsers.
+In Firefox the styles are looking differently as there are no possibilities to style the scrollbar exactly as designed.
+
+The scrollbar Sass mixin and CSS classes offer a combination of size, color and whether the track is visible or not.
+
+| CSS class                                    | Sass mixin                                                         |
+| -------------------------------------------- | ------------------------------------------------------------------ |
+| `sbb-scrollbar`                              | `scrollbar($size: thin, $negative: false, $track-visible: false)`  |
+| `sbb-scrollbar-negative`                     | `scrollbar($size: thin, $negative: true, $track-visible: false)`   |
+| `sbb-scrollbar-thick`                        | `scrollbar($size: thick, $negative: false, $track-visible: false)` |
+| `sbb-scrollbar-thick-negative`               | `scrollbar($size: thick, $negative: true, $track-visible: false)`  |
+| `sbb-scrollbar-track-visible`                | `scrollbar($size: thin, $negative: false, $track-visible: true)`   |
+| `sbb-scrollbar-negative-track-visible`       | `scrollbar($size: thin, $negative: true, $track-visible: true)`    |
+| `sbb-scrollbar-thick-track-visible`          | `scrollbar($size: thick, $negative: false, $track-visible: true)`  |
+| `sbb-scrollbar-thick-negative-track-visible` | `scrollbar($size: thick, $negative: true, $track-visible: true)`   |
+
+** Possible values of Sass mixin **
+
+- `$size` thin or thick
+- `$negative` true or false
+- `$track-visible` true or false
+
+<InlineStory>
+<style>
+  {`
+  .scrollable {
+    display: inline-block;
+    width: 12rem;
+    height: 6rem;
+    overflow: auto;
+    margin: var(--sbb-spacing-fixed-3x);
+  }
+  .large-content {
+    width: 25rem;
+    height: 12rem;
+  }
+  .negative {
+    background-color: var(--sbb-background-color-1-negative);
+    color: var(--sbb-color-1-negative);
+  }
+`}
+</style>
+
+<span class="scrollable sbb-scrollbar">
+  <div class="large-content">Scrollable content with thin scrollbar and hidden track.</div>
+</span>
+
+<span class="scrollable sbb-scrollbar-thick-track-visible">
+  <div class="large-content">Scrollable content with thick scrollbar and visible track.</div>
+</span>
+
+  <span class="scrollable sbb-scrollbar-negative negative">
+    <div class="large-content">
+      Scrollable content with thin scrollbar and hidden track in negative context.
+    </div>
+  </span>
+</InlineStory>
+
 ### Sass Mixins
 
 Lyne Components provides various Sass mixins which can be used by consumers.
@@ -422,7 +482,9 @@ The `<sup>`-tag is also overridden globally as long as you include our global st
 | `sup`      |
 
 <InlineStory>
-  <p class="sbb-text-m">A sentence with a<sub>subscript</sub> character.</p>
+  <p class="sbb-text-m">
+    A sentence with a<sub>subscript</sub> character.
+  </p>
   <span class="sbb-legend">
     <sup>1</sup>&nbsp;Legend text which is small and should be placed at the end.
   </span>
