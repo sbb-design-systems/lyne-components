@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { type SinonStub, stub } from 'sinon';
 
 import { sbbLiveAnnouncer } from '../../core/a11y/live-announcer.ts';
-import { fixture } from '../../core/testing/private.ts';
+import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
 import { waitForCondition, waitForLitRender } from '../../core/testing.ts';
 
 import { SbbFormFieldTextCounterElement } from './form-field-text-counter.component.ts';
@@ -14,6 +14,7 @@ import '../../form-field.ts';
 describe(`sbb-form-field-text-counter`, () => {
   let element: SbbFormFieldTextCounterElement;
   let formField: HTMLElement;
+  const elementInternals = elementInternalsSpy();
 
   const currentValue = (): string => {
     return element.shadowRoot?.textContent?.trim() ?? '';
@@ -148,6 +149,19 @@ describe(`sbb-form-field-text-counter`, () => {
 
     afterEach(() => {
       announceStub.restore();
+    });
+
+    it('should set the remaining characters on focus as aria-label', async () => {
+      textarea.focus();
+
+      expect(elementInternals.get(element)!.ariaLabel).to.be.equal('100 characters remaining');
+
+      await sendKeys({ type: 'v' });
+      expect(elementInternals.get(element)!.ariaLabel).to.be.equal('100 characters remaining');
+
+      textarea.blur();
+      textarea.focus();
+      expect(elementInternals.get(element)!.ariaLabel).to.be.equal('99 characters remaining');
     });
 
     it('should announce when 100% of characters remain (initial load)', async () => {

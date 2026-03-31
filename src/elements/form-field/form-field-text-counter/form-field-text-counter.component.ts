@@ -30,8 +30,6 @@ export class SbbFormFieldTextCounterElement extends SbbHintElement {
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    this.internals.ariaHidden = 'true';
-
     this._abortController?.abort();
     this._abortController = new AbortController();
 
@@ -45,6 +43,18 @@ export class SbbFormFieldTextCounterElement extends SbbHintElement {
       this.formField.addEventListener('ɵinputattributechange', () => this._onInputUpdate(), {
         signal: this._abortController.signal,
       });
+      this.formField.addEventListener(
+        'focusin',
+        (event) => {
+          // We update the aria-label on focus to ensure that screen readers announce the remaining characters when the user focuses the input.
+          if (event.target === this.formField?.inputElement) {
+            this.internals.ariaLabel = this._ariaLabel();
+          }
+        },
+        {
+          signal: this._abortController.signal,
+        },
+      );
 
       this._onInputUpdate();
     }
@@ -76,16 +86,18 @@ export class SbbFormFieldTextCounterElement extends SbbHintElement {
         this._remainingCharacters,
       )
     ) {
-      sbbLiveAnnouncer.announce(
-        `${this._remainingCharacters} ${i18nRemainingCharacters[this._language.current]}`,
-      );
+      sbbLiveAnnouncer.announce(this._ariaLabel());
     }
   }
 
+  private _ariaLabel(): string {
+    return `${this._remainingCharacters} ${i18nRemainingCharacters[this._language.current]}`;
+  }
+
   protected override render(): TemplateResult {
-    return html`${this._remainingCharacters}<slot>
-        ${i18nRemainingCharacters[this._language.current]}
-      </slot>`;
+    return html`<span aria-hidden="true">
+      ${this._remainingCharacters}<slot> ${i18nRemainingCharacters[this._language.current]}</slot>
+    </span>`;
   }
 }
 

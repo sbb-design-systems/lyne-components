@@ -553,10 +553,10 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
    */
   private _onSlotHintChange(event: Event): void {
     const hintElements = (event.target as HTMLSlotElement).assignedElements();
-    if (this._input && this._input.ariaDescribedByElements?.length) {
+    if (this._input?.ariaDescribedByElements?.length && this._hintElements?.length) {
       this._input.ariaDescribedByElements = removeAriaElements(
         this._input.ariaDescribedByElements,
-        ...(this._hintElements ?? []),
+        ...this._hintElements,
       );
     }
 
@@ -569,11 +569,10 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   private _assignAriaDescribedByElements(): void {
     if (this._input) {
       // Hint elements are only linked when there are no errors
-      const hintElements = this._errorElements.length ? [] : this._hintElements;
+      const elements = this._errorElements.length ? this._errorElements : this._hintElements;
       this._input.ariaDescribedByElements = appendAriaElements(
         this._input.ariaDescribedByElements,
-        ...this._errorElements,
-        ...hintElements,
+        ...elements,
       );
     }
   }
