@@ -171,6 +171,46 @@ to the input element.
 If you want to directly show the error state without having had an interaction, you can use the
 `sbb-show-errors` class on an ancestor (e.g. `<form>`).
 
+### Visualization of `required` / optional state
+
+Generally, as an SBB standard, all form elements are considered required and optional inputs are marked with `(optional)` in the label.
+
+| English  | German   | French     | Italian     |
+| -------- | -------- | ---------- | ----------- |
+| optional | optional | facultatif | facoltativo |
+
+```html
+<sbb-form-field>
+  <label>Label (optional)</label>
+  <input />
+</sbb-form-field>
+```
+
+However, some applications need a stronger visual representation of the `required` state.
+
+In such cases it's possible to add the `sbb-form-field-required-highlight` CSS class to the `<sbb-form-field>` element.
+This changes the background color to a subtle peach tint, giving users a clear visual cue.
+It only has an effect as long as the input is empty and neither `readonly` nor `disabled`.
+
+```html
+<sbb-form-field class="sbb-form-field-required-highlight">
+  <label>Required Field</label>
+  <input required />
+</sbb-form-field>
+```
+
+It's also possible to opt in globally by setting the CSS class `sbb-form-field-required-highlight` on the `<html>` element.
+The styling is then applied to all `<sbb-form-field>` elements that contain an input with a `required` attribute.
+
+```html
+<html class="sbb-form-field-required-highlight">
+  ...
+</html>
+```
+
+Please note that with forced colors and `sbb-form-field-required-highlight` CSS class,
+there is an Asterix (\*) added to the label of required fields.
+
 ## Custom form control
 
 The form field looks for native form controls (i.e. `<input>`, `<select>`
@@ -303,7 +343,7 @@ to the form element's `ariaErrorMessageElements` property (or `aria-errormessage
 | `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| null` |                    | Returns the input element.                                                                                                                                            |
 | `label`         | -                | public  | `HTMLLabelElement \| null`                                     |                    | Reference to the slotted label.                                                                                                                                       |
 | `negative`      | `negative`       | public  | `boolean`                                                      | `false`            | Negative coloring variant flag.                                                                                                                                       |
-| `optional`      | `optional`       | public  | `boolean`                                                      | `false`            | Indicates whether the input is optional.                                                                                                                              |
+| `optional`      | `optional`       | public  | `boolean`                                                      | `false`            | Indicates whether the input is optional.<br><strong>Deprecated</strong>: Set the (optional) label text manually. Will be removed with next major version.             |
 | `size`          | `size`           | public  | `'l' \| 'm' \| 's'`                                            | `'m' / 's' (lean)` | Size variant, either l, m or s.                                                                                                                                       |
 | `width`         | `width`          | public  | `'default' \| 'collapse'`                                      | `'default'`        | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. |
 
