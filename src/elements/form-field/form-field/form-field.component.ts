@@ -110,7 +110,10 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   @property({ attribute: 'error-space', reflect: true })
   public accessor errorSpace: 'none' | 'reserve' = 'none';
 
-  /** Indicates whether the input is optional. */
+  /**
+   * Indicates whether the input is optional.
+   * @deprecated Set the (optional) label text manually. Will be removed with next major version.
+   */
   @forceType()
   @property({ type: Boolean })
   public accessor optional: boolean = false;

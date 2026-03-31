@@ -210,4 +210,40 @@ $theme: 'standard' !default;
       }
     }
   }
+
+  :is(sbb-form-field, sbb-timetable-form-field):state(empty):not(
+      :state(readonly),
+      :state(disabled)
+    ) {
+    :root.sbb-form-field-required-highlight
+      &:has(:where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input)[required]),
+    &.sbb-form-field-required-highlight {
+      --sbb-form-field-background-color: light-dark(
+        color-mix(in srgb, var(--sbb-color-peach) 5%, var(--sbb-background-color-1)),
+        color-mix(in srgb, var(--sbb-color-peach) 10%, var(--sbb-background-color-1))
+      );
+
+      &[negative] {
+        --sbb-form-field-background-color: color-mix(
+          in srgb,
+          var(--sbb-color-peach) 10%,
+          var(--sbb-background-color-1-negative)
+        );
+      }
+    }
+  }
+
+  // In high contrast we set, regardless of any state, an Asterix (*) for required fields, to ensure the requirement is visible.
+  :is(sbb-form-field, sbb-timetable-form-field):not(:state(readonly), :state(disabled)) {
+    :root.sbb-form-field-required-highlight
+      &:has(:where(input, select, textarea, sbb-select, sbb-date-input, sbb-time-input)[required]),
+    &.sbb-form-field-required-highlight {
+      @include sbb.if-forced-colors {
+        label::after {
+          content: ' *';
+          color: Highlight;
+        }
+      }
+    }
+  }
 }
