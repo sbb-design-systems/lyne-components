@@ -1,9 +1,16 @@
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
+import {
+  LitElement,
+  html,
+  type TemplateResult,
+  type CSSResultGroup,
+  nothing,
+  unsafeCSS,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import '@sbb-esta/lyne-elements/chip-label.js';
-import style from './test-title-chip-list.scss?lit&inline';
+import style from './test-title-chip-list.scss?inline';
 
 /**
  * Captures two groups
@@ -31,7 +38,7 @@ interface DescribeEachItem {
 export
 @customElement('app-test-title-chip-list')
 class TestTitleChipList extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   @property()
   public set testCaseName(name: string) {

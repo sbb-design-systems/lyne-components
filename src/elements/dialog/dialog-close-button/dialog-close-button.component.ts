@@ -1,10 +1,10 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { unsafeCSS, type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
 
 import { SbbSecondaryButtonElement } from '../../button.pure.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nCloseDialog } from '../../core/i18n.ts';
 
-import style from './dialog-close-button.scss?lit&inline';
+import style from './dialog-close-button.scss?inline';
 
 // TODO(breaking-change): Remove call to define.
 SbbSecondaryButtonElement.define();
@@ -17,7 +17,10 @@ SbbSecondaryButtonElement.define();
  */
 export class SbbDialogCloseButtonElement extends SbbSecondaryButtonElement {
   public static override readonly elementName: string = 'sbb-dialog-close-button';
-  public static override styles: CSSResultGroup = [SbbSecondaryButtonElement.styles, style];
+  public static override styles: CSSResultGroup = [
+    SbbSecondaryButtonElement.styles,
+    unsafeCSS(style),
+  ];
 
   private _languageController = new SbbLanguageController(this);
 

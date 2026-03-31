@@ -1,9 +1,9 @@
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import { SbbElement } from '../core/base-elements.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
-import style from './lead-container.scss?lit&inline';
+import style from './lead-container.scss?inline';
 
 /**
  * The `sbb-lead-container` can be used for product pages to display a lead image and following content.
@@ -15,7 +15,7 @@ import style from './lead-container.scss?lit&inline';
  */
 export class SbbLeadContainerElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-lead-container';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`

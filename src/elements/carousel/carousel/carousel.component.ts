@@ -1,6 +1,5 @@
 import type { PropertyValues } from '@lit/reactive-element';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -22,7 +21,7 @@ import type { SbbCarouselListElement } from '../carousel-list/carousel-list.comp
 
 import '../../screen-reader-only.ts';
 
-import style from './carousel.scss?lit&inline';
+import style from './carousel.scss?inline';
 
 /**
  * It displays a carousel component.
@@ -31,7 +30,7 @@ import style from './carousel.scss?lit&inline';
  */
 export class SbbCarouselElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-carousel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * Used to display a box-shadow around the component.

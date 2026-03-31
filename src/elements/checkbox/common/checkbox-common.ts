@@ -1,4 +1,4 @@
-import type { PropertyValues } from 'lit';
+import { unsafeCSS, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbCheckboxGroupElement } from '../../checkbox-group/checkbox-group.component.ts';
@@ -6,7 +6,9 @@ import { SbbElement } from '../../core/base-elements.ts';
 import { forceType } from '../../core/decorators.ts';
 import { type Constructor, SbbFormAssociatedCheckboxMixin } from '../../core/mixins.ts';
 
-export { default as checkboxCommonStyle } from './checkbox-common.scss?lit&inline';
+import checkboxCommonStyleString from './checkbox-common.scss?inline';
+
+export const checkboxCommonStyle = unsafeCSS(checkboxCommonStyleString);
 
 export type SbbCheckboxSize = 'xs' | 's' | 'm';
 

@@ -6,6 +6,7 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -35,7 +36,7 @@ import type { SbbNavigationElement } from '../navigation/navigation.component.ts
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 
-import style from './navigation-section.scss?lit&inline';
+import style from './navigation-section.scss?inline';
 
 import '../../divider.ts';
 
@@ -51,7 +52,7 @@ let nextId = 0;
  */
 export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-navigation-section';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * The label to be shown before the action list.

@@ -5,6 +5,7 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
@@ -40,7 +41,7 @@ import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbMenuButtonElement } from '../menu-button/menu-button.component.ts';
 import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.ts';
 
-import style from './menu.scss?lit&inline';
+import style from './menu.scss?inline';
 
 import '../../divider.ts';
 
@@ -73,7 +74,7 @@ let nextId = 0;
  */
 export class SbbMenuElement extends SbbOpenCloseBaseElement {
   public static override readonly elementName: string = 'sbb-menu';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static override readonly role = 'menu';
 
   /**

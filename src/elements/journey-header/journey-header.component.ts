@@ -1,5 +1,10 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  html,
+  unsafeCSS,
+  type CSSResultGroup,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbLanguageController } from '../core/controllers.ts';
@@ -10,7 +15,7 @@ import { SbbNegativeMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import { SbbTitleBase, type SbbTitleLevel } from '../title.ts';
 
-import style from './journey-header.scss?lit&inline';
+import style from './journey-header.scss?inline';
 
 import '../icon.ts';
 import '../screen-reader-only.ts';
@@ -31,7 +36,11 @@ const sizeToLevel: Map<JourneyHeaderSize, SbbTitleLevel> = new Map<
  */
 export class SbbJourneyHeaderElement extends SbbNegativeMixin(SbbTitleBase) {
   public static override readonly elementName: string = 'sbb-journey-header';
-  public static override styles: CSSResultGroup = [boxSizingStyles, SbbTitleBase.styles, style];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    SbbTitleBase.styles,
+    unsafeCSS(style),
+  ];
 
   /** Origin location for the journey header. */
   @forceType()

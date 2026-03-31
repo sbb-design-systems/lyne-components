@@ -1,12 +1,19 @@
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
+import {
+  LitElement,
+  html,
+  type TemplateResult,
+  type CSSResultGroup,
+  nothing,
+  unsafeCSS,
+} from 'lit';
 import { customElement } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved
 import { meta } from 'virtual:meta';
 
 import { screenshots } from '../../screenshots.ts';
 
-import style from './overview.scss?lit&inline';
+import style from './overview.scss?inline';
 
 import '@sbb-esta/lyne-elements/accordion.js';
 import '@sbb-esta/lyne-elements/action-group.js';
@@ -24,7 +31,7 @@ import '@sbb-esta/lyne-elements/title.js';
 export
 @customElement('app-overview')
 class Overview extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`

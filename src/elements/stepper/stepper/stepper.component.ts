@@ -1,5 +1,11 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
@@ -17,7 +23,7 @@ import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbStepElement, SbbStepValidateEventDetails } from '../step/step.component.ts';
 
-import style from './stepper.scss?lit&inline';
+import style from './stepper.scss?inline';
 
 const DEBOUNCE_TIME = 150;
 
@@ -63,7 +69,7 @@ export class SbbStepChangeEvent extends Event {
  */
 export class SbbStepperElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-stepper';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     stepchange: 'stepchange',
   } as const;

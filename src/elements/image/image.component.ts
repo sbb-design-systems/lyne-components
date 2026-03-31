@@ -8,14 +8,21 @@ import {
   SbbBreakpointZeroMax,
   SbbBreakpointZeroMin,
 } from '@sbb-esta/lyne-design-tokens';
-import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
 import { forceType } from '../core/decorators.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
-import style from './image.scss?lit&inline';
+import style from './image.scss?inline';
 
 export interface InterfaceImageAttributesSizesConfig {
   breakpoints: InterfaceImageAttributesSizesConfigBreakpoint[];
@@ -134,7 +141,7 @@ const breakpointMap: Record<string, string> = {
  */
 export class SbbImageElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-image';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     error: 'error',
     load: 'load',
