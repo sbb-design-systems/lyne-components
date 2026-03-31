@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
@@ -11,7 +11,7 @@ import type { SbbNavigationLinkElement } from '../navigation-link/navigation-lin
 import type { SbbNavigationMarkerElement } from '../navigation-marker/navigation-marker.component.ts';
 import type { SbbNavigationSectionElement } from '../navigation-section/navigation-section.component.ts';
 
-import style from './navigation-action.scss?lit&inline';
+import style from './navigation-action.scss?inline';
 
 import '../../icon.ts';
 
@@ -34,7 +34,7 @@ export const SbbNavigationActionCommonElementMixin = <
     extends superClass
     implements Partial<SbbNavigationActionCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, style];
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
     /**
      * Action size variant, either s, m or l.

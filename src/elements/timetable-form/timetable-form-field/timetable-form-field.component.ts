@@ -1,8 +1,8 @@
-import { type CSSResultGroup, html, isServer, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, isServer, type TemplateResult, unsafeCSS } from 'lit';
 
 import { SbbFormFieldElement } from '../../form-field.pure.ts';
 
-import style from './timetable-form-field.scss?lit&inline';
+import style from './timetable-form-field.scss?inline';
 
 // TODO(breaking-change): remove define() of sbb-form-field.
 SbbFormFieldElement.define();
@@ -12,7 +12,7 @@ SbbFormFieldElement.define();
  */
 export class SbbTimetableFormFieldElement extends SbbFormFieldElement {
   public static override readonly elementName: string = 'sbb-timetable-form-field';
-  public static override styles: CSSResultGroup = [SbbFormFieldElement.styles, style];
+  public static override styles: CSSResultGroup = [SbbFormFieldElement.styles, unsafeCSS(style)];
 
   private _routeIcon = false;
 

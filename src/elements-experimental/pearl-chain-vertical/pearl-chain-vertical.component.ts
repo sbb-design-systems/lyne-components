@@ -1,9 +1,8 @@
 import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 
-import style from './pearl-chain-vertical.scss?lit&inline';
+import style from './pearl-chain-vertical.scss?inline';
 
 /**
  * It can be used as a container for the `sbb-pearl-chain-vertical-item` component.
@@ -12,7 +11,7 @@ import style from './pearl-chain-vertical.scss?lit&inline';
  */
 export class SbbPearlChainVerticalElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain-vertical';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`

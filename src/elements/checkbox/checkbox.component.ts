@@ -1,4 +1,4 @@
-import { html, type CSSResultGroup, type TemplateResult } from 'lit';
+import { html, type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
@@ -8,7 +8,7 @@ import type { SbbIconPlacement } from '../core/interfaces.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import { SbbIconNameMixin } from '../icon.ts';
 
-import checkboxStyle from './checkbox.scss?lit&inline';
+import style from './checkbox.scss?inline';
 import {
   SbbCheckboxCommonElementMixin,
   checkboxCommonStyle,
@@ -33,7 +33,7 @@ export class SbbCheckboxElement<T = string> extends SbbIconNameMixin(
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     checkboxCommonStyle,
-    checkboxStyle,
+    unsafeCSS(style),
   ];
 
   /** Value of the form element. */

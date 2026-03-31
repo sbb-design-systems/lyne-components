@@ -9,7 +9,7 @@ import {
   visualRegressionFixture,
 } from '../../../elements/core/testing/private.ts';
 
-import style from './typo-internal.scss?lit&inline';
+import style from './typo-internal.scss?inline';
 
 describe(`typography`, () => {
   const text: string = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut

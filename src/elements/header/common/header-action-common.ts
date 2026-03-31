@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
@@ -8,7 +8,7 @@ import type { AbstractConstructor } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 
-import style from './header-action.scss?lit&inline';
+import style from './header-action.scss?inline';
 
 export declare class SbbHeaderActionCommonElementMixinType extends SbbIconNameMixin(
   SbbActionBaseElement,
@@ -26,7 +26,7 @@ export const SbbHeaderActionCommonElementMixin = <
     extends SbbIconNameMixin(superClass)
     implements Partial<SbbHeaderActionCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, style];
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
     /**
      * Used to set the minimum breakpoint from which the text is displayed.

@@ -1,5 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -7,7 +6,7 @@ import { i18nPage, i18nPaginatorOf } from '../../core/i18n.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbPaginatorCommonElementMixin } from '../common/paginator-common.ts';
 
-import style from './compact-paginator.scss?lit&inline';
+import style from './compact-paginator.scss?inline';
 
 import '../../divider.ts';
 import '../../screen-reader-only.ts';
@@ -17,7 +16,7 @@ import '../../screen-reader-only.ts';
  */
 export class SbbCompactPaginatorElement extends SbbPaginatorCommonElementMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-compact-paginator';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events: Record<string, string> = {
     page: 'page',
   } as const;

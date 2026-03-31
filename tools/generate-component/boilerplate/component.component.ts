@@ -1,10 +1,10 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
+import type { CSSResultGroup, TemplateResult, unsafeCSS } from 'lit';
+import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { boxSizingStyles } from '../core/styles.ts';
 
-import style from './__noPrefixName__.scss?lit&inline';
+import style from './__noPrefixName__.scss?inline';
 
 /**
  * Describe the purpose of the component with a single short sentence.
@@ -14,7 +14,7 @@ import style from './__noPrefixName__.scss?lit&inline';
 export
 @customElement('__name__')
 class __nameUpperCase__ extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events: Record<string, string> = {
     // Add event names or remove
   } as const;

@@ -1,11 +1,10 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { SbbNegativeMixin } from '../../core/mixins.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
-import style from './error.scss?lit&inline';
+import style from './error.scss?inline';
 
 /**
  * It displays an error message in the `sbb-form-field`.
@@ -15,7 +14,7 @@ import style from './error.scss?lit&inline';
  */
 export class SbbErrorElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-error';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   public override connectedCallback(): void {
     super.connectedCallback();

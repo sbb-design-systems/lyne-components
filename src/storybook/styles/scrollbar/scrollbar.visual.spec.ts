@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../../../elements/core/testing/private.ts';
 
-import style from './scrollbar-internal.scss?lit&inline';
+import style from './scrollbar-internal.scss?inline';
 
 describe(`scrollbar`, () => {
   let root: HTMLElement;

@@ -1,4 +1,11 @@
-import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
@@ -12,7 +19,7 @@ import { SbbIconNameMixin } from '../../icon.ts';
 import type { SbbLinkElement } from '../../link.ts';
 import type { SbbTitleElement } from '../../title.ts';
 
-import style from './alert.scss?lit&inline';
+import style from './alert.scss?inline';
 
 import '../../divider.ts';
 
@@ -28,7 +35,7 @@ SbbTransparentButtonElement.define();
  */
 export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
   public static override readonly elementName: string = 'sbb-alert';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static override readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

@@ -5,6 +5,7 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -20,7 +21,7 @@ import { appendAriaElements, removeAriaElements, SbbDisabledMixin } from '../cor
 import { sbbOverlayOutsidePointerEventListener } from '../core/overlay.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
-import style from './tooltip.scss?lit&inline';
+import style from './tooltip.scss?inline';
 
 /**
  * Defines the default position for the tooltip if this element is used as a trigger.
@@ -53,7 +54,7 @@ let nextId = 0;
 export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-tooltip';
   public static override readonly role = 'tooltip';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   private static _tooltipOutlet: Element;
 

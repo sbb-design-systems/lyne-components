@@ -7,6 +7,7 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
@@ -29,7 +30,7 @@ import { boxSizingStyles } from '../core/styles.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
 import type { SbbOptionBaseElement } from '../option.ts';
 
-import style from './autocomplete-base-element.scss?lit&inline';
+import style from './autocomplete-base-element.scss?inline';
 
 /**
  * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
@@ -40,7 +41,7 @@ const ariaRoleOnHost = isSafari;
 export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
   SbbOpenCloseBaseElement,
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * The element where the autocomplete will attach.

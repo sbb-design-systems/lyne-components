@@ -1,10 +1,10 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
-import style from './header-environment.scss?lit&inline';
+import style from './header-environment.scss?inline';
 
 /**
  * It displays a ribbon inside the header to indicate the current environment.
@@ -16,7 +16,7 @@ import style from './header-environment.scss?lit&inline';
  */
 export class SbbHeaderEnvironmentElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-header-environment';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   private _env: string | null = null;
 

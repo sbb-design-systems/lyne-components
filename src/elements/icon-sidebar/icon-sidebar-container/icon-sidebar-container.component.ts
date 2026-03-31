@@ -1,10 +1,10 @@
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import { SbbElement } from '../../core/base-elements.ts';
 import { sidebarContainerCommonStyle } from '../../sidebar/common/styles.ts';
 import type { SbbIconSidebarElement } from '../icon-sidebar/icon-sidebar.component.ts';
 
-import style from './icon-sidebar-container.scss?lit&inline';
+import style from './icon-sidebar-container.scss?inline';
 
 /**
  * This is the parent component to one or two `<sbb-icon-sidebar>`s and one `<sbb-icon-sidebar-content>` element.
@@ -13,7 +13,7 @@ import style from './icon-sidebar-container.scss?lit&inline';
  */
 export class SbbIconSidebarContainerElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-icon-sidebar-container';
-  public static override styles: CSSResultGroup = [sidebarContainerCommonStyle, style];
+  public static override styles: CSSResultGroup = [sidebarContainerCommonStyle, unsafeCSS(style)];
 
   /** The icon-sidebar children. */
   public get sidebars(): SbbIconSidebarElement[] {

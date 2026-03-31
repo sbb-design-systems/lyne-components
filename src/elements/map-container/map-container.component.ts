@@ -1,6 +1,12 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import {
+  html,
+  nothing,
+  unsafeCSS,
+  type CSSResultGroup,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 import { SbbAccentButtonElement } from '../button.pure.ts';
@@ -11,7 +17,7 @@ import { forwardEvent } from '../core/eventing.ts';
 import { i18nMapContainerButtonLabel } from '../core/i18n.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
-import style from './map-container.scss?lit&inline';
+import style from './map-container.scss?inline';
 
 // TODO(breaking-change): Remove call to define.
 SbbAccentButtonElement.define();
@@ -33,7 +39,7 @@ SbbAccentButtonElement.define();
  */
 export class SbbMapContainerElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-map-container';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Flag to show/hide the scroll up button inside the sidebar on mobile. */
   @forceType()

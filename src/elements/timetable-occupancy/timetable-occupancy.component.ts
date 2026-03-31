@@ -1,5 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { html, nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../core/base-elements.ts';
@@ -9,7 +8,7 @@ import type { SbbOccupancy } from '../core/interfaces.ts';
 import { SbbNegativeMixin } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
-import style from './timetable-occupancy.scss?lit&inline';
+import style from './timetable-occupancy.scss?inline';
 
 import '../screen-reader-only.ts';
 import '../timetable-occupancy-icon.ts';
@@ -19,7 +18,7 @@ import '../timetable-occupancy-icon.ts';
  */
 export class SbbTimetableOccupancyElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-timetable-occupancy';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Occupancy for first class wagons. */
   @property({ attribute: 'first-class-occupancy' })
