@@ -158,7 +158,16 @@ const parameters: Parameters = {
       method: 'alphabetical',
       // Story section order.
       // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
-      order: ['introduction', 'guides', 'elements', 'styles', 'experimental', 'pages', 'internals'],
+      order: [
+        'introduction',
+        'guides',
+        ['Theming', 'Layout', 'DateTime', 'Form Support'],
+        'elements',
+        'styles',
+        'experimental',
+        'pages',
+        'internals',
+      ],
     },
   },
 };

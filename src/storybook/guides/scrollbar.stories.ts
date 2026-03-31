@@ -117,7 +117,7 @@ export const ThickNegativeTrackVisible: StoryObj = {
 
 const meta: Meta = {
   tags: ['!autodocs'],
-  title: 'guides/Theming Scrollbar Stories',
+  title: 'guides/Scrollbar Stories',
 };
 
 export default meta;

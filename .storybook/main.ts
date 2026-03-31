@@ -11,6 +11,8 @@ const config: StorybookConfig = {
       options: {
         mdxPluginOptions: {
           mdxCompileOptions: {
+            // We have to use remarkGfm as suggested by storybook docs in order to render markdown tables correctly
+            // https://storybook.js.org/docs/writing-docs/mdx#markdown-tables-arent-rendering-correctly
             remarkPlugins: [remarkGfm],
           },
         },
