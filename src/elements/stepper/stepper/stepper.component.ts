@@ -430,13 +430,11 @@ export class SbbStepperElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-stepper">
-        <div class="sbb-stepper__labels" role="tablist">
-          <slot name="step-label" @slotchange=${this._configure}></slot>
-        </div>
-        <div class="sbb-stepper__steps">
-          <slot name="step" @slotchange=${this._configure}></slot>
-        </div>
+      <div class="sbb-stepper__labels" role="tablist">
+        <slot name="step-label" @slotchange=${this._configure}></slot>
+      </div>
+      <div class="sbb-stepper__steps">
+        <slot name="step" @slotchange=${this._configure}></slot>
       </div>
     `;
   }
