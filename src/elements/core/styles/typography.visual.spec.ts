@@ -1,15 +1,15 @@
 import { html } from 'lit/static-html.js';
 
-import '../../../elements/title.ts';
+import '../../title.ts';
 
 import {
   describeViewports,
   visualDiffDefault,
   visualDiffStandardStates,
   visualRegressionFixture,
-} from '../../../elements/core/testing/private.ts';
+} from '../testing/private.ts';
 
-import style from './typo-internal.scss?inline';
+import style from './typography.private.scss?inline';
 
 describe(`typography`, () => {
   const text: string = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut

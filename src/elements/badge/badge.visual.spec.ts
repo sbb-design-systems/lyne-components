@@ -1,15 +1,11 @@
 import { nothing } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import {
-  describeEach,
-  describeViewports,
-  visualDiffDefault,
-} from '../../../elements/core/testing/private.ts';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import '../../../elements/icon.ts';
+import '../icon.ts';
 
-describe(`badge`, () => {
+describe(`sbb-badge`, () => {
   const cases = {
     badgeContent: ['9', '99'],
     badgePosition: [undefined, 'before', 'after'],

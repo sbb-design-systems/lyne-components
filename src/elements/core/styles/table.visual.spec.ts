@@ -2,11 +2,7 @@ import { html, type TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import type { ClassInfo } from 'lit-html/directives/class-map.js';
 
-import {
-  describeEach,
-  describeViewports,
-  visualDiffDefault,
-} from '../../../elements/core/testing/private.ts';
+import { describeEach, describeViewports, visualDiffDefault } from '../testing/private.ts';
 
 describe(`table`, () => {
   const cases = {

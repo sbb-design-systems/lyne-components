@@ -3,10 +3,9 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import '../../../elements/link.ts';
+import '../../elements/link.ts';
 
-import readme from './readme.md?raw';
-import './layout.scss';
+import '../../elements/core/styles/layout.private.scss';
 
 const PageSpacingTemplate = (): TemplateResult => html`
   <section class="sbb-page-spacing visualized-page-spacing">
@@ -59,14 +58,12 @@ export const GridExpanded: StoryObj = {
 };
 
 const meta: Meta = {
+  tags: ['!autodocs'],
   decorators: [(story) => html`<div style="padding-block: 2rem;">${story()}</div>`],
   parameters: {
-    docs: {
-      extractComponentDescription: () => readme,
-    },
     layout: 'fullscreen',
   },
-  title: 'styles/Layout',
+  title: 'guides/Layout Stories',
 };
 
 export default meta;
