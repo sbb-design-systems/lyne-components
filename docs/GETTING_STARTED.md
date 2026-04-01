@@ -5,10 +5,13 @@ This document shows the basic steps to integrate the Lyne components into your p
 Component documentation is available on [digital.sbb.ch](https://digital.sbb.ch)
 and on [Docs App](https://lyne-elements.app.sbb.ch).
 
-Select your technology to get started.
+Select your technology to get started:
 
-<details>
-  <summary>Plain Javascript</summary>
+- [Plain Javascript](#plain-javascript)
+- [Angular](#angular)
+- [React/Next.js](#reactnextjs)
+
+## Plain Javascript
 
 > ⓘ For simple testing and reproductions, see [Stackblitz starter for @sbb-esta/lyne-elements](https://stackblitz.com/edit/lyne-elements-starter?file=src%2Fmain.ts).
 
@@ -42,10 +45,7 @@ Select your technology to get started.
    globalThis.SbbButtonElement = SbbButtonElement;
    ```
 
-</details>
-
-<details>
-  <summary>Angular</summary>
+## Angular
 
 > ⓘ We provide a Lyne Angular wrapper which helps to use Lyne components in Angular.
 > See https://lyne-angular.app.sbb.ch for more information.
@@ -114,10 +114,7 @@ export class App {}
 bootstrapApplication(App).catch((err) => console.error(err));
 ```
 
-</details>
-
-<details>
-  <summary>React/Next.js</summary>
+## React/Next.js
 
 > ⓘ For simple testing and reproductions, see [Stackblitz starter for @sbb-esta/lyne-react](https://stackblitz.com/edit/lyne-react-starter?file=src%2FApp.tsx).
 
@@ -207,5 +204,3 @@ bootstrapApplication(App).catch((err) => console.error(err));
      return <SbbButton onClick={() => {}} size={size}></SbbButton>;
    }
    ```
-
-</details>
