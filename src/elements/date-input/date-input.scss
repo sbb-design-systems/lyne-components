@@ -10,6 +10,7 @@
   max-width: 100%;
   cursor: text;
   align-items: center;
+  font-weight: normal;
 
   @include sbb.if-forced-colors {
     color: FieldText;

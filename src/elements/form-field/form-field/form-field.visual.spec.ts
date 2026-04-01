@@ -559,5 +559,19 @@ describe(`sbb-form-field`, () => {
         );
       }),
     );
+
+    it(
+      'inside bold context',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div style="font-weight: bold;">
+            <sbb-form-field>
+              <label>Input name</label>
+              <input placeholder="Input placeholder" value="Input value" />
+            </sbb-form-field>
+          </div>`,
+        );
+      }),
+    );
   });
 });
