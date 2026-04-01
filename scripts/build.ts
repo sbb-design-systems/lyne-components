@@ -743,7 +743,7 @@ function renderTemplate(
       : `@sbb-esta/lyne-react/core.js`;
   const moduleParts = module.path.split('/');
   const moduleName = moduleParts[0];
-  const importPath = `${['button', 'link'].includes(moduleName) ? `${moduleName}/${moduleParts[1]}` : moduleName}.js`;
+  const importPath = `${moduleName}.pure.js`;
   const componentsImports = new Map<string, string[]>().set(importPath, [declaration.name]);
 
   if (declaration.events?.some((e) => !e.type)) {
