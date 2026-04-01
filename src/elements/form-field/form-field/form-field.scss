@@ -1,8 +1,8 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-form-field-error-divider-width: var(--sbb-spacing-fixed-1x);
-  --sbb-form-field-error-padding-block-start: var(--sbb-form-field-error-divider-width);
+  --sbb-form-field-hint-divider-width: var(--sbb-spacing-fixed-1x);
+  --sbb-form-field-hint-padding-block-start: var(--sbb-form-field-hint-divider-width);
   --sbb-form-field-select-inline-padding-end: calc(
     var(--sbb-icon-svg-width) + var(--sbb-form-field-gap)
   );
@@ -100,10 +100,10 @@
 }
 
 :host([error-space='reserve']) {
-  --sbb-form-field-error-min-height: calc(
+  --sbb-form-field-hint-min-height: calc(
     var(--sbb-typo-line-height-text) * var(--sbb-text-font-size-xs)
   );
-  --sbb-form-field-error-padding-block-start-override: var(--sbb-form-field-error-divider-width);
+  --sbb-form-field-hint-padding-block-start-override: var(--sbb-form-field-hint-divider-width);
 }
 
 :host(:where(:state(readonly), :state(disabled))) {
@@ -170,8 +170,8 @@
 }
 
 // :where is to align specificity
-:host(:not(:where(:state(has-error)))) {
-  --sbb-form-field-error-padding-block-start: 0;
+:host(:not(:where(:state(has-error), :state(has-hint)))) {
+  --sbb-form-field-hint-padding-block-start: 0;
 }
 
 :host([floating-label]) {
@@ -267,6 +267,18 @@
 
 ::slotted(sbb-form-field-clear) {
   :host(:where(:state(empty), :state(disabled), :state(readonly))) & {
+    display: none;
+  }
+}
+
+slot[name='hint'] {
+  :host(:state(has-error)) & {
+    display: none;
+  }
+}
+
+::slotted(sbb-form-field-text-counter) {
+  :host(:where(:state(disabled), :state(readonly))) & {
     display: none;
   }
 }
@@ -404,12 +416,12 @@
   }
 }
 
-.sbb-form-field__error {
+.sbb-form-field__hint {
   display: flex;
-  min-height: var(--sbb-form-field-error-min-height);
+  min-height: var(--sbb-form-field-hint-min-height);
   flex-direction: column;
   margin-block-start: var(
-    --sbb-form-field-error-padding-block-start-override,
-    var(--sbb-form-field-error-padding-block-start)
+    --sbb-form-field-hint-padding-block-start-override,
+    var(--sbb-form-field-hint-padding-block-start)
   );
 }
