@@ -12,11 +12,6 @@ $theme: 'standard' !default;
   --sbb-teaser-image-width: #{sbb.px-to-rem-build(300)};
 }
 
-@mixin base-forced-colors {
-  --sbb-teaser-description-color: LinkText;
-  --sbb-title-text-color-normal-override: LinkText !important;
-}
-
 @mixin rules {
   sbb-teaser {
     --sbb-teaser-image-brightness-hover: var(--sbb-hover-image-brightness);

@@ -332,7 +332,6 @@ $theme: 'standard' !default;
     @include signet.base-forced-colors;
     @include slider.base-forced-colors;
     @include step-label.base-forced-colors;
-    @include teaser.base-forced-colors;
   }
 
   // Train formation
