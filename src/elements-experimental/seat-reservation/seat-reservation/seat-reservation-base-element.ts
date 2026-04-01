@@ -1534,11 +1534,23 @@ export class SeatReservationBaseElement extends SbbElement {
             return 0;
           },
         );
-        // calculate best icon size by median
+        // calculate the best icon size by median
         const medianIconSize = allServiceDimensions[Math.floor(allServiceDimensions.length / 2)]!;
 
         // Set the determined median icon size as global calculated area icon dimension
         this.globalAreaIconDim = this.getCalculatedDimension(medianIconSize);
+      } else {
+        // find the maximum coach height from all decks
+        const maxCoachHeight = this.seatReservations
+          .flatMap((deck) => deck.coachItems.map((coach) => coach.dimension.h))
+          .reduce((max, height) => Math.max(max, height), 0);
+
+        //calculate 20% of maximum height as icon dimension
+        const iconDimension = Math.floor(maxCoachHeight * 0.2);
+        this.globalAreaIconDim = this.getCalculatedDimension({
+          w: iconDimension,
+          h: iconDimension,
+        });
       }
     }
   }

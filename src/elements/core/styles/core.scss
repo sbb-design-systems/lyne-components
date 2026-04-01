@@ -218,6 +218,12 @@ $theme: 'standard' !default;
 @use '../../status/status.global' as status with (
   $theme: $theme
 );
+@use '../../stepper/step-label/step-label.global' as step-label with (
+  $theme: $theme
+);
+@use '../../stepper/stepper/stepper.global' as stepper with (
+  $theme: $theme
+);
 @use '../../tabs/common/tab-group-common.global' as tab-group-common with (
   $theme: $theme
 );
@@ -300,6 +306,8 @@ $theme: 'standard' !default;
   @include signet.base;
   @include slider.base;
   @include status.base;
+  @include step-label.base;
+  @include stepper.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
   @include visual-checkbox.base;
@@ -319,6 +327,7 @@ $theme: 'standard' !default;
     @include radio-button-common.base-forced-colors;
     @include signet.base-forced-colors;
     @include slider.base-forced-colors;
+    @include step-label.base-forced-colors;
   }
 
   // Train formation

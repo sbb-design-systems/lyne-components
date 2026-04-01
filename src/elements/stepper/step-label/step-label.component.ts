@@ -159,10 +159,8 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-step-label">
-        <span class="sbb-step-label__prefix">${this.renderIconSlot()}</span>
-        <span class="sbb-step-label__text"><slot></slot></span>
-      </div>
+      <span class="sbb-step-label__prefix">${this.renderIconSlot()}</span>
+      <span class="sbb-step-label__text"><slot></slot></span>
     `;
   }
 }

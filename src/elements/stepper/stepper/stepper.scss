@@ -1,15 +1,10 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-stepper-orientation: row;
-  --sbb-stepper-border-width: var(--sbb-border-width-1x);
-  --sbb-stepper-marker-size: 0;
-  --sbb-stepper-marker-width: var(--sbb-border-width-3x);
   --sbb-stepper-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
-  --sbb-stepper-marker-color: var(--sbb-color-3);
 
   display: block;
   position: relative;
@@ -26,10 +21,6 @@
 
 :host([orientation='vertical']) {
   --sbb-stepper-orientation: column;
-}
-
-.sbb-stepper {
-  width: 100%;
 }
 
 .sbb-stepper__labels {
@@ -54,7 +45,7 @@
     &::before {
       inset-block-end: calc(var(--sbb-stepper-border-width) * -1);
       height: var(--sbb-stepper-marker-width);
-      width: var(--sbb-stepper-marker-size);
+      width: var(--sbb-stepper-marker-size, 0);
       transition: width var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
     }
   }
@@ -66,7 +57,7 @@
     &::before {
       inset-block-start: 0;
       width: var(--sbb-stepper-marker-width);
-      height: var(--sbb-stepper-marker-size);
+      height: var(--sbb-stepper-marker-size, 0);
       transition: height var(--sbb-stepper-animation-duration) var(--sbb-animation-easing);
     }
   }
