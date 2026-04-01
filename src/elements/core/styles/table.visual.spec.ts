@@ -179,9 +179,18 @@ describe(`table`, () => {
           <table class="sbb-table">
             <thead>
               <tr>
-                <th>Person <div class="sbb-table-header-subtitle">Subtitle</div></th>
-                <th>Most interest in< div class="sbb-table-header-subtitle">Subtitle</div></th>
-                <th>Age <div class="sbb-table-header-subtitle">Subtitle</div></th>
+                <th>
+                  Person
+                  <div class="sbb-table-header-subtitle">Subtitle</div>
+                </th>
+                <th>
+                  Most interest in
+                  <div class="sbb-table-header-subtitle">Subtitle</div>
+                </th>
+                <th>
+                  Age
+                  <div class="sbb-table-header-subtitle">Subtitle</div>
+                </th>
               </tr>
             </thead>
             ${body()}
