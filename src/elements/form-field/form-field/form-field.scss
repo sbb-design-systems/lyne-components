@@ -35,6 +35,7 @@
 
   display: inline-block;
   color: var(--sbb-form-field-color);
+  font-weight: normal;
 }
 
 :host(:where(:not([width='collapse']))) {
