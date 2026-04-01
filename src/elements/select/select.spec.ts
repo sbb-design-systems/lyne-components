@@ -975,6 +975,26 @@ describe(`sbb-select`, () => {
       expect(element.validity.valueMissing).to.be.true;
     });
 
+    it('should validate multiple values with required true', async () => {
+      element.multiple = true;
+      element.toggleAttribute('required', true);
+
+      await waitForLitRender(element);
+
+      element.value = [];
+      await waitForLitRender(element);
+
+      expect(element.validity.valueMissing).to.be.true;
+      expect(element.validity.valid).to.be.false;
+
+      element.value = ['1', '2'];
+      await waitForLitRender(element);
+
+      expect(element.validationMessage).to.equal('');
+      expect(element.validity.valueMissing).to.be.false;
+      expect(element.validity.valid).to.be.true;
+    });
+
     it('should update validity with required true with selection', async () => {
       expect(element.value).to.not.be.empty;
       element.toggleAttribute('required', true);

@@ -510,10 +510,16 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   protected override validate(): void {
     super.validate();
-    const value: T | null = !Array.isArray(this.value) ? this.value : null;
+
+    const value: T[] = Array.isArray(this.value)
+      ? this.value
+      : this.value === null
+        ? []
+        : [this.value];
+
     if (
       this.required &&
-      (this.options.every((o) => !this.compareWith(o.value, value)) ||
+      (this.options.every((o) => value.every((v) => !this.compareWith(v, o.value))) ||
         (!this._isValueManuallyAssigned && this.value == null))
     ) {
       this.setValidityFlag('valueMissing', i18nSelectionRequired[this._languageController.current]);
