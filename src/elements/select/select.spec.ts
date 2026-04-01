@@ -155,9 +155,9 @@ describe(`sbb-select`, () => {
 
     it('displays placeholder if no value is set and there is no selected element', async () => {
       expect(element.value).to.be.null;
-      const placeholder = element.shadowRoot!.querySelector('.sbb-select__trigger--placeholder');
-      expect(placeholder).not.to.be.null;
+      const placeholder = element.shadowRoot!.querySelector('.sbb-select__trigger');
       expect(placeholder).to.have.trimmed.text('Placeholder');
+      expect(element).not.to.match(':state(has-display-value)');
     });
 
     it("displays value if it's set, or placeholder if value doesn't match available options", async () => {
@@ -167,6 +167,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await waitForLitRender(element);
       expect(element.getDisplayValue()).to.be.equal('First');
+      expect(element).to.match(':state(has-display-value)');
       expect(firstOption).to.have.attribute('selected');
       expect(secondOption).not.to.have.attribute('selected');
       expect(thirdOption).not.to.have.attribute('selected');
@@ -175,6 +176,7 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       await waitForLitRender(element);
       expect(displayValue()).to.be.equal('Placeholder');
+      expect(element).not.to.match(':state(has-display-value)');
       expect(firstOption).not.to.have.attribute('selected');
       expect(secondOption).not.to.have.attribute('selected');
       expect(thirdOption).not.to.have.attribute('selected');
