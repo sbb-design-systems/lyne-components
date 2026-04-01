@@ -24,6 +24,7 @@ $theme: 'standard' !default;
   );
   --sbb-teaser-product-footer-font-size: var(--sbb-text-font-size-xxs);
   --sbb-teaser-product-footer-padding-block-start: var(--sbb-spacing-responsive-s);
+  --sbb-teaser-product-footer-padding-block-end: 0;
 
   // We have to remove the image bottom border-radius when stacked
   --sbb-teaser-product-image-border-radius: var(--sbb-teaser-product-border-radius)

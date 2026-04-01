@@ -113,7 +113,7 @@
 .sbb-teaser-product__footnote {
   grid-area: footnote;
   padding-block: var(--sbb-teaser-product-footer-padding-block-start)
-    var(--sbb-teaser-product-footer-padding-block-end, unset);
+    var(--sbb-teaser-product-footer-padding-block-end);
   color: var(--sbb-teaser-product-footer-color);
   font-size: var(--sbb-teaser-product-footer-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
