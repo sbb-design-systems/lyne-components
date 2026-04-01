@@ -337,6 +337,25 @@ describe('sbb-select', () => {
       }),
     );
 
+    it(
+      'inside bold context',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div style="font-weight: bold;">
+            <sbb-select placeholder="Select">
+              <sbb-option value="1">Option 1</sbb-option>
+              <sbb-option value="2">Option 2</sbb-option>
+            </sbb-select>
+          </div>`,
+        );
+        setup.withPostSetupAction(() => {
+          const element = setup.snapshotElement.querySelector('sbb-select')!;
+          element.focus();
+          element.open();
+        });
+      }),
+    );
+
     describeEach(
       {
         negative: [false, true],

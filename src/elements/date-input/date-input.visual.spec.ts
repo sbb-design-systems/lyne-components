@@ -98,5 +98,16 @@ describe('sbb-date-input', () => {
         }),
       );
     });
+
+    it(
+      'inside bold context',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div style="font-weight: bold;">
+            <sbb-date-input value="2024-12-11"></sbb-date-input>
+          </div>`,
+        );
+      }),
+    );
   });
 });

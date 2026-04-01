@@ -99,5 +99,16 @@ describe(`sbb-time-input`, () => {
         }),
       );
     }
+
+    it(
+      'inside bold context',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div style="font-weight: bold;">
+            <sbb-time-input value="12:00"></sbb-time-input>
+          </div>`,
+        );
+      }),
+    );
   });
 });
