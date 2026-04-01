@@ -5,9 +5,9 @@ import {
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
-} from '../../../elements/core/testing/private.ts';
+} from '../testing/private.ts';
 
-import style from './scrollbar-internal.scss?inline';
+import style from './scrollbar.private.scss?inline';
 
 describe(`scrollbar`, () => {
   let root: HTMLElement;

@@ -1,7 +1,7 @@
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { describeViewports, visualDiffDefault } from '../../../elements/core/testing/private.ts';
+import { describeViewports, visualDiffDefault } from '../testing/private.ts';
 
 describe(`list`, () => {
   const listContent = (): TemplateResult => html`

@@ -3,8 +3,8 @@ import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
-import '../../../elements/header.ts';
-import '../../../elements/icon.ts';
+import '../header.ts';
+import '../icon.ts';
 
 import readme from './readme.md?raw';
 
@@ -75,7 +75,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'styles/Badge',
+  title: 'elements/Badge',
 };
 
 export default meta;
