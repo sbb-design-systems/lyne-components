@@ -173,6 +173,24 @@ describe(`table`, () => {
     );
 
     it(
+      'with-subtitle',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <table class="sbb-table">
+            <thead>
+              <tr>
+                <th>Person <div class="sbb-table-header-subtitle">Subtitle</div></th>
+                <th>Most interest in< div class="sbb-table-header-subtitle">Subtitle</div></th>
+                <th>Age <div class="sbb-table-header-subtitle">Subtitle</div></th>
+              </tr>
+            </thead>
+            ${body()}
+          </table>
+        `);
+      }),
+    );
+
+    it(
       'sbb-table-group-with-next',
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
