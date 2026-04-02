@@ -147,12 +147,10 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-tag-group">
-        ${this.renderList({
-          class: 'sbb-tag-group__list',
-          ariaLabel: this.listAccessibilityLabel,
-        })}
-      </div>
+      ${this.renderList({
+        class: 'sbb-tag-group__list',
+        ariaLabel: this.listAccessibilityLabel,
+      })}
     `;
   }
 }

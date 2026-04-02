@@ -1,0 +1,30 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-tag-animation-easing: var(--sbb-animation-easing);
+  --sbb-tag-background-color: var(--sbb-background-color-1);
+  --sbb-tag-border-color: var(--sbb-border-color-4-inverted);
+  --sbb-tag-border-style: solid;
+  --sbb-tag-border-width: var(--sbb-border-width-1x);
+  --sbb-tag-border-radius: var(--sbb-border-radius-infinity);
+  --sbb-tag-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-tag-text-color: var(--sbb-color-2);
+  --sbb-tag-amount-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+  --sbb-tag-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-size-element-xs),
+        'lean': var(--sbb-size-element-xxxs),
+      ),
+      $theme
+    )};
+}
+
+@mixin base-forced-colors {
+  --sbb-tag-amount-color: ButtonText;
+  --sbb-tag-background-color: Canvas !important;
+  --sbb-tag-text-color: ButtonText;
+  --sbb-tag-border-color: CanvasText;
+  --sbb-tag-border-width: var(--sbb-border-width-2x);
+}
