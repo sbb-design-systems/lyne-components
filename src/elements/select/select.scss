@@ -81,18 +81,18 @@
 
   cursor: var(--sbb-cursor-default);
   height: calc(1em * var(--sbb-typo-line-height-text));
-}
 
-.sbb-select__trigger--placeholder {
-  color: var(--sbb-select-placeholder-color, var(--sbb-select-placeholder-fallback-color));
+  :host(:not(:state(has-display-value))) & {
+    color: var(--sbb-select-placeholder-color, var(--sbb-select-placeholder-fallback-color));
 
-  // Note: when the sbb-select is used within a sbb-form-field, some style are applied from it
-  // (see selector `.sbb-form-field__input ::slotted(:where(input, select, sbb-select))` in the sbb-form-field.scss);
-  // so, next line is mandatory because we need to override the rule from the parent.
-  -webkit-text-fill-color: var(
-    --sbb-select-placeholder-color,
-    var(--sbb-select-placeholder-fallback-color)
-  );
+    // Note: when the sbb-select is used within a sbb-form-field, some style are applied from it
+    // (see selector `.sbb-form-field__input ::slotted(:where(input, select, sbb-select))` in the sbb-form-field.scss);
+    // so, next line is mandatory because we need to override the rule from the parent.
+    -webkit-text-fill-color: var(
+      --sbb-select-placeholder-color,
+      var(--sbb-select-placeholder-fallback-color)
+    );
+  }
 }
 
 .sbb-select__container {
