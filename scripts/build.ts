@@ -376,14 +376,11 @@ function dts(): Plugin {
       }
     },
     beforeWriteFile: (filePath, content) => {
-      if (content.includes('.scss?lit&inline') || content.includes('.scss?inline&lit')) {
+      if (content.includes('.scss?inline')) {
         return {
           filePath,
           // Remove lines with scss modules
-          content: content.replace(
-            /export \{[^}]+\}\s+from\s+'[^']+\.scss\?(lit&inline|inline&lit)';\n?/gm,
-            '',
-          ),
+          content: content.replace(/export \{[^}]+\}\s+from\s+'[^']+\.scss\?inline';\n?/gm, ''),
         };
       }
     },
@@ -743,7 +740,7 @@ function renderTemplate(
       : `@sbb-esta/lyne-react/core.js`;
   const moduleParts = module.path.split('/');
   const moduleName = moduleParts[0];
-  const importPath = `${['button', 'link'].includes(moduleName) ? `${moduleName}/${moduleParts[1]}` : moduleName}.js`;
+  const importPath = `${moduleName}.pure.js`;
   const componentsImports = new Map<string, string[]>().set(importPath, [declaration.name]);
 
   if (declaration.events?.some((e) => !e.type)) {

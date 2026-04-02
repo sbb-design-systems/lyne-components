@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import { SbbLinkBaseElement } from '../../core/base-elements.ts';
@@ -8,7 +8,7 @@ import {
   teaserProductCommonStyle,
 } from '../common/teaser-product-common.ts';
 
-import style from './teaser-product.scss?lit&inline';
+import style from './teaser-product.scss?inline';
 
 import '../../screen-reader-only.ts';
 
@@ -28,7 +28,7 @@ export class SbbTeaserProductElement extends SbbTeaserProductCommonElementMixin(
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     teaserProductCommonStyle,
-    style,
+    unsafeCSS(style),
   ];
 
   protected override render(): TemplateResult {

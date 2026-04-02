@@ -26,10 +26,12 @@ const formField = (
     'hidden-label': hiddenLabel,
     'floating-label': floatingLabel,
     slottedLabel,
+    hostClass,
   }: Args,
   template: TemplateResult,
 ): TemplateResult =>
   html`<sbb-form-field
+    class=${hostClass || nothing}
     error-space=${errorSpace}
     ?optional=${optional}
     size=${size}
@@ -72,6 +74,7 @@ const TemplateBasicInput = ({
   disabled,
   readonly,
   value,
+  maxlength,
 }: Args): TemplateResult => html`
   <input
     class=${cssClass}
@@ -79,6 +82,7 @@ const TemplateBasicInput = ({
     ?disabled=${disabled}
     ?readonly=${readonly}
     value=${value}
+    maxlength=${maxlength || nothing}
   />
 `;
 
@@ -96,6 +100,7 @@ const TemplateBasicTextarea = ({
   disabled,
   readonly,
   value,
+  maxlength,
 }: Args): TemplateResult =>
   html` <textarea
     class=${cssClass}
@@ -103,6 +108,7 @@ const TemplateBasicTextarea = ({
     ?disabled=${disabled}
     ?readonly=${readonly}
     .value=${value || nothing}
+    maxlength=${maxlength || nothing}
   ></textarea>`;
 
 const TemplateInput = (args: Args): TemplateResult => formField(args, TemplateBasicInput(args));
@@ -132,6 +138,7 @@ const TemplateInputWithErrorSpace = (args: Args): TemplateResult => {
               placeholder=${args.placeholder}
               ?disabled=${args.disabled}
               ?readonly=${args.readonly}
+              maxlength=${args.maxlength || nothing}
             />
             ${error}`,
         )}
@@ -152,6 +159,25 @@ const TemplateInputWithIcons = (args: Args): TemplateResult =>
 
 const TemplateInputWithClearButton = (args: Args): TemplateResult =>
   formField(args, html`${TemplateBasicInput(args)} <sbb-form-field-clear></sbb-form-field-clear>`);
+
+const TemplateInputWithTextCounter = (args: Args): TemplateResult =>
+  formField(
+    args,
+    html`${TemplateBasicInput(args)} <sbb-form-field-text-counter></sbb-form-field-text-counter>`,
+  );
+
+const TemplateInputWithHint = (args: Args): TemplateResult =>
+  formField(args, html`${TemplateBasicInput(args)} <sbb-hint>${args.hintText}</sbb-hint>`);
+
+const TemplateTextareaWithHint = (args: Args): TemplateResult =>
+  formField(args, html`${TemplateBasicTextarea(args)} <sbb-hint>${args.hintText}</sbb-hint>`);
+
+const TemplateTextareaWithTextCounter = (args: Args): TemplateResult =>
+  formField(
+    args,
+    html`${TemplateBasicTextarea(args)}
+      <sbb-form-field-text-counter></sbb-form-field-text-counter>`,
+  );
 
 const TemplateSelect = (args: Args): TemplateResult => formField(args, TemplateBasicSelect(args));
 
@@ -253,12 +279,30 @@ const value: InputType = {
   },
 };
 
+const maxlength: InputType = {
+  control: {
+    type: 'number',
+  },
+  table: {
+    category: 'Input attribute',
+  },
+};
+
 const errorText: InputType = {
   control: {
     type: 'text',
   },
   table: {
     category: 'Error slot',
+  },
+};
+
+const hintText: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Hint slot',
   },
 };
 
@@ -360,6 +404,7 @@ const basicArgTypes: ArgTypes = {
   disabled,
   readonly,
   value,
+  maxlength,
   errorText,
   width,
 };
@@ -376,6 +421,7 @@ const basicArgs: Args = {
   cssClass: '',
   placeholder: 'Input placeholder',
   value: 'Input value',
+  maxlength: undefined,
   disabled: false,
   readonly: false,
   errorText: 'This is a required field.',
@@ -448,6 +494,18 @@ export const InputWithClearButton: StoryObj = {
   render: TemplateInputWithClearButton,
   argTypes: basicArgTypes,
   args: { ...basicArgs },
+};
+
+export const InputWithTextCounter: StoryObj = {
+  render: TemplateInputWithTextCounter,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, maxlength: 25 },
+};
+
+export const InputWithHint: StoryObj = {
+  render: TemplateInputWithHint,
+  argTypes: { ...basicArgTypes, hintText },
+  args: { ...basicArgs, hintText: 'This is a hint.' },
 };
 
 export const InputFloatingLabel: StoryObj = {
@@ -542,6 +600,18 @@ export const TextareaNegative: StoryObj = {
   args: { ...basicArgs, negative: true },
 };
 
+export const TextareaWithTextCounter: StoryObj = {
+  render: TemplateTextareaWithTextCounter,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, maxlength: 200 },
+};
+
+export const TextareaWithHint: StoryObj = {
+  render: TemplateTextareaWithHint,
+  argTypes: { ...basicArgTypes, hintText },
+  args: { ...basicArgs, hintText: 'This is a hint.' },
+};
+
 export const ErrorReservedSpace: StoryObj = {
   render: TemplateInputWithErrorSpace,
   argTypes: basicArgTypes,
@@ -552,6 +622,12 @@ export const ErrorReservedSpace: StoryObj = {
     label: 'This label name is so long that it needs ellipsis to fit.',
     value: 'This input value is so long that it needs ellipsis to fit.',
   },
+};
+
+export const RequiredHighlight: StoryObj = {
+  render: TemplateInput,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, hostClass: 'sbb-form-field-required-highlight', value: undefined },
 };
 
 // sbb-error

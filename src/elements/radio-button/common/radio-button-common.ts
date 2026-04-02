@@ -1,4 +1,4 @@
-import type { PropertyValues } from 'lit';
+import { unsafeCSS, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -9,7 +9,9 @@ import {
 } from '../../core/mixins.ts';
 import type { SbbRadioButtonGroupElement } from '../../radio-button-group.ts';
 
-export { default as radioButtonCommonStyle } from './radio-button-common.scss?lit&inline';
+import radioButtonCommonStyleString from './radio-button-common.scss?inline';
+
+export const radioButtonCommonStyle = unsafeCSS(radioButtonCommonStyleString);
 
 export type SbbRadioButtonSize = 'xs' | 's' | 'm';
 

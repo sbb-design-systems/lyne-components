@@ -116,6 +116,35 @@ which can clear the input value.
 
 **Note:** it currently works with simple inputs and does not support, for example, `select` inputs.
 
+### Hint
+
+The `<sbb-hint>` component can be used to display a hint message below the form field.
+When an `<sbb-error>` is present, the hint is automatically hidden and no longer linked to the input.
+
+```html
+<sbb-form-field>
+  <label>Description</label>
+  <input placeholder="Enter text" />
+  <sbb-hint>This is a hint.</sbb-hint>
+</sbb-form-field>
+```
+
+### Text Counter
+
+The `sbb-form-field-text-counter` is a specific `<sbb-hint>` that displays the remaining characters count
+for `<input>` or `<textarea>` elements with a `maxlength` attribute within an `sbb-form-field`.
+
+If the input/textarea is `disabled`, `readonly` or there is an `<sbb-error>` present,
+the `sbb-form-field-text-counter` is hidden.
+
+```html
+<sbb-form-field>
+  <label>Description</label>
+  <textarea maxlength="200"></textarea>
+  <sbb-form-field-text-counter></sbb-form-field-text-counter>
+</sbb-form-field>
+```
+
 ## Style
 
 The component has a `size` property, which accepts three different values: `s`, `m` (default) and `l`.
@@ -170,6 +199,46 @@ to the input element.
 
 If you want to directly show the error state without having had an interaction, you can use the
 `sbb-show-errors` class on an ancestor (e.g. `<form>`).
+
+### Visualization of `required` / optional state
+
+Generally, as an SBB standard, all form elements are considered required and optional inputs are marked with `(optional)` in the label.
+
+| English  | German   | French     | Italian     |
+| -------- | -------- | ---------- | ----------- |
+| optional | optional | facultatif | facoltativo |
+
+```html
+<sbb-form-field>
+  <label>Label (optional)</label>
+  <input />
+</sbb-form-field>
+```
+
+However, some applications need a stronger visual representation of the `required` state.
+
+In such cases it's possible to add the `sbb-form-field-required-highlight` CSS class to the `<sbb-form-field>` element.
+This changes the background color to a subtle peach tint, giving users a clear visual cue.
+It only has an effect as long as the input is empty and neither `readonly` nor `disabled`.
+
+```html
+<sbb-form-field class="sbb-form-field-required-highlight">
+  <label>Required Field</label>
+  <input required />
+</sbb-form-field>
+```
+
+It's also possible to opt in globally by setting the CSS class `sbb-form-field-required-highlight` on the `<html>` element.
+The styling is then applied to all `<sbb-form-field>` elements that contain an input with a `required` attribute.
+
+```html
+<html class="sbb-form-field-required-highlight">
+  ...
+</html>
+```
+
+Please note that with forced colors and `sbb-form-field-required-highlight` CSS class,
+there is an Asterix (\*) added to the label of required fields.
 
 ## Custom form control
 
@@ -248,6 +317,11 @@ If you like to visually hide a label, but still present it with screen readers, 
 When you provide informational text via `<sbb-error>`, it automatically adds these elements' IDs
 to the form element's `ariaErrorMessageElements` property (or `aria-errormessage` attribute as fallback).
 
+When you provide a hint via `<sbb-hint>`, it automatically links the hint element to the form element
+via `ariaDescribedByElements`. When an `<sbb-error>` is present, the hint is unlinked and hidden,
+as the error takes precedence. The `<sbb-form-field-text-counter>` is intentionally not linked
+via `ariaDescribedByElements` as its content is purely visual.
+
 <!-- Auto Generated Below -->
 
 ## API Documentation
@@ -297,13 +371,13 @@ to the form element's `ariaErrorMessageElements` property (or `aria-errormessage
 | Name            | Attribute        | Privacy | Type                                                           | Default            | Description                                                                                                                                                           |
 | --------------- | ---------------- | ------- | -------------------------------------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `borderless`    | `borderless`     | public  | `boolean`                                                      | `false`            | Whether to display the form field without a border.                                                                                                                   |
-| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                          | `'none'`           | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.                                |
+| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                          | `'none'`           | Whether to reserve space for an error message, hint or text-counter. `none` does not reserve any space. `reserve` does reserve one row for an error message.          |
 | `floatingLabel` | `floating-label` | public  | `boolean`                                                      | `false`            | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 |
 | `hiddenLabel`   | `hidden-label`   | public  | `boolean`                                                      | `false`            | Whether to visually hide the label. If hidden, screen readers will still read it.                                                                                     |
 | `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| null` |                    | Returns the input element.                                                                                                                                            |
 | `label`         | -                | public  | `HTMLLabelElement \| null`                                     |                    | Reference to the slotted label.                                                                                                                                       |
 | `negative`      | `negative`       | public  | `boolean`                                                      | `false`            | Negative coloring variant flag.                                                                                                                                       |
-| `optional`      | `optional`       | public  | `boolean`                                                      | `false`            | Indicates whether the input is optional.                                                                                                                              |
+| `optional`      | `optional`       | public  | `boolean`                                                      | `false`            | Indicates whether the input is optional.<br><strong>Deprecated</strong>: Set the (optional) label text manually. Will be removed with next major version.             |
 | `size`          | `size`           | public  | `'l' \| 'm' \| 's'`                                            | `'m' / 's' (lean)` | Size variant, either l, m or s.                                                                                                                                       |
 | `width`         | `width`          | public  | `'default' \| 'collapse'`                                      | `'default'`        | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. |
 
@@ -323,10 +397,39 @@ to the form element's `ariaErrorMessageElements` property (or `aria-errormessage
 
 #### Slots
 
-| Name     | Description                                                                |
-| -------- | -------------------------------------------------------------------------- |
-|          | Use this slot to render an input/select or a supported non-native element. |
-| `error`  | Use this slot to render an error.                                          |
-| `label`  | Use this slot to render a label.                                           |
-| `prefix` | Use this slot to render an icon on the left side of the input.             |
-| `suffix` | Use this slot to render an icon on the right side of the input.            |
+| Name     | Description                                                                            |
+| -------- | -------------------------------------------------------------------------------------- |
+|          | Use this slot to render an input/select or a supported non-native element.             |
+| `error`  | Use this slot to render an error.                                                      |
+| `hint`   | Use this slot to render an `<sbb-hint>` or an `<sbb-form-field-text-counter>` element. |
+| `label`  | Use this slot to render a label.                                                       |
+| `prefix` | Use this slot to render an icon on the left side of the input.                         |
+| `suffix` | Use this slot to render an icon on the right side of the input.                        |
+
+### class: `SbbFormFieldTextCounterElement`, `sbb-form-field-text-counter`
+
+#### Properties
+
+| Name       | Attribute  | Privacy | Type      | Default | Description                     |
+| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
+| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
+
+#### Slots
+
+| Name | Description                                                                  |
+| ---- | ---------------------------------------------------------------------------- |
+|      | Use the unnamed slot to display a custom description text after the counter. |
+
+### class: `SbbHintElement`, `sbb-hint`
+
+#### Properties
+
+| Name       | Attribute  | Privacy | Type      | Default | Description                     |
+| ---------- | ---------- | ------- | --------- | ------- | ------------------------------- |
+| `negative` | `negative` | public  | `boolean` | `false` | Negative coloring variant flag. |
+
+#### Slots
+
+| Name | Description                                       |
+| ---- | ------------------------------------------------- |
+|      | Use the unnamed slot to display the hint message. |

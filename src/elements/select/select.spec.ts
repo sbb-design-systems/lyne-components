@@ -975,6 +975,26 @@ describe(`sbb-select`, () => {
       expect(element.validity.valueMissing).to.be.true;
     });
 
+    it('should validate multiple values with required true', async () => {
+      element.multiple = true;
+      element.toggleAttribute('required', true);
+
+      await waitForLitRender(element);
+
+      element.value = [];
+      await waitForLitRender(element);
+
+      expect(element.validity.valueMissing).to.be.true;
+      expect(element.validity.valid).to.be.false;
+
+      element.value = ['1', '2'];
+      await waitForLitRender(element);
+
+      expect(element.validationMessage).to.equal('');
+      expect(element.validity.valueMissing).to.be.false;
+      expect(element.validity.valid).to.be.true;
+    });
+
     it('should update validity with required true with selection', async () => {
       expect(element.value).to.not.be.empty;
       element.toggleAttribute('required', true);
@@ -1513,58 +1533,6 @@ describe(`sbb-select`, () => {
       expect(firstOption).to.have.attribute('selected');
       expect(element.getDisplayValue()).to.be.equal('First');
     });
-
-    it('should serialize and deserialize complex value', async () => {
-      element.value = value1;
-      await waitForLitRender(element);
-
-      expect(element.value).to.be.equal(value1);
-
-      const formState = element['formState']();
-      element.value = value2;
-
-      // Simulate navigating to other page and then back to form
-      element.formStateRestoreCallback(formState, 'restore');
-
-      // Wait for the formStateRestoreCallback to finish
-      await aTimeout(30);
-      await waitForLitRender(element);
-
-      // Object equality is currently lost, but deep equality is preserved
-      expect(element.value).not.to.be.deep.equal(value1); // TODO: With a comparison function, this should be equal
-      expect(element.value).not.to.be.equal(value1); // TODO: With a comparison function, this should be equal
-      expect(element.getDisplayValue()).to.be.equal('Second'); // TODO: With a comparison function, this should be 'First'
-      expect(firstOption.selected).to.be.false; // TODO: With a comparison function, this should be true
-    });
-
-    it('should serialize and deserialize complex value with multiple', async () => {
-      element.multiple = true;
-      await waitForLitRender(element);
-
-      element.value = [value1, value2];
-      await waitForLitRender(element);
-
-      const formState = element['formState']();
-
-      expect(element.value[0]).to.be.equal(value1);
-      expect(element.value[1]).to.be.equal(value2);
-
-      element.value = [];
-
-      // Simulate navigating to other page and then back to form
-      element.formStateRestoreCallback(formState, 'restore');
-
-      // Wait for the formStateRestoreCallback to finish
-      await aTimeout(30);
-      await waitForLitRender(element);
-
-      // Object equality is currently lost, but deep equality is preserved
-      expect(element.value).to.be.deep.equal([]); // TODO: With a comparison function, this should be equal the deserialized value
-      expect(element.value[0]).not.to.be.equal(value1); // TODO: With a comparison function, this should be equal
-      expect(element.value[1]).not.to.be.equal(value2); // TODO: With a comparison function, this should be equal
-      expect(element.getDisplayValue()).to.be.equal(''); // TODO: With a comparison function, this should be 'First, Second'
-      expect(firstOption.selected).to.be.false; // TODO: With a comparison function, this should be true
-    });
   });
 
   describe('with optgroup', () => {
@@ -1672,5 +1640,146 @@ describe(`sbb-select`, () => {
     expect(document.activeElement).to.be.equal(
       formField.parentElement!.querySelector<HTMLInputElement>('input#after-select'),
     );
+  });
+
+  describe('with comparison function and complex value', () => {
+    interface PropertyType {
+      property?: string;
+      otherProperty: string;
+    }
+    let element: SbbSelectElement<PropertyType>, firstOption: SbbOptionElement<PropertyType>;
+
+    const value1 = { property: 'Option 1', otherProperty: 'test 1' };
+    const value2 = { property: 'Option 2', otherProperty: 'test 2' };
+
+    beforeEach(async () => {
+      const root = await fixture(
+        html`<form>
+          <sbb-form-field>
+            <label>Testlabel</label>
+            <sbb-select
+              .compareWith=${(v1: any, v2: any) => v1.otherProperty === v2.otherProperty}
+              placeholder="Placeholder"
+              name="select1"
+            >
+              <sbb-option id="option-1" .value=${value1}>First</sbb-option>
+              <sbb-option id="option-2" .value=${value2}>Second</sbb-option>
+              <sbb-option id="option-3" .value=${{ property: 'Option 3', otherProperty: 'test 3' }}>
+                Third
+              </sbb-option>
+            </sbb-select>
+          </sbb-form-field>
+        </form> `,
+      );
+      element = root.querySelector<SbbSelectElement<PropertyType>>('sbb-select')!;
+
+      firstOption = element.querySelector<SbbOptionElement<PropertyType>>('#option-1')!;
+    });
+
+    it('should assign complex value on option click', async () => {
+      expect(element.getDisplayValue()).to.be.equal('');
+
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+      element.click();
+      await openSpy.calledOnce();
+
+      firstOption.click();
+      await closeSpy.calledOnce();
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.deep.equal(value1);
+      expect(element.getDisplayValue()).to.be.equal('First');
+    });
+
+    it('should assign multiple complex value on option click', async () => {
+      element.multiple = true;
+      await waitForLitRender(element);
+
+      expect(element.getDisplayValue()).to.be.equal('');
+
+      const secondOption = element.querySelector<SbbOptionElement<PropertyType>>('#option-2')!;
+
+      const openSpy = new EventSpy(SbbSelectElement.events.open, element);
+      const closeSpy = new EventSpy(SbbSelectElement.events.close, element);
+
+      element.click();
+      await openSpy.calledOnce();
+
+      firstOption.click();
+      secondOption.click();
+
+      element.click();
+      await closeSpy.calledOnce();
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.deep.equal([value1, value2]);
+      expect(element.getDisplayValue()).to.be.equal('First, Second');
+    });
+
+    it('should handle complex value assignment', async () => {
+      expect(element.getDisplayValue()).to.be.equal('');
+
+      element.value = { otherProperty: 'test 1' };
+      await waitForLitRender(element);
+
+      expect(firstOption).to.have.attribute('selected');
+      expect(element.getDisplayValue()).to.be.equal('First');
+    });
+
+    it('should serialize and deserialize complex value', async () => {
+      element.value = value1;
+      await waitForLitRender(element);
+
+      expect(element.value).to.be.equal(value1);
+
+      const formState = element['formState']();
+      element.value = value2;
+
+      // Simulate navigating to other page and then back to form
+      element.formStateRestoreCallback(formState, 'restore');
+
+      // Wait for the formStateRestoreCallback to finish
+      await aTimeout(30);
+      await waitForLitRender(element);
+
+      // Object equality is currently lost, but deep equality is preserved
+      expect(element.value).to.be.deep.equal(value1);
+      expect(element.compareWith(element.value, value1)).to.be.true;
+      expect(element.getDisplayValue()).to.be.equal('First');
+      expect(firstOption.selected).to.be.true;
+    });
+
+    it('should serialize and deserialize complex value with multiple', async () => {
+      const secondOption = element.querySelector<SbbOptionElement<PropertyType>>('#option-2')!;
+      element.multiple = true;
+      await waitForLitRender(element);
+
+      element.value = [value1, value2];
+      await waitForLitRender(element);
+
+      const formState = element['formState']();
+
+      expect(element.compareWith(element.value[0], { ...value1 })).to.be.true;
+      expect(element.compareWith(element.value[1], { ...value2 })).to.be.true;
+
+      element.value = [];
+
+      // Simulate navigating to other page and then back to form
+      element.formStateRestoreCallback(formState, 'restore');
+
+      // Wait for the formStateRestoreCallback to finish
+      await aTimeout(30);
+      await waitForLitRender(element);
+
+      // Object equality is currently lost, but deep equality is preserved
+      expect(element.value).to.be.deep.equal([value1, value2]);
+      expect(element.compareWith(element.value[0], value1)).to.be.true;
+      expect(element.compareWith(element.value[1], value2)).to.be.true;
+      expect(element.getDisplayValue()).to.be.equal('First, Second');
+      expect(firstOption.selected).to.be.true;
+      expect(secondOption.selected).to.be.true;
+    });
   });
 });

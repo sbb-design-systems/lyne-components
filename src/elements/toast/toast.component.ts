@@ -1,5 +1,11 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import {
+  html,
+  nothing,
+  unsafeCSS,
+  type CSSResultGroup,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
@@ -17,7 +23,7 @@ import { boxSizingStyles } from '../core/styles.ts';
 import { SbbIconNameMixin } from '../icon.ts';
 import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.ts';
 
-import style from './toast.scss?lit&inline';
+import style from './toast.scss?inline';
 
 import '../divider.ts';
 
@@ -43,7 +49,7 @@ const toastRefs = new Set<SbbToastElement>();
  */
 export class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
   public static override readonly elementName: string = 'sbb-toast';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.

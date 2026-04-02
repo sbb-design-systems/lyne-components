@@ -1,5 +1,11 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import {
+  html,
+  nothing,
+  unsafeCSS,
+  type CSSResultGroup,
+  type PropertyValues,
+  type TemplateResult,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
@@ -14,7 +20,7 @@ import {
 } from '../core/mixins.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 
-import style from './slider.scss?lit&inline';
+import style from './slider.scss?inline';
 
 import '../icon.ts';
 
@@ -34,7 +40,7 @@ class SbbSliderElement extends SbbDisabledMixin(
 ) {
   public static override readonly elementName: string = 'sbb-slider';
   public static override readonly role = 'slider';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     didChange: 'didChange',
   } as const;

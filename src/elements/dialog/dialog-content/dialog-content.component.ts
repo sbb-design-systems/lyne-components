@@ -1,9 +1,8 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 
 import { SbbElement } from '../../core/base-elements.ts';
 
-import style from './dialog-content.scss?lit&inline';
+import style from './dialog-content.scss?inline';
 
 /**
  * Use this component to provide a content for an `sbb-dialog`.
@@ -12,7 +11,7 @@ import style from './dialog-content.scss?lit&inline';
  */
 export class SbbDialogContentElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-dialog-content';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = unsafeCSS(style);
 
   public override connectedCallback(): void {
     super.connectedCallback();

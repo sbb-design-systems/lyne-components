@@ -1,11 +1,11 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import { SbbLinkBaseElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbIconNameMixin } from '../../icon.ts';
 
-import style from './breadcrumb.scss?lit&inline';
+import style from './breadcrumb.scss?inline';
 
 /**
  * It displays a link to a page; used within a `sbb-breadcrumb-group` it can display the path to the current page.
@@ -15,7 +15,7 @@ import style from './breadcrumb.scss?lit&inline';
  */
 export class SbbBreadcrumbElement extends SbbIconNameMixin(SbbLinkBaseElement) {
   public static override readonly elementName: string = 'sbb-breadcrumb';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   protected override renderTemplate(): TemplateResult {
     return html`

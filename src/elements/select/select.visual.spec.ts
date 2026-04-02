@@ -1,6 +1,11 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
+import {
+  describeEach,
+  describeViewports,
+  visualDiffDefault,
+  visualDiffFocus,
+} from '../core/testing/private.ts';
 
 import '../form-field.ts';
 import '../option.ts';
@@ -21,6 +26,7 @@ describe('sbb-select', () => {
     disabled: false,
     required: false,
     readonly: false,
+    hostClass: '',
   };
 
   const createOptions = (
@@ -59,13 +65,19 @@ describe('sbb-select', () => {
     withOptionGroup,
     disableGroup,
     withEllipsis,
+    hostClass,
     ...args
   }: typeof defaultArgs): TemplateResult => {
     if (args.multiple && args.value) {
       args.value = [args.value as string];
     }
     return html`
-      <sbb-form-field ?borderless=${borderless} ?negative=${negative} size=${size}>
+      <sbb-form-field
+        class=${hostClass || nothing}
+        ?borderless=${borderless}
+        ?negative=${negative}
+        size=${size}
+      >
         <label>Select</label>
         <sbb-select
           value=${args.value || nothing}
@@ -323,6 +335,62 @@ describe('sbb-select', () => {
           element.open();
         });
       }),
+    );
+
+    it(
+      'inside bold context',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div style="font-weight: bold;">
+            <sbb-select placeholder="Select">
+              <sbb-option value="1">Option 1</sbb-option>
+              <sbb-option value="2">Option 2</sbb-option>
+            </sbb-select>
+          </div>`,
+        );
+        setup.withPostSetupAction(() => {
+          const element = setup.snapshotElement.querySelector('sbb-select')!;
+          element.focus();
+          element.open();
+        });
+      }),
+    );
+
+    describeEach(
+      {
+        negative: [false, true],
+        state: [
+          { disabled: false, readonly: false },
+          { disabled: true, readonly: false },
+          { disabled: false, readonly: true },
+        ],
+        emulateMedia: [
+          { forcedColors: false, darkMode: false },
+          { forcedColors: true, darkMode: false },
+          { forcedColors: false, darkMode: true },
+        ],
+      },
+      ({ negative, state, emulateMedia: { darkMode, forcedColors } }) => {
+        it(
+          'sbb-form-field-required-highlight',
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              template({
+                ...defaultArgs,
+                negative,
+                disabled: state.disabled,
+                readonly: state.readonly,
+                hostClass: 'sbb-form-field-required-highlight',
+              }),
+              {
+                backgroundColor: negative ? 'var(--sbb-background-color-2-negative)' : undefined,
+                forcedColors,
+                darkMode,
+              },
+            );
+          }),
+        );
+      },
     );
   });
 });

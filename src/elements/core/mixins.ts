@@ -15,5 +15,3 @@ export * from './mixins/required-mixin.ts';
 export * from './mixins/readonly-mixin.ts';
 export * from './mixins/selection-panel-mixin.ts';
 export * from './mixins/update-scheduler-mixin.ts';
-
-export { default as panelCommonStyle } from './mixins/panel-common.scss?lit&inline';

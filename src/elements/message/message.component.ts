@@ -1,11 +1,10 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 
 import { SbbElement } from '../core/base-elements.ts';
 import { boxSizingStyles } from '../core/styles.ts';
 import type { SbbTitleElement } from '../title.ts';
 
-import style from './message.scss?lit&inline';
+import style from './message.scss?inline';
 
 /**
  * It displays a complex message combining a title, an image, an action and some content.
@@ -18,7 +17,7 @@ import style from './message.scss?lit&inline';
  */
 export class SbbMessageElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-message';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   private _configureTitle(event: Event): void {
     const title = (event.target as HTMLSlotElement)

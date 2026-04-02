@@ -1,4 +1,11 @@
-import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
@@ -12,7 +19,7 @@ import {
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbTagElement, SbbTagSize } from '../tag/tag.component.ts';
 
-import style from './tag-group.scss?lit&inline';
+import style from './tag-group.scss?inline';
 
 /**
  * It can be used as a container for one or more `sbb-tag`.
@@ -24,7 +31,7 @@ export class SbbTagGroupElement<T = string> extends SbbDisabledMixin(
   SbbNamedSlotListMixin<SbbTagElement, typeof SbbElement>(SbbElement),
 ) {
   public static override readonly elementName: string = 'sbb-tag-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   // DIV is added here due to special requirements from sbb.ch.
   protected override readonly listChildLocalNames = ['sbb-tag', 'div'];
 

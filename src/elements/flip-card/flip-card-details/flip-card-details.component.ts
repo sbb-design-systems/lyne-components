@@ -1,12 +1,11 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 
 import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 
-import style from './flip-card-details.scss?lit&inline';
+import style from './flip-card-details.scss?inline';
 
 /**
  * Combined with a `sbb-flip-card`, it displays its content when the card is flipped.
@@ -15,7 +14,7 @@ import style from './flip-card-details.scss?lit&inline';
  */
 export class SbbFlipCardDetailsElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-flip-card-details';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   public constructor() {
     super();
