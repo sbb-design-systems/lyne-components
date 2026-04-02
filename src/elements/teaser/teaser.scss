@@ -1,18 +1,17 @@
 @use '../core/styles' as sbb;
 
 :host {
+  --_sbb-teaser-forced-colors-inset: calc(-1 * var(--sbb-focus-outline-offset));
+  --_sbb-teaser-forced-colors-outline-offset: calc(2 * var(--sbb-focus-outline-offset));
+  --_sbb-teaser-forced-colors-border-radius: calc(
+    var(--sbb-teaser-border-radius) + var(--sbb-focus-outline-offset)
+  );
+
   display: inline-block;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
-
-  --sbb-teaser-scale-hover: 1.02;
-  --sbb-teaser-description-color: light-dark(var(--sbb-color-granite), var(--sbb-color-silver));
-  --sbb-teaser-flex-direction: row;
-  --sbb-teaser-align-items: center;
-  --sbb-teaser-gap: var(--sbb-spacing-fixed-4x);
-  --sbb-teaser-border-radius: var(--sbb-border-radius-4x);
 
   @include sbb.if-forced-colors {
     --sbb-teaser-description-color: LinkText;
@@ -56,7 +55,7 @@
 
     // We move the focus outline further out to not overlap with the teaser border in forced colors
     @include sbb.if-forced-colors {
-      outline-offset: calc(2 * var(--sbb-focus-outline-offset));
+      outline-offset: var(--_sbb-teaser-forced-colors-outline-offset);
     }
   }
 
@@ -64,9 +63,9 @@
     &::before {
       content: '';
       position: absolute;
-      inset: calc(-1 * var(--sbb-focus-outline-offset));
+      inset: var(--_sbb-teaser-forced-colors-inset);
       pointer-events: none;
-      border-radius: calc(var(--sbb-teaser-border-radius) + var(--sbb-focus-outline-offset));
+      border-radius: var(--_sbb-teaser-forced-colors-border-radius);
       border: var(--sbb-border-width-1x) solid CanvasText;
     }
   }
@@ -83,16 +82,16 @@
 }
 
 .sbb-teaser__text {
-  @include sbb.text-s--regular;
-
   color: var(--sbb-teaser-description-color);
+  font-size: var(--sbb-teaser-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   overflow: hidden;
   max-width: 100%;
 }
 
 ::slotted([slot='image']) {
-  width: #{sbb.px-to-rem-build(300)};
   display: block;
+  width: var(--sbb-teaser-image-width);
 }
 
 .sbb-teaser__image-wrapper {
