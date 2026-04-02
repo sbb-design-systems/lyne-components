@@ -233,6 +233,9 @@ $theme: 'standard' !default;
 @use '../../tabs/tab-nav-bar/tab-nav-bar.global' as tab-nav-bar with (
   $theme: $theme
 );
+@use '../../tag/tag/tag.global' as tag with (
+  $theme: $theme
+);
 @use '../../timetable-form/timetable-form/timetable-form.global' as timetable-form with (
   $theme: $theme
 );
@@ -324,6 +327,7 @@ $theme: 'standard' !default;
   @include stepper.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
+  @include tag.base;
   @include timetable-form.base;
   @include timetable-form-details.base;
   @include timetable-form-field.base;
@@ -346,6 +350,7 @@ $theme: 'standard' !default;
     @include signet.base-forced-colors;
     @include slider.base-forced-colors;
     @include step-label.base-forced-colors;
+    @include tag.base-forced-colors;
   }
 
   // Train formation

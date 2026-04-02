@@ -356,6 +356,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       this._displayValue = null;
     }
 
+    this.toggleState('has-display-value', !!this._displayValue);
+
     /** @internal */
     this.dispatchEvent(new Event('displayvaluechange', { bubbles: true, composed: true }));
   }
@@ -999,16 +1001,12 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         @click=${this._toggleOpening}
         ${ref((ref) => (this._triggerElement = ref as HTMLElement))}
       >
-        ${until(...this._spreadDeferredDisplayValue(html`<span>${this.placeholder}</span>`))}
+        ${until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`))}
       </div>
 
       <!-- Visually display the value -->
       <div class="sbb-select__trigger" aria-hidden="true">
-        ${until(
-          ...this._spreadDeferredDisplayValue(
-            html`<span class="sbb-select__trigger--placeholder">${this.placeholder}</span>`,
-          ),
-        )}
+        ${until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`))}
       </div>
 
       <div class="sbb-select__gap-fix"></div>

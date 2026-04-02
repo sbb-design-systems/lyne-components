@@ -323,6 +323,21 @@ describe('sbb-select', () => {
     }
 
     it(
+      'with long placeholder',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-form-field>
+            <label>Select</label>
+            <sbb-select placeholder="This placeholder is so long that it needs ellipsis to fit.">
+              <sbb-option value="1">Option 1</sbb-option>
+              <sbb-option value="2">Option 2</sbb-option>
+            </sbb-select>
+          </sbb-form-field>`,
+        );
+      }),
+    );
+
+    it(
       `with custom max height`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template(defaultArgs), {
