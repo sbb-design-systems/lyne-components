@@ -6,7 +6,6 @@ snapshots["sbb-link-button renders DOM"] =
   aria-label="Travelcards &amp; tickets"
   form="form"
   name="name"
-  size="m"
   tabindex="0"
   type="button"
   value="value"
