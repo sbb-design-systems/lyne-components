@@ -445,7 +445,6 @@ $theme: 'standard' !default;
 @include sidebar-close-button.rules;
 @include sidebar-container.rules;
 @include tab-nav-bar.rules;
-@include teaser.rules;
 
 // TODO: discuss where to add these classes
 .sbb-dark {
@@ -545,7 +544,7 @@ img {
 // Target the slotted `sbb-image` which are generally wrapped by a <figure> (therefore are not reachable with the :slotted)
 // Apply the brightness effect on mouse hover
 // TODO: Move back to the teaser components when the global CSS refactoring happens
-:is(sbb-teaser-hero, sbb-teaser-product) {
+:is(sbb-teaser, sbb-teaser-hero, sbb-teaser-product) {
   --sbb-teaser-image-brightness-hover: var(--sbb-hover-image-brightness);
   --sbb-teaser-image-animation-duration: var(
     --sbb-disable-animation-duration,
@@ -579,6 +578,15 @@ img {
   img:not(.sbb-figure-overlap-image) {
     place-self: stretch;
   }
+}
+
+sbb-teaser :is(sbb-image, img):not(.sbb-figure-overlap-image) {
+  --sbb-image-object-fit: cover;
+  --sbb-image-aspect-ratio: 4 / 3;
+
+  transition-property: filter, scale;
+  will-change: filter, scale;
+  scale: var(--sbb-teaser-scale, 1);
 }
 
 // TODO: Move back to the teaser-hero components when the global CSS refactoring happens
