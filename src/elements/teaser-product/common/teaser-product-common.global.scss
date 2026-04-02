@@ -1,0 +1,50 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-teaser-product-background-color: light-dark(
+    var(--sbb-color-cloud),
+    var(--sbb-color-midnight)
+  );
+  --sbb-teaser-product-background-gradient-direction: to right;
+  --sbb-teaser-product-border-radius: var(--sbb-border-radius-4x);
+  --sbb-teaser-product-min-height: #{sbb.px-to-rem-build(600)};
+  --sbb-teaser-product-background-gradient-start: 25%;
+  --sbb-teaser-product-background-gradient-end: 75%;
+  --sbb-teaser-product-container-padding-block: var(--sbb-spacing-responsive-s);
+  --sbb-teaser-product-container-padding-inline: var(--sbb-spacing-responsive-s);
+  --sbb-teaser-product-container-spacing: var(--sbb-spacing-responsive-l);
+  --sbb-teaser-product-content-color: var(--sbb-color-4);
+  --sbb-teaser-product-footer-color: light-dark(
+    var(--sbb-color-anthracite),
+    var(--sbb-color-cloud)
+  );
+  --sbb-teaser-product-footer-font-size: var(--sbb-text-font-size-xxs);
+  --sbb-teaser-product-footer-padding-block-start: var(--sbb-spacing-responsive-s);
+  --sbb-teaser-product-footer-padding-block-end: 0;
+}
+
+@mixin base-breakpoint-large {
+  --sbb-teaser-product-container-padding-block: var(--sbb-spacing-responsive-l) 0;
+  --sbb-teaser-product-container-padding-inline: var(--sbb-spacing-responsive-xl);
+  --sbb-teaser-product-content-align-content: center;
+  --sbb-teaser-product-footer-padding-block-start: var(--sbb-spacing-responsive-xs);
+  --sbb-teaser-product-footer-padding-block-end: var(--sbb-spacing-responsive-xs);
+  --sbb-teaser-product-footer-min-height: var(--sbb-teaser-product-container-spacing);
+}
+
+@mixin rules {
+  :is(sbb-teaser-product, sbb-teaser-product-static) {
+    :is(sbb-image, img):not(.sbb-figure-overlap-image) {
+      border-radius: 0; // Reset sbb-image border radius in order to control it from teaser product.
+
+      --sbb-image-object-fit: cover;
+      --sbb-image-aspect-ratio: 16 / 9;
+    }
+
+    img:not(.sbb-figure-overlap-image) {
+      place-self: stretch;
+    }
+  }
+}
