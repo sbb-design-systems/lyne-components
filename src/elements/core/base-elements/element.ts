@@ -42,6 +42,8 @@ export class SbbElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
     const elementClass = customElementRegistry.get(this.elementName);
     if (!elementClass) {
       customElementRegistry.define(this.elementName, this as unknown as CustomElementConstructor);
+      // Next.js re-rendering somehow fails, because the finalization calculation
+      // is broken in SSR. We call `finalize()` here explicitly to avoid that.
       this.finalize();
     } else if (import.meta.env.DEV && elementClass !== this) {
       console.warn(
