@@ -1,34 +1,21 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
-  width: fit-content;
-
-  // Border-radius is used for the focus outline which is toggled in core.scss.
-  border-radius: var(--sbb-toggle-border-radius);
-
-  --sbb-toggle-width: fit-content;
-  --sbb-toggle-min-width: calc(
+  --_sbb-toggle-min-width: calc(
     var(--sbb-toggle-padding-inline) * 4 + var(--sbb-size-icon-ui-small)
   );
-  --sbb-toggle-selected-option-border-width: var(--sbb-border-width-1x);
-  --sbb-toggle-selected-option-border-style: solid;
-  --sbb-toggle-selected-option-border-color: var(--sbb-border-color-5);
-  --sbb-toggle-selected-option-background-color: var(--sbb-background-color-1);
-  --sbb-toggle-background-inset: #{sbb.px-to-rem-build(2)};
-  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-toggle-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
-  --sbb-toggle-height: var(--sbb-size-element-m);
-  --sbb-toggle-border-radius: var(--sbb-border-radius-infinity);
-  --sbb-toggle-grid-template-columns: auto auto;
 
-  @include sbb.if-forced-colors {
-    --sbb-toggle-selected-option-border-color: Highlight;
-    --sbb-toggle-selected-option-border-width: var(--sbb-border-width-2x);
-  }
+  display: block;
+  width: fit-content;
+  font-size: var(--sbb-toggle-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+
+  // Border-radius is used for the focus outline which is toggled in core.scss.
+  border-radius: var(--sbb-toggle-border-radius);
 }
 
 :host([even]) {
@@ -51,6 +38,11 @@
   }
 }
 
+:host([size='m']) {
+  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xs);
+  --sbb-toggle-height: var(--sbb-size-element-m);
+}
+
 :host([size='s']) {
   --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
   --sbb-toggle-height: var(--sbb-size-element-xxs);
@@ -61,14 +53,12 @@
 }
 
 .sbb-toggle {
-  @include sbb.text-m--regular;
-
   display: grid;
   grid-template-columns: var(--sbb-toggle-grid-template-columns);
   grid-template-areas: 'start end';
   align-items: center;
-  min-width: var(--sbb-toggle-min-width);
-  width: var(--sbb-toggle-width);
+  min-width: var(--_sbb-toggle-min-width);
+  width: var(--sbb-toggle-width, fit-content);
   height: var(--sbb-toggle-height);
   max-width: 100%;
   user-select: none;
@@ -100,8 +90,8 @@
     content: '';
     grid-area: start / start / end / end;
     order: -1;
-    background: var(--sbb-background-color-4);
-    margin-inline: var(--sbb-toggle-background-inset);
+    background: var(--sbb-toggle-after-background-color);
+    margin-inline: var(--sbb-toggle-background-color);
     height: calc(100% - 2 * var(--sbb-toggle-background-inset));
     border-radius: var(--sbb-toggle-border-radius);
 
