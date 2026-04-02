@@ -33,9 +33,18 @@ export class SbbElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
    *   Defaults to the global `customElements` instance.
    */
   public static define(customElementRegistry: CustomElementRegistry = customElements): void {
+    if (!this.elementName) {
+      throw new Error(
+        `The static property "elementName" is not defined on ${this.name}. Please define it to register the custom element.`,
+      );
+    }
+
     const elementClass = customElementRegistry.get(this.elementName);
     if (!elementClass) {
       customElementRegistry.define(this.elementName, this as unknown as CustomElementConstructor);
+      // Next.js re-rendering somehow fails, because the finalization calculation
+      // is broken in SSR. We call `finalize()` here explicitly to avoid that.
+      this.finalize();
     } else if (import.meta.env.DEV && elementClass !== this) {
       console.warn(
         `The custom element with name "${this.elementName}" is already defined. Skipping.`,
