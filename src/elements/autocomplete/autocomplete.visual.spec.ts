@@ -354,5 +354,22 @@ describe('sbb-autocomplete', () => {
         });
       }),
     );
+
+    it(
+      'inside bold context',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div style="font-weight: bold;">
+            <input id="bold-input" placeholder="Placeholder" />
+            <sbb-autocomplete origin="bold-input" trigger="bold-input">
+              <sbb-option value="Option 1">Option 1</sbb-option>
+              <sbb-option value="Option 2">Option 2</sbb-option>
+            </sbb-autocomplete>
+          </div>`,
+        );
+
+        setup.withPostSetupAction(() => openAutocomplete(setup));
+      }),
+    );
   });
 });

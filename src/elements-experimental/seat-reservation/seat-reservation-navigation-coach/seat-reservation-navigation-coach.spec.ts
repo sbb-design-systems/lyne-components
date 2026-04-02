@@ -143,7 +143,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
         '.sbb-sr-navigation__ctrl-button',
       ) as HTMLButtonElement;
 
-      await expect(getComputedStyle(btn).outlineWidth).to.be.equal('0px');
+      await expect(getComputedStyle(btn).outlineStyle).to.be.equal('none');
     });
 
     it('should have outline if focused', async () => {
@@ -151,12 +151,12 @@ describe('sbb-seat-reservation-navigation-coach', () => {
         '.sbb-sr-navigation__ctrl-button',
       ) as HTMLButtonElement;
 
-      await expect(getComputedStyle(btn).outlineWidth).to.be.equal('0px');
+      await expect(getComputedStyle(btn).outlineStyle).to.be.equal('none');
 
       element.focused = true;
 
       await waitForLitRender(element);
-      await expect(getComputedStyle(btn).outlineWidth).to.be.equal('1px');
+      await expect(getComputedStyle(btn).outlineStyle).to.be.equal('solid');
     });
   }
 

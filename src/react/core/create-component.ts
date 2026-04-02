@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+import type { SbbElement } from '@sbb-esta/lyne-elements/core.js';
 import {
   isServer,
   type ComplexAttributeConverter,
@@ -234,6 +235,8 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
   events,
   displayName,
 }: Options<I, E>): ReactWebComponent<I, E> => {
+  (elementClass as unknown as typeof SbbElement).define?.();
+
   const eventProps = new Set(Object.keys(events ?? {}));
 
   if (DEV_MODE && !NODE_MODE) {
