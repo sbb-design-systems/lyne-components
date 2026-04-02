@@ -50,7 +50,8 @@ export const getSvgContent = (
               return validateContent(await response.text(), sanitize);
             })
             .catch((error) => {
-              throw Error(error);
+              console.warn(error);
+              return '';
             }),
       });
       // Cache for the same requests
