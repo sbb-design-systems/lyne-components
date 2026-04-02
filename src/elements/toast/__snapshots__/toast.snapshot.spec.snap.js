@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-toast renders DOM"] = 
+snapshots["sbb-toast renders DOM"] =
 `<sbb-toast
   icon-name="circle-tick-small"
   popover="manual"
@@ -14,7 +14,7 @@ snapshots["sbb-toast renders DOM"] =
 `;
 /* end snapshot sbb-toast renders DOM */
 
-snapshots["sbb-toast renders Shadow DOM"] = 
+snapshots["sbb-toast renders Shadow DOM"] =
 `<div class="sbb-toast__overlay-container">
   <div class="sbb-toast">
     <div class="sbb-toast-wrapper">
@@ -52,7 +52,7 @@ snapshots["sbb-toast renders Shadow DOM"] =
 `;
 /* end snapshot sbb-toast renders Shadow DOM */
 
-snapshots["sbb-toast renders readonly DOM"] = 
+snapshots["sbb-toast renders readonly DOM"] =
 `<sbb-toast
   icon-name="circle-tick-small"
   popover="manual"
@@ -66,7 +66,7 @@ snapshots["sbb-toast renders readonly DOM"] =
 `;
 /* end snapshot sbb-toast renders readonly DOM */
 
-snapshots["sbb-toast renders readonly Shadow DOM"] = 
+snapshots["sbb-toast renders readonly Shadow DOM"] =
 `<div class="sbb-toast__overlay-container">
   <div class="sbb-toast">
     <div class="sbb-toast-wrapper">
@@ -94,7 +94,7 @@ snapshots["sbb-toast renders readonly Shadow DOM"] =
 `;
 /* end snapshot sbb-toast renders readonly Shadow DOM */
 
-snapshots["sbb-toast renders with action DOM"] = 
+snapshots["sbb-toast renders with action DOM"] =
 `<sbb-toast
   icon-name="circle-tick-small"
   popover="manual"
@@ -107,7 +107,6 @@ snapshots["sbb-toast renders with action DOM"] =
     href="https://www.sbb.ch"
     negative=""
     sbb-toast-close=""
-    size="s"
     slot="action"
     target="_blank"
   >
@@ -117,7 +116,7 @@ snapshots["sbb-toast renders with action DOM"] =
 `;
 /* end snapshot sbb-toast renders with action DOM */
 
-snapshots["sbb-toast renders with action Shadow DOM"] = 
+snapshots["sbb-toast renders with action Shadow DOM"] =
 `<div class="sbb-toast__overlay-container">
   <div class="sbb-toast">
     <div class="sbb-toast-wrapper">
@@ -155,7 +154,7 @@ snapshots["sbb-toast renders with action Shadow DOM"] =
 `;
 /* end snapshot sbb-toast renders with action Shadow DOM */
 
-snapshots["sbb-toast renders A11y tree Chrome"] = 
+snapshots["sbb-toast renders A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",
@@ -195,7 +194,7 @@ snapshots["sbb-toast renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-toast renders A11y tree Chrome */
 
-snapshots["sbb-toast renders readonly A11y tree Chrome"] = 
+snapshots["sbb-toast renders readonly A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",
@@ -225,7 +224,7 @@ snapshots["sbb-toast renders readonly A11y tree Chrome"] =
 `;
 /* end snapshot sbb-toast renders readonly A11y tree Chrome */
 
-snapshots["sbb-toast renders in dark mode DOM"] = 
+snapshots["sbb-toast renders in dark mode DOM"] =
 `<sbb-toast
   icon-name="circle-tick-small"
   popover="manual"
@@ -237,7 +236,6 @@ snapshots["sbb-toast renders in dark mode DOM"] =
   <sbb-link
     href="https://www.sbb.ch"
     sbb-toast-close=""
-    size="s"
     slot="action"
     target="_blank"
   >
@@ -247,7 +245,7 @@ snapshots["sbb-toast renders in dark mode DOM"] =
 `;
 /* end snapshot sbb-toast renders in dark mode DOM */
 
-snapshots["sbb-toast renders in dark mode Shadow DOM"] = 
+snapshots["sbb-toast renders in dark mode Shadow DOM"] =
 `<div class="sbb-toast__overlay-container">
   <div class="sbb-toast">
     <div class="sbb-toast-wrapper">

@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["A11y tree Chrome"] = 
+snapshots["A11y tree Chrome"] =
 `<p>
   {
   "role": "WebArea",
@@ -26,7 +26,7 @@ snapshots["A11y tree Chrome"] =
 `;
 /* end snapshot A11y tree Chrome */
 
-snapshots["sbb-flip-card DOM"] = 
+snapshots["sbb-flip-card DOM"] =
 `<sbb-flip-card>
   <sbb-flip-card-summary
     image-alignment="after"
@@ -49,7 +49,6 @@ snapshots["sbb-flip-card DOM"] =
       class="sbb-action"
       href="https://www.sbb.ch"
       negative=""
-      size="s"
     >
       Link
     </sbb-link>
@@ -58,7 +57,7 @@ snapshots["sbb-flip-card DOM"] =
 `;
 /* end snapshot sbb-flip-card DOM */
 
-snapshots["sbb-flip-card Shadow DOM"] = 
+snapshots["sbb-flip-card Shadow DOM"] =
 `<div class="sbb-flip-card">
   <button
     aria-expanded="false"
@@ -88,7 +87,7 @@ snapshots["sbb-flip-card Shadow DOM"] =
 `;
 /* end snapshot sbb-flip-card Shadow DOM */
 
-snapshots["sbb-flip-card A11y tree Chrome"] = 
+snapshots["sbb-flip-card A11y tree Chrome"] =
 `<p>
   {
   "role": "generic",
