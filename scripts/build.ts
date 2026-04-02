@@ -83,6 +83,15 @@ interface Builder extends Disposable {
   build(): Promise<void>;
 }
 
+function asBuilder(action: () => void | Promise<void>): Builder {
+  return {
+    build: async () => {
+      await action();
+    },
+    [Symbol.dispose]() {},
+  };
+}
+
 class PackageBuilder implements Builder {
   #steps: ((pkg: PackageBuilder) => StepResult)[];
   #results: Disposable[] = [];
@@ -153,6 +162,7 @@ const reactExperimentalDevelopment = 'react-experimental:development';
 const reactExperimentalProduction = 'react-experimental:production';
 const storybook = 'storybook';
 const visualRegressionApp = 'visual-regression-app';
+const webshopFrontendCopy = 'webshop-frontend-copy';
 
 const expansions = {
   all: [
@@ -171,6 +181,17 @@ const expansions = {
   'elements-experimental': [elementsExperimentalProduction, elementsExperimentalDevelopment],
   react: [reactProduction, reactDevelopment],
   'react-experimental': [reactExperimentalProduction, reactExperimentalDevelopment],
+  'webshop-frontend': [
+    elementsDevelopment,
+    elementsProduction,
+    elementsExperimentalDevelopment,
+    elementsExperimentalProduction,
+    reactDevelopment,
+    reactProduction,
+    reactExperimentalDevelopment,
+    reactExperimentalProduction,
+    webshopFrontendCopy,
+  ],
 };
 
 const buildMap: Record<string, () => Builder> = {
@@ -223,6 +244,7 @@ const buildMap: Record<string, () => Builder> = {
     new PackageBuilder(storybook, [buildStorybook, buildNginxConfig, buildSizeStats]),
   [visualRegressionApp]: () => new PackageBuilder(visualRegressionApp, [buildApp]),
   ['nginx-conf']: () => new PackageBuilder(storybook, [buildNginxConfig]),
+  [webshopFrontendCopy]: () => asBuilder(copyIntoWebshopFrontend),
 };
 
 if (!buildTargets.size && !isCI) {
@@ -970,4 +992,30 @@ async function buildSizeStats(pkg: PackageBuilder): Promise<void> {
   writeFileSync(join(pkg.outDir, 'lyne-stats.json'), JSON.stringify(stats, null, 2), 'utf8');
 
   console.log(`=> Built size stats in ${relative(projectRoot, pkg.outDir)}`);
+}
+
+function copyIntoWebshopFrontend(): void {
+  const webshopDir = resolve(projectRoot, '../webshop-frontend/');
+  if (!existsSync(webshopDir)) {
+    console.warn(
+      `=> webshop-frontend directory not found at ${relative(projectRoot, webshopDir)}. Skipping copy step.`,
+    );
+    return;
+  }
+
+  const packageMap = ['elements', 'elements-experimental', 'react', 'react-experimental'].reduce(
+    (map, name) => Object.assign(map, { [name]: `lyne-${name}` }),
+    {} as Record<string, string>,
+  );
+
+  for (const [localName, remoteName] of Object.entries(packageMap)) {
+    const sourceDir = join(projectRoot, 'dist', localName);
+    const targetDir = join(webshopDir, 'node_modules', '@sbb-esta', remoteName);
+    rmSync(targetDir, { recursive: true, force: true });
+    cpSync(sourceDir, targetDir, { recursive: true });
+    console.log(`=> Copied ${localName} to webshop-frontend`);
+  }
+
+  rmSync(join(webshopDir, '.next'), { recursive: true, force: true });
+  console.log(`=> Removed .next directory in webshop-frontend to ensure clean build`);
 }
