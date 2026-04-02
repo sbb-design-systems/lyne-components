@@ -233,6 +233,17 @@ $theme: 'standard' !default;
 @use '../../tabs/tab-nav-bar/tab-nav-bar.global' as tab-nav-bar with (
   $theme: $theme
 );
+@use '../../timetable-form/timetable-form/timetable-form.global' as timetable-form with (
+  $theme: $theme
+);
+@use '../../timetable-form/timetable-form-field/timetable-form-field.global' as timetable-form-field
+  with (
+  $theme: $theme
+);
+@use '../../timetable-form/timetable-form-details/timetable-form-details.global' as
+  timetable-form-details with (
+  $theme: $theme
+);
 @use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
   $theme: $theme
 );
@@ -310,6 +321,9 @@ $theme: 'standard' !default;
   @include stepper.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
+  @include timetable-form.base;
+  @include timetable-form-details.base;
+  @include timetable-form-field.base;
   @include visual-checkbox.base;
 
   @include a11y.if-forced-colors {
