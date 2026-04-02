@@ -236,6 +236,9 @@ $theme: 'standard' !default;
 @use '../../tag/tag/tag.global' as tag with (
   $theme: $theme
 );
+@use '../../teaser/teaser.global' as teaser with (
+  $theme: $theme
+);
 @use '../../teaser-product/common/teaser-product-common.global' as teaser-product-common with (
   $theme: $theme
 );
@@ -317,6 +320,7 @@ $theme: 'standard' !default;
   @include tab-group-common.base;
   @include tab-label-common.base;
   @include tag.base;
+  @include teaser.base;
   @include teaser-product-common.base;
   @include visual-checkbox.base;
 
@@ -573,7 +577,6 @@ img {
   }
 }
 
-// TODO: Move back to the teaser components when the global CSS refactoring happens
 sbb-teaser :is(sbb-image, img):not(.sbb-figure-overlap-image) {
   --sbb-image-object-fit: cover;
   --sbb-image-aspect-ratio: 4 / 3;
