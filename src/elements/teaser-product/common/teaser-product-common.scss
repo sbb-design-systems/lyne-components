@@ -6,6 +6,9 @@
   display: block;
 
   @include sbb.mq($from: large) {
+    --sbb-teaser-product-content-min-height: calc(
+      var(--sbb-teaser-product-min-height) - 2 * var(--sbb-teaser-product-container-spacing)
+    );
     --sbb-teaser-product-background: linear-gradient(
       var(--sbb-teaser-product-background-gradient-direction),
       var(--sbb-teaser-product-background-color) var(--sbb-teaser-product-background-gradient-start),
@@ -31,12 +34,15 @@
 }
 
 .sbb-teaser-product__image-container {
-  border-radius: var(--sbb-teaser-product-image-border-radius);
   overflow: hidden;
+
+  // We have to remove the image bottom border-radius when stacked
+  border-radius: var(--sbb-teaser-product-border-radius) var(--sbb-teaser-product-border-radius) 0 0;
 
   @include sbb.mq($from: large) {
     position: absolute;
     inset: 0;
+    border-radius: var(--sbb-teaser-product-border-radius);
   }
 }
 
@@ -81,7 +87,7 @@
 
 .sbb-teaser-product__container {
   background: var(--sbb-teaser-product-background);
-  border-radius: var(--sbb-teaser-product-container-border-radius);
+  border-radius: 0 0 var(--sbb-teaser-product-border-radius) var(--sbb-teaser-product-border-radius);
   padding-block: var(--sbb-teaser-product-container-padding-block);
   padding-inline: var(--sbb-teaser-product-container-padding-inline);
 
@@ -91,6 +97,7 @@
       'content .' 1fr
       'footnote .' auto / 1fr 1fr;
     column-gap: var(--sbb-spacing-responsive-xxl);
+    border-radius: var(--sbb-teaser-product-border-radius);
     position: relative;
 
     :host([image-alignment='before']) & {

@@ -14,9 +14,7 @@ $theme: 'standard' !default;
   --sbb-teaser-product-background-gradient-end: 75%;
   --sbb-teaser-product-container-padding-block: var(--sbb-spacing-responsive-s);
   --sbb-teaser-product-container-padding-inline: var(--sbb-spacing-responsive-s);
-  --sbb-teaser-product-container-padding-block-start: var(--sbb-spacing-responsive-l);
-  --sbb-teaser-product-container-border-radius: 0 0 var(--sbb-teaser-product-border-radius)
-    var(--sbb-teaser-product-border-radius);
+  --sbb-teaser-product-container-spacing: var(--sbb-spacing-responsive-l);
   --sbb-teaser-product-content-color: var(--sbb-color-4);
   --sbb-teaser-product-footer-color: light-dark(
     var(--sbb-color-anthracite),
@@ -25,28 +23,15 @@ $theme: 'standard' !default;
   --sbb-teaser-product-footer-font-size: var(--sbb-text-font-size-xxs);
   --sbb-teaser-product-footer-padding-block-start: var(--sbb-spacing-responsive-s);
   --sbb-teaser-product-footer-padding-block-end: 0;
-
-  // We have to remove the image bottom border-radius when stacked
-  --sbb-teaser-product-image-border-radius: var(--sbb-teaser-product-border-radius)
-    var(--sbb-teaser-product-border-radius) 0 0;
 }
 
 @mixin base-breakpoint-large {
-  --sbb-teaser-product-container-border-radius: var(--sbb-teaser-product-border-radius);
-  --sbb-teaser-product-container-padding-block: var(
-      --sbb-teaser-product-container-padding-block-start
-    )
-    0;
+  --sbb-teaser-product-container-padding-block: var(--sbb-spacing-responsive-l) 0;
   --sbb-teaser-product-container-padding-inline: var(--sbb-spacing-responsive-xl);
   --sbb-teaser-product-content-align-content: center;
-  --sbb-teaser-product-content-min-height: calc(
-    var(--sbb-teaser-product-min-height) - 2 *
-      var(--sbb-teaser-product-container-padding-block-start)
-  );
   --sbb-teaser-product-footer-padding-block-start: var(--sbb-spacing-responsive-xs);
   --sbb-teaser-product-footer-padding-block-end: var(--sbb-spacing-responsive-xs);
-  --sbb-teaser-product-footer-min-height: var(--sbb-teaser-product-container-padding-block-start);
-  --sbb-teaser-product-image-border-radius: var(--sbb-teaser-product-border-radius);
+  --sbb-teaser-product-footer-min-height: var(--sbb-teaser-product-container-spacing);
 }
 
 @mixin rules {
