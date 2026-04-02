@@ -44,6 +44,12 @@ const groupWithNext: InputType = {
   },
 };
 
+const withSubtitle: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const colorTheme: InputType = {
   options: ['none', 'iron'],
   control: {
@@ -57,6 +63,7 @@ const simpleDefaultArgTypes: ArgTypes = {
   striped,
   inlineFilters,
   groupWithNext,
+  withSubtitle,
   'color-theme': colorTheme,
 };
 
@@ -66,6 +73,7 @@ const simpleDefaultArgs: Args = {
   striped: true,
   'inline-filters': false,
   groupWithNext: false,
+  withSubtitle: false,
   'color-theme': colorTheme.options![0],
 };
 
@@ -75,24 +83,42 @@ const caption: () => TemplateResult = () => html`
   </caption>
 `;
 
-const simpleHeader: (groupWithNext?: boolean) => TemplateResult = (groupWithNext = false) => html`
+const simpleHeader: (groupWithNext?: boolean, withSubtitle?: boolean) => TemplateResult = (
+  groupWithNext = false,
+  withSubtitle = false,
+) => html`
   <thead>
     <tr>
-      <th class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Person</th>
-      <th>Most interest in</th>
-      <th>Age</th>
+      <th class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>
+        Person${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+      <th>
+        Most interest
+        in${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+      <th>
+        Age${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
     </tr>
   </thead>
 `;
 
-const simpleHeaderWithFilters: (groupWithNext?: boolean) => TemplateResult = (
-  groupWithNext = false,
-) => html`
+const simpleHeaderWithFilters: (
+  groupWithNext?: boolean,
+  withSubtitle?: boolean,
+) => TemplateResult = (groupWithNext = false, withSubtitle = false) => html`
   <thead>
     <tr>
-      <th class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Person</th>
-      <th>Most interest in</th>
-      <th>Age</th>
+      <th class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>
+        Person${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+      <th>
+        Most interest
+        in${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+      <th>
+        Age${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
     </tr>
     <tr>
       <th class="sbb-table-filter">
@@ -146,8 +172,8 @@ const SimpleTemplate = (args: Args): TemplateResult => html`
   <table class=${classMap(tableClasses(args))}>
     ${caption()}
     ${args['inline-filters']
-      ? simpleHeaderWithFilters(args.groupWithNext)
-      : simpleHeader(args.groupWithNext)}
+      ? simpleHeaderWithFilters(args.groupWithNext, args.withSubtitle)
+      : simpleHeader(args.groupWithNext, args.withSubtitle)}
     ${simpleBody(args.groupWithNext)}
   </table>
 `;
@@ -204,6 +230,12 @@ export const SimpleGroupWithNext: StoryObj = {
   render: SimpleTemplate,
   argTypes: simpleDefaultArgTypes,
   args: { ...simpleDefaultArgs, groupWithNext: true },
+};
+
+export const HeaderSubtitle: StoryObj = {
+  render: SimpleTemplate,
+  argTypes: simpleDefaultArgTypes,
+  args: { ...simpleDefaultArgs, withSubtitle: true },
 };
 
 /**

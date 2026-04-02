@@ -26,6 +26,9 @@ const config: StorybookConfig = {
   async viteFinal(config) {
     return mergeConfig(config, <UserConfig>{
       assetsInclude: ['src/**/*.md'],
+      build: {
+        cssMinify: 'esbuild',
+      },
     });
   },
 };
