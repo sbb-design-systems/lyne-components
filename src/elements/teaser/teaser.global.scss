@@ -1,0 +1,14 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-teaser-scale-hover: 1.02;
+  --sbb-teaser-description-color: light-dark(var(--sbb-color-granite), var(--sbb-color-silver));
+  --sbb-teaser-flex-direction: row;
+  --sbb-teaser-align-items: center;
+  --sbb-teaser-font-size: var(--sbb-text-font-size-s);
+  --sbb-teaser-gap: var(--sbb-spacing-fixed-4x);
+  --sbb-teaser-border-radius: var(--sbb-border-radius-4x);
+  --sbb-teaser-image-width: #{sbb.px-to-rem-build(300)};
+}
