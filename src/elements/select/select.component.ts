@@ -106,6 +106,10 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   @property({ reflect: true, type: Boolean })
   public accessor multiple: boolean = false;
 
+  /** Function used to compare option values. */
+  @property({ attribute: false })
+  public accessor compareWith: (v1: T | null, v2: T | null) => boolean = (v1, v2) => v1 === v2;
+
   @forceType()
   @handleDistinctChange((e: SbbSelectElement<T>, newValue: boolean) =>
     e._closeOnDisabledReadonlyChanged(newValue),
@@ -490,15 +494,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         manuallyAssigned: boolean;
       };
 
-      const values = Array.isArray(value) ? value : [value];
-
-      if (values.some((v) => v !== null && typeof v === 'object')) {
-        console.warn(
-          `Restoring complex objects is not supported for sbb-select with state ${state}`,
-        );
-        return;
-      }
-
       this._isValueManuallyAssigned = manuallyAssigned;
       this._value = value;
       this._updateOptionsFromValue();
@@ -523,9 +518,16 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   protected override validate(): void {
     super.validate();
+
+    const value: T[] = Array.isArray(this.value)
+      ? this.value
+      : this.value === null
+        ? []
+        : [this.value];
+
     if (
       this.required &&
-      (this.options.every((o) => o.value !== this.value) ||
+      (this.options.every((o) => value.every((v) => !this.compareWith(v, o.value))) ||
         (!this._isValueManuallyAssigned && this.value == null))
     ) {
       this.setValidityFlag('valueMissing', i18nSelectionRequired[this._languageController.current]);
@@ -617,7 +619,10 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       this._value = option.value;
     } else if (!this.value) {
       this._value = [option.value!];
-    } else if (Array.isArray(this.value) && !this.value.includes(option.value!)) {
+    } else if (
+      Array.isArray(this.value) &&
+      !this.value.some((v) => this.compareWith(v, option.value!))
+    ) {
       this._value = [...this.value, option.value!];
     }
 
@@ -628,7 +633,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   /** When an option is unselected in `multiple`, removes it from value and updates displayValue. */
   private _onOptionDeselected(optionSelectionChange: SbbOptionElement<T>): void {
     if (this.multiple && Array.isArray(this.value)) {
-      this._value = this.value.filter((el) => el !== optionSelectionChange.value);
+      this._value = this.value.filter((el) => !this.compareWith(el, optionSelectionChange.value));
       this._updateOptionsFromValue();
       this._dispatchInputEvents();
     }
@@ -844,7 +849,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     }
 
     // Reset the previous
-    if (lastActiveOption && lastActiveOption !== nextActiveOption) {
+    if (lastActiveOption && !this.compareWith(lastActiveOption.value, nextActiveOption.value)) {
       lastActiveOption.setActive(false);
     }
   }
@@ -855,7 +860,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   ): void {
     nextActiveOption['selectViaUserInteraction'](true);
 
-    if (lastActiveOption && lastActiveOption !== nextActiveOption) {
+    if (lastActiveOption && !this.compareWith(lastActiveOption.value, nextActiveOption.value)) {
       lastActiveOption['selectViaUserInteraction'](false);
     }
   }
@@ -887,7 +892,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     const displayValues = [];
     for (const option of this.options) {
-      option.selected = value.includes(option.value);
+      option.selected = value.some((v) => this.compareWith(v, option.value));
       if (option.selected) {
         displayValues.push(option);
       }
@@ -896,8 +901,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._updateDisplayValue();
 
     if (!Array.isArray(this.value)) {
-      this._activeItemIndex = this._selectableOptions().findIndex(
-        (option) => option.value === this.value,
+      const value: T | null = this.value;
+      this._activeItemIndex = this._selectableOptions().findIndex((option) =>
+        this.compareWith(option.value, value),
       );
     }
   }
