@@ -3,7 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { type SinonStub, stub } from 'sinon';
 
-import { sbbLiveAnnouncer } from '../../core/a11y/live-announcer.ts';
+import { sbbLiveAnnouncer } from '../../core/a11y.ts';
 import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
 import { waitForCondition, waitForLitRender } from '../../core/testing.ts';
 

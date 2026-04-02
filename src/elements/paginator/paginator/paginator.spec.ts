@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { type SinonSpy, spy } from 'sinon';
 
 import type { SbbMiniButtonElement } from '../../button.ts';
-import type { SbbPaginatorPageEventDetails } from '../../core/interfaces/paginator-page.ts';
+import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.ts';
 import { fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import type { SbbOptionElement } from '../../option.ts';

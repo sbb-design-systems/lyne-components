@@ -1,9 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
+import { defaultDateAdapter } from '../../core/datetime.ts';
 import { fixture } from '../../core/testing/private.ts';
-import { waitForLitRender } from '../../core/testing/wait-for-render.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 import { SbbCalendarElement } from '../calendar/calendar.component.ts';
 
 import { SbbCalendarMonthElement } from './calendar-month.component.ts';

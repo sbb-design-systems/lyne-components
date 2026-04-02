@@ -12,7 +12,7 @@ import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController, SbbPropertyWatcherController } from '../../core/controllers.ts';
 import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom/lean-context.ts';
+import { isLean } from '../../core/dom.ts';
 import { i18nChipGroupInputDescription, i18nSelectionRequired } from '../../core/i18n.ts';
 import {
   type FormRestoreReason,

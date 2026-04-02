@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { type SinonStub, stub } from 'sinon';
 
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
+import { defaultDateAdapter } from '../../core/datetime.ts';
 import {
   describeViewports,
   visualDiffActive,

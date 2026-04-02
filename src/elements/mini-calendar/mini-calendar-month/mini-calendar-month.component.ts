@@ -8,10 +8,10 @@ import {
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
-import { readConfig } from '../../core/config/config.ts';
+import { readConfig } from '../../core/config.ts';
 import { SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { type DateAdapter } from '../../core/datetime/date-adapter.ts';
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
+import { type DateAdapter } from '../../core/datetime.ts';
+import { defaultDateAdapter } from '../../core/datetime.ts';
 import { forceType } from '../../core/decorators.ts';
 import type { SbbOrientation } from '../../core/interfaces.ts';
 import { boxSizingStyles } from '../../core/styles.ts';

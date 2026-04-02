@@ -1,7 +1,7 @@
 import { unsafeCSS, type CSSResultGroup } from 'lit';
 
 import { SbbActionGroupElement } from '../../action-group.ts';
-import { isLean } from '../../core/dom/lean-context.ts';
+import { isLean } from '../../core/dom.ts';
 
 import style from './dialog-actions.scss?inline';
 

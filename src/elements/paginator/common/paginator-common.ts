@@ -2,7 +2,7 @@ import { html, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbMiniButtonElement, SbbMiniButtonGroupElement } from '../../button.pure.ts';
-import { sbbInputModalityDetector } from '../../core/a11y/input-modality-detector.ts';
+import { sbbInputModalityDetector } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { forceType } from '../../core/decorators.ts';

@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
 
-import { isFirefox, isIOS, isSafari, isWebkit } from '../dom/platform.ts';
+import { isFirefox, isIOS, isSafari, isWebkit } from '../dom.ts';
 
 import { InteractivityChecker, IsFocusableConfig } from './interactivity-checker.ts';
 

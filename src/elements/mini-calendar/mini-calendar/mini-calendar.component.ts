@@ -4,9 +4,9 @@ import { property } from 'lit/decorators.js';
 
 import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.ts';
 import { SbbElement } from '../../core/base-elements.ts';
-import { readConfig } from '../../core/config/config.ts';
-import type { DateAdapter } from '../../core/datetime/date-adapter.ts';
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
+import { readConfig } from '../../core/config.ts';
+import type { DateAdapter } from '../../core/datetime.ts';
+import { defaultDateAdapter } from '../../core/datetime.ts';
 import type { SbbOrientation } from '../../core/interfaces.ts';
 import { ɵstateController } from '../../core/mixins.ts';
 import type { SbbMiniCalendarDayElement } from '../mini-calendar-day/mini-calendar-day.component.ts';

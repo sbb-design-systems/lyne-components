@@ -1,7 +1,7 @@
 import { html } from 'lit';
 
-import { isWebkit } from '../../core/dom/platform.ts';
-import { ɵstateController } from '../../core/mixins/element-internals-mixin.ts';
+import { isWebkit } from '../../core/dom.ts';
+import { ɵstateController } from '../../core/mixins.ts';
 import {
   describeEach,
   describeViewports,

@@ -16,7 +16,7 @@ import {
   SbbMediaQueryBreakpointSmallAndAbove,
   SbbMediaQueryBreakpointUltraAndAbove,
   SbbMediaQueryBreakpointZeroAndAbove,
-} from '../../core/controllers/media-matchers-controller.ts';
+} from '../../core/controllers.ts';
 import { forceType } from '../../core/decorators.ts';
 import { isLean } from '../../core/dom.ts';
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';

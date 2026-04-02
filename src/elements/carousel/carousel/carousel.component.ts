@@ -3,14 +3,14 @@ import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers/language-controller.ts';
+import { SbbLanguageController } from '../../core/controllers.ts';
 import { forceType } from '../../core/decorators.ts';
 import {
   i18nCarouselArrowsNavigationHint,
   i18nNextSlide,
   i18nPreviousSlide,
   i18nSlide,
-} from '../../core/i18n/i18n.ts';
+} from '../../core/i18n.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.ts';
 import type {

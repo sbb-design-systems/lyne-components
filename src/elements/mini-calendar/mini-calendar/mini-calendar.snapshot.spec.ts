@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
-import { waitForLitRender } from '../../core/testing/wait-for-render.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
 import type { SbbMiniCalendarElement } from './mini-calendar.component.ts';
 import '../../mini-calendar.ts';

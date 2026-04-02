@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 
 import { defaultDateAdapter } from '../../core/datetime.ts';
 import { fixture } from '../../core/testing/private.ts';
-import { waitForLitRender } from '../../core/testing/wait-for-render.ts';
+import { waitForLitRender } from '../../core/testing.ts';
 
 import { SbbMiniCalendarElement } from './mini-calendar.component.ts';
 import '../../mini-calendar.ts';

@@ -16,7 +16,7 @@ import {
   SbbFocusTrapController,
   sbbInputModalityDetector,
 } from '../../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements/open-close-base-element.ts';
+import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
 import {
   SbbLanguageController,
   SbbMediaMatcherController,

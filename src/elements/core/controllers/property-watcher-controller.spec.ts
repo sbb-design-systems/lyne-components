@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js';
 
 import { forceType } from '../decorators.ts';
 import { fixture } from '../testing/private.ts';
-import { waitForLitRender } from '../testing/wait-for-render.ts';
+import { waitForLitRender } from '../testing.ts';
 
 import { SbbPropertyWatcherController } from './property-watcher-controller.ts';
 

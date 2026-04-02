@@ -5,7 +5,7 @@ import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import { isZeroAnimationDuration } from '../../core/dom.ts';
-import type { SbbOverlayCloseEventDetails } from '../../core/interfaces/overlay-close-details.ts';
+import type { SbbOverlayCloseEventDetails } from '../../core/interfaces.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import {
   overlayRefs,

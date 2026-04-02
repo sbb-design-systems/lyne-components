@@ -28,7 +28,7 @@ import {
 import { idReference } from '../../core/decorators.ts';
 import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.ts';
 import { forwardEvent } from '../../core/eventing.ts';
-import { i18nGoBack } from '../../core/i18n/i18n.ts';
+import { i18nGoBack } from '../../core/i18n.ts';
 import { ɵstateController, type SbbNegativeMixinType } from '../../core/mixins.ts';
 import {
   getElementPosition,

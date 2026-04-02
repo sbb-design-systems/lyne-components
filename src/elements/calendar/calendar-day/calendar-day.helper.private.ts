@@ -1,7 +1,7 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
+import { defaultDateAdapter } from '../../core/datetime.ts';
 import type { SbbMonthChangeEvent, SbbCalendarElement } from '../calendar/calendar.component.ts';
 
 import '../../calendar.ts';

@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import { sbbLiveAnnouncer } from '../../core/a11y/live-announcer.ts';
+import { sbbLiveAnnouncer } from '../../core/a11y.ts';
 import { SbbLanguageController } from '../../core/controllers.ts';
 import { i18nRemainingCharacters } from '../../core/i18n.ts';
 import { SbbHintElement } from '../hint/hint.component.ts';

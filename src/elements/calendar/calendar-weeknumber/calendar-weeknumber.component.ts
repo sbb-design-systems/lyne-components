@@ -1,8 +1,8 @@
 import { html, type CSSResultGroup, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../../core/controllers/language-controller.ts';
-import { i18nCalendarWeekNumber } from '../../core/i18n/i18n.ts';
+import { SbbLanguageController } from '../../core/controllers.ts';
+import { i18nCalendarWeekNumber } from '../../core/i18n.ts';
 import { boxSizingStyles } from '../../core/styles.ts';
 import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts';
 
