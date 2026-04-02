@@ -90,8 +90,8 @@
     content: '';
     grid-area: start / start / end / end;
     order: -1;
-    background: var(--sbb-toggle-after-background-color);
-    margin-inline: var(--sbb-toggle-background-color);
+    background: var(--sbb-toggle-background-color);
+    margin-inline: var(--sbb-toggle-background-inset);
     height: calc(100% - 2 * var(--sbb-toggle-background-inset));
     border-radius: var(--sbb-toggle-border-radius);
 
