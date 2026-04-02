@@ -1,8 +1,6 @@
-## Badge
-
 The `sbb-badge` attribute can be applied to every element, but is mainly designed to be placed on an `sbb-icon`.
 
-### API
+## API
 
 | CSS attribute name   | Type              | Description                                                                  |
 | -------------------- | ----------------- | ---------------------------------------------------------------------------- |
@@ -11,9 +9,9 @@ The `sbb-badge` attribute can be applied to every element, but is mainly designe
 
 Moreover, we provide the Sass mixin `badge` which contains the badge styling for general usage.
 
-### Usage
+## Usage
 
-#### Position default/after
+### Position default/after
 
 ```html
 <sbb-icon
@@ -24,7 +22,7 @@ Moreover, we provide the Sass mixin `badge` which contains the badge styling for
 ></sbb-icon>
 ```
 
-#### Position before
+### Position before
 
 ```html
 <sbb-icon
@@ -36,7 +34,7 @@ Moreover, we provide the Sass mixin `badge` which contains the badge styling for
 ></sbb-icon>
 ```
 
-#### On img element
+### On img element
 
 `<img>` elements don't support pseudo-elements. Therefore, placing a badge directly on the `<img>` element is not possible.
 
@@ -48,7 +46,7 @@ As workaround, a figure element can be used:
 </figure>
 ```
 
-### Accessibility
+## Accessibility
 
 For screen readers it's important to output the meaning of the badge. This attribute itself doesn't
 output anything to screen readers. As an example, add `aria-label` text or `aria-describedby` references.

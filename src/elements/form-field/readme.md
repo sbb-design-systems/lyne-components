@@ -319,8 +319,7 @@ to the form element's `ariaErrorMessageElements` property (or `aria-errormessage
 
 When you provide a hint via `<sbb-hint>`, it automatically links the hint element to the form element
 via `ariaDescribedByElements`. When an `<sbb-error>` is present, the hint is unlinked and hidden,
-as the error takes precedence. The `<sbb-form-field-text-counter>` is intentionally not linked
-via `ariaDescribedByElements` as its content is purely visual.
+as the error takes precedence.
 
 <!-- Auto Generated Below -->
 
