@@ -1,7 +1,7 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["sbb-alert should render default properties DOM"] =
+snapshots["sbb-alert should render default properties DOM"] = 
 `<sbb-alert
   animation="all"
   size="m"
@@ -19,7 +19,7 @@ snapshots["sbb-alert should render default properties DOM"] =
 `;
 /* end snapshot sbb-alert should render default properties DOM */
 
-snapshots["sbb-alert should render default properties Shadow DOM"] =
+snapshots["sbb-alert should render default properties Shadow DOM"] = 
 `<div class="sbb-alert__transition-wrapper">
   <div class="sbb-alert__transition-sub-wrapper">
     <div class="sbb-alert">
@@ -60,7 +60,7 @@ snapshots["sbb-alert should render default properties Shadow DOM"] =
 `;
 /* end snapshot sbb-alert should render default properties Shadow DOM */
 
-snapshots["sbb-alert should render customized properties DOM"] =
+snapshots["sbb-alert should render customized properties DOM"] = 
 `<sbb-alert
   animation="all"
   icon-name="disruption"
@@ -85,7 +85,7 @@ snapshots["sbb-alert should render customized properties DOM"] =
 `;
 /* end snapshot sbb-alert should render customized properties DOM */
 
-snapshots["sbb-alert should render customized properties Shadow DOM"] =
+snapshots["sbb-alert should render customized properties Shadow DOM"] = 
 `<div class="sbb-alert__transition-wrapper">
   <div class="sbb-alert__transition-sub-wrapper">
     <div class="sbb-alert">
@@ -126,36 +126,7 @@ snapshots["sbb-alert should render customized properties Shadow DOM"] =
 `;
 /* end snapshot sbb-alert should render customized properties Shadow DOM */
 
-snapshots["sbb-alert A11y tree Chrome"] =
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Interruption",
-      "level": 3
-    },
-    {
-      "role": "text",
-      "name": "Alert content "
-    },
-    {
-      "role": "link",
-      "name": "Find out more"
-    },
-    {
-      "role": "button",
-      "name": "Close message"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-alert A11y tree Chrome */
-
-snapshots["sbb-alert should render customized properties A11y tree Chrome"] =
+snapshots["sbb-alert should render customized properties A11y tree Chrome"] = 
 `<p>
   {
   "role": "generic",
