@@ -244,6 +244,9 @@ $theme: 'standard' !default;
   timetable-form-details with (
   $theme: $theme
 );
+@use '../../timetable-occupancy/timetable-occupancy.global' as timetable-occupancy with (
+  $theme: $theme
+);
 @use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
   $theme: $theme
 );
@@ -324,6 +327,7 @@ $theme: 'standard' !default;
   @include timetable-form.base;
   @include timetable-form-details.base;
   @include timetable-form-field.base;
+  @include timetable-occupancy.base;
   @include visual-checkbox.base;
 
   @include a11y.if-forced-colors {
