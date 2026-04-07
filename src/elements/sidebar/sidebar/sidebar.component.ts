@@ -98,13 +98,35 @@ export class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBas
     if (this.isOpen && this._isModeOver()) {
       this._takeFocus();
     }
+
+    if (!isServer) {
+      if (window.navigation) {
+        window.navigation.addEventListener('navigate', this._closeOnNavigation);
+      } else {
+        window.addEventListener('popstate', this._closeOnNavigation);
+      }
+    }
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.container?.style.removeProperty(this._buildCssWidthVar());
     this._container = null;
+
+    if (!isServer) {
+      if (window.navigation) {
+        window.navigation.removeEventListener('navigate', this._closeOnNavigation);
+      } else {
+        window.removeEventListener('popstate', this._closeOnNavigation);
+      }
+    }
   }
+
+  private _closeOnNavigation = (): void => {
+    if (this._isModeOver() && this.isOpen) {
+      this.close();
+    }
+  };
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
