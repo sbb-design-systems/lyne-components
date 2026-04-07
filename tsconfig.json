@@ -2,9 +2,9 @@
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "./dist/out-tsc",
-    "target": "es2022",
+    "target": "es2023",
     "module": "nodenext",
-    "lib": ["es2022", "DOM", "DOM.Iterable"],
+    "lib": ["es2023", "DOM", "DOM.Iterable"],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
