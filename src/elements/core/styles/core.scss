@@ -242,6 +242,9 @@ $theme: 'standard' !default;
 @use '../../teaser-product/common/teaser-product-common.global' as teaser-product-common with (
   $theme: $theme
 );
+@use '../../toast/toast.global' as toast with (
+  $theme: $theme
+);
 @use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
   $theme: $theme
 );
@@ -322,6 +325,7 @@ $theme: 'standard' !default;
   @include tag.base;
   @include teaser.base;
   @include teaser-product-common.base;
+  @include toast.base;
   @include visual-checkbox.base;
 
   @include a11y.if-forced-colors {
