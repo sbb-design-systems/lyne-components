@@ -3,6 +3,7 @@ import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
+import { isWebkit } from '../dom/platform.ts';
 import { fixture } from '../testing/private.ts';
 import { EventSpy } from '../testing.ts';
 
@@ -71,7 +72,13 @@ describe(`SbbElement`, () => {
     });
   });
 
-  describe('slot state', () => {
+  describe('slot state', function () {
+    if (isWebkit) {
+      // Flaky on Webkit
+      this.retries(3);
+      this.timeout(500);
+    }
+
     let element: SlotStateControllerElement;
 
     beforeEach(async () => {
@@ -80,10 +87,7 @@ describe(`SbbElement`, () => {
       );
     });
 
-    it('should sync slots', async function (this: Mocha.Context) {
-      // Flaky on Webkit
-      this.retries(3);
-
+    it('should sync slots', async () => {
       expect(element).not.to.match(':state(slotted)');
       expect(element).not.to.match(':state(slotted-icon)');
 
@@ -161,10 +165,7 @@ describe(`SbbElement`, () => {
       expect(element).not.to.match(':state(slotted)');
     });
 
-    it('should not disconnect observer on DOM removal', async function (this: Mocha.Context) {
-      // Flaky on Webkit
-      this.retries(3);
-
+    it('should not disconnect observer on DOM removal', async () => {
       const node = document.createTextNode('filled');
       element.appendChild(node);
       await aTimeout(1);
