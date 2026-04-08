@@ -1,8 +1,7 @@
 import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { boxSizingStyles, SbbElement } from '../core.ts';
 
 import style from './teaser-panel.scss?inline';
 
