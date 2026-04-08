@@ -14,7 +14,7 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import images from '../core/images.ts';
+import { sampleImages } from '../core/images.private.ts';
 
 import readme from './readme.md?raw';
 
@@ -61,7 +61,7 @@ const Template = ({ imgType, ...args }: Args): TemplateResult => html`
   <sbb-carousel ${sbbSpread(args)}>
     <sbb-carousel-list>
       ${repeat(
-        images.slice(0, 3),
+        sampleImages.slice(0, 3),
         (images) => images,
         (img, index) => html`
           <sbb-carousel-item>
@@ -174,7 +174,7 @@ const teaserTemplate = ({ shadow }: Args): TemplateResult => html`
             </div>
           </div>
           <sbb-image
-            image-src=${images[9]}
+            image-src=${sampleImages[9]}
             alt="Helpteaser-Background-Landscape"
             class="sbb-image-border-radius-none"
             style="position: absolute; inset: 0;"
@@ -193,7 +193,7 @@ const teaserTemplate = ({ shadow }: Args): TemplateResult => html`
             </div>
           </div>
           <sbb-image
-            image-src=${images[9]}
+            image-src=${sampleImages[9]}
             alt="Helpteaser-Background-Landscape"
             class="sbb-image-border-radius-none"
             style="position: absolute; inset: 0;"

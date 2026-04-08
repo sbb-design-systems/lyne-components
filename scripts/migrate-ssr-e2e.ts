@@ -58,7 +58,7 @@ for (const file of specFiles) {
     .set(
       file.includes('/elements/')
         ? relative(dirname(file), privateTesting)
-        : '@sbb-esta/lyne-elements/core/testing/private.js',
+        : '@sbb-esta/lyne-elements/core.js',
       ['fixture'],
     )
     .set(`./${directoryName}.js`, [className]);

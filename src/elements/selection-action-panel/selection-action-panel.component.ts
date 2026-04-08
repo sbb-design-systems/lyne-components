@@ -1,11 +1,9 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import type { SbbCardBadgeElement } from '../card.ts';
-import type { SbbCheckboxPanelElement } from '../checkbox-panel.ts';
-import { SbbElement } from '../core/base-elements.ts';
-import { SbbSelectionPanelMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
+import type { SbbCardBadgeElement } from '../card.pure.ts';
+import type { SbbCheckboxPanelElement } from '../checkbox-panel.pure.ts';
+import { SbbElement, SbbSelectionPanelMixin, boxSizingStyles } from '../core.ts';
+import type { SbbRadioButtonPanelElement } from '../radio-button-panel.pure.ts';
 
 import style from './selection-action-panel.scss?inline';
 

@@ -1,10 +1,11 @@
 import { html, type CSSResultGroup, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../../core/controllers/language-controller.ts';
-import { i18nCalendarWeekNumber } from '../../core/i18n/i18n.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts';
+import { SbbLanguageController, i18nCalendarWeekNumber, boxSizingStyles } from '../../core.ts';
+import {
+  SbbCalendarCellBaseElement,
+  calendarCellBaseStyle,
+} from '../common/calendar-cell-base-element.ts';
 
 /**
  * It displays a single week number cell in the `sbb-calendar` component.

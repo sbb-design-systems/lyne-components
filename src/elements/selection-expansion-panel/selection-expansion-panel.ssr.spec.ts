@@ -5,7 +5,7 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.ts';
 
-import '../checkbox.ts';
+import '../checkbox-panel.ts';
 import '../selection-expansion-panel.ts';
 
 describe(`sbb-selection-expansion-panel ssr`, () => {
@@ -17,7 +17,7 @@ describe(`sbb-selection-expansion-panel ssr`, () => {
         <sbb-checkbox-panel>Value</sbb-checkbox-panel>
       </sbb-selection-expansion-panel>`,
       {
-        modules: ['../checkbox.ts', '../selection-expansion-panel.ts'],
+        modules: ['../checkbox-panel.ts', '../selection-expansion-panel.ts'],
       },
     );
   });

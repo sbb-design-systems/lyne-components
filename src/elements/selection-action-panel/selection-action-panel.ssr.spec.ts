@@ -6,7 +6,7 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 import { SbbSelectionActionPanelElement } from './selection-action-panel.component.ts';
 
 import '../button.ts';
-import '../checkbox.ts';
+import '../checkbox-panel.ts';
 import '../selection-action-panel.ts';
 
 describe(`sbb-selection-action-panel ssr`, () => {
@@ -19,7 +19,7 @@ describe(`sbb-selection-action-panel ssr`, () => {
         <sbb-secondary-button size="m" icon-name="arrow-right-small"> </sbb-secondary-button>
       </sbb-selection-action-panel>`,
       {
-        modules: ['../button.ts', '../checkbox.ts', '../selection-action-panel.ts'],
+        modules: ['../button.ts', '../checkbox-panel.ts', '../selection-action-panel.ts'],
       },
     );
   });

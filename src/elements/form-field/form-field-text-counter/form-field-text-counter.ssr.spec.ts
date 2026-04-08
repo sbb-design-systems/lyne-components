@@ -19,7 +19,7 @@ describe(`sbb-form-field-text-counter ssr`, () => {
           <sbb-form-field-text-counter></sbb-form-field-text-counter>
         </sbb-form-field>
       `,
-      { modules: ['../form-field.ts', './form-field-text-counter.component.ts'] },
+      { modules: ['../../form-field.ts'] },
     );
   });
 

@@ -2,7 +2,6 @@ import { html, nothing } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import { type SinonStub, stub } from 'sinon';
 
-import { defaultDateAdapter } from '../../core/datetime.ts';
 import {
   describeViewports,
   visualDiffActive,
@@ -10,6 +9,7 @@ import {
   visualDiffFocus,
   visualDiffHover,
 } from '../../core/testing/private.ts';
+import { defaultDateAdapter } from '../../core.ts';
 
 import '../../calendar.ts';
 

@@ -1,8 +1,9 @@
-import type { LitElement, PropertyValues } from 'lit';
+import type { PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import type { SbbElement } from '../base-elements/element.ts';
+
 import type { AbstractConstructor } from './constructor.ts';
-import type { SbbElementInternalsMixinType } from './element-internals-mixin.ts';
 
 export declare class SbbRequiredMixinType {
   public accessor required: boolean;
@@ -13,9 +14,7 @@ export declare class SbbRequiredMixinType {
  * Enhance your component with a required property.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbRequiredMixin = <
-  T extends AbstractConstructor<LitElement & SbbElementInternalsMixinType>,
->(
+export const SbbRequiredMixin = <T extends AbstractConstructor<SbbElement>>(
   superClass: T,
 ): AbstractConstructor<SbbRequiredMixinType> & T => {
   abstract class SbbRequiredElement extends superClass implements Partial<SbbRequiredMixinType> {

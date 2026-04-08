@@ -4,7 +4,7 @@ import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import sampleImages from '../core/images.ts';
+import { sampleImages } from '../core/images.private.ts';
 import { SbbFlipCardElement } from '../flip-card.ts';
 
 import readme from './readme.md?raw';

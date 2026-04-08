@@ -7,10 +7,13 @@ import {
   unsafeCSS,
 } from 'lit';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { appendAriaElements, removeAriaElements } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  appendAriaElements,
+  removeAriaElements,
+  SbbElement,
+  SbbPropertyWatcherController,
+  boxSizingStyles,
+} from '../../core.ts';
 import type { SbbStepLabelElement } from '../step-label/step-label.component.ts';
 import type { SbbStepperElement } from '../stepper/stepper.component.ts';
 

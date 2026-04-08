@@ -2,13 +2,16 @@ import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean, isZeroAnimationDuration } from '../../core/dom.ts';
-import type { SbbOpenedClosedState } from '../../core/interfaces.ts';
-import { ɵstateController } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbTitleLevel } from '../../title.ts';
+import type { SbbOpenedClosedState } from '../../core.ts';
+import {
+  ɵstateController,
+  SbbElement,
+  forceType,
+  isLean,
+  isZeroAnimationDuration,
+  boxSizingStyles,
+} from '../../core.ts';
+import type { SbbTitleLevel } from '../../title.pure.ts';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content/expansion-panel-content.component.ts';
 import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header/expansion-panel-header.component.ts';
 

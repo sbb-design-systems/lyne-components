@@ -1,0 +1,5 @@
+@use '../styles' as sbb;
+
+:host {
+  @include sbb.screen-reader-only;
+}

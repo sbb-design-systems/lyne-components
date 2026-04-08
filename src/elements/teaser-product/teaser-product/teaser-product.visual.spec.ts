@@ -7,7 +7,7 @@ import {
   visualDiffFocus,
   visualDiffHover,
 } from '../../core/testing/private.ts';
-import { waitForImageReady } from '../../core/testing/wait-for-image-ready.ts';
+import { waitForImageReady } from '../../core/testing.ts';
 
 import '../../teaser.ts';
 import '../../button.ts';

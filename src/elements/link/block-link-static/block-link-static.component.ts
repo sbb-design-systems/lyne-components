@@ -1,5 +1,4 @@
-import { SbbActionBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledMixin } from '../../core/mixins.ts';
+import { SbbActionBaseElement, SbbDisabledMixin } from '../../core.ts';
 import { SbbBlockLinkCommonElementMixin } from '../common/block-link-common.ts';
 
 /**

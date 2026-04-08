@@ -2,12 +2,9 @@ import { nothing, unsafeCSS, type PropertyValues, type TemplateResult } from 'li
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
-import type { AbstractConstructor } from '../../core/mixins.ts';
-import { SbbNegativeMixin } from '../../core/mixins.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+import type { SbbActionBaseElement, AbstractConstructor } from '../../core.ts';
+import { forceType, isLean, SbbNegativeMixin } from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 
 import buttonAccentStyleString from './accent-button.scss?inline';
 import buttonCommonStyleString from './button-common.scss?inline';

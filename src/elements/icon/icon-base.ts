@@ -6,9 +6,7 @@ import type { UnsafeHTMLDirective } from 'lit/directives/unsafe-html.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { until } from 'lit/directives/until.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { forceType } from '../core/decorators.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { SbbElement, forceType, boxSizingStyles } from '../core.ts';
 
 import { getSvgContent } from './icon-request.ts';
 import style from './icon.scss?inline';

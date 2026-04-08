@@ -1,10 +1,14 @@
-import { html, type LitElement, nothing, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import type { AbstractConstructor } from './constructor.ts';
-import { SbbHydrationMixin, type SbbHydrationMixinType } from './hydration-mixin.ts';
+import type {
+  SbbElement,
+  SbbElementConstructor,
+  SbbElementType,
+} from '../base-elements/element.ts';
+import { SbbScreenReaderOnlyElement } from '../screen-reader-only/screen-reader-only.component.ts';
 
-import '../../screen-reader-only.ts';
+import type { AbstractConstructor } from './constructor.ts';
 
 const SSR_CHILD_COUNT_ATTRIBUTE = 'data-ssr-child-count';
 const SLOTNAME_PREFIX = 'li';
@@ -30,9 +34,7 @@ export type WithListChildren<
   C extends HTMLElement = HTMLElement,
 > = T & { listChildren: C[] };
 
-export declare abstract class SbbNamedSlotListMixinType<
-  C extends HTMLElement,
-> extends SbbHydrationMixinType {
+export declare abstract class SbbNamedSlotListMixinType<C extends HTMLElement> extends SbbElement {
   protected abstract readonly listChildLocalNames: string[];
   protected accessor listChildren: C[];
   protected renderList(
@@ -52,24 +54,20 @@ export declare abstract class SbbNamedSlotListMixinType<
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbNamedSlotListMixin = <
   C extends HTMLElement,
-  T extends AbstractConstructor<LitElement>,
+  T extends AbstractConstructor<SbbElement> & SbbElementConstructor,
 >(
   superClass: T,
 ): AbstractConstructor<SbbNamedSlotListMixinType<C>> & T => {
-  // TODO(breaking-change): Remove SbbElementInternalsMixin and depend on SbbElement as base class instead of LitElement
-  const conditionalSuperClass = (superClass as unknown as Record<string, unknown>)['_$sbbElement$']
-    ? (superClass as unknown as AbstractConstructor<SbbHydrationMixinType> & T)
-    : SbbHydrationMixin(superClass);
-
   /**
    * This base class provides named slot list observer functionality.
    * This allows using the pattern of rendering a named slot for each child, which allows
    * wrapping children in an ul/li list.
    */
-  abstract class NamedSlotListElement<C extends HTMLElement = HTMLElement>
-    extends conditionalSuperClass
+  abstract class NamedSlotListElement
+    extends superClass
     implements Partial<SbbNamedSlotListMixinType<C>>
   {
+    public static override elementDependencies: SbbElementType[] = [SbbScreenReaderOnlyElement];
     /** A list of lower-cased tag names to match against. (e.g. `sbb-link`) */
     protected abstract readonly listChildLocalNames: string[];
 

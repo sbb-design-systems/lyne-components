@@ -1,8 +1,11 @@
 import type { CSSResultGroup } from 'lit';
 
-import { SbbLinkBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  SbbLinkBaseElement,
+  SbbDisabledInteractiveMixin,
+  SbbDisabledMixin,
+  boxSizingStyles,
+} from '../../core.ts';
 import {
   buttonCommonStyle,
   buttonPrimaryStyle,

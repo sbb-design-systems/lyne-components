@@ -2,24 +2,24 @@ import type { PropertyValues } from '@lit/reactive-element';
 import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers/language-controller.ts';
-import { forceType } from '../../core/decorators.ts';
 import {
+  SbbLanguageController,
+  forceType,
   i18nCarouselArrowsNavigationHint,
   i18nNextSlide,
   i18nPreviousSlide,
   i18nSlide,
-} from '../../core/i18n/i18n.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbCompactPaginatorElement } from '../../paginator/compact-paginator/compact-paginator.component.ts';
+  boxSizingStyles,
+  SbbElement,
+  type SbbElementType,
+  SbbScreenReaderOnlyElement,
+} from '../../core.ts';
+import type { SbbCompactPaginatorElement } from '../../paginator.pure.ts';
 import type {
   SbbCarouselItemElement,
   SbbCarouselItemEventDetail,
 } from '../carousel-item/carousel-item.component.ts';
 import type { SbbCarouselListElement } from '../carousel-list/carousel-list.component.ts';
-
-import '../../screen-reader-only.ts';
 
 import style from './carousel.scss?inline';
 
@@ -30,6 +30,7 @@ import style from './carousel.scss?inline';
  */
 export class SbbCarouselElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-carousel';
+  public static override elementDependencies: SbbElementType[] = [SbbScreenReaderOnlyElement];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**

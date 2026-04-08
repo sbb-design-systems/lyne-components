@@ -7,11 +7,14 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { readConfig } from '../../core/config/config.ts';
-import { type DateAdapter } from '../../core/datetime/date-adapter.ts';
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
-import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
+import {
+  SbbButtonBaseElement,
+  readConfig,
+  defaultDateAdapter,
+  forceType,
+  omitEmptyConverter,
+} from '../../core.ts';
+import { type DateAdapter } from '../../core.ts';
 
 import style from './mini-calendar-day.scss?inline';
 

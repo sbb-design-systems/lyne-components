@@ -1,7 +1,7 @@
 import { isServer } from 'lit';
 
-import type { SbbIconConfig } from '../core/config.ts';
-import { readConfig } from '../core/config.ts';
+import type { SbbIconConfig } from '../core.ts';
+import { readConfig } from '../core.ts';
 
 import { validateContent } from './icon-validate.ts';
 

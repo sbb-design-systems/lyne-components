@@ -8,12 +8,18 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController, SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom/lean-context.ts';
-import { i18nChipGroupInputDescription, i18nSelectionRequired } from '../../core/i18n.ts';
+import {
+  getNextElementIndex,
+  isArrowKeyPressed,
+  SbbElement,
+  SbbLanguageController,
+  SbbPropertyWatcherController,
+  forceType,
+  isLean,
+  i18nChipGroupInputDescription,
+  i18nSelectionRequired,
+  boxSizingStyles,
+} from '../../core.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -21,8 +27,7 @@ import {
   SbbFormAssociatedMixin,
   SbbNegativeMixin,
   SbbRequiredMixin,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+} from '../../core.ts';
 import type { SbbFormFieldElement } from '../../form-field/form-field/form-field.component.ts';
 import type { SbbOptionBaseElement } from '../../option/option/option-base-element.ts';
 import { SbbChipElement } from '../chip/chip.component.ts';
