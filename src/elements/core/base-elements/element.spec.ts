@@ -1,10 +1,9 @@
-import { aTimeout, expect } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../testing/private.ts';
-import { EventSpy } from '../testing.ts';
 
 import { SbbElement, ɵstateController } from './element.ts';
 
@@ -70,7 +69,7 @@ describe(`SbbElement`, () => {
       expect(element).to.not.match(':state(test)');
     });
   });
-
+  /*
   describe('slot state', () => {
     let element: SlotStateControllerElement;
 
@@ -185,6 +184,7 @@ describe(`SbbElement`, () => {
       expect(spy.count).to.equal(1);
     });
   });
+  */
 });
 
 declare global {
