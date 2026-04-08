@@ -1,0 +1,47 @@
+@use '../core/styles' as sbb;
+
+:host {
+  --sbb-panel-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-4x)
+  );
+  --_sbb-panel-height: calc(var(--sbb-panel-inner-height) + 2 * var(--sbb-panel-triangle-height));
+
+  display: block;
+  position: absolute;
+  inset: 0;
+  min-height: var(--_sbb-panel-height);
+  font-size: var(--sbb-panel-font-size);
+  font-weight: var(--sbb-panel-font-weight);
+  line-height: var(--sbb-panel-line-height);
+  letter-spacing: var(--sbb-typo-letter-spacing-heading);
+  color: var(--sbb-panel-color);
+  hyphens: auto;
+}
+
+@include sbb.hover-mq($hover: true) {
+  :host(:hover) {
+    --sbb-panel-background-color: var(--sbb-panel-background-color-hover);
+  }
+}
+
+.sbb-teaser-panel {
+  @include sbb.absolute-center-y;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sbb-panel-gap);
+  width: var(--sbb-panel-width);
+  height: var(--_sbb-panel-height);
+  padding-block: var(--sbb-panel-triangle-height);
+  padding-inline: var(--sbb-panel-padding-inline);
+  clip-path: polygon(
+    0 0,
+    100% var(--sbb-panel-triangle-height),
+    100% calc(100% - var(--sbb-panel-triangle-height)),
+    0% 100%
+  );
+  background-color: var(--sbb-panel-background-color);
+  transition: background var(--sbb-panel-animation-duration) var(--sbb-panel-animation-easing);
+}
