@@ -31,8 +31,7 @@ export const SbbBlockLinkCommonElementMixin = <T extends AbstractConstructor<Sbb
     public static override styles: CSSResultGroup = [super.styles, unsafeCSS(blockStyle)];
 
     /**
-     * Text size, the link should get in the non-button variation.
-     * With inline variant, the text size adapts to where it is used.
+     * Size variant, either xs, s or m.
      * @default 's' / 'xs' (lean)
      */
     @property({ reflect: true }) public accessor size: SbbLinkSize = isLean() ? 'xs' : 's';
