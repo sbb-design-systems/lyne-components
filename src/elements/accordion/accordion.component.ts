@@ -7,14 +7,17 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { forceType, handleDistinctChange } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import { isEventPrevented } from '../core/eventing.ts';
-import { ɵstateController } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbExpansionPanelElement } from '../expansion-panel.ts';
-import type { SbbTitleLevel } from '../title.ts';
+import {
+  SbbElement,
+  ɵstateController,
+  forceType,
+  handleDistinctChange,
+  isLean,
+  isEventPrevented,
+  boxSizingStyles,
+} from '../core.ts';
+import type { SbbExpansionPanelElement } from '../expansion-panel.pure.ts';
+import type { SbbTitleLevel } from '../title.pure.ts';
 
 import style from './accordion.scss?inline';
 

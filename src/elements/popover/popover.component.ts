@@ -17,31 +17,24 @@ import {
   isFakeMousedownFromScreenReader,
   SbbFocusTrapController,
   sbbInputModalityDetector,
-} from '../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
-import { readConfig } from '../core/config.ts';
-import {
+  readConfig,
   SbbEscapableOverlayController,
   SbbLanguageController,
   SbbMediaQueryPointerCoarse,
-} from '../core/controllers.ts';
-import { forceType, idReference } from '../core/decorators.ts';
-import { isZeroAnimationDuration } from '../core/dom.ts';
-import { composedPathHasAttribute } from '../core/eventing.ts';
-import { i18nClosePopover } from '../core/i18n.ts';
-import { ɵstateController } from '../core/mixins.ts';
-import {
+  forceType,
+  idReference,
+  isZeroAnimationDuration,
+  composedPathHasAttribute,
+  i18nClosePopover,
   getElementPosition,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../core/overlay.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+  boxSizingStyles,
+} from '../core.ts';
+import { ɵstateController, SbbOpenCloseBaseElement, type SbbElementType } from '../core.ts';
 
 import style from './popover.scss?inline';
-
-// TODO(breaking-change): Remove call to define.
-SbbSecondaryButtonElement.define();
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
@@ -436,6 +429,8 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
  */
 export class SbbPopoverElement extends SbbPopoverBaseElement {
   public static override readonly elementName: string = 'sbb-popover';
+  public static override elementDependencies: SbbElementType[] = [SbbSecondaryButtonElement];
+
   /** Whether the close button should be hidden. */
   @forceType()
   @property({ attribute: 'hide-close-button', type: Boolean, reflect: true })

@@ -8,10 +8,13 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { isLean, isZeroAnimationDuration } from '../../core/dom.ts';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  SbbElement,
+  isLean,
+  isZeroAnimationDuration,
+  SbbUpdateSchedulerMixin,
+  boxSizingStyles,
+} from '../../core.ts';
 
 import style from './sticky-bar.scss?inline';
 

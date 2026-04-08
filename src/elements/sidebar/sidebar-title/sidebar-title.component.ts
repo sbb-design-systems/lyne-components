@@ -1,7 +1,7 @@
 import { unsafeCSS, type CSSResultGroup } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbTitleBase, type SbbTitleLevel } from '../../title.ts';
+import { SbbTitleBase, type SbbTitleLevel } from '../../title.pure.ts';
 
 import style from './sidebar-title.scss?inline';
 

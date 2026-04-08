@@ -1,7 +1,7 @@
 import { unsafeCSS, type CSSResultGroup } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbNegativeMixin } from '../core/mixins.ts';
+import { SbbNegativeMixin } from '../core.ts';
 
 import { SbbTitleBase, type SbbTitleLevel } from './title-base.ts';
 import style from './title.scss?inline';

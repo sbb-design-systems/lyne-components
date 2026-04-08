@@ -1,15 +1,13 @@
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.js';
+import { SbbSecondaryButtonElement } from '@sbb-esta/lyne-elements/button.pure.js';
+import type { SbbElementType } from '@sbb-esta/lyne-elements/core.js';
 import {
-  html,
-  isServer,
-  nothing,
-  unsafeCSS,
-  type CSSResultGroup,
-  type PropertyValues,
-  type TemplateResult,
-} from 'lit';
+  SbbLanguageController,
+  SbbScreenReaderOnlyElement,
+  boxSizingStyles,
+} from '@sbb-esta/lyne-elements/core.js';
+import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.pure.js';
+import { html, isServer, nothing, unsafeCSS } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -33,22 +31,22 @@ import { SbbSeatReservationScopedElement } from '../seat-reservation-scoped/seat
 import { SeatReservationBaseElement } from './seat-reservation-base-element.ts';
 import style from './seat-reservation.scss?inline';
 
-import '@sbb-esta/lyne-elements/button.js';
-import '@sbb-esta/lyne-elements/screen-reader-only.js';
-import '@sbb-esta/lyne-elements/popover.js';
-
-SbbSeatReservationAreaElement.define();
-SbbSeatReservationGraphicElement.define();
-SbbSeatReservationPlaceControlElement.define();
-SbbSeatReservationNavigationCoachElement.define();
-SbbSeatReservationScopedElement.define();
-
 /**
  * Main component for the seat reservation.
  *
  */
 export class SbbSeatReservationElement extends SeatReservationBaseElement {
   public static override readonly elementName: string = 'sbb-seat-reservation';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbSecondaryButtonElement,
+    SbbScreenReaderOnlyElement,
+    SbbPopoverElement,
+    SbbSeatReservationAreaElement,
+    SbbSeatReservationGraphicElement,
+    SbbSeatReservationPlaceControlElement,
+    SbbSeatReservationNavigationCoachElement,
+    SbbSeatReservationScopedElement,
+  ];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   private _language = new SbbLanguageController(this);

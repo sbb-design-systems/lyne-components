@@ -19,12 +19,14 @@ const ignores = [
   '**/__snapshots__/**/*',
 ];
 
-const deprecatedEntrypoints = globSync(
-  join(fileURLToPath(import.meta.url), '../src/**/*.ts'),
-).filter((file) => {
-  const content = readFileSync(file, 'utf-8');
-  return content.includes('@entrypoint') && content.includes('console.warn');
-});
+const sourceFiles = globSync(
+  join(fileURLToPath(import.meta.url), '../src/{elements,elements-experimental}/**/*.ts'),
+).filter((file) =>
+  ['spec', 'stories', 'private'].every((suffix) => !file.endsWith(`.${suffix}.ts`)),
+);
+const entrypoints = sourceFiles.filter((file) =>
+  readFileSync(file, 'utf-8').includes('@entrypoint'),
+);
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigFile} */
 export default [
@@ -135,7 +137,16 @@ export default [
       'import-x/no-cycle': 'error',
       'import-x/no-restricted-paths': [
         'error',
-        { zones: [{ target: './src', from: deprecatedEntrypoints }] },
+        {
+          zones: [
+            {
+              target: sourceFiles,
+              from: entrypoints.filter(
+                (file) => !file.endsWith('.pure.ts') && !file.endsWith('/core.ts'),
+              ),
+            },
+          ],
+        },
       ],
       'import-x/no-self-import': 'error',
       'import-x/no-unresolved': [

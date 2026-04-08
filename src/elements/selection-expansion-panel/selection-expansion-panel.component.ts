@@ -7,18 +7,19 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { SbbLanguageController } from '../core/controllers.ts';
-import { forceType } from '../core/decorators.ts';
-import { isZeroAnimationDuration } from '../core/dom.ts';
-import { i18nCollapsed, i18nExpanded } from '../core/i18n.ts';
-import type { SbbOpenedClosedState } from '../core/interfaces.ts';
-import { SbbSelectionPanelMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { type SbbOpenedClosedState, SbbElement, type SbbElementType } from '../core.ts';
+import {
+  SbbLanguageController,
+  forceType,
+  isZeroAnimationDuration,
+  i18nCollapsed,
+  i18nExpanded,
+  SbbSelectionPanelMixin,
+  boxSizingStyles,
+} from '../core.ts';
+import { SbbDividerElement } from '../divider.pure.ts';
 
 import style from './selection-expansion-panel.scss?inline';
-
-import '../divider.ts';
 
 /**
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
@@ -28,6 +29,7 @@ import '../divider.ts';
  */
 export class SbbSelectionExpansionPanelElement extends SbbSelectionPanelMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-selection-expansion-panel';
+  public static override elementDependencies: SbbElementType[] = [SbbDividerElement];
   // TODO: fix inheriting from SbbOpenCloseBaseElement requires: https://github.com/open-wc/custom-elements-manifest/issues/253
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {

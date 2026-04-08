@@ -1,9 +1,18 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { setOrRemoveAttribute } from '@sbb-esta/lyne-elements/core/dom.js';
 import {
+  SbbCardBadgeElement,
+  SbbCardButtonElement,
+  SbbCardElement,
+} from '@sbb-esta/lyne-elements/card.pure.js';
+import {
+  type SbbOccupancy,
+  SbbElement,
+  type SbbElementType,
+} from '@sbb-esta/lyne-elements/core.js';
+import {
+  SbbLanguageController,
+  defaultDateAdapter,
+  forceType,
+  setOrRemoveAttribute,
   i18nArrival,
   i18nClass,
   i18nDeparture,
@@ -19,9 +28,10 @@ import {
   i18nTravelhints,
   i18nTripDuration,
   i18nTripQuayChange,
-} from '@sbb-esta/lyne-elements/core/i18n.js';
-import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+  boxSizingStyles,
+} from '@sbb-esta/lyne-elements/core.js';
+import { SbbIconElement } from '@sbb-esta/lyne-elements/icon.pure.js';
+import { SbbTimetableOccupancyElement } from '@sbb-esta/lyne-elements/timetable-occupancy.pure.js';
 import { format } from 'date-fns';
 import {
   html,
@@ -33,16 +43,16 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime.ts';
-import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core/timetable.ts';
-import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.ts';
+import type { PtRideLeg, PtSituation, ITripItem, Notice } from '../core.ts';
+import {
+  isRideLeg,
+  getDepartureArrivalTimeAttribute,
+  removeTimezoneFromISOTimeString,
+  durationToTime,
+} from '../core.ts';
+import { SbbPearlChainTimeElement } from '../pearl-chain-time.pure.ts';
 
 import style from './timetable-row.scss?inline';
-
-import '@sbb-esta/lyne-elements/card.js';
-import '@sbb-esta/lyne-elements/icon.js';
-import '@sbb-esta/lyne-elements/timetable-occupancy.js';
-import '../pearl-chain-time.ts';
 
 /** HimCus interface for mapped icon name and text */
 export interface HimCus {
@@ -215,6 +225,14 @@ export const handleNotices = (notices: Notice[]): Notice[] => {
  * */
 export class SbbTimetableRowElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-timetable-row';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbCardElement,
+    SbbCardBadgeElement,
+    SbbCardButtonElement,
+    SbbIconElement,
+    SbbTimetableOccupancyElement,
+    SbbPearlChainTimeElement,
+  ];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** The trip Prop. */

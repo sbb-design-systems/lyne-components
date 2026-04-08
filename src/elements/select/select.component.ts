@@ -14,22 +14,26 @@ import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
 
-import { getNextElementIndex } from '../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
 import {
+  getNextElementIndex,
+  SbbOpenCloseBaseElement,
   SbbPropertyWatcherController,
   SbbEscapableOverlayController,
   SbbLanguageController,
-} from '../core/controllers.ts';
-import { forceType, getOverride, handleDistinctChange } from '../core/decorators.ts';
-import {
+  forceType,
+  getOverride,
+  handleDistinctChange,
   isLean,
   isNextjs,
   isSafari,
   isZeroAnimationDuration,
   setOrRemoveAttribute,
-} from '../core/dom.ts';
-import { i18nSelectionRequired } from '../core/i18n.ts';
+  i18nSelectionRequired,
+  isEventOnElement,
+  overlayGapFixCorners,
+  setOverlayPosition,
+  boxSizingStyles,
+} from '../core.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -39,12 +43,10 @@ import {
   SbbReadonlyMixin,
   SbbRequiredMixin,
   SbbUpdateSchedulerMixin,
-} from '../core/mixins.ts';
-import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbDividerElement } from '../divider.ts';
+} from '../core.ts';
+import type { SbbDividerElement } from '../divider.pure.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
-import type { SbbOptionElement, SbbOptionHintElement } from '../option.ts';
+import type { SbbOptionElement, SbbOptionHintElement } from '../option.pure.ts';
 
 import style from './select.scss?inline';
 

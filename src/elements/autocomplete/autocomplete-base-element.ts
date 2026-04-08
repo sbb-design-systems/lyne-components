@@ -12,23 +12,24 @@ import {
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
 import {
+  SbbOpenCloseBaseElement,
   SbbPropertyWatcherController,
   SbbEscapableOverlayController,
-} from '../core/controllers.ts';
-import { forceType, idReference } from '../core/decorators.ts';
-import { isLean, isSafari, isZeroAnimationDuration } from '../core/dom.ts';
-import { SbbNegativeMixin } from '../core/mixins.ts';
-import {
+  forceType,
+  idReference,
+  isLean,
+  isSafari,
+  isZeroAnimationDuration,
+  SbbNegativeMixin,
   isEventOnElement,
   overlayGapFixCorners,
   removeAriaComboBoxAttributes,
   setOverlayPosition,
-} from '../core/overlay.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+  boxSizingStyles,
+} from '../core.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
-import type { SbbOptionBaseElement } from '../option.ts';
+import type { SbbOptionBaseElement } from '../option.pure.ts';
 
 import style from './autocomplete-base-element.scss?inline';
 

@@ -4,24 +4,20 @@ import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
+import { SbbElement, type SbbElementType } from '../../core.ts';
 import {
+  forceType,
   i18nFileSelectorSubtitleLabel,
   i18nFileSelectorSubtitleLabelMultiple,
-} from '../../core/i18n.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+  boxSizingStyles,
+} from '../../core.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
 import {
   fileSelectorCommonStyle,
   SbbFileSelectorCommonElementMixin,
 } from '../common/file-selector-common.ts';
 
-import '../../icon.ts';
-
 import style from './file-selector-dropzone.scss?inline';
-
-// TODO(breaking-change): Remove call to define.
-SbbSecondaryButtonStaticElement.define();
 
 /**
  * It allows to select one or more file from storage devices via button click or drag and drop, and display them.
@@ -30,6 +26,10 @@ SbbSecondaryButtonStaticElement.define();
  */
 export class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElementMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-file-selector-dropzone';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbIconElement,
+    SbbSecondaryButtonStaticElement,
+  ];
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     fileSelectorCommonStyle,

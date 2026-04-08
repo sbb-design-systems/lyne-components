@@ -1,8 +1,8 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import type { visualRegressionFixture } from '../../core/testing/private.ts';
 import {
+  type visualRegressionFixture,
   describeEach,
   describeViewports,
   visualDiffDefault,

@@ -8,17 +8,19 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { interactivityChecker } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
+import {
+  interactivityChecker,
+  SbbElement,
+  forceType,
+  isLean,
+  boxSizingStyles,
+} from '../../core.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
   SbbFormAssociatedMixin,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+} from '../../core.ts';
 import type { SbbToggleOptionElement } from '../toggle-option/toggle-option.component.ts';
 
 import style from './toggle.scss?inline';

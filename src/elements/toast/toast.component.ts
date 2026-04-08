@@ -12,23 +12,23 @@ import {
   SbbTransparentButtonElement,
   type SbbTransparentButtonLinkElement,
 } from '../button.pure.ts';
-import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
-import { SbbDarkModeController, SbbLanguageController } from '../core/controllers.ts';
-import { forceType } from '../core/decorators.ts';
-import { isLean, isZeroAnimationDuration } from '../core/dom.ts';
-import { composedPathHasAttribute } from '../core/eventing.ts';
-import { i18nCloseAlert } from '../core/i18n.ts';
-import { SbbReadonlyMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import { SbbIconNameMixin } from '../icon.ts';
-import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.ts';
+import { SbbOpenCloseBaseElement, type SbbElementType } from '../core.ts';
+import {
+  SbbDarkModeController,
+  SbbLanguageController,
+  forceType,
+  isLean,
+  isZeroAnimationDuration,
+  composedPathHasAttribute,
+  i18nCloseAlert,
+  SbbReadonlyMixin,
+  boxSizingStyles,
+} from '../core.ts';
+import { SbbDividerElement } from '../divider.pure.ts';
+import { SbbIconNameMixin } from '../icon.pure.ts';
+import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.pure.ts';
 
 import style from './toast.scss?inline';
-
-import '../divider.ts';
-
-// TODO(breaking-change): Remove call to define.
-SbbTransparentButtonElement.define();
 
 type SbbToastPositionVertical = 'top' | 'bottom';
 type SbbToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';
@@ -49,6 +49,10 @@ const toastRefs = new Set<SbbToastElement>();
  */
 export class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
   public static override readonly elementName: string = 'sbb-toast';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbTransparentButtonElement,
+    SbbDividerElement,
+  ];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**

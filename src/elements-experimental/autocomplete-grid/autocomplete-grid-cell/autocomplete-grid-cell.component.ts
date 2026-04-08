@@ -1,5 +1,4 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import { SbbElement, boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import style from './autocomplete-grid-cell.scss?inline';

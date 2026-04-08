@@ -1,0 +1,8 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-timetable-form-background-color: var(--sbb-background-color-1);
+  --sbb-timetable-form-border-radius: var(--sbb-border-radius-4x);
+}

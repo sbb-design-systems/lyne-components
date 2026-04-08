@@ -9,26 +9,28 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
-import type { SbbChipGroupElement } from '../../chip.ts';
-import { sbbInputModalityDetector } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
-import { i18nOptional } from '../../core/i18n.ts';
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.pure.ts';
+import type { SbbChipGroupElement } from '../../chip.pure.ts';
+import {
+  sbbInputModalityDetector,
+  SbbLanguageController,
+  forceType,
+  isLean,
+  i18nOptional,
+  boxSizingStyles,
+} from '../../core.ts';
 import {
   appendAriaElements,
   removeAriaElements,
+  SbbElement,
+  type SbbElementType,
   type SbbFormAssociatedInputMixinType,
   SbbNegativeMixin,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbSelectElement } from '../../select.ts';
+} from '../../core.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
+import type { SbbSelectElement } from '../../select.pure.ts';
 
 import style from './form-field.scss?inline';
-
-import '../../icon.ts';
 
 let nextId = 0;
 
@@ -81,6 +83,7 @@ export class SbbFormFieldControlEvent extends Event {
  */
 export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-form-field';
+  public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   // List of elements that should not focus input on click

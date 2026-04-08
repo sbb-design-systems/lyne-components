@@ -1,7 +1,9 @@
-import { SbbPropertyWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { ɵstateController } from '@sbb-esta/lyne-elements/core/mixins.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option.js';
+import {
+  ɵstateController,
+  SbbPropertyWatcherController,
+  boxSizingStyles,
+} from '@sbb-esta/lyne-elements/core.js';
+import { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option.pure.js';
 import { unsafeCSS, type CSSResultGroup, type PropertyValues } from 'lit';
 
 import style from './autocomplete-grid-option.scss?inline';

@@ -1,9 +1,7 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 
-import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { IS_FOCUSABLE_QUERY, SbbElement, boxSizingStyles } from '../../core.ts';
 
 import style from './flip-card-details.scss?inline';
 

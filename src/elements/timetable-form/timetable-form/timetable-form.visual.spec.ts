@@ -7,6 +7,7 @@ import {
 } from '../../core/testing/private.ts';
 
 import '../../button.ts';
+import '../../date-input.ts';
 import '../../datepicker.ts';
 import '../../divider.ts';
 import '../../form-field.ts';

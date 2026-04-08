@@ -1,10 +1,10 @@
-import { assert, aTimeout, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { fixture, tabKey } from '../../core/testing/private.ts';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { tabKey } from '../../core/testing/private.ts';
+import { waitForLitRender, EventSpy, waitForCondition } from '../../core/testing.ts';
 import type { SbbSidebarCloseButtonElement } from '../sidebar-close-button/sidebar-close-button.component.ts';
 import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 
@@ -635,6 +635,49 @@ describe('sbb-sidebar', () => {
 
       expect(element.isOpen).to.be.true;
       expect(document.activeElement).not.to.be.equal(closeButton);
+    });
+
+    describe('close on navigation', () => {
+      it('should close in mode over when Navigation API fires navigate event', async function () {
+        element.mode = 'over';
+        element.opened = true;
+        await waitForLitRender(element);
+        expect(element.isOpen).to.be.true;
+
+        window.navigation.dispatchEvent(new Event('navigate'));
+        await waitForLitRender(element);
+
+        expect(element.isOpen).to.be.false;
+      });
+
+      it('should NOT close in mode side when Navigation API fires navigate event', async function () {
+        element.mode = 'side';
+        element.opened = true;
+        await waitForLitRender(element);
+        expect(element.isOpen).to.be.true;
+
+        window.navigation.dispatchEvent(new Event('navigate'));
+        await waitForLitRender(element);
+
+        expect(element.isOpen).to.be.true;
+      });
+
+      it('should remove navigate listener on disconnect', async function () {
+        element.mode = 'over';
+        element.opened = true;
+        await waitForLitRender(element);
+
+        element.remove();
+
+        const closeSpy = new EventSpy(SbbSidebarElement.events.close, element);
+        window.navigation.dispatchEvent(new Event('navigate'));
+        await waitForLitRender(element);
+
+        expect(closeSpy.count).to.be.equal(0);
+
+        // Re-add element for subsequent tests
+        container.appendChild(element);
+      });
     });
 
     it('should detect scrolled state', async () => {

@@ -1,4 +1,3 @@
-/** @entrypoint */
 import { unsafeCSS } from 'lit';
 
 import boxSizingStylesString from './box-sizing.scss?inline';

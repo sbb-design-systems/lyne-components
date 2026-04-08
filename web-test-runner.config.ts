@@ -74,21 +74,6 @@ const browsers =
       (['chromium', 'firefox', 'webkit'] as const).map((product) =>
         playwrightLauncher({
           product,
-          createPage: ({ context }) =>
-            context.newPage().then((page) => {
-              page.on('console', (message) => {
-                if (message.type() === 'error' && !message.location().url.includes('dummy.png')) {
-                  console.error(`CONSOLE: ${product} ${page.url()}`);
-                  console.error(message.location());
-                  console.error(message.text());
-                }
-              });
-              page.on('pageerror', (err) => {
-                console.error(`PAGEERROR: ${product} ${page.url()}`);
-                console.error(err);
-              });
-              return page;
-            }),
           ...concurrency,
           ...launchOptions,
         }),
@@ -229,7 +214,14 @@ export default {
     },
   },
   coverageConfig: {
-    exclude: ['**/node_modules/**/*', '**/assets/*.svg', '**/assets/*.png', '**/*.scss'],
+    exclude: [
+      '**/node_modules/**/*',
+      '**/assets/*.svg',
+      '**/assets/*.png',
+      '**/*.scss',
+      '**/core/mixins/constructor.ts',
+      '**/core/interfaces/*',
+    ],
     reporters: cliArgs.ci ? ['json'] : undefined,
   },
   filterBrowserLogs: (log) => !suppressedLogs.includes(log.args[0]),

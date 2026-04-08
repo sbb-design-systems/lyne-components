@@ -9,20 +9,19 @@ import {
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { forceType, hostAttributes } from '../core/decorators.ts';
 import {
+  SbbElement,
+  type SbbElementType,
   type FormRestoreReason,
   type FormRestoreState,
   SbbDisabledMixin,
   SbbFormAssociatedMixin,
   SbbReadonlyMixin,
-} from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+} from '../core.ts';
+import { forceType, hostAttributes, boxSizingStyles } from '../core.ts';
+import { SbbIconElement } from '../icon.pure.ts';
 
 import style from './slider.scss?inline';
-
-import '../icon.ts';
 
 /**
  * It displays an input knob that can be moved in a range.
@@ -39,6 +38,7 @@ class SbbSliderElement extends SbbDisabledMixin(
   SbbReadonlyMixin(SbbFormAssociatedMixin(SbbElement)),
 ) {
   public static override readonly elementName: string = 'sbb-slider';
+  public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static override readonly role = 'slider';
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {

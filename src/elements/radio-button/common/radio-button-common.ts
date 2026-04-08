@@ -1,13 +1,9 @@
 import { unsafeCSS, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import {
-  type AbstractConstructor,
-  type Constructor,
-  SbbFormAssociatedRadioButtonMixin,
-} from '../../core/mixins.ts';
-import type { SbbRadioButtonGroupElement } from '../../radio-button-group.ts';
+import { SbbElement } from '../../core.ts';
+import { type AbstractConstructor, SbbFormAssociatedRadioButtonMixin } from '../../core.ts';
+import type { SbbRadioButtonGroupElement } from '../../radio-button-group.pure.ts';
 
 import radioButtonCommonStyleString from './radio-button-common.scss?inline';
 
@@ -25,7 +21,7 @@ export declare abstract class SbbRadioButtonCommonElementMixinType extends SbbFo
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbRadioButtonCommonElementMixin = <T extends Constructor<SbbElement>>(
+export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<SbbElement>>(
   superClass: T,
 ): AbstractConstructor<SbbRadioButtonCommonElementMixinType> & T => {
   abstract class SbbRadioButtonCommonElement

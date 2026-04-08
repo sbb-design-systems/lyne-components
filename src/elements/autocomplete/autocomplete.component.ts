@@ -1,8 +1,6 @@
-import { getNextElementIndex } from '../core/a11y.ts';
-import { isSafari } from '../core/dom.ts';
-import { setAriaComboBoxAttributes } from '../core/overlay.ts';
+import { getNextElementIndex, isSafari, setAriaComboBoxAttributes } from '../core.ts';
 import type { SbbDividerElement } from '../divider/divider.component.ts';
-import type { SbbOptionElement, SbbOptionHintElement } from '../option.ts';
+import type { SbbOptionElement, SbbOptionHintElement } from '../option.pure.ts';
 
 import { SbbAutocompleteBaseElement } from './autocomplete-base-element.ts';
 

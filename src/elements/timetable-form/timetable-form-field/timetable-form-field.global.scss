@@ -1,0 +1,10 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-timetable-form-field-route-icon-color: var(--sbb-color-2);
+  --sbb-timetable-form-field-route-icon-background-color: var(--sbb-background-color-1);
+  --sbb-timetable-form-field-route-via-icon-width: var(--sbb-size-icon-ui-small);
+  --sbb-timetable-form-field-route-via-after-dimension: #{sbb.px-to-rem-build(7)};
+}

@@ -1,23 +1,26 @@
 import { html, nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { SbbLanguageController } from '../core/controllers.ts';
-import { i18nClass } from '../core/i18n.ts';
-import type { SbbOccupancy } from '../core/interfaces.ts';
-import { SbbNegativeMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import {
+  type SbbOccupancy,
+  SbbElement,
+  type SbbElementType,
+  SbbScreenReaderOnlyElement,
+} from '../core.ts';
+import { SbbLanguageController, i18nClass, SbbNegativeMixin, boxSizingStyles } from '../core.ts';
+import { SbbTimetableOccupancyIconElement } from '../timetable-occupancy-icon.pure.ts';
 
 import style from './timetable-occupancy.scss?inline';
-
-import '../screen-reader-only.ts';
-import '../timetable-occupancy-icon.ts';
 
 /**
  * Used in `sbb-timetable-row`, it displays information about wagon occupancy.
  */
 export class SbbTimetableOccupancyElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-timetable-occupancy';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbTimetableOccupancyIconElement,
+    SbbScreenReaderOnlyElement,
+  ];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Occupancy for first class wagons. */

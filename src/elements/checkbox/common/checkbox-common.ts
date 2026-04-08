@@ -2,9 +2,8 @@ import { unsafeCSS, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbCheckboxGroupElement } from '../../checkbox-group/checkbox-group.component.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { type Constructor, SbbFormAssociatedCheckboxMixin } from '../../core/mixins.ts';
+import { SbbElement, forceType } from '../../core.ts';
+import { type AbstractConstructor, SbbFormAssociatedCheckboxMixin } from '../../core.ts';
 
 import checkboxCommonStyleString from './checkbox-common.scss?inline';
 
@@ -21,9 +20,9 @@ export declare abstract class SbbCheckboxCommonElementMixinType extends SbbFormA
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbCheckboxCommonElementMixin = <T extends Constructor<SbbElement>>(
+export const SbbCheckboxCommonElementMixin = <T extends AbstractConstructor<SbbElement>>(
   superClass: T,
-): Constructor<SbbCheckboxCommonElementMixinType> & T => {
+): AbstractConstructor<SbbCheckboxCommonElementMixinType> & T => {
   abstract class SbbCheckboxCommonElement
     extends SbbFormAssociatedCheckboxMixin(superClass)
     implements Partial<SbbCheckboxCommonElementMixinType>
@@ -69,5 +68,6 @@ export const SbbCheckboxCommonElementMixin = <T extends Constructor<SbbElement>>
       }
     }
   }
-  return SbbCheckboxCommonElement as unknown as Constructor<SbbCheckboxCommonElementMixinType> & T;
+  return SbbCheckboxCommonElement as unknown as AbstractConstructor<SbbCheckboxCommonElementMixinType> &
+    T;
 };
