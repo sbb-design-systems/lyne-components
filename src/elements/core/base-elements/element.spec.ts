@@ -1,9 +1,10 @@
-import { expect } from '@open-wc/testing';
+import { aTimeout, expect } from '@open-wc/testing';
 import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../testing/private.ts';
+import { EventSpy } from '../testing.ts';
 
 import { SbbElement, ɵstateController } from './element.ts';
 
@@ -69,7 +70,7 @@ describe(`SbbElement`, () => {
       expect(element).to.not.match(':state(test)');
     });
   });
-  /*
+
   describe('slot state', () => {
     let element: SlotStateControllerElement;
 
@@ -78,6 +79,8 @@ describe(`SbbElement`, () => {
         html`<sbb-slot-state-controller-test></sbb-slot-state-controller-test>`,
       );
     });
+
+    /*
 
     it('should sync slots', async function (this: Mocha.Context) {
       // Flaky on Webkit
@@ -159,6 +162,7 @@ describe(`SbbElement`, () => {
       await aTimeout(1);
       expect(element).not.to.match(':state(slotted)');
     });
+  */
 
     it('should not disconnect observer on DOM removal', async function (this: Mocha.Context) {
       // Flaky on Webkit
@@ -184,7 +188,6 @@ describe(`SbbElement`, () => {
       expect(spy.count).to.equal(1);
     });
   });
-  */
 });
 
 declare global {
