@@ -122,6 +122,7 @@ describe(`SbbElement`, () => {
       await aTimeout(1);
       expect(element).to.match(':state(slotted)');
     });
+  */
 
     it('should detect empty text', async () => {
       const node = document.createTextNode('filled');
@@ -133,7 +134,6 @@ describe(`SbbElement`, () => {
       await aTimeout(1);
       expect(element).not.to.match(':state(slotted)');
     });
-  */
 
     it('should detect text when textNode was empty first with multiple nodes', async () => {
       const node = document.createTextNode('');
