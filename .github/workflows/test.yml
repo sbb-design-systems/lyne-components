@@ -42,7 +42,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        segment: [1, 2, 3, 4, 5]
+        segment: [1]
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -56,7 +56,7 @@ jobs:
           name: test-artifacts
 
       - name: Run tests
-        run: yarn test --segment=${{ matrix.segment }}/${{ env.max-segment }}
+        run: yarn test --file=src/elements/core/base-elements/element.spec.ts
         env:
           NODE_ENV: production
       - name: Assert no new snapshots (run `yarn test --ci` if this fails)

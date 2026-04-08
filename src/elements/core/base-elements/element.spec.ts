@@ -1,5 +1,5 @@
 import { aTimeout, expect } from '@open-wc/testing';
-import { type TemplateResult } from 'lit';
+import type { TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
@@ -33,39 +33,39 @@ describe(`SbbElement`, () => {
       element = await fixture(html`<sbb-element-internals-test></sbb-element-internals-test>`);
     });
 
-    it('should have the defined role', async () => {
+    it('should have the defined role', () => {
       expect(element['internals'].role).to.equal(SbbElementInternalsTestElement.role);
     });
 
-    it('should allow setting state', async () => {
+    it('should allow setting state', () => {
       ɵstateController(element).toggle('test');
       expect(element).to.match(':state(test)');
     });
 
-    it('should allow unsetting state', async () => {
+    it('should allow unsetting state', () => {
       ɵstateController(element).toggle('test');
       ɵstateController(element).toggle('test');
       expect(element).to.not.match(':state(test)');
     });
 
-    it('should allow force setting state', async () => {
+    it('should allow force setting state', () => {
       ɵstateController(element).toggle('test', true);
       expect(element).to.match(':state(test)');
     });
 
-    it('should allow force setting state when already set', async () => {
+    it('should allow force setting state when already set', () => {
       ɵstateController(element).toggle('test');
       ɵstateController(element).toggle('test', true);
       expect(element).to.match(':state(test)');
     });
 
-    it('should allow force unsetting state', async () => {
+    it('should allow force unsetting state', () => {
       ɵstateController(element).toggle('test');
       ɵstateController(element).toggle('test', false);
       expect(element).to.not.match(':state(test)');
     });
 
-    it('should allow force unsetting state when already unset', async () => {
+    it('should allow force unsetting state when already unset', () => {
       ɵstateController(element).toggle('test', false);
       expect(element).to.not.match(':state(test)');
     });

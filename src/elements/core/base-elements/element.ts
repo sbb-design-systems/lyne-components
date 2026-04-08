@@ -64,18 +64,6 @@ const CustomStateSetPolyfill: (new (host: LitElement) => CustomStateSetInterface
       }
     : null;
 
-declare global {
-  interface ARIAMixin {
-    ariaActiveDescendantElement: Element | null;
-    ariaControlsElements: readonly Element[] | null;
-    ariaDescribedByElements: readonly Element[] | null;
-    ariaDetailsElements: readonly Element[] | null;
-    ariaErrorMessageElements: readonly Element[] | null;
-    ariaLabelledByElements: readonly Element[] | null;
-    ariaOwnsElements: readonly Element[] | null;
-  }
-}
-
 if (!isServer) {
   // This is a polyfill for the aria elements properties on ElementInternals and Element.
   let nextId = 0;
