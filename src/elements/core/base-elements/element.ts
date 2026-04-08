@@ -442,9 +442,7 @@ export class SbbElement extends LitElement {
     const elementClass = customElements.get(this.elementName);
     if (!elementClass) {
       customElements.define(this.elementName, this as unknown as CustomElementConstructor);
-      // Next.js re-rendering somehow fails, because the finalization calculation
-      // is broken in SSR. We call `finalize()` here explicitly to avoid that.
-      this.finalize();
+
       const elementDependencies: SbbElementType[] = [];
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       let ctor: SbbElementType = this;
