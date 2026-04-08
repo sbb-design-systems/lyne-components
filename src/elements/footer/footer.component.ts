@@ -2,11 +2,8 @@ import { nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'li
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { forceType } from '../core/decorators.ts';
-import { SbbNegativeMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbTitleLevel } from '../title.ts';
+import { SbbElement, forceType, SbbNegativeMixin, boxSizingStyles } from '../core.ts';
+import type { SbbTitleLevel } from '../title.pure.ts';
 
 import style from './footer.scss?inline';
 

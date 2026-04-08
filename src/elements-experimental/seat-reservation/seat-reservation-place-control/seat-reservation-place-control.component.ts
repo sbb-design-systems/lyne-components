@@ -1,7 +1,11 @@
-import { SbbButtonBaseElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import {
+  SbbButtonBaseElement,
+  SbbLanguageController,
+  forceType,
+  boxSizingStyles,
+  SbbScreenReaderOnlyElement,
+  type SbbElementType,
+} from '@sbb-esta/lyne-elements/core.js';
 import {
   type CSSResultGroup,
   html,
@@ -19,8 +23,6 @@ import { SbbSeatReservationGraphicElement } from '../seat-reservation-graphic/se
 
 import style from './seat-reservation-place-control.scss?inline';
 
-SbbSeatReservationGraphicElement.define();
-
 type TravelDirectionI18nKey =
   | 'TRAVEL_DIRECTION_IN_DIRECTION'
   | 'TRAVEL_DIRECTION_IN_OPPOSITE_DIRECTION'
@@ -31,6 +33,10 @@ type TravelDirectionI18nKey =
  */
 export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-place-control';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbSeatReservationGraphicElement,
+    SbbScreenReaderOnlyElement,
+  ];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     selectplace: 'selectplace',

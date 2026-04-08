@@ -4,9 +4,6 @@ import { SbbFormFieldElement } from '../../form-field.pure.ts';
 
 import style from './timetable-form-field.scss?inline';
 
-// TODO(breaking-change): remove define() of sbb-form-field.
-SbbFormFieldElement.define();
-
 /**
  * Extends the `sbb-form-field`. Meant to be used inside a `sbb-timetable-form`.
  */

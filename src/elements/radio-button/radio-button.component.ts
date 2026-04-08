@@ -1,10 +1,7 @@
 import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { getOverride } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { SbbElement, getOverride, isLean, boxSizingStyles } from '../core.ts';
 
 import {
   SbbRadioButtonCommonElementMixin,

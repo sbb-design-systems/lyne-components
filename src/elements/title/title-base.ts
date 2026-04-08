@@ -2,7 +2,7 @@ import { unsafeCSS, type CSSResultGroup, type PropertyValues, type TemplateResul
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbElement } from '../core/base-elements.ts';
+import { SbbElement } from '../core.ts';
 
 import style from './title-common.scss?inline';
 

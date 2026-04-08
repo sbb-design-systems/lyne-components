@@ -1,18 +1,23 @@
 import { html, unsafeCSS, type PropertyDeclaration, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { readConfig } from '../../core/config.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.ts';
-import { idReference } from '../../core/decorators.ts';
-import { i18nToday } from '../../core/i18n.ts';
-import { SbbNegativeMixin } from '../../core/mixins.ts';
-import { SbbDateInputElement, type SbbDateInputAssociated } from '../../date-input.ts';
+import {
+  SbbButtonBaseElement,
+  type SbbElementType,
+  type DateAdapter,
+  defaultDateAdapter,
+} from '../../core.ts';
+import {
+  readConfig,
+  SbbLanguageController,
+  idReference,
+  i18nToday,
+  SbbNegativeMixin,
+} from '../../core.ts';
+import { SbbDateInputElement, type SbbDateInputAssociated } from '../../date-input.pure.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
 
 import datepickerButtonStyleString from './datepicker-button.scss?inline';
-
-import '../../icon.ts';
 
 export const datepickerButtonStyle = unsafeCSS(datepickerButtonStyleString);
 
@@ -20,6 +25,7 @@ export abstract class SbbDatepickerButtonBase<T = Date>
   extends SbbNegativeMixin(SbbButtonBaseElement)
   implements SbbDateInputAssociated<T>
 {
+  public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static readonly sbbDateInputAssociated = true;
 
   /**

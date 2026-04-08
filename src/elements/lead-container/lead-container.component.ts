@@ -1,7 +1,6 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { SbbElement, boxSizingStyles } from '../core.ts';
 
 import style from './lead-container.scss?inline';
 

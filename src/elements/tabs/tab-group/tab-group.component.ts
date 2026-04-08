@@ -9,13 +9,16 @@ import {
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
-import { throttle } from '../../core/eventing.ts';
-import { ɵstateController } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  getNextElementIndex,
+  isArrowKeyPressed,
+  SbbElement,
+  ɵstateController,
+  forceType,
+  isLean,
+  throttle,
+  boxSizingStyles,
+} from '../../core.ts';
 import { tabGroupCommonStyles } from '../common/styles.ts';
 import type { SbbTabElement } from '../tab/tab.component.ts';
 import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';

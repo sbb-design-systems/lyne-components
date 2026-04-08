@@ -1,7 +1,5 @@
 import { html } from 'lit';
 
-import { isWebkit } from '../../core/dom/platform.ts';
-import { ɵstateController } from '../../core/mixins/element-internals-mixin.ts';
 import {
   describeEach,
   describeViewports,
@@ -11,6 +9,7 @@ import {
   visualDiffStandardStates,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
+import { ɵstateController, isWebkit } from '../../core.ts';
 
 import '../../button.ts';
 

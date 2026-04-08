@@ -3,7 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType } from '../decorators.ts';
+import { forceType } from '../decorators/force-type.ts';
 import { fixture } from '../testing/private.ts';
 import { EventSpy, waitForLitRender } from '../testing.ts';
 

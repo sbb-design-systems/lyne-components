@@ -1,9 +1,10 @@
 import { html, isServer, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../controllers.ts';
-import { forceType, omitEmptyConverter } from '../decorators.ts';
-import { i18nTargetOpensInNewWindow } from '../i18n.ts';
+import { SbbLanguageController } from '../controllers/language-controller.ts';
+import { forceType } from '../decorators/force-type.ts';
+import { omitEmptyConverter } from '../decorators/omit-empty-converter.ts';
+import { i18nTargetOpensInNewWindow } from '../i18n/i18n.ts';
 
 import { SbbActionBaseElement } from './action-base-element.ts';
 

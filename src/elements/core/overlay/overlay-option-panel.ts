@@ -1,4 +1,4 @@
-import { type SbbElementInternalsMixinType, ɵstateController } from '../mixins.ts';
+import type { SbbElement } from '../base-elements/element.ts';
 
 import { getElementPosition } from './position.ts';
 
@@ -16,7 +16,7 @@ export function setOverlayPosition(
   originElement: HTMLElement,
   optionContainer: HTMLElement,
   container: HTMLElement,
-  element: HTMLElement & SbbElementInternalsMixinType,
+  element: SbbElement,
   position: 'auto' | 'above' | 'below' = 'auto',
 ): void {
   if (!dialog || !originElement) {
@@ -38,13 +38,8 @@ export function setOverlayPosition(
   element.style.setProperty('--sbb-options-panel-position-x', `${panelPosition.left}px`);
   element.style.setProperty('--sbb-options-panel-position-y', `${panelPosition.top}px`);
   element.style.setProperty('--sbb-options-panel-max-height-calculated', panelPosition.maxHeight);
-  const controller = ɵstateController(element);
-  if (panelPosition.alignment.vertical === 'above') {
-    controller.add('options-panel-position-above');
-    controller.delete('options-panel-position-below');
-  } else {
-    controller.add('options-panel-position-below');
-    controller.delete('options-panel-position-above');
-  }
+  const above = panelPosition.alignment.vertical === 'above';
+  element['toggleState']?.('options-panel-position-above', above);
+  element['toggleState']?.('options-panel-position-below', !above);
   originElement.setAttribute('data-options-panel-position', panelPosition.alignment.vertical);
 }

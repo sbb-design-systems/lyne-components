@@ -1,4 +1,4 @@
-import type { SbbOpenedClosedState } from '../interfaces.ts';
+import type { SbbOpenedClosedState } from '../interfaces/types.ts';
 
 import { SbbElement } from './element.ts';
 

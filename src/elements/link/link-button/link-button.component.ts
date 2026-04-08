@@ -1,5 +1,4 @@
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.ts';
+import { SbbButtonBaseElement, SbbDisabledTabIndexActionMixin } from '../../core.ts';
 import { SbbInlineLinkCommonElementMixin } from '../common/inline-link-common.ts';
 
 /**

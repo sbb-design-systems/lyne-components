@@ -1,7 +1,6 @@
 import { unsafeCSS, type CSSResultGroup } from 'lit';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.ts';
-import type { AbstractConstructor } from '../../core/mixins.ts';
+import type { SbbActionBaseElement, AbstractConstructor } from '../../core.ts';
 
 import { SbbLinkCommonElementMixin } from './link-common.ts';
 // eslint-disable-next-line import-x/order

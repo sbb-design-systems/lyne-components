@@ -2,9 +2,7 @@ import type { CSSResultGroup, PropertyDeclaration } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import { miniButtonStyle } from '../../button.pure.ts';
-import { idReference } from '../../core/decorators.ts';
-import { i18nShowCalendar } from '../../core/i18n.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { idReference, i18nShowCalendar, boxSizingStyles } from '../../core.ts';
 import { datepickerButtonStyle, SbbDatepickerButtonBase } from '../common/datepicker-button.ts';
 import type { SbbDatepickerElement } from '../datepicker/datepicker.component.ts';
 

@@ -1,10 +1,10 @@
-import { assert, aTimeout, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { fixture, tabKey } from '../../core/testing/private.ts';
-import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { tabKey } from '../../core/testing/private.ts';
+import { waitForLitRender, EventSpy, waitForCondition } from '../../core/testing.ts';
 import type { SbbSidebarCloseButtonElement } from '../sidebar-close-button/sidebar-close-button.component.ts';
 import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 

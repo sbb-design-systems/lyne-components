@@ -1,15 +1,13 @@
 import { unsafeCSS } from 'lit';
 
-import { SbbButtonLikeBaseElement } from '../../core/base-elements/button-base-element.ts';
-import { readConfig } from '../../core/config/config.ts';
-import { SbbPropertyWatcherController } from '../../core/controllers/property-watcher-controller.ts';
-import type { DateAdapter } from '../../core/datetime/date-adapter.ts';
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
-import { SbbDisabledMixin } from '../../core/mixins/disabled-mixin.ts';
-import type {
-  FormRestoreReason,
-  FormRestoreState,
-} from '../../core/mixins/form-associated-mixin.ts';
+import {
+  SbbButtonLikeBaseElement,
+  readConfig,
+  SbbPropertyWatcherController,
+  defaultDateAdapter,
+  SbbDisabledMixin,
+} from '../../core.ts';
+import type { DateAdapter, FormRestoreReason, FormRestoreState } from '../../core.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
 
 import calendarCellBaseStyleString from './calendar-cell-base-element.scss?inline';

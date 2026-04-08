@@ -5,6 +5,7 @@ import { fixture } from '../core/testing/private.ts';
 import { waitForLitRender } from '../core/testing.ts';
 
 import { SbbLinkListAnchorElement } from './link-list-anchor.component.ts';
+
 import '../link.ts';
 import '../link-list-anchor.ts';
 

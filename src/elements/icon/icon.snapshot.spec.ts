@@ -1,9 +1,9 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { mergeConfig, readConfig, type SbbIconConfig } from '../core/config.ts';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 import { waitForLitRender } from '../core/testing.ts';
+import { mergeConfig, readConfig, type SbbIconConfig } from '../core.ts';
 
 import type { SbbIconElement } from './icon.component.ts';
 

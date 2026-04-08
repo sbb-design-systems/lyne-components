@@ -5,7 +5,7 @@ import { cleanupFixtures } from '@lit-labs/testing/fixtures.js';
 import type { UncompiledTemplateResult } from 'lit';
 import type { MochaOptions } from 'mocha';
 
-import { mergeConfig, type SbbIconConfig } from '../../config.ts';
+import { mergeConfig, type SbbIconConfig } from '../../config/config.ts';
 
 const {
   __WTR_CONFIG__: { testFrameworkConfig },

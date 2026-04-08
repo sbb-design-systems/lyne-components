@@ -1,18 +1,19 @@
 import { type CSSResultGroup, isServer, type PropertyDeclaration, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { readConfig } from '../core/config.ts';
-import { type DateAdapter, defaultDateAdapter } from '../core/datetime.ts';
-import { plainDate, plainDateConverter } from '../core/decorators.ts';
 import {
+  SbbElement,
+  readConfig,
+  plainDate,
+  plainDateConverter,
   i18nDateInvalid,
   i18nDateMax,
   i18nDateMin,
   i18nDatePickerPlaceholder,
-} from '../core/i18n.ts';
-import { SbbFormAssociatedInputMixin } from '../core/mixins.ts';
-import type { SbbDatepickerElement } from '../datepicker.ts';
+  SbbFormAssociatedInputMixin,
+} from '../core.ts';
+import { type DateAdapter, defaultDateAdapter } from '../core.ts';
+import type { SbbDatepickerElement } from '../datepicker.pure.ts';
 
 import style from './date-input.scss?inline';
 
