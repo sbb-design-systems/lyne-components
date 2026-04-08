@@ -1,10 +1,14 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { appendAriaElements, removeAriaElements, SbbDisabledMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+import {
+  appendAriaElements,
+  removeAriaElements,
+  SbbButtonBaseElement,
+  SbbPropertyWatcherController,
+  SbbDisabledMixin,
+  boxSizingStyles,
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbStepElement } from '../step/step.component.ts';
 import type { SbbStepperElement } from '../stepper/stepper.component.ts';
 

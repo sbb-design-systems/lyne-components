@@ -1,6 +1,6 @@
 /// <reference types="temporal-polyfill/global" />
 
-import { SbbLanguageController } from '../controllers.ts';
+import { SbbLanguageController } from '../controllers/language-controller.ts';
 
 import { DateAdapter } from './date-adapter.ts';
 

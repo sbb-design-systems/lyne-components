@@ -1,9 +1,9 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isFirefox } from '../core/dom.ts';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 import { describeIf } from '../core/testing.ts';
+import { isFirefox } from '../core.ts';
 
 import type { SbbDateInputElement } from './date-input.component.ts';
 import '../date-input.ts';

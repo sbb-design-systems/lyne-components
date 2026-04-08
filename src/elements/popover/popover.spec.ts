@@ -4,9 +4,9 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import type { SbbButtonElement } from '../button.ts';
-import { mergeConfig } from '../core/config.ts';
 import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import { mergeConfig } from '../core.ts';
 import type { SbbLinkElement } from '../link.ts';
 
 import { SbbPopoverElement } from './popover.component.ts';

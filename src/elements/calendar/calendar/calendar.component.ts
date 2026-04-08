@@ -10,16 +10,12 @@ import {
 import { property, state } from 'lit/decorators.js';
 
 import { SbbSecondaryButtonElement } from '../../button.pure.ts';
-import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { readConfig } from '../../core/config.ts';
 import {
+  isArrowKeyOrPageKeysPressed,
+  readConfig,
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointLargeAndAbove,
-} from '../../core/controllers.ts';
-import type { DateAdapter } from '../../core/datetime.ts';
-import {
   DAYS_PER_ROW,
   defaultDateAdapter,
   MONDAY,
@@ -30,9 +26,9 @@ import {
   WEDNESDAY,
   YEARS_PER_PAGE,
   YEARS_PER_ROW,
-} from '../../core/datetime.ts';
-import { forceType, handleDistinctChange, plainDate } from '../../core/decorators.ts';
-import {
+  forceType,
+  handleDistinctChange,
+  plainDate,
   i18nCalendarDateSelection,
   i18nCalendarWeekNumber,
   i18nNextMonth,
@@ -42,29 +38,22 @@ import {
   i18nPreviousYear,
   i18nPreviousYearRange,
   i18nYearMonthSelection,
-} from '../../core/i18n.ts';
-import type { SbbOrientation } from '../../core/interfaces.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+  boxSizingStyles,
+  SbbElement,
+  type SbbElementType,
+  SbbScreenReaderOnlyElement,
+  type SbbOrientation,
+  type DateAdapter,
+} from '../../core.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
 import { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 import { SbbCalendarMonthElement } from '../calendar-month/calendar-month.component.ts';
 import { SbbCalendarWeekdayElement } from '../calendar-weekday/calendar-weekday.component.ts';
 import { SbbCalendarWeeknumberElement } from '../calendar-weeknumber/calendar-weeknumber.component.ts';
 import { SbbCalendarYearElement } from '../calendar-year/calendar-year.component.ts';
-import type { SbbCalendarCellBaseElement } from '../common.ts';
+import type { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-element.ts';
 
 import style from './calendar.scss?inline';
-
-import '../../icon.ts';
-import '../../screen-reader-only.ts';
-
-// TODO(breaking-change): Remove call to define.
-SbbSecondaryButtonElement.define();
-
-SbbCalendarDayElement.define();
-SbbCalendarMonthElement.define();
-SbbCalendarYearElement.define();
-SbbCalendarWeekdayElement.define();
-SbbCalendarWeeknumberElement.define();
 
 export class SbbMonthChangeEvent extends Event {
   private readonly _range: readonly Day[];
@@ -154,6 +143,16 @@ export type CalendarView = 'day' | 'month' | 'year';
  */
 export class SbbCalendarElement<T = Date> extends SbbElement {
   public static override readonly elementName: string = 'sbb-calendar';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbCalendarDayElement,
+    SbbCalendarMonthElement,
+    SbbCalendarWeekdayElement,
+    SbbCalendarWeeknumberElement,
+    SbbCalendarYearElement,
+    SbbIconElement,
+    SbbScreenReaderOnlyElement,
+    SbbSecondaryButtonElement,
+  ];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     dateselected: 'dateselected',

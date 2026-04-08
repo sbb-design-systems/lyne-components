@@ -5,9 +5,9 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 import { type SinonSpy, spy } from 'sinon';
 
-import { isSafari } from '../core/dom.ts';
 import { fixture, tabKey } from '../core/testing/private.ts';
 import { describeIf, EventSpy, waitForLitRender } from '../core/testing.ts';
+import { isSafari } from '../core.ts';
 import { SbbFormFieldElement } from '../form-field.ts';
 import { SbbOptionElement } from '../option.ts';
 

@@ -2,10 +2,9 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { defaultDateAdapter } from '../core/datetime.ts';
-import { isMacOS, isWebkit } from '../core/dom.ts';
 import { fixture, typeInElement } from '../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import { defaultDateAdapter, isMacOS, isWebkit } from '../core.ts';
 import type { SbbFormFieldElement } from '../form-field.ts';
 
 import { SbbDateInputElement } from './date-input.component.ts';

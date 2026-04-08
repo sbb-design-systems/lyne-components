@@ -8,10 +8,11 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { isLean } from '../dom.ts';
-import type { SbbHorizontalFrom, SbbOrientation } from '../interfaces.ts';
-import { SbbDisabledMixin, SbbRequiredMixin } from '../mixins.ts';
-import { boxSizingStyles } from '../styles.ts';
+import { isLean } from '../dom/lean-context.ts';
+import type { SbbHorizontalFrom, SbbOrientation } from '../interfaces/types.ts';
+import { SbbDisabledMixin } from '../mixins/disabled-mixin.ts';
+import { SbbRequiredMixin } from '../mixins/required-mixin.ts';
+import { boxSizingStyles } from '../styles/styles.ts';
 
 import { SbbElement } from './element.ts';
 import style from './selection-group-base-element.scss?inline';

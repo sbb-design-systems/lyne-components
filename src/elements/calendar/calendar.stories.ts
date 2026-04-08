@@ -6,7 +6,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import { SbbCalendarElement, type SbbMonthChangeEvent } from '../calendar.ts';
-import { defaultDateAdapter } from '../core/datetime.ts';
+import { defaultDateAdapter } from '../core.ts';
 
 import {
   createPrice,

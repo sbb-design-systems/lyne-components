@@ -9,7 +9,7 @@ import '../chip-label.ts';
 import '../title.ts';
 import '../teaser.ts';
 
-const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
+const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
 describe(`sbb-teaser`, () => {
   let element: SbbTeaserElement;

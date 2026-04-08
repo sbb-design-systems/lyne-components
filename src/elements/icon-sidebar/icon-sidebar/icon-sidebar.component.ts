@@ -1,7 +1,7 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
+import { SbbElement } from '../../core.ts';
 import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container/icon-sidebar-container.component.ts';
 
 import style from './icon-sidebar.scss?inline';

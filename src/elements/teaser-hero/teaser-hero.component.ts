@@ -2,17 +2,12 @@ import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement } from '../core/base-elements.ts';
-import { forceType, omitEmptyConverter } from '../core/decorators.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { SbbLinkBaseElement, type SbbElementType } from '../core.ts';
+import { forceType, omitEmptyConverter, boxSizingStyles } from '../core.ts';
 import { SbbBlockLinkStaticElement } from '../link.pure.ts';
 import { SbbTeaserPanelElement } from '../teaser-panel.pure.ts';
 
 import style from './teaser-hero.scss?inline';
-
-// TODO(breaking-change): Remove call to define.
-SbbBlockLinkStaticElement.define();
-SbbTeaserPanelElement.define();
 
 /**
  * It displays an image and an action call within a panel.
@@ -24,6 +19,10 @@ SbbTeaserPanelElement.define();
  */
 export class SbbTeaserHeroElement extends SbbLinkBaseElement {
   public static override readonly elementName: string = 'sbb-teaser-hero';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbBlockLinkStaticElement,
+    SbbTeaserPanelElement,
+  ];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Panel link text. */

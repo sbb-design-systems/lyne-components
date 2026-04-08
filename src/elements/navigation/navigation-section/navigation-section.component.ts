@@ -12,36 +12,33 @@ import { property } from 'lit/decorators.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
+  type SbbOpenedClosedState,
+  ɵstateController,
+  type SbbElementType,
+  SbbOpenCloseBaseElement,
+} from '../../core.ts';
+import {
   IS_FOCUSABLE_QUERY,
   SbbFocusTrapController,
   sbbInputModalityDetector,
-} from '../../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements/open-close-base-element.ts';
-import {
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
-} from '../../core/controllers.ts';
-import { forceType, idReference, omitEmptyConverter } from '../../core/decorators.ts';
-import { isZeroAnimationDuration } from '../../core/dom.ts';
-import { i18nGoBack } from '../../core/i18n.ts';
-import type { SbbOpenedClosedState } from '../../core/interfaces.ts';
-import { SbbUpdateSchedulerMixin, ɵstateController } from '../../core/mixins.ts';
-import {
+  forceType,
+  idReference,
+  omitEmptyConverter,
+  isZeroAnimationDuration,
+  i18nGoBack,
+  SbbUpdateSchedulerMixin,
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+  boxSizingStyles,
+} from '../../core.ts';
 import type { SbbNavigationElement } from '../navigation/navigation.component.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 
 import style from './navigation-section.scss?inline';
-
-import '../../divider.ts';
-
-// TODO(breaking-change): Remove call to define.
-SbbTransparentButtonElement.define();
 
 let nextId = 0;
 
@@ -52,6 +49,7 @@ let nextId = 0;
  */
 export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-navigation-section';
+  public static override elementDependencies: SbbElementType[] = [SbbTransparentButtonElement];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**

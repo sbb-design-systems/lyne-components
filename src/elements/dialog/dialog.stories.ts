@@ -5,8 +5,8 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import sampleImages from '../core/images.ts';
-import type { SbbTitleLevel } from '../title.ts';
+import { sampleImages } from '../core/images.private.ts';
+import type { SbbTitleLevel } from '../title.pure.ts';
 
 import { SbbDialogElement } from './dialog/dialog.component.ts';
 import readme from './readme.md?raw';

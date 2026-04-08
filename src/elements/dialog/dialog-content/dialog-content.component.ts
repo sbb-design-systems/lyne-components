@@ -1,6 +1,6 @@
 import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 
-import { SbbElement } from '../../core/base-elements.ts';
+import { SbbElement } from '../../core.ts';
 
 import style from './dialog-content.scss?inline';
 

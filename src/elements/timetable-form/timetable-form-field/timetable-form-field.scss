@@ -1,12 +1,15 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: flex;
-
+  --_sbb-timetable-form-field-start-icon-connecting-line-offset: #{sbb.px-to-rem-build(3)}; // the 'route-circle-start-small' has a gap, at the end of the line, that needs to be covered.
+  --_sbb-timetable-form-field-start-icon-connecting-line-width: calc(
+    (var(--sbb-form-field-min-height) - var(--sbb-icon-svg-height)) / 2 +
+      var(--_sbb-timetable-form-field-start-icon-connecting-line-offset)
+  );
   --sbb-form-field-border-radius: var(--sbb-border-radius-6x);
   --sbb-form-field-outline-offset: #{sbb.px-to-rem-build(-5)};
-  --sbb-timetable-form-field-route-icon-color: var(--sbb-color-2);
-  --sbb-timetable-form-field-route-icon-background-color: var(--sbb-background-color-1);
+
+  display: flex;
 }
 
 :host(:first-of-type) {
@@ -37,19 +40,13 @@
   translate: var(--sbb-timetable-form-field-route-icon-translate);
 
   &::after {
-    --connecting-line-offset: #{sbb.px-to-rem-build(3)}; // the 'route-circle-start-small' has a gap, at the end of the line, that needs to be covered.
-    --connecting-line-width: calc(
-      (var(--sbb-form-field-min-height) - var(--sbb-icon-svg-height)) / 2 +
-        var(--connecting-line-offset)
-    );
-
     content: '';
     position: absolute;
     inset-block-start: 50%;
     border-block-start: var(--sbb-border-width-1x) solid
       var(--sbb-timetable-form-field-route-icon-color);
-    width: var(--connecting-line-width);
-    margin-left: calc(var(--connecting-line-offset) * -1);
+    width: var(--_sbb-timetable-form-field-start-icon-connecting-line-width);
+    margin-left: calc(var(--_sbb-timetable-form-field-start-icon-connecting-line-offset) * -1);
   }
 }
 
@@ -57,7 +54,7 @@
 .sbb-timetable-form-field__via-route-icon {
   align-self: stretch;
   position: relative;
-  width: var(--sbb-size-icon-ui-small);
+  width: var(--sbb-timetable-form-field-route-via-icon-width);
   margin-inline-start: var(--sbb-form-field-padding-inline);
 
   &::before {
@@ -76,8 +73,8 @@
     inset-block-start: 50%;
     inset-inline-start: 50%;
     translate: -50% -50%;
-    width: #{sbb.px-to-rem-build(7)};
-    height: #{sbb.px-to-rem-build(7)};
+    width: var(--sbb-timetable-form-field-route-via-after-dimension);
+    height: var(--sbb-timetable-form-field-route-via-after-dimension);
     border: var(--sbb-border-width-1x) solid var(--sbb-timetable-form-field-route-icon-color);
     border-radius: var(--sbb-border-radius-infinity);
     background-color: var(--sbb-timetable-form-field-route-icon-background-color);

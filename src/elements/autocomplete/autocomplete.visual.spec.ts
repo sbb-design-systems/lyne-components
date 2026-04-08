@@ -4,7 +4,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import { tabKey, type VisualDiffSetupBuilder } from '../core/testing/private.ts';
 import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
-import { waitForLitRender } from '../core/testing/wait-for-render.ts';
+import { waitForLitRender } from '../core/testing.ts';
 
 import '../card.ts';
 import '../form-field.ts';

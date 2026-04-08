@@ -9,13 +9,16 @@ import {
 } from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
-import { SbbFocusTrapController } from '../../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
-import { SbbEscapableOverlayController } from '../../core/controllers.ts';
-import { forceType, handleDistinctChange } from '../../core/decorators.ts';
-import { isZeroAnimationDuration } from '../../core/dom.ts';
-import { SbbAnimationCompleteMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  SbbFocusTrapController,
+  SbbOpenCloseBaseElement,
+  SbbEscapableOverlayController,
+  forceType,
+  handleDistinctChange,
+  isZeroAnimationDuration,
+  SbbAnimationCompleteMixin,
+  boxSizingStyles,
+} from '../../core.ts';
 import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 
 import style from './sidebar.scss?inline';
@@ -98,13 +101,35 @@ export class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBas
     if (this.isOpen && this._isModeOver()) {
       this._takeFocus();
     }
+
+    if (!isServer) {
+      if (window.navigation) {
+        window.navigation.addEventListener('navigate', this._closeOnNavigation);
+      } else {
+        window.addEventListener('popstate', this._closeOnNavigation);
+      }
+    }
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.container?.style.removeProperty(this._buildCssWidthVar());
     this._container = null;
+
+    if (!isServer) {
+      if (window.navigation) {
+        window.navigation.removeEventListener('navigate', this._closeOnNavigation);
+      } else {
+        window.removeEventListener('popstate', this._closeOnNavigation);
+      }
+    }
   }
+
+  private _closeOnNavigation = (): void => {
+    if (this._isModeOver() && this.isOpen) {
+      this.close();
+    }
+  };
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);

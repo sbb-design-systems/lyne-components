@@ -1,12 +1,10 @@
 import { html, type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { getOverride } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import type { SbbIconPlacement } from '../core/interfaces.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import { SbbIconNameMixin } from '../icon.ts';
+import { SbbElement, type SbbIconPlacement, type SbbElementType } from '../core.ts';
+import { getOverride, isLean, boxSizingStyles } from '../core.ts';
+import { SbbIconNameMixin } from '../icon.pure.ts';
+import { SbbVisualCheckboxElement } from '../visual-checkbox.pure.ts';
 
 import style from './checkbox.scss?inline';
 import {
@@ -14,8 +12,6 @@ import {
   checkboxCommonStyle,
   type SbbCheckboxSize,
 } from './common/checkbox-common.ts';
-
-import '../visual-checkbox.ts';
 
 /**
  * It displays a checkbox enhanced with the SBB Design.
@@ -30,6 +26,7 @@ export class SbbCheckboxElement<T = string> extends SbbIconNameMixin(
   SbbCheckboxCommonElementMixin(SbbElement),
 ) {
   public static override readonly elementName: string = 'sbb-checkbox';
+  public static override elementDependencies: SbbElementType[] = [SbbVisualCheckboxElement];
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     checkboxCommonStyle,
