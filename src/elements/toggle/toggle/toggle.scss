@@ -9,61 +9,19 @@
     var(--sbb-animation-duration-6x)
   );
 
-  display: block;
-  width: fit-content;
-  font-size: var(--sbb-toggle-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
-
-  // Border-radius is used for the focus outline which is toggled in core.scss.
-  border-radius: var(--sbb-toggle-border-radius);
-}
-
-:host([even]) {
-  width: 100%;
-
-  --sbb-toggle-width: 100%;
-  --sbb-toggle-grid-template-columns: 50% 50%;
-}
-
-:host(:disabled) {
-  --sbb-toggle-selected-option-border-color: light-dark(
-    var(--sbb-color-graphite),
-    var(--sbb-color-smoke)
-  );
-  --sbb-toggle-selected-option-border-style: dashed;
-
-  @include sbb.if-forced-colors {
-    --sbb-toggle-selected-option-border-style: solid;
-    --sbb-toggle-selected-option-border-color: GrayText;
-  }
-}
-
-:host([size='m']) {
-  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xs);
-  --sbb-toggle-height: var(--sbb-size-element-m);
-}
-
-:host([size='s']) {
-  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
-  --sbb-toggle-height: var(--sbb-size-element-xxs);
-}
-
-:host(:is(:not(:state(initialized)), :state(disable-animation-on-resizing))) {
-  @include sbb.disable-animation;
-}
-
-.sbb-toggle {
   display: grid;
   grid-template-columns: var(--sbb-toggle-grid-template-columns);
   grid-template-areas: 'start end';
   align-items: center;
-  min-width: var(--_sbb-toggle-min-width);
-  width: var(--sbb-toggle-width, fit-content);
   height: var(--sbb-toggle-height);
+  width: var(--sbb-toggle-width, fit-content);
+  min-width: var(--_sbb-toggle-min-width);
   max-width: 100%;
+  border-radius: var(--sbb-toggle-border-radius);
+  font-size: var(--sbb-toggle-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  border-radius: var(--sbb-toggle-border-radius);
 
   // White pill of selected toggle option
   &::before {
@@ -99,6 +57,42 @@
       border: var(--sbb-border-width-1x) solid CanvasText;
     }
   }
+}
+
+:host(:focus-within) {
+  @include sbb.focus-outline;
+}
+
+:host([even]) {
+  --sbb-toggle-width: 100%;
+  --sbb-toggle-grid-template-columns: 50% 50%;
+}
+
+:host(:disabled) {
+  --sbb-toggle-selected-option-border-color: light-dark(
+    var(--sbb-color-graphite),
+    var(--sbb-color-smoke)
+  );
+  --sbb-toggle-selected-option-border-style: dashed;
+
+  @include sbb.if-forced-colors {
+    --sbb-toggle-selected-option-border-style: solid;
+    --sbb-toggle-selected-option-border-color: GrayText;
+  }
+}
+
+:host([size='m']) {
+  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xs);
+  --sbb-toggle-height: var(--sbb-size-element-m);
+}
+
+:host([size='s']) {
+  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
+  --sbb-toggle-height: var(--sbb-size-element-xxs);
+}
+
+:host(:is(:not(:state(initialized)), :state(disable-animation-on-resizing))) {
+  @include sbb.disable-animation;
 }
 
 ::slotted(sbb-toggle-option:first-of-type) {

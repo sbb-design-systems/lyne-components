@@ -677,10 +677,6 @@ sbb-train-formation[view='top'] sbb-train-wagon {
   }
 }
 
-sbb-toggle:has(:focus-visible) {
-  @include a11y.focus-outline;
-}
-
 .sbb-overlay-outlet {
   position: fixed;
   inset: 0;

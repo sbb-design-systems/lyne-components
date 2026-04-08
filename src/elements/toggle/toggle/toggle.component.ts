@@ -139,11 +139,9 @@ export class SbbToggleElement<T = string> extends SbbDisabledMixin(
   /** @internal */
   public updatePillPosition(resizing = false): void {
     const options = this.options;
-    const toggleElement = this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-toggle');
 
     if (
       options.length < 2 ||
-      !toggleElement ||
       options.every((o) => !o.checked) ||
       options.every((o) => !o.clientWidth)
     ) {
@@ -155,9 +153,7 @@ export class SbbToggleElement<T = string> extends SbbDisabledMixin(
     const firstOption = options[0];
     const isFirstChecked = firstOption.checked;
     const pillLeft = isFirstChecked ? '0px' : `${firstOption.clientWidth}px`;
-    const pillRight = isFirstChecked
-      ? `${toggleElement.clientWidth - firstOption.clientWidth}px`
-      : '0px';
+    const pillRight = isFirstChecked ? `${this.clientWidth - firstOption.clientWidth}px` : '0px';
 
     if (pillRight === '0px' && pillLeft === '0px') {
       return;
@@ -253,11 +249,7 @@ export class SbbToggleElement<T = string> extends SbbDisabledMixin(
   }
 
   protected override render(): TemplateResult {
-    return html`
-      <div class="sbb-toggle">
-        <slot @slotchange=${this._updateToggle}></slot>
-      </div>
-    `;
+    return html` <slot @slotchange=${this._updateToggle}></slot> `;
   }
 }
 
