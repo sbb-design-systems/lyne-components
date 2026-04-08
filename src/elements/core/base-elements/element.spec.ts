@@ -80,8 +80,6 @@ describe(`SbbElement`, () => {
       );
     });
 
-    /*
-
     it('should sync slots', async function (this: Mocha.Context) {
       // Flaky on Webkit
       this.retries(3);
@@ -112,7 +110,6 @@ describe(`SbbElement`, () => {
       expect(element).not.to.match(':state(slotted)');
       expect(element).not.to.match(':state(slotted-icon)');
     });
-  */
 
     it('should detect text when textNode was empty first', async () => {
       const node = document.createTextNode('');
