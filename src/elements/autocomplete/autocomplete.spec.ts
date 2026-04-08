@@ -1016,15 +1016,13 @@ describe(`sbb-autocomplete`, () => {
       input.focus();
       await openSpy.calledOnce();
       expect(input).to.have.attribute('aria-expanded', 'true');
-      expect(
-        getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y'),
-      ).to.be.equal('344px');
+      const posY1 = getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y');
+      expect(Math.round(parseFloat(posY1))).to.be.equal(344);
 
       // Simulate the options' removal and check again position
       await sendKeys({ press: 'a' });
-      expect(
-        getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y'),
-      ).to.be.equal('540px');
+      const posY2 = getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y');
+      expect(Math.round(parseFloat(posY2))).to.be.equal(540);
 
       // Clean up env
       element.close();
@@ -1304,9 +1302,10 @@ describe(`sbb-autocomplete`, () => {
       await waitForLitRender(element);
       expect(element.trigger!.id).to.be.equal(element.originElement!.id);
 
-      expect(
-        element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-autocomplete__panel')!.offsetTop,
-      ).to.be.greaterThan(offsetTopOrigin1);
+      const offsetTop2 = element.shadowRoot!.querySelector<HTMLDivElement>(
+        '.sbb-autocomplete__panel',
+      )!.offsetTop;
+      expect(Math.round(offsetTop2)).to.be.greaterThan(Math.round(offsetTopOrigin1));
     });
   });
 

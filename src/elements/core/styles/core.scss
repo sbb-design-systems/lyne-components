@@ -242,6 +242,20 @@ $theme: 'standard' !default;
 @use '../../teaser-product/common/teaser-product-common.global' as teaser-product-common with (
   $theme: $theme
 );
+@use '../../timetable-form/timetable-form/timetable-form.global' as timetable-form with (
+  $theme: $theme
+);
+@use '../../timetable-form/timetable-form-field/timetable-form-field.global' as timetable-form-field
+  with (
+  $theme: $theme
+);
+@use '../../timetable-form/timetable-form-details/timetable-form-details.global' as
+  timetable-form-details with (
+  $theme: $theme
+);
+@use '../../timetable-occupancy/timetable-occupancy.global' as timetable-occupancy with (
+  $theme: $theme
+);
 @use '../../toggle/toggle/toggle.global' as toggle with (
   $theme: $theme
 );
@@ -328,6 +342,10 @@ $theme: 'standard' !default;
   @include tag.base;
   @include teaser.base;
   @include teaser-product-common.base;
+  @include timetable-form.base;
+  @include timetable-form-details.base;
+  @include timetable-form-field.base;
+  @include timetable-occupancy.base;
   @include toggle.base;
   @include toggle-option.base;
   @include visual-checkbox.base;

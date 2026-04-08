@@ -89,8 +89,11 @@ When the overlay closes, it emits two events:
 
 Both events are of type `SbbOverlayCloseEvent` and provide access to:
 
-- `result`: The result value passed to `close()`, assigned via `assignOverlayResult()`, or the value of the `sbb-overlay-close` attribute
-- `closeTarget`: The element that triggered the close action (e.g., the clicked button), or `null` if closed programmatically or via Escape key
+- `result`: The result value passed to `close()`, assigned via `assignOverlayResult()`,
+  or the value of the `sbb-overlay-close` attribute. This is `null` if the dialog
+  was closed via backdrop click or Escape key.
+- `closeTarget`: The element that triggered the close action (e.g., the clicked button),
+  or `null` if closed programmatically or via Escape key
 
 ```js
 overlay.addEventListener('close', (event) => {

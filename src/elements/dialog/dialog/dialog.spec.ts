@@ -145,6 +145,10 @@ describe('sbb-dialog', () => {
       await waitForLitRender(element);
 
       expect(element).to.match(':state(state-closed)');
+
+      const event = closeSpy.lastEvent as SbbDialogCloseEvent;
+      expect(event).to.be.instanceOf(SbbDialogCloseEvent);
+      expect(event.detail.returnValue).to.be.null;
     });
 
     it('does not close the dialog on backdrop click', async () => {
@@ -256,6 +260,10 @@ describe('sbb-dialog', () => {
       await waitForLitRender(element);
 
       expect(element).to.match(':state(state-closed)');
+
+      const event = closeSpy.lastEvent as SbbDialogCloseEvent;
+      expect(event).to.be.instanceOf(SbbDialogCloseEvent);
+      expect(event.detail.returnValue).to.be.null;
     });
 
     it('closes stacked dialogs one by one on ESC key pressed', async () => {

@@ -49,6 +49,18 @@ const calculateGzipSize = async (content: string): Promise<number> =>
   (await gzipAsync(content)).length;
 const calculateBrotliSize = async (content: string): Promise<number> =>
   (await brotliAsync(content)).length;
+const result = ts.readConfigFile(join(projectRoot, 'tsconfig.json'), ts.sys.readFile);
+if (result.error) {
+  throw new Error(`Error reading tsconfig.json: ${result.error.messageText}`);
+}
+const options = ts.convertCompilerOptionsFromJson(result.config.compilerOptions, projectRoot);
+if (options.errors.length) {
+  throw new Error(
+    `Error parsing tsconfig.json: ${options.errors.map((e) => e.messageText).join(', ')}`,
+  );
+}
+const scriptTarget = options.options.target!;
+
 const { positionals } = parseArgs({ allowPositionals: true });
 const buildTargets = new Set(positionals);
 
@@ -81,6 +93,15 @@ type StepResult = void | Promise<void> | Disposable | Promise<Disposable>;
 
 interface Builder extends Disposable {
   build(): Promise<void>;
+}
+
+function asBuilder(action: () => void | Promise<void>): Builder {
+  return {
+    build: async () => {
+      await action();
+    },
+    [Symbol.dispose]() {},
+  };
 }
 
 class PackageBuilder implements Builder {
@@ -153,6 +174,7 @@ const reactExperimentalDevelopment = 'react-experimental:development';
 const reactExperimentalProduction = 'react-experimental:production';
 const storybook = 'storybook';
 const visualRegressionApp = 'visual-regression-app';
+const webshopFrontendCopy = 'webshop-frontend-copy';
 
 const expansions = {
   all: [
@@ -171,6 +193,17 @@ const expansions = {
   'elements-experimental': [elementsExperimentalProduction, elementsExperimentalDevelopment],
   react: [reactProduction, reactDevelopment],
   'react-experimental': [reactExperimentalProduction, reactExperimentalDevelopment],
+  'webshop-frontend': [
+    elementsDevelopment,
+    elementsProduction,
+    elementsExperimentalDevelopment,
+    elementsExperimentalProduction,
+    reactDevelopment,
+    reactProduction,
+    reactExperimentalDevelopment,
+    reactExperimentalProduction,
+    webshopFrontendCopy,
+  ],
 };
 
 const buildMap: Record<string, () => Builder> = {
@@ -223,6 +256,7 @@ const buildMap: Record<string, () => Builder> = {
     new PackageBuilder(storybook, [buildStorybook, buildNginxConfig, buildSizeStats]),
   [visualRegressionApp]: () => new PackageBuilder(visualRegressionApp, [buildApp]),
   ['nginx-conf']: () => new PackageBuilder(storybook, [buildNginxConfig]),
+  [webshopFrontendCopy]: () => asBuilder(copyIntoWebshopFrontend),
 };
 
 if (!buildTargets.size && !isCI) {
@@ -404,7 +438,7 @@ function buildRootIndex(pkg: PackageBuilder): void {
     const content = readFileSync(file, 'utf8');
     if (content.includes('elementName')) {
       const moduleName = relative(pkg.root, file).split('/')[0];
-      const sourceFile = ts.createSourceFile(file, content, ts.ScriptTarget.ES2022, true);
+      const sourceFile = ts.createSourceFile(file, content, scriptTarget, true);
       const customElements = sourceFile.statements
         .filter(ts.isClassDeclaration)
         .filter((c) =>
@@ -936,7 +970,7 @@ async function buildSizeStats(pkg: PackageBuilder): Promise<void> {
       stats.jsBrotliSize += brotliSize;
       stats.jsGzipSize += gzipSize;
       stats.jsFiles[key] = { size, brotliSize, gzipSize };
-      const sourceFile = ts.createSourceFile(file, content, ts.ScriptTarget.ES2022, true);
+      const sourceFile = ts.createSourceFile(file, content, scriptTarget, true);
 
       let cssTaggedName = '';
       let cssSize = 0;
@@ -970,4 +1004,30 @@ async function buildSizeStats(pkg: PackageBuilder): Promise<void> {
   writeFileSync(join(pkg.outDir, 'lyne-stats.json'), JSON.stringify(stats, null, 2), 'utf8');
 
   console.log(`=> Built size stats in ${relative(projectRoot, pkg.outDir)}`);
+}
+
+function copyIntoWebshopFrontend(): void {
+  const webshopDir = resolve(projectRoot, '../webshop-frontend/');
+  if (!existsSync(webshopDir)) {
+    console.warn(
+      `=> webshop-frontend directory not found at ${relative(projectRoot, webshopDir)}. Skipping copy step.`,
+    );
+    return;
+  }
+
+  const packageMap = ['elements', 'elements-experimental', 'react', 'react-experimental'].reduce(
+    (map, name) => Object.assign(map, { [name]: `lyne-${name}` }),
+    {} as Record<string, string>,
+  );
+
+  for (const [localName, remoteName] of Object.entries(packageMap)) {
+    const sourceDir = join(projectRoot, 'dist', localName);
+    const targetDir = join(webshopDir, 'node_modules', '@sbb-esta', remoteName);
+    rmSync(targetDir, { recursive: true, force: true });
+    cpSync(sourceDir, targetDir, { recursive: true });
+    console.log(`=> Copied ${localName} to webshop-frontend`);
+  }
+
+  rmSync(join(webshopDir, '.next'), { recursive: true, force: true });
+  console.log(`=> Removed .next directory in webshop-frontend to ensure clean build`);
 }
