@@ -2,56 +2,20 @@
 
 :host {
   display: block;
+  position: relative;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
-
-  @include sbb.panel-variables;
 }
 
-@include sbb.hover-mq($hover: true) {
-  :host(:hover) {
-    --sbb-panel-background-color: var(--sbb-panel-background-color-hover);
-  }
+// Hide panel when no content or link-content is provided.
+:host(:not(:state(slotted), :state(slotted-link-content), [link-content])) sbb-teaser-panel {
+  display: none;
 }
 
 ::slotted([slot='image']) {
   width: 100%;
-}
-
-.sbb-teaser-hero {
-  position: relative;
-  display: flex;
-  min-height: var(--sbb-panel-height);
-  text-decoration: none;
-
-  &:focus-visible {
-    @include sbb.focus-outline;
-  }
-}
-
-.sbb-teaser-hero__panel {
-  z-index: 1;
-
-  @include sbb.panel;
-  @include sbb.absolute-center-y;
-
-  // Hide panel when no content or link-content is provided.
-  :host(:not(:state(slotted), :state(slotted-link-content), [link-content])) & {
-    display: none;
-  }
-}
-
-.sbb-teaser-hero__panel-text {
-  @include sbb.panel-text;
-
-  hyphens: auto;
-
-  // Reset paragraph styles
-  display: inline;
-  margin: 0;
-  padding: 0;
 }
 
 .sbb-teaser-hero__panel-link {
