@@ -2,8 +2,10 @@ import { html, type TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import type { ClassInfo } from 'lit-html/directives/class-map.js';
 
-import { describeEach, describeViewports, visualDiffDefault } from '../testing/private.ts';
+import { describeEach, describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
+// TODO: change the title to 'sbb-table' once we're sure the visual is fine
+// eslint-disable-next-line lyne/test-describe-title-rule
 describe(`table`, () => {
   const cases = {
     negative: [false, true],
