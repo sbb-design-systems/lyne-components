@@ -1,0 +1,20 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-tooltip-animation-easing: ease-out;
+  --sbb-tooltip-animation-translate: 0 var(--sbb-spacing-fixed-2x);
+  --sbb-tooltip-background-color: var(--sbb-background-color-1-inverted);
+  --sbb-tooltip-color: var(--sbb-color-2-inverted);
+  --sbb-tooltip-border-color: var(--sbb-background-color-1-inverted);
+  --sbb-tooltip-border-radius: var(--sbb-border-radius-8x);
+  --sbb-tooltip-font-size: var(--sbb-text-font-size-xs);
+  --sbb-tooltip-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-tooltip-min-width: var(--sbb-spacing-fixed-8x);
+  --sbb-tooltip-padding: var(--sbb-spacing-fixed-2x) var(--sbb-spacing-fixed-4x);
+  --sbb-overlay-position-area: block-start;
+  --sbb-overlay-position-try-fallbacks:
+    block-start span-inline-end, block-start span-inline-start, block-end,
+    block-end span-inline-end, block-end span-inline-start;
+}
