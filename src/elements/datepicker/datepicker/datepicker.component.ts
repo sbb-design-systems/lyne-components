@@ -10,20 +10,21 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { CalendarView } from '../../calendar.ts';
-import { readConfig } from '../../core/config.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.ts';
-import { forceType, idReference } from '../../core/decorators.ts';
-import { i18nDateChangedTo } from '../../core/i18n.ts';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
-import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.ts';
-import { SbbPopoverBaseElement } from '../../popover.ts';
+import { SbbCalendarElement, type CalendarView } from '../../calendar.pure.ts';
+import { type SbbElementType, type DateAdapter, defaultDateAdapter } from '../../core.ts';
+import {
+  readConfig,
+  SbbLanguageController,
+  forceType,
+  idReference,
+  i18nDateChangedTo,
+  SbbUpdateSchedulerMixin,
+} from '../../core.ts';
+import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.pure.ts';
+import { SbbPopoverBaseElement } from '../../popover.pure.ts';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker-toggle.component.ts';
 
 import style from './datepicker.scss?inline';
-
-import '../../calendar.ts';
 
 let nextId = 0;
 
@@ -36,6 +37,7 @@ export class SbbDatepickerElement<T = Date>
   implements SbbDateInputAssociated<T>
 {
   public static override readonly elementName: string = 'sbb-datepicker';
+  public static override elementDependencies: SbbElementType[] = [SbbCalendarElement];
   public static override styles: CSSResultGroup = [SbbPopoverBaseElement.styles, unsafeCSS(style)];
   public static readonly sbbDateInputAssociated = true;
 

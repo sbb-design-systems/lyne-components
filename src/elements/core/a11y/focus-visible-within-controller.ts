@@ -1,27 +1,24 @@
-import type { ReactiveController, ReactiveControllerHost } from 'lit';
+import type { ReactiveController } from 'lit';
 
-import { ɵstateController } from '../mixins/element-internals-mixin.ts';
-import type { SbbElementInternalsMixinType } from '../mixins.ts';
+import type { SbbElement } from '../base-elements/element.ts';
 
 import { sbbInputModalityDetector } from './input-modality-detector.ts';
 
 // Determine whether the element has a visible focus within.
 export class SbbFocusVisibleWithinController implements ReactiveController {
-  public constructor(
-    private _host: SbbElementInternalsMixinType & ReactiveControllerHost & HTMLElement,
-  ) {
+  public constructor(private _host: SbbElement) {
     this._host.addController(this);
   }
 
   private _focusinHandler = (): void => {
-    ɵstateController(this._host).toggle(
+    this._host['toggleState']?.(
       'has-visible-focus-within',
       sbbInputModalityDetector.mostRecentModality === 'keyboard',
     );
   };
 
   private _focusoutHandler = (): void => {
-    ɵstateController(this._host).delete('has-visible-focus-within');
+    this._host['toggleState']?.('has-visible-focus-within', false);
   };
 
   public hostConnected(): void {

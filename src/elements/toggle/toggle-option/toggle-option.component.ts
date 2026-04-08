@@ -8,11 +8,8 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { SbbDisabledMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+import { SbbElement, forceType, SbbDisabledMixin, boxSizingStyles } from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbToggleElement } from '../toggle/toggle.component.ts';
 
 import style from './toggle-option.scss?inline';

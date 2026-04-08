@@ -1,7 +1,11 @@
-import type { SbbCheckboxPanelElement } from '../checkbox-panel.ts';
-import type { SbbCheckboxElement } from '../checkbox.ts';
-import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../core/a11y.ts';
-import { SbbSelectionGroupBaseElement } from '../core/base-elements.ts';
+import type { SbbCheckboxPanelElement } from '../checkbox-panel.pure.ts';
+import type { SbbCheckboxElement } from '../checkbox.pure.ts';
+import {
+  getNextElementIndex,
+  interactivityChecker,
+  isArrowKeyPressed,
+  SbbSelectionGroupBaseElement,
+} from '../core.ts';
 
 /**
  * It can be used as a container for checkbox elements.

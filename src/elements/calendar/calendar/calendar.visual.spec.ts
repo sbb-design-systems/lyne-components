@@ -1,7 +1,6 @@
 import { html, nothing } from 'lit';
 import { type SinonStub, stub } from 'sinon';
 
-import { defaultDateAdapter } from '../../core/datetime.ts';
 import {
   describeEach,
   describeViewports,
@@ -12,6 +11,7 @@ import {
   visualDiffStandardStates,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
+import { defaultDateAdapter } from '../../core.ts';
 import { createSlottedDays } from '../calendar-day/calendar-day.helper.private.ts';
 
 import type { SbbCalendarElement } from './calendar.component.ts';

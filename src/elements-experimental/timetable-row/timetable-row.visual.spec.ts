@@ -6,7 +6,7 @@ import {
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html, type TemplateResult } from 'lit';
 
-import type { ITripItem } from '../core/timetable/timetable-properties.ts';
+import type { ITripItem } from '../core.ts';
 
 import type { Boarding, Price } from './timetable-row.component.ts';
 import {

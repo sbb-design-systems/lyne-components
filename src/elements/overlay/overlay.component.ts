@@ -3,13 +3,17 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbSecondaryButtonElement, SbbTransparentButtonElement } from '../button.pure.ts';
-import { forceType } from '../core/decorators.ts';
-import { isZeroAnimationDuration } from '../core/dom.ts';
-import { forwardEvent } from '../core/eventing.ts';
-import { i18nCloseDialog } from '../core/i18n.ts';
-import type { SbbOverlayCloseEventDetails } from '../core/interfaces.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { SbbSecondaryButtonElement } from '../button.pure.ts';
+import { SbbContainerElement } from '../container.pure.ts';
+import type { SbbElementType, SbbOverlayCloseEventDetails } from '../core.ts';
+import {
+  forceType,
+  isZeroAnimationDuration,
+  forwardEvent,
+  i18nCloseDialog,
+  boxSizingStyles,
+  SbbScreenReaderOnlyElement,
+} from '../core.ts';
 
 import {
   overlayRefs,
@@ -17,13 +21,6 @@ import {
   SbbOverlayCloseEvent,
 } from './overlay-base-element.ts';
 import style from './overlay.scss?inline';
-
-import '../container.ts';
-import '../screen-reader-only.ts';
-
-// TODO(breaking-change): Remove call to define.
-SbbSecondaryButtonElement.define();
-SbbTransparentButtonElement.define();
 
 let nextId = 0;
 
@@ -37,6 +34,11 @@ let nextId = 0;
  */
 export class SbbOverlayElement extends SbbOverlayBaseElement {
   public static override readonly elementName: string = 'sbb-overlay';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbSecondaryButtonElement,
+    SbbContainerElement,
+    SbbScreenReaderOnlyElement,
+  ];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600

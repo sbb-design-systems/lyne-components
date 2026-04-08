@@ -1,8 +1,8 @@
 import { unsafeCSS, type CSSResultGroup } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbHorizontalFrom, SbbOrientation } from '../core.ts';
+import { boxSizingStyles } from '../core.ts';
 
 import { linkListBaseStyle, SbbLinkListBaseElement } from './common/link-list-base.ts';
 import style from './link-list.scss?inline';

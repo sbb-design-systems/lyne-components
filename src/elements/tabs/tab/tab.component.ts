@@ -1,7 +1,7 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 
-import { SbbElement } from '../../core/base-elements.ts';
+import { SbbElement } from '../../core.ts';
 import type { SbbTabGroupElement } from '../tab-group/tab-group.component.ts';
 import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 

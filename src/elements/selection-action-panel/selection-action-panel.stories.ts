@@ -9,9 +9,13 @@ import '../selection-action-panel.ts';
 import '../button.ts';
 import '../card.ts';
 import '../checkbox.ts';
+import '../checkbox-group.ts';
+import '../checkbox-panel.ts';
 import '../form-field.ts';
 import '../link.ts';
 import '../radio-button.ts';
+import '../radio-button-group.ts';
+import '../radio-button-panel.ts';
 import '../selection-expansion-panel.ts';
 
 import readme from './readme.md?raw';

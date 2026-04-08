@@ -1,5 +1,4 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import { SbbElement, boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
 import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 
 import style from './seat-reservation-scoped.scss?inline';

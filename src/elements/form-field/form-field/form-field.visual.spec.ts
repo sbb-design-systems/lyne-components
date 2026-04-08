@@ -1,6 +1,5 @@
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { isChromium } from '../../core/dom.ts';
 import {
   describeEach,
   describeViewports,
@@ -8,6 +7,7 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../../core/testing/private.ts';
+import { isChromium } from '../../core.ts';
 
 import '../../form-field.ts';
 import '../../button.ts';

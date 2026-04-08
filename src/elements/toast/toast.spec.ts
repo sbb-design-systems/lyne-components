@@ -1,10 +1,10 @@
-import { assert, aTimeout, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import type { SbbTransparentButtonElement } from '../button.ts';
-import { elementInternalsSpy, fixture } from '../core/testing/private.ts';
-import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
+import { elementInternalsSpy } from '../core/testing/private.ts';
+import { EventSpy, waitForLitRender, waitForCondition } from '../core/testing.ts';
 
 import { SbbToastElement } from './toast.component.ts';
 

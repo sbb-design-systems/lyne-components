@@ -1,15 +1,17 @@
 import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { SbbElement, SbbScreenReaderOnlyElement, type SbbElementType } from '../core.ts';
+import {
+  panelCommonStyle,
+  SbbPanelMixin,
+  SbbUpdateSchedulerMixin,
+  boxSizingStyles,
+} from '../core.ts';
 import {
   radioButtonCommonStyle,
   SbbRadioButtonCommonElementMixin,
 } from '../radio-button/common/radio-button-common.ts';
-
-import '../screen-reader-only.ts';
 
 /**
  * It displays a radio button enhanced with the panel design.
@@ -26,6 +28,7 @@ export class SbbRadioButtonPanelElement<T = string> extends SbbPanelMixin(
   SbbRadioButtonCommonElementMixin(SbbUpdateSchedulerMixin(SbbElement)),
 ) {
   public static override readonly elementName: string = 'sbb-radio-button-panel';
+  public static override elementDependencies: SbbElementType[] = [SbbScreenReaderOnlyElement];
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     radioButtonCommonStyle,

@@ -7,14 +7,15 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { readConfig } from '../../core/config/config.ts';
-import { SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { type DateAdapter } from '../../core/datetime/date-adapter.ts';
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
-import { forceType } from '../../core/decorators.ts';
-import type { SbbOrientation } from '../../core/interfaces.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbOrientation, DateAdapter } from '../../core.ts';
+import {
+  SbbElement,
+  readConfig,
+  SbbPropertyWatcherController,
+  defaultDateAdapter,
+  forceType,
+  boxSizingStyles,
+} from '../../core.ts';
 
 import style from './mini-calendar-month.scss?inline';
 

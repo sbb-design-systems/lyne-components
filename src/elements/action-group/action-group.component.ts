@@ -7,17 +7,15 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.ts';
-import { SbbElement } from '../core/base-elements.ts';
-import { isLean } from '../core/dom.ts';
-import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.pure.ts';
+import type { SbbHorizontalFrom, SbbOrientation } from '../core.ts';
+import { SbbElement, isLean, boxSizingStyles } from '../core.ts';
 import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,
   SbbBlockLinkStaticElement,
   SbbLinkSize,
-} from '../link.ts';
+} from '../link.pure.ts';
 
 import style from './action-group.scss?inline';
 

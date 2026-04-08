@@ -4,7 +4,6 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import type { SbbButtonElement } from '../../button.ts';
-import { isWebkit } from '../../core/dom.ts';
 import {
   fixture,
   sbbBreakpointLargeMinPx,
@@ -12,6 +11,7 @@ import {
   tabKey,
 } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { isWebkit } from '../../core.ts';
 import type { SbbMenuButtonElement } from '../menu-button/menu-button.component.ts';
 
 import { SbbMenuElement } from './menu.component.ts';

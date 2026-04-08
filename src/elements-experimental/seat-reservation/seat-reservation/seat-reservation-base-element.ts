@@ -1,6 +1,8 @@
-import { isArrowKeyOrPageKeysPressed } from '@sbb-esta/lyne-elements/core/a11y.js';
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import {
+  isArrowKeyOrPageKeysPressed,
+  SbbElement,
+  forceType,
+} from '@sbb-esta/lyne-elements/core.js';
 import { isServer, type PropertyValues } from 'lit';
 import { eventOptions, property, state } from 'lit/decorators.js';
 

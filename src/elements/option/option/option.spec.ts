@@ -2,7 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import type { SbbAutocompleteElement } from '../../autocomplete.ts';
+import type { SbbAutocompleteElement } from '../../autocomplete.pure.ts';
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';

@@ -1,8 +1,11 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { i18nDurationHour, i18nDurationMinute } from '@sbb-esta/lyne-elements/core/i18n.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import {
+  SbbElement,
+  SbbLanguageController,
+  forceType,
+  i18nDurationHour,
+  i18nDurationMinute,
+  boxSizingStyles,
+} from '@sbb-esta/lyne-elements/core.js';
 import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 

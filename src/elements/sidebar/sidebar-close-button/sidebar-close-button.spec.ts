@@ -1,9 +1,9 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { i18nCloseSidebar } from '../../core/i18n.ts';
 import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
+import { i18nCloseSidebar } from '../../core.ts';
 
 import { SbbSidebarCloseButtonElement } from './sidebar-close-button.component.ts';
 

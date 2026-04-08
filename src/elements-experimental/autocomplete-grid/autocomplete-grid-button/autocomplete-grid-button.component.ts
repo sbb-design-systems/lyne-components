@@ -1,11 +1,14 @@
 import { miniButtonStyle } from '@sbb-esta/lyne-elements/button.pure.js';
-import { SbbActionBaseElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbPropertyWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { hostAttributes } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { isEventPrevented } from '@sbb-esta/lyne-elements/core/eventing.js';
-import { SbbDisabledMixin, SbbNegativeMixin } from '@sbb-esta/lyne-elements/core/mixins.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { SbbIconNameMixin } from '@sbb-esta/lyne-elements/icon.js';
+import {
+  SbbActionBaseElement,
+  SbbPropertyWatcherController,
+  hostAttributes,
+  isEventPrevented,
+  SbbDisabledMixin,
+  SbbNegativeMixin,
+  boxSizingStyles,
+} from '@sbb-esta/lyne-elements/core.js';
+import { SbbIconNameMixin } from '@sbb-esta/lyne-elements/icon.pure.js';
 import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
 
 import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup/autocomplete-grid-optgroup.component.ts';

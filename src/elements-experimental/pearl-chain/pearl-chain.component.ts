@@ -1,15 +1,16 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import {
+  SbbElement,
+  defaultDateAdapter,
+  forceType,
+  boxSizingStyles,
+} from '@sbb-esta/lyne-elements/core.js';
 import { addMinutes, differenceInMinutes, isAfter, isBefore } from 'date-fns';
 import { html, nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { removeTimezoneFromISOTimeString } from '../core/datetime.ts';
-import type { Leg, PtRideLeg } from '../core/timetable.ts';
-import { isRideLeg } from '../core/timetable.ts';
+import type { Leg, PtRideLeg } from '../core.ts';
+import { removeTimezoneFromISOTimeString, isRideLeg } from '../core.ts';
 
 import style from './pearl-chain.scss?inline';
 

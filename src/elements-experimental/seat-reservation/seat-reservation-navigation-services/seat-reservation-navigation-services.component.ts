@@ -1,7 +1,11 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import {
+  SbbLanguageController,
+  forceType,
+  boxSizingStyles,
+  SbbElement,
+  type SbbElementType,
+  SbbScreenReaderOnlyElement,
+} from '@sbb-esta/lyne-elements/core.js';
 import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -10,16 +14,16 @@ import { SbbSeatReservationGraphicElement } from '../seat-reservation-graphic/se
 
 import style from './seat-reservation-navigation-services.scss?inline';
 
-import '@sbb-esta/lyne-elements/screen-reader-only.js';
-
-SbbSeatReservationGraphicElement.define();
-
 /**
  * Component displays the available service icons of one coach.
  *
  */
 export class SbbSeatReservationNavigationServicesElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-navigation-services';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbScreenReaderOnlyElement,
+    SbbSeatReservationGraphicElement,
+  ];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Coach service property ids, which are used to display the services in the navigation */

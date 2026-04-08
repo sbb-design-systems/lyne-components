@@ -2,11 +2,14 @@ import { unsafeCSS, type CSSResultGroup, type PropertyValues, type TemplateResul
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
-import { SbbDisabledMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  SbbElement,
+  SbbPropertyWatcherController,
+  forceType,
+  omitEmptyConverter,
+  SbbDisabledMixin,
+  boxSizingStyles,
+} from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbTitleLevel } from '../../title.pure.ts';
 import { tabLabelCommonStyles } from '../common/styles.ts';

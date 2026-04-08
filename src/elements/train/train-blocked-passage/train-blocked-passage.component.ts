@@ -1,7 +1,6 @@
 import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbElement, boxSizingStyles } from '../../core.ts';
 
 import style from './train-blocked-passage.scss?inline';
 

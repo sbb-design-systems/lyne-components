@@ -2,7 +2,7 @@
 
 import { isServer } from 'lit';
 
-import { getEventTarget } from '../eventing.ts';
+import { getEventTarget } from '../eventing/event-target.ts';
 
 import {
   isFakeMousedownFromScreenReader,

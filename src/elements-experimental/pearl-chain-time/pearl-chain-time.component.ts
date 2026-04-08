@@ -1,30 +1,37 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
+import { SbbElement, type SbbElementType } from '@sbb-esta/lyne-elements/core.js';
 import {
+  SbbLanguageController,
+  defaultDateAdapter,
+  forceType,
   i18nArrival,
   i18nDeparture,
   i18nTransferProcedures,
-} from '@sbb-esta/lyne-elements/core/i18n.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+  boxSizingStyles,
+} from '@sbb-esta/lyne-elements/core.js';
+import { SbbIconElement } from '@sbb-esta/lyne-elements/icon.pure.js';
 import { format } from 'date-fns';
 import { html, nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { removeTimezoneFromISOTimeString } from '../core/datetime.ts';
-import type { Leg, PtRideLeg } from '../core/timetable.ts';
-import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.ts';
+import type { Leg, PtRideLeg } from '../core.ts';
+import {
+  removeTimezoneFromISOTimeString,
+  getDepartureArrivalTimeAttribute,
+  isRideLeg,
+} from '../core.ts';
+import { SbbPearlChainElement } from '../pearl-chain.pure.ts';
 
 import style from './pearl-chain-time.scss?inline';
-
-import '../pearl-chain.ts';
 
 /**
  * Combined with `sbb-pearl-chain`, it displays walk time information.
  */
 export class SbbPearlChainTimeElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain-time';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbIconElement,
+    SbbPearlChainElement,
+  ];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
