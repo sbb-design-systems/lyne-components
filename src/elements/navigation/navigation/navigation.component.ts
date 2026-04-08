@@ -12,31 +12,28 @@ import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
-import { SbbFocusTrapController } from '../../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
 import {
+  SbbFocusTrapController,
   SbbEscapableOverlayController,
   SbbInertController,
   SbbLanguageController,
-} from '../../core/controllers.ts';
-import { forceType, idReference } from '../../core/decorators.ts';
-import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.ts';
-import { i18nCloseNavigation } from '../../core/i18n.ts';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
-import {
+  forceType,
+  idReference,
+  isZeroAnimationDuration,
+  SbbScrollHandler,
+  i18nCloseNavigation,
+  SbbUpdateSchedulerMixin,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+  boxSizingStyles,
+} from '../../core.ts';
+import { SbbOpenCloseBaseElement, type SbbElementType } from '../../core.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 import type { SbbNavigationSectionElement } from '../navigation-section/navigation-section.component.ts';
 
 import style from './navigation.scss?inline';
-
-// TODO(breaking-change): Remove call to define.
-SbbTransparentButtonElement.define();
 
 let nextId = 0;
 const DEBOUNCE_TIME = 150;
@@ -51,6 +48,7 @@ const DEBOUNCE_TIME = 150;
  */
 export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-navigation';
+  public static override elementDependencies: SbbElementType[] = [SbbTransparentButtonElement];
   public static override readonly role = 'navigation';
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 

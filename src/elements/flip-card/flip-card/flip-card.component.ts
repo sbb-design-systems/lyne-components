@@ -4,22 +4,23 @@ import { property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 
 import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
-import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController, SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { forceType } from '../../core/decorators.ts';
-import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.ts';
-import { ɵstateController } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  IS_FOCUSABLE_QUERY,
+  SbbLanguageController,
+  SbbPropertyWatcherController,
+  forceType,
+  i18nFlipCard,
+  i18nReverseCard,
+  boxSizingStyles,
+  SbbScreenReaderOnlyElement,
+  SbbElement,
+  type SbbElementType,
+  ɵstateController,
+} from '../../core.ts';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details/flip-card-details.component.ts';
 import type { SbbFlipCardSummaryElement } from '../flip-card-summary/flip-card-summary.component.ts';
 
 import style from './flip-card.scss?inline';
-
-import '../../screen-reader-only.ts';
-
-// TODO(breaking-change): Remove call to define.
-SbbSecondaryButtonStaticElement.define();
 
 /**
  * Displays an informative card that reveals more information upon being clicked.
@@ -29,6 +30,10 @@ SbbSecondaryButtonStaticElement.define();
  */
 export class SbbFlipCardElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-flip-card';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbSecondaryButtonStaticElement,
+    SbbScreenReaderOnlyElement,
+  ];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     flip: 'flip',

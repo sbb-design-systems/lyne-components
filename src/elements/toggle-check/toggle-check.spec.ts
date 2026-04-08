@@ -2,9 +2,9 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { isChromium, isFirefox } from '../core/dom.ts';
 import { a11yTreeSnapshot, fixture } from '../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
+import { isChromium, isFirefox } from '../core.ts';
 
 import { SbbToggleCheckElement } from './toggle-check.component.ts';
 

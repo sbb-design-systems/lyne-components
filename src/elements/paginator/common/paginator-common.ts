@@ -1,26 +1,32 @@
 import { html, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbMiniButtonElement, SbbMiniButtonGroupElement } from '../../button.pure.ts';
-import { sbbInputModalityDetector } from '../../core/a11y/input-modality-detector.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
+import { SbbMiniButtonGroupElement, SbbMiniButtonElement } from '../../button.pure.ts';
 import {
+  sbbInputModalityDetector,
+  SbbLanguageController,
+  forceType,
+  isLean,
   i18nNextPage,
   i18nPage,
   i18nPaginatorSelected,
   i18nPreviousPage,
-} from '../../core/i18n.ts';
-import type { SbbPaginatorPageEventDetails } from '../../core/interfaces.ts';
-import { type AbstractConstructor, SbbDisabledMixin, SbbNegativeMixin } from '../../core/mixins.ts';
+  SbbScreenReaderOnlyElement,
+  type SbbElement,
+  type SbbElementConstructor,
+  type SbbElementType,
+  type AbstractConstructor,
+  SbbDisabledMixin,
+  SbbNegativeMixin,
+} from '../../core.ts';
+import { SbbDividerElement } from '../../divider.pure.ts';
 
-import '../../divider.ts';
-
-// TODO(breaking-change): Remove call to define.
-SbbMiniButtonElement.define();
-SbbMiniButtonGroupElement.define();
+export interface SbbPaginatorPageEventDetails {
+  length: number;
+  pageSize: number;
+  pageIndex: number;
+  previousPageIndex: number;
+}
 
 export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNegativeMixin(
   SbbDisabledMixin(SbbElement),
@@ -48,14 +54,23 @@ export declare abstract class SbbPaginatorCommonElementMixinType extends SbbNega
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbPaginatorCommonElementMixin = <T extends AbstractConstructor<SbbElement>>(
+export const SbbPaginatorCommonElementMixin = <
+  T extends AbstractConstructor<SbbElement> & SbbElementConstructor,
+>(
   superClass: T,
 ): AbstractConstructor<SbbPaginatorCommonElementMixinType> & T => {
   abstract class SbbPaginatorCommonElement
     extends SbbNegativeMixin(SbbDisabledMixin(superClass))
     implements Partial<SbbPaginatorCommonElementMixinType>
   {
-    public static role = 'group';
+    public static override elementDependencies: SbbElementType[] = [
+      SbbMiniButtonGroupElement,
+      SbbMiniButtonElement,
+      SbbDividerElement,
+      SbbScreenReaderOnlyElement,
+    ];
+
+    public static override role = 'group';
 
     /** Total number of items. */
     @forceType()

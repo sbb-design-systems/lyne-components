@@ -2,11 +2,9 @@ import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.ts';
-import type { SbbHorizontalFrom } from '../../core/interfaces.ts';
-import type { AbstractConstructor } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+import type { SbbActionBaseElement, SbbHorizontalFrom, AbstractConstructor } from '../../core.ts';
+import { boxSizingStyles } from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 
 import style from './header-action.scss?inline';
 

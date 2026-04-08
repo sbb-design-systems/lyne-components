@@ -1,9 +1,12 @@
 import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.ts';
-import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  SbbActionBaseElement,
+  type AbstractConstructor,
+  SbbNegativeMixin,
+  boxSizingStyles,
+} from '../../core.ts';
 
 import style from './link.scss?inline';
 

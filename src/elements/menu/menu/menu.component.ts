@@ -11,41 +11,39 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
+  type SbbNegativeMixinType,
+  ɵstateController,
+  SbbOpenCloseBaseElement,
+  type SbbElementType,
+} from '../../core.ts';
+import {
   getNextElementIndex,
   interactivityChecker,
   isArrowKeyOrPageKeysPressed,
   SbbFocusTrapController,
-} from '../../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
-import {
   SbbDarkModeController,
   SbbEscapableOverlayController,
   SbbInertController,
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
-} from '../../core/controllers.ts';
-import { idReference } from '../../core/decorators.ts';
-import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.ts';
-import { forwardEvent } from '../../core/eventing.ts';
-import { i18nGoBack } from '../../core/i18n/i18n.ts';
-import { ɵstateController, type SbbNegativeMixinType } from '../../core/mixins.ts';
-import {
+  idReference,
+  isZeroAnimationDuration,
+  SbbScrollHandler,
+  forwardEvent,
+  i18nGoBack,
   getElementPosition,
   getElementPositionHorizontal,
   isEventOnElement,
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../../core/overlay.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+  boxSizingStyles,
+} from '../../core.ts';
+import { SbbDividerElement } from '../../divider.pure.ts';
 import { SbbMenuButtonElement } from '../menu-button/menu-button.component.ts';
 import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.ts';
 
 import style from './menu.scss?inline';
-
-import '../../divider.ts';
-
-SbbMenuButtonElement.define();
 
 const MENU_OFFSET = 8;
 const NESTED_MENU_OFFSET = -4;
@@ -74,6 +72,10 @@ let nextId = 0;
  */
 export class SbbMenuElement extends SbbOpenCloseBaseElement {
   public static override readonly elementName: string = 'sbb-menu';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbDividerElement,
+    SbbMenuButtonElement,
+  ];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static override readonly role = 'menu';
 

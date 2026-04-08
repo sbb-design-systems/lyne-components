@@ -1,10 +1,15 @@
-import { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.js';
-import { getNextElementIndex } from '@sbb-esta/lyne-elements/core/a11y.js';
-import { isSafari } from '@sbb-esta/lyne-elements/core/dom.js';
-import { ɵstateController } from '@sbb-esta/lyne-elements/core/mixins.js';
-import { setAriaComboBoxAttributes } from '@sbb-esta/lyne-elements/core/overlay.js';
-import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.js';
-import type { SbbOptGroupElement, SbbOptionHintElement } from '@sbb-esta/lyne-elements/option.js';
+import { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.pure.js';
+import {
+  getNextElementIndex,
+  ɵstateController,
+  isSafari,
+  setAriaComboBoxAttributes,
+} from '@sbb-esta/lyne-elements/core.js';
+import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.pure.js';
+import type {
+  SbbOptGroupElement,
+  SbbOptionHintElement,
+} from '@sbb-esta/lyne-elements/option.pure.js';
 
 import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button/autocomplete-grid-button.component.ts';
 import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/autocomplete-grid-option.component.ts';

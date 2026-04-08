@@ -3,6 +3,7 @@ import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+const gitRefName = process.env.GITHUB_REF_NAME?.trim() || '';
 const releaseVersion = process.env.VERSION?.trim() || null;
 const dryRun = !process.env.CI;
 const distDir = fileURLToPath(new URL('../dist/', import.meta.url));
@@ -13,7 +14,9 @@ interface PackageJson {
   keywords?: string[];
 }
 
-if (dryRun) {
+if (!gitRefName) {
+  throw new Error('GITHUB_REF_NAME environment variable is not set');
+} else if (dryRun) {
   console.log('Running in dry-run mode. No packages will be published to npm.');
 }
 
@@ -57,7 +60,8 @@ for (const packagePath of packages) {
   ];
   try {
     writeFileSync(packagePath, JSON.stringify(pkg, null, 2), 'utf8');
-    publish(packagePath, pkg, `v${releaseMajor}-dev`);
+    const tag = `${gitRefName === 'main' ? 'next' : `v${gitRefName.split('.')[0]}`}-dev`;
+    publish(packagePath, pkg, tag);
   } finally {
     writeFileSync(packagePath, packageContent, 'utf8');
   }

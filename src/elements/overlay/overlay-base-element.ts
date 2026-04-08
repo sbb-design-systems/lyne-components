@@ -1,23 +1,22 @@
 import { isServer, type PropertyDeclaration, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbFocusTrapController } from '../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
+import type { SbbScreenReaderOnlyElement } from '../core/screen-reader-only/screen-reader-only.component.ts';
+import type { SbbOverlayCloseEventDetails } from '../core.ts';
 import {
+  SbbFocusTrapController,
+  SbbOpenCloseBaseElement,
   SbbEscapableOverlayController,
   SbbInertController,
   SbbLanguageController,
-} from '../core/controllers.ts';
-import { forceType, idReference } from '../core/decorators.ts';
-import { SbbScrollHandler } from '../core/dom.ts';
-import { i18nDialog } from '../core/i18n.ts';
-import type { SbbOverlayCloseEventDetails } from '../core/interfaces.ts';
-import { SbbNegativeMixin } from '../core/mixins.ts';
-import {
+  forceType,
+  idReference,
+  SbbScrollHandler,
+  i18nDialog,
+  SbbNegativeMixin,
   removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-} from '../core/overlay.ts';
-import type { SbbScreenReaderOnlyElement } from '../screen-reader-only.ts';
+} from '../core.ts';
 
 const overlayResultMap = new WeakMap<HTMLElement, any>();
 
@@ -164,7 +163,7 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
       return;
     }
 
-    this.returnValue = result;
+    this.returnValue = result ?? null;
     this.overlayCloseElement = target;
     if (!this.dispatchBeforeCloseEvent()) {
       return;

@@ -10,22 +10,20 @@ import {
 import { property } from 'lit/decorators.js';
 
 import { SbbSecondaryButtonElement } from '../button.pure.ts';
-import { SbbElement } from '../core/base-elements.ts';
-import { SbbLanguageController } from '../core/controllers.ts';
-import { isLean, isZeroAnimationDuration } from '../core/dom.ts';
-import { i18nCloseNotification } from '../core/i18n.ts';
-import type { SbbOpenedClosedState } from '../core/interfaces.ts';
-import { SbbReadonlyMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import { SbbIconNameMixin } from '../icon.ts';
-import type { SbbTitleElement } from '../title.ts';
+import { type SbbOpenedClosedState, SbbElement, type SbbElementType } from '../core.ts';
+import {
+  SbbLanguageController,
+  isLean,
+  isZeroAnimationDuration,
+  i18nCloseNotification,
+  SbbReadonlyMixin,
+  boxSizingStyles,
+} from '../core.ts';
+import { SbbDividerElement } from '../divider.pure.ts';
+import { SbbIconNameMixin } from '../icon.pure.ts';
+import type { SbbTitleElement } from '../title.pure.ts';
 
 import style from './notification.scss?inline';
-
-import '../divider.ts';
-
-// TODO(breaking-change): Remove call to define.
-SbbSecondaryButtonElement.define();
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],
@@ -48,6 +46,10 @@ const DEBOUNCE_TIME = 150;
  */
 export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbElement)) {
   public static override readonly elementName: string = 'sbb-notification';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbSecondaryButtonElement,
+    SbbDividerElement,
+  ];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     beforeopen: 'beforeopen',

@@ -1,6 +1,4 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import { SbbElement, forceType, boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
 import { html, nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';

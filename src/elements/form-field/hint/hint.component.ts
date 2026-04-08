@@ -1,9 +1,7 @@
 import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbNegativeMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { boxSizingStyles, SbbElement, SbbNegativeMixin } from '../../core.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field.component.ts';
 
 import style from './hint.scss?inline';

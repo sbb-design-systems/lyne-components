@@ -1,8 +1,7 @@
 import { html, unsafeCSS, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.ts';
-import { type AbstractConstructor, SbbNegativeMixin } from '../../core/mixins.ts';
+import { SbbActionBaseElement, type AbstractConstructor, SbbNegativeMixin } from '../../core.ts';
 
 import teaserProductCommonStyleString from './teaser-product-common.scss?inline';
 

@@ -1,4 +1,4 @@
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button-group.js';
 import {
   LitElement,
@@ -18,6 +18,7 @@ import style from './fullscreen-diff.scss?inline';
 
 import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/radio-button.js';
+import '@sbb-esta/lyne-elements/radio-button-group.js';
 
 export type DiffFileType = 'baselineFile' | 'failedFile' | 'diffFile';
 

@@ -3,9 +3,9 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { i18nDialog } from '../core/i18n.ts';
 import { sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
+import { i18nDialog } from '../core.ts';
 
 import { assignOverlayResult, SbbOverlayCloseEvent } from './overlay-base-element.ts';
 import { SbbOverlayElement } from './overlay.component.ts';

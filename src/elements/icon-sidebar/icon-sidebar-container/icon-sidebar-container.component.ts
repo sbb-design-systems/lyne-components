@@ -1,6 +1,6 @@
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbElement } from '../../core/base-elements.ts';
+import { SbbElement } from '../../core.ts';
 import { sidebarContainerCommonStyle } from '../../sidebar/common/styles.ts';
 import type { SbbIconSidebarElement } from '../icon-sidebar/icon-sidebar.component.ts';
 

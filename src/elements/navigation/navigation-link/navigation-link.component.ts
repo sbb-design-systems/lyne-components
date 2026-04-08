@@ -1,4 +1,4 @@
-import { SbbLinkBaseElement } from '../../core/base-elements.ts';
+import { SbbLinkBaseElement } from '../../core.ts';
 import { SbbNavigationActionCommonElementMixin } from '../common/navigation-action-common.ts';
 
 /**

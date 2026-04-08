@@ -7,8 +7,6 @@ import { type SinonStub, stub } from 'sinon';
 
 import type { SbbCalendarDayElement, SbbCalendarYearElement } from '../../calendar.ts';
 import { SbbCalendarElement } from '../../calendar.ts';
-import { defaultDateAdapter } from '../../core/datetime.ts';
-import { i18nDateChangedTo } from '../../core/i18n.ts';
 import {
   fixture,
   sbbBreakpointLargeMinPx,
@@ -16,6 +14,7 @@ import {
   typeInElement,
 } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { defaultDateAdapter, i18nDateChangedTo } from '../../core.ts';
 import type { SbbDateInputElement } from '../../date-input.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker-toggle.component.ts';

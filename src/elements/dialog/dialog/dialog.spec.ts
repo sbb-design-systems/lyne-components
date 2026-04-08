@@ -3,11 +3,11 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import type { SbbAutocompleteElement } from '../../autocomplete.ts';
+import type { SbbAutocompleteElement } from '../../autocomplete.pure.ts';
 import type { SbbButtonElement } from '../../button.ts';
-import { i18nDialog } from '../../core/i18n.ts';
 import { sbbBreakpointLargeMinPx, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { i18nDialog } from '../../core.ts';
 import { SbbStepElement } from '../../stepper/step/step.component.ts';
 
 import { assignDialogResult, SbbDialogCloseEvent, SbbDialogElement } from './dialog.component.ts';
@@ -145,6 +145,10 @@ describe('sbb-dialog', () => {
       await waitForLitRender(element);
 
       expect(element).to.match(':state(state-closed)');
+
+      const event = closeSpy.lastEvent as SbbDialogCloseEvent;
+      expect(event).to.be.instanceOf(SbbDialogCloseEvent);
+      expect(event.detail.returnValue).to.be.null;
     });
 
     it('does not close the dialog on backdrop click', async () => {
@@ -256,6 +260,10 @@ describe('sbb-dialog', () => {
       await waitForLitRender(element);
 
       expect(element).to.match(':state(state-closed)');
+
+      const event = closeSpy.lastEvent as SbbDialogCloseEvent;
+      expect(event).to.be.instanceOf(SbbDialogCloseEvent);
+      expect(event.detail.returnValue).to.be.null;
     });
 
     it('closes stacked dialogs one by one on ESC key pressed', async () => {

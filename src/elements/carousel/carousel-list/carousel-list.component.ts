@@ -2,10 +2,12 @@ import { IntersectionController } from '@lit-labs/observers/intersection-control
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { isArrowKeyPressed } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { i18nCarouselItemAriaLabel } from '../../core/i18n.ts';
+import {
+  isArrowKeyPressed,
+  SbbElement,
+  SbbLanguageController,
+  i18nCarouselItemAriaLabel,
+} from '../../core.ts';
 import type {
   SbbCarouselItemElement,
   SbbCarouselItemEventDetail,

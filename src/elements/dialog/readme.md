@@ -147,8 +147,11 @@ When the dialog closes, it emits two events:
 
 Both events are of type `SbbDialogCloseEvent` and provide access to:
 
-- `result`: The result value passed to `close()`, assigned via `assignDialogResult()`, or the value of the `sbb-dialog-close` attribute
-- `closeTarget`: The element that triggered the close action (e.g., the clicked button), or `null` if closed programmatically or via Escape key
+- `result`: The result value passed to `close()`, assigned via `assignDialogResult()`,
+  or the value of the `sbb-dialog-close` attribute. This is `null` if the dialog
+  was closed via backdrop click or Escape key.
+- `closeTarget`: The element that triggered the close action (e.g., the clicked button),
+  or `null` if closed programmatically or via Escape key
 
 ```js
 dialog.addEventListener('close', (event) => {

@@ -2,11 +2,8 @@ import { nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'li
 import { property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isEventPrevented } from '../../core/eventing.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbTitleLevel } from '../../title.ts';
+import { SbbElement, forceType, isEventPrevented, boxSizingStyles } from '../../core.ts';
+import type { SbbTitleLevel } from '../../title.pure.ts';
 import type { SbbAlertElement } from '../alert/alert.component.ts';
 
 import style from './alert-group.scss?inline';

@@ -2,7 +2,7 @@ import type { CSSResultGroup, TemplateResult, unsafeCSS } from 'lit';
 import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../core/styles.ts';
+import { boxSizingStyles } from '../core.ts';
 
 import style from './__noPrefixName__.scss?inline';
 

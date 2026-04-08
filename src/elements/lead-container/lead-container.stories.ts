@@ -10,7 +10,7 @@ import '../notification.ts';
 import '../title.ts';
 import '../lead-container.ts';
 
-import images from '../core/images.ts';
+import { sampleImages } from '../core/images.private.ts';
 
 import readme from './readme.md?raw';
 
@@ -66,7 +66,7 @@ const DefaultTemplate = (): TemplateResult => html`
     ${content()}
     <sbb-image
       slot="image"
-      image-src=${images[6]}
+      image-src=${sampleImages[6]}
       alt="Station of Lucerne from outside"
     ></sbb-image>
   </sbb-lead-container>
@@ -77,7 +77,7 @@ const WithChipTemplate = (): TemplateResult => html`
     ${content()}
 
     <figure class="sbb-figure" slot="image">
-      <sbb-image image-src=${images[6]} alt="Station of Lucerne from outside"></sbb-image>
+      <sbb-image image-src=${sampleImages[6]} alt="Station of Lucerne from outside"></sbb-image>
 
       <sbb-chip-label color="charcoal" class="sbb-figure-overlap-start-end">
         AI generated

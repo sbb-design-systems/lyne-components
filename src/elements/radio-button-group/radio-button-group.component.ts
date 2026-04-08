@@ -1,10 +1,9 @@
 import type { PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbSelectionGroupBaseElement } from '../core/base-elements.ts';
-import { forceType } from '../core/decorators.ts';
+import { SbbSelectionGroupBaseElement, forceType } from '../core.ts';
 import type { SbbRadioButtonElement } from '../radio-button/radio-button.component.ts';
-import type { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
+import type { SbbRadioButtonPanelElement } from '../radio-button-panel.pure.ts';
 
 let nextId = 0;
 

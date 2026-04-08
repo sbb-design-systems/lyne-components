@@ -2,9 +2,9 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { emulateMedia } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 
-import { SbbDarkModeController } from '../../core/controllers.ts';
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { SbbDarkModeController } from '../../core.ts';
 
 import { SbbAlertElement } from './alert.component.ts';
 
