@@ -49,6 +49,18 @@ const calculateGzipSize = async (content: string): Promise<number> =>
   (await gzipAsync(content)).length;
 const calculateBrotliSize = async (content: string): Promise<number> =>
   (await brotliAsync(content)).length;
+const result = ts.readConfigFile(join(projectRoot, 'tsconfig.json'), ts.sys.readFile);
+if (result.error) {
+  throw new Error(`Error reading tsconfig.json: ${result.error.messageText}`);
+}
+const options = ts.convertCompilerOptionsFromJson(result.config.compilerOptions, projectRoot);
+if (options.errors.length) {
+  throw new Error(
+    `Error parsing tsconfig.json: ${options.errors.map((e) => e.messageText).join(', ')}`,
+  );
+}
+const scriptTarget = options.options.target!;
+
 const { positionals } = parseArgs({ allowPositionals: true });
 const buildTargets = new Set(positionals);
 
@@ -426,7 +438,7 @@ function buildRootIndex(pkg: PackageBuilder): void {
     const content = readFileSync(file, 'utf8');
     if (content.includes('elementName')) {
       const moduleName = relative(pkg.root, file).split('/')[0];
-      const sourceFile = ts.createSourceFile(file, content, ts.ScriptTarget.ES2022, true);
+      const sourceFile = ts.createSourceFile(file, content, scriptTarget, true);
       const customElements = sourceFile.statements
         .filter(ts.isClassDeclaration)
         .filter((c) =>
@@ -958,7 +970,7 @@ async function buildSizeStats(pkg: PackageBuilder): Promise<void> {
       stats.jsBrotliSize += brotliSize;
       stats.jsGzipSize += gzipSize;
       stats.jsFiles[key] = { size, brotliSize, gzipSize };
-      const sourceFile = ts.createSourceFile(file, content, ts.ScriptTarget.ES2022, true);
+      const sourceFile = ts.createSourceFile(file, content, scriptTarget, true);
 
       let cssTaggedName = '';
       let cssSize = 0;
