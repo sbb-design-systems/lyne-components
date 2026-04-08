@@ -4,7 +4,6 @@
 $theme: 'standard' !default;
 
 :root {
-  --sbb-table-border: var(--sbb-border-width-1x) solid var(--sbb-table-border-color);
   --sbb-table-border-color: light-dark(var(--sbb-color-cloud), var(--sbb-color-anthracite));
   --sbb-table-background-color: var(--sbb-background-color-1);
   --sbb-table-row-striped-color: var(--sbb-background-color-3);
@@ -13,7 +12,6 @@ $theme: 'standard' !default;
   --sbb-table-caption-margin-block-start: var(--sbb-spacing-fixed-4x);
   --sbb-table-sticky-shadow-width: 3rem;
   --sbb-table-sticky-shadow-transition-easing: var(--sbb-animation-easing);
-  --sbb-table-sticky-shadow-transition-duration: var(--sbb-animation-duration-6x);
   --sbb-table-header-cell-font-size: #{f.theme-pattern-select(
       (
         'standard': var(--sbb-text-font-size-xs),
@@ -65,6 +63,12 @@ $theme: 'standard' !default;
 .sbb-table-m,
 .sbb-table-s,
 .sbb-table-xs {
+  --sbb-table-border: var(--sbb-border-width-1x) solid var(--sbb-table-border-color);
+  --sbb-table-sticky-shadow-transition-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-6x)
+  );
+
   border-spacing: 0;
   caption-side: bottom;
   color: var(--sbb-table-color);
