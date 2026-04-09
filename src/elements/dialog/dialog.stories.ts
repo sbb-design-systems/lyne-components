@@ -261,12 +261,6 @@ export const Default: StoryObj = {
   args: basicArgs,
 };
 
-export const Default2: StoryObj = {
-  render: DefaultTemplate,
-  argTypes: basicArgTypes,
-  args: { ...basicArgs, style: '--sbb-dialog-width: 350px; --sbb-dialog-height: 350px;' },
-};
-
 export const DefaultWithCloseButton: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
@@ -338,6 +332,12 @@ export const Stepper: StoryObj = {
     linear: false,
     includeCloseButton: true,
   },
+};
+
+export const CustomDimensions: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, style: '--sbb-dialog-height: 400px;' },
 };
 
 const meta: Meta = {
