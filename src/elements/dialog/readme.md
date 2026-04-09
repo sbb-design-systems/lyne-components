@@ -171,6 +171,8 @@ It's possible to display the component in `negative` variant using the self-name
 </sbb-dialog>
 ```
 
+The dialog's dimensions can be changed setting the variables named `--sbb-dialog-height` and `--sbb-dialog-width`.
+
 ## Accessibility
 
 We recommend to place at maximum two actions in the `<sbb-dialog-actions>` component.
