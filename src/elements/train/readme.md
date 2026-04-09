@@ -139,6 +139,16 @@ They will be applied internally into a list (using `<ul>` and `<li>`) and requir
 </sbb-train-wagon>
 ```
 
+### Active state
+
+To indicate an active wagon,
+apply the CSS class `sbb-active` to the `<sbb-train-wagon>` element.
+This will visually highlight the wagon with a thicker border.
+
+```html
+<sbb-train-wagon class="sbb-active" type="wagon" label="38" occupancy="low"></sbb-train-wagon>
+```
+
 <!-- Auto Generated Below -->
 
 ## API Documentation

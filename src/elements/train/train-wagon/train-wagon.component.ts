@@ -141,11 +141,11 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
       new SbbPropertyWatcherController(this, () => this.closest('sbb-train-formation'), {
         view: (t) => {
           if (this._view) {
-            this.internals.states.delete(`state-${this._view}`);
+            this.internals.states.delete(`view-${this._view}`);
           }
           this._view = t.view;
           if (this._view) {
-            this.internals.states.add(`state-${this._view}`);
+            this.internals.states.add(`view-${this._view}`);
           }
         },
       }),

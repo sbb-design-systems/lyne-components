@@ -113,7 +113,7 @@ export class SbbTrainElement extends SbbNamedSlotListMixin<
             ? html`<div class="sbb-train__direction-heading" aria-hidden="true">
                 <span class="sbb-train__direction-sticky-wrapper">
                   ${this.direction === 'left'
-                    ? html`<sbb-icon name="chevron-small-left-small"></sbb-icon>`
+                    ? html`<sbb-icon name="arrow-left-small"></sbb-icon>`
                     : nothing}
 
                   <span class="sbb-train__direction-label">
@@ -121,7 +121,7 @@ export class SbbTrainElement extends SbbNamedSlotListMixin<
                   </span>
 
                   ${this.direction === 'right'
-                    ? html`<sbb-icon name="chevron-small-right-small"></sbb-icon>`
+                    ? html`<sbb-icon name="arrow-right-small"></sbb-icon>`
                     : nothing}
                 </span>
               </div>`
