@@ -114,7 +114,7 @@
     "postcss": "8.5.8",
     "postcss-value-parser": "4.2.0",
     "prettier": "3.8.1",
-    "react": "19.2.4",
+    "react": "19.2.5",
     "remark-gfm": "^4.0.1",
     "sass": "1.99.0",
     "sinon": "21.0.3",
