@@ -117,7 +117,7 @@
     "react": "19.2.5",
     "remark-gfm": "^4.0.1",
     "sass": "1.99.0",
-    "sinon": "21.0.3",
+    "sinon": "21.1.0",
     "storybook": "10.3.5",
     "stylelint": "17.6.0",
     "stylelint-config-prettier-scss": "1.0.0",
