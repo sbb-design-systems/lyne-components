@@ -360,6 +360,67 @@ describe(`sbb-form-field`, () => {
       expect(label.htmlFor).to.not.be.empty;
       expect(label.htmlFor).to.equal(select.id);
     });
+
+    it('should render chevron for a wrapped sbb-select', async () => {
+      const element = await fixture(html`
+        <sbb-form-field>
+          <label>Example</label>
+          <div>
+            <sbb-select><sbb-option>Test</sbb-option></sbb-select>
+          </div>
+        </sbb-form-field>
+      `);
+
+      await waitForCondition(
+        () => !!element.shadowRoot?.querySelector('.sbb-form-field__select-input-icon'),
+      );
+
+      expect(element.shadowRoot?.querySelector('.sbb-form-field__select-input-icon')).to.exist;
+    });
+
+    it('should render chevron when a wrapped sbb-select is added later', async () => {
+      const element = await fixture(html`
+        <sbb-form-field>
+          <label>Example</label>
+          <div id="wrapper"></div>
+        </sbb-form-field>
+      `);
+      const wrapper = element.querySelector<HTMLDivElement>('#wrapper')!;
+
+      expect(element.shadowRoot?.querySelector('.sbb-form-field__select-input-icon')).not.to.exist;
+
+      wrapper.innerHTML = '<sbb-select><sbb-option>Test</sbb-option></sbb-select>';
+
+      await waitForCondition(
+        () => !!element.shadowRoot?.querySelector('.sbb-form-field__select-input-icon'),
+      );
+
+      expect(element.shadowRoot?.querySelector('.sbb-form-field__select-input-icon')).to.exist;
+    });
+
+    it('should remove chevron when a wrapped sbb-select is removed', async () => {
+      const element = await fixture(html`
+        <sbb-form-field>
+          <label>Example</label>
+          <div id="wrapper">
+            <sbb-select><sbb-option>Test</sbb-option></sbb-select>
+          </div>
+        </sbb-form-field>
+      `);
+      const wrapper = element.querySelector<HTMLDivElement>('#wrapper')!;
+
+      await waitForCondition(
+        () => !!element.shadowRoot?.querySelector('.sbb-form-field__select-input-icon'),
+      );
+
+      wrapper.replaceChildren();
+
+      await waitForCondition(
+        () => !element.shadowRoot?.querySelector('.sbb-form-field__select-input-icon'),
+      );
+
+      expect(element.shadowRoot?.querySelector('.sbb-form-field__select-input-icon')).not.to.exist;
+    });
   });
 
   describe('with floating label', () => {

@@ -158,6 +158,9 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   @state() private accessor _input: HTMLInputElement | HTMLSelectElement | HTMLElement | null =
     null;
 
+  /** Whether the unnamed slot contains a select that needs the chevron decoration. */
+  @state() private accessor _hasSelectChevronControl: boolean = false;
+
   /** Reference to the slotted label elements. */
   @state() private accessor _label!: HTMLLabelElement;
 
@@ -191,6 +194,9 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
 
   private _inputFormAbortController = new AbortController();
   private _control: SbbFormFieldElementControl | null = null;
+  private _selectChevronObserver = !isServer
+    ? new MutationObserver(() => this._syncSelectChevronControl())
+    : null;
 
   public constructor() {
     super();
@@ -247,6 +253,12 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
     super.connectedCallback();
     this._assignSlots();
     this._connectInputElement();
+    this._selectChevronObserver?.observe(this, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['slot'],
+    });
     this._syncNegative();
     this._syncSize();
   }
@@ -265,6 +277,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this._formFieldAttributeObserver?.disconnect();
+    this._selectChevronObserver?.disconnect();
     this._inputFormAbortController.abort();
     if (this._input?.localName === 'input' || this._input?.localName === 'textarea') {
       this._unpatchInputValue();
@@ -317,11 +330,28 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
   private _onSlotInputChange(): void {
     this._assignSlots();
     this._connectInputElement();
+    this._syncSelectChevronControl();
   }
 
   private _assignSlots(): void {
     this.querySelectorAll('label:not([slot])').forEach((e) => e.setAttribute('slot', 'label'));
     this.querySelectorAll('sbb-error:not([slot])').forEach((e) => e.setAttribute('slot', 'error'));
+  }
+
+  private _syncSelectChevronControl(): void {
+    const slotElements = this.shadowRoot
+      ?.querySelector<HTMLSlotElement>('slot:not([name])')
+      ?.assignedElements({ flatten: true });
+    const hasSelectChevronControl =
+      slotElements?.some(
+        (element) =>
+          ['select', 'sbb-select'].includes(element.localName) ||
+          !!element.querySelector('select, sbb-select'),
+      ) ?? false;
+
+    if (hasSelectChevronControl !== this._hasSelectChevronControl) {
+      this._hasSelectChevronControl = hasSelectChevronControl;
+    }
   }
 
   private _connectInputElement(): 'changed' | 'no-input' | 'unchanged' {
@@ -628,7 +658,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
             <div class="sbb-form-field__input">
               <slot @slotchange=${this._onSlotInputChange}></slot>
             </div>
-            ${this.hasUpdated && ['select', 'sbb-select'].includes(this._input?.localName as string)
+            ${this.hasUpdated && this._hasSelectChevronControl
               ? html`<sbb-icon
                   name="chevron-small-down-small"
                   class="sbb-form-field__select-input-icon"
