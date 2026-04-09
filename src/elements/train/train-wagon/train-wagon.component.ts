@@ -27,9 +27,12 @@ import {
   type SbbOccupancy,
   SbbPropertyWatcherController,
 } from '../../core.ts';
+import { SbbDividerElement } from '../../divider/divider.component.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 import { SbbTimetableOccupancyIconElement } from '../../timetable-occupancy-icon.pure.ts';
 import type { SbbTrainFormationElement } from '../train-formation/train-formation.component.ts';
+
+import '../../divider.pure.ts';
 
 import style from './train-wagon.scss?inline';
 
@@ -65,6 +68,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
   public static override elementDependencies: SbbElementType[] = [
     SbbIconElement,
     SbbTimetableOccupancyIconElement,
+    SbbDividerElement,
   ];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
@@ -206,13 +210,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
       +hasBlockedPassageEntry;
 
     const sectorString = `${i18nSector[this._language.current]}, ${this.sector}`;
-
-    const labelContent = this.label
-      ? html`<span class="sbb-screen-reader-only">
-            ${`${i18nWagonLabelNumber[this._language.current]}, ${this.label}`}
-          </span>
-          <span aria-hidden="true">${this.label}</span>`
-      : nothing;
+    const labelString = `${i18nWagonLabelNumber[this._language.current]}, ${this.label}`;
 
     const wagonClassContent = html`<span class="sbb-screen-reader-only">
         ${this._classLabel()}
@@ -257,9 +255,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
               ${this.sector
                 ? html`<li class="sbb-screen-reader-only">${sectorString}</li>`
                 : nothing}
-              <li class="sbb-train-wagon__label" aria-hidden=${`${!this.label}`}>
-                ${labelContent}
-              </li>
+              ${this.label ? html`<li class="sbb-screen-reader-only">${labelString}</li>` : nothing}
               ${this.wagonClass && this.type !== 'closed'
                 ? html`<li class="sbb-train-wagon__class">${wagonClassContent}</li>`
                 : nothing}
@@ -282,10 +278,9 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
               <span class="sbb-screen-reader-only">
                 ${`${this._typeLabel()}${this.sector ? `, ${sectorString}` : ''}`}
               </span>
-              <span class="sbb-train-wagon__label" aria-hidden=${`${!this.label}`}>
-                ${labelContent}
-              </span>
-
+              ${this.label
+                ? html`<span class="sbb-screen-reader-only">${labelString}</span>`
+                : nothing}
               ${this.wagonClass && this.type !== 'closed'
                 ? html`<span class="sbb-train-wagon__class">${wagonClassContent}</span>`
                 : nothing}
@@ -306,10 +301,20 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
         ${this.additionalAccessibilityText
           ? html`<span class="sbb-screen-reader-only">, ${this.additionalAccessibilityText}</span>`
           : nothing}
-        ${this.renderList({
-          class: 'sbb-train-wagon__attribute-icon-list',
-          ariaLabel: i18nAdditionalWagonInformationHeading[this._language.current],
-        })}
+        <span class="sbb-train-wagon__information-wrapper">
+          ${this.label ? html`<span aria-hidden="true">${this.label}</span>` : nothing}
+          ${this.label && this.listChildren.length
+            ? html`<sbb-divider
+                orientation="vertical"
+                aria-hidden="true"
+                class="sbb-train-wagon__label-divider"
+              ></sbb-divider>`
+            : nothing}
+          ${this.renderList({
+            class: 'sbb-train-wagon__attribute-icon-list',
+            ariaLabel: i18nAdditionalWagonInformationHeading[this._language.current],
+          })}
+        </span>
       </div>
     `;
   }

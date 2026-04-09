@@ -1,11 +1,11 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
-
+  --sbb-train-wagon-font-size: var(--sbb-text-font-size-xxs);
   --sbb-train-wagon-width: var(--sbb-train-formation-wagon-width);
   --sbb-train-wagon-height: var(--sbb-train-formation-wagon-height);
   --sbb-train-wagon-shape-color: var(--sbb-color-3);
+  --sbb-train-wagon-vertical-gap: #{sbb.px-to-rem-build(2)};
   --sbb-train-wagon-main-icon-height: #{sbb.px-to-rem-build(20)};
   --sbb-train-wagon-main-icon-margin-block-start: #{sbb.px-to-rem-build(10)};
   --sbb-train-wagon-attribute-icon-gap: var(--sbb-spacing-fixed-1x);
@@ -18,7 +18,6 @@
   --sbb-train-wagon-class-border: var(--sbb-border-width-1x) solid
     light-dark(var(--sbb-color-graphite), var(--sbb-color-anthracite));
   --sbb-train-wagon-class-border-radius: var(--sbb-border-radius-2x);
-  --sbb-train-wagon-class-font-size: var(--sbb-text-font-size-xxs);
   --sbb-train-wagon-class-font-weight: bold;
   --sbb-train-wagon-class-first-height: #{sbb.px-to-rem-build(4)};
   --sbb-train-wagon-class-first-color: var(--sbb-color-lemon);
@@ -29,6 +28,10 @@
   @include sbb.if-forced-colors {
     --sbb-train-wagon-shape-color: CanvasText;
   }
+
+  display: block;
+  font-size: var(--sbb-train-wagon-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 }
 
 :host([type='closed']) {
@@ -46,16 +49,14 @@
   flex-direction: column;
   align-items: center;
   width: var(--sbb-train-wagon-width);
-  gap: var(--sbb-train-formation-vertical-gap);
+  gap: var(--sbb-train-wagon-vertical-gap);
 }
 
 .sbb-train-wagon__compartment {
   @include sbb.list-reset;
 
   display: grid;
-  grid-template:
-    'label label' auto
-    'occupancy class' 1fr / 1fr 1fr;
+  grid-template: 'occupancy class' 1fr / 1fr 1fr;
   mask-image: var(--sbb-train-wagon-clip-shape);
 
   // Type shape
@@ -80,15 +81,6 @@
   grid-row: occupancy;
   margin-block-start: var(--sbb-train-wagon-main-icon-margin-block-start);
   justify-self: center;
-}
-
-.sbb-train-wagon__label {
-  @include sbb.text-xxs--regular;
-
-  grid-area: label;
-  text-align: center;
-  display: var(--sbb-train-formation-wagon-label-display, inline-block);
-  min-height: calc(1em * var(--sbb-typo-line-height-text));
 }
 
 .sbb-train-wagon__occupancy,
@@ -119,7 +111,6 @@
   border: var(--sbb-train-wagon-class-border);
   background-color: var(--sbb-train-wagon-class-background-color);
   border-radius: var(--sbb-train-wagon-class-border-radius);
-  font-size: var(--sbb-train-wagon-class-font-size);
   font-weight: var(--sbb-train-wagon-class-font-weight);
   color: var(--sbb-train-wagon-class-color);
   position: relative;
@@ -137,6 +128,19 @@
   }
 }
 
+.sbb-train-wagon__information-wrapper {
+  display: flex;
+  align-items: start;
+  gap: var(--sbb-spacing-fixed-1x);
+}
+
+.sbb-train-wagon__label-divider {
+  height: var(--sbb-train-wagon-font-size);
+  margin-block-start: calc(
+    0.5 * (1em * var(--sbb-typo-line-height-text) - var(--sbb-train-wagon-font-size))
+  );
+}
+
 .sbb-train-wagon__attribute-icon-list {
   @include sbb.list-reset;
 
@@ -144,9 +148,12 @@
 
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: var(--sbb-train-wagon-attribute-icon-gap);
   color: var(--sbb-train-wagon-attribute-icon-color);
+  padding-block-start: calc(
+    0.5 * (1em * var(--sbb-typo-line-height-text) - var(--sbb-train-wagon-attribute-icon-height))
+  );
+  max-width: #{sbb.px-to-rem-build(55)};
 }
 
 // Using ... li selector, because the li generation

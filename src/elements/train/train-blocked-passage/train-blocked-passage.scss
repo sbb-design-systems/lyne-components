@@ -17,14 +17,6 @@
   }
 }
 
-.sbb-train-blocked-passage {
-  &::before {
-    content: '';
-    display: var(--sbb-train-formation-wagon-label-display, block);
-    height: calc(var(--sbb-text-font-size-xxs) * var(--sbb-typo-line-height-text));
-  }
-}
-
 .sbb-train-blocked-passage__wrapper {
   width: var(--sbb-train-blocked-passage-icon-dimension);
   display: flex;
