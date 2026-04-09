@@ -171,7 +171,21 @@ It's possible to display the component in `negative` variant using the self-name
 </sbb-dialog>
 ```
 
-The dialog's dimensions can be changed setting the variables named `--sbb-dialog-height` and `--sbb-dialog-width`.
+The dialog's dimensions can be explicitly set by overriding the variables `--sbb-dialog-height` / `--sbb-dialog-width`.
+
+```html
+<style>
+  sbb-dialog {
+    --sbb-dialog-height: 400px;
+  }
+</style>
+<sbb-dialog>
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+</sbb-dialog>
+```
+
+In zero and large breakpoint, the dialog is displayed as a full-width 'bottom sheet', so setting a fixed width may break the layout.
 
 ## Accessibility
 
