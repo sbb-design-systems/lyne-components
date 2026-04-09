@@ -1,4 +1,4 @@
-import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'lit';
+import { type CSSResultGroup, isServer, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 import { html } from 'lit/static-html.js';
@@ -42,25 +42,25 @@ const typeToIconMap: Record<string, string> = {
   restaurant: 'sa-wr',
 };
 
-const shapePathMap: Record<
+const shapePaths: Record<
   Exclude<SbbTrainWagonElement['type'], 'couchette' | 'sleeping' | 'restaurant' | 'closed'>,
   { side: string; top: string }
 > = {
   wagon: {
-    side: 'M12 0h60a12 12 0 0112 12v12A12 12 0 0172 36H12A12 12 0 010 24V12A12 12 0 0112 0z',
-    top: '',
+    side: 'M12 0H72A12 12 0 0184 12V24A12 12 0 0172 36H12A12 12 0 010 24V12A12 12 0 0112 0Z',
+    top: 'M8 0A8 8 0 000 8V28a8 8 0 008 8H76a8 8 0 008-8V8A8 8 0 0076 0H8Z',
   },
   locomotive: {
-    side: 'M7.7 8.6C10.5 3.6 16 0 22 0H62c6 0 11.5 3.6 14.3 8.6l5.1 9C85.9 25.6 80 36 71 36H13C4 36-1.9 25.6 2.6 17.6L7.7 8.6Z',
-    top: '',
+    side: 'M7.7 8.6C10.5 3.6 16 0 22 0H62c6 0 11.5 3.6 14.3 8.6l5.1 9C85.9 25.6 80 36 71 36H13C4 36-1.9 25.6 2.6 17.6l5.1-9Z',
+    top: 'M66 0H18C8 0 0 8 0 18S8 36 18 36H66c10 0 18-8 18-18S76 0 66 0Z',
   },
   'wagon-end-left': {
     side: 'M7.7 8.6A16 16 0 0122 0H72c6 0 12 6 12 12V24c0 6-6 12-12 12H13C3.8 36-2 26.1 2.6 18.1Z',
-    top: '',
+    top: 'M76 0H18C8.25 0 .5 8.25.5 18S8 36 18 36H76c4 0 8-4 8-8V8c0-4-4-8-8-8Z',
   },
   'wagon-end-right': {
-    side: 'm76.3 8.6A16 16 0 0062 0H12C6 0 0 6 0 13v11c0 6 6 12 12 12h58.4c8.6 0 15-9.9 10.4-17.9z',
-    top: '',
+    side: 'M76.3 8.6A16 16 0 0062 0H12C6 0 0 6 0 13v11c0 6 6 12 12 12h58.4c8.6 0 15-9.9 10.4-17.9z',
+    top: 'M66 0H8C4 0 0 4 0 8V28c0 4 4 8 8 8H66c9.75 0 17.5-8.25 17.5-18S76 0 66 0Z',
   },
 };
 
@@ -130,9 +130,10 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
   @property({ attribute: 'additional-accessibility-text' })
   public accessor additionalAccessibilityText: string = '';
 
-  private _language = new SbbLanguageController(this);
-
   @state() private accessor _view: SbbTrainFormationElement['view'] | null = null;
+
+  private _language = new SbbLanguageController(this);
+  private _clipStyleSheet: CSSStyleSheet | null = null;
 
   public constructor() {
     super();
@@ -149,6 +150,17 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
         },
       }),
     );
+  }
+
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    const renderRoot = super.createRenderRoot();
+
+    if (!isServer) {
+      this._clipStyleSheet = new CSSStyleSheet();
+      (renderRoot as ShadowRoot).adoptedStyleSheets.push(this._clipStyleSheet);
+    }
+
+    return renderRoot;
   }
 
   private _sectorChanged(): void {
@@ -176,11 +188,9 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
   private _wagonShape(): string {
     const view = this._view ?? 'side';
     if (['wagon', 'couchette', 'sleeping', 'restaurant', 'closed'].includes(this.type)) {
-      return shapePathMap['wagon'][view];
+      return shapePaths['wagon'][view];
     }
-    return (
-      shapePathMap[this.type as keyof typeof shapePathMap][view] ?? shapePathMap['wagon'][view]
-    );
+    return shapePaths[this.type as keyof typeof shapePaths][view] ?? shapePaths['wagon'][view];
   }
 
   private _classLabel(): string {
@@ -243,18 +253,15 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
       : nothing;
 
     const path = this._wagonShape();
-    const borderWidth = 1; // TODO: isActive = 3;
     const vertical = false; // TODO: inherit
-    const wagonShape = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${vertical ? 36 : 84} ${vertical ? 84 : 36}' fill='none'%3E%3Cpath d='${path}' stroke='%23000000' stroke-width='${borderWidth * 2}'${vertical ? ` transform='rotate(90, 0, 0) translate(0 -36)'` : ''} /%3E%3C/svg%3E")`;
-    const wagonClipShape = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${vertical ? 36 : 84} ${vertical ? 84 : 36}' fill='black'%3E%3Cpath d='${path}'${vertical ? ` transform='rotate(90, 0, 0) translate(0 -36)'` : ''} /%3E%3C/svg%3E")`;
+    const width = vertical ? 36 : 84;
+    const height = vertical ? 84 : 36;
+
+    this._clipStyleSheet?.replaceSync(`:host {
+          --sbb-train-wagon-clip-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' fill='black'%3E%3Cpath d='${path}'${vertical ? ` transform='rotate(90, 0, 0) translate(0 -36)'` : ''} /%3E%3C/svg%3E");
+        }`);
 
     return html`
-      <style>
-        :host {
-          --sbb-train-wagon-shape: ${wagonShape};
-          --sbb-train-wagon-clip-shape: ${wagonClipShape};
-        }
-      </style>
       <div class="sbb-train-wagon">
         ${when(
           listEntriesCount > 1,
@@ -306,6 +313,12 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
               ${mainIcon}
             </div> `,
         )}
+        <svg class="sbb-train-wagon__shape" viewBox="0 0 ${width} ${height}" aria-hidden="true">
+          <path
+            d=${path}
+            transform=${vertical ? 'rotate(90, 0, 0) translate(0 -36)' : nothing}
+          ></path>
+        </svg>
         ${this.additionalAccessibilityText
           ? html`<span class="sbb-screen-reader-only">, ${this.additionalAccessibilityText}</span>`
           : nothing}
@@ -324,19 +337,17 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
           })}
           ${this.type === 'closed'
             ? html`<svg
-                class="sbb-train-wagon__closed-icon"
-                viewBox="0 0 ${vertical ? 36 : 84} ${vertical ? 84 : 36}"
+                class="sbb-train-wagon__closed-cross"
+                viewBox="0 0 ${width} ${height}"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
               >
                 <path
-                  d="M81 4L4 32"
-                  style="stroke: var(--sbb-train-wagon-shape-color)"
+                  d=${this._view === 'top' ? 'M81 3L3 34' : 'M81 4L4 32'}
                   transform=${vertical ? 'rotate(90, 0, 0) translate(0 -36)' : nothing}
                 />
                 <path
-                  d="M81 32L4 4"
-                  style="stroke: var(--sbb-train-wagon-shape-color)"
+                  d=${this._view === 'top' ? 'M81 34L3 3' : 'M81 32L4 4'}
                   transform=${vertical ? 'rotate(90, 0, 0) translate(0 -36)' : nothing}
                 />
               </svg>`
