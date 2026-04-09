@@ -50,6 +50,7 @@
   align-items: center;
   width: var(--sbb-train-wagon-width);
   gap: var(--sbb-train-wagon-vertical-gap);
+  position: relative;
 }
 
 .sbb-train-wagon__compartment {
@@ -62,8 +63,6 @@
   // Type shape
   &::after {
     content: '';
-    grid-column: occupancy / class;
-    grid-row: occupancy;
     pointer-events: none;
     width: var(--sbb-train-wagon-width);
     height: var(--sbb-train-wagon-height);
@@ -74,11 +73,15 @@
   }
 }
 
+.sbb-train-wagon__compartment::after,
+.sbb-train-wagon__main-icon {
+  grid-column: occupancy / class;
+  grid-row: occupancy;
+}
+
 .sbb-train-wagon__main-icon {
   --sbb-icon-svg-height: var(--sbb-train-wagon-main-icon-height);
 
-  grid-column: occupancy / class;
-  grid-row: occupancy;
   margin-block-start: var(--sbb-train-wagon-main-icon-margin-block-start);
   justify-self: center;
 }
@@ -126,6 +129,11 @@
       border-end-end-radius: var(--sbb-train-wagon-class-first-border-radius);
     }
   }
+}
+
+.sbb-train-wagon__closed-icon {
+  position: absolute;
+  inset: 0;
 }
 
 .sbb-train-wagon__information-wrapper {
