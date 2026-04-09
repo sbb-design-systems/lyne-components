@@ -11,10 +11,10 @@ $theme: 'standard' !default;
   --sbb-dialog-block-shadow-negative: var(--sbb-box-shadow-level-9-soft-negative);
   --sbb-dialog-width: 100%;
   --sbb-dialog-max-width: 100%;
-  --sbb-dialog-max-width-default: #{sbb.px-to-rem-build(892)};
-  --sbb-dialog-height: 100%;
-  --sbb-dialog-max-height: 100%;
-  --sbb-dialog-inset: 0 auto auto 0;
+  --sbb-dialog-height: auto;
+  --sbb-dialog-max-height: calc(100vh - var(--sbb-spacing-fixed-6x));
+  --sbb-dialog-inset-block: 0 auto;
+  --sbb-dialog-inset-inline: 0 auto;
   --sbb-dialog-border-radius: var(--sbb-border-radius-8x);
   --sbb-dialog-animation-easing: ease;
   --sbb-dialog-pointer-events: none;
@@ -30,5 +30,6 @@ $theme: 'standard' !default;
 
 @mixin base-breakpoint-large {
   --sbb-dialog-padding-inline: var(--sbb-spacing-responsive-s);
-  --sbb-dialog-max-height: calc(100vh - var(--sbb-spacing-fixed-16x));
+  --sbb-dialog-max-height: calc(100vh - 2 * var(--sbb-spacing-fixed-6x));
+  --sbb-dialog-max-width: 90%;
 }

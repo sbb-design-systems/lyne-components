@@ -97,7 +97,7 @@ const triggerButton = (triggerId: string): TemplateResult => html`
 `;
 
 const dialogActions = (negative: boolean, includeCloseButton: boolean): TemplateResult => html`
-  <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="large">
+  <sbb-dialog-actions align-group="stretch">
     <sbb-secondary-button sbb-dialog-close ?negative=${negative}>Cancel</sbb-secondary-button>
     <sbb-button sbb-dialog-close ?sbb-focus-initial=${!includeCloseButton} ?negative=${negative}>
       Confirm
@@ -261,6 +261,12 @@ export const Default: StoryObj = {
   args: basicArgs,
 };
 
+export const Default2: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, style: '--sbb-dialog-width: 350px; --sbb-dialog-height: 350px;' },
+};
+
 export const DefaultWithCloseButton: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
@@ -288,7 +294,7 @@ export const TranslucentBackdrop: StoryObj = {
   },
 };
 
-export const AllowBackdropClick: StoryObj = {
+export const DisallowBackdropClick: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, 'backdrop-action': backdropAction.options![1] },

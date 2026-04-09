@@ -15,13 +15,6 @@
   position: fixed;
   inset: var(--sbb-dialog-inset);
   z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-default-z-index));
-
-  @include sbb.mq($from: large) {
-    --sbb-dialog-max-width: min(
-      calc(100vw - var(--sbb-spacing-fixed-30x) * 2),
-      var(--sbb-dialog-max-width-default)
-    );
-  }
 }
 
 :host(:state(top-shadow)) {
@@ -35,11 +28,8 @@
 :host(:is(:state(state-opening), :state(state-opened))) {
   --sbb-dialog-pointer-events: all;
   --sbb-dialog-backdrop-color: var(--sbb-background-color-3);
-
-  @include sbb.mq($from: large) {
-    --sbb-dialog-backdrop-visibility: visible;
-    --sbb-dialog-backdrop-pointer-events: all;
-  }
+  --sbb-dialog-backdrop-visibility: visible;
+  --sbb-dialog-backdrop-pointer-events: all;
 }
 
 :host([backdrop='translucent']:is(:state(state-opening), :state(state-opened))) {
@@ -72,7 +62,8 @@
 }
 
 :host(:not(:state(state-closed))) {
-  --sbb-dialog-inset: 0;
+  --sbb-dialog-inset-block: 0;
+  --sbb-dialog-inset-inline: 0;
 }
 
 .sbb-dialog__container {
@@ -80,7 +71,8 @@
   display: flex;
   align-items: center;
   position: fixed;
-  inset: var(--sbb-dialog-inset);
+  inset-block: var(--sbb-dialog-inset-block);
+  inset-inline: var(--sbb-dialog-inset-inline);
 
   // Dialog backdrop (not visible on mobile)
   &::before {
@@ -88,7 +80,8 @@
     visibility: var(--sbb-dialog-backdrop-visibility);
     pointer-events: var(--sbb-dialog-backdrop-pointer-events);
     position: fixed;
-    inset: var(--sbb-dialog-inset);
+    inset-block: var(--sbb-dialog-inset-block);
+    inset-inline: var(--sbb-dialog-inset-inline);
     background-color: var(--sbb-dialog-backdrop-color);
     transition: {
       duration: var(--sbb-dialog-animation-duration);
@@ -101,10 +94,12 @@
 .sbb-dialog {
   display: none;
   position: absolute;
-  inset-inline: 0;
+  inset-inline: 0 auto;
+  inset-block: auto 0;
   margin: auto;
   padding: 0;
   border: none;
+  border-radius: var(--sbb-dialog-border-radius) var(--sbb-dialog-border-radius) 0 0;
   width: var(--sbb-dialog-width);
   height: var(--sbb-dialog-height);
   max-width: var(--sbb-dialog-max-width);
@@ -132,6 +127,8 @@
   }
 
   @include sbb.mq($from: large) {
+    inset-inline: 0;
+    inset-block: unset;
     border-radius: var(--sbb-dialog-border-radius);
     overflow: hidden;
     height: auto;
@@ -142,7 +139,6 @@
 .sbb-dialog__wrapper {
   width: var(--sbb-dialog-width);
   height: var(--sbb-dialog-height);
-  max-width: var(--sbb-dialog-max-width);
   max-height: var(--sbb-dialog-max-height);
 }
 
