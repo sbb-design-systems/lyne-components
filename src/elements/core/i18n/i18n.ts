@@ -28,6 +28,13 @@ export const i18nSectorShort: Record<string, string> = {
   it: 'Set.',
 };
 
+export const i18nAnd: Record<string, string> = {
+  de: 'und',
+  en: 'and',
+  fr: 'et',
+  it: 'e',
+};
+
 export const i18nClass: Record<string, Record<string, string>> = {
   first: {
     de: 'Erste Klasse',

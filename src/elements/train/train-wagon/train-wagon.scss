@@ -12,19 +12,24 @@
   --sbb-train-wagon-attribute-icon-height: #{sbb.px-to-rem-build(14)};
   --sbb-train-wagon-attribute-icon-color: var(--sbb-color-1);
   --sbb-train-wagon-occupancy-height: #{sbb.px-to-rem-build(12)};
+  --sbb-train-wagon-class-dimension: #{sbb.px-to-rem-build(18)};
+  --sbb-train-wagon-class-color: light-dark(var(--sbb-color-anthracite), var(--sbb-color-graphite));
+  --sbb-train-wagon-class-background-color: var(--sbb-background-color-3);
+  --sbb-train-wagon-class-border: var(--sbb-border-width-1x) solid
+    light-dark(var(--sbb-color-graphite), var(--sbb-color-anthracite));
+  --sbb-train-wagon-class-border-radius: var(--sbb-border-radius-2x);
+  --sbb-train-wagon-class-font-size: var(--sbb-text-font-size-xxs);
+  --sbb-train-wagon-class-font-weight: bold;
+  --sbb-train-wagon-class-first-height: #{sbb.px-to-rem-build(4)};
+  --sbb-train-wagon-class-first-color: var(--sbb-color-lemon);
+  --sbb-train-wagon-class-first-border-radius: var(--sbb-border-radius-1x);
+  --sbb-train-wagon-class-first-offset: #{sbb.px-to-rem-build(-9)};
+  --sbb-train-wagon-class-first-offset-active: #{sbb.px-to-rem-build(-7)}; // TODO
 
   @include sbb.if-forced-colors {
     --sbb-train-wagon-shape-color: CanvasText;
   }
 }
-
-// :host(:is([type='closed'], [type='locomotive'])) {
-//  --sbb-train-wagon-shape-color: var(--sbb-color-metal);
-//
-//  @include sbb.if-forced-colors {
-//    --sbb-train-wagon-shape-color: CanvasText;
-//  }
-// }
 
 :host([type='closed']) {
   @include sbb.if-forced-colors {
@@ -34,26 +39,6 @@
 
 :host(:is([type='sleeping'], [type='couchette'])) {
   --sbb-train-wagon-main-icon-margin-block-start: #{sbb.px-to-rem-build(6.25)};
-}
-
-:host(:is([type='wagon'], [type='restaurant'], [type='sleeping'], [type='couchette'])) {
-  --sbb-train-wagon-shape: var(--sbb-train-wagon-wagon-shape);
-}
-
-:host([type='closed']) {
-  --sbb-train-wagon-shape: var(--sbb-train-wagon-wagon-closed-shape);
-}
-
-:host([type='locomotive']) {
-  --sbb-train-wagon-shape: var(--sbb-train-wagon-locomotive-shape);
-}
-
-:host([type='wagon-end-left']) {
-  --sbb-train-wagon-shape: var(--sbb-train-wagon-wagon-end-left-shape);
-}
-
-:host([type='wagon-end-right']) {
-  --sbb-train-wagon-shape: var(--sbb-train-wagon-wagon-end-right-shape);
 }
 
 .sbb-train-wagon {
@@ -71,9 +56,10 @@
   grid-template:
     'label label' auto
     'occupancy class' 1fr / 1fr 1fr;
+  mask-image: var(--sbb-train-wagon-clip-shape);
 
   // Type shape
-  &::before {
+  &::after {
     content: '';
     grid-column: occupancy / class;
     grid-row: occupancy;
@@ -120,9 +106,35 @@
 }
 
 .sbb-train-wagon__class {
-  @include sbb.title-6($exclude-spacing: true);
-
+  gap: #{sbb.px-to-rem-build(1)};
   grid-area: class;
+}
+
+.sbb-train-wagon__class-entry {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sbb-train-wagon-class-dimension);
+  height: var(--sbb-train-wagon-class-dimension);
+  border: var(--sbb-train-wagon-class-border);
+  background-color: var(--sbb-train-wagon-class-background-color);
+  border-radius: var(--sbb-train-wagon-class-border-radius);
+  font-size: var(--sbb-train-wagon-class-font-size);
+  font-weight: var(--sbb-train-wagon-class-font-weight);
+  color: var(--sbb-train-wagon-class-color);
+  position: relative;
+
+  &.first {
+    &::before {
+      content: '';
+      position: absolute;
+      height: var(--sbb-train-wagon-class-first-height);
+      inset: var(--sbb-train-wagon-class-first-offset) 0 auto 0;
+      background-color: var(--sbb-train-wagon-class-first-color);
+      border-end-start-radius: var(--sbb-train-wagon-class-first-border-radius);
+      border-end-end-radius: var(--sbb-train-wagon-class-first-border-radius);
+    }
+  }
 }
 
 .sbb-train-wagon__attribute-icon-list {

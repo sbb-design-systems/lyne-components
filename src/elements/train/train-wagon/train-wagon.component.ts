@@ -1,15 +1,14 @@
 import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 import { html } from 'lit/static-html.js';
 
-import { type SbbOccupancy, SbbElement, type SbbElementType } from '../../core.ts';
 import {
-  SbbLanguageController,
+  boxSizingStyles,
   forceType,
   handleDistinctChange,
-  omitEmptyConverter,
   i18nAdditionalWagonInformationHeading,
+  i18nAnd,
   i18nBlockedPassage,
   i18nClass,
   i18nClosedCompartmentLabel,
@@ -20,11 +19,17 @@ import {
   i18nSleepingWagonLabel,
   i18nWagonLabel,
   i18nWagonLabelNumber,
+  omitEmptyConverter,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
   SbbNamedSlotListMixin,
-  boxSizingStyles,
+  type SbbOccupancy,
+  SbbPropertyWatcherController,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 import { SbbTimetableOccupancyIconElement } from '../../timetable-occupancy-icon.pure.ts';
+import type { SbbTrainFormationElement } from '../train-formation/train-formation.component.ts';
 
 import style from './train-wagon.scss?inline';
 
@@ -32,6 +37,20 @@ const typeToIconMap: Record<string, string> = {
   couchette: 'sa-cc',
   sleeping: 'sa-wl',
   restaurant: 'sa-wr',
+};
+
+const shapePathMap: Record<
+  Exclude<SbbTrainWagonElement['type'], 'couchette' | 'sleeping' | 'restaurant'>,
+  { side: string; top: string }
+> = {
+  wagon: {
+    side: 'M10,0 h64 a10,10 0 0 1 10,10 v16 a10,10 0 0 1 -10,10 h-64 a10,10 0 0 1 -10,-10 v-16 a10,10 0 0 1 10,-10 z',
+    top: '',
+  },
+  locomotive: { side: '', top: '' },
+  'wagon-end-left': { side: '', top: '' },
+  'wagon-end-right': { side: '', top: '' },
+  closed: { side: '', top: '' },
 };
 
 /**
@@ -82,7 +101,12 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
   public accessor blockedPassage: 'previous' | 'next' | 'both' | 'none' = 'none';
 
   /** Class label */
-  @property({ attribute: 'wagon-class' }) public accessor wagonClass: '1' | '2' | null = null;
+  @property({ attribute: 'wagon-class' }) public accessor wagonClass:
+    | '1'
+    | '2'
+    | '1-2'
+    | '2-1'
+    | null = null;
 
   /** Wagon number */
   @forceType()
@@ -96,24 +120,70 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
 
   private _language = new SbbLanguageController(this);
 
+  @state() private accessor _view: SbbTrainFormationElement['view'] | null = null;
+
+  public constructor() {
+    super();
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-train-formation'), {
+        view: (t) => {
+          if (this._view) {
+            this.internals.states.delete(`state-${this._view}`);
+          }
+          this._view = t.view;
+          if (this._view) {
+            this.internals.states.add(`state-${this._view}`);
+          }
+        },
+      }),
+    );
+  }
+
   private _sectorChanged(): void {
     /** @internal */
     this.dispatchEvent(new Event('sectorchange', { bubbles: true, composed: true }));
   }
 
   private _typeLabel(): string {
-    if (this.type === 'closed') {
-      return i18nClosedCompartmentLabel[this._language.current];
-    } else if (this.type === 'locomotive') {
-      return i18nLocomotiveLabel[this._language.current];
-    } else if (this.type === 'couchette') {
-      return i18nCouchetteWagonLabel[this._language.current];
-    } else if (this.type === 'sleeping') {
-      return i18nSleepingWagonLabel[this._language.current];
-    } else if (this.type === 'restaurant') {
-      return i18nRestaurantWagonLabel[this._language.current];
+    switch (this.type) {
+      case 'closed':
+        return i18nClosedCompartmentLabel[this._language.current];
+      case 'locomotive':
+        return i18nLocomotiveLabel[this._language.current];
+      case 'couchette':
+        return i18nCouchetteWagonLabel[this._language.current];
+      case 'sleeping':
+        return i18nSleepingWagonLabel[this._language.current];
+      case 'restaurant':
+        return i18nRestaurantWagonLabel[this._language.current];
+      default:
+        return i18nWagonLabel[this._language.current];
     }
-    return i18nWagonLabel[this._language.current];
+  }
+
+  private _wagonShape(): string {
+    const view = this._view ?? 'side';
+    if (['wagon', 'couchette', 'sleeping', 'restaurant'].includes(this.type)) {
+      return shapePathMap['wagon'][view];
+    }
+    return (
+      shapePathMap[this.type as keyof typeof shapePathMap][view] ?? shapePathMap['wagon'][view]
+    );
+  }
+
+  private _classLabel(): string {
+    switch (this.wagonClass) {
+      case '1':
+        return i18nClass['first'][this._language.current];
+      case '2':
+        return i18nClass['second'][this._language.current];
+      case '1-2':
+        return `${i18nClass['first'][this._language.current]} ${i18nAnd[this._language.current]} ${i18nClass['second'][this._language.current]}`;
+      case '2-1':
+        return `${i18nClass['second'][this._language.current]} ${i18nAnd[this._language.current]} ${i18nClass['first'][this._language.current]}`;
+      default:
+        return '';
+    }
   }
 
   protected override render(): TemplateResult {
@@ -145,11 +215,19 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
       : nothing;
 
     const wagonClassContent = html`<span class="sbb-screen-reader-only">
-        ${this.wagonClass === '1'
-          ? i18nClass['first'][this._language.current]
-          : i18nClass['second'][this._language.current]}
+        ${this._classLabel()}
       </span>
-      <span aria-hidden="true">${this.wagonClass}</span>`;
+      ${this.wagonClass
+        ?.split('-')
+        .map(
+          (wagonClass) =>
+            html`<span
+              aria-hidden="true"
+              class="sbb-train-wagon__class-entry ${wagonClass === '1' ? 'first' : ''}"
+            >
+              ${wagonClass}
+            </span>`,
+        )} `;
 
     const mainIcon = typeToIconMap[this.type]
       ? html`<sbb-icon
@@ -158,7 +236,19 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
         ></sbb-icon>`
       : nothing;
 
+    const path = this._wagonShape();
+    const borderWidth = 1; // TODO: isActive = 3;
+    const vertical = false; // TODO: inherit
+    const wagonShape = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${vertical ? 36 : 84} ${vertical ? 84 : 36}' fill='none'%3E%3Cpath d='${path}' stroke='%23000000' stroke-width='${borderWidth * 2}'${vertical ? ` transform='rotate(90, 0, 0) translate(0 -36)'` : ''} /%3E%3C/svg%3E")`;
+    const wagonClipShape = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${vertical ? 36 : 84} ${vertical ? 84 : 36}' fill='black'%3E%3Cpath d='${path}'${vertical ? ` transform='rotate(90, 0, 0) translate(0 -36)'` : ''} /%3E%3C/svg%3E")`;
+
     return html`
+      <style>
+        :host {
+          --sbb-train-wagon-shape: ${wagonShape};
+          --sbb-train-wagon-clip-shape: ${wagonClipShape};
+        }
+      </style>
       <div class="sbb-train-wagon">
         ${when(
           listEntriesCount > 1,

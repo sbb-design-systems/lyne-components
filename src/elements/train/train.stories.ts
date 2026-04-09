@@ -4,8 +4,10 @@ import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
+import type { SbbTrainFormationElement, SbbTrainWagonElement } from '../train.ts';
 
 import readme from './readme.md?raw';
+
 import '../icon.ts';
 import '../train.ts';
 
@@ -224,7 +226,7 @@ const view: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['side', 'top'],
+  options: ['side', 'top'] satisfies SbbTrainFormationElement['view'][],
 };
 
 const defaultArgTypes: ArgTypes = {
@@ -255,7 +257,7 @@ const wagonOccupancy: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['high', 'medium', 'low', 'none', null],
+  options: ['high', 'medium', 'low', 'none', null] satisfies SbbTrainWagonElement['occupancy'][],
 };
 
 const wagonType: InputType = {
@@ -271,14 +273,14 @@ const wagonType: InputType = {
     'restaurant',
     'locomotive',
     'closed',
-  ],
+  ] satisfies SbbTrainWagonElement['type'][],
 };
 
 const wagonClass: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['1', '2', null],
+  options: ['1', '2', '1-2', '2-1', null] satisfies SbbTrainWagonElement['wagonClass'][],
 };
 
 const wagonDefaultArgTypes: ArgTypes = {
