@@ -16,10 +16,9 @@ env:
 
 jobs:
   setup:
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - run: npm install --global yarn
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
@@ -39,21 +38,23 @@ jobs:
           path: node_modules/.cache/lyne-cdn/
 
   test:
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.59.1-noble
+      options: --user 1001
     needs: setup
     services:
       visual-regression:
         image: ghcr.io/sbb-design-systems/lyne-components/visual-regression:baseline
     env:
-      max-segment: 3
+      max-segment: 2
     strategy:
       fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
-        segment: [1, 2, 3]
+        segment: [1, 2]
     steps:
       - uses: actions/checkout@v6
-      - run: npm install --global yarn
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
@@ -87,13 +88,12 @@ jobs:
           retention-days: 1
 
   collect-test-results:
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-latest
     permissions:
       packages: write
     needs: test
     steps:
       - uses: actions/checkout@v6
-      - run: npm install --global yarn
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
