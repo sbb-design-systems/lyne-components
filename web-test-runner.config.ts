@@ -50,13 +50,13 @@ const { values: cliArgs } = parseArgs({
   },
 });
 
-const concurrency = cliArgs.parallel ? {} : { concurrency: 1 };
 const launchOptions: PlaywrightLauncherArgs = {
   launchOptions: {
     ignoreDefaultArgs: ['--hide-scrollbars'],
     // Enables focusing links with tab on Firefox, probably only relevant on macOS.
     firefoxUserPrefs: { 'accessibility.tabfocus': 7 },
   },
+  concurrency: cliArgs.ci ? 4 : undefined,
 };
 
 const stylesCompiler = initCompiler();
@@ -74,12 +74,17 @@ const browsers = cliArgs['all-browsers']
     (['chromium', 'firefox', 'webkit'] as const).map((product) =>
       playwrightLauncher({
         product,
-        ...concurrency,
+        concurrency: 1,
         ...launchOptions,
       }),
     )
   : cliArgs.firefox
-    ? [playwrightLauncher({ product: 'firefox', ...launchOptions })]
+    ? [
+        playwrightLauncher({
+          product: 'firefox',
+          ...launchOptions,
+        }),
+      ]
     : cliArgs.webkit
       ? [playwrightLauncher({ product: 'webkit', ...launchOptions })]
       : [playwrightLauncher({ product: 'chromium', ...launchOptions })];
