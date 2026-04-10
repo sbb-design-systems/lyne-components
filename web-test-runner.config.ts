@@ -221,6 +221,7 @@ export default {
       '**/*.scss',
       '**/core/mixins/constructor.ts',
       '**/core/interfaces/*',
+      '**/core/timetable/timetable-properties.ts',
     ],
     reporters: cliArgs.ci ? ['json'] : undefined,
   },

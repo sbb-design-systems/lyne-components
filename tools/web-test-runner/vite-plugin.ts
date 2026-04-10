@@ -1,4 +1,5 @@
-import { existsSync } from 'node:fs';
+import { existsSync, globSync } from 'node:fs';
+import { join } from 'node:path';
 
 import type { TestRunnerPlugin } from '@web/test-runner';
 import { createServer, type ViteDevServer } from 'vite';
@@ -17,11 +18,17 @@ export function vitePlugin(): TestRunnerPlugin {
         // @web/dev-server. So it should be ignored by Vite.
         '/__web-dev-server__web-socket.js',
       ];
+      const clientFiles = globSync('src/{elements,elements-experimental}/**/*.ts', {
+        cwd: new URL('../../', import.meta.url),
+        withFileTypes: true,
+      })
+        .filter((d) => d.isFile() && !d.name.endsWith('.stories.ts'))
+        .map((d) => join(d.parentPath, d.name));
 
       viteServer = await createServer({
         clearScreen: false,
         // Disable hmr in favor of the @web/test-runner to take care of restarts.
-        server: { middlewareMode: true, hmr: false },
+        server: { middlewareMode: true, hmr: false, warmup: { clientFiles } },
         appType: 'custom',
         plugins: [
           {
@@ -45,6 +52,10 @@ export function vitePlugin(): TestRunnerPlugin {
         // increased test times.
         optimizeDeps: {
           noDiscovery: true,
+        },
+        build: {
+          cssMinify: 'esbuild',
+          minify: true,
         },
       });
       app.use(
