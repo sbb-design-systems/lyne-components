@@ -82,7 +82,7 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
   /** Announce the accessibility label or dialog title for screen readers. */
   public announceTitle(): void {
     this.setAriaLiveRefContent(
-      this.accessibilityLabel || this.querySelector('sbb-dialog-title')?.innerText.trim(),
+      this.accessibilityLabel || this.querySelector('sbb-dialog-title')?.textContent.trim(),
     );
   }
 
