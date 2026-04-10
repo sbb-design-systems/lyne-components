@@ -40,9 +40,6 @@ jobs:
 
   test:
     runs-on: ubuntu-slim
-    container:
-      image: mcr.microsoft.com/playwright:v1.59.1-noble
-      options: --user 1001
     needs: setup
     services:
       visual-regression:
