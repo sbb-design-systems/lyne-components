@@ -37,6 +37,7 @@ const { values: cliArgs } = parseArgs({
     ci: { type: 'boolean', default: !!process.env.CI },
     debug: { type: 'boolean' },
     'all-browsers': { type: 'boolean', short: 'a' },
+    chromium: { type: 'boolean' },
     firefox: { type: 'boolean' },
     webkit: { type: 'boolean' },
     parallel: { type: 'boolean' },
@@ -68,21 +69,20 @@ const renderExperimentalStyles = (): string =>
     loadPaths: ['.', './node_modules/'],
   }).css;
 
-const browsers =
-  cliArgs.ci || cliArgs['all-browsers']
-    ? // Parallelism has problems, we need force concurrency to 1
-      (['chromium', 'firefox', 'webkit'] as const).map((product) =>
-        playwrightLauncher({
-          product,
-          ...concurrency,
-          ...launchOptions,
-        }),
-      )
-    : cliArgs.firefox
-      ? [playwrightLauncher({ product: 'firefox', ...launchOptions })]
-      : cliArgs.webkit
-        ? [playwrightLauncher({ product: 'webkit', ...launchOptions })]
-        : [playwrightLauncher({ product: 'chromium', ...launchOptions })];
+const browsers = cliArgs['all-browsers']
+  ? // Parallelism has problems, we need force concurrency to 1
+    (['chromium', 'firefox', 'webkit'] as const).map((product) =>
+      playwrightLauncher({
+        product,
+        ...concurrency,
+        ...launchOptions,
+      }),
+    )
+  : cliArgs.firefox
+    ? [playwrightLauncher({ product: 'firefox', ...launchOptions })]
+    : cliArgs.webkit
+      ? [playwrightLauncher({ product: 'webkit', ...launchOptions })]
+      : [playwrightLauncher({ product: 'chromium', ...launchOptions })];
 
 const preloadedIcons = await preloadIcons();
 

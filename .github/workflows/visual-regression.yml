@@ -46,12 +46,10 @@ jobs:
     services:
       visual-regression:
         image: ghcr.io/sbb-design-systems/lyne-components/visual-regression:baseline
-    env:
-      max-segment: 5
     strategy:
       fail-fast: false
       matrix:
-        segment: [1, 2, 3, 4, 5]
+        browser: [chromium, firefox, webkit]
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -68,13 +66,13 @@ jobs:
         # the visual regression tests failed. This will be evaluated in the secure workflow.
       - name: Run visual regression tests
         if: github.event_name == 'pull_request'
-        run: yarn test:visual-regression --segment=${{ matrix.segment }}/${{ env.max-segment }} || true
+        run: yarn test:visual-regression --${{ matrix.browser }} || true
         env:
           NODE_ENV: production
           RELEVANT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Run visual regression baseline generation
         if: github.ref == 'refs/heads/main'
-        run: yarn test:visual-regression --segment=${{ matrix.segment }}/${{ env.max-segment }} --update-visual-baseline
+        run: yarn test:visual-regression --${{ matrix.browser }} --update-visual-baseline
         env:
           NODE_ENV: production
           RELEVANT_SHA: ${{ github.sha }}
@@ -82,7 +80,7 @@ jobs:
       - name: Store visual regression output
         uses: actions/upload-artifact@v7
         with:
-          name: matrix-screenshots-${{ matrix.segment }}
+          name: matrix-screenshots-${{ matrix.browser }}
           path: dist/screenshots/
           retention-days: 1
 
