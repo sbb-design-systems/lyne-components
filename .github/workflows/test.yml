@@ -9,9 +9,10 @@ permissions: read-all
 
 jobs:
   setup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v6
+      - run: npm install --global yarn
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
@@ -32,17 +33,21 @@ jobs:
           retention-days: 1
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     container:
       image: mcr.microsoft.com/playwright:v1.59.1-noble
       options: --user 1001
     needs: setup
+    env:
+      max-segment: 3
     strategy:
       fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
+        segment: [1, 2, 3]
     steps:
       - uses: actions/checkout@v6
+      - run: npm install --global yarn
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
@@ -54,7 +59,7 @@ jobs:
           name: test-artifacts
 
       - name: Run tests
-        run: yarn test --${{ matrix.browser }}
+        run: yarn test --${{ matrix.browser }} --segment=${{ matrix.segment }}/${{ env.max-segment }}
         env:
           NODE_ENV: production
       - name: Assert no new snapshots (run `yarn test --ci` if this fails)
@@ -63,16 +68,17 @@ jobs:
         if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v7
         with:
-          name: matrix-coverage-${{ matrix.browser }}
+          name: matrix-coverage-${{ matrix.browser }}-${{ matrix.segment }}
           path: coverage/
           retention-days: 1
 
   collect-test-results:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
     needs: test
     steps:
       - uses: actions/checkout@v6
+      - run: npm install --global yarn
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc

@@ -16,9 +16,10 @@ env:
 
 jobs:
   setup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v6
+      - run: npm install --global yarn
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
@@ -38,7 +39,7 @@ jobs:
           path: node_modules/.cache/lyne-cdn/
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     container:
       image: mcr.microsoft.com/playwright:v1.59.1-noble
       options: --user 1001
@@ -46,12 +47,16 @@ jobs:
     services:
       visual-regression:
         image: ghcr.io/sbb-design-systems/lyne-components/visual-regression:baseline
+    env:
+      max-segment: 3
     strategy:
       fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
+        segment: [1, 2, 3]
     steps:
       - uses: actions/checkout@v6
+      - run: npm install --global yarn
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
@@ -66,13 +71,13 @@ jobs:
         # the visual regression tests failed. This will be evaluated in the secure workflow.
       - name: Run visual regression tests
         if: github.event_name == 'pull_request'
-        run: yarn test:visual-regression --${{ matrix.browser }} || true
+        run: yarn test:visual-regression --${{ matrix.browser }} --segment=${{ matrix.segment }}/${{ env.max-segment }} || true
         env:
           NODE_ENV: production
           RELEVANT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Run visual regression baseline generation
         if: github.ref == 'refs/heads/main'
-        run: yarn test:visual-regression --${{ matrix.browser }} --update-visual-baseline
+        run: yarn test:visual-regression --${{ matrix.browser }} --segment=${{ matrix.segment }}/${{ env.max-segment }} --update-visual-baseline
         env:
           NODE_ENV: production
           RELEVANT_SHA: ${{ github.sha }}
@@ -80,17 +85,18 @@ jobs:
       - name: Store visual regression output
         uses: actions/upload-artifact@v7
         with:
-          name: matrix-screenshots-${{ matrix.browser }}
+          name: matrix-screenshots-${{ matrix.browser }}-${{ matrix.segment }}
           path: dist/screenshots/
           retention-days: 1
 
   collect-test-results:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     permissions:
       packages: write
     needs: test
     steps:
       - uses: actions/checkout@v6
+      - run: npm install --global yarn
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
