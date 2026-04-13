@@ -78,7 +78,6 @@ snapshots["sbb-alert should render customized properties DOM"] =
   <sbb-link
     href="https://www.sbb.ch"
     negative=""
-    size="s"
   >
     Find out more
   </sbb-link>
@@ -126,35 +125,6 @@ snapshots["sbb-alert should render customized properties Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-alert should render customized properties Shadow DOM */
-
-snapshots["sbb-alert A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Interruption",
-      "level": 3
-    },
-    {
-      "role": "text",
-      "name": "Alert content "
-    },
-    {
-      "role": "link",
-      "name": "Find out more"
-    },
-    {
-      "role": "button",
-      "name": "Close message"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-alert A11y tree Chrome */
 
 snapshots["sbb-alert should render customized properties A11y tree Chrome"] = 
 `<p>
