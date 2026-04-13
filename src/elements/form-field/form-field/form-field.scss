@@ -299,11 +299,23 @@ slot[name='hint'] {
 .sbb-form-field__select-input-icon {
   @include sbb.absolute-center-y;
 
+  display: none;
   position: absolute;
   inset-inline-end: 0;
   margin-block-start: calc(-1 * var(--sbb-form-field-margin-block-start) / 2);
   pointer-events: none;
   color: var(--sbb-form-field-arrow-color);
+
+  :host(
+      :is(
+        :state(input-type-select),
+        :state(input-type-sbb-select),
+        :state(explicit-input-type-select)
+      )
+    )
+    & {
+    display: inline-block;
+  }
 }
 
 .sbb-form-field__input-container {

@@ -23,8 +23,8 @@ const rootHref = new URL('../../', import.meta.url).href;
 const tsconfigFile = join(projectRoot, 'tsconfig.json');
 const cachePath = join(projectRoot, 'node_modules', '.cache', 'node-hook-typescript-transform');
 mkdirSync(cachePath, { recursive: true });
-// Remove stale caches (older than a month)
-const staleDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+// Remove stale caches (older than a week)
+const staleDate = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 readdirSync(cachePath, { withFileTypes: true })
   .filter((d) => d.isFile() && statSync(join(cachePath, d.name)).mtime < staleDate)
   .forEach((d) => rmSync(join(cachePath, d.name)));
@@ -105,7 +105,7 @@ registerHooks({
       const file = fileURLToPath(url);
       const code = readFileSync(file, 'utf8');
 
-      const key = jsonifiedOptions + file;
+      const key = jsonifiedOptions + code;
       const hash = createHash('sha256').update(key).digest('hex');
       const cacheFilePath = join(cachePath, hash);
       if (existsSync(cacheFilePath)) {
