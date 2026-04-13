@@ -4238,7 +4238,7 @@ detective-amd@^6.0.1:
     get-amd-module-type "^6.0.1"
     node-source-walk "^7.0.1"
 
-detective-cjs@^6.0.1:
+detective-cjs@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/detective-cjs/-/detective-cjs-6.1.0.tgz#bdc42637765686800be491e46fc8cedb565804ff"
   integrity sha512-Qt3S4IddVNDb+71lm+jmt5NznIsgcKlibTnrw9Zr91rT9vRwKp+73+ImqLTNrQj4YuOxnzrC7GwIAVwF7136XQ==
@@ -8416,7 +8416,7 @@ postcss-values-parser@^6.0.2:
     is-url-superb "^4.0.0"
     quote-unquote "^1.0.0"
 
-postcss@8.5.9, postcss@^8.5.1, postcss@^8.5.8:
+postcss@8.5.9, postcss@^8.5.8, postcss@^8.5.9:
   version "8.5.9"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.5.9.tgz#f6ee9e0b94f0f19c97d2f172bfbd7fc71fe1cca4"
   integrity sha512-7a70Nsot+EMX9fFU3064K/kdHWZqGVY+BADLyXc8Dfv+mTLLVl6JzJpPaCZ2kQL9gIJvKXSLMHhqdRRjwQeFtw==
@@ -8426,14 +8426,14 @@ postcss@8.5.9, postcss@^8.5.1, postcss@^8.5.8:
     source-map-js "^1.2.1"
 
 precinct@^12.2.0:
-  version "12.2.0"
-  resolved "https://registry.yarnpkg.com/precinct/-/precinct-12.2.0.tgz#6ab18f48034cc534f2c8fedb318f19a11bcd171b"
-  integrity sha512-NFBMuwIfaJ4SocE9YXPU/n4AcNSoFMVFjP72nvl3cx69j/ke61/hPOWFREVxLkFhhEGnA8ZuVfTqJBa+PK3b5w==
+  version "12.2.1"
+  resolved "https://registry.yarnpkg.com/precinct/-/precinct-12.2.1.tgz#e1ccae40c7cd1f8f1218959fce9e9fec0ade0050"
+  integrity sha512-cpinPedzpNDSlBcletN5F0NgKfA2HNFHUw3Lo3mwOgkOgba75WrHUDeQ+nt25L9bP22mjSJHLH0qy+GRMOtwFw==
   dependencies:
     "@dependents/detective-less" "^5.0.1"
     commander "^12.1.0"
     detective-amd "^6.0.1"
-    detective-cjs "^6.0.1"
+    detective-cjs "^6.1.0"
     detective-es6 "^5.0.1"
     detective-postcss "^7.0.1"
     detective-sass "^6.0.1"
@@ -8443,8 +8443,8 @@ precinct@^12.2.0:
     detective-vue2 "^2.2.0"
     module-definition "^6.0.1"
     node-source-walk "^7.0.1"
-    postcss "^8.5.1"
-    typescript "^5.7.3"
+    postcss "^8.5.9"
+    typescript "^5.9.3"
 
 prelude-ls@^1.2.1:
   version "1.2.1"
@@ -9870,7 +9870,7 @@ typescript-eslint@8.58.1:
     "@typescript-eslint/typescript-estree" "8.58.1"
     "@typescript-eslint/utils" "8.58.1"
 
-typescript@5.9.3, typescript@^5.7.3, typescript@^5.9.3:
+typescript@5.9.3, typescript@^5.9.3:
   version "5.9.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.9.3.tgz#5b4f59e15310ab17a216f5d6cf53ee476ede670f"
   integrity sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==
