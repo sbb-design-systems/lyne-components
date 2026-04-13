@@ -193,6 +193,7 @@ sbb-table-wrapper[negative] .sbb-table,
 .sbb-table--theme-iron {
   --sbb-table-cell-color: var(--sbb-color-4);
 
+  sbb-table-wrapper[negative] &,
   &.sbb-table--negative {
     --sbb-table-cell-color: var(--sbb-color-cloud);
   }
@@ -242,7 +243,7 @@ sbb-table-wrapper[negative] .sbb-table,
 }
 
 // The `sbb-table-sticky-*` css classes are used by the Angular wrapper and CDK.
-// Do not rename them, pls.
+// Do not rename them, please.
 :is(.sbb-table-sticky-border-elem-left, .sbb-table-sticky-border-elem-right)::after {
   content: '';
   transition: {
