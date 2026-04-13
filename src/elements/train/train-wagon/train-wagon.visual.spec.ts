@@ -17,6 +17,7 @@ describe(`sbb-train-wagon`, () => {
       'closed',
     ],
     view: ['side', 'top'],
+    active: [false, true],
     forcedColors: [false, true],
   };
 
@@ -98,7 +99,7 @@ describe(`sbb-train-wagon`, () => {
   });
 
   describeViewports({ viewports: ['zero'] }, () => {
-    describeEach(wagonTypeCases, ({ type, view, forcedColors }) => {
+    describeEach(wagonTypeCases, ({ type, view, forcedColors, active }) => {
       it(
         '',
         visualDiffDefault.with(async (setup) => {
@@ -106,11 +107,15 @@ describe(`sbb-train-wagon`, () => {
             html`<sbb-train-formation view=${view}>
               <sbb-train>
                 ${type === 'sleeping' || type === 'couchette' || type === 'restaurant'
-                  ? html`<sbb-train-wagon type=${type}></sbb-train-wagon>`
+                  ? html`<sbb-train-wagon
+                      type=${type}
+                      class=${active ? 'sbb-active' : nothing}
+                    ></sbb-train-wagon>`
                   : html`<sbb-train-wagon
                       type=${type}
                       occupancy="medium"
                       wagon-class="1"
+                      class=${active ? 'sbb-active' : nothing}
                     ></sbb-train-wagon>`}
               </sbb-train>
             </sbb-train-formation>`,

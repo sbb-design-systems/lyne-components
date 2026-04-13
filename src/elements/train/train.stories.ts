@@ -1,5 +1,5 @@
 import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
+import { nothing, type TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
@@ -14,12 +14,17 @@ import '../train.ts';
 const trainFormationWrapper = (content: TemplateResult): TemplateResult =>
   html`<sbb-train-formation><sbb-train>${content}</sbb-train></sbb-train-formation>`;
 
-const WagonTemplate = (args: Args): TemplateResult =>
-  trainFormationWrapper(html`<sbb-train-wagon ${sbbSpread(args)}></sbb-train-wagon>`);
+const WagonTemplate = ({ wagonActive, ...args }: Args): TemplateResult =>
+  trainFormationWrapper(
+    html`<sbb-train-wagon
+      ${sbbSpread(args)}
+      class=${wagonActive ? 'sbb-active' : nothing}
+    ></sbb-train-wagon>`,
+  );
 
-const WagonIconsTemplate = (args: Args): TemplateResult =>
+const WagonIconsTemplate = ({ wagonActive, ...args }: Args): TemplateResult =>
   trainFormationWrapper(html`
-    <sbb-train-wagon ${sbbSpread(args)}>
+    <sbb-train-wagon ${sbbSpread(args)} class=${wagonActive ? 'sbb-active' : nothing}>
       <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
       <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
       <sbb-icon
@@ -283,19 +288,28 @@ const wagonClass: InputType = {
   options: ['1', '2', '1-2', '2-1', null] satisfies SbbTrainWagonElement['wagonClass'][],
 };
 
+const wagonActive: InputType = {
+  name: 'active',
+  control: {
+    type: 'boolean',
+  },
+};
+
 const wagonDefaultArgTypes: ArgTypes = {
-  occupancy: wagonOccupancy,
   type: wagonType,
   label: wagonLabel,
+  occupancy: wagonOccupancy,
   'wagon-class': wagonClass,
+  wagonActive,
   'additional-accessibility-text': wagonAdditionalAccessibilityText,
 };
 
 const wagonDefaultArgs: Args = {
-  label: '36',
   type: wagonType.options![0],
+  label: '36',
   occupancy: wagonOccupancy.options![2],
   'wagon-class': wagonClass.options![1],
+  wagonActive: false,
   'additional-accessibility-text': '',
 };
 
