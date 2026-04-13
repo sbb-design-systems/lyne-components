@@ -25,6 +25,7 @@ import {
   SbbLanguageController,
   SbbNamedSlotListMixin,
   type SbbOccupancy,
+  type SbbOrientation,
   SbbPropertyWatcherController,
 } from '../../core.ts';
 import { SbbDividerElement } from '../../divider/divider.component.ts';
@@ -131,6 +132,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
   public accessor additionalAccessibilityText: string = '';
 
   @state() private accessor _view: SbbTrainFormationElement['view'] | null = null;
+  @state() private accessor _orientation: SbbOrientation | null = null;
 
   private _language = new SbbLanguageController(this);
   private _clipStyleSheet: CSSStyleSheet | null = null;
@@ -146,6 +148,15 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
           this._view = t.view;
           if (this._view) {
             this.internals.states.add(`view-${this._view}`);
+          }
+        },
+        orientation: (t) => {
+          if (this._orientation) {
+            this.internals.states.delete(`orientation-${this._orientation}`);
+          }
+          this._orientation = t.orientation;
+          if (this._orientation) {
+            this.internals.states.add(`orientation-${this._orientation}`);
           }
         },
       }),
@@ -253,12 +264,11 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
       : nothing;
 
     const path = this._wagonShape();
-    const vertical = false; // TODO: inherit
-    const width = vertical ? 36 : 84;
-    const height = vertical ? 84 : 36;
+    const width = this._orientation === 'vertical' ? 36 : 84;
+    const height = this._orientation === 'vertical' ? 84 : 36;
 
     this._clipStyleSheet?.replaceSync(`:host {
-          --sbb-train-wagon-clip-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' fill='black'%3E%3Cpath d='${path}'${vertical ? ` transform='rotate(90, 0, 0) translate(0 -36)'` : ''} /%3E%3C/svg%3E");
+          --sbb-train-wagon-clip-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' fill='black'%3E%3Cpath d='${path}'${this._orientation === 'vertical' ? ` transform='rotate(90, 0, 0) translate(0 -36)'` : ''} /%3E%3C/svg%3E");
         }`);
 
     return html`
@@ -316,7 +326,9 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
         <svg class="sbb-train-wagon__shape" viewBox="0 0 ${width} ${height}" aria-hidden="true">
           <path
             d=${path}
-            transform=${vertical ? 'rotate(90, 0, 0) translate(0 -36)' : nothing}
+            transform=${this._orientation === 'vertical'
+              ? 'rotate(90, 0, 0) translate(0 -36)'
+              : nothing}
           ></path>
         </svg>
         ${this.additionalAccessibilityText
@@ -344,11 +356,15 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
               >
                 <path
                   d=${this._view === 'top' ? 'M81 3L3 34' : 'M81 4L4 32'}
-                  transform=${vertical ? 'rotate(90, 0, 0) translate(0 -36)' : nothing}
+                  transform=${this._orientation === 'vertical'
+                    ? 'rotate(90, 0, 0) translate(0 -36)'
+                    : nothing}
                 />
                 <path
                   d=${this._view === 'top' ? 'M81 34L3 3' : 'M81 32L4 4'}
-                  transform=${vertical ? 'rotate(90, 0, 0) translate(0 -36)' : nothing}
+                  transform=${this._orientation === 'vertical'
+                    ? 'rotate(90, 0, 0) translate(0 -36)'
+                    : nothing}
                 />
               </svg>`
             : nothing}

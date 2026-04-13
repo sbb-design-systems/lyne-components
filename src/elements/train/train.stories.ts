@@ -1,6 +1,5 @@
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
-import { nothing, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
+import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
@@ -234,12 +233,21 @@ const view: InputType = {
   options: ['side', 'top'] satisfies SbbTrainFormationElement['view'][],
 };
 
+const orientation: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['horizontal', 'vertical'] satisfies SbbTrainFormationElement['orientation'][],
+};
+
 const defaultArgTypes: ArgTypes = {
   view,
+  orientation,
 };
 
 const defaultArgs: Args = {
   view: 'side',
+  orientation: 'horizontal',
 };
 
 /*

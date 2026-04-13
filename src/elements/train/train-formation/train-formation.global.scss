@@ -1,0 +1,19 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-train-formation-wagon-width: #{sbb.px-to-rem-build(84)};
+  --sbb-train-formation-wagon-height: #{sbb.px-to-rem-build(36)};
+  --sbb-train-formation-wagon-gap: var(--sbb-spacing-fixed-1x);
+}
+
+@mixin rules {
+  sbb-train-formation:has(sbb-train[direction-label]) {
+    --sbb-train-formation-reserve-spacing-display: block;
+  }
+
+  sbb-train-formation:has(sbb-train-wagon[sector]) {
+    --sbb-train-formation-show-sectors-gap: 1;
+  }
+}

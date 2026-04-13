@@ -10,14 +10,16 @@ import { property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import {
-  SbbElement,
-  SbbLanguageController,
+  boxSizingStyles,
   i18nSector,
   i18nSectorShort,
   i18nTrains,
-  boxSizingStyles,
+  SbbElement,
+  SbbLanguageController,
+  SbbNamedSlotListMixin,
+  type SbbOrientation,
+  type WithListChildren,
 } from '../../core.ts';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core.ts';
 import type { SbbTrainElement } from '../train/train.component.ts';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage/train-blocked-passage.component.ts';
 import type { SbbTrainWagonElement } from '../train-wagon/train-wagon.component.ts';
@@ -46,6 +48,9 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
 
   /** Whether the view of the wagons is from side or top perspective. */
   @property({ reflect: true }) public accessor view: 'side' | 'top' = 'side';
+
+  /** Orientation, either horizontal or vertical. */
+  @property({ reflect: true }) public accessor orientation: SbbOrientation = 'horizontal';
 
   @state() private accessor _sectors: AggregatedSector[] = [];
 

@@ -177,9 +177,10 @@ This will visually highlight the wagon with a thicker border.
 
 #### Properties
 
-| Name   | Attribute | Privacy | Type              | Default  | Description                                                     |
-| ------ | --------- | ------- | ----------------- | -------- | --------------------------------------------------------------- |
-| `view` | `view`    | public  | `'side' \| 'top'` | `'side'` | Whether the view of the wagons is from side or top perspective. |
+| Name          | Attribute     | Privacy | Type              | Default        | Description                                                     |
+| ------------- | ------------- | ------- | ----------------- | -------------- | --------------------------------------------------------------- |
+| `orientation` | `orientation` | public  | `SbbOrientation`  | `'horizontal'` | Orientation, either horizontal or vertical.                     |
+| `view`        | `view`        | public  | `'side' \| 'top'` | `'side'`       | Whether the view of the wagons is from side or top perspective. |
 
 #### CSS Properties
 
@@ -205,7 +206,7 @@ This will visually highlight the wagon with a thicker border.
 | `occupancy`                   | `occupancy`                     | public  | `SbbOccupancy \| null`                                                                                                      | `null`    | Occupancy of a wagon.                                                                                                        |
 | `sector`                      | `sector`                        | public  | `string`                                                                                                                    | `''`      | Sector in which the wagon stops.                                                                                             |
 | `type`                        | `type`                          | public  | `'wagon' \| 'wagon-end-left' \| 'wagon-end-right' \| 'couchette' \| 'sleeping' \| 'restaurant' \| 'locomotive' \| 'closed'` | `'wagon'` | Wagon type. For `wagon-end-left` and `wagon-end-right`, please set the corresponding value of the `blockedPassage` property. |
-| `wagonClass`                  | `wagon-class`                   | public  | `'1' \| '2' \| null`                                                                                                        | `null`    | Class label                                                                                                                  |
+| `wagonClass`                  | `wagon-class`                   | public  | `'1' \| '2' \| '1-2' \| '2-1' \| null`                                                                                      | `null`    | Class label                                                                                                                  |
 
 #### Slots
 

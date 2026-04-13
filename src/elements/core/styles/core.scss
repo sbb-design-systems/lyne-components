@@ -227,6 +227,9 @@ $theme: 'standard' !default;
 @use '../../tabs/common/tab-group-common.global' as tab-group-common with (
   $theme: $theme
 );
+@use '../../train/train-formation/train-formation.global' as train-formation with (
+  $theme: $theme
+);
 @use '../../tabs/common/tab-label-common.global' as tab-label-common with (
   $theme: $theme
 );
@@ -336,6 +339,7 @@ $theme: 'standard' !default;
   @include stepper.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
+  @include train-formation.base;
   @include tag.base;
   @include teaser.base;
   @include teaser-product-common.base;
@@ -364,11 +368,6 @@ $theme: 'standard' !default;
     @include step-label.base-forced-colors;
     @include tag.base-forced-colors;
   }
-
-  // Train formation
-  --sbb-train-formation-wagon-width: #{functions.px-to-rem-build(84)};
-  --sbb-train-formation-wagon-height: #{functions.px-to-rem-build(36)};
-  --sbb-train-formation-wagon-gap: var(--sbb-spacing-fixed-1x);
 
   // Time Input
   --sbb-time-input-max-width: #{functions.px-to-rem-build(58)};
@@ -478,6 +477,7 @@ $theme: 'standard' !default;
 @include sidebar-container.rules;
 @include tab-nav-bar.rules;
 @include teaser-product-common.rules;
+@include train-formation.rules;
 
 // TODO: discuss where to add these classes
 .sbb-dark {
@@ -625,16 +625,6 @@ sbb-teaser-hero {
     align-self: stretch;
     width: 100%;
   }
-}
-
-// TODO: move to train formation after CSS refactoring
-sbb-train-formation:has(sbb-train[direction-label]) {
-  --sbb-train-formation-reserve-spacing-display: block;
-}
-
-// TODO: move to train formation after CSS refactoring
-sbb-train-formation:has(sbb-train-wagon[sector]) {
-  --sbb-train-formation-show-sectors-gap: 1;
 }
 
 // We set some dimension to the selects trigger element in order that the screen reader's outline box looks more accurate.
