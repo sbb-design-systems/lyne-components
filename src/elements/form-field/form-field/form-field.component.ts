@@ -47,6 +47,11 @@ export interface SbbFormFieldElementControl {
   readonly readOnly?: boolean;
   /** Whether the control is disabled. */
   readonly disabled: boolean;
+  /**
+   * The type of the control. This is used as a state representation.
+   * When using 'select', the form field will display the dropdown icon.
+   */
+  readonly type?: 'select' | string;
 
   /**
    * Handles a click on the control's container.
@@ -191,6 +196,7 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
 
   private _inputFormAbortController = new AbortController();
   private _control: SbbFormFieldElementControl | null = null;
+  private _previousType: string | null = null;
 
   public constructor() {
     super();
@@ -376,6 +382,8 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
       attributes: true,
       attributeFilter: ['readonly', 'disabled', 'form', 'class', 'data-expanded', 'maxlength'],
     });
+    // TODO(breaking-change): Rename input-type to input-element and explicit-input-type to input-type.
+    // Also adapt documentation.
     this.internals.states.add(`input-type-${this._input.localName}`);
     this._syncLabelInputReferences();
     return 'changed';
@@ -422,6 +430,13 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
     this.toggleState('readonly', this._control?.readOnly ?? this._input!.hasAttribute('readonly'));
     this.toggleState('disabled', this._control?.disabled ?? this._input!.hasAttribute('disabled'));
     this.toggleState('has-popup-open', this._input!.hasAttribute('data-expanded'));
+
+    if (this._previousType) {
+      this.internals.states.delete(`explicit-input-type-${this._previousType}`);
+    }
+
+    this._previousType = this._control?.type ?? (this._input as { type?: string }).type ?? 'text';
+    this.internals.states.add(`explicit-input-type-${this._previousType}`);
   }
 
   private _registerInputFormListener(): void {
@@ -628,12 +643,10 @@ export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
             <div class="sbb-form-field__input">
               <slot @slotchange=${this._onSlotInputChange}></slot>
             </div>
-            ${this.hasUpdated && ['select', 'sbb-select'].includes(this._input?.localName as string)
-              ? html`<sbb-icon
-                  name="chevron-small-down-small"
-                  class="sbb-form-field__select-input-icon"
-                ></sbb-icon>`
-              : nothing}
+            <sbb-icon
+              name="chevron-small-down-small"
+              class="sbb-form-field__select-input-icon"
+            ></sbb-icon>
           </div>
           <slot name="suffix" @slotchange=${this._syncNegative}></slot>
         </div>
