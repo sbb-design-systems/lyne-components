@@ -21,7 +21,7 @@ describe(`sbb-train-wagon`, () => {
   };
 
   const occupancyCases = ['high', 'medium', 'low', 'none', null];
-  const wagonClassCases = [1, 2];
+  const wagonClassCases = ['1', '2', '1-2', '2-1'];
 
   const trainFormationWrapper = (content: TemplateResult): TemplateResult =>
     html`<sbb-train-formation><sbb-train>${content}</sbb-train></sbb-train-formation>`;
@@ -80,6 +80,21 @@ describe(`sbb-train-wagon`, () => {
         );
       }),
     );
+
+    it(
+      `multiple icons without label`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          trainFormationWrapper(html`
+            <sbb-train-wagon wagon-class="2">
+              <sbb-icon name="sa-rs"></sbb-icon>
+              <sbb-icon name="sa-nf"></sbb-icon>
+              <sbb-icon name="sa-bz"></sbb-icon>
+            </sbb-train-wagon>
+          `),
+        );
+      }),
+    );
   });
 
   describeViewports({ viewports: ['zero'] }, () => {
@@ -95,7 +110,7 @@ describe(`sbb-train-wagon`, () => {
                   : html`<sbb-train-wagon
                       type=${type}
                       occupancy="medium"
-                      wagon-class="2"
+                      wagon-class="1"
                     ></sbb-train-wagon>`}
               </sbb-train>
             </sbb-train-formation>`,
