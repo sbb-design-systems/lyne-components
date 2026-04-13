@@ -210,7 +210,7 @@ export default {
     a11yTreePlugin(),
     litSsrPlugin({
       workerInitModules: [
-        './tools/node-esm-hook/register-hooks.ts',
+        './tools/web-test-runner/node-hook.ts',
         './src/elements/core/testing/private/test-setup-ssr.ts',
       ],
     }),
@@ -237,6 +237,7 @@ export default {
       '**/core/mixins/constructor.ts',
       '**/core/interfaces/*',
       '**/core/timetable/timetable-properties.ts',
+      '**/seat-reservation/common/types.ts',
     ],
     reporters: cliArgs.ci ? ['json'] : undefined,
   },
