@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.11.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.10.0...v4.11.0) (2026-04-13)
+
+
+### Features
+
+* **form-field:** add optional type to custom control API ([#4785](https://github.com/sbb-design-systems/lyne-components/issues/4785)) ([b8e801f](https://github.com/sbb-design-systems/lyne-components/commit/b8e801f3da07346251a737fb2d80815a4d388658)), closes [#4773](https://github.com/sbb-design-systems/lyne-components/issues/4773)
+* **sidebar:** close sidebar on navigation events ([#4762](https://github.com/sbb-design-systems/lyne-components/issues/4762)) ([18747eb](https://github.com/sbb-design-systems/lyne-components/commit/18747eb5dab353848b68cf5e2083a3b165bac848))
+
+
+### Bug Fixes
+
+* **dialog:** tests broken on Safari ([#4777](https://github.com/sbb-design-systems/lyne-components/issues/4777)) ([2ca3c9d](https://github.com/sbb-design-systems/lyne-components/commit/2ca3c9dc056ce4b0129c4152fe44bd09973d3f68))
+* **expansion-panel:** allow content to overflow ([#4722](https://github.com/sbb-design-systems/lyne-components/issues/4722)) ([a7ae6c9](https://github.com/sbb-design-systems/lyne-components/commit/a7ae6c9f6f16717f43b6dfc9f36086457b29b26f))
+* re-order finalization of custom elements for React ([#4770](https://github.com/sbb-design-systems/lyne-components/issues/4770)) ([20fbe5c](https://github.com/sbb-design-systems/lyne-components/commit/20fbe5cbfeb7c1ae5be5baac370b77ac744d36f3))
+
+
+### Code Refactoring
+
+* **table:** css refactoring ([#4765](https://github.com/sbb-design-systems/lyne-components/issues/4765)) ([e742832](https://github.com/sbb-design-systems/lyne-components/commit/e742832dd9934a74961d64af573e0bcab0875381))
+
 ## [4.10.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.9.0...v4.10.0) (2026-04-07)
 
 
