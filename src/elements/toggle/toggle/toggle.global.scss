@@ -32,3 +32,9 @@ $theme: 'standard' !default;
   --sbb-toggle-selected-option-border-width: var(--sbb-border-width-2x);
   --sbb-toggle-selected-option-border-color: Highlight;
 }
+
+@mixin rules {
+  sbb-toggle:has(:focus-visible) {
+    @include sbb.focus-outline;
+  }
+}

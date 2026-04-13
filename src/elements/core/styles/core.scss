@@ -487,6 +487,7 @@ $theme: 'standard' !default;
 @include sidebar-container.rules;
 @include tab-nav-bar.rules;
 @include teaser-product-common.rules;
+@include toggle.rules;
 
 // TODO: discuss where to add these classes
 .sbb-dark {

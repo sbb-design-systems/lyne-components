@@ -1,7 +1,14 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--sbb-toggle-option-gap);
+  height: var(--sbb-toggle-height);
+  padding-inline: var(--sbb-toggle-padding-inline);
+  color: var(--sbb-toggle-option-color);
+  cursor: var(--sbb-toggle-option-cursor, var(--sbb-cursor-pointer));
   overflow: hidden;
   font-size: var(--sbb-text-font-size-xs);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
@@ -19,17 +26,6 @@
 :host([disabled]) {
   --sbb-toggle-option-cursor: unset;
   --sbb-toggle-option-color: light-dark(var(--sbb-color-anthracite), var(--sbb-color-cloud));
-}
-
-.sbb-toggle-option {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--sbb-toggle-option-gap);
-  height: var(--sbb-toggle-height);
-  padding-inline: var(--sbb-toggle-padding-inline);
-  color: var(--sbb-toggle-option-color);
-  cursor: var(--sbb-toggle-option-cursor, var(--sbb-cursor-pointer));
 }
 
 .sbb-toggle-option__label {

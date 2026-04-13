@@ -59,10 +59,6 @@
   }
 }
 
-:host(:focus-within) {
-  @include sbb.focus-outline;
-}
-
 :host([even]) {
   --sbb-toggle-width: 100%;
   --sbb-toggle-grid-template-columns: 50% 50%;
