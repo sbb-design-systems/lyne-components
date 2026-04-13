@@ -3,7 +3,7 @@ import { html, LitElement, type TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import '@sbb-esta/lyne-elements/core.js';
-import '@sbb-esta/lyne-elements/core/styles/core.scss';
+import '@sbb-esta/lyne-elements/core/styles/standard-theme.scss';
 
 // Lit Router uses URLPattern which is not defined so far in Firefox and Safari.
 // TODO: Remove as soon as possible
