@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0-next](https://github.com/sbb-design-systems/lyne-components/compare/v4.0.0...v5.0.0-next) (2026-04-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **link:** the `size` property has been removed from `sbb-link`,`sbb-link-button` and `sbb-link-static`, since it has effects only on block-links.
+* Elements no longer have side effects (i.e. register globally) unless imported via the non-pure entrypoint or when calling `define()`. Additionally, SbbElement is now enforced as the base class for all elements and the mixins SbbElementInternalsMixin and SbbHydrationMixin have been inlined into SbbElement and therefore removed.
+* The library now targets es2023
+
+### Features
+
+* **form-field:** add optional type to custom control API ([#4785](https://github.com/sbb-design-systems/lyne-components/issues/4785)) ([0829ef2](https://github.com/sbb-design-systems/lyne-components/commit/0829ef2187605417a4012115df2f483207a5f75f)), closes [#4773](https://github.com/sbb-design-systems/lyne-components/issues/4773)
+* **sidebar:** close sidebar on navigation events ([#4762](https://github.com/sbb-design-systems/lyne-components/issues/4762)) ([cd16ec1](https://github.com/sbb-design-systems/lyne-components/commit/cd16ec1b0b64126f7805b34ddbb85c1d1f30a1ca))
+
+
+### Bug Fixes
+
+* **dialog:** tests broken on Safari ([#4777](https://github.com/sbb-design-systems/lyne-components/issues/4777)) ([fd952d5](https://github.com/sbb-design-systems/lyne-components/commit/fd952d5f7dc8e586f19b12d1a0f8e304d3f0d32b))
+* **link:** remove size property from inline links ([#4746](https://github.com/sbb-design-systems/lyne-components/issues/4746)) ([2c9434d](https://github.com/sbb-design-systems/lyne-components/commit/2c9434d79ee1e36a184d6c5fda20f2faadea0fa4))
+* missing theme in visual-regression-app ([#4780](https://github.com/sbb-design-systems/lyne-components/issues/4780)) ([02d65d2](https://github.com/sbb-design-systems/lyne-components/commit/02d65d2ee3bed82b08e5797352838021772d49bb))
+* re-order finalization of custom elements for React ([#4770](https://github.com/sbb-design-systems/lyne-components/issues/4770)) ([eaa9116](https://github.com/sbb-design-systems/lyne-components/commit/eaa911697e8c817cd694345c36c967c059619818))
+
+
+### Code Refactoring
+
+* adapt pure entry points to be without side effects ([#4707](https://github.com/sbb-design-systems/lyne-components/issues/4707)) ([978018e](https://github.com/sbb-design-systems/lyne-components/commit/978018ea810c0f5371369118dbf44a812065ae9e))
+* **table:** css refactoring ([#4765](https://github.com/sbb-design-systems/lyne-components/issues/4765)) ([31ded68](https://github.com/sbb-design-systems/lyne-components/commit/31ded68565a40fcebdd0234b8bddfd6cfcac1857))
+* **timetable-form, timetable-occupancy:** css refactoring ([#4741](https://github.com/sbb-design-systems/lyne-components/issues/4741)) ([f4e87b5](https://github.com/sbb-design-systems/lyne-components/commit/f4e87b53538d1c3c358a193d96359c84374514a6))
+* **tooltip:** css refactoring ([#4752](https://github.com/sbb-design-systems/lyne-components/issues/4752)) ([e2ba3c1](https://github.com/sbb-design-systems/lyne-components/commit/e2ba3c166a1ad5db5a48dcc5ee1d17257f6d1976))
+
+
+### Miscellaneous Chores
+
+* update build target to es2023 ([#4678](https://github.com/sbb-design-systems/lyne-components/issues/4678)) ([0363e85](https://github.com/sbb-design-systems/lyne-components/commit/0363e858bd4b28a7e2d8b7cf345a5cd9dae8f288))
+
 ## [4.10.0](https://github.com/sbb-design-systems/lyne-components/compare/v4.9.0...v4.10.0) (2026-04-07)
 
 
