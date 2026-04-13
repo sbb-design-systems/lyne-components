@@ -49,7 +49,7 @@ jobs:
         run: yarn build nginx-conf
 
       - name: Create size check
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const { title, summary, text } = await import('${{ github.workspace }}/scripts/compare-stats.ts');
@@ -65,7 +65,7 @@ jobs:
             });
 
       - name: Create GitHub Deployment
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const environment = `pr${process.env.PR_NUMBER}`;
