@@ -69,7 +69,6 @@ jobs:
         run: git diff --exit-code
 
       - name: Store build cache
-        if: github.event_name == 'push'
         uses: actions/upload-artifact@v7
         with:
           name: build-cache-${{ matrix.segment }}
@@ -101,7 +100,6 @@ jobs:
           path: node_modules/.cache/
           pattern: build-cache-*
           merge-multiple: true
-      - run: ls -llR node_modules/.cache/
       - uses: actions/cache/save@v5
         with:
           path: node_modules/.cache/
