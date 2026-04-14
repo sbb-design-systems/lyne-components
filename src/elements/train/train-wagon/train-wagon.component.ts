@@ -269,6 +269,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
 
     this._clipStyleSheet?.replaceSync(`:host {
           --sbb-train-wagon-clip-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' fill='black'%3E%3Cpath d='${path}'${this._orientation === 'vertical' ? ` transform='rotate(90, 0, 0) translate(0 -36)'` : ''} /%3E%3C/svg%3E");
+          --sbb-train-wagon-attributes-icon-columns: ${Math.ceil(this.listChildren.length / +getComputedStyle(this).getPropertyValue('--sbb-train-wagon-attribute-icon-rows'))};
         }`);
 
     return html`
@@ -335,10 +336,12 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
           ? html`<span class="sbb-screen-reader-only">, ${this.additionalAccessibilityText}</span>`
           : nothing}
         <span class="sbb-train-wagon__information-wrapper">
-          ${this.label ? html`<span aria-hidden="true">${this.label}</span>` : nothing}
+          ${this.label
+            ? html`<span aria-hidden="true" class="sbb-train-wagon__label">${this.label}</span>`
+            : nothing}
           ${this.label && this.listChildren.length
             ? html`<sbb-divider
-                orientation="vertical"
+                orientation=${this._orientation === 'vertical' ? 'horizontal' : 'vertical'}
                 aria-hidden="true"
                 class="sbb-train-wagon__label-divider"
               ></sbb-divider>`

@@ -26,6 +26,7 @@
   @include sbb.list-reset;
 
   display: flex;
+  flex-direction: var(--sbb-train-formation-flex-direction-column, row);
   gap: var(--sbb-train-formation-wagon-gap);
 }
 

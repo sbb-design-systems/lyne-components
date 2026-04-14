@@ -17,6 +17,13 @@
   }
 }
 
+:host([orientation='vertical']) {
+  --sbb-train-formation-wagon-width: var(--sbb-train-formation-wagon-dimension-short);
+  --sbb-train-formation-wagon-height: var(--sbb-train-formation-wagon-dimension-long);
+  --sbb-train-formation-flex-direction-column: column;
+  --sbb-train-formation-flex-direction-row: row;
+}
+
 .sbb-train-formation {
   @include sbb.scrollbar;
 
@@ -114,6 +121,7 @@
   @include sbb.list-reset;
 
   display: flex;
+  flex-direction: var(--sbb-train-formation-flex-direction-column, row);
   gap: var(--sbb-train-formation-wagon-gap);
 }
 
