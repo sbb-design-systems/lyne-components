@@ -20,7 +20,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "postinstall": "node scripts/install-browsers.ts",
+    "postinstall": "node -e \"!process.env.CI && child_process.spawn('yarn', ['playwright', 'install'], { stdio: 'inherit' })\"",
     "build": "node scripts/build.ts",
     "docs": "run-s docs:manifest docs:to-md",
     "docs:manifest": "run-s docs:manifest:*",
