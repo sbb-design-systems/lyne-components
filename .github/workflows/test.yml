@@ -29,6 +29,8 @@ jobs:
       - name: Preload test artifacts
         run: node scripts/preload-test-artifacts.ts
 
+      - run: ls -llR node_modules/.cache/
+
       - name: Store test artifacts
         uses: actions/upload-artifact@v7
         with:
