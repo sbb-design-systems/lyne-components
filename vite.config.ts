@@ -47,8 +47,8 @@ function typescriptTransform(): PluginOption {
   const name = 'vite-plugin-typescript-transform';
   const cachePath = join(projectRoot, 'node_modules', '.cache', name);
   mkdirSync(cachePath, { recursive: true });
-  // Remove stale caches (older than a month)
-  const staleDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+  // Remove stale caches (older than a week)
+  const staleDate = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
   readdirSync(cachePath, { withFileTypes: true })
     .filter((d) => d.isFile() && statSync(join(cachePath, d.name)).mtime < staleDate)
     .forEach((d) => rmSync(join(cachePath, d.name)));
@@ -84,7 +84,7 @@ function typescriptTransform(): PluginOption {
         return;
       }
 
-      const key = jsonifiedOptions + file;
+      const key = jsonifiedOptions + code;
       const hash = createHash('sha256').update(key).digest('hex');
       const cacheFilePath = join(cachePath, hash);
       if (existsSync(cacheFilePath)) {
