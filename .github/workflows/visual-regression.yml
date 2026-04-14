@@ -42,6 +42,7 @@ jobs:
           name: test-artifacts
           path: node_modules/.cache/
           retention-days: 1
+          include-hidden-files: true
 
   test:
     runs-on: ubuntu-latest
@@ -92,6 +93,7 @@ jobs:
           name: build-cache-${{ matrix.segment }}
           path: node_modules/.cache/
           retention-days: 1
+          include-hidden-files: true
       - name: Store visual regression output
         uses: actions/upload-artifact@v7
         with:
