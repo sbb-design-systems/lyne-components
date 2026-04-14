@@ -24,6 +24,11 @@ jobs:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
+      - uses: actions/cache/restore@v5
+        with:
+          path: node-modules/.cache/
+          key: visual-regression-build-cache-${{ hashFiles('**/*.ts') }}
+          restore-keys: visual-regression-build-cache-
 
       - name: Run eslint
         run: yarn lint:tsc
@@ -35,7 +40,8 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: test-artifacts
-          path: node_modules/.cache/lyne-cdn/
+          path: node_modules/.cache/
+          retention-days: 1
 
   test:
     runs-on: ubuntu-latest
@@ -79,6 +85,13 @@ jobs:
           NODE_ENV: production
           RELEVANT_SHA: ${{ github.sha }}
 
+      - name: Store build cache
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-cache-${{ matrix.segment }}
+          path: node_modules/.cache/
+          retention-days: 1
       - name: Store visual regression output
         uses: actions/upload-artifact@v7
         with:
@@ -98,8 +111,24 @@ jobs:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Assemble build cache
+        if: github.event_name == 'push'
+        uses: actions/download-artifact@v8
+        with:
+          path: node_modules/.cache/
+          pattern: build-cache-*
+          merge-multiple: true
+      - uses: actions/cache/save@v5
+        if: github.event_name == 'push'
+        with:
+          path: node_modules/.cache/
+          key: visual-regression-build-cache-${{ hashFiles('**/*.ts') }}
+
       - uses: actions/download-artifact@v8
+        if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
       - name: Assemble screenshots
+        if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
         run: |
           mkdir -p dist/screenshots
           for file in matrix-screenshots-*/; do
