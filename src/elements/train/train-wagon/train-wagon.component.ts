@@ -264,12 +264,17 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
       : nothing;
 
     const path = this._wagonShape();
-    const width = this._orientation === 'vertical' ? 36 : 84;
-    const height = this._orientation === 'vertical' ? 84 : 36;
 
+    const availableIconRows =
+      +globalThis
+        .getComputedStyle?.(this)
+        .getPropertyValue('--sbb-train-wagon-attribute-icon-rows') || this.label
+        ? 3
+        : 4;
     this._clipStyleSheet?.replaceSync(`:host {
-          --sbb-train-wagon-clip-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' fill='black'%3E%3Cpath d='${path}'${this._orientation === 'vertical' ? ` transform='rotate(90, 0, 0) translate(0 -36)'` : ''} /%3E%3C/svg%3E");
-          --sbb-train-wagon-attributes-icon-columns: ${Math.ceil(this.listChildren.length / +getComputedStyle(this).getPropertyValue('--sbb-train-wagon-attribute-icon-rows'))};
+          --sbb-train-wagon-clip-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 84 36' fill='black'%3E%3Cpath d='${path}' /%3E%3C/svg%3E");
+          --sbb-train-wagon-clip-shape-compartment: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${this._orientation === 'vertical' ? 36 : 84} ${this._orientation === 'vertical' ? 84 : 36}' fill='black'%3E%3Cpath d='${path}'${this._orientation === 'vertical' ? ` transform='rotate(90, 0, 0) translate(0 -36)'` : ''} /%3E%3C/svg%3E");
+          --sbb-train-wagon-attributes-icon-columns: ${Math.ceil(this.listChildren.length / availableIconRows)};
         }`);
 
     return html`
@@ -324,13 +329,8 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
               ${mainIcon}
             </div> `,
         )}
-        <svg class="sbb-train-wagon__shape" viewBox="0 0 ${width} ${height}" aria-hidden="true">
-          <path
-            d=${path}
-            transform=${this._orientation === 'vertical'
-              ? 'rotate(90, 0, 0) translate(0 -36)'
-              : nothing}
-          ></path>
+        <svg class="sbb-train-wagon__shape" viewBox="0 0 84 36" aria-hidden="true">
+          <path d=${path}></path>
         </svg>
         ${this.additionalAccessibilityText
           ? html`<span class="sbb-screen-reader-only">, ${this.additionalAccessibilityText}</span>`
@@ -353,22 +353,12 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
           ${this.type === 'closed'
             ? html`<svg
                 class="sbb-train-wagon__closed-cross"
-                viewBox="0 0 ${width} ${height}"
+                viewBox="0 0 84 36"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
               >
-                <path
-                  d=${this._view === 'top' ? 'M81 3L3 34' : 'M81 4L4 32'}
-                  transform=${this._orientation === 'vertical'
-                    ? 'rotate(90, 0, 0) translate(0 -36)'
-                    : nothing}
-                />
-                <path
-                  d=${this._view === 'top' ? 'M81 34L3 3' : 'M81 32L4 4'}
-                  transform=${this._orientation === 'vertical'
-                    ? 'rotate(90, 0, 0) translate(0 -36)'
-                    : nothing}
-                />
+                <path d=${this._view === 'top' ? 'M81 3L3 34' : 'M81 4L4 32'} />
+                <path d=${this._view === 'top' ? 'M81 34L3 3' : 'M81 32L4 4'} />
               </svg>`
             : nothing}
         </span>
