@@ -37,7 +37,7 @@ import '../../divider.pure.ts';
 
 import style from './train-wagon.scss?inline';
 
-const typeToIconMap: Record<string, string> = {
+const typeToIconMap: Partial<Record<SbbTrainWagonElement['type'], string>> = {
   couchette: 'sa-cc',
   sleeping: 'sa-wl',
   restaurant: 'sa-wr',
@@ -256,13 +256,6 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
             </span>`,
         )} `;
 
-    const mainIcon = typeToIconMap[this.type]
-      ? html`<sbb-icon
-          name=${typeToIconMap[this.type]}
-          class="sbb-train-wagon__main-icon"
-        ></sbb-icon>`
-      : nothing;
-
     const path = this._wagonShape();
 
     const availableIconRows =
@@ -302,7 +295,6 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
                     ${i18nBlockedPassage[blockedPassage][this._language.current]}
                   </li>`
                 : nothing}
-              ${mainIcon}
             </ul>`,
           () =>
             html`<div class="sbb-train-wagon__compartment">
@@ -326,9 +318,14 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
                     ${i18nBlockedPassage[blockedPassage][this._language.current]}
                   </span>`
                 : nothing}
-              ${mainIcon}
             </div> `,
         )}
+        ${typeToIconMap[this.type]
+          ? html`<sbb-icon
+              name=${typeToIconMap[this.type]!}
+              class="sbb-train-wagon__main-icon"
+            ></sbb-icon>`
+          : nothing}
         <svg class="sbb-train-wagon__shape" viewBox="0 0 84 36" aria-hidden="true">
           <path d=${path}></path>
         </svg>

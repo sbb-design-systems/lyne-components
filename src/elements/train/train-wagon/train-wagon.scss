@@ -140,10 +140,9 @@
 
   position: absolute;
   inset: 0;
-  margin-block-start: calc(
-    0.5 * (var(--sbb-train-formation-wagon-height) - var(--sbb-train-wagon-main-icon-height))
-  );
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .sbb-train-wagon__closed-cross {
