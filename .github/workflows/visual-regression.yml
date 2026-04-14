@@ -30,8 +30,8 @@ jobs:
           key: visual-regression-build-cache-${{ hashFiles('**/*.ts') }}
           restore-keys: visual-regression-build-cache-
 
-      - name: Run eslint
-        run: yarn lint:tsc
+      - name: Run lint
+        run: yarn test:tsc
 
       - name: Preload test artifacts
         run: node scripts/preload-test-artifacts.ts
@@ -101,7 +101,7 @@ jobs:
           path: dist/screenshots/
           retention-days: 1
 
-  collect-test-results:
+  finalize:
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -115,14 +115,12 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interactive
 
       - name: Assemble build cache
-        if: github.event_name == 'push'
         uses: actions/download-artifact@v8
         with:
           path: node_modules/.cache/
           pattern: build-cache-*
           merge-multiple: true
       - uses: actions/cache/save@v5
-        if: github.event_name == 'push'
         with:
           path: node_modules/.cache/
           key: visual-regression-build-cache-${{ hashFiles('**/*.ts') }}

@@ -23,13 +23,11 @@ jobs:
           key: test-build-cache-${{ hashFiles('**/*.ts') }}
           restore-keys: test-build-cache-
 
-      - name: Run eslint
-        run: yarn lint:tsc
+      - name: Run lint
+        run: yarn test:tsc
 
       - name: Preload test artifacts
         run: node scripts/preload-test-artifacts.ts
-
-      - run: ls -llR node_modules/.cache/
 
       - name: Store test artifacts
         uses: actions/upload-artifact@v7
@@ -86,7 +84,7 @@ jobs:
           path: coverage/
           retention-days: 1
 
-  collect-test-results:
+  finalize:
     runs-on: ubuntu-latest
     needs: test
     steps:
@@ -98,14 +96,13 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interactive
 
       - name: Assemble build cache
-        if: github.event_name == 'push'
         uses: actions/download-artifact@v8
         with:
           path: node_modules/.cache/
           pattern: build-cache-*
           merge-multiple: true
+      - run: ls -llR node_modules/.cache/
       - uses: actions/cache/save@v5
-        if: github.event_name == 'push'
         with:
           path: node_modules/.cache/
           key: test-build-cache-${{ hashFiles('**/*.ts') }}
