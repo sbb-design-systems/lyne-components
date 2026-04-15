@@ -12,27 +12,25 @@ snapshots["sbb-train renders DOM"] =
 /* end snapshot sbb-train renders DOM */
 
 snapshots["sbb-train renders Shadow DOM"] = 
-`<div class="sbb-train">
-  <h6 class="sbb-train__direction-label-sr">
-    Train, Driving direction Bern.
-  </h6>
-  <div
-    aria-hidden="true"
-    class="sbb-train__direction-heading"
-  >
-    <span class="sbb-train__direction-sticky-wrapper">
-      <sbb-icon name="chevron-small-left-small">
-      </sbb-icon>
-      <span class="sbb-train__direction-label">
-        Driving direction Bern
-      </span>
+`<h6 class="sbb-train__direction-label-sr">
+  Train, Driving direction Bern.
+</h6>
+<div
+  aria-hidden="true"
+  class="sbb-train__direction-heading"
+>
+  <span class="sbb-train__direction-sticky-wrapper">
+    <sbb-icon name="arrow-left-small">
+    </sbb-icon>
+    <span class="sbb-train__direction-label">
+      Driving direction Bern
     </span>
-  </div>
-  <span hidden="">
-    <slot>
-    </slot>
   </span>
 </div>
+<span hidden="">
+  <slot>
+  </slot>
+</span>
 `;
 /* end snapshot sbb-train renders Shadow DOM */
 

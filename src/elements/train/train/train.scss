@@ -1,15 +1,11 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
-
   --sbb-train-direction-label-spacing: var(--sbb-spacing-fixed-1x);
-}
-
-.sbb-train {
-  @include sbb.text-xs--regular;
 
   display: flex;
+  font-size: var(--sbb-text-font-size-xs);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   flex-direction: column;
   gap: var(--sbb-train-formation-vertical-gap);
   position: relative;

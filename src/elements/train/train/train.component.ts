@@ -104,7 +104,6 @@ export class SbbTrainElement extends SbbNamedSlotListMixin<
 
     /* eslint-disable lit/binding-positions */
     return html`
-      <div class="sbb-train">
         <${unsafeStatic(TITLE_TAG_NAME)} class="sbb-train__direction-label-sr">
           ${this._getDirectionAriaLabel()}
         </${unsafeStatic(TITLE_TAG_NAME)}>
@@ -131,7 +130,6 @@ export class SbbTrainElement extends SbbNamedSlotListMixin<
           class: 'sbb-train__wagons',
           ariaLabel: i18nWagonsLabel[this._language.current],
         })}
-      </div>
     `;
   }
 }
