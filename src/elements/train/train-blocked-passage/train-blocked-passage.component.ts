@@ -1,6 +1,12 @@
-import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, unsafeCSS } from 'lit';
 
-import { SbbElement, boxSizingStyles } from '../../core.ts';
+import {
+  boxSizingStyles,
+  SbbElement,
+  type SbbOrientation,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
+import type { SbbTrainFormationElement } from '../train-formation/train-formation.component.ts';
 
 import style from './train-blocked-passage.scss?inline';
 
@@ -11,14 +17,23 @@ export class SbbTrainBlockedPassageElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-train-blocked-passage';
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
-  protected override render(): TemplateResult {
-    return html`
-      <span class="sbb-train-blocked-passage">
-        <span class="sbb-train-blocked-passage__wrapper">
-          <span class="sbb-train-blocked-passage__icon"></span>
-        </span>
-      </span>
-    `;
+  private accessor _orientation: SbbOrientation | null = null;
+
+  public constructor() {
+    super();
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-train-formation'), {
+        orientation: (t: SbbTrainFormationElement) => {
+          if (this._orientation) {
+            this.internals.states.delete(`orientation-${this._orientation}`);
+          }
+          this._orientation = t.orientation;
+          if (this._orientation) {
+            this.internals.states.add(`orientation-${this._orientation}`);
+          }
+        },
+      }),
+    );
   }
 }
 

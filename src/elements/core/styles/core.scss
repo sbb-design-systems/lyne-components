@@ -227,6 +227,9 @@ $theme: 'standard' !default;
 @use '../../tabs/common/tab-group-common.global' as tab-group-common with (
   $theme: $theme
 );
+@use '../../train/train-blocked-passage/train-blocked-passage.global' as train-blocked-passage with (
+  $theme: $theme
+);
 @use '../../train/train-formation/train-formation.global' as train-formation with (
   $theme: $theme
 );
@@ -339,6 +342,7 @@ $theme: 'standard' !default;
   @include stepper.base;
   @include tab-group-common.base;
   @include tab-label-common.base;
+  @include train-blocked-passage.base;
   @include train-formation.base;
   @include tag.base;
   @include teaser.base;
@@ -367,6 +371,7 @@ $theme: 'standard' !default;
     @include slider.base-forced-colors;
     @include step-label.base-forced-colors;
     @include tag.base-forced-colors;
+    @include train-blocked-passage.forced-colors;
   }
 
   // Time Input
