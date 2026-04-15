@@ -70,9 +70,9 @@ The perspective of the train can be switched with the `view` property between `s
 
 ### Inline padding
 
-In certain circumstances there should be a left and right padding applied, but including the scrollbar.
+In certain circumstances there should be a left and right (or top and bottom in vertical orientation) padding applied, but including the scrollbar.
 To achieve the inline padding, set a value to the
-CSS variable `--sbb-train-formation-padding-inline` like `var(--sbb-spacing-fixed-4x)`.
+CSS variable `--sbb-train-formation-scroll-padding` like `var(--sbb-spacing-fixed-4x)`.
 
 ## sbb-train
 
@@ -184,9 +184,9 @@ This will visually highlight the wagon with a thicker border.
 
 #### CSS Properties
 
-| Name                                   | Default | Description                                                      |
-| -------------------------------------- | ------- | ---------------------------------------------------------------- |
-| `--sbb-train-formation-padding-inline` | `0px`   | Defines the inline padding inside the horizontal scrolling area. |
+| Name                                   | Default | Description                                                                           |
+| -------------------------------------- | ------- | ------------------------------------------------------------------------------------- |
+| `--sbb-train-formation-scroll-padding` | `0px`   | Defines the inline or block padding inside the horizontal or vertical scrolling area. |
 
 #### Slots
 

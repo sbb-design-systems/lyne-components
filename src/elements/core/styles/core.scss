@@ -376,6 +376,7 @@ $theme: 'standard' !default;
     @include step-label.base-forced-colors;
     @include tag.base-forced-colors;
     @include train-blocked-passage.forced-colors;
+    @include train-formation.forced-colors;
     @include train-wagon.forced-colors;
   }
 

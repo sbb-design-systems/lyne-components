@@ -196,7 +196,7 @@ describe(`sbb-train-formation`, () => {
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(
           html`<sbb-train-formation
-            style="--sbb-train-formation-padding-inline:var(--sbb-spacing-fixed-4x)"
+            style="--sbb-train-formation-scroll-padding:var(--sbb-spacing-fixed-4x)"
           >
             ${train1} ${train2}
           </sbb-train-formation>`,

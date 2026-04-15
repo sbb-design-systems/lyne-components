@@ -9,7 +9,7 @@
   display: flex;
   font-size: var(--sbb-text-font-size-xs);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
-  flex-direction: var(--sbb-train-formation-flex-direction-row, column);
+  flex-direction: var(--sbb-train-formation-flex-direction-inverted);
   gap: var(--sbb-train-formation-vertical-gap);
   position: relative;
 
@@ -30,7 +30,7 @@
   @include sbb.list-reset;
 
   display: flex;
-  flex-direction: var(--sbb-train-formation-flex-direction-column, row);
+  flex-direction: var(--sbb-train-formation-flex-direction);
   gap: var(--sbb-train-formation-wagon-gap);
 }
 
@@ -40,7 +40,7 @@
   // We have to position it absolute in order for the ellipsis to work
   position: absolute;
   width: 100%;
-  flex-direction: var(--sbb-train-formation-flex-direction-column, row);
+  flex-direction: var(--sbb-train-formation-flex-direction);
 
   :host(:state(orientation-vertical)) & {
     width: auto;
@@ -52,7 +52,7 @@
   position: sticky;
   inset-inline-start: 0;
   display: inline-flex;
-  flex-direction: var(--sbb-train-formation-flex-direction-column, row);
+  flex-direction: var(--sbb-train-formation-flex-direction);
   align-items: center;
   gap: var(--sbb-train-direction-label-spacing);
   max-width: 100%;
