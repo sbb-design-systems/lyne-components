@@ -18,6 +18,15 @@
   width: 100%;
 }
 
+sbb-teaser-panel {
+  position: absolute;
+
+  // To avoid having a 0 height if you only slotted the panel content
+  :host(:not(:state(slotted-image))) & {
+    position: static;
+  }
+}
+
 .sbb-teaser-hero__panel-link {
   :host(:not([href])) & {
     display: none;
