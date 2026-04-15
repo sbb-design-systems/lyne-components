@@ -1,3 +1,5 @@
+import { state } from 'lit/decorators.js';
+
 import type { SbbElement } from '../core/base-elements/element.ts';
 import type { AbstractConstructor } from '../core/mixins/constructor.ts';
 import { type SbbOrientation, SbbPropertyWatcherController } from '../core.ts';
@@ -20,7 +22,7 @@ export const SbbTrainFormationOrientationMixin = <T extends AbstractConstructor<
     extends superClass
     implements Partial<SbbTrainFormationOrientationMixinType>
   {
-    protected orientation: SbbOrientation | null = null;
+    @state() protected accessor orientation: SbbOrientation | null = null;
 
     protected constructor(...args: any[]) {
       super(...args);
