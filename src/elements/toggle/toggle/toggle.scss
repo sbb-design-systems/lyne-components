@@ -1,79 +1,27 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
-  width: fit-content;
-
-  // Border-radius is used for the focus outline which is toggled in core.scss.
-  border-radius: var(--sbb-toggle-border-radius);
-
-  --sbb-toggle-width: fit-content;
-  --sbb-toggle-min-width: calc(
+  --_sbb-toggle-min-width: calc(
     var(--sbb-toggle-padding-inline) * 4 + var(--sbb-size-icon-ui-small)
   );
-  --sbb-toggle-selected-option-border-width: var(--sbb-border-width-1x);
-  --sbb-toggle-selected-option-border-style: solid;
-  --sbb-toggle-selected-option-border-color: var(--sbb-border-color-5);
-  --sbb-toggle-selected-option-background-color: var(--sbb-background-color-1);
-  --sbb-toggle-background-inset: #{sbb.px-to-rem-build(2)};
-  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xs);
   --sbb-toggle-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-6x)
   );
-  --sbb-toggle-height: var(--sbb-size-element-m);
-  --sbb-toggle-border-radius: var(--sbb-border-radius-infinity);
-  --sbb-toggle-grid-template-columns: auto auto;
-
-  @include sbb.if-forced-colors {
-    --sbb-toggle-selected-option-border-color: Highlight;
-    --sbb-toggle-selected-option-border-width: var(--sbb-border-width-2x);
-  }
-}
-
-:host([even]) {
-  width: 100%;
-
-  --sbb-toggle-width: 100%;
-  --sbb-toggle-grid-template-columns: 50% 50%;
-}
-
-:host(:disabled) {
-  --sbb-toggle-selected-option-border-color: light-dark(
-    var(--sbb-color-graphite),
-    var(--sbb-color-smoke)
-  );
-  --sbb-toggle-selected-option-border-style: dashed;
-
-  @include sbb.if-forced-colors {
-    --sbb-toggle-selected-option-border-style: solid;
-    --sbb-toggle-selected-option-border-color: GrayText;
-  }
-}
-
-:host([size='s']) {
-  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
-  --sbb-toggle-height: var(--sbb-size-element-xxs);
-}
-
-:host(:is(:not(:state(initialized)), :state(disable-animation-on-resizing))) {
-  @include sbb.disable-animation;
-}
-
-.sbb-toggle {
-  @include sbb.text-m--regular;
 
   display: grid;
   grid-template-columns: var(--sbb-toggle-grid-template-columns);
   grid-template-areas: 'start end';
   align-items: center;
-  min-width: var(--sbb-toggle-min-width);
-  width: var(--sbb-toggle-width);
   height: var(--sbb-toggle-height);
+  width: var(--sbb-toggle-width, fit-content);
+  min-width: var(--_sbb-toggle-min-width);
   max-width: 100%;
+  border-radius: var(--sbb-toggle-border-radius);
+  font-size: var(--sbb-toggle-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  border-radius: var(--sbb-toggle-border-radius);
 
   // White pill of selected toggle option
   &::before {
@@ -100,7 +48,7 @@
     content: '';
     grid-area: start / start / end / end;
     order: -1;
-    background: var(--sbb-background-color-4);
+    background: var(--sbb-toggle-background-color);
     margin-inline: var(--sbb-toggle-background-inset);
     height: calc(100% - 2 * var(--sbb-toggle-background-inset));
     border-radius: var(--sbb-toggle-border-radius);
@@ -109,6 +57,38 @@
       border: var(--sbb-border-width-1x) solid CanvasText;
     }
   }
+}
+
+:host([even]) {
+  --sbb-toggle-width: 100%;
+  --sbb-toggle-grid-template-columns: 50% 50%;
+}
+
+:host(:disabled) {
+  --sbb-toggle-selected-option-border-color: light-dark(
+    var(--sbb-color-graphite),
+    var(--sbb-color-smoke)
+  );
+  --sbb-toggle-selected-option-border-style: dashed;
+
+  @include sbb.if-forced-colors {
+    --sbb-toggle-selected-option-border-style: solid;
+    --sbb-toggle-selected-option-border-color: GrayText;
+  }
+}
+
+:host([size='m']) {
+  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xs);
+  --sbb-toggle-height: var(--sbb-size-element-m);
+}
+
+:host([size='s']) {
+  --sbb-toggle-padding-inline: var(--sbb-spacing-responsive-xxxs);
+  --sbb-toggle-height: var(--sbb-size-element-xxs);
+}
+
+:host(:is(:not(:state(initialized)), :state(disable-animation-on-resizing))) {
+  @include sbb.disable-animation;
 }
 
 ::slotted(sbb-toggle-option:first-of-type) {
