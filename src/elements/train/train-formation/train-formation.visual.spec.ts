@@ -7,6 +7,7 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
+import type { SbbTrainFormationElement } from '../../train.ts';
 
 import '../../train.ts';
 
@@ -174,110 +175,139 @@ describe(`sbb-train-formation`, () => {
     ></sbb-train-wagon>
   </sbb-train>`;
 
-  describeViewports({ viewports: ['zero', 'large', 'ultra'] }, () => {
-    it(
-      `multiple trains`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html`<sbb-train-formation>${train1} ${train2}</sbb-train-formation>`,
+  describeViewports({ viewports: ['zero', 'ultra'] }, () => {
+    for (const orientation of [
+      'horizontal',
+      'vertical',
+    ] satisfies SbbTrainFormationElement['orientation'][]) {
+      describe(`orientation=${orientation}`, () => {
+        it(
+          `multiple trains`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html` <sbb-train-formation orientation=${orientation}
+                >${html`${train1} ${train2}`}
+              </sbb-train-formation>`,
+            );
+          }),
         );
-      }),
-    );
 
-    it(
-      `single train`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(html`<sbb-train-formation>${train1}</sbb-train-formation>`);
-      }),
-    );
-
-    it(
-      `padding`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html`<sbb-train-formation
-            style="--sbb-train-formation-scroll-padding:var(--sbb-spacing-fixed-4x)"
-          >
-            ${train1} ${train2}
-          </sbb-train-formation>`,
-        );
-      }),
-    );
-  });
-
-  describeViewports({ viewports: ['large'] }, () => {
-    describeEach(
-      {
-        emulateMedia: [
-          { forcedColors: true, darkMode: false },
-          { forcedColors: false, darkMode: true },
-        ],
-      },
-      ({ emulateMedia: { forcedColors, darkMode } }) => {
         it(
           `single train`,
           visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(html`<sbb-train-formation>${train1}</sbb-train-formation>`, {
-              forcedColors,
-              darkMode,
-            });
+            await setup.withFixture(
+              html`<sbb-train-formation orientation=${orientation}>${train1}</sbb-train-formation>`,
+            );
           }),
         );
-      },
-    );
 
-    it(
-      `no label`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html`<sbb-train-formation> ${train1} ${train2} </sbb-train-formation>`,
+        it(
+          `padding`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-train-formation
+                orientation=${orientation}
+                style="--sbb-train-formation-scroll-padding:var(--sbb-spacing-fixed-4x)"
+              >
+                ${train1} ${train2}
+              </sbb-train-formation>`,
+            );
+          }),
+        );
+      });
+    }
+  });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    for (const orientation of ['horizontal', 'vertical'] as const) {
+      describe(`orientation=${orientation}`, () => {
+        describeEach(
+          {
+            emulateMedia: [
+              { forcedColors: true, darkMode: false },
+              { forcedColors: false, darkMode: true },
+            ],
+          },
+          ({ emulateMedia: { forcedColors, darkMode } }) => {
+            it(
+              `single train`,
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(
+                  html`<sbb-train-formation orientation=${orientation}
+                    >${train1}</sbb-train-formation
+                  >`,
+                  {
+                    forcedColors,
+                    darkMode,
+                  },
+                );
+              }),
+            );
+          },
         );
 
-        Array.from(setup.snapshotElement.querySelectorAll('sbb-train-wagon')!).forEach(
-          (wagon) => (wagon.label = ''),
+        it(
+          `no label`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html` <sbb-train-formation orientation=${orientation}
+                >${html`${train1} ${train2}`}
+              </sbb-train-formation>`,
+            );
+
+            Array.from(setup.snapshotElement.querySelectorAll('sbb-train-wagon')!).forEach(
+              (wagon) => (wagon.label = ''),
+            );
+
+            await waitForLitRender(setup.snapshotElement);
+          }),
         );
 
-        await waitForLitRender(setup.snapshotElement);
-      }),
-    );
+        it(
+          `no sectors`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html` <sbb-train-formation orientation=${orientation}
+                >${html`${train1} ${train2}`}
+              </sbb-train-formation>`,
+            );
 
-    it(
-      `no sectors`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html`<sbb-train-formation> ${train1} ${train2} </sbb-train-formation>`,
+            Array.from(setup.snapshotElement.querySelectorAll('sbb-train-wagon')!).forEach(
+              (wagon) => (wagon.sector = ''),
+            );
+
+            await waitForLitRender(setup.snapshotElement);
+          }),
         );
 
-        Array.from(setup.snapshotElement.querySelectorAll('sbb-train-wagon')!).forEach(
-          (wagon) => (wagon.sector = ''),
+        it(
+          `no direction label`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html` <sbb-train-formation orientation=${orientation}
+                >${html`${train1} ${train2}`}
+              </sbb-train-formation>`,
+            );
+
+            Array.from(setup.snapshotElement.querySelectorAll('sbb-train')!).forEach(
+              (wagon) => (wagon.directionLabel = ''),
+            );
+
+            await waitForLitRender(setup.snapshotElement);
+          }),
         );
 
-        await waitForLitRender(setup.snapshotElement);
-      }),
-    );
-
-    it(
-      `no direction label`,
-      visualDiffDefault.with(async (setup) => {
-        await setup.withFixture(
-          html`<sbb-train-formation> ${train1} ${train2} </sbb-train-formation>`,
+        it(
+          `displays focus outline`,
+          visualDiffFocus.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-train-formation orientation=${orientation}
+                >${html`${train1} ${train2}`}
+              </sbb-train-formation>`,
+            );
+          }),
         );
-
-        Array.from(setup.snapshotElement.querySelectorAll('sbb-train')!).forEach(
-          (wagon) => (wagon.directionLabel = ''),
-        );
-
-        await waitForLitRender(setup.snapshotElement);
-      }),
-    );
-
-    it(
-      `displays focus outline`,
-      visualDiffFocus.with(async (setup) => {
-        await setup.withFixture(
-          html`<sbb-train-formation> ${train1} ${train2} </sbb-train-formation>`,
-        );
-      }),
-    );
+      });
+    }
   });
 });
