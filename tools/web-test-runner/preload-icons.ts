@@ -12,6 +12,7 @@ const preloadIconList = [
   'app-icon-medium',
   'app-icon-small',
   'arrow-change-small',
+  'arrow-left-small',
   'arrow-long-right-small',
   'arrow-right-small',
   'arrows-circle-small',

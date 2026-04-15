@@ -35,7 +35,10 @@ const WagonIconsTemplate = ({ wagonActive, ...args }: Args): TemplateResult =>
   `);
 
 const FormationTemplate = (args: Args): TemplateResult => html`
-  <sbb-train-formation ${sbbSpread(args)}>
+  <sbb-train-formation
+    ${sbbSpread(args)}
+    style=${args.orientation === 'vertical' ? 'max-height: 80vh' : nothing}
+  >
     <sbb-train
       direction-label="Direction of travel"
       station="Bern"

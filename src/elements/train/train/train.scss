@@ -2,11 +2,14 @@
 
 :host {
   --sbb-train-direction-label-spacing: var(--sbb-spacing-fixed-1x);
+  --_sbb-train-direction-row-dimension: calc(
+    max(var(--sbb-size-icon-ui-small), 1em * var(--sbb-typo-line-height-text))
+  );
 
   display: flex;
   font-size: var(--sbb-text-font-size-xs);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
-  flex-direction: column;
+  flex-direction: var(--sbb-train-formation-flex-direction-row, column);
   gap: var(--sbb-train-formation-vertical-gap);
   position: relative;
 
@@ -14,8 +17,13 @@
   &::before {
     content: '';
     display: var(--sbb-train-formation-reserve-spacing-display, none);
-    height: calc(max(var(--sbb-size-icon-ui-small), 1em * var(--sbb-typo-line-height-text)));
+    height: var(--_sbb-train-direction-row-dimension);
   }
+}
+
+:host(:state(orientation-vertical))::before {
+  height: auto;
+  width: var(--_sbb-train-direction-row-dimension);
 }
 
 .sbb-train__wagons {
@@ -32,21 +40,50 @@
   // We have to position it absolute in order for the ellipsis to work
   position: absolute;
   width: 100%;
+  flex-direction: var(--sbb-train-formation-flex-direction-column, row);
+
+  :host(:state(orientation-vertical)) & {
+    width: auto;
+    height: 100%;
+  }
 }
 
 .sbb-train__direction-sticky-wrapper {
   position: sticky;
   inset-inline-start: 0;
   display: inline-flex;
+  flex-direction: var(--sbb-train-formation-flex-direction-column, row);
   align-items: center;
   gap: var(--sbb-train-direction-label-spacing);
   max-width: 100%;
+
+  :host(:state(orientation-vertical)) & {
+    inset-inline-start: unset;
+    inset-block-start: 0;
+    max-width: unset;
+    max-height: 100%;
+  }
+}
+
+.sbb-train__direction-arrow {
+  :host([direction='right']) & {
+    transform: scale(-1, 1);
+    order: 2;
+  }
+
+  :host(:state(orientation-vertical)) & {
+    rotate: 90deg;
+  }
 }
 
 .sbb-train__direction-label {
   @include sbb.ellipsis;
+
+  :host(:state(orientation-vertical)) & {
+    writing-mode: sideways-lr;
+  }
 }
 
-.sbb-train__direction-label-sr {
+.sbb-screen-reader-only {
   @include sbb.screen-reader-only;
 }
