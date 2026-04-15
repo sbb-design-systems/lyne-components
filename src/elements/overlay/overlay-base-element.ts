@@ -14,8 +14,8 @@ import {
   SbbScrollHandler,
   i18nDialog,
   SbbNegativeMixin,
-  removeAriaOverlayTriggerAttributes,
-  setAriaOverlayTriggerAttributes,
+  removeAriaOverlayTriggerProperties,
+  setAriaOverlayTriggerProperties,
 } from '../core.ts';
 
 const overlayResultMap = new WeakMap<HTMLElement, any>();
@@ -134,7 +134,10 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
 
     this.showPopover?.();
     this.state = 'opening';
-    this._triggerElement?.setAttribute('aria-expanded', 'true');
+
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'true';
+    }
 
     // Add this overlay to the global collection
     overlayRefs.push(this);
@@ -169,7 +172,10 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
       return;
     }
     this.state = 'closing';
-    this._triggerElement?.setAttribute('aria-expanded', 'false');
+
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'false';
+    }
     this.removeAriaLiveRefContent();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -206,14 +212,14 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     }
 
     this._triggerAbortController?.abort();
-    removeAriaOverlayTriggerAttributes(this._triggerElement);
+    removeAriaOverlayTriggerProperties(this._triggerElement);
     this._triggerElement = this.trigger;
 
     if (!this._triggerElement) {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(this._triggerElement, 'dialog', this.id, this.state);
+    setAriaOverlayTriggerProperties(this, this._triggerElement, 'dialog', this.state);
     this._triggerAbortController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._triggerAbortController.signal,
