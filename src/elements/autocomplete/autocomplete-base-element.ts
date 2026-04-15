@@ -143,14 +143,18 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   protected abstract panelRole: string;
   protected activeOption: SbbOptionBaseElement<T> | null = null;
   protected pendingAutoSelectedOption: SbbOptionBaseElement<T> | null = null;
-  private _originResizeObserver = new ResizeController(this, {
+  private _resizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,
-    callback: () => {
-      if (this.state === 'opened') {
-        this._setOverlayPosition();
-      }
-    },
+    // This is an IIFE, because we need to keep track of the timeout state
+    // for debouncing the resize callbacks.
+    callback: (() => {
+      let timeoutId: ReturnType<typeof setTimeout>;
+      return () => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => this._setOverlayPosition(), 10);
+      };
+    })(),
   });
   /** Listens to the changes on the `disabled` or `readonly` attribute of the trigger. */
   private _triggerAttributeObserver = !isServer
@@ -168,6 +172,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   private _isPointerDownEventOnMenu: boolean = false;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _optionsCount = 0;
+  private _previousElements?: Element[];
 
   /** Tracks input from keyboard. */
   private _lastUserInput: string | null = null;
@@ -255,7 +260,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.triggerElement?.removeAttribute('data-expanded');
     this._openPanelEventsController.abort();
     if (this.originElement) {
-      this._originResizeObserver.unobserve(this.originElement);
+      this._resizeObserver.unobserve(this.originElement);
     }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -394,6 +399,13 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
   private _handleSlotchange(): void {
     this._highlightOptions(this.triggerElement?.value);
+
+    // It is possible that an option instance is added that has not been rendered
+    // yet and therefore has height 0. Due to this we also observe the size of the options.
+    const currentElements = Array.from(this.querySelectorAll('*'));
+    this._previousElements?.forEach((option) => this._resizeObserver.unobserve(option));
+    this._previousElements = currentElements;
+    this._previousElements.forEach((option) => this._resizeObserver.observe(option));
 
     /**
      * It's possible to filter out options with an opened panel on input change.
@@ -590,7 +602,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   private _handleOpening(): void {
     this.state = 'opened';
     if (this.originElement) {
-      this._originResizeObserver.observe(this.originElement);
+      this._resizeObserver.observe(this.originElement);
     }
     this.triggerElement?.setAttribute('aria-expanded', 'true');
     this.dispatchOpenEvent();
