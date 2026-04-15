@@ -20,6 +20,14 @@
   width: 100%;
 }
 
+.sbb-teaser-hero {
+  text-decoration: none;
+
+  &:focus-visible {
+    @include sbb.focus-outline;
+  }
+}
+
 sbb-teaser-panel {
   position: absolute;
 
