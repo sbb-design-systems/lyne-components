@@ -114,7 +114,7 @@
     "playwright": "1.59.1",
     "postcss": "8.5.9",
     "postcss-value-parser": "4.2.0",
-    "prettier": "3.8.2",
+    "prettier": "3.8.3",
     "react": "19.2.5",
     "remark-gfm": "^4.0.1",
     "sass": "1.99.0",
