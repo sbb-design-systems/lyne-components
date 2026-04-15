@@ -265,6 +265,12 @@ $theme: 'standard' !default;
 @use '../../timetable-occupancy/timetable-occupancy.global' as timetable-occupancy with (
   $theme: $theme
 );
+@use '../../toggle/toggle/toggle.global' as toggle with (
+  $theme: $theme
+);
+@use '../../toggle/toggle-option/toggle-option.global' as toggle-option with (
+  $theme: $theme
+);
 @use '../../tooltip/tooltip.global' as tooltip with (
   $theme: $theme
 );
@@ -355,6 +361,8 @@ $theme: 'standard' !default;
   @include timetable-form-details.base;
   @include timetable-form-field.base;
   @include timetable-occupancy.base;
+  @include toggle.base;
+  @include toggle-option.base;
   @include tooltip.base;
   @include visual-checkbox.base;
 
@@ -375,6 +383,7 @@ $theme: 'standard' !default;
     @include slider.base-forced-colors;
     @include step-label.base-forced-colors;
     @include tag.base-forced-colors;
+    @include toggle.base-forced-colors;
     @include train-blocked-passage.forced-colors;
     @include train-formation.forced-colors;
     @include train-wagon.forced-colors;
@@ -488,6 +497,7 @@ $theme: 'standard' !default;
 @include sidebar-container.rules;
 @include tab-nav-bar.rules;
 @include teaser-product-common.rules;
+@include toggle.rules;
 @include train-formation.rules;
 
 // TODO: discuss where to add these classes
@@ -648,10 +658,6 @@ sbb-teaser-hero {
   sbb-form-field & {
     top: 0;
   }
-}
-
-sbb-toggle:has(:focus-visible) {
-  @include a11y.focus-outline;
 }
 
 .sbb-overlay-outlet {
