@@ -12,6 +12,9 @@ import '../../icon.ts';
 
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
+ *
+ * @event {Event} change - The change event is fired on the component's associated input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+ * @event {InputEvent} input - The input event fires on the component's associated input when the value has been changed as a direct result of a user action.
  */
 export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
   public static override readonly elementName: string = 'sbb-form-field-clear';

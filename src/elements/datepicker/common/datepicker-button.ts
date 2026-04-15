@@ -16,6 +16,12 @@ import '../../icon.ts';
 
 export const datepickerButtonStyle = unsafeCSS(datepickerButtonStyleString);
 
+/**
+ * Base component for datepicker's buttons.
+ *
+ * @event {Event} change - The change event is fired on the datepicker's input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+ * @event {InputEvent} input - The input event fires on the datepicker's input when the value has been changed as a direct result of a user action.
+ */
 export abstract class SbbDatepickerButtonBase<T = Date>
   extends SbbNegativeMixin(SbbButtonBaseElement)
   implements SbbDateInputAssociated<T>
