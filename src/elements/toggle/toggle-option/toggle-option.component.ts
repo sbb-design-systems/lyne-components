@@ -19,6 +19,7 @@ import style from './toggle-option.scss?inline';
  *
  * @slot - Use the unnamed slot to add content to the label of the toggle option.
  * @slot icon - Slot used to render the `sbb-icon`.
+ * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  * @overrideType value - (T = string) | null
  */
 export class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
