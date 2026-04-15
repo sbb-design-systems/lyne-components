@@ -154,32 +154,25 @@ This scheme changes the text color of the cells to `sbb-color-iron`.
 </table>
 ```
 
-### Mixins and classes
+### CSS classes
 
-In advanced scenarios, predefined classes might not suffice.
-Therefore, we provide mixins you can build on top of:
-
-| Sass Mixin           | CSS class                   | Description                                   |
-| -------------------- | --------------------------- | --------------------------------------------- |
-| `table`              | `sbb-table`                 | The table style (equivalent to `table-m`)     |
-| `table--m`           | `sbb-table-m`               | Medium size table style                       |
-| `table--s`           | `sbb-table-s`               | Small size table style                        |
-| `table--xs`          | `sbb-table-xs`              | Smallest size table style                     |
-| `table--negative`    | `sbb-table--negative`       | Negative variant style                        |
-| `table--striped`     | `sbb-table--striped`        | Striped table style                           |
-| `table--unstriped`   | `sbb-table--unstriped`      | Non-striped table style                       |
-| `table-row--striped` | `sbb-table-row--striped`    | Force the striped state on a `tr`             |
-| `table-header-row`   | `sbb-table-header-row`      | Header `tr` element style                     |
-| `table-header-cell`  | `sbb-table-header-cell`     | `th` element style                            |
-| `table-data-cell`    | `sbb-table-data-cell`       | `td` element style                            |
-| `table-caption`      | `sbb-table-caption`         | `caption` element style                       |
-| `table-filter`       | `sbb-table-filter`          | `th` element that contains an inline filter   |
-| –                    | `sbb-table-group-with-next` | Removes the border to the next column         |
-| –                    | `sbb-table-header-subtitle` | Subtitle text displayed below a column header |
-| –                    | `sbb-table-align-start`     | Aligns cell text to the start                 |
-| –                    | `sbb-table-align-center`    | Aligns cell text to the center                |
-| –                    | `sbb-table-align-end`       | Aligns cell text to the end                   |
-| –                    | `sbb-table-align-justify`   | Justifies cell text                           |
+| Name                        | Description                                   |
+| --------------------------- | --------------------------------------------- |
+| `sbb-table`                 | The table style (equivalent to `table-m`)     |
+| `sbb-table-m`               | Medium size table style                       |
+| `sbb-table-s`               | Small size table style                        |
+| `sbb-table-xs`              | Smallest size table style                     |
+| `sbb-table--negative`       | Negative variant style                        |
+| `sbb-table--striped`        | Striped table style                           |
+| `sbb-table--unstriped`      | Non-striped table style                       |
+| `sbb-table-row--striped`    | Force the striped state on a `tr`             |
+| `sbb-table-filter`          | `th` element that contains an inline filter   |
+| `sbb-table-group-with-next` | Removes the border to the next column         |
+| `sbb-table-header-subtitle` | Subtitle text displayed below a column header |
+| `sbb-table-align-start`     | Aligns cell text to the start                 |
+| `sbb-table-align-center`    | Aligns cell text to the center                |
+| `sbb-table-align-end`       | Aligns cell text to the end                   |
+| `sbb-table-align-justify`   | Justifies cell text                           |
 
 ### Sticky Table
 

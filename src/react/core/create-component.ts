@@ -235,6 +235,9 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
   events,
   displayName,
 }: Options<I, E>): ReactWebComponent<I, E> => {
+  // Next.js re-rendering somehow fails, because the finalization calculation
+  // is broken in SSR. We call `finalize()` here explicitly to avoid that.
+  (elementClass as unknown as typeof SbbElement)['finalize']?.();
   (elementClass as unknown as typeof SbbElement).define?.();
 
   const eventProps = new Set(Object.keys(events ?? {}));

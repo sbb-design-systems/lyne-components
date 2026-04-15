@@ -1,10 +1,9 @@
 @use './typo';
 
-// SBB table mixin
-// Notes:
-// We cannot use `border-collapse` because in sticky variants it gets visually broken.
-// Therefore, we have to build the grid avoiding double borders.
-// TODO: remove with next major release
+// TODO: delete this file with next major release
+// All mixins have been inlined in the table global style
+
+// @deprecated
 @mixin table {
   @include table--m;
   @include table--striped;
@@ -63,7 +62,7 @@
   }
 }
 
-// TODO: remove with next major release
+// @deprecated
 @mixin table-header-row {
   // If there is more than one header row, only the last one has the bottom border
   &:last-of-type > th {
@@ -71,7 +70,7 @@
   }
 }
 
-// TODO: remove with next major release
+// @deprecated
 @mixin table-header-cell {
   font-size: var(--sbb-table-header-cell-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
@@ -83,7 +82,7 @@
   padding-inline: var(--sbb-table-header-padding-inline);
 }
 
-// TODO: remove with next major release
+// @deprecated
 @mixin table-data-cell {
   font-size: var(--sbb-table-data-cell-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
@@ -94,7 +93,7 @@
   padding-inline: var(--sbb-table-cell-padding-inline);
 }
 
-// TODO: remove with next major release
+// @deprecated
 @mixin table-caption {
   // Workaround for storybook. It crashes if 'light-dark' is used as a 'var' fallback
   --sbb-table-caption-color-fallback: light-dark(var(--sbb-color-granite), var(--sbb-color-cement));
@@ -108,31 +107,31 @@
   text-align: left;
 }
 
-// TODO: remove and inline with next major release
+// @deprecated
 @mixin table-filter {
   padding-block-start: 0 !important;
 }
 
-// TODO: remove with next major release
+// @deprecated
 @mixin table--striped {
   tbody tr:nth-child(odd) :is(th, td) {
     @include table-row--striped;
   }
 }
 
-// TODO: remove with next major release
+// @deprecated
 @mixin table--unstriped {
   tbody tr:nth-child(odd) :is(th, td) {
     background-color: var(--sbb-table-background-color);
   }
 }
 
-// TODO: remove with next major release
+// @deprecated
 @mixin table-row--striped {
   background-color: var(--sbb-table-row-striped-color);
 }
 
-// TODO: remove with next major release
+// @deprecated
 @mixin table--negative {
   --sbb-table-border-color: var(--sbb-color-anthracite);
   --sbb-table-background-color: var(--sbb-background-color-1-negative);
@@ -141,7 +140,7 @@
   --sbb-table-caption-color: var(--sbb-color-cement);
 }
 
-// TODO: remove with next major release
+// @deprecated
 @mixin table--m {
   --sbb-table-header-cell-font-size: var(--sbb-text-font-size-xs);
   --sbb-table-data-cell-font-size: var(--sbb-text-font-size-s);
@@ -151,7 +150,7 @@
   --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-4x);
 }
 
-// TODO: remove with next major release
+// @deprecated
 @mixin table--s {
   --sbb-table-header-cell-font-size: var(--sbb-text-font-size-xs);
   --sbb-table-data-cell-font-size: var(--sbb-text-font-size-xs);
@@ -161,7 +160,7 @@
   --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-2x);
 }
 
-// TODO: remove with next major release
+// @deprecated
 @mixin table--xs {
   --sbb-table-header-cell-font-size: var(--sbb-text-font-size-xs);
   --sbb-table-data-cell-font-size: var(--sbb-text-font-size-xs);
@@ -171,7 +170,7 @@
   --sbb-table-cell-padding-inline: var(--sbb-spacing-fixed-1x);
 }
 
-// TODO: remove with next major release
+// @deprecated
 @mixin table--theme-iron {
   --sbb-table-cell-color: var(--sbb-color-4);
 
@@ -180,7 +179,7 @@
   }
 }
 
-// TODO: remove with next major release
+// @deprecated
 @mixin table--theme-iron-negative {
   --sbb-table-cell-color: var(--sbb-color-cloud);
 }
