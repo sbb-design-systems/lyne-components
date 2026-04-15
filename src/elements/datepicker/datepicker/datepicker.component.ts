@@ -26,8 +26,6 @@ import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker
 
 import style from './datepicker.scss?inline';
 
-let nextId = 0;
-
 /**
  * A datepicker component that allows users to select a date from a calendar view.
  * @event {CustomEvent<T>} dateselected - Event emitted on date selection.
@@ -75,7 +73,6 @@ export class SbbDatepickerElement<T = Date>
   }
 
   public override connectedCallback(): void {
-    this.id ||= `sbb-datepicker-${++nextId}`;
     super.connectedCallback();
 
     const formField = this.closest?.('sbb-form-field');
