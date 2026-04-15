@@ -52,6 +52,11 @@ jobs:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
+      - uses: actions/cache@v5
+        with:
+          path: node-modules/.cache
+          key: build-cache-${{ hashFiles('**/*.ts') }}
+          restore-keys: build-cache-
 
       - name: Run build
         run: yarn build
