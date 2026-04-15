@@ -5,7 +5,7 @@ import {
   type TemplateResult,
   unsafeCSS,
 } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
@@ -18,14 +18,12 @@ import {
   type SbbElementType,
   SbbLanguageController,
   SbbNamedSlotListMixin,
-  type SbbOrientation,
-  SbbPropertyWatcherController,
   type WithListChildren,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 import type { SbbTitleLevel } from '../../title.pure.ts';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage/train-blocked-passage.component.ts';
-import type { SbbTrainFormationElement } from '../train-formation/train-formation.component.ts';
+import { SbbTrainFormationOrientationMixin } from '../train-formation-orientation-mixin.ts';
 import type { SbbTrainWagonElement } from '../train-wagon/train-wagon.component.ts';
 
 import style from './train.scss?inline';
@@ -35,10 +33,11 @@ import style from './train.scss?inline';
  *
  * @slot - Use the unnamed slot to add 'sbb-train-wagon' elements to the `sbb-train`.
  */
-export class SbbTrainElement extends SbbNamedSlotListMixin<
-  SbbTrainWagonElement | SbbTrainBlockedPassageElement,
-  typeof SbbElement
->(SbbElement) {
+export class SbbTrainElement extends SbbTrainFormationOrientationMixin(
+  SbbNamedSlotListMixin<SbbTrainWagonElement | SbbTrainBlockedPassageElement, typeof SbbElement>(
+    SbbElement,
+  ),
+) {
   public static override readonly elementName: string = 'sbb-train';
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
@@ -73,25 +72,6 @@ export class SbbTrainElement extends SbbNamedSlotListMixin<
   @property({ reflect: true }) public accessor direction: 'left' | 'right' = 'left';
 
   private _language = new SbbLanguageController(this);
-
-  @state() private accessor _orientation: SbbOrientation | null = null;
-
-  public constructor() {
-    super();
-    this.addController(
-      new SbbPropertyWatcherController(this, () => this.closest('sbb-train-formation'), {
-        orientation: (t: SbbTrainFormationElement) => {
-          if (this._orientation) {
-            this.internals.states.delete(`orientation-${this._orientation}`);
-          }
-          this._orientation = t.orientation;
-          if (this._orientation) {
-            this.internals.states.add(`orientation-${this._orientation}`);
-          }
-        },
-      }),
-    );
-  }
 
   /**
    * Create the aria-label text out of the direction label, station and the accessibility label.

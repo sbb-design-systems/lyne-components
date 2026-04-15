@@ -25,17 +25,17 @@ import {
   SbbLanguageController,
   SbbNamedSlotListMixin,
   type SbbOccupancy,
-  type SbbOrientation,
   SbbPropertyWatcherController,
 } from '../../core.ts';
 import { SbbDividerElement } from '../../divider/divider.component.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 import { SbbTimetableOccupancyIconElement } from '../../timetable-occupancy-icon.pure.ts';
 import type { SbbTrainFormationElement } from '../train-formation/train-formation.component.ts';
-
-import '../../divider.pure.ts';
+import { SbbTrainFormationOrientationMixin } from '../train-formation-orientation-mixin.ts';
 
 import style from './train-wagon.scss?inline';
+
+import '../../divider.pure.ts';
 
 const typeToIconMap: Partial<Record<SbbTrainWagonElement['type'], string>> = {
   couchette: 'sa-cc',
@@ -70,8 +70,8 @@ const shapePaths: Record<
  *
  * @slot - Use the unnamed slot to add one or more `sbb-icon` for meta-information of the `sbb-train-wagon`.
  */
-export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, typeof SbbElement>(
-  SbbElement,
+export class SbbTrainWagonElement extends SbbTrainFormationOrientationMixin(
+  SbbNamedSlotListMixin<SbbIconElement, typeof SbbElement>(SbbElement),
 ) {
   public static override readonly elementName: string = 'sbb-train-wagon';
   public static override elementDependencies: SbbElementType[] = [
@@ -132,7 +132,6 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
   public accessor additionalAccessibilityText: string = '';
 
   @state() private accessor _view: SbbTrainFormationElement['view'] | null = null;
-  @state() private accessor _orientation: SbbOrientation | null = null;
 
   private _language = new SbbLanguageController(this);
   private _clipStyleSheet: CSSStyleSheet | null = null;
@@ -148,15 +147,6 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
           this._view = t.view;
           if (this._view) {
             this.internals.states.add(`view-${this._view}`);
-          }
-        },
-        orientation: (t) => {
-          if (this._orientation) {
-            this.internals.states.delete(`orientation-${this._orientation}`);
-          }
-          this._orientation = t.orientation;
-          if (this._orientation) {
-            this.internals.states.add(`orientation-${this._orientation}`);
           }
         },
       }),
@@ -266,7 +256,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
         : 4;
     this._clipStyleSheet?.replaceSync(`:host {
           --sbb-train-wagon-clip-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 84 36' fill='black'%3E%3Cpath d='${path}' /%3E%3C/svg%3E");
-          --sbb-train-wagon-clip-shape-compartment: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${this._orientation === 'vertical' ? 36 : 84} ${this._orientation === 'vertical' ? 84 : 36}' fill='black'%3E%3Cpath d='${path}'${this._orientation === 'vertical' ? ` transform='rotate(90, 0, 0) translate(0 -36)'` : ''} /%3E%3C/svg%3E");
+          --sbb-train-wagon-clip-shape-compartment: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${this.orientation === 'vertical' ? 36 : 84} ${this.orientation === 'vertical' ? 84 : 36}' fill='black'%3E%3Cpath d='${path}'${this.orientation === 'vertical' ? ` transform='rotate(90, 0, 0) translate(0 -36)'` : ''} /%3E%3C/svg%3E");
           --sbb-train-wagon-attributes-icon-columns: ${Math.ceil(this.listChildren.length / availableIconRows)};
         }`);
 
@@ -338,7 +328,7 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
             : nothing}
           ${this.label && this.listChildren.length
             ? html`<sbb-divider
-                orientation=${this._orientation === 'vertical' ? 'horizontal' : 'vertical'}
+                orientation=${this.orientation === 'vertical' ? 'horizontal' : 'vertical'}
                 aria-hidden="true"
                 class="sbb-train-wagon__label-divider"
               ></sbb-divider>`

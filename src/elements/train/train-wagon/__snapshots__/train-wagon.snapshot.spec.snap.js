@@ -19,22 +19,17 @@ snapshots["sbb-train-wagon should render as type wagon Shadow DOM"] =
     aria-label="Train coach"
     class="sbb-train-wagon__compartment"
   >
-    <li
-      aria-hidden="false"
-      class="sbb-train-wagon__label"
-    >
-      <span class="sbb-screen-reader-only">
-        Number, 38
-      </span>
-      <span aria-hidden="true">
-        38
-      </span>
+    <li class="sbb-screen-reader-only">
+      Number, 38
     </li>
     <li class="sbb-train-wagon__class">
       <span class="sbb-screen-reader-only">
         First Class
       </span>
-      <span aria-hidden="true">
+      <span
+        aria-hidden="true"
+        class="first sbb-train-wagon__class-entry"
+      >
         1
       </span>
     </li>
@@ -48,9 +43,17 @@ snapshots["sbb-train-wagon should render as type wagon Shadow DOM"] =
       No passage to the previous train coach
     </li>
   </ul>
-  <span hidden="">
-    <slot>
-    </slot>
+  <span class="sbb-train-wagon__information-wrapper">
+    <span
+      aria-hidden="true"
+      class="sbb-train-wagon__label"
+    >
+      38
+    </span>
+    <span hidden="">
+      <slot>
+      </slot>
+    </span>
   </span>
 </div>
 `;
@@ -73,24 +76,21 @@ snapshots["sbb-train-wagon should render as type wagon with one icon Shadow DOM"
     <span class="sbb-screen-reader-only">
       Train coach
     </span>
-    <span
-      aria-hidden="true"
-      class="sbb-train-wagon__label"
-    >
-    </span>
   </div>
-  <sbb-screen-reader-only>
-    Additional wagon information
-  </sbb-screen-reader-only>
-  <span class="sbb-train-wagon__attribute-icon-list">
-    <span>
-      <slot name="li-0">
+  <span class="sbb-train-wagon__information-wrapper">
+    <sbb-screen-reader-only>
+      Additional wagon information
+    </sbb-screen-reader-only>
+    <span class="sbb-train-wagon__attribute-icon-list">
+      <span>
+        <slot name="li-0">
+        </slot>
+      </span>
+    </span>
+    <span hidden="">
+      <slot>
       </slot>
     </span>
-  </span>
-  <span hidden="">
-    <slot>
-    </slot>
   </span>
 </div>
 `;
@@ -118,28 +118,25 @@ snapshots["sbb-train-wagon should render as type wagon with multiple icons Shado
     <span class="sbb-screen-reader-only">
       Train coach
     </span>
-    <span
-      aria-hidden="true"
-      class="sbb-train-wagon__label"
-    >
-    </span>
   </div>
-  <ul
-    aria-label="Additional wagon information"
-    class="sbb-train-wagon__attribute-icon-list"
-  >
-    <li>
-      <slot name="li-0">
+  <span class="sbb-train-wagon__information-wrapper">
+    <ul
+      aria-label="Additional wagon information"
+      class="sbb-train-wagon__attribute-icon-list"
+    >
+      <li>
+        <slot name="li-0">
+        </slot>
+      </li>
+      <li>
+        <slot name="li-1">
+        </slot>
+      </li>
+    </ul>
+    <span hidden="">
+      <slot>
       </slot>
-    </li>
-    <li>
-      <slot name="li-1">
-      </slot>
-    </li>
-  </ul>
-  <span hidden="">
-    <slot>
-    </slot>
+    </span>
   </span>
 </div>
 `;
@@ -160,18 +157,15 @@ snapshots["sbb-train-wagon should render as type locomotive Shadow DOM"] =
     <span class="sbb-screen-reader-only">
       Locomotive
     </span>
-    <span
-      aria-hidden="true"
-      class="sbb-train-wagon__label"
-    >
-    </span>
   </div>
   <span class="sbb-screen-reader-only">
     , Top of the train
   </span>
-  <span hidden="">
-    <slot>
-    </slot>
+  <span class="sbb-train-wagon__information-wrapper">
+    <span hidden="">
+      <slot>
+      </slot>
+    </span>
   </span>
 </div>
 `;
@@ -189,15 +183,12 @@ snapshots["sbb-train-wagon should render as type closed wagon without number Sha
     <span class="sbb-screen-reader-only">
       Closed train coach
     </span>
-    <span
-      aria-hidden="true"
-      class="sbb-train-wagon__label"
-    >
-    </span>
   </div>
-  <span hidden="">
-    <slot>
-    </slot>
+  <span class="sbb-train-wagon__information-wrapper">
+    <span hidden="">
+      <slot>
+      </slot>
+    </span>
   </span>
 </div>
 `;
@@ -214,14 +205,8 @@ snapshots["sbb-train-wagon should render as type wagon A11y tree Chrome"] =
       "role": "none",
       "children": [
         {
-          "ignored": true,
-          "role": "none",
-          "children": [
-            {
-              "role": "list",
-              "name": "Train coach"
-            }
-          ]
+          "role": "generic",
+          "name": ""
         }
       ]
     }
@@ -303,16 +288,14 @@ snapshots["sbb-train-wagon should render as type wagon-end-right with only one p
     aria-label="Train coach"
     class="sbb-train-wagon__compartment"
   >
-    <li
-      aria-hidden="true"
-      class="sbb-train-wagon__label"
-    >
-    </li>
     <li class="sbb-train-wagon__class">
       <span class="sbb-screen-reader-only">
         First Class
       </span>
-      <span aria-hidden="true">
+      <span
+        aria-hidden="true"
+        class="first sbb-train-wagon__class-entry"
+      >
         1
       </span>
     </li>
@@ -320,9 +303,11 @@ snapshots["sbb-train-wagon should render as type wagon-end-right with only one p
       No passage to the next train coach
     </li>
   </ul>
-  <span hidden="">
-    <slot>
-    </slot>
+  <span class="sbb-train-wagon__information-wrapper">
+    <span hidden="">
+      <slot>
+      </slot>
+    </span>
   </span>
 </div>
 `;
@@ -339,14 +324,8 @@ snapshots["sbb-train-wagon should render as type wagon-end-right with only one p
       "role": "none",
       "children": [
         {
-          "ignored": true,
-          "role": "none",
-          "children": [
-            {
-              "role": "list",
-              "name": "Train coach"
-            }
-          ]
+          "role": "generic",
+          "name": ""
         }
       ]
     }
@@ -371,21 +350,21 @@ snapshots["sbb-train-wagon should render with only label Shadow DOM"] =
     <span class="sbb-screen-reader-only">
       Train coach
     </span>
-    <span
-      aria-hidden="false"
-      class="sbb-train-wagon__label"
-    >
-      <span class="sbb-screen-reader-only">
-        Number, 1
-      </span>
-      <span aria-hidden="true">
-        1
-      </span>
+    <span class="sbb-screen-reader-only">
+      Number, 1
     </span>
   </div>
-  <span hidden="">
-    <slot>
-    </slot>
+  <span class="sbb-train-wagon__information-wrapper">
+    <span
+      aria-hidden="true"
+      class="sbb-train-wagon__label"
+    >
+      1
+    </span>
+    <span hidden="">
+      <slot>
+      </slot>
+    </span>
   </span>
 </div>
 `;
@@ -402,30 +381,8 @@ snapshots["sbb-train-wagon should render with only label A11y tree Chrome"] =
       "role": "none",
       "children": [
         {
-          "ignored": true,
-          "role": "none",
-          "children": [
-            {
-              "ignored": true,
-              "role": "none",
-              "children": [
-                {
-                  "ignored": true,
-                  "role": "none",
-                  "children": [
-                    {
-                      "role": "StaticText",
-                      "name": "Train coach"
-                    }
-                  ]
-                },
-                {
-                  "role": "generic",
-                  "name": ""
-                }
-              ]
-            }
-          ]
+          "role": "generic",
+          "name": ""
         }
       ]
     }
@@ -447,18 +404,15 @@ snapshots["sbb-train-wagon should render as type wagon-end-left Shadow DOM"] =
     <span class="sbb-screen-reader-only">
       Train coach
     </span>
-    <span
-      aria-hidden="true"
-      class="sbb-train-wagon__label"
-    >
-    </span>
     <span class="sbb-screen-reader-only">
       No passage to the previous train coach
     </span>
   </div>
-  <span hidden="">
-    <slot>
-    </slot>
+  <span class="sbb-train-wagon__information-wrapper">
+    <span hidden="">
+      <slot>
+      </slot>
+    </span>
   </span>
 </div>
 `;
@@ -475,36 +429,8 @@ snapshots["sbb-train-wagon should render as type wagon-end-left A11y tree Chrome
       "role": "none",
       "children": [
         {
-          "ignored": true,
-          "role": "none",
-          "children": [
-            {
-              "ignored": true,
-              "role": "none",
-              "children": [
-                {
-                  "ignored": true,
-                  "role": "none",
-                  "children": [
-                    {
-                      "role": "StaticText",
-                      "name": "Train coach"
-                    }
-                  ]
-                },
-                {
-                  "ignored": true,
-                  "role": "none",
-                  "children": [
-                    {
-                      "role": "StaticText",
-                      "name": "No passage to the previous train coach"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+          "role": "generic",
+          "name": ""
         }
       ]
     }
