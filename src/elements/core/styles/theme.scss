@@ -14,5 +14,7 @@ $theme: 'standard' !default;
 @use './layout';
 @use './lists';
 @use './scrollbar';
-@use './table';
+@use '../../table/table.global' with (
+  $theme: $theme
+);
 @use './timetable-form';
