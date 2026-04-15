@@ -26,11 +26,11 @@ $theme: 'standard' !default;
 
 @mixin base-breakpoint-small {
   --sbb-dialog-padding-inline: var(--sbb-spacing-fixed-12x);
+  --sbb-dialog-max-height: calc(100vh - 2 * var(--sbb-spacing-fixed-6x));
+  --sbb-dialog-max-width: 90vw;
+  --sbb-dialog-translate-y: var(--sbb-spacing-fixed-4x);
 }
 
 @mixin base-breakpoint-large {
   --sbb-dialog-padding-inline: var(--sbb-spacing-responsive-s);
-  --sbb-dialog-max-height: calc(100vh - 2 * var(--sbb-spacing-fixed-6x));
-  --sbb-dialog-max-width: 90vw;
-  --sbb-dialog-transform-y: var(--sbb-spacing-fixed-4x);
 }

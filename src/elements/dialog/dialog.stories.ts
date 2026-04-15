@@ -118,12 +118,17 @@ const textBlock = (): TemplateResult => html`
   </sbb-card>
 `;
 
-const DefaultTemplate = ({ level, includeCloseButton, ...args }: Args): TemplateResult => html`
+const DefaultTemplate = ({
+  level,
+  includeCloseButton,
+  style,
+  ...args
+}: Args): TemplateResult => html`
   ${triggerButton('dialog-trigger')}
   <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
     ${dialogTitle(level)}
     ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
-    <sbb-dialog-content>
+    <sbb-dialog-content style=${style}>
       <p style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); margin: 0;">
         Dialog content
         <sbb-mini-button
@@ -337,7 +342,7 @@ export const Stepper: StoryObj = {
 export const CustomDimensions: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, style: '--sbb-dialog-height: 400px;' },
+  args: { ...basicArgs, style: 'height: 400px;' },
 };
 
 const meta: Meta = {
