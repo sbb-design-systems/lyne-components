@@ -1,6 +1,8 @@
 @use '../core/styles' as sbb;
 
 :host {
+  --sbb-teaser-hero-link-font-weight: 400;
+
   display: block;
   position: relative;
 
@@ -28,6 +30,8 @@ sbb-teaser-panel {
 }
 
 .sbb-teaser-hero__panel-link {
+  font-weight: var(--sbb-teaser-hero-link-font-weight);
+
   :host(:not([href])) & {
     display: none;
   }
