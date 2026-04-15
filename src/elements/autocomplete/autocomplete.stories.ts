@@ -557,19 +557,6 @@ export const WithEllipsis: StoryObj = {
   args: { ...defaultArgs, ellipsis: true },
 };
 
-export const Repositiontest: StoryObj = {
-  render: () => html`
-    <div style="margin-top: 20rem">
-      <sbb-form-field>
-        <label>Label</label>
-        <input placeholder="Placeholder" />
-
-        <sbb-autocomplete> <sbb-option>Option 1</sbb-option> </sbb-autocomplete>
-      </sbb-form-field>
-    </div>
-  `,
-};
-
 const meta: Meta = {
   decorators: [
     withActions as Decorator,
