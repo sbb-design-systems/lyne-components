@@ -121,12 +121,10 @@ export class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-toggle-option">
-        ${this.renderIconSlot()}
-        <span class="sbb-toggle-option__label">
-          <slot></slot>
-        </span>
-      </div>
+      ${this.renderIconSlot()}
+      <span class="sbb-toggle-option__label">
+        <slot></slot>
+      </span>
     `;
   }
 }
