@@ -9,7 +9,7 @@ $theme: 'standard' !default;
   --sbb-dialog-block-shadow: var(--sbb-box-shadow-level-9-soft);
   --sbb-dialog-color-negative: var(--sbb-color-2-negative);
   --sbb-dialog-block-shadow-negative: var(--sbb-box-shadow-level-9-soft-negative);
-  --sbb-dialog-width: 100%;
+  --sbb-dialog-width: auto;
   --sbb-dialog-max-width: 100%;
   --sbb-dialog-height: auto;
   --sbb-dialog-max-height: calc(100vh - var(--sbb-spacing-fixed-6x));
@@ -31,5 +31,6 @@ $theme: 'standard' !default;
 @mixin base-breakpoint-large {
   --sbb-dialog-padding-inline: var(--sbb-spacing-responsive-s);
   --sbb-dialog-max-height: calc(100vh - 2 * var(--sbb-spacing-fixed-6x));
-  --sbb-dialog-max-width: 90%;
+  --sbb-dialog-max-width: 90vw;
+  --sbb-dialog-transform-y: var(--sbb-spacing-fixed-4x);
 }

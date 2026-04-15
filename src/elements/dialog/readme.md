@@ -171,12 +171,15 @@ It's possible to display the component in `negative` variant using the self-name
 </sbb-dialog>
 ```
 
-The dialog's dimensions can be explicitly set by overriding the variables `--sbb-dialog-height` / `--sbb-dialog-width`.
+The dialog's dimensions can be explicitly set in large-ultra breakpoints
+by overriding the variables `--sbb-dialog-height` / `--sbb-dialog-width`;
+in zero-small breakpoints the dialog takes the full width and adapts its height to the slotted content.
 
 ```html
 <style>
   sbb-dialog {
-    --sbb-dialog-height: 400px;
+    --sbb-dialog-height: 480px;
+    --sbb-dialog-width: 640px;
   }
 </style>
 <sbb-dialog>
@@ -184,8 +187,6 @@ The dialog's dimensions can be explicitly set by overriding the variables `--sbb
   <sbb-dialog-content>Dialog content.</sbb-dialog-content>
 </sbb-dialog>
 ```
-
-In zero and large breakpoint, the dialog is displayed as a full-width 'bottom sheet', so setting a fixed width may break the layout.
 
 ## Accessibility
 
@@ -318,8 +319,6 @@ an alternative element by listening to the `didClose` event.
 
 | Name                   | Default                              | Description                                                                                                                                                                                                   |
 | ---------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--sbb-dialog-height`  | `auto`                               | Can be used to set a custom height.                                                                                                                                                                           |
-| `--sbb-dialog-width`   | `100%`                               | Can be used to set a custom width.                                                                                                                                                                            |
 | `--sbb-dialog-z-index` | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 
 #### Slots

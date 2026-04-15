@@ -69,6 +69,7 @@
 .sbb-dialog__container {
   pointer-events: var(--sbb-dialog-pointer-events);
   display: flex;
+  justify-content: center;
   align-items: center;
   position: fixed;
   inset-block: var(--sbb-dialog-inset-block);
@@ -94,14 +95,10 @@
 .sbb-dialog {
   display: none;
   position: absolute;
-  inset-inline: 0 auto;
+  inset-inline: 0;
   inset-block: auto 0;
-  margin: auto;
-  padding: 0;
   border: none;
   border-radius: var(--sbb-dialog-border-radius) var(--sbb-dialog-border-radius) 0 0;
-  width: var(--sbb-dialog-width);
-  height: var(--sbb-dialog-height);
   max-width: var(--sbb-dialog-max-width);
   max-height: var(--sbb-dialog-max-height);
   color: var(--_sbb-dialog-color);
@@ -127,19 +124,22 @@
   }
 
   @include sbb.mq($from: large) {
-    inset-inline: 0;
-    inset-block: unset;
+    height: var(--sbb-dialog-height);
+    width: var(--sbb-dialog-width);
+    inset: unset;
     border-radius: var(--sbb-dialog-border-radius);
     overflow: hidden;
-    height: auto;
   }
 }
 
 :host(:state(has-intermediate-element)) ::slotted(:first-child),
 .sbb-dialog__wrapper {
-  width: var(--sbb-dialog-width);
-  height: var(--sbb-dialog-height);
   max-height: var(--sbb-dialog-max-height);
+
+  @include sbb.mq($from: large) {
+    width: var(--sbb-dialog-width);
+    height: var(--sbb-dialog-height);
+  }
 }
 
 :host(:state(has-intermediate-element)) ::slotted(:first-child),
@@ -158,23 +158,23 @@
 @keyframes open {
   from {
     opacity: 0;
-    translate: 0 var(--sbb-spacing-fixed-4x);
+    translate: 0 var(--sbb-dialog-transform-y, 100%);
   }
 
   to {
     opacity: 1;
-    translate: 0;
+    translate: 0 0;
   }
 }
 
 @keyframes close {
   from {
     opacity: 1;
-    translate: 0;
+    translate: 0 0;
   }
 
   to {
     opacity: 0;
-    translate: 0 var(--sbb-spacing-fixed-4x);
+    translate: 0 var(--sbb-dialog-transform-y, 100%);
   }
 }

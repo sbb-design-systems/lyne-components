@@ -30,8 +30,6 @@ let nextId = 0;
  * It displays an interactive overlay element.
  *
  * @slot - Use the unnamed slot to provide a `sbb-dialog-title`, `sbb-dialog-content` and an optional `sbb-dialog-actions`.
- * @cssprop [--sbb-dialog-width=100%] - Can be used to set a custom width.
- * @cssprop [--sbb-dialog-height=auto] - Can be used to set a custom height.
  * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
