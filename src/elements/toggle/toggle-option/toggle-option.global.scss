@@ -5,5 +5,6 @@ $theme: 'standard' !default;
 @mixin base {
   --sbb-toggle-option-color: light-dark(var(--sbb-color-anthracite), var(--sbb-color-cloud));
   --sbb-toggle-option-gap: var(--sbb-spacing-fixed-1x);
+  --sbb-toggle-option-font-size: var(--sbb-text-font-size-xs);
   --sbb-toggle-option-icon-min-size: var(--sbb-size-icon-ui-small);
 }
