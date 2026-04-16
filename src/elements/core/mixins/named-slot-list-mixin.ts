@@ -1,4 +1,4 @@
-import { html, nothing, type TemplateResult } from 'lit';
+import { html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
 import type {
@@ -105,13 +105,24 @@ export const SbbNamedSlotListMixin = <
         .filter((c) => !listChildren.includes(c))
         .forEach((c) => c.removeAttribute('slot'));
       this.listChildren = listChildren;
-      this.listChildren.forEach((c, index) =>
-        c.setAttribute('slot', `${SLOTNAME_PREFIX}-${index}`),
-      );
 
       // Remove the ssr attribute, once we have actually initialized the children elements.
       this.removeAttribute(SSR_CHILD_COUNT_ATTRIBUTE);
     };
+
+    protected override updated(
+      changedProperties: PropertyValues<this & { listChildren: C[] }>,
+    ): void {
+      super.updated(changedProperties);
+
+      if (changedProperties.has('listChildren')) {
+        // If you assign a slot attribute without a corresponding slot element,
+        // it is not fully part of the DOM and e.g. media queries will fail.
+        this.listChildren.forEach((c, index) =>
+          c.setAttribute('slot', `${SLOTNAME_PREFIX}-${index}`),
+        );
+      }
+    }
 
     /**
      * Renders list and list slots for slotted children or a number of list slots
