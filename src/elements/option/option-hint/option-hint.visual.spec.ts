@@ -3,8 +3,8 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing } from 'lit';
 
 import {
-  describeViewports,
   describeEach,
+  describeViewports,
   visualDiffDefault,
   type VisualDiffSetupBuilder,
 } from '../../core/testing/private.ts';

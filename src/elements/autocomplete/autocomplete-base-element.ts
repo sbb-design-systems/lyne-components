@@ -13,20 +13,20 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  SbbOpenCloseBaseElement,
-  SbbPropertyWatcherController,
-  SbbEscapableOverlayController,
+  boxSizingStyles,
   forceType,
   idReference,
+  isEventOnElement,
   isLean,
   isSafari,
   isZeroAnimationDuration,
-  SbbNegativeMixin,
-  isEventOnElement,
   overlayGapFixCorners,
   removeAriaComboBoxAttributes,
+  SbbEscapableOverlayController,
+  SbbNegativeMixin,
+  SbbOpenCloseBaseElement,
+  SbbPropertyWatcherController,
   setOverlayPosition,
-  boxSizingStyles,
 } from '../core.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
 import type { SbbOptionBaseElement } from '../option.pure.ts';

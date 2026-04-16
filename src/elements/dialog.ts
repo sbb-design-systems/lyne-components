@@ -1,9 +1,9 @@
 /** @entrypoint */
 import {
-  SbbDialogElement,
   SbbDialogActionsElement,
   SbbDialogCloseButtonElement,
   SbbDialogContentElement,
+  SbbDialogElement,
   SbbDialogTitleElement,
 } from './dialog.pure.ts';
 

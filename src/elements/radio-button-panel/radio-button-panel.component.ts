@@ -1,12 +1,14 @@
 import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement, SbbScreenReaderOnlyElement, type SbbElementType } from '../core.ts';
 import {
-  panelCommonStyle,
-  SbbPanelMixin,
-  SbbUpdateSchedulerMixin,
   boxSizingStyles,
+  panelCommonStyle,
+  SbbElement,
+  type SbbElementType,
+  SbbPanelMixin,
+  SbbScreenReaderOnlyElement,
+  SbbUpdateSchedulerMixin,
 } from '../core.ts';
 import {
   radioButtonCommonStyle,

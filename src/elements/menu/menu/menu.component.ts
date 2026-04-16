@@ -11,33 +11,31 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  type SbbNegativeMixinType,
-  ɵstateController,
-  SbbOpenCloseBaseElement,
-  type SbbElementType,
-} from '../../core.ts';
-import {
+  boxSizingStyles,
+  forwardEvent,
+  getElementPosition,
+  getElementPositionHorizontal,
   getNextElementIndex,
+  i18nGoBack,
+  idReference,
   interactivityChecker,
   isArrowKeyOrPageKeysPressed,
-  SbbFocusTrapController,
+  isEventOnElement,
+  isZeroAnimationDuration,
+  removeAriaOverlayTriggerAttributes,
   SbbDarkModeController,
+  type SbbElementType,
   SbbEscapableOverlayController,
+  SbbFocusTrapController,
   SbbInertController,
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
-  idReference,
-  isZeroAnimationDuration,
+  type SbbNegativeMixinType,
+  SbbOpenCloseBaseElement,
   SbbScrollHandler,
-  forwardEvent,
-  i18nGoBack,
-  getElementPosition,
-  getElementPositionHorizontal,
-  isEventOnElement,
-  removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-  boxSizingStyles,
+  ɵstateController,
 } from '../../core.ts';
 import { SbbDividerElement } from '../../divider.pure.ts';
 import { SbbMenuButtonElement } from '../menu-button/menu-button.component.ts';

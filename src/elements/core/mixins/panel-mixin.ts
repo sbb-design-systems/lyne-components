@@ -1,4 +1,4 @@
-import { unsafeCSS, type LitElement } from 'lit';
+import { type LitElement, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbCheckboxSize } from '../../checkbox/common/checkbox-common.ts';

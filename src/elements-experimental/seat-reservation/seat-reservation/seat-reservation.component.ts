@@ -1,24 +1,24 @@
 import { SbbSecondaryButtonElement } from '@sbb-esta/lyne-elements/button.pure.js';
 import type { SbbElementType } from '@sbb-esta/lyne-elements/core.js';
 import {
+  boxSizingStyles,
   SbbLanguageController,
   SbbScreenReaderOnlyElement,
-  boxSizingStyles,
 } from '@sbb-esta/lyne-elements/core.js';
 import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.pure.js';
-import { html, isServer, nothing, unsafeCSS } from 'lit';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html, isServer, nothing, unsafeCSS } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common/translations.ts';
 import type {
+  BaseElement,
   CoachItem,
   CoachItemDetails,
-  Place,
   ElementDimension,
-  BaseElement,
+  Place,
   PlaceSelection,
   SeatReservation,
 } from '../common/types.ts';

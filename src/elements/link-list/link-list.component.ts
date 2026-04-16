@@ -1,4 +1,4 @@
-import { unsafeCSS, type CSSResultGroup } from 'lit';
+import { type CSSResultGroup, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbHorizontalFrom, SbbOrientation } from '../core.ts';

@@ -1,6 +1,6 @@
-import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbElement, SbbPropertyWatcherController, boxSizingStyles } from '../../core.ts';
+import { boxSizingStyles, SbbElement, SbbPropertyWatcherController } from '../../core.ts';
 
 import style from './expansion-panel-content.scss?inline';
 

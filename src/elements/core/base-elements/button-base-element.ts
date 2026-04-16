@@ -5,9 +5,9 @@ import { forceType } from '../decorators/force-type.ts';
 import { hostAttributes } from '../decorators/host-attributes.ts';
 import { isEventPrevented } from '../eventing/is-event-prevented.ts';
 import {
-  SbbFormAssociatedMixin,
-  type FormRestoreState,
   type FormRestoreReason,
+  type FormRestoreState,
+  SbbFormAssociatedMixin,
 } from '../mixins/form-associated-mixin.ts';
 
 import { SbbActionBaseElement } from './action-base-element.ts';

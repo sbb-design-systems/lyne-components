@@ -1,10 +1,10 @@
 import { html } from 'lit';
 
 import {
-  describeViewports,
   describeEach,
-  visualDiffStandardStates,
+  describeViewports,
   visualDiffDefault,
+  visualDiffStandardStates,
 } from '../../core/testing/private.ts';
 
 import '../../icon.ts';

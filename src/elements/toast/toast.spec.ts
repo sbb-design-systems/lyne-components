@@ -4,7 +4,7 @@ import type { Context } from 'mocha';
 
 import type { SbbTransparentButtonElement } from '../button.ts';
 import { elementInternalsSpy } from '../core/testing/private.ts';
-import { EventSpy, waitForLitRender, waitForCondition } from '../core/testing.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 
 import { SbbToastElement } from './toast.component.ts';
 

@@ -9,23 +9,21 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
-  getNextElementIndex,
-  isArrowKeyPressed,
-  SbbElement,
-  SbbLanguageController,
-  SbbPropertyWatcherController,
-  forceType,
-  isLean,
-  i18nChipGroupInputDescription,
-  i18nSelectionRequired,
   boxSizingStyles,
-} from '../../core.ts';
-import {
+  forceType,
   type FormRestoreReason,
   type FormRestoreState,
+  getNextElementIndex,
+  i18nChipGroupInputDescription,
+  i18nSelectionRequired,
+  isArrowKeyPressed,
+  isLean,
   SbbDisabledMixin,
+  SbbElement,
   SbbFormAssociatedMixin,
+  SbbLanguageController,
   SbbNegativeMixin,
+  SbbPropertyWatcherController,
   SbbRequiredMixin,
 } from '../../core.ts';
 import type { SbbFormFieldElement } from '../../form-field/form-field/form-field.component.ts';

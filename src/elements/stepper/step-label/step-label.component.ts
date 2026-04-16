@@ -2,11 +2,11 @@ import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import {
   appendAriaElements,
+  boxSizingStyles,
   removeAriaElements,
   SbbButtonBaseElement,
-  SbbPropertyWatcherController,
   SbbDisabledMixin,
-  boxSizingStyles,
+  SbbPropertyWatcherController,
 } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbStepElement } from '../step/step.component.ts';

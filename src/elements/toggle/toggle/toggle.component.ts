@@ -9,16 +9,14 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
-  interactivityChecker,
-  SbbElement,
-  forceType,
-  isLean,
   boxSizingStyles,
-} from '../../core.ts';
-import {
+  forceType,
   type FormRestoreReason,
   type FormRestoreState,
+  interactivityChecker,
+  isLean,
   SbbDisabledMixin,
+  SbbElement,
   SbbFormAssociatedMixin,
 } from '../../core.ts';
 import type { SbbToggleOptionElement } from '../toggle-option/toggle-option.component.ts';

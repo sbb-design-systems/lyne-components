@@ -1,9 +1,9 @@
-import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbChipLabelElement } from '../chip-label.pure.ts';
-import { SbbLinkBaseElement, boxSizingStyles } from '../core.ts';
+import { boxSizingStyles, SbbLinkBaseElement } from '../core.ts';
 import type { SbbTitleElement } from '../title.pure.ts';
 
 import style from './teaser.scss?inline';

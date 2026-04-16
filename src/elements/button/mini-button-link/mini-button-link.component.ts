@@ -1,11 +1,11 @@
-import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import {
-  SbbLinkBaseElement,
+  boxSizingStyles,
   SbbDisabledInteractiveMixin,
   SbbDisabledMixin,
+  SbbLinkBaseElement,
   SbbNegativeMixin,
-  boxSizingStyles,
 } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import { miniButtonLabelStyle, miniButtonStyle } from '../common/button-common.ts';
