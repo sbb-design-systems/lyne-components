@@ -1,14 +1,15 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import {
-  ɵstateController,
   type AbstractConstructor,
+  boxSizingStyles,
+  IS_FOCUSABLE_QUERY,
   type SbbActionBaseElement,
+  ɵstateController,
 } from '../../core.ts';
-import { IS_FOCUSABLE_QUERY, boxSizingStyles } from '../../core.ts';
 import type { SbbCardElement } from '../card/card.component.ts';
 
 import style from './card-action.scss?inline';

@@ -1,5 +1,4 @@
-import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import { boxSizingStyles, SbbElement, SbbNegativeMixin } from '../../core.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field.component.ts';

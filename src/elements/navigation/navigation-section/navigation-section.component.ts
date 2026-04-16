@@ -12,27 +12,25 @@ import { property } from 'lit/decorators.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
-  type SbbOpenedClosedState,
-  ɵstateController,
-  type SbbElementType,
-  SbbOpenCloseBaseElement,
-} from '../../core.ts';
-import {
+  boxSizingStyles,
+  forceType,
+  i18nGoBack,
+  idReference,
   IS_FOCUSABLE_QUERY,
+  isZeroAnimationDuration,
+  omitEmptyConverter,
+  removeAriaOverlayTriggerAttributes,
+  type SbbElementType,
   SbbFocusTrapController,
   sbbInputModalityDetector,
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
-  forceType,
-  idReference,
-  omitEmptyConverter,
-  isZeroAnimationDuration,
-  i18nGoBack,
+  SbbOpenCloseBaseElement,
+  type SbbOpenedClosedState,
   SbbUpdateSchedulerMixin,
-  removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-  boxSizingStyles,
+  ɵstateController,
 } from '../../core.ts';
 import type { SbbNavigationElement } from '../navigation/navigation.component.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';

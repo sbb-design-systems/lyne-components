@@ -1,17 +1,17 @@
 import {
+  i18nDurationDay,
   i18nDurationHour,
   i18nDurationMinute,
-  i18nDurationDay,
 } from '@sbb-esta/lyne-elements/core.js';
 import {
-  isValid,
-  parseISO,
+  addMinutes,
   differenceInDays,
   differenceInHours,
   differenceInMinutes,
-  addMinutes,
-  subHours,
+  isValid,
+  parseISO,
   subDays,
+  subHours,
 } from 'date-fns';
 
 /**

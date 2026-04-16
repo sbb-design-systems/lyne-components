@@ -3,10 +3,10 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import {
   describeEach,
-  type visualRegressionFixture,
   describeViewports,
   visualDiffDefault,
   visualDiffHover,
+  type visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
 import '../../menu.ts';

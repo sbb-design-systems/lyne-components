@@ -1,7 +1,7 @@
 /** @entrypoint */
 import {
-  SbbHeaderElement,
   SbbHeaderButtonElement,
+  SbbHeaderElement,
   SbbHeaderEnvironmentElement,
   SbbHeaderLinkElement,
 } from './header.pure.ts';

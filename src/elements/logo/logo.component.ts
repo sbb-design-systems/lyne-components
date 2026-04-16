@@ -1,8 +1,8 @@
-import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbProtectiveRoom } from '../core.ts';
-import { SbbElement, forceType, SbbNegativeMixin, boxSizingStyles } from '../core.ts';
+import { boxSizingStyles, forceType, SbbElement, SbbNegativeMixin } from '../core.ts';
 
 import style from './logo.scss?inline';
 

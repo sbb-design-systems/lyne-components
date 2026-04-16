@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 
-import { SbbButtonBaseElement, boxSizingStyles } from '../../core.ts';
+import { boxSizingStyles, SbbButtonBaseElement } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import { iconSidebarButtonCommonStyle } from '../../sidebar/common/styles.ts';
 import type { SbbTooltipDefaultPositions } from '../../tooltip.pure.ts';

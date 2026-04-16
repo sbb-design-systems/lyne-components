@@ -1,8 +1,8 @@
-import { nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbElement, forceType, isEventPrevented, boxSizingStyles } from '../../core.ts';
+import { boxSizingStyles, forceType, isEventPrevented, SbbElement } from '../../core.ts';
 import type { SbbTitleLevel } from '../../title.pure.ts';
 import type { SbbAlertElement } from '../alert/alert.component.ts';
 

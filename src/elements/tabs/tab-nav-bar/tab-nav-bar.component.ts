@@ -1,8 +1,8 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { unsafeCSS, type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement, isLean, SbbNamedSlotListMixin, boxSizingStyles } from '../../core.ts';
+import { boxSizingStyles, isLean, SbbElement, SbbNamedSlotListMixin } from '../../core.ts';
 import { tabGroupCommonStyles, tabLabelCommonStyles } from '../common/styles.ts';
 
 import style from './tab-nav-bar.scss?inline';

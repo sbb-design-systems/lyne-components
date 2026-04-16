@@ -1,7 +1,7 @@
-import { unsafeCSS, type CSSResultGroup, type PropertyValues } from 'lit';
+import { type CSSResultGroup, type PropertyValues, unsafeCSS } from 'lit';
 
 import { SbbSecondaryButtonElement } from '../../button.pure.ts';
-import { SbbLanguageController, i18nTimetableFormSwapButtonLabel } from '../../core.ts';
+import { i18nTimetableFormSwapButtonLabel, SbbLanguageController } from '../../core.ts';
 
 import style from './timetable-form-swap-button.scss?inline';
 

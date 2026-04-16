@@ -13,22 +13,23 @@ import { ref } from 'lit/directives/ref.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
-  SbbFocusTrapController,
+  boxSizingStyles,
+  forceType,
+  i18nCloseNavigation,
+  idReference,
+  isEventOnElement,
+  isZeroAnimationDuration,
+  removeAriaOverlayTriggerAttributes,
+  type SbbElementType,
   SbbEscapableOverlayController,
+  SbbFocusTrapController,
   SbbInertController,
   SbbLanguageController,
-  forceType,
-  idReference,
-  isZeroAnimationDuration,
+  SbbOpenCloseBaseElement,
   SbbScrollHandler,
-  i18nCloseNavigation,
   SbbUpdateSchedulerMixin,
-  isEventOnElement,
-  removeAriaOverlayTriggerAttributes,
   setAriaOverlayTriggerAttributes,
-  boxSizingStyles,
 } from '../../core.ts';
-import { SbbOpenCloseBaseElement, type SbbElementType } from '../../core.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 import type { SbbNavigationSectionElement } from '../navigation-section/navigation-section.component.ts';

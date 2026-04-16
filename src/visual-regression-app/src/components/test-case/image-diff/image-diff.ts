@@ -1,4 +1,4 @@
-import { forceType, boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
+import { boxSizingStyles, forceType } from '@sbb-esta/lyne-elements/core.js';
 import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay/overlay.component.js';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check/toggle-check.component.js';
 import {

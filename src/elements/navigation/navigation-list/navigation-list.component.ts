@@ -7,8 +7,15 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement, forceType, omitEmptyConverter, isLean, boxSizingStyles } from '../../core.ts';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  isLean,
+  omitEmptyConverter,
+  SbbElement,
+  SbbNamedSlotListMixin,
+  type WithListChildren,
+} from '../../core.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 

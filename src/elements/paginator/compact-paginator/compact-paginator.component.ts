@@ -1,8 +1,14 @@
-import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import { SbbElement, SbbScreenReaderOnlyElement, type SbbElementType } from '../../core.ts';
-import { i18nPage, i18nPaginatorOf, boxSizingStyles } from '../../core.ts';
+import {
+  boxSizingStyles,
+  i18nPage,
+  i18nPaginatorOf,
+  SbbElement,
+  type SbbElementType,
+  SbbScreenReaderOnlyElement,
+} from '../../core.ts';
 import { SbbDividerElement } from '../../divider.pure.ts';
 import { SbbPaginatorCommonElementMixin } from '../common/paginator-common.ts';
 

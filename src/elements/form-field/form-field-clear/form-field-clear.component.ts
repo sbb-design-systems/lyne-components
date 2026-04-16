@@ -1,12 +1,13 @@
-import { html, type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
 
 import { miniButtonStyle } from '../../button.pure.ts';
-import { SbbButtonBaseElement, type SbbElementType } from '../../core.ts';
 import {
-  SbbLanguageController,
-  i18nClearInput,
-  SbbNegativeMixin,
   boxSizingStyles,
+  i18nClearInput,
+  SbbButtonBaseElement,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbNegativeMixin,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field.component.ts';

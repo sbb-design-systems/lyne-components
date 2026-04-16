@@ -4,12 +4,13 @@ import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
-import { SbbElement, type SbbElementType } from '../../core.ts';
 import {
+  boxSizingStyles,
   forceType,
   i18nFileSelectorSubtitleLabel,
   i18nFileSelectorSubtitleLabelMultiple,
-  boxSizingStyles,
+  SbbElement,
+  type SbbElementType,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 import {

@@ -1,23 +1,23 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
-  html,
-  unsafeCSS,
   type CSSResultGroup,
+  html,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
+  boxSizingStyles,
+  forceType,
   getNextElementIndex,
   isArrowKeyPressed,
-  SbbElement,
-  ɵstateController,
-  forceType,
   isLean,
+  SbbElement,
   throttle,
-  boxSizingStyles,
+  ɵstateController,
 } from '../../core.ts';
 import { tabGroupCommonStyles } from '../common/styles.ts';
 import type { SbbTabElement } from '../tab/tab.component.ts';

@@ -1,10 +1,10 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import {
-  html,
-  unsafeCSS,
   type CSSResultGroup,
+  html,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 

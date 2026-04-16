@@ -3,11 +3,11 @@ import { html, nothing } from 'lit';
 import {
   describeEach,
   describeViewports,
+  visualDiffDefault,
+  visualDiffFocus,
+  visualDiffHover,
   visualDiffStandardStates,
   visualRegressionFixture,
-  visualDiffDefault,
-  visualDiffHover,
-  visualDiffFocus,
 } from '../../core/testing/private.ts';
 
 import '../../form-field.ts';
