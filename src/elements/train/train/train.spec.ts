@@ -23,7 +23,7 @@ describe(`sbb-train`, () => {
         <sbb-train-wagon></sbb-train-wagon>
       </sbb-train>
     `);
-    const trainSlotChangeSpy = new EventSpy(SbbTrainElement.events.trainslotchange);
+    const trainSlotChangeSpy = new EventSpy('trainslotchange');
 
     element.querySelector('sbb-train-wagon')!.remove();
     await waitForLitRender(element);

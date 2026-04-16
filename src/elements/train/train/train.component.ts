@@ -24,7 +24,7 @@ import { SbbIconElement } from '../../icon.pure.ts';
 import type { SbbTitleLevel } from '../../title.pure.ts';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage/train-blocked-passage.component.ts';
 import { SbbTrainFormationOrientationMixin } from '../train-formation-orientation-mixin.ts';
-import type { SbbTrainWagonElement } from '../train-wagon/train-wagon.component.ts';
+import type { SbbTrainWagonMixinType } from '../train-wagon-common.ts';
 
 import style from './train.scss?inline';
 
@@ -34,18 +34,18 @@ import style from './train.scss?inline';
  * @slot - Use the unnamed slot to add 'sbb-train-wagon' elements to the `sbb-train`.
  */
 export class SbbTrainElement extends SbbTrainFormationOrientationMixin(
-  SbbNamedSlotListMixin<SbbTrainWagonElement | SbbTrainBlockedPassageElement, typeof SbbElement>(
+  SbbNamedSlotListMixin<SbbTrainWagonMixinType | SbbTrainBlockedPassageElement, typeof SbbElement>(
     SbbElement,
   ),
 ) {
   public static override readonly elementName: string = 'sbb-train';
   public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
-  public static readonly events = {
-    trainslotchange: 'trainslotchange',
-  } as const;
+
   protected override readonly listChildLocalNames = [
     'sbb-train-wagon',
+    'sbb-train-wagon-button',
+    'sbb-train-wagon-link',
     'sbb-train-blocked-passage',
   ];
 

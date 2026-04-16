@@ -1,6 +1,7 @@
 @use '../../core/styles' as sbb;
 
 :host {
+  --sbb-train-formation-scroll-padding: var(--sbb-train-formation-padding);
   --_sbb-train-formation-sectors-to-train-gap: calc(
     var(--sbb-train-formation-show-sectors-gap, 0) * var(--sbb-train-formation-vertical-gap)
   );
@@ -12,7 +13,7 @@
   position: relative;
   overflow: auto visible;
   row-gap: var(--_sbb-train-formation-sectors-to-train-gap);
-  padding-block-end: var(--sbb-train-formation-vertical-gap);
+  padding-block: var(--sbb-train-formation-padding);
   color: var(--sbb-train-formation-text-color);
   font-size: var(--sbb-text-font-size-xs);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
@@ -51,8 +52,8 @@
     'sectors trains' 1fr
     'end end' auto;
   overflow: visible auto;
-  padding-block-end: unset;
-  padding-inline-end: var(--sbb-train-formation-vertical-gap);
+  padding-block: unset;
+  padding-inline: var(--sbb-train-formation-padding);
   row-gap: unset;
   column-gap: var(--_sbb-train-formation-sectors-to-train-gap);
   width: fit-content;

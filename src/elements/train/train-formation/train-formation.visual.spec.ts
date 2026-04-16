@@ -17,11 +17,11 @@ describe(`sbb-train-formation`, () => {
     station="Bern"
     direction="left"
   >
-    <sbb-train-wagon type="locomotive" sector="A"></sbb-train-wagon>
-    <sbb-train-wagon type="closed" sector="A"></sbb-train-wagon>
+    <sbb-train-wagon wagon-type="locomotive" sector="A"></sbb-train-wagon>
+    <sbb-train-wagon wagon-type="closed" sector="A"></sbb-train-wagon>
     <sbb-train-blocked-passage></sbb-train-blocked-passage>
     <sbb-train-wagon
-      type="wagon"
+      wagon-type="wagon"
       label="38"
       occupancy="low"
       blocked-passage="previous"
@@ -33,17 +33,17 @@ describe(`sbb-train-formation`, () => {
       <sbb-icon name="sa-bz"></sbb-icon>
       <sbb-icon name="sa-bz"></sbb-icon>
     </sbb-train-wagon>
-    <sbb-train-wagon type="wagon" label="39" occupancy="none" wagon-class="1" sector="B">
+    <sbb-train-wagon wagon-type="wagon" label="39" occupancy="none" wagon-class="1" sector="B">
       <sbb-icon name="sa-nf"></sbb-icon>
     </sbb-train-wagon>
-    <sbb-train-wagon type="restaurant" label="40" sector="B">
+    <sbb-train-wagon wagon-type="restaurant" label="40" sector="B">
       <sbb-icon name="sa-rs"></sbb-icon>
     </sbb-train-wagon>
-    <sbb-train-wagon type="wagon" label="41" occupancy="high" wagon-class="2" sector="B">
+    <sbb-train-wagon wagon-type="wagon" label="41" occupancy="high" wagon-class="2" sector="B">
       <sbb-icon name="sa-nf"></sbb-icon>
     </sbb-train-wagon>
     <sbb-train-wagon
-      type="wagon"
+      wagon-type="wagon"
       label="42"
       occupancy="low"
       wagon-class="2"
@@ -54,7 +54,7 @@ describe(`sbb-train-formation`, () => {
     </sbb-train-wagon>
     <sbb-train-blocked-passage></sbb-train-blocked-passage>
     <sbb-train-wagon
-      type="wagon"
+      wagon-type="wagon"
       label="43"
       occupancy="low"
       wagon-class="2"
@@ -67,7 +67,7 @@ describe(`sbb-train-formation`, () => {
     <sbb-train-blocked-passage></sbb-train-blocked-passage>
     <sbb-train-wagon
       blocked-passage="previous"
-      type="wagon"
+      wagon-type="wagon"
       label="44"
       occupancy="low"
       wagon-class="2"
@@ -77,14 +77,19 @@ describe(`sbb-train-formation`, () => {
       <sbb-icon name="sa-fz"></sbb-icon>
     </sbb-train-wagon>
     <sbb-train-wagon
-      type="wagon"
+      wagon-type="wagon"
       label="45"
       occupancy="low"
       wagon-class="2"
       sector="D"
     ></sbb-train-wagon>
-    <sbb-train-wagon type="couchette" label="46" sector="D"></sbb-train-wagon>
-    <sbb-train-wagon type="sleeping" label="47" sector="D" blocked-passage="next"></sbb-train-wagon>
+    <sbb-train-wagon wagon-type="couchette" label="46" sector="D"></sbb-train-wagon>
+    <sbb-train-wagon
+      wagon-type="sleeping"
+      label="47"
+      sector="D"
+      blocked-passage="next"
+    ></sbb-train-wagon>
     <sbb-train-blocked-passage></sbb-train-blocked-passage>
   </sbb-train>`;
 
@@ -94,16 +99,16 @@ describe(`sbb-train-formation`, () => {
     direction="left"
   >
     <sbb-train-wagon
-      type="wagon-end-left"
+      wagon-type="wagon-end-left"
       blocked-passage="previous"
       occupancy="none"
       wagon-class="2"
       sector="E"
     ></sbb-train-wagon>
-    <sbb-train-wagon type="closed" label="49" sector="E"></sbb-train-wagon>
+    <sbb-train-wagon wagon-type="closed" label="49" sector="E"></sbb-train-wagon>
     <sbb-train-blocked-passage></sbb-train-blocked-passage>
     <sbb-train-wagon
-      type="wagon"
+      wagon-type="wagon"
       label="50"
       occupancy="low"
       wagon-class="2"
@@ -111,63 +116,63 @@ describe(`sbb-train-formation`, () => {
       sector="E"
     ></sbb-train-wagon>
     <sbb-train-wagon
-      type="wagon"
+      wagon-type="wagon"
       label="51"
       occupancy="low"
       wagon-class="2"
       sector="F"
     ></sbb-train-wagon>
     <sbb-train-wagon
-      type="wagon"
+      wagon-type="wagon"
       label="52"
       occupancy="low"
       wagon-class="2"
       sector="F"
     ></sbb-train-wagon>
     <sbb-train-wagon
-      type="wagon"
+      wagon-type="wagon"
       label="53"
       occupancy="low"
       wagon-class="2"
       sector="F"
     ></sbb-train-wagon>
     <sbb-train-wagon
-      type="wagon"
+      wagon-type="wagon"
       label="54"
       occupancy="low"
       wagon-class="2"
       sector="G"
     ></sbb-train-wagon>
     <sbb-train-wagon
-      type="wagon"
+      wagon-type="wagon"
       label="55"
       occupancy="low"
       wagon-class="2"
       sector="G"
     ></sbb-train-wagon>
     <sbb-train-wagon
-      type="wagon"
+      wagon-type="wagon"
       label="56"
       occupancy="low"
       wagon-class="2"
       sector="G"
     ></sbb-train-wagon>
     <sbb-train-wagon
-      type="wagon"
+      wagon-type="wagon"
       label="57"
       occupancy="low"
       wagon-class="2"
       sector="H"
     ></sbb-train-wagon>
     <sbb-train-wagon
-      type="wagon"
+      wagon-type="wagon"
       label="58"
       occupancy="low"
       wagon-class="2"
       sector="H"
     ></sbb-train-wagon>
     <sbb-train-wagon
-      type="wagon-end-right"
+      wagon-type="wagon-end-right"
       label="59"
       occupancy="low"
       wagon-class="2"

@@ -20,6 +20,7 @@ $theme: 'standard' !default;
   --sbb-train-formation-sector-margin: var(--sbb-spacing-fixed-2x);
   --sbb-train-formation-flex-direction: row;
   --sbb-train-formation-flex-direction-inverted: column;
+  --sbb-train-formation-padding: var(--sbb-spacing-fixed-1x);
 }
 
 @mixin forced-colors {

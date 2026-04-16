@@ -22,7 +22,7 @@ import {
 } from '../../core.ts';
 import type { SbbTrainElement } from '../train/train.component.ts';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage/train-blocked-passage.component.ts';
-import type { SbbTrainWagonElement } from '../train-wagon/train-wagon.component.ts';
+import type { SbbTrainWagonMixinType } from '../train-wagon-common.ts';
 
 import style from './train-formation.scss?inline';
 
@@ -36,7 +36,7 @@ interface AggregatedSector {
  * It displays a train composition, acting as a container for one or more `sbb-train` component.
  *
  * @slot - Use the unnamed slot to add 'sbb-train' elements to the `sbb-train-formation`.
- * @cssprop [--sbb-train-formation-scroll-padding=0px] - Defines the inline or block padding inside the horizontal or vertical scrolling area.
+ * @cssprop [--sbb-train-formation-scroll-padding=var(--sbb-spacing-fixed-1x)] - Defines the inline or block padding inside the horizontal or vertical scrolling area.
  */
 export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
   SbbTrainElement,
@@ -76,19 +76,19 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
     event?.stopPropagation();
 
     this._sectors = Array.from(
-      this.querySelectorAll?.<SbbTrainWagonElement | SbbTrainBlockedPassageElement>(
-        'sbb-train-wagon,sbb-train-blocked-passage',
+      this.querySelectorAll?.<SbbTrainWagonMixinType | SbbTrainBlockedPassageElement>(
+        'sbb-train-wagon,sbb-train-wagon-button,sbb-train-wagon-link,sbb-train-blocked-passage',
       ) ?? [],
     ).reduce(
       (
         aggregatedSectors: AggregatedSector[],
-        item: SbbTrainWagonElement | SbbTrainBlockedPassageElement,
+        item: SbbTrainWagonMixinType | SbbTrainBlockedPassageElement,
       ) => {
         const currentAggregatedSector = aggregatedSectors[aggregatedSectors.length - 1];
 
-        if (item.localName === 'sbb-train-wagon') {
+        if (item.localName.startsWith('sbb-train-wagon')) {
           const sectorAttribute =
-            (item as SbbTrainWagonElement).sector ?? item.getAttribute('sector');
+            (item as SbbTrainWagonMixinType).sector ?? item.getAttribute('sector');
 
           if (!currentAggregatedSector.label && sectorAttribute) {
             currentAggregatedSector.label = sectorAttribute;

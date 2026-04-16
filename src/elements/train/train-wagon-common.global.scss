@@ -1,4 +1,4 @@
-@use '../../core/styles' as sbb;
+@use '../core/styles' as sbb;
 
 $theme: 'standard' !default;
 
@@ -16,6 +16,8 @@ $theme: 'standard' !default;
   --sbb-train-wagon-attributes-max-width: #{sbb.px-to-rem-build(55)};
   --sbb-train-wagon-attributes-mean-width: #{sbb.px-to-rem-build(28)};
   --sbb-train-wagon-occupancy-height: #{sbb.px-to-rem-build(12)};
+  --sbb-train-wagon-background-color-hover: var(--sbb-background-color-3);
+  --sbb-train-wagon-background-color-active: var(--sbb-background-color-4);
 
   // We have to subtract the gap of the wagon (2px) from the value in Figma (32)px,
   // as this is the min gap to the shape of the

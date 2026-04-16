@@ -7,7 +7,7 @@ import '../../train.ts';
 
 describe(`sbb-train-wagon`, () => {
   const wagonTypeCases = {
-    type: [
+    wagonType: [
       'wagon',
       'wagon-end-left',
       'wagon-end-right',
@@ -16,7 +16,7 @@ describe(`sbb-train-wagon`, () => {
       'restaurant',
       'locomotive',
       'closed',
-    ] satisfies SbbTrainWagonElement['type'][],
+    ] satisfies SbbTrainWagonElement['wagonType'][],
     view: ['side', 'top'] satisfies SbbTrainFormationElement['view'][],
     active: [false, true],
     forcedColors: [false, true],
@@ -46,19 +46,21 @@ describe(`sbb-train-wagon`, () => {
       'vertical',
     ] satisfies SbbTrainFormationElement['orientation'][]) {
       describe(`orientation=${orientation}`, () => {
-        describeEach(wagonTypeCases, ({ type, view, forcedColors, active }) => {
+        describeEach(wagonTypeCases, ({ wagonType, view, forcedColors, active }) => {
           it(
             '',
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(
                 trainFormationWrapper(
-                  html` ${type === 'sleeping' || type === 'couchette' || type === 'restaurant'
+                  html` ${wagonType === 'sleeping' ||
+                  wagonType === 'couchette' ||
+                  wagonType === 'restaurant'
                     ? html`<sbb-train-wagon
-                        type=${type}
+                        wagon-type=${wagonType}
                         class=${active ? 'sbb-active' : nothing}
                       ></sbb-train-wagon>`
                     : html`<sbb-train-wagon
-                        type=${type}
+                        wagon-type=${wagonType}
                         occupancy="medium"
                         wagon-class="1"
                         class=${active ? 'sbb-active' : nothing}

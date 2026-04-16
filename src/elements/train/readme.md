@@ -30,14 +30,14 @@ It is divided into the following components:
   >
     <sbb-train-wagon
       sector="A"
-      type="locomotive"
+      wagon-type="locomotive"
       additional-accessibility-text="Top of the train"
     ></sbb-train-wagon>
-    <sbb-train-wagon sector="A" type="closed"> </sbb-train-wagon>
+    <sbb-train-wagon sector="A" wagon-type="closed"> </sbb-train-wagon>
     <sbb-train-blocked-passage></sbb-train-blocked-passage>
     <sbb-train-wagon
       sector="A"
-      type="wagon"
+      wagon-type="wagon"
       label="38"
       occupancy="low"
       wagon-class="1"
@@ -101,18 +101,18 @@ It should refer to the section where the locomotive is placed.
 
 ### Variants
 
-With the `type` property, the component can visualize different types of wagons and locomotives.
-For the types `wagon-end-left` and `wagon-end-right` the blocked passage information is set automatically.
+With the `wagonType` property the component can visualize different types of wagons and locomotives.
+For the wagon types `wagon-end-left` and `wagon-end-right`, the blocked passage information is set automatically.
 
 ```html
-<sbb-train-wagon type="wagon"></sbb-train-wagon>
-<sbb-train-wagon type="wagon-end-left"></sbb-train-wagon>
-<sbb-train-wagon type="wagon-end-right"></sbb-train-wagon>
-<sbb-train-wagon type="couchette"></sbb-train-wagon>
-<sbb-train-wagon type="sleeping"></sbb-train-wagon>
-<sbb-train-wagon type="restaurant"></sbb-train-wagon>
-<sbb-train-wagon type="locomotive"></sbb-train-wagon>
-<sbb-train-wagon type="closed"></sbb-train-wagon>
+<sbb-train-wagon wagon-type="wagon"></sbb-train-wagon>
+<sbb-train-wagon wagon-type="wagon-end-left"></sbb-train-wagon>
+<sbb-train-wagon wagon-type="wagon-end-right"></sbb-train-wagon>
+<sbb-train-wagon wagon-type="couchette"></sbb-train-wagon>
+<sbb-train-wagon wagon-type="sleeping"></sbb-train-wagon>
+<sbb-train-wagon wagon-type="restaurant"></sbb-train-wagon>
+<sbb-train-wagon wagon-type="locomotive"></sbb-train-wagon>
+<sbb-train-wagon wagon-type="closed"></sbb-train-wagon>
 ```
 
 The property `occupancy` sets the component's inner icon; available values are `high`, `medium`, `low`, `none` and `null`;
@@ -120,15 +120,15 @@ it's also possible to display the wagon class at component's end using the `wago
 and a wagon number (property `label`) above the component.
 
 ```html
-<sbb-train-wagon type="wagon" label="38" occupancy="low" wagon-class="1"></sbb-train-wagon>
+<sbb-train-wagon wagon-type="wagon" label="38" occupancy="low" wagon-class="1"></sbb-train-wagon>
 ```
 
 **Note:**
-An `<sbb-train-wagon>` with `type="wagon"` has the possibilities of slotting attribute icons.
+An `<sbb-train-wagon>` with `wagon-type="wagon"` has the possibilities of slotting attribute icons.
 They will be applied internally into a list (using `<ul>` and `<li>`) and requires an `aria-label` for each slotted icon.
 
 ```html
-<sbb-train-wagon type="wagon">
+<sbb-train-wagon wagon-type="wagon">
   <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
   <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
   <sbb-icon
@@ -146,7 +146,7 @@ apply the CSS class `sbb-active` to the `<sbb-train-wagon>` element.
 This will visually highlight the wagon with a thicker border.
 
 ```html
-<sbb-train-wagon class="sbb-active" type="wagon" label="38" occupancy="low"></sbb-train-wagon>
+<sbb-train-wagon class="sbb-active" wagon-type="wagon" label="38" occupancy="low"></sbb-train-wagon>
 ```
 
 <!-- Auto Generated Below -->
@@ -184,15 +184,50 @@ This will visually highlight the wagon with a thicker border.
 
 #### CSS Properties
 
-| Name                                   | Default | Description                                                                           |
-| -------------------------------------- | ------- | ------------------------------------------------------------------------------------- |
-| `--sbb-train-formation-scroll-padding` | `0px`   | Defines the inline or block padding inside the horizontal or vertical scrolling area. |
+| Name                                   | Default                       | Description                                                                           |
+| -------------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------- |
+| `--sbb-train-formation-scroll-padding` | `var(--sbb-spacing-fixed-1x)` | Defines the inline or block padding inside the horizontal or vertical scrolling area. |
 
 #### Slots
 
 | Name | Description                                                                    |
 | ---- | ------------------------------------------------------------------------------ |
 |      | Use the unnamed slot to add 'sbb-train' elements to the `sbb-train-formation`. |
+
+### class: `SbbTrainWagonButtonElement`, `sbb-train-wagon-button`
+
+#### Properties
+
+| Name                          | Attribute                       | Privacy | Type                                                                                                                        | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ----------------------------- | ------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `additionalAccessibilityText` | `additional-accessibility-text` | public  | `string`                                                                                                                    | `''`       | Additional accessibility text which will be appended to the end.                                                                                                                                                                                                                                                                                                                                                                                        |
+| `blockedPassage`              | `blocked-passage`               | public  | `'previous' \| 'next' \| 'both' \| 'none'`                                                                                  | `'none'`   | Accessibility text for blocked passages of the wagon.                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `form`                        | `form`                          | public  | `HTMLFormElement \| null`                                                                                                   |            | The `<form>` element to associate the button with.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `label`                       | `label`                         | public  | `string`                                                                                                                    | `''`       | Wagon number                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `name`                        | `name`                          | public  | `string`                                                                                                                    |            | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `occupancy`                   | `occupancy`                     | public  | `SbbOccupancy \| null`                                                                                                      | `null`     | Occupancy of a wagon.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `sector`                      | `sector`                        | public  | `string`                                                                                                                    | `''`       | Sector in which the wagon stops.                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `type`                        | `type`                          | public  | `SbbButtonType`                                                                                                             | `'button'` | The type attribute to use for the button.                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `validationMessage`           | -                               | public  | `string`                                                                                                                    |            | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`                    | -                               | public  | `ValidityState`                                                                                                             |            | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`                       | `value`                         | public  | `string`                                                                                                                    | `''`       | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `wagonClass`                  | `wagon-class`                   | public  | `'1' \| '2' \| '1-2' \| '2-1' \| null`                                                                                      | `null`     | Class label                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `wagonType`                   | `wagon-type`                    | public  | `'wagon' \| 'wagon-end-left' \| 'wagon-end-right' \| 'couchette' \| 'sleeping' \| 'restaurant' \| 'locomotive' \| 'closed'` | `'wagon'`  | Wagon type. For `wagon-end-left` and `wagon-end-right`, please set the corresponding value of the `blockedPassage` property.                                                                                                                                                                                                                                                                                                                            |
+| `willValidate`                | -                               | public  | `boolean`                                                                                                                   |            | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+#### Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Slots
+
+| Name | Description                                                                                       |
+| ---- | ------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add one or more `sbb-icon` for meta-information of the `sbb-train-wagon`. |
 
 ### class: `SbbTrainWagonElement`, `sbb-train-wagon`
 
@@ -205,8 +240,8 @@ This will visually highlight the wagon with a thicker border.
 | `label`                       | `label`                         | public  | `string`                                                                                                                    | `''`      | Wagon number                                                                                                                 |
 | `occupancy`                   | `occupancy`                     | public  | `SbbOccupancy \| null`                                                                                                      | `null`    | Occupancy of a wagon.                                                                                                        |
 | `sector`                      | `sector`                        | public  | `string`                                                                                                                    | `''`      | Sector in which the wagon stops.                                                                                             |
-| `type`                        | `type`                          | public  | `'wagon' \| 'wagon-end-left' \| 'wagon-end-right' \| 'couchette' \| 'sleeping' \| 'restaurant' \| 'locomotive' \| 'closed'` | `'wagon'` | Wagon type. For `wagon-end-left` and `wagon-end-right`, please set the corresponding value of the `blockedPassage` property. |
 | `wagonClass`                  | `wagon-class`                   | public  | `'1' \| '2' \| '1-2' \| '2-1' \| null`                                                                                      | `null`    | Class label                                                                                                                  |
+| `wagonType`                   | `wagon-type`                    | public  | `'wagon' \| 'wagon-end-left' \| 'wagon-end-right' \| 'couchette' \| 'sleeping' \| 'restaurant' \| 'locomotive' \| 'closed'` | `'wagon'` | Wagon type. For `wagon-end-left` and `wagon-end-right`, please set the corresponding value of the `blockedPassage` property. |
 
 #### Slots
 

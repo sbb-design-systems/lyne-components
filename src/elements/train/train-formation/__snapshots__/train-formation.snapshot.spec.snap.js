@@ -14,7 +14,7 @@ snapshots["sbb-train-formation should render with one train DOM"] =
     <sbb-train-wagon
       sector="A"
       slot="li-0"
-      type="wagon"
+      wagon-type="wagon"
     >
     </sbb-train-wagon>
   </sbb-train>
@@ -67,7 +67,7 @@ snapshots["sbb-train-formation should render with multiple trains DOM"] =
     <sbb-train-wagon
       sector="A"
       slot="li-0"
-      type="wagon"
+      wagon-type="wagon"
     >
     </sbb-train-wagon>
   </sbb-train>
@@ -78,7 +78,7 @@ snapshots["sbb-train-formation should render with multiple trains DOM"] =
     <sbb-train-wagon
       sector="B"
       slot="li-0"
-      type="wagon"
+      wagon-type="wagon"
     >
     </sbb-train-wagon>
   </sbb-train>

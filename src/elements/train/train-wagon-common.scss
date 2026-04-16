@@ -1,12 +1,23 @@
-@use '../../core/styles' as sbb;
+@use '../core/styles' as sbb;
 
 :host {
+  --sbb-train-wagon-transition-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-2x)
+  );
+
   display: block;
   font-size: var(--sbb-train-wagon-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize CSS of several frameworks.
+  outline: none !important;
 }
 
-:host([type='closed']) {
+:host([wagon-type='closed']) {
+  --sbb-train-wagon-crossed-shape-display: block;
+
   @include sbb.if-forced-colors {
     --sbb-train-wagon-shape-color: GrayText;
   }
@@ -16,15 +27,15 @@
   --sbb-train-wagon-border-width: var(--sbb-border-width-3x);
 }
 
-:host(:state(view-side)[type='wagon-end-left']) {
+:host(:state(view-side)[wagon-type='wagon-end-left']) {
   --sbb-train-wagon-padding-inline: var(--sbb-spacing-fixed-4x) var(--sbb-spacing-fixed-3x);
 }
 
-:host(:state(view-side)[type='wagon-end-right']) {
+:host(:state(view-side)[wagon-type='wagon-end-right']) {
   --sbb-train-wagon-padding-inline: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-4x);
 }
 
-:host(:state(view-side)[type='locomotive']) {
+:host(:state(view-side)[wagon-type='locomotive']) {
   --sbb-train-wagon-padding-inline: var(--sbb-spacing-fixed-4x);
 }
 
@@ -35,6 +46,10 @@
 
 :host(:not([label])) {
   --_sbb-train-wagon-attributes-justify-content: center;
+}
+
+:host(:state(action)) {
+  cursor: var(--sbb-cursor-pointer);
 }
 
 .sbb-train-wagon {
@@ -49,6 +64,22 @@
     width: auto;
     height: var(--sbb-train-formation-wagon-height);
   }
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: var(--sbb-train-formation-wagon-width);
+    height: var(--sbb-train-formation-wagon-height);
+    border-radius: var(--sbb-border-radius-6x);
+
+    :host(:state(view-top)) & {
+      border-radius: var(--sbb-border-radius-4x);
+    }
+
+    :host(:state(action):focus-visible) & {
+      @include sbb.focus-outline;
+    }
+  }
 }
 
 .sbb-train-wagon__compartment {
@@ -59,6 +90,18 @@
   justify-content: center;
   padding-inline: var(--sbb-train-wagon-padding-inline);
   mask-image: var(--sbb-train-wagon-clip-shape-compartment);
+  transition: background-color var(--sbb-train-wagon-transition-duration)
+    var(--sbb-animation-easing);
+
+  :host(:state(action):hover) & {
+    @include sbb.hover-mq($hover: true) {
+      background-color: var(--sbb-train-wagon-background-color-hover);
+    }
+  }
+
+  :host(:state(action):is(:active, :state(active))) & {
+    background-color: var(--sbb-train-wagon-background-color-active);
+  }
 
   &:has(.sbb-train-wagon__occupancy):has(.sbb-train-wagon__class) {
     justify-content: space-between;
@@ -76,7 +119,7 @@
   height: var(--sbb-train-formation-wagon-height);
 }
 
-:is(.sbb-train-wagon__shape, .sbb-train-wagon__closed-cross) {
+.sbb-train-wagon__shape {
   position: absolute;
   inset: 0;
   width: var(--sbb-train-formation-wagon-dimension-long);
@@ -110,8 +153,9 @@
   align-items: center;
 }
 
-.sbb-train-wagon__closed-cross {
-  stroke: var(--sbb-train-wagon-shape-color);
+.sbb-train-wagon__shape-closed {
+  display: var(--sbb-train-wagon-crossed-shape-display, none);
+  stroke-width: var(--sbb-border-width-1x);
 }
 
 .sbb-train-wagon__occupancy,
@@ -191,7 +235,14 @@
   align-items: start;
   flex-direction: var(--sbb-train-formation-flex-direction);
   gap: var(--sbb-spacing-fixed-1x);
-  min-width: var(--sbb-train-wagon-information-min-width);
+
+  :host(:state(orientation-vertical)) & {
+    min-width: var(--sbb-train-wagon-information-min-width);
+  }
+
+  &[hidden] {
+    display: none;
+  }
 }
 
 .sbb-train-wagon__label {
