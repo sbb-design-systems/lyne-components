@@ -100,6 +100,13 @@ $theme: 'standard' !default;
       @include sbb.ellipsis;
       @include sbb.input-reset;
 
+      // Form elements are naturally in 'display: inline-block'; however, since the form-element container
+      // is in 'display: flex' (class "sbb-form-field__input"), they are block-ified, as per documentation:
+      // https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Flexible_box_layout/Basic_concepts#the_flex_container
+      // Setting 'display: block' should not change anything on lyne-elements, but is useful for consumers of lyne-angular,
+      // since the rule is valid for Angular custom components which have an inner form element.
+      display: block;
+
       // Use !important here to not interfere with Firefox focus ring definition
       // which appears in normalize CSS of several frameworks.
       outline: none !important;
@@ -164,6 +171,12 @@ $theme: 'standard' !default;
       margin-block: calc(
         0.5 * (var(--sbb-form-field-input-text-size) * (var(--sbb-typo-line-height-text) - 1.25))
       );
+    }
+
+    // This rule matches the analogous one in the form-field.scss,
+    // and it's useful for Angular custom components, assuming that they have an internal form element.
+    &[size='s'] > :has(input, sbb-date-input, sbb-time-input, select, sbb-select) {
+      margin-block-end: #{sbb.px-to-rem-build(-2)};
     }
 
     :where(textarea) {
