@@ -4,15 +4,9 @@ import {
   SbbCardElement,
 } from '@sbb-esta/lyne-elements/card.pure.js';
 import {
-  type SbbOccupancy,
-  SbbElement,
-  type SbbElementType,
-} from '@sbb-esta/lyne-elements/core.js';
-import {
-  SbbLanguageController,
+  boxSizingStyles,
   defaultDateAdapter,
   forceType,
-  setOrRemoveAttribute,
   i18nArrival,
   i18nClass,
   i18nDeparture,
@@ -28,27 +22,31 @@ import {
   i18nTravelhints,
   i18nTripDuration,
   i18nTripQuayChange,
-  boxSizingStyles,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  type SbbOccupancy,
+  setOrRemoveAttribute,
 } from '@sbb-esta/lyne-elements/core.js';
 import { SbbIconElement } from '@sbb-esta/lyne-elements/icon.pure.js';
 import { SbbTimetableOccupancyElement } from '@sbb-esta/lyne-elements/timetable-occupancy.pure.js';
 import { format } from 'date-fns';
 import {
+  type CSSResultGroup,
   html,
   nothing,
-  unsafeCSS,
-  type CSSResultGroup,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { PtRideLeg, PtSituation, ITripItem, Notice } from '../core.ts';
+import type { ITripItem, Notice, PtRideLeg, PtSituation } from '../core.ts';
 import {
-  isRideLeg,
-  getDepartureArrivalTimeAttribute,
-  removeTimezoneFromISOTimeString,
   durationToTime,
+  getDepartureArrivalTimeAttribute,
+  isRideLeg,
+  removeTimezoneFromISOTimeString,
 } from '../core.ts';
 import { SbbPearlChainTimeElement } from '../pearl-chain-time.pure.ts';
 

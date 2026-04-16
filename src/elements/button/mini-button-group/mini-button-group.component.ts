@@ -1,19 +1,19 @@
 import {
-  html,
-  unsafeCSS,
   type CSSResultGroup,
+  html,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
-  SbbElement,
+  boxSizingStyles,
   forceType,
   isLean,
+  SbbElement,
   SbbNamedSlotListMixin,
   SbbNegativeMixin,
-  boxSizingStyles,
 } from '../../core.ts';
 import type { SbbDividerElement } from '../../divider/divider.component.ts';
 import type { SbbMiniButtonElement } from '../mini-button/mini-button.component.ts';

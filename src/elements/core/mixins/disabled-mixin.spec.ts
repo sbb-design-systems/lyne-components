@@ -5,7 +5,7 @@ import { html } from 'lit/static-html.js';
 
 import { SbbButtonBaseElement } from '../base-elements/button-base-element.ts';
 import { isChromium } from '../dom/platform.ts';
-import { a11yTreeSnapshot, fixture, type A11yNode } from '../testing/private.ts';
+import { type A11yNode, a11yTreeSnapshot, fixture } from '../testing/private.ts';
 import { waitForLitRender } from '../testing.ts';
 
 import { SbbDisabledMixin, SbbDisabledTabIndexActionMixin } from './disabled-mixin.ts';

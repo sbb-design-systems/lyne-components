@@ -10,13 +10,13 @@ import {
 import { property, state } from 'lit/decorators.js';
 
 import {
-  SbbFocusVisibleWithinController,
-  SbbElement,
+  boxSizingStyles,
   forceType,
   idReference,
   isLean,
   queueDomContentLoaded,
-  boxSizingStyles,
+  SbbElement,
+  SbbFocusVisibleWithinController,
 } from '../../core.ts';
 
 import style from './header.scss?inline';

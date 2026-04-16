@@ -10,9 +10,9 @@ import { i18nCheckboxRequired } from '../i18n/i18n.ts';
 import type { AbstractConstructor } from './constructor.ts';
 import { SbbDisabledMixin } from './disabled-mixin.ts';
 import {
-  SbbFormAssociatedMixin,
   type FormRestoreReason,
   type FormRestoreState,
+  SbbFormAssociatedMixin,
 } from './form-associated-mixin.ts';
 import { SbbRequiredMixin } from './required-mixin.ts';
 

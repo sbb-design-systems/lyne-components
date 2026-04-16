@@ -1,23 +1,24 @@
-import { SbbElement, type SbbElementType } from '@sbb-esta/lyne-elements/core.js';
 import {
-  SbbLanguageController,
+  boxSizingStyles,
   defaultDateAdapter,
   forceType,
   i18nArrival,
   i18nDeparture,
   i18nTransferProcedures,
-  boxSizingStyles,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
 } from '@sbb-esta/lyne-elements/core.js';
 import { SbbIconElement } from '@sbb-esta/lyne-elements/icon.pure.js';
 import { format } from 'date-fns';
-import { html, nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { Leg, PtRideLeg } from '../core.ts';
 import {
-  removeTimezoneFromISOTimeString,
   getDepartureArrivalTimeAttribute,
   isRideLeg,
+  removeTimezoneFromISOTimeString,
 } from '../core.ts';
 import { SbbPearlChainElement } from '../pearl-chain.pure.ts';
 

@@ -1,12 +1,12 @@
 import {
-  SbbElement,
-  SbbLanguageController,
+  boxSizingStyles,
   forceType,
   i18nDurationHour,
   i18nDurationMinute,
-  boxSizingStyles,
+  SbbElement,
+  SbbLanguageController,
 } from '@sbb-esta/lyne-elements/core.js';
-import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import style from './timetable-duration.scss?inline';

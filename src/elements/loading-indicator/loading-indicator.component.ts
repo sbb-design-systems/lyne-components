@@ -1,7 +1,7 @@
-import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement, boxSizingStyles } from '../core.ts';
+import { boxSizingStyles, SbbElement } from '../core.ts';
 
 import style from './loading-indicator.scss?inline';
 

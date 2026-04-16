@@ -1,4 +1,4 @@
-import { nothing, unsafeCSS, type TemplateResult } from 'lit';
+import { nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
@@ -8,26 +8,24 @@ import {
   type SbbSecondaryButtonStaticElement,
 } from '../../button.pure.ts';
 import {
-  sbbInputModalityDetector,
-  SbbLanguageController,
+  type AbstractConstructor,
   forceType,
-  isLean,
+  type FormRestoreReason,
+  type FormRestoreState,
   forwardEvent,
   i18nFileSelectorButtonLabel,
   i18nFileSelectorButtonLabelMultiple,
   i18nFileSelectorCurrentlySelected,
   i18nFileSelectorDeleteFile,
-} from '../../core.ts';
-import {
+  isLean,
+  SbbDisabledMixin,
   SbbElement,
-  ɵstateController,
   type SbbElementConstructor,
   type SbbElementType,
-  type AbstractConstructor,
-  type FormRestoreReason,
-  type FormRestoreState,
-  SbbDisabledMixin,
   SbbFormAssociatedMixin,
+  sbbInputModalityDetector,
+  SbbLanguageController,
+  ɵstateController,
 } from '../../core.ts';
 
 import fileSelectorCommonStyleString from './file-selector-common.scss?inline';

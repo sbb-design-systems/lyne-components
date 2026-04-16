@@ -4,7 +4,6 @@ import { html } from 'lit/static-html.js';
 import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import {
-  setOrRemoveAttribute,
   i18nBlockedPassage,
   i18nClass,
   i18nLocomotiveLabel,
@@ -12,6 +11,7 @@ import {
   i18nRestaurantWagonLabel,
   i18nSleepingWagonLabel,
   i18nWagonLabel,
+  setOrRemoveAttribute,
 } from '../../core.ts';
 import type { SbbIconElement } from '../../icon.pure.ts';
 

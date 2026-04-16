@@ -1,13 +1,13 @@
-import { unsafeCSS, type CSSResultGroup, type PropertyValues } from 'lit';
+import { type CSSResultGroup, type PropertyValues, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbOccupancy } from '../core.ts';
 import {
+  i18nOccupancy,
   SbbDarkModeController,
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryForcedColors,
-  i18nOccupancy,
   SbbNegativeMixin,
 } from '../core.ts';
 import { SbbIconBase } from '../icon.pure.ts';

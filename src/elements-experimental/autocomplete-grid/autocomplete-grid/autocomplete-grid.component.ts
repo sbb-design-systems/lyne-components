@@ -1,9 +1,9 @@
 import { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.pure.js';
 import {
   getNextElementIndex,
-  ɵstateController,
   isSafari,
   setAriaComboBoxAttributes,
+  ɵstateController,
 } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.pure.js';
 import type {

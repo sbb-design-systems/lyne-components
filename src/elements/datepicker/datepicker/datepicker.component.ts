@@ -10,14 +10,16 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbCalendarElement, type CalendarView } from '../../calendar.pure.ts';
-import { type SbbElementType, type DateAdapter, defaultDateAdapter } from '../../core.ts';
+import { type CalendarView, SbbCalendarElement } from '../../calendar.pure.ts';
 import {
-  readConfig,
-  SbbLanguageController,
+  type DateAdapter,
+  defaultDateAdapter,
   forceType,
-  idReference,
   i18nDateChangedTo,
+  idReference,
+  readConfig,
+  type SbbElementType,
+  SbbLanguageController,
   SbbUpdateSchedulerMixin,
 } from '../../core.ts';
 import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.pure.ts';

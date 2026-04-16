@@ -10,14 +10,14 @@ import {
 import { eventOptions, property } from 'lit/decorators.js';
 
 import {
-  SbbFocusTrapController,
-  SbbOpenCloseBaseElement,
-  SbbEscapableOverlayController,
+  boxSizingStyles,
   forceType,
   handleDistinctChange,
   isZeroAnimationDuration,
   SbbAnimationCompleteMixin,
-  boxSizingStyles,
+  SbbEscapableOverlayController,
+  SbbFocusTrapController,
+  SbbOpenCloseBaseElement,
 } from '../../core.ts';
 import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 

@@ -1,13 +1,13 @@
 import {
-  html,
-  unsafeCSS,
   type CSSResultGroup,
+  html,
   type PropertyDeclaration,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement, isLean, SbbFormAssociatedCheckboxMixin, boxSizingStyles } from '../core.ts';
+import { boxSizingStyles, isLean, SbbElement, SbbFormAssociatedCheckboxMixin } from '../core.ts';
 import { SbbIconNameMixin } from '../icon.pure.ts';
 
 import style from './toggle-check.scss?inline';

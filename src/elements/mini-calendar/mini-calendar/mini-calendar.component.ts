@@ -1,15 +1,15 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import {
-  isArrowKeyOrPageKeysPressed,
-  ɵstateController,
-  SbbElement,
-  readConfig,
-  defaultDateAdapter,
-} from '../../core.ts';
 import type { DateAdapter, SbbOrientation } from '../../core.ts';
+import {
+  defaultDateAdapter,
+  isArrowKeyOrPageKeysPressed,
+  readConfig,
+  SbbElement,
+  ɵstateController,
+} from '../../core.ts';
 import type { SbbMiniCalendarDayElement } from '../mini-calendar-day/mini-calendar-day.component.ts';
 import type { SbbMiniCalendarMonthElement } from '../mini-calendar-month/mini-calendar-month.component.ts';
 

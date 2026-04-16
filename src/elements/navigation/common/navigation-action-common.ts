@@ -1,14 +1,14 @@
-import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type {
+  AbstractConstructor,
   SbbActionBaseElement,
   SbbElementConstructor,
   SbbElementType,
-  AbstractConstructor,
 } from '../../core.ts';
-import { isLean, boxSizingStyles } from '../../core.ts';
+import { boxSizingStyles, isLean } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';

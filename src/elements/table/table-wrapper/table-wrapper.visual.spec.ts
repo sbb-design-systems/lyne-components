@@ -4,9 +4,9 @@ import { classMap } from 'lit/directives/class-map.js';
 import {
   describeEach,
   describeViewports,
-  visualRegressionFixture,
   visualDiffDefault,
   visualDiffFocus,
+  visualRegressionFixture,
 } from '../../core/testing/private.ts';
 import { waitForCondition } from '../../core/testing.ts';
 

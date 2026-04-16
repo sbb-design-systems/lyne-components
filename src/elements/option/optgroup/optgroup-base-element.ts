@@ -9,8 +9,14 @@ import {
 import { property, state } from 'lit/decorators.js';
 
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.pure.ts';
-import { SbbElement, type SbbElementType } from '../../core.ts';
-import { forceType, isSafari, SbbDisabledMixin, boxSizingStyles } from '../../core.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  isSafari,
+  SbbDisabledMixin,
+  SbbElement,
+  type SbbElementType,
+} from '../../core.ts';
 import { SbbDividerElement } from '../../divider.pure.ts';
 import type { SbbOptionBaseElement } from '../option/option-base-element.ts';
 

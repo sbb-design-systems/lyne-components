@@ -9,11 +9,11 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
-  SbbElement,
+  boxSizingStyles,
   isLean,
   isZeroAnimationDuration,
+  SbbElement,
   SbbUpdateSchedulerMixin,
-  boxSizingStyles,
 } from '../../core.ts';
 
 import style from './sticky-bar.scss?inline';
