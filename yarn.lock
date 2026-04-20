@@ -405,9 +405,9 @@
     unified "^9.2.1"
 
 "@dependents/detective-less@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@dependents/detective-less/-/detective-less-5.0.1.tgz#e6c5b502f0d26a81da4170c1ccd848a6eaa68470"
-  integrity sha512-Y6+WUMsTFWE5jb20IFP4YGa5IrGY/+a/FbOSjDF/wz9gepU2hwCYSXRHP/vPwBvwcY3SVMASt4yXxbXNXigmZQ==
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@dependents/detective-less/-/detective-less-5.0.2.tgz#60e96bd9597bc2604295cb476448aa4192fa0215"
+  integrity sha512-QPKO4ao2+iniYAYnPZwHKK67EgDG2GAdye9OCy11xsmApHGwzpH3AcSdPjGyPO3tC2/K8mF7JjWX3A/FTRnskg==
   dependencies:
     gonzales-pe "^4.3.0"
     node-source-walk "^7.0.1"
@@ -4226,9 +4226,9 @@ dependency-graph@^0.11.0:
   integrity sha512-JeMq7fEshyepOWDfcfHK06N3MhyPhz++vtqWhMT5O9A3K42rdsEDpfdVqjaqaAhsw6a+ZqeDvQVtD0hFHQWrzg==
 
 dependency-tree@^11.0.0:
-  version "11.4.2"
-  resolved "https://registry.yarnpkg.com/dependency-tree/-/dependency-tree-11.4.2.tgz#1a59071ce8e924efc5b7bfa9c5e2b945ca328957"
-  integrity sha512-Nh8VUs4plHIgkjkIvHyZ9voEDfv86aAhToBWi04l4HnulnYIWwXUipQtGgfnF4tadVaINH8HqGcsYlfaWzIs1g==
+  version "11.4.3"
+  resolved "https://registry.yarnpkg.com/dependency-tree/-/dependency-tree-11.4.3.tgz#573c5f2b55a711fd5cb63a249a3855cbceb76e1d"
+  integrity sha512-Y2gzOJ2Rb2X7MN6pT9llWpXxl5J5s5/11CBpJ5b85DjEqZH7jv3T9RO6HRV/PI/3MDmaKn/g7uoYdYmSb9vLlw==
   dependencies:
     commander "^12.1.0"
     filing-cabinet "^5.3.0"
@@ -4261,17 +4261,17 @@ detective-amd@^6.0.1:
     node-source-walk "^7.0.1"
 
 detective-cjs@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/detective-cjs/-/detective-cjs-6.1.0.tgz#bdc42637765686800be491e46fc8cedb565804ff"
-  integrity sha512-Qt3S4IddVNDb+71lm+jmt5NznIsgcKlibTnrw9Zr91rT9vRwKp+73+ImqLTNrQj4YuOxnzrC7GwIAVwF7136XQ==
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/detective-cjs/-/detective-cjs-6.1.1.tgz#b7c78b649dbdfa0bba228ab28c9707f4a04d5fd7"
+  integrity sha512-pSh7mkCKEtLlmANqLu3KDFS3NV8Hx41jy/JF1/gAWOgU+Uo5QTkeI1tWNP4dWGo4L0E9j18Ez9EPsTleautKqA==
   dependencies:
     ast-module-types "^6.0.1"
     node-source-walk "^7.0.1"
 
 detective-es6@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/detective-es6/-/detective-es6-5.0.1.tgz#f0c026bc9b767a243e57ef282f4343fcf3b8ec4e"
-  integrity sha512-XusTPuewnSUdoxRSx8OOI6xIA/uld/wMQwYsouvFN2LAg7HgP06NF1lHRV3x6BZxyL2Kkoih4ewcq8hcbGtwew==
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/detective-es6/-/detective-es6-5.0.2.tgz#afca245be54cbb8bb316591b182cbf9bc8243dc0"
+  integrity sha512-+qHHGYhjupiVs4rnIpI9nZ5B130A4AmE35ZX1w33hb46vcZ7T3jfDbvmPw0FhWtMHn5BS5HHu7ZtnZ53bMcXZA==
   dependencies:
     node-source-walk "^7.0.1"
 
@@ -7712,9 +7712,9 @@ mlly@^1.7.4:
     ufo "^1.6.3"
 
 module-definition@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/module-definition/-/module-definition-6.0.1.tgz#47e73144cc5a9aa31f3380166fddf8e962ccb2e4"
-  integrity sha512-FeVc50FTfVVQnolk/WQT8MX+2WVcDnTGiq6Wo+/+lJ2ET1bRVi3HG3YlJUfqagNMc/kUlFSoR96AJkxGpKz13g==
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/module-definition/-/module-definition-6.0.2.tgz#d72a3613dbf6fe7247ebef64f11fddc2cd18b83b"
+  integrity sha512-SvAU3lB0+Yjbq55yHY3wkRZBOh+fhU1SnIF3IFbTewv6mtAh7yUT8ACHAJ2mGIJ7tCes2QuCL/cl6m0JSZ/ArA==
   dependencies:
     ast-module-types "^6.0.1"
     node-source-walk "^7.0.1"
