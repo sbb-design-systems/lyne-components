@@ -3,7 +3,6 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  nothing,
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
@@ -24,9 +23,9 @@ import {
   SbbNegativeMixin,
   isEventOnElement,
   overlayGapFixCorners,
-  removeAriaComboBoxAttributes,
   setOverlayPosition,
   boxSizingStyles,
+  removeAriaComboBoxProperties,
 } from '../core.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
 import type { SbbOptionBaseElement } from '../option.pure.ts';
@@ -133,7 +132,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   }
   private _triggerElement?: HTMLInputElement | null;
 
-  protected abstract overlayId: string;
   protected abstract panelRole: string;
   protected activeOption: SbbOptionBaseElement<T> | null = null;
   protected pendingAutoSelectedOption: SbbOptionBaseElement<T> | null = null;
@@ -193,7 +191,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   }
 
   protected abstract syncNegative(): void;
-  protected abstract setTriggerAttributes(element: HTMLInputElement): void;
+  protected abstract setTriggerAttributes(trigger: HTMLInputElement): void;
   protected abstract openedPanelKeyboardInteraction(event: KeyboardEvent): void;
   protected abstract selectByKeyboard(event: KeyboardEvent): void;
   protected abstract setNextActiveOption(event?: KeyboardEvent): void;
@@ -266,9 +264,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   public override connectedCallback(): void {
     this.popover = 'manual';
     super.connectedCallback();
-    if (ariaRoleOnHost) {
-      this.id ||= this.overlayId;
-    }
 
     if (this.hasUpdated) {
       this._componentSetup();
@@ -432,6 +427,12 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     }
 
     this._configureTrigger();
+
+    if (ariaRoleOnHost) {
+      this.role = this.panelRole;
+    } else {
+      this._optionContainer.role = this.panelRole;
+    }
   }
 
   private _configureTrigger(): void {
@@ -442,7 +443,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     }
 
     this._triggerAbortController?.abort();
-    removeAriaComboBoxAttributes(this.triggerElement);
+    removeAriaComboBoxProperties(this.triggerElement);
     this.triggerElement?.removeAttribute('data-expanded');
     this._triggerElement = triggerElement;
 
@@ -704,8 +705,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
           <div class="sbb-autocomplete__wrapper">
             <div
               class="sbb-autocomplete__options"
-              role=${!ariaRoleOnHost ? this.panelRole : nothing}
-              id=${!ariaRoleOnHost ? this.overlayId : nothing}
               tabindex="-1"
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
             >

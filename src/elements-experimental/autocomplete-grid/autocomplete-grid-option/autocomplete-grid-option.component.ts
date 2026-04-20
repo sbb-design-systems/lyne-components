@@ -8,8 +8,6 @@ import { unsafeCSS, type CSSResultGroup, type PropertyValues } from 'lit';
 
 import style from './autocomplete-grid-option.scss?inline';
 
-export const autocompleteGridOptionId: string = `sbb-autocomplete-grid-option`;
-
 /**
  * It displays an option item which can be used in `sbb-autocomplete-grid`.
  *
@@ -23,8 +21,6 @@ export class SbbAutocompleteGridOptionElement<T = string> extends SbbOptionBaseE
   public static override readonly elementName: string = 'sbb-autocomplete-grid-option';
   public static override readonly role = 'gridcell';
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
-
-  protected optionId = autocompleteGridOptionId;
 
   public constructor() {
     super();

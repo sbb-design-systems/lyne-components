@@ -52,7 +52,6 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox Shadow DOM"] =
     <div class="sbb-autocomplete__wrapper">
       <div
         class="sbb-autocomplete__options"
-        id="sbb-autocomplete-grid-2"
         role="grid"
         tabindex="-1"
       >
@@ -68,6 +67,7 @@ snapshots["sbb-autocomplete-grid Chrome-Firefox Shadow DOM"] =
 snapshots["sbb-autocomplete-grid Safari DOM"] = 
 `<sbb-autocomplete-grid
   popover="manual"
+  role="grid"
   size="m"
 >
   <sbb-autocomplete-grid-row>

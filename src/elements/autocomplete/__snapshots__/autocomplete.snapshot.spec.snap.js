@@ -3,22 +3,16 @@ export const snapshots = {};
 
 snapshots["sbb-autocomplete renders standalone Safari DOM"] = 
 `<sbb-autocomplete
-  id="sbb-autocomplete-1"
   origin="origin"
   popover="manual"
+  role="listbox"
   size="m"
   trigger="trigger"
 >
-  <sbb-option
-    id="sbb-option-0"
-    value="1"
-  >
+  <sbb-option value="1">
     1
   </sbb-option>
-  <sbb-option
-    id="sbb-option-1"
-    value="2"
-  >
+  <sbb-option value="2">
     2
   </sbb-option>
 </sbb-autocomplete>
@@ -68,28 +62,22 @@ snapshots["sbb-autocomplete renders in form field Safari DOM"] =
 >
   <input
     aria-autocomplete="list"
-    aria-controls="sbb-autocomplete-3"
+    aria-controls=""
     aria-expanded="false"
     aria-haspopup="listbox"
-    aria-owns="sbb-autocomplete-3"
+    aria-owns=""
     autocomplete="off"
     role="combobox"
   >
   <sbb-autocomplete
-    id="sbb-autocomplete-3"
     popover="manual"
+    role="listbox"
     size="m"
   >
-    <sbb-option
-      id="sbb-option-4"
-      value="1"
-    >
+    <sbb-option value="1">
       1
     </sbb-option>
-    <sbb-option
-      id="sbb-option-5"
-      value="2"
-    >
+    <sbb-option value="2">
       2
     </sbb-option>
   </sbb-autocomplete>
@@ -181,7 +169,6 @@ snapshots["sbb-autocomplete renders standalone Chrome-Firefox Shadow DOM"] =
     <div class="sbb-autocomplete__wrapper">
       <div
         class="sbb-autocomplete__options"
-        id="sbb-autocomplete-2"
         role="listbox"
         tabindex="-1"
       >
@@ -202,10 +189,10 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
 >
   <input
     aria-autocomplete="list"
-    aria-controls="sbb-autocomplete-3"
+    aria-controls=""
     aria-expanded="false"
     aria-haspopup="listbox"
-    aria-owns="sbb-autocomplete-3"
+    aria-owns=""
     autocomplete="off"
     role="combobox"
   >

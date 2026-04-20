@@ -6,22 +6,13 @@ snapshots["sbb-select renders Safari DOM"] =
   role="listbox"
   size="m"
 >
-  <sbb-option
-    id="sbb-option-0"
-    value="1"
-  >
+  <sbb-option value="1">
     Option 1
   </sbb-option>
-  <sbb-option
-    id="sbb-option-1"
-    value="2"
-  >
+  <sbb-option value="2">
     Option 2
   </sbb-option>
-  <sbb-option
-    id="sbb-option-2"
-    value="3"
-  >
+  <sbb-option value="3">
     Option 3
   </sbb-option>
 </sbb-select>
@@ -78,22 +69,13 @@ snapshots["sbb-select renders multiple Safari DOM"] =
   role="listbox"
   size="m"
 >
-  <sbb-option
-    id="sbb-option-6"
-    value="1"
-  >
+  <sbb-option value="1">
     Option 1
   </sbb-option>
-  <sbb-option
-    id="sbb-option-7"
-    value="2"
-  >
+  <sbb-option value="2">
     Option 2
   </sbb-option>
-  <sbb-option
-    id="sbb-option-8"
-    value="3"
-  >
+  <sbb-option value="3">
     Option 3
   </sbb-option>
 </sbb-select>
@@ -190,7 +172,6 @@ snapshots["sbb-select renders Chrome-Firefox Shadow DOM"] =
     <div class="sbb-select__wrapper">
       <div
         class="sbb-select__options"
-        id="aria-ref-1"
         role="listbox"
         tabindex="-1"
       >
