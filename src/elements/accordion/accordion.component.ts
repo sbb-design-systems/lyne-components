@@ -1,20 +1,20 @@
 import {
-  html,
-  unsafeCSS,
   type CSSResultGroup,
+  html,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
-  SbbElement,
-  ɵstateController,
+  boxSizingStyles,
   forceType,
   handleDistinctChange,
-  isLean,
   isEventPrevented,
-  boxSizingStyles,
+  isLean,
+  SbbElement,
+  ɵstateController,
 } from '../core.ts';
 import type { SbbExpansionPanelElement } from '../expansion-panel.pure.ts';
 import type { SbbTitleLevel } from '../title.pure.ts';

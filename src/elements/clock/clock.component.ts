@@ -1,16 +1,16 @@
 import {
+  type CSSResultGroup,
   html,
   isServer,
-  unsafeCSS,
-  type CSSResultGroup,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import type { SbbTime } from '../core.ts';
-import { SbbElement, boxSizingStyles } from '../core.ts';
+import { boxSizingStyles, SbbElement } from '../core.ts';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg?raw';

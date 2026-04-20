@@ -1,6 +1,6 @@
 import { expect } from '@open-wc/testing';
 
-import { removeTimezoneFromISOTimeString, durationToTime } from './date-helper.ts';
+import { durationToTime, removeTimezoneFromISOTimeString } from './date-helper.ts';
 
 describe('removeTimezoneFromDate', () => {
   it('returns date in local timezone', () => {

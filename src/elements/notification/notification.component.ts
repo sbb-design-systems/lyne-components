@@ -10,14 +10,16 @@ import {
 import { property } from 'lit/decorators.js';
 
 import { SbbSecondaryButtonElement } from '../button.pure.ts';
-import { type SbbOpenedClosedState, SbbElement, type SbbElementType } from '../core.ts';
 import {
-  SbbLanguageController,
+  boxSizingStyles,
+  i18nCloseNotification,
   isLean,
   isZeroAnimationDuration,
-  i18nCloseNotification,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  type SbbOpenedClosedState,
   SbbReadonlyMixin,
-  boxSizingStyles,
 } from '../core.ts';
 import { SbbDividerElement } from '../divider.pure.ts';
 import { SbbIconNameMixin } from '../icon.pure.ts';

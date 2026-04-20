@@ -18,7 +18,7 @@ import {
 } from 'lit';
 import { eventOptions, property } from 'lit/decorators.js';
 
-import { SbbElement, forceType, boxSizingStyles } from '../core.ts';
+import { boxSizingStyles, forceType, SbbElement } from '../core.ts';
 
 import style from './image.scss?inline';
 

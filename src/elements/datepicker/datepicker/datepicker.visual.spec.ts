@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { stub, type SinonStub } from 'sinon';
+import { type SinonStub, stub } from 'sinon';
 
 import {
   describeEach,

@@ -1,4 +1,4 @@
-import { unsafeCSS, type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
@@ -7,11 +7,11 @@ import { SbbSecondaryButtonElement } from '../button.pure.ts';
 import { SbbContainerElement } from '../container.pure.ts';
 import type { SbbElementType, SbbOverlayCloseEventDetails } from '../core.ts';
 import {
+  boxSizingStyles,
   forceType,
-  isZeroAnimationDuration,
   forwardEvent,
   i18nCloseDialog,
-  boxSizingStyles,
+  isZeroAnimationDuration,
   SbbScreenReaderOnlyElement,
 } from '../core.ts';
 

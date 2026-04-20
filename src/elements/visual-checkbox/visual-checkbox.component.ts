@@ -1,14 +1,14 @@
-import { html, nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbCheckboxSize } from '../checkbox.pure.ts';
 import {
-  SbbElement,
+  boxSizingStyles,
   forceType,
   isLean,
   SbbDisabledMixin,
+  SbbElement,
   SbbNegativeMixin,
-  boxSizingStyles,
 } from '../core.ts';
 
 import style from './visual-checkbox.scss?inline';

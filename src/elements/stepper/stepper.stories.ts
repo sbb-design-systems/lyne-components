@@ -6,7 +6,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import type { SbbErrorElement } from '../form-field.ts';
-import { SbbStepElement, type SbbStepValidateEventDetails, SbbStepperElement } from '../stepper.ts';
+import { SbbStepElement, SbbStepperElement, type SbbStepValidateEventDetails } from '../stepper.ts';
 
 import readme from './readme.md?raw';
 

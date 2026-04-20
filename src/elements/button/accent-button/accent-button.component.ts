@@ -1,13 +1,13 @@
 import type { CSSResultGroup } from 'lit';
 
 import {
+  boxSizingStyles,
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,
-  boxSizingStyles,
 } from '../../core.ts';
 import {
-  buttonCommonStyle,
   buttonAccentStyle,
+  buttonCommonStyle,
   SbbButtonCommonElementMixin,
 } from '../common/button-common.ts';
 

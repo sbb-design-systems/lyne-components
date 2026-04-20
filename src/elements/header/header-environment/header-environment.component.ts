@@ -1,7 +1,7 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbElement, boxSizingStyles } from '../../core.ts';
+import { boxSizingStyles, SbbElement } from '../../core.ts';
 
 import style from './header-environment.scss?inline';
 

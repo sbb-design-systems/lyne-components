@@ -1,17 +1,17 @@
 import type { PropertyValues } from '@lit/reactive-element';
-import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
-  SbbLanguageController,
+  boxSizingStyles,
   forceType,
   i18nCarouselArrowsNavigationHint,
   i18nNextSlide,
   i18nPreviousSlide,
   i18nSlide,
-  boxSizingStyles,
   SbbElement,
   type SbbElementType,
+  SbbLanguageController,
   SbbScreenReaderOnlyElement,
 } from '../../core.ts';
 import type { SbbCompactPaginatorElement } from '../../paginator.pure.ts';

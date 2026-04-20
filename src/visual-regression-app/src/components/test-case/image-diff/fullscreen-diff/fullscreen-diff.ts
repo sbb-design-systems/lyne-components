@@ -1,11 +1,11 @@
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button-group.js';
 import {
-  LitElement,
-  html,
-  type TemplateResult,
   type CSSResultGroup,
+  html,
+  LitElement,
   nothing,
+  type TemplateResult,
   unsafeCSS,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';

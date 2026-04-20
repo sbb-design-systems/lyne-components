@@ -1,13 +1,13 @@
 import { unsafeCSS } from 'lit';
 
-import {
-  SbbButtonLikeBaseElement,
-  readConfig,
-  SbbPropertyWatcherController,
-  defaultDateAdapter,
-  SbbDisabledMixin,
-} from '../../core.ts';
 import type { DateAdapter, FormRestoreReason, FormRestoreState } from '../../core.ts';
+import {
+  defaultDateAdapter,
+  readConfig,
+  SbbButtonLikeBaseElement,
+  SbbDisabledMixin,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
 
 import calendarCellBaseStyleString from './calendar-cell-base-element.scss?inline';

@@ -1,5 +1,5 @@
-import { SbbElement, forceType, boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
-import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { boxSizingStyles, forceType, SbbElement } from '@sbb-esta/lyne-elements/core.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import style from './seat-reservation-area.scss?inline';

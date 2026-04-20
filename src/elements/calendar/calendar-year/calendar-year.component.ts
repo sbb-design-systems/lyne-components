@@ -4,8 +4,8 @@ import { state } from 'lit/decorators.js';
 import { boxSizingStyles } from '../../core.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
 import {
-  SbbCalendarCellBaseElement,
   calendarCellBaseStyle,
+  SbbCalendarCellBaseElement,
 } from '../common/calendar-cell-base-element.ts';
 
 /**

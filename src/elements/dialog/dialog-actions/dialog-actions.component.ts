@@ -1,4 +1,4 @@
-import { unsafeCSS, type CSSResultGroup } from 'lit';
+import { type CSSResultGroup, unsafeCSS } from 'lit';
 
 import { SbbActionGroupElement } from '../../action-group.pure.ts';
 import { isLean } from '../../core.ts';

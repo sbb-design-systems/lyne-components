@@ -1,7 +1,7 @@
-import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbActionBaseElement, SbbIconPlacement, AbstractConstructor } from '../../core.ts';
+import type { AbstractConstructor, SbbActionBaseElement, SbbIconPlacement } from '../../core.ts';
 import { isLean } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 

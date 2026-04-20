@@ -1,23 +1,21 @@
 import {
-  html,
-  unsafeCSS,
   type CSSResultGroup,
+  html,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
-  SbbButtonLikeBaseElement,
-  forceType,
-  getOverride,
-  omitEmptyConverter,
-  isLean,
   boxSizingStyles,
-} from '../../core.ts';
-import {
+  forceType,
   type FormRestoreReason,
   type FormRestoreState,
+  getOverride,
+  isLean,
+  omitEmptyConverter,
+  SbbButtonLikeBaseElement,
   SbbDisabledTabIndexActionMixin,
 } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';

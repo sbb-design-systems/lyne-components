@@ -1,4 +1,4 @@
-import type { Args, ArgTypes, Meta, StoryObj, Decorator } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';

@@ -9,10 +9,10 @@ import {
 
 import {
   appendAriaElements,
+  boxSizingStyles,
   removeAriaElements,
   SbbElement,
   SbbPropertyWatcherController,
-  boxSizingStyles,
 } from '../../core.ts';
 import type { SbbStepLabelElement } from '../step-label/step-label.component.ts';
 import type { SbbStepperElement } from '../stepper/stepper.component.ts';

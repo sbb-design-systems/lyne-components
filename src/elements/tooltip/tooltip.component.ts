@@ -11,19 +11,19 @@ import { property } from 'lit/decorators.js';
 
 import {
   appendAriaElements,
-  removeAriaElements,
-  SbbOpenCloseBaseElement,
-  readConfig,
-  SbbEscapableOverlayController,
-  SbbOverlayPositionController,
+  boxSizingStyles,
   idReference,
   isAndroid,
   isIOS,
   isZeroAnimationDuration,
   queueDomContentLoaded,
+  readConfig,
+  removeAriaElements,
   SbbDisabledMixin,
+  SbbEscapableOverlayController,
+  SbbOpenCloseBaseElement,
   sbbOverlayOutsidePointerEventListener,
-  boxSizingStyles,
+  SbbOverlayPositionController,
 } from '../core.ts';
 
 import style from './tooltip.scss?inline';

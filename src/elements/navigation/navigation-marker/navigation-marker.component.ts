@@ -2,8 +2,14 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { ɵstateController, SbbElement, isLean, boxSizingStyles } from '../../core.ts';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core.ts';
+import {
+  boxSizingStyles,
+  isLean,
+  SbbElement,
+  SbbNamedSlotListMixin,
+  type WithListChildren,
+  ɵstateController,
+} from '../../core.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 

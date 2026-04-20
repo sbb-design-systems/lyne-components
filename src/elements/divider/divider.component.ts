@@ -8,7 +8,7 @@ import {
 import { property } from 'lit/decorators.js';
 
 import type { SbbOrientation } from '../core.ts';
-import { SbbElement, SbbNegativeMixin, boxSizingStyles } from '../core.ts';
+import { boxSizingStyles, SbbElement, SbbNegativeMixin } from '../core.ts';
 
 import style from './divider.scss?inline';
 
