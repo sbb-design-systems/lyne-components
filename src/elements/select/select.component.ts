@@ -56,8 +56,6 @@ import style from './select.scss?inline';
  */
 const ariaRoleOnHost = isSafari;
 
-let nextId = 0;
-
 /**
  * It displays a panel with selectable options.
  *
@@ -81,7 +79,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   ),
 ) {
   public static override readonly elementName: string = 'sbb-select';
-  public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
@@ -165,7 +162,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _triggerElement: HTMLElement | null = null;
   private _openPanelEventsController?: AbortController;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
-  private _overlayId = `sbb-select-${++nextId}`;
   private _activeItemIndex = -1;
   private _searchTimeout?: ReturnType<typeof setTimeout>;
   private _searchString = '';
@@ -376,6 +372,14 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       this._value = this.value.length ? this.value[0] : null;
     }
     this._updateDisplayValue();
+
+    if (this._didLoad) {
+      if (ariaRoleOnHost) {
+        this.ariaMultiSelectable = this.multiple ? `${this.multiple}` : null;
+      } else {
+        this._optionContainer.ariaMultiSelectable = this.multiple ? `${this.multiple}` : null;
+      }
+    }
   }
 
   /**
@@ -431,10 +435,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   public override connectedCallback(): void {
     super.connectedCallback();
-
-    if (ariaRoleOnHost) {
-      this.id ||= this._overlayId;
-    }
 
     this._syncNegative();
     this._syncAriaLabels();
@@ -543,6 +543,15 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   private _setupSelect(): void {
     this._setupOrigin();
     this._setupTrigger();
+
+    if (ariaRoleOnHost) {
+      this.role = 'listbox';
+      this.ariaMultiSelectable = this.multiple ? `${this.multiple}` : null;
+    } else {
+      this._optionContainer!.role = 'listbox';
+      this._optionContainer.ariaMultiSelectable = this.multiple ? `${this.multiple}` : null;
+    }
+
     this._didLoad = true;
     this.completeUpdate();
   }
@@ -569,6 +578,16 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
    * we are forced to move the 'combobox' trigger element to the light DOM
    */
   private _setupTrigger(): void {
+    if (!this._triggerElement) {
+      return;
+    }
+
+    this._triggerElement.role = 'combobox';
+    this._triggerElement.ariaHasPopup = 'listbox';
+    this._triggerElement.ariaControlsElements = ariaRoleOnHost ? [this] : [this._overlay];
+    this._triggerElement.ariaOwnsElements = ariaRoleOnHost ? [this] : [this._optionContainer]; // From Aria 1.2 this should not be necessary, but safari still needs it
+    this._triggerElement.ariaExpanded = 'false';
+
     // Move the trigger before the sbb-select
     if (this.parentElement && this._triggerElement) {
       this.parentElement.insertBefore?.(this._triggerElement, this);
@@ -848,8 +867,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     nextActiveOption.setActive(true);
     nextActiveOption.scrollIntoView({ block: 'nearest' });
 
-    if (setActiveDescendant) {
-      this._triggerElement?.setAttribute('aria-activedescendant', nextActiveOption.id);
+    if (setActiveDescendant && this._triggerElement) {
+      this._triggerElement.ariaActiveDescendantElement = nextActiveOption;
     }
 
     // Reset the previous
@@ -876,7 +895,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       activeElement.setActive(false);
     }
     this._activeItemIndex = -1;
-    this._triggerElement?.removeAttribute('aria-activedescendant');
+    if (this._triggerElement) {
+      this._triggerElement.ariaActiveDescendantElement = null;
+    }
   }
 
   // Check if the pointerdown event target is triggered on the menu.
@@ -993,12 +1014,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       <div
         class="sbb-screen-reader-only sbb-select-trigger"
         tabindex=${this.disabled || this.formDisabled ? nothing : '0'}
-        role="combobox"
-        aria-haspopup="listbox"
-        aria-expanded="false"
-        aria-required=${this.required.toString()}
-        aria-controls=${this._overlayId}
-        aria-owns=${this._overlayId}
         @keydown=${this._onKeyDown}
         @click=${this._toggleOpening}
         ${ref((ref) => (this._triggerElement = ref as HTMLElement))}
@@ -1021,10 +1036,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         >
           <div class="sbb-select__wrapper">
             <div
-              id=${!ariaRoleOnHost ? this._overlayId : nothing}
               class="sbb-select__options"
-              role=${!ariaRoleOnHost ? 'listbox' : nothing}
-              ?aria-multiselectable=${this.multiple}
               ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
               tabindex="-1"
             >

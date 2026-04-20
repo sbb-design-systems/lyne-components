@@ -3,7 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-select renders Safari DOM"] = 
 `<sbb-select
-  id="sbb-select-1"
+  role="listbox"
   size="m"
 >
   <sbb-option
@@ -73,8 +73,9 @@ snapshots["sbb-select renders Safari Shadow DOM"] =
 
 snapshots["sbb-select renders multiple Safari DOM"] = 
 `<sbb-select
-  id="sbb-select-3"
+  aria-multiselectable="true"
   multiple=""
+  role="listbox"
   size="m"
 >
   <sbb-option
@@ -130,7 +131,6 @@ snapshots["sbb-select renders multiple Safari Shadow DOM"] =
   <div class="sbb-select__panel">
     <div class="sbb-select__wrapper">
       <div
-        aria-multiselectable=""
         class="sbb-select__options"
         tabindex="-1"
       >
@@ -190,7 +190,7 @@ snapshots["sbb-select renders Chrome-Firefox Shadow DOM"] =
     <div class="sbb-select__wrapper">
       <div
         class="sbb-select__options"
-        id="sbb-select-2"
+        id="aria-ref-1"
         role="listbox"
         tabindex="-1"
       >
@@ -271,7 +271,7 @@ snapshots["sbb-select renders multiple Chrome-Firefox Shadow DOM"] =
   <div class="sbb-select__panel">
     <div class="sbb-select__wrapper">
       <div
-        aria-multiselectable=""
+        aria-multiselectable="true"
         class="sbb-select__options"
         role="listbox"
         tabindex="-1"
