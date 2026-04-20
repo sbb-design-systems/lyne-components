@@ -1,4 +1,4 @@
-import { getNextElementIndex, setAriaComboBoxProperties } from '../core.ts';
+import { getNextElementIndex } from '../core.ts';
 import type { SbbDividerElement } from '../divider/divider.component.ts';
 import type { SbbOptionElement, SbbOptionHintElement } from '../option.pure.ts';
 
@@ -91,10 +91,6 @@ export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseEleme
     this.activeOption?.setActive(false);
     this.triggerElement?.removeAttribute('aria-activedescendant');
     this.activeOption = null;
-  }
-
-  protected setTriggerAttributes(trigger: HTMLInputElement): void {
-    setAriaComboBoxProperties(this, trigger, false);
   }
 }
 

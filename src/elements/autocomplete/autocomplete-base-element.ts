@@ -25,7 +25,6 @@ import {
   overlayGapFixCorners,
   setOverlayPosition,
   boxSizingStyles,
-  removeAriaComboBoxProperties,
 } from '../core.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
 import type { SbbOptionBaseElement } from '../option.pure.ts';
@@ -191,7 +190,6 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   }
 
   protected abstract syncNegative(): void;
-  protected abstract setTriggerAttributes(trigger: HTMLInputElement): void;
   protected abstract openedPanelKeyboardInteraction(event: KeyboardEvent): void;
   protected abstract selectByKeyboard(event: KeyboardEvent): void;
   protected abstract setNextActiveOption(event?: KeyboardEvent): void;
@@ -332,6 +330,30 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this._setInputValue(activeOption);
   }
 
+  protected setTriggerAttributes(trigger: HTMLInputElement): void {
+    trigger.setAttribute('autocomplete', 'off');
+    trigger.role = 'combobox';
+    trigger.ariaAutoComplete = 'list';
+    trigger.ariaHasPopup = 'listbox';
+    trigger.ariaControlsElements = [this];
+    trigger.ariaOwnsElements = [this]; // From Aria 1.2 this should not be necessary, but safari still needs it
+    trigger.ariaExpanded = 'false';
+  }
+
+  protected removeTriggerAttributes(trigger: HTMLInputElement | null): void {
+    if (!trigger) {
+      return;
+    }
+
+    trigger.removeAttribute('autocomplete');
+    trigger.role = null;
+    trigger.ariaAutoComplete = null;
+    trigger.ariaHasPopup = null;
+    trigger.ariaControlsElements = null;
+    trigger.ariaOwnsElements = null;
+    trigger.ariaExpanded = null;
+  }
+
   private _setValueAndDispatchEvents(
     selectedOption: SbbOptionBaseElement<T>,
     preventFocus = false,
@@ -443,7 +465,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     }
 
     this._triggerAbortController?.abort();
-    removeAriaComboBoxProperties(this.triggerElement);
+    this.removeTriggerAttributes(this.triggerElement);
     this.triggerElement?.removeAttribute('data-expanded');
     this._triggerElement = triggerElement;
 

@@ -1,9 +1,5 @@
 import { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.pure.js';
-import {
-  getNextElementIndex,
-  ɵstateController,
-  setAriaComboBoxProperties,
-} from '@sbb-esta/lyne-elements/core.js';
+import { getNextElementIndex, ɵstateController } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.pure.js';
 import type {
   SbbOptGroupElement,
@@ -183,8 +179,8 @@ export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseE
     this.triggerElement?.removeAttribute('aria-activedescendant');
   }
 
-  protected setTriggerAttributes(trigger: HTMLInputElement): void {
-    setAriaComboBoxProperties(this, trigger, false, 'grid');
+  protected override setTriggerAttributes(trigger: HTMLInputElement): void {
+    trigger.ariaHasPopup = 'grid';
   }
 }
 
