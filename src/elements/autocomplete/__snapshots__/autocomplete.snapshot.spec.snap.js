@@ -192,7 +192,7 @@ snapshots["sbb-autocomplete renders in form field Chrome-Firefox DOM"] =
     aria-controls=""
     aria-expanded="false"
     aria-haspopup="listbox"
-    aria-owns=""
+    aria-owns="aria-ref-2"
     autocomplete="off"
     role="combobox"
   >

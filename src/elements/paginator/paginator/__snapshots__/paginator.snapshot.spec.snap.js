@@ -518,12 +518,11 @@ snapshots["sbb-paginator renders with options and accessibility labels Chrome-Fi
       width="collapse"
     >
       <div
-        aria-controls="sbb-select-2"
+        aria-controls=""
         aria-expanded="false"
         aria-haspopup="listbox"
         aria-label="Items per slide"
-        aria-owns="sbb-select-2"
-        aria-required="false"
+        aria-owns="aria-ref-1"
         class="sbb-screen-reader-only sbb-select-trigger"
         role="combobox"
         tabindex="0"

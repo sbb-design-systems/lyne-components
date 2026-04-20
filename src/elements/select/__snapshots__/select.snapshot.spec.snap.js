@@ -172,6 +172,7 @@ snapshots["sbb-select renders Chrome-Firefox Shadow DOM"] =
     <div class="sbb-select__wrapper">
       <div
         class="sbb-select__options"
+        id="aria-ref-1"
         role="listbox"
         tabindex="-1"
       >
