@@ -1,12 +1,12 @@
 import { miniButtonStyle } from '@sbb-esta/lyne-elements/button.pure.js';
 import {
-  SbbActionBaseElement,
-  SbbPropertyWatcherController,
+  boxSizingStyles,
   hostAttributes,
   isEventPrevented,
+  SbbActionBaseElement,
   SbbDisabledMixin,
   SbbNegativeMixin,
-  boxSizingStyles,
+  SbbPropertyWatcherController,
 } from '@sbb-esta/lyne-elements/core.js';
 import { SbbIconNameMixin } from '@sbb-esta/lyne-elements/icon.pure.js';
 import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';

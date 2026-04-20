@@ -1,13 +1,13 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType, omitEmptyConverter } from '../core.ts';
 import type {
+  AbstractConstructor,
   SbbElement,
   SbbElementConstructor,
   SbbElementType,
-  AbstractConstructor,
 } from '../core.ts';
+import { forceType, omitEmptyConverter } from '../core.ts';
 
 import { SbbIconElement } from './icon.component.ts';
 

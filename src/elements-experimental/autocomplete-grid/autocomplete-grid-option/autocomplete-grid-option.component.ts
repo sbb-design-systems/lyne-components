@@ -1,10 +1,10 @@
 import {
-  ɵstateController,
-  SbbPropertyWatcherController,
   boxSizingStyles,
+  SbbPropertyWatcherController,
+  ɵstateController,
 } from '@sbb-esta/lyne-elements/core.js';
 import { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option.pure.js';
-import { unsafeCSS, type CSSResultGroup, type PropertyValues } from 'lit';
+import { type CSSResultGroup, type PropertyValues, unsafeCSS } from 'lit';
 
 import style from './autocomplete-grid-option.scss?inline';
 

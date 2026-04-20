@@ -9,7 +9,7 @@ import {
   visualDiffStandardStates,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
-import { ɵstateController, isWebkit } from '../../core.ts';
+import { isWebkit, ɵstateController } from '../../core.ts';
 
 import '../../button.ts';
 

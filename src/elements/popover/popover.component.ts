@@ -1,38 +1,40 @@
 import {
+  type CSSResultGroup,
   html,
   isServer,
   nothing,
-  unsafeCSS,
-  type CSSResultGroup,
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import { SbbSecondaryButtonElement } from '../button.pure.ts';
 import {
+  boxSizingStyles,
+  composedPathHasAttribute,
+  forceType,
+  getElementPosition,
+  i18nClosePopover,
+  idReference,
   IS_FOCUSABLE_QUERY,
+  isEventOnElement,
   isFakeMousedownFromScreenReader,
+  isZeroAnimationDuration,
+  readConfig,
+  removeAriaOverlayTriggerProperties,
+  type SbbElementType,
+  SbbEscapableOverlayController,
   SbbFocusTrapController,
   sbbInputModalityDetector,
-  readConfig,
-  SbbEscapableOverlayController,
   SbbLanguageController,
   SbbMediaQueryPointerCoarse,
-  forceType,
-  idReference,
-  isZeroAnimationDuration,
-  composedPathHasAttribute,
-  i18nClosePopover,
-  getElementPosition,
-  isEventOnElement,
-  boxSizingStyles,
-  removeAriaOverlayTriggerProperties,
+  SbbOpenCloseBaseElement,
   setAriaOverlayTriggerProperties,
+  ɵstateController,
 } from '../core.ts';
-import { ɵstateController, SbbOpenCloseBaseElement, type SbbElementType } from '../core.ts';
 
 import style from './popover.scss?inline';
 

@@ -1,8 +1,8 @@
-import { html, nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 
 import type { SbbAutocompleteElement } from '../../autocomplete.pure.ts';
 import type { SbbElementType } from '../../core.ts';
-import { SbbPropertyWatcherController, boxSizingStyles } from '../../core.ts';
+import { boxSizingStyles, SbbPropertyWatcherController } from '../../core.ts';
 import type { SbbSelectElement } from '../../select.pure.ts';
 import { SbbVisualCheckboxElement } from '../../visual-checkbox.pure.ts';
 

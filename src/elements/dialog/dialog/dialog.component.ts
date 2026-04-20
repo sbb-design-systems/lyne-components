@@ -1,13 +1,13 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { unsafeCSS, type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbElementType, SbbOverlayCloseEventDetails } from '../../core.ts';
 import {
-  isZeroAnimationDuration,
   boxSizingStyles,
+  isZeroAnimationDuration,
   SbbScreenReaderOnlyElement,
 } from '../../core.ts';
 import {

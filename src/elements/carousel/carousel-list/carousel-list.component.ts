@@ -3,10 +3,10 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import {
+  i18nCarouselItemAriaLabel,
   isArrowKeyPressed,
   SbbElement,
   SbbLanguageController,
-  i18nCarouselItemAriaLabel,
 } from '../../core.ts';
 import type {
   SbbCarouselItemElement,

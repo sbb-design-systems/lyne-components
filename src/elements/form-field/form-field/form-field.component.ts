@@ -12,19 +12,17 @@ import { property, state } from 'lit/decorators.js';
 import type { SbbAutocompleteBaseElement } from '../../autocomplete.pure.ts';
 import type { SbbChipGroupElement } from '../../chip.pure.ts';
 import {
-  sbbInputModalityDetector,
-  SbbLanguageController,
-  forceType,
-  isLean,
-  i18nOptional,
-  boxSizingStyles,
-} from '../../core.ts';
-import {
   appendAriaElements,
+  boxSizingStyles,
+  forceType,
+  i18nOptional,
+  isLean,
   removeAriaElements,
   SbbElement,
   type SbbElementType,
   type SbbFormAssociatedInputMixinType,
+  sbbInputModalityDetector,
+  SbbLanguageController,
   SbbNegativeMixin,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';

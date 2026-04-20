@@ -1,11 +1,11 @@
-import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement, getOverride, isLean, boxSizingStyles } from '../core.ts';
+import { boxSizingStyles, getOverride, isLean, SbbElement } from '../core.ts';
 
 import {
-  SbbRadioButtonCommonElementMixin,
   radioButtonCommonStyle,
+  SbbRadioButtonCommonElementMixin,
   type SbbRadioButtonSize,
 } from './common/radio-button-common.ts';
 import style from './radio-button.scss?inline';

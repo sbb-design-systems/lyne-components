@@ -1,7 +1,7 @@
-import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement, boxSizingStyles } from '../../core.ts';
+import { boxSizingStyles, SbbLinkBaseElement } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
 import style from './breadcrumb.scss?inline';

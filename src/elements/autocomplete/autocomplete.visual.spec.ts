@@ -2,8 +2,13 @@ import { aTimeout } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';
 
-import { tabKey, type VisualDiffSetupBuilder } from '../core/testing/private.ts';
-import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
+import {
+  describeViewports,
+  tabKey,
+  visualDiffDefault,
+  visualDiffFocus,
+  type VisualDiffSetupBuilder,
+} from '../core/testing/private.ts';
 import { waitForLitRender } from '../core/testing.ts';
 
 import '../card.ts';

@@ -1,13 +1,16 @@
-import { html, nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
-  type SbbOccupancy,
+  boxSizingStyles,
+  i18nClass,
   SbbElement,
   type SbbElementType,
+  SbbLanguageController,
+  SbbNegativeMixin,
+  type SbbOccupancy,
   SbbScreenReaderOnlyElement,
 } from '../core.ts';
-import { SbbLanguageController, i18nClass, SbbNegativeMixin, boxSizingStyles } from '../core.ts';
 import { SbbTimetableOccupancyIconElement } from '../timetable-occupancy-icon.pure.ts';
 
 import style from './timetable-occupancy.scss?inline';

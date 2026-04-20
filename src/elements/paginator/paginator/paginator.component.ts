@@ -10,13 +10,14 @@ import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
 import {
-  sbbInputModalityDetector,
+  boxSizingStyles,
   forceType,
   i18nItemsPerPage,
   i18nPage,
-  boxSizingStyles,
+  SbbElement,
+  type SbbElementType,
+  sbbInputModalityDetector,
 } from '../../core.ts';
-import { SbbElement, type SbbElementType } from '../../core.ts';
 import { SbbFormFieldElement } from '../../form-field.pure.ts';
 import { SbbOptionElement } from '../../option.pure.ts';
 import { SbbSelectElement } from '../../select.pure.ts';

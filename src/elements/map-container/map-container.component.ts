@@ -1,22 +1,23 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 import {
+  type CSSResultGroup,
   html,
   nothing,
-  unsafeCSS,
-  type CSSResultGroup,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 import { SbbAccentButtonElement } from '../button.pure.ts';
-import { SbbElement, type SbbElementType } from '../core.ts';
 import {
-  SbbLanguageController,
+  boxSizingStyles,
   forceType,
   forwardEvent,
   i18nMapContainerButtonLabel,
-  boxSizingStyles,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
 } from '../core.ts';
 
 import style from './map-container.scss?inline';

@@ -8,13 +8,15 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbElement, SbbScreenReaderOnlyElement, type SbbElementType } from '../../core.ts';
 import {
   isAndroid,
   isBlink,
   isSafari,
-  setOrRemoveAttribute,
   SbbDisabledMixin,
+  SbbElement,
+  type SbbElementType,
+  SbbScreenReaderOnlyElement,
+  setOrRemoveAttribute,
 } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 

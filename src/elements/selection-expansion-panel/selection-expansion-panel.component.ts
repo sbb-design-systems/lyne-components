@@ -7,15 +7,17 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { type SbbOpenedClosedState, SbbElement, type SbbElementType } from '../core.ts';
 import {
-  SbbLanguageController,
+  boxSizingStyles,
   forceType,
-  isZeroAnimationDuration,
   i18nCollapsed,
   i18nExpanded,
+  isZeroAnimationDuration,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  type SbbOpenedClosedState,
   SbbSelectionPanelMixin,
-  boxSizingStyles,
 } from '../core.ts';
 import { SbbDividerElement } from '../divider.pure.ts';
 

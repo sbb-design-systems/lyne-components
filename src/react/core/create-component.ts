@@ -16,8 +16,8 @@
 
 import type { SbbElement } from '@sbb-esta/lyne-elements/core.js';
 import {
-  isServer,
   type ComplexAttributeConverter,
+  isServer,
   type PropertyDeclaration,
   type ReactiveElement,
 } from 'lit';

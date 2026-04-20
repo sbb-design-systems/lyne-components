@@ -1,8 +1,12 @@
 import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement, SbbScreenReaderOnlyElement, type SbbElementType } from '../../core.ts';
-import { boxSizingStyles } from '../../core.ts';
+import {
+  boxSizingStyles,
+  type SbbElementType,
+  SbbLinkBaseElement,
+  SbbScreenReaderOnlyElement,
+} from '../../core.ts';
 import {
   SbbTeaserProductCommonElementMixin,
   teaserProductCommonStyle,

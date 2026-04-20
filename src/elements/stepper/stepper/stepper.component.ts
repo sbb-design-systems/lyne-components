@@ -10,17 +10,17 @@ import { property } from 'lit/decorators.js';
 
 import type { SbbHorizontalFrom, SbbOrientation } from '../../core.ts';
 import {
+  boxSizingStyles,
+  forceType,
   getNextElementIndex,
   isArrowKeyPressed,
+  isLean,
   SbbElement,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointLargeAndAbove,
   SbbMediaQueryBreakpointSmallAndAbove,
   SbbMediaQueryBreakpointUltraAndAbove,
   SbbMediaQueryBreakpointZeroAndAbove,
-  forceType,
-  isLean,
-  boxSizingStyles,
 } from '../../core.ts';
 import type { SbbStepElement, SbbStepValidateEventDetails } from '../step/step.component.ts';
 

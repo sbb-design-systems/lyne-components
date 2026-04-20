@@ -1,48 +1,46 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
+  type CSSResultGroup,
   html,
   isServer,
   nothing,
-  unsafeCSS,
-  type CSSResultGroup,
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
 
 import {
-  getNextElementIndex,
-  SbbOpenCloseBaseElement,
-  SbbPropertyWatcherController,
-  SbbEscapableOverlayController,
-  SbbLanguageController,
+  boxSizingStyles,
   forceType,
+  type FormRestoreReason,
+  type FormRestoreState,
+  getNextElementIndex,
   getOverride,
   handleDistinctChange,
+  i18nSelectionRequired,
+  isEventOnElement,
   isLean,
   isNextjs,
   isSafari,
   isZeroAnimationDuration,
-  setOrRemoveAttribute,
-  i18nSelectionRequired,
-  isEventOnElement,
   overlayGapFixCorners,
-  setOverlayPosition,
-  boxSizingStyles,
-} from '../core.ts';
-import {
-  type FormRestoreReason,
-  type FormRestoreState,
   SbbDisabledMixin,
+  SbbEscapableOverlayController,
   SbbFormAssociatedMixin,
+  SbbLanguageController,
   SbbNegativeMixin,
+  SbbOpenCloseBaseElement,
+  SbbPropertyWatcherController,
   SbbReadonlyMixin,
   SbbRequiredMixin,
   SbbUpdateSchedulerMixin,
+  setOrRemoveAttribute,
+  setOverlayPosition,
 } from '../core.ts';
 import type { SbbDividerElement } from '../divider.pure.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
