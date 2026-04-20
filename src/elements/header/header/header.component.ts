@@ -278,8 +278,9 @@ export class SbbHeaderElement extends SbbElement {
       this.querySelectorAll(IS_MENU_OPENED_QUERY) as NodeListOf<HTMLElement>,
     );
     for (const overlayTrigger of overlayTriggers) {
-      const overlayId: string = overlayTrigger.getAttribute('aria-controls')!;
-      const overlay = document.getElementById(overlayId) as HTMLElement & { close: () => void };
+      const overlay = overlayTrigger.ariaControlsElements![0] as HTMLElement & {
+        close: () => void;
+      };
       if (typeof overlay?.close === 'function') {
         overlay.close();
       }
