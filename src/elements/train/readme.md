@@ -13,9 +13,9 @@ It is divided into the following components:
 - The **`<sbb-train-formation>`** is a container for one or more `<sbb-train>` components.
   It ensures orchestration of the contained `<sbb-train>` components and provides a common context
   for them, such as the perspective of the train (side or top view) and inline padding.
-- The **`<sbb-train>`** is a container for one or more `<sbb-train-wagon>` components and `<sbb-train-blocked-passage>` components.
+- The **`<sbb-train>`** is a container for one or more `<sbb-train-wagon>`, `<sbb-train-wagon-button>`, `<sbb-train-wagon-link>` or `<sbb-train-blocked-passage>` component.
   It provides the context for the contained components, such as the direction of the train and the station label.
-- The **`<sbb-train-wagon>`** is a component which represents a train compartment.
+- The **`<sbb-train-wagon>`** , **`<sbb-train-wagon-button>`** and **`<sbb-train-wagon-link>`** are components which represents a train compartment.
 - The **`<sbb-train-blocked-passage>`** is a component which visually displays a blocked passage between two `<sbb-train-wagon>` components.
 
 ## sbb-train-formation
@@ -139,10 +139,45 @@ They will be applied internally into a list (using `<ul>` and `<li>`) and requir
 </sbb-train-wagon>
 ```
 
+### Button and link variants
+
+In addition to the standard `<sbb-train-wagon>`, two interactive variants are available:
+
+- **`<sbb-train-wagon-button>`** renders the wagon as a button element, making it actionable.
+- **`<sbb-train-wagon-link>`** renders the wagon as an anchor element, allowing navigation.
+
+```html
+<!-- Button variant -->
+<sbb-train-wagon-button wagon-type="wagon" label="38" occupancy="low" wagon-class="1">
+  <sbb-icon
+    aria-hidden="false"
+    aria-label="wheelchair space"
+    name="sa-rs"
+    aria-label="Wheelchair space available in this wagon"
+  ></sbb-icon>
+</sbb-train-wagon-button>
+
+<!-- Link variant -->
+<sbb-train-wagon-link
+  href="/reserve/38"
+  wagon-type="wagon"
+  label="38"
+  occupancy="low"
+  wagon-class="1"
+>
+  <sbb-icon
+    aria-hidden="false"
+    aria-label="wheelchair space"
+    name="sa-rs"
+    aria-label="Wheelchair space available in this wagon"
+  ></sbb-icon>
+</sbb-train-wagon-link>
+```
+
 ### Active state
 
 To indicate an active wagon,
-apply the CSS class `sbb-active` to the `<sbb-train-wagon>` element.
+apply the CSS class `sbb-active` to the `<sbb-train-wagon>`, `<sbb-train-wagon-button>` or `<sbb-train-wagon-link>` element.
 This will visually highlight the wagon with a thicker border.
 
 ```html
