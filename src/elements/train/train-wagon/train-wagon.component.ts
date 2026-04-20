@@ -6,7 +6,7 @@ import { SbbTrainWagonMixin } from '../train-wagon-common.ts';
 /**
  * It displays a train compartment within a `sbb-train` component.
  *
- * @slot - Use the unnamed slot to add one or more `sbb-icon` for meta-information of the `sbb-train-wagon`.
+ * @slot - Use the unnamed slot to add one or more `sbb-icon` for meta-information of the wagon.
  */
 export class SbbTrainWagonElement extends SbbTrainWagonMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-train-wagon';

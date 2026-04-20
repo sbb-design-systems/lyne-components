@@ -248,7 +248,7 @@ const FormationTemplate = (args: Args): TemplateResult => html`
   </sbb-train-formation>
 `;
 
-const InteractiveFormationTemplate = (args: Args): TemplateResult => html`
+const ButtonFormationTemplate = (args: Args): TemplateResult => html`
   <sbb-train-formation
     ${sbbSpread(args)}
     style=${args.orientation === 'vertical' ? 'max-height: 80vh' : nothing}
@@ -439,6 +439,235 @@ const InteractiveFormationTemplate = (args: Args): TemplateResult => html`
   </sbb-train-formation>
 `;
 
+const LinkFormationTemplate = (args: Args): TemplateResult => html`
+  <sbb-train-formation
+    ${sbbSpread(args)}
+    style=${args.orientation === 'vertical' ? 'max-height: 80vh' : nothing}
+  >
+    <sbb-train
+      direction-label="Direction of travel"
+      station="Bern"
+      direction="left"
+      accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction"
+    >
+      <sbb-train-wagon
+        wagon-type="locomotive"
+        additional-accessibility-text="Top of the train"
+        sector="A"
+      ></sbb-train-wagon>
+      <sbb-train-wagon wagon-type="closed" sector="A" label="37"></sbb-train-wagon>
+      <sbb-train-blocked-passage></sbb-train-blocked-passage>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon"
+        label="38"
+        occupancy="low"
+        blocked-passage="previous"
+        wagon-class="1"
+        sector="A"
+      >
+        <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
+        <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
+        <sbb-icon
+          aria-hidden="false"
+          aria-label="Business zone in 1st class: Reservation possible"
+          name="sa-bz"
+        ></sbb-icon>
+        <sbb-icon
+          aria-hidden="false"
+          aria-label="Business zone in 1st class: Reservation possible"
+          name="sa-bz"
+        ></sbb-icon>
+      </sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon"
+        label="39"
+        occupancy="none"
+        wagon-class="1"
+        sector="B">
+        <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
+      </sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="restaurant"
+        label="40"
+        sector="B">
+        <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
+      </sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon"
+        label="41"
+        occupancy="high"
+        wagon-class="2"
+        sector="B">
+        <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
+      </sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon"
+        label="42"
+        occupancy="low"
+        wagon-class="2"
+        blocked-passage="next"
+        sector="C"
+      >
+        <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
+      </sbb-train-wagon-link>
+      <sbb-train-blocked-passage></sbb-train-blocked-passage>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon"
+        label="43"
+        occupancy="low"
+        wagon-class="2"
+        blocked-passage="both"
+        sector="C"
+      >
+        <sbb-icon
+          aria-hidden="false"
+          aria-label="stroller space"
+          name="sa-abteilkinderwagen"
+        ></sbb-icon>
+        <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
+      </sbb-train-wagon-link>
+      <sbb-train-blocked-passage></sbb-train-blocked-passage>
+      <sbb-train-wagon-link
+        href="#"
+        blocked-passage="previous"
+        wagon-type="wagon"
+        label="44"
+        occupancy="low"
+        wagon-class="2"
+        sector="C"
+      >
+        <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
+        <sbb-icon aria-hidden="false" aria-label="Family zone" name="sa-fz"></sbb-icon>
+      </sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon"
+        label="45"
+        occupancy="low"
+        wagon-class="2"
+        sector="D"
+      ></sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="couchette"
+        label="46"
+        sector="D"
+      ></sbb-train-wagon-link
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="sleeping"
+        label="47"
+        additional-accessibility-text="End of the train"
+        sector="D"
+        blocked-passage="next"
+      ></sbb-train-wagon-link>
+      <sbb-train-blocked-passage></sbb-train-blocked-passage>
+    </sbb-train>
+    <sbb-train
+      direction-label="Direction of travel"
+      station="Luzern"
+      direction="left"
+      accessibility-label="The top of the train is in Sector E. The train leaves the station in this direction"
+    >
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon-end-left"
+        additional-accessibility-text="Top of the train"
+        blocked-passage="previous"
+        occupancy="none"
+        wagon-class="2"
+        sector="E"
+      ></sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon"
+        label="50"
+        occupancy="low"
+        wagon-class="2"
+        sector="E"
+      ></sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon"
+        label="51"
+        occupancy="low"
+        wagon-class="2"
+        sector="F"
+      ></sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon"
+        label="52"
+        occupancy="low"
+        wagon-class="2"
+        sector="F"
+      ></sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon"
+        label="53"
+        occupancy="low"
+        wagon-class="2"
+        sector="F"
+      ></sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon"
+        label="54"
+        occupancy="low"
+        wagon-class="2"
+        sector="G"
+      ></sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon"
+        label="55"
+        occupancy="low"
+        wagon-class="2"
+        sector="G"
+      ></sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon"
+        label="56"
+        occupancy="low"
+        wagon-class="2"
+        sector="G"
+      ></sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon"
+        label="57"
+        occupancy="low"
+        wagon-class="2"
+        sector="H"
+      ></sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon"
+        label="58"
+        occupancy="low"
+        wagon-class="2"
+        sector="H"
+      ></sbb-train-wagon-link>
+      <sbb-train-wagon-link
+        href="#"
+        wagon-type="wagon-end-right"
+        label="59"
+        occupancy="low"
+        wagon-class="2"
+        sector="H"
+      ></sbb-train-wagon-link>
+    </sbb-train>
+  </sbb-train-formation>
+`;
+
 /*
  * Formation controls
  */
@@ -565,8 +794,17 @@ export const TrainFormationTopView: StoryObj = {
   },
 };
 
-export const InteractiveFormation: StoryObj = {
-  render: InteractiveFormationTemplate,
+export const ButtonFormation: StoryObj = {
+  render: ButtonFormationTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    view: 'top',
+  },
+};
+
+export const LinkFormation: StoryObj = {
+  render: LinkFormationTemplate,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,

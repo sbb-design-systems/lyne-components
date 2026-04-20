@@ -15,6 +15,12 @@
   outline: none !important;
 }
 
+:host(:state(link)) {
+  @include sbb.if-forced-colors {
+    --sbb-train-wagon-shape-color: LinkText;
+  }
+}
+
 :host([wagon-type='closed']) {
   --sbb-train-wagon-crossed-shape-display: block;
 
@@ -52,6 +58,12 @@
   cursor: var(--sbb-cursor-pointer);
 }
 
+.sbb-train-wagon-link {
+  outline: none;
+  color: inherit;
+  text-decoration: none;
+}
+
 .sbb-train-wagon {
   display: flex;
   flex-direction: var(--sbb-train-formation-flex-direction-inverted);
@@ -76,7 +88,8 @@
       border-radius: var(--sbb-border-radius-4x);
     }
 
-    :host(:state(action):focus-visible) & {
+    :host(:state(button):focus-visible) &,
+    .sbb-train-wagon-link:focus-visible & {
       @include sbb.focus-outline;
     }
   }

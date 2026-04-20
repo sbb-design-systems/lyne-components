@@ -225,9 +225,9 @@ This will visually highlight the wagon with a thicker border.
 
 #### Slots
 
-| Name | Description                                                                                       |
-| ---- | ------------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add one or more `sbb-icon` for meta-information of the `sbb-train-wagon`. |
+| Name | Description                                                                           |
+| ---- | ------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add one or more `sbb-icon` for meta-information of the wagon. |
 
 ### class: `SbbTrainWagonElement`, `sbb-train-wagon`
 
@@ -245,6 +245,32 @@ This will visually highlight the wagon with a thicker border.
 
 #### Slots
 
-| Name | Description                                                                                       |
-| ---- | ------------------------------------------------------------------------------------------------- |
-|      | Use the unnamed slot to add one or more `sbb-icon` for meta-information of the `sbb-train-wagon`. |
+| Name | Description                                                                           |
+| ---- | ------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add one or more `sbb-icon` for meta-information of the wagon. |
+
+### class: `SbbTrainWagonLinkElement`, `sbb-train-wagon-link`
+
+#### Properties
+
+| Name                          | Attribute                       | Privacy | Type                                                                                                                        | Default   | Description                                                                                                                  |
+| ----------------------------- | ------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityCurrent`        | `accessibility-current`         | public  | `string`                                                                                                                    | `''`      | This will be forwarded as aria-current to the inner anchor element.                                                          |
+| `accessibilityLabel`          | `accessibility-label`           | public  | `string`                                                                                                                    | `''`      | This will be forwarded as aria-label to the inner anchor element.                                                            |
+| `additionalAccessibilityText` | `additional-accessibility-text` | public  | `string`                                                                                                                    | `''`      | Additional accessibility text which will be appended to the end.                                                             |
+| `blockedPassage`              | `blocked-passage`               | public  | `'previous' \| 'next' \| 'both' \| 'none'`                                                                                  | `'none'`  | Accessibility text for blocked passages of the wagon.                                                                        |
+| `download`                    | `download`                      | public  | `boolean`                                                                                                                   | `false`   | Whether the browser will show the download dialog on click.                                                                  |
+| `href`                        | `href`                          | public  | `string`                                                                                                                    | `''`      | The href value you want to link to.                                                                                          |
+| `label`                       | `label`                         | public  | `string`                                                                                                                    | `''`      | Wagon number                                                                                                                 |
+| `occupancy`                   | `occupancy`                     | public  | `SbbOccupancy \| null`                                                                                                      | `null`    | Occupancy of a wagon.                                                                                                        |
+| `rel`                         | `rel`                           | public  | `string`                                                                                                                    | `''`      | The relationship of the linked URL as space-separated link types.                                                            |
+| `sector`                      | `sector`                        | public  | `string`                                                                                                                    | `''`      | Sector in which the wagon stops.                                                                                             |
+| `target`                      | `target`                        | public  | `LinkTargetType \| string`                                                                                                  | `''`      | Where to display the linked URL.                                                                                             |
+| `wagonClass`                  | `wagon-class`                   | public  | `'1' \| '2' \| '1-2' \| '2-1' \| null`                                                                                      | `null`    | Class label                                                                                                                  |
+| `wagonType`                   | `wagon-type`                    | public  | `'wagon' \| 'wagon-end-left' \| 'wagon-end-right' \| 'couchette' \| 'sleeping' \| 'restaurant' \| 'locomotive' \| 'closed'` | `'wagon'` | Wagon type. For `wagon-end-left` and `wagon-end-right`, please set the corresponding value of the `blockedPassage` property. |
+
+#### Slots
+
+| Name | Description                                                                           |
+| ---- | ------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add one or more `sbb-icon` for meta-information of the wagon. |

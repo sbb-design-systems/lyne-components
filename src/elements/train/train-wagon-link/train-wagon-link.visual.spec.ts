@@ -9,7 +9,7 @@ import type { SbbTrainFormationElement } from '../../train.ts';
 
 import '../../train.ts';
 
-describe(`sbb-train-wagon-button`, () => {
+describe(`sbb-train-wagon-link`, () => {
   const cases = {
     orientation: ['horizontal', 'vertical'] satisfies SbbTrainFormationElement['orientation'][],
     view: ['side', 'top'] satisfies SbbTrainFormationElement['view'][],
@@ -29,17 +29,18 @@ describe(`sbb-train-wagon-button`, () => {
             await setup.withFixture(
               html`<sbb-train-formation orientation=${orientation} view=${view}>
                 <sbb-train>
-                  <sbb-train-wagon-button
+                  <sbb-train-wagon-link
+                    href="#"
                     wagon-type="wagon-end-left"
                     occupancy="medium"
                     wagon-class="1"
                   >
-                  </sbb-train-wagon-button>
+                  </sbb-train-wagon-link>
                 </sbb-train>
               </sbb-train-formation>`,
               { forcedColors, darkMode },
             );
-            setup.withStateElement(setup.snapshotElement.querySelector('sbb-train-wagon-button')!);
+            setup.withStateElement(setup.snapshotElement.querySelector('sbb-train-wagon-link')!);
           }),
         );
       }
