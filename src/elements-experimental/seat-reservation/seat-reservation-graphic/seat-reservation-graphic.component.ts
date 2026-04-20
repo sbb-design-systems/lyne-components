@@ -1,5 +1,10 @@
-import { SbbElement, type SbbElementType } from '@sbb-esta/lyne-elements/core.js';
-import { SbbLanguageController, forceType, boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
+import {
+  boxSizingStyles,
+  forceType,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+} from '@sbb-esta/lyne-elements/core.js';
 import { SbbIconElement } from '@sbb-esta/lyne-elements/icon.pure.js';
 import { type CSSResultGroup, html, isServer, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';

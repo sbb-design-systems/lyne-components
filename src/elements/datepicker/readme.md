@@ -112,13 +112,15 @@ todayStub.restore();
 
 #### Events
 
-| Name           | Type                                                | Description                                                                  | Inherited From          |
-| -------------- | --------------------------------------------------- | ---------------------------------------------------------------------------- | ----------------------- |
-| `beforeclose`  | `CustomEvent<{ closeTarget: HTMLElement \| null }>` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `beforeopen`   | `Event`                                             | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `close`        | `CustomEvent<{ closeTarget: HTMLElement \| null }>` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
-| `dateselected` | `CustomEvent<T>`                                    | Event emitted on date selection.                                             |                         |
-| `open`         | `Event`                                             | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
+| Name           | Type                                                | Description                                                                                                                                                                                                  | Inherited From          |
+| -------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- |
+| `beforeclose`  | `CustomEvent<{ closeTarget: HTMLElement \| null }>` | Emits whenever the component begins the closing transition. Can be canceled.                                                                                                                                 | SbbOpenCloseBaseElement |
+| `beforeopen`   | `Event`                                             | Emits whenever the component starts the opening transition. Can be canceled.                                                                                                                                 | SbbOpenCloseBaseElement |
+| `change`       | `Event`                                             | The change event is fired on the datepicker's input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                         |
+| `close`        | `CustomEvent<{ closeTarget: HTMLElement \| null }>` | Emits whenever the component is closed.                                                                                                                                                                      | SbbOpenCloseBaseElement |
+| `dateselected` | `CustomEvent<T>`                                    | Event emitted on date selection.                                                                                                                                                                             |                         |
+| `input`        | `InputEvent`                                        | The input event fires on the datepicker's input when the value has been changed as a direct result of a user action.                                                                                         |                         |
+| `open`         | `Event`                                             | Emits whenever the component is opened.                                                                                                                                                                      | SbbOpenCloseBaseElement |
 
 ### class: `SbbDatepickerNextDayElement`, `sbb-datepicker-next-day`
 
@@ -145,6 +147,13 @@ todayStub.restore();
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
+#### Events
+
+| Name     | Type         | Description                                                                                                                                                                                                  | Inherited From          |
+| -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- |
+| `change` | `Event`      | The change event is fired on the datepicker's input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbDatepickerButtonBase |
+| `input`  | `InputEvent` | The input event fires on the datepicker's input when the value has been changed as a direct result of a user action.                                                                                         | SbbDatepickerButtonBase |
+
 ### class: `SbbDatepickerPreviousDayElement`, `sbb-datepicker-previous-day`
 
 #### Properties
@@ -169,6 +178,13 @@ todayStub.restore();
 | `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Events
+
+| Name     | Type         | Description                                                                                                                                                                                                  | Inherited From          |
+| -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- |
+| `change` | `Event`      | The change event is fired on the datepicker's input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbDatepickerButtonBase |
+| `input`  | `InputEvent` | The input event fires on the datepicker's input when the value has been changed as a direct result of a user action.                                                                                         | SbbDatepickerButtonBase |
 
 ### class: `SbbDatepickerToggleElement`, `sbb-datepicker-toggle`
 
@@ -195,3 +211,10 @@ todayStub.restore();
 | `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Events
+
+| Name     | Type         | Description                                                                                                                                                                                                  | Inherited From          |
+| -------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- |
+| `change` | `Event`      | The change event is fired on the datepicker's input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbDatepickerButtonBase |
+| `input`  | `InputEvent` | The input event fires on the datepicker's input when the value has been changed as a direct result of a user action.                                                                                         | SbbDatepickerButtonBase |

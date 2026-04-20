@@ -1,14 +1,16 @@
-import { html, nothing, unsafeCSS, type PropertyValues, type TemplateResult } from 'lit';
+import { html, nothing, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
+  forceType,
+  isLean,
+  omitEmptyConverter,
   SbbElement,
   type SbbElementType,
   SbbNamedSlotListMixin,
   SbbNegativeMixin,
   type WithListChildren,
 } from '../../core.ts';
-import { forceType, omitEmptyConverter, isLean } from '../../core.ts';
 import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,

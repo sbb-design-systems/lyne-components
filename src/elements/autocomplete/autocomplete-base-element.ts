@@ -13,20 +13,20 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  SbbOpenCloseBaseElement,
-  SbbPropertyWatcherController,
-  SbbEscapableOverlayController,
+  boxSizingStyles,
   forceType,
   idReference,
+  isEventOnElement,
   isLean,
   isSafari,
   isZeroAnimationDuration,
-  SbbNegativeMixin,
-  isEventOnElement,
   overlayGapFixCorners,
   removeAriaComboBoxAttributes,
+  SbbEscapableOverlayController,
+  SbbNegativeMixin,
+  SbbOpenCloseBaseElement,
+  SbbPropertyWatcherController,
   setOverlayPosition,
-  boxSizingStyles,
 } from '../core.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
 import type { SbbOptionBaseElement } from '../option.pure.ts';
@@ -39,6 +39,12 @@ import style from './autocomplete-base-element.scss?inline';
  */
 const ariaRoleOnHost = isSafari;
 
+/**
+ * Base class for autocomplete components.
+ *
+ * @event {Event} change - The change event is fired on the autocomplete's trigger when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+ * @event {InputEvent} input - The input event fires  on the autocomplete's trigger when the value has been changed as a direct result of a user action.
+ */
 export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegativeMixin(
   SbbOpenCloseBaseElement,
 ) {
@@ -137,14 +143,18 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   protected abstract panelRole: string;
   protected activeOption: SbbOptionBaseElement<T> | null = null;
   protected pendingAutoSelectedOption: SbbOptionBaseElement<T> | null = null;
-  private _originResizeObserver = new ResizeController(this, {
+  private _resizeObserver = new ResizeController(this, {
     target: null,
     skipInitial: true,
-    callback: () => {
-      if (this.state === 'opened') {
-        this._setOverlayPosition();
-      }
-    },
+    // This is an IIFE, because we need to keep track of the timeout state
+    // for debouncing the resize callbacks.
+    callback: (() => {
+      let timeoutId: ReturnType<typeof setTimeout>;
+      return () => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => this._setOverlayPosition(), 10);
+      };
+    })(),
   });
   /** Listens to the changes on the `disabled` or `readonly` attribute of the trigger. */
   private _triggerAttributeObserver = !isServer
@@ -162,6 +172,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   private _isPointerDownEventOnMenu: boolean = false;
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _optionsCount = 0;
+  private _previousElements?: Element[];
 
   /** Tracks input from keyboard. */
   private _lastUserInput: string | null = null;
@@ -249,7 +260,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this.triggerElement?.removeAttribute('data-expanded');
     this._openPanelEventsController.abort();
     if (this.originElement) {
-      this._originResizeObserver.unobserve(this.originElement);
+      this._resizeObserver.unobserve(this.originElement);
     }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -388,6 +399,14 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
 
   private _handleSlotchange(): void {
     this._highlightOptions(this.triggerElement?.value);
+
+    // It is possible that an element is added that has not been rendered
+    // yet and therefore has height 0. Therefore we also observe the size
+    // of all child elements.
+    const currentElements = Array.from(this.querySelectorAll('*'));
+    this._previousElements?.forEach((e) => this._resizeObserver.unobserve(e));
+    this._previousElements = currentElements;
+    this._previousElements.forEach((e) => this._resizeObserver.observe(e));
 
     /**
      * It's possible to filter out options with an opened panel on input change.
@@ -584,7 +603,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
   private _handleOpening(): void {
     this.state = 'opened';
     if (this.originElement) {
-      this._originResizeObserver.observe(this.originElement);
+      this._resizeObserver.observe(this.originElement);
     }
     this.triggerElement?.setAttribute('aria-expanded', 'true');
     this.dispatchOpenEvent();

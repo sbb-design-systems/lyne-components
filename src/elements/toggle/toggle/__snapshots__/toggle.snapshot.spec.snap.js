@@ -21,10 +21,8 @@ snapshots["sbb-toggle renders DOM"] =
 /* end snapshot sbb-toggle renders DOM */
 
 snapshots["sbb-toggle renders Shadow DOM"] = 
-`<div class="sbb-toggle">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 `;
 /* end snapshot sbb-toggle renders Shadow DOM */
 

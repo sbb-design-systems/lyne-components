@@ -5,16 +5,16 @@ import { until } from 'lit/directives/until.js';
 
 import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
 import {
-  IS_FOCUSABLE_QUERY,
-  SbbLanguageController,
-  SbbPropertyWatcherController,
+  boxSizingStyles,
   forceType,
   i18nFlipCard,
   i18nReverseCard,
-  boxSizingStyles,
-  SbbScreenReaderOnlyElement,
+  IS_FOCUSABLE_QUERY,
   SbbElement,
   type SbbElementType,
+  SbbLanguageController,
+  SbbPropertyWatcherController,
+  SbbScreenReaderOnlyElement,
   ɵstateController,
 } from '../../core.ts';
 import type { SbbFlipCardDetailsElement } from '../flip-card-details/flip-card-details.component.ts';

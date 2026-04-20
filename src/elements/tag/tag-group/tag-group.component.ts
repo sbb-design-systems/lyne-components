@@ -9,13 +9,15 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
-  SbbElement,
+  boxSizingStyles,
   forceType,
   isLean,
+  SbbDisabledMixin,
+  SbbElement,
+  SbbNamedSlotListMixin,
   setOrRemoveAttribute,
-  boxSizingStyles,
+  type WithListChildren,
 } from '../../core.ts';
-import { SbbDisabledMixin, SbbNamedSlotListMixin, type WithListChildren } from '../../core.ts';
 import type { SbbTagElement, SbbTagSize } from '../tag/tag.component.ts';
 
 import style from './tag-group.scss?inline';

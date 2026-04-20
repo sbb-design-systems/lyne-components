@@ -1,13 +1,13 @@
 import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 
 import {
-  ɵstateController,
-  SbbButtonBaseElement,
-  SbbMediaQueryHover,
-  SbbMediaMatcherController,
-  SbbPropertyWatcherController,
-  SbbDisabledTabIndexActionMixin,
   boxSizingStyles,
+  SbbButtonBaseElement,
+  SbbDisabledTabIndexActionMixin,
+  SbbMediaMatcherController,
+  SbbMediaQueryHover,
+  SbbPropertyWatcherController,
+  ɵstateController,
 } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbExpansionPanelElement } from '../expansion-panel/expansion-panel.component.ts';

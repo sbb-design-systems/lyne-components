@@ -4,17 +4,17 @@ import { property } from 'lit/decorators.js';
 import type { SbbScreenReaderOnlyElement } from '../core/screen-reader-only/screen-reader-only.component.ts';
 import type { SbbOverlayCloseEventDetails } from '../core.ts';
 import {
-  SbbFocusTrapController,
-  SbbOpenCloseBaseElement,
+  forceType,
+  i18nDialog,
+  idReference,
+  removeAriaOverlayTriggerAttributes,
   SbbEscapableOverlayController,
+  SbbFocusTrapController,
   SbbInertController,
   SbbLanguageController,
-  forceType,
-  idReference,
-  SbbScrollHandler,
-  i18nDialog,
   SbbNegativeMixin,
-  removeAriaOverlayTriggerAttributes,
+  SbbOpenCloseBaseElement,
+  SbbScrollHandler,
   setAriaOverlayTriggerAttributes,
 } from '../core.ts';
 

@@ -1,8 +1,8 @@
-import { nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbElement, forceType, SbbNegativeMixin, boxSizingStyles } from '../core.ts';
+import { boxSizingStyles, forceType, SbbElement, SbbNegativeMixin } from '../core.ts';
 import type { SbbTitleLevel } from '../title.pure.ts';
 
 import style from './footer.scss?inline';

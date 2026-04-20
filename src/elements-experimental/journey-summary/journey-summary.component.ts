@@ -1,21 +1,21 @@
 import {
-  SbbLanguageController,
+  boxSizingStyles,
   defaultDateAdapter,
   forceType,
   i18nTripDuration,
-  boxSizingStyles,
   SbbElement,
   type SbbElementType,
+  SbbLanguageController,
   SbbScreenReaderOnlyElement,
 } from '@sbb-esta/lyne-elements/core.js';
 import { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.pure.js';
 import { SbbJourneyHeaderElement } from '@sbb-esta/lyne-elements/journey-header.pure.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.pure.js';
 import { format, isValid } from 'date-fns';
-import { html, nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { durationToTime, removeTimezoneFromISOTimeString, type Leg } from '../core.ts';
+import { durationToTime, type Leg, removeTimezoneFromISOTimeString } from '../core.ts';
 import { SbbPearlChainTimeElement } from '../pearl-chain-time.pure.ts';
 
 import style from './journey-summary.scss?inline';

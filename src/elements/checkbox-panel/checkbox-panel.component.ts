@@ -12,13 +12,13 @@ import {
   SbbCheckboxCommonElementMixin,
 } from '../checkbox/common/checkbox-common.ts';
 import {
-  panelCommonStyle,
-  SbbPanelMixin,
-  SbbUpdateSchedulerMixin,
   boxSizingStyles,
+  panelCommonStyle,
   SbbElement,
   type SbbElementType,
+  SbbPanelMixin,
   SbbScreenReaderOnlyElement,
+  SbbUpdateSchedulerMixin,
 } from '../core.ts';
 import { SbbVisualCheckboxElement } from '../visual-checkbox.pure.ts';
 

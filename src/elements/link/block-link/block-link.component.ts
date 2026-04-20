@@ -1,4 +1,4 @@
-import { SbbLinkBaseElement, SbbDisabledMixin } from '../../core.ts';
+import { SbbDisabledMixin, SbbLinkBaseElement } from '../../core.ts';
 import { SbbBlockLinkCommonElementMixin } from '../common/block-link-common.ts';
 
 /**

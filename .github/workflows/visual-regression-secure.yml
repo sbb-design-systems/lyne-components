@@ -75,7 +75,7 @@ jobs:
                 ...payload,
                 ref: context.payload.workflow_run.head_sha,
                 auto_merge: false,
-                required_contexts: ['collect-test-results']
+                required_contexts: ['finalize']
               });
               await github.rest.repos.createDeploymentStatus({
                 ...payload,

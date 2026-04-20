@@ -1,12 +1,10 @@
 import { aTimeout } from '@open-wc/testing';
 import {
-  tabKey,
-  type VisualDiffSetupBuilder,
-} from '@sbb-esta/lyne-elements/core/testing/private.js';
-import {
   describeViewports,
+  tabKey,
   visualDiffDefault,
   visualDiffFocus,
+  type VisualDiffSetupBuilder,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';

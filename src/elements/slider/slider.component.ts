@@ -1,24 +1,26 @@
 import {
+  type CSSResultGroup,
   html,
   nothing,
-  unsafeCSS,
-  type CSSResultGroup,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  SbbElement,
-  type SbbElementType,
+  boxSizingStyles,
+  forceType,
   type FormRestoreReason,
   type FormRestoreState,
+  hostAttributes,
   SbbDisabledMixin,
+  SbbElement,
+  type SbbElementType,
   SbbFormAssociatedMixin,
   SbbReadonlyMixin,
 } from '../core.ts';
-import { forceType, hostAttributes, boxSizingStyles } from '../core.ts';
 import { SbbIconElement } from '../icon.pure.ts';
 
 import style from './slider.scss?inline';

@@ -1,17 +1,17 @@
 import {
-  SbbButtonBaseElement,
-  SbbLanguageController,
-  forceType,
   boxSizingStyles,
-  SbbScreenReaderOnlyElement,
+  forceType,
+  SbbButtonBaseElement,
   type SbbElementType,
+  SbbLanguageController,
+  SbbScreenReaderOnlyElement,
 } from '@sbb-esta/lyne-elements/core.js';
 import {
   type CSSResultGroup,
   html,
   nothing,
-  type TemplateResult,
   type PropertyValues,
+  type TemplateResult,
   unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
