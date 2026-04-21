@@ -6,12 +6,16 @@ import {
   SbbScreenReaderOnlyElement,
 } from '@sbb-esta/lyne-elements/core.js';
 import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.pure.js';
+import { SbbTrainElement } from '@sbb-esta/lyne-elements/train/train/train.component.js';
+import { SbbTrainFormationElement } from '@sbb-esta/lyne-elements/train/train-formation/train-formation.component.js';
+import { SbbTrainWagonButtonElement } from '@sbb-esta/lyne-elements/train/train-wagon-button/train-wagon-button.component.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { html, isServer, nothing, unsafeCSS } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
+import { mapIconToSvg } from '../common/mapper/icon-mapper.ts';
 import { getI18nSeatReservation } from '../common/translations.ts';
 import type {
   BaseElement,
@@ -46,6 +50,9 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     SbbSeatReservationPlaceControlElement,
     SbbSeatReservationNavigationCoachElement,
     SbbSeatReservationScopedElement,
+    SbbTrainFormationElement,
+    SbbTrainElement,
+    SbbTrainWagonButtonElement,
   ];
   public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
@@ -205,38 +212,72 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
 
   private _renderNavigation(): TemplateResult | null {
     if (isServer || !this.hasNavigation || !this.seatReservations) return null;
+
     return html`<div class="sbb-sr-navigation-wrapper">
       <nav id="sbb-sr-navigation" class="sbb-sr-navigation">
         ${this._renderNavigationControlButton('DIRECTION_LEFT')}
-        <ul
-          id="sbb-sr__navigation-list-coaches"
-          class="sbb-sr-navigation__list-coaches"
+
+        <sbb-train-formation
+          orientation=${this.alignVertical ? 'vertical' : nothing}
           aria-label="${getI18nSeatReservation(
             'SEAT_RESERVATION_NAVIGATION',
             this._language.current,
           )}"
+          view="top"
         >
-          ${this.coachItemDetailsElements.map(
-            (coachItemDetails: CoachItemDetails, index: number) => {
-              return html`<li>
-                <sbb-seat-reservation-navigation-coach
-                  @selectcoach=${(event: CustomEvent<number>) => this._onSelectNavCoach(event)}
-                  @focuscoach=${() => this._onFocusNavCoach()}
+          <sbb-train>
+            ${this.coachItemDetailsElements.map(
+              // TODO: hovered with background styles really needed? nativeFocusActive, blocked passage configuration, NAVIGATE_TO_COACH_SERVICE_CLASS_SUB, COACH_AVAILABLE_NUMBER_OF_PLACES
+              (coachItemDetails: CoachItemDetails, index: number) => html`
+                <sbb-train-wagon-button
+                  title=${this.showTitleInfo ? 'TODO: copy logic from coach component' : nothing}
+                  @click=${() => this._onSelectNavCoach(index)}
+                  @focus=${() => this._onFocusNavCoach()}
                   @keyup=${(evt: KeyboardEvent) => this.onKeyNavigationNavCoachButton(evt, index)}
-                  index="${index}"
-                  .selected=${this.selectedCoachIndex === index}
-                  .focused=${this.focusedCoachIndex === index}
-                  .hovered=${this.hoveredCoachIndex === index}
-                  .nativeFocusActive=${this.hasSeatReservationNativeFocus}
-                  .coachItemDetails="${coachItemDetails}"
-                  ?vertical="${this.alignVertical}"
-                  ?showTitleInfo="${this.showTitleInfo}"
+                  class=${this.selectedCoachIndex === index || this.hoveredCoachIndex === index
+                    ? 'sbb-active'
+                    : nothing}
+                  wagon-type=${coachItemDetails.driverAreaSide?.right || false
+                    ? 'wagon-end-right'
+                    : coachItemDetails.driverAreaSide?.right || false
+                      ? 'wagon-end-left'
+                      : coachItemDetails.isDriverArea ||
+                          coachItemDetails.driverAreaElements?.driverAreaNoVerticalWall
+                        ? 'locomotive'
+                        : 'wagon'}
+                  wagon-class=${coachItemDetails.travelClass === 'FIRST'
+                    ? '1'
+                    : coachItemDetails.travelClass === 'SECOND'
+                      ? '2'
+                      : nothing}
+                  label=${coachItemDetails.isDriverArea ? nothing : coachItemDetails.id}
+                  additional-accessibility-text=${coachItemDetails.isDriverArea ||
+                  coachItemDetails.driverAreaElements?.driverAreaNoVerticalWall
+                    ? getI18nSeatReservation('COACH_LOCOMOTIVE', this._language.current)
+                    : getI18nSeatReservation('NAVIGATE_TO_COACH', this._language.current, [
+                        coachItemDetails.id,
+                      ])}
                 >
-                </sbb-seat-reservation-navigation-coach>
-              </li>`;
-            },
-          )}
-        </ul>
+                  ${coachItemDetails.propertyIds.map((id) => {
+                    const iconName = mapIconToSvg[id]?.svgName;
+                    const ariaLabel = getI18nSeatReservation(id, this._language.current);
+
+                    if (!iconName) {
+                      return;
+                    }
+
+                    return html`<sbb-icon
+                      aria-hidden="false"
+                      name=${iconName}
+                      aria-label=${ariaLabel}
+                      title=${this.showTitleInfo ? ariaLabel : nothing}
+                    ></sbb-icon>`;
+                  })}
+                </sbb-train-wagon-button>
+              `,
+            )}
+          </sbb-train>
+        </sbb-train-formation>
         ${this._renderNavigationControlButton('DIRECTION_RIGHT')}
       </nav>
     </div>`;
@@ -719,9 +760,7 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     }
   }
 
-  private _onSelectNavCoach(event: CustomEvent<number>): void {
-    const selectedNavCoachIndex = event.detail;
-
+  private _onSelectNavCoach(selectedNavCoachIndex: number): void {
     this.isKeyboardNavigation = false;
     this.preventCoachScrollByPlaceClick = false;
     this.hasSeatReservationNativeFocus = true;
