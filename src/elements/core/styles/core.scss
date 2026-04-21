@@ -239,6 +239,9 @@ $theme: 'standard' !default;
 @use '../../teaser/teaser.global' as teaser with (
   $theme: $theme
 );
+@use '../../teaser-panel/teaser-panel.global' as teaser-panel with (
+  $theme: $theme
+);
 @use '../../teaser-product/common/teaser-product-common.global' as teaser-product-common with (
   $theme: $theme
 );
@@ -344,6 +347,7 @@ $theme: 'standard' !default;
   @include tab-label-common.base;
   @include tag.base;
   @include teaser.base;
+  @include teaser-panel.base;
   @include teaser-product-common.base;
   @include timetable-form.base;
   @include timetable-form-details.base;
@@ -445,6 +449,7 @@ $theme: 'standard' !default;
     @include form-field.base-breakpoint-large;
     @include header.base-breakpoint-large;
     @include menu.base-breakpoint-large;
+    @include teaser-panel.base-breakpoint-large;
     @include teaser-product-common.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
@@ -464,6 +469,7 @@ $theme: 'standard' !default;
 
     @include lead-container.base-breakpoint-ultra;
     @include map-container.base-breakpoint-ultra;
+    @include teaser-panel.base-breakpoint-ultra;
   }
 }
 
