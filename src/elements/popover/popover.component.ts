@@ -24,7 +24,7 @@ import {
   isFakeMousedownFromScreenReader,
   isZeroAnimationDuration,
   readConfig,
-  removeAriaOverlayTriggerAttributes,
+  removeAriaOverlayTriggerProperties,
   type SbbElementType,
   SbbEscapableOverlayController,
   SbbFocusTrapController,
@@ -32,7 +32,7 @@ import {
   SbbLanguageController,
   SbbMediaQueryPointerCoarse,
   SbbOpenCloseBaseElement,
-  setAriaOverlayTriggerAttributes,
+  setAriaOverlayTriggerProperties,
   ɵstateController,
 } from '../core.ts';
 
@@ -40,8 +40,6 @@ import style from './popover.scss?inline';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
-
-let nextId = 0;
 
 const popoversRef = new Set<SbbPopoverBaseElement>();
 const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).matches;
@@ -95,9 +93,11 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
     this._setPopoverPosition();
     this._attachWindowEvents();
     this._escapableOverlayController.connect();
-    this._triggerElement?.setAttribute('aria-expanded', 'true');
     this._nextFocusedElement = undefined;
     this._skipCloseFocus = false;
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'true';
+    }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -119,7 +119,9 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
 
     this.state = 'closing';
     this.inert = true;
-    this._triggerElement?.setAttribute('aria-expanded', 'false');
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'false';
+    }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `closed` state.
@@ -163,7 +165,6 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
   public override connectedCallback(): void {
     this.popover = 'manual';
     super.connectedCallback();
-    this.id ||= `sbb-popover-${++nextId}`;
     this.state = 'closed';
     popoversRef.add(this);
     if (this.hasUpdated) {
@@ -215,14 +216,15 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
 
   protected configureTrigger(_oldTrigger: HTMLElement | null): void {
     this._triggerAbortController?.abort();
-    removeAriaOverlayTriggerAttributes(this._triggerElement);
+
+    removeAriaOverlayTriggerProperties(this._triggerElement);
     this._triggerElement = this.trigger;
 
     if (!this._triggerElement) {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(this._triggerElement, 'dialog', this.id, this.state);
+    setAriaOverlayTriggerProperties(this, this._triggerElement, 'dialog', this.state);
 
     this._triggerAbortController = new AbortController();
     this.registerTriggerListeners(this._triggerAbortController.signal);

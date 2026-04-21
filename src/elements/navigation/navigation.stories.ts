@@ -94,15 +94,15 @@ const actionLabels = (num: number): TemplateResult[] => {
 
 const DefaultTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('navigation-trigger-1')}
-  <sbb-navigation id="navigation" trigger="navigation-trigger-1" ${sbbSpread(args)}>
-    <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
+  <sbb-navigation trigger="navigation-trigger-1" ${sbbSpread(args)}>
+    <sbb-navigation-marker>${navigationActionsL()}</sbb-navigation-marker>
     <sbb-navigation-marker size="s">${navigationActionsS()}</sbb-navigation-marker>
   </sbb-navigation>
 `;
 
 const LongContentTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('navigation-trigger-1')}
-  <sbb-navigation id="navigation" trigger="navigation-trigger-1" ${sbbSpread(args)}>
+  <sbb-navigation trigger="navigation-trigger-1" ${sbbSpread(args)}>
     <sbb-navigation-marker>${navigationActionsL()}</sbb-navigation-marker>
     <sbb-navigation-marker size="s">${actionLabels(20)}</sbb-navigation-marker>
   </sbb-navigation>
@@ -110,8 +110,8 @@ const LongContentTemplate = (args: Args): TemplateResult => html`
 
 const WithNavigationSectionTemplate = (args: Args): TemplateResult => html`
   ${triggerButton('navigation-trigger-1')}
-  <sbb-navigation id="navigation" trigger="navigation-trigger-1" ${sbbSpread(args)}>
-    <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
+  <sbb-navigation trigger="navigation-trigger-1" ${sbbSpread(args)}>
+    <sbb-navigation-marker>${navigationActionsL()}</sbb-navigation-marker>
     <sbb-navigation-marker size="s">${navigationActionsS()}</sbb-navigation-marker>
 
     <sbb-navigation-section trigger="nav-1" title-content="Title one">

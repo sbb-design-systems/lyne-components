@@ -24,8 +24,6 @@ export {
   SbbOverlayCloseEvent as SbbDialogCloseEvent,
 } from '../../overlay/overlay-base-element.ts';
 
-let nextId = 0;
-
 /**
  * It displays an interactive overlay element.
  *
@@ -72,11 +70,6 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
       passive: true,
       capture: true,
     });
-  }
-
-  public override connectedCallback(): void {
-    this.id ||= `sbb-dialog-${nextId++}`;
-    super.connectedCallback();
   }
 
   /** Announce the accessibility label or dialog title for screen readers. */

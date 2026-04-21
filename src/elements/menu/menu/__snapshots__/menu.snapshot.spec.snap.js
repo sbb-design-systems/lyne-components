@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-menu renders DOM"] = 
 `<sbb-menu
-  id="sbb-menu-0"
   popover="manual"
   trigger="menu-trigger"
 >

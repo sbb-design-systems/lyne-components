@@ -1,33 +1,33 @@
 /**
- * Add meaningful aria attributes to trigger elements that are connected to
+ * Set meaningful aria properties to trigger elements that are connected to
  * overlay elements such as menus and dialogs.
  */
-export function setAriaOverlayTriggerAttributes(
+export function setAriaOverlayTriggerProperties(
+  overlay: HTMLElement,
   trigger: HTMLElement,
   popupType: 'menu' | 'dialog',
-  overlayId: string,
   state: string,
 ): void {
   if (!trigger) {
     return;
   }
 
-  trigger.setAttribute('aria-haspopup', popupType);
-  trigger.setAttribute('aria-controls', overlayId);
-  trigger.setAttribute('aria-expanded', `${state === 'opening' || state === 'opened'}`);
+  trigger.ariaHasPopup = popupType;
+  trigger.ariaControlsElements = [overlay];
+  trigger.ariaExpanded = `${state === 'opening' || state === 'opened'}`;
 }
 
 /**
- * Remove aria attributes from trigger elements.
+ * Reset trigger element aria properties.
  */
-export function removeAriaOverlayTriggerAttributes(trigger: HTMLElement | null | undefined): void {
+export function removeAriaOverlayTriggerProperties(trigger: HTMLElement | null | undefined): void {
   if (!trigger) {
     return;
   }
 
-  trigger.removeAttribute('aria-haspopup');
-  trigger.removeAttribute('aria-controls');
-  trigger.removeAttribute('aria-expanded');
+  trigger.ariaHasPopup = null;
+  trigger.ariaControlsElements = null;
+  trigger.ariaExpanded = null;
 }
 
 /**
