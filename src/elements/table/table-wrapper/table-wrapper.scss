@@ -3,6 +3,8 @@
 :host {
   display: block;
   overflow: auto;
+
+  @include sbb.scrollbar-variables($size: thick, $negative: false, $track-visible: true);
 }
 
 :host(:focus-visible) {
@@ -11,4 +13,8 @@
 
 ::slotted(.sbb-table) {
   width: 100%;
+}
+
+:host([negative]) {
+  @include sbb.scrollbar-variables($size: thick, $negative: true, $track-visible: true);
 }
