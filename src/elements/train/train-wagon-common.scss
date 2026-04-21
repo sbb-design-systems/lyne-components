@@ -15,22 +15,12 @@
   outline: none !important;
 }
 
-:host(:state(link)) {
-  @include sbb.if-forced-colors {
-    --sbb-train-wagon-shape-color: LinkText;
-  }
-}
-
 :host([wagon-type='closed']) {
   --sbb-train-wagon-crossed-shape-display: block;
 
   @include sbb.if-forced-colors {
     --sbb-train-wagon-shape-color: GrayText;
   }
-}
-
-:host(.sbb-active) {
-  --sbb-train-wagon-border-width: var(--sbb-border-width-3x);
 }
 
 :host(:state(view-side)[wagon-type='wagon-end-left']) {
@@ -45,17 +35,31 @@
   --sbb-train-wagon-padding-inline: var(--sbb-spacing-fixed-4x);
 }
 
+:host(:state(view-top)) {
+  --sbb-train-wagon-border-radius: var(--sbb-border-radius-4x);
+}
+
 :host([label]) {
   --_sbb-train-wagon-attributes-max-width: var(--sbb-train-wagon-attributes-max-width);
-  --sbb-train-wagon-attribute-icon-rows: 3;
+  --_sbb-train-wagon-attribute-icon-rows: 3;
 }
 
 :host(:not([label])) {
   --_sbb-train-wagon-attributes-justify-content: center;
 }
 
+:host(.sbb-active) {
+  --sbb-train-wagon-border-width: var(--sbb-border-width-3x);
+}
+
 :host(:state(action)) {
   cursor: var(--sbb-cursor-pointer);
+}
+
+:host(:state(link)) {
+  @include sbb.if-forced-colors {
+    --sbb-train-wagon-shape-color: LinkText;
+  }
 }
 
 .sbb-train-wagon-link {
@@ -66,27 +70,23 @@
 
 .sbb-train-wagon {
   display: flex;
-  flex-direction: var(--sbb-train-formation-flex-direction-inverted);
+  flex-direction: var(--_sbb-train-formation-flex-direction-inverted);
   align-items: center;
-  width: var(--sbb-train-formation-wagon-width);
+  width: var(--_sbb-train-formation-wagon-width);
   gap: var(--sbb-train-wagon-vertical-gap);
   position: relative;
 
   :host(:state(orientation-vertical)) & {
     width: auto;
-    height: var(--sbb-train-formation-wagon-height);
+    height: var(--_sbb-train-formation-wagon-height);
   }
 
   &::before {
     content: '';
     position: absolute;
-    width: var(--sbb-train-formation-wagon-width);
-    height: var(--sbb-train-formation-wagon-height);
-    border-radius: var(--sbb-border-radius-6x);
-
-    :host(:state(view-top)) & {
-      border-radius: var(--sbb-border-radius-4x);
-    }
+    width: var(--_sbb-train-formation-wagon-width);
+    height: var(--_sbb-train-formation-wagon-height);
+    border-radius: var(--sbb-train-wagon-border-radius);
 
     :host(:state(button):focus-visible) &,
     .sbb-train-wagon-link:focus-visible & {
@@ -99,7 +99,7 @@
   @include sbb.list-reset;
 
   display: flex;
-  flex-direction: var(--sbb-train-formation-flex-direction);
+  flex-direction: var(--_sbb-train-formation-flex-direction);
   justify-content: center;
   padding-inline: var(--sbb-train-wagon-padding-inline);
   mask-image: var(--sbb-train-wagon-clip-shape-compartment);
@@ -128,8 +128,8 @@
 
 .sbb-train-wagon__compartment,
 .sbb-train-wagon__main-icon {
-  width: var(--sbb-train-formation-wagon-width);
-  height: var(--sbb-train-formation-wagon-height);
+  width: var(--_sbb-train-formation-wagon-width);
+  height: var(--_sbb-train-formation-wagon-height);
 }
 
 .sbb-train-wagon__shape {
@@ -173,15 +173,15 @@
 
 .sbb-train-wagon__occupancy,
 .sbb-train-wagon__class {
-  height: var(--sbb-train-formation-wagon-height);
-  flex-direction: var(--sbb-train-formation-flex-direction);
+  height: var(--_sbb-train-formation-wagon-height);
+  flex-direction: var(--_sbb-train-formation-flex-direction);
   display: flex;
   align-items: center;
   justify-content: center;
 
   :host(:state(orientation-vertical)) & {
     height: auto;
-    width: var(--sbb-train-formation-wagon-width);
+    width: var(--_sbb-train-formation-wagon-width);
   }
 }
 
@@ -214,29 +214,28 @@
       content: '';
       position: absolute;
       background-color: var(--sbb-train-wagon-class-first-color);
+      border-end-end-radius: var(--sbb-train-wagon-class-first-border-radius);
 
       :host(:not(:state(orientation-vertical))) & {
-        height: var(--sbb-train-wagon-class-first-height);
+        height: var(--sbb-train-wagon-class-first-thickness);
         inset: calc(
             -0.5 *
-              (var(--sbb-train-formation-wagon-height) - var(--sbb-train-wagon-class-dimension)) +
+              (var(--_sbb-train-formation-wagon-height) - var(--sbb-train-wagon-class-dimension)) +
               var(--sbb-train-wagon-border-width) - var(--sbb-train-wagon-class-border-width)
           )
           0 auto;
         border-end-start-radius: var(--sbb-train-wagon-class-first-border-radius);
-        border-end-end-radius: var(--sbb-train-wagon-class-first-border-radius);
       }
 
       :host(:state(orientation-vertical)) & {
-        width: var(--sbb-train-wagon-class-first-height);
+        width: var(--sbb-train-wagon-class-first-thickness);
         inset: 0 0 0
           calc(
             -0.5 *
-              (var(--sbb-train-formation-wagon-width) - var(--sbb-train-wagon-class-dimension)) +
+              (var(--_sbb-train-formation-wagon-width) - var(--sbb-train-wagon-class-dimension)) +
               var(--sbb-train-wagon-border-width) - var(--sbb-train-wagon-class-border-width)
           );
         border-start-end-radius: var(--sbb-train-wagon-class-first-border-radius);
-        border-end-end-radius: var(--sbb-train-wagon-class-first-border-radius);
       }
     }
   }
@@ -245,8 +244,8 @@
 .sbb-train-wagon__information-wrapper {
   display: flex;
   align-items: start;
-  flex-direction: var(--sbb-train-formation-flex-direction);
-  gap: var(--sbb-spacing-fixed-1x);
+  flex-direction: var(--_sbb-train-formation-flex-direction);
+  gap: var(--sbb-train-wagon-information-gap);
 
   :host(:state(orientation-vertical)) & {
     min-width: var(--sbb-train-wagon-information-min-width);
@@ -310,8 +309,9 @@
       var(--sbb-train-wagon-attributes-icon-columns) * var(--sbb-train-wagon-attributes-mean-width)
     );
     max-height: calc(
-      var(--sbb-train-wagon-attribute-icon-rows) * var(--sbb-train-wagon-attribute-icon-height) +
-        (var(--sbb-train-wagon-attribute-icon-rows) - 1) * var(--sbb-train-wagon-attribute-icon-gap)
+      var(--_sbb-train-wagon-attribute-icon-rows) * var(--sbb-train-wagon-attribute-icon-height) +
+        (var(--_sbb-train-wagon-attribute-icon-rows) - 1) *
+        var(--sbb-train-wagon-attribute-icon-gap)
     );
     padding-block-start: 0;
     justify-content: center;

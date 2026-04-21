@@ -5,11 +5,11 @@
   grid-template-areas: 'icon';
   align-items: center;
   width: var(--sbb-train-formation-blocked-passage-dimension);
-  height: var(--sbb-train-formation-wagon-height);
+  height: var(--_sbb-train-formation-wagon-height);
 }
 
 :host(:state(orientation-vertical)) {
-  width: var(--sbb-train-formation-wagon-width);
+  width: var(--_sbb-train-formation-wagon-width);
   height: var(--sbb-train-formation-blocked-passage-dimension);
 }
 

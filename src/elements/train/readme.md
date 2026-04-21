@@ -72,10 +72,10 @@ The perspective of the train can be switched with the `view` property between `s
 
 The orientation of the train can be switched with the `orientation` property between `horizontal` (default) and `vertical`.
 
-### Inline padding
+### Scroll padding
 
 In certain circumstances there should be a left and right (or top and bottom in vertical orientation)
-padding applied, but including the scrollbar. To achieve the padding, set a value to the
+padding applied, while drawing the scrollbar to the end of the box. To achieve the padding, set a value to the
 CSS variable `--sbb-train-formation-scroll-padding` like `var(--sbb-spacing-fixed-4x)`.
 
 ## sbb-train

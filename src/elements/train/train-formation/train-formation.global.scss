@@ -5,8 +5,6 @@ $theme: 'standard' !default;
 @mixin base {
   --sbb-train-formation-wagon-dimension-short: #{sbb.px-to-rem-build(36)};
   --sbb-train-formation-wagon-dimension-long: #{sbb.px-to-rem-build(84)};
-  --sbb-train-formation-wagon-width: var(--sbb-train-formation-wagon-dimension-long);
-  --sbb-train-formation-wagon-height: var(--sbb-train-formation-wagon-dimension-short);
   --sbb-train-formation-wagon-gap: var(--sbb-spacing-fixed-1x);
   --sbb-train-formation-sector-line-color: light-dark(
     var(--sbb-color-cement),
@@ -18,9 +16,9 @@ $theme: 'standard' !default;
   --sbb-train-formation-gap: var(--sbb-spacing-fixed-2x);
   --sbb-train-formation-sector-padding: var(--sbb-spacing-fixed-1x);
   --sbb-train-formation-sector-margin: var(--sbb-spacing-fixed-2x);
-  --sbb-train-formation-flex-direction: row;
-  --sbb-train-formation-flex-direction-inverted: column;
   --sbb-train-formation-padding: var(--sbb-spacing-fixed-1x);
+  --_sbb-train-formation-flex-direction: row;
+  --_sbb-train-formation-flex-direction-inverted: column;
 }
 
 @mixin forced-colors {

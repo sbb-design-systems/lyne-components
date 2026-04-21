@@ -268,7 +268,7 @@ export const SbbTrainWagonMixin = <T extends AbstractConstructor<SbbElement>>(
       const availableIconRows =
         +globalThis
           .getComputedStyle?.(this)
-          .getPropertyValue('--sbb-train-wagon-attribute-icon-rows') || this.label
+          .getPropertyValue('--_sbb-train-wagon-attribute-icon-rows') || this.label
           ? 3
           : 4;
       this._clipStyleSheet?.replaceSync(`:host {
