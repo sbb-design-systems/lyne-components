@@ -11,6 +11,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import {
   boxSizingStyles,
+  hostScrollbarStyles,
   i18nSector,
   i18nSectorShort,
   i18nTrains,
@@ -43,7 +44,11 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-train-formation';
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    hostScrollbarStyles,
+    boxSizingStyles,
+    unsafeCSS(style),
+  ];
   protected override readonly listChildLocalNames = ['sbb-train'];
 
   /** Whether the view of the wagons is from side or top perspective. */
@@ -60,6 +65,16 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
     super();
     this.addEventListener?.('trainslotchange', (e) => this._readSectors(e));
     this.addEventListener?.('sectorchange', (e) => this._readSectors(e));
+  }
+
+  public override connectedCallback(): void {
+    super.connectedCallback();
+
+    // When including the scrollbar styles on the host, there is no hover effect of the scrollbar possible.
+    // In most cases, the component will be used in Light DOM. To also support the hover effect,
+    // we additionally add the `sbb-scrollbar` CSS class to the host.
+    // This is an exception as we normally don't alter the classList of the host.
+    this.classList.add('sbb-scrollbar');
   }
 
   private _readSectors(event?: Event): void {
