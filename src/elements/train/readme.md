@@ -12,11 +12,11 @@ It is divided into the following components:
 
 - The **`<sbb-train-formation>`** is a container for one or more `<sbb-train>` components.
   It ensures orchestration of the contained `<sbb-train>` components and provides a common context
-  for them, such as the perspective of the train (side or top view) and inline padding.
+  for them, such as the perspective of the train (side or top view), the orientation (horizontal or vertical) and inline padding.
 - The **`<sbb-train>`** is a container for one or more `<sbb-train-wagon>`, `<sbb-train-wagon-button>`, `<sbb-train-wagon-link>` or `<sbb-train-blocked-passage>` component.
   It provides the context for the contained components, such as the direction of the train and the station label.
 - The **`<sbb-train-wagon>`** , **`<sbb-train-wagon-button>`** and **`<sbb-train-wagon-link>`** are components which represents a train compartment.
-- The **`<sbb-train-blocked-passage>`** is a component which visually displays a blocked passage between two `<sbb-train-wagon>` components.
+- The **`<sbb-train-blocked-passage>`** is a component which visually displays a blocked passage between two wagon components.
 
 ## sbb-train-formation
 
@@ -68,10 +68,14 @@ It is divided into the following components:
 
 The perspective of the train can be switched with the `view` property between `side` (default) and `top`.
 
+### Orientation
+
+The orientation of the train can be switched with the `orientation` property between `horizontal` (default) and `vertical`.
+
 ### Inline padding
 
-In certain circumstances there should be a left and right (or top and bottom in vertical orientation) padding applied, but including the scrollbar.
-To achieve the inline padding, set a value to the
+In certain circumstances there should be a left and right (or top and bottom in vertical orientation)
+padding applied, but including the scrollbar. To achieve the padding, set a value to the
 CSS variable `--sbb-train-formation-scroll-padding` like `var(--sbb-spacing-fixed-4x)`.
 
 ## sbb-train
@@ -176,8 +180,8 @@ In addition to the standard `<sbb-train-wagon>`, two interactive variants are av
 
 ### Active state
 
-To indicate an active wagon,
-apply the CSS class `sbb-active` to the `<sbb-train-wagon>`, `<sbb-train-wagon-button>` or `<sbb-train-wagon-link>` element.
+To indicate an active wagon, apply the CSS class `sbb-active` to the `<sbb-train-wagon>`,
+`<sbb-train-wagon-button>` or `<sbb-train-wagon-link>` element.
 This will visually highlight the wagon with a thicker border.
 
 ```html
