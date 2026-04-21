@@ -1,11 +1,11 @@
 /** @entrypoint */
 import {
-  SbbCalendarElement,
   SbbCalendarDayElement,
+  SbbCalendarElement,
   SbbCalendarMonthElement,
-  SbbCalendarYearElement,
   SbbCalendarWeekdayElement,
   SbbCalendarWeeknumberElement,
+  SbbCalendarYearElement,
 } from './calendar.pure.ts';
 
 export * from './calendar.pure.ts';

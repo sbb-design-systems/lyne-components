@@ -3,14 +3,15 @@ import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
-  SbbElement,
-  SbbDarkModeController,
-  forceType,
-  omitEmptyConverter,
-  isLean,
   boxSizingStyles,
+  forceType,
+  isLean,
+  omitEmptyConverter,
+  SbbDarkModeController,
+  SbbElement,
+  SbbNamedSlotListMixin,
+  type WithListChildren,
 } from '../core.ts';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../core.ts';
 import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.pure.ts';
 import type { SbbTitleLevel } from '../title.pure.ts';
 

@@ -9,14 +9,14 @@ import { property } from 'lit/decorators.js';
 
 import { SbbMiniButtonElement } from '../../button.pure.ts';
 import {
-  SbbLanguageController,
+  boxSizingStyles,
   i18nChipDelete,
   SbbDisabledMixin,
-  SbbNegativeMixin,
-  SbbReadonlyMixin,
-  boxSizingStyles,
   SbbElement,
   type SbbElementType,
+  SbbLanguageController,
+  SbbNegativeMixin,
+  SbbReadonlyMixin,
   SbbScreenReaderOnlyElement,
 } from '../../core.ts';
 

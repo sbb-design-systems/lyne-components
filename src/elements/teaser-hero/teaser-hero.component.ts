@@ -2,8 +2,13 @@ import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement, type SbbElementType } from '../core.ts';
-import { forceType, omitEmptyConverter, boxSizingStyles } from '../core.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  omitEmptyConverter,
+  type SbbElementType,
+  SbbLinkBaseElement,
+} from '../core.ts';
 import { SbbBlockLinkStaticElement } from '../link.pure.ts';
 
 import style from './teaser-hero.scss?inline';

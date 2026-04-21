@@ -1,20 +1,18 @@
-import { html, unsafeCSS, type PropertyDeclaration, type TemplateResult } from 'lit';
+import { html, type PropertyDeclaration, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
-  SbbButtonBaseElement,
-  type SbbElementType,
   type DateAdapter,
   defaultDateAdapter,
-} from '../../core.ts';
-import {
-  readConfig,
-  SbbLanguageController,
-  idReference,
   i18nToday,
+  idReference,
+  readConfig,
+  SbbButtonBaseElement,
+  type SbbElementType,
+  SbbLanguageController,
   SbbNegativeMixin,
 } from '../../core.ts';
-import { SbbDateInputElement, type SbbDateInputAssociated } from '../../date-input.pure.ts';
+import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.pure.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 
 import datepickerButtonStyleString from './datepicker-button.scss?inline';

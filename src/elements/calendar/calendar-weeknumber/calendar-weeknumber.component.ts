@@ -1,10 +1,10 @@
-import { html, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import { SbbLanguageController, i18nCalendarWeekNumber, boxSizingStyles } from '../../core.ts';
+import { boxSizingStyles, i18nCalendarWeekNumber, SbbLanguageController } from '../../core.ts';
 import {
-  SbbCalendarCellBaseElement,
   calendarCellBaseStyle,
+  SbbCalendarCellBaseElement,
 } from '../common/calendar-cell-base-element.ts';
 
 /**

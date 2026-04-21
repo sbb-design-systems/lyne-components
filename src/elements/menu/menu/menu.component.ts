@@ -11,33 +11,31 @@ import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
-  type SbbNegativeMixinType,
-  ɵstateController,
-  SbbOpenCloseBaseElement,
-  type SbbElementType,
-} from '../../core.ts';
-import {
+  boxSizingStyles,
+  forwardEvent,
+  getElementPosition,
+  getElementPositionHorizontal,
   getNextElementIndex,
+  i18nGoBack,
+  idReference,
   interactivityChecker,
   isArrowKeyOrPageKeysPressed,
-  SbbFocusTrapController,
+  isEventOnElement,
+  isZeroAnimationDuration,
+  removeAriaOverlayTriggerProperties,
   SbbDarkModeController,
+  type SbbElementType,
   SbbEscapableOverlayController,
+  SbbFocusTrapController,
   SbbInertController,
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
-  idReference,
-  isZeroAnimationDuration,
+  type SbbNegativeMixinType,
+  SbbOpenCloseBaseElement,
   SbbScrollHandler,
-  forwardEvent,
-  i18nGoBack,
-  getElementPosition,
-  getElementPositionHorizontal,
-  isEventOnElement,
-  removeAriaOverlayTriggerAttributes,
-  setAriaOverlayTriggerAttributes,
-  boxSizingStyles,
+  setAriaOverlayTriggerProperties,
+  ɵstateController,
 } from '../../core.ts';
 import { SbbDividerElement } from '../../divider.pure.ts';
 import { SbbMenuButtonElement } from '../menu-button/menu-button.component.ts';
@@ -59,8 +57,6 @@ const INTERACTIVE_ELEMENTS = [
   'SBB-MENU-BUTTON',
   'SBB-MENU-LINK',
 ];
-
-let nextId = 0;
 
 /**
  * It displays a contextual menu with one or more action element.
@@ -154,7 +150,10 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
     this.showPopover?.();
     this.state = 'opening';
     this._setMenuPosition();
-    this._triggerElement?.setAttribute('aria-expanded', 'true');
+
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'true';
+    }
 
     // From zero to large, disable scroll
     if (this._isMobile()) {
@@ -201,7 +200,9 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
     }
 
     this.state = 'closing';
-    this._triggerElement?.setAttribute('aria-expanded', 'false');
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'false';
+    }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `closed` state.
@@ -322,7 +323,6 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
   public override connectedCallback(): void {
     this.popover = 'manual';
     super.connectedCallback();
-    this.id ||= `sbb-menu-${nextId++}`;
     if (this.hasUpdated) {
       this._configureTrigger();
     }
@@ -355,14 +355,14 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
     }
 
     this._triggerAbortController?.abort();
-    removeAriaOverlayTriggerAttributes(this._triggerElement);
+    removeAriaOverlayTriggerProperties(this._triggerElement);
     this._triggerElement = this.trigger;
 
     if (!this._triggerElement) {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this.state);
+    setAriaOverlayTriggerProperties(this, this._triggerElement, 'menu', this.state);
     this._triggerAbortController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._triggerAbortController.signal,
@@ -486,7 +486,7 @@ export class SbbMenuElement extends SbbOpenCloseBaseElement {
       !isMobile &&
       this._nestedMenu &&
       !element.classList.contains('sbb-menu__content') &&
-      !(element.getAttribute('aria-expanded') === 'true')
+      !(element.ariaExpanded === 'true')
     ) {
       this._nestedMenu.close();
     }

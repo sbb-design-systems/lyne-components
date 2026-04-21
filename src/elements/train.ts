@@ -1,7 +1,7 @@
 /** @entrypoint */
 import {
-  SbbTrainElement,
   SbbTrainBlockedPassageElement,
+  SbbTrainElement,
   SbbTrainFormationElement,
   SbbTrainWagonElement,
 } from './train.pure.ts';

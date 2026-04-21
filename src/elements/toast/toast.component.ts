@@ -1,10 +1,10 @@
 import {
+  type CSSResultGroup,
   html,
   nothing,
-  unsafeCSS,
-  type CSSResultGroup,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -12,17 +12,18 @@ import {
   SbbTransparentButtonElement,
   type SbbTransparentButtonLinkElement,
 } from '../button.pure.ts';
-import { SbbOpenCloseBaseElement, type SbbElementType } from '../core.ts';
 import {
-  SbbDarkModeController,
-  SbbLanguageController,
+  boxSizingStyles,
+  composedPathHasAttribute,
   forceType,
+  i18nCloseAlert,
   isLean,
   isZeroAnimationDuration,
-  composedPathHasAttribute,
-  i18nCloseAlert,
+  SbbDarkModeController,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbOpenCloseBaseElement,
   SbbReadonlyMixin,
-  boxSizingStyles,
 } from '../core.ts';
 import { SbbDividerElement } from '../divider.pure.ts';
 import { SbbIconNameMixin } from '../icon.pure.ts';

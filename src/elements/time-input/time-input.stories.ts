@@ -3,8 +3,8 @@ import type {
   ArgTypes,
   Decorator,
   Meta,
-  StoryObj,
   StoryContext,
+  StoryObj,
 } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';

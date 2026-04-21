@@ -1,4 +1,4 @@
-import { unsafeCSS, type CSSResultGroup } from 'lit';
+import { type CSSResultGroup, unsafeCSS } from 'lit';
 
 import { SbbNegativeMixin } from '../../core.ts';
 import { SbbTitleBase } from '../../title.pure.ts';

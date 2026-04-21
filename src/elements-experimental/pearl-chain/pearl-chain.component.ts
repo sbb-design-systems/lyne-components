@@ -1,16 +1,16 @@
 import {
-  SbbElement,
+  boxSizingStyles,
   defaultDateAdapter,
   forceType,
-  boxSizingStyles,
+  SbbElement,
 } from '@sbb-esta/lyne-elements/core.js';
 import { addMinutes, differenceInMinutes, isAfter, isBefore } from 'date-fns';
-import { html, nothing, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import type { Leg, PtRideLeg } from '../core.ts';
-import { removeTimezoneFromISOTimeString, isRideLeg } from '../core.ts';
+import { isRideLeg, removeTimezoneFromISOTimeString } from '../core.ts';
 
 import style from './pearl-chain.scss?inline';
 

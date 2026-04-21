@@ -1,7 +1,7 @@
 import {
+  forceType,
   isArrowKeyOrPageKeysPressed,
   SbbElement,
-  forceType,
 } from '@sbb-esta/lyne-elements/core.js';
 import { isServer, type PropertyValues } from 'lit';
 import { eventOptions, property, state } from 'lit/decorators.js';
@@ -15,10 +15,10 @@ import {
 import type {
   BaseElement,
   CoachItem,
+  CoachItemDetails,
   CoachNumberOfFreePlaces,
   ElementDimension,
   ElementPosition,
-  CoachItemDetails,
   Place,
   PlaceSelection,
   PlaceTravelClass,

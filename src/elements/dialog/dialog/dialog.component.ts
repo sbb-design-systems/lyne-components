@@ -1,13 +1,13 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { unsafeCSS, type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
 import type { SbbElementType, SbbOverlayCloseEventDetails } from '../../core.ts';
 import {
-  isZeroAnimationDuration,
   boxSizingStyles,
+  isZeroAnimationDuration,
   SbbScreenReaderOnlyElement,
 } from '../../core.ts';
 import {
@@ -23,8 +23,6 @@ export {
   assignOverlayResult as assignDialogResult,
   SbbOverlayCloseEvent as SbbDialogCloseEvent,
 } from '../../overlay/overlay-base-element.ts';
-
-let nextId = 0;
 
 /**
  * It displays an interactive overlay element.
@@ -72,11 +70,6 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
       passive: true,
       capture: true,
     });
-  }
-
-  public override connectedCallback(): void {
-    this.id ||= `sbb-dialog-${nextId++}`;
-    super.connectedCallback();
   }
 
   /** Announce the accessibility label or dialog title for screen readers. */

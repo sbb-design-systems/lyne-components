@@ -10,14 +10,16 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbCalendarElement, type CalendarView } from '../../calendar.pure.ts';
-import { type SbbElementType, type DateAdapter, defaultDateAdapter } from '../../core.ts';
+import { type CalendarView, SbbCalendarElement } from '../../calendar.pure.ts';
 import {
-  readConfig,
-  SbbLanguageController,
+  type DateAdapter,
+  defaultDateAdapter,
   forceType,
-  idReference,
   i18nDateChangedTo,
+  idReference,
+  readConfig,
+  type SbbElementType,
+  SbbLanguageController,
   SbbUpdateSchedulerMixin,
 } from '../../core.ts';
 import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.pure.ts';
@@ -25,8 +27,6 @@ import { SbbPopoverBaseElement } from '../../popover.pure.ts';
 import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker-toggle.component.ts';
 
 import style from './datepicker.scss?inline';
-
-let nextId = 0;
 
 /**
  * A datepicker component that allows users to select a date from a calendar view.
@@ -78,7 +78,6 @@ export class SbbDatepickerElement<T = Date>
   }
 
   public override connectedCallback(): void {
-    this.id ||= `sbb-datepicker-${++nextId}`;
     super.connectedCallback();
 
     const formField = this.closest?.('sbb-form-field');

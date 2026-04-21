@@ -1,7 +1,7 @@
-import { unsafeCSS, type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 
 import { SbbSecondaryButtonElement } from '../../button.pure.ts';
-import { SbbLanguageController, i18nCloseSidebar } from '../../core.ts';
+import { i18nCloseSidebar, SbbLanguageController } from '../../core.ts';
 
 import style from './sidebar-close-button.scss?inline';
 

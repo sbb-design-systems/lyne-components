@@ -7,7 +7,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { ɵstateController, SbbElement, forceType, boxSizingStyles } from '../../core.ts';
+import { boxSizingStyles, forceType, SbbElement, ɵstateController } from '../../core.ts';
 
 import style from './container.scss?inline';
 

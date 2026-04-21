@@ -8,13 +8,13 @@ import {
 import { property } from 'lit/decorators.js';
 
 import {
-  SbbButtonBaseElement,
-  readConfig,
+  type DateAdapter,
   defaultDateAdapter,
   forceType,
   omitEmptyConverter,
+  readConfig,
+  SbbButtonBaseElement,
 } from '../../core.ts';
-import { type DateAdapter } from '../../core.ts';
 
 import style from './mini-calendar-day.scss?inline';
 

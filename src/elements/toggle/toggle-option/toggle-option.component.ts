@@ -1,14 +1,14 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
-  html,
-  unsafeCSS,
   type CSSResultGroup,
+  html,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement, forceType, SbbDisabledMixin, boxSizingStyles } from '../../core.ts';
+import { boxSizingStyles, forceType, SbbDisabledMixin, SbbElement } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbToggleElement } from '../toggle/toggle.component.ts';
 

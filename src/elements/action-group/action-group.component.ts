@@ -1,15 +1,15 @@
 import {
-  html,
-  unsafeCSS,
   type CSSResultGroup,
+  html,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.pure.ts';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core.ts';
-import { SbbElement, isLean, boxSizingStyles } from '../core.ts';
+import { boxSizingStyles, isLean, SbbElement } from '../core.ts';
 import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,

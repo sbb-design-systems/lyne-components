@@ -4,10 +4,10 @@ import { state } from 'lit/decorators.js';
 
 import {
   i18nRemainingCharacters,
+  type SbbElementType,
   SbbLanguageController,
   sbbLiveAnnouncer,
   SbbScreenReaderOnlyElement,
-  type SbbElementType,
 } from '../../core.ts';
 import { SbbHintElement } from '../hint/hint.component.ts';
 

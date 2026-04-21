@@ -1,15 +1,21 @@
-import { html, type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement, type SbbIconPlacement, type SbbElementType } from '../core.ts';
-import { getOverride, isLean, boxSizingStyles } from '../core.ts';
+import {
+  boxSizingStyles,
+  getOverride,
+  isLean,
+  SbbElement,
+  type SbbElementType,
+  type SbbIconPlacement,
+} from '../core.ts';
 import { SbbIconNameMixin } from '../icon.pure.ts';
 import { SbbVisualCheckboxElement } from '../visual-checkbox.pure.ts';
 
 import style from './checkbox.scss?inline';
 import {
-  SbbCheckboxCommonElementMixin,
   checkboxCommonStyle,
+  SbbCheckboxCommonElementMixin,
   type SbbCheckboxSize,
 } from './common/checkbox-common.ts';
 

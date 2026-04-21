@@ -9,17 +9,15 @@ import {
 
 import {
   appendAriaElements,
+  boxSizingStyles,
   removeAriaElements,
   SbbElement,
   SbbPropertyWatcherController,
-  boxSizingStyles,
 } from '../../core.ts';
 import type { SbbStepLabelElement } from '../step-label/step-label.component.ts';
 import type { SbbStepperElement } from '../stepper/stepper.component.ts';
 
 import style from './step.scss?inline';
-
-let nextId = 0;
 
 export interface SbbStepValidateEventDetails {
   currentIndex: number | null;
@@ -174,7 +172,6 @@ export class SbbStepElement extends SbbElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.id ||= `sbb-step-${nextId++}`;
     this.slot ||= 'step';
     this._assignLabel();
   }

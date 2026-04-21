@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import { tabKey } from '../../core/testing/private.ts';
-import { waitForLitRender, EventSpy, waitForCondition } from '../../core/testing.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
 import type { SbbSidebarCloseButtonElement } from '../sidebar-close-button/sidebar-close-button.component.ts';
 import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 

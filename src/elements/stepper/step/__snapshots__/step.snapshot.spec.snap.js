@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-step renders DOM"] = 
-`<sbb-step
-  id="sbb-step-0"
-  slot="step"
->
+`<sbb-step slot="step">
   Step content
 </sbb-step>
 `;

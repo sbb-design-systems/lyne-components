@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-navigation renders DOM"] = 
 `<sbb-navigation
-  id="sbb-navigation-0"
   popover="manual"
   trigger="nav-trigger"
 >

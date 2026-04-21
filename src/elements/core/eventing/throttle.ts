@@ -1,3 +1,4 @@
+/** @deprecated */
 export const throttle = <F extends (...args: any[]) => any>(
   func: F,
   delay: number,

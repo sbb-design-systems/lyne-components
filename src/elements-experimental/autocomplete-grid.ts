@@ -1,8 +1,8 @@
 /** @entrypoint */
 import {
-  SbbAutocompleteGridElement,
   SbbAutocompleteGridButtonElement,
   SbbAutocompleteGridCellElement,
+  SbbAutocompleteGridElement,
   SbbAutocompleteGridOptgroupElement,
   SbbAutocompleteGridOptionElement,
   SbbAutocompleteGridRowElement,

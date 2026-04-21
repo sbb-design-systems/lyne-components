@@ -1,13 +1,11 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import { SbbElement } from '../../core.ts';
 import type { SbbTabGroupElement } from '../tab-group/tab-group.component.ts';
 import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
 import style from './tab.scss?inline';
-
-let nextId = 0;
 
 /**
  * Combined with a `sbb-tab-group` and `sbb-tab-label`, it displays a tab's content.
@@ -43,8 +41,6 @@ export class SbbTabElement extends SbbElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-
-    this.id ||= `sbb-tab-${nextId++}`;
     this.tabIndex = 0;
 
     // As we can't include the scrollbar mixin on the host and to minimize

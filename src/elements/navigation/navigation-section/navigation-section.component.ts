@@ -12,35 +12,31 @@ import { property } from 'lit/decorators.js';
 
 import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
-  type SbbOpenedClosedState,
-  ɵstateController,
-  type SbbElementType,
-  SbbOpenCloseBaseElement,
-} from '../../core.ts';
-import {
+  boxSizingStyles,
+  forceType,
+  i18nGoBack,
+  idReference,
   IS_FOCUSABLE_QUERY,
+  isZeroAnimationDuration,
+  omitEmptyConverter,
+  removeAriaOverlayTriggerProperties,
+  type SbbElementType,
   SbbFocusTrapController,
   sbbInputModalityDetector,
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
-  forceType,
-  idReference,
-  omitEmptyConverter,
-  isZeroAnimationDuration,
-  i18nGoBack,
+  SbbOpenCloseBaseElement,
+  type SbbOpenedClosedState,
   SbbUpdateSchedulerMixin,
-  removeAriaOverlayTriggerAttributes,
-  setAriaOverlayTriggerAttributes,
-  boxSizingStyles,
+  setAriaOverlayTriggerProperties,
+  ɵstateController,
 } from '../../core.ts';
 import type { SbbNavigationElement } from '../navigation/navigation.component.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 
 import style from './navigation-section.scss?inline';
-
-let nextId = 0;
 
 /**
  * It can be used as a container for `sbb-navigation-list` within a `sbb-navigation`.
@@ -154,7 +150,9 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpen
     this.dispatchEvent(new Event('ɵnavigationsectionopening'));
     this.startUpdate();
     this.inert = true;
-    this._triggerElement?.setAttribute('aria-expanded', 'true');
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'true';
+    }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -208,7 +206,9 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpen
     this.state = 'closing';
     this.startUpdate();
     this.inert = true;
-    this._triggerElement?.setAttribute('aria-expanded', 'false');
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'false';
+    }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `closed` state.
@@ -224,14 +224,14 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpen
     }
 
     this._triggerAbortController?.abort();
-    removeAriaOverlayTriggerAttributes(this._triggerElement);
+    removeAriaOverlayTriggerProperties(this._triggerElement);
     this._triggerElement = this.trigger;
 
     if (!this._triggerElement) {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this.state);
+    setAriaOverlayTriggerProperties(this, this._triggerElement, 'menu', this.state);
     this._triggerAbortController = new AbortController();
     if (this._isNavigationButton(this._triggerElement)) {
       this._triggerElement.connectedSection = this;
@@ -325,7 +325,6 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpen
   public override connectedCallback(): void {
     super.connectedCallback();
     this.slot ||= 'navigation-section';
-    this.id ||= `sbb-navigation-section-${nextId++}`;
     if (this.hasUpdated) {
       this._configureTrigger();
     }
