@@ -1,13 +1,15 @@
 @use './mixins/scrollbar';
 
-.sbb-scrollbar,
-.sbb-scrollbar-negative,
-.sbb-scrollbar-thick,
-.sbb-scrollbar-thick-negative,
-.sbb-scrollbar-track-visible,
-.sbb-scrollbar-negative-track-visible,
-.sbb-scrollbar-thick-track-visible,
-.sbb-scrollbar-thick-negative-track-visible {
+:is(
+  .sbb-scrollbar,
+  .sbb-scrollbar-negative,
+  .sbb-scrollbar-thick,
+  .sbb-scrollbar-thick-negative,
+  .sbb-scrollbar-track-visible,
+  .sbb-scrollbar-negative-track-visible,
+  .sbb-scrollbar-thick-track-visible,
+  .sbb-scrollbar-thick-negative-track-visible
+) {
   @include scrollbar.scrollbar-rules;
 }
 
