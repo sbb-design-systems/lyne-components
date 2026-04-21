@@ -2,9 +2,6 @@
 
 :host {
   --sbb-train-formation-scroll-padding: var(--sbb-train-formation-padding);
-  --_sbb-train-formation-sectors-to-train-gap: calc(
-    var(--sbb-train-formation-show-sectors-gap, 0) * var(--sbb-train-formation-vertical-gap)
-  );
 
   display: grid;
   grid-template:
@@ -12,7 +9,7 @@
     'start trains end' auto / auto 1fr auto;
   position: relative;
   overflow: auto visible;
-  row-gap: var(--_sbb-train-formation-sectors-to-train-gap);
+  row-gap: var(--_sbb-train-formation-sectors-to-train-gap, 0);
   padding-block: var(--sbb-train-formation-padding);
   color: var(--sbb-train-formation-text-color);
   font-size: var(--sbb-text-font-size-xs);
@@ -41,6 +38,14 @@
   @include sbb.focus-outline;
 }
 
+:host(:state(has-sectors)) {
+  --_sbb-train-formation-sectors-to-train-gap: var(--sbb-train-formation-gap);
+}
+
+:host(:state(has-direction-label)) {
+  --sbb-train-formation-reserve-spacing-display: block;
+}
+
 :host([orientation='vertical']) {
   --sbb-train-formation-wagon-width: var(--sbb-train-formation-wagon-dimension-short);
   --sbb-train-formation-wagon-height: var(--sbb-train-formation-wagon-dimension-long);
@@ -55,7 +60,7 @@
   padding-block: unset;
   padding-inline: var(--sbb-train-formation-padding);
   row-gap: unset;
-  column-gap: var(--_sbb-train-formation-sectors-to-train-gap);
+  column-gap: var(--_sbb-train-formation-sectors-to-train-gap, 0);
   width: fit-content;
 
   &::before,

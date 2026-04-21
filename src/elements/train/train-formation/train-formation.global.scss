@@ -15,7 +15,7 @@ $theme: 'standard' !default;
   --sbb-train-formation-sector-line-width: var(--sbb-border-width-1x);
   --sbb-train-formation-blocked-passage-dimension: #{sbb.px-to-rem-build(16)};
   --sbb-train-formation-text-color: var(--sbb-color-3);
-  --sbb-train-formation-vertical-gap: var(--sbb-spacing-fixed-2x);
+  --sbb-train-formation-gap: var(--sbb-spacing-fixed-2x);
   --sbb-train-formation-sector-padding: var(--sbb-spacing-fixed-1x);
   --sbb-train-formation-sector-margin: var(--sbb-spacing-fixed-2x);
   --sbb-train-formation-flex-direction: row;
@@ -25,14 +25,4 @@ $theme: 'standard' !default;
 
 @mixin forced-colors {
   --sbb-train-formation-sector-line-color: CanvasText;
-}
-
-@mixin rules {
-  sbb-train-formation:has(sbb-train[direction-label]) {
-    --sbb-train-formation-reserve-spacing-display: block;
-  }
-
-  sbb-train-formation:has(sbb-train-wagon[sector]) {
-    --sbb-train-formation-show-sectors-gap: 1;
-  }
 }

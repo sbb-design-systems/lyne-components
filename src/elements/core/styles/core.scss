@@ -498,7 +498,6 @@ $theme: 'standard' !default;
 @include tab-nav-bar.rules;
 @include teaser-product-common.rules;
 @include toggle.rules;
-@include train-formation.rules;
 
 // TODO: discuss where to add these classes
 .sbb-dark {

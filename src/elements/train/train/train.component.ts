@@ -11,6 +11,7 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import {
   boxSizingStyles,
   forceType,
+  handleDistinctChange,
   i18nTrain,
   i18nWagonsLabel,
   omitEmptyConverter,
@@ -51,6 +52,12 @@ export class SbbTrainElement extends SbbTrainFormationOrientationMixin(
 
   /** General label for "driving direction". */
   @forceType()
+  @handleDistinctChange((e: SbbTrainElement) => {
+    e.dispatchEvent(
+      /** @internal */
+      new Event('directionlabelchange', { bubbles: true, composed: true }),
+    );
+  })
   @property({ attribute: 'direction-label', reflect: true, converter: omitEmptyConverter })
   public accessor directionLabel: string = '';
 

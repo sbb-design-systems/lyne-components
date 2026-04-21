@@ -63,8 +63,12 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
 
   public constructor() {
     super();
-    this.addEventListener?.('trainslotchange', (e) => this._readSectors(e));
+    this.addEventListener?.('trainslotchange', (e) => {
+      this._readSectors(e);
+      this._readDirectionLabel(e);
+    });
     this.addEventListener?.('sectorchange', (e) => this._readSectors(e));
+    this.addEventListener?.('directionlabelchange', (e) => this._readDirectionLabel(e));
   }
 
   public override connectedCallback(): void {
@@ -75,6 +79,18 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
     // we additionally add the `sbb-scrollbar` CSS class to the host.
     // This is an exception as we normally don't alter the classList of the host.
     this.classList.add('sbb-scrollbar');
+  }
+
+  private _readDirectionLabel(event?: Event): void {
+    // Keep the event internal.
+    event?.stopPropagation();
+
+    this.toggleState(
+      'has-direction-label',
+      Array.from(this.querySelectorAll?.('sbb-train') ?? []).some(
+        (train) => !!train.directionLabel,
+      ),
+    );
   }
 
   private _readSectors(event?: Event): void {
@@ -117,6 +133,11 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
       },
       [{ wagonCount: 0, blockedPassageCount: 0 } as AggregatedSector],
     );
+
+    this.toggleState(
+      'has-sectors',
+      this._sectors.some((s) => !!s.label),
+    );
   }
 
   protected override willUpdate(changedProperties: PropertyValues<WithListChildren<this>>): void {
@@ -124,6 +145,7 @@ export class SbbTrainFormationElement extends SbbNamedSlotListMixin<
 
     if (changedProperties.has('listChildren')) {
       this._readSectors();
+      this._readDirectionLabel();
     }
   }
 
