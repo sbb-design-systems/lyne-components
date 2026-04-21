@@ -756,7 +756,7 @@ const wagonActive: InputType = {
 };
 
 const wagonDefaultArgTypes: ArgTypes = {
-  type: wagonType,
+  'wagon-type': wagonType,
   label: wagonLabel,
   occupancy: wagonOccupancy,
   'wagon-class': wagonClass,
@@ -767,7 +767,7 @@ const wagonDefaultArgTypes: ArgTypes = {
 };
 
 const wagonDefaultArgs: Args = {
-  type: wagonType.options![0],
+  'wagon-type': wagonType.options![0],
   label: '36',
   occupancy: wagonOccupancy.options![2],
   'wagon-class': wagonClass.options![1],
@@ -794,7 +794,16 @@ export const TrainFormationTopView: StoryObj = {
   },
 };
 
-export const ButtonFormation: StoryObj = {
+export const TrainFormationVerticalOrientation: StoryObj = {
+  render: FormationTemplate,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    orientation: 'vertical',
+  },
+};
+
+export const TrainFormationButton: StoryObj = {
   render: ButtonFormationTemplate,
   argTypes: defaultArgTypes,
   args: {
@@ -803,7 +812,7 @@ export const ButtonFormation: StoryObj = {
   },
 };
 
-export const LinkFormation: StoryObj = {
+export const TrainFormationLink: StoryObj = {
   render: LinkFormationTemplate,
   argTypes: defaultArgTypes,
   args: {
@@ -829,7 +838,7 @@ export const wagonRestaurant: StoryObj = {
   argTypes: wagonDefaultArgTypes,
   args: {
     ...wagonDefaultArgs,
-    type: wagonType.options![5],
+    'wagon-type': wagonType.options![5],
     'wagon-class': '',
     occupancy: null,
   },
@@ -840,7 +849,7 @@ export const wagonLocomotive: StoryObj = {
   argTypes: wagonDefaultArgTypes,
   args: {
     ...wagonDefaultArgs,
-    type: wagonType.options![6],
+    'wagon-type': wagonType.options![6],
     'wagon-class': '',
     occupancy: null,
   },

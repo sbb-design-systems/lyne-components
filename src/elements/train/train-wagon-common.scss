@@ -140,8 +140,8 @@
 
   :host(:state(orientation-vertical)) & {
     transform-origin: 0 0;
-    rotate: 90deg;
-    translate: var(--sbb-train-formation-wagon-dimension-short) 0;
+    rotate: -90deg;
+    transform: scale(-1, 1);
   }
 }
 
@@ -229,15 +229,14 @@
 
       :host(:state(orientation-vertical)) & {
         width: var(--sbb-train-wagon-class-first-height);
-        inset: 0
+        inset: 0 0 0
           calc(
             -0.5 *
               (var(--sbb-train-formation-wagon-width) - var(--sbb-train-wagon-class-dimension)) +
               var(--sbb-train-wagon-border-width) - var(--sbb-train-wagon-class-border-width)
-          )
-          0 auto;
-        border-start-start-radius: var(--sbb-train-wagon-class-first-border-radius);
-        border-end-start-radius: var(--sbb-train-wagon-class-first-border-radius);
+          );
+        border-start-end-radius: var(--sbb-train-wagon-class-first-border-radius);
+        border-end-end-radius: var(--sbb-train-wagon-class-first-border-radius);
       }
     }
   }
