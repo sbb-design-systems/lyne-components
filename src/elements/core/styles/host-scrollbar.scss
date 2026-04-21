@@ -1,0 +1,6 @@
+@use './mixins/scrollbar';
+
+:host {
+  @include scrollbar.scrollbar-variables;
+  @include scrollbar.scrollbar-rules;
+}
