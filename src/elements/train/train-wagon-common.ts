@@ -265,16 +265,12 @@ export const SbbTrainWagonMixin = <T extends AbstractConstructor<SbbElement>>(
 
       const path = this._wagonShape();
 
-      const availableIconRows =
-        +globalThis
-          .getComputedStyle?.(this)
-          .getPropertyValue('--_sbb-train-wagon-attribute-icon-rows') || this.label
-          ? 3
-          : 4;
+      const availableIconRows = this.label ? 3 : 4;
       this._clipStyleSheet?.replaceSync(`:host {
-            --sbb-train-wagon-clip-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 84 36' fill='black'%3E%3Cpath d='${path}' /%3E%3C/svg%3E");
-            --sbb-train-wagon-clip-shape-compartment: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${this.orientation === 'vertical' ? 36 : 84} ${this.orientation === 'vertical' ? 84 : 36}' fill='black'%3E%3Cpath d='${path}'${this.orientation === 'vertical' ? ` transform='rotate(-90, 0, 0) scale(-1, 1)'` : ''} /%3E%3C/svg%3E");
-            --sbb-train-wagon-attributes-icon-columns: ${Math.ceil(this.listChildren.length / availableIconRows)};
+            --_sbb-train-wagon-clip-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 84 36' fill='black'%3E%3Cpath d='${path}' /%3E%3C/svg%3E");
+            --_sbb-train-wagon-clip-shape-compartment: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${this.orientation === 'vertical' ? 36 : 84} ${this.orientation === 'vertical' ? 84 : 36}' fill='black'%3E%3Cpath d='${path}'${this.orientation === 'vertical' ? ` transform='rotate(-90, 0, 0) scale(-1, 1)'` : ''} /%3E%3C/svg%3E");
+            --_sbb-train-wagon-attributes-icon-columns: ${Math.ceil(this.listChildren.length / availableIconRows)};
+            --_sbb-train-wagon-attributes-icon-rows: ${availableIconRows};
           }`);
 
       return html`

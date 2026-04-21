@@ -252,24 +252,7 @@ describe(`sbb-train-formation`, () => {
         );
 
         it(
-          `no label`,
-          visualDiffDefault.with(async (setup) => {
-            await setup.withFixture(
-              html` <sbb-train-formation orientation=${orientation}
-                >${html`${train1} ${train2}`}
-              </sbb-train-formation>`,
-            );
-
-            Array.from(setup.snapshotElement.querySelectorAll('sbb-train-wagon')!).forEach(
-              (wagon) => (wagon.label = ''),
-            );
-
-            await waitForLitRender(setup.snapshotElement);
-          }),
-        );
-
-        it(
-          `no sectors`,
+          `without sectors`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
               html` <sbb-train-formation orientation=${orientation}
@@ -286,7 +269,7 @@ describe(`sbb-train-formation`, () => {
         );
 
         it(
-          `no direction label`,
+          `without direction label`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
               html` <sbb-train-formation orientation=${orientation}
@@ -296,6 +279,26 @@ describe(`sbb-train-formation`, () => {
 
             Array.from(setup.snapshotElement.querySelectorAll('sbb-train')!).forEach(
               (wagon) => (wagon.directionLabel = ''),
+            );
+
+            await waitForLitRender(setup.snapshotElement);
+          }),
+        );
+
+        it(
+          `without direction label and sectors`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html` <sbb-train-formation orientation=${orientation}
+                >${html`${train1} ${train2}`}
+              </sbb-train-formation>`,
+            );
+
+            Array.from(setup.snapshotElement.querySelectorAll('sbb-train')!).forEach(
+              (wagon) => (wagon.directionLabel = ''),
+            );
+            Array.from(setup.snapshotElement.querySelectorAll('sbb-train-wagon')!).forEach(
+              (wagon) => (wagon.sector = ''),
             );
 
             await waitForLitRender(setup.snapshotElement);

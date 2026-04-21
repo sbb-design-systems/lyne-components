@@ -41,7 +41,6 @@
 
 :host([label]) {
   --_sbb-train-wagon-attributes-max-width: var(--sbb-train-wagon-attributes-max-width);
-  --_sbb-train-wagon-attribute-icon-rows: 3;
 }
 
 :host(:not([label])) {
@@ -102,7 +101,7 @@
   flex-direction: var(--_sbb-train-formation-flex-direction);
   justify-content: center;
   padding-inline: var(--sbb-train-wagon-padding-inline);
-  mask-image: var(--sbb-train-wagon-clip-shape-compartment);
+  mask-image: var(--_sbb-train-wagon-clip-shape-compartment);
   transition: background-color var(--sbb-train-wagon-transition-duration)
     var(--sbb-animation-easing);
 
@@ -147,7 +146,7 @@
 
 .sbb-train-wagon__shape {
   // We have to clip the shape, because the path can be larger than the wagon shape and would overflow otherwise.
-  mask-image: var(--sbb-train-wagon-clip-shape);
+  mask-image: var(--_sbb-train-wagon-clip-shape);
   pointer-events: none;
   fill: none;
   stroke: var(--sbb-train-wagon-shape-color);
@@ -306,11 +305,12 @@
     // The max-height is given by the fact, that 3 rows fit into the design. For the calculation,
     // also two times the gap has to be included.
     max-width: calc(
-      var(--sbb-train-wagon-attributes-icon-columns) * var(--sbb-train-wagon-attributes-mean-width)
+      var(--_sbb-train-wagon-attributes-icon-columns) * var(--sbb-train-wagon-attributes-mean-width)
     );
     max-height: calc(
-      var(--_sbb-train-wagon-attribute-icon-rows) * var(--sbb-train-wagon-attribute-icon-height) +
-        (var(--_sbb-train-wagon-attribute-icon-rows) - 1) *
+      var(--_sbb-train-wagon-attributes-icon-rows, 3) *
+        var(--sbb-train-wagon-attribute-icon-height) +
+        (var(--_sbb-train-wagon-attributes-icon-rows, 3) - 1) *
         var(--sbb-train-wagon-attribute-icon-gap)
     );
     padding-block-start: 0;

@@ -80,7 +80,12 @@ describe(`sbb-train-wagon`, () => {
             visualDiffDefault.with(async (setup) => {
               await setup.withFixture(
                 trainFormationWrapper(
-                  html` <sbb-train-wagon occupancy=${occupancy || nothing}></sbb-train-wagon> `,
+                  html`
+                    <sbb-train-wagon
+                      occupancy=${occupancy || nothing}
+                      label="999"
+                    ></sbb-train-wagon>
+                  `,
                   orientation,
                 ),
               );
@@ -137,6 +142,26 @@ describe(`sbb-train-wagon`, () => {
         );
 
         it(
+          `multiple icons resulting in two columns`,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              trainFormationWrapper(
+                html`
+                  <sbb-train-wagon wagon-class="1" label="999">
+                    <sbb-icon name="sa-rs"></sbb-icon>
+                    <sbb-icon name="sa-nf"></sbb-icon>
+                    <sbb-icon name="sa-bz"></sbb-icon>
+                    <sbb-icon name="sa-bz"></sbb-icon>
+                    <sbb-icon name="sa-bz"></sbb-icon>
+                  </sbb-train-wagon>
+                `,
+                orientation,
+              ),
+            );
+          }),
+        );
+
+        it(
           `multiple icons without label`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(
@@ -145,6 +170,10 @@ describe(`sbb-train-wagon`, () => {
                   <sbb-train-wagon wagon-class="2">
                     <sbb-icon name="sa-rs"></sbb-icon>
                     <sbb-icon name="sa-nf"></sbb-icon>
+                    <sbb-icon name="sa-bz"></sbb-icon>
+                    <sbb-icon name="sa-bz"></sbb-icon>
+                    <sbb-icon name="sa-bz"></sbb-icon>
+                    <sbb-icon name="sa-bz"></sbb-icon>
                     <sbb-icon name="sa-bz"></sbb-icon>
                   </sbb-train-wagon>
                 `,
