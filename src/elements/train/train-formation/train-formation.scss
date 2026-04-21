@@ -76,7 +76,7 @@
   --_wagon-sum: var(--sbb-train-formation-wagon-count) *
     var(--sbb-train-formation-wagon-dimension-long);
   --_blocked-passage-sum: var(--sbb-train-formation-wagon-blocked-passage-count) *
-    var(--sbb-train-formation-blocked-passage-width);
+    var(--sbb-train-formation-blocked-passage-dimension);
   --_total-count: calc(
     var(--sbb-train-formation-wagon-count) + var(--sbb-train-formation-wagon-blocked-passage-count)
   );

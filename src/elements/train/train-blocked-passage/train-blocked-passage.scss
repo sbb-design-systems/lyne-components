@@ -4,12 +4,13 @@
   display: grid;
   grid-template-areas: 'icon';
   align-items: center;
+  width: var(--sbb-train-formation-blocked-passage-dimension);
   height: var(--sbb-train-formation-wagon-height);
 }
 
 :host(:state(orientation-vertical)) {
-  height: auto;
   width: var(--sbb-train-formation-wagon-width);
+  height: var(--sbb-train-formation-blocked-passage-dimension);
 }
 
 :host::before,
@@ -21,8 +22,8 @@
 
 // Circle
 :host::before {
-  width: var(--sbb-train-blocked-passage-icon-dimension);
-  height: var(--sbb-train-blocked-passage-icon-dimension);
+  width: var(--sbb-train-formation-blocked-passage-dimension);
+  height: var(--sbb-train-formation-blocked-passage-dimension);
   border-radius: 50%;
   background-color: var(--sbb-train-blocked-passage-background-color);
 }
