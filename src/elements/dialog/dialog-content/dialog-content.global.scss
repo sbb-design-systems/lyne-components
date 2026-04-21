@@ -11,7 +11,7 @@ $theme: 'standard' !default;
     }
 
     // Set the negative scrollbar colors for dialog content when dialog is negative
-    // This is additionally ended in Light DOM to be more specific in overriding the variables.
+    // This is additionally added to the Light DOM to be more specific in overriding the variables.
     sbb-dialog[negative] > &,
     sbb-dialog[negative]:state(has-intermediate-element) > * > & {
       @include sbb.scrollbar-variables--color-negative;
