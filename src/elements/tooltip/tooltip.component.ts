@@ -43,7 +43,6 @@ const LONGPRESS_DELAY = 500;
 
 const isMobile = isAndroid || isIOS;
 const tooltipTriggers = new WeakMap<HTMLElement, SbbTooltipElement>();
-let nextId = 0;
 
 /**
  * It displays text content within a tooltip.
@@ -250,7 +249,6 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
   public override connectedCallback(): void {
     super.connectedCallback();
     this.popover = 'manual';
-    this.id ||= `sbb-tooltip-${++nextId}`;
     this.state = 'closed';
     sbbOverlayOutsidePointerEventListener.connect(this);
 

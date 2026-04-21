@@ -67,7 +67,7 @@ $disabled: '[disabled], :disabled, [disabled-interactive]';
     auto auto !important;
 }
 
-:host([aria-controls*='sbb-menu']) {
+:host([aria-controls]) {
   --sbb-menu-action-submenu-icon-display: flex;
 }
 

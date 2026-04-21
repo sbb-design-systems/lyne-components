@@ -435,8 +435,7 @@ describe(`sbb-header`, () => {
     await openSpy.calledOnce();
     expect(openSpy.count).to.be.equal(1);
     await waitForLitRender(element);
-    const menuId = menuTrigger.getAttribute('aria-controls');
-    const menu = root.querySelector(`#${menuId}`);
+    const menu = root.querySelector(`sbb-menu`);
 
     // Assert menu opened
     expect(menuTrigger).to.have.attribute('aria-controls');

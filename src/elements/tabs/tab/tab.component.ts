@@ -7,8 +7,6 @@ import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
 import style from './tab.scss?inline';
 
-let nextId = 0;
-
 /**
  * Combined with a `sbb-tab-group` and `sbb-tab-label`, it displays a tab's content.
  *
@@ -43,8 +41,6 @@ export class SbbTabElement extends SbbElement {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-
-    this.id ||= `sbb-tab-${nextId++}`;
     this.tabIndex = 0;
 
     // As we can't include the scrollbar mixin on the host and to minimize

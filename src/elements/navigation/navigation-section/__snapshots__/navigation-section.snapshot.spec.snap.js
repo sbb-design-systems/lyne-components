@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-navigation-section renders DOM"] = 
-`<sbb-navigation-section
-  id="sbb-navigation-section-0"
-  slot="navigation-section"
->
+`<sbb-navigation-section slot="navigation-section">
 </sbb-navigation-section>
 `;
 /* end snapshot sbb-navigation-section renders DOM */

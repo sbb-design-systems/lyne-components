@@ -21,7 +21,7 @@ snapshots["sbb-datepicker renders DOM"] =
     Mo, 20.12.2021
   </sbb-date-input>
   <sbb-datepicker-toggle
-    aria-controls="sbb-datepicker-1"
+    aria-controls=""
     aria-expanded="false"
     aria-haspopup="dialog"
     slot="suffix"
@@ -33,10 +33,7 @@ snapshots["sbb-datepicker renders DOM"] =
     tabindex="0"
   >
   </sbb-datepicker-next-day>
-  <sbb-datepicker
-    id="sbb-datepicker-1"
-    popover="manual"
-  >
+  <sbb-datepicker popover="manual">
   </sbb-datepicker>
 </sbb-form-field>
 `;

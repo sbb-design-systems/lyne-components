@@ -28,7 +28,7 @@ describe(`sbb-menu`, () => {
       const root = await fixture(html`
         <div>
           <sbb-button id="menu-trigger">Menu trigger</sbb-button>
-          <sbb-menu id="menu" trigger="menu-trigger">
+          <sbb-menu trigger="menu-trigger">
             <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
             <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
             <sbb-menu-button id="menu-action-2" icon-name="pen-small" sbb-badge="1" disabled>
@@ -397,7 +397,7 @@ describe(`sbb-menu`, () => {
     it('init with HtmlElement as trigger', async () => {
       trigger = await fixture(html`<sbb-button id="menu-trigger">Menu trigger</sbb-button>`);
       element = await fixture(html`
-        <sbb-menu id="menu" .trigger=${trigger}>
+        <sbb-menu .trigger=${trigger}>
           <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
           <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
         </sbb-menu>

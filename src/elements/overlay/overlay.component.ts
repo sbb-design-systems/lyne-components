@@ -22,8 +22,6 @@ import {
 } from './overlay-base-element.ts';
 import style from './overlay.scss?inline';
 
-let nextId = 0;
-
 /**
  * It displays an interactive overlay element.
  *
@@ -64,12 +62,6 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
 
   protected closeAttribute: string = 'sbb-overlay-close';
   private _overlayContentElement: HTMLElement | null = null;
-
-  public override connectedCallback(): void {
-    this.id ||= `sbb-overlay-${nextId++}`;
-
-    super.connectedCallback();
-  }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);

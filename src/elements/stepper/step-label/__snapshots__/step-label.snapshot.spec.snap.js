@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-step-label renders DOM"] = 
 `<sbb-step-label
-  id="sbb-step-label-0"
   slot="step-label"
   tabindex="-1"
 >
@@ -27,7 +26,6 @@ snapshots["sbb-step-label renders Shadow DOM"] =
 snapshots["sbb-step-label renders with icon DOM"] = 
 `<sbb-step-label
   icon-name="tick-small"
-  id="sbb-step-label-2"
   slot="step-label"
   tabindex="-1"
 >
@@ -53,7 +51,6 @@ snapshots["sbb-step-label renders with icon Shadow DOM"] =
 snapshots["sbb-step-label renders disabled DOM"] = 
 `<sbb-step-label
   disabled=""
-  id="sbb-step-label-4"
   slot="step-label"
   tabindex="-1"
 >
