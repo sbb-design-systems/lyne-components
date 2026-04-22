@@ -1,21 +1,26 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
 
-import { miniButtonStyle } from '../../button/common.ts';
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { i18nClearInput } from '../../core/i18n.ts';
-import { SbbNegativeMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { miniButtonStyle } from '../../button.pure.ts';
+import {
+  boxSizingStyles,
+  i18nClearInput,
+  SbbButtonBaseElement,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbNegativeMixin,
+} from '../../core.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field.component.ts';
-
-import '../../icon.ts';
 
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.
+ *
+ * @event {Event} change - The change event is fired on the component's associated input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+ * @event {InputEvent} input - The input event fires on the component's associated input when the value has been changed as a direct result of a user action.
  */
 export class SbbFormFieldClearElement extends SbbNegativeMixin(SbbButtonBaseElement) {
   public static override readonly elementName: string = 'sbb-form-field-clear';
+  public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle];
 
   private _formField?: SbbFormFieldElement | null;

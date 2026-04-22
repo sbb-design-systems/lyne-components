@@ -1,19 +1,19 @@
 @use '../core/styles' as sbb;
 
 :host {
+  --sbb-teaser-hero-link-font-weight: 400;
+
   display: block;
+  position: relative;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
-
-  @include sbb.panel-variables;
 }
 
-@include sbb.hover-mq($hover: true) {
-  :host(:hover) {
-    --sbb-panel-background-color: var(--sbb-panel-background-color-hover);
-  }
+// Hide panel when no content or link-content is provided.
+:host(:not(:state(slotted), :state(slotted-link-content), [link-content])) sbb-teaser-panel {
+  display: none;
 }
 
 ::slotted([slot='image']) {
@@ -21,9 +21,7 @@
 }
 
 .sbb-teaser-hero {
-  position: relative;
-  display: flex;
-  min-height: var(--sbb-panel-height);
+  display: block;
   text-decoration: none;
 
   &:focus-visible {
@@ -31,30 +29,18 @@
   }
 }
 
-.sbb-teaser-hero__panel {
-  z-index: 1;
+sbb-teaser-panel {
+  position: absolute;
 
-  @include sbb.panel;
-  @include sbb.absolute-center-y;
-
-  // Hide panel when no content or link-content is provided.
-  :host(:not(:state(slotted), :state(slotted-link-content), [link-content])) & {
-    display: none;
+  // To avoid having a 0 height if you only slotted the panel content
+  :host(:not(:state(slotted-image))) & {
+    position: static;
   }
 }
 
-.sbb-teaser-hero__panel-text {
-  @include sbb.panel-text;
-
-  hyphens: auto;
-
-  // Reset paragraph styles
-  display: inline;
-  margin: 0;
-  padding: 0;
-}
-
 .sbb-teaser-hero__panel-link {
+  font-weight: var(--sbb-teaser-hero-link-font-weight);
+
   :host(:not([href])) & {
     display: none;
   }

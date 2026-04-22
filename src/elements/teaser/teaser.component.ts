@@ -1,15 +1,12 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbChipLabelElement } from '../chip-label.ts';
-import { SbbLinkBaseElement } from '../core/base-elements.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbTitleElement } from '../title.ts';
+import type { SbbChipLabelElement } from '../chip-label.pure.ts';
+import { boxSizingStyles, SbbLinkBaseElement } from '../core.ts';
+import type { SbbTitleElement } from '../title.pure.ts';
 
-import style from './teaser.scss?lit&inline';
-
-import '../screen-reader-only.ts';
+import style from './teaser.scss?inline';
 
 /**
  * It displays an interactive image with caption.
@@ -21,7 +18,7 @@ import '../screen-reader-only.ts';
  */
 export class SbbTeaserElement extends SbbLinkBaseElement {
   public static override readonly elementName: string = 'sbb-teaser';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Teaser variant - define the position and the alignment of the text block. */
   @property({ reflect: true }) public accessor alignment: 'after-centered' | 'after' | 'below' =

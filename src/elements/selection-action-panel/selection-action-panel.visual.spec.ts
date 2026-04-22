@@ -9,12 +9,12 @@ import {
 } from '../core/testing/private.ts';
 
 import '../selection-action-panel.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../card.ts';
 import '../checkbox-panel.ts';
 import '../checkbox-group.ts';
 import '../icon.ts';
-import '../link/block-link-button.ts';
+import '../link.ts';
 import '../radio-button-panel.ts';
 import '../radio-button-group.ts';
 import '../selection-expansion-panel.ts';

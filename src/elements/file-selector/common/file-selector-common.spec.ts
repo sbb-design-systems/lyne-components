@@ -8,8 +8,7 @@ import { SbbFileSelectorElement } from '../file-selector/file-selector.component
 import type { SbbFileSelectorDropzoneElement } from '../file-selector-dropzone/file-selector-dropzone.component.ts';
 
 import '../../file-selector.ts';
-
-import '../../button/secondary-button.ts';
+import '../../button.ts';
 
 function createDataTransfer(
   numberOfFiles: number,

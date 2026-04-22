@@ -1,44 +1,52 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import type { CSSResultGroup, PropertyDeclaration, PropertyValues, TemplateResult } from 'lit';
-import { html, isServer, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  nothing,
+  type PropertyDeclaration,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
 
-import { getNextElementIndex } from '../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
 import {
-  SbbPropertyWatcherController,
-  SbbEscapableOverlayController,
-  SbbLanguageController,
-} from '../core/controllers.ts';
-import { forceType, getOverride, handleDistinctChange } from '../core/decorators.ts';
-import {
+  boxSizingStyles,
+  forceType,
+  type FormRestoreReason,
+  type FormRestoreState,
+  getNextElementIndex,
+  getOverride,
+  handleDistinctChange,
+  i18nSelectionRequired,
+  isEventOnElement,
   isLean,
   isNextjs,
   isSafari,
   isZeroAnimationDuration,
-  setOrRemoveAttribute,
-} from '../core/dom.ts';
-import { i18nSelectionRequired } from '../core/i18n.ts';
-import {
-  type FormRestoreReason,
-  type FormRestoreState,
+  overlayGapFixCorners,
   SbbDisabledMixin,
+  SbbEscapableOverlayController,
   SbbFormAssociatedMixin,
+  SbbLanguageController,
   SbbNegativeMixin,
+  SbbOpenCloseBaseElement,
+  SbbPropertyWatcherController,
   SbbReadonlyMixin,
   SbbRequiredMixin,
   SbbUpdateSchedulerMixin,
-} from '../core/mixins.ts';
-import { isEventOnElement, overlayGapFixCorners, setOverlayPosition } from '../core/overlay.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbDividerElement } from '../divider.ts';
+  setOrRemoveAttribute,
+  setOverlayPosition,
+} from '../core.ts';
+import type { SbbDividerElement } from '../divider.pure.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
-import type { SbbOptionElement, SbbOptionHintElement } from '../option.ts';
+import type { SbbOptionElement, SbbOptionHintElement } from '../option.pure.ts';
 
-import style from './select.scss?lit&inline';
+import style from './select.scss?inline';
 
 /**
  * On Safari, the aria role 'listbox' must be on the host element, or else VoiceOver won't work at all.
@@ -72,7 +80,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 ) {
   public static override readonly elementName: string = 'sbb-select';
   public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
@@ -97,6 +105,10 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   )
   @property({ reflect: true, type: Boolean })
   public accessor multiple: boolean = false;
+
+  /** Function used to compare option values. */
+  @property({ attribute: false })
+  public accessor compareWith: (v1: T | null, v2: T | null) => boolean = (v1, v2) => v1 === v2;
 
   @forceType()
   @handleDistinctChange((e: SbbSelectElement<T>, newValue: boolean) =>
@@ -344,6 +356,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       this._displayValue = null;
     }
 
+    this.toggleState('has-display-value', !!this._displayValue);
+
     /** @internal */
     this.dispatchEvent(new Event('displayvaluechange', { bubbles: true, composed: true }));
   }
@@ -482,15 +496,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         manuallyAssigned: boolean;
       };
 
-      const values = Array.isArray(value) ? value : [value];
-
-      if (values.some((v) => v !== null && typeof v === 'object')) {
-        console.warn(
-          `Restoring complex objects is not supported for sbb-select with state ${state}`,
-        );
-        return;
-      }
-
       this._isValueManuallyAssigned = manuallyAssigned;
       this._value = value;
       this._updateOptionsFromValue();
@@ -515,9 +520,16 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   protected override validate(): void {
     super.validate();
+
+    const value: T[] = Array.isArray(this.value)
+      ? this.value
+      : this.value === null
+        ? []
+        : [this.value];
+
     if (
       this.required &&
-      (this.options.every((o) => o.value !== this.value) ||
+      (this.options.every((o) => value.every((v) => !this.compareWith(v, o.value))) ||
         (!this._isValueManuallyAssigned && this.value == null))
     ) {
       this.setValidityFlag('valueMissing', i18nSelectionRequired[this._languageController.current]);
@@ -609,7 +621,10 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       this._value = option.value;
     } else if (!this.value) {
       this._value = [option.value!];
-    } else if (Array.isArray(this.value) && !this.value.includes(option.value!)) {
+    } else if (
+      Array.isArray(this.value) &&
+      !this.value.some((v) => this.compareWith(v, option.value!))
+    ) {
       this._value = [...this.value, option.value!];
     }
 
@@ -620,7 +635,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   /** When an option is unselected in `multiple`, removes it from value and updates displayValue. */
   private _onOptionDeselected(optionSelectionChange: SbbOptionElement<T>): void {
     if (this.multiple && Array.isArray(this.value)) {
-      this._value = this.value.filter((el) => el !== optionSelectionChange.value);
+      this._value = this.value.filter((el) => !this.compareWith(el, optionSelectionChange.value));
       this._updateOptionsFromValue();
       this._dispatchInputEvents();
     }
@@ -836,7 +851,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     }
 
     // Reset the previous
-    if (lastActiveOption && lastActiveOption !== nextActiveOption) {
+    if (lastActiveOption && !this.compareWith(lastActiveOption.value, nextActiveOption.value)) {
       lastActiveOption.setActive(false);
     }
   }
@@ -847,7 +862,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   ): void {
     nextActiveOption['selectViaUserInteraction'](true);
 
-    if (lastActiveOption && lastActiveOption !== nextActiveOption) {
+    if (lastActiveOption && !this.compareWith(lastActiveOption.value, nextActiveOption.value)) {
       lastActiveOption['selectViaUserInteraction'](false);
     }
   }
@@ -879,7 +894,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
     const displayValues = [];
     for (const option of this.options) {
-      option.selected = value.includes(option.value);
+      option.selected = value.some((v) => this.compareWith(v, option.value));
       if (option.selected) {
         displayValues.push(option);
       }
@@ -888,8 +903,9 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     this._updateDisplayValue();
 
     if (!Array.isArray(this.value)) {
-      this._activeItemIndex = this._selectableOptions().findIndex(
-        (option) => option.value === this.value,
+      const value: T | null = this.value;
+      this._activeItemIndex = this._selectableOptions().findIndex((option) =>
+        this.compareWith(option.value, value),
       );
     }
   }
@@ -985,16 +1001,12 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         @click=${this._toggleOpening}
         ${ref((ref) => (this._triggerElement = ref as HTMLElement))}
       >
-        ${until(...this._spreadDeferredDisplayValue(html`<span>${this.placeholder}</span>`))}
+        ${until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`))}
       </div>
 
       <!-- Visually display the value -->
       <div class="sbb-select__trigger" aria-hidden="true">
-        ${until(
-          ...this._spreadDeferredDisplayValue(
-            html`<span class="sbb-select__trigger--placeholder">${this.placeholder}</span>`,
-          ),
-        )}
+        ${until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`))}
       </div>
 
       <div class="sbb-select__gap-fix"></div>

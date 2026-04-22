@@ -1,4 +1,4 @@
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
@@ -10,7 +10,7 @@ import readme from './readme.md?raw';
 
 import '../action-group.ts';
 import '../button.ts';
-import '../link/block-link.ts';
+import '../link.ts';
 
 const secondaryButtonTemplate = (alignSelf?: string): TemplateResult => html`
   <sbb-secondary-button align-self=${alignSelf || nothing}> Button 1 </sbb-secondary-button>

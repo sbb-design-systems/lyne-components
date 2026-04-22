@@ -32,7 +32,7 @@ It's possible to override the padding by using the CSS variable
 `--sbb-container-padding`.
 
 Optionally, you can add an overlapping `<sbb-chip-label>` by wrapping the
-`<sbb-image>` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
+`<sbb-image>` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility-classes)).
 
 ```html
 <sbb-container>
@@ -49,7 +49,7 @@ Optionally, you can add an overlapping `<sbb-chip-label>` by wrapping the
 
 ## Style
 
-By default `<sbb-container>` uses the `page spacing` defined in the [layout documentation](/docs/styles-layout--docs).
+By default `<sbb-container>` uses the `page spacing` defined in the [layout documentation](/docs/guides-layout--docs).
 Optionally the user can use the `expanded` property (default: `false`) to switch to the `page spacing expanded` layout.
 Spacing options are applied to all the container's content, including the `<sbb-sticky-bar>`.
 

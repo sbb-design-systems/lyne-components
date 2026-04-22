@@ -1,25 +1,29 @@
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbElement } from '../../core/base-elements.ts';
+import { hostScrollbarStyles, SbbElement } from '../../core.ts';
 import { sidebarContentCommonStyle } from '../common/styles.ts';
 
-import style from './sidebar-content.scss?lit&inline';
+import style from './sidebar-content.scss?inline';
 
 /**
  * Container for the sidebar content. Intended to be placed inside an `sbb-sidebar-container` element.
  *
- * @slot - Use the unnamed slot to add any content elements.
- * Further `sbb-sidebar-container`s are possible.
+ * @slot - Use the unnamed slot to add any content elements. Further `<sbb-sidebar-container>` elements are possible.
  */
 export class SbbSidebarContentElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-sidebar-content';
-  public static override styles: CSSResultGroup = [sidebarContentCommonStyle, style];
+  public static override styles: CSSResultGroup = [
+    hostScrollbarStyles,
+    sidebarContentCommonStyle,
+    unsafeCSS(style),
+  ];
 
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    // As we can't include the scrollbar mixin on the host and to minimize
-    // payload, we decided to add the scrollbar class here.
+    // When including the scrollbar styles on the host, there is no hover effect of the scrollbar possible.
+    // In most cases, the component will be used in Light DOM. To also support the hover effect,
+    // we additionally add the `sbb-scrollbar` CSS class to the host.
     // This is an exception as we normally don't alter the classList of the host.
     this.classList.add('sbb-scrollbar');
   }

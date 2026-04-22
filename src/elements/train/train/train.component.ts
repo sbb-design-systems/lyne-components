@@ -1,20 +1,31 @@
-import { type CSSResultGroup, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
-import { i18nTrain, i18nWagonsLabel } from '../../core/i18n.ts';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbTitleLevel } from '../../title.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  i18nTrain,
+  i18nWagonsLabel,
+  omitEmptyConverter,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbNamedSlotListMixin,
+  type WithListChildren,
+} from '../../core.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
+import type { SbbTitleLevel } from '../../title.pure.ts';
 import type { SbbTrainBlockedPassageElement } from '../train-blocked-passage/train-blocked-passage.component.ts';
 import type { SbbTrainWagonElement } from '../train-wagon/train-wagon.component.ts';
 
-import style from './train.scss?lit&inline';
-
-import '../../icon.ts';
+import style from './train.scss?inline';
 
 /**
  * It can be used as a container for `sbb-train-wagon` or `sbb-train-blocked-passage` components.
@@ -26,7 +37,8 @@ export class SbbTrainElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-train';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [SbbIconElement];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     trainslotchange: 'trainslotchange',
   } as const;

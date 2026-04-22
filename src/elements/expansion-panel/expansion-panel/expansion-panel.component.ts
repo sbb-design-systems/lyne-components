@@ -1,18 +1,21 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean, isZeroAnimationDuration } from '../../core/dom.ts';
-import type { SbbOpenedClosedState } from '../../core/interfaces.ts';
-import { ɵstateController } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbTitleLevel } from '../../title.ts';
+import type { SbbOpenedClosedState } from '../../core.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  isLean,
+  isZeroAnimationDuration,
+  SbbElement,
+  ɵstateController,
+} from '../../core.ts';
+import type { SbbTitleLevel } from '../../title.pure.ts';
 import type { SbbExpansionPanelContentElement } from '../expansion-panel-content/expansion-panel-content.component.ts';
 import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header/expansion-panel-header.component.ts';
 
-import style from './expansion-panel.scss?lit&inline';
+import style from './expansion-panel.scss?inline';
 
 let nextId = 0;
 
@@ -23,7 +26,7 @@ let nextId = 0;
  */
 export class SbbExpansionPanelElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-expansion-panel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

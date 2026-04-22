@@ -1,10 +1,10 @@
-import type { LitElement, PropertyValues } from 'lit';
+import type { PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { forceType } from '../decorators.ts';
+import type { SbbElement } from '../base-elements/element.ts';
+import { forceType } from '../decorators/force-type.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
-import type { SbbElementInternalsMixinType } from './element-internals-mixin.ts';
 
 export declare class SbbDisabledMixinType {
   public accessor disabled: boolean;
@@ -19,7 +19,7 @@ export declare class SbbDisabledInteractiveMixinType {
  * Enhance your component with a disabled property.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
+export const SbbDisabledMixin = <T extends AbstractConstructor<SbbElement>>(
   superClass: T,
 ): AbstractConstructor<SbbDisabledMixinType> & T => {
   abstract class SbbDisabledElement extends superClass implements Partial<SbbDisabledMixinType> {
@@ -58,7 +58,7 @@ export const SbbDisabledMixin = <T extends AbstractConstructor<LitElement>>(
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbDisabledInteractiveMixin = <
-  T extends AbstractConstructor<LitElement & SbbDisabledMixinType>,
+  T extends AbstractConstructor<SbbElement & SbbDisabledMixinType>,
 >(
   superClass: T,
 ): AbstractConstructor<SbbDisabledInteractiveMixinType> & T => {
@@ -77,9 +77,7 @@ export const SbbDisabledInteractiveMixin = <
 };
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbDisabledTabIndexActionMixin = <
-  T extends AbstractConstructor<LitElement & SbbElementInternalsMixinType>,
->(
+export const SbbDisabledTabIndexActionMixin = <T extends AbstractConstructor<SbbElement>>(
   superClass: T,
 ): AbstractConstructor<SbbDisabledMixinType & SbbDisabledInteractiveMixinType> & T => {
   abstract class SbbDisabledTabIndexAction

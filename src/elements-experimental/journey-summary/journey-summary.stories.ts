@@ -1,4 +1,4 @@
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
@@ -13,8 +13,7 @@ import {
 
 import readme from './readme.md?raw';
 
-import '@sbb-esta/lyne-elements/button/button.js';
-import '@sbb-esta/lyne-elements/button/secondary-button.js';
+import '@sbb-esta/lyne-elements/button.js';
 import '../journey-summary.ts';
 
 const disableAnimation: InputType = {

@@ -1,23 +1,35 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.ts';
-import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
-import { SbbDarkModeController, SbbLanguageController } from '../core/controllers.ts';
-import { forceType } from '../core/decorators.ts';
-import { isLean, isZeroAnimationDuration } from '../core/dom.ts';
-import { composedPathHasAttribute } from '../core/eventing.ts';
-import { i18nCloseAlert } from '../core/i18n.ts';
-import { SbbReadonlyMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import { SbbIconNameMixin } from '../icon.ts';
-import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.ts';
+import {
+  SbbTransparentButtonElement,
+  type SbbTransparentButtonLinkElement,
+} from '../button.pure.ts';
+import {
+  boxSizingStyles,
+  composedPathHasAttribute,
+  forceType,
+  i18nCloseAlert,
+  isLean,
+  isZeroAnimationDuration,
+  SbbDarkModeController,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbOpenCloseBaseElement,
+  SbbReadonlyMixin,
+} from '../core.ts';
+import { SbbDividerElement } from '../divider.pure.ts';
+import { SbbIconNameMixin } from '../icon.pure.ts';
+import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.pure.ts';
 
-import style from './toast.scss?lit&inline';
-
-import '../button/transparent-button.ts';
-import '../divider.ts';
+import style from './toast.scss?inline';
 
 type SbbToastPositionVertical = 'top' | 'bottom';
 type SbbToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';
@@ -38,7 +50,11 @@ const toastRefs = new Set<SbbToastElement>();
  */
 export class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
   public static override readonly elementName: string = 'sbb-toast';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbTransparentButtonElement,
+    SbbDividerElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.

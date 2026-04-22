@@ -9,7 +9,7 @@ import type { SbbLoadingIndicatorElement } from './loading-indicator.component.t
 import readme from './readme.md?raw';
 
 import '../loading-indicator.ts';
-import '../button/button.ts';
+import '../button.ts';
 import '../card.ts';
 
 const createLoadingIndicator = (event: Event, args: Args): void => {

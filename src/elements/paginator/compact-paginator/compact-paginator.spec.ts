@@ -3,10 +3,10 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import { type SinonSpy, spy } from 'sinon';
 
-import type { SbbMiniButtonElement } from '../../button/mini-button.ts';
-import type { SbbPaginatorPageEventDetails } from '../../core/interfaces/paginator-page.ts';
+import type { SbbMiniButtonElement } from '../../button.ts';
 import { fixture, tabKey } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
+import type { SbbPaginatorPageEventDetails } from '../common/paginator-common.ts';
 
 import { SbbCompactPaginatorElement } from './compact-paginator.component.ts';
 

@@ -5,11 +5,10 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import { SbbStickyBarElement } from '../container.ts';
-import sampleImages from '../core/images.ts';
+import { sampleImages } from '../core/images.private.ts';
 
 import '../action-group.ts';
-import '../button/button.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../card.ts';
 import '../image.ts';
 import '../link.ts';

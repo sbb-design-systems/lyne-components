@@ -1,4 +1,4 @@
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
@@ -8,7 +8,7 @@ import type { SbbBreadcrumbGroupElement } from '../breadcrumb.ts';
 
 import readme from './readme.md?raw';
 
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../breadcrumb.ts';
 
 const addBreadcrumb = (event: Event): void => {
@@ -133,14 +133,14 @@ const GroupTemplate = (args: Args): TemplateResult => html`
     <sbb-breadcrumb-group aria-label="You are here:">
       ${createBreadcrumbs(args)}
     </sbb-breadcrumb-group>
-    <div style="margin-block: 2rem; gap: 1rem; display: flex;">
-      <sbb-secondary-button @click=${(event: Event) => addBreadcrumb(event)}
-        >Add</sbb-secondary-button
-      >
-      <sbb-secondary-button @click=${(event: Event) => removeBreadcrumb(event)}
-        >Remove</sbb-secondary-button
-      >
-    </div>
+    <sbb-mini-button-group size="s" style="margin-block-start: 2rem;">
+      <sbb-mini-button icon-name="minus-small" @click=${(event: Event) => removeBreadcrumb(event)}>
+        Remove
+      </sbb-mini-button>
+      <sbb-mini-button icon-name="plus-small" @click=${(event: Event) => addBreadcrumb(event)}>
+        Add
+      </sbb-mini-button>
+    </sbb-mini-button-group>
   </div>
 `;
 
@@ -242,14 +242,7 @@ export const NoLink: StoryObj = {
 };
 
 const meta: Meta = {
-  decorators: [
-    (story) => html`
-      <div style="max-width: 1000px;">
-        ${story()}
-        <div>Page content</div>
-      </div>
-    `,
-  ],
+  decorators: [(story) => html` <div style="max-width: 1000px;">${story()}</div> `],
   parameters: {
     docs: {
       extractComponentDescription: () => readme,

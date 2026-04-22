@@ -7,6 +7,240 @@ import type { InputType } from 'storybook/internal/types';
 import readme from './readme.md?raw';
 
 import '../table.ts';
+import '../form-field.ts';
+
+/**
+ * Simple table examples.
+ */
+
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['xs', 's', 'm'],
+};
+
+const striped: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const inlineFilters: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const groupWithNext: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const withSubtitle: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const colorTheme: InputType = {
+  options: ['none', 'iron'],
+  control: {
+    type: 'select',
+  },
+};
+
+const simpleDefaultArgTypes: ArgTypes = {
+  size,
+  negative,
+  striped,
+  inlineFilters,
+  groupWithNext,
+  withSubtitle,
+  'color-theme': colorTheme,
+};
+
+const simpleDefaultArgs: Args = {
+  size: 'm',
+  negative: false,
+  striped: true,
+  'inline-filters': false,
+  groupWithNext: false,
+  withSubtitle: false,
+  'color-theme': colorTheme.options![0],
+};
+
+const caption: () => TemplateResult = () => html`
+  <caption>
+    Front-end web developer course 2021
+  </caption>
+`;
+
+const simpleHeader: (groupWithNext?: boolean, withSubtitle?: boolean) => TemplateResult = (
+  groupWithNext = false,
+  withSubtitle = false,
+) => html`
+  <thead>
+    <tr>
+      <th class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>
+        Person${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+      <th>
+        Most interest
+        in${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+      <th>
+        Age${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+    </tr>
+  </thead>
+`;
+
+const simpleHeaderWithFilters: (
+  groupWithNext?: boolean,
+  withSubtitle?: boolean,
+) => TemplateResult = (groupWithNext = false, withSubtitle = false) => html`
+  <thead>
+    <tr>
+      <th class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>
+        Person${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+      <th>
+        Most interest
+        in${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+      <th>
+        Age${withSubtitle ? html` <div class="sbb-table-header-subtitle">Subtitle</div>` : ''}
+      </th>
+    </tr>
+    <tr>
+      <th class="sbb-table-filter">
+        <sbb-form-field size="s"><input placeholder="Placeholder" /></sbb-form-field>
+      </th>
+      <th class="sbb-table-filter">
+        <sbb-form-field size="s"><input placeholder="Placeholder" /></sbb-form-field>
+      </th>
+      <th class="sbb-table-filter">
+        <sbb-form-field size="s"><input placeholder="Placeholder" /></sbb-form-field>
+      </th>
+    </tr>
+  </thead>
+`;
+
+const simpleBody: (groupWithNext?: boolean) => TemplateResult = (groupWithNext = false) => html`
+  <tbody>
+    <tr>
+      <td class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Chris</td>
+      <td>HTML tables</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <td class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Dennis</td>
+      <td>Web accessibility</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <td class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>Sarah</td>
+      <td>JavaScript frameworks</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <td class=${groupWithNext ? 'sbb-table-group-with-next' : ''}>KAREN</td>
+      <td>Web performance</td>
+      <td>36</td>
+    </tr>
+  </tbody>
+`;
+
+const tableClasses = (args: Args): Record<string, boolean> => ({
+  'sbb-table--negative': args.negative,
+  'sbb-table-xs': args.size === 'xs',
+  'sbb-table-s': args.size === 's',
+  'sbb-table-m': args.size === 'm',
+  'sbb-table--unstriped': !args.striped,
+  'sbb-table--theme-iron': args['color-theme'] === 'iron',
+});
+
+const SimpleTemplate = (args: Args): TemplateResult => html`
+  <table class=${classMap(tableClasses(args))}>
+    ${caption()}
+    ${args['inline-filters']
+      ? simpleHeaderWithFilters(args.groupWithNext, args.withSubtitle)
+      : simpleHeader(args.groupWithNext, args.withSubtitle)}
+    ${simpleBody(args.groupWithNext)}
+  </table>
+`;
+
+const SimpleWithoutHeaderTemplate = (args: Args): TemplateResult => html`
+  <table class=${classMap(tableClasses(args))}>
+    ${caption()} ${simpleBody(args.groupWithNext)}
+  </table>
+`;
+
+export const Simple: StoryObj = {
+  render: SimpleTemplate,
+  argTypes: simpleDefaultArgTypes,
+  args: { ...simpleDefaultArgs },
+};
+
+export const SimpleSizeS: StoryObj = {
+  render: SimpleTemplate,
+  argTypes: simpleDefaultArgTypes,
+  args: { ...simpleDefaultArgs, size: 's' },
+};
+
+export const SimpleSizeXS: StoryObj = {
+  render: SimpleTemplate,
+  argTypes: simpleDefaultArgTypes,
+  args: { ...simpleDefaultArgs, size: 'xs' },
+};
+
+export const SimpleNegative: StoryObj = {
+  render: SimpleTemplate,
+  argTypes: simpleDefaultArgTypes,
+  args: { ...simpleDefaultArgs, negative: true },
+};
+
+export const SimpleIronTheme: StoryObj = {
+  render: SimpleTemplate,
+  argTypes: simpleDefaultArgTypes,
+  args: { ...simpleDefaultArgs, 'color-theme': 'iron' },
+};
+
+export const SimpleWithFilters: StoryObj = {
+  render: SimpleTemplate,
+  argTypes: simpleDefaultArgTypes,
+  args: { ...simpleDefaultArgs, 'inline-filters': true, size: 's' },
+};
+
+export const SimpleWithoutHeader: StoryObj = {
+  render: SimpleWithoutHeaderTemplate,
+  argTypes: simpleDefaultArgTypes,
+  args: { ...simpleDefaultArgs, 'inline-filters': true, size: 's' },
+};
+
+export const SimpleGroupWithNext: StoryObj = {
+  render: SimpleTemplate,
+  argTypes: simpleDefaultArgTypes,
+  args: { ...simpleDefaultArgs, groupWithNext: true },
+};
+
+export const HeaderSubtitle: StoryObj = {
+  render: SimpleTemplate,
+  argTypes: simpleDefaultArgTypes,
+  args: { ...simpleDefaultArgs, withSubtitle: true },
+};
+
+/**
+ * Table-wrapper examples.
+ */
 
 const columns = [
   'Line',
@@ -65,12 +299,6 @@ const data = [
     '0396',
   ],
 ];
-
-const negative: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
 
 const focusable: InputType = {
   control: {
@@ -167,19 +395,19 @@ const Template = (args: Args): TemplateResult => html`
   <p class="sbb-table-caption">Train lines 2024</p>
 `;
 
-export const Default: StoryObj = {
+export const TableWrapper: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs },
 };
 
-export const Negative: StoryObj = {
+export const TableWrapperNegative: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, negative: true },
 };
 
-export const Sticky: StoryObj = {
+export const TableWrapperSticky: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: { ...defaultArgs, sticky: true },

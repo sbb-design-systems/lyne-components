@@ -1,26 +1,27 @@
-import type { PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { html, nothing, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
 import {
+  forceType,
+  isLean,
+  omitEmptyConverter,
+  SbbElement,
+  type SbbElementType,
   SbbNamedSlotListMixin,
   SbbNegativeMixin,
   type WithListChildren,
-} from '../../core/mixins.ts';
+} from '../../core.ts';
 import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,
   SbbBlockLinkStaticElement,
   SbbLinkSize,
-} from '../../link.ts';
-import type { SbbTitleLevel } from '../../title.ts';
+} from '../../link.pure.ts';
+import { SbbTitleElement, type SbbTitleLevel } from '../../title.pure.ts';
 
-import '../../title.ts';
+import linkListBaseStyleString from './link-list-base.scss?inline';
 
-export { default as linkListBaseStyle } from './link-list-base.scss?lit&inline';
+export const linkListBaseStyle = unsafeCSS(linkListBaseStyleString);
 
 /**
  * It displays a list of `sbb-block-link`.
@@ -34,6 +35,7 @@ export class SbbLinkListBaseElement extends SbbNegativeMixin(
     typeof SbbElement
   >(SbbElement),
 ) {
+  public static override elementDependencies: SbbElementType[] = [SbbTitleElement];
   protected override readonly listChildLocalNames = [
     'sbb-block-link',
     'sbb-block-link-button',

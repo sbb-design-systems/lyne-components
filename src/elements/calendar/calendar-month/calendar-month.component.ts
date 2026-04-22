@@ -1,10 +1,12 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult } from 'lit';
 import { state } from 'lit/decorators.js';
 
-import { boxSizingStyles } from '../../core/styles.ts';
+import { boxSizingStyles } from '../../core.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
-import { SbbCalendarCellBaseElement, calendarCellBaseStyle } from '../common.ts';
+import {
+  calendarCellBaseStyle,
+  SbbCalendarCellBaseElement,
+} from '../common/calendar-cell-base-element.ts';
 
 /**
  * It displays a single month cell in the `sbb-calendar` months view.

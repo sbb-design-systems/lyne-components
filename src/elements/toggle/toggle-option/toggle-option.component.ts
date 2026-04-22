@@ -1,22 +1,25 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { SbbDisabledMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+import { boxSizingStyles, forceType, SbbDisabledMixin, SbbElement } from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbToggleElement } from '../toggle/toggle.component.ts';
 
-import style from './toggle-option.scss?lit&inline';
+import style from './toggle-option.scss?inline';
 
 /**
  * It displays a toggle option within a `sbb-toggle`.
  *
  * @slot - Use the unnamed slot to add content to the label of the toggle option.
  * @slot icon - Slot used to render the `sbb-icon`.
+ * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  * @overrideType value - (T = string) | null
  */
 export class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
@@ -24,7 +27,7 @@ export class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
 ) {
   public static override readonly elementName: string = 'sbb-toggle-option';
   public static override readonly role = 'radio';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Whether the toggle-option is checked. */
   @forceType()
@@ -115,12 +118,10 @@ export class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-toggle-option">
-        ${this.renderIconSlot()}
-        <span class="sbb-toggle-option__label">
-          <slot></slot>
-        </span>
-      </div>
+      ${this.renderIconSlot()}
+      <span class="sbb-toggle-option__label">
+        <slot></slot>
+      </span>
     `;
   }
 }

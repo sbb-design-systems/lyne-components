@@ -101,7 +101,7 @@ components that require basic button or link functionality have to extend the co
 and they need to implement the `renderTemplate` method, which should return the component's inner content.
 
 ```ts
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { SbbButtonBaseElement } from '../../core.ts';
 import { html } from 'lit';
 
 class MyCustomButtonElement extends SbbButtonBaseElement {
@@ -134,7 +134,7 @@ As the language can be changed dynamically, you have to use the `SbbLanguageCont
 The `SbbLanguageController` does automatically update the view if needed.
 
 ```ts
-import { SbbLanguageController } from '../core/controllers.js';
+import { SbbLanguageController } from '../core.ts';
 
 export class Component extends SbbElement {
   private _language = new SbbLanguageController(this);

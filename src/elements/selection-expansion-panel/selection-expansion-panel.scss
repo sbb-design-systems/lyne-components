@@ -27,7 +27,7 @@ $open-anim-opacity-to: 1;
   display: block;
   flex: auto;
   position: relative;
-  width: 100%;
+  width: var(--sbb-selection-group-elements-width, 100%);
   background-color: var(--sbb-selection-expansion-panel-background);
   border-radius: var(--sbb-selection-panel-border-radius);
 

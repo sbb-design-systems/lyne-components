@@ -1,4 +1,4 @@
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
@@ -9,7 +9,7 @@ import { SbbAlertElement, SbbAlertGroupElement } from '../alert.ts';
 
 import readme from './readme.md?raw';
 
-import '../link/link.ts';
+import '../link.ts';
 import '../title.ts';
 
 // Group

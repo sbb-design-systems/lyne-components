@@ -13,6 +13,7 @@
   max-width: var(--sbb-time-input-max-width);
   cursor: text;
   align-items: center;
+  font-weight: normal;
 
   @include sbb.if-forced-colors {
     color: FieldText;

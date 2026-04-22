@@ -1,15 +1,25 @@
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  isLean,
+  omitEmptyConverter,
+  SbbElement,
+  SbbNamedSlotListMixin,
+  type WithListChildren,
+} from '../../core.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 
-import style from './navigation-list.scss?lit&inline';
+import style from './navigation-list.scss?inline';
 
 /**
  * It can be used as a container for one or more `sbb-navigation-button`/`sbb-navigation-link` within a `sbb-navigation-section`.
@@ -22,7 +32,7 @@ export class SbbNavigationListElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-navigation-list';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   protected override readonly listChildLocalNames = [
     'sbb-navigation-button',
     'sbb-navigation-link',

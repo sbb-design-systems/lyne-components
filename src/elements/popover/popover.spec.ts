@@ -1,17 +1,17 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { sendKeys, setViewport } from '@web/test-runner-commands';
+import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import type { SbbButtonElement } from '../button.ts';
-import { mergeConfig } from '../core/config.ts';
 import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import { mergeConfig } from '../core.ts';
 import type { SbbLinkElement } from '../link.ts';
 
 import { SbbPopoverElement } from './popover.component.ts';
 
-import '../button/button.ts';
+import '../button.ts';
 import '../link.ts';
 import '../popover.ts';
 
@@ -48,7 +48,7 @@ describe(`sbb-popover`, () => {
       const content = await fixture(html`
         <span>
           <sbb-button id="popover-trigger">Popover trigger</sbb-button>
-          <sbb-popover id="popover" trigger="popover-trigger">
+          <sbb-popover trigger="popover-trigger">
             Popover content.
             <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>
           </sbb-popover>
@@ -187,9 +187,8 @@ describe(`sbb-popover`, () => {
       await openSpy.calledOnce();
 
       // Simulate backdrop click
-      // Add buttons and detail to not trigger the isFakeMousedownFromScreenReader
       window.dispatchEvent(new MouseEvent('mousedown', { buttons: 1, clientX: 1 }));
-      window.dispatchEvent(new PointerEvent('pointerup', { buttons: 1, detail: 1 }));
+      window.dispatchEvent(new PointerEvent('pointerup'));
 
       await closeSpy.calledOnce();
 
@@ -205,28 +204,14 @@ describe(`sbb-popover`, () => {
 
       await openSpy.calledOnce();
 
-      // We can't use sendMouse as it triggers the isFakeMousedownFromScreenReader check, so we need to dispatch the events manually and add the buttons and detail properties.
       const interactiveElementPosition = interactiveBackgroundElement.getBoundingClientRect();
-      const x = Math.round(interactiveElementPosition.x + interactiveElementPosition.width / 2);
-      const y = Math.round(interactiveElementPosition.y + interactiveElementPosition.height / 2);
-      interactiveBackgroundElement.dispatchEvent(
-        new MouseEvent('mousedown', {
-          buttons: 1,
-          detail: 1,
-          clientX: x,
-          clientY: y,
-          bubbles: true,
-        }),
-      );
-      interactiveBackgroundElement.dispatchEvent(
-        new PointerEvent('pointerup', {
-          buttons: 1,
-          detail: 1,
-          clientX: x,
-          clientY: y,
-          bubbles: true,
-        }),
-      );
+      await sendMouse({
+        type: 'click',
+        position: [
+          Math.round(interactiveElementPosition.x + interactiveElementPosition.width / 2),
+          Math.round(interactiveElementPosition.y + interactiveElementPosition.height / 2),
+        ],
+      });
       await closeSpy.calledOnce();
 
       expect(document.activeElement).to.be.equal(interactiveBackgroundElement);
@@ -695,9 +680,9 @@ describe(`sbb-popover`, () => {
   it('init with HtmlElement as trigger', async () => {
     trigger = await fixture(html`<sbb-button>Popover trigger</sbb-button>`);
     element = await fixture(html`
-      <sbb-popover id="popover" .trigger=${trigger}>
+      <sbb-popover .trigger=${trigger}>
         Popover content.
-        <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>
+        <sbb-link href="#" sbb-popover-close>Link</sbb-link>
       </sbb-popover>
     `);
 

@@ -9,9 +9,8 @@ import type { SbbFlipCardSummaryElement } from '../flip-card-summary/flip-card-s
 import { SbbFlipCardElement } from './flip-card.component.ts';
 
 import '../../flip-card.ts';
-
 import '../../title.ts';
-import '../../link/link.ts';
+import '../../link.ts';
 
 describe('sbb-flip-card', () => {
   let element: SbbFlipCardElement;

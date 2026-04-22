@@ -1,4 +1,4 @@
-import { defaultConverter, type ComplexAttributeConverter } from 'lit';
+import { type ComplexAttributeConverter, defaultConverter } from 'lit';
 
 /**
  * Converts empty values to null, which will not be rendered as attributes.

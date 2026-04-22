@@ -1,19 +1,24 @@
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.js';
-import { html, isServer, nothing } from 'lit';
+import { SbbSecondaryButtonElement } from '@sbb-esta/lyne-elements/button.pure.js';
+import type { SbbElementType } from '@sbb-esta/lyne-elements/core.js';
+import {
+  boxSizingStyles,
+  SbbLanguageController,
+  SbbScreenReaderOnlyElement,
+} from '@sbb-esta/lyne-elements/core.js';
+import { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.pure.js';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { html, isServer, nothing, unsafeCSS } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { getI18nSeatReservation } from '../common/translations.ts';
 import type {
+  BaseElement,
   CoachItem,
   CoachItemDetails,
-  Place,
   ElementDimension,
-  BaseElement,
+  Place,
   PlaceSelection,
   SeatReservation,
 } from '../common/types.ts';
@@ -24,17 +29,7 @@ import { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place
 import { SbbSeatReservationScopedElement } from '../seat-reservation-scoped/seat-reservation-scoped.component.ts';
 
 import { SeatReservationBaseElement } from './seat-reservation-base-element.ts';
-import style from './seat-reservation.scss?lit&inline';
-
-import '@sbb-esta/lyne-elements/button.js';
-import '@sbb-esta/lyne-elements/screen-reader-only.js';
-import '@sbb-esta/lyne-elements/popover.js';
-
-SbbSeatReservationAreaElement.define();
-SbbSeatReservationGraphicElement.define();
-SbbSeatReservationPlaceControlElement.define();
-SbbSeatReservationNavigationCoachElement.define();
-SbbSeatReservationScopedElement.define();
+import style from './seat-reservation.scss?inline';
 
 /**
  * Main component for the seat reservation.
@@ -42,7 +37,17 @@ SbbSeatReservationScopedElement.define();
  */
 export class SbbSeatReservationElement extends SeatReservationBaseElement {
   public static override readonly elementName: string = 'sbb-seat-reservation';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbSecondaryButtonElement,
+    SbbScreenReaderOnlyElement,
+    SbbPopoverElement,
+    SbbSeatReservationAreaElement,
+    SbbSeatReservationGraphicElement,
+    SbbSeatReservationPlaceControlElement,
+    SbbSeatReservationNavigationCoachElement,
+    SbbSeatReservationScopedElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   private _language = new SbbLanguageController(this);
   private _coachesHtmlTemplate?: TemplateResult;
@@ -591,14 +596,18 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
           ? html`
               <sbb-seat-reservation-graphic
                 style=${styleMap({
-                  '--sbb-seat-reservation-graphic-max-width': calculatedDimension.w,
-                  '--sbb-seat-reservation-graphic-height': this.baseGridSize,
+                  '--sbb-seat-reservation-graphic-max-width': this.globalAreaIconDim.w,
+                  '--sbb-seat-reservation-graphic-max-height': this.globalAreaIconDim.h,
+                  '--sbb-seat-reservation-graphic-width': calculatedDimension.w,
+                  '--sbb-seat-reservation-graphic-height': calculatedDimension.h,
                   '--sbb-seat-reservation-graphic-rotation': rotation,
+                  '--sbb-seat-reservation-graphic-padding-percent':
+                    areaProperty !== 'ENTRY_EXIT' ? this.globalAreaIconPadding : 1,
                 })}
                 name=${areaProperty}
                 role="img"
                 aria-hidden="true"
-                class="auto-width"
+                class="sbb-sr-graphic__dimension--square-dim"
               ></sbb-seat-reservation-graphic>
             `
           : nothing}

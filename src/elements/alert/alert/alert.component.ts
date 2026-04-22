@@ -1,20 +1,31 @@
-import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
-import { SbbDarkModeController, SbbLanguageController } from '../../core/controllers.ts';
-import { isLean, isZeroAnimationDuration } from '../../core/dom.ts';
-import { i18nCloseAlert } from '../../core/i18n.ts';
-import { SbbReadonlyMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
-import type { SbbLinkElement } from '../../link.ts';
-import type { SbbTitleElement } from '../../title.ts';
+import { SbbTransparentButtonElement } from '../../button.pure.ts';
+import {
+  boxSizingStyles,
+  i18nCloseAlert,
+  isLean,
+  isZeroAnimationDuration,
+  SbbDarkModeController,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbOpenCloseBaseElement,
+  SbbReadonlyMixin,
+} from '../../core.ts';
+import { SbbDividerElement } from '../../divider.pure.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
+import type { SbbLinkElement } from '../../link.pure.ts';
+import type { SbbTitleElement } from '../../title.pure.ts';
 
-import style from './alert.scss?lit&inline';
-
-import '../../button/transparent-button.ts';
-import '../../divider.ts';
+import style from './alert.scss?inline';
 
 /**
  * It displays messages which require user's attention.
@@ -25,7 +36,11 @@ import '../../divider.ts';
  */
 export class SbbAlertElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
   public static override readonly elementName: string = 'sbb-alert';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbTransparentButtonElement,
+    SbbDividerElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static override readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

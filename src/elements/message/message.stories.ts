@@ -2,17 +2,17 @@ import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import images from '../core/images.ts';
+import { sampleImages } from '../core/images.private.ts';
 import '../image.ts';
 import '../title.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../message.ts';
 
 import readme from './readme.md?raw';
 
 const DefaultTemplate = (): TemplateResult => html`
   <sbb-message>
-    <sbb-image slot="image" image-src=${images[images.length - 1]}></sbb-image>
+    <sbb-image slot="image" image-src=${sampleImages.at(-1)!}></sbb-image>
     <sbb-title level="3" slot="title">Unfortunately, an error has occurred.</sbb-title>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
@@ -39,7 +39,7 @@ const NoImageTemplate = (): TemplateResult => html`
 
 const NoErrorCodeTemplate = (): TemplateResult => html`
   <sbb-message>
-    <sbb-image slot="image" image-src=${images[images.length - 1]}></sbb-image>
+    <sbb-image slot="image" image-src=${sampleImages.at(-1)!}></sbb-image>
     <sbb-title level="3" slot="title">Unfortunately, an error has occurred.</sbb-title>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <sbb-secondary-button
@@ -52,7 +52,7 @@ const NoErrorCodeTemplate = (): TemplateResult => html`
 
 const NoActionTemplate = (): TemplateResult => html`
   <sbb-message>
-    <sbb-image slot="image" image-src=${images[images.length - 1]}></sbb-image>
+    <sbb-image slot="image" image-src=${sampleImages.at(-1)!}></sbb-image>
     <sbb-title level="3" slot="title">Unfortunately, an error has occurred.</sbb-title>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>

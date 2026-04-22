@@ -1,9 +1,9 @@
 /** @entrypoint */
 import {
-  SbbIconSidebarElement,
   SbbIconSidebarButtonElement,
   SbbIconSidebarContainerElement,
   SbbIconSidebarContentElement,
+  SbbIconSidebarElement,
   SbbIconSidebarLinkElement,
 } from './icon-sidebar.pure.ts';
 

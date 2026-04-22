@@ -74,11 +74,18 @@ snapshots["sbb-chip-group renders with form-field Shadow DOM"] =
         <slot>
         </slot>
       </div>
+      <sbb-icon
+        class="sbb-form-field__select-input-icon"
+        name="chevron-small-down-small"
+      >
+      </sbb-icon>
     </div>
     <slot name="suffix">
     </slot>
   </div>
-  <div class="sbb-form-field__error">
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
     <slot name="error">
     </slot>
   </div>

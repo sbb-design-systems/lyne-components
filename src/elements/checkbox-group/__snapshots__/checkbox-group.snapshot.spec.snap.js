@@ -32,10 +32,8 @@ snapshots["sbb-checkbox-group renders DOM"] =
 /* end snapshot sbb-checkbox-group renders DOM */
 
 snapshots["sbb-checkbox-group renders Shadow DOM"] = 
-`<div class="sbb-checkbox-group">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 <slot name="error">
 </slot>
 `;
@@ -117,10 +115,8 @@ snapshots["sbb-checkbox-group renders with panel DOM"] =
 /* end snapshot sbb-checkbox-group renders with panel DOM */
 
 snapshots["sbb-checkbox-group renders with panel Shadow DOM"] = 
-`<div class="sbb-checkbox-group">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 <slot name="error">
 </slot>
 `;
@@ -159,10 +155,8 @@ snapshots["sbb-checkbox-group renders with selection-expansion-panel DOM"] =
 /* end snapshot sbb-checkbox-group renders with selection-expansion-panel DOM */
 
 snapshots["sbb-checkbox-group renders with selection-expansion-panel Shadow DOM"] = 
-`<div class="sbb-checkbox-group">
-  <slot>
-  </slot>
-</div>
+`<slot>
+</slot>
 <slot name="error">
 </slot>
 `;

@@ -1,4 +1,3 @@
-import { eachWeekOfInterval, endOfMonth, getWeek, startOfMonth } from 'date-fns';
 import {
   type CSSResultGroup,
   html,
@@ -6,28 +5,18 @@ import {
   nothing,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { readConfig } from '../../core/config.ts';
+import { SbbSecondaryButtonElement } from '../../button.pure.ts';
 import {
-  SbbLanguageController,
-  SbbMediaMatcherController,
-  SbbMediaQueryBreakpointLargeAndAbove,
-} from '../../core/controllers.ts';
-import type { DateAdapter } from '../../core/datetime.ts';
-import {
+  boxSizingStyles,
+  type DateAdapter,
   DAYS_PER_ROW,
   defaultDateAdapter,
-  MONTHS_PER_PAGE,
-  MONTHS_PER_ROW,
-  YEARS_PER_PAGE,
-  YEARS_PER_ROW,
-} from '../../core/datetime.ts';
-import { forceType, handleDistinctChange, plainDate } from '../../core/decorators.ts';
-import {
+  forceType,
+  handleDistinctChange,
   i18nCalendarDateSelection,
   i18nCalendarWeekNumber,
   i18nNextMonth,
@@ -37,27 +26,34 @@ import {
   i18nPreviousYear,
   i18nPreviousYearRange,
   i18nYearMonthSelection,
-} from '../../core/i18n.ts';
-import type { SbbOrientation } from '../../core/interfaces.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+  isArrowKeyOrPageKeysPressed,
+  MONDAY,
+  MONTHS_PER_PAGE,
+  MONTHS_PER_ROW,
+  plainDate,
+  readConfig,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbMediaMatcherController,
+  SbbMediaQueryBreakpointLargeAndAbove,
+  type SbbOrientation,
+  SbbScreenReaderOnlyElement,
+  THURSDAY,
+  TUESDAY,
+  WEDNESDAY,
+  YEARS_PER_PAGE,
+  YEARS_PER_ROW,
+} from '../../core.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
 import { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 import { SbbCalendarMonthElement } from '../calendar-month/calendar-month.component.ts';
 import { SbbCalendarWeekdayElement } from '../calendar-weekday/calendar-weekday.component.ts';
 import { SbbCalendarWeeknumberElement } from '../calendar-weeknumber/calendar-weeknumber.component.ts';
 import { SbbCalendarYearElement } from '../calendar-year/calendar-year.component.ts';
-import type { SbbCalendarCellBaseElement } from '../common.ts';
+import type { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-element.ts';
 
-import style from './calendar.scss?lit&inline';
-
-import '../../button/secondary-button.ts';
-import '../../icon.ts';
-import '../../screen-reader-only.ts';
-
-SbbCalendarDayElement.define();
-SbbCalendarMonthElement.define();
-SbbCalendarYearElement.define();
-SbbCalendarWeekdayElement.define();
-SbbCalendarWeeknumberElement.define();
+import style from './calendar.scss?inline';
 
 export class SbbMonthChangeEvent extends Event {
   private readonly _range: readonly Day[];
@@ -147,7 +143,17 @@ export type CalendarView = 'day' | 'month' | 'year';
  */
 export class SbbCalendarElement<T = Date> extends SbbElement {
   public static override readonly elementName: string = 'sbb-calendar';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbCalendarDayElement,
+    SbbCalendarMonthElement,
+    SbbCalendarWeekdayElement,
+    SbbCalendarWeeknumberElement,
+    SbbCalendarYearElement,
+    SbbIconElement,
+    SbbScreenReaderOnlyElement,
+    SbbSecondaryButtonElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     dateselected: 'dateselected',
     monthchange: 'monthchange',
@@ -447,14 +453,22 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
       (this._mediaMatcher.matches(SbbMediaQueryBreakpointLargeAndAbove) ?? false) && this.wide;
     this._weeks = this._createWeekRows(this._activeDate);
     this._years = this._createYearRows();
-    this._weekNumbers = this._createWeekNumbers(this._activeDate);
+    this._weekNumbers = this._weeks
+      .flat()
+      .sort((a, b) => a.value.localeCompare(b.value))
+      .map((day: Day<T>) => day.weekValue)
+      .filter((v, i, a) => a.indexOf(v) === i);
     this._nextMonthWeeks = [[]];
     this._nextMonthYears = [[]];
     if (this._wide) {
       const nextMonthDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
       this._nextMonthWeeks = this._createWeekRows(nextMonthDate, true);
       this._nextMonthYears = this._createYearRows(YEARS_PER_PAGE);
-      this._nextMonthWeekNumbers = this._createWeekNumbers(nextMonthDate);
+      this._nextMonthWeekNumbers = this._nextMonthWeeks
+        .flat()
+        .sort((a, b) => a.value.localeCompare(b.value))
+        .map((day: Day<T>) => day.weekValue)
+        .filter((v, i, a) => a.indexOf(v) === i);
     }
     this._initialized = true;
   }
@@ -479,26 +493,6 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
     // Rotates the labels for days of the week based on the configured first day of the week.
     const firstDayOfWeek: number = this._dateAdapter.getFirstDayOfWeek();
     this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
-  }
-
-  /**
-   * Given a date, it returns the week numbers for the month the date belongs to.
-   * TODO: check if date-fns can be replaced with custom logic.
-   *
-   * Since the calculation is not simple (see https://en.wikipedia.org/wiki/Week#Numbering),
-   * the date-fns library has been used this way:
-   * the first and the last day of the month are calculated and then passed to the `eachWeekOfInterval` function,
-   * which returns an array containing the starting day of every ISO week of the month,
-   * considering Monday as the first day.
-   * Then, this array is mapped via the `getWeek` function, which returns the ISO week number for that date.
-   */
-  private _createWeekNumbers(date: T): number[] {
-    return eachWeekOfInterval(
-      { start: startOfMonth(date as Date), end: endOfMonth(date as Date) },
-      { weekStartsOn: 1 },
-    ).map((firstDayOfWeek: Date) =>
-      getWeek(firstDayOfWeek, { weekStartsOn: 1, firstWeekContainsDate: 4 }),
-    );
   }
 
   /** Creates the rows along the horizontal direction and sets the parameters used in keyboard navigation. */
@@ -600,9 +594,34 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
       dayValue: String(this._dateAdapter.getDate(date)),
       monthValue: String(this._dateAdapter.getMonth(date)),
       yearValue: String(this._dateAdapter.getYear(date)),
-      weekValue: getWeek(isoDate, { weekStartsOn: 1, firstWeekContainsDate: 4 }),
+      // TODO: Improve performance of this, by keeping track of the
+      // week number while iterating through the days.
+      weekValue: this._getWeek(date),
       weekDayValue: this._dateAdapter.getDayOfWeek(date),
     };
+  }
+
+  private _getWeek(date: T): number {
+    const firstDayOfYear = this._dateAdapter.createDate(this._dateAdapter.getYear(date), 1, 1);
+    const weekday = this._dateAdapter.getDayOfWeek(firstDayOfYear);
+
+    let weekIndex = [MONDAY, TUESDAY, WEDNESDAY, THURSDAY].includes(weekday) ? 1 : 0;
+    let weekStart = this._dateAdapter.addCalendarDays(
+      firstDayOfYear,
+      this._dateAdapter.getFirstWeekOffset(firstDayOfYear) * -1,
+    );
+    while (this._dateAdapter.compareDate(weekStart, date) <= 0) {
+      const weekEnd = this._dateAdapter.addCalendarDays(weekStart, 6);
+      if (this._dateAdapter.compareDate(date, weekEnd) <= 0) {
+        return weekIndex > 0
+          ? weekIndex
+          : this._getWeek(this._dateAdapter.addCalendarDays(firstDayOfYear, -1));
+      }
+      weekStart = this._dateAdapter.addCalendarDays(weekStart, DAYS_PER_ROW);
+      weekIndex++;
+    }
+
+    throw new Error('The provided date is invalid');
   }
 
   /** Force the conversion to ISO8601 formatted string. */

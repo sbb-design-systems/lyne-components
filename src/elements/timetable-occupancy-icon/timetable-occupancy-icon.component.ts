@@ -1,25 +1,25 @@
-import type { CSSResultGroup, PropertyValues } from 'lit';
+import { type CSSResultGroup, type PropertyValues, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
+import type { SbbOccupancy } from '../core.ts';
 import {
+  i18nOccupancy,
   SbbDarkModeController,
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryForcedColors,
-} from '../core/controllers.ts';
-import { i18nOccupancy } from '../core/i18n.ts';
-import type { SbbOccupancy } from '../core/interfaces.ts';
-import { SbbNegativeMixin } from '../core/mixins.ts';
-import { SbbIconBase } from '../icon.ts';
+  SbbNegativeMixin,
+} from '../core.ts';
+import { SbbIconBase } from '../icon.pure.ts';
 
-import style from './timetable-occupancy-icon.scss?lit&inline';
+import style from './timetable-occupancy-icon.scss?inline';
 
 /**
  * It displays a wagon's occupancy icon.
  */
 export class SbbTimetableOccupancyIconElement extends SbbNegativeMixin(SbbIconBase) {
   public static override readonly elementName: string = 'sbb-timetable-occupancy-icon';
-  public static override styles: CSSResultGroup = [SbbIconBase.styles, style];
+  public static override styles: CSSResultGroup = [SbbIconBase.styles, unsafeCSS(style)];
 
   /** Wagon occupancy. */
   @property() public accessor occupancy: SbbOccupancy = 'none';

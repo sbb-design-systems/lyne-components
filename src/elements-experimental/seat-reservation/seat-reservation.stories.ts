@@ -1,6 +1,8 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
+import { keyed } from 'lit/directives/keyed.js';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
@@ -12,8 +14,9 @@ import { mapIconToSvg, mapRawDataToSeatReservation } from './common/mapper.ts';
 import type { CoachItem, CoachItemDetails, SeatReservation } from './common/types.ts';
 import readme from './readme.md?raw';
 import { SbbSeatReservationElement } from './seat-reservation/seat-reservation.component.ts';
+
+import '@sbb-esta/lyne-elements/table.js';
 import '../seat-reservation.ts';
-import { assetsTemplate } from './seat-reservation-graphic/seat-reservation-assets.ts';
 
 const seatReservationType: InputType = {
   control: { type: 'object' },
@@ -277,78 +280,51 @@ const background: InputType = {
   options: ['light', 'dark'],
 };
 
+const width: InputType = {
+  control: {
+    type: 'number',
+    min: 1,
+  },
+  description: 'Breite des Graphics (px)',
+};
+
+const height: InputType = {
+  control: {
+    type: 'number',
+    min: 1,
+  },
+  description: 'Höhe des Graphics (px)',
+};
+
 const defaultArgTypesAreaComponent: ArgTypes = {
   mounting,
   background,
+  width,
+  height,
 };
 
 const defaultArgsAreaComponent: Args = {
-  style: '--sbb-seat-reservation-area-width: 100;--sbb-seat-reservation-area-height: 50;',
+  width: 100,
+  height: 50,
   background: 'dark',
   mounting: 'free',
 };
 
-const TemplateAreaComponent = (args: Args): TemplateResult =>
-  html`<sbb-seat-reservation-area ${sbbSpread(args)}></sbb-seat-reservation-area>`;
+const TemplateAreaComponent = (args: Args): TemplateResult => {
+  const { width, height, ...rest } = args;
+  const style = `--sbb-seat-reservation-area-width: ${width};--sbb-seat-reservation-area-height: ${height};`;
+  return html`<sbb-seat-reservation-area
+    style="${style}"
+    ${sbbSpread(rest)}
+  ></sbb-seat-reservation-area>`;
+};
 
-export const AreaDefault: StoryObj = {
+export const Area: StoryObj = {
   render: TemplateAreaComponent,
   argTypes: defaultArgTypesAreaComponent,
   args: {
     ...defaultArgsAreaComponent,
   },
-};
-
-export const AreaWidth32Height32: StoryObj = {
-  render: TemplateAreaComponent,
-  argTypes: defaultArgTypesAreaComponent,
-  args: {
-    ...defaultArgsAreaComponent,
-    style: '--sbb-seat-reservation-area-width: 32;--sbb-seat-reservation-area-height: 32;',
-  },
-};
-
-export const AreaWidth160Height64: StoryObj = {
-  render: TemplateAreaComponent,
-  argTypes: defaultArgTypesAreaComponent,
-  args: {
-    ...defaultArgsAreaComponent,
-    style: '--sbb-seat-reservation-area-width: 160;--sbb-seat-reservation-area-height: 64;',
-  },
-};
-
-export const AreaWidth64Height64Rotation45Deg: StoryObj = {
-  render: TemplateAreaComponent,
-  argTypes: defaultArgTypesAreaComponent,
-  args: {
-    ...defaultArgsAreaComponent,
-    style:
-      '--sbb-seat-reservation-area-width: 64;--sbb-seat-reservation-area-height: 64;--sbb-seat-reservation-area-rotation: 45',
-  },
-};
-
-export const AreaBackgroundLight: StoryObj = {
-  render: TemplateAreaComponent,
-  argTypes: defaultArgTypesAreaComponent,
-  args: { ...defaultArgsAreaComponent, background: 'light' },
-};
-
-export const AreaMountingUpperBorder: StoryObj = {
-  render: TemplateAreaComponent,
-  argTypes: defaultArgTypesAreaComponent,
-  args: { ...defaultArgsAreaComponent, mounting: 'upper-border' },
-};
-
-export const AreaMountingLowerBorder: StoryObj = {
-  render: TemplateAreaComponent,
-  argTypes: defaultArgTypesAreaComponent,
-  args: { ...defaultArgsAreaComponent, mounting: 'lower-border' },
-};
-
-export const AreaMountingUpperToLowerBorder: StoryObj = {
-  render: TemplateAreaComponent,
-  argTypes: defaultArgTypesAreaComponent,
-  args: { ...defaultArgsAreaComponent, mounting: 'upper-to-lower-border' },
 };
 
 /****************************************************************************
@@ -377,13 +353,14 @@ const defaultArgTypesGraphic: ArgTypes = {
 const defaultArgsGraphic: Args = {
   name: 'BISTRO',
   stretch: false,
-  style: '--sbb-seat-reservation-graphic-width: 32;--sbb-seat-reservation-graphic-height: 32;',
+  style:
+    '--sbb-seat-reservation-graphic-width: 32;--sbb-seat-reservation-graphic-height: 32; --sbb-seat-reservation-graphic-rotation: 0',
 };
 
 const TemplateGraphic = (args: Args): TemplateResult =>
   html`<sbb-seat-reservation-graphic ${sbbSpread(args)}></sbb-seat-reservation-graphic>`;
 
-export const GraphicDefault: StoryObj = {
+export const Graphic: StoryObj = {
   render: TemplateGraphic,
   argTypes: defaultArgTypesGraphic,
   args: { ...defaultArgsGraphic },
@@ -414,8 +391,311 @@ export const GraphicCoachBorderMiddleWidth20Height128Stretch: StoryObj = {
   },
 };
 
+const svgImage = (src: string): TemplateResult => {
+  return html`
+    <div class="story-asset">
+      <span class="story-asset__preview">${unsafeHTML(src)}</span>
+    </div>
+  `;
+};
+
+/**
+ * svgImageByOSDMCode Function returns the corresponding svg image by OSDM Code
+ * @param osdmCode
+ * @returns The SVG Image as TemplateResult if it matches the OSDM code, or null if it's not found.
+ */
+export const svgImageByOSDMCode = (osdmCode: string): TemplateResult | null => {
+  return mapIconToSvg[osdmCode]?.svg
+    ? svgImage(mapIconToSvg[osdmCode].svg)
+    : mapIconToSvg[osdmCode]?.svgName
+      ? html`<sbb-icon name="${mapIconToSvg[osdmCode].svgName}"></sbb-icon>`
+      : null;
+};
+
+const interiorTable = html`
+  <sbb-table-wrapper>
+    <table class="sbb-table">
+      <thead>
+        <tr>
+          <th scope="col">SVG</th>
+          <th scope="col">Figma</th>
+          <th scope="col">Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>${svgImageByOSDMCode('PLACE_BICYCLE_FREE')}</td>
+          <td>Place-Bike: Available</td>
+          <td>PLACE_BICYCLE_FREE</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('PLACE_BICYCLE_SELECTED')}</td>
+          <td>Place-Bike: Selected</td>
+          <td>PLACE_BICYCLE_SELECTED</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('PLACE_BICYCLE_ALLOCATED')}</td>
+          <td>Place-Bike: Unavailable</td>
+          <td>PLACE_BICYCLE_ALLOCATED</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('PLACE_BICYCLE_RESTRICTED')}</td>
+          <td>Place-Bike: Not bookable</td>
+          <td>PLACE_BICYCLE_RESTRICTED</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('PLACE_SEAT_FREE')}</td>
+          <td>Place-Seat: Available</td>
+          <td>PLACE_SEAT_FREE</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('PLACE_SEAT_SELECTED')}</td>
+          <td>Place-Seat: Selected</td>
+          <td>PLACE_SEAT_SELECTED</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('PLACE_SEAT_ALLOCATED')}</td>
+          <td>Place-Seat: Unavailable</td>
+          <td>PLACE_SEAT_ALLOCATED</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('PLACE_SEAT_RESTRICTED')}</td>
+          <td>Place-Seat: Not bookable</td>
+          <td>PLACE_SEAT_RESTRICTED</td>
+        </tr>
+      </tbody>
+    </table>
+  </sbb-table-wrapper>
+`;
+const layoutItemsTable = html`
+  <sbb-table-wrapper>
+    <table class="sbb-table">
+      <thead>
+        <tr>
+          <th scope="col">SVG</th>
+          <th scope="col">Figma</th>
+          <th scope="col">OSDM Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>${svgImageByOSDMCode('EASY_ACCESS_AREA')}</td>
+          <td>Easy Access Area</td>
+          <td>EASY_ACCESS_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('ENTRY_EXIT')}</td>
+          <td>Entrance</td>
+          <td>ENTRY_EXIT</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('LUGGAGE_AREA')}</td>
+          <td>Luggage</td>
+          <td>LUGGAGE_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('MULTI_FUNCTION_AREA')}</td>
+          <td>Multi Function Area</td>
+          <td>MULTI_FUNCTION_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('PLAYGROUND_AREA')}</td>
+          <td>Playground</td>
+          <td>PLAYGROUND_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('PRAM_AREA')}</td>
+          <td>Pram</td>
+          <td>PRAM_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('SKI_AREA')}</td>
+          <td>Ski</td>
+          <td>SKI_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('STAIR_AREA')}</td>
+          <td>Stair</td>
+          <td>STAIR_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('TOILET_AREA')}</td>
+          <td>Toilet</td>
+          <td>TOILET_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('TOILET_WHEELCHAIR_AREA')}</td>
+          <td>Toilet-Handicap</td>
+          <td>TOILET_WHEELCHAIR_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WARDROBE_AREA')}</td>
+          <td>Wardrobe</td>
+          <td>WARDROBE_AREA</td>
+        </tr>
+      </tbody>
+    </table>
+  </sbb-table-wrapper>
+`;
+const serviceIconTable = html`
+  <sbb-table-wrapper>
+    <table aria-label="Available Service Icons" class="sbb-table">
+      <thead>
+        <tr>
+          <th scope="col">SVG</th>
+          <th scope="col">Figma</th>
+          <th scope="col">OSDM Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>${svgImageByOSDMCode('BISTRO')}</td>
+          <td>Bistro</td>
+          <td>BISTRO</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('BUSINESS')}</td>
+          <td>Business</td>
+          <td>BUSINESS</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('PLAYGROUND_ICON')}</td>
+          <td>Family</td>
+          <td>PLAYGROUND_ICON</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('LUGGAGE_AREA')}</td>
+          <td>Luggage</td>
+          <td>LUGGAGE_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('PRAM_ICON')}</td>
+          <td>Pram</td>
+          <td>PRAM_ICON</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('EASY_ACCESS_AREA')}</td>
+          <td>Easy Access Area</td>
+          <td>EASY_ACCESS_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('RESTAURANT_ICON')}</td>
+          <td>Restaurant</td>
+          <td>RESTAURANT_ICON</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('SILENCE_AREA_ICON')}</td>
+          <td>Silence</td>
+          <td>SILENCE_AREA_ICON</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('TOILET_AREA')}</td>
+          <td>Toilet</td>
+          <td>TOILET_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('TOILET_WHEELCHAIR_AREA')}</td>
+          <td>Toilet-PRM</td>
+          <td>TOILET_WHEELCHAIR_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WHEELCHAIR_ICON')}</td>
+          <td>Wheelchair</td>
+          <td>WHEELCHAIR_ICON</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('WIFI')}</td>
+          <td>Wifi</td>
+          <td>WIFI</td>
+        </tr>
+      </tbody>
+    </table>
+  </sbb-table-wrapper>
+`;
+const chassisTable = html`
+  <sbb-table-wrapper>
+    <table class="sbb-table">
+      <thead>
+        <tr>
+          <th scope="col">SVG</th>
+          <th scope="col">Figma</th>
+          <th scope="col">OSDM Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>${svgImageByOSDMCode('DRIVER_AREA_TRAIN')}</td>
+          <td>Driver Area<br />(Dependent on Vehicle-Type: TRAIN)</td>
+          <td>DRIVER_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('DRIVER_AREA_BUS')}</td>
+          <td>Driver Area<br />(Dependent on Vehicle-Type: BUS)</td>
+          <td>DRIVER_AREA</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('COMPARTMENT_PASSAGE_HIGH')}</td>
+          <td>Compartment Passage High</td>
+          <td>COMPARTMENT_PASSAGE_HIGH</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('COMPARTMENT_PASSAGE')}</td>
+          <td>Compartment Passage</td>
+          <td>COMPARTMENT_PASSAGE</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('COMPARTMENT_PASSAGE_LOW')}</td>
+          <td>Compartment Passage Low</td>
+          <td>COMPARTMENT_PASSAGE_LOW</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('COACH_PASSAGE')}</td>
+          <td>Coach Passage</td>
+          <td>COACH_PASSAGE</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('COMPARTMENT_WALL')}</td>
+          <td>Compartment Wall</td>
+          <td>COMPARTMENT_WALL</td>
+        </tr>
+        <tr>
+          <td>
+            <sbb-seat-reservation-area
+              style="--sbb-seat-reservation-area-width: 100; --sbb-seat-reservation-area-height: 50; align-self: center;
+          background: var(--sbb-color-milk)"
+            ></sbb-seat-reservation-area>
+          </td>
+          <td>Table Restaurant<br />(Will be rendered as CSS)</td>
+          <td>TABLE_RESTAURANT</td>
+        </tr>
+        <tr>
+          <td>${svgImageByOSDMCode('COACH_WALL_NO_PASSAGE')}</td>
+          <td>Coach Wall No Passage</td>
+          <td>COACH_WALL_NO_PASSAGE</td>
+        </tr>
+      </tbody>
+    </table>
+  </sbb-table-wrapper>
+`;
+
 export const GraphicAvailableAssets: StoryObj = {
-  render: () => assetsTemplate,
+  render: () => html`
+    <style>
+      .story-asset {
+        width: max-content;
+        background-color: var(--sbb-color-white);
+      }
+    </style>
+    <h1>List of all currently available assets.</h1>
+    <h2>Interior</h2>
+    ${interiorTable}
+    <h2>Layout</h2>
+    ${layoutItemsTable}
+    <h2>Service Icons</h2>
+    ${serviceIconTable}
+    <h2>Chassis</h2>
+    ${chassisTable}
+  `,
 };
 
 /****************************************************************************
@@ -448,16 +728,30 @@ const focusedTypeNavigationCoach: InputType = {
   description: 'coach focused',
 };
 
+const isDriverAreaTypeNavigationCoach: InputType = {
+  control: 'boolean',
+  description: 'is driver area',
+};
+
 const coachItemDetailsTypeNavigationCoach: InputType = {
   control: 'object',
   description: 'coach item details',
 };
 
-const defaultArgsTypesNavigationCoach: Args = {
+const driverAreaSideTypeNavigationCoach = {
+  name: 'driver area side',
+  control: 'select' as const,
+  options: ['none', 'left', 'right'],
+  description: 'driver area side',
+};
+
+const defaultArgsTypesNavigationCoach: ArgTypes = {
   selected: selectedTypeNavigationCoach,
   hovered: hoveredTypeNavigationCoach,
   focused: focusedTypeNavigationCoach,
   disable: disabledAreaTypeNavigationCoach,
+  isDriverArea: isDriverAreaTypeNavigationCoach,
+  driverAreaSide: driverAreaSideTypeNavigationCoach,
   'coach-item-details': coachItemDetailsTypeNavigationCoach,
 };
 
@@ -471,143 +765,46 @@ const defaultCoachItemDetailsNavigationCoach: CoachItemDetails = {
 };
 
 const defaultArgsNavigationCoach: Args = {
-  index: 0,
   selected: false,
   hovered: false,
   focused: false,
   disable: false,
+  isDriverArea: false,
   vertical: false,
+  driverAreaSide: 'none',
 };
 
-function addOrUpdateDetailArgs(options = {}): string {
-  return JSON.stringify({ ...defaultCoachItemDetailsNavigationCoach, ...options });
-}
+export const NavigationCoach: StoryObj = {
+  render: (args) => {
+    let details: CoachItemDetails;
 
-export const NavigationCoachDefault: StoryObj = {
-  render: TemplateNavigationCoach,
+    try {
+      details = args['coach-item-details']
+        ? JSON.parse(args['coach-item-details'])
+        : { ...defaultCoachItemDetailsNavigationCoach };
+    } catch {
+      details = { ...defaultCoachItemDetailsNavigationCoach };
+    }
+
+    details.isDriverArea = args.isDriverArea;
+
+    if (args.driverAreaSide === 'left') {
+      details.driverAreaSide = { left: true };
+    } else if (args.driverAreaSide === 'right') {
+      details.driverAreaSide = { right: true };
+    } else {
+      details.driverAreaSide = undefined;
+    }
+
+    return TemplateNavigationCoach({
+      ...args,
+      'coach-item-details': JSON.stringify(details),
+    });
+  },
   argTypes: defaultArgsTypesNavigationCoach,
   args: {
     ...defaultArgsNavigationCoach,
     'coach-item-details': JSON.stringify(defaultCoachItemDetailsNavigationCoach),
-  },
-};
-
-export const NavigationCoachFirstClassSelected: StoryObj = {
-  render: TemplateNavigationCoach,
-  args: {
-    ...defaultArgsNavigationCoach,
-    'coach-item-details': addOrUpdateDetailArgs({ travelClass: 'FIRST' }),
-    selected: true,
-  },
-};
-
-export const NavigationCoachSecondClassNotSelected: StoryObj = {
-  render: TemplateNavigationCoach,
-  args: {
-    ...defaultArgsNavigationCoach,
-    'coach-item-details': addOrUpdateDetailArgs({ travelClass: 'SECOND' }),
-    selected: false,
-  },
-};
-
-export const NavigationCoachDriverArea: StoryObj = {
-  render: TemplateNavigationCoach,
-  args: {
-    ...defaultArgsNavigationCoach,
-    'coach-item-details': addOrUpdateDetailArgs({ isDriverArea: true }),
-  },
-};
-
-export const NavigationCoachDriverAreaSelected: StoryObj = {
-  render: TemplateNavigationCoach,
-  args: {
-    ...defaultArgsNavigationCoach,
-    'coach-item-details': addOrUpdateDetailArgs({ isDriverArea: true }),
-    selected: true,
-  },
-};
-
-export const NavigationCoachDriverAreaFocused: StoryObj = {
-  render: TemplateNavigationCoach,
-  args: {
-    ...defaultArgsNavigationCoach,
-    'coach-item-details': addOrUpdateDetailArgs({ isDriverArea: true }),
-    focused: true,
-  },
-};
-
-export const NavigationCoachFirstCoachInTrainFirstClass: StoryObj = {
-  render: TemplateNavigationCoach,
-  args: {
-    ...defaultArgsNavigationCoach,
-    'coach-item-details': addOrUpdateDetailArgs({
-      driverAreaSide: { left: true },
-      travelClass: 'FIRST',
-    }),
-  },
-};
-
-export const NavigationCoachLastCoachInTrain: StoryObj = {
-  render: TemplateNavigationCoach,
-  args: {
-    ...defaultArgsNavigationCoach,
-    'coach-item-details': addOrUpdateDetailArgs({
-      driverAreaSide: { right: true },
-    }),
-  },
-};
-
-export const NavigationCoachDisabledFirstClassCoach: StoryObj = {
-  render: TemplateNavigationCoach,
-  args: {
-    ...defaultArgsNavigationCoach,
-    'coach-item-details': addOrUpdateDetailArgs({ travelClass: 'FIRST' }),
-    disable: true,
-  },
-};
-
-export const NavigationCoachVerticalFirstClass: StoryObj = {
-  render: TemplateNavigationCoach,
-  args: {
-    ...defaultArgsNavigationCoach,
-    'coach-item-details': JSON.stringify(defaultCoachItemDetailsNavigationCoach),
-    vertical: true,
-  },
-};
-
-/****************************************************************************
- *                                                                          *
- *              BEGIN seat-reservation-navigation-services Component        *
- *                                                                          *
- * *************************************************************************/
-const propertyIdsTypeNavigationServices: InputType = {
-  control: 'object',
-  description: 'array of service icon names',
-};
-
-const defaultArgsTypesNavigationServices: Args = {
-  'property-ids': propertyIdsTypeNavigationServices,
-};
-
-const defaultArgsNavigationServices: Args = {
-  'property-ids': JSON.stringify(['BISTRO']),
-};
-
-const TemplateNavigationServices = (args: Args): TemplateResult =>
-  html`<sbb-seat-reservation-navigation-services ${sbbSpread(args)}>
-  </sbb-seat-reservation-navigation-services>`;
-
-export const NavigationServicesDefault: StoryObj = {
-  render: TemplateNavigationServices,
-  argTypes: defaultArgsTypesNavigationServices,
-  args: { ...defaultArgsNavigationServices },
-};
-
-export const NavigationServicesMultipleServiceIcons: StoryObj = {
-  render: TemplateNavigationServices,
-  args: {
-    ...defaultArgsNavigationServices,
-    'property-ids': JSON.stringify(['BISTRO', 'SILENCE', 'WHEELCHAIR']),
   },
 };
 
@@ -616,111 +813,66 @@ export const NavigationServicesMultipleServiceIcons: StoryObj = {
  *              BEGIN seat-reservation-place-control Component              *
  *                                                                          *
  * *************************************************************************/
-const typePlaceControl: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['SEAT', 'BICYCLE'],
-};
-
-const statePlaceControl: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['FREE', 'SELECTED', 'RESTRICTED', 'ALLOCATED'],
-};
-
-const textPlaceControl: InputType = {
-  control: {
-    type: undefined,
-  },
-};
 
 const defaultArgTypesPlaceControl: ArgTypes = {
-  typePlaceControl,
-  statePlaceControl,
-  textPlaceControl,
+  type: {
+    control: {
+      type: 'select',
+    },
+    options: ['SEAT', 'BICYCLE'],
+  },
+  state: {
+    control: {
+      type: 'select',
+    },
+    options: ['FREE', 'SELECTED', 'RESTRICTED', 'ALLOCATED'],
+  },
+  rotation: {
+    control: { type: 'select' },
+    options: [0, 90, 180, 270],
+    description: 'place control rotation',
+  },
+  textRotation: {
+    name: 'text-rotation',
+    control: { type: 'select' },
+    options: [0, 90, 180, 270],
+    description: 'text-rotation',
+  },
 };
 
 const defaultArgsPlaceControl: Args = {
   type: 'SEAT',
   state: 'FREE',
   text: '',
-  style:
-    '--sbb-seat-reservation-place-control-text-scale-value: 32;--sbb-seat-reservation-place-control-width: 32;--sbb-seat-reservation-place-control-height: 32;--sbb-seat-reservation-place-control-rotation: 0; --sbb-seat-reservation-place-control-text-rotation: 0;',
+  rotation: 0,
+  textRotation: 0,
 };
 
-const TemplatePlaceControl = (args: Args): TemplateResult =>
-  html`<sbb-seat-reservation-place-control
-    ${sbbSpread(args)}
-  ></sbb-seat-reservation-place-control>`;
-
-export const PlaceControlDefault: StoryObj = {
-  render: TemplatePlaceControl,
-  argTypes: defaultArgTypesPlaceControl,
-  args: defaultArgsPlaceControl,
+const TemplatePlaceControl = (args: Args): TemplateResult => {
+  const { rotation, textRotation } = args;
+  const style =
+    `--sbb-seat-reservation-place-control-text-scale-value: 32;` +
+    `--sbb-seat-reservation-place-control-width: 32;` +
+    `--sbb-seat-reservation-place-control-height: 32;` +
+    `--sbb-seat-reservation-place-control-rotation: ${rotation};` +
+    `--sbb-seat-reservation-place-control-text-rotation: ${textRotation};`;
+  return html`${keyed(
+    `${args.type}-${args.state}-${args.text}-${args.rotation}`,
+    html`<sbb-seat-reservation-place-control
+      style="${style}"
+      type="${args.type}"
+      state="${args.state}"
+      text="${args.text}"
+    ></sbb-seat-reservation-place-control>`,
+  )}`;
 };
 
-export const PlaceControlPlaceSeatFree: StoryObj = {
-  render: TemplatePlaceControl,
-  argTypes: defaultArgTypesPlaceControl,
-  args: { ...defaultArgsPlaceControl, text: '123', type: 'SEAT', state: 'FREE' },
-};
-
-export const PlaceControlPlaceSeatFreeRotation90TextRotationMinus90: StoryObj = {
+export const PlaceControl: StoryObj = {
   render: TemplatePlaceControl,
   argTypes: defaultArgTypesPlaceControl,
   args: {
     ...defaultArgsPlaceControl,
-    text: '123',
-    type: 'SEAT',
-    state: 'FREE',
-    style: defaultArgsPlaceControl.style.concat(
-      '--sbb-seat-reservation-place-control-rotation: 90; --sbb-seat-reservation-place-control-text-rotation:-90',
-    ),
   },
-};
-
-export const PlaceControlPlaceSeatSelected: StoryObj = {
-  render: TemplatePlaceControl,
-  argTypes: defaultArgTypesPlaceControl,
-  args: { ...defaultArgsPlaceControl, text: '123', type: 'SEAT', state: 'SELECTED' },
-};
-
-export const PlaceControlPlaceSeatRestricted: StoryObj = {
-  render: TemplatePlaceControl,
-  argTypes: defaultArgTypesPlaceControl,
-  args: { ...defaultArgsPlaceControl, text: '123', type: 'SEAT', state: 'RESTRICTED' },
-};
-
-export const PlaceControlPlaceSeatAllocated: StoryObj = {
-  render: TemplatePlaceControl,
-  argTypes: defaultArgTypesPlaceControl,
-  args: { ...defaultArgsPlaceControl, text: '123', type: 'SEAT', state: 'ALLOCATED' },
-};
-
-export const PlaceControlPlaceBicycleAvailable: StoryObj = {
-  render: TemplatePlaceControl,
-  argTypes: defaultArgTypesPlaceControl,
-  args: { ...defaultArgsPlaceControl, text: '123', type: 'BICYCLE', state: 'FREE' },
-};
-
-export const PlaceControlPlaceBicycleSelected: StoryObj = {
-  render: TemplatePlaceControl,
-  argTypes: defaultArgTypesPlaceControl,
-  args: { ...defaultArgsPlaceControl, text: '123', type: 'BICYCLE', state: 'SELECTED' },
-};
-
-export const PlaceControlPlaceBicycleRestricted: StoryObj = {
-  render: TemplatePlaceControl,
-  argTypes: defaultArgTypesPlaceControl,
-  args: { ...defaultArgsPlaceControl, text: '123', type: 'BICYCLE', state: 'RESTRICTED' },
-};
-
-export const PlaceControlPlaceBicycleAllocated: StoryObj = {
-  render: TemplatePlaceControl,
-  argTypes: defaultArgTypesPlaceControl,
-  args: { ...defaultArgsPlaceControl, text: '123', type: 'BICYCLE', state: 'ALLOCATED' },
 };
 
 const meta: Meta = {

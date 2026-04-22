@@ -13,7 +13,7 @@ describe(`sbb-link-static`, () => {
   describe('renders', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-link-static size="m"> Travelcards &amp; tickets. </sbb-link-static>`,
+        html`<sbb-link-static> Travelcards &amp; tickets. </sbb-link-static>`,
       );
     });
 

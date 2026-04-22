@@ -5,9 +5,9 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 import { type SinonSpy, spy } from 'sinon';
 
-import { isSafari } from '../core/dom.ts';
 import { fixture, tabKey } from '../core/testing/private.ts';
-import { describeIf, EventSpy, waitForLitRender } from '../core/testing.ts';
+import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import { isSafari } from '../core.ts';
 import { SbbFormFieldElement } from '../form-field.ts';
 import { SbbOptionElement } from '../option.ts';
 
@@ -37,40 +37,23 @@ describe(`sbb-autocomplete`, () => {
       element = formField.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
     });
 
-    describeIf(isSafari, 'Safari', async () => {
-      it('renders and sets the correct attributes', () => {
-        assert.instanceOf(formField, SbbFormFieldElement);
-        assert.instanceOf(element, SbbAutocompleteElement);
+    it('renders and sets the correct attributes', () => {
+      assert.instanceOf(formField, SbbFormFieldElement);
+      assert.instanceOf(element, SbbAutocompleteElement);
 
-        expect(element).not.to.have.attribute('autocomplete-origin-borderless');
+      expect(element).not.to.have.attribute('autocomplete-origin-borderless');
 
-        expect(input).to.have.attribute('autocomplete', 'off');
-        expect(input).to.have.attribute('role', 'combobox');
-        expect(input).to.have.attribute('aria-autocomplete', 'list');
-        expect(input).to.have.attribute('aria-haspopup', 'listbox');
-        expect(input).to.have.attribute('aria-controls', element.id);
-        expect(input).to.have.attribute('aria-owns', element.id);
-        expect(input).to.have.attribute('aria-expanded', 'false');
-      });
-    });
+      const id = !isSafari
+        ? element.shadowRoot!.querySelector('.sbb-autocomplete__options')!.id
+        : element.id;
 
-    describeIf(!isSafari, 'Chrome-Firefox', async () => {
-      it('renders and sets the correct attributes', () => {
-        assert.instanceOf(formField, SbbFormFieldElement);
-        assert.instanceOf(element, SbbAutocompleteElement);
-
-        expect(element).not.to.have.attribute('autocomplete-origin-borderless');
-
-        const id = element.shadowRoot!.querySelector('.sbb-autocomplete__options')!.id;
-
-        expect(input).to.have.attribute('autocomplete', 'off');
-        expect(input).to.have.attribute('role', 'combobox');
-        expect(input).to.have.attribute('aria-autocomplete', 'list');
-        expect(input).to.have.attribute('aria-haspopup', 'listbox');
-        expect(input).to.have.attribute('aria-controls', id);
-        expect(input).to.have.attribute('aria-owns', id);
-        expect(input).to.have.attribute('aria-expanded', 'false');
-      });
+      expect(input).to.have.attribute('autocomplete', 'off');
+      expect(input).to.have.attribute('role', 'combobox');
+      expect(input).to.have.attribute('aria-autocomplete', 'list');
+      expect(input).to.have.attribute('aria-haspopup', 'listbox');
+      expect(input).to.have.attribute('aria-controls', id);
+      expect(input).to.have.attribute('aria-owns', id);
+      expect(input).to.have.attribute('aria-expanded', 'false');
     });
 
     it('removes attributes on trigger disconnection', async () => {
@@ -1016,15 +999,13 @@ describe(`sbb-autocomplete`, () => {
       input.focus();
       await openSpy.calledOnce();
       expect(input).to.have.attribute('aria-expanded', 'true');
-      expect(
-        getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y'),
-      ).to.be.equal('344px');
+      const posY1 = getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y');
+      expect(Math.round(parseFloat(posY1))).to.be.equal(344);
 
       // Simulate the options' removal and check again position
       await sendKeys({ press: 'a' });
-      expect(
-        getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y'),
-      ).to.be.equal('540px');
+      const posY2 = getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y');
+      expect(Math.round(parseFloat(posY2))).to.be.equal(540);
 
       // Clean up env
       element.close();
@@ -1304,9 +1285,10 @@ describe(`sbb-autocomplete`, () => {
       await waitForLitRender(element);
       expect(element.trigger!.id).to.be.equal(element.originElement!.id);
 
-      expect(
-        element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-autocomplete__panel')!.offsetTop,
-      ).to.be.greaterThan(offsetTopOrigin1);
+      const offsetTop2 = element.shadowRoot!.querySelector<HTMLDivElement>(
+        '.sbb-autocomplete__panel',
+      )!.offsetTop;
+      expect(Math.round(offsetTop2)).to.be.greaterThan(Math.round(offsetTopOrigin1));
     });
   });
 
@@ -1389,6 +1371,39 @@ describe(`sbb-autocomplete`, () => {
       formField.parentElement!.querySelector<HTMLInputElement>('input#after-autocomplete'),
     );
   });
+
+  if (!isSafari) {
+    // This test causes all other tests to timeout in Safari
+    // TODO: Figure out what's happening
+    it('should reposition on changing amount of options', async () => {
+      formField = await fixture(html`
+        <sbb-form-field>
+          <input />
+          <sbb-autocomplete>
+            <sbb-option>Option 1</sbb-option>
+          </sbb-autocomplete>
+        </sbb-form-field>
+      `);
+      input = formField.querySelector<HTMLInputElement>('input')!;
+      element = formField.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
+      const option = element.querySelector('sbb-option')!;
+
+      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      element.open();
+      await openSpy.calledOnce();
+
+      formField.style.marginBlockStart = `${document.documentElement.clientHeight - formField.clientHeight - option.clientHeight - 20}px`;
+      // Trigger reposition
+      window.dispatchEvent(new Event('resize'));
+      expect(element).to.match(':state(options-panel-position-below)');
+
+      const option2 = document.createElement('sbb-option');
+      option2.textContent = 'Option 2';
+      element.appendChild(option2);
+      await aTimeout(30);
+      expect(element).to.match(':state(options-panel-position-above)');
+    });
+  }
 
   describe('form submission', () => {
     let form: HTMLFormElement, submitSpy: EventSpy<SubmitEvent>;

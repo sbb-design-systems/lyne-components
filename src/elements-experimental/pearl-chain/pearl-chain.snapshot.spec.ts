@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing';
 import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit/static-html.js';
 
-import type { PtRideLeg } from '../core/timetable.ts';
+import type { PtRideLeg } from '../core.ts';
 
 import type { SbbPearlChainElement } from './pearl-chain.component.ts';
 

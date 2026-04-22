@@ -1,12 +1,10 @@
 import { aTimeout } from '@open-wc/testing';
 import {
-  tabKey,
-  type VisualDiffSetupBuilder,
-} from '@sbb-esta/lyne-elements/core/testing/private.js';
-import {
   describeViewports,
+  tabKey,
   visualDiffDefault,
   visualDiffFocus,
+  type VisualDiffSetupBuilder,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing, type TemplateResult } from 'lit';
@@ -378,6 +376,41 @@ describe('sbb-autocomplete-grid', () => {
           element.style.setProperty('--sbb-options-panel-max-height', '100px');
           openAutocomplete(setup);
         });
+      }),
+    );
+
+    it(
+      'inside bold context',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div style="font-weight: bold;">
+            <input id="bold-input" placeholder="Placeholder" />
+            <sbb-autocomplete-grid origin="bold-input" trigger="bold-input">
+              <sbb-autocomplete-grid-row>
+                <sbb-autocomplete-grid-option value="Option 1"
+                  >Option 1</sbb-autocomplete-grid-option
+                >
+                <sbb-autocomplete-grid-cell>
+                  <sbb-autocomplete-grid-button
+                    icon-name="pen-small"
+                  ></sbb-autocomplete-grid-button>
+                </sbb-autocomplete-grid-cell>
+              </sbb-autocomplete-grid-row>
+              <sbb-autocomplete-grid-row>
+                <sbb-autocomplete-grid-option value="Option 2"
+                  >Option 2</sbb-autocomplete-grid-option
+                >
+                <sbb-autocomplete-grid-cell>
+                  <sbb-autocomplete-grid-button
+                    icon-name="pen-small"
+                  ></sbb-autocomplete-grid-button>
+                </sbb-autocomplete-grid-cell>
+              </sbb-autocomplete-grid-row>
+            </sbb-autocomplete-grid>
+          </div>`,
+        );
+
+        setup.withPostSetupAction(() => openAutocomplete(setup));
       }),
     );
   });

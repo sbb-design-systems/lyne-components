@@ -148,7 +148,9 @@ $open-anim-opacity-to: 1;
 }
 
 .sbb-expansion-panel__content {
+  // Enables overflow for content
   min-height: 0;
+  min-width: 0;
 }
 
 @keyframes open {

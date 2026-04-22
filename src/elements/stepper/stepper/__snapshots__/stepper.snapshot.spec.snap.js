@@ -46,18 +46,16 @@ snapshots["sbb-stepper renders DOM"] =
 /* end snapshot sbb-stepper renders DOM */
 
 snapshots["sbb-stepper renders Shadow DOM"] = 
-`<div class="sbb-stepper">
-  <div
-    class="sbb-stepper__labels"
-    role="tablist"
-  >
-    <slot name="step-label">
-    </slot>
-  </div>
-  <div class="sbb-stepper__steps">
-    <slot name="step">
-    </slot>
-  </div>
+`<div
+  class="sbb-stepper__labels"
+  role="tablist"
+>
+  <slot name="step-label">
+  </slot>
+</div>
+<div class="sbb-stepper__steps">
+  <slot name="step">
+  </slot>
 </div>
 `;
 /* end snapshot sbb-stepper renders Shadow DOM */

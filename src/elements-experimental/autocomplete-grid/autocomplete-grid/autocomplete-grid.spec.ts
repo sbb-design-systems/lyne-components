@@ -1,7 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { isSafari } from '@sbb-esta/lyne-elements/core/dom.js';
 import { fixture, tabKey } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { describeIf, EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
+import { isSafari } from '@sbb-esta/lyne-elements/core.js';
 import { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { repeat } from 'lit/directives/repeat.js';

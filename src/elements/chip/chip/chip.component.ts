@@ -1,16 +1,26 @@
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { i18nChipDelete } from '../../core/i18n.ts';
-import { SbbDisabledMixin, SbbNegativeMixin, SbbReadonlyMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbMiniButtonElement } from '../../button.pure.ts';
+import {
+  boxSizingStyles,
+  i18nChipDelete,
+  SbbDisabledMixin,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbNegativeMixin,
+  SbbReadonlyMixin,
+  SbbScreenReaderOnlyElement,
+} from '../../core.ts';
 
-import '../../button/mini-button.ts';
-import '../../screen-reader-only.ts';
-
-import style from './chip.scss?lit&inline';
+import style from './chip.scss?inline';
 
 /**
  * It displays a chip. Usually used in combination with `sbb-chip-group`.
@@ -22,8 +32,12 @@ export class SbbChipElement<T = string> extends SbbNegativeMixin(
   SbbDisabledMixin(SbbReadonlyMixin(SbbElement)),
 ) {
   public static override readonly elementName: string = 'sbb-chip';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbMiniButtonElement,
+    SbbScreenReaderOnlyElement,
+  ];
   public static override readonly role = 'option';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     requestdelete: 'requestdelete',
   } as const;

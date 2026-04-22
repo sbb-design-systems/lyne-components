@@ -8,7 +8,7 @@ import { SbbMenuElement } from '../menu.ts';
 
 import readme from './readme.md?raw';
 
-import '../button/button.ts';
+import '../button.ts';
 import '../divider.ts';
 import '../link.ts';
 

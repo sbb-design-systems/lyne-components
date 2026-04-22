@@ -8,7 +8,7 @@ import { EventSpy, waitForLitRender } from '../core/testing.ts';
 
 import { SbbNotificationElement } from './notification.component.ts';
 
-import '../link/link.ts';
+import '../link.ts';
 import '../title.ts';
 import '../notification.ts';
 

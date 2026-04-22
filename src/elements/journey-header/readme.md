@@ -57,12 +57,12 @@ The following one will be read as (locale: ENG): `Connection from Point A to Poi
 
 #### Properties
 
-| Name          | Attribute      | Privacy | Type                    | Default            | Description                                                                       |
-| ------------- | -------------- | ------- | ----------------------- | ------------------ | --------------------------------------------------------------------------------- |
-| `destination` | `destination`  | public  | `string`                | `''`               | Destination location for the journey header.                                      |
-| `level`       | `level`        | public  | `SbbTitleLevel`         | `'3'`              | Title level                                                                       |
-| `negative`    | `negative`     | public  | `boolean`               | `false`            | Negative coloring variant flag.                                                   |
-| `origin`      | `origin`       | public  | `string`                | `''`               | Origin location for the journey header.                                           |
-| `roundTrip`   | `round-trip`   | public  | `boolean`               | `false`            | Whether the journey is a round trip. If so, the icon changes to a round-trip one. |
-| `size`        | `size`         | public  | `JourneyHeaderSize`     | `'m' / 's' (lean)` | Journey header size, either s, m or l.                                            |
-| `visualLevel` | `visual-level` | public  | `SbbTitleLevel \| null` | `null`             | Visual level for the title.                                                       |
+| Name          | Attribute      | Privacy | Type                    | Default            | Description                                                                                     |
+| ------------- | -------------- | ------- | ----------------------- | ------------------ | ----------------------------------------------------------------------------------------------- |
+| `destination` | `destination`  | public  | `string`                | `''`               | Destination location for the journey header.                                                    |
+| `level`       | `level`        | public  | `SbbTitleLevel`         | `'3'`              | Title level                                                                                     |
+| `negative`    | `negative`     | public  | `boolean`               | `false`            | Negative coloring variant flag.                                                                 |
+| `origin`      | `origin`       | public  | `string`                | `''`               | Origin location for the journey header.                                                         |
+| `roundTrip`   | `round-trip`   | public  | `boolean`               | `false`            | Whether the journey is a round trip. If so, the icon changes to a round-trip one.               |
+| `size`        | `size`         | public  | `JourneyHeaderSize`     | `'m' / 's' (lean)` | Journey header size, either s, m or l.<br><strong>Deprecated</strong>: Use visualLevel instead. |
+| `visualLevel` | `visual-level` | public  | `SbbTitleLevel \| null` | `null`             | Visual level for the title.                                                                     |

@@ -1,19 +1,19 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { isLean } from '../../core/dom.ts';
 import {
+  boxSizingStyles,
+  isLean,
+  SbbElement,
   SbbNamedSlotListMixin,
-  ɵstateController,
   type WithListChildren,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+  ɵstateController,
+} from '../../core.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 
-import style from './navigation-marker.scss?lit&inline';
+import style from './navigation-marker.scss?inline';
 
 /**
  * It can be used as a container for one or more `sbb-navigation-button`/`sbb-navigation-link` within a `sbb-navigation`.
@@ -25,7 +25,7 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
   typeof SbbElement
 >(SbbElement) {
   public static override readonly elementName: string = 'sbb-navigation-marker';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   protected override readonly listChildLocalNames = [
     'sbb-navigation-button',
     'sbb-navigation-link',

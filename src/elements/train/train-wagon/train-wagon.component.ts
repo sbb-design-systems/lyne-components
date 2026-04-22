@@ -1,12 +1,14 @@
-import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { forceType, handleDistinctChange, omitEmptyConverter } from '../../core/decorators.ts';
+import { type SbbOccupancy, SbbElement, type SbbElementType } from '../../core.ts';
 import {
+  SbbLanguageController,
+  forceType,
+  handleDistinctChange,
+  omitEmptyConverter,
   i18nAdditionalWagonInformationHeading,
   i18nBlockedPassage,
   i18nClass,
@@ -18,16 +20,13 @@ import {
   i18nSleepingWagonLabel,
   i18nWagonLabel,
   i18nWagonLabelNumber,
-} from '../../core/i18n.ts';
-import type { SbbOccupancy } from '../../core/interfaces.ts';
-import { SbbNamedSlotListMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbIconElement } from '../../icon.ts';
+  SbbNamedSlotListMixin,
+  boxSizingStyles,
+} from '../../core.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
+import { SbbTimetableOccupancyIconElement } from '../../timetable-occupancy-icon.pure.ts';
 
-import style from './train-wagon.scss?lit&inline';
-
-import '../../icon.ts';
-import '../../timetable-occupancy-icon.ts';
+import style from './train-wagon.scss?inline';
 
 const typeToIconMap: Record<string, string> = {
   couchette: 'sa-cc',
@@ -44,7 +43,11 @@ export class SbbTrainWagonElement extends SbbNamedSlotListMixin<SbbIconElement, 
   SbbElement,
 ) {
   public static override readonly elementName: string = 'sbb-train-wagon';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbIconElement,
+    SbbTimetableOccupancyIconElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     sectorchange: 'sectorchange',
   } as const;

@@ -1,21 +1,29 @@
-import { type CSSResultGroup, html, nothing, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { sbbInputModalityDetector } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { i18nItemsPerPage, i18nPage } from '../../core/i18n.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbSelectElement } from '../../select.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  i18nItemsPerPage,
+  i18nPage,
+  SbbElement,
+  type SbbElementType,
+  sbbInputModalityDetector,
+} from '../../core.ts';
+import { SbbFormFieldElement } from '../../form-field.pure.ts';
+import { SbbOptionElement } from '../../option.pure.ts';
+import { SbbSelectElement } from '../../select.pure.ts';
 import { SbbPaginatorCommonElementMixin } from '../common/paginator-common.ts';
 
-import style from './paginator.scss?lit&inline';
-
-import '../../form-field.ts';
-import '../../select.ts';
-import '../../option.ts';
-import '../../screen-reader-only.ts';
+import style from './paginator.scss?inline';
 
 const MAX_PAGE_NUMBERS_DISPLAYED = 3;
 
@@ -24,7 +32,12 @@ const MAX_PAGE_NUMBERS_DISPLAYED = 3;
  */
 export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-paginator';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbFormFieldElement,
+    SbbSelectElement,
+    SbbOptionElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events: Record<string, string> = {
     page: 'page',
   } as const;
@@ -130,7 +143,7 @@ export class SbbPaginatorElement extends SbbPaginatorCommonElementMixin(SbbEleme
               borderless
               width="collapse"
               ?negative=${this.negative}
-              size=${this.size}
+              size=${this.size || nothing}
             >
               <sbb-select
                 id="select"

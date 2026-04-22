@@ -1,11 +1,11 @@
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag/tag/tag.component.js';
-import { LitElement, html, type TemplateResult, type CSSResultGroup } from 'lit';
+import { type CSSResultGroup, html, LitElement, type TemplateResult, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { type ScreenshotTestCase } from '../../../screenshots.ts';
 
-import style from './test-case-filter.scss?lit&inline';
+import style from './test-case-filter.scss?inline';
 
 import '@sbb-esta/lyne-elements/title.js';
 import '@sbb-esta/lyne-elements/tag.js';
@@ -16,7 +16,7 @@ import '@sbb-esta/lyne-elements/tag.js';
 export
 @customElement('app-test-case-filter')
 class TestCaseFilter extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   @property() public accessor testCase: ScreenshotTestCase | null = null;
 

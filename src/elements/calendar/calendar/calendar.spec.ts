@@ -4,14 +4,14 @@ import { nothing } from 'lit';
 import { html } from 'lit/static-html.js';
 import { type SinonStub, stub } from 'sinon';
 
-import type { SbbSecondaryButtonElement } from '../../button/secondary-button.ts';
-import { defaultDateAdapter } from '../../core/datetime.ts';
+import type { SbbSecondaryButtonElement } from '../../button.ts';
 import {
   elementInternalsSpy,
   fixture,
   sbbBreakpointLargeMinPx,
 } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { defaultDateAdapter } from '../../core.ts';
 import { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
 import {
   createPrice,

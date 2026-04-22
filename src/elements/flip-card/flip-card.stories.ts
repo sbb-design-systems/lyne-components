@@ -1,17 +1,17 @@
-import type { Args, ArgTypes, Meta, StoryObj, Decorator } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
-import sampleImages from '../core/images.ts';
+import { sampleImages } from '../core/images.private.ts';
 import { SbbFlipCardElement } from '../flip-card.ts';
 
 import readme from './readme.md?raw';
 
 import '../chip-label.ts';
 import '../image.ts';
-import '../link/link.ts';
+import '../link.ts';
 import '../title.ts';
 
 const imageAlignment: InputType = {

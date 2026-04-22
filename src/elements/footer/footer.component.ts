@@ -1,15 +1,11 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { nothing } from 'lit';
+import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { forceType } from '../core/decorators.ts';
-import { SbbNegativeMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbTitleLevel } from '../title.ts';
+import { boxSizingStyles, forceType, SbbElement, SbbNegativeMixin } from '../core.ts';
+import type { SbbTitleLevel } from '../title.pure.ts';
 
-import style from './footer.scss?lit&inline';
+import style from './footer.scss?inline';
 
 /**
  * It displays a footer section for the page.
@@ -18,7 +14,7 @@ import style from './footer.scss?lit&inline';
  */
 export class SbbFooterElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-footer';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * Variants to display the footer. The default, displays the content in regular block element

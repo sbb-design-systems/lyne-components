@@ -98,13 +98,13 @@ and dispatches the `input` and `change` events. The default `aria-label` value i
 | Name            | Attribute        | Privacy | Type                                                           | Default      | Description                                                                                                                                                           |
 | --------------- | ---------------- | ------- | -------------------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `borderless`    | `borderless`     | public  | `boolean`                                                      | `true`       | Whether to display the form field without a border.                                                                                                                   |
-| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                          | `'none'`     | Whether to reserve space for an error message. `none` does not reserve any space. `reserve` does reserve one row for an error message.                                |
+| `errorSpace`    | `error-space`    | public  | `'none' \| 'reserve'`                                          | `'none'`     | Whether to reserve space for an error message, hint or text-counter. `none` does not reserve any space. `reserve` does reserve one row for an error message.          |
 | `floatingLabel` | `floating-label` | public  | `boolean`                                                      | `true`       | Whether the label should float. If activated, the placeholder of the input is hidden.                                                                                 |
 | `hiddenLabel`   | `hidden-label`   | public  | `boolean`                                                      | `false`      | Whether to visually hide the label. If hidden, screen readers will still read it.                                                                                     |
 | `inputElement`  | -                | public  | `HTMLInputElement \| HTMLSelectElement \| HTMLElement \| null` |              | Returns the input element.                                                                                                                                            |
 | `label`         | -                | public  | `HTMLLabelElement \| null`                                     |              | Reference to the slotted label.                                                                                                                                       |
 | `negative`      | `negative`       | public  | `boolean`                                                      | `false`      | Negative coloring variant flag.                                                                                                                                       |
-| `optional`      | `optional`       | public  | `boolean`                                                      | `false`      | Indicates whether the input is optional.                                                                                                                              |
+| `optional`      | `optional`       | public  | `boolean`                                                      | `false`      | Indicates whether the input is optional.<br><strong>Deprecated</strong>: Set the (optional) label text manually. Will be removed with next major version.             |
 | `size`          | `size`           | public  | `string`                                                       | `'l'`        | Size variant, either l, m or s.                                                                                                                                       |
 | `width`         | `width`          | public  | `string`                                                       | `'collapse'` | Defines the width of the component: - `default`: the component has defined width and min-width; - `collapse`: the component adapts itself to its inner input content. |
 
@@ -124,13 +124,14 @@ and dispatches the `input` and `change` events. The default `aria-label` value i
 
 #### Slots
 
-| Name     | Description                                                                |
-| -------- | -------------------------------------------------------------------------- |
-|          | Use this slot to render an input/select or a supported non-native element. |
-| `error`  | Use this slot to render an error.                                          |
-| `label`  | Use this slot to render a label.                                           |
-| `prefix` | Use this slot to render an icon on the left side of the input.             |
-| `suffix` | Use this slot to render an icon on the right side of the input.            |
+| Name     | Description                                                                            |
+| -------- | -------------------------------------------------------------------------------------- |
+|          | Use this slot to render an input/select or a supported non-native element.             |
+| `error`  | Use this slot to render an error.                                                      |
+| `hint`   | Use this slot to render an `<sbb-hint>` or an `<sbb-form-field-text-counter>` element. |
+| `label`  | Use this slot to render a label.                                                       |
+| `prefix` | Use this slot to render an icon on the left side of the input.                         |
+| `suffix` | Use this slot to render an icon on the right side of the input.                        |
 
 ### class: `SbbTimetableFormSwapButtonElement`, `sbb-timetable-form-swap-button`
 
@@ -159,6 +160,13 @@ and dispatches the `input` and `change` events. The default `aria-label` value i
 | `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Events
+
+| Name     | Type         | Description                                                                                                                                                                                                 | Inherited From |
+| -------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `change` | `Event`      | The change event is fired on the associated inputs when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
+| `input`  | `InputEvent` | The input event fires on the associated inputs when the value has been changed as a direct result of a user action.                                                                                         |                |
 
 #### CSS Properties
 

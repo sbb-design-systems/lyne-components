@@ -1,22 +1,29 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { forceType, hostAttributes } from '../core/decorators.ts';
 import {
+  boxSizingStyles,
+  forceType,
   type FormRestoreReason,
   type FormRestoreState,
+  hostAttributes,
   SbbDisabledMixin,
+  SbbElement,
+  type SbbElementType,
   SbbFormAssociatedMixin,
   SbbReadonlyMixin,
-} from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+} from '../core.ts';
+import { SbbIconElement } from '../icon.pure.ts';
 
-import style from './slider.scss?lit&inline';
-
-import '../icon.ts';
+import style from './slider.scss?inline';
 
 /**
  * It displays an input knob that can be moved in a range.
@@ -33,8 +40,9 @@ class SbbSliderElement extends SbbDisabledMixin(
   SbbReadonlyMixin(SbbFormAssociatedMixin(SbbElement)),
 ) {
   public static override readonly elementName: string = 'sbb-slider';
+  public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static override readonly role = 'slider';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     didChange: 'didChange',
   } as const;
@@ -136,7 +144,7 @@ class SbbSliderElement extends SbbDisabledMixin(
     if (changedProperties.has('readOnly')) {
       this.internals.ariaReadOnly = Boolean(this.readOnly).toString();
     }
-    this.style?.setProperty('--sbb-slider-value-fraction', this._valueFraction().toString());
+    this.style?.setProperty('--_sbb-slider-value-fraction', this._valueFraction().toString());
   }
 
   /**

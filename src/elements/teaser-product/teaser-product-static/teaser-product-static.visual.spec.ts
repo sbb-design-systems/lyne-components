@@ -6,12 +6,11 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../../core/testing/private.ts';
-import { waitForImageReady } from '../../core/testing/wait-for-image-ready.ts';
+import { waitForImageReady } from '../../core/testing.ts';
 
 import '../../teaser-product.ts';
 import '../../action-group.ts';
-import '../../button/button.ts';
-import '../../button/secondary-button.ts';
+import '../../button.ts';
 import '../../chip-label.ts';
 import '../../image.ts';
 import '../../title.ts';

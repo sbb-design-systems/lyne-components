@@ -3,7 +3,7 @@
 import {
   i18nWalkingDistanceArrival,
   i18nWalkingDistanceDeparture,
-} from '@sbb-esta/lyne-elements/core/i18n.js';
+} from '@sbb-esta/lyne-elements/core.js';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 
@@ -14,7 +14,8 @@ import {
 } from './timetable-helper.ts';
 import type { Leg, PtConnectionLeg, PtRideLeg } from './timetable-properties.ts';
 
-import '@sbb-esta/lyne-elements/icon.js';
+// This is unfortunately necessary due to the lit-analyzer.
+import '@sbb-esta/lyne-elements/icon.pure.js';
 
 interface IAccessAttribute {
   duration: number;

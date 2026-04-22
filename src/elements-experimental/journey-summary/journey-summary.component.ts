@@ -1,24 +1,24 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { i18nTripDuration } from '@sbb-esta/lyne-elements/core/i18n.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+import {
+  boxSizingStyles,
+  defaultDateAdapter,
+  forceType,
+  i18nTripDuration,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbScreenReaderOnlyElement,
+} from '@sbb-esta/lyne-elements/core.js';
+import { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.pure.js';
+import { SbbJourneyHeaderElement } from '@sbb-esta/lyne-elements/journey-header.pure.js';
+import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.pure.js';
 import { format, isValid } from 'date-fns';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { durationToTime, removeTimezoneFromISOTimeString } from '../core/datetime.ts';
-import type { Leg } from '../core/timetable.ts';
+import { durationToTime, type Leg, removeTimezoneFromISOTimeString } from '../core.ts';
+import { SbbPearlChainTimeElement } from '../pearl-chain-time.pure.ts';
 
-import style from './journey-summary.scss?lit&inline';
-
-import '@sbb-esta/lyne-elements/divider.js';
-import '@sbb-esta/lyne-elements/screen-reader-only.js';
-import '@sbb-esta/lyne-elements/journey-header.js';
-import '../pearl-chain-time.ts';
+import style from './journey-summary.scss?inline';
 
 export interface InterfaceSbbJourneySummaryAttributes {
   legs: Leg[];
@@ -39,7 +39,13 @@ export interface InterfaceSbbJourneySummaryAttributes {
  */
 export class SbbJourneySummaryElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-journey-summary';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbDividerElement,
+    SbbJourneyHeaderElement,
+    SbbPearlChainTimeElement,
+    SbbScreenReaderOnlyElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**  The trip prop */
   @property({ type: Object }) public accessor trip: InterfaceSbbJourneySummaryAttributes = null!;

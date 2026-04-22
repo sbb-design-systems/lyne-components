@@ -6,15 +6,14 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import type { SbbErrorElement } from '../form-field.ts';
-import { SbbStepElement, type SbbStepValidateEventDetails, SbbStepperElement } from '../stepper.ts';
+import { SbbStepElement, SbbStepperElement, type SbbStepValidateEventDetails } from '../stepper.ts';
 
 import readme from './readme.md?raw';
 
-import '../button/button.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../card.ts';
 import '../form-field.ts';
-import '../link/block-link-button.ts';
+import '../link.ts';
 import '../stepper.ts';
 
 const loremIpsum = `

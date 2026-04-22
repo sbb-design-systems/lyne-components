@@ -68,6 +68,31 @@ describe(`sbb-breadcrumb-group`, () => {
         expect(ellipsisButton).to.be.null;
       });
     });
+
+    it('should collapse when inside a grid container', async () => {
+      await setViewport({ width: 160, height: 320 });
+
+      const wrapper = await fixture(html`
+        <div style="display: grid;">
+          <sbb-breadcrumb-group>
+            <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
+            <sbb-breadcrumb href="#" id="breadcrumb-1">First</sbb-breadcrumb>
+            <sbb-breadcrumb href="#" id="breadcrumb-2">Second</sbb-breadcrumb>
+            <sbb-breadcrumb href="#" id="breadcrumb-3">Third</sbb-breadcrumb>
+          </sbb-breadcrumb-group>
+        </div>
+      `);
+      const group = wrapper.querySelector<SbbBreadcrumbGroupElement>('sbb-breadcrumb-group')!;
+
+      // We need to ensure that the collapsed state is really rendered
+      await aTimeout(20);
+
+      const ellipsisButton = group.shadowRoot!.querySelector<HTMLButtonElement>(
+        '#sbb-breadcrumb-ellipsis',
+      )!;
+
+      expect(ellipsisButton).not.to.be.null;
+    });
   });
 
   describe('with ellipsis', () => {

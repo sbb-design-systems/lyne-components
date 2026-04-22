@@ -1,18 +1,14 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { getOverride } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { boxSizingStyles, getOverride, isLean, SbbElement } from '../core.ts';
 
 import {
-  SbbRadioButtonCommonElementMixin,
   radioButtonCommonStyle,
+  SbbRadioButtonCommonElementMixin,
   type SbbRadioButtonSize,
 } from './common/radio-button-common.ts';
-import radioButtonStyle from './radio-button.scss?lit&inline';
+import style from './radio-button.scss?inline';
 
 /**
  * It displays a radio button enhanced with the SBB Design.
@@ -29,7 +25,7 @@ export class SbbRadioButtonElement<T = string> extends SbbRadioButtonCommonEleme
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     radioButtonCommonStyle,
-    radioButtonStyle,
+    unsafeCSS(style),
   ];
   public static readonly events = {
     change: 'change',

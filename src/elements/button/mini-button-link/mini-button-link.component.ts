@@ -1,17 +1,16 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit/static-html.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbLinkBaseElement } from '../../core/base-elements.ts';
 import {
+  boxSizingStyles,
   SbbDisabledInteractiveMixin,
   SbbDisabledMixin,
+  SbbLinkBaseElement,
   SbbNegativeMixin,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
-import { miniButtonLabelStyle, miniButtonStyle } from '../common.ts';
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
+import { miniButtonLabelStyle, miniButtonStyle } from '../common/button-common.ts';
 
-import style from './mini-button-link.scss?lit&inline';
+import style from './mini-button-link.scss?inline';
 
 /**
  * It displays an icon-only button enhanced with the SBB Design as link variant;
@@ -28,7 +27,7 @@ export class SbbMiniButtonLinkElement extends SbbNegativeMixin(
     boxSizingStyles,
     miniButtonStyle,
     miniButtonLabelStyle,
-    style,
+    unsafeCSS(style),
   ];
 
   protected override renderTemplate(): TemplateResult {

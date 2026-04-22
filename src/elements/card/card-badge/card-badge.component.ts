@@ -1,11 +1,9 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { boxSizingStyles, SbbElement } from '../../core.ts';
 
-import style from './card-badge.scss?lit&inline';
+import style from './card-badge.scss?inline';
 
 /**
  * It displays content within a badge.
@@ -16,7 +14,7 @@ import style from './card-badge.scss?lit&inline';
 export class SbbCardBadgeElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-card-badge';
   public static override readonly role = 'text';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Color of the card badge. */
   @property({ reflect: true }) public accessor color: 'charcoal' | 'white' = 'charcoal';

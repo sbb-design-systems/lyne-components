@@ -1,8 +1,7 @@
 import type { CSSResultGroup } from 'lit';
 
-import { miniButtonStyle } from '../../button/common.ts';
-import { i18nPreviousDay, i18nSelectPreviousDay } from '../../core/i18n.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { miniButtonStyle } from '../../button.pure.ts';
+import { boxSizingStyles, i18nPreviousDay, i18nSelectPreviousDay } from '../../core.ts';
 import { datepickerButtonStyle, SbbDatepickerButton } from '../common/datepicker-button.ts';
 
 /**

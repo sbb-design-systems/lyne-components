@@ -11,12 +11,16 @@ import {
   checkboxCommonStyle,
   SbbCheckboxCommonElementMixin,
 } from '../checkbox/common/checkbox-common.ts';
-import { SbbElement } from '../core/base-elements.ts';
-import { panelCommonStyle, SbbPanelMixin, SbbUpdateSchedulerMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-
-import '../screen-reader-only.ts';
-import '../visual-checkbox.ts';
+import {
+  boxSizingStyles,
+  panelCommonStyle,
+  SbbElement,
+  type SbbElementType,
+  SbbPanelMixin,
+  SbbScreenReaderOnlyElement,
+  SbbUpdateSchedulerMixin,
+} from '../core.ts';
+import { SbbVisualCheckboxElement } from '../visual-checkbox.pure.ts';
 
 /**
  * It displays a checkbox enhanced with selection panel design.
@@ -33,6 +37,10 @@ export class SbbCheckboxPanelElement<T = string> extends SbbPanelMixin(
   SbbCheckboxCommonElementMixin(SbbUpdateSchedulerMixin(SbbElement)),
 ) {
   public static override readonly elementName: string = 'sbb-checkbox-panel';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbScreenReaderOnlyElement,
+    SbbVisualCheckboxElement,
+  ];
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     checkboxCommonStyle,

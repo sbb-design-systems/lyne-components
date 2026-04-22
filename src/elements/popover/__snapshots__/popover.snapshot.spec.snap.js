@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-popover renders DOM"] = 
-`<sbb-popover
-  id="sbb-popover-1"
-  popover="manual"
->
+`<sbb-popover popover="manual">
 </sbb-popover>
 `;
 /* end snapshot sbb-popover renders DOM */

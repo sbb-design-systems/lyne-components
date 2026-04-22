@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import type { SbbAutocompleteElement } from '../../autocomplete.ts';
+import type { SbbAutocompleteElement } from '../../autocomplete.pure.ts';
 import type { SbbDialogElement } from '../../dialog.ts';
 import type { SbbMenuElement } from '../../menu.ts';
-import type { SbbOpenCloseBaseElement } from '../base-elements.ts';
+import type { SbbOpenCloseBaseElement } from '../base-elements/open-close-base-element.ts';
 import { fixture } from '../testing/private.ts';
 
 import '../../autocomplete.ts';

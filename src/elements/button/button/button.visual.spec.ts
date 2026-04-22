@@ -1,7 +1,5 @@
 import { html } from 'lit';
 
-import { isWebkit } from '../../core/dom/platform.ts';
-import { ɵstateController } from '../../core/mixins/element-internals-mixin.ts';
 import {
   describeEach,
   describeViewports,
@@ -11,8 +9,9 @@ import {
   visualDiffStandardStates,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
+import { isWebkit, ɵstateController } from '../../core.ts';
 
-import '../button.ts';
+import '../../button.ts';
 
 describe(`sbb-button`, () => {
   let root: HTMLElement;

@@ -1,15 +1,8 @@
 @use '../core/styles' as sbb;
 
 :host {
-  --sbb-skiplink-list-height: 0;
-  --sbb-skiplink-list-overflow: hidden;
-  --sbb-skiplink-list-background: transparent;
-  --sbb-skiplink-list-border: unset;
+  --sbb-skiplink-list-background: var(--sbb-background-color-1-inverted);
 
-  display: block;
-}
-
-.sbb-skiplink-list__wrapper {
   position: fixed;
   inset-block-start: var(--sbb-spacing-fixed-4x);
   inset-inline-start: var(--sbb-spacing-fixed-4x);
@@ -26,17 +19,16 @@
   & > :is(li, span) {
     box-shadow: var(--sbb-box-shadow-level-5-hard);
     display: list-item;
-    height: var(--sbb-skiplink-list-height);
-    overflow: var(--sbb-skiplink-list-overflow);
+    height: var(--sbb-skiplink-list-height, 0);
+    overflow: var(--sbb-skiplink-list-overflow, hidden);
     border-radius: var(--sbb-border-radius-4x);
     background-color: var(--sbb-skiplink-list-background);
-    border: var(--sbb-skiplink-list-border);
+    border: var(--sbb-skiplink-list-border, unset);
     width: fit-content;
 
     &:focus-within {
       --sbb-skiplink-list-height: auto;
       --sbb-skiplink-list-overflow: visible;
-      --sbb-skiplink-list-background: var(--sbb-background-color-1-inverted);
       --sbb-skiplink-list-border: var(--sbb-border-width-2x) solid
         var(--sbb-border-color-1-inverted);
     }

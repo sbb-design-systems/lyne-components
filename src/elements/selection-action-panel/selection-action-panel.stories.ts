@@ -1,4 +1,4 @@
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
@@ -6,12 +6,16 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import '../selection-action-panel.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../card.ts';
 import '../checkbox.ts';
+import '../checkbox-group.ts';
+import '../checkbox-panel.ts';
 import '../form-field.ts';
-import '../link/block-link-button.ts';
+import '../link.ts';
 import '../radio-button.ts';
+import '../radio-button-group.ts';
+import '../radio-button-panel.ts';
 import '../selection-expansion-panel.ts';
 
 import readme from './readme.md?raw';

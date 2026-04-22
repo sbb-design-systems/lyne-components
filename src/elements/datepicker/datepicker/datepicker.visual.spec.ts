@@ -1,13 +1,13 @@
 import { html } from 'lit';
-import { stub, type SinonStub } from 'sinon';
+import { type SinonStub, stub } from 'sinon';
 
-import { defaultDateAdapter } from '../../core/datetime.ts';
 import {
   describeEach,
   describeViewports,
   visualDiffDefault,
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
+import { defaultDateAdapter } from '../../core.ts';
 
 import '../../datepicker.ts';
 import '../../date-input.ts';

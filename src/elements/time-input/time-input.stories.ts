@@ -3,8 +3,8 @@ import type {
   ArgTypes,
   Decorator,
   Meta,
-  StoryObj,
   StoryContext,
+  StoryObj,
 } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
@@ -19,7 +19,7 @@ import readme from './readme.md?raw';
 import type { SbbTimeInputElement } from './time-input.component.ts';
 
 import '../time-input.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../form-field.ts';
 
 const updateOutput = (timeInput: SbbTimeInputElement): void => {

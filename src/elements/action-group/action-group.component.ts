@@ -1,20 +1,23 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.ts';
-import { SbbElement } from '../core/base-elements.ts';
-import { isLean } from '../core/dom.ts';
-import type { SbbHorizontalFrom, SbbOrientation } from '../core/interfaces.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.pure.ts';
+import type { SbbHorizontalFrom, SbbOrientation } from '../core.ts';
+import { boxSizingStyles, isLean, SbbElement } from '../core.ts';
 import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,
   SbbBlockLinkStaticElement,
   SbbLinkSize,
-} from '../link.ts';
+} from '../link.pure.ts';
 
-import style from './action-group.scss?lit&inline';
+import style from './action-group.scss?inline';
 
 /**
  * It can be used as a container for one or more action element, like `sbb-button` or `sbb-block-link`.
@@ -23,7 +26,7 @@ import style from './action-group.scss?lit&inline';
  */
 export class SbbActionGroupElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-action-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * Set the slotted `<sbb-action-group>` children's alignment.
@@ -86,7 +89,7 @@ export class SbbActionGroupElement extends SbbElement {
   }
 
   protected override render(): TemplateResult {
-    return html` <slot></slot> `;
+    return html`<slot></slot>`;
   }
 }
 

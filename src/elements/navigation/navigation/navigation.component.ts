@@ -6,36 +6,36 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { SbbFocusTrapController } from '../../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
+import { SbbTransparentButtonElement } from '../../button.pure.ts';
 import {
+  boxSizingStyles,
+  forceType,
+  i18nCloseNavigation,
+  idReference,
+  isEventOnElement,
+  isZeroAnimationDuration,
+  removeAriaOverlayTriggerProperties,
+  type SbbElementType,
   SbbEscapableOverlayController,
+  SbbFocusTrapController,
   SbbInertController,
   SbbLanguageController,
-} from '../../core/controllers.ts';
-import { forceType, idReference } from '../../core/decorators.ts';
-import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.ts';
-import { i18nCloseNavigation } from '../../core/i18n.ts';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
-import {
-  isEventOnElement,
-  removeAriaOverlayTriggerAttributes,
-  setAriaOverlayTriggerAttributes,
-} from '../../core/overlay.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+  SbbOpenCloseBaseElement,
+  SbbScrollHandler,
+  SbbUpdateSchedulerMixin,
+  setAriaOverlayTriggerProperties,
+} from '../../core.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 import type { SbbNavigationSectionElement } from '../navigation-section/navigation-section.component.ts';
 
-import style from './navigation.scss?lit&inline';
+import style from './navigation.scss?inline';
 
-import '../../button/transparent-button.ts';
-
-let nextId = 0;
 const DEBOUNCE_TIME = 150;
 
 /**
@@ -48,8 +48,9 @@ const DEBOUNCE_TIME = 150;
  */
 export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-navigation';
+  public static override elementDependencies: SbbElementType[] = [SbbTransparentButtonElement];
   public static override readonly role = 'navigation';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * The element that will trigger the navigation.
@@ -137,7 +138,9 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
 
     // Disable scrolling for content below the navigation
     this._scrollHandler.disableScroll();
-    this._triggerElement?.setAttribute('aria-expanded', 'true');
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'true';
+    }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -168,7 +171,9 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
 
     this.state = 'closing';
     this.startUpdate();
-    this._triggerElement?.setAttribute('aria-expanded', 'false');
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'false';
+    }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `closed` state.
@@ -217,14 +222,14 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
     }
 
     this._triggerAbortController?.abort();
-    removeAriaOverlayTriggerAttributes(this._triggerElement);
+    removeAriaOverlayTriggerProperties(this._triggerElement);
     this._triggerElement = this.trigger;
 
     if (!this._triggerElement) {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this.state);
+    setAriaOverlayTriggerProperties(this, this._triggerElement, 'menu', this.state);
     this._triggerAbortController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._triggerAbortController.signal,
@@ -306,7 +311,6 @@ export class SbbNavigationElement extends SbbUpdateSchedulerMixin(SbbOpenCloseBa
   public override connectedCallback(): void {
     super.connectedCallback();
     this.popover = 'manual';
-    this.id ||= `sbb-navigation-${nextId++}`;
     if (this.hasUpdated) {
       this._configureTrigger();
     }

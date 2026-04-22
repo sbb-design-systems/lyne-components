@@ -1,21 +1,28 @@
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { customElement } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved
 import { meta } from 'virtual:meta';
 
 import { screenshots } from '../../screenshots.ts';
 
-import style from './overview.scss?lit&inline';
+import style from './overview.scss?inline';
 
 import '@sbb-esta/lyne-elements/accordion.js';
 import '@sbb-esta/lyne-elements/action-group.js';
-import '@sbb-esta/lyne-elements/button/button-link.js';
+import '@sbb-esta/lyne-elements/button.js';
 import '@sbb-esta/lyne-elements/card.js';
 import '@sbb-esta/lyne-elements/container.js';
 import '@sbb-esta/lyne-elements/expansion-panel.js';
 import '@sbb-esta/lyne-elements/link-list.js';
-import '@sbb-esta/lyne-elements/link/block-link.js';
+import '@sbb-esta/lyne-elements/link.js';
 import '@sbb-esta/lyne-elements/title.js';
 
 /**
@@ -24,7 +31,7 @@ import '@sbb-esta/lyne-elements/title.js';
 export
 @customElement('app-overview')
 class Overview extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`

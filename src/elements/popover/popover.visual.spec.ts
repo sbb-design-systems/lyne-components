@@ -4,8 +4,8 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
 import '../popover.ts';
-import '../button/mini-button.ts';
-import '../link/block-link.ts';
+import '../button.ts';
+import '../link.ts';
 import '../title.ts';
 
 describe(`sbb-popover`, () => {
