@@ -194,6 +194,10 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     super();
     this.addEventListener?.('optionselectionchange', (e: Event) => this._onOptionChanged(e));
     this.addEventListener?.('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e));
+    /** Forces the sbb-select to update his value. */
+    this.addEventListener?.('ɵoptionvaluechange', () => this._updateValueOptionState(), {
+      capture: true,
+    });
     this.addEventListener?.('ɵoptgroupslotchange', () => this._updateValueOptionState(), {
       capture: true,
     });
@@ -214,20 +218,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       new MutationController(this, {
         config: { attributeFilter: ['aria-labelledby', 'aria-label', 'aria-describedby'] },
         callback: () => this._syncAriaLabels(),
-      }),
-    );
-
-    // If any option value changes, recheck it against the select's value.
-    this.addController(
-      new MutationController(this, {
-        config: { attributeFilter: ['value'], subtree: true },
-        callback: (record) => {
-          record.forEach((e) => {
-            if ((e.target as HTMLElement).localName === 'sbb-option') {
-              this._updateValueOptionState();
-            }
-          });
-        },
       }),
     );
 
