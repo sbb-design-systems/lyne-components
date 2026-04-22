@@ -23,6 +23,7 @@ $theme: 'standard' !default;
   --sbb-toggle-check-gap: var(--sbb-spacing-fixed-3x);
   --sbb-toggle-check-border-width: var(--sbb-border-width-1x);
   --sbb-toggle-check-border-radius: var(--sbb-border-radius-4x);
+  --sbb-toggle-check-shadow: var(--sbb-box-shadow-level-5-hard);
 }
 
 @mixin base-forced-colors {

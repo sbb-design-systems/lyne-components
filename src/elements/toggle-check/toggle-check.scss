@@ -132,7 +132,7 @@
   will-change: translate;
   translate: var(--_sbb-toggle-check-circle-translate, 0 -50%);
   transition: translate ease var(--sbb-toggle-check-animation-duration);
-  box-shadow: var(--sbb-box-shadow-level-5-hard);
+  box-shadow: var(--sbb-toggle-check-shadow);
 }
 
 .sbb-toggle-check__icon {
