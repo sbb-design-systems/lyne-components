@@ -194,10 +194,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     super();
     this.addEventListener?.('optionselectionchange', (e: Event) => this._onOptionChanged(e));
     this.addEventListener?.('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e));
-    /** Forces the sbb-select to update his value. */
-    this.addEventListener?.('ɵoptionvaluechange', () => this._updateValueOptionState(), {
-      capture: true,
-    });
     this.addEventListener?.('ɵoptgroupslotchange', () => this._updateValueOptionState(), {
       capture: true,
     });
