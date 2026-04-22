@@ -15,7 +15,16 @@
   outline: none !important;
 }
 
+:host([size='xs']) {
+  --sbb-toggle-check-font-size: var(--sbb-text-font-size-xs);
+}
+
+:host([size='s']) {
+  --sbb-toggle-check-font-size: var(--sbb-text-font-size-s);
+}
+
 :host([size='m']) {
+  --sbb-toggle-check-font-size: var(--sbb-text-font-size-m);
   --_sbb-toggle-check-overall-height: calc(1em * var(--sbb-typo-line-height-text));
 }
 
@@ -64,33 +73,25 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   cursor: var(--sbb-toggle-check-cursor);
+  border-radius: calc(var(--sbb-toggle-check-border-radius) - var(--sbb-focus-outline-offset));
 
   // Avoids unwanted space displayed if no label text is set.
   @include sbb.zero-width-space;
 
   :host(:focus-visible) & {
     @include sbb.focus-outline;
-
-    border-radius: calc(var(--sbb-border-radius-4x) - var(--sbb-focus-outline-offset));
   }
 }
 
 .sbb-toggle-check__container {
-  @include sbb.text-s--regular;
-
   display: flex;
   flex-direction: var(--_sbb-toggle-check-flex-direction, row-reverse);
   gap: var(--sbb-toggle-check-gap);
   align-items: start;
   width: 100%;
-
-  :host([size='m']) & {
-    @include sbb.text-m--regular;
-  }
-
-  :host([size='xs']) & {
-    @include sbb.text-xs--regular;
-  }
+  font-size: var(--sbb-toggle-check-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 .sbb-toggle-check__label {
@@ -119,12 +120,11 @@
 }
 
 .sbb-toggle-check__circle {
-  box-shadow: var(--sbb-box-shadow-level-5-hard);
   @include sbb.absolute-center-y;
 
   width: var(--sbb-toggle-check-circle-diameter);
   height: var(--sbb-toggle-check-circle-diameter);
-  border: var(--sbb-border-width-1x) var(--sbb-toggle-check-circle-border-style)
+  border: var(--sbb-toggle-check-border-width) var(--sbb-toggle-check-circle-border-style)
     var(--sbb-toggle-check-circle-border-color);
   border-radius: 50%;
   background-color: var(--sbb-toggle-check-circle-background-color);
@@ -132,6 +132,7 @@
   will-change: translate;
   translate: var(--_sbb-toggle-check-circle-translate, 0 -50%);
   transition: translate ease var(--sbb-toggle-check-animation-duration);
+  box-shadow: var(--sbb-box-shadow-level-5-hard);
 }
 
 .sbb-toggle-check__icon {

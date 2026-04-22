@@ -3,6 +3,13 @@
 $theme: 'standard' !default;
 
 @mixin base {
+  --sbb-toggle-check-font-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-text-font-size-s),
+        'lean': var(--sbb-text-font-size-xs),
+      ),
+      $theme
+    )};
   --sbb-toggle-check-color: var(--sbb-color-2);
   --sbb-toggle-check-checked-color: var(--sbb-color-primary);
   --sbb-toggle-check-background-color: var(--sbb-background-color-4);
@@ -14,6 +21,8 @@ $theme: 'standard' !default;
   --sbb-toggle-check-height: var(--sbb-size-icon-ui-small);
   --sbb-toggle-check-cursor: var(--sbb-cursor-pointer);
   --sbb-toggle-check-gap: var(--sbb-spacing-fixed-3x);
+  --sbb-toggle-check-border-width: var(--sbb-border-width-1x);
+  --sbb-toggle-check-border-radius: var(--sbb-border-radius-4x);
 }
 
 @mixin base-forced-colors {
