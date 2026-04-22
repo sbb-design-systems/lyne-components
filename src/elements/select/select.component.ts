@@ -221,6 +221,20 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       }),
     );
 
+    // If any option value changes, recheck it against the select's value.
+    this.addController(
+      new MutationController(this, {
+        config: { attributeFilter: ['value'], subtree: true },
+        callback: (record) => {
+          record.forEach((e) => {
+            if ((e.target as HTMLElement).localName === 'sbb-option') {
+              this._updateValueOptionState();
+            }
+          });
+        },
+      }),
+    );
+
     this.addController(
       new SbbPropertyWatcherController(this, () => this.closest('sbb-form-field'), {
         negative: (e) => {
