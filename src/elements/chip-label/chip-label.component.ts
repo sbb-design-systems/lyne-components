@@ -16,7 +16,7 @@ export class SbbChipLabelElement extends SbbElement {
 
   /** Size of the chip. */
   @property({ reflect: true })
-  public accessor size: 'xxs' | 'xs' | 's' = 'xxs';
+  public accessor size: 'xxxs' | 'xxs' | 'xs' | 's' = 'xxs';
 
   /** Color of the chip. */
   @property({ reflect: true })

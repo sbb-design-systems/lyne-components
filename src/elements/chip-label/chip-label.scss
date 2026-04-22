@@ -16,6 +16,10 @@
   @include sbb.chip-label-variables--color-granite;
 }
 
+:host([size='xxxs']) {
+  @include sbb.chip-label-variables--size-xxxs;
+}
+
 :host([size='xs']) {
   @include sbb.chip-label-variables--size-xs;
 }
