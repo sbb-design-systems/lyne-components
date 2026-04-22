@@ -119,9 +119,9 @@
 }
 
 ::slotted(sbb-chip-label) {
+  display: flex;
   max-width: 100%;
   margin-block-end: var(--sbb-spacing-fixed-1x);
-  vertical-align: top;
 }
 
 ::slotted(sbb-title) {
