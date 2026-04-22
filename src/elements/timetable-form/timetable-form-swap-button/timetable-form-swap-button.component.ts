@@ -10,7 +10,6 @@ import style from './timetable-form-swap-button.scss?inline';
  * When placed between two `sbb-timetable-form-field`, the 'click' swaps the value of the sibling inputs.
  *
  * @event {Event} change - The change event is fired on the associated inputs when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
- * @event {InputEvent} input - The input event fires on the associated inputs when the value has been changed as a direct result of a user action.
  */
 export class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement {
   public static override readonly elementName: string = 'sbb-timetable-form-swap-button';
