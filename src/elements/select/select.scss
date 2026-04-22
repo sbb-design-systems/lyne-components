@@ -18,6 +18,7 @@
 
   display: block;
   font-weight: normal;
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 :host([size='s']) {

@@ -9,8 +9,6 @@
   );
 
   display: contents;
-  font-size: var(--sbb-text-font-size-m);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
 }
 
 :host(:state(selected)) {

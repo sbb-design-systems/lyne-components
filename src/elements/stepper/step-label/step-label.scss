@@ -24,6 +24,7 @@
   color: var(--sbb-step-label-color);
   font-size: var(--sbb-step-label-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
 
   &::before {
     @include sbb.absolute-center-x-y;

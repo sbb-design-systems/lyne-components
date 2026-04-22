@@ -1,5 +1,11 @@
 @use '../../core/styles' as sbb;
 
+:host {
+  font-size: var(--sbb-checkbox-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
+}
+
 :host([size='xs']) {
   --sbb-checkbox-font-size: var(--sbb-text-font-size-xs);
   --sbb-checkbox-dimension: var(--sbb-checkbox-dimension-xs);
@@ -27,8 +33,6 @@
 }
 
 .sbb-checkbox {
-  font-size: var(--sbb-checkbox-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
   position: relative;
   display: block;
   width: 100%;

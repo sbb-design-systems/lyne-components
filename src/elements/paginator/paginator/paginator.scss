@@ -7,6 +7,9 @@
   );
 
   display: block;
+
+  // Prevent influence from consumer-set line-height
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 :host([size='s']) {
