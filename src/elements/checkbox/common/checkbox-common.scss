@@ -1,11 +1,5 @@
 @use '../../core/styles' as sbb;
 
-:host {
-  font-size: var(--sbb-checkbox-font-size);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
-  line-height: var(--sbb-typo-line-height-text);
-}
-
 :host([size='xs']) {
   --sbb-checkbox-font-size: var(--sbb-text-font-size-xs);
   --sbb-checkbox-dimension: var(--sbb-checkbox-dimension-xs);
@@ -39,6 +33,9 @@
   cursor: var(--sbb-checkbox-cursor);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  font-size: var(--sbb-checkbox-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 .sbb-checkbox__inner {
