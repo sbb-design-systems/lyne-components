@@ -34,8 +34,9 @@ $open-anim-height-to: calc(
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-default);
 
   display: block;
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
   font-size: var(--sbb-notification-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 // By default, the open animation is disabled

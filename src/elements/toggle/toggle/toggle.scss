@@ -23,6 +23,9 @@
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 
+  // Set the line-height for adjacent elements in order to prevent from influence of a consumer-set line-height.
+  line-height: var(--sbb-typo-line-height-text);
+
   // White pill of selected toggle option
   &::before {
     content: '';
