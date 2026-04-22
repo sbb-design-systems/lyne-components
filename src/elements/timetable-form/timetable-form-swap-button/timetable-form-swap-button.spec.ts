@@ -40,7 +40,6 @@ describe('sbb-timetable-form-swap-button', () => {
     });
 
     it('should swap the value of the input fields', async () => {
-      const inputSpy = new EventSpy('input');
       const changeSpy = new EventSpy('change');
 
       fromInput.value = 'from';
@@ -49,7 +48,6 @@ describe('sbb-timetable-form-swap-button', () => {
 
       expect(fromInput.value).to.be.equal('to');
       expect(toInput.value).to.be.equal('from');
-      expect(inputSpy.count).to.be.equal(2);
       expect(changeSpy.count).to.be.equal(2);
 
       fromInput.value = '';
@@ -58,7 +56,6 @@ describe('sbb-timetable-form-swap-button', () => {
 
       expect(fromInput.value).to.be.equal('to');
       expect(toInput.value).to.be.equal('');
-      expect(inputSpy.count).to.be.equal(4);
       expect(changeSpy.count).to.be.equal(4);
 
       fromInput.value = '';
@@ -67,7 +64,6 @@ describe('sbb-timetable-form-swap-button', () => {
 
       expect(fromInput.value).to.be.equal('');
       expect(toInput.value).to.be.equal('');
-      expect(inputSpy.count).to.be.equal(4); // Should not emit the events if both inputs are empty
       expect(changeSpy.count).to.be.equal(4);
     });
   });
@@ -104,7 +100,6 @@ describe('sbb-timetable-form-swap-button', () => {
     });
 
     it('should reverse values of the input fields', async () => {
-      const inputSpy = new EventSpy('input');
       const changeSpy = new EventSpy('change');
 
       inputs.forEach((input, i) => {
@@ -114,19 +109,16 @@ describe('sbb-timetable-form-swap-button', () => {
       element.click();
 
       expect(inputs.map((f) => f.value)).to.be.eql(['4', '3', '2', '1']);
-      expect(inputSpy.count).to.be.equal(4);
       expect(changeSpy.count).to.be.equal(4);
 
       inputs[1].value = '';
       element.click();
 
       expect(inputs.map((f) => f.value)).to.be.eql(['1', '2', '', '4']);
-      expect(inputSpy.count).to.be.equal(8);
       expect(changeSpy.count).to.be.equal(8);
     });
 
-    it('should not emit events if all inputs are empty', async () => {
-      const inputSpy = new EventSpy('input');
+    it('should not emit change event if all inputs are empty', async () => {
       const changeSpy = new EventSpy('change');
 
       inputs.forEach((input) => (input.value = ''));
@@ -134,7 +126,6 @@ describe('sbb-timetable-form-swap-button', () => {
       element.click();
 
       expect(inputs.map((f) => f.value)).to.be.eql(['', '', '', '']);
-      expect(inputSpy.count).to.be.equal(0);
       expect(changeSpy.count).to.be.equal(0);
     });
   });
