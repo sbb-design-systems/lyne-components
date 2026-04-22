@@ -11,13 +11,10 @@
     --sbb-select-z-index,
     var(--sbb-overlay-default-z-index)
   );
-  --sbb-select-placeholder-fallback-color: light-dark(
-    var(--sbb-color-metal),
-    var(--sbb-color-smoke)
-  );
 
   display: block;
   font-weight: normal;
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 :host([size='s']) {

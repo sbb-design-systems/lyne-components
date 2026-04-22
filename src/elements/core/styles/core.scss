@@ -212,6 +212,9 @@ $theme: 'standard' !default;
 @use '../../signet/signet.global' as signet with (
   $theme: $theme
 );
+@use '../../select/select.global' as select with (
+  $theme: $theme
+);
 @use '../../slider/slider.global' as slider with (
   $theme: $theme
 );
@@ -239,6 +242,9 @@ $theme: 'standard' !default;
 @use '../../teaser/teaser.global' as teaser with (
   $theme: $theme
 );
+@use '../../teaser-hero/teaser-hero.global' as teaser-hero with (
+  $theme: $theme
+);
 @use '../../teaser-product/common/teaser-product-common.global' as teaser-product-common with (
   $theme: $theme
 );
@@ -254,6 +260,9 @@ $theme: 'standard' !default;
   $theme: $theme
 );
 @use '../../timetable-occupancy/timetable-occupancy.global' as timetable-occupancy with (
+  $theme: $theme
+);
+@use '../../time-input/time-input.global' as time-input with (
   $theme: $theme
 );
 @use '../../toggle-check/toggle-check.global' as toggle-check with (
@@ -339,6 +348,7 @@ $theme: 'standard' !default;
   @include selection-expansion-panel.base;
   @include sidebar.base;
   @include signet.base;
+  @include select.base;
   @include slider.base;
   @include status.base;
   @include step-label.base;
@@ -347,11 +357,13 @@ $theme: 'standard' !default;
   @include tab-label-common.base;
   @include tag.base;
   @include teaser.base;
+  @include teaser-hero.base;
   @include teaser-product-common.base;
   @include timetable-form.base;
   @include timetable-form-details.base;
   @include timetable-form-field.base;
   @include timetable-occupancy.base;
+  @include time-input.base;
   @include toggle-check.base;
   @include toggle.base;
   @include toggle-option.base;
@@ -384,9 +396,6 @@ $theme: 'standard' !default;
   --sbb-train-formation-wagon-height: #{functions.px-to-rem-build(40)};
   --sbb-train-formation-wagon-gap: var(--sbb-spacing-fixed-1x);
 
-  // Time Input
-  --sbb-time-input-max-width: #{functions.px-to-rem-build(58)};
-
   // Overlay
   --sbb-overlay-default-z-index: 1000;
 
@@ -395,8 +404,7 @@ $theme: 'standard' !default;
   --sbb-cursor-pointer: pointer;
 
   // Infinity border radius, can be used to achieve rounded border on start and end
-  // TODO: Check if infinity is supported by all browsers (e.g. Firefox) -> calc(1em * infinity);
-  --sbb-border-radius-infinity: 100000em;
+  --sbb-border-radius-infinity: calc(infinity * 1px);
 
   // TODO: Remove complete block when new lean theme is complete
   // TODO: Also remove all occurrences of the variables in lyne-components (e.g. --sbb-title-font-size-level-1-lean)
@@ -443,7 +451,6 @@ $theme: 'standard' !default;
     @include sbb-css-tokens.breakpoint-large;
 
     @include button.base-breakpoint-large;
-
     @include chip-group.base-breakpoint-large;
     @include dialog.base-breakpoint-large;
     @include flip-card.base-breakpoint-large;
@@ -451,6 +458,7 @@ $theme: 'standard' !default;
     @include header.base-breakpoint-large;
     @include menu.base-breakpoint-large;
     @include teaser-product-common.base-breakpoint-large;
+    @include time-input.base-breakpoint-large;
 
     // TODO: Remove complete block when new lean theme is complete
     // Only render the block in standard theme as fallback for CSS class usage
@@ -459,9 +467,6 @@ $theme: 'standard' !default;
         --sbb-title-font-size-level-6-lean: var(--sbb-typo-scale-0-875x);
       }
     }
-
-    // Time Input
-    --sbb-time-input-max-width: #{functions.px-to-rem-build(65)};
   }
 
   @include mediaqueries.mq($from: ultra) {
@@ -487,10 +492,13 @@ $theme: 'standard' !default;
 @include lead-container.rules;
 @include message.rules;
 @include option.rules;
+@include select.rules;
 @include sidebar.rules;
 @include sidebar-close-button.rules;
 @include sidebar-container.rules;
 @include tab-nav-bar.rules;
+@include teaser.rules;
+@include teaser-hero.rules;
 @include teaser-product-common.rules;
 @include toggle.rules;
 
@@ -560,22 +568,6 @@ html {
   pointer-events: all;
 }
 
-// Helper class for the application name and version in sbb-header.
-.sbb-header-info {
-  @include typo.text-xs--regular;
-
-  display: flex;
-  padding-inline: var(--sbb-spacing-fixed-4x);
-  gap: var(--sbb-spacing-fixed-1x);
-  align-items: baseline;
-  color: var(--sbb-color-1);
-
-  strong + * {
-    font-size: var(--sbb-text-font-size-xxs);
-    color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
-  }
-}
-
 // In smaller title font-sizes, the space after the title is smaller than the default paragraph space before.
 // Due to margin collapsing, the wrong paragraph space wins.
 // To prevent the mistakenly large gap, we reset the paragraph space.
@@ -591,7 +583,6 @@ img {
 
 // Target the slotted `sbb-image` which are generally wrapped by a <figure> (therefore are not reachable with the :slotted)
 // Apply the brightness effect on mouse hover
-// TODO: Move back to the teaser components when the global CSS refactoring happens
 :is(sbb-teaser, sbb-teaser-hero, sbb-teaser-product) {
   --sbb-teaser-image-brightness-hover: var(--sbb-hover-image-brightness);
   --sbb-teaser-image-animation-duration: var(
@@ -611,34 +602,6 @@ img {
     filter: brightness(var(--sbb-teaser-image-brightness, 1));
     transition: filter var(--sbb-teaser-image-animation-duration)
       var(--sbb-teaser-image-animation-easing);
-  }
-}
-
-sbb-teaser :is(sbb-image, img):not(.sbb-figure-overlap-image) {
-  --sbb-image-object-fit: cover;
-  --sbb-image-aspect-ratio: 4 / 3;
-
-  transition-property: filter, scale;
-  will-change: filter, scale;
-  scale: var(--sbb-teaser-scale, 1);
-}
-
-// TODO: Move back to the teaser-hero components when the global CSS refactoring happens
-sbb-teaser-hero {
-  :is(sbb-image, img):not(.sbb-figure-overlap-image) {
-    --sbb-image-aspect-ratio: 1 / 1;
-
-    border-radius: 0;
-
-    @include mediaqueries.mq($from: small) {
-      --sbb-image-aspect-ratio: 16 / 9;
-    }
-  }
-
-  img:not(.sbb-figure-overlap-image) {
-    display: block;
-    align-self: stretch;
-    width: 100%;
   }
 }
 
@@ -675,27 +638,8 @@ sbb-train-formation[view='top'] sbb-train-wagon {
   --sbb-train-wagon-wagon-end-right-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40' fill='none'%3E%3Cpath d='M8.5,0.5 h51.5 a19.5,19.5 0 0 1 19.5,19.5 v0 a19.5,19.5 0 0 1 -19.5,19.5 h-51.5 a8,8 0 0 1 -8,-8 v-23 a8,8 0 0 1 8,-8 z' stroke='%23000000' stroke-width='1'/%3E%3C/svg%3E");
 }
 
-// We set some dimension to the selects trigger element in order that the screen reader's outline box looks more accurate.
-.sbb-select-trigger {
-  width: 100%;
-
-  // We set the smallest possible height (zero breakpoint, size s)
-  height: var(--sbb-size-element-xs);
-
-  sbb-form-field & {
-    top: 0;
-  }
-}
-
 .sbb-overlay-outlet {
   position: fixed;
   inset: 0;
   pointer-events: none;
-}
-
-// Sets ellipsis on all sbb-option child elements
-.sbb-options-nowrap {
-  --sbb-option-text-overflow: ellipsis;
-  --sbb-option-overflow: hidden;
-  --sbb-option-white-space: nowrap;
 }

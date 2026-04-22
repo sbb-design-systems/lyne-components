@@ -32,8 +32,9 @@
 
 .sbb-action-base {
   gap: var(--sbb-block-link-gap);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
   font-size: var(--sbb-block-link-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 .sbb-link__icon {
