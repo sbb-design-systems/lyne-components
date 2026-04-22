@@ -1,6 +1,7 @@
 @use './a11y';
 @use './helpers';
 @use './typo';
+@use '../core/functions';
 
 @mixin chip-label-variables--color-milk {
   --sbb-chip-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-cloud));
@@ -20,6 +21,13 @@
 @mixin chip-label-variables--color-granite {
   --sbb-chip-label-color: var(--sbb-color-2-inverted);
   --sbb-chip-label-background-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
+}
+
+@mixin chip-label-variables--size-xxxs {
+  --sbb-chip-label-padding-block: 0em;
+  --sbb-chip-label-padding-inline: var(--sbb-spacing-fixed-2x);
+  --sbb-chip-label-font-size: var(--sbb-text-font-size-xxs);
+  --sbb-chip-label-fixed-height: #{functions.px-to-rem-build(16)};
 }
 
 @mixin chip-label-variables--size-xxs {
@@ -46,9 +54,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: calc(
-    var(--sbb-typo-line-height-text) * var(--sbb-chip-label-font-size) +
-      var(--sbb-chip-label-padding-block) * 2
+  height: var(
+    --sbb-chip-label-fixed-height,
+    calc(
+      var(--sbb-typo-line-height-text) * var(--sbb-chip-label-font-size) +
+        var(--sbb-chip-label-padding-block) * 2
+    )
   );
   background-color: var(--sbb-chip-label-background-color);
   padding-inline: var(--sbb-chip-label-padding-inline);
