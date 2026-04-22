@@ -27,11 +27,6 @@ $theme: 'standard' !default;
 }
 
 @mixin rules {
-  // Move container below header
-  sbb-header + :where(sbb-sidebar-container, sbb-icon-sidebar-container) {
-    margin-block-start: var(--sbb-header-height);
-  }
-
   :root:has(sbb-header[size='m']) {
     --sbb-header-height: var(--sbb-spacing-fixed-14x);
   }
@@ -47,6 +42,28 @@ $theme: 'standard' !default;
 
     :root:has(sbb-header[size='s']) {
       --sbb-header-height: var(--sbb-spacing-fixed-14x);
+    }
+  }
+
+  // Move container below header
+  sbb-header + :where(sbb-sidebar-container, sbb-icon-sidebar-container) {
+    margin-block-start: var(--sbb-header-height);
+  }
+
+  // Helper class for the application name and version in sbb-header.
+  .sbb-header-info {
+    display: flex;
+    padding-inline: var(--sbb-spacing-fixed-4x);
+    gap: var(--sbb-spacing-fixed-1x);
+    align-items: baseline;
+    color: var(--sbb-color-1);
+    font-size: var(--sbb-text-font-size-xs);
+    letter-spacing: var(--sbb-typo-letter-spacing-text);
+
+    strong + * {
+      font-size: var(--sbb-text-font-size-xxs);
+      letter-spacing: var(--sbb-typo-letter-spacing-text);
+      color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
     }
   }
 }
