@@ -51,7 +51,6 @@ export class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement
       const input = fields[i].inputElement;
       if (input instanceof HTMLInputElement) {
         input.value = v;
-        input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
         input.dispatchEvent(new Event('change', { bubbles: true }));
       }
     });
