@@ -7,7 +7,7 @@
   );
   --_sbb-step-label-inset-block-start: var(--sbb-step-label-inset-block-start-size-m);
   --_sbb-step-label-inset-inline-start: calc(var(--sbb-step-label-prefix-size) / 2);
-  --_sbb-step-label-transform-y: calc(
+  --_sbb-step-label-translate-y: calc(
     -50% + var(--sbb-step-label-translate-y-content-hover, #{sbb.px-to-rem-build(0)})
   );
   --_sbb-step-label-prefix-inset-block-start: calc(
@@ -35,8 +35,8 @@
     inset-inline-start: var(--_sbb-step-label-inset-inline-start);
     line-height: 1;
     z-index: 1;
-    transform: translate(-50%, var(--_sbb-step-label-transform-y));
-    transition: transform var(--sbb-step-label-animation-duration) var(--sbb-animation-easing);
+    translate: -50% var(--_sbb-step-label-translate-y);
+    transition: translate var(--sbb-step-label-animation-duration) var(--sbb-animation-easing);
   }
 }
 
@@ -131,10 +131,10 @@ sbb-icon {
   z-index: 1;
   background-color: var(--sbb-step-label-prefix-background-color);
   border-radius: var(--sbb-border-radius-infinity);
-  transform: translateY(var(--sbb-step-label-translate-y-content-hover, #{sbb.px-to-rem-build(0)}));
+  translate: 0 var(--sbb-step-label-translate-y-content-hover, #{sbb.px-to-rem-build(0)});
   transition: {
     duration: var(--sbb-step-label-animation-duration);
     timing-function: var(--sbb-animation-easing);
-    property: background-color, transform;
+    property: background-color, translate;
   }
 }
