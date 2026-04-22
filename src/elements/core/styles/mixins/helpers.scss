@@ -20,7 +20,7 @@
 @mixin absolute-center-y {
   position: absolute;
   top: 50%;
-  translate: -50% 0;
+  translate: 0 -50%;
 }
 
 // This mixin can be used to avoid spacing problems by inserting an invisible space as pseudo element.
