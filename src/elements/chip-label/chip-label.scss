@@ -1,33 +1,73 @@
 @use '../core/styles' as sbb;
 
 :host {
-  @include sbb.chip-label-rules;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(
+    --sbb-chip-label-fixed-height,
+    calc(
+      var(--sbb-typo-line-height-text) * var(--sbb-chip-label-font-size) +
+        var(--sbb-chip-label-padding-block) * 2
+    )
+  );
+  background-color: var(--sbb-chip-label-background-color);
+  padding-inline: var(--sbb-chip-label-padding-inline);
+  border-radius: var(--sbb-border-radius-infinity);
+  color: var(--sbb-chip-label-color);
+  font-size: var(--sbb-chip-label-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+
+  @include sbb.if-forced-colors {
+    outline: var(--sbb-border-width-1x) solid CanvasText;
+    outline-offset: calc(-1 * var(--sbb-border-width-1x));
+  }
 }
 
 :host([color='charcoal']) {
-  @include sbb.chip-label-variables--color-charcoal;
+  --sbb-chip-label-color: var(--sbb-color-2-inverted);
+  --sbb-chip-label-background-color: var(--sbb-background-color-2-inverted);
 }
 
 :host([color='white']) {
-  @include sbb.chip-label-variables--color-white;
+  --sbb-chip-label-color: light-dark(var(--sbb-color-granite), var(--sbb-color-cloud));
+  --sbb-chip-label-background-color: var(--sbb-background-color-1);
 }
 
 :host([color='granite']) {
-  @include sbb.chip-label-variables--color-granite;
+  --sbb-chip-label-color: var(--sbb-color-2-inverted);
+  --sbb-chip-label-background-color: light-dark(var(--sbb-color-granite), var(--sbb-color-storm));
 }
 
 :host([size='xxxs']) {
-  @include sbb.chip-label-variables--size-xxxs;
+  --sbb-chip-label-fixed-height: #{sbb.px-to-rem-build(16)};
 }
 
 :host([size='xs']) {
-  @include sbb.chip-label-variables--size-xs;
+  --sbb-chip-label-padding-block: var(--sbb-spacing-fixed-1x);
+  --sbb-chip-label-padding-inline: var(--sbb-spacing-fixed-3x);
+  --sbb-chip-label-font-size: var(--sbb-text-font-size-xs);
 }
 
 :host([size='s']) {
-  @include sbb.chip-label-variables--size-s;
+  --sbb-chip-label-padding-block: var(--sbb-spacing-fixed-1x);
+  --sbb-chip-label-padding-inline: var(--sbb-spacing-fixed-4x);
+  --sbb-chip-label-font-size: var(--sbb-text-font-size-s);
 }
 
 .sbb-chip__text-wrapper {
-  @include sbb.chip-label-rules-ellipsis;
+  @include sbb.ellipsis;
+
+  // Display inline-block is required to make the ellipsis work.
+  display: inline-block;
+
+  // For backwards compatibility reasons, the line-height is also defined without the round function.
+  line-height: calc(var(--sbb-typo-line-height-text) * var(--sbb-chip-label-font-size));
+
+  // To overcome a Safari rendering issue, we have to round the line-height to a multiple of 2px. Otherwise, the text will be vertically misaligned.
+  line-height: round(
+    down,
+    calc(var(--sbb-typo-line-height-text) * var(--sbb-chip-label-font-size)),
+    2px
+  );
 }
