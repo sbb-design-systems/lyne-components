@@ -8,19 +8,19 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  translate: -50% -50%;
 }
 
 @mixin absolute-center-x {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  translate: -50% 0;
 }
 
 @mixin absolute-center-y {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  translate: -50% 0;
 }
 
 // This mixin can be used to avoid spacing problems by inserting an invisible space as pseudo element.

@@ -1,56 +1,36 @@
 @use '../core/styles' as sbb;
 
 :host {
+  --sbb-toggle-check-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-6x)
+  );
+  --_sbb-toggle-check-overall-height: var(--sbb-toggle-check-circle-diameter);
+  --_sbb-toggle-check-width: calc(2 * var(--sbb-toggle-check-height));
+
   display: inline-block;
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
   outline: none !important;
-
-  --sbb-toggle-check-color: var(--sbb-color-2);
-  --sbb-toggle-check-checked-color: var(--sbb-color-primary);
-  --sbb-toggle-check-background-color: var(--sbb-background-color-4);
-  --sbb-toggle-check-icon-color: var(--sbb-toggle-check-checked-color);
-  --sbb-toggle-check-icon-opacity: 0;
-  --sbb-toggle-check-circle-background-color: var(--sbb-background-color-1);
-  --sbb-toggle-check-circle-border-color: var(--sbb-border-color-5);
-  --sbb-toggle-check-circle-border-style: solid;
-  --sbb-toggle-check-circle-diameter: #{sbb.px-to-rem-build(28)};
-  --sbb-toggle-check-overall-height: var(--sbb-toggle-check-circle-diameter);
-  --sbb-toggle-check-circle-transform: translate(0, -50%);
-  --sbb-toggle-check-height: #{sbb.px-to-rem-build(24)};
-  --sbb-toggle-check-width: calc(2 * var(--sbb-toggle-check-height));
-  --sbb-toggle-check-cursor: var(--sbb-cursor-pointer);
-  --sbb-toggle-check-flex-direction: row-reverse;
-  --sbb-toggle-check-gap: var(--sbb-spacing-fixed-3x);
-  --sbb-toggle-check-animation-duration: var(
-    --sbb-disable-animation-duration,
-    var(--sbb-animation-duration-6x)
-  );
-
-  @include sbb.if-forced-colors {
-    --sbb-toggle-check-background-color: CanvasText;
-    --sbb-toggle-check-circle-background-color: Canvas;
-  }
 }
 
 :host([size='m']) {
-  --sbb-toggle-check-overall-height: calc(1em * var(--sbb-typo-line-height-text));
+  --_sbb-toggle-check-overall-height: calc(1em * var(--sbb-typo-line-height-text));
 }
 
 :host(:state(checked)) {
   --sbb-toggle-check-background-color: var(--sbb-toggle-check-checked-color);
   --sbb-toggle-check-circle-background-color: var(--sbb-background-color-1-negative-inverted);
   --sbb-toggle-check-circle-border-color: var(--sbb-toggle-check-background-color);
-  --sbb-toggle-check-icon-opacity: 1;
 
   // As the circle is greater than the track below,
   // we have to subtract the difference in order to not overshoot at the right side.
   // 100% of circle (28px) - 2 * (100% (28px) - 0.5 * width (48px)) => 20px
-  --sbb-toggle-check-circle-transform: translate(
-    calc(100% - 2 * (100% - 0.5 * var(--sbb-toggle-check-width))),
-    -50%
-  );
+  --_sbb-toggle-check-circle-translate: calc(
+      100% - 2 * (100% - 0.5 * var(--_sbb-toggle-check-width))
+    ) -50%;
+  --_sbb-toggle-check-icon-opacity: 1;
 
   @include sbb.if-forced-colors {
     --sbb-toggle-check-icon-color: Highlight;
@@ -74,7 +54,7 @@
 }
 
 :host([label-position='before']) {
-  --sbb-toggle-check-flex-direction: row;
+  --_sbb-toggle-check-flex-direction: row;
 }
 
 .sbb-toggle-check {
@@ -99,7 +79,7 @@
   @include sbb.text-s--regular;
 
   display: flex;
-  flex-direction: var(--sbb-toggle-check-flex-direction);
+  flex-direction: var(--_sbb-toggle-check-flex-direction, row-reverse);
   gap: var(--sbb-toggle-check-gap);
   align-items: start;
   width: 100%;
@@ -127,13 +107,15 @@
 .sbb-toggle-check__track {
   display: inline-block;
   position: relative;
-  min-width: var(--sbb-toggle-check-width);
+  min-width: var(--_sbb-toggle-check-width);
   height: var(--sbb-toggle-check-height);
   border-radius: var(--sbb-border-radius-infinity);
   background-color: var(--sbb-toggle-check-background-color);
 
   // Reserve space of overlapping circle
-  margin-block: calc((var(--sbb-toggle-check-overall-height) - var(--sbb-toggle-check-height)) / 2);
+  margin-block: calc(
+    (var(--_sbb-toggle-check-overall-height) - var(--sbb-toggle-check-height)) / 2
+  );
 }
 
 .sbb-toggle-check__circle {
@@ -147,9 +129,9 @@
   border-radius: 50%;
   background-color: var(--sbb-toggle-check-circle-background-color);
   color: var(--sbb-toggle-check-icon-color);
-  will-change: transform;
-  transform: var(--sbb-toggle-check-circle-transform);
-  transition: transform ease var(--sbb-toggle-check-animation-duration);
+  will-change: translate;
+  translate: var(--_sbb-toggle-check-circle-translate, 0 -50%);
+  transition: translate ease var(--sbb-toggle-check-animation-duration);
 }
 
 .sbb-toggle-check__icon {
@@ -157,6 +139,6 @@
 
   width: var(--sbb-size-icon-ui-small);
   height: var(--sbb-size-icon-ui-small);
-  opacity: var(--sbb-toggle-check-icon-opacity);
+  opacity: var(--_sbb-toggle-check-icon-opacity, 0);
   transition: opacity ease var(--sbb-toggle-check-animation-duration);
 }
