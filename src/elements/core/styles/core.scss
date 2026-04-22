@@ -256,6 +256,9 @@ $theme: 'standard' !default;
 @use '../../timetable-occupancy/timetable-occupancy.global' as timetable-occupancy with (
   $theme: $theme
 );
+@use '../../toggle-check/toggle-check.global' as toggle-check with (
+  $theme: $theme
+);
 @use '../../toggle/toggle/toggle.global' as toggle with (
   $theme: $theme
 );
@@ -349,6 +352,7 @@ $theme: 'standard' !default;
   @include timetable-form-details.base;
   @include timetable-form-field.base;
   @include timetable-occupancy.base;
+  @include toggle-check.base;
   @include toggle.base;
   @include toggle-option.base;
   @include tooltip.base;
@@ -371,6 +375,7 @@ $theme: 'standard' !default;
     @include slider.base-forced-colors;
     @include step-label.base-forced-colors;
     @include tag.base-forced-colors;
+    @include toggle-check.base-forced-colors;
     @include toggle.base-forced-colors;
   }
 
