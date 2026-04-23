@@ -263,6 +263,7 @@ const actionGroup = (): TemplateResult => html`
     align-group="stretch"
     orientation="vertical"
     horizontal-from="large"
+    button-size="l"
     style="width:100%;"
   >
     <sbb-block-link
@@ -272,8 +273,8 @@ const actionGroup = (): TemplateResult => html`
     >
       Link
     </sbb-block-link>
-    <sbb-secondary-button size="l">Cancel</sbb-secondary-button>
-    <sbb-button size="l">Confirm</sbb-button>
+    <sbb-secondary-button>Cancel</sbb-secondary-button>
+    <sbb-button>Confirm</sbb-button>
   </sbb-action-group>
 `;
 

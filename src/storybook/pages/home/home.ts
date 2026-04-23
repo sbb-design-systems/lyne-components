@@ -129,18 +129,14 @@ export const homeTemplate = (args: Args): TemplateResult => html`
             </span>
           </sbb-card>
         </div>
-        <sbb-action-group orientation="vertical" horizontal-from="small">
+        <sbb-action-group orientation="vertical" horizontal-from="small" button-size="l">
           <sbb-button-link
-            size="l"
             href="https://github.com/sbb-design-systems/lyne-components"
             icon-name="qrcode-small"
           >
             My tickets & subscriptions
           </sbb-button-link>
-          <sbb-secondary-button-link
-            size="l"
-            href="https://github.com/sbb-design-systems/lyne-components"
-          >
+          <sbb-secondary-button-link href="https://github.com/sbb-design-systems/lyne-components">
             All Products
           </sbb-secondary-button-link>
         </sbb-action-group>

@@ -38,7 +38,12 @@ describe(`sbb-sticky-bar`, () => {
   `;
 
   const actionGroup = (color?: string): TemplateResult => html`
-    <sbb-action-group align-group="stretch" orientation="vertical" style="width:100%;">
+    <sbb-action-group
+      align-group="stretch"
+      orientation="vertical"
+      style="width:100%;"
+      button-size="l"
+    >
       <sbb-block-link
         ?negative=${!!color && isDark(color)}
         align-self="start"
@@ -46,7 +51,7 @@ describe(`sbb-sticky-bar`, () => {
       >
         Link
       </sbb-block-link>
-      <sbb-button size="l" ?negative=${!!color && isDark(color)}>Confirm</sbb-button>
+      <sbb-button ?negative=${!!color && isDark(color)}>Confirm</sbb-button>
     </sbb-action-group>
   `;
 
