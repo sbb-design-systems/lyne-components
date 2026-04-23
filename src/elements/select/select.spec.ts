@@ -1344,6 +1344,26 @@ describe(`sbb-select`, () => {
       await waitForCondition(() => selectPanel.clientWidth < oldPanelSize);
       expect(selectPanel.clientWidth).to.be.lessThan(oldPanelSize);
     });
+
+    it("should update the value when the option's value is set", async () => {
+      expect(element.getDisplayValue()).to.be.equal('');
+      expect(firstOption).not.to.have.attribute('selected');
+
+      element.value = '1';
+      await waitForLitRender(element);
+      expect(firstOption).to.have.attribute('selected');
+      expect(element.getDisplayValue()).to.be.equal('First');
+
+      firstOption.value = 'fake';
+      await waitForLitRender(element);
+      expect(firstOption).not.to.have.attribute('selected');
+      expect(element.getDisplayValue()).to.be.equal('');
+
+      firstOption.value = '1';
+      await waitForLitRender(element);
+      expect(firstOption).to.have.attribute('selected');
+      expect(element.getDisplayValue()).to.be.equal('First');
+    });
   });
 
   describe('with boolean value', () => {

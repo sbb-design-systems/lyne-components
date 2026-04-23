@@ -54,6 +54,9 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     } else {
       this._value = value;
     }
+    // Notify the sbb-select to re-check its value against the option's one.
+    /** @internal */
+    this.dispatchEvent(new Event('ɵoptionvaluechange'));
   }
   public get value(): T {
     return (this._value ?? this.getAttribute('value')) as T;
