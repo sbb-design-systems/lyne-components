@@ -47,7 +47,7 @@ describe(`sbb-popover`, () => {
     beforeEach(async () => {
       const content = await fixture(html`
         <span>
-          <sbb-button id="popover-trigger">Popover trigger</sbb-button>
+          <sbb-button id="popover-trigger" size="l">Popover trigger</sbb-button>
           <sbb-popover trigger="popover-trigger">
             Popover content.
             <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>

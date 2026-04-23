@@ -31,6 +31,7 @@ export const SbbHeaderActionCommonElementMixin = <
      * E.g. if set to 'large', the text will be visible for breakpoints large and ultra,
      * and hidden for all the others. Ignored if no icon is set.
      */
+    // TODO: Needs a breaking change to work with the 'no-default-reflect' behavior
     @property({ attribute: 'expand-from', reflect: true })
     public accessor expandFrom: SbbHorizontalFrom = 'large';
 

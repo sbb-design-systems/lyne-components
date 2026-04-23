@@ -25,7 +25,6 @@ snapshots["sbb-navigation-section renders Shadow DOM"] =
             sbb-navigation-section-close=""
             size="m"
             tabindex="0"
-            type="button"
           >
           </sbb-transparent-button>
           <span

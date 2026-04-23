@@ -16,11 +16,7 @@ const DefaultTemplate = (): TemplateResult => html`
     <sbb-title level="3" slot="title">Unfortunately, an error has occurred.</sbb-title>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
-    <sbb-secondary-button
-      slot="action"
-      icon-name="arrows-circle-small"
-      size="m"
-    ></sbb-secondary-button>
+    <sbb-secondary-button slot="action" icon-name="arrows-circle-small"></sbb-secondary-button>
   </sbb-message>
 `;
 
@@ -29,11 +25,7 @@ const NoImageTemplate = (): TemplateResult => html`
     <sbb-title level="3" slot="title">Unfortunately, an error has occurred.</sbb-title>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
     <p slot="legend">Error code: 0001</p>
-    <sbb-secondary-button
-      slot="action"
-      icon-name="arrows-circle-small"
-      size="m"
-    ></sbb-secondary-button>
+    <sbb-secondary-button slot="action" icon-name="arrows-circle-small"></sbb-secondary-button>
   </sbb-message>
 `;
 
@@ -42,11 +34,7 @@ const NoErrorCodeTemplate = (): TemplateResult => html`
     <sbb-image slot="image" image-src=${sampleImages.at(-1)!}></sbb-image>
     <sbb-title level="3" slot="title">Unfortunately, an error has occurred.</sbb-title>
     <p slot="subtitle">Please reload the page or try your search again later.</p>
-    <sbb-secondary-button
-      slot="action"
-      icon-name="arrows-circle-small"
-      size="m"
-    ></sbb-secondary-button>
+    <sbb-secondary-button slot="action" icon-name="arrows-circle-small"></sbb-secondary-button>
   </sbb-message>
 `;
 

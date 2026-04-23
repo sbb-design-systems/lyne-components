@@ -10,7 +10,6 @@ import { property } from 'lit/decorators.js';
 import {
   boxSizingStyles,
   forceType,
-  isLean,
   omitEmptyConverter,
   SbbElement,
   SbbNamedSlotListMixin,
@@ -49,7 +48,7 @@ export class SbbNavigationListElement extends SbbNamedSlotListMixin<
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('listChildren')) {
-      this.listChildren.forEach((c) => (c.size = isLean() ? 's' : 'm'));
+      this.listChildren.forEach((c) => (c.size = 'm'));
     }
   }
 
