@@ -122,8 +122,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   @property()
   public set value(value: T[] | T) {
     this._value = value;
-    this._updateOptionsFromValue();
     this._isValueManuallyAssigned = true;
+    this._updateOptionsFromValue();
   }
   public get value(): T[] | T | null {
     return this._value;

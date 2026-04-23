@@ -1347,21 +1347,21 @@ describe(`sbb-select`, () => {
 
     it("should update the value when the option's value is set", async () => {
       expect(element.getDisplayValue()).to.be.equal('');
-      expect(firstOption).not.to.have.attribute('selected');
+      expect(firstOption.getAttribute('selected')).to.be.null;
 
-      element.value = '1';
+      element.setAttribute('value', '1');
       await waitForLitRender(element);
-      expect(firstOption).to.have.attribute('selected');
+      expect(firstOption.getAttribute('selected')).not.to.be.null;
       expect(element.getDisplayValue()).to.be.equal('First');
 
-      firstOption.value = 'fake';
+      firstOption.setAttribute('value', 'fake');
       await waitForLitRender(element);
-      expect(firstOption).not.to.have.attribute('selected');
+      expect(firstOption.getAttribute('selected')).to.be.null;
       expect(element.getDisplayValue()).to.be.equal('');
 
-      firstOption.value = '1';
+      element.setAttribute('value', 'fake');
       await waitForLitRender(element);
-      expect(firstOption).to.have.attribute('selected');
+      expect(firstOption.getAttribute('selected')).not.to.be.null;
       expect(element.getDisplayValue()).to.be.equal('First');
     });
   });
