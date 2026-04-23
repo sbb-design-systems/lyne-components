@@ -146,50 +146,44 @@ snapshots["sbb-alert should render customized properties A11y tree Chrome"] =
                   "children": [
                     {
                       "ignored": true,
-                      "role": "none",
-                      "children": [
-                        {
-                          "ignored": true,
-                          "role": "none"
-                        }
-                      ]
+                      "role": "none"
+                    }
+                  ]
+                },
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "role": "heading",
+                      "name": "Interruption",
+                      "level": 2
                     },
                     {
-                      "ignored": true,
-                      "role": "none",
-                      "children": [
-                        {
-                          "role": "heading",
-                          "name": "Interruption",
-                          "level": 2
-                        },
-                        {
-                          "role": "StaticText",
-                          "name": "Alert content Alert content "
-                        },
-                        {
-                          "role": "generic",
-                          "name": ""
-                        }
-                      ]
+                      "role": "StaticText",
+                      "name": "Alert content Alert content "
                     },
                     {
-                      "ignored": true,
-                      "role": "none",
-                      "children": [
-                        {
-                          "role": "separator",
-                          "name": "",
-                          "settable": true,
-                          "orientation": "vertical"
-                        },
-                        {
-                          "role": "button",
-                          "name": "Close message",
-                          "invalid": false,
-                          "focusable": true
-                        }
-                      ]
+                      "role": "generic",
+                      "name": ""
+                    }
+                  ]
+                },
+                {
+                  "ignored": true,
+                  "role": "none",
+                  "children": [
+                    {
+                      "role": "separator",
+                      "name": "",
+                      "settable": true,
+                      "orientation": "vertical"
+                    },
+                    {
+                      "role": "button",
+                      "name": "Close message",
+                      "invalid": false,
+                      "focusable": true
                     }
                   ]
                 }
