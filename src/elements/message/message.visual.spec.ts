@@ -57,7 +57,6 @@ describe(`sbb-message`, () => {
               <sbb-secondary-button
                 slot="action"
                 icon-name="arrows-circle-small"
-                size="m"
               ></sbb-secondary-button>
             </sbb-message>
           `);
@@ -86,7 +85,6 @@ describe(`sbb-message`, () => {
               <sbb-secondary-button
                 slot="action"
                 icon-name="arrows-circle-small"
-                size="m"
               ></sbb-secondary-button>
             </sbb-message>
           `);
@@ -110,7 +108,6 @@ describe(`sbb-message`, () => {
             <sbb-secondary-button
               slot="action"
               icon-name="arrows-circle-small"
-              size="m"
             ></sbb-secondary-button>
           </sbb-message>
         `);
@@ -128,7 +125,6 @@ describe(`sbb-message`, () => {
             <sbb-secondary-button
               slot="action"
               icon-name="arrows-circle-small"
-              size="m"
             ></sbb-secondary-button>
           </sbb-message>
         `);
@@ -169,7 +165,6 @@ describe(`sbb-message`, () => {
               <sbb-secondary-button
                 slot="action"
                 icon-name="arrows-circle-small"
-                size="m"
               ></sbb-secondary-button>
             </sbb-message>
           `,

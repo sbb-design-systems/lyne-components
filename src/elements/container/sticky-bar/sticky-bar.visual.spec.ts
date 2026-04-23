@@ -32,11 +32,7 @@ describe(`sbb-sticky-bar`, () => {
   const containerContent = (color?: string): TemplateResult => html`
     <sbb-title level="4" ?negative=${!!color && isDark(color)}>Example title</sbb-title>
     <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
-    <sbb-secondary-button
-      style="margin-block-end: 0.75rem;"
-      size="m"
-      ?negative=${!!color && isDark(color)}
-    >
+    <sbb-secondary-button style="margin-block-end: 0.75rem;" ?negative=${!!color && isDark(color)}>
       See more
     </sbb-secondary-button>
   `;

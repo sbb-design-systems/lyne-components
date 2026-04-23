@@ -3,7 +3,7 @@ export const snapshots = {};
 
 snapshots["sbb-timetable-form-swap-button renders DOM"] = 
 `<sbb-timetable-form-swap-button
-  size="l"
+  size="m"
   tabindex="0"
 >
 </sbb-timetable-form-swap-button>

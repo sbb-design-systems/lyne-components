@@ -373,7 +373,6 @@ export class SbbNavigationSectionElement extends SbbUpdateSchedulerMixin(SbbOpen
                   aria-label=${this.accessibilityBackLabel || i18nGoBack[this._language.current]}
                   negative
                   size="m"
-                  type="button"
                   icon-name="chevron-small-left-small"
                   sbb-navigation-section-close
                 ></sbb-transparent-button>

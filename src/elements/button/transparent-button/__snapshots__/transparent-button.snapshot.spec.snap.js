@@ -30,7 +30,7 @@ snapshots["sbb-transparent-button renders a sbb-transparent-button without icon 
 
 snapshots["sbb-transparent-button renders a sbb-transparent-button with slotted icon DOM"] = 
 `<sbb-transparent-button
-  size="l"
+  size="m"
   tabindex="0"
 >
   <sbb-icon

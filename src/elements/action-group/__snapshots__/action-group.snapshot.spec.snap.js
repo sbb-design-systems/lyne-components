@@ -4,13 +4,13 @@ export const snapshots = {};
 snapshots["sbb-action-group renders DOM"] = 
 `<sbb-action-group
   align-group="start"
-  button-size="l"
+  button-size="m"
   horizontal-from="large"
   link-size="m"
   orientation="horizontal"
 >
   <sbb-secondary-button
-    size="l"
+    size="m"
     tabindex="0"
   >
     Button

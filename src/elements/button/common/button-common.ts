@@ -41,9 +41,9 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
   {
     /**
      * Size variant, either l, m or s.
-     * @default 'l' / 's' (lean)
+     * @default 'm' / 's' (lean)
      */
-    @property({ reflect: true }) public accessor size: SbbButtonSize = isLean() ? 's' : 'l';
+    @property({ reflect: true }) public accessor size: SbbButtonSize = isLean() ? 's' : 'm';
 
     /**
      * Whether the button indicates a loading state.

@@ -39,13 +39,13 @@ describe(`sbb-action-group`, () => {
 
   describe('property sync', () => {
     it('should sync default size with sbb-secondary-button', async () => {
-      expect(button.size).to.equal('l');
+      expect(button.size).to.equal('m');
     });
 
     it('should update attributes with button-size="m"', async () => {
-      element.setAttribute('button-size', 'm');
+      element.setAttribute('button-size', 'l');
       await waitForLitRender(element);
-      expect(button.size).to.equal('m');
+      expect(button.size).to.equal('l');
     });
 
     it('should update attributes with link-size="s"', async () => {

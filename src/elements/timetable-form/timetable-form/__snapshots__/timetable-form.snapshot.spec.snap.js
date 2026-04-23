@@ -26,7 +26,7 @@ snapshots["sbb-timetable-form renders DOM"] =
       >
     </sbb-timetable-form-field>
     <sbb-timetable-form-swap-button
-      size="l"
+      size="m"
       tabindex="0"
     >
     </sbb-timetable-form-swap-button>

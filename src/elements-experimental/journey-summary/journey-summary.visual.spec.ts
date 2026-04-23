@@ -44,7 +44,7 @@ describe(`sbb-journey-summary`, () => {
               slot="content"
             >
               <sbb-secondary-button icon-name="context-menu-small"></sbb-secondary-button>
-              <sbb-button>Button label</sbb-button>
+              <sbb-button size="l">Button label</sbb-button>
             </div>
           `
         : nothing}

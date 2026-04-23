@@ -50,10 +50,10 @@ export class SbbActionGroupElement extends SbbElement {
   /**
    * Size of the nested sbb-button instances.
    * This will overwrite the size attribute of nested sbb-button instances.
-   * @default 'l' / 's' (lean)
+   * @default 'm' / 's' (lean)
    */
   @property({ attribute: 'button-size', reflect: true })
-  public accessor buttonSize: SbbButtonSize = isLean() ? 's' : 'l';
+  public accessor buttonSize: SbbButtonSize = isLean() ? 's' : 'm';
 
   /**
    * Size of the nested sbb-block-link instances.
