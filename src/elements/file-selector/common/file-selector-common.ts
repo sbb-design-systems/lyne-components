@@ -283,19 +283,19 @@ export const SbbFileSelectorCommonElementMixin = <
 
       /* eslint-disable lit/binding-positions */
       return html`
-      <${unsafeStatic(TAG_NAME.WRAPPER)} class='sbb-file-selector__file-list'>
+      <${unsafeStatic(TAG_NAME.WRAPPER)} class="sbb-file-selector__file-list">
         ${this.files.map(
           (file: Readonly<File>) => html`
-            <${unsafeStatic(TAG_NAME.ELEMENT)} class='sbb-file-selector__file'>
-                <span class='sbb-file-selector__file-details'>
-                  <span class='sbb-file-selector__file-name'>${file.name}</span>
-                  <span class='sbb-file-selector__file-size'>${this._formatFileSize(file.size)}</span>
+            <${unsafeStatic(TAG_NAME.ELEMENT)} class="sbb-file-selector__file">
+                <span class="sbb-file-selector__file-details">
+                  <span class="sbb-file-selector__file-name">${file.name}</span>
+                  <span class="sbb-file-selector__file-size">${this._formatFileSize(file.size)}</span>
                 </span>
               <sbb-secondary-button
-                size='${this.size}'
-                icon-name='trash-small'
-                @click='${() => this._removeFile(file)}'
-                aria-label='${`${i18nFileSelectorDeleteFile[this.language.current]} - ${file.name}`}'
+                size=${this.size}
+                icon-name="trash-small"
+                @click=${() => this._removeFile(file)}
+                aria-label=${`${i18nFileSelectorDeleteFile[this.language.current]} - ${file.name}`}
               ></sbb-secondary-button>
             </${unsafeStatic(TAG_NAME.ELEMENT)}>`,
         )}
@@ -364,13 +364,13 @@ export const SbbFileSelectorCommonElementMixin = <
             html`<input
               class="sbb-file-selector__visually-hidden"
               type="file"
-              ?disabled="${this.disabled || this.formDisabled}"
-              ?multiple="${this.multiple}"
-              accept="${this.accept || nothing}"
-              aria-label="${ariaLabel || nothing}"
-              @change="${this._readFiles}"
-              @focus="${this._onFocus}"
-              @blur="${this._onBlur}"
+              ?disabled=${this.disabled || this.formDisabled}
+              ?multiple=${this.multiple}
+              accept=${this.accept || nothing}
+              aria-label=${ariaLabel || nothing}
+              @change=${this._readFiles}
+              @focus=${this._onFocus}
+              @blur=${this._onBlur}
               ${ref((el?: Element): void => {
                 this._hiddenInput = el as HTMLInputElement;
               })}

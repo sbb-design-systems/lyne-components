@@ -1,5 +1,15 @@
 @use '../../core/styles' as sbb;
 
+:host([size='m']) {
+  --_sbb-file-selector-dropzone-icon-medium-display: block;
+  --_sbb-file-selector-dropzone-icon-small-display: none;
+}
+
+:host([size='s']) {
+  --_sbb-file-selector-dropzone-icon-medium-display: none;
+  --_sbb-file-selector-dropzone-icon-small-display: block;
+}
+
 .sbb-file-selector__dropzone-area {
   display: flex;
   flex-direction: column;
@@ -16,6 +26,14 @@
 .sbb-file-selector__dropzone-area--icon {
   color: var(--sbb-file-selector-color);
   line-height: 0;
+
+  sbb-icon[name='folder-open-medium'] {
+    display: var(--_sbb-file-selector-dropzone-icon-medium-display);
+  }
+
+  sbb-icon[name='folder-open-small'] {
+    display: var(--_sbb-file-selector-dropzone-icon-small-display);
+  }
 }
 
 .sbb-file-selector__dropzone-area--title {

@@ -14,6 +14,8 @@ snapshots["sbb-file-selector-dropzone renders Shadow DOM"] =
       <span class="sbb-file-selector__dropzone-area--icon">
         <sbb-icon name="folder-open-medium">
         </sbb-icon>
+        <sbb-icon name="folder-open-small">
+        </sbb-icon>
       </span>
       <span class="sbb-file-selector__dropzone-area--title">
       </span>
@@ -59,6 +61,8 @@ snapshots["sbb-file-selector-dropzone renders multiple Shadow DOM"] =
     <span class="sbb-file-selector__dropzone-area">
       <span class="sbb-file-selector__dropzone-area--icon">
         <sbb-icon name="folder-open-medium">
+        </sbb-icon>
+        <sbb-icon name="folder-open-small">
         </sbb-icon>
       </span>
       <span class="sbb-file-selector__dropzone-area--title">
