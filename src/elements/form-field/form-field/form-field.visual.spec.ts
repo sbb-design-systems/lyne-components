@@ -1,6 +1,6 @@
 import { html, nothing, type TemplateResult } from 'lit';
+import { customElement } from 'lit/decorators.js';
 
-import { isChromium } from '../../core/dom.ts';
 import {
   describeEach,
   describeViewports,
@@ -8,11 +8,23 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../../core/testing/private.ts';
+import { isChromium, SbbElement } from '../../core.ts';
 
 import '../../form-field.ts';
 import '../../button.ts';
 
 import '../../popover.ts';
+
+@customElement('custom-input-element')
+class SbbCustomControlElementInput extends SbbElement {
+  protected override render(): TemplateResult {
+    return html`
+      <div>
+        <slot></slot>
+      </div>
+    `;
+  }
+}
 
 describe(`sbb-form-field`, () => {
   const formField = (
@@ -574,4 +586,72 @@ describe(`sbb-form-field`, () => {
       }),
     );
   });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    it(
+      'with custom controls',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div>
+              <sbb-form-field size="s">
+                <label>Custom input</label>
+                <custom-input-element>
+                  <input placeholder="input" />
+                </custom-input-element>
+              </sbb-form-field>
+              <sbb-form-field size="s">
+                <label>Native input</label>
+                <input placeholder="input" />
+              </sbb-form-field>
+            </div>
+            <div>
+              <sbb-form-field size="s">
+                <label>Custom select</label>
+                  <select>
+                    <option value="bern">Bern</option>
+                    <option value="zurich">Zürich</option>
+                    <option value="basel">Basel</option>
+                    <option value="geneva">Geneva</option>
+                    <option value="lausanne">Lausanne</option>
+                  </select>
+              </sbb-form-field>
+              <sbb-form-field size="s">
+                <label>Native select</label>
+                <select>
+                  <option value="bern">Bern</option>
+                  <option value="zurich">Zürich</option>
+                  <option value="basel">Basel</option>
+                  <option value="geneva">Geneva</option>
+                  <option value="lausanne">Lausanne</option>
+                </select>
+              </sbb-form-field>
+            </div>
+            <div>
+              <sbb-form-field size="s">
+                <label>Custom textarea</label>
+                  <div>
+                    <div>
+                      <textarea rows="3"></textarea>
+                    </div>
+                  </div>
+              </sbb-form-field>
+              <sbb-form-field size="s">
+                <label>Native textarea</label>
+                <textarea rows="3"></textarea>
+              </sbb-form-field>
+            </div>
+            </div>
+          </div>
+        `);
+      }),
+    );
+  });
 });
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'custom-input-element': SbbCustomControlElementInput;
+  }
+}
