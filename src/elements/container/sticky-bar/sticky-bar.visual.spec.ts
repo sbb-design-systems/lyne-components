@@ -46,7 +46,7 @@ describe(`sbb-sticky-bar`, () => {
       >
         Link
       </sbb-block-link>
-      <sbb-button ?negative=${!!color && isDark(color)}>Confirm</sbb-button>
+      <sbb-button size="l" ?negative=${!!color && isDark(color)}>Confirm</sbb-button>
     </sbb-action-group>
   `;
 

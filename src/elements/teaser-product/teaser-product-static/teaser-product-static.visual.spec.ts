@@ -33,7 +33,7 @@ const content = (longContent = false): TemplateResult => html`
   </p>
   <sbb-action-group class="sbb-teaser-product--spacing">
     <sbb-button size="l">Label</sbb-button>
-    <sbb-secondary-button>Label</sbb-secondary-button>
+    <sbb-secondary-button size="l">Label</sbb-secondary-button>
   </sbb-action-group>
 `;
 
