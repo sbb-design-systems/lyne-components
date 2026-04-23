@@ -129,6 +129,63 @@ describe('focusTrapController', () => {
     expect(buttonSpy).to.have.been.calledOnceWith(options);
   });
 
+  describe('fallback', () => {
+    customElements.define(
+      'my-container-element-fallback',
+      class extends LitElement {
+        public constructor() {
+          super();
+          const shadowRoot = this.attachShadow({ mode: 'open' });
+          shadowRoot.innerHTML = `
+            <button id="first-focusable-element">Button</button>
+            <slot>
+              <button id="fallback-element">Fallback</button>
+            </slot>
+            <button id="last-focusable-element">Button</button>
+        `;
+        }
+      },
+    );
+
+    it('should be able to focus fallback value', async () => {
+      const fallbackFixture = await fixture(
+        html`<my-container-element-fallback></my-container-element-fallback>`,
+      );
+      focusTrapController = new SbbFocusTrapController(
+        fallbackFixture as ReactiveControllerHost & LitElement,
+      );
+
+      expect(focusTrapController.focusFirstTabbableElement()).to.be.true;
+      expect(getActiveElement()?.id).to.be.equal('first-focusable-element');
+      await sendKeys({ press: tabKey });
+      expect(getActiveElement()?.id).to.be.equal('fallback-element');
+      await sendKeys({ press: tabKey });
+      expect(getActiveElement()?.id).to.be.equal('last-focusable-element');
+      await sendKeys({ press: `Shift+${tabKey}` });
+      expect(getActiveElement()?.id).to.be.equal('fallback-element');
+    });
+
+    it('should be able to focus slotted value', async () => {
+      const noFallbackFixture = await fixture(
+        html`<my-container-element-fallback>
+          <button id="slotted">Button</button>
+        </my-container-element-fallback>`,
+      );
+      focusTrapController = new SbbFocusTrapController(
+        noFallbackFixture as ReactiveControllerHost & LitElement,
+      );
+
+      expect(focusTrapController.focusFirstTabbableElement()).to.be.true;
+      expect(getActiveElement()?.id).to.be.equal('first-focusable-element');
+      await sendKeys({ press: tabKey });
+      expect(getActiveElement()?.id).to.be.equal('slotted');
+      await sendKeys({ press: tabKey });
+      expect(getActiveElement()?.id).to.be.equal('last-focusable-element');
+      await sendKeys({ press: `Shift+${tabKey}` });
+      expect(getActiveElement()?.id).to.be.equal('slotted');
+    });
+  });
+
   describe('wrap around', () => {
     describe('shadow DOM', () => {
       it('should wrap around to the first element when tabbing forward from the last element', async () => {

@@ -2,28 +2,29 @@ import { IntersectionController } from '@lit-labs/observers/intersection-control
 import {
   type CSSResultGroup,
   html,
-  LitElement,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
+import type { SbbHorizontalFrom, SbbOrientation } from '../../core.ts';
 import {
+  boxSizingStyles,
+  forceType,
+  getNextElementIndex,
+  isArrowKeyPressed,
+  isLean,
+  SbbElement,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointLargeAndAbove,
   SbbMediaQueryBreakpointSmallAndAbove,
   SbbMediaQueryBreakpointUltraAndAbove,
   SbbMediaQueryBreakpointZeroAndAbove,
-} from '../../core/controllers/media-matchers-controller.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
-import type { SbbHorizontalFrom, SbbOrientation } from '../../core/interfaces.ts';
-import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbStepElement, SbbStepValidateEventDetails } from '../step.ts';
+} from '../../core.ts';
+import type { SbbStepElement, SbbStepValidateEventDetails } from '../step/step.component.ts';
 
-import style from './stepper.scss?lit&inline';
+import style from './stepper.scss?inline';
 
 const DEBOUNCE_TIME = 150;
 
@@ -67,10 +68,9 @@ export class SbbStepChangeEvent extends Event {
  * @slot step - Use this slot to provide an `sbb-step`.
  * @event {SbbStepChangeEvent} stepchange - Emits whenever a step was changed.
  */
-export
-@customElement('sbb-stepper')
-class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbStepperElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-stepper';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     stepchange: 'stepchange',
   } as const;
@@ -431,13 +431,11 @@ class SbbStepperElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEl
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-stepper">
-        <div class="sbb-stepper__labels" role="tablist">
-          <slot name="step-label" @slotchange=${this._configure}></slot>
-        </div>
-        <div class="sbb-stepper__steps">
-          <slot name="step" @slotchange=${this._configure}></slot>
-        </div>
+      <div class="sbb-stepper__labels" role="tablist">
+        <slot name="step-label" @slotchange=${this._configure}></slot>
+      </div>
+      <div class="sbb-stepper__steps">
+        <slot name="step" @slotchange=${this._configure}></slot>
       </div>
     `;
   }

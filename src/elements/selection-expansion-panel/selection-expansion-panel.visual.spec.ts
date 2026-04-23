@@ -9,15 +9,15 @@ import {
   visualRegressionFixture,
 } from '../core/testing/private.ts';
 
-import './selection-expansion-panel.component.ts';
-import '../card/card-badge.ts';
-import '../checkbox/checkbox-panel.ts';
-import '../checkbox/checkbox-group.ts';
-import '../form-field/error.ts';
+import '../selection-expansion-panel.ts';
+import '../card.ts';
+import '../checkbox-panel.ts';
+import '../checkbox-group.ts';
+import '../form-field.ts';
 import '../icon.ts';
-import '../link/block-link-button.ts';
-import '../radio-button/radio-button-panel.ts';
-import '../radio-button/radio-button-group.ts';
+import '../link.ts';
+import '../radio-button-panel.ts';
+import '../radio-button-group.ts';
 
 describe(`sbb-selection-expansion-panel`, () => {
   let root: HTMLElement;
@@ -150,8 +150,8 @@ describe(`sbb-selection-expansion-panel`, () => {
                     <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
                       ${withCheckboxPanel({ checked: true, size })} ${withCheckboxPanel({ size })}
                       ${withCheckboxPanel({ size })}
+                      ${error ? html`<sbb-error slot="error">Error message</sbb-error>` : nothing}
                     </sbb-checkbox-group>
-                    ${error ? html`<sbb-error slot="error">Error message</sbb-error>` : nothing}
                   `);
                 }),
               );
@@ -176,8 +176,8 @@ describe(`sbb-selection-expansion-panel`, () => {
                       ${withRadioPanel({ checked: true, value: '1', size })}
                       ${withRadioPanel({ value: '2', size })}
                       ${withRadioPanel({ value: '3', size })}
+                      ${error ? html`<sbb-error slot="error">Error message</sbb-error>` : nothing}
                     </sbb-radio-button-group>
-                    ${error ? html`<sbb-error slot="error">Error message</sbb-error>` : nothing}
                   `);
                 }),
               );

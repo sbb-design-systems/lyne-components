@@ -1,18 +1,17 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import style from './timetable-form-details.scss?lit&inline';
+import { SbbElement } from '../../core.ts';
+
+import style from './timetable-form-details.scss?inline';
 
 /**
  * Wraps the details section of the `sbb-timetable-form`.
  *
  * @slot - Use the unnamed slot to add content to the details section.
  */
-export
-@customElement('sbb-timetable-form-details')
-class SbbTimetableFormDetailsElement extends LitElement {
-  public static override styles: CSSResultGroup = style;
+export class SbbTimetableFormDetailsElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-timetable-form-details';
+  public static override styles: CSSResultGroup = unsafeCSS(style);
 
   protected override render(): TemplateResult {
     return html`<slot></slot>`;

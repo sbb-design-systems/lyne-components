@@ -1,14 +1,18 @@
-import type { LitElement } from 'lit';
+import { type LitElement, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import type { SbbCheckboxGroupElement } from '../../checkbox/checkbox-group.ts';
 import type { SbbCheckboxSize } from '../../checkbox/common/checkbox-common.ts';
+import type { SbbCheckboxGroupElement } from '../../checkbox-group.pure.ts';
 import type { SbbRadioButtonSize } from '../../radio-button/common/radio-button-common.ts';
-import type { SbbRadioButtonGroupElement } from '../../radio-button/radio-button-group.ts';
-import { forceType, getOverride } from '../decorators.ts';
-import { isLean } from '../dom.ts';
+import type { SbbRadioButtonGroupElement } from '../../radio-button-group.pure.ts';
+import { forceType } from '../decorators/force-type.ts';
+import { getOverride } from '../decorators/get-override.ts';
+import { isLean } from '../dom/lean-context.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
+import panelCommonStyleString from './panel-common.scss?inline';
+
+export const panelCommonStyle = unsafeCSS(panelCommonStyleString);
 
 interface SbbPanelWithGroup {
   group: SbbCheckboxGroupElement | SbbRadioButtonGroupElement | null;

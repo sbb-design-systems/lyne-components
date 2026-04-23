@@ -8,7 +8,7 @@ import {
 
 import type { SbbTransparentButtonStaticElement } from './transparent-button-static.component.ts';
 
-import './transparent-button-static.component.ts';
+import '../../button.ts';
 
 describe(`sbb-transparent-button-static`, () => {
   let element: SbbTransparentButtonStaticElement;

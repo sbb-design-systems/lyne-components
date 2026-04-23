@@ -1,25 +1,28 @@
-import { defaultConverter, type LitElement } from 'lit';
+import { defaultConverter } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../controllers.ts';
-import { hostAttributes } from '../decorators.ts';
-import { preventScrollOnSpacebarPress } from '../eventing.ts';
-import { i18nCheckboxRequired } from '../i18n.ts';
+import type { SbbElement, SbbElementConstructor } from '../base-elements/element.ts';
+import { SbbLanguageController } from '../controllers/language-controller.ts';
+import { hostAttributes } from '../decorators/host-attributes.ts';
+import { preventScrollOnSpacebarPress } from '../eventing/form-element-handlers.ts';
+import { i18nCheckboxRequired } from '../i18n/i18n.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 import { SbbDisabledMixin } from './disabled-mixin.ts';
-import { SbbElementInternalsMixin } from './element-internals-mixin.ts';
 import {
-  SbbFormAssociatedMixin,
   type FormRestoreReason,
   type FormRestoreState,
+  SbbFormAssociatedMixin,
 } from './form-associated-mixin.ts';
 import { SbbRequiredMixin } from './required-mixin.ts';
 
-type CheckedSetterValue = { value: boolean; attribute: boolean };
+interface CheckedSetterValue {
+  value: boolean;
+  attribute: boolean;
+}
 
 export declare abstract class SbbFormAssociatedCheckboxMixinType extends SbbDisabledMixin(
-  SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement))),
+  SbbRequiredMixin(SbbFormAssociatedMixin(SbbElement)),
 ) {
   public accessor checked: boolean;
 
@@ -37,16 +40,16 @@ export declare abstract class SbbFormAssociatedCheckboxMixinType extends SbbDisa
  * Inherited classes MUST implement the ariaChecked state (ElementInternals) themselves.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedCheckboxMixin = <T extends AbstractConstructor<LitElement>>(
+export const SbbFormAssociatedCheckboxMixin = <
+  T extends AbstractConstructor<SbbElement> & SbbElementConstructor,
+>(
   superClass: T,
 ): AbstractConstructor<SbbFormAssociatedCheckboxMixinType> & T => {
   @hostAttributes({
     tabindex: '0',
   })
   abstract class SbbFormAssociatedCheckboxElement
-    extends SbbDisabledMixin(
-      SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superClass))),
-    )
+    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass)))
     implements Partial<SbbFormAssociatedCheckboxMixinType>
   {
     public static override readonly role = 'checkbox';

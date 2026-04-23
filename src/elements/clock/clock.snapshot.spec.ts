@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbClockElement } from './clock.component.ts';
-import './clock.component.ts';
+import '../clock.ts';
 
 describe(`sbb-clock`, () => {
   let element: SbbClockElement;

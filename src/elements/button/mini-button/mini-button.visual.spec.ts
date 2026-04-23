@@ -3,15 +3,15 @@ import { html, nothing } from 'lit';
 import {
   describeEach,
   describeViewports,
+  visualDiffDefault,
+  visualDiffFocus,
+  visualDiffHover,
   visualDiffStandardStates,
   visualRegressionFixture,
-  visualDiffDefault,
-  visualDiffHover,
-  visualDiffFocus,
 } from '../../core/testing/private.ts';
 
 import '../../form-field.ts';
-import './mini-button.component.ts';
+import '../../button.ts';
 
 describe(`sbb-mini-button`, () => {
   let root: HTMLElement;

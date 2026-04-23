@@ -1,7 +1,7 @@
 import { assert, aTimeout, expect } from '@open-wc/testing';
-import { isSafari } from '@sbb-esta/lyne-elements/core/dom.js';
 import { fixture, tabKey } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { describeIf, EventSpy, waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
+import { isSafari } from '@sbb-esta/lyne-elements/core.js';
 import { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js';
 import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { repeat } from 'lit/directives/repeat.js';
@@ -9,13 +9,12 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 import { type SinonSpy, spy } from 'sinon';
 
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.ts';
-import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.ts';
+import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button/autocomplete-grid-button.component.ts';
+import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/autocomplete-grid-option.component.ts';
 
 import { SbbAutocompleteGridElement } from './autocomplete-grid.component.ts';
-import '../autocomplete-grid-row.ts';
-import '../autocomplete-grid-cell.ts';
-import '../autocomplete-grid-button.ts';
+
+import '../../autocomplete-grid.ts';
 
 describe(`sbb-autocomplete-grid`, () => {
   let element: SbbAutocompleteGridElement, formField: SbbFormFieldElement, input: HTMLInputElement;

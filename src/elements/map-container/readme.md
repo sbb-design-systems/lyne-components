@@ -16,13 +16,17 @@ On desktop, the sidebar and the map are shown in a two column layout side by sid
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbMapContainerElement`, `sbb-map-container`
+
+#### Properties
 
 | Name                 | Attribute               | Privacy | Type      | Default | Description                                                          |
 | -------------------- | ----------------------- | ------- | --------- | ------- | -------------------------------------------------------------------- |
 | `hideScrollUpButton` | `hide-scroll-up-button` | public  | `boolean` | `false` | Flag to show/hide the scroll up button inside the sidebar on mobile. |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                                            | Default                        | Description                                                                                                                                                                                                                                |
 | ----------------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -30,7 +34,7 @@ On desktop, the sidebar and the map are shown in a two column layout side by sid
 | `--sbb-map-container-mobile-sticky-block-start` | `0`                            | If e.g. a header with a fixed height is placed before the map-container, the map should be sticky respecting this offset from the document's top. Only applied on mobile views. Most commonly it can be set to `var(--sbb-header-height)`. |
 | `--sbb-map-container-sidebar-width`             | `zero-large:400px;ultra:480px` | Can be used to modify the width of the left sidebar.                                                                                                                                                                                       |
 
-## Slots
+#### Slots
 
 | Name  | Description                                         |
 | ----- | --------------------------------------------------- |

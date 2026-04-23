@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES, ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 import { parse, stringify } from 'comment-parser';
 import type { Block } from 'comment-parser/primitives';
 
 export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
     const isComponentClass = (node: TSESTree.ClassDeclaration): boolean =>
-      !!node.decorators?.some(
-        (d) =>
-          'callee' in d.expression &&
-          'name' in d.expression.callee &&
-          d.expression.callee.name === 'customElement',
+      node.body.body.some(
+        (member) =>
+          member.type === AST_NODE_TYPES.PropertyDefinition &&
+          member.static &&
+          member.key.type === AST_NODE_TYPES.Identifier &&
+          member.key.name === 'elementName',
       );
     const findParent = <T extends TSESTree.Node>(
       node: TSESTree.Node | undefined,
@@ -24,10 +25,10 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     const findJsDoc = (node: TSESTree.Node | undefined) => {
       const classDeclaration = findParent<TSESTree.ClassDeclaration>(node, 'ClassDeclaration');
-      if (!classDeclaration || !classDeclaration.decorators?.length) {
+      if (!classDeclaration) {
         return null;
       }
-      const jsDoc = context.sourceCode.getCommentsBefore(classDeclaration.decorators![0])[0];
+      const jsDoc = context.sourceCode.getCommentsBefore(classDeclaration)[0];
       return jsDoc ? { jsDoc, parsedJsDoc: parse(`/*${jsDoc.value}*/`)?.[0] ?? null } : null;
     };
 
@@ -37,7 +38,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     return {
       ClassDeclaration(node) {
         if (isComponentClass(node)) {
-          for (const commentNode of [node.decorators![0], node, node.parent]) {
+          for (const commentNode of [node, node.parent]) {
             jsDoc = context.sourceCode.getCommentsBefore(commentNode)[0];
             if (jsDoc) {
               return;
@@ -59,6 +60,8 @@ export default ESLintUtils.RuleCreator.withoutDocs({
         if (!isComponentClass(node)) {
           return;
         }
+        const insertTarget =
+          node.parent.type === AST_NODE_TYPES.ExportNamedDeclaration ? node.parent : node;
         const eventDocs = Array.from(events)
           .map(([name, details]) => `\n * @event ${details.type} ${name} - ${details.doc}`)
           .join('');
@@ -68,7 +71,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
             node,
             fix(fixer) {
               return fixer.insertTextBefore(
-                node.decorators![0],
+                insertTarget,
                 `/**
  * TODO: Document me${eventDocs}
  */\n`,

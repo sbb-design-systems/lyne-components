@@ -1,4 +1,4 @@
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
@@ -7,7 +7,8 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import { extendedLeg, progressLeg } from '../pearl-chain/pearl-chain.sample-data.private.ts';
 
 import readme from './readme.md?raw';
-import './pearl-chain-time.component.ts';
+
+import '../pearl-chain-time.ts';
 
 const departureWalk: InputType = {
   control: {
@@ -126,7 +127,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'experimental/sbb-pearl-chain-time',
+  title: 'experimental/Pearl Chain Time',
 };
 
 export default meta;

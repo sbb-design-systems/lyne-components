@@ -1,8 +1,5 @@
-import { customElement } from 'lit/decorators.js';
-
-import { SbbActionBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledMixin } from '../../core/mixins.ts';
-import { SbbBlockLinkCommonElementMixin } from '../common.ts';
+import { SbbActionBaseElement, SbbDisabledMixin } from '../../core.ts';
+import { SbbBlockLinkCommonElementMixin } from '../common/block-link-common.ts';
 
 /**
  * It displays a static link enhanced with the SBB Design.
@@ -10,11 +7,11 @@ import { SbbBlockLinkCommonElementMixin } from '../common.ts';
  * @slot - Use the unnamed slot to add content to the `sbb-block-link-static`.
  * @slot icon - Slot used to display the icon, if one is set.
  */
-export
-@customElement('sbb-block-link-static')
-class SbbBlockLinkStaticElement extends SbbBlockLinkCommonElementMixin(
+export class SbbBlockLinkStaticElement extends SbbBlockLinkCommonElementMixin(
   SbbDisabledMixin(SbbActionBaseElement),
-) {}
+) {
+  public static override readonly elementName: string = 'sbb-block-link-static';
+}
 
 declare global {
   interface HTMLElementTagNameMap {

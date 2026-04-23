@@ -1,4 +1,4 @@
-The `sbb-lead-container` can be used for product pages to display a lead image and following content.
+The `<sbb-lead-container>` can be used for product pages to display a lead image and following content.
 
 Please note that the gaps between elements inside the unnamed slot (main content) need to be controlled by the consumer.
 However, consumers can use the predefined classes
@@ -9,7 +9,7 @@ As per design rules, the spacings are defined as following:
 ```html
 <sbb-alert-group></sbb-alert-group>
 <!-- var(--sbb-spacing-responsive-m) -->
-<sbb-breadcrump-group></sbb-breadcrump-group>
+<sbb-breadcrumb-group></sbb-breadcrumb-group>
 <!-- var(--sbb-spacing-4x) -->
 <sbb-block-link></sbb-block-link>
 <!-- var(--sbb-spacing-4x) -->
@@ -68,7 +68,7 @@ Full example with applied spacings (CSS classes) in content:
 </sbb-lead-container>
 ```
 
-Optionally, you can add an overlapping `sbb-chip-label` by wrapping the `sbb-image` in a `figure` tag (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
+Optionally, you can add an overlapping `<sbb-chip-label>` by wrapping the `<sbb-image>` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility-classes)).
 
 ```html
 <sbb-lead-container>
@@ -90,7 +90,11 @@ to hide it from the accessibility tree.
 
 <!-- Auto Generated Below -->
 
-## Slots
+## API Documentation
+
+### class: `SbbLeadContainerElement`, `sbb-lead-container`
+
+#### Slots
 
 | Name    | Description                                                                                                                                                        |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

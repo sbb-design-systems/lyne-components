@@ -5,6 +5,8 @@ import { fixture } from '../../core/testing/private.ts';
 
 import { SbbFlipCardSummaryElement } from './flip-card-summary.component.ts';
 
+import '../../flip-card.ts';
+
 describe('sbb-flip-card-summary', () => {
   let element: SbbFlipCardSummaryElement;
 

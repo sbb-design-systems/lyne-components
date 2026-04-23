@@ -1,17 +1,15 @@
 import {
   type CSSResultGroup,
   html,
-  LitElement,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
-import { forceType } from '../../core/decorators.ts';
-import { SbbElementInternalsMixin, ɵstateController } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { boxSizingStyles, forceType, SbbElement, ɵstateController } from '../../core.ts';
 
-import style from './container.scss?lit&inline';
+import style from './container.scss?inline';
 
 /**
  * It displays its content with the default page spacing.
@@ -19,11 +17,12 @@ import style from './container.scss?lit&inline';
  * @slot - Use the unnamed slot to add anything to the container.
  * @slot sticky-bar - The slot used by the sbb-sticky-bar component.
  * @slot image - The slot used to slot an `sbb-image` to use as background.
+ * @cssprop --sbb-page-spacing-padding - Use this variable to override the default page spacing.
+ * Note that overriding this will disable the standard responsive spacing behavior of the container.
  */
-export
-@customElement('sbb-container')
-class SbbContainerElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbContainerElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-container';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Whether the container is expanded. */
   @forceType()

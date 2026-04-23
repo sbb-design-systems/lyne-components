@@ -1,18 +1,13 @@
-import type { LitElement } from 'lit';
-
-import type { SbbCheckboxGroupElement } from '../../checkbox/checkbox-group.ts';
-import type { SbbCheckboxPanelElement } from '../../checkbox/checkbox-panel.ts';
-import type { SbbRadioButtonGroupElement } from '../../radio-button/radio-button-group.ts';
-import type { SbbRadioButtonPanelElement } from '../../radio-button/radio-button-panel.ts';
-import { SbbPropertyWatcherController } from '../controllers.ts';
+import type { SbbCheckboxGroupElement } from '../../checkbox-group.pure.ts';
+import type { SbbCheckboxPanelElement } from '../../checkbox-panel.pure.ts';
+import type { SbbRadioButtonGroupElement } from '../../radio-button-group.pure.ts';
+import type { SbbRadioButtonPanelElement } from '../../radio-button-panel.pure.ts';
+import type { SbbElement } from '../base-elements/element.ts';
+import { SbbPropertyWatcherController } from '../controllers/property-watcher-controller.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
-import {
-  SbbElementInternalsMixin,
-  type SbbElementInternalsMixinType,
-} from './element-internals-mixin.ts';
 
-export declare class SbbSelectionPanelMixinType {
+export declare class SbbSelectionPanelMixinType extends SbbElement {
   public get panel(): SbbRadioButtonPanelElement | SbbCheckboxPanelElement | null;
   public get group(): SbbRadioButtonGroupElement | SbbCheckboxGroupElement | null;
 
@@ -23,11 +18,11 @@ export declare class SbbSelectionPanelMixinType {
  * Mixin for common selection panel behaviors
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>>(
+export const SbbSelectionPanelMixin = <T extends AbstractConstructor<SbbElement>>(
   superClass: T,
-): AbstractConstructor<SbbSelectionPanelMixinType & SbbElementInternalsMixinType> & T => {
+): AbstractConstructor<SbbSelectionPanelMixinType> & T => {
   abstract class SbbSelectionPanelElement
-    extends SbbElementInternalsMixin(superClass)
+    extends superClass
     implements Partial<SbbSelectionPanelMixinType>
   {
     /** Group element if present */
@@ -83,8 +78,5 @@ export const SbbSelectionPanelMixin = <T extends AbstractConstructor<LitElement>
     protected onInputStateChange?(): void {}
   }
 
-  return SbbSelectionPanelElement as unknown as AbstractConstructor<
-    SbbSelectionPanelMixinType & SbbElementInternalsMixinType
-  > &
-    T;
+  return SbbSelectionPanelElement as unknown as AbstractConstructor<SbbSelectionPanelMixinType> & T;
 };

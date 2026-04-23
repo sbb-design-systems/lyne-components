@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
+    "rootDir": "..",
     "outDir": "../dist/dev-infra-scripts",
     "module": "nodenext",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es2024",
-    "lib": ["es2024"],
-    "strict": true,
+    "lib": ["esnext"],
     "skipLibCheck": true,
+    "types": ["node"],
     "erasableSyntaxOnly": true,
-    "rewriteRelativeImportExtensions": true
+    "rewriteRelativeImportExtensions": true,
+    "types": ["node"]
   },
   "include": ["*.ts", "../tools/tools.d.ts"]
 }

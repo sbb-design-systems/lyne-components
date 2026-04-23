@@ -1,4 +1,6 @@
-/**
- * @entrypoint
- */
-export * from './timetable-duration/timetable-duration.component.ts';
+/** @entrypoint */
+import { SbbTimetableDurationElement } from './timetable-duration.pure.ts';
+
+export * from './timetable-duration.pure.ts';
+
+SbbTimetableDurationElement.define();

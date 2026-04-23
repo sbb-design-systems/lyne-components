@@ -1,5 +1,5 @@
-The `sbb-pearl-chain-vertical-item` is intended to be used
-with the [sbb-pearl-chain-vertical](/docs/experimental-sbb-pearl-chain-vertical--docs)` component.
+The `<sbb-pearl-chain-vertical-item>` is intended to be used
+with the [sbb-pearl-chain-vertical](/docs/experimental-pearl-chain-vertical--docs) component.
 
 It renders a table-row with three table-cells, and it is used to display the dots and line of the pearl-chain.
 There are two slots named `left` and `right` which make it possible to display content on the component sides.
@@ -34,14 +34,18 @@ The slots themselves are unstyled, so that they can be used in various ways.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbPearlChainVerticalItemElement`, `sbb-pearl-chain-vertical-item`
+
+#### Properties
 
 | Name                               | Attribute                              | Privacy | Type                               | Default | Description                                                                 |
 | ---------------------------------- | -------------------------------------- | ------- | ---------------------------------- | ------- | --------------------------------------------------------------------------- |
 | `disableAnimation`                 | `disable-animation`                    | public  | `boolean`                          | `false` | If true, the position won't be animated.                                    |
 | `pearlChainVerticalItemAttributes` | `pearl-chain-vertical-item-attributes` | public  | `PearlChainVerticalItemAttributes` | `null!` | The pearlChainVerticalItemAttributes Prop for styling the bullets and line. |
 
-## Slots
+#### Slots
 
 | Name    | Description                           |
 | ------- | ------------------------------------- |

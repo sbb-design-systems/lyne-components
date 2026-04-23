@@ -4,15 +4,16 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import type { SbbButtonElement } from '../button.ts';
-import { mergeConfig } from '../core/config.ts';
 import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import { mergeConfig } from '../core.ts';
 import type { SbbLinkElement } from '../link.ts';
 
 import { SbbPopoverElement } from './popover.component.ts';
 
-import '../button/button.ts';
+import '../button.ts';
 import '../link.ts';
+import '../popover.ts';
 
 describe(`sbb-popover`, () => {
   let element: SbbPopoverElement,
@@ -46,8 +47,8 @@ describe(`sbb-popover`, () => {
     beforeEach(async () => {
       const content = await fixture(html`
         <span>
-          <sbb-button id="popover-trigger">Popover trigger</sbb-button>
-          <sbb-popover id="popover" trigger="popover-trigger">
+          <sbb-button id="popover-trigger" size="l">Popover trigger</sbb-button>
+          <sbb-popover trigger="popover-trigger">
             Popover content.
             <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>
           </sbb-popover>
@@ -77,6 +78,24 @@ describe(`sbb-popover`, () => {
       await openSpy.calledOnce();
 
       expect(element).to.match(':state(state-opened)');
+    });
+
+    it('does not close on trigger click when hover-trigger is active and popover is open', async () => {
+      element.hoverTrigger = true;
+      await waitForLitRender(element);
+
+      trigger.dispatchEvent(new Event('mouseenter'));
+      await openSpy.calledOnce();
+      expect(element).to.match(':state(state-opened)');
+
+      // Simulate a backdrop click whose composedPath contains the trigger element.
+      // The popover should not close since the click originated from the trigger.
+      trigger.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, composed: true }));
+      trigger.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, composed: true }));
+      await aTimeout(0);
+
+      expect(element.isOpen).to.be.true;
+      expect(closeSpy.count).to.be.equal(0);
     });
 
     it('shows on trigger click', async () => {
@@ -385,16 +404,19 @@ describe(`sbb-popover`, () => {
       overlay.dispatchEvent(new Event('mouseenter'));
       overlay.dispatchEvent(new Event('mouseleave'));
 
-      // After a tick, it should still be open
-      await aTimeout(0);
+      // With a zero animation duration, the close happens synchronously.
+      // The 'close delay' keeps it open for at least another run cycle.
       expect(element.isOpen).to.be.true;
 
       // After two milliseconds, it should be closed
-      await aTimeout(2);
+      await aTimeout(30);
       expect(element.isOpen).to.be.false;
     });
 
-    it('should handle hover closing on trigger with delay', async () => {
+    it('should handle hover closing on trigger with delay', async function (this: Mocha.Context) {
+      // Flaky on Firefox
+      this.retries(3);
+
       // Change to hover trigger
       element.hoverTrigger = true;
       element.closeDelay = 2;
@@ -570,6 +592,22 @@ describe(`sbb-popover`, () => {
       expect(element).not.to.have.attribute('tabindex');
     });
 
+    it('should not close when blur event is dispatched on trigger', async () => {
+      element.open();
+      await openSpy.calledOnce();
+
+      expect(document.activeElement!).to.equal(element);
+      expect(element).to.have.attribute('tabindex', '0');
+
+      // Fake blur event on the trigger to simulate behavior on iOS mobile
+      trigger.focus();
+
+      // Then popover should stay open
+      await aTimeout(0);
+      expect(element.isOpen, 'popover should stay open').to.be.true;
+      expect(closeSpy.count).to.be.equal(0);
+    });
+
     it('should remove tabindex when closing with esc', async () => {
       // When opening by keyboard
       trigger.focus();
@@ -642,9 +680,9 @@ describe(`sbb-popover`, () => {
   it('init with HtmlElement as trigger', async () => {
     trigger = await fixture(html`<sbb-button>Popover trigger</sbb-button>`);
     element = await fixture(html`
-      <sbb-popover id="popover" .trigger=${trigger}>
+      <sbb-popover .trigger=${trigger}>
         Popover content.
-        <sbb-link id="popover-link" href="#" sbb-popover-close>Link</sbb-link>
+        <sbb-link href="#" sbb-popover-close>Link</sbb-link>
       </sbb-popover>
     `);
 

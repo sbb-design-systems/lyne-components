@@ -1,28 +1,23 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
-
-  --sbb-paginator-height: var(--sbb-size-element-m);
-  --sbb-paginator-page-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
-  --sbb-paginator-page-background-color: transparent;
-  --sbb-paginator-page-border-width: 0;
-  --sbb-paginator-page-border-style: none;
-  --sbb-paginator-page-border-color: none;
-  --sbb-paginator-page-cursor: var(--sbb-cursor-pointer);
-  --sbb-paginator-page-inset: 0;
-  --sbb-paginator-animation-easing: var(--sbb-animation-easing);
   --sbb-paginator-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
-  --sbb-paginator-justify-content: start;
-  --sbb-paginator-wrapping-group-wrap: wrap-reverse;
-  --sbb-paginator-wrap: wrap;
+
+  display: block;
+
+  // Prevent influence from consumer-set line-height
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 :host([size='s']) {
   --sbb-paginator-height: var(--sbb-size-element-xs);
+}
+
+:host([size='m']) {
+  --sbb-paginator-height: var(--sbb-size-element-m);
 }
 
 :host([negative]) {
@@ -40,33 +35,32 @@
 .sbb-paginator__wrapping-group {
   display: flex;
   gap: var(--sbb-spacing-fixed-3x) var(--sbb-spacing-fixed-6x);
-  justify-content: var(--sbb-paginator-justify-content);
+  justify-content: var(--sbb-paginator-justify-content, start);
 }
 
 .sbb-paginator {
-  flex-wrap: var(--sbb-paginator-wrap);
+  flex-wrap: var(--sbb-paginator-wrap, wrap);
   min-height: var(--sbb-paginator-height);
 }
 
 .sbb-paginator__wrapping-group {
-  flex-wrap: var(--sbb-paginator-wrapping-group-wrap);
+  flex-wrap: var(--sbb-paginator-wrapping-group-wrap, wrap-reverse);
 }
 
 .sbb-paginator__page-size-options {
-  @include sbb.text-s--regular;
-
   display: flex;
   align-items: center;
   gap: var(--sbb-spacing-fixed-2x);
   white-space: nowrap;
   color: var(--sbb-paginator-page-color);
+  font-size: var(--sbb-paginator-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 
   // Reapply part of the global form-field css that does not pierce the shadow DOM.
   sbb-select {
-    @include sbb.text-m--regular;
-
     color: var(--sbb-form-field-text-color);
     font-size: var(--sbb-form-field-input-text-size);
+    letter-spacing: var(--sbb-typo-letter-spacing-text);
     padding-inline-end: var(--sbb-form-field-select-inline-padding-end);
   }
 }
@@ -84,9 +78,9 @@
 
 .sbb-paginator__page--ellipsis,
 .sbb-paginator__page--number {
-  @include sbb.text-s--regular;
-
   position: relative;
+  font-size: var(--sbb-paginator-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   color: var(--sbb-paginator-page-color);
 }
 
@@ -101,8 +95,12 @@
 
 .sbb-paginator__page--number-item {
   @include sbb.button-reset;
-  @include sbb.text-s--regular;
 
+  font-family: var(--sbb-typo-font-family);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  font-size: var(--sbb-paginator-font-size);
+  line-height: var(--sbb-typo-line-height-text);
+  font-weight: normal;
   position: relative;
   cursor: var(--sbb-paginator-page-cursor);
   outline: none !important;
@@ -112,11 +110,11 @@
   &::before {
     content: '';
     position: absolute;
-    background-color: var(--sbb-paginator-page-background-color);
-    border: var(--sbb-paginator-page-border-width) var(--sbb-paginator-page-border-style)
-      var(--sbb-paginator-page-border-color);
+    background-color: var(--sbb-paginator-page-background-color, transparent);
+    border: var(--sbb-paginator-page-border-width) var(--sbb-paginator-page-border-style, none)
+      var(--sbb-paginator-page-border-color, none);
     border-radius: var(--sbb-border-radius-infinity);
-    inset: var(--sbb-paginator-page-inset);
+    inset: var(--sbb-paginator-page-inset, 0);
     transition: {
       property: background-color, border, inset;
       duration: var(--sbb-paginator-animation-duration);

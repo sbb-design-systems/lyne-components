@@ -12,10 +12,8 @@ import {
 
 import type { SbbTabGroupElement } from './tab-group.component.ts';
 
-import '../tab-group.ts';
-import '../tab-label.ts';
-import '../tab.ts';
 import '../../icon.ts';
+import '../../tabs.ts';
 
 const cases = {
   size: ['s', 'l', 'xl'],

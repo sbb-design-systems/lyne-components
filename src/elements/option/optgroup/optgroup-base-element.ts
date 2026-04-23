@@ -1,27 +1,26 @@
 import {
   type CSSResultGroup,
   html,
-  LitElement,
   nothing,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isSafari } from '../../core/dom.ts';
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.pure.ts';
 import {
+  boxSizingStyles,
+  forceType,
+  isSafari,
   SbbDisabledMixin,
-  SbbElementInternalsMixin,
-  SbbHydrationMixin,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbOptionBaseElement } from '../option.ts';
+  SbbElement,
+  type SbbElementType,
+} from '../../core.ts';
+import { SbbDividerElement } from '../../divider.pure.ts';
+import type { SbbOptionBaseElement } from '../option/option-base-element.ts';
 
-import style from './optgroup-base-element.scss?lit&inline';
-
-import '../../divider.ts';
+import style from './optgroup-base-element.scss?inline';
 
 /**
  * On Safari, the groups labels are not read by VoiceOver.
@@ -30,11 +29,10 @@ import '../../divider.ts';
  */
 const inertAriaGroups = isSafari;
 
-export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(
-  SbbElementInternalsMixin(SbbHydrationMixin(LitElement)),
-) {
+export abstract class SbbOptgroupBaseElement extends SbbDisabledMixin(SbbElement) {
   public static override readonly role = !inertAriaGroups ? 'group' : null;
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [SbbDividerElement];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Option group label. */
   @forceType()

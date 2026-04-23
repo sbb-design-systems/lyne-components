@@ -1,17 +1,22 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, isServer, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import type { SbbTime } from '../core/interfaces.ts';
-import { SbbElementInternalsMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbTime } from '../core.ts';
+import { boxSizingStyles, SbbElement } from '../core.ts';
 
 import clockFaceSVG from './assets/sbb_clock_face.svg?raw';
 import clockHandleHoursSVG from './assets/sbb_clock_hours.svg?raw';
 import clockHandleMinutesSVG from './assets/sbb_clock_minutes.svg?raw';
 import clockHandleSecondsSVG from './assets/sbb_clock_seconds.svg?raw';
-import style from './clock.scss?lit&inline';
+import style from './clock.scss?inline';
 
 /** Number of hours on the clock face. */
 const TOTAL_HOURS_ON_CLOCK_FACE = 12;
@@ -54,10 +59,9 @@ const ADD_EVENT_LISTENER_OPTIONS: AddEventListenerOptions = {
 /**
  * It displays an analog clock with the classic SBB face.
  */
-export
-@customElement('sbb-clock')
-class SbbClockElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbClockElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-clock';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * Define a specific time which the clock should show statically.

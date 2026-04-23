@@ -1,11 +1,9 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { boxSizingStyles, SbbElement } from '../../core.ts';
 
-import style from './header-environment.scss?lit&inline';
+import style from './header-environment.scss?inline';
 
 /**
  * It displays a ribbon inside the header to indicate the current environment.
@@ -15,10 +13,9 @@ import style from './header-environment.scss?lit&inline';
  * @cssprop [--sbb-header-environment-background-color=var(sbb-color-granite)] - Can be used change the ribbon color.
  * @cssprop [--sbb-header-environment-color=var(sbb-color-white)] - Can be used change the text color.
  */
-export
-@customElement('sbb-header-environment')
-class SbbHeaderEnvironmentElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbHeaderEnvironmentElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-header-environment';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   private _env: string | null = null;
 

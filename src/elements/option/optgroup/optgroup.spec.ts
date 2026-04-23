@@ -3,10 +3,11 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
-import type { SbbOptionElement } from '../option.ts';
-import '../option.ts';
+import type { SbbOptionElement } from '../option/option.component.ts';
 
 import { SbbOptGroupElement } from './optgroup.component.ts';
+
+import '../../option.ts';
 
 describe(`sbb-optgroup`, () => {
   let element: SbbOptGroupElement;

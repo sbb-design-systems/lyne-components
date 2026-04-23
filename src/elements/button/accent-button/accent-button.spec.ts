@@ -6,7 +6,7 @@ import {
   buttonSpaceIconTestTemplate,
 } from '../common/button-test-utils.private.ts';
 
-import './accent-button.component.ts';
+import '../../button.ts';
 
 describe(`sbb-accent-button`, () => {
   it('should detect icon in sbb-accent-button', async () => {

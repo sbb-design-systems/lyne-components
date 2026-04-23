@@ -1,6 +1,6 @@
 import { isServer, type ReactiveElement } from 'lit';
 
-import type { AbstractConstructor } from '../mixins.ts';
+import type { AbstractConstructor } from '../mixins/constructor.ts';
 
 function applyAttributes(
   instance: ReactiveElement,
@@ -31,6 +31,7 @@ function applyAttributes(
  * }
  *
  * @param attributes A record of attributes to apply to the element.
+ * @deprecated Will be removed with next major version.
  */
 export const hostAttributes =
   (attributes: Record<string, string | null>) => (target: AbstractConstructor<ReactiveElement>) =>

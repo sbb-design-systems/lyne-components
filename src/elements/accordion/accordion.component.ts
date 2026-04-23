@@ -1,26 +1,34 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
+import { property } from 'lit/decorators.js';
 
-import { forceType, handleDistinctChange } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import { isEventPrevented } from '../core/eventing.ts';
-import { SbbHydrationMixin, ɵstateController } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbExpansionPanelElement } from '../expansion-panel.ts';
-import type { SbbTitleLevel } from '../title.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  handleDistinctChange,
+  isEventPrevented,
+  isLean,
+  SbbElement,
+  ɵstateController,
+} from '../core.ts';
+import type { SbbExpansionPanelElement } from '../expansion-panel.pure.ts';
+import type { SbbTitleLevel } from '../title.pure.ts';
 
-import style from './accordion.scss?lit&inline';
+import style from './accordion.scss?inline';
 
 /**
  * It can be used as a container for one or more `sbb-expansion-panel` component.
  *
  * @slot - Use the unnamed slot to add `sbb-expansion-panel` elements.
  */
-export
-@customElement('sbb-accordion')
-class SbbAccordionElement extends SbbHydrationMixin(LitElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbAccordionElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-accordion';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`.

@@ -1,4 +1,4 @@
-The `sbb-teaser` is a component which can display an image with a caption, and it behaves like a link on user interaction.
+The `<sbb-teaser>` is a component which can display an image with a caption, and it behaves like a link on user interaction.
 
 Simple teaser example:
 
@@ -14,11 +14,11 @@ Simple teaser example:
 ## Slots
 
 The default slot is reserved for the description and,
-optionally, a [sbb-title](/docs/elements-sbb-title--docs) and a [sbb-chip-label](/docs/elements-sbb-chip-label--docs).
+optionally, a [sbb-title](/docs/elements-title--docs) and a [sbb-chip-label](/docs/elements-chip-label--docs).
 The component displays the `image` with the self-named slot.
 
-Use the `image` slot to pass a `figure` containing an `sbb-image` or an `img` that will be used as background.
-Optionally, you can add an overlapping `sbb-chip-label` to the slotted `figure` (see [sbb-image doc](/docs/elements-sbb-image--docs#utility%classes)).
+Use the `image` slot to pass a `figure` containing an `<sbb-image>` or an `img` that will be used as background.
+Optionally, you can add an overlapping `<sbb-chip-label>` to the slotted `figure` (see [sbb-image doc](/docs/elements-image--docs#utility-classes)).
 
 ```html
 <sbb-teaser href="https://www.sbb.ch">
@@ -65,13 +65,17 @@ to achieve the image width taking the full available space. On the image itself,
 
 ## Accessibility
 
-It's important to set the `accessibilityLabel` on the `<sbb-teaser>`, which describes the `sbb-teaser` for screen-reader users.
+It's important to set the `accessibilityLabel` on the `<sbb-teaser>`, which describes the `<sbb-teaser>` for screen-reader users.
 
 The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbTeaserElement`, `sbb-teaser`
+
+#### Properties
 
 | Name                   | Attribute               | Privacy | Type                                     | Default            | Description                                                               |
 | ---------------------- | ----------------------- | ------- | ---------------------------------------- | ------------------ | ------------------------------------------------------------------------- |
@@ -83,7 +87,7 @@ The description text is wrapped into an `<p>` element to guarantee the semantic 
 | `rel`                  | `rel`                   | public  | `string`                                 | `''`               | The relationship of the linked URL as space-separated link types.         |
 | `target`               | `target`                | public  | `LinkTargetType \| string`               | `''`               | Where to display the linked URL.                                          |
 
-## Slots
+#### Slots
 
 | Name    | Description                                                                                                                                 |
 | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |

@@ -5,7 +5,7 @@ import { fixture } from '../../core/testing/private.ts';
 
 import type { SbbNavigationMarkerElement } from './navigation-marker.component.ts';
 
-import './navigation-marker.component.ts';
+import '../../navigation.ts';
 
 describe(`sbb-navigation-marker`, () => {
   let element: SbbNavigationMarkerElement;

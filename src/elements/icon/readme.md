@@ -1,8 +1,8 @@
-The `sbb-icon` component provides a solid way of rendering registered and named icons.
+The `<sbb-icon>` component provides a solid way of rendering registered and named icons.
 
 The component will dynamically load an SVG for each icon, avoiding multiple requests to the same icon.
 The icon components are not tied to specific icon sets; you can register custom namespaces
-and then provide the `sbb-icon` with the `name` property in the format `name="icon-name"` or `name="namespace:icon-name"`.
+and then provide the `<sbb-icon>` with the `name` property in the format `name="icon-name"` or `name="namespace:icon-name"`.
 
 Note that if you do not provide a namespace, the default namespace will be used pointing to the `SBB Icons CDN`.
 
@@ -14,7 +14,7 @@ Note that if you do not provide a namespace, the default namespace will be used 
 ** Register custom icon namespace **
 
 ```ts
-import { mergeConfig } from '@sbb-esta/lyne-elements/core/config.js';
+import { mergeConfig } from '@sbb-esta/lyne-elements/core.js';
 
 mergeConfig({
   icon: {
@@ -26,7 +26,7 @@ mergeConfig({
 ** Register custom interceptor **
 
 ```ts
-import { mergeConfig } from '@sbb-esta/lyne-elements/core/config.js';
+import { mergeConfig } from '@sbb-esta/lyne-elements/core.js';
 
 mergeConfig({
   icon: {
@@ -49,8 +49,8 @@ E.g. if in the Design (Figma) the icon is called 'circle-plus', the icon name wi
 ## Accessibility
 
 Similar to an `<img>` element, an icon alone does not convey any useful information for a screen-reader user.
-The user of `sbb-icon` must provide additional information pertaining to how the icon is used.
-Based on the use-cases described below, `sbb-icon` is marked as `aria-hidden="true"` by default,
+The user of `<sbb-icon>` must provide additional information pertaining to how the icon is used.
+Based on the use-cases described below, `<sbb-icon>` is marked as `aria-hidden="true"` by default,
 but this can be overridden by adding `aria-hidden="false"` to the element.
 
 In thinking about accessibility, it is useful to place icon use into one of three categories:
@@ -62,14 +62,18 @@ In thinking about accessibility, it is useful to place icon use into one of thre
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbIconElement`, `sbb-icon`
+
+#### Properties
 
 | Name         | Attribute     | Privacy | Type      | Default | Description                                                                                                                                                                                                   |
 | ------------ | ------------- | ------- | --------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `name`       | `name`        | public  | `string`  | `''`    | The provided name consisting of the namespace and the name of the icon. If the namespace is missing, the default namespace "sbb" will be used. E.g. `name` (will use "sbb" as namespace) or `namespace:name`. |
 | `noSanitize` | `no-sanitize` | public  | `boolean` | `false` | When set to `true`, SVG content that is HTTP fetched will not be checked if the response SVG content has any `<script>` elements, or any attributes that start with `on`, such as `onclick`.                  |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                    | Default | Description                         |
 | ----------------------- | ------- | ----------------------------------- |

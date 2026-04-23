@@ -2,43 +2,39 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
-  LitElement,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
-import { SbbPropertyWatcherController } from '../../core/controllers.ts';
 import {
   appendAriaElements,
+  boxSizingStyles,
   removeAriaElements,
-  SbbElementInternalsMixin,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbStepLabelElement } from '../step-label.ts';
-import type { SbbStepperElement } from '../stepper.ts';
+  SbbElement,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
+import type { SbbStepLabelElement } from '../step-label/step-label.component.ts';
+import type { SbbStepperElement } from '../stepper/stepper.component.ts';
 
-import style from './step.scss?lit&inline';
+import style from './step.scss?inline';
 
-let nextId = 0;
-
-export type SbbStepValidateEventDetails = {
+export interface SbbStepValidateEventDetails {
   currentIndex: number | null;
   currentStep: SbbStepElement | null;
   nextIndex: number | null;
   nextStep: SbbStepElement | null;
-};
+}
 
 /**
  * Combined with a `sbb-stepper`, it displays a step's content.
  *
  * @slot - Use the unnamed slot to provide content.
  */
-export
-@customElement('sbb-step')
-class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
+export class SbbStepElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-step';
   public static override readonly role = 'tabpanel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     validate: 'validate',
     resizechange: 'resizechange',
@@ -176,7 +172,6 @@ class SbbStepElement extends SbbElementInternalsMixin(LitElement) {
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.id ||= `sbb-step-${nextId++}`;
     this.slot ||= 'step';
     this._assignLabel();
   }

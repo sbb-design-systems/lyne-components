@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbTooltipElement } from './tooltip.component.ts';
 
+import '../tooltip.ts';
+
 describe(`sbb-tooltip ssr`, () => {
   let root: SbbTooltipElement;
 
@@ -15,7 +17,7 @@ describe(`sbb-tooltip ssr`, () => {
         <button id="trigger">Label</button>
       `,
       {
-        modules: ['./tooltip.component.js'],
+        modules: ['../tooltip.ts'],
       },
     );
   });

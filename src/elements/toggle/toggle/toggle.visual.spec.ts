@@ -8,8 +8,7 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
-import '../toggle-option.ts';
-import './toggle.component.ts';
+import '../../toggle.ts';
 
 describe(`sbb-toggle`, () => {
   let root: HTMLElement;

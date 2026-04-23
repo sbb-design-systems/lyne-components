@@ -4,7 +4,11 @@ The accessibility strings are automatically generated.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbTimetableOccupancyElement`, `sbb-timetable-occupancy`
+
+#### Properties
 
 | Name                   | Attribute                | Privacy | Type                   | Default | Description                        |
 | ---------------------- | ------------------------ | ------- | ---------------------- | ------- | ---------------------------------- |

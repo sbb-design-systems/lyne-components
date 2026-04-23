@@ -6,6 +6,8 @@ import { EventSpy } from '../../core/testing.ts';
 
 import { SbbExpansionPanelHeaderElement } from './expansion-panel-header.component.ts';
 
+import '../../expansion-panel.ts';
+
 describe(`sbb-expansion-panel-header`, () => {
   let element: SbbExpansionPanelHeaderElement;
 

@@ -90,7 +90,7 @@ export const homeTemplate = (args: Args): TemplateResult => html`
                 <sbb-title level="2" visual-level="6"> Route map </sbb-title>
                 <span class="sbb-text-s card-description">For regular trips</span>
               </span>
-              <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
+              <sbb-secondary-button-static> Buy </sbb-secondary-button-static>
             </span>
           </sbb-card>
 
@@ -105,7 +105,9 @@ export const homeTemplate = (args: Args): TemplateResult => html`
                   Enjoy unlimited travel with the GA travel card.
                 </sbb-title>
               </span>
-              <sbb-secondary-button-static> All GAs at a glance </sbb-secondary-button-static>
+              <sbb-secondary-button-static size="l">
+                All GAs at a glance
+              </sbb-secondary-button-static>
             </span>
           </sbb-card>
 
@@ -121,11 +123,13 @@ export const homeTemplate = (args: Args): TemplateResult => html`
                   Travel at half price with the half-fare travel card.
                 </sbb-title>
               </span>
-              <sbb-secondary-button-static> Ride at half price </sbb-secondary-button-static>
+              <sbb-secondary-button-static size="l">
+                Ride at half price
+              </sbb-secondary-button-static>
             </span>
           </sbb-card>
         </div>
-        <sbb-action-group orientation="vertical" horizontal-from="small">
+        <sbb-action-group orientation="vertical" horizontal-from="small" button-size="l">
           <sbb-button-link
             href="https://github.com/sbb-design-systems/lyne-components"
             icon-name="qrcode-small"

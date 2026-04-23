@@ -2,9 +2,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 
 import { describeEach, describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import './train-wagon.component.ts';
-import '../train-formation.ts';
-import '../train.ts';
+import '../../train.ts';
 
 describe(`sbb-train-wagon`, () => {
   const wagonTypeCases = {

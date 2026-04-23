@@ -8,7 +8,7 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.ts';
 
-import './link-static.component.ts';
+import '../../link.ts';
 
 describe(`sbb-link-static`, () => {
   describeViewports({ viewports: ['zero', 'large'] }, () => {

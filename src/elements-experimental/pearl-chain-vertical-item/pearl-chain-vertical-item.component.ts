@@ -1,11 +1,9 @@
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { boxSizingStyles, forceType, SbbElement } from '@sbb-esta/lyne-elements/core.js';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
+import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
-import style from './pearl-chain-vertical-item.scss?lit&inline';
+import style from './pearl-chain-vertical-item.scss?inline';
 
 export type LineType = 'dotted' | 'standard' | 'thin';
 
@@ -31,10 +29,9 @@ export interface PearlChainVerticalItemAttributes {
  * @slot left - Content of the left side of the item
  * @slot right - Content of the right side of the item
  */
-export
-@customElement('sbb-pearl-chain-vertical-item')
-class SbbPearlChainVerticalItemElement extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbPearlChainVerticalItemElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-pearl-chain-vertical-item';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** The pearlChainVerticalItemAttributes Prop for styling the bullets and line.*/
   @property({ attribute: 'pearl-chain-vertical-item-attributes', type: Object })

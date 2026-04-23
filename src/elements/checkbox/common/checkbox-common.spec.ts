@@ -2,15 +2,15 @@ import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { isChromium, isFirefox } from '../../core/dom.ts';
+import type { SbbCheckboxPanelElement } from '../../checkbox-panel/checkbox-panel.component.ts';
 import { a11yTreeSnapshot, fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { isChromium, isFirefox } from '../../core.ts';
 import type { SbbVisualCheckboxElement } from '../../visual-checkbox.ts';
-import type { SbbCheckboxPanelElement } from '../checkbox-panel.ts';
-import type { SbbCheckboxElement } from '../checkbox.ts';
+import type { SbbCheckboxElement } from '../checkbox.component.ts';
 
-import '../checkbox.ts';
-import '../checkbox-panel.ts';
+import '../../checkbox.ts';
+import '../../checkbox-panel.ts';
 
 describe(`sbb-checkbox-common`, () => {
   ['sbb-checkbox', 'sbb-checkbox-panel'].forEach((selector) => {
@@ -248,7 +248,10 @@ describe(`sbb-checkbox-common`, () => {
       });
 
       describe('with complex value', () => {
-        type ComplexValue = { property: string; otherProp: string };
+        interface ComplexValue {
+          property: string;
+          otherProp: string;
+        }
 
         let element: SbbCheckboxElement<ComplexValue> | SbbCheckboxPanelElement<ComplexValue>;
         const value: ComplexValue = { property: 'value 1', otherProp: 'test' };

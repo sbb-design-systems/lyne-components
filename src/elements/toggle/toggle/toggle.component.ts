@@ -2,26 +2,26 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  LitElement,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
-import { interactivityChecker } from '../../core/a11y.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
 import {
+  boxSizingStyles,
+  forceType,
   type FormRestoreReason,
   type FormRestoreState,
+  interactivityChecker,
+  isLean,
   SbbDisabledMixin,
-  SbbElementInternalsMixin,
+  SbbElement,
   SbbFormAssociatedMixin,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { type SbbToggleOptionElement } from '../toggle-option.ts';
+} from '../../core.ts';
+import type { SbbToggleOptionElement } from '../toggle-option/toggle-option.component.ts';
 
-import style from './toggle.scss?lit&inline';
+import style from './toggle.scss?inline';
 
 /**
  * It can be used as a container for two `sbb-toggle-option`, acting as a toggle button.
@@ -29,13 +29,12 @@ import style from './toggle.scss?lit&inline';
  * @slot - Use the unnamed slot to add `<sbb-toggle-option>` elements to the toggle.
  * @overrideType value - (T = string) | null
  */
-export
-@customElement('sbb-toggle')
-class SbbToggleElement<T = string> extends SbbDisabledMixin(
-  SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement)),
+export class SbbToggleElement<T = string> extends SbbDisabledMixin(
+  SbbFormAssociatedMixin(SbbElement),
 ) {
+  public static override readonly elementName: string = 'sbb-toggle';
   public static override readonly role = 'radiogroup';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     change: 'change',
   } as const;
@@ -140,11 +139,9 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(
   /** @internal */
   public updatePillPosition(resizing = false): void {
     const options = this.options;
-    const toggleElement = this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-toggle');
 
     if (
       options.length < 2 ||
-      !toggleElement ||
       options.every((o) => !o.checked) ||
       options.every((o) => !o.clientWidth)
     ) {
@@ -156,9 +153,7 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(
     const firstOption = options[0];
     const isFirstChecked = firstOption.checked;
     const pillLeft = isFirstChecked ? '0px' : `${firstOption.clientWidth}px`;
-    const pillRight = isFirstChecked
-      ? `${toggleElement.clientWidth - firstOption.clientWidth}px`
-      : '0px';
+    const pillRight = isFirstChecked ? `${this.clientWidth - firstOption.clientWidth}px` : '0px';
 
     if (pillRight === '0px' && pillLeft === '0px') {
       return;
@@ -254,11 +249,7 @@ class SbbToggleElement<T = string> extends SbbDisabledMixin(
   }
 
   protected override render(): TemplateResult {
-    return html`
-      <div class="sbb-toggle">
-        <slot @slotchange=${this._updateToggle}></slot>
-      </div>
-    `;
+    return html` <slot @slotchange=${this._updateToggle}></slot> `;
   }
 }
 

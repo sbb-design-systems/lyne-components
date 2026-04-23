@@ -1,18 +1,13 @@
 import { expect } from '@open-wc/testing';
-import { isSafari } from '@sbb-esta/lyne-elements/core/dom.js';
 import { fixture, testA11yTreeSnapshot } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { describeIf } from '@sbb-esta/lyne-elements/core/testing.js';
+import { isSafari } from '@sbb-esta/lyne-elements/core.js';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import type { SbbAutocompleteGridOptgroupElement } from './autocomplete-grid-optgroup.component.ts';
 
-import './autocomplete-grid-optgroup.component.ts';
-import '../autocomplete-grid.ts';
-import '../autocomplete-grid-row.ts';
-import '../autocomplete-grid-option.ts';
-import '../autocomplete-grid-cell.ts';
-import '../autocomplete-grid-button.ts';
+import '../../autocomplete-grid.ts';
 
 describe('sbb-autocomplete-grid-optgroup', () => {
   const opt: TemplateResult = html`

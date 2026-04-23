@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbLinkStaticElement } from './link-static.component.ts';
 
-import './link-static.component.ts';
+import '../../link.ts';
 
 describe(`sbb-link-static`, () => {
   let element: SbbLinkStaticElement;
@@ -13,7 +13,7 @@ describe(`sbb-link-static`, () => {
   describe('renders', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-link-static size="m"> Travelcards &amp; tickets. </sbb-link-static>`,
+        html`<sbb-link-static> Travelcards &amp; tickets. </sbb-link-static>`,
       );
     });
 

@@ -4,9 +4,7 @@ export const snapshots = {};
 snapshots["sbb-dialog-actions renders DOM"] = 
 `<sbb-dialog-actions
   align-group="start"
-  button-size="m"
   horizontal-from="large"
-  link-size="s"
   orientation="horizontal"
 >
 </sbb-dialog-actions>
@@ -26,8 +24,8 @@ snapshots["sbb-dialog-actions renders A11y tree Chrome"] =
   "name": "Fixture Container",
   "children": [
     {
-      "ignored": true,
-      "role": "none"
+      "role": "generic",
+      "name": ""
     }
   ]
 }

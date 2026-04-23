@@ -1,27 +1,34 @@
-import { type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
+import { property } from 'lit/decorators.js';
 
-import { readConfig } from '../../core/config/config.ts';
-import { type DateAdapter } from '../../core/datetime/date-adapter.ts';
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
-import { forceType } from '../../core/decorators.ts';
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import type { DateAdapter, SbbOrientation } from '../../core.ts';
+import {
+  boxSizingStyles,
+  defaultDateAdapter,
+  forceType,
+  readConfig,
+  SbbElement,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
 
-import style from './mini-calendar-month.scss?lit&inline';
+import style from './mini-calendar-month.scss?inline';
 
 /**
  * It displays a month in the `sbb-mini-calendar`.
  *
  * @slot - Use the unnamed slot to add `sbb-mini-calendar-day` elements.
  */
-export
-@customElement('sbb-mini-calendar-month')
-class SbbMiniCalendarMonthElement<T = Date> extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbMiniCalendarMonthElement<T = Date> extends SbbElement {
+  public static override readonly elementName: string = 'sbb-mini-calendar-month';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
-  /** Date as ISO string (YYYY-MM-DD) */
+  /** Date as ISO string (YYYY-MM) */
   @forceType()
   @property()
   public accessor date: string = '';
@@ -30,6 +37,24 @@ class SbbMiniCalendarMonthElement<T = Date> extends SbbElementInternalsMixin(Lit
   private _monthNames = this._dateAdapter.getMonthNames('short');
   private _monthLabel: string | null = null;
   private _yearLabel: string | null = null;
+  private _previousOrientation: SbbOrientation | null = null;
+
+  public constructor() {
+    super();
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.closest('sbb-mini-calendar'), {
+        orientation: (parent) => {
+          if (this._previousOrientation) {
+            this.internals.states.delete(`orientation-${this._previousOrientation}`);
+          }
+          this._previousOrientation = parent.orientation;
+          if (this._previousOrientation) {
+            this.internals.states.add(`orientation-${this._previousOrientation}`);
+          }
+        },
+      }),
+    );
+  }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -49,13 +74,11 @@ class SbbMiniCalendarMonthElement<T = Date> extends SbbElementInternalsMixin(Lit
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-mini-calendar-month">
-        <div class="sbb-mini-calendar-month-label-year">${this._yearLabel}</div>
-        <div class="sbb-mini-calendar-month-wrapper">
-          <slot></slot>
-        </div>
-        <div class="sbb-mini-calendar-month-label-month">${this._monthLabel}</div>
+      <div class="sbb-mini-calendar-month-label-year">${this._yearLabel}</div>
+      <div class="sbb-mini-calendar-month-wrapper">
+        <slot></slot>
       </div>
+      <div class="sbb-mini-calendar-month-label-month">${this._monthLabel}</div>
     `;
   }
 }

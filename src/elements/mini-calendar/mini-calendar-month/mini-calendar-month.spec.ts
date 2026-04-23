@@ -1,12 +1,12 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { ɵstateController } from '../../core/mixins.ts';
 import { fixture } from '../../core/testing/private.ts';
+import { ɵstateController } from '../../core.ts';
 
 import { SbbMiniCalendarMonthElement } from './mini-calendar-month.component.ts';
 
-import '../mini-calendar.ts';
+import '../../mini-calendar.ts';
 
 describe('sbb-mini-calendar-month', () => {
   let element: SbbMiniCalendarMonthElement;

@@ -23,7 +23,7 @@ The `__name__` is a component . . .
 
 ## Interactions
 
-> Describe how it's possible to interact with the component (open and close a `sbb-dialog`, dismiss a `sbb-alert`, etc.) and provide examples.
+> Describe how it's possible to interact with the component (open and close a `<sbb-dialog>`, dismiss a `<sbb-alert>`, etc.) and provide examples.
 
 ## Events
 
@@ -31,7 +31,7 @@ The `__name__` is a component . . .
 
 ## Keyboard interaction
 
-> If the component has logic for keyboard navigation (as the `sbb-calendar` or the `sbb-select`) describe it.
+> If the component has logic for keyboard navigation (as the `<sbb-calendar>` or the `<sbb-select>`) describe it.
 
 | Keyboard       | Action        |
 | -------------- | ------------- |

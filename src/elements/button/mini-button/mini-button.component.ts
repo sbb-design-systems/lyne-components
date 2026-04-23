@@ -1,12 +1,14 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
-import { miniButtonLabelStyle, miniButtonStyle } from '../common.ts';
+import {
+  boxSizingStyles,
+  SbbButtonBaseElement,
+  SbbDisabledTabIndexActionMixin,
+  SbbNegativeMixin,
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
+import { miniButtonLabelStyle, miniButtonStyle } from '../common/button-common.ts';
 
 /**
  * It displays an icon-only button enhanced with the SBB Design;
@@ -15,11 +17,10 @@ import { miniButtonLabelStyle, miniButtonStyle } from '../common.ts';
  * @slot - Use the unnamed slot to add a label to the mini-button.
  * @slot icon - Slot used to display the icon, if one is set
  */
-export
-@customElement('sbb-mini-button')
-class SbbMiniButtonElement extends SbbDisabledTabIndexActionMixin(
+export class SbbMiniButtonElement extends SbbDisabledTabIndexActionMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbButtonBaseElement)),
 ) {
+  public static override readonly elementName: string = 'sbb-mini-button';
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     miniButtonStyle,

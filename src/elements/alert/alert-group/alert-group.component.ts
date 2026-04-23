@@ -1,16 +1,12 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { type CSSResultGroup, nothing, type TemplateResult, unsafeCSS } from 'lit';
+import { property, state } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { forceType } from '../../core/decorators.ts';
-import { isEventPrevented } from '../../core/eventing.ts';
-import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbTitleLevel } from '../../title.ts';
-import type { SbbAlertElement } from '../alert.ts';
+import { boxSizingStyles, forceType, isEventPrevented, SbbElement } from '../../core.ts';
+import type { SbbTitleLevel } from '../../title.pure.ts';
+import type { SbbAlertElement } from '../alert/alert.component.ts';
 
-import style from './alert-group.scss?lit&inline';
+import style from './alert-group.scss?inline';
 
 /**
  * It can be used as a container for one or more `sbb-alert` component.
@@ -18,10 +14,9 @@ import style from './alert-group.scss?lit&inline';
  * @slot - Use the unnamed slot to add `sbb-alert` elements to the `sbb-alert-group`.
  * @slot accessibility-title - title for this `sbb-alert-group` which is only visible for screen reader users.
  */
-export
-@customElement('sbb-alert-group')
-class SbbAlertGroupElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbAlertGroupElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-alert-group';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     empty: 'empty',
   } as const;

@@ -1,18 +1,26 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement, nothing } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
+import { property, state } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/controllers.ts';
-import { forceType } from '../core/decorators.ts';
-import { forwardEvent } from '../core/eventing.ts';
-import { i18nMapContainerButtonLabel } from '../core/i18n.ts';
-import { SbbElementInternalsMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { SbbAccentButtonElement } from '../button.pure.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  forwardEvent,
+  i18nMapContainerButtonLabel,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+} from '../core.ts';
 
-import style from './map-container.scss?lit&inline';
-
-import '../button/accent-button.ts';
+import style from './map-container.scss?inline';
 
 /**
  * It can be used as a container for maps.
@@ -29,10 +37,10 @@ import '../button/accent-button.ts';
  * this offset from the document's top. Only applied on mobile views.
  * Most commonly it can be set to `var(--sbb-header-height)`.
  */
-export
-@customElement('sbb-map-container')
-class SbbMapContainerElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbMapContainerElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-map-container';
+  public static override elementDependencies: SbbElementType[] = [SbbAccentButtonElement];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Flag to show/hide the scroll up button inside the sidebar on mobile. */
   @forceType()
@@ -95,28 +103,25 @@ class SbbMapContainerElement extends SbbElementInternalsMixin(LitElement) {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-map-container">
-        <div class="sbb-map-container__map">
-          <slot name="map"></slot>
-        </div>
-        <div class="sbb-map-container__sidebar" @scroll=${(e: Event) => forwardEvent(e, document)}>
-          <span id="intersector"></span>
+      <div class="sbb-map-container__map">
+        <slot name="map"></slot>
+      </div>
+      <div class="sbb-map-container__sidebar" @scroll=${(e: Event) => forwardEvent(e, document)}>
+        <span id="intersector"></span>
 
-          <slot></slot>
+        <slot></slot>
 
-          ${!this.hideScrollUpButton
-            ? html`<sbb-accent-button
-                class="sbb-map-container__sidebar-button"
-                size="l"
-                icon-name="location-pin-map-small"
-                type="button"
-                @click=${() => this._onScrollButtonClick()}
-                ?inert=${!this._scrollUpButtonVisible}
-              >
-                ${i18nMapContainerButtonLabel[this._language.current]}
-              </sbb-accent-button>`
-            : nothing}
-        </div>
+        ${!this.hideScrollUpButton
+          ? html`<sbb-accent-button
+              class="sbb-map-container__sidebar-button"
+              size="l"
+              icon-name="location-pin-map-small"
+              @click=${() => this._onScrollButtonClick()}
+              ?inert=${!this._scrollUpButtonVisible}
+            >
+              ${i18nMapContainerButtonLabel[this._language.current]}
+            </sbb-accent-button>`
+          : nothing}
       </div>
     `;
   }

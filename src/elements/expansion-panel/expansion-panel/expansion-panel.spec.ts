@@ -3,11 +3,12 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.ts';
-import '../expansion-panel-content.ts';
-import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.ts';
+import type { SbbExpansionPanelContentElement } from '../expansion-panel-content/expansion-panel-content.component.ts';
+import { SbbExpansionPanelHeaderElement } from '../expansion-panel-header/expansion-panel-header.component.ts';
 
 import { SbbExpansionPanelElement } from './expansion-panel.component.ts';
+
+import '../../expansion-panel.ts';
 
 describe(`sbb-expansion-panel`, () => {
   let element: SbbExpansionPanelElement;

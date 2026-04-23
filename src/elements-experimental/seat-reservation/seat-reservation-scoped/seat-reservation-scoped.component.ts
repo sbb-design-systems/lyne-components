@@ -1,17 +1,14 @@
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { type CSSResultGroup, type TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { boxSizingStyles, SbbElement } from '@sbb-esta/lyne-elements/core.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import style from './seat-reservation-scoped.scss?lit&inline';
+import style from './seat-reservation-scoped.scss?inline';
 
 /**
  * Wrapper class for scoped elements with similar properties to set.
  */
-export
-@customElement('sbb-seat-reservation-scoped')
-class SbbSeatReservationScopedElement extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbSeatReservationScopedElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-seat-reservation-scoped';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`<slot></slot>`;

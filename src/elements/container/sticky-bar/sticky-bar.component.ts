@@ -2,17 +2,21 @@ import { IntersectionController } from '@lit-labs/observers/intersection-control
 import {
   type CSSResultGroup,
   html,
-  LitElement,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
-import { isLean, isZeroAnimationDuration } from '../../core/dom.ts';
-import { SbbElementInternalsMixin, SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  boxSizingStyles,
+  isLean,
+  isZeroAnimationDuration,
+  SbbElement,
+  SbbUpdateSchedulerMixin,
+} from '../../core.ts';
 
-import style from './sticky-bar.scss?lit&inline';
+import style from './sticky-bar.scss?inline';
 
 type StickyState = 'sticking' | 'sticky' | 'unsticking' | 'unsticky';
 
@@ -27,10 +31,9 @@ type StickyState = 'sticking' | 'sticky' | 'unsticking' | 'unsticky';
  * @cssprop [--sbb-sticky-bar-z-index] - To specify a custom stack order,
  * the `z-index` can be overridden by defining this CSS variable.
  */
-export
-@customElement('sbb-sticky-bar')
-class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElementInternalsMixin(LitElement)) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-sticky-bar';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   public static readonly events = {
     beforestick: 'beforestick',

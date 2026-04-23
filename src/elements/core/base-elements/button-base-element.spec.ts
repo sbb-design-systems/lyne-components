@@ -2,15 +2,17 @@ import { assert, aTimeout, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, type TemplateResult } from 'lit';
 
-import { isChromium } from '../dom.ts';
-import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../mixins.ts';
+import { isChromium } from '../dom/platform.ts';
+import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../mixins/disabled-mixin.ts';
 import { tabKey } from '../testing/private/keys.ts';
 import { a11yTreeSnapshot, fixture, typeInElement } from '../testing/private.ts';
 import { EventSpy, waitForLitRender } from '../testing.ts';
 
 import { SbbButtonBaseElement } from './button-base-element.ts';
 
-type FormDataEntry = { [p: string]: FormDataEntryValue };
+interface FormDataEntry {
+  [p: string]: FormDataEntryValue;
+}
 
 interface ButtonAccessibilitySnapshot {
   role: string;

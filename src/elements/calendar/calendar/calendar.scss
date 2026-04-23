@@ -1,0 +1,272 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  display: block;
+
+  // We add width definition to host, to make overwriting easy for consumers.
+  width: max-content;
+
+  // Set the line-height for adjacent elements in order to prevent from influence of a consumer-set line-height.
+  line-height: var(--sbb-typo-line-height-text);
+
+  --sbb-calendar-cell-size: #{sbb.px-to-rem-build(44)};
+
+  // Match Figma design
+  --sbb-calendar-cell-border-radius: calc(
+    var(--sbb-border-radius-4x) + var(--sbb-calendar-cell-border-width)
+  );
+  --sbb-calendar-cell-transition-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-2x)
+  );
+
+  @include sbb.mq($from: small) {
+    --sbb-calendar-control-view-change-height: #{sbb.px-to-rem-build(48)};
+  }
+}
+
+:host(:state(enhanced)) {
+  --sbb-calendar-cell-padding-block-end: var(--sbb-spacing-fixed-3x);
+}
+
+.sbb-calendar__wrapper {
+  width: 100%;
+  display: block;
+  transition-duration: var(--sbb-calendar-cell-transition-duration);
+}
+
+.sbb-calendar__controls {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sbb-calendar-control-gap);
+  margin-block-end: var(--sbb-calendar-control-margin-block-end);
+}
+
+.sbb-calendar__controls-month {
+  width: 100%;
+  display: flex;
+  gap: var(--sbb-calendar-tables-gap);
+}
+
+#sbb-calendar__controls-previous,
+#sbb-calendar__controls-next {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sbb-calendar__controls-change-date {
+  @include sbb.button-reset;
+
+  display: flex;
+  align-items: center;
+  margin: auto;
+  height: var(--sbb-calendar-control-view-change-height);
+  font-size: var(--sbb-text-font-size-s);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-letter-spacing-text);
+  text-transform: capitalize;
+  cursor: var(--sbb-cursor-pointer);
+  padding-inline: var(--sbb-calendar-control-view-change-padding-inline);
+  border-radius: var(--sbb-border-radius-infinity);
+  background-color: var(--sbb-calendar-control-view-change-background);
+  color: var(--sbb-calendar-control-view-change-color);
+  transition-duration: var(--sbb-calendar-cell-transition-duration);
+  transition-timing-function: var(--sbb-calendar-cell-transition-easing-function);
+  transition-property: background-color, padding-block-end;
+
+  &:disabled {
+    --sbb-calendar-control-view-change-background: light-dark(
+      var(--sbb-color-milk),
+      var(--sbb-color-anthracite)
+    );
+    --sbb-calendar-control-view-change-color: light-dark(
+      var(--sbb-color-granite),
+      var(--sbb-color-aluminium)
+    );
+
+    cursor: unset;
+  }
+
+  &:focus-visible {
+    @include sbb.focus-outline;
+
+    outline-offset: var(--sbb-spacing-fixed-1x);
+  }
+
+  @include sbb.hover-mq {
+    &:not(:active, :disabled):hover {
+      padding-block-end: var(--sbb-calendar-cell-hover-shift);
+    }
+  }
+
+  &:not(:disabled):active {
+    --sbb-calendar-control-view-change-background: var(--sbb-background-color-3);
+  }
+}
+
+.sbb-calendar__table-month-view,
+.sbb-calendar__table-year-view {
+  --sbb-calendar-table-column-spaces: 6;
+}
+
+.sbb-calendar__table-overflow-break {
+  // We have to cut the negative margin which is built by the containing sbb-calendar__table-container.
+  // Overflow: hidden would cut the focus outline. Therefore we take `contain` here.
+  contain: layout;
+}
+
+.sbb-calendar__table-container {
+  display: flex;
+  gap: var(--sbb-calendar-tables-gap);
+  margin-inline: var(--sbb-calendar-margin);
+
+  // The padding of the first and last column should not be visible if calendar is stretched.
+  // Therefore we need a negative inline margin.
+  // As we don't want to squeeze, the margin should never be greater than zero.
+
+  // Min width is equals to the normal width of the calendar
+  --sbb-calendar-min-width: calc(7 * var(--sbb-calendar-cell-size));
+
+  // The overflow variable is equals the difference between the actual width and the min width.
+  --sbb-calendar-overflow: calc(100% - var(--sbb-calendar-min-width));
+
+  // The start offset is negative margin which should overlap the parent container. Should never be a positive value.
+  --sbb-calendar-start-offset: min(
+    0px,
+    -1 * (var(--sbb-calendar-overflow) / var(--sbb-calendar-table-column-spaces))
+  );
+  --sbb-calendar-margin: var(--sbb-calendar-start-offset);
+
+  :host(:state(wide)) & {
+    --sbb-calendar-min-width: calc(
+      2 * 7 * var(--sbb-calendar-cell-size) + var(--sbb-calendar-tables-gap)
+    );
+    --sbb-calendar-margin: calc(0.5 * var(--sbb-calendar-start-offset));
+  }
+
+  :host([orientation='horizontal'][week-numbers]) & {
+    --sbb-calendar-min-width: calc(8 * var(--sbb-calendar-cell-size));
+  }
+
+  :host([orientation='horizontal'][week-numbers]:state(wide)) & {
+    --sbb-calendar-min-width: calc(
+      2 * 8 * var(--sbb-calendar-cell-size) + var(--sbb-calendar-tables-gap)
+    );
+  }
+
+  // The container's min-width is set in vertical mode;
+  // the value `calc(7 * var(--sbb-calendar-cell-size))` is fine
+  // considering that the maximum number of weeks in a month is 6, plus 1 for the header at the table's left side.
+  :host([orientation='vertical']) & {
+    min-width: var(--sbb-calendar-min-width);
+
+    // The variable that defines the margin is set to 0 to correctly display the table if consumers set a custom width.
+    --sbb-calendar-start-offset: 0;
+  }
+
+  // The min-width in wide is calculated as (max number of weeks in a month) * (displayed months) + (header column) = 6 * 2 + 1 = 13.
+  :host([orientation='vertical']:state(wide)) & {
+    --sbb-calendar-min-width: calc(
+      13 * var(--sbb-calendar-cell-size) + var(--sbb-calendar-tables-gap)
+    );
+  }
+}
+
+.sbb-calendar__table {
+  width: 100%;
+  border-collapse: collapse;
+  height: max-content;
+
+  animation: {
+    name: show;
+    duration: var(--sbb-calendar-table-animation-duration);
+  }
+
+  &.sbb-calendar__table-hide {
+    --sbb-calendar-cell-transition-duration: 0ms;
+
+    animation: {
+      name: hide;
+      duration: var(--sbb-calendar-table-animation-duration);
+    }
+  }
+
+  :host(:not(:state(wide))) & {
+    // Due to a Safari iOS rendering bug we need to define min-width as well.
+    // Otherwise, after orientation change, there is a wrong width if placed in an sbb-dialog.
+    min-width: 100%;
+  }
+}
+
+.sbb-calendar__table-header {
+  // Depending where in the DOM it's used, it's possible that browser defaults set text-align to left.
+  text-align: center;
+}
+
+.sbb-calendar__table-body {
+  // Depending where in the DOM it's used, it's possible that browser defaults set text-align to left.
+  text-align: center;
+}
+
+.sbb-calendar__table-header-cell,
+.sbb-calendar__table-header-cell-vertical {
+  width: var(--sbb-calendar-cell-size);
+  color: var(--sbb-calendar-header-color);
+  padding: 0;
+  font-size: var(--sbb-text-font-size-xs);
+  font-weight: normal;
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+
+  :host(:not([multiple])) & {
+    height: var(--sbb-calendar-cell-size);
+  }
+}
+
+.sbb-calendar__table-header-cell-vertical {
+  padding-block-end: var(--sbb-calendar-cell-padding-block-end);
+}
+
+.sbb-calendar__table-data {
+  position: relative;
+  padding: 0;
+  text-align: center;
+}
+
+.sbb-calendar__day-cell {
+  padding-block-end: var(--sbb-calendar-cell-padding-block-end);
+}
+
+sbb-calendar-day {
+  :host(:not(:state(enhanced))) & {
+    --sbb-calendar-cell-justify-content: center;
+    --sbb-calendar-day-height: #{sbb.px-to-rem-build(44)};
+    --sbb-calendar-day-extra-display: none;
+    --sbb-calendar-day-value-height: unset;
+    --sbb-calendar-day-crossed-out-top: 50%;
+    --sbb-calendar-day-crossed-out-translate: translate(-50%, -50%) rotate(-45deg);
+  }
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    transform: translateY(var(--sbb-calendar-table-animation-shift));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes hide {
+  from {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(var(--sbb-calendar-table-animation-shift));
+  }
+}

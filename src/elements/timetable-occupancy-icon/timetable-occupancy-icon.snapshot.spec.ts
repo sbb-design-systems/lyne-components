@@ -5,7 +5,7 @@ import { fixture } from '../core/testing/private.ts';
 
 import type { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.component.ts';
 
-import './timetable-occupancy-icon.component.ts';
+import '../timetable-occupancy-icon.ts';
 
 describe(`sbb-timetable-occupancy-icon`, () => {
   let element: SbbTimetableOccupancyIconElement;

@@ -1,11 +1,9 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
+import { property } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { boxSizingStyles, SbbElement } from '../../core.ts';
 
-import style from './card.scss?lit&inline';
+import style from './card.scss?inline';
 
 /**
  * It displays content related to a single subject.
@@ -14,10 +12,9 @@ import style from './card.scss?lit&inline';
  * @slot badge - Use this slot to render a `sbb-card-badge` component.
  * @slot action - Use this slot to render a `sbb-card-button` or a `sbb-card-link` component.
  */
-export
-@customElement('sbb-card')
-class SbbCardElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbCardElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-card';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Option to set the component's background color. */
   @property({ reflect: true }) public accessor color:

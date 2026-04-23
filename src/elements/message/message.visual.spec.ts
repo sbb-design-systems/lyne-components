@@ -3,10 +3,10 @@ import { html } from 'lit/static-html.js';
 import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 import { waitForImageReady } from '../core/testing.ts';
 
-import './message.component.ts';
+import '../message.ts';
 import '../chip-label.ts';
 import '../image.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../title.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
@@ -57,7 +57,6 @@ describe(`sbb-message`, () => {
               <sbb-secondary-button
                 slot="action"
                 icon-name="arrows-circle-small"
-                size="m"
               ></sbb-secondary-button>
             </sbb-message>
           `);
@@ -86,7 +85,6 @@ describe(`sbb-message`, () => {
               <sbb-secondary-button
                 slot="action"
                 icon-name="arrows-circle-small"
-                size="m"
               ></sbb-secondary-button>
             </sbb-message>
           `);
@@ -110,7 +108,6 @@ describe(`sbb-message`, () => {
             <sbb-secondary-button
               slot="action"
               icon-name="arrows-circle-small"
-              size="m"
             ></sbb-secondary-button>
           </sbb-message>
         `);
@@ -128,7 +125,6 @@ describe(`sbb-message`, () => {
             <sbb-secondary-button
               slot="action"
               icon-name="arrows-circle-small"
-              size="m"
             ></sbb-secondary-button>
           </sbb-message>
         `);
@@ -169,7 +165,6 @@ describe(`sbb-message`, () => {
               <sbb-secondary-button
                 slot="action"
                 icon-name="arrows-circle-small"
-                size="m"
               ></sbb-secondary-button>
             </sbb-message>
           `,

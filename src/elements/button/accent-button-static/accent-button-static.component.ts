@@ -1,10 +1,11 @@
 import type { CSSResultGroup } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
-import { SbbActionBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { buttonCommonStyle, buttonAccentStyle, SbbButtonCommonElementMixin } from '../common.ts';
+import { boxSizingStyles, SbbActionBaseElement, SbbDisabledMixin } from '../../core.ts';
+import {
+  buttonAccentStyle,
+  buttonCommonStyle,
+  SbbButtonCommonElementMixin,
+} from '../common/button-common.ts';
 
 /**
  * It displays a static button enhanced with the SBB Design in the 'accent' variant.
@@ -13,11 +14,10 @@ import { buttonCommonStyle, buttonAccentStyle, SbbButtonCommonElementMixin } fro
  * @slot icon - Slot used to display the icon, if one is set.
  * @cssprop [--sbb-button-loading-delay=300ms] - The delay before the loading animation starts, when setting the button into loading state.
  */
-export
-@customElement('sbb-accent-button-static')
-class SbbAccentButtonStaticElement extends SbbButtonCommonElementMixin(
+export class SbbAccentButtonStaticElement extends SbbButtonCommonElementMixin(
   SbbDisabledMixin(SbbActionBaseElement),
 ) {
+  public static override readonly elementName: string = 'sbb-accent-button-static';
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     buttonCommonStyle,

@@ -3,10 +3,9 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
 
-import './navigation.component.ts';
-import '../navigation-button.ts';
-import '../navigation-marker.ts';
-import '../../button/button.ts';
+import '../../navigation.ts';
+
+import '../../button.ts';
 import type { SbbNavigationElement } from './navigation.component.ts';
 
 describe(`sbb-navigation`, () => {

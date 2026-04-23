@@ -6,13 +6,14 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import images from '../core/images.ts';
+import { sampleImages } from '../core/images.private.ts';
 
 import { SbbImageElement } from './image.component.ts';
 import readme from './readme.md?raw';
 
 import '../chip-label.ts';
 import '../link.ts';
+import '../image.ts';
 
 const ImageTemplate = ({ aspectRatio, borderRadius, ...args }: Args): TemplateResult => html`
   <sbb-image
@@ -60,7 +61,7 @@ const imageSrc: InputType = {
   control: {
     type: 'select',
   },
-  options: images,
+  options: sampleImages,
 };
 
 const borderRadius: InputType = {
@@ -255,7 +256,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-image',
+  title: 'elements/Image',
 };
 
 export default meta;

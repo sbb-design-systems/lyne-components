@@ -1,7 +1,14 @@
-/**
- * @entrypoint
- */
-export * from './timetable-form/timetable-form.ts';
-export * from './timetable-form/timetable-form-details.ts';
-export * from './timetable-form/timetable-form-field.ts';
-export * from './timetable-form/timetable-form-swap-button.ts';
+/** @entrypoint */
+import {
+  SbbTimetableFormDetailsElement,
+  SbbTimetableFormElement,
+  SbbTimetableFormFieldElement,
+  SbbTimetableFormSwapButtonElement,
+} from './timetable-form.pure.ts';
+
+export * from './timetable-form.pure.ts';
+
+SbbTimetableFormElement.define();
+SbbTimetableFormDetailsElement.define();
+SbbTimetableFormFieldElement.define();
+SbbTimetableFormSwapButtonElement.define();

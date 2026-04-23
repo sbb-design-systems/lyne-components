@@ -1,10 +1,13 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
 :host {
+  --sbb-seat-reservation-graphic-max-width: auto;
+  --sbb-seat-reservation-graphic-max-height: auto;
   --sbb-seat-reservation-graphic-width: 16;
   --sbb-seat-reservation-graphic-height: 16;
   --sbb-seat-reservation-graphic-rotation: 0;
   --sbb-seat-reservation-graphic-inverse-rotation: 0;
+  --sbb-seat-reservation-graphic-padding-percent: 1;
   --sbb-seat-reservation-graphic-position: initial;
   --sbb-seat-reservation-graphic-left: 0;
   --sbb-seat-reservation-graphic-top: 0;
@@ -48,6 +51,39 @@
       var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
   );
   width: auto;
+}
+
+// Graphic size for max square dimension
+:host(.sbb-sr-graphic__dimension--square-dim) {
+  $padding-percent: var(--sbb-seat-reservation-graphic-padding-percent);
+  $graphic-max-width: calc(
+    var(--sbb-seat-reservation-graphic-max-width) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
+  $graphic-max-height: calc(
+    var(--sbb-seat-reservation-graphic-max-height) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
+  $graphic-width: calc(
+    var(--sbb-seat-reservation-graphic-width) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
+  $graphic-height: calc(
+    var(--sbb-seat-reservation-graphic-height) *
+      var(--sbb-seat-reservation-one-px-rem, #{sbb.px-to-rem-build(1)})
+  );
+
+  // calculate max available area dimension
+  $parent-dim: calc(min($graphic-width, $graphic-height) * $padding-percent);
+  $max-parent-dim: min($graphic-max-width, $graphic-max-height);
+  $result-dim: min($parent-dim, $max-parent-dim);
+
+  // Set max dimension for svg icon
+  --sbb-icon-svg-width: #{$result-dim};
+  --sbb-icon-svg-height: #{$result-dim};
+
+  width: #{$result-dim};
+  height: #{$result-dim};
 }
 
 // hover state with pointer cursor for service icons and popover

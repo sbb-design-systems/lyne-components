@@ -7,6 +7,7 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
 import { SbbTagElement } from './tag.component.ts';
 import '../../icon.ts';
+import '../../tag.ts';
 
 describe(`sbb-tag`, () => {
   let element: SbbTagElement;

@@ -1,18 +1,18 @@
-import { type CSSResultGroup, html, nothing, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
 import {
-  SbbMediaQueryHover,
+  boxSizingStyles,
+  SbbButtonBaseElement,
+  SbbDisabledTabIndexActionMixin,
   SbbMediaMatcherController,
+  SbbMediaQueryHover,
   SbbPropertyWatcherController,
-} from '../../core/controllers.ts';
-import { SbbDisabledTabIndexActionMixin, ɵstateController } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
-import type { SbbExpansionPanelElement } from '../expansion-panel.ts';
+  ɵstateController,
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
+import type { SbbExpansionPanelElement } from '../expansion-panel/expansion-panel.component.ts';
 
-import style from './expansion-panel-header.scss?lit&inline';
+import style from './expansion-panel-header.scss?inline';
 
 /**
  * It acts as a native `summary` tag for the `sbb-expansion-panel` component.
@@ -20,12 +20,11 @@ import style from './expansion-panel-header.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the `sbb-expansion-panel-header`.
  * @slot icon - Slot used to render the `sbb-expansion-panel-header` icon.
  */
-export
-@customElement('sbb-expansion-panel-header')
-class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
+export class SbbExpansionPanelHeaderElement extends SbbDisabledTabIndexActionMixin(
   SbbIconNameMixin(SbbButtonBaseElement),
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override readonly elementName: string = 'sbb-expansion-panel-header';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     toggleexpanded: 'toggleexpanded',
   } as const;

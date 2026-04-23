@@ -10,8 +10,8 @@ import {
 
 import type { SbbFileSelectorDropzoneElement } from './file-selector-dropzone.component.ts';
 
-import '../../form-field/error.ts';
-import './file-selector-dropzone.component.ts';
+import '../../form-field.ts';
+import '../../file-selector.ts';
 
 describe(`sbb-file-selector-dropzone`, () => {
   function addFilesToComponentInput(elem: SbbFileSelectorDropzoneElement): void {
@@ -54,10 +54,11 @@ describe(`sbb-file-selector-dropzone`, () => {
               title-content="Title"
               multiple
               ?disabled=${state.disabled}
-            ></sbb-file-selector-dropzone>
-            ${state.error
-              ? html`<sbb-error slot="error">There has been an error.</sbb-error>`
-              : nothing}
+            >
+              ${state.error
+                ? html`<sbb-error slot="error">There has been an error.</sbb-error>`
+                : nothing}
+            </sbb-file-selector-dropzone>
           `,
           { forcedColors: forcedColors, darkMode },
         );

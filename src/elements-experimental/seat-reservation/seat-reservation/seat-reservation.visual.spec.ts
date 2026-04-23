@@ -5,12 +5,14 @@ import {
   visualDiffFocus,
   visualRegressionFixture,
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
-import './seat-reservation.component.ts';
 import { html } from 'lit';
 
-import { mapRawDataToSeatReservation, type SeatReservation } from '../common.ts';
+import { mapRawDataToSeatReservation } from '../common/mapper.ts';
+import type { SeatReservation } from '../common/types.ts';
 
 import type { SbbSeatReservationElement } from './seat-reservation.component.ts';
+
+import '../../seat-reservation.ts';
 
 describe('sbb-seat-reservation', () => {
   let root: SbbSeatReservationElement;
@@ -31,7 +33,7 @@ describe('sbb-seat-reservation', () => {
   // Standard visual diff states to be tested;
   // own states array because the visual-regression-snapshot.ts constant "visualDiffStandardStates"
   // includes more than we need
-  const visualDiffStandardStates = [visualDiffDefault, visualDiffFocus] as const;
+  const seatReservationVisualStates = [visualDiffDefault, visualDiffFocus] as const;
 
   describeViewports({ viewports: ['small', 'large', 'ultra'] }, () => {
     describeEach(
@@ -53,7 +55,7 @@ describe('sbb-seat-reservation', () => {
           );
         });
 
-        for (const state of visualDiffStandardStates) {
+        for (const state of seatReservationVisualStates) {
           it(
             `Train ${state.name}`,
             state.with((setup) => {
@@ -83,7 +85,7 @@ describe('sbb-seat-reservation', () => {
           );
         });
 
-        for (const state of visualDiffStandardStates) {
+        for (const state of seatReservationVisualStates) {
           it(
             `Bus ${state.name}`,
             state.with((setup) => {

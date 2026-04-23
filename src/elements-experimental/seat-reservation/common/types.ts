@@ -1,13 +1,13 @@
 /** SeatReservation defines all information about a vehicle and the wagons it contains */
-export type SeatReservation = {
+export interface SeatReservation {
   vehicleType: VehicleType;
   deckCoachIndex: number;
   deckCoachLevel: CoachDeckLevel;
   coachItems: CoachItem[];
-};
+}
 
 /** Describes a coach (wagon) in the reservation. */
-export type CoachItem = {
+export interface CoachItem {
   // id - Compartment number, max. 3 digits; CH-wide usually 2 digits
   id: string;
   number: string;
@@ -18,10 +18,10 @@ export type CoachItem = {
   serviceElements?: BaseElement[];
   travelClass: PlaceTravelClass[];
   propertyIds?: string[];
-};
+}
 
-/** Describes a coach (wagon) in the navigation. */
-export type NavigationCoachItem = {
+/** Describes a coach (wagon) details */
+export interface CoachItemDetails {
   // id - Compartment number, max. 3 digits; CH-wide usually 2 digits
   id: string;
   // prioritized travel class to be displayed in the navigation
@@ -34,7 +34,12 @@ export type NavigationCoachItem = {
   isDriverArea: boolean;
   // holds information about whether a coach on the left or right side has a driver area
   driverAreaSide?: Record<string, boolean>;
-};
+  // driverAreaElements which can be used throughout the seat-reservation because they won't change
+  driverAreaElements: {
+    driverArea: BaseElement | undefined;
+    driverAreaNoVerticalWall: BaseElement | undefined;
+  };
+}
 
 /** Extends BaseElement with seat-specific data. */
 export interface Place extends BaseElement {
@@ -46,41 +51,41 @@ export interface Place extends BaseElement {
 }
 
 /** Base properties for any renderable element within a coach. */
-export type BaseElement = {
+export interface BaseElement {
   icon?: string | null;
   rotation?: number;
   position: ElementPosition;
   dimension: ElementDimension;
-};
+}
 
-export type ElementDimension = {
+export interface ElementDimension {
   w: number;
   h: number;
-};
+}
 
-export type ElementPosition = {
+export interface ElementPosition {
   x: number;
   y: number;
   z: number;
-};
+}
 
 /** Info about */
-export type CoachNumberOfFreePlaces = {
+export interface CoachNumberOfFreePlaces {
   seats: number;
   bicycles: number;
-};
+}
 
 /** Selection info for a single place. */
-export type PlaceSelection = {
+export interface PlaceSelection {
   id: string;
   number: string;
   deckIndex: number;
   coachIndex: number;
   state: PlaceState;
   placeType: PlaceType;
-};
+}
 
-export type SeatReservationPlaceSelection = {
+export interface SeatReservationPlaceSelection {
   id: string;
   coachId: string;
   coachNumber: string;
@@ -90,9 +95,9 @@ export type SeatReservationPlaceSelection = {
   placeType: PlaceType;
   placeTravelClass: PlaceTravelClass;
   propertyIds: string[];
-};
+}
 
-export type SeatReservationSelectedCoach = {
+export interface SeatReservationSelectedCoach {
   coachId: string;
   coachNumber: string;
   coachIndex: number;
@@ -100,16 +105,22 @@ export type SeatReservationSelectedCoach = {
   coachTravelClass: PlaceTravelClass[];
   coachPropertyIds?: string[];
   coachNumberOfFreePlaces?: CoachNumberOfFreePlaces;
-};
+}
 
-export type SeatReservationSelectedPlaces = {
+export interface SeatReservationSelectedPlaces {
   seats: SeatReservationPlaceSelection[];
   bicycles: SeatReservationPlaceSelection[];
-};
+}
 
 export type PlaceType = 'SEAT' | 'BICYCLE';
 export type CoachDeckLevel = 'SINGLE_DECK' | 'LOWER_DECK' | 'MIDDLE_DECK' | 'UPPER_DECK';
-export type CoachType = 'RESTAURANT_COACH' | 'BICYCLE_COACH' | 'LUGGAGE_COACH' | 'TRAIN_HEAD';
+export type CoachType =
+  | 'RESTAURANT_COACH'
+  | 'BICYCLE_COACH'
+  | 'LUGGAGE_COACH'
+  | 'TRAIN_HEAD'
+  | 'LOCOMOTIVE_COACH';
 export type PlaceState = 'FREE' | 'ALLOCATED' | 'RESTRICTED' | 'SELECTED';
 export type PlaceTravelClass = 'FIRST' | 'SECOND' | 'ANY_CLASS';
 export type VehicleType = 'TRAIN' | 'BUS';
+export type TravelDirection = 'LEFT' | 'RIGHT' | 'NONE';

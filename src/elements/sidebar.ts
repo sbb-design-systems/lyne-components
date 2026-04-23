@@ -1,9 +1,16 @@
-/**
- * @entrypoint
- */
-export * from './sidebar/common.ts';
-export * from './sidebar/sidebar.ts';
-export * from './sidebar/sidebar-close-button.ts';
-export * from './sidebar/sidebar-container.ts';
-export * from './sidebar/sidebar-content.ts';
-export * from './sidebar/sidebar-title.ts';
+/** @entrypoint */
+import {
+  SbbSidebarCloseButtonElement,
+  SbbSidebarContainerElement,
+  SbbSidebarContentElement,
+  SbbSidebarElement,
+  SbbSidebarTitleElement,
+} from './sidebar.pure.ts';
+
+export * from './sidebar.pure.ts';
+
+SbbSidebarElement.define();
+SbbSidebarCloseButtonElement.define();
+SbbSidebarContainerElement.define();
+SbbSidebarContentElement.define();
+SbbSidebarTitleElement.define();

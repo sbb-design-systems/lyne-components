@@ -14,9 +14,8 @@ import type {
 
 import { SbbCarouselListElement } from './carousel-list.component.ts';
 
-import '../carousel-item/carousel-item.component.ts';
-import '../carousel/carousel.component.ts';
-import '../../overlay/overlay.component.ts';
+import '../../carousel.ts';
+import '../../overlay.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 

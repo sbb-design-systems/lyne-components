@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbIconElement } from './icon.component.ts';
 
+import '../icon.ts';
+
 describe(`sbb-icon ssr`, () => {
   let root: SbbIconElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-icon name="app-icon-small"></sbb-icon>`, {
-      modules: ['./icon.component.js'],
+      modules: ['../icon.ts'],
     });
   });
 

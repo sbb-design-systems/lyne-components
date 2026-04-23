@@ -30,7 +30,7 @@ snapshots["sbb-button renders a sbb-button without icon Shadow DOM"] =
 
 snapshots["sbb-button renders a sbb-button with slotted icon DOM"] = 
 `<sbb-button
-  size="l"
+  size="m"
   tabindex="0"
 >
   <sbb-icon
@@ -59,7 +59,7 @@ snapshots["sbb-button renders a sbb-button in loading state DOM"] =
 `<sbb-button
   icon-name="arrow-right-small"
   loading=""
-  size="l"
+  size="m"
   style="--sbb-button-width: 136px;"
   tabindex="0"
 >

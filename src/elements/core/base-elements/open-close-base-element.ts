@@ -1,12 +1,11 @@
-import { LitElement } from 'lit';
+import type { SbbOpenedClosedState } from '../interfaces/types.ts';
 
-import type { SbbOpenedClosedState } from '../interfaces.ts';
-import { SbbElementInternalsMixin } from '../mixins.ts';
+import { SbbElement } from './element.ts';
 
 /**
  * Base class for overlay components.
  */
-export abstract class SbbOpenCloseBaseElement extends SbbElementInternalsMixin(LitElement) {
+export abstract class SbbOpenCloseBaseElement extends SbbElement {
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',

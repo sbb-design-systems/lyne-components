@@ -1,4 +1,4 @@
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { StyleInfo } from 'lit/directives/style-map.js';
@@ -8,21 +8,26 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import type { SbbErrorElement } from '../form-field.ts';
-import type { SbbRadioButtonGroupElement } from '../radio-button.ts';
-
-import '../button/mini-button.ts';
-import '../card.ts';
-import '../checkbox.ts';
-import '../divider.ts';
-import '../form-field/error.ts';
-import '../icon.ts';
-import '../link/block-link-button.ts';
-import '../popover.ts';
-import '../radio-button.ts';
-import '../title.ts';
+import type { SbbRadioButtonGroupElement } from '../radio-button-group.ts';
 
 import readme from './readme.md?raw';
 import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.ts';
+
+import '../button.ts';
+import '../card.ts';
+import '../checkbox.ts';
+import '../checkbox-group.ts';
+import '../checkbox-panel.ts';
+import '../divider.ts';
+import '../form-field.ts';
+import '../icon.ts';
+import '../link.ts';
+import '../popover.ts';
+import '../radio-button.ts';
+import '../radio-button-group.ts';
+import '../radio-button-panel.ts';
+import '../selection-expansion-panel.ts';
+import '../title.ts';
 
 const forceOpen: InputType = {
   control: {
@@ -795,7 +800,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-selection-expansion-panel',
+  title: 'elements/Selection Expansion Panel',
 };
 
 export default meta;

@@ -4,8 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 
 import type { SbbSkiplinkListElement } from './skiplink-list.component.ts';
-import './skiplink-list.component.ts';
-import '../link/block-link.ts';
+import '../skiplink-list.ts';
+import '../link.ts';
 
 describe(`sbb-skiplink-list`, () => {
   describe('renders', () => {

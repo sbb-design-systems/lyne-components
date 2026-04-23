@@ -12,7 +12,7 @@ import '../divider.ts';
 import '../link.ts';
 import '../link-list.ts';
 import '../title.ts';
-import './footer.component.ts';
+import '../footer.ts';
 
 const variant: InputType = {
   control: {
@@ -127,7 +127,6 @@ const TemplateClockColumns = ({ ...args }): TemplateResult => html`
       </sbb-link-list>
       <sbb-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        size="m"
       >
         All help topics
       </sbb-button-link>
@@ -180,7 +179,6 @@ const TemplateClockColumns = ({ ...args }): TemplateResult => html`
       </span>
       <sbb-secondary-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        size="m"
       >
         Subscribe
       </sbb-secondary-button-link>
@@ -283,7 +281,7 @@ const meta: Meta = {
     },
     layout: 'fullscreen',
   },
-  title: 'elements/sbb-footer',
+  title: 'elements/Footer',
 };
 
 export default meta;

@@ -4,12 +4,11 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import type { SbbCardElement } from '../card.ts';
+import type { SbbCardElement } from '../card/card.component.ts';
 
 import type { SbbCardLinkElement } from './card-link.component.ts';
 
-import '../card.ts';
-import './card-link.component.ts';
+import '../../card.ts';
 
 describe(`sbb-card-link`, () => {
   let element: SbbCardElement;

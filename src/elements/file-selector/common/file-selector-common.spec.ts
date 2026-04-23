@@ -4,12 +4,11 @@ import { html, unsafeStatic } from 'lit/static-html.js';
 import type { SbbSecondaryButtonElement } from '../../button.ts';
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import type { SbbFileSelectorDropzoneElement } from '../file-selector-dropzone.ts';
-import { SbbFileSelectorElement } from '../file-selector.ts';
+import { SbbFileSelectorElement } from '../file-selector/file-selector.component.ts';
+import type { SbbFileSelectorDropzoneElement } from '../file-selector-dropzone/file-selector-dropzone.component.ts';
 
-import '../file-selector-dropzone.ts';
-
-import '../../button/secondary-button.ts';
+import '../../file-selector.ts';
+import '../../button.ts';
 
 function createDataTransfer(
   numberOfFiles: number,

@@ -1,6 +1,7 @@
-/**
- * @entrypoint
- */
-export * from './file-selector/common.ts';
-export * from './file-selector/file-selector-dropzone.ts';
-export * from './file-selector/file-selector.ts';
+/** @entrypoint */
+import { SbbFileSelectorDropzoneElement, SbbFileSelectorElement } from './file-selector.pure.ts';
+
+export * from './file-selector.pure.ts';
+
+SbbFileSelectorElement.define();
+SbbFileSelectorDropzoneElement.define();

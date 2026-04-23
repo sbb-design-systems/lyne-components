@@ -5,11 +5,12 @@ import type { Context } from 'mocha';
 
 import type { SbbTransparentButtonElement } from '../../button.ts';
 import { fixture } from '../../core/testing/private.ts';
-import { waitForCondition, EventSpy, waitForLitRender } from '../../core/testing.ts';
-import { SbbAlertElement } from '../alert.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { SbbAlertElement } from '../alert/alert.component.ts';
 
 import { SbbAlertGroupElement } from './alert-group.component.ts';
 
+import '../../alert.ts';
 import '../../title.ts';
 
 describe(`sbb-alert-group`, () => {

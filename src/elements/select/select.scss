@@ -11,16 +11,18 @@
     --sbb-select-z-index,
     var(--sbb-overlay-default-z-index)
   );
-  --sbb-select-placeholder-fallback-color: light-dark(
-    var(--sbb-color-metal),
-    var(--sbb-color-smoke)
-  );
 
   display: block;
+  font-weight: normal;
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 :host([size='s']) {
   @include sbb.options-panel-overlay-size-s-variables;
+}
+
+:host([size='m']) {
+  @include sbb.options-panel-overlay-size-m-variables;
 }
 
 :host([negative]) {
@@ -76,18 +78,18 @@
 
   cursor: var(--sbb-cursor-default);
   height: calc(1em * var(--sbb-typo-line-height-text));
-}
 
-.sbb-select__trigger--placeholder {
-  color: var(--sbb-select-placeholder-color, var(--sbb-select-placeholder-fallback-color));
+  :host(:not(:state(has-display-value))) & {
+    color: var(--sbb-select-placeholder-color, var(--sbb-select-placeholder-fallback-color));
 
-  // Note: when the sbb-select is used within a sbb-form-field, some style are applied from it
-  // (see selector `.sbb-form-field__input ::slotted(:where(input, select, sbb-select))` in the sbb-form-field.scss);
-  // so, next line is mandatory because we need to override the rule from the parent.
-  -webkit-text-fill-color: var(
-    --sbb-select-placeholder-color,
-    var(--sbb-select-placeholder-fallback-color)
-  );
+    // Note: when the sbb-select is used within a sbb-form-field, some style are applied from it
+    // (see selector `.sbb-form-field__input ::slotted(:where(input, select, sbb-select))` in the sbb-form-field.scss);
+    // so, next line is mandatory because we need to override the rule from the parent.
+    -webkit-text-fill-color: var(
+      --sbb-select-placeholder-color,
+      var(--sbb-select-placeholder-fallback-color)
+    );
+  }
 }
 
 .sbb-select__container {

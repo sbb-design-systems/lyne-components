@@ -1,5 +1,5 @@
-The `sbb-footer` component is used to display page related information like copyright, contact or other
-content related links; for these, the [sbb-link-list](/docs/elements-sbb-link-list--docs) component can be used.
+The `<sbb-footer>` component is used to display page related information like copyright, contact or other
+content related links; for these, the [sbb-link-list](/docs/elements-link-list--docs) component can be used.
 
 ## Variants
 
@@ -8,7 +8,7 @@ block element approach and the `variant='clock-columns'`, which uses a CSS-grid 
 breakpoints.
 
 **Note:**
-Content, like `sbb-link-list` that could come along with a button, needs to be wrapped with a `<div>` element with a helper
+Content, like `<sbb-link-list>` that could come along with a button, needs to be wrapped with a `<div>` element with a helper
 class (`class="sbb-link-list-button-group"`) to be displayed correctly.
 
 ```html
@@ -33,7 +33,7 @@ class (`class="sbb-link-list-button-group"`) to be displayed correctly.
       <sbb-block-link href="#">Praise</sbb-block-link>
       <sbb-block-link href="#">Report property damage</sbb-block-link>
     </sbb-link-list>
-    <sbb-button-link>All help topics</sbb-button-link>
+    <sbb-button-link size="l">All help topics</sbb-button-link>
   </div>
   <sbb-link-list title-level="2" title-content="More SBB.">
     <sbb-block-link href="#">Jobs & careers</sbb-block-link>
@@ -57,7 +57,7 @@ class (`class="sbb-link-list-button-group"`) to be displayed correctly.
 ## Style
 
 It's possible to display the footer in `negative` variant; please also apply the negative attribute
-to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`).
+to the content where needed (e.g. `<sbb-link-list>`, `<sbb-link>` and `<sbb-divider>`).
 
 ```html
 <sbb-footer negative accessibility-title="Footer">
@@ -73,7 +73,11 @@ to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`)
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbFooterElement`, `sbb-footer`
+
+#### Properties
 
 | Name                      | Attribute                   | Privacy | Type                           | Default     | Description                                                                                                                                                                                    |
 | ------------------------- | --------------------------- | ------- | ------------------------------ | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -83,7 +87,7 @@ to the content where needed (e.g. `sbb-link-list`, `sbb-link` and `sbb-divider`)
 | `negative`                | `negative`                  | public  | `boolean`                      | `false`     | Negative coloring variant flag.                                                                                                                                                                |
 | `variant`                 | `variant`                   | public  | `'default' \| 'clock-columns'` | `'default'` | Variants to display the footer. The default, displays the content in regular block element approach. The clock-columns, used a CSS-grid for displaying the content over different breakpoints. |
 
-## Slots
+#### Slots
 
 | Name | Description                                                                                           |
 | ---- | ----------------------------------------------------------------------------------------------------- |

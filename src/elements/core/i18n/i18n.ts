@@ -1,4 +1,4 @@
-import type { SbbLanguage, SbbOccupancy } from '../interfaces.ts';
+import type { SbbLanguage, SbbOccupancy } from '../interfaces/types.ts';
 
 export const i18nDirection: Record<string, string> = {
   de: 'Richtung',
@@ -882,4 +882,11 @@ export const i18nSlide: Record<string, string> = {
   en: 'Slide',
   fr: 'Diapositive',
   it: 'Slide',
+};
+
+export const i18nRemainingCharacters: Record<string, string> = {
+  de: 'Zeichen übrig',
+  en: 'characters remaining',
+  fr: 'caractères restants',
+  it: 'caratteri rimanenti',
 };

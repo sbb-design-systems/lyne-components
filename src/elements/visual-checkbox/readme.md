@@ -1,7 +1,7 @@
-The `sbb-visual-checkbox` is an 'internal-use-only' component used to display a non-interactive checkbox within an interactive component.
-It is used in the [sbb-checkbox](/docs/elements-sbb-checkbox-sbb-checkbox--docs) component,
-and in the [sbb-option](/docs/elements-sbb-option-sbb-option--docs) component
-when it's used within a multiple [sbb-select](/docs/elements-sbb-select--docs).
+The `<sbb-visual-checkbox>` is an 'internal-use-only' component used to display a non-interactive checkbox within an interactive component.
+It is used in the [sbb-checkbox](/docs/elements-checkbox--docs) component,
+and in the [sbb-option](/docs/elements-option--docs) component
+when it's used within a multiple [sbb-select](/docs/elements-select--docs).
 
 ## States
 
@@ -24,7 +24,11 @@ The component has three `size`, named `xs`, `s` and `m` (default).
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbVisualCheckboxElement`, `sbb-visual-checkbox`
+
+#### Properties
 
 | Name            | Attribute       | Privacy | Type              | Default             | Description                              |
 | --------------- | --------------- | ------- | ----------------- | ------------------- | ---------------------------------------- |

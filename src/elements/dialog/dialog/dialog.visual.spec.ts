@@ -4,14 +4,10 @@ import { describeEach, describeViewports, visualDiffDefault } from '../../core/t
 
 import type { SbbDialogElement } from './dialog.component.ts';
 
-import './dialog.component.ts';
-import '../dialog-actions.ts';
-import '../dialog-close-button.ts';
-import '../dialog-content.ts';
-import '../dialog-title.ts';
-import '../../link/block-link.ts';
-import '../../button/button.ts';
-import '../../button/secondary-button.ts';
+import '../../dialog.ts';
+
+import '../../link.ts';
+import '../../button.ts';
 
 describe(`sbb-dialog`, () => {
   const negativeCases = [false, true];
@@ -40,8 +36,8 @@ describe(`sbb-dialog`, () => {
     </sbb-dialog-content>
   `;
 
-  const dialogFooter = (negative = false): TemplateResult => html`
-    <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="large">
+  const dialogFooter = (negative = false, alignGroup = 'stretch'): TemplateResult => html`
+    <sbb-dialog-actions align-group=${alignGroup} orientation="vertical" horizontal-from="large">
       <sbb-block-link
         align-self="start"
         icon-name="chevron-small-left-small"
@@ -166,6 +162,21 @@ describe(`sbb-dialog`, () => {
         await setup.withFixture(
           html`<sbb-dialog>${dialogTitle()} ${dialogContent()} ${dialogFooter()} </sbb-dialog>`,
           { forcedColors: true },
+        );
+
+        const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;
+        setup.withSnapshotElement(dialog);
+        setup.withPostSetupAction(() => dialog.open());
+      }),
+    );
+
+    it(
+      `with align-group=end on sbb-dialog-actions`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-dialog
+            >${dialogTitle()} ${dialogContent()} ${dialogFooter(false, 'end')}
+          </sbb-dialog>`,
         );
 
         const dialog = setup.snapshotElement.querySelector<SbbDialogElement>('sbb-dialog')!;

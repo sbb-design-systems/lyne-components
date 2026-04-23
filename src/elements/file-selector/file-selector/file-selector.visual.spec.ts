@@ -10,8 +10,8 @@ import {
 
 import type { SbbFileSelectorElement } from './file-selector.component.ts';
 
-import '../../form-field/error.ts';
-import './file-selector.component.ts';
+import '../../form-field.ts';
+import '../../file-selector.ts';
 
 describe(`sbb-file-selector`, () => {
   function addFilesToComponentInput(elem: SbbFileSelectorElement): void {
@@ -49,10 +49,11 @@ describe(`sbb-file-selector`, () => {
       beforeEach(async function () {
         root = await visualRegressionFixture(
           html`
-            <sbb-file-selector id="fs" multiple ?disabled=${state.disabled}></sbb-file-selector>
-            ${state.error
-              ? html`<sbb-error slot="error">There has been an error.</sbb-error>`
-              : nothing}
+            <sbb-file-selector id="fs" multiple ?disabled=${state.disabled}>
+              ${state.error
+                ? html`<sbb-error slot="error">There has been an error.</sbb-error>`
+                : nothing}
+            </sbb-file-selector>
           `,
           { forcedColors: forcedColors, darkMode },
         );

@@ -2,38 +2,37 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  LitElement,
   nothing,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
-import type { SbbAutocompleteBaseElement } from '../../autocomplete.ts';
-import type { SbbChipGroupElement } from '../../chip.ts';
-import { sbbInputModalityDetector } from '../../core/a11y.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
-import { i18nOptional } from '../../core/i18n.ts';
+import type { SbbAutocompleteBaseElement } from '../../autocomplete.pure.ts';
+import type { SbbChipGroupElement } from '../../chip.pure.ts';
 import {
   appendAriaElements,
+  boxSizingStyles,
+  forceType,
+  i18nOptional,
+  isLean,
   removeAriaElements,
-  SbbElementInternalsMixin,
+  SbbElement,
+  type SbbElementType,
   type SbbFormAssociatedInputMixinType,
-  SbbHydrationMixin,
+  sbbInputModalityDetector,
+  SbbLanguageController,
   SbbNegativeMixin,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbSelectElement } from '../../select.ts';
+} from '../../core.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
+import type { SbbSelectElement } from '../../select.pure.ts';
 
-import style from './form-field.scss?lit&inline';
-
-import '../../icon.ts';
+import style from './form-field.scss?inline';
 
 let nextId = 0;
 
-const patchedInputs = new WeakMap<HTMLInputElement, PropertyDescriptor>();
+const patchedInputs = new WeakMap<HTMLInputElement | HTMLTextAreaElement, PropertyDescriptor>();
 const nativeInputElements = ['input', 'textarea', 'select'];
 
 /** An interface which allows a control to work inside a `SbbFormField`. */
@@ -46,6 +45,11 @@ export interface SbbFormFieldElementControl {
   readonly readOnly?: boolean;
   /** Whether the control is disabled. */
   readonly disabled: boolean;
+  /**
+   * The type of the control. This is used as a state representation.
+   * When using 'select', the form field will display the dropdown icon.
+   */
+  readonly type?: 'select' | string;
 
   /**
    * Handles a click on the control's container.
@@ -75,16 +79,15 @@ export class SbbFormFieldControlEvent extends Event {
  * @slot prefix - Use this slot to render an icon on the left side of the input.
  * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @slot error - Use this slot to render an error.
+ * @slot hint - Use this slot to render an `<sbb-hint>` or an `<sbb-form-field-text-counter>` element.
  *
  * @cssprop [--sbb-form-field-outline-offset] - To override the focus outline offset,
  * @cssprop [--sbb-form-field-focus-underline-z-index] - To override the z-index of the focus underline effect,
  */
-export
-@customElement('sbb-form-field')
-class SbbFormFieldElement extends SbbNegativeMixin(
-  SbbElementInternalsMixin(SbbHydrationMixin(LitElement)),
-) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbFormFieldElement extends SbbNegativeMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-form-field';
+  public static override elementDependencies: SbbElementType[] = [SbbIconElement];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   // List of elements that should not focus input on click
   private readonly _excludedFocusElements = ['button', 'sbb-popover', 'sbb-option', 'sbb-chip'];
@@ -107,14 +110,17 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   ];
 
   /**
-   * Whether to reserve space for an error message.
+   * Whether to reserve space for an error message, hint or text-counter.
    * `none` does not reserve any space.
    * `reserve` does reserve one row for an error message.
    */
   @property({ attribute: 'error-space', reflect: true })
   public accessor errorSpace: 'none' | 'reserve' = 'none';
 
-  /** Indicates whether the input is optional. */
+  /**
+   * Indicates whether the input is optional.
+   * @deprecated Set the (optional) label text manually. Will be removed with next major version.
+   */
   @forceType()
   @property({ type: Boolean })
   public accessor optional: boolean = false;
@@ -148,6 +154,9 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   /** It is used internally to get the `error` slot. */
   @state() private accessor _errorElements: Element[] = [];
 
+  /** It is used internally to get the `hint` slot. */
+  @state() private accessor _hintElements: Element[] = [];
+
   /** Reference to the slotted input element. */
   @state() private accessor _input: HTMLInputElement | HTMLSelectElement | HTMLElement | null =
     null;
@@ -176,12 +185,16 @@ class SbbFormFieldElement extends SbbNegativeMixin(
           this._readInputState();
           this._registerInputFormListener();
           this._checkAndUpdateInputEmpty();
+          // Used to notify the remaining chars component.
+          /** @internal */
+          this.dispatchEvent(new Event('ɵinputattributechange'));
         }
       })
     : null;
 
   private _inputFormAbortController = new AbortController();
   private _control: SbbFormFieldElementControl | null = null;
+  private _previousType: string | null = null;
 
   public constructor() {
     super();
@@ -227,7 +240,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     this.addEventListener('formfieldcontrol', (e: SbbFormFieldControlEvent) => {
       this._control = e.control;
       if (this._connectInputElement() === 'unchanged') {
-        this._assignErrorMessageElements();
+        this._assignAriaDescribedByElements();
         this._readInputState();
         this._checkAndUpdateInputEmpty();
       }
@@ -257,7 +270,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     super.disconnectedCallback();
     this._formFieldAttributeObserver?.disconnect();
     this._inputFormAbortController.abort();
-    if (this._input?.localName === 'input') {
+    if (this._input?.localName === 'input' || this._input?.localName === 'textarea') {
       this._unpatchInputValue();
     }
   }
@@ -332,7 +345,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
       return 'unchanged';
     } else if (this._input) {
       this.internals.states.delete(`input-type-${this._input.localName}`);
-      if (this._input.localName === 'input') {
+      if (this._input.localName === 'input' || this._input.localName === 'textarea') {
         this._unpatchInputValue();
       }
     }
@@ -344,12 +357,13 @@ class SbbFormFieldElement extends SbbNegativeMixin(
 
     this._input = newInput;
     this._registerInputFormListener();
-    this._assignErrorMessageElements();
+    this._assignAriaDescribedByElements();
     this._readInputState();
     this._checkAndUpdateInputEmpty();
 
     if (this._input.localName === 'textarea') {
       this._input.setAttribute('rows', this._input.getAttribute('rows') || '3');
+      this._patchInputValue();
     } else if (this._input.localName === 'input') {
       this._patchInputValue();
     } else if (
@@ -364,8 +378,10 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     this._formFieldAttributeObserver?.disconnect();
     this._formFieldAttributeObserver?.observe(this._input, {
       attributes: true,
-      attributeFilter: ['readonly', 'disabled', 'form', 'class', 'data-expanded'],
+      attributeFilter: ['readonly', 'disabled', 'form', 'class', 'data-expanded', 'maxlength'],
     });
+    // TODO(breaking-change): Rename input-type to input-element and explicit-input-type to input-type.
+    // Also adapt documentation.
     this.internals.states.add(`input-type-${this._input.localName}`);
     this._syncLabelInputReferences();
     return 'changed';
@@ -378,7 +394,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
 
     if (
       nativeInputElements.includes(this._input.localName) ||
-      (customElements.get(this._input.localName) as { formAssociated: boolean } | undefined)
+      (customElements.get(this._input.localName) as { formAssociated?: boolean } | undefined)
         ?.formAssociated
     ) {
       // For native input elements we use the `for` attribute on the label to reference the input
@@ -403,7 +419,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   private _isInputElement(input: Element): boolean {
     return (
       nativeInputElements.includes(input.localName) ||
-      !!(customElements.get(input.localName) as { formAssociated: boolean } | undefined)
+      !!(customElements.get(input.localName) as { formAssociated?: boolean } | undefined)
         ?.formAssociated
     );
   }
@@ -412,6 +428,13 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     this.toggleState('readonly', this._control?.readOnly ?? this._input!.hasAttribute('readonly'));
     this.toggleState('disabled', this._control?.disabled ?? this._input!.hasAttribute('disabled'));
     this.toggleState('has-popup-open', this._input!.hasAttribute('data-expanded'));
+
+    if (this._previousType) {
+      this.internals.states.delete(`explicit-input-type-${this._previousType}`);
+    }
+
+    this._previousType = this._control?.type ?? (this._input as { type?: string }).type ?? 'text';
+    this.internals.states.add(`explicit-input-type-${this._previousType}`);
   }
 
   private _registerInputFormListener(): void {
@@ -429,7 +452,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
   // We need to patch the value property of the HTMLInputElement in order
   // to be able to reset the floating label in the empty state.
   private _patchInputValue(): void {
-    const inputElement = this._input as HTMLInputElement;
+    const inputElement = this._input as HTMLInputElement | HTMLTextAreaElement;
     if (!inputElement || patchedInputs.has(inputElement)) {
       return;
     }
@@ -446,7 +469,16 @@ class SbbFormFieldElement extends SbbNegativeMixin(
     patchedInputs.set(inputElement, originalDescriptor);
 
     const { get: getter, set: setter } = originalDescriptor;
-    const checkAndUpdateInputEmpty = (): void => this._checkAndUpdateInputEmpty();
+    const checkAndUpdateInputEmpty = (): void => {
+      this._checkAndUpdateInputEmpty();
+
+      // Used to notify the remaining chars component to update its count
+      // when the value is changed via form reset or programmatically.
+      // We need a custom event for this, because the native input event is
+      // not triggered in these cases.
+      /** @internal */
+      this.dispatchEvent(new Event('ɵinput'));
+    };
 
     Object.defineProperty(inputElement, 'value', {
       ...originalDescriptor,
@@ -518,6 +550,8 @@ class SbbFormFieldElement extends SbbNegativeMixin(
       this._input.ariaDescribedByElements = removeAriaElements(
         this._input.ariaDescribedByElements,
         ...(this._errorElements ?? []),
+        // Also remove hint elements since their visibility depends on error state
+        ...(this._hintElements ?? []),
       );
     }
 
@@ -528,16 +562,36 @@ class SbbFormFieldElement extends SbbNegativeMixin(
       el.role ||= 'status';
     }
 
-    this._assignErrorMessageElements();
+    this._assignAriaDescribedByElements();
     this.toggleState('has-error', !!this._errorElements.length);
     this._syncNegative();
   }
 
-  private _assignErrorMessageElements(): void {
+  /**
+   * It is used internally to set the aria-describedby attribute for the slotted input referencing available <sbb-hint> instances.
+   */
+  private _onSlotHintChange(event: Event): void {
+    const hintElements = (event.target as HTMLSlotElement).assignedElements();
+    if (this._input?.ariaDescribedByElements?.length && this._hintElements?.length) {
+      this._input.ariaDescribedByElements = removeAriaElements(
+        this._input.ariaDescribedByElements,
+        ...this._hintElements,
+      );
+    }
+
+    this._hintElements = hintElements;
+    this._assignAriaDescribedByElements();
+    this.toggleState('has-hint', !!this._hintElements.length);
+    this._syncNegative();
+  }
+
+  private _assignAriaDescribedByElements(): void {
     if (this._input) {
+      // Hint elements are only linked when there are no errors
+      const elements = this._errorElements.length ? this._errorElements : this._hintElements;
       this._input.ariaDescribedByElements = appendAriaElements(
         this._input.ariaDescribedByElements,
-        ...this._errorElements,
+        ...elements,
       );
     }
   }
@@ -558,7 +612,7 @@ class SbbFormFieldElement extends SbbNegativeMixin(
 
   private _syncNegative(): void {
     this.querySelectorAll?.(
-      'sbb-error,sbb-mini-button,sbb-mini-button-link,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group',
+      'sbb-error,sbb-mini-button,sbb-mini-button-link,sbb-form-field-clear,sbb-datepicker-next-day,sbb-datepicker-previous-day,sbb-datepicker-toggle,sbb-select,sbb-autocomplete,sbb-autocomplete-grid,sbb-chip-group,sbb-hint,sbb-form-field-text-counter',
     ).forEach((element) => element.toggleAttribute('negative', this.negative));
   }
 
@@ -587,17 +641,16 @@ class SbbFormFieldElement extends SbbNegativeMixin(
             <div class="sbb-form-field__input">
               <slot @slotchange=${this._onSlotInputChange}></slot>
             </div>
-            ${this.hasUpdated && ['select', 'sbb-select'].includes(this._input?.localName as string)
-              ? html`<sbb-icon
-                  name="chevron-small-down-small"
-                  class="sbb-form-field__select-input-icon"
-                ></sbb-icon>`
-              : nothing}
+            <sbb-icon
+              name="chevron-small-down-small"
+              class="sbb-form-field__select-input-icon"
+            ></sbb-icon>
           </div>
           <slot name="suffix" @slotchange=${this._syncNegative}></slot>
         </div>
 
-        <div class="sbb-form-field__error">
+        <div class="sbb-form-field__hint">
+          <slot name="hint" @slotchange=${this._onSlotHintChange}></slot>
           <slot name="error" @slotchange=${this._onSlotErrorChange}></slot>
         </div>
       </div>

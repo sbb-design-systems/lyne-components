@@ -1,4 +1,4 @@
-import type { ITripItem } from '../core/timetable.ts';
+import type { ITripItem } from '../core.ts';
 import {
   accessLeg,
   cancelledLeg,

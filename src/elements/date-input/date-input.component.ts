@@ -1,19 +1,22 @@
-import { type CSSResultGroup, isServer, LitElement, type PropertyDeclaration } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, isServer, type PropertyDeclaration, unsafeCSS } from 'lit';
+import { property } from 'lit/decorators.js';
 
-import { readConfig } from '../core/config.ts';
-import { type DateAdapter, defaultDateAdapter } from '../core/datetime.ts';
-import { plainDate, plainDateConverter } from '../core/decorators.ts';
 import {
+  type DateAdapter,
+  defaultDateAdapter,
   i18nDateInvalid,
   i18nDateMax,
   i18nDateMin,
   i18nDatePickerPlaceholder,
-} from '../core/i18n.ts';
-import { SbbFormAssociatedInputMixin } from '../core/mixins.ts';
-import type { SbbDatepickerElement } from '../datepicker.ts';
+  plainDate,
+  plainDateConverter,
+  readConfig,
+  SbbElement,
+  SbbFormAssociatedInputMixin,
+} from '../core.ts';
+import type { SbbDatepickerElement } from '../datepicker.pure.ts';
 
-import style from './date-input.scss?lit&inline';
+import style from './date-input.scss?inline';
 
 // As documented in form-associated-mixin.ts, we extend the prototype of
 // ValidityState with custom error states for the date input.
@@ -34,10 +37,9 @@ export interface SbbDateInputAssociated<T> {
 /**
  * Custom input for a date.
  */
-export
-@customElement('sbb-date-input')
-class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+export class SbbDateInputElement<T = Date> extends SbbFormAssociatedInputMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-date-input';
+  public static override styles: CSSResultGroup = unsafeCSS(style);
 
   /**
    * The value of the date input. Reflects the current text value

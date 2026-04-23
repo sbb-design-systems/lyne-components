@@ -5,10 +5,34 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import { defaultDateAdapter } from '../core/datetime.ts';
+import { SbbCalendarElement, type SbbMonthChangeEvent } from '../calendar.ts';
+import { defaultDateAdapter } from '../core.ts';
 
-import { SbbCalendarElement } from './calendar.component.ts';
+import {
+  createPrice,
+  createSlottedDays,
+  monthChangeHandler,
+} from './calendar-day/calendar-day.helper.private.ts';
 import readme from './readme.md?raw';
+
+const today = new Date();
+today.setDate(today.getDate() >= 15 ? 8 : 18);
+
+const createDays = (wide: boolean, withPrice: boolean): TemplateResult => {
+  const year = defaultDateAdapter.getYear(today);
+  const month = defaultDateAdapter.getMonth(today);
+  if (wide) {
+    const todayNextMonth = defaultDateAdapter.addCalendarMonths(today, 1);
+    const yearNextMonth = defaultDateAdapter.getYear(todayNextMonth);
+    const nextMonth = defaultDateAdapter.getMonth(todayNextMonth);
+    return html`
+      ${createSlottedDays(year, month, withPrice)}
+      ${createSlottedDays(yearNextMonth, nextMonth, withPrice)}
+    `;
+  } else {
+    return createSlottedDays(year, month, withPrice);
+  }
+};
 
 const getCalendarAttr = (min: number | string, max: number | string): Record<string, string> => {
   const attr: Record<string, string> = {};
@@ -21,21 +45,26 @@ const getCalendarAttr = (min: number | string, max: number | string): Record<str
   return attr;
 };
 
+const setSelectedForTemplate = (multiple: boolean, selected: Date | Date[]): Date | Date[] => {
+  if (multiple) {
+    if (!Array.isArray(selected)) {
+      selected = [new Date(selected)];
+    } else {
+      selected = selected.map((e) => new Date(e));
+    }
+  } else {
+    if (Array.isArray(selected)) {
+      selected = new Date(selected[0]);
+    } else {
+      selected = new Date(selected);
+    }
+  }
+  return selected;
+};
+
 const Template = ({ min, max, multiple, selected, dateFilter, ...args }: Args): TemplateResult => {
   if (selected) {
-    if (multiple) {
-      if (!Array.isArray(selected)) {
-        selected = [new Date(selected)];
-      } else {
-        selected = selected.map((e) => new Date(e));
-      }
-    } else {
-      if (Array.isArray(selected)) {
-        selected = new Date(selected[0]);
-      } else {
-        selected = new Date(selected);
-      }
-    }
+    selected = setSelectedForTemplate(multiple, selected);
   }
   return html`
     <sbb-calendar
@@ -45,6 +74,68 @@ const Template = ({ min, max, multiple, selected, dateFilter, ...args }: Args): 
       ${sbbSpread(getCalendarAttr(min, max))}
       ${sbbSpread(args)}
     ></sbb-calendar>
+  `;
+};
+
+const EnhancedTemplate = ({
+  min,
+  max,
+  multiple,
+  selected,
+  dateFilter,
+  withPrice,
+  ...args
+}: Args): TemplateResult => {
+  if (selected) {
+    selected = setSelectedForTemplate(multiple, selected);
+  }
+  return html`
+    <sbb-calendar
+      ?multiple=${multiple}
+      .selected=${selected}
+      .dateFilter="${dateFilter}"
+      ${sbbSpread(getCalendarAttr(min, max))}
+      ${sbbSpread(args)}
+      @monthchange=${(e: SbbMonthChangeEvent) => monthChangeHandler(e, withPrice)}
+      >${createDays(args.wide, withPrice)}</sbb-calendar
+    >
+  `;
+};
+
+const MixedTemplate = ({
+  min,
+  max,
+  multiple,
+  selected,
+  dateFilter,
+  withPrice,
+  ...args
+}: Args): TemplateResult => {
+  if (selected) {
+    selected = setSelectedForTemplate(multiple, selected);
+  }
+  return html`
+    <sbb-calendar
+      ?multiple=${multiple}
+      .selected=${selected}
+      .dateFilter="${dateFilter}"
+      ${sbbSpread(getCalendarAttr(min, max))}
+      ${sbbSpread(args)}
+    >
+      <sbb-calendar-day slot=${defaultDateAdapter.toIso8601(today)}>
+        ${createPrice(withPrice)}
+      </sbb-calendar-day>
+      <sbb-calendar-day
+        slot=${defaultDateAdapter.toIso8601(defaultDateAdapter.addCalendarDays(today, -5))}
+      >
+        ${createPrice(withPrice)}
+      </sbb-calendar-day>
+      <sbb-calendar-day
+        slot=${defaultDateAdapter.toIso8601(defaultDateAdapter.addCalendarDays(today, 10))}
+      >
+        ${createPrice(withPrice)}
+      </sbb-calendar-day>
+    </sbb-calendar>
   `;
 };
 
@@ -144,6 +235,13 @@ const dateFilter: InputType = {
   },
 };
 
+const withPrice: InputType = {
+  control: 'boolean',
+  table: {
+    category: 'Enhanced',
+  },
+};
+
 const defaultArgTypes: ArgTypes = {
   wide,
   'week-numbers': weekNumbers,
@@ -154,10 +252,8 @@ const defaultArgTypes: ArgTypes = {
   max,
   dateFilter,
   view,
+  withPrice,
 };
-
-const today = new Date();
-today.setDate(today.getDate() >= 15 ? 8 : 18);
 
 const defaultArgs: Args = {
   wide: false,
@@ -166,6 +262,12 @@ const defaultArgs: Args = {
   view: view.options![0],
   'week-numbers': false,
   multiple: false,
+  withPrice: false,
+};
+
+const defaultArgsEnhanced: Args = {
+  ...defaultArgs,
+  withPrice: true,
 };
 
 export const Calendar: StoryObj = {
@@ -278,17 +380,65 @@ export const CalendarVerticalWideWeekNumbersMultiple: StoryObj = {
   },
 };
 
+export const CalendarMixed: StoryObj = {
+  render: MixedTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs, withPrice: true },
+};
+
+export const CalendarEnhanced: StoryObj = {
+  render: EnhancedTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgsEnhanced },
+};
+
+export const CalendarEnhancedNoExtraContent: StoryObj = {
+  render: EnhancedTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgs },
+};
+
+export const CalendarEnhancedVertical: StoryObj = {
+  render: EnhancedTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgsEnhanced, orientation: orientation.options![1] },
+};
+
+export const CalendarEnhancedWide: StoryObj = {
+  render: EnhancedTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgsEnhanced, wide: true },
+};
+
+export const CalendarEnhancedWideWeekNumbers: StoryObj = {
+  render: EnhancedTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: { ...defaultArgsEnhanced, wide: true, 'week-numbers': true },
+};
+
+export const CalendarEnhancedWideWeekNumbersMultiple: StoryObj = {
+  render: EnhancedTemplate,
+  argTypes: { ...defaultArgTypes },
+  args: {
+    ...defaultArgsEnhanced,
+    wide: true,
+    'week-numbers': true,
+    multiple: true,
+    selected: [today],
+  },
+};
+
 const meta: Meta = {
   decorators: [withActions as Decorator],
   parameters: {
     actions: {
-      handles: [SbbCalendarElement.events.dateselected],
+      handles: [SbbCalendarElement.events.dateselected, SbbCalendarElement.events.monthchange],
     },
     docs: {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-calendar',
+  title: 'elements/Calendar',
 };
 
 export default meta;

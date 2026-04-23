@@ -7,7 +7,7 @@ import {
 } from '../common/button-test-utils.private.ts';
 
 import type { SbbSecondaryButtonElement } from './secondary-button.component.ts';
-import './secondary-button.component.ts';
+import '../../button.ts';
 
 describe(`sbb-secondary-button`, () => {
   let element: SbbSecondaryButtonElement;

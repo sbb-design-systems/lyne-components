@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbSidebarContainerElement } from './sidebar-container.component.ts';
-import './sidebar-container.component.ts';
+
+import '../../sidebar.ts';
 
 describe(`sbb-sidebar-container`, () => {
   describe('renders', () => {

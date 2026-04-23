@@ -1,4 +1,6 @@
-/**
- * @entrypoint
- */
-export * from './timetable-row/timetable-row.component.ts';
+/** @entrypoint */
+import { SbbTimetableRowElement } from './timetable-row.pure.ts';
+
+export * from './timetable-row.pure.ts';
+
+SbbTimetableRowElement.define();

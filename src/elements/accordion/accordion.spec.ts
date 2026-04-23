@@ -1,7 +1,6 @@
-import { assert, aTimeout, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { fixture } from '../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../core/testing.ts';
 import {
   SbbExpansionPanelElement,
@@ -9,6 +8,9 @@ import {
 } from '../expansion-panel.ts';
 
 import { SbbAccordionElement } from './accordion.component.ts';
+
+import '../accordion.ts';
+import '../expansion-panel.ts';
 
 describe(`sbb-accordion`, () => {
   let element: SbbAccordionElement;

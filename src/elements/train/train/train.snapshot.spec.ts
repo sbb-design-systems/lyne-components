@@ -5,7 +5,7 @@ import { fixture } from '../../core/testing/private.ts';
 
 import type { SbbTrainElement } from './train.component.ts';
 
-import './train.component.ts';
+import '../../train.ts';
 
 describe(`sbb-train`, () => {
   let element: SbbTrainElement;

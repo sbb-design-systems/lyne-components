@@ -5,13 +5,15 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbImageElement } from './image.component.ts';
 
+import '../image.ts';
+
 describe(`sbb-image ssr`, () => {
   let root: SbbImageElement;
   const url = import.meta.resolve('../core/testing/assets/lucerne.png');
 
   it('renders', async () => {
     root = await ssrHydratedFixture(html`<sbb-image image-src=${url}></sbb-image>`, {
-      modules: ['./image.component.js'],
+      modules: ['../image.ts'],
     });
     assert.instanceOf(root, SbbImageElement);
   });
@@ -24,7 +26,7 @@ describe(`sbb-image ssr`, () => {
   for (const { name, url } of urls) {
     it(`should work with ${name}`, async () => {
       root = await ssrHydratedFixture(html`<sbb-image image-src=${url}></sbb-image>`, {
-        modules: ['./image.component.js'],
+        modules: ['../image.ts'],
       });
       const sources = Array.from(root.shadowRoot!.querySelectorAll('source'));
       expect(sources.length).greaterThan(0);

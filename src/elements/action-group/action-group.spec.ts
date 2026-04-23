@@ -8,21 +8,24 @@ import type { SbbBlockLinkElement } from '../link.ts';
 
 import { SbbActionGroupElement } from './action-group.component.ts';
 
-import '../button/secondary-button.ts';
-import '../link/block-link.ts';
+import '../action-group.ts';
+import '../button.ts';
+import '../link.ts';
 
 describe(`sbb-action-group`, () => {
   let element: SbbActionGroupElement;
   let button: SbbSecondaryButtonElement;
+  let link: SbbBlockLinkElement;
 
   beforeEach(async () => {
     element = await fixture(html`
       <sbb-action-group align-group="start" orientation="horizontal">
-        <sbb-secondary-button>Button</sbb-secondary-button>
+        <sbb-secondary-button size="l">Button</sbb-secondary-button>
         <sbb-block-link
           icon-name="chevron-small-left-small"
           icon-placement="start"
           href="https://github.com/sbb-design-systems/lyne-components"
+          size="xs"
         >
           Link
         </sbb-block-link>
@@ -30,6 +33,7 @@ describe(`sbb-action-group`, () => {
     `);
 
     button = element.querySelector<SbbSecondaryButtonElement>('sbb-secondary-button')!;
+    link = element.querySelector<SbbBlockLinkElement>('sbb-block-link')!;
   });
 
   it('renders', async () => {
@@ -37,8 +41,9 @@ describe(`sbb-action-group`, () => {
   });
 
   describe('property sync', () => {
-    it('should sync default size with sbb-secondary-button', async () => {
+    it('should respect default sizes', async () => {
       expect(button.size).to.equal('l');
+      expect(link.size).to.equal('xs');
     });
 
     it('should update attributes with button-size="m"', async () => {
@@ -50,7 +55,6 @@ describe(`sbb-action-group`, () => {
     it('should update attributes with link-size="s"', async () => {
       element.setAttribute('link-size', 's');
       await waitForLitRender(element);
-      const link = element.querySelector<SbbBlockLinkElement>('sbb-block-link')!;
       expect(link.size).to.equal('s');
     });
   });

@@ -1,11 +1,11 @@
-import type { Meta, StoryObj, Args, StoryContext, ArgTypes } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
-import './timetable-occupancy.component.ts';
+import '../timetable-occupancy.ts';
 
 import readme from './readme.md?raw';
 
@@ -221,7 +221,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/timetable/sbb-timetable-occupancy',
+  title: 'elements/Timetable Occupancy',
 };
 
 export default meta;

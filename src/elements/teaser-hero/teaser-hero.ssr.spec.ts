@@ -4,10 +4,12 @@ import { html } from 'lit';
 import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbTeaserHeroElement } from './teaser-hero.component.ts';
+
 import '../chip-label.ts';
 import '../image.ts';
+import '../teaser-hero.ts';
 
-const imageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
+const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 
 describe(`sbb-teaser-hero ssr`, () => {
   let root: SbbTeaserHeroElement;
@@ -20,7 +22,7 @@ describe(`sbb-teaser-hero ssr`, () => {
           <sbb-chip-label class="sbb-figure-overlap-start-start">Label</sbb-chip-label>
         </figure>
       </sbb-teaser-hero>`,
-      { modules: ['./teaser-hero.component.js', '../image.js', '../chip-label.js'] },
+      { modules: ['../chip-label.ts', '../image.ts', '../teaser-hero.ts'] },
     );
   });
 

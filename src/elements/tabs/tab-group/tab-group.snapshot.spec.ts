@@ -4,9 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbTabGroupElement } from './tab-group.component.ts';
-import './tab-group.component.ts';
-import '../tab-label.ts';
-import '../tab.ts';
+
+import '../../tabs.ts';
 
 describe(`sbb-tab-group`, () => {
   let element: SbbTabGroupElement;

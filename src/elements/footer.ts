@@ -1,4 +1,6 @@
-/**
- * @entrypoint
- */
-export * from './footer/footer.component.ts';
+/** @entrypoint */
+import { SbbFooterElement } from './footer.pure.ts';
+
+export * from './footer.pure.ts';
+
+SbbFooterElement.define();

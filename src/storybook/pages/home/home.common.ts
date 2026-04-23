@@ -2,7 +2,7 @@ import type { Args } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
-import images from '../../../elements/core/images.ts';
+import { sampleImages } from '../../../elements/core/images.private.ts';
 
 import '../../../elements/button.ts';
 import '../../../elements/card.ts';
@@ -38,7 +38,7 @@ export const timetableInput = (): TemplateResult => html`
 
 export const navigation = (): TemplateResult => html`
   <sbb-navigation trigger="hamburger-menu">
-    <sbb-navigation-marker id="nav-marker">
+    <sbb-navigation-marker>
       <sbb-navigation-button aria-current="page" id="nav-1" class="sbb-active">
         Tickets & Offers
       </sbb-navigation-button>
@@ -95,7 +95,7 @@ export const navigation = (): TemplateResult => html`
         <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
-      <sbb-button size="m" class="navigation-button"> All Tickets & Offers </sbb-button>
+      <sbb-button class="navigation-button"> All Tickets & Offers </sbb-button>
     </sbb-navigation-section>
 
     <sbb-navigation-section title-content="Title two" trigger="nav-2">
@@ -149,7 +149,7 @@ export const navigation = (): TemplateResult => html`
         <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
-      <sbb-secondary-button size="m" icon-name="circle-information-small" class="navigation-button">
+      <sbb-secondary-button icon-name="circle-information-small" class="navigation-button">
         Travel Information
       </sbb-secondary-button>
     </sbb-navigation-section>
@@ -168,7 +168,7 @@ export const dailyTicketProduct = (): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Daily ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
+      <sbb-secondary-button-static> Buy </sbb-secondary-button-static>
     </span>
   </sbb-card>
 `;
@@ -185,7 +185,7 @@ export const bikeProduct = (): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Bike day pass </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
+      <sbb-secondary-button-static> Buy </sbb-secondary-button-static>
     </span>
   </sbb-card>
 `;
@@ -202,7 +202,7 @@ export const liberoProduct = (): TemplateResult => html`
         <sbb-title level="2" visual-level="6"> Libero short distance ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
-      <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
+      <sbb-secondary-button-static> Buy </sbb-secondary-button-static>
     </span>
   </sbb-card>
 `;
@@ -211,7 +211,7 @@ export const teaserHero = (): TemplateResult => html`
   <section class="sbb-page-spacing">
     <sbb-teaser-hero class="teaser-hero" link-content="Learn more" href="https://www.sbb.ch">
       Considerate with SBB Green Class.
-      <sbb-image slot="image" image-src="${images[0]}"></sbb-image>
+      <sbb-image slot="image" image-src="${sampleImages[0]}"></sbb-image>
     </sbb-teaser-hero>
   </section>
 `;
@@ -258,7 +258,6 @@ export const footer = (args: Args): TemplateResult => html`
       </sbb-link-list>
       <sbb-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        size="m"
       >
         All help topics
       </sbb-button-link>
@@ -306,7 +305,6 @@ export const footer = (args: Args): TemplateResult => html`
       </span>
       <sbb-secondary-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        size="m"
       >
         Subscribe
       </sbb-secondary-button-link>

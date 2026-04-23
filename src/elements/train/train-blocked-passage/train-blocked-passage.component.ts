@@ -1,18 +1,15 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
 
-import { boxSizingStyles } from '../../core/styles.ts';
+import { SbbElement, boxSizingStyles } from '../../core.ts';
 
-import style from './train-blocked-passage.scss?lit&inline';
+import style from './train-blocked-passage.scss?inline';
 
 /**
  * It visually displays a blocked passage between train wagons.
  */
-export
-@customElement('sbb-train-blocked-passage')
-class SbbTrainBlockedPassageElement extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbTrainBlockedPassageElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-train-blocked-passage';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`

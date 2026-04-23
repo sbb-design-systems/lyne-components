@@ -2,10 +2,11 @@ import { expect } from '@open-wc/testing';
 import { fixture } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit/static-html.js';
 
-import type { PtRideLeg } from '../core/timetable.ts';
+import type { PtRideLeg } from '../core.ts';
 
 import type { SbbPearlChainTimeElement } from './pearl-chain-time.component.ts';
-import './pearl-chain-time.component.ts';
+
+import '../pearl-chain-time.ts';
 
 const now = '2022-08-16T15:00:00Z';
 

@@ -16,6 +16,7 @@ snapshots["sbb-header-link renders DOM"] =
 
 snapshots["sbb-header-link renders Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   aria-label="a11y label"
   class="sbb-action-base sbb-header-link"
   href="https://github.com/sbb-design-systems/lyne-components"
@@ -34,10 +35,13 @@ snapshots["sbb-header-link renders Shadow DOM"] =
       </slot>
     </span>
   </span>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
 </a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-header-link renders Shadow DOM */
 

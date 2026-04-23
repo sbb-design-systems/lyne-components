@@ -7,6 +7,8 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
 import { SbbButtonLinkElement } from './button-link.component.ts';
 
+import '../../button.ts';
+
 describe(`sbb-button-link`, () => {
   let element: SbbButtonLinkElement;
 

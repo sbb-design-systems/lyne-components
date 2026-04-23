@@ -30,7 +30,7 @@ snapshots["sbb-accent-button renders a sbb-accent-button without icon Shadow DOM
 
 snapshots["sbb-accent-button renders a sbb-accent-button with slotted icon DOM"] = 
 `<sbb-accent-button
-  size="l"
+  size="m"
   tabindex="0"
 >
   <sbb-icon

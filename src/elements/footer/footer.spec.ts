@@ -5,6 +5,8 @@ import { fixture } from '../core/testing/private.ts';
 
 import { SbbFooterElement } from './footer.component.ts';
 
+import '../footer.ts';
+
 describe(`sbb-footer`, () => {
   let element: SbbFooterElement;
 

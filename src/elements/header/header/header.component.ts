@@ -2,20 +2,24 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  LitElement,
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
-import { SbbFocusVisibleWithinController } from '../../core/a11y.ts';
-import { forceType, idReference } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
-import { SbbElementInternalsMixin, SbbHydrationMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  idReference,
+  isLean,
+  queueDomContentLoaded,
+  SbbElement,
+  SbbFocusVisibleWithinController,
+} from '../../core.ts';
 
-import style from './header.scss?lit&inline';
+import style from './header.scss?inline';
 
 const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
 
@@ -26,10 +30,20 @@ const IS_MENU_OPENED_QUERY = "[aria-controls][aria-expanded='true']";
  * @cssprop [--sbb-header-z-index=10] - Can be used to modify the z-index of the header.
  * @cssprop [--sbb-header-height=zero-small:var(--sbb-spacing-fixed-14x);large-ultra:var(--sbb-spacing-fixed-24x)] - Can be used to modify height of the header.
  */
-export
-@customElement('sbb-header')
-class SbbHeaderElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbHeaderElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-header';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+
+  private static _headerScrollOrigins = new Set<HTMLElement>();
+  private static _headerElements = new Set<SbbHeaderElement>();
+
+  static {
+    if (!isServer) {
+      // We don't want to block execution for initialization,
+      // so we defer it until the DOM content is loaded.
+      queueDomContentLoaded(() => this._initializeScrollOriginObserver());
+    }
+  }
 
   /**
    * Whether to allow the header content to stretch to full width.
@@ -65,15 +79,74 @@ class SbbHeaderElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEle
   private _scrollEventsController!: AbortController;
   private _scrollFunction: (() => void) | undefined;
   private _lastScroll = 0;
+  private _scrollOriginFromObserver: HTMLElement | null = null;
 
   public constructor() {
     super();
     this.addController(new SbbFocusVisibleWithinController(this));
   }
 
+  private static _initializeScrollOriginObserver(): void {
+    // We are using MutationObserver directly here, as it will only be called on client side,
+    // and we do not need to disconnect it, as we want it to work during the full lifetime
+    // of the page.
+    new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type === 'attributes') {
+          this._handleScrollOriginElement(mutation.target as HTMLElement);
+        } else if (mutation.type === 'childList') {
+          for (const node of [...mutation.addedNodes, ...mutation.removedNodes].filter(
+            (n): n is HTMLElement => n.nodeType === n.ELEMENT_NODE,
+          )) {
+            this._handleScrollOriginElement(node);
+            this._findAndHandleScrollOrigins(node);
+          }
+        }
+      }
+      this._updateHeaderElements();
+    }).observe(document.documentElement, {
+      attributeFilter: ['sbb-header-scroll-origin'],
+      childList: true,
+      subtree: true,
+    });
+    this._findAndHandleScrollOrigins(document.body);
+    this._updateHeaderElements();
+  }
+
+  private static _findAndHandleScrollOrigins(root: HTMLElement): void {
+    root
+      .querySelectorAll<HTMLElement>('[sbb-header-scroll-origin]')
+      .forEach((e) => this._handleScrollOriginElement(e));
+  }
+
+  private static _handleScrollOriginElement(element: HTMLElement): void {
+    if (element.isConnected && element.hasAttribute('sbb-header-scroll-origin')) {
+      this._headerScrollOrigins.add(element);
+    } else {
+      this._headerScrollOrigins.delete(element);
+    }
+  }
+
+  private static _updateHeaderElements(): void {
+    for (const header of this._headerElements) {
+      if (this._headerScrollOrigins.size === 0) {
+        header._scrollOriginFromObserver = null;
+      } else if (this._headerScrollOrigins.size === 1) {
+        header._scrollOriginFromObserver = this._headerScrollOrigins.values().next().value ?? null;
+      } else {
+        header._scrollOriginFromObserver =
+          Array.from(this._headerScrollOrigins)
+            .sort((c1, c2) => c1.compareDocumentPosition(c2) & Node.DOCUMENT_POSITION_CONTAINS)
+            .at(-1) ?? null;
+      }
+      header._updateScrollListener();
+    }
+  }
+
   /** If `hideOnScroll` is set, checks the element to hook the listener on, and possibly add it.*/
   public override connectedCallback(): void {
     super.connectedCallback();
+    SbbHeaderElement._headerElements.add(this);
     if (this.hasUpdated) {
       this._updateScrollListener();
     }
@@ -84,6 +157,7 @@ class SbbHeaderElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEle
     super.disconnectedCallback();
     this._scrollElement = null;
     this._scrollEventsController?.abort();
+    SbbHeaderElement._headerElements.delete(this);
   }
 
   public override requestUpdate(
@@ -104,7 +178,7 @@ class SbbHeaderElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEle
   }
 
   private _updateScrollListener(): void {
-    const scrollElement = this.scrollOrigin ?? document;
+    const scrollElement = this.scrollOrigin ?? this._scrollOriginFromObserver ?? document;
     if (scrollElement === this._scrollElement) {
       return;
     }
@@ -177,7 +251,7 @@ class SbbHeaderElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEle
       }
     } else {
       // Check if header in its original position, scroll position < header height.
-      // Reset header behaviour when scroll hits top of the page, on scroll position = 0.
+      // Reset header behavior when scroll hits top of the page, on scroll position = 0.
       if (currentScroll === 0) {
         this._headerOnTop = true;
       }
@@ -204,8 +278,9 @@ class SbbHeaderElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitEle
       this.querySelectorAll(IS_MENU_OPENED_QUERY) as NodeListOf<HTMLElement>,
     );
     for (const overlayTrigger of overlayTriggers) {
-      const overlayId: string = overlayTrigger.getAttribute('aria-controls')!;
-      const overlay = document.getElementById(overlayId) as HTMLElement & { close: () => void };
+      const overlay = overlayTrigger.ariaControlsElements![0] as HTMLElement & {
+        close: () => void;
+      };
       if (typeof overlay?.close === 'function') {
         overlay.close();
       }

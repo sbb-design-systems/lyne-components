@@ -1,10 +1,11 @@
-import type { Meta, StoryObj, Args } from '@storybook/web-components-vite';
+import type { Args, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 
 import readme from './readme.md?raw';
 import sampleData from './timetable-duration.sample-data.private.ts';
-import './timetable-duration.component.ts';
+
+import '../timetable-duration.ts';
 
 const Template = ({ config }: Args): TemplateResult => html`
   <sbb-timetable-duration config=${JSON.stringify(config)}></sbb-timetable-duration>
@@ -50,7 +51,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'experimental/sbb-timetable-duration',
+  title: 'experimental/Timetable Duration',
 };
 
 export default meta;

@@ -2,11 +2,18 @@ import { html } from 'lit';
 
 import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './chip-label.component.ts';
+import type { SbbChipLabelElement } from './chip-label.component.ts';
+
+import '../chip-label.ts';
 
 describe(`sbb-chip-label`, () => {
-  const sizeCases = ['xxs', 'xs', 's'];
-  const colorCases = ['milk', 'charcoal', 'white', 'granite'];
+  const sizeCases = ['xxxs', 'xxs', 'xs', 's'] satisfies SbbChipLabelElement['size'][];
+  const colorCases = [
+    'milk',
+    'charcoal',
+    'white',
+    'granite',
+  ] satisfies SbbChipLabelElement['color'][];
 
   describeViewports({ viewports: ['zero', 'large'] }, () => {
     // Size test

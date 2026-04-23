@@ -1,15 +1,6 @@
 @use '@sbb-esta/lyne-elements/core/styles' as sbb;
 
 :host {
-  --sbb-option-color: var(--sbb-color-3);
-  --sbb-option-column-gap: var(--sbb-spacing-responsive-xxxs);
-  --sbb-option-icon-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
-  --sbb-option-border-radius: var(--sbb-border-radius-4x);
-  --sbb-option-padding-inline: var(--sbb-spacing-responsive-xxxs);
-  --sbb-option-min-height: var(--sbb-size-element-s);
-  --sbb-option-focus-outline-color: transparent;
-  --sbb-option-focus-outline-inset: var(--sbb-spacing-fixed-1x);
-
   display: block;
 }
 
@@ -30,8 +21,8 @@
 }
 
 .sbb-option {
-  @include sbb.text-s--regular;
-
+  font-size: var(--sbb-option-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   position: relative;
   display: flex;
   align-items: center;

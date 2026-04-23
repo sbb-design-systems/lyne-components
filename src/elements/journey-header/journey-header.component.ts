@@ -1,19 +1,28 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
+import { property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/controllers.ts';
-import { forceType } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
-import { i18nConnectionFrom, i18nConnectionRoundtrip, i18nConnectionTo } from '../core/i18n.ts';
-import { SbbNegativeMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import { SbbTitleBase, type SbbTitleLevel } from '../title.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  i18nConnectionFrom,
+  i18nConnectionRoundtrip,
+  i18nConnectionTo,
+  isLean,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbNegativeMixin,
+  SbbScreenReaderOnlyElement,
+} from '../core.ts';
+import { SbbIconElement } from '../icon.pure.ts';
+import { SbbTitleBase, type SbbTitleLevel } from '../title.pure.ts';
 
-import style from './journey-header.scss?lit&inline';
-
-import '../icon.ts';
-import '../screen-reader-only.ts';
+import style from './journey-header.scss?inline';
 
 export type JourneyHeaderSize = 's' | 'm' | 'l';
 
@@ -29,10 +38,17 @@ const sizeToLevel: Map<JourneyHeaderSize, SbbTitleLevel> = new Map<
 /**
  * Combined with the `sbb-journey-summary`, it displays the journey's detail.
  */
-export
-@customElement('sbb-journey-header')
-class SbbJourneyHeaderElement extends SbbNegativeMixin(SbbTitleBase) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, SbbTitleBase.styles, style];
+export class SbbJourneyHeaderElement extends SbbNegativeMixin(SbbTitleBase) {
+  public static override readonly elementName: string = 'sbb-journey-header';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbIconElement,
+    SbbScreenReaderOnlyElement,
+  ];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    SbbTitleBase.styles,
+    unsafeCSS(style),
+  ];
 
   /** Origin location for the journey header. */
   @forceType()
@@ -52,6 +68,7 @@ class SbbJourneyHeaderElement extends SbbNegativeMixin(SbbTitleBase) {
   /**
    * Journey header size, either s, m or l.
    * @default 'm' / 's' (lean)
+   * @deprecated Use visualLevel instead.
    */
   @property({ reflect: true }) public accessor size: JourneyHeaderSize = isLean() ? 's' : 'm';
 

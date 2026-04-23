@@ -2,16 +2,21 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { type SbbCheckboxGroupElement, SbbCheckboxPanelElement } from '../checkbox.ts';
+import type { SbbCheckboxGroupElement } from '../checkbox-group.ts';
+import { SbbCheckboxPanelElement } from '../checkbox-panel.ts';
 import { fixture, tabKey } from '../core/testing/private.ts';
 import { waitForLitRender } from '../core/testing.ts';
-import { type SbbRadioButtonGroupElement, SbbRadioButtonPanelElement } from '../radio-button.ts';
+import type { SbbRadioButtonGroupElement } from '../radio-button-group.ts';
+import { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
 
 import { SbbSelectionActionPanelElement } from './selection-action-panel.component.ts';
 
-import '../link/block-link-button.ts';
-import '../button/secondary-button.ts';
-import '../card/card-badge.ts';
+import '../link.ts';
+import '../button.ts';
+import '../card.ts';
+import '../checkbox-group.ts';
+import '../radio-button-group.ts';
+import '../selection-action-panel.ts';
 
 describe(`sbb-selection-action-panel`, () => {
   let elements: SbbSelectionActionPanelElement[];

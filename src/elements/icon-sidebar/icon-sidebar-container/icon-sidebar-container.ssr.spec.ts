@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbIconSidebarContainerElement } from './icon-sidebar-container.component.ts';
 
+import '../../icon-sidebar.ts';
+
 describe(`sbb-icon-sidebar-container ssr`, () => {
   let root: SbbIconSidebarContainerElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-icon-sidebar-container ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-icon-sidebar-container></sbb-icon-sidebar-container>`,
       {
-        modules: ['./icon-sidebar-container.component.js'],
+        modules: ['../../icon-sidebar.ts'],
       },
     );
   });

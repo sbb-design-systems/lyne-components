@@ -8,8 +8,7 @@ import {
 
 import type { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.ts';
 
-import '../breadcrumb.ts';
-import './breadcrumb-group.component.ts';
+import '../../breadcrumb.ts';
 
 describe('sbb-breadcrumb-group', () => {
   const variants = [

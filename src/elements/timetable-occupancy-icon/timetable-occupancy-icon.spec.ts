@@ -1,12 +1,14 @@
-import { assert, expect } from '@open-wc/testing';
+import { assert, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { type SinonStub, stub } from 'sinon';
 
-import { i18nOccupancy } from '../core/i18n.ts';
-import { elementInternalsSpy, fixture } from '../core/testing/private.ts';
+import { elementInternalsSpy } from '../core/testing/private.ts';
 import { waitForLitRender } from '../core/testing.ts';
+import { i18nOccupancy } from '../core.ts';
 
 import { SbbTimetableOccupancyIconElement } from './timetable-occupancy-icon.component.ts';
+
+import '../timetable-occupancy-icon.ts';
 
 describe(`sbb-timetable-occupancy-icon`, () => {
   let matchMediaStub: SinonStub<[query: string], MediaQueryList>;

@@ -20,8 +20,14 @@ import { SbbOptionElement } from '../option.ts';
 import readme from './readme.md?raw';
 import { SbbSelectElement } from './select.component.ts';
 
-import '../form-field.ts';
 import '../card.ts';
+import '../form-field.ts';
+import '../select.ts';
+
+const complexValueArray = [
+  { id: 0, name: 'Option 1' },
+  { id: 1, name: 'Option 2' },
+];
 
 const borderless: InputType = {
   control: {
@@ -187,7 +193,7 @@ const defaultArgs: Args = {
 
 const changeEventHandler = (event: Event): void => {
   const div = document.createElement('div');
-  div.innerText = `current value is: ${(event.target as SbbSelectElement).value}`;
+  div.innerText = `current value is: ${(event.target as SbbSelectElement).getDisplayValue()}`;
   document.getElementById('container-value')!.append(div);
 };
 
@@ -238,9 +244,21 @@ const createOptions = (
       ? selectValue.includes(value)
       : selectValue === value;
     return html`
-      <sbb-option value=${value} ?disabled=${disableOption && i < 2} ?selected=${selected}>
+      <sbb-option .value=${i} ?disabled=${disableOption && i < 2} ?selected=${selected}>
         ${value}
       </sbb-option>
+    `;
+  });
+};
+
+const createComplexValueOptions = (
+  numberOfOptions: number,
+  disableOption: boolean,
+): TemplateResult[] => {
+  return new Array(numberOfOptions).fill(null).map((_, i) => {
+    const value = { id: i, name: `Option ${i + 1}` };
+    return html`
+      <sbb-option .value=${value} ?disabled=${disableOption && i < 2}> ${value.name} </sbb-option>
     `;
   });
 };
@@ -281,6 +299,38 @@ const FormFieldTemplate = ({
         ${withOptionGroup
           ? createOptionsGroup(numberOfOptions, disableOption, disableGroup)
           : createOptions(numberOfOptions, disableOption, false, args.value)}
+      </sbb-select>
+    </sbb-form-field>
+    ${textBlock()}
+  </div>
+  <div id="container-value" style="margin-block-start: 2rem; color: var(--sbb-color-smoke);"></div>
+`;
+
+const CompareWithTemplate = ({
+  borderless,
+  size,
+  negative,
+  floatingLabel,
+  numberOfOptions,
+  disableOption,
+  value,
+  ...args
+}: Args): TemplateResult => html`
+  <div>
+    <sbb-form-field
+      ?borderless=${borderless}
+      size=${size}
+      ?negative=${negative}
+      ?floating-label=${floatingLabel}
+    >
+      <label>Select</label>
+      <sbb-select
+        ${sbbSpread(args)}
+        .value=${value ? complexValueArray.find((v) => value === v.name) : undefined}
+        @change=${(event: Event) => changeEventHandler(event)}
+        .compareWith=${(v1: any, v2: any) => v1?.id === v2?.id}
+      >
+        ${createComplexValueOptions(numberOfOptions, disableOption)}
       </sbb-select>
     </sbb-form-field>
     ${textBlock()}
@@ -494,6 +544,24 @@ export const MultipleSelectEllipsis: StoryObj = {
   args: { ...defaultArgs, multiple: true, value: valueEllipsis },
 };
 
+export const SingleSelectCompareWith: StoryObj = {
+  render: CompareWithTemplate,
+  argTypes: {
+    ...defaultArgTypes,
+    value: { ...value, options: [...value.options!] },
+  },
+  args: { ...defaultArgs },
+};
+
+export const MultipleSelectCompareWith: StoryObj = {
+  render: CompareWithTemplate,
+  argTypes: {
+    ...defaultArgTypes,
+    value: { ...value, options: [...value.options!] },
+  },
+  args: { ...defaultArgs, multiple: true },
+};
+
 export const Required: StoryObj = {
   render: FormFieldTemplateWithError,
   argTypes: defaultArgTypes,
@@ -608,7 +676,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-select',
+  title: 'elements/Select',
 };
 
 export default meta;

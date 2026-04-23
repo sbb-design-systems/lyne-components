@@ -1,10 +1,8 @@
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbElementInternalsMixin } from '../core/mixins/element-internals-mixin.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { boxSizingStyles, SbbElement } from '../core.ts';
 
-import style from './lead-container.scss?lit&inline';
+import style from './lead-container.scss?inline';
 
 /**
  * The `sbb-lead-container` can be used for product pages to display a lead image and following content.
@@ -14,22 +12,19 @@ import style from './lead-container.scss?lit&inline';
  * `sbb-image`, `img` and `picture` elements are supported.
  * For other elements the aspect ratio has to be set manually.
  */
-export
-@customElement('sbb-lead-container')
-class SbbLeadContainerElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbLeadContainerElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-lead-container';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-lead-container">
-        <div class="sbb-lead-container-image">
-          <slot name="image"></slot>
-        </div>
-        <!-- Content wrapper needed because grid needs to be applied but container image should not be touched by grid. -->
-        <div class="sbb-lead-container-content-wrapper">
-          <div class="sbb-lead-container-content">
-            <slot></slot>
-          </div>
+      <div class="sbb-lead-container-image">
+        <slot name="image"></slot>
+      </div>
+      <!-- Content wrapper needed because grid needs to be applied but container image should not be touched by grid. -->
+      <div class="sbb-lead-container-content-wrapper">
+        <div class="sbb-lead-container-content">
+          <slot></slot>
         </div>
       </div>
     `;

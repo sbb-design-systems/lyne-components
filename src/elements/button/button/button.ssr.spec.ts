@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbButtonElement } from './button.component.ts';
 
+import '../../button.ts';
+
 describe(`sbb-button ssr`, () => {
   let root: SbbButtonElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-button>I am a button</sbb-button>`, {
-      modules: ['./button.component.js'],
+      modules: ['../../button.ts'],
     });
   });
 

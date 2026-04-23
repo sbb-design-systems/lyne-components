@@ -2,7 +2,7 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../core/testing/private.ts';
-import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import { EventSpy, waitForLitRender } from '../core.ts';
 
 import { __nameUpperCase__ } from './__noPrefixName__.component.ts';
 

@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-popover renders DOM"] = 
-`<sbb-popover
-  id="sbb-popover-1"
-  popover="manual"
->
+`<sbb-popover popover="manual">
 </sbb-popover>
 `;
 /* end snapshot sbb-popover renders DOM */
@@ -23,7 +20,6 @@ snapshots["sbb-popover renders Shadow DOM"] =
         sbb-popover-close=""
         size="s"
         tabindex="0"
-        type="button"
       >
       </sbb-secondary-button>
       <span class="sbb-popover__scrollable-content">

@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbLinkStaticElement } from './link-static.component.ts';
 
+import '../../link.ts';
+
 describe(`sbb-link-static ssr`, () => {
   let root: SbbLinkStaticElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-link-static ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-link-static id="focus-id">Link static</sbb-link-static>`,
       {
-        modules: ['./link-static.component.js'],
+        modules: ['../../link.ts'],
       },
     );
   });

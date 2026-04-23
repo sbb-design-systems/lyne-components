@@ -1,18 +1,16 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import { html } from 'lit/static-html.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbLinkBaseElement } from '../../core/base-elements.ts';
 import {
+  boxSizingStyles,
   SbbDisabledInteractiveMixin,
   SbbDisabledMixin,
+  SbbLinkBaseElement,
   SbbNegativeMixin,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
-import { miniButtonLabelStyle, miniButtonStyle } from '../common.ts';
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
+import { miniButtonLabelStyle, miniButtonStyle } from '../common/button-common.ts';
 
-import style from './mini-button-link.scss?lit&inline';
+import style from './mini-button-link.scss?inline';
 
 /**
  * It displays an icon-only button enhanced with the SBB Design as link variant;
@@ -21,16 +19,15 @@ import style from './mini-button-link.scss?lit&inline';
  * @slot - Use the unnamed slot to add a label to the mini-button.
  * @slot icon - Slot used to display the icon, if one is set
  */
-export
-@customElement('sbb-mini-button-link')
-class SbbMiniButtonLinkElement extends SbbNegativeMixin(
+export class SbbMiniButtonLinkElement extends SbbNegativeMixin(
   SbbIconNameMixin(SbbDisabledInteractiveMixin(SbbDisabledMixin(SbbLinkBaseElement))),
 ) {
+  public static override readonly elementName: string = 'sbb-mini-button-link';
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     miniButtonStyle,
     miniButtonLabelStyle,
-    style,
+    unsafeCSS(style),
   ];
 
   protected override renderTemplate(): TemplateResult {

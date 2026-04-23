@@ -1,0 +1,15 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --sbb-form-field-hint-font-size: var(--sbb-text-font-size-xxs);
+
+  display: inline-block;
+  color: var(--sbb-form-field-label-color);
+  font-size: var(--sbb-form-field-hint-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-texts);
+}
+
+:host([negative]) {
+  --sbb-form-field-label-color: var(--sbb-color-5);
+}

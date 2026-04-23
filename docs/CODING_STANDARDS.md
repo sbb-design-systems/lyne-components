@@ -101,11 +101,12 @@ components that require basic button or link functionality have to extend the co
 and they need to implement the `renderTemplate` method, which should return the component's inner content.
 
 ```ts
-import { SbbButtonBaseElement } from '../../core/base-elements.js';
+import { SbbButtonBaseElement } from '../../core.ts';
 import { html } from 'lit';
 
-@customElement('my-custom-button')
 class MyCustomButtonElement extends SbbButtonBaseElement {
+  public static override readonly elementName: string = 'my-custom-button';
+
   protected override renderTemplate(): TemplateResult {
     return html`<span>My button label</span>`;
   }
@@ -133,9 +134,9 @@ As the language can be changed dynamically, you have to use the `SbbLanguageCont
 The `SbbLanguageController` does automatically update the view if needed.
 
 ```ts
-import { SbbLanguageController } from '../core/controllers.js';
+import { SbbLanguageController } from '../core.ts';
 
-export class Component extends LitElement {
+export class Component extends SbbElement {
   private _language = new SbbLanguageController(this);
 
   protected override render(): TemplateResult {
@@ -416,9 +417,9 @@ There are various ways to assign an ID to the host. One option is to do it in th
 ```ts
 let nextId = 0;
 
-@customElement('sbb-example')
-export class SbbExample extends LitElement {
-  ...
+export class SbbExample extends SbbElement {
+  public static override readonly elementName: string = 'sbb-example';
+...
   public override connectedCallback(): void {
     super.connectedCallback();
     this.id ||= `sbb-example-${nextId++}`;

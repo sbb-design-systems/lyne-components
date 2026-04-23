@@ -25,7 +25,7 @@ snapshots["sbb-transparent-button-static renders without icon Shadow DOM"] =
 /* end snapshot sbb-transparent-button-static renders without icon Shadow DOM */
 
 snapshots["sbb-transparent-button-static renders with slotted icon DOM"] = 
-`<sbb-transparent-button-static size="l">
+`<sbb-transparent-button-static size="m">
   <sbb-icon
     name="chevron-small-left-small"
     slot="icon"

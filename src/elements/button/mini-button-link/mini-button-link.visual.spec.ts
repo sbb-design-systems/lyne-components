@@ -3,14 +3,14 @@ import { html, nothing } from 'lit';
 import {
   describeEach,
   describeViewports,
-  visualDiffStandardStates,
-  visualRegressionFixture,
   visualDiffDefault,
   visualDiffHover,
+  visualDiffStandardStates,
+  visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
 import '../../form-field.ts';
-import './mini-button-link.component.ts';
+import '../../button.ts';
 
 describe(`sbb-mini-button-link`, () => {
   let root: HTMLElement;

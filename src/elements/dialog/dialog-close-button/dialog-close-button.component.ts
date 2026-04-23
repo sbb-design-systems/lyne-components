@@ -1,11 +1,9 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbSecondaryButtonElement } from '../../button/secondary-button.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { i18nCloseDialog } from '../../core/i18n.ts';
+import { SbbSecondaryButtonElement } from '../../button.pure.ts';
+import { i18nCloseDialog, SbbLanguageController } from '../../core.ts';
 
-import style from './dialog-close-button.scss?lit&inline';
+import style from './dialog-close-button.scss?inline';
 
 /**
  * Dialog close button, intended to be placed inside sbb-dialog.
@@ -13,10 +11,12 @@ import style from './dialog-close-button.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the dialog-close-button. Not intended to be used in this context.
  * @slot icon - Slot used to display the icon, if one is set. Not intended to be used in this context.
  */
-export
-@customElement('sbb-dialog-close-button')
-class SbbDialogCloseButtonElement extends SbbSecondaryButtonElement {
-  public static override styles: CSSResultGroup = [SbbSecondaryButtonElement.styles, style];
+export class SbbDialogCloseButtonElement extends SbbSecondaryButtonElement {
+  public static override readonly elementName: string = 'sbb-dialog-close-button';
+  public static override styles: CSSResultGroup = [
+    SbbSecondaryButtonElement.styles,
+    unsafeCSS(style),
+  ];
 
   private _languageController = new SbbLanguageController(this);
 

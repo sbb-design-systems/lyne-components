@@ -8,9 +8,8 @@ import {
   visualDiffHover,
 } from '../../core/testing/private.ts';
 
-import './expansion-panel.component.ts';
-import '../expansion-panel-header.ts';
-import '../expansion-panel-content.ts';
+import '../../expansion-panel.ts';
+
 import '../../icon.ts';
 
 describe(`sbb-expansion-panel`, () => {
@@ -151,6 +150,24 @@ describe(`sbb-expansion-panel`, () => {
           }),
         );
       },
+    );
+
+    it(
+      'allows overflowing content',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-expansion-panel expanded>
+            <sbb-expansion-panel-header>Header</sbb-expansion-panel-header>
+            <sbb-expansion-panel-content>
+              <div
+                style="width: 1000px; height: 100px; border: 1px solid red; overflow:auto; max-width:100%;"
+              >
+                Border should be inside the content
+              </div>
+            </sbb-expansion-panel-content>
+          </sbb-expansion-panel>
+        `);
+      }),
     );
   });
 });

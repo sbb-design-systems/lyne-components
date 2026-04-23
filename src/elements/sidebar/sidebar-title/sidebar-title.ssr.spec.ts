@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbSidebarTitleElement } from './sidebar-title.component.ts';
 
+import '../../sidebar.ts';
+
 describe(`sbb-sidebar-title ssr`, () => {
   let root: SbbSidebarTitleElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-sidebar-title>Title</sbb-sidebar-title>`, {
-      modules: ['./sidebar-title.component.js'],
+      modules: ['../../sidebar.ts'],
     });
   });
 

@@ -1,25 +1,26 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, isServer, LitElement, type TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { type CSSResultGroup, html, isServer, type TemplateResult, unsafeCSS } from 'lit';
+import { property, state } from 'lit/decorators.js';
 import { until } from 'lit/directives/until.js';
 
-import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
-import { SbbLanguageController, SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { forceType } from '../../core/decorators.ts';
-import { i18nFlipCard, i18nReverseCard } from '../../core/i18n.ts';
+import { SbbSecondaryButtonStaticElement } from '../../button.pure.ts';
 import {
-  SbbElementInternalsMixin,
-  SbbHydrationMixin,
+  boxSizingStyles,
+  forceType,
+  i18nFlipCard,
+  i18nReverseCard,
+  IS_FOCUSABLE_QUERY,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbPropertyWatcherController,
+  SbbScreenReaderOnlyElement,
   ɵstateController,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbFlipCardDetailsElement } from '../flip-card-details.ts';
-import type { SbbFlipCardSummaryElement } from '../flip-card-summary.ts';
+} from '../../core.ts';
+import type { SbbFlipCardDetailsElement } from '../flip-card-details/flip-card-details.component.ts';
+import type { SbbFlipCardSummaryElement } from '../flip-card-summary/flip-card-summary.component.ts';
 
-import style from './flip-card.scss?lit&inline';
-
-import '../../button/secondary-button-static.ts';
-import '../../screen-reader-only.ts';
+import style from './flip-card.scss?inline';
 
 /**
  * Displays an informative card that reveals more information upon being clicked.
@@ -27,10 +28,13 @@ import '../../screen-reader-only.ts';
  * @slot - Use the unnamed slot to add a `sbb-flip-card-summary` and a `sbb-flip-card-details` element.
  *
  */
-export
-@customElement('sbb-flip-card')
-class SbbFlipCardElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbFlipCardElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-flip-card';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbSecondaryButtonStaticElement,
+    SbbScreenReaderOnlyElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     flip: 'flip',
   } as const;

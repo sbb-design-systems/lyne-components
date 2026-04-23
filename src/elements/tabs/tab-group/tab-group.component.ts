@@ -1,33 +1,37 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
-import { throttle } from '../../core/eventing.ts';
 import {
-  SbbElementInternalsMixin,
-  SbbHydrationMixin,
+  boxSizingStyles,
+  forceType,
+  getNextElementIndex,
+  isArrowKeyPressed,
+  isLean,
+  SbbElement,
   ɵstateController,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { tabGroupCommonStyles } from '../common.ts';
-import type { SbbTabLabelElement } from '../tab-label.ts';
-import type { SbbTabElement } from '../tab.ts';
+} from '../../core.ts';
+import { tabGroupCommonStyles } from '../common/styles.ts';
+import type { SbbTabElement } from '../tab/tab.component.ts';
+import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
-import style from './tab-group.scss?lit&inline';
+import style from './tab-group.scss?inline';
 
-export type SbbTabChangedEventDetails = {
+export interface SbbTabChangedEventDetails {
   activeIndex: number;
   activeTabLabel: SbbTabLabelElement;
   activeTab: SbbTabElement;
   previousIndex: number;
   previousTabLabel: SbbTabLabelElement | undefined;
   previousTab: SbbTabElement | undefined;
-};
+}
 
 /**
  * It displays one or more tabs, each one with a label and some content.
@@ -35,10 +39,13 @@ export type SbbTabChangedEventDetails = {
  * @slot - Use the unnamed slot to add content to the `sbb-tab-group` via `sbb-tab-label` and `sbb-tab` instances.
  * @event {CustomEvent<SbbTabChangedEventDetails>} tabchange - The tabchange event is dispatched when a tab is selected.
  */
-export
-@customElement('sbb-tab-group')
-class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitElement)) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, tabGroupCommonStyles, style];
+export class SbbTabGroupElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-tab-group';
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    tabGroupCommonStyles,
+    unsafeCSS(style),
+  ];
   public static readonly events = {
     tabchange: 'tabchange',
   } as const;
@@ -49,6 +56,7 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
     skipInitial: true,
     callback: () => this._onTabGroupElementResize(),
   });
+  private _contentSlotChangeDebounceId?: ReturnType<typeof setTimeout>;
 
   /**
    * Size variant, either s, l or xl.
@@ -147,14 +155,29 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
     });
   }
 
-  private _onContentSlotChange = (): void => {
-    this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
-    this.labels.find((tabLabel) => tabLabel.active)?.activate();
-  };
+  private _onContentSlotChange(): void {
+    if (this._contentSlotChangeDebounceId) {
+      clearTimeout(this._contentSlotChangeDebounceId);
+    }
+    this._contentSlotChangeDebounceId = setTimeout(() => {
+      this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
+      this.labels.find((tabLabel) => tabLabel.active)?.activate();
+    }, 150);
+  }
 
-  private _onLabelSlotChange = (): void => {
+  private _onLabelSlotChange(): void {
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
-  };
+    this._ensureActiveTab();
+  }
+
+  private _ensureActiveTab(): void {
+    if (
+      this.internals.states.has('initialized') &&
+      !this.labels.some((tabLabel) => tabLabel.active)
+    ) {
+      this._initSelection();
+    }
+  }
 
   private _initSelection(): void {
     const selectedTabLabel = this.labels[this.initialSelectedIndex];
@@ -223,10 +246,10 @@ class SbbTabGroupElement extends SbbElementInternalsMixin(SbbHydrationMixin(LitE
       ${!this.fixedHeight
         ? html`
             <div class="sbb-tab-group-content">
-              <slot @slotchange=${throttle(this._onContentSlotChange, 150)}></slot>
+              <slot @slotchange=${this._onContentSlotChange}></slot>
             </div>
           `
-        : html`<slot @slotchange=${throttle(this._onContentSlotChange, 150)}></slot>`}
+        : html`<slot @slotchange=${this._onContentSlotChange}></slot>`}
     `;
   }
 }

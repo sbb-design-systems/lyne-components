@@ -1,13 +1,14 @@
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import readme from './readme.md?raw';
-import './pearl-chain-vertical.component.ts';
-import '../pearl-chain-vertical-item.ts';
+
 import '@sbb-esta/lyne-elements/icon.js';
 import '@sbb-esta/lyne-elements/timetable-occupancy.js';
+import '../pearl-chain-vertical.ts';
+import '../pearl-chain-vertical-item.ts';
 
 const lineType: InputType = {
   options: ['dotted', 'standard', 'thin'],
@@ -623,7 +624,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'experimental/sbb-pearl-chain-vertical',
+  title: 'experimental/Pearl Chain Vertical',
 };
 
 export default meta;

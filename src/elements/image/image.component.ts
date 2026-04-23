@@ -11,18 +11,16 @@ import {
 import {
   type CSSResultGroup,
   html,
-  LitElement,
   nothing,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
-import { customElement, eventOptions, property } from 'lit/decorators.js';
+import { eventOptions, property } from 'lit/decorators.js';
 
-import { forceType } from '../core/decorators.ts';
-import { SbbElementInternalsMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { boxSizingStyles, forceType, SbbElement } from '../core.ts';
 
-import style from './image.scss?lit&inline';
+import style from './image.scss?inline';
 
 export interface InterfaceImageAttributesSizesConfig {
   breakpoints: InterfaceImageAttributesSizesConfigBreakpoint[];
@@ -139,10 +137,9 @@ const breakpointMap: Record<string, string> = {
  * @cssprop [--sbb-image-object-position] - Can be used to set the object-position CSS property of the image itself if the image itself is cropped.
  * @cssprop [--sbb-image-object-fit=cover] - Can be used to set the object-fit CSS property of the image itself if the image itself is cropped.
  */
-export
-@customElement('sbb-image')
-class SbbImageElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbImageElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-image';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     error: 'error',
     load: 'load',
@@ -262,7 +259,7 @@ class SbbImageElement extends SbbElementInternalsMixin(LitElement) {
    * Performance monitoring tools like SpeedCurve or Lighthouse are
    * then able to grab these entries from the PerformanceEntry API
    * and give us additional information and insights about our page
-   * loading behaviour. We are then also able to monitor these
+   * loading behavior. We are then also able to monitor these
    * values over a long period to see if our performance
    * increases or decreases over time. Best to use lowercase strings
    * here, separate words with underscores or dashes.

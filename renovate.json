@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
-  "includePaths": ["package.json"],
+  "extends": ["config:recommended", ":semanticCommitTypeAll(chore)"],
+  "ignorePaths": ["**/node_modules/**", "**/src/*/package.json"],
   "nodenv": {
     "enabled": false
   },
@@ -23,10 +23,6 @@
     {
       "matchPackageNames": ["@types/node"],
       "matchUpdateTypes": ["major"],
-      "enabled": false
-    },
-    {
-      "matchPackageNames": ["jackspeak", "@web/dev-server-core"],
       "enabled": false
     },
     {

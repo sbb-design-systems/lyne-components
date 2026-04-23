@@ -3,14 +3,15 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
+import { defaultDateAdapter } from '../../core.ts';
 import type { SbbDateInputElement } from '../../date-input.ts';
 import type { SbbFormFieldElement } from '../../form-field.ts';
 
 import { SbbDatepickerPreviousDayElement } from './datepicker-previous-day.component.ts';
 
-import '../datepicker.ts';
+import '../../datepicker.ts';
 import '../../date-input.ts';
-import '../../form-field/form-field.ts';
+import '../../form-field.ts';
 
 describe(`sbb-datepicker-previous-day`, () => {
   describe('standalone', () => {
@@ -140,6 +141,20 @@ describe(`sbb-datepicker-previous-day`, () => {
       expect(changeSpy.count).to.be.equal(1);
       expect(blurSpy.count).to.be.equal(1);
       expect(input.value).to.be.equal('Fr, 20.01.2023');
+    });
+
+    it('navigates to invalid date', async () => {
+      const min = defaultDateAdapter.createDate(2023, 1, 21);
+      input.dateFilter = (d) => defaultDateAdapter.compareDate(min, d!) <= 0;
+      expect(input.value).to.be.equal('Sa, 21.01.2023');
+      const changeSpy = new EventSpy('change', input);
+      expect(input.validity.valid).to.be.true;
+
+      element.click();
+      await changeSpy.calledOnce();
+      expect(changeSpy.count).to.be.equal(1);
+      expect(input.value).to.be.equal('Fr, 20.01.2023');
+      expect(input.validity.valid).to.be.false;
     });
 
     it('disabled due min value equals to value', async () => {

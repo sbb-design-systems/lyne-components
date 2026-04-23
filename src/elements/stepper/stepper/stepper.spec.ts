@@ -5,12 +5,11 @@ import { html } from 'lit/static-html.js';
 import { elementInternalsSpy, fixture, tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import { SbbStepElement } from '../step/step.component.ts';
-import type { SbbStepLabelElement } from '../step-label.ts';
+import type { SbbStepLabelElement } from '../step-label/step-label.component.ts';
 
 import { SbbStepChangeEvent, SbbStepperElement } from './stepper.component.ts';
 
-import '../step-label.ts';
-import '../step.ts';
+import '../../stepper.ts';
 
 describe('sbb-stepper', () => {
   let element: SbbStepperElement;
@@ -137,7 +136,7 @@ describe('sbb-stepper', () => {
 
     expect(stepLabelThree).to.match(':state(selected)');
     expect(stepLabelThree.step).to.match(':state(selected)');
-    expect(document.activeElement!.id).not.to.be.equal(stepLabelThree.id);
+    expect(document.activeElement!.textContent).not.to.be.equal(stepLabelThree.textContent);
   });
 
   it('selects the correct step via `selectedIndex` and emits validate and stepchange events', async () => {
@@ -166,7 +165,7 @@ describe('sbb-stepper', () => {
 
     expect(stepLabelThree).to.match(':state(selected)');
     expect(stepLabelThree.step).to.match(':state(selected)');
-    expect(document.activeElement!.id).not.to.be.equal(stepLabelThree.id);
+    expect(document.activeElement!.textContent).not.to.be.equal(stepLabelThree.textContent);
   });
 
   it('selects the next step on [sbb-stepper-next] click and emits validate and stepchange events', async () => {
@@ -197,7 +196,7 @@ describe('sbb-stepper', () => {
 
     expect(stepLabelTwo).to.match(':state(selected)');
     expect(stepLabelTwo.step).to.match(':state(selected)');
-    expect(document.activeElement!.id).to.be.equal(stepLabelTwo.id);
+    expect(document.activeElement!.textContent).to.be.equal(stepLabelTwo.textContent);
   });
 
   it('selects the previous step on [sbb-stepper-previous] click and emits stepchange event', async () => {
@@ -219,7 +218,7 @@ describe('sbb-stepper', () => {
     expect(validate.count).to.be.equal(1);
     expect(stepLabelTwo).to.match(':state(selected)');
     expect(stepLabelTwo.step).to.match(':state(selected)');
-    expect(document.activeElement!.id).to.be.equal(stepLabelTwo.id);
+    expect(document.activeElement!.textContent).to.be.equal(stepLabelTwo.textContent);
 
     const stepChangeSpy = new EventSpy<SbbStepChangeEvent>(
       SbbStepperElement.events.stepchange,
@@ -240,7 +239,7 @@ describe('sbb-stepper', () => {
 
     expect(stepLabelOne).to.match(':state(selected)');
     expect(stepLabelOne.step).to.match(':state(selected)');
-    expect(document.activeElement!.id).to.be.equal(stepLabelOne.id);
+    expect(document.activeElement!.textContent).to.be.equal(stepLabelOne.textContent);
   });
 
   it('selects only the next step via [sbb-stepper-next] click in linear mode and emits validate event', async () => {
@@ -627,7 +626,7 @@ describe('sbb-stepper', () => {
 
     expect(stepLabelOne).to.match(':state(selected)');
     expect(stepLabelOne.step).to.match(':state(selected)');
-    expect(document.activeElement!.id).to.be.equal(stepLabelOne.id);
+    expect(document.activeElement!.textContent).to.be.equal(stepLabelOne.textContent);
   });
 
   it('resets the form for each step and returns to the first step', async () => {
@@ -676,7 +675,7 @@ describe('sbb-stepper', () => {
 
     expect(stepLabelOne).to.match(':state(selected)');
     expect(stepLabelOne.step).to.match(':state(selected)');
-    expect(document.activeElement!.id).not.to.be.equal(stepLabelOne.id);
+    expect(document.activeElement!.textContent).not.to.be.equal(stepLabelOne.textContent);
   });
 
   it('focuses the correct element in the step content', async () => {
@@ -685,7 +684,7 @@ describe('sbb-stepper', () => {
     )!;
 
     await sendKeys({ press: tabKey });
-    expect(document.activeElement!.id).to.be.equal(stepLabelOne.id);
+    expect(document.activeElement!.textContent).to.be.equal(stepLabelOne.textContent);
 
     await sendKeys({ press: tabKey });
     expect(document.activeElement!.id).to.be.equal('step-one-content');

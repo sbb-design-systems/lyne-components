@@ -1,10 +1,6 @@
-import { customElement } from 'lit/decorators.js';
-
-import { getNextElementIndex } from '../core/a11y.ts';
-import { isSafari } from '../core/dom.ts';
-import { setAriaComboBoxAttributes } from '../core/overlay.ts';
+import { getNextElementIndex, isSafari, setAriaComboBoxAttributes } from '../core.ts';
 import type { SbbDividerElement } from '../divider/divider.component.ts';
-import type { SbbOptionElement, SbbOptionHintElement } from '../option.ts';
+import type { SbbOptionElement, SbbOptionHintElement } from '../option.pure.ts';
 
 import { SbbAutocompleteBaseElement } from './autocomplete-base-element.ts';
 
@@ -26,9 +22,8 @@ const ariaRoleOnHost = isSafari;
  * @cssprop [--sbb-options-panel-max-height] - Maximum height of the options panel.
  * If the calculated remaining space is smaller, the value gets ignored.
  */
-export
-@customElement('sbb-autocomplete')
-class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
+export class SbbAutocompleteElement<T = string> extends SbbAutocompleteBaseElement<T> {
+  public static override readonly elementName: string = 'sbb-autocomplete';
   public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
   protected overlayId = `sbb-autocomplete-${++nextId}`;
   protected panelRole = 'listbox';

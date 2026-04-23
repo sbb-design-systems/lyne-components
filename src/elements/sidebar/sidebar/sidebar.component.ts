@@ -1,17 +1,27 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, eventOptions, property } from 'lit/decorators.js';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
+import { eventOptions, property } from 'lit/decorators.js';
 
-import { SbbFocusTrapController } from '../../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
-import { SbbEscapableOverlayController } from '../../core/controllers.ts';
-import { forceType, handleDistinctChange } from '../../core/decorators.ts';
-import { isZeroAnimationDuration } from '../../core/dom.ts';
-import { SbbAnimationCompleteMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbSidebarContainerElement } from '../sidebar-container.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  handleDistinctChange,
+  isZeroAnimationDuration,
+  SbbAnimationCompleteMixin,
+  SbbEscapableOverlayController,
+  SbbFocusTrapController,
+  SbbOpenCloseBaseElement,
+} from '../../core.ts';
+import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 
-import style from './sidebar.scss?lit&inline';
+import style from './sidebar.scss?inline';
 
 /**
  * This component corresponds to a sidebar that can be opened on the sidebar container.
@@ -19,10 +29,9 @@ import style from './sidebar.scss?lit&inline';
  * @slot - Use the unnamed slot to slot any content into the sidebar.
  * @slot title - Use the title slot to add an <sbb-title>.
  */
-export
-@customElement('sbb-sidebar')
-class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElement) {
+  public static override readonly elementName: string = 'sbb-sidebar';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Background color of the sidebar. Either `white` or `milk`. */
   @property({ reflect: true })
@@ -92,13 +101,35 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
     if (this.isOpen && this._isModeOver()) {
       this._takeFocus();
     }
+
+    if (!isServer) {
+      if (window.navigation) {
+        window.navigation.addEventListener('navigate', this._closeOnNavigation);
+      } else {
+        window.addEventListener('popstate', this._closeOnNavigation);
+      }
+    }
   }
 
   public override disconnectedCallback(): void {
     super.disconnectedCallback();
     this.container?.style.removeProperty(this._buildCssWidthVar());
     this._container = null;
+
+    if (!isServer) {
+      if (window.navigation) {
+        window.navigation.removeEventListener('navigate', this._closeOnNavigation);
+      } else {
+        window.removeEventListener('popstate', this._closeOnNavigation);
+      }
+    }
   }
+
+  private _closeOnNavigation = (): void => {
+    if (this._isModeOver() && this.isOpen) {
+      this.close();
+    }
+  };
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -280,7 +311,7 @@ class SbbSidebarElement extends SbbAnimationCompleteMixin(SbbOpenCloseBaseElemen
   }
 
   private _buildCssWidthVar(position = this.position): string {
-    return `--sbb-sidebar-container__${position}-width`;
+    return `--_sbb-sidebar-container-${position}-width`;
   }
 
   private _isModeOver(): boolean {

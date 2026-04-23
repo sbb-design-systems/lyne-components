@@ -7,7 +7,7 @@ import {
 } from '@sbb-esta/lyne-elements/core/testing/private.js';
 import { html } from 'lit';
 
-import './seat-reservation-navigation-coach.component.ts';
+import '../../seat-reservation.ts';
 
 describe('sbb-seat-reservation-navigation-coach', () => {
   let root: HTMLElement;
@@ -29,7 +29,15 @@ describe('sbb-seat-reservation-navigation-coach', () => {
   // Standard visual diff states to be tested;
   // own states array because the visual-regression-snapshot.ts constant "visualDiffStandardStates"
   // includes more than we need
-  const visualDiffStandardStates = [visualDiffDefault, visualDiffHover] as const;
+  const seatReservationNavigationCoachVisualStates = [visualDiffDefault, visualDiffHover] as const;
+
+  const coachItemDetails = {
+    id: '85',
+    travelClass: 'FIRST',
+    propertyIds: propertyIds,
+    freePlaces: { seats: 0, bycicles: 0 },
+    driverAreaElements: { driverArea: undefined, driverAreaNoVerticalWall: undefined },
+  };
 
   // large only viewport because we don't use any other breakpoint media queries
   describeViewports({ viewports: ['large'] }, () => {
@@ -39,16 +47,14 @@ describe('sbb-seat-reservation-navigation-coach', () => {
         beforeEach(async function () {
           root = await visualRegressionFixture(
             html`
-            <sbb-seat-reservation-navigation-coach
-              coach-id="85"
-              ?selected=${selected}
-              ?focused=${focused}
-              ?hovered=${hovered}
-              ?disable=${disabled}
-              travel-class=["FIRST"]
-              .propertyIds=${propertyIds}
-            ></sbb-seat-reservation-navigation-coach>
-          `,
+              <sbb-seat-reservation-navigation-coach
+                ?selected=${selected}
+                ?focused=${focused}
+                ?hovered=${hovered}
+                ?disable=${disabled}
+                .coachItemDetails="${coachItemDetails}"
+              ></sbb-seat-reservation-navigation-coach>
+            `,
             {
               darkMode,
               forcedColors,
@@ -56,7 +62,7 @@ describe('sbb-seat-reservation-navigation-coach', () => {
           );
         });
 
-        for (const state of visualDiffStandardStates) {
+        for (const state of seatReservationNavigationCoachVisualStates) {
           it(
             `${state.name}`,
             state.with((setup) => {

@@ -8,41 +8,31 @@ import type { Preview } from '@storybook/web-components-vite';
 import type { Parameters, StoryContext } from 'storybook/internal/types';
 import { makeDecorator } from 'storybook/preview-api';
 
-import '../src/elements/core/styles/standard-theme.scss';
-
 import leanTheme from '../src/elements/core/styles/lean-theme.scss?inline';
 import offBrandTheme from '../src/elements/core/styles/off-brand-theme.scss?inline';
 import safetyTheme from '../src/elements/core/styles/safety-theme.scss?inline';
+import standardTheme from '../src/elements/core/styles/standard-theme.scss?inline';
+import experimentalLeanTheme from '../src/elements-experimental/core/styles/lean-theme.scss?inline';
+import experimentalOffBrandTheme from '../src/elements-experimental/core/styles/off-brand-theme.scss?inline';
+import experimentalSafetyTheme from '../src/elements-experimental/core/styles/safety-theme.scss?inline';
+import experimentalStandardTheme from '../src/elements-experimental/core/styles/standard-theme.scss?inline';
 
 if (typeof Temporal !== 'object') {
   await import('temporal-polyfill/global');
 }
 
-const originalStyleSheet = Array.from(document.styleSheets).find((stylesheet) =>
-  Array.from(stylesheet.cssRules).find((value) =>
-    // We assume that we target the standard theme file if this variable is included.
-    value.cssText.includes('--sbb-font-color-default'),
-  ),
-);
-
-const standardTheme = Array.from(originalStyleSheet?.cssRules ?? [])
-  .map((rule) => rule.cssText)
-  .join('');
+const themeMap = {
+  standard: standardTheme.concat(experimentalStandardTheme),
+  'off-brand': offBrandTheme.concat(experimentalOffBrandTheme),
+  safety: safetyTheme.concat(experimentalSafetyTheme),
+  lean: leanTheme.concat(experimentalLeanTheme),
+};
 
 // We need a created stylesheet to manipulate it.
-// So we copy the content of the preloaded standard
-// theme into the constructed one then we remove the original one.
+// We initialize it with the standard theme.
 const themeStyleSheet = new CSSStyleSheet();
-themeStyleSheet.replaceSync(standardTheme);
+themeStyleSheet.replaceSync(themeMap['standard']);
 document.adoptedStyleSheets.push(themeStyleSheet);
-originalStyleSheet?.ownerNode?.remove();
-
-const themeMap = {
-  standard: standardTheme,
-  'off-brand': offBrandTheme,
-  safety: safetyTheme,
-  lean: leanTheme,
-};
 
 const themeDecorator = makeDecorator({
   name: 'theme',
@@ -165,9 +155,19 @@ const parameters: Parameters = {
   backgrounds: { disable: true },
   options: {
     storySort: {
+      method: 'alphabetical',
       // Story section order.
       // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
-      order: ['introduction', 'guides', 'pages', 'elements', 'experimental', 'styles', 'internals'],
+      order: [
+        'introduction',
+        'guides',
+        ['Theming', 'Layout', 'DateTime', 'Form Support'],
+        'elements',
+        'styles',
+        'experimental',
+        'pages',
+        'internals',
+      ],
     },
   },
 };

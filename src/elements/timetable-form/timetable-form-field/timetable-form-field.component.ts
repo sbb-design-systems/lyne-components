@@ -1,17 +1,15 @@
-import { type CSSResultGroup, html, isServer, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, html, isServer, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbFormFieldElement } from '../../form-field/form-field.ts';
+import { SbbFormFieldElement } from '../../form-field.pure.ts';
 
-import style from './timetable-form-field.scss?lit&inline';
+import style from './timetable-form-field.scss?inline';
 
 /**
  * Extends the `sbb-form-field`. Meant to be used inside a `sbb-timetable-form`.
  */
-export
-@customElement('sbb-timetable-form-field')
-class SbbTimetableFormFieldElement extends SbbFormFieldElement {
-  public static override styles: CSSResultGroup = [SbbFormFieldElement.styles, style];
+export class SbbTimetableFormFieldElement extends SbbFormFieldElement {
+  public static override readonly elementName: string = 'sbb-timetable-form-field';
+  public static override styles: CSSResultGroup = [SbbFormFieldElement.styles, unsafeCSS(style)];
 
   private _routeIcon = false;
 

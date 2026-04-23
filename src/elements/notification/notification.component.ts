@@ -2,26 +2,30 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
-  LitElement,
   nothing,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../core/controllers.ts';
-import { isLean, isZeroAnimationDuration } from '../core/dom.ts';
-import { i18nCloseNotification } from '../core/i18n.ts';
-import type { SbbOpenedClosedState } from '../core/interfaces.ts';
-import { SbbElementInternalsMixin, SbbReadonlyMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import { SbbIconNameMixin } from '../icon.ts';
-import type { SbbTitleElement } from '../title.ts';
+import { SbbSecondaryButtonElement } from '../button.pure.ts';
+import {
+  boxSizingStyles,
+  i18nCloseNotification,
+  isLean,
+  isZeroAnimationDuration,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  type SbbOpenedClosedState,
+  SbbReadonlyMixin,
+} from '../core.ts';
+import { SbbDividerElement } from '../divider.pure.ts';
+import { SbbIconNameMixin } from '../icon.pure.ts';
+import type { SbbTitleElement } from '../title.pure.ts';
 
-import style from './notification.scss?lit&inline';
-
-import '../button/secondary-button.ts';
-import '../divider.ts';
+import style from './notification.scss?inline';
 
 const notificationTypes = new Map([
   ['info', 'circle-information-small'],
@@ -42,12 +46,13 @@ const DEBOUNCE_TIME = 150;
  * @cssprop [--sbb-notification-margin=0] - Can be used to modify the margin in order to get a smoother animation.
  * See style section for more information.
  */
-export
-@customElement('sbb-notification')
-class SbbNotificationElement extends SbbIconNameMixin(
-  SbbReadonlyMixin(SbbElementInternalsMixin(LitElement)),
-) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbNotificationElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbElement)) {
+  public static override readonly elementName: string = 'sbb-notification';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbSecondaryButtonElement,
+    SbbDividerElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',
@@ -243,7 +248,7 @@ class SbbNotificationElement extends SbbIconNameMixin(
           </span>
 
           ${!this.readOnly
-            ? html`<span class="sbb-notification__close-wrapper">
+            ? html`
                 <sbb-divider class="sbb-notification__divider" orientation="vertical"></sbb-divider>
                 <sbb-secondary-button
                   size=${this.size}
@@ -252,7 +257,7 @@ class SbbNotificationElement extends SbbIconNameMixin(
                   aria-label=${i18nCloseNotification[this._language.current]}
                   class="sbb-notification__close"
                 ></sbb-secondary-button>
-              </span>`
+              `
             : nothing}
         </div>
       </div>

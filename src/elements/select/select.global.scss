@@ -1,0 +1,24 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-select-placeholder-fallback-color: light-dark(
+    var(--sbb-color-metal),
+    var(--sbb-color-smoke)
+  );
+}
+
+@mixin rules {
+  // We set some dimension to the selects trigger element in order that the screen reader's outline box looks more accurate.
+  .sbb-select-trigger {
+    width: 100%;
+
+    // We set the smallest possible height (zero breakpoint, size s)
+    height: var(--sbb-size-element-xs);
+
+    sbb-form-field & {
+      top: 0;
+    }
+  }
+}

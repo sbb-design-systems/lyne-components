@@ -1,0 +1,57 @@
+import { unsafeCSS } from 'lit';
+
+import type { DateAdapter, FormRestoreReason, FormRestoreState } from '../../core.ts';
+import {
+  defaultDateAdapter,
+  readConfig,
+  SbbButtonLikeBaseElement,
+  SbbDisabledMixin,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
+import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
+
+import calendarCellBaseStyleString from './calendar-cell-base-element.scss?inline';
+
+export const calendarCellBaseStyle = unsafeCSS(calendarCellBaseStyleString);
+
+export abstract class SbbCalendarCellBaseElement<T = Date> extends SbbDisabledMixin(
+  SbbButtonLikeBaseElement,
+) {
+  protected dateAdapter: DateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
+
+  public constructor() {
+    super();
+    this.addController(
+      new SbbPropertyWatcherController(this, () => this.getParent(), {
+        dateFilter: (component) => this.setDisabledFilteredState(component),
+        min: (component) => this.setDisabledFilteredState(component),
+        max: (component) => this.setDisabledFilteredState(component),
+        selected: (component) => this.setSelectedState(component),
+      }),
+    );
+  }
+
+  protected abstract setDisabledFilteredState(parent: SbbCalendarElement<T>): void;
+  protected abstract setSelectedState(parent: SbbCalendarElement<T>): void;
+
+  protected getParent(): SbbCalendarElement<T> | null {
+    return (this.getRootNode?.() as ShadowRoot)?.host?.closest<SbbCalendarElement<T>>(
+      'sbb-calendar',
+    );
+  }
+
+  /**
+   * Intentionally empty, as buttons are not targeted by form reset.
+   * @internal
+   */
+  public override formResetCallback(): void {}
+
+  /**
+   * Intentionally empty, as buttons are not targeted by form restore.
+   * @internal
+   */
+  public override formStateRestoreCallback(
+    _state: FormRestoreState | null,
+    _reason: FormRestoreReason,
+  ): void {}
+}

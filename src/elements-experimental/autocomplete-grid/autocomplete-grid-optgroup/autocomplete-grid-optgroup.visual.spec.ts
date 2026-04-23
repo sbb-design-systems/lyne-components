@@ -6,10 +6,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
 import '@sbb-esta/lyne-elements/form-field.js';
-import '../autocomplete-grid.ts';
-import '../autocomplete-grid-option.ts';
-import '../autocomplete-grid-row.ts';
-import './autocomplete-grid-optgroup.component.ts';
+import '../../autocomplete-grid.ts';
 
 describe(`sbb-autocomplete-grid-optgroup`, () => {
   const defaultArgs = {
