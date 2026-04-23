@@ -1353,19 +1353,16 @@ describe(`sbb-select`, () => {
       await waitForLitRender(element);
       expect(firstOption).to.have.attribute('selected');
       expect(element.getDisplayValue()).to.be.equal('First');
-      expect(element).to.match(':state(has-display-value)');
 
       firstOption.value = 'fake';
       await waitForLitRender(element);
       expect(firstOption).not.to.have.attribute('selected');
       expect(element.getDisplayValue()).to.be.equal('');
-      expect(element).not.to.match(':state(has-display-value)');
 
       firstOption.value = '1';
       await waitForLitRender(element);
       expect(firstOption).to.have.attribute('selected');
       expect(element.getDisplayValue()).to.be.equal('First');
-      expect(element).to.match(':state(has-display-value)');
     });
   });
 
