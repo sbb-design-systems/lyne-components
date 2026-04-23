@@ -3,27 +3,25 @@ import {
   type CSSResultGroup,
   html,
   isServer,
-  LitElement,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
-import { forceType } from '../../core/decorators.ts';
-import { SbbElementInternalsMixin, SbbNegativeMixin } from '../../core/mixins.ts';
+import { forceType, hostScrollbarStyles, SbbElement, SbbNegativeMixin } from '../../core.ts';
 
-import style from './table-wrapper.scss?lit&inline';
+import style from './table-wrapper.scss?inline';
 
 /**
  * Wraps a table to enhance its functionality.
  *
  * @slot - Use the unnamed slot to add the table.
  */
-export
-@customElement('sbb-table-wrapper')
-class SbbTableWrapperElement extends SbbNegativeMixin(SbbElementInternalsMixin(LitElement)) {
+export class SbbTableWrapperElement extends SbbNegativeMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-table-wrapper';
   public static override readonly role = 'section';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [hostScrollbarStyles, unsafeCSS(style)];
 
   /** Whether the table wrapper is focusable. */
   @forceType()
@@ -47,8 +45,9 @@ class SbbTableWrapperElement extends SbbNegativeMixin(SbbElementInternalsMixin(L
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    // As we can't include the scrollbar mixin on the host and to minimize
-    // payload, we decided to add the scrollbar class here.
+    // When including the scrollbar styles on the host, there is no hover effect of the scrollbar possible.
+    // In most cases, the component will be used in Light DOM. To also support the hover effect,
+    // we additionally add the scrollbar CSS classes to the host.
     // This is an exception as we normally don't alter the classList of the host.
     this._updateScrollbarClass();
   }

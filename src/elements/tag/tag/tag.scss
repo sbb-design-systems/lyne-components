@@ -4,39 +4,17 @@ $disabled: ':disabled, [disabled-interactive]';
 $active: ':active, :state(active)';
 
 :host {
-  display: inline-block;
-
-  // Use !important here to not interfere with Firefox focus ring definition
-  // which appears in normalize CSS of several frameworks.
-  outline: none !important;
-  max-width: 100%;
-
-  --sbb-tag-border-radius: var(--sbb-border-radius-infinity);
-  --sbb-tag-background-color: var(--sbb-background-color-1);
-  --sbb-tag-border-color: var(--sbb-border-color-4-inverted);
-  --sbb-tag-border-style: solid;
-  --sbb-tag-border-width: var(--sbb-border-width-1x);
-  --sbb-tag-text-color: var(--sbb-color-2);
-  --sbb-tag-amount-color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
-  --sbb-tag-height: var(--sbb-size-element-xs);
-  --sbb-tag-inset: 0;
-  --sbb-tag-cursor: var(--sbb-cursor-pointer);
-  --sbb-tag-content-shift: translateY(0);
   --sbb-tag-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-2x)
   );
-  --sbb-tag-animation-easing: var(--sbb-animation-easing);
-  --sbb-tag-padding-inline: var(--sbb-spacing-fixed-5x);
-  --sbb-tag-gap: var(--sbb-spacing-fixed-2x);
 
-  @include sbb.if-forced-colors {
-    --sbb-tag-background-color: Canvas !important;
-    --sbb-tag-text-color: ButtonText;
-    --sbb-tag-amount-color: ButtonText;
-    --sbb-tag-border-color: CanvasText;
-    --sbb-tag-border-width: var(--sbb-border-width-2x);
-  }
+  display: inline-block;
+  max-width: 100%;
+
+  // Use !important here to not interfere with Firefox focus ring definition
+  // which appears in normalize CSS of several frameworks.
+  outline: none !important;
 }
 
 // Active state
@@ -96,22 +74,28 @@ $active: ':active, :state(active)';
   }
 }
 
+:host([size='m']) {
+  --sbb-tag-height: var(--sbb-size-element-xs);
+  --sbb-tag-padding-inline: var(--sbb-spacing-fixed-5x);
+}
+
 :host([size='s']) {
   --sbb-tag-height: var(--sbb-size-element-xxxs);
   --sbb-tag-padding-inline: var(--sbb-spacing-fixed-3x);
 }
 
 .sbb-tag {
-  @include sbb.text-xs--bold;
-
   position: relative;
   display: flex;
   align-items: center;
   height: var(--sbb-tag-height);
   max-width: 100%;
+  font-size: var(--sbb-text-font-size-xs);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
   gap: var(--sbb-tag-gap);
   padding-inline: var(--sbb-tag-padding-inline);
-  cursor: var(--sbb-tag-cursor);
+  cursor: var(--sbb-tag-cursor, var(--sbb-cursor-pointer));
   border-radius: var(--sbb-tag-border-radius);
   color: var(--sbb-tag-text-color);
   transition: color var(--sbb-tag-animation-duration) var(--sbb-tag-animation-easing);
@@ -122,7 +106,7 @@ $active: ':active, :state(active)';
   &::before {
     content: '';
     position: absolute;
-    inset: var(--sbb-tag-inset);
+    inset: var(--sbb-tag-inset, 0);
     background-color: var(--sbb-tag-background-color);
     border: var(--sbb-tag-border-width) var(--sbb-tag-border-style) var(--sbb-tag-border-color);
     border-radius: var(--sbb-tag-border-radius);
@@ -149,11 +133,11 @@ $active: ':active, :state(active)';
 
 .sbb-tag__text {
   @include sbb.ellipsis;
+
+  font-weight: bold;
 }
 
 .sbb-tag__amount {
-  @include sbb.text-xs--regular;
-
   color: var(--sbb-tag-amount-color);
 
   :host(:not(:state(slotted-amount), [amount])) & {
@@ -163,6 +147,6 @@ $active: ':active, :state(active)';
 
 .sbb-tag--shift {
   transition: transform var(--sbb-tag-animation-duration) var(--sbb-tag-animation-easing);
-  transform: var(--sbb-tag-content-shift);
+  transform: var(--sbb-tag-content-shift, 0);
   will-change: transform;
 }

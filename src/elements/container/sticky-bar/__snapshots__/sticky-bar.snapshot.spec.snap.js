@@ -25,20 +25,20 @@ snapshots["sbb-sticky-bar renders Shadow DOM"] =
 snapshots["sbb-sticky-bar renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "generic",
+      "name": ""
+    },
+    {
+      "role": "generic",
+      "name": ""
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-sticky-bar renders A11y tree Chrome */
-
-snapshots["sbb-sticky-bar renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-sticky-bar renders A11y tree Firefox */
 

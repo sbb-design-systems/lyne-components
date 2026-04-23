@@ -7,8 +7,8 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 
-import './skiplink-list.component.ts';
-import '../link/block-link.ts';
+import '../skiplink-list.ts';
+import '../link.ts';
 import '../title.ts';
 
 const titleContent: InputType = {
@@ -136,7 +136,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-skiplink-list',
+  title: 'elements/Skiplink List',
 };
 
 export default meta;

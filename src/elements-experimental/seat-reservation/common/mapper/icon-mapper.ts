@@ -4,10 +4,10 @@ import { svgs } from '../svgs.ts';
  * Map Object from OSDM Code to SVG icon name represented in svg-icon
  * component regarding the namespace "fpl".
  */
-export type SeatReservationIcon = {
+export interface SeatReservationIcon {
   svgName?: string;
   svg?: string;
-};
+}
 
 export const mapIconToSvg: Record<string, SeatReservationIcon> = {
   BICYCLE: { svgName: 'sa-vo' },
@@ -33,6 +33,7 @@ export const mapIconToSvg: Record<string, SeatReservationIcon> = {
   DRIVER_AREA: { svg: svgs.chassisDriverTrain },
   DRIVER_AREA_BUS: { svg: svgs.chassisDriverBus },
   DRIVER_AREA_TRAIN: { svg: svgs.chassisDriverTrainFull },
+  DRIVER_AREA_NO_VERTICAL_WALL: { svg: svgs.chassisDriverTrain },
   EASY_ACCESS: { svgName: 'sa-em' },
   EASY_ACCESS_AREA: { svgName: 'sa-em' },
   EASY_ACCESS_ICON: { svgName: 'sa-em' },

@@ -1,0 +1,228 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="guides/DateTime" />
+
+# DateTime
+
+Various components of the Lyne Design System require date/time configuration and manipulation.
+In order to facilitate this, we have implemented an abstract `DateAdapter` class, to which
+all operations for dates can be delegated.
+
+We provide the implementations `NativeDateAdapter` (default) and `TemporalDateAdapter`.
+
+## NativeDateAdapter
+
+`import { NativeDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';`
+
+This is currently the default, until [Temporal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal)
+is available as baseline (30 months since availability) in all supported browsers.
+
+This implements the required functionality with the native
+[Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
+
+## TemporalDateAdapter
+
+`import { TemporalDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';`
+
+This implements the required functionality with the
+[Temporal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal) objects,
+primarily the [Temporal.PlainDate](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal/PlainDate)
+object.
+
+Please note that this most likely will require a `Temporal` polyfill to work across browsers.
+
+This can be configured as follows (ideally before anything else):
+
+```ts
+import { mergeConfig } from '@sbb-esta/lyne-elements/core/config.js';
+import { TemporalDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
+
+mergeConfig({
+  datetime: {
+    dateAdapter: new TemporalDateAdapter(),
+  },
+});
+```
+
+## DateAdapter Specification
+
+`import { DateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';`
+
+You can implement your own date adapter by extending `DateAdapter` and registering it
+via `mergeConfig`.
+
+```ts
+/**
+ * Abstract date functionality.
+ */
+export abstract class DateAdapter<T = any> {
+  /**
+   * @param cutoffYearOffset The threshold on whether a two-digit year
+   * should be treated as belonging to 2000 or 1900. e.g. with 15 (default)
+   * the current year plus 15 will be treated as belonging to 2000, and the rest to 1900.
+   * So e.g. with the current year 2025, 40 will be treated as 2040, while 41 will be treated as 1941.
+   */
+  constructor(cutoffYearOffset?: number);
+  /**
+   * Get the year as a number.
+   * @param date
+   */
+  abstract getYear(date: T): number;
+  /**
+   * Get the month as a number.
+   * Attention: This returns 1-12 and mitigates the default JavaScript Date behavior.
+   * @param date
+   */
+  abstract getMonth(date: T): number;
+  /**
+   * Get the day of the month as a number.
+   * @param date
+   */
+  abstract getDate(date: T): number;
+  /**
+   * Get the Day of the week as a number.
+   * @param date
+   */
+  abstract getDayOfWeek(date: T): number;
+  /** Get the first day of the week (0: sunday; 1: monday; etc.). */
+  abstract getFirstDayOfWeek(): number;
+  /**
+   * Get the number of days in a month.
+   * @param date
+   */
+  abstract getNumDaysInMonth(date: T): number;
+  /**
+   * Get a list of all the months in a given style.
+   * @param style
+   */
+  abstract getMonthNames(style: 'long' | 'short' | 'narrow'): string[];
+  /** Get a string array with length = 31, filled with the days in a month, starting from 1. */
+  abstract getDateNames(): string[];
+  /**
+   * Get a list of all the week days in a given style.
+   * @param style
+   */
+  abstract getDayOfWeekNames(style: 'long' | 'short' | 'narrow'): string[];
+  /** Creates today's date. */
+  abstract today(): T;
+  /**
+   * Checks whether a given `date` is valid.
+   * @param date
+   */
+  abstract isValid(date: T | null | undefined): date is T;
+  /**
+   * Creates a new date by cloning the given one.
+   * @param date
+   */
+  abstract clone(date: T): T;
+  /**
+   * Creates a new date, given day, month and year; without date's overflow.
+   * @param year
+   * @param month The month of the date (1-indexed, 1 = January). Must be an integer 1 - 12.
+   * @param day
+   */
+  abstract createDate(year: number, month: number, day: number): T;
+  /**
+   * Attempts to deserialize a value to a valid date object. This is different from parsing in that
+   * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
+   * string). The default implementation does not allow any deserialization, it simply checks that
+   * the given value is already a valid date object or null.
+   * @param value Either a date object, ISO string or an empty value.
+   * @returns The date if the input is valid, `null` otherwise.
+   */
+  deserialize(value: T | string | null | undefined): T | null;
+  /**
+   * Creates a new date adding the number of provided `years` to the provided `date`.
+   * @param date The starting date.
+   * @param years The number of years to add.
+   */
+  abstract addCalendarYears(date: T, years: number): T;
+  /**
+   * Creates a new date adding the number of provided `months` to the provided `date`.
+   * If the calculated month has fewer days than the original one, the date is set to the last day of the month.
+   * E.g. with `date` = new Date(2022, 0, 31) and `months` = 1, it returns new Date(2022, 1, 28).
+   * @param date The starting date.
+   * @param months The number of months to add.
+   */
+  abstract addCalendarMonths(date: T, months: number): T;
+  /**
+   * Creates a new date by adding the number of provided `days` to the provided `date`.
+   * @param date The starting date.
+   * @param days The number of days to add.
+   */
+  abstract addCalendarDays(date: T, days: number): T;
+  /**
+   * Get the date in the local format.
+   * @param date The date to format
+   * @returns The `date` in the local format as string.
+   */
+  abstract getAccessibilityFormatDate(date: T | string): string;
+  /**
+   * Get the given string as Date.
+   * @param value The date in the format DD.MM.YYYY.
+   */
+  parse(value: string | null | undefined): T | null;
+  /**
+   * Format the given date as string.
+   * @param date The date to format.
+   * @param options options object with weekdayStyle as property
+   */
+  format(
+    date: T | null | undefined,
+    options?: {
+      weekdayStyle?: 'long' | 'short' | 'narrow' | 'none';
+    },
+  ): string;
+  /**
+   * Checks whether the given `obj` is a Date.
+   * @param obj The object to check.
+   */
+  abstract isDateInstance(obj: any): boolean;
+  /**
+   * Gets date instance that is not valid.
+   * @returns An invalid date.
+   */
+  abstract invalid(): T;
+  /**
+   * Get the given date as ISO String.
+   * @param date The date to convert to ISO String.
+   */
+  toIso8601(date: T): string;
+  /**
+   * Given a potential date object, returns that same date object if it is
+   * a valid date, or `null` if it's not a valid date.
+   * @param value The object to check.
+   * @returns A date or `null`.
+   */
+  getValidDateOrNull(value: unknown): T | null;
+  /**
+   * Calculates the day of the week of the first day of the month, and then its offset from the first day of the week.
+   */
+  getFirstWeekOffset(date: T): number;
+  /**
+   * Compares two dates.
+   * @param first The first date to compare.
+   * @param second The second date to compare.
+   * @returns 0 if the dates are equal, a number less than 0 if the first date is earlier,
+   *     a number greater than 0 if the first date is later.
+   */
+  compareDate(first: T, second: T): number;
+  /**
+   * Checks if two dates are equal.
+   * @param first The first date to check.
+   * @param second The second date to check.
+   * @returns Whether the two dates are equal.
+   *     Null dates are considered equal to other null dates.
+   */
+  sameDate(first: T | null, second: T | null): boolean;
+  /**
+   * Clamp the given date between min and max dates.
+   * @param date The date to clamp.
+   * @param min The minimum value to allow. If null or omitted no min is enforced.
+   * @param max The maximum value to allow. If null or omitted no max is enforced.
+   * @returns `min` if `date` is less than `min`, `max` if date is greater than `max`,
+   *     otherwise `date`.
+   */
+  clampDate(date: T, min?: T | null, max?: T | null): T;
+}
+```

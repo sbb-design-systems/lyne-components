@@ -1,10 +1,16 @@
 import type { CSSResultGroup } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
-import { SbbLinkBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledInteractiveMixin, SbbDisabledMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { buttonCommonStyle, buttonPrimaryStyle, SbbButtonCommonElementMixin } from '../common.ts';
+import {
+  boxSizingStyles,
+  SbbDisabledInteractiveMixin,
+  SbbDisabledMixin,
+  SbbLinkBaseElement,
+} from '../../core.ts';
+import {
+  buttonCommonStyle,
+  buttonPrimaryStyle,
+  SbbButtonCommonElementMixin,
+} from '../common/button-common.ts';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'primary' variant, which will behave as a link.
@@ -13,11 +19,10 @@ import { buttonCommonStyle, buttonPrimaryStyle, SbbButtonCommonElementMixin } fr
  * @slot icon - Slot used to display the icon, if one is set.
  * @cssprop [--sbb-button-loading-delay=300ms] - The delay before the loading animation starts, when setting the button into loading state.
  */
-export
-@customElement('sbb-button-link')
-class SbbButtonLinkElement extends SbbButtonCommonElementMixin(
+export class SbbButtonLinkElement extends SbbButtonCommonElementMixin(
   SbbDisabledInteractiveMixin(SbbDisabledMixin(SbbLinkBaseElement)),
 ) {
+  public static override readonly elementName: string = 'sbb-button-link';
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     buttonCommonStyle,

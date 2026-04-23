@@ -1,17 +1,18 @@
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { appendAriaElements, removeAriaElements, SbbDisabledMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
-import type { SbbStepElement } from '../step.ts';
-import type { SbbStepperElement } from '../stepper.ts';
+import {
+  appendAriaElements,
+  boxSizingStyles,
+  removeAriaElements,
+  SbbButtonBaseElement,
+  SbbDisabledMixin,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
+import type { SbbStepElement } from '../step/step.component.ts';
+import type { SbbStepperElement } from '../stepper/stepper.component.ts';
 
-import style from './step-label.scss?lit&inline';
-
-let nextId = 0;
+import style from './step-label.scss?inline';
 
 /**
  * Combined with a `sbb-stepper`, it displays a step's label.
@@ -19,11 +20,10 @@ let nextId = 0;
  * @slot - Use the unnamed slot to provide a label.
  * @slot icon - Use this to display an icon in the label bubble.
  */
-export
-@customElement('sbb-step-label')
-class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
+export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBaseElement)) {
+  public static override readonly elementName: string = 'sbb-step-label';
   public static override readonly role = 'tab';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** The step controlled by the label. */
   public get step(): SbbStepElement | null {
@@ -35,14 +35,26 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     return this.closest('sbb-stepper');
   }
 
+  public override set disabled(value: boolean) {
+    super.disabled = value;
+
+    // We additionally keep track of the `disabled` state to preserve the user configured disabled state
+    // of step labels in case of switching between linear and non-linear mode.
+    this.toggleState('user-disabled', value);
+  }
+  public override get disabled(): boolean {
+    return super.disabled;
+  }
+
   private _previousOrientation?: string;
   private _previousSize?: string;
 
   public constructor() {
     super();
+
     this.addEventListener?.('click', () => {
       const stepper = this.stepper;
-      if (stepper && this.step) {
+      if (stepper && this.step && this._isNotDeactivatedByLinearMode(this.step)) {
         stepper.selected = this.step;
       }
     });
@@ -70,16 +82,21 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     );
   }
 
+  private _isNotDeactivatedByLinearMode(step: SbbStepElement): boolean {
+    const stepper = this.stepper;
+    if (stepper?.linear && stepper.selectedIndex !== null) {
+      const index = stepper.steps.indexOf(step);
+      return index < stepper.selectedIndex || index === stepper.selectedIndex + 1;
+    }
+    return true;
+  }
+
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.id ||= `sbb-step-label-${nextId++}`;
     this.slot ||= 'step-label';
     this.internals.ariaSelected = 'false';
     this.tabIndex = -1;
     this._assignStep();
-    // The `disabled` state is used to preserve the initial disabled state of
-    // step labels in case of switching from linear to non-linear mode.
-    this.toggleState('disabled', this.hasAttribute('disabled'));
   }
 
   /**
@@ -132,12 +149,19 @@ class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbButtonBas
     );
   }
 
+  /**
+   * @internal
+   * Disables the step label and avoids setting the `disabled` state to preserve the initial
+   * disabled state in case of switching between linear and non-linear mode.
+   */
+  public disable(value: boolean): void {
+    super.disabled = value;
+  }
+
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-step-label">
-        <span class="sbb-step-label__prefix">${this.renderIconSlot()}</span>
-        <span class="sbb-step-label__text"><slot></slot></span>
-      </div>
+      <span class="sbb-step-label__prefix">${this.renderIconSlot()}</span>
+      <span class="sbb-step-label__text"><slot></slot></span>
     `;
   }
 }

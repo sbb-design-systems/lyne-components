@@ -1,0 +1,27 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-teaser-hero-link-font-weight: 400;
+}
+
+@mixin rules {
+  sbb-teaser-hero {
+    :is(sbb-image, img):not(.sbb-figure-overlap-image) {
+      --sbb-image-aspect-ratio: 1 / 1;
+
+      border-radius: 0;
+
+      @include sbb.mq($from: small) {
+        --sbb-image-aspect-ratio: 16 / 9;
+      }
+    }
+
+    img:not(.sbb-figure-overlap-image) {
+      display: block;
+      align-self: stretch;
+      width: 100%;
+    }
+  }
+}

@@ -1,5 +1,5 @@
-The `sbb-overlay` component provides a way to present content on top of the app's content,
-and it's similar to the [sbb-dialog](/docs/elements-sbb-dialog-sbb-dialog--docs).
+The `<sbb-overlay>` component provides a way to present content on top of the app's content,
+and it's similar to the [sbb-dialog](/docs/elements-dialog--docs).
 It offers the following features:
 
 - disables scrolling of the page content while open;
@@ -13,13 +13,16 @@ It offers the following features:
 </sbb-overlay>
 ```
 
+<!-- #region intro-end -->
+<!-- #endregion -->
+
 ## Slots
 
 There is only one unnamed slot to provide the overlay content.
 
 ## Style
 
-Setting the `expanded` property will cause the `sbb-overlay` component to take up the full width of the page.
+Setting the `expanded` property will cause the `<sbb-overlay>` component to take up the full width of the page.
 
 It's possible to display the component in `negative` variant using the self-named property.
 
@@ -31,7 +34,7 @@ It's possible to display the component in `negative` variant using the self-name
 
 ## Interactions
 
-In order to show the overlay, you need to provide a trigger or call the `open()` method on the `sbb-overlay` component.
+In order to show the overlay, you need to provide a trigger or call the `open()` method on the `<sbb-overlay>` component.
 
 ```html
 <sbb-button id="overlay-trigger">Open overlay</sbb-button>
@@ -69,7 +72,7 @@ The overlay can be closed in several ways:
 
 3. **Escape key**: Pressing the `Esc` key will close the overlay.
 
-4. **Programmatically**: Call the `close(result?: any)` method on the `sbb-overlay` element.
+4. **Programmatically**: Call the `close(result?: any)` method on the `<sbb-overlay>` element.
    This method closes the overlay and emits `beforeclose` and `close` events with the provided result as a payload.
 
    ```js
@@ -86,8 +89,11 @@ When the overlay closes, it emits two events:
 
 Both events are of type `SbbOverlayCloseEvent` and provide access to:
 
-- `result`: The result value passed to `close()`, assigned via `assignOverlayResult()`, or the value of the `sbb-overlay-close` attribute
-- `closeTarget`: The element that triggered the close action (e.g., the clicked button), or `null` if closed programmatically or via Escape key
+- `result`: The result value passed to `close()`, assigned via `assignOverlayResult()`,
+  or the value of the `sbb-overlay-close` attribute. This is `null` if the dialog
+  was closed via backdrop click or Escape key.
+- `closeTarget`: The element that triggered the close action (e.g., the clicked button),
+  or `null` if closed programmatically or via Escape key
 
 ```js
 overlay.addEventListener('close', (event) => {
@@ -113,7 +119,11 @@ an alternative element by listening to the `didClose` event.
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbOverlayElement`, `sbb-overlay`
+
+#### Properties
 
 | Name                      | Attribute                   | Privacy | Type                  | Default | Description                                                                                                                                                                                                                                                |
 | ------------------------- | --------------------------- | ------- | --------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -125,7 +135,7 @@ an alternative element by listening to the `didClose` event.
 | `skipFocusRestoration`    | `skipFocusRestoration`      | public  | `boolean`             | `false` | Whether to skip restoring focus to the previously-focused element when the overlay is closed. Note that automatic focus restoration is an accessibility feature, and it is recommended that you provide your own equivalent, if you decide to turn it off. |
 | `trigger`                 | `trigger`                   | public  | `HTMLElement \| null` | `null`  | The element that will trigger the menu overlay. For attribute usage, provide an id reference.                                                                                                                                                              |
 
-## Methods
+#### Methods
 
 | Name             | Privacy | Description                                                                 | Parameters    | Return | Inherited From          |
 | ---------------- | ------- | --------------------------------------------------------------------------- | ------------- | ------ | ----------------------- |
@@ -133,7 +143,7 @@ an alternative element by listening to the `didClose` event.
 | `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close() |               | `void` | SbbOpenCloseBaseElement |
 | `open`           | public  | Opens the component.                                                        |               | `void` | SbbOpenCloseBaseElement |
 
-## Events
+#### Events
 
 | Name          | Type                   | Description                                                                  | Inherited From          |
 | ------------- | ---------------------- | ---------------------------------------------------------------------------- | ----------------------- |
@@ -142,13 +152,13 @@ an alternative element by listening to the `didClose` event.
 | `close`       | `SbbOverlayCloseEvent` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
 | `open`        | `Event`                | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                    | Default                              | Description                                                                                                                                                                                                   |
 | ----------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--sbb-overlay-z-index` | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 
-## Slots
+#### Slots
 
 | Name | Description                                                |
 | ---- | ---------------------------------------------------------- |

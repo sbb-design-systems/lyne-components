@@ -1,11 +1,20 @@
-/**
- * @entrypoint
- */
-export * from './seat-reservation/common.ts';
-export * from './seat-reservation/seat-reservation.ts';
-export * from './seat-reservation/seat-reservation-area.ts';
-export * from './seat-reservation/seat-reservation-graphic.ts';
-export * from './seat-reservation/seat-reservation-navigation-coach.ts';
-export * from './seat-reservation/seat-reservation-navigation-services.ts';
-export * from './seat-reservation/seat-reservation-place-control.ts';
-export * from './seat-reservation/seat-reservation-scoped.ts';
+/** @entrypoint */
+import {
+  SbbSeatReservationAreaElement,
+  SbbSeatReservationElement,
+  SbbSeatReservationGraphicElement,
+  SbbSeatReservationNavigationCoachElement,
+  SbbSeatReservationNavigationServicesElement,
+  SbbSeatReservationPlaceControlElement,
+  SbbSeatReservationScopedElement,
+} from './seat-reservation.pure.ts';
+
+export * from './seat-reservation.pure.ts';
+
+SbbSeatReservationElement.define();
+SbbSeatReservationAreaElement.define();
+SbbSeatReservationGraphicElement.define();
+SbbSeatReservationNavigationCoachElement.define();
+SbbSeatReservationNavigationServicesElement.define();
+SbbSeatReservationPlaceControlElement.define();
+SbbSeatReservationScopedElement.define();

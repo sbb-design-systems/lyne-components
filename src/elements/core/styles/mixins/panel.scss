@@ -5,7 +5,9 @@
 // ----------------------------------------------------------------------------------------------------
 // Panel Mixins: Achieve the styling of a panel
 // ----------------------------------------------------------------------------------------------------
+// TODO: delete this file within the next major;
 
+// @deprecated
 @mixin panel-variables {
   --sbb-panel-width: #{functions.px-to-rem-build(223)};
   --sbb-panel-inner-height: #{functions.px-to-rem-build(167)};
@@ -31,7 +33,7 @@
     --sbb-panel-font-size: var(--sbb-typo-scale-2x);
   }
 
-  @include mediaqueries.mq($from: large) {
+  @include mediaqueries.mq($from: ultra) {
     --sbb-panel-width: #{functions.px-to-rem-build(428)};
     --sbb-panel-inner-height: #{functions.px-to-rem-build(320.38)};
     --sbb-panel-triangle-height: #{functions.px-to-rem-build(63.31)};
@@ -40,6 +42,7 @@
   }
 }
 
+// @deprecated
 @mixin panel {
   position: relative;
   display: flex;
@@ -66,6 +69,7 @@
   }
 }
 
+// @deprecated
 @mixin panel-text {
   font-family: var(--sbb-typo-font-family);
   font-size: var(--sbb-panel-font-size);

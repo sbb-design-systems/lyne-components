@@ -1,7 +1,14 @@
-/**
- * @entrypoint
- */
-export * from './train/train.ts';
-export * from './train/train-blocked-passage.ts';
-export * from './train/train-formation.ts';
-export * from './train/train-wagon.ts';
+/** @entrypoint */
+import {
+  SbbTrainBlockedPassageElement,
+  SbbTrainElement,
+  SbbTrainFormationElement,
+  SbbTrainWagonElement,
+} from './train.pure.ts';
+
+export * from './train.pure.ts';
+
+SbbTrainElement.define();
+SbbTrainBlockedPassageElement.define();
+SbbTrainFormationElement.define();
+SbbTrainWagonElement.define();

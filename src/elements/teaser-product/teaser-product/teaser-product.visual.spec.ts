@@ -7,13 +7,14 @@ import {
   visualDiffFocus,
   visualDiffHover,
 } from '../../core/testing/private.ts';
-import { waitForImageReady } from '../../core/testing/wait-for-image-ready.ts';
+import { waitForImageReady } from '../../core/testing.ts';
 
-import './teaser-product.component.ts';
-import '../../button/button-static.ts';
+import '../../teaser.ts';
+import '../../button.ts';
 import '../../chip-label.ts';
 import '../../image.ts';
 import '../../title.ts';
+import '../../teaser-product.ts';
 
 const imageUrl = import.meta.resolve('../../core/testing/assets/placeholder-image.png');
 const imageBase64 = await loadAssetAsBase64(imageUrl);
@@ -31,7 +32,7 @@ const content = (longContent = false): TemplateResult => html`
           amet felis viverra lacinia.`,
       )}
   </p>
-  <sbb-button-static class="sbb-teaser-product--spacing">Label</sbb-button-static>
+  <sbb-button-static class="sbb-teaser-product--spacing" size="l">Label</sbb-button-static>
 `;
 
 const footer = (): TemplateResult => html`

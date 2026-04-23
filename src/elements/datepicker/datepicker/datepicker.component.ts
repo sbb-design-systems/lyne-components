@@ -6,37 +6,42 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
-import type { CalendarView } from '../../calendar.ts';
-import { readConfig } from '../../core/config.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { type DateAdapter, defaultDateAdapter } from '../../core/datetime.ts';
-import { forceType, idReference } from '../../core/decorators.ts';
-import { i18nDateChangedTo } from '../../core/i18n.ts';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
-import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.ts';
-import { SbbPopoverBaseElement } from '../../popover.ts';
-import type { SbbDatepickerToggleElement } from '../datepicker-toggle.ts';
+import { type CalendarView, SbbCalendarElement } from '../../calendar.pure.ts';
+import {
+  type DateAdapter,
+  defaultDateAdapter,
+  forceType,
+  i18nDateChangedTo,
+  idReference,
+  readConfig,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbUpdateSchedulerMixin,
+} from '../../core.ts';
+import { type SbbDateInputAssociated, SbbDateInputElement } from '../../date-input.pure.ts';
+import { SbbPopoverBaseElement } from '../../popover.pure.ts';
+import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker-toggle.component.ts';
 
-import style from './datepicker.scss?lit&inline';
-
-import '../../calendar.ts';
-
-let nextId = 0;
+import style from './datepicker.scss?inline';
 
 /**
  * A datepicker component that allows users to select a date from a calendar view.
+ *
  * @event {CustomEvent<T>} dateselected - Event emitted on date selection.
+ * @event {Event} change - The change event is fired on the datepicker's input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+ * @event {InputEvent} input - The input event fires  on the datepicker's input when the value has been changed as a direct result of a user action.
  */
-export
-@customElement('sbb-datepicker')
-class SbbDatepickerElement<T = Date>
+export class SbbDatepickerElement<T = Date>
   extends SbbUpdateSchedulerMixin(SbbPopoverBaseElement)
   implements SbbDateInputAssociated<T>
 {
-  public static override styles: CSSResultGroup = [SbbPopoverBaseElement.styles, style];
+  public static override readonly elementName: string = 'sbb-datepicker';
+  public static override elementDependencies: SbbElementType[] = [SbbCalendarElement];
+  public static override styles: CSSResultGroup = [SbbPopoverBaseElement.styles, unsafeCSS(style)];
   public static readonly sbbDateInputAssociated = true;
 
   /** If set to true, two months are displayed. */
@@ -73,7 +78,6 @@ class SbbDatepickerElement<T = Date>
   }
 
   public override connectedCallback(): void {
-    this.id ||= `sbb-datepicker-${++nextId}`;
     super.connectedCallback();
 
     const formField = this.closest?.('sbb-form-field');
@@ -157,6 +161,7 @@ class SbbDatepickerElement<T = Date>
             // Emit blur event when value is changed programmatically to notify
             // frameworks that rely on that event to update form status.
             this.input.dispatchEvent(new Event('blur', { composed: true }));
+            this.close();
           }
         }}
       ></sbb-calendar>

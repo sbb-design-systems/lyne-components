@@ -14,9 +14,10 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+import type { SbbElement } from '@sbb-esta/lyne-elements/core.js';
 import {
-  isServer,
   type ComplexAttributeConverter,
+  isServer,
   type PropertyDeclaration,
   type ReactiveElement,
 } from 'lit';
@@ -121,7 +122,9 @@ export interface Options<I extends HTMLElement, E extends EventNames = {}> {
   displayName?: string;
 }
 
-type Constructor<T> = { new (): T };
+interface Constructor<T> {
+  new (): T;
+}
 
 const reservedReactProperties = new Set([
   'children',
@@ -232,6 +235,11 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
   events,
   displayName,
 }: Options<I, E>): ReactWebComponent<I, E> => {
+  // Next.js re-rendering somehow fails, because the finalization calculation
+  // is broken in SSR. We call `finalize()` here explicitly to avoid that.
+  (elementClass as unknown as typeof SbbElement)['finalize']?.();
+  (elementClass as unknown as typeof SbbElement).define?.();
+
   const eventProps = new Set(Object.keys(events ?? {}));
 
   if (DEV_MODE && !NODE_MODE) {

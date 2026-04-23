@@ -20,31 +20,17 @@ snapshots["sbb-dialog-close-button renders Shadow DOM"] =
 `;
 /* end snapshot sbb-dialog-close-button renders Shadow DOM */
 
-snapshots["sbb-dialog-close-button renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Close secondary window"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-dialog-close-button renders A11y tree Firefox */
-
 snapshots["sbb-dialog-close-button renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Close secondary window"
+      "name": "Close secondary window",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }

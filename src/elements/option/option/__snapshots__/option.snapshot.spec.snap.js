@@ -13,20 +13,18 @@ snapshots["sbb-option autocomplete renders selected DOM"] =
 /* end snapshot sbb-option autocomplete renders selected DOM */
 
 snapshots["sbb-option autocomplete renders selected Shadow DOM"] = 
-`<div class="sbb-option__container">
-  <div class="sbb-option">
-    <span class="sbb-option__icon">
-      <slot name="icon">
-      </slot>
+`<div class="sbb-option">
+  <span class="sbb-option__icon">
+    <slot name="icon">
+    </slot>
+  </span>
+  <span class="sbb-option__label">
+    <slot>
+    </slot>
+    <span>
+      Option 1
     </span>
-    <span class="sbb-option__label">
-      <slot>
-      </slot>
-      <span>
-        Option 1
-      </span>
-    </span>
-  </div>
+  </span>
 </div>
 `;
 /* end snapshot sbb-option autocomplete renders selected Shadow DOM */
@@ -43,20 +41,18 @@ snapshots["sbb-option autocomplete renders disabled DOM"] =
 /* end snapshot sbb-option autocomplete renders disabled DOM */
 
 snapshots["sbb-option autocomplete renders disabled Shadow DOM"] = 
-`<div class="sbb-option__container">
-  <div class="sbb-option">
-    <span class="sbb-option__icon">
-      <slot name="icon">
-      </slot>
+`<div class="sbb-option">
+  <span class="sbb-option__icon">
+    <slot name="icon">
+    </slot>
+  </span>
+  <span class="sbb-option__label">
+    <slot>
+    </slot>
+    <span>
+      Option 1
     </span>
-    <span class="sbb-option__label">
-      <slot>
-      </slot>
-      <span>
-        Option 1
-      </span>
-    </span>
-  </div>
+  </span>
 </div>
 `;
 /* end snapshot sbb-option autocomplete renders disabled Shadow DOM */
@@ -64,8 +60,15 @@ snapshots["sbb-option autocomplete renders disabled Shadow DOM"] =
 snapshots["sbb-option selected Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "option",
+      "name": "",
+      "selected": true
+    }
+  ]
 }
 </p>
 `;
@@ -84,8 +87,16 @@ snapshots["sbb-option selected Firefox"] =
 snapshots["sbb-option disabled Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "option",
+      "name": "",
+      "disabled": true,
+      "selected": false
+    }
+  ]
 }
 </p>
 `;

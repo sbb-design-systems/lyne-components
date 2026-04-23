@@ -39,41 +39,41 @@ snapshots["sbb-file-selector renders Shadow DOM"] =
 snapshots["sbb-file-selector renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Choose a file"
-    },
-    {
-      "role": "button",
-      "name": "Choose a file",
-      "value": "No file chosen"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none",
+              "children": [
+                {
+                  "role": "LabelText",
+                  "name": ""
+                }
+              ]
+            },
+            {
+              "role": "status",
+              "name": "",
+              "live": "polite",
+              "atomic": true,
+              "relevant": "additions text"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-file-selector renders A11y tree Chrome */
-
-snapshots["sbb-file-selector renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Choose a file"
-    },
-    {
-      "role": "button",
-      "name": "Choose a file Browse… …"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-file-selector renders A11y tree Firefox */
 

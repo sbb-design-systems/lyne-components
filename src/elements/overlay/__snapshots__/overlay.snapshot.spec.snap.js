@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-overlay renders DOM"] = 
-`<sbb-overlay
-  id="sbb-overlay-0"
-  popover="manual"
->
+`<sbb-overlay popover="manual">
 </sbb-overlay>
 `;
 /* end snapshot sbb-overlay renders DOM */
@@ -22,7 +19,6 @@ snapshots["sbb-overlay renders Shadow DOM"] =
           sbb-overlay-close=""
           size="m"
           tabindex="0"
-          type="button"
         >
         </sbb-secondary-button>
       </div>
@@ -46,42 +42,16 @@ snapshots["sbb-overlay renders Shadow DOM"] =
 snapshots["sbb-overlay renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Close secondary window",
-      "focused": true
-    },
-    {
-      "role": "text",
-      "name": "Dialog "
+      "role": "group",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-overlay renders A11y tree Chrome */
-
-snapshots["sbb-overlay renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Close secondary window",
-      "focused": true
-    },
-    {
-      "role": "text leaf",
-      "name": "Dialog "
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-overlay renders A11y tree Firefox */
 

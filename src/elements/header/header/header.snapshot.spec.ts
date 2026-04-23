@@ -4,8 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbHeaderElement } from './header.component.ts';
-import './header.component.ts';
-import '../header-link.ts';
+import '../../header.ts';
 
 describe(`sbb-header`, () => {
   describe('renders', () => {

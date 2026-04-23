@@ -1,28 +1,31 @@
-The `sbb-toast` is a component that can be used to display toast notifications.
+The `<sbb-toast>` is a component that can be used to display toast notifications.
 
 It can be shown/dismissed by calling the `open/close` methods.
 Only one toast can ever be opened at one time:
-if a new `sbb-toast` is opened while a previous message is still showing, the older message will be automatically dismissed.
+if a new `<sbb-toast>` is opened while a previous message is still showing, the older message will be automatically dismissed.
 
 ```html
 <sbb-button onclick="document.querySelector('sbb-toast').open()">Open toast</sbb-button>
 <sbb-toast>Toast content</sbb-toast>
 ```
 
+<!-- #region intro-end -->
+<!-- #endregion -->
+
 ## Important note
 
-You should carefully consider every use of the `sbb-toast` component since it can be a source of
+You should carefully consider every use of the `<sbb-toast>` component since it can be a source of
 stress for people with visual impairments (see the ["Accessibility"](#accessibility) section for more info).
 
 Here are a few tips for correct usage:
 
-- Try to avoid actions inside a `sbb-toast` since they are not easily reachable;
+- Try to avoid actions inside a `<sbb-toast>` since they are not easily reachable;
 - If an action is needed, you should provide an alternative way to perform it;
 - If not strictly necessary, use the `polite` (_default_) configuration since it is less aggressive for screen-reader users.
 
 ## Slots
 
-It is possible to provide a text via an unnamed slot; the component can optionally display a `sbb-icon`
+It is possible to provide a text via an unnamed slot; the component can optionally display a `<sbb-icon>`
 at the component start using the `iconName` property or via custom content using the `icon` slot.
 
 ```html
@@ -30,7 +33,7 @@ at the component start using the `iconName` property or via custom content using
 <sbb-toast icon-name="dog-small">Toast content</sbb-toast>
 ```
 
-A `sbb-toast` can also be given a custom action that, if marked with the `sbb-toast-close` attribute, will also dismiss it.
+A `<sbb-toast>` can also be given a custom action that, if marked with the `sbb-toast-close` attribute, will also dismiss it.
 
 ```html
 <sbb-button onclick="document.querySelector('sbb-toast').open()">Open toast</sbb-button>
@@ -69,13 +72,13 @@ with the horizontal positions `left`, `start`, `center`, `right` and `end` (defa
 
 ## Accessibility
 
-The `sbb-toast` announces messages via an aria-live region.
-Use the `politeness` property to customize the politeness announcement behaviour.
+The `<sbb-toast>` announces messages via an aria-live region.
+Use the `politeness` property to customize the politeness announcement behavior.
 Check [ARIA live regions](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions) for further info.
 
-The `sbb-toast` does not move focus to the toast element, because it would disrupt users in the middle of a workflow.
+The `<sbb-toast>` does not move focus to the toast element, because it would disrupt users in the middle of a workflow.
 
-For any action offered in the `sbb-toast`, your application should provide an alternative way to perform the action
+For any action offered in the `<sbb-toast>`, your application should provide an alternative way to perform the action
 (e.g. a keyboard combination).
 
 Avoid setting a `timeout` for toasts that have an action available,
@@ -101,7 +104,11 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
+
+### class: `SbbToastElement`, `sbb-toast`
+
+#### Properties
 
 | Name         | Attribute    | Privacy | Type                               | Default           | Description                                                                                                                                                                                                                  |
 | ------------ | ------------ | ------- | ---------------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -112,7 +119,7 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 | `readOnly`   | `readonly`   | public  | `boolean`                          | `false`           | Whether the component is readonly.                                                                                                                                                                                           |
 | `timeout`    | `timeout`    | public  | `number`                           | `0`               | The length of time in milliseconds to wait before automatically dismissing the toast. If 0 (default), it stays open indefinitely. From accessibility perspective, it is recommended to set a timeout of at least 20 seconds. |
 
-## Methods
+#### Methods
 
 | Name             | Privacy | Description                                                                     | Parameters | Return | Inherited From          |
 | ---------------- | ------- | ------------------------------------------------------------------------------- | ---------- | ------ | ----------------------- |
@@ -120,7 +127,7 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 | `escapeStrategy` | public  | The method which is called on escape key press. Defaults to calling close()     |            | `void` | SbbOpenCloseBaseElement |
 | `open`           | public  | Open the toast. If there are other opened toasts in the page, close them first. |            | `void` | SbbOpenCloseBaseElement |
 
-## Events
+#### Events
 
 | Name          | Type    | Description                                                                  | Inherited From          |
 | ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
@@ -129,13 +136,13 @@ Unless strictly necessary, we advise you not to wrap it preventively and let the
 | `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
 | `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
 
-## CSS Properties
+#### CSS Properties
 
 | Name                  | Default                              | Description                                                                                                                                                                                                   |
 | --------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--sbb-toast-z-index` | `var(--sbb-overlay-default-z-index)` | To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`. |
 
-## Slots
+#### Slots
 
 | Name     | Description                                             |
 | -------- | ------------------------------------------------------- |

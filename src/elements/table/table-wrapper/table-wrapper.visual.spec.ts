@@ -4,13 +4,13 @@ import { classMap } from 'lit/directives/class-map.js';
 import {
   describeEach,
   describeViewports,
-  visualRegressionFixture,
   visualDiffDefault,
   visualDiffFocus,
+  visualRegressionFixture,
 } from '../../core/testing/private.ts';
-import { waitForCondition } from '../../core/testing/wait-for-condition.ts';
+import { waitForCondition } from '../../core/testing.ts';
 
-import './table-wrapper.component.ts';
+import '../../table.ts';
 
 describe(`sbb-table-wrapper`, () => {
   let root: HTMLElement;

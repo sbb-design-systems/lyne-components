@@ -1,5 +1,7 @@
-/**
- * @entrypoint
- */
-export * from './breadcrumb/breadcrumb.ts';
-export * from './breadcrumb/breadcrumb-group.ts';
+/** @entrypoint */
+import { SbbBreadcrumbElement, SbbBreadcrumbGroupElement } from './breadcrumb.pure.ts';
+
+export * from './breadcrumb.pure.ts';
+
+SbbBreadcrumbElement.define();
+SbbBreadcrumbGroupElement.define();

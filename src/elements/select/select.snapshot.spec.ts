@@ -1,12 +1,12 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { isSafari } from '../core/dom.ts';
 import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 import { describeIf } from '../core/testing.ts';
+import { isSafari } from '../core.ts';
 
 import type { SbbSelectElement } from './select.component.ts';
-import './select.component.ts';
+import '../select.ts';
 import '../option.ts';
 
 describe(`sbb-select`, () => {
@@ -65,7 +65,7 @@ describe(`sbb-select`, () => {
       });
 
       it('Shadow DOM', async () => {
-        await expect(elem).shadowDom.to.be.equalSnapshot();
+        await expect(elem).shadowDom.to.be.equalSnapshot({ ignoreAttributes: ['id'] });
       });
     });
 

@@ -5,7 +5,7 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import sampleImages from '../core/images.ts';
+import { sampleImages } from '../core/images.private.ts';
 
 import { SbbOverlayElement } from './overlay.component.ts';
 import readme from './readme.md?raw';
@@ -15,6 +15,7 @@ import '../card.ts';
 import '../form-field.ts';
 import '../image.ts';
 import '../link.ts';
+import '../overlay.ts';
 import '../title.ts';
 
 const expanded: InputType = {
@@ -62,7 +63,7 @@ const basicArgs: Args = {
 };
 
 const triggerButton = (triggerId: string): TemplateResult => html`
-  <sbb-button size="m" id=${triggerId}>Open overlay</sbb-button>
+  <sbb-button id=${triggerId}>Open overlay</sbb-button>
 `;
 
 const textBlock = (): TemplateResult => html`
@@ -166,7 +167,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-overlay',
+  title: 'elements/Overlay',
 };
 
 export default meta;

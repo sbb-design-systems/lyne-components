@@ -1,23 +1,18 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { IS_FOCUSABLE_QUERY } from '../../core/a11y.ts';
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { boxSizingStyles, IS_FOCUSABLE_QUERY, SbbElement } from '../../core.ts';
 
-import style from './flip-card-details.scss?lit&inline';
+import style from './flip-card-details.scss?inline';
 
 /**
  * Combined with a `sbb-flip-card`, it displays its content when the card is flipped.
  *
  * @slot - Use the unnamed slot to provide any kind of content.
  */
-export
-@customElement('sbb-flip-card-details')
-class SbbFlipCardDetailsElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbFlipCardDetailsElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-flip-card-details';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   public constructor() {
     super();
@@ -49,10 +44,8 @@ class SbbFlipCardDetailsElement extends SbbElementInternalsMixin(LitElement) {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-flip-card-details--wrapper">
-        <div class="sbb-flip-card-details">
-          <slot></slot>
-        </div>
+      <div class="sbb-flip-card-details">
+        <slot></slot>
       </div>
     `;
   }

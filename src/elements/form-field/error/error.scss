@@ -1,9 +1,7 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-error-color: var(--sbb-color-error);
-  --sbb-error-height: calc(var(--sbb-typo-line-height-text) * 1em);
-  --sbb-error-icon-size: #{sbb.px-to-rem-build(17)};
+  --_sbb-error-height: calc(var(--sbb-typo-line-height-text) * 1em);
 
   // Overrides sbb icon
   --sbb-icon-svg-width: var(--sbb-error-icon-size);
@@ -12,9 +10,10 @@
   display: flex;
   align-items: flex-start;
   color: var(--sbb-error-color);
-  min-height: var(--sbb-error-height);
-
-  @include sbb.text-xs--regular;
+  min-height: var(--_sbb-error-height);
+  font-size: var(--sbb-error-font-size);
+  line-height: var(--sbb-typo-line-height-text);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 
   @include sbb.if-forced-colors {
     --sbb-error-color: LinkText !important;
@@ -28,7 +27,7 @@
 .error__icon {
   display: flex;
   align-items: center;
-  height: var(--sbb-error-height);
+  height: var(--_sbb-error-height);
   margin-inline-end: var(--sbb-spacing-fixed-1x);
 }
 
@@ -40,5 +39,5 @@
 
 .error__icon-svg {
   stroke: currentcolor;
-  height: var(--sbb-error-height);
+  height: var(--_sbb-error-height);
 }

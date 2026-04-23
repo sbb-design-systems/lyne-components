@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbStepLabelElement } from './step-label.component.ts';
 
-import './step-label.component.ts';
+import '../../stepper.ts';
 
 describe('sbb-step-label', () => {
   let root: SbbStepLabelElement;

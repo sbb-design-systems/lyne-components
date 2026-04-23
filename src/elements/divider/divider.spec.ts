@@ -6,6 +6,8 @@ import { waitForLitRender } from '../core/testing.ts';
 
 import { SbbDividerElement } from './divider.component.ts';
 
+import '../divider.ts';
+
 describe(`sbb-divider`, () => {
   const elementInternals = elementInternalsSpy();
 

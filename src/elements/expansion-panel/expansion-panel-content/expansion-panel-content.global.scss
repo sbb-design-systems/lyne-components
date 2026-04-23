@@ -1,0 +1,16 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-expansion-panel-content-padding-block-end: var(--sbb-spacing-responsive-s);
+  --sbb-expansion-panel-content-padding-inline-s: var(--sbb-spacing-fixed-5x);
+  --sbb-expansion-panel-content-padding-inline-l: var(--sbb-spacing-fixed-6x);
+  --sbb-expansion-panel-content-padding-inline-default: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-expansion-panel-content-padding-inline-l),
+        'lean': var(--sbb-expansion-panel-content-padding-inline-s),
+      ),
+      $theme
+    )};
+}

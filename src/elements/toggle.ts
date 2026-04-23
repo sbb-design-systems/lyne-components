@@ -1,5 +1,7 @@
-/**
- * @entrypoint
- */
-export * from './toggle/toggle.ts';
-export * from './toggle/toggle-option.ts';
+/** @entrypoint */
+import { SbbToggleElement, SbbToggleOptionElement } from './toggle.pure.ts';
+
+export * from './toggle.pure.ts';
+
+SbbToggleElement.define();
+SbbToggleOptionElement.define();

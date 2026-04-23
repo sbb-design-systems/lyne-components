@@ -16,6 +16,7 @@ snapshots["sbb-button-link renders a sbb-button-link without icon DOM"] =
 
 snapshots["sbb-button-link renders a sbb-button-link without icon Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   class="sbb-action-base sbb-button-link"
   download=""
   href="https://www.sbb.ch"
@@ -28,10 +29,13 @@ snapshots["sbb-button-link renders a sbb-button-link without icon Shadow DOM"] =
     <slot>
     </slot>
   </span>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
 </a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-button-link renders a sbb-button-link without icon Shadow DOM */
 
@@ -39,7 +43,7 @@ snapshots["sbb-button-link renders a disabled sbb-button-link with slotted icon 
 `<sbb-button-link
   disabled=""
   href="https://www.sbb.ch"
-  size="l"
+  size="m"
 >
   <sbb-icon
     name="chevron-small-left-small"
@@ -71,33 +75,16 @@ snapshots["sbb-button-link renders a disabled sbb-button-link with slotted icon 
 snapshots["sbb-button-link renders a sbb-button-link without icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "Label Text . Link target opens in a new window."
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-button-link renders a sbb-button-link without icon A11y tree Chrome */
-
-snapshots["sbb-button-link renders a sbb-button-link without icon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Label Text . Link target opens in a new window.",
-      "value": "https://www.sbb.ch/"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-button-link renders a sbb-button-link without icon A11y tree Firefox */
 

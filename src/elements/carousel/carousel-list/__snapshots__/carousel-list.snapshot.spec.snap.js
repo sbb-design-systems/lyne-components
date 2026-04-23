@@ -43,38 +43,19 @@ snapshots["sbb-carousel-list renders Shadow DOM"] =
 snapshots["sbb-carousel-list renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "image",
-      "name": "SBB image"
+      "role": "generic",
+      "name": "",
+      "live": "polite",
+      "atomic": true,
+      "relevant": "additions text"
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-carousel-list renders A11y tree Chrome */
-
-snapshots["sbb-carousel-list renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text container",
-      "name": "",
-      "children": [
-        {
-          "role": "img",
-          "name": "SBB image"
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-carousel-list renders A11y tree Firefox */
 

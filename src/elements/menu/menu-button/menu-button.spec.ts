@@ -7,6 +7,8 @@ import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 
 import { SbbMenuButtonElement } from './menu-button.component.ts';
 
+import '../../menu.ts';
+
 describe(`sbb-menu-button`, () => {
   let element: SbbMenuButtonElement;
 

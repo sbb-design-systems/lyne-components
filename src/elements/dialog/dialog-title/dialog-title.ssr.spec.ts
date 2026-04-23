@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbDialogTitleElement } from './dialog-title.component.ts';
 
+import '../../dialog.ts';
+
 describe(`sbb-dialog-title ssr`, () => {
   let root: SbbDialogTitleElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-dialog-title>Title</sbb-dialog-title>`, {
-      modules: ['./dialog-title.component.js'],
+      modules: ['../../dialog.ts'],
     });
   });
 

@@ -57,50 +57,16 @@ snapshots["sbb-tab-nav-bar renders Shadow DOM"] =
 snapshots["sbb-tab-nav-bar renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "Nav item 1"
-    },
-    {
-      "role": "link",
-      "name": "Nav item 2"
-    },
-    {
-      "role": "text",
-      "name": "Nav item 3"
+      "role": "navigation",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-tab-nav-bar renders A11y tree Chrome */
-
-snapshots["sbb-tab-nav-bar renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Nav item 1",
-      "value": "https://www.sbb.ch/"
-    },
-    {
-      "role": "link",
-      "name": "Nav item 2",
-      "value": "https://www.sbb.ch/"
-    },
-    {
-      "role": "text leaf",
-      "name": "Nav item 3"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tab-nav-bar renders A11y tree Firefox */
 

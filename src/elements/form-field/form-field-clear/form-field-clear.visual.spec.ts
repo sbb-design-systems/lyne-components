@@ -3,12 +3,11 @@ import { html } from 'lit';
 import {
   describeEach,
   describeViewports,
-  visualRegressionFixture,
   visualDiffDefault,
+  visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
-import './form-field-clear.component.ts';
-import '../form-field.ts';
+import '../../form-field.ts';
 
 describe(`sbb-form-field-clear`, () => {
   let root: HTMLElement;

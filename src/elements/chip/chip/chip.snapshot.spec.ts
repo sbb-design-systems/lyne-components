@@ -4,7 +4,7 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbChipElement } from './chip.component.ts';
-import './chip.component.ts';
+import '../../chip.ts';
 
 describe(`sbb-chip`, () => {
   describe('renders', () => {

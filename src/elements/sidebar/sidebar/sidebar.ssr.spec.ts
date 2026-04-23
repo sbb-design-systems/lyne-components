@@ -2,7 +2,7 @@ import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { ssrHydratedFixture } from '../../core/testing/private.ts';
-import type { SbbSidebarContainerElement } from '../sidebar-container.ts';
+import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 
 import { SbbSidebarElement } from './sidebar.component.ts';
 
@@ -18,7 +18,7 @@ describe(`sbb-sidebar ssr`, () => {
         <sbb-sidebar-content>Content</sbb-sidebar-content>
       </sbb-sidebar-container>`,
       {
-        modules: ['./sidebar.component.js', '../sidebar-content.js', '../sidebar-container.js'],
+        modules: ['../../sidebar.ts'],
       },
     );
 
@@ -32,7 +32,7 @@ describe(`sbb-sidebar ssr`, () => {
         <sbb-sidebar-content>Content</sbb-sidebar-content>
       </sbb-sidebar-container>`,
       {
-        modules: ['./sidebar.component.js', '../sidebar-content.js', '../sidebar-container.js'],
+        modules: ['../../sidebar.ts'],
       },
     );
 
@@ -46,7 +46,7 @@ describe(`sbb-sidebar ssr`, () => {
         <sbb-sidebar-content>Content</sbb-sidebar-content>
       </sbb-sidebar-container>`,
       {
-        modules: ['./sidebar.component.js', '../sidebar-content.js', '../sidebar-container.js'],
+        modules: ['../../sidebar.ts'],
       },
     );
 

@@ -6,13 +6,15 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.ts';
 
-import '../breadcrumb.ts';
-import './breadcrumb-group.component.ts';
+import type { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.ts';
+
+import '../../breadcrumb.ts';
 
 describe('sbb-breadcrumb-group', () => {
   const variants = [
     { name: 'long', numberOfBreadcrumbs: 3 },
     { name: 'collapsed', numberOfBreadcrumbs: 25 },
+    { name: 'manually-expanded', numberOfBreadcrumbs: 25 },
   ];
 
   describeViewports({ viewports: ['ultra'] }, () => {
@@ -36,8 +38,8 @@ describe('sbb-breadcrumb-group', () => {
                           .fill(undefined)
                           .map(
                             (_, i) =>
-                              html` <sbb-breadcrumb href="https://www.sbb.ch" target="_blank"
-                                >Breadcrumb ${i + 1}
+                              html`<sbb-breadcrumb href="https://www.sbb.ch" target="_blank">
+                                Breadcrumb ${i + 1}
                               </sbb-breadcrumb>`,
                           )}
                       </sbb-breadcrumb-group>
@@ -47,6 +49,15 @@ describe('sbb-breadcrumb-group', () => {
                       darkMode,
                     },
                   );
+
+                  if (variant.name === 'manually-expanded') {
+                    setup.withPostSetupAction(() => {
+                      const ellipsisButton = setup.snapshotElement
+                        .querySelector<SbbBreadcrumbGroupElement>('sbb-breadcrumb-group')!
+                        .shadowRoot!.getElementById('sbb-breadcrumb-ellipsis')!;
+                      ellipsisButton.click();
+                    });
+                  }
                 }),
               );
             }

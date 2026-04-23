@@ -4,11 +4,11 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import type { SbbToggleOptionElement } from '../toggle-option.ts';
+import type { SbbToggleOptionElement } from '../toggle-option/toggle-option.component.ts';
 
 import { SbbToggleElement } from './toggle.component.ts';
 
-import '../toggle-option.ts';
+import '../../toggle.ts';
 
 describe(`sbb-toggle`, () => {
   let element: SbbToggleElement,
@@ -289,6 +289,25 @@ describe(`sbb-toggle`, () => {
       await inputSpy.calledOnce();
 
       firstOption.click();
+      await waitForLitRender(firstOption);
+
+      expect(firstOption).to.have.attribute('checked');
+    });
+
+    it('selects option on Space key pressed', async () => {
+      const changeSpy = new EventSpy('change');
+      const inputSpy = new EventSpy('input');
+
+      firstOption.focus();
+      await waitForLitRender(firstOption);
+      await sendKeys({ press: ' ' });
+      await waitForLitRender(element);
+
+      expect(secondOption).to.have.attribute('checked');
+      await changeSpy.calledOnce();
+      await inputSpy.calledOnce();
+
+      await sendKeys({ press: ' ' });
       await waitForLitRender(firstOption);
 
       expect(firstOption).to.have.attribute('checked');

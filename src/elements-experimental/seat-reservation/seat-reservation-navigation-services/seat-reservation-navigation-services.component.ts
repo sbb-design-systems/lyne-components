@@ -1,25 +1,30 @@
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { type CSSResultGroup, nothing, type TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import {
+  boxSizingStyles,
+  forceType,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbScreenReaderOnlyElement,
+} from '@sbb-esta/lyne-elements/core.js';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
+import { property } from 'lit/decorators.js';
 
-import { getI18nSeatReservation } from '../common.ts';
+import { getI18nSeatReservation } from '../common/translations.ts';
+import { SbbSeatReservationGraphicElement } from '../seat-reservation-graphic/seat-reservation-graphic.component.ts';
 
-import '@sbb-esta/lyne-elements/screen-reader-only.js';
-import '../seat-reservation-graphic.ts';
-
-import style from './seat-reservation-navigation-services.scss?lit&inline';
+import style from './seat-reservation-navigation-services.scss?inline';
 
 /**
  * Component displays the available service icons of one coach.
  *
  */
-export
-@customElement('sbb-seat-reservation-navigation-services')
-class SbbSeatReservationNavigationServicesElement extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbSeatReservationNavigationServicesElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-seat-reservation-navigation-services';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbScreenReaderOnlyElement,
+    SbbSeatReservationGraphicElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Coach service property ids, which are used to display the services in the navigation */
   @property({ attribute: 'property-ids', type: Array })
@@ -29,6 +34,11 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
   @forceType()
   @property({ type: Boolean, reflect: true, useDefault: true })
   public accessor vertical: boolean = false;
+
+  /** Disable the mouse over title information */
+  @forceType()
+  @property({ type: Boolean })
+  public accessor showTitleInfo: boolean = false;
 
   private _language = new SbbLanguageController(this);
 
@@ -45,7 +55,9 @@ class SbbSeatReservationNavigationServicesElement extends LitElement {
           <sbb-seat-reservation-graphic
             class="auto-width"
             name=${signIcon ?? nothing}
-            title=${getI18nSeatReservation(signIcon, this._language.current)}
+            title=${this.showTitleInfo
+              ? getI18nSeatReservation(signIcon, this._language.current)
+              : nothing}
             aria-hidden="true"
           ></sbb-seat-reservation-graphic>
         `;

@@ -1,11 +1,9 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbTitleElement } from '../title.ts';
+import { boxSizingStyles, SbbElement } from '../core.ts';
+import type { SbbTitleElement } from '../title.pure.ts';
 
-import style from './message.scss?lit&inline';
+import style from './message.scss?inline';
 
 /**
  * It displays a complex message combining a title, an image, an action and some content.
@@ -16,10 +14,9 @@ import style from './message.scss?lit&inline';
  * @slot legend - Use this slot to provide a legend, must be a paragraph.
  * @slot action - Use this slot to provide an `sbb-secondary-button`.
  */
-export
-@customElement('sbb-message')
-class SbbMessageElement extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbMessageElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-message';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   private _configureTitle(event: Event): void {
     const title = (event.target as HTMLSlotElement)
@@ -33,13 +30,11 @@ class SbbMessageElement extends LitElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-message__container">
-        <slot name="image"></slot>
-        <slot name="title" @slotchange=${this._configureTitle}></slot>
-        <slot name="subtitle"></slot>
-        <slot name="legend"></slot>
-        <slot name="action"></slot>
-      </div>
+      <slot name="image"></slot>
+      <slot name="title" @slotchange=${this._configureTitle}></slot>
+      <slot name="subtitle"></slot>
+      <slot name="legend"></slot>
+      <slot name="action"></slot>
     `;
   }
 }

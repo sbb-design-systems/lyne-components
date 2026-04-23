@@ -5,10 +5,20 @@
   "keywords": [
     "design system",
     "web components",
-    "lit",
-    "storybook"
+    "lit"
   ],
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "sass": "./_index.scss",
+      "default": "./index.js"
+    },
+    "./_index.scss": {
+      "sass": "./_index.scss",
+      "default": "./_index.scss"
+    }
+  },
   "customElements": "custom-elements.json",
   "dependencies": {
     "@lit-labs/observers": "0.0.0-LITOBSERVERS",

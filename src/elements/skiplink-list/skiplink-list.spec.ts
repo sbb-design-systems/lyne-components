@@ -7,7 +7,8 @@ import type { SbbBlockLinkElement } from '../link.ts';
 
 import { SbbSkiplinkListElement } from './skiplink-list.component.ts';
 
-import '../link/block-link.ts';
+import '../link.ts';
+import '../skiplink-list.ts';
 
 describe(`sbb-skiplink-list`, () => {
   let element: SbbSkiplinkListElement;

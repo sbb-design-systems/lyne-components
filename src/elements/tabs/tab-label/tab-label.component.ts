@@ -1,19 +1,25 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
+import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
-import { SbbDisabledMixin, SbbElementInternalsMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
-import type { SbbTitleLevel } from '../../title.ts';
-import { tabLabelCommonStyles } from '../common.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  omitEmptyConverter,
+  SbbDisabledMixin,
+  SbbElement,
+  SbbPropertyWatcherController,
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
+import type { SbbTitleLevel } from '../../title.pure.ts';
+import { tabLabelCommonStyles } from '../common/styles.ts';
 import type { SbbTabElement } from '../tab/tab.component.ts';
-import type { SbbTabChangedEventDetails, SbbTabGroupElement } from '../tab-group.ts';
+import type {
+  SbbTabChangedEventDetails,
+  SbbTabGroupElement,
+} from '../tab-group/tab-group.component.ts';
 
-import style from './tab-label.scss?lit&inline';
+import style from './tab-label.scss?inline';
 
 /**
  * Combined with a `sbb-tab-group`, it displays a tab's title.
@@ -22,13 +28,14 @@ import style from './tab-label.scss?lit&inline';
  * @slot icon - Use this slot to display an icon to the left of the title, by providing the `sbb-icon` component.
  * @slot amount - Provide a number to show an amount to the right of the title.
  */
-export
-@customElement('sbb-tab-label')
-class SbbTabLabelElement extends SbbDisabledMixin(
-  SbbIconNameMixin(SbbElementInternalsMixin(LitElement)),
-) {
+export class SbbTabLabelElement extends SbbDisabledMixin(SbbIconNameMixin(SbbElement)) {
+  public static override readonly elementName: string = 'sbb-tab-label';
   public static override role = 'tab';
-  public static override styles: CSSResultGroup = [boxSizingStyles, tabLabelCommonStyles, style];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    tabLabelCommonStyles,
+    unsafeCSS(style),
+  ];
 
   /** Whether the tab is selected. */
   private _selected: boolean = false;

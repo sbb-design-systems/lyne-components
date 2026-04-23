@@ -5,6 +5,12 @@
 $disabled: '[disabled], :disabled';
 
 :host {
+  // fixes the keyboard focus border which was cut off due to missing navigation service icons
+  display: inline-block;
+  min-height: sbb-sr-functions.sr-px-to-rem(
+    44
+  ); // default button height (36px) + 2 * 4px focus outline offset
+
   --sbb-seat-reservation-navigation-travelclass-spacing: 10;
   --sbb-seat-reservation-navigation-btn-border-width-default: 1;
   --sbb-seat-reservation-navigation-btn-border-width: var(
@@ -228,10 +234,6 @@ $disabled: '[disabled], :disabled';
   color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
 
   @include sbb.if-forced-colors {
-    @include sbb.if-forced-colors {
-      color: inherit;
-    }
-
     color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
   }
 
@@ -265,6 +267,10 @@ $disabled: '[disabled], :disabled';
   text-align: center;
   background-color: light-dark(var(--sbb-color-granite), var(--sbb-color-graphite));
   color: light-dark(var(--sbb-color-white), var(--sbb-color-black));
+
+  @include sbb.if-forced-colors {
+    border: var(--sbb-border-width-1x) solid;
+  }
 }
 
 // ################ VERTICAL MODE settings ################

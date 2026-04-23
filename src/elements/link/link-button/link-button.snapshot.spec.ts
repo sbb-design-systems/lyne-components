@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbLinkButtonElement } from './link-button.component.ts';
 
-import './link-button.component.ts';
+import '../../link.ts';
 
 describe(`sbb-link-button`, () => {
   let element: SbbLinkButtonElement;
@@ -18,7 +18,6 @@ describe(`sbb-link-button`, () => {
           type="button"
           form="form"
           value="value"
-          size="m"
           aria-label="Travelcards &amp; tickets"
         >
           Travelcards &amp; tickets.

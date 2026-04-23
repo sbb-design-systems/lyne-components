@@ -8,37 +8,31 @@ import type { Preview } from '@storybook/web-components-vite';
 import type { Parameters, StoryContext } from 'storybook/internal/types';
 import { makeDecorator } from 'storybook/preview-api';
 
-import '../src/elements/core/styles/standard-theme.scss';
-
 import leanTheme from '../src/elements/core/styles/lean-theme.scss?inline';
 import offBrandTheme from '../src/elements/core/styles/off-brand-theme.scss?inline';
 import safetyTheme from '../src/elements/core/styles/safety-theme.scss?inline';
+import standardTheme from '../src/elements/core/styles/standard-theme.scss?inline';
+import experimentalLeanTheme from '../src/elements-experimental/core/styles/lean-theme.scss?inline';
+import experimentalOffBrandTheme from '../src/elements-experimental/core/styles/off-brand-theme.scss?inline';
+import experimentalSafetyTheme from '../src/elements-experimental/core/styles/safety-theme.scss?inline';
+import experimentalStandardTheme from '../src/elements-experimental/core/styles/standard-theme.scss?inline';
 
-const originalStyleSheet = Array.from(document.styleSheets).find((stylesheet) =>
-  Array.from(stylesheet.cssRules).find((value) =>
-    // We assume that we target the standard theme file if this variable is included.
-    value.cssText.includes('--sbb-font-color-default'),
-  ),
-);
-
-const standardTheme = Array.from(originalStyleSheet?.cssRules ?? [])
-  .map((rule) => rule.cssText)
-  .join('');
-
-// We need a created stylesheet to manipulate it.
-// So we copy the content of the preloaded standard
-// theme into the constructed one then we remove the original one.
-const themeStyleSheet = new CSSStyleSheet();
-themeStyleSheet.replaceSync(standardTheme);
-document.adoptedStyleSheets.push(themeStyleSheet);
-originalStyleSheet?.ownerNode?.remove();
+if (typeof Temporal !== 'object') {
+  await import('temporal-polyfill/global');
+}
 
 const themeMap = {
-  standard: standardTheme,
-  'off-brand': offBrandTheme,
-  safety: safetyTheme,
-  lean: leanTheme,
+  standard: standardTheme.concat(experimentalStandardTheme),
+  'off-brand': offBrandTheme.concat(experimentalOffBrandTheme),
+  safety: safetyTheme.concat(experimentalSafetyTheme),
+  lean: leanTheme.concat(experimentalLeanTheme),
 };
+
+// We need a created stylesheet to manipulate it.
+// We initialize it with the standard theme.
+const themeStyleSheet = new CSSStyleSheet();
+themeStyleSheet.replaceSync(themeMap['standard']);
+document.adoptedStyleSheets.push(themeStyleSheet);
 
 const themeDecorator = makeDecorator({
   name: 'theme',
@@ -115,13 +109,16 @@ const withBackgroundDecorator = makeDecorator({
 });
 
 const breakpoints = Object.entries({
-  zero: SbbBreakpointZeroMin,
-  small: SbbBreakpointSmallMin,
-  large: SbbBreakpointLargeMin,
-  ultra: SbbBreakpointUltraMin,
+  zero: { width: SbbBreakpointZeroMin, height: '640px' },
+  small: { width: SbbBreakpointSmallMin, height: '800px' },
+  large: { width: SbbBreakpointLargeMin, height: '768px' },
+  ultra: { width: SbbBreakpointUltraMin, height: '900px' },
 })
-  .map(([key, value]) => ({ key: key, value: parseFloat(value) * 16 }))
-  .sort((a, b) => a.value - b.value);
+  .map(([key, value]) => ({
+    key: key,
+    value: { width: parseFloat(value.width) * 16, height: value.height },
+  }))
+  .sort((a, b) => a.value.width - b.value.width);
 
 const breakpointNames: Record<string, number> = breakpoints.reduce(
   (current, next) => Object.assign(current, { [next.key]: next.value }),
@@ -133,8 +130,8 @@ const storybookViewports = breakpoints.reduce(
       [next.key]: {
         name: `Breakpoint ${next.key}`,
         styles: {
-          width: `${next.value || 360}px`,
-          height: '',
+          width: `${next.value.width || 360}px`,
+          height: next.value.height,
         },
       },
     }),
@@ -158,9 +155,19 @@ const parameters: Parameters = {
   backgrounds: { disable: true },
   options: {
     storySort: {
+      method: 'alphabetical',
       // Story section order.
       // https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
-      order: ['introduction', 'pages', 'elements', 'experimental', 'styles', 'internals'],
+      order: [
+        'introduction',
+        'guides',
+        ['Theming', 'Layout', 'DateTime', 'Form Support'],
+        'elements',
+        'styles',
+        'experimental',
+        'pages',
+        'internals',
+      ],
     },
   },
 };
@@ -236,7 +243,7 @@ export default {
           { value: 'standard', title: 'standard', icon: 'photo' },
           { value: 'off-brand', title: 'off-brand', icon: 'paintbrush' },
           { value: 'safety', title: 'safety', icon: 'alert' },
-          ...(isDev() ? [{ value: 'lean', title: 'lean', icon: 'grow' }] : []),
+          ...(isDev() ? [{ value: 'lean', title: 'lean', icon: 'grow' as const }] : []),
         ],
         // Change title based on selected value
         dynamicTitle: true,

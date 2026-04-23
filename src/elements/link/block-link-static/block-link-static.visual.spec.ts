@@ -9,7 +9,7 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
-import './block-link-static.component.ts';
+import '../../link.ts';
 
 describe(`sbb-block-link-static`, () => {
   const cases = {

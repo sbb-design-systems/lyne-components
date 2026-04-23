@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbSliderElement } from './slider.component.ts';
 
+import '../slider.ts';
+
 describe(`sbb-slider ssr`, () => {
   let root: SbbSliderElement;
 
@@ -19,7 +21,7 @@ describe(`sbb-slider ssr`, () => {
           value="400"
         ></sbb-slider>
       `,
-      { modules: ['./slider.component.js'] },
+      { modules: ['../slider.ts'] },
     );
   });
 

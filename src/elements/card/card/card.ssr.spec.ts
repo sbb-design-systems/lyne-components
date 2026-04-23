@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbCardElement } from './card.component.ts';
 
+import '../../card.ts';
+
 describe(`sbb-card ssr`, () => {
   let root: SbbCardElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-card color="transparent-bordered"></sbb-card>`, {
-      modules: ['./card.component.js'],
+      modules: ['../../card.ts'],
     });
   });
 

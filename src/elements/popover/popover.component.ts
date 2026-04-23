@@ -1,48 +1,51 @@
-import type { CSSResultGroup, PropertyDeclaration, PropertyValues, TemplateResult } from 'lit';
-import { html, isServer, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  nothing,
+  type PropertyDeclaration,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
+import { SbbSecondaryButtonElement } from '../button.pure.ts';
 import {
+  boxSizingStyles,
+  composedPathHasAttribute,
+  forceType,
+  getElementPosition,
+  i18nClosePopover,
+  idReference,
   IS_FOCUSABLE_QUERY,
+  isEventOnElement,
   isFakeMousedownFromScreenReader,
+  isZeroAnimationDuration,
+  readConfig,
+  removeAriaOverlayTriggerProperties,
+  type SbbElementType,
+  SbbEscapableOverlayController,
   SbbFocusTrapController,
   sbbInputModalityDetector,
-} from '../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
-import { readConfig } from '../core/config.ts';
-import {
-  SbbEscapableOverlayController,
   SbbLanguageController,
   SbbMediaQueryPointerCoarse,
-} from '../core/controllers.ts';
-import { forceType, idReference } from '../core/decorators.ts';
-import { isZeroAnimationDuration } from '../core/dom.ts';
-import { composedPathHasAttribute } from '../core/eventing.ts';
-import { i18nClosePopover } from '../core/i18n.ts';
-import { SbbHydrationMixin, ɵstateController } from '../core/mixins.ts';
-import {
-  getElementPosition,
-  isEventOnElement,
-  removeAriaOverlayTriggerAttributes,
-  setAriaOverlayTriggerAttributes,
-} from '../core/overlay.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+  SbbOpenCloseBaseElement,
+  setAriaOverlayTriggerProperties,
+  ɵstateController,
+} from '../core.ts';
 
-import style from './popover.scss?lit&inline';
-
-import '../button/secondary-button.ts';
+import style from './popover.scss?inline';
 
 const VERTICAL_OFFSET = 16;
 const HORIZONTAL_OFFSET = 32;
 
-let nextId = 0;
-
 const popoversRef = new Set<SbbPopoverBaseElement>();
 const pointerCoarse = isServer ? false : matchMedia(SbbMediaQueryPointerCoarse).matches;
 
-export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenCloseBaseElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * The element that will trigger the popover overlay.
@@ -90,9 +93,11 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
     this._setPopoverPosition();
     this._attachWindowEvents();
     this._escapableOverlayController.connect();
-    this._triggerElement?.setAttribute('aria-expanded', 'true');
     this._nextFocusedElement = undefined;
     this._skipCloseFocus = false;
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'true';
+    }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `opened` state.
@@ -114,7 +119,9 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
 
     this.state = 'closing';
     this.inert = true;
-    this._triggerElement?.setAttribute('aria-expanded', 'false');
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'false';
+    }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `closed` state.
@@ -158,7 +165,6 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
   public override connectedCallback(): void {
     this.popover = 'manual';
     super.connectedCallback();
-    this.id ||= `sbb-popover-${++nextId}`;
     this.state = 'closed';
     popoversRef.add(this);
     if (this.hasUpdated) {
@@ -210,14 +216,15 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
 
   protected configureTrigger(_oldTrigger: HTMLElement | null): void {
     this._triggerAbortController?.abort();
-    removeAriaOverlayTriggerAttributes(this._triggerElement);
+
+    removeAriaOverlayTriggerProperties(this._triggerElement);
     this._triggerElement = this.trigger;
 
     if (!this._triggerElement) {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(this._triggerElement, 'dialog', this.id, this.state);
+    setAriaOverlayTriggerProperties(this, this._triggerElement, 'dialog', this.state);
 
     this._triggerAbortController = new AbortController();
     this.registerTriggerListeners(this._triggerAbortController.signal);
@@ -266,9 +273,13 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
 
   // Close popover on backdrop click.
   private _closeOnBackdropClick = (event: PointerEvent): void => {
-    if (!this._isPointerDownEventOnPopover && !isEventOnElement(this.overlay!, event)) {
-      this._nextFocusedElement = event
-        .composedPath()
+    const composedPath = event.composedPath();
+    if (
+      !this._isPointerDownEventOnPopover &&
+      !isEventOnElement(this.overlay!, event) &&
+      (!this.trigger || !composedPath.includes(this.trigger))
+    ) {
+      this._nextFocusedElement = composedPath
         .filter((el) => el instanceof window.HTMLElement)
         .find((el) => (el as HTMLElement).matches(IS_FOCUSABLE_QUERY)) as HTMLElement;
       clearTimeout(this.closeTimeout);
@@ -312,8 +323,8 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
 
               // In Safari on iOS it can occur, that a blur event triggers on the popover
               // although the focus remains inside the popover.
-              // Therefore, we need to stop the closing if the relatedTarget is contained in the popover.
-              if (this.contains(e.relatedTarget as Node)) {
+              // Therefore, we need to stop the closing if the relatedTarget is contained in the popover or it is the trigger.
+              if (this.contains(e.relatedTarget as Node) || e.relatedTarget === this.trigger) {
                 return;
               }
 
@@ -358,10 +369,10 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
       this._triggerElement.clientWidth / 2 -
       8; // half the size of the popover arrow
 
-    this.style.setProperty('--sbb-popover-position-x', `${popoverPosition.left}px`);
-    this.style.setProperty('--sbb-popover-position-y', `${popoverPosition.top}px`);
-    this.style.setProperty('--sbb-popover-arrow-position-x', `${arrowXPosition}px`);
-    this.style.setProperty('--sbb-popover-max-height', popoverPosition.maxHeight);
+    this.style.setProperty('--_sbb-popover-position-x', `${popoverPosition.left}px`);
+    this.style.setProperty('--_sbb-popover-position-y', `${popoverPosition.top}px`);
+    this.style.setProperty('--_sbb-popover-arrow-position-x', `${arrowXPosition}px`);
+    this.style.setProperty('--_sbb-popover-max-height', popoverPosition.maxHeight);
   }
 
   protected abstract renderContent(): TemplateResult;
@@ -420,9 +431,10 @@ export abstract class SbbPopoverBaseElement extends SbbHydrationMixin(SbbOpenClo
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export
-@customElement('sbb-popover')
-class SbbPopoverElement extends SbbPopoverBaseElement {
+export class SbbPopoverElement extends SbbPopoverBaseElement {
+  public static override readonly elementName: string = 'sbb-popover';
+  public static override elementDependencies: SbbElementType[] = [SbbSecondaryButtonElement];
+
   /** Whether the close button should be hidden. */
   @forceType()
   @property({ attribute: 'hide-close-button', type: Boolean, reflect: true })
@@ -592,7 +604,6 @@ class SbbPopoverElement extends SbbPopoverBaseElement {
       <sbb-secondary-button
         aria-label=${this.accessibilityCloseLabel || i18nClosePopover[this._language.current]}
         size="s"
-        type="button"
         icon-name="cross-small"
         sbb-popover-close
       ></sbb-secondary-button>

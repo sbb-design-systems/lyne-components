@@ -5,6 +5,8 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbButtonStaticElement } from './button-static.component.ts';
 
+import '../../button.ts';
+
 describe(`sbb-button-static ssr`, () => {
   let root: SbbButtonStaticElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-button-static ssr`, () => {
     root = await ssrHydratedFixture(
       html`<sbb-button-static>I am a static button</sbb-button-static>`,
       {
-        modules: ['./button-static.component.js'],
+        modules: ['../../button.ts'],
       },
     );
   });

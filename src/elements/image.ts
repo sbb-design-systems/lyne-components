@@ -1,4 +1,6 @@
-/**
- * @entrypoint
- */
-export * from './image/image.component.ts';
+/** @entrypoint */
+import { SbbImageElement } from './image.pure.ts';
+
+export * from './image.pure.ts';
+
+SbbImageElement.define();

@@ -5,7 +5,7 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbNavigationListElement } from './navigation-list.component.ts';
 
-import '../navigation-button.ts';
+import '../../navigation.ts';
 
 describe(`sbb-navigation-list ssr`, () => {
   let root: SbbNavigationListElement;
@@ -18,7 +18,7 @@ describe(`sbb-navigation-list ssr`, () => {
           <sbb-navigation-button>Label 2</sbb-navigation-button>
         </sbb-navigation-list>
       `,
-      { modules: ['./navigation-list.component.js', '../navigation-button.js'] },
+      { modules: ['../../navigation.ts'] },
     );
   });
 

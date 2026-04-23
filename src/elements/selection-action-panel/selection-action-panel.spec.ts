@@ -2,15 +2,21 @@ import { assert, expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { type SbbCheckboxGroupElement, SbbCheckboxPanelElement } from '../checkbox.ts';
+import type { SbbCheckboxGroupElement } from '../checkbox-group.ts';
+import { SbbCheckboxPanelElement } from '../checkbox-panel.ts';
 import { fixture, tabKey } from '../core/testing/private.ts';
 import { waitForLitRender } from '../core/testing.ts';
-import { type SbbRadioButtonGroupElement, SbbRadioButtonPanelElement } from '../radio-button.ts';
+import type { SbbRadioButtonGroupElement } from '../radio-button-group.ts';
+import { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
 
 import { SbbSelectionActionPanelElement } from './selection-action-panel.component.ts';
 
-import '../link/block-link-button.ts';
-import '../button/secondary-button.ts';
+import '../link.ts';
+import '../button.ts';
+import '../card.ts';
+import '../checkbox-group.ts';
+import '../radio-button-group.ts';
+import '../selection-action-panel.ts';
 
 describe(`sbb-selection-action-panel`, () => {
   let elements: SbbSelectionActionPanelElement[];
@@ -219,6 +225,25 @@ describe(`sbb-selection-action-panel`, () => {
         await waitForLitRender(wrapper);
 
         expect(firstPanel).to.match(`:state(size-s)`);
+      });
+
+      it('panel should have ariaDescribedByElements set if badge is used', async () => {
+        const tagSingle = unsafeStatic(`sbb-${inputType}-panel`);
+        /* eslint-disable lit/binding-positions */
+        const panel = await fixture(html`
+          <sbb-selection-action-panel>
+            <${tagSingle} value="Value one" size="m">Value one</${tagSingle}>
+            <sbb-secondary-button size="m" icon-name="arrow-right-small">
+            </sbb-secondary-button>
+            <sbb-card-badge>ab CHF 26.50</sbb-card-badge>
+          </sbb-selection-action-panel>
+        `);
+        const badge = panel.querySelector(`sbb-card-badge`)!;
+        /* eslint-enable lit/binding-positions */
+        firstInput = panel.querySelector(`sbb-${inputType}-panel`)!;
+        expect(firstInput.ariaDescribedByElements).not.to.be.null;
+        expect(firstInput.ariaDescribedByElements!.length).to.be.equal(1);
+        expect(firstInput.ariaDescribedByElements![0]).to.be.equal(badge);
       });
     });
   }

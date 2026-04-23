@@ -18,6 +18,7 @@ import { SbbOptionElement } from '../option.ts';
 import { SbbAutocompleteElement } from './autocomplete.component.ts';
 import readme from './readme.md?raw';
 
+import '../autocomplete.ts';
 import '../card.ts';
 import '../form-field.ts';
 
@@ -67,6 +68,15 @@ const autoActiveFirstOption: InputType = {
 };
 
 const autoSelectActiveOption: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Autocomplete',
+  },
+};
+
+const autoSelectActiveOptionOnBlur: InputType = {
   control: {
     type: 'boolean',
   },
@@ -166,6 +176,7 @@ const defaultArgTypes: ArgTypes = {
   preserveIconSpace,
   autoActiveFirstOption,
   autoSelectActiveOption,
+  autoSelectActiveOptionOnBlur,
   requireSelection,
   position,
 
@@ -193,6 +204,7 @@ const defaultArgs: Args = {
   disabled: false,
   readonly: false,
   autoSelectActiveOption: false,
+  autoSelectActiveOptionOnBlur: false,
   requireSelection: false,
   position: position.options![0],
 
@@ -276,6 +288,7 @@ const Template = (args: Args): TemplateResult => html`
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
         ?auto-select-active-option=${args.autoSelectActiveOption}
+        ?auto-select-active-option-on-blur=${args.autoSelectActiveOptionOnBlur}
         ?require-selection=${args.requireSelection}
       >
         ${createOptionGroup1(args.iconName, args.disableOption)} ${createOptionGroup2()}
@@ -301,6 +314,7 @@ const OptionGroupTemplate = (args: Args): TemplateResult => html`
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
         ?auto-select-active-option=${args.autoSelectActiveOption}
+        ?auto-select-active-option-on-blur=${args.autoSelectActiveOptionOnBlur}
         ?require-selection=${args.requireSelection}
       >
         <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
@@ -329,6 +343,7 @@ const MixedTemplate = (args: Args): TemplateResult => html`
         ?preserve-icon-space=${args.preserveIconSpace}
         ?auto-active-first-option=${args.autoActiveFirstOption}
         ?auto-select-active-option=${args.autoSelectActiveOption}
+        ?auto-select-active-option-on-blur=${args.autoSelectActiveOptionOnBlur}
         ?require-selection=${args.requireSelection}
       >
         <sbb-option value="Option 1">
@@ -386,6 +401,7 @@ const RequiredTemplate = (args: Args): TemplateResult => {
           ?preserve-icon-space=${args.preserveIconSpace}
           ?auto-active-first-option=${args.autoActiveFirstOption}
           ?auto-select-active-option=${args.autoSelectActiveOption}
+          ?auto-select-active-option-on-blur=${args.autoSelectActiveOptionOnBlur}
           ?require-selection=${args.requireSelection}
         >
           <sbb-optgroup label="Group 1" ?disabled=${args.disableGroup}>
@@ -555,6 +571,7 @@ const meta: Meta = {
         SbbAutocompleteElement.events.close,
         SbbAutocompleteElement.events.beforeclose,
         'change',
+        'input',
         SbbOptionElement.events.optionselected,
       ],
     },
@@ -568,7 +585,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-autocomplete',
+  title: 'elements/Autocomplete',
 };
 
 export default meta;

@@ -1,18 +1,16 @@
-import type { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.js';
-import { SbbPropertyWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { SbbOptgroupBaseElement } from '@sbb-esta/lyne-elements/option/optgroup.js';
-import { customElement } from 'lit/decorators.js';
+import type { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.pure.js';
+import { SbbPropertyWatcherController } from '@sbb-esta/lyne-elements/core.js';
+import { SbbOptgroupBaseElement } from '@sbb-esta/lyne-elements/option.pure.js';
 
-import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.ts';
+import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/autocomplete-grid-option.component.ts';
 
 /**
  * It can be used as a container for one or more `sbb-autocomplete-grid-option`.
  *
  * @slot - Use the unnamed slot to add `sbb-autocomplete-grid-option` elements to the `sbb-autocomplete-grid-optgroup`.
  */
-export
-@customElement('sbb-autocomplete-grid-optgroup')
-class SbbAutocompleteGridOptgroupElement extends SbbOptgroupBaseElement {
+export class SbbAutocompleteGridOptgroupElement extends SbbOptgroupBaseElement {
+  public static override readonly elementName: string = 'sbb-autocomplete-grid-optgroup';
   protected get options(): SbbAutocompleteGridOptionElement[] {
     return Array.from(
       this.querySelectorAll?.('sbb-autocomplete-grid-option') ?? [],

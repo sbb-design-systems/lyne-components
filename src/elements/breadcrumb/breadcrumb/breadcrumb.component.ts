@@ -1,13 +1,10 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement } from '../../core/base-elements.ts';
-import { SbbHydrationMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+import { boxSizingStyles, SbbLinkBaseElement } from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 
-import style from './breadcrumb.scss?lit&inline';
+import style from './breadcrumb.scss?inline';
 
 /**
  * It displays a link to a page; used within a `sbb-breadcrumb-group` it can display the path to the current page.
@@ -15,10 +12,9 @@ import style from './breadcrumb.scss?lit&inline';
  * @slot - Use the unnamed slot to add content to the breadcrumb.
  * @slot icon - Use this to display an icon as breadcrumb.
  */
-export
-@customElement('sbb-breadcrumb')
-class SbbBreadcrumbElement extends SbbIconNameMixin(SbbHydrationMixin(SbbLinkBaseElement)) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbBreadcrumbElement extends SbbIconNameMixin(SbbLinkBaseElement) {
+  public static override readonly elementName: string = 'sbb-breadcrumb';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   protected override renderTemplate(): TemplateResult {
     return html`

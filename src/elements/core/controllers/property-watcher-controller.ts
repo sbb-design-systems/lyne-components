@@ -1,8 +1,8 @@
 import {
-  type ReactiveControllerHost,
+  isServer,
   type LitElement,
   type ReactiveController,
-  isServer,
+  type ReactiveControllerHost,
 } from 'lit';
 
 type PropertyWatcherHandler<T extends LitElement> = (reference: T) => void;

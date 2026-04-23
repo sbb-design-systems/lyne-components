@@ -7,9 +7,7 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.ts';
 
-import './stepper.component.ts';
-import '../step.ts';
-import '../step-label.ts';
+import '../../stepper.ts';
 
 describe(`sbb-stepper`, () => {
   const cases = {

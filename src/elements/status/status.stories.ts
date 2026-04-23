@@ -1,6 +1,5 @@
 import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
-import { nothing, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
@@ -8,7 +7,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import readme from './readme.md?raw';
 
 import '../title.ts';
-import './status.component.ts';
+import '../status.ts';
 
 const type: InputType = {
   control: {
@@ -190,7 +189,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-status',
+  title: 'elements/Status',
 };
 
 export default meta;

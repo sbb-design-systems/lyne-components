@@ -15,6 +15,7 @@ snapshots["sbb-breadcrumb renders with text DOM"] =
 
 snapshots["sbb-breadcrumb renders with text Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   class="sbb-action-base sbb-breadcrumb"
   download=""
   href="https://example.com/test"
@@ -27,10 +28,13 @@ snapshots["sbb-breadcrumb renders with text Shadow DOM"] =
     <slot>
     </slot>
   </span>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
 </a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-breadcrumb renders with text Shadow DOM */
 
@@ -96,33 +100,16 @@ snapshots["sbb-breadcrumb renders with icon and text Shadow DOM"] =
 snapshots["sbb-breadcrumb renders with text A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "Breadcrumb . Link target opens in a new window."
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-breadcrumb renders with text A11y tree Chrome */
-
-snapshots["sbb-breadcrumb renders with text A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Breadcrumb . Link target opens in a new window.",
-      "value": "https://example.com/test"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-breadcrumb renders with text A11y tree Firefox */
 

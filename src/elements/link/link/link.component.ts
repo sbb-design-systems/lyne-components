@@ -1,19 +1,16 @@
-import { customElement } from 'lit/decorators.js';
-
-import { SbbLinkBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledMixin } from '../../core/mixins.ts';
-import { SbbInlineLinkCommonElementMixin } from '../common.ts';
+import { SbbDisabledMixin, SbbLinkBaseElement } from '../../core.ts';
+import { SbbInlineLinkCommonElementMixin } from '../common/inline-link-common.ts';
 
 /**
  * It displays a link enhanced with the SBB Design.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-link`.
  */
-export
-@customElement('sbb-link')
-class SbbLinkElement extends SbbInlineLinkCommonElementMixin(
+export class SbbLinkElement extends SbbInlineLinkCommonElementMixin(
   SbbDisabledMixin(SbbLinkBaseElement),
-) {}
+) {
+  public static override readonly elementName: string = 'sbb-link';
+}
 
 declare global {
   interface HTMLElementTagNameMap {

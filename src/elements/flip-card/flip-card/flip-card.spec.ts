@@ -3,15 +3,14 @@ import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
 import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import type { SbbFlipCardDetailsElement } from '../flip-card-details.ts';
-import type { SbbFlipCardSummaryElement } from '../flip-card-summary.ts';
+import type { SbbFlipCardDetailsElement } from '../flip-card-details/flip-card-details.component.ts';
+import type { SbbFlipCardSummaryElement } from '../flip-card-summary/flip-card-summary.component.ts';
 
 import { SbbFlipCardElement } from './flip-card.component.ts';
 
-import '../flip-card-summary.ts';
-import '../flip-card-details.ts';
+import '../../flip-card.ts';
 import '../../title.ts';
-import '../../link/link.ts';
+import '../../link.ts';
 
 describe('sbb-flip-card', () => {
   let element: SbbFlipCardElement;

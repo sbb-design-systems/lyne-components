@@ -1,0 +1,9 @@
+@use '../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-divider-color: var(--sbb-background-color-4);
+  --sbb-divider-color-negative: var(--sbb-background-color-4-negative);
+  --sbb-divider-border-width: var(--sbb-border-width-1x);
+}

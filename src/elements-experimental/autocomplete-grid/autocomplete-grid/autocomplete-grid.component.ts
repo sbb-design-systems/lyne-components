@@ -1,14 +1,18 @@
-import { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.js';
-import { getNextElementIndex } from '@sbb-esta/lyne-elements/core/a11y.js';
-import { isSafari } from '@sbb-esta/lyne-elements/core/dom.js';
-import { ɵstateController } from '@sbb-esta/lyne-elements/core/mixins.js';
-import { setAriaComboBoxAttributes } from '@sbb-esta/lyne-elements/core/overlay.js';
-import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.js';
-import type { SbbOptGroupElement, SbbOptionHintElement } from '@sbb-esta/lyne-elements/option.js';
-import { customElement } from 'lit/decorators.js';
+import { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.pure.js';
+import {
+  getNextElementIndex,
+  isSafari,
+  setAriaComboBoxAttributes,
+  ɵstateController,
+} from '@sbb-esta/lyne-elements/core.js';
+import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.pure.js';
+import type {
+  SbbOptGroupElement,
+  SbbOptionHintElement,
+} from '@sbb-esta/lyne-elements/option.pure.js';
 
-import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button.ts';
-import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.ts';
+import type { SbbAutocompleteGridButtonElement } from '../autocomplete-grid-button/autocomplete-grid-button.component.ts';
+import { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/autocomplete-grid-option.component.ts';
 
 let nextId = 0;
 
@@ -28,9 +32,8 @@ const ariaRoleOnHost = isSafari;
  * @cssprop [--sbb-options-panel-max-height] - Maximum height of the options panel.
  * If the calculated remaining space is smaller, the value gets ignored.
  */
-export
-@customElement('sbb-autocomplete-grid')
-class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<T> {
+export class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<T> {
+  public static override readonly elementName: string = 'sbb-autocomplete-grid';
   public static override readonly role = ariaRoleOnHost ? 'grid' : null;
   protected overlayId = `sbb-autocomplete-grid-${++nextId}`;
   protected panelRole = 'grid';
@@ -42,11 +45,6 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
         'sbb-autocomplete-grid-option',
       ) ?? [],
     );
-  }
-
-  public constructor() {
-    super();
-    this.addEventListener?.('optionselected', (e: Event) => this.onOptionSelected(e));
   }
 
   protected syncNegative(): void {
@@ -134,8 +132,15 @@ class SbbAutocompleteGridElement<T = string> extends SbbAutocompleteBaseElement<
     this.activeOption.setActive(true);
     this.triggerElement?.setAttribute('aria-activedescendant', this.activeOption.id);
     this.activeOption.scrollIntoView({ block: 'nearest' });
-    if (this.autoSelectActiveOption) {
-      this.onOptionArrowsSelected(this.activeOption);
+
+    // Moving the active option should not move the input cursor (caret)
+    if (event) {
+      event.preventDefault();
+    }
+
+    // If 'autoSelectActiveOption' and is triggered from a keyboard event
+    if (this.autoSelectActiveOption && event) {
+      this.setPendingSelection(this.activeOption);
     }
   }
 

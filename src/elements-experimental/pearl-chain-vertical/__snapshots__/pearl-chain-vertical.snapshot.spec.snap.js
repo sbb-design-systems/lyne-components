@@ -18,20 +18,22 @@ snapshots["sbb-pearl-chain-vertical renders Shadow DOM"] =
 snapshots["sbb-pearl-chain-vertical renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "LayoutTable",
+          "name": ""
+        }
+      ]
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-pearl-chain-vertical renders A11y tree Chrome */
-
-snapshots["sbb-pearl-chain-vertical renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-pearl-chain-vertical renders A11y tree Firefox */
 

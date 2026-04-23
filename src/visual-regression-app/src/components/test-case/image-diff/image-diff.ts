@@ -1,15 +1,21 @@
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import { boxSizingStyles, forceType } from '@sbb-esta/lyne-elements/core.js';
 import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay/overlay.component.js';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check/toggle-check.component.js';
-import { type CSSResultGroup, html, LitElement, nothing, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved
 import { meta } from 'virtual:meta';
 
 import type { ScreenshotFiles } from '../../../interfaces.ts';
 
-import style from './image-diff.scss?lit&inline';
+import style from './image-diff.scss?inline';
 
 import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/status.js';
@@ -27,7 +33,7 @@ const getImageDimension = (img: HTMLImageElement): string =>
 export
 @customElement('app-image-diff')
 class ImageDiff extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   @property({ attribute: false }) public accessor screenshotFiles: ScreenshotFiles | null = null;
 

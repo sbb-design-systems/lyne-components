@@ -1,14 +1,15 @@
 import type { CSSResultGroup } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  boxSizingStyles,
+  SbbButtonBaseElement,
+  SbbDisabledTabIndexActionMixin,
+} from '../../core.ts';
 import {
   buttonCommonStyle,
   buttonTransparentStyle,
   SbbButtonCommonElementMixin,
-} from '../common.ts';
+} from '../common/button-common.ts';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'transparent' variant.
@@ -17,11 +18,10 @@ import {
  * @slot icon - Slot used to display the icon, if one is set.
  * @cssprop [--sbb-button-loading-delay=300ms] - The delay before the loading animation starts, when setting the button into loading state.
  */
-export
-@customElement('sbb-transparent-button')
-class SbbTransparentButtonElement extends SbbButtonCommonElementMixin(
+export class SbbTransparentButtonElement extends SbbButtonCommonElementMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonBaseElement),
 ) {
+  public static override readonly elementName: string = 'sbb-transparent-button';
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     buttonCommonStyle,

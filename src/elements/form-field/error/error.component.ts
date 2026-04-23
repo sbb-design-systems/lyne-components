@@ -1,13 +1,8 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbNegativeMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { boxSizingStyles, SbbElement, SbbNegativeMixin } from '../../core.ts';
 
-import style from './error.scss?lit&inline';
-
-let nextId = 0;
+import style from './error.scss?inline';
 
 /**
  * It displays an error message in the `sbb-form-field`.
@@ -15,14 +10,12 @@ let nextId = 0;
  * @slot - Use this slot to display the error message.
  * @slot icon - Use this slot to override the default error icon.
  */
-export
-@customElement('sbb-error')
-class SbbErrorElement extends SbbNegativeMixin(LitElement) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbErrorElement extends SbbNegativeMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-error';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.id ||= `sbb-error-${nextId++}`;
     const formField = this.closest?.('sbb-form-field');
     if (formField) {
       this.negative = formField.hasAttribute('negative');

@@ -15,6 +15,7 @@ snapshots["sbb-navigation-link renders DOM"] =
 
 snapshots["sbb-navigation-link renders Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   aria-label="a11y label"
   class="sbb-action-base sbb-navigation-link"
   href="https://www.sbb.ch"
@@ -25,43 +26,29 @@ snapshots["sbb-navigation-link renders Shadow DOM"] =
   </sbb-icon>
   <slot>
   </slot>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
 </a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-navigation-link renders Shadow DOM */
 
 snapshots["sbb-navigation-link renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "a11y label"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-navigation-link renders A11y tree Chrome */
-
-snapshots["sbb-navigation-link renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "a11y label",
-      "value": "https://www.sbb.ch/"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-navigation-link renders A11y tree Firefox */
 

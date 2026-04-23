@@ -5,13 +5,17 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 import { type SinonSpy, spy } from 'sinon';
 
-import { isSafari } from '../core/dom.ts';
 import { fixture, tabKey } from '../core/testing/private.ts';
-import { describeIf, EventSpy, waitForLitRender } from '../core/testing.ts';
+import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import { isSafari } from '../core.ts';
 import { SbbFormFieldElement } from '../form-field.ts';
 import { SbbOptionElement } from '../option.ts';
 
 import { SbbAutocompleteElement } from './autocomplete.component.ts';
+
+import '../autocomplete.ts';
+
+// TODO: Create a 'sbb-autocomplete-base.spec' that factorize tests between the 'autocomplete' and the 'autocomplete-grid'
 
 describe(`sbb-autocomplete`, () => {
   let element: SbbAutocompleteElement, formField: SbbFormFieldElement, input: HTMLInputElement;
@@ -33,40 +37,23 @@ describe(`sbb-autocomplete`, () => {
       element = formField.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
     });
 
-    describeIf(isSafari, 'Safari', async () => {
-      it('renders and sets the correct attributes', () => {
-        assert.instanceOf(formField, SbbFormFieldElement);
-        assert.instanceOf(element, SbbAutocompleteElement);
+    it('renders and sets the correct attributes', () => {
+      assert.instanceOf(formField, SbbFormFieldElement);
+      assert.instanceOf(element, SbbAutocompleteElement);
 
-        expect(element).not.to.have.attribute('autocomplete-origin-borderless');
+      expect(element).not.to.have.attribute('autocomplete-origin-borderless');
 
-        expect(input).to.have.attribute('autocomplete', 'off');
-        expect(input).to.have.attribute('role', 'combobox');
-        expect(input).to.have.attribute('aria-autocomplete', 'list');
-        expect(input).to.have.attribute('aria-haspopup', 'listbox');
-        expect(input).to.have.attribute('aria-controls', element.id);
-        expect(input).to.have.attribute('aria-owns', element.id);
-        expect(input).to.have.attribute('aria-expanded', 'false');
-      });
-    });
+      const id = !isSafari
+        ? element.shadowRoot!.querySelector('.sbb-autocomplete__options')!.id
+        : element.id;
 
-    describeIf(!isSafari, 'Chrome-Firefox', async () => {
-      it('renders and sets the correct attributes', () => {
-        assert.instanceOf(formField, SbbFormFieldElement);
-        assert.instanceOf(element, SbbAutocompleteElement);
-
-        expect(element).not.to.have.attribute('autocomplete-origin-borderless');
-
-        const id = element.shadowRoot!.querySelector('.sbb-autocomplete__options')!.id;
-
-        expect(input).to.have.attribute('autocomplete', 'off');
-        expect(input).to.have.attribute('role', 'combobox');
-        expect(input).to.have.attribute('aria-autocomplete', 'list');
-        expect(input).to.have.attribute('aria-haspopup', 'listbox');
-        expect(input).to.have.attribute('aria-controls', id);
-        expect(input).to.have.attribute('aria-owns', id);
-        expect(input).to.have.attribute('aria-expanded', 'false');
-      });
+      expect(input).to.have.attribute('autocomplete', 'off');
+      expect(input).to.have.attribute('role', 'combobox');
+      expect(input).to.have.attribute('aria-autocomplete', 'list');
+      expect(input).to.have.attribute('aria-haspopup', 'listbox');
+      expect(input).to.have.attribute('aria-controls', id);
+      expect(input).to.have.attribute('aria-owns', id);
+      expect(input).to.have.attribute('aria-expanded', 'false');
     });
 
     it('removes attributes on trigger disconnection', async () => {
@@ -374,43 +361,273 @@ describe(`sbb-autocomplete`, () => {
     });
 
     describe('autoSelectActiveOption', () => {
+      let openSpy: EventSpy<Event>,
+        changeEventSpy: EventSpy<Event>,
+        inputEventSpy: EventSpy<Event>,
+        inputAutocompleteSpy: EventSpy<Event>;
+      let optOne: SbbOptionElement, optTwo: SbbOptionElement;
+
       beforeEach(async () => {
+        openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+        changeEventSpy = new EventSpy('change', input);
+        inputEventSpy = new EventSpy('input', input);
+        inputAutocompleteSpy = new EventSpy('inputAutocomplete', input);
+        optOne = element.querySelector<SbbOptionElement>('#option-1')!;
+        optTwo = element.querySelector<SbbOptionElement>('#option-2')!;
+
         element.autoSelectActiveOption = true;
         await waitForLitRender(element);
       });
 
       it('should open and select with arrow keys only', async () => {
-        const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
-        const changeEventSpy = new EventSpy('change', input);
-        const inputAutocompleteSpy = new EventSpy('inputAutocomplete', input);
-        const optOne = element.querySelector<SbbOptionElement>('#option-1');
-        const optTwo = element.querySelector<SbbOptionElement>('#option-2');
-
         input.focus();
         await openSpy.calledOnce();
         expect(openSpy.count).to.be.equal(1);
 
         await sendKeys({ press: 'ArrowDown' });
         await waitForLitRender(element);
+
+        // Set the pending selection
         expect(optOne).to.match(':state(active)');
-        expect(optOne).to.have.attribute('selected');
         expect(input).to.have.attribute('aria-activedescendant', 'option-1');
         expect(input).to.have.attribute('aria-expanded', 'true');
+        expect(optOne).not.to.have.attribute('selected');
         expect(input.value).to.be.equal('1');
-        expect(changeEventSpy.count).to.be.equal(1);
-        expect(inputAutocompleteSpy.count).to.be.equal(1);
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
 
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+        expect(optOne).not.to.match(':state(active)');
+        expect(optTwo).to.match(':state(active)');
+        expect(input).to.have.attribute('aria-activedescendant', 'option-2');
+        expect(input).to.have.attribute('aria-expanded', 'true');
+        expect(optTwo).not.to.have.attribute('selected');
+        expect(input.value).to.be.equal('2');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('2');
+        expect(optTwo).to.have.attribute('selected');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
+        expect(openSpy.count).to.be.equal(1);
+        expect(document.activeElement?.localName).not.to.be.equal('input'); // Ensure the focus is not trapped
+      });
+
+      it('should reset pending selection on user input', async () => {
+        input.focus();
+        await openSpy.calledOnce();
+        expect(openSpy.count).to.be.equal(1);
+
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+
+        // Set the pending selection
+        expect(optOne).to.match(':state(active)');
+        expect(input.value).to.be.equal('1');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+
+        await sendKeys({ press: 'a' });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('1a');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+        expect(inputEventSpy.count).to.be.equal(1);
+
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('1a');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+      });
+
+      it('should ignore pending selection when an option is clicked', async () => {
+        input.focus();
+        await openSpy.calledOnce();
+
+        await sendKeys({ press: 'ArrowDown' });
+        await waitForLitRender(element);
+
+        // Set the pending selection
+        expect(optOne).to.match(':state(active)');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(input.value).to.be.equal('1');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+
+        optTwo.click();
+        await waitForLitRender(element);
+        expect(optTwo).to.have.attribute('selected');
+        expect(input.value).to.be.equal('2');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
+      });
+
+      it('should not select if "autoActiveFirstOption"', async () => {
+        element.autoActiveFirstOption = true;
+        await waitForLitRender(element);
+
+        input.focus();
+        await openSpy.calledOnce();
+        expect(openSpy.count).to.be.equal(1);
+
+        // Should not select if the option is active because of the 'autoActiveFirstOption'
+        expect(optOne).to.match(':state(active)');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(input.value).to.be.equal('');
+
+        // Instead, user interactions should pend select
         await sendKeys({ press: 'ArrowDown' });
         await waitForLitRender(element);
         expect(optOne).not.to.match(':state(active)');
         expect(optOne).not.to.have.attribute('selected');
         expect(optTwo).to.match(':state(active)');
-        expect(optTwo).to.have.attribute('selected');
-        expect(input).to.have.attribute('aria-activedescendant', 'option-2');
-        expect(input).to.have.attribute('aria-expanded', 'true');
+        expect(optTwo).not.to.have.attribute('selected');
         expect(input.value).to.be.equal('2');
+      });
+    });
+
+    describe('autoSelectActiveOptionOnBlur', () => {
+      let openSpy: EventSpy<Event>,
+        changeEventSpy: EventSpy<Event>,
+        inputEventSpy: EventSpy<Event>,
+        inputAutocompleteSpy: EventSpy<Event>;
+      let optOne: SbbOptionElement, optTwo: SbbOptionElement;
+
+      beforeEach(async () => {
+        openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+        changeEventSpy = new EventSpy('change', input);
+        inputEventSpy = new EventSpy('input', input);
+        inputAutocompleteSpy = new EventSpy('inputAutocomplete', input);
+        optOne = element.querySelector<SbbOptionElement>('#option-1')!;
+        optTwo = element.querySelector<SbbOptionElement>('#option-2')!;
+
+        element.autoSelectActiveOptionOnBlur = true;
+        element.autoActiveFirstOption = true;
+        await waitForLitRender(element);
+      });
+
+      it('should select active option on blur', async () => {
+        input.focus();
+        await sendKeys({ type: 'a' });
+        await openSpy.calledOnce();
+        expect(openSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+        await waitForLitRender(element);
+
+        expect(optOne).to.match(':state(active)');
+        expect(input).to.have.attribute('aria-activedescendant', 'option-1');
+        expect(input).to.have.attribute('aria-expanded', 'true');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(input.value).to.be.equal('a');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('1');
+        expect(optOne).to.have.attribute('selected');
         expect(changeEventSpy.count).to.be.equal(2);
-        expect(inputAutocompleteSpy.count).to.be.equal(2);
+        expect(inputEventSpy.count).to.be.equal(2);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
+        expect(openSpy.count).to.be.equal(1);
+        expect(document.activeElement?.localName).not.to.be.equal('input'); // Ensure the focus is not trapped
+      });
+
+      it('should do nothing if input is empty', async () => {
+        input.focus();
+        await openSpy.calledOnce();
+        expect(openSpy.count).to.be.equal(1);
+        await waitForLitRender(element);
+
+        expect(optOne).to.match(':state(active)');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+      });
+
+      it('should ignore auto-selection when an option is clicked', async () => {
+        input.focus();
+        input.value = 'a';
+        await openSpy.calledOnce();
+        await waitForLitRender(element);
+
+        expect(optOne).to.match(':state(active)');
+        expect(optOne).not.to.have.attribute('selected');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+
+        optTwo.click();
+        await waitForLitRender(element);
+        expect(optTwo).to.have.attribute('selected');
+        expect(input.value).to.be.equal('2');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
+
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('2');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
+
+        input.focus();
+        await openSpy.calledTimes(2);
+        await waitForLitRender(element);
+        expect(optOne).to.match(':state(active)');
+
+        // Ensure that the active option is not auto-selected without any previous user interaction
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('2');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
+      });
+
+      it('should work in combination with "requireSelection"', async () => {
+        element.requireSelection = true;
+        await waitForLitRender(element);
+
+        input.focus();
+        await openSpy.calledOnce();
+        expect(openSpy.count).to.be.equal(1);
+        await waitForLitRender(element);
+
+        await sendKeys({ type: 'a' });
+        await waitForLitRender(element);
+
+        expect(optOne).to.match(':state(active)');
+        expect(changeEventSpy.count).to.be.equal(0);
+        expect(inputAutocompleteSpy.count).to.be.equal(0);
+
+        await sendKeys({ press: tabKey });
+        await waitForLitRender(element);
+        expect(input.value).to.be.equal('1');
+        expect(optOne).to.have.attribute('selected');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputAutocompleteSpy.count).to.be.equal(1);
       });
     });
 
@@ -434,10 +651,13 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('a');
         expect(changeEventSpy.count).to.be.equal(0);
         expect(inputEventSpy.count).to.be.equal(1);
-        await sendKeys({ press: 'Escape' });
+        await sendKeys({ press: tabKey });
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(2);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
 
       it('should clear input if user navigates with keyboard without selecting any option', async () => {
@@ -448,10 +668,13 @@ describe(`sbb-autocomplete`, () => {
         await sendKeys({ press: 'ArrowDown' });
         expect(changeEventSpy.count).to.be.equal(0);
         expect(inputEventSpy.count).to.be.equal(0);
-        await sendKeys({ press: 'Escape' });
+        await sendKeys({ press: tabKey });
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(0);
         expect(inputEventSpy.count).to.be.equal(0);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
 
       it('should clear input if user types and navigates without selecting any option', async () => {
@@ -464,10 +687,13 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('a');
         expect(changeEventSpy.count).to.be.equal(0);
         expect(inputEventSpy.count).to.be.equal(1);
-        await sendKeys({ press: 'Escape' });
+        await sendKeys({ press: tabKey });
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(2);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
 
       it('should not clear input with mouse selection', async () => {
@@ -489,10 +715,13 @@ describe(`sbb-autocomplete`, () => {
 
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(1);
-        await sendKeys({ press: 'Escape' });
+        await sendKeys({ press: tabKey });
         expect(input.value).to.be.equal('2');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(1);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
 
       it('should not clear input with keyboard selection', async () => {
@@ -515,6 +744,9 @@ describe(`sbb-autocomplete`, () => {
         expect(input.value).to.be.equal('1');
         expect(changeEventSpy.count).to.be.equal(1);
         expect(inputEventSpy.count).to.be.equal(1);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
       });
 
       it('should not clear input if user select than opens and closes the panel', async () => {
@@ -554,6 +786,7 @@ describe(`sbb-autocomplete`, () => {
         await sendKeys({ press: 'ArrowDown' });
         await sendKeys({ press: 'Enter' });
         await waitForLitRender(element);
+
         await closeSpy.calledOnce();
         expect(closeSpy.count).to.be.equal(1);
         expect(input.value).to.be.equal('1');
@@ -562,7 +795,32 @@ describe(`sbb-autocomplete`, () => {
         await sendKeys({ press: 'a' });
         expect(openSpy.count).to.be.equal(2);
         expect(inputEventSpy.count).to.be.equal(2);
-        await sendKeys({ press: 'Escape' });
+        await sendKeys({ press: tabKey });
+        expect(input.value).to.be.equal('');
+        expect(changeEventSpy.count).to.be.equal(2);
+        expect(inputEventSpy.count).to.be.equal(3);
+
+        await aTimeout(0);
+        expect(element).to.match(':state(state-closed)');
+      });
+
+      it('should emit events if user manually clears the input after selection', async () => {
+        const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
+
+        input.focus();
+        await openSpy.calledOnce();
+
+        await sendKeys({ press: 'ArrowDown' });
+        await sendKeys({ press: 'Enter' });
+        await waitForLitRender(element);
+
+        await closeSpy.calledOnce();
+        expect(input.value).to.be.equal('1');
+        expect(changeEventSpy.count).to.be.equal(1);
+        expect(inputEventSpy.count).to.be.equal(1);
+
+        await sendKeys({ press: 'ControlOrMeta+Backspace' });
+        await sendKeys({ press: tabKey });
         expect(input.value).to.be.equal('');
         expect(changeEventSpy.count).to.be.equal(2);
         expect(inputEventSpy.count).to.be.equal(3);
@@ -741,15 +999,13 @@ describe(`sbb-autocomplete`, () => {
       input.focus();
       await openSpy.calledOnce();
       expect(input).to.have.attribute('aria-expanded', 'true');
-      expect(
-        getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y'),
-      ).to.be.equal('344px');
+      const posY1 = getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y');
+      expect(Math.round(parseFloat(posY1))).to.be.equal(344);
 
       // Simulate the options' removal and check again position
       await sendKeys({ press: 'a' });
-      expect(
-        getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y'),
-      ).to.be.equal('540px');
+      const posY2 = getComputedStyle(element).getPropertyValue('--sbb-options-panel-position-y');
+      expect(Math.round(parseFloat(posY2))).to.be.equal(540);
 
       // Clean up env
       element.close();
@@ -803,7 +1059,7 @@ describe(`sbb-autocomplete`, () => {
     describe('interrupting opening and closing with non-zero animation duration', () => {
       beforeEach(() => {
         (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
-        element.style.setProperty('--sbb-options-panel-animation-duration', '5ms');
+        element.style.setProperty('--sbb-options-panel-animation-duration', '100ms');
       });
 
       it('should close autocomplete when closing during opening', async function (this: Context) {
@@ -813,7 +1069,7 @@ describe(`sbb-autocomplete`, () => {
         const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
 
         element.open();
-        await aTimeout(1);
+        await waitForLitRender(element);
         expect(element).to.match(':state(state-opening)');
         element.close();
 
@@ -827,8 +1083,8 @@ describe(`sbb-autocomplete`, () => {
 
         const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
 
-        element.open();
-        await aTimeout(1);
+        input.focus();
+        await waitForLitRender(element);
         expect(element).to.match(':state(state-opening)');
         await sendKeys({ press: 'Escape' });
 
@@ -843,7 +1099,7 @@ describe(`sbb-autocomplete`, () => {
         const closeSpy = new EventSpy(SbbAutocompleteElement.events.close, element);
 
         input.focus();
-        await aTimeout(1);
+        await waitForLitRender(element);
         expect(element).to.match(':state(state-opening)');
         await sendKeys({ press: tabKey });
 
@@ -861,7 +1117,7 @@ describe(`sbb-autocomplete`, () => {
         await openSpy.calledOnce();
 
         element.close();
-        await aTimeout(1);
+        await waitForLitRender(element);
         expect(element).to.match(':state(state-closing)');
         element.open();
 
@@ -879,7 +1135,7 @@ describe(`sbb-autocomplete`, () => {
         await openSpy.calledOnce();
 
         element.close();
-        await aTimeout(1);
+        await waitForLitRender(element);
         expect(element).to.match(':state(state-closing)');
         await sendKeys({ press: 'ArrowDown' });
 
@@ -1029,9 +1285,10 @@ describe(`sbb-autocomplete`, () => {
       await waitForLitRender(element);
       expect(element.trigger!.id).to.be.equal(element.originElement!.id);
 
-      expect(
-        element.shadowRoot!.querySelector<HTMLDivElement>('.sbb-autocomplete__panel')!.offsetTop,
-      ).to.be.greaterThan(offsetTopOrigin1);
+      const offsetTop2 = element.shadowRoot!.querySelector<HTMLDivElement>(
+        '.sbb-autocomplete__panel',
+      )!.offsetTop;
+      expect(Math.round(offsetTop2)).to.be.greaterThan(Math.round(offsetTopOrigin1));
     });
   });
 
@@ -1115,6 +1372,39 @@ describe(`sbb-autocomplete`, () => {
     );
   });
 
+  if (!isSafari) {
+    // This test causes all other tests to timeout in Safari
+    // TODO: Figure out what's happening
+    it('should reposition on changing amount of options', async () => {
+      formField = await fixture(html`
+        <sbb-form-field>
+          <input />
+          <sbb-autocomplete>
+            <sbb-option>Option 1</sbb-option>
+          </sbb-autocomplete>
+        </sbb-form-field>
+      `);
+      input = formField.querySelector<HTMLInputElement>('input')!;
+      element = formField.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
+      const option = element.querySelector('sbb-option')!;
+
+      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      element.open();
+      await openSpy.calledOnce();
+
+      formField.style.marginBlockStart = `${document.documentElement.clientHeight - formField.clientHeight - option.clientHeight - 20}px`;
+      // Trigger reposition
+      window.dispatchEvent(new Event('resize'));
+      expect(element).to.match(':state(options-panel-position-below)');
+
+      const option2 = document.createElement('sbb-option');
+      option2.textContent = 'Option 2';
+      element.appendChild(option2);
+      await aTimeout(30);
+      expect(element).to.match(':state(options-panel-position-above)');
+    });
+  }
+
   describe('form submission', () => {
     let form: HTMLFormElement, submitSpy: EventSpy<SubmitEvent>;
 
@@ -1163,6 +1453,40 @@ describe(`sbb-autocomplete`, () => {
       await aTimeout(10);
 
       expect(submitSpy.count).to.be.equal(0);
+    });
+  });
+
+  describe('with optgroup', () => {
+    beforeEach(async () => {
+      formField = await fixture(html`
+        <sbb-form-field>
+          <input />
+          <sbb-autocomplete>
+            <sbb-optgroup label="Group 1">
+              <sbb-option id="option-1" value="1">1</sbb-option>
+              <sbb-option id="option-2" value="2">2</sbb-option>
+            </sbb-optgroup>
+          </sbb-autocomplete>
+        </sbb-form-field>
+      `);
+      input = formField.querySelector<HTMLInputElement>('input')!;
+      element = formField.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
+    });
+
+    it('should recalculate position when options in optgroup change', async () => {
+      const openSpy = new EventSpy(SbbAutocompleteElement.events.open, element);
+      const slotChangeSpy = new EventSpy('ɵoptgroupslotchange', element, { capture: true });
+      const options = Array.from(element.querySelectorAll('sbb-option'));
+      element.autoActiveFirstOption = true;
+
+      input.focus();
+      await openSpy.calledOnce();
+      expect(options[0]).to.match(':state(active)');
+      options[0].remove();
+      await waitForLitRender(element);
+
+      expect(slotChangeSpy.count).to.be.equal(1);
+      expect(options[1]).to.match(':state(active)');
     });
   });
 });

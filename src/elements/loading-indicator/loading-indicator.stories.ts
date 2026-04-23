@@ -8,8 +8,8 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import type { SbbLoadingIndicatorElement } from './loading-indicator.component.ts';
 import readme from './readme.md?raw';
 
-import './loading-indicator.component.ts';
-import '../button/button.ts';
+import '../loading-indicator.ts';
+import '../button.ts';
 import '../card.ts';
 
 const createLoadingIndicator = (event: Event, args: Args): void => {
@@ -93,7 +93,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-loading-indicator',
+  title: 'elements/Loading Indicator',
 };
 
 export default meta;

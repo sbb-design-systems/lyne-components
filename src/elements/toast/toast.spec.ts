@@ -1,15 +1,16 @@
-import { assert, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect, fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import type { SbbTransparentButtonElement } from '../button.ts';
-import { elementInternalsSpy, fixture } from '../core/testing/private.ts';
+import { elementInternalsSpy } from '../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 
 import { SbbToastElement } from './toast.component.ts';
 
-import '../button/transparent-button.ts';
-import '../link/link-button.ts';
+import '../button.ts';
+import '../link.ts';
+import '../toast.ts';
 
 describe(`sbb-toast`, () => {
   let element: SbbToastElement;
@@ -224,5 +225,30 @@ describe(`sbb-toast`, () => {
     await waitForLitRender(element);
     await closeSpy.calledOnce();
     expect(element).to.match(':state(state-closed)');
+  });
+
+  it('closes other toasts on open with non-zero animation duration', async function (this: Context) {
+    // Flaky on WebKit
+    this.retries(3);
+
+    (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
+
+    const root = await fixture<SbbToastElement>(html`
+      <div>
+        <sbb-toast id="toast1" style="--sbb-toast-animation-duration:5ms"></sbb-toast>
+        <sbb-toast id="toast2" style="--sbb-toast-animation-duration:5ms"></sbb-toast>
+      </div>
+    `);
+
+    const [toast1, toast2] = Array.from(root.querySelectorAll('sbb-toast'));
+
+    // Open the first and second toast at once
+    toast1.open();
+    toast2.open();
+
+    // Wait until possible opening or closing is finished
+    await aTimeout(15);
+    expect(toast1.isOpen, 'toast 1 to be closed').to.be.false;
+    expect(toast2.isOpen, 'toast 2 to be open').to.be.true;
   });
 });

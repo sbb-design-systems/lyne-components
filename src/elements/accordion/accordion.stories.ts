@@ -9,7 +9,8 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import { SbbExpansionPanelElement } from '../expansion-panel.ts';
 
 import readme from './readme.md?raw';
-import './accordion.component.ts';
+
+import '../accordion.ts';
 
 const numberOfPanels: InputType = {
   control: {
@@ -170,6 +171,7 @@ const Template = ({
       `,
     )}
   </sbb-accordion>
+  <p>Content below the accordion.</p>
 `;
 
 export const Default: StoryObj = {
@@ -249,7 +251,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-accordion/sbb-accordion',
+  title: 'elements/Accordion',
 };
 
 export default meta;

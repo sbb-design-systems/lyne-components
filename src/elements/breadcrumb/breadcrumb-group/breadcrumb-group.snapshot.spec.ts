@@ -5,8 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbBreadcrumbGroupElement } from './breadcrumb-group.component.ts';
 
-import '../breadcrumb.ts';
-import './breadcrumb-group.component.ts';
+import '../../breadcrumb.ts';
 
 describe(`sbb-breadcrumb-group`, () => {
   let root: SbbBreadcrumbGroupElement;

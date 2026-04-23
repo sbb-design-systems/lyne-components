@@ -1,0 +1,21 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-expansion-panel-background-color: var(--sbb-background-color-1);
+  --sbb-expansion-panel-background-color-hover: var(--sbb-background-color-3);
+  --sbb-expansion-panel-border-radius: var(--sbb-border-radius-4x);
+
+  // Vars which will be used by child components
+  --sbb-expansion-panel-icon-size: var(--sbb-size-icon-ui-medium);
+  --sbb-expansion-panel-title-gap-s: var(--sbb-spacing-fixed-2x);
+  --sbb-expansion-panel-title-gap-l: var(--sbb-spacing-fixed-4x);
+  --sbb-expansion-panel-title-gap-default: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-expansion-panel-title-gap-l),
+        'lean': var(--sbb-expansion-panel-title-gap-s),
+      ),
+      $theme
+    )};
+}

@@ -12,11 +12,10 @@ import '../alert.ts';
 import '../breadcrumb.ts';
 import '../chip-label.ts';
 import '../image.ts';
-import '../link/block-link.ts';
-import '../link/link.ts';
+import '../link.ts';
 import '../notification.ts';
 import '../title.ts';
-import './lead-container.component.ts';
+import '../lead-container.ts';
 
 const leadImageUrl = import.meta.resolve('../core/testing/assets/placeholder-image.png');
 const leadImageBase64 = await loadAssetAsBase64(leadImageUrl);
@@ -82,7 +81,7 @@ describe(`sbb-lead-container`, () => {
       </style>
       ${image()}
       <sbb-alert-group class="sbb-lead-container-spacing">
-        <sbb-alert size="m">
+        <sbb-alert>
           <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
           The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
           <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
@@ -135,6 +134,16 @@ describe(`sbb-lead-container`, () => {
         }),
       );
     }
+
+    it(
+      'without image',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          leadContainerTemplate(() => html``),
+          wrapperStyles,
+        );
+      }),
+    );
   });
 
   describeViewports({ viewports: ['large'] }, () => {

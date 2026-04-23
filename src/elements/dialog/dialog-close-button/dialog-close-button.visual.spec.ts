@@ -7,7 +7,7 @@ import {
   visualRegressionFixture,
 } from '../../core/testing/private.ts';
 
-import './dialog-close-button.component.ts';
+import '../../dialog.ts';
 
 // We test only states which are expected to be used
 describe(`sbb-dialog-close-button`, () => {

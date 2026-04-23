@@ -2,6 +2,8 @@ import { expect } from '@open-wc/testing';
 
 import { isValid } from './icon-validate.ts';
 
+import '../icon.ts';
+
 describe(`sbb-icon-validate`, () => {
   describe('isValid', () => {
     it('invalid onload attr', () => {

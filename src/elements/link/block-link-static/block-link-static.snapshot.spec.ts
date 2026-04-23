@@ -4,7 +4,8 @@ import { html } from 'lit/static-html.js';
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbBlockLinkStaticElement } from './block-link-static.component.ts';
-import './block-link-static.component.ts';
+
+import '../../link.ts';
 import '../../icon.ts';
 
 describe(`sbb-block-link-static`, () => {

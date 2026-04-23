@@ -1,20 +1,17 @@
-import { SbbElementInternalsMixin } from '@sbb-esta/lyne-elements/core/mixins.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { boxSizingStyles, SbbElement } from '@sbb-esta/lyne-elements/core.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import style from './autocomplete-grid-cell.scss?lit&inline';
+import style from './autocomplete-grid-cell.scss?inline';
 
 /**
  * A wrapper component for autocomplete-grid action button.
  *
  * @slot - Use the unnamed slot to add a `sbb-autocomplete-grid-button` element.
  */
-export
-@customElement('sbb-autocomplete-grid-cell')
-class SbbAutocompleteGridCellElement extends SbbElementInternalsMixin(LitElement) {
+export class SbbAutocompleteGridCellElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-autocomplete-grid-cell';
   public static override readonly role = 'gridcell';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`

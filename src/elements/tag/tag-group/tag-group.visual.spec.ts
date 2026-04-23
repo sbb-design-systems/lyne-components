@@ -3,8 +3,7 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
 
-import '../tag.ts';
-import './tag-group.component.ts';
+import '../../tag.ts';
 
 describe(`sbb-tag-group`, () => {
   describeViewports({ viewports: ['zero', 'large'] }, () => {

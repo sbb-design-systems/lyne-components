@@ -5,16 +5,14 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbTimetableFormElement } from './timetable-form.component.ts';
 
-import './timetable-form.component.ts';
-import '../../button/button.ts';
+import '../../button.ts';
 import '../../divider.ts';
+import '../../form-field.ts';
 import '../../icon.ts';
 import '../../signet.ts';
 import '../../time-input.ts';
+import '../../timetable-form.ts';
 import '../../toggle.ts';
-import '../timetable-form-field.ts';
-import '../timetable-form-swap-button.ts';
-import '../timetable-form-details.ts';
 
 describe(`sbb-timetable-form`, () => {
   describe('renders', () => {
@@ -51,7 +49,7 @@ describe(`sbb-timetable-form`, () => {
     });
 
     it('DOM', async () => {
-      await expect(element).dom.to.be.equalSnapshot();
+      await expect(element).dom.to.be.equalSnapshot({ ignoreAttributes: ['style'] });
     });
 
     testA11yTreeSnapshot();

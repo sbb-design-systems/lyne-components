@@ -1,20 +1,27 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
-
-import { SbbButtonLikeBaseElement } from '../../core/base-elements.ts';
-import { forceType, getOverride, omitEmptyConverter } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
 import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
+import { property } from 'lit/decorators.js';
+
+import {
+  boxSizingStyles,
+  forceType,
   type FormRestoreReason,
   type FormRestoreState,
+  getOverride,
+  isLean,
+  omitEmptyConverter,
+  SbbButtonLikeBaseElement,
   SbbDisabledTabIndexActionMixin,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
-import type { SbbTagGroupElement } from '../tag-group.ts';
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
+import type { SbbTagGroupElement } from '../tag-group/tag-group.component.ts';
 
-import style from './tag.scss?lit&inline';
+import style from './tag.scss?inline';
 
 export type SbbTagSize = 's' | 'm';
 
@@ -26,12 +33,11 @@ export type SbbTagSize = 's' | 'm';
  * @slot amount - Provide an amount to show it at the component end.
  * @overrideType value - (T = string) | null
  */
-export
-@customElement('sbb-tag')
-class SbbTagElement<T = string> extends SbbIconNameMixin(
+export class SbbTagElement<T = string> extends SbbIconNameMixin(
   SbbDisabledTabIndexActionMixin(SbbButtonLikeBaseElement),
 ) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override readonly elementName: string = 'sbb-tag';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     input: 'input',
     didChange: 'didChange',

@@ -1,7 +1,5 @@
-import { customElement } from 'lit/decorators.js';
-
-import { SbbLinkBaseElement } from '../../core/base-elements.ts';
-import { SbbHeaderActionCommonElementMixin } from '../common.ts';
+import { SbbLinkBaseElement } from '../../core.ts';
+import { SbbHeaderActionCommonElementMixin } from '../common/header-action-common.ts';
 
 /**
  * It displays a link element that can be used in the `sbb-header` component.
@@ -9,9 +7,9 @@ import { SbbHeaderActionCommonElementMixin } from '../common.ts';
  * @slot icon - Slot used to render the link icon.
  * @slot - Use the unnamed slot to add content to the `sbb-header-link`.
  */
-export
-@customElement('sbb-header-link')
-class SbbHeaderLinkElement extends SbbHeaderActionCommonElementMixin(SbbLinkBaseElement) {}
+export class SbbHeaderLinkElement extends SbbHeaderActionCommonElementMixin(SbbLinkBaseElement) {
+  public static override readonly elementName: string = 'sbb-header-link';
+}
 
 declare global {
   interface HTMLElementTagNameMap {

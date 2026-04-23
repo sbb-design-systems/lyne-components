@@ -12,16 +12,32 @@ snapshots["sbb-toggle-option renders DOM"] =
 /* end snapshot sbb-toggle-option renders DOM */
 
 snapshots["sbb-toggle-option renders Shadow DOM"] = 
-`<div class="sbb-toggle-option">
-  <slot name="icon">
+`<slot name="icon">
+</slot>
+<span class="sbb-toggle-option__label">
+  <slot>
   </slot>
-  <span class="sbb-toggle-option__label">
-    <slot>
-    </slot>
-  </span>
-</div>
+</span>
 `;
 /* end snapshot sbb-toggle-option renders Shadow DOM */
+
+snapshots["sbb-toggle-option renders A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "radio",
+      "name": "",
+      "focusable": true,
+      "checked": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle-option renders A11y tree Chrome */
 
 snapshots["sbb-toggle-option renders unchecked DOM"] = 
 `<sbb-toggle-option
@@ -33,16 +49,32 @@ snapshots["sbb-toggle-option renders unchecked DOM"] =
 /* end snapshot sbb-toggle-option renders unchecked DOM */
 
 snapshots["sbb-toggle-option renders unchecked Shadow DOM"] = 
-`<div class="sbb-toggle-option">
-  <slot name="icon">
+`<slot name="icon">
+</slot>
+<span class="sbb-toggle-option__label">
+  <slot>
   </slot>
-  <span class="sbb-toggle-option__label">
-    <slot>
-    </slot>
-  </span>
-</div>
+</span>
 `;
 /* end snapshot sbb-toggle-option renders unchecked Shadow DOM */
+
+snapshots["sbb-toggle-option renders unchecked A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "radio",
+      "name": "",
+      "focusable": true,
+      "checked": false
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle-option renders unchecked A11y tree Chrome */
 
 snapshots["sbb-toggle-option renders checked disabled DOM"] = 
 `<sbb-toggle-option
@@ -56,16 +88,33 @@ snapshots["sbb-toggle-option renders checked disabled DOM"] =
 /* end snapshot sbb-toggle-option renders checked disabled DOM */
 
 snapshots["sbb-toggle-option renders checked disabled Shadow DOM"] = 
-`<div class="sbb-toggle-option">
-  <slot name="icon">
+`<slot name="icon">
+</slot>
+<span class="sbb-toggle-option__label">
+  <slot>
   </slot>
-  <span class="sbb-toggle-option__label">
-    <slot>
-    </slot>
-  </span>
-</div>
+</span>
 `;
 /* end snapshot sbb-toggle-option renders checked disabled Shadow DOM */
+
+snapshots["sbb-toggle-option renders checked disabled A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "radio",
+      "name": "",
+      "disabled": true,
+      "focusable": true,
+      "checked": true
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toggle-option renders checked disabled A11y tree Chrome */
 
 snapshots["sbb-toggle-option renders unchecked disabled DOM"] = 
 `<sbb-toggle-option
@@ -78,79 +127,26 @@ snapshots["sbb-toggle-option renders unchecked disabled DOM"] =
 /* end snapshot sbb-toggle-option renders unchecked disabled DOM */
 
 snapshots["sbb-toggle-option renders unchecked disabled Shadow DOM"] = 
-`<div class="sbb-toggle-option">
-  <slot name="icon">
+`<slot name="icon">
+</slot>
+<span class="sbb-toggle-option__label">
+  <slot>
   </slot>
-  <span class="sbb-toggle-option__label">
-    <slot>
-    </slot>
-  </span>
-</div>
+</span>
 `;
 /* end snapshot sbb-toggle-option renders unchecked disabled Shadow DOM */
-
-snapshots["sbb-toggle-option renders A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "",
-      "checked": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-option renders A11y tree Chrome */
-
-snapshots["sbb-toggle-option renders unchecked A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "",
-      "checked": false
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-option renders unchecked A11y tree Chrome */
-
-snapshots["sbb-toggle-option renders checked disabled A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "",
-      "disabled": true,
-      "checked": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-option renders checked disabled A11y tree Chrome */
 
 snapshots["sbb-toggle-option renders unchecked disabled A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "radio",
       "name": "",
       "disabled": true,
+      "focusable": true,
       "checked": false
     }
   ]
@@ -158,72 +154,4 @@ snapshots["sbb-toggle-option renders unchecked disabled A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-toggle-option renders unchecked disabled A11y tree Chrome */
-
-snapshots["sbb-toggle-option renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "",
-      "checked": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-option renders A11y tree Firefox */
-
-snapshots["sbb-toggle-option renders unchecked A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-option renders unchecked A11y tree Firefox */
-
-snapshots["sbb-toggle-option renders checked disabled A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "",
-      "disabled": true,
-      "checked": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-option renders checked disabled A11y tree Firefox */
-
-snapshots["sbb-toggle-option renders unchecked disabled A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "radio",
-      "name": "",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-option renders unchecked disabled A11y tree Firefox */
 

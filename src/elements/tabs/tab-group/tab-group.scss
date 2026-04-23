@@ -2,6 +2,8 @@
 
 :host {
   --sbb-tab-group-animation-duration: 0s;
+
+  gap: var(--sbb-tab-group-content-gap);
 }
 
 :host(:state(initialized)) {
@@ -12,6 +14,13 @@
 }
 
 .sbb-tab-group-content {
-  margin-block-start: var(--sbb-tab-group-content-gap);
+  height: var(--sbb-tab-content-height);
   transition: height var(--sbb-tab-group-animation-duration) var(--sbb-animation-easing);
+}
+
+::slotted(sbb-tab) {
+  :host([fixed-height]) & {
+    height: 100%;
+    overflow: auto;
+  }
 }

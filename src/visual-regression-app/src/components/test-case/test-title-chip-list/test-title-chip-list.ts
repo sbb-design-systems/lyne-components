@@ -1,25 +1,32 @@
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import '@sbb-esta/lyne-elements/chip-label.js';
-import style from './test-title-chip-list.scss?lit&inline';
+import style from './test-title-chip-list.scss?inline';
 
 /**
  * Captures two groups
  * - simple => "key=value" patterns
  * - complex => "key=( key=value-... )
  */
-const paramsRegex = /(?<complex>[a-zA-Z]*=\(.*\))|(?<simple>[a-zA-Z]+=[a-zA-Z0-9]*)/gm;
+const paramsRegex = /(?<complex>[a-zA-Z]*=\(.*\))|(?<simple>[a-zA-Z]+=-{0,1}[a-zA-Z0-9]*)/gm;
 
-type DescribeEachItem = {
+interface DescribeEachItem {
   key: string;
   value: string;
   input: string;
   isBoolean: boolean;
   isUndefined: boolean;
   isComplex: boolean;
-};
+}
 
 /**
  *  Convert the `describeEach` test title format into a list of more readable chips.
@@ -31,7 +38,7 @@ type DescribeEachItem = {
 export
 @customElement('app-test-title-chip-list')
 class TestTitleChipList extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   @property()
   public set testCaseName(name: string) {

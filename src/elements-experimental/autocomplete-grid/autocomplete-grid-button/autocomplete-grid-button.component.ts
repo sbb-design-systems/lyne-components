@@ -1,16 +1,18 @@
-import { miniButtonStyle } from '@sbb-esta/lyne-elements/button/common.js';
-import { SbbActionBaseElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbPropertyWatcherController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { hostAttributes } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { isEventPrevented } from '@sbb-esta/lyne-elements/core/eventing.js';
-import { SbbDisabledMixin, SbbNegativeMixin } from '@sbb-esta/lyne-elements/core/mixins.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { SbbIconNameMixin } from '@sbb-esta/lyne-elements/icon.js';
+import { miniButtonStyle } from '@sbb-esta/lyne-elements/button.pure.js';
+import {
+  boxSizingStyles,
+  hostAttributes,
+  isEventPrevented,
+  SbbActionBaseElement,
+  SbbDisabledMixin,
+  SbbNegativeMixin,
+  SbbPropertyWatcherController,
+} from '@sbb-esta/lyne-elements/core.js';
+import { SbbIconNameMixin } from '@sbb-esta/lyne-elements/icon.pure.js';
 import { type CSSResultGroup, isServer, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
 
-import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup.ts';
-import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option.ts';
+import type { SbbAutocompleteGridOptgroupElement } from '../autocomplete-grid-optgroup/autocomplete-grid-optgroup.component.ts';
+import type { SbbAutocompleteGridOptionElement } from '../autocomplete-grid-option/autocomplete-grid-option.component.ts';
 
 let autocompleteButtonNextId = 0;
 
@@ -20,13 +22,13 @@ let autocompleteButtonNextId = 0;
  * @slot icon - Slot used to display the icon, if one is set
  */
 export
-@customElement('sbb-autocomplete-grid-button')
 @hostAttributes({
   tabindex: null,
 })
 class SbbAutocompleteGridButtonElement extends SbbDisabledMixin(
   SbbNegativeMixin(SbbIconNameMixin(SbbActionBaseElement)),
 ) {
+  public static override readonly elementName: string = 'sbb-autocomplete-grid-button';
   public static override readonly role = 'button';
   public static override styles: CSSResultGroup = [boxSizingStyles, miniButtonStyle];
 

@@ -24,32 +24,18 @@ snapshots["sbb-navigation-button renders Shadow DOM"] =
 snapshots["sbb-navigation-button renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Button"
+      "name": "Button",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-navigation-button renders A11y tree Chrome */
-
-snapshots["sbb-navigation-button renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Button"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-navigation-button renders A11y tree Firefox */
 

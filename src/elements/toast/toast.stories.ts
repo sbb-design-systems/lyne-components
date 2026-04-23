@@ -9,9 +9,10 @@ import type { SbbButtonElement } from '../button.ts';
 
 import readme from './readme.md?raw';
 import { SbbToastElement } from './toast.component.ts';
-import '../button/button.ts';
-import '../button/transparent-button.ts';
-import '../link/link.ts';
+
+import '../toast.ts';
+import '../button.ts';
+import '../link.ts';
 
 const position: InputType = {
   control: {
@@ -159,7 +160,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-toast',
+  title: 'elements/Toast',
 };
 
 export default meta;

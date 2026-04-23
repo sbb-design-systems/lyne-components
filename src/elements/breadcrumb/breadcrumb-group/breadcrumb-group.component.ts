@@ -2,31 +2,29 @@ import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
-  LitElement,
   nothing,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { state } from 'lit/decorators.js';
 
 import {
+  boxSizingStyles,
   getNextElementIndex,
+  i18nBreadcrumbEllipsisButtonLabel,
   isArrowKeyPressed,
+  SbbElement,
+  type SbbElementType,
   sbbInputModalityDetector,
-} from '../../core/a11y.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { i18nBreadcrumbEllipsisButtonLabel } from '../../core/i18n.ts';
-import {
-  SbbElementInternalsMixin,
+  SbbLanguageController,
   SbbNamedSlotListMixin,
   type WithListChildren,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbBreadcrumbElement } from '../breadcrumb.ts';
+} from '../../core.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
+import type { SbbBreadcrumbElement } from '../breadcrumb/breadcrumb.component.ts';
 
-import style from './breadcrumb-group.scss?lit&inline';
-
-import '../../icon.ts';
+import style from './breadcrumb-group.scss?inline';
 
 const MIN_BREADCRUMBS_TO_COLLAPSE = 3;
 
@@ -35,18 +33,31 @@ const MIN_BREADCRUMBS_TO_COLLAPSE = 3;
  *
  * @slot - Use the unnamed slot to add `sbb-breadcrumb` elements.
  */
-export
-@customElement('sbb-breadcrumb-group')
-class SbbBreadcrumbGroupElement extends SbbElementInternalsMixin(
-  SbbNamedSlotListMixin<SbbBreadcrumbElement, typeof LitElement>(LitElement),
-) {
+export class SbbBreadcrumbGroupElement extends SbbNamedSlotListMixin<
+  SbbBreadcrumbElement,
+  typeof SbbElement
+>(SbbElement) {
+  public static override readonly elementName: string = 'sbb-breadcrumb-group';
+  public static override elementDependencies: SbbElementType[] = [SbbIconElement];
   public static override readonly role = 'navigation';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   protected override readonly listChildLocalNames = ['sbb-breadcrumb'];
 
   /** The state of the breadcrumb group. */
   @state()
-  private accessor _state: 'collapsed' | 'manually-expanded' | null = null;
+  private set _state(state: 'collapsed' | 'manually-expanded' | null) {
+    if (this._stateInternal) {
+      this.internals.states.delete(`state-${this._stateInternal}`);
+    }
+    this._stateInternal = state;
+    if (this._stateInternal) {
+      this.internals.states.add(`state-${this._stateInternal}`);
+    }
+  }
+  private get _state(): 'collapsed' | 'manually-expanded' | null {
+    return this._stateInternal;
+  }
+  private _stateInternal: 'collapsed' | 'manually-expanded' | null = null;
 
   private _resizeObserver = new ResizeController(this, {
     target: null,

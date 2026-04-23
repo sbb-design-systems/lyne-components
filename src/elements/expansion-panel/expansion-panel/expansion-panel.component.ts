@@ -1,22 +1,21 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
+import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { forceType } from '../../core/decorators.ts';
-import { isLean, isZeroAnimationDuration } from '../../core/dom.ts';
-import type { SbbOpenedClosedState } from '../../core/interfaces.ts';
+import type { SbbOpenedClosedState } from '../../core.ts';
 import {
-  SbbElementInternalsMixin,
-  SbbHydrationMixin,
+  boxSizingStyles,
+  forceType,
+  isLean,
+  isZeroAnimationDuration,
+  SbbElement,
   ɵstateController,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbTitleLevel } from '../../title.ts';
-import type { SbbExpansionPanelContentElement } from '../expansion-panel-content.ts';
-import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header.ts';
+} from '../../core.ts';
+import type { SbbTitleLevel } from '../../title.pure.ts';
+import type { SbbExpansionPanelContentElement } from '../expansion-panel-content/expansion-panel-content.component.ts';
+import type { SbbExpansionPanelHeaderElement } from '../expansion-panel-header/expansion-panel-header.component.ts';
 
-import style from './expansion-panel.scss?lit&inline';
+import style from './expansion-panel.scss?inline';
 
 let nextId = 0;
 
@@ -25,10 +24,9 @@ let nextId = 0;
  *
  * @slot - Use the unnamed slot to add a `sbb-expansion-panel-header` and a `sbb-expansion-panel-content` element.
  */
-export
-@customElement('sbb-expansion-panel')
-class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElementInternalsMixin(LitElement)) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbExpansionPanelElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-expansion-panel';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     beforeopen: 'beforeopen',
     open: 'open',
@@ -98,7 +96,11 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElementInternalsMixi
     super();
 
     this._state = 'closed';
-    this.addEventListener?.('toggleexpanded', () => this._toggleExpanded());
+    this.addEventListener?.('toggleexpanded', (ev: Event) => {
+      if (ev.target === this._headerRef) {
+        this._toggleExpanded();
+      }
+    });
   }
 
   public override connectedCallback(): void {
@@ -218,15 +220,13 @@ class SbbExpansionPanelElement extends SbbHydrationMixin(SbbElementInternalsMixi
 
     /* eslint-disable lit/binding-positions */
     return html`
-      <div class="sbb-expansion-panel">
-        <${unsafeStatic(TAGNAME)} class="sbb-expansion-panel__header">
-          <slot name="header" @slotchange=${this._handleSlotchange}></slot>
-        </${unsafeStatic(TAGNAME)}>
-        <div class="sbb-expansion-panel__content-wrapper" @animationend=${this._onAnimationEnd}>
-          <span class="sbb-expansion-panel__content">
-            <slot name="content" @slotchange=${this._handleSlotchange}></slot>
-          </span>
-        </div>
+      <${unsafeStatic(TAGNAME)} class="sbb-expansion-panel__header">
+        <slot name="header" @slotchange=${this._handleSlotchange}></slot>
+      </${unsafeStatic(TAGNAME)}>
+      <div class="sbb-expansion-panel__content-wrapper" @animationend=${this._onAnimationEnd}>
+        <span class="sbb-expansion-panel__content">
+          <slot name="content" @slotchange=${this._handleSlotchange}></slot>
+        </span>
       </div>
     `;
     /* eslint-enable lit/binding-positions */

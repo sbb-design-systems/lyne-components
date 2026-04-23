@@ -14,6 +14,7 @@ snapshots["sbb-menu-link renders DOM"] =
 
 snapshots["sbb-menu-link renders Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   aria-label="a11y label"
   class="sbb-action-base sbb-menu-link"
   href="https://github.com/sbb-design-systems/lyne-components"
@@ -35,10 +36,13 @@ snapshots["sbb-menu-link renders Shadow DOM"] =
       </sbb-icon>
     </span>
   </span>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
 </a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-menu-link renders Shadow DOM */
 
@@ -56,6 +60,7 @@ snapshots["sbb-menu-link renders component with icon DOM"] =
 
 snapshots["sbb-menu-link renders component with icon Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   aria-label="a11y label"
   class="sbb-action-base sbb-menu-link"
   href="https://github.com/sbb-design-systems/lyne-components"
@@ -79,42 +84,29 @@ snapshots["sbb-menu-link renders component with icon Shadow DOM"] =
       </sbb-icon>
     </span>
   </span>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
 </a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-menu-link renders component with icon Shadow DOM */
 
 snapshots["sbb-menu-link renders component with icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "menuitem",
-      "name": "a11y label"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-menu-link renders component with icon A11y tree Chrome */
-
-snapshots["sbb-menu-link renders component with icon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text container",
-      "name": "a11y label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-menu-link renders component with icon A11y tree Firefox */
 

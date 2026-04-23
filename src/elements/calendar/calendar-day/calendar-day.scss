@@ -1,0 +1,40 @@
+@use '../../core/styles' as sbb;
+
+:host {
+  --sbb-calendar-day-value-height: var(--sbb-spacing-fixed-6x);
+}
+
+.sbb-calendar-day {
+  flex-direction: column;
+  justify-content: var(--sbb-calendar-cell-justify-content);
+  height: var(--sbb-calendar-day-height);
+  width: var(--sbb-calendar-day-width);
+  padding: var(--sbb-calendar-cell-padding);
+}
+
+.sbb-calendar-day__value {
+  height: var(--sbb-calendar-day-value-height);
+
+  :host(:state(crossed-out)) & {
+    &::after {
+      content: '';
+      height: var(--sbb-calendar-cell-disabled-height);
+      width: var(--sbb-calendar-cell-disabled-width);
+      position: absolute;
+      background-color: var(--sbb-calendar-cell-disabled-color);
+      inset-block-start: var(--sbb-calendar-day-crossed-out-top);
+      inset-inline-start: 50%;
+      transform: var(--sbb-calendar-day-crossed-out-translate);
+    }
+  }
+}
+
+.sbb-calendar-day__extra {
+  display: var(--sbb-calendar-day-extra-display);
+  height: var(--sbb-calendar-day-extra-height);
+  padding: var(--sbb-calendar-cell-padding);
+}
+
+::slotted(*) {
+  height: var(--sbb-calendar-day-extra-height);
+}

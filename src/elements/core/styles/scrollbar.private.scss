@@ -1,0 +1,15 @@
+.negative {
+  background-color: var(--sbb-background-color-1-negative);
+  color: var(--sbb-color-1-negative);
+}
+
+.overflow-container {
+  padding: var(--sbb-spacing-responsive-xs);
+  width: 400px;
+  height: 300px;
+  overflow: auto;
+}
+
+.inner-box {
+  width: 500px;
+}

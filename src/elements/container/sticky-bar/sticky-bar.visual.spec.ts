@@ -10,8 +10,8 @@ import { waitForLitRender } from '../../core/testing.ts';
 
 import type { SbbStickyBarElement } from './sticky-bar.component.ts';
 
-import './sticky-bar.component.ts';
-import '../container.ts';
+import '../../container.ts';
+
 import '../../action-group.ts';
 import '../../button.ts';
 import '../../link.ts';
@@ -32,17 +32,18 @@ describe(`sbb-sticky-bar`, () => {
   const containerContent = (color?: string): TemplateResult => html`
     <sbb-title level="4" ?negative=${!!color && isDark(color)}>Example title</sbb-title>
     <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
-    <sbb-secondary-button
-      style="margin-block-end: 0.75rem;"
-      size="m"
-      ?negative=${!!color && isDark(color)}
-    >
+    <sbb-secondary-button style="margin-block-end: 0.75rem;" ?negative=${!!color && isDark(color)}>
       See more
     </sbb-secondary-button>
   `;
 
   const actionGroup = (color?: string): TemplateResult => html`
-    <sbb-action-group align-group="stretch" orientation="vertical" style="width:100%;">
+    <sbb-action-group
+      align-group="stretch"
+      orientation="vertical"
+      style="width:100%;"
+      button-size="l"
+    >
       <sbb-block-link
         ?negative=${!!color && isDark(color)}
         align-self="start"

@@ -1,17 +1,18 @@
-import { type CSSResultGroup, isServer, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, isServer, unsafeCSS } from 'lit';
+import { property } from 'lit/decorators.js';
 
-import { sbbLiveAnnouncer } from '../core/a11y.ts';
-import { SbbLanguageController } from '../core/controllers.ts';
 import {
   i18nTimeInputChange,
   i18nTimeInvalid,
   i18nTimeMax,
   i18nTimeMaxLength,
-} from '../core/i18n.ts';
-import { SbbFormAssociatedInputMixin } from '../core/mixins.ts';
+  SbbElement,
+  SbbFormAssociatedInputMixin,
+  SbbLanguageController,
+  sbbLiveAnnouncer,
+} from '../core.ts';
 
-import style from './time-input.scss?lit&inline';
+import style from './time-input.scss?inline';
 
 const REGEX_ALLOWED_CHARACTERS = /[0-9.:,\-;_hH]/;
 const REGEX_DISALLOWED_CHARACTERS = /[^0-9.:,\-;_hH]/g;
@@ -26,10 +27,9 @@ interface Time {
 /**
  * Custom input for a time.
  */
-export
-@customElement('sbb-time-input')
-class SbbTimeInputElement extends SbbFormAssociatedInputMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+export class SbbTimeInputElement extends SbbFormAssociatedInputMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-time-input';
+  public static override styles: CSSResultGroup = unsafeCSS(style);
 
   /**
    * The value of the time input. Reflects the current text value

@@ -37,12 +37,14 @@ snapshots["sbb-toggle-check renders Shadow DOM"] =
 snapshots["sbb-toggle-check A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "checkbox",
       "name": "​",
+      "invalid": false,
+      "focusable": true,
       "checked": false
     }
   ]
@@ -50,20 +52,4 @@ snapshots["sbb-toggle-check A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-toggle-check A11y tree Chrome */
-
-snapshots["sbb-toggle-check A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "checkbox",
-      "name": "​"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-toggle-check A11y tree Firefox */
 

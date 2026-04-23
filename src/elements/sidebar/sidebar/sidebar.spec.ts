@@ -1,19 +1,16 @@
-import { assert, aTimeout, expect } from '@open-wc/testing';
+import { assert, aTimeout, expect, fixture } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { fixture, tabKey } from '../../core/testing/private.ts';
+import { tabKey } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
-import type { SbbSidebarCloseButtonElement } from '../sidebar-close-button.ts';
-import type { SbbSidebarContainerElement } from '../sidebar-container.ts';
+import type { SbbSidebarCloseButtonElement } from '../sidebar-close-button/sidebar-close-button.component.ts';
+import type { SbbSidebarContainerElement } from '../sidebar-container/sidebar-container.component.ts';
 
 import { SbbSidebarElement } from './sidebar.component.ts';
 
-import '../sidebar-close-button.ts';
-import '../sidebar-container.ts';
-import '../sidebar-content.ts';
-import '../sidebar-title.ts';
+import '../../sidebar.ts';
 
 describe('sbb-sidebar', () => {
   let container: SbbSidebarContainerElement,
@@ -148,19 +145,19 @@ describe('sbb-sidebar', () => {
 
     it('should update sidebar width when changing position', () => {
       expect(
-        getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width'),
+        getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-start-width'),
       ).to.be.equal('320px');
       expect(
-        getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__end-width'),
+        getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-end-width'),
       ).to.be.equal('');
 
       element.position = 'end';
 
       expect(
-        getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width'),
+        getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-start-width'),
       ).to.be.equal('');
       expect(
-        getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__end-width'),
+        getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-end-width'),
       ).to.be.equal('320px');
     });
 
@@ -576,31 +573,31 @@ describe('sbb-sidebar', () => {
       element.remove();
       element.style.width = '200px';
 
-      expect(getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width'))
+      expect(getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-start-width'))
         .to.be.empty;
 
       container.appendChild(element);
 
       expect(
-        getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width'),
+        getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-start-width'),
       ).to.be.equal('200px');
     });
 
     it('should update sidebar width when resizing', async () => {
       expect(
-        getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width'),
+        getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-start-width'),
       ).to.be.equal('320px');
 
       element.style.width = '330px';
       // It takes around 30ms to get the resize observer triggered
       await waitForCondition(
         () =>
-          getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width') ===
+          getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-start-width') ===
           '330px',
       );
 
       expect(
-        getComputedStyle(container).getPropertyValue('--sbb-sidebar-container__start-width'),
+        getComputedStyle(container).getPropertyValue('--_sbb-sidebar-container-start-width'),
       ).to.be.equal('330px');
     });
 
@@ -638,6 +635,49 @@ describe('sbb-sidebar', () => {
 
       expect(element.isOpen).to.be.true;
       expect(document.activeElement).not.to.be.equal(closeButton);
+    });
+
+    describe('close on navigation', () => {
+      it('should close in mode over when Navigation API fires navigate event', async function () {
+        element.mode = 'over';
+        element.opened = true;
+        await waitForLitRender(element);
+        expect(element.isOpen).to.be.true;
+
+        window.navigation.dispatchEvent(new Event('navigate'));
+        await waitForLitRender(element);
+
+        expect(element.isOpen).to.be.false;
+      });
+
+      it('should NOT close in mode side when Navigation API fires navigate event', async function () {
+        element.mode = 'side';
+        element.opened = true;
+        await waitForLitRender(element);
+        expect(element.isOpen).to.be.true;
+
+        window.navigation.dispatchEvent(new Event('navigate'));
+        await waitForLitRender(element);
+
+        expect(element.isOpen).to.be.true;
+      });
+
+      it('should remove navigate listener on disconnect', async function () {
+        element.mode = 'over';
+        element.opened = true;
+        await waitForLitRender(element);
+
+        element.remove();
+
+        const closeSpy = new EventSpy(SbbSidebarElement.events.close, element);
+        window.navigation.dispatchEvent(new Event('navigate'));
+        await waitForLitRender(element);
+
+        expect(closeSpy.count).to.be.equal(0);
+
+        // Re-add element for subsequent tests
+        container.appendChild(element);
+      });
     });
 
     it('should detect scrolled state', async () => {

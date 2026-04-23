@@ -1,11 +1,11 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit';
 
-import { defaultDateAdapter } from '../../core/datetime.ts';
 import { ssrHydratedFixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
+import { defaultDateAdapter } from '../../core.ts';
 import type { SbbDateInputElement } from '../../date-input.ts';
-import type { SbbDatepickerToggleElement } from '../datepicker-toggle.ts';
+import type { SbbDatepickerToggleElement } from '../datepicker-toggle/datepicker-toggle.component.ts';
 
 import { SbbDatepickerElement } from './datepicker.component.ts';
 
@@ -32,7 +32,7 @@ describe(`sbb-datepicker ssr`, () => {
         </sbb-form-field>
       `,
       {
-        modules: ['../../date-input.js', '../../datepicker.js', '../../form-field.js'],
+        modules: ['../../date-input.ts', '../../datepicker.ts', '../../form-field.ts'],
       },
     );
   });

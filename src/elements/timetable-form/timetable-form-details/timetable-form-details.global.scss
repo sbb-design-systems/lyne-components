@@ -1,0 +1,12 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-timetable-form-details-border-block-start: var(--sbb-border-width-1x) solid
+    var(--sbb-border-color-4-inverted);
+  --sbb-timetable-form-details-gap: var(--sbb-spacing-fixed-1x);
+  --sbb-timetable-form-details-padding-block: var(--sbb-spacing-fixed-1x);
+  --sbb-timetable-form-details-padding-inline: var(--sbb-spacing-responsive-xxs);
+  --sbb-timetable-form-details-horizontal-divider-height: 1.5rem;
+}

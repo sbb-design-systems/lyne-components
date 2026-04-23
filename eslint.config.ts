@@ -1,8 +1,12 @@
+import { globSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import eslint from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import { flatConfigs } from 'eslint-plugin-import-x';
 import * as eslintPluginLit from 'eslint-plugin-lit';
-import eslintPluginYml from 'eslint-plugin-yml';
+import { configs as eslintPluginYmlConfig } from 'eslint-plugin-yml';
 import globals from 'globals';
 import { configs } from 'typescript-eslint';
 
@@ -14,6 +18,15 @@ const ignores = [
   'tools/generate-component/**/*',
   '**/__snapshots__/**/*',
 ];
+
+const sourceFiles = globSync(
+  join(fileURLToPath(import.meta.url), '../src/{elements,elements-experimental}/**/*.ts'),
+).filter((file) =>
+  ['spec', 'stories', 'private'].every((suffix) => !file.endsWith(`.${suffix}.ts`)),
+);
+const entrypoints = sourceFiles.filter((file) =>
+  readFileSync(file, 'utf-8').includes('@entrypoint'),
+);
 
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigFile} */
 export default [
@@ -37,8 +50,8 @@ export default [
     ignores,
   },
   ...configs.recommended,
-  ...eslintPluginYml.configs['flat/standard'],
-  ...eslintPluginYml.configs['flat/prettier'],
+  ...eslintPluginYmlConfig['flat/standard'],
+  ...eslintPluginYmlConfig['flat/prettier'],
   flatConfigs.recommended,
   flatConfigs.typescript,
   eslintPluginLit.configs['flat/recommended'],
@@ -47,6 +60,7 @@ export default [
     files: ['src/visual-regression-app/**/*.ts'],
     rules: {
       'lyne/custom-element-class-name-rule': 'off',
+      'lyne/no-custom-element-decorator-rule': 'off',
       'import-x/namespace': 'off',
     },
   },
@@ -60,6 +74,7 @@ export default [
     files: ['**/*.spec.ts'],
     rules: {
       '@typescript-eslint/no-unused-expressions': 'off',
+      'lyne/no-custom-element-decorator-rule': 'off',
     },
   },
   {
@@ -120,6 +135,19 @@ export default [
       'import-x/newline-after-import': 'error',
       'import-x/no-absolute-path': 'error',
       'import-x/no-cycle': 'error',
+      'import-x/no-restricted-paths': [
+        'error',
+        {
+          zones: [
+            {
+              target: sourceFiles,
+              from: entrypoints.filter(
+                (file) => !file.endsWith('.pure.ts') && !file.endsWith('/core.ts'),
+              ),
+            },
+          ],
+        },
+      ],
       'import-x/no-self-import': 'error',
       'import-x/no-unresolved': [
         'error',
@@ -162,6 +190,7 @@ export default [
           },
         },
       ],
+      '@typescript-eslint/consistent-type-definitions': 'error',
     },
   },
   {

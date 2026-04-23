@@ -39,13 +39,14 @@ snapshots["sbb-datepicker-next-day renders with connected date input Shadow DOM"
 snapshots["sbb-datepicker-next-day renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
       "name": "",
-      "disabled": true
+      "disabled": true,
+      "invalid": false
     }
   ]
 }
@@ -53,62 +54,19 @@ snapshots["sbb-datepicker-next-day renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-datepicker-next-day renders A11y tree Chrome */
 
-snapshots["sbb-datepicker-next-day renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "",
-      "disabled": true
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker-next-day renders A11y tree Firefox */
-
 snapshots["sbb-datepicker-next-day renders with connected date input A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "textbox",
-      "name": "DD.MM.YYYY",
-      "value": "Sa, 31.12.2022"
-    },
-    {
-      "role": "button",
-      "name": "Change to the next day, currently selected December 31, 2022."
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-datepicker-next-day renders with connected date input A11y tree Chrome */
-
-snapshots["sbb-datepicker-next-day renders with connected date input A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "textbox",
-      "name": "",
-      "value": "Sa, 31.12.2022"
-    },
-    {
-      "role": "button",
-      "name": "Change to the next day, currently selected December 31, 2022."
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-datepicker-next-day renders with connected date input A11y tree Firefox */
 

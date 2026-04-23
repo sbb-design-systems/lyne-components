@@ -16,14 +16,12 @@ snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] =
     aria-hidden="true"
     class="auto-width"
     name="BICYCLE"
-    title="Bike area"
   >
   </sbb-seat-reservation-graphic>
   <sbb-seat-reservation-graphic
     aria-hidden="true"
     class="auto-width"
     name="SILENCE"
-    title="Quiet zone"
   >
   </sbb-seat-reservation-graphic>
 </div>
@@ -33,32 +31,42 @@ snapshots["sbb-seat-reservation-navigation-services renders Shadow DOM"] =
 snapshots["sbb-seat-reservation-navigation-services renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Available services:Bike area, Quiet zone"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none"
+            }
+          ]
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-seat-reservation-navigation-services renders A11y tree Chrome */
-
-snapshots["sbb-seat-reservation-navigation-services renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Available services:Bike area, Quiet zone"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-seat-reservation-navigation-services renders A11y tree Firefox */
 

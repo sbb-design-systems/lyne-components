@@ -1,20 +1,18 @@
-import type { CSSResultGroup } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, unsafeCSS } from 'lit';
 
-import { SbbNegativeMixin } from '../../core/mixins.ts';
-import { SbbTitleBase } from '../../title.ts';
+import { SbbNegativeMixin } from '../../core.ts';
+import { SbbTitleBase } from '../../title.pure.ts';
 
-import style from './dialog-title.scss?lit&inline';
+import style from './dialog-title.scss?inline';
 
 /**
  * It displays a title inside a dialog header.
  *
  * @slot - Use the unnamed slot for the content of the dialog-title.
  */
-export
-@customElement('sbb-dialog-title')
-class SbbDialogTitleElement extends SbbNegativeMixin(SbbTitleBase) {
-  public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
+export class SbbDialogTitleElement extends SbbNegativeMixin(SbbTitleBase) {
+  public static override readonly elementName: string = 'sbb-dialog-title';
+  public static override styles: CSSResultGroup = [SbbTitleBase.styles, unsafeCSS(style)];
 
   public constructor() {
     super();

@@ -1,9 +1,7 @@
-import { SbbElementInternalsMixin } from '@sbb-esta/lyne-elements/core/mixins.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { boxSizingStyles, SbbElement } from '@sbb-esta/lyne-elements/core.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import style from './autocomplete-grid-row.scss?lit&inline';
+import style from './autocomplete-grid-row.scss?inline';
 
 let autocompleteRowNextId = 0;
 
@@ -12,11 +10,10 @@ let autocompleteRowNextId = 0;
  *
  * @slot - Use the unnamed slot to add a `sbb-autocomplete-grid-option` and a `sbb-autocomplete-grid-cell` with one or more `sbb-autocomplete-grid-button`.
  */
-export
-@customElement('sbb-autocomplete-grid-row')
-class SbbAutocompleteGridRowElement extends SbbElementInternalsMixin(LitElement) {
+export class SbbAutocompleteGridRowElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-autocomplete-grid-row';
   public static override readonly role = 'row';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   public override connectedCallback(): void {
     super.connectedCallback();

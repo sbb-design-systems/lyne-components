@@ -3,14 +3,15 @@ import { html, nothing } from 'lit';
 import {
   describeEach,
   describeViewports,
+  visualDiffDefault,
+  visualDiffFocus,
+  visualDiffHover,
   visualDiffStandardStates,
   visualRegressionFixture,
-  visualDiffDefault,
-  visualDiffHover,
 } from '../../core/testing/private.ts';
 
 import '../../form-field.ts';
-import './mini-button.component.ts';
+import '../../button.ts';
 
 describe(`sbb-mini-button`, () => {
   let root: HTMLElement;
@@ -148,7 +149,6 @@ describe(`sbb-mini-button`, () => {
         visualDiffDefault.name,
         visualDiffDefault.with((setup) => {
           setup.withSnapshotElement(root);
-          setup.withStateElement(root.querySelector('sbb-mini-button')!);
         }),
       );
 
@@ -160,5 +160,25 @@ describe(`sbb-mini-button`, () => {
         }),
       );
     });
+
+    it(
+      'small icon',
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-mini-button slot="suffix" icon-name="sa-fl"></sbb-mini-button>
+        `);
+      }),
+    );
+
+    it(
+      'small icon slotted',
+      visualDiffFocus.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-mini-button slot="suffix">
+            <sbb-icon slot="icon" name="sa-fl"></sbb-icon>
+          </sbb-mini-button>
+        `);
+      }),
+    );
   });
 });

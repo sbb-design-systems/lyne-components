@@ -1,21 +1,24 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
+import { property } from 'lit/decorators.js';
 
-import type { SbbOrientation } from '../core/interfaces.ts';
-import { SbbElementInternalsMixin, SbbNegativeMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbOrientation } from '../core.ts';
+import { boxSizingStyles, SbbElement, SbbNegativeMixin } from '../core.ts';
 
-import style from './divider.scss?lit&inline';
+import style from './divider.scss?inline';
 
 /**
- * It displays a divider between sections.
+ * Displays a divider between sections.
  */
-export
-@customElement('sbb-divider')
-class SbbDividerElement extends SbbNegativeMixin(SbbElementInternalsMixin(LitElement)) {
+export class SbbDividerElement extends SbbNegativeMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-divider';
   public static override readonly role = 'separator';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal. */
   @property({ reflect: true }) public accessor orientation: SbbOrientation = 'horizontal';
@@ -29,7 +32,7 @@ class SbbDividerElement extends SbbNegativeMixin(SbbElementInternalsMixin(LitEle
   }
 
   protected override render(): TemplateResult {
-    return html` <div class="sbb-divider"></div> `;
+    return html`<div class="sbb-divider"></div> `;
   }
 }
 

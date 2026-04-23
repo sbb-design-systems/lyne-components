@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../../core/testing/private.ts';
 
 import { SbbHeaderEnvironmentElement } from './header-environment.component.ts';
 
+import '../../header.ts';
+
 describe(`sbb-header-environment ssr`, () => {
   let root: SbbHeaderEnvironmentElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-header-environment>dev</sbb-header-environment>`, {
-      modules: ['./header-environment.component.js'],
+      modules: ['../../header.ts'],
     });
   });
 

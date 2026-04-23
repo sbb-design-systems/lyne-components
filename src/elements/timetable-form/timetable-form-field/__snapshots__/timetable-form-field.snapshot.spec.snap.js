@@ -53,11 +53,18 @@ snapshots["sbb-timetable-form-field renders Shadow DOM"] =
         <slot>
         </slot>
       </div>
+      <sbb-icon
+        class="sbb-form-field__select-input-icon"
+        name="chevron-small-down-small"
+      >
+      </sbb-icon>
     </div>
     <slot name="suffix">
     </slot>
   </div>
-  <div class="sbb-form-field__error">
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
     <slot name="error">
     </slot>
   </div>
@@ -68,48 +75,46 @@ snapshots["sbb-timetable-form-field renders Shadow DOM"] =
 snapshots["sbb-timetable-form-field renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "text",
-      "name": "From"
-    },
-    {
-      "role": "textbox",
-      "name": "From"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none"
+            }
+          ]
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "generic",
+              "name": ""
+            },
+            {
+              "role": "generic",
+              "name": ""
+            },
+            {
+              "ignored": true,
+              "role": "none"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-timetable-form-field renders A11y tree Chrome */
-
-snapshots["sbb-timetable-form-field renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "text leaf",
-      "name": "From"
-    },
-    {
-      "role": "textbox",
-      "name": "From"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-timetable-form-field renders A11y tree Firefox */
 

@@ -1,19 +1,18 @@
-import type { CSSResultGroup } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, unsafeCSS } from 'lit';
+import { property } from 'lit/decorators.js';
 
-import { SbbTitleBase, type SbbTitleLevel } from '../../title.ts';
+import { SbbTitleBase, type SbbTitleLevel } from '../../title.pure.ts';
 
-import style from './sidebar-title.scss?lit&inline';
+import style from './sidebar-title.scss?inline';
 
 /**
  * It displays the title of the sidebar. It has to be placed inside an `sbb-sidebar` element.
  *
  * @slot - Use the unnamed slot for the content of the sidebar-title.
  */
-export
-@customElement('sbb-sidebar-title')
-class SbbSidebarTitleElement extends SbbTitleBase {
-  public static override styles: CSSResultGroup = [SbbTitleBase.styles, style];
+export class SbbSidebarTitleElement extends SbbTitleBase {
+  public static override readonly elementName: string = 'sbb-sidebar-title';
+  public static override styles: CSSResultGroup = [SbbTitleBase.styles, unsafeCSS(style)];
 
   /** Title level */
   @property({ reflect: true }) public override accessor level: SbbTitleLevel = '2';

@@ -9,7 +9,6 @@ import {
   type TestRunnerCoreConfig,
   type TestRunnerGroupConfig,
 } from '@web/test-runner';
-import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
 import {
   type PlaywrightLauncherArgs,
   playwrightLauncher,
@@ -19,6 +18,7 @@ import { visualRegressionPlugin } from '@web/test-runner-visual-regression/plugi
 import { initCompiler } from 'sass';
 
 import {
+  a11yTreePlugin,
   configureRemotePlaywrightBrowser,
   minimalReporter,
   patchedSummaryReporter,
@@ -63,6 +63,10 @@ const renderStyles = (): string =>
   stylesCompiler.compile('./src/elements/core/styles/standard-theme.scss', {
     loadPaths: ['.', './node_modules/'],
   }).css;
+const renderExperimentalStyles = (): string =>
+  stylesCompiler.compile('./src/elements-experimental/core/styles/standard-theme.scss', {
+    loadPaths: ['.', './node_modules/'],
+  }).css;
 
 const browsers =
   cliArgs.ci || cliArgs['all-browsers']
@@ -70,21 +74,6 @@ const browsers =
       (['chromium', 'firefox', 'webkit'] as const).map((product) =>
         playwrightLauncher({
           product,
-          createPage: ({ context }) =>
-            context.newPage().then((page) => {
-              page.on('console', (message) => {
-                if (message.type() === 'error' && !message.location().url.includes('dummy.png')) {
-                  console.error(`CONSOLE: ${product} ${page.url()}`);
-                  console.error(message.location());
-                  console.error(message.text());
-                }
-              });
-              page.on('pageerror', (err) => {
-                console.error(`PAGEERROR: ${product} ${page.url()}`);
-                console.error(err);
-              });
-              return page;
-            }),
           ...concurrency,
           ...launchOptions,
         }),
@@ -123,6 +112,9 @@ const testRunnerHtml = (
     <link rel="modulepreload" href="/src/elements/core/testing/private/test-setup.ts" />
     <style type="text/css">
       ${renderStyles()}
+    </style>
+    <style type="text/css">
+      ${renderExperimentalStyles()}
     </style>
     <script type="module">
       globalThis.disableAnimation = true;
@@ -200,10 +192,10 @@ export default {
   browsers: browsers,
   concurrentBrowsers: 3,
   plugins: [
-    a11ySnapshotPlugin(),
+    a11yTreePlugin(),
     litSsrPlugin({
       workerInitModules: [
-        './tools/node-esm-hook/register-hooks.ts',
+        './tools/web-test-runner/node-hook.ts',
         './src/elements/core/testing/private/test-setup-ssr.ts',
       ],
     }),
@@ -222,7 +214,16 @@ export default {
     },
   },
   coverageConfig: {
-    exclude: ['**/node_modules/**/*', '**/assets/*.svg', '**/assets/*.png', '**/*.scss'],
+    exclude: [
+      '**/node_modules/**/*',
+      '**/assets/*.svg',
+      '**/assets/*.png',
+      '**/*.scss',
+      '**/core/mixins/constructor.ts',
+      '**/core/interfaces/*',
+      '**/core/timetable/timetable-properties.ts',
+      '**/seat-reservation/common/types.ts',
+    ],
     reporters: cliArgs.ci ? ['json'] : undefined,
   },
   filterBrowserLogs: (log) => !suppressedLogs.includes(log.args[0]),

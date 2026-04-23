@@ -1,7 +1,8 @@
 import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
-import { setOrRemoveAttribute } from '../../core/dom.ts';
+import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
+import { EventSpy, waitForLitRender } from '../../core/testing.ts';
 import {
   i18nBlockedPassage,
   i18nClass,
@@ -10,12 +11,13 @@ import {
   i18nRestaurantWagonLabel,
   i18nSleepingWagonLabel,
   i18nWagonLabel,
-} from '../../core/i18n.ts';
-import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
-import { EventSpy, waitForLitRender } from '../../core/testing.ts';
-import type { SbbIconElement } from '../../icon.ts';
+  setOrRemoveAttribute,
+} from '../../core.ts';
+import type { SbbIconElement } from '../../icon.pure.ts';
 
 import { SbbTrainWagonElement } from './train-wagon.component.ts';
+
+import '../../train.ts';
 
 describe(`sbb-train-wagon`, () => {
   let element: SbbTrainWagonElement;
@@ -69,7 +71,7 @@ describe(`sbb-train-wagon`, () => {
     await waitForLitRender(element);
 
     // Select all accessibility relevant text parts
-    // The alternative of a11ySnapshot() does not work as the list title can't be extracted reliable.
+    // The alternative of a11yTreeSnapshot() does not work as the list title can't be extracted reliable.
     return Array.from(
       element.shadowRoot!.querySelectorAll<HTMLElement>(
         '[aria-label]:not(.sbb-train-wagon__attribute-icon-list), sbb-timetable-occupancy-icon, .sbb-screen-reader-only',

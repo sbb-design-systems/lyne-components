@@ -1,5 +1,5 @@
 /** @deprecated */
-export type SbbOverlayCloseEventDetails = {
+export interface SbbOverlayCloseEventDetails {
   returnValue?: any;
   closeTarget?: HTMLElement;
-};
+}

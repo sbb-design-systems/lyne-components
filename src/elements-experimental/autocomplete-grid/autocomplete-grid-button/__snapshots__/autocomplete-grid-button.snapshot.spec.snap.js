@@ -60,8 +60,8 @@ snapshots["sbb-autocomplete-grid-button renders negative without icon Shadow DOM
 snapshots["sbb-autocomplete-grid-button A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
@@ -72,20 +72,4 @@ snapshots["sbb-autocomplete-grid-button A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-autocomplete-grid-button A11y tree Chrome */
-
-snapshots["sbb-autocomplete-grid-button A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-autocomplete-grid-button A11y tree Firefox */
 

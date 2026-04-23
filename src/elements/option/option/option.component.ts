@@ -1,16 +1,13 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 
-import type { SbbAutocompleteElement } from '../../autocomplete.ts';
-import { SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbSelectElement } from '../../select.ts';
+import type { SbbAutocompleteElement } from '../../autocomplete.pure.ts';
+import type { SbbElementType } from '../../core.ts';
+import { boxSizingStyles, SbbPropertyWatcherController } from '../../core.ts';
+import type { SbbSelectElement } from '../../select.pure.ts';
+import { SbbVisualCheckboxElement } from '../../visual-checkbox.pure.ts';
 
 import { SbbOptionBaseElement } from './option-base-element.ts';
-import style from './option.scss?lit&inline';
-
-import '../../visual-checkbox.ts';
+import style from './option.scss?inline';
 
 export type SbbOptionVariant = 'autocomplete' | 'select' | null;
 
@@ -23,11 +20,11 @@ export type SbbOptionVariant = 'autocomplete' | 'select' | null;
  * when preserve-icon-space on autocomplete is not set or iconName is not set.
  * @overrideType value - (T = string) | null
  */
-export
-@customElement('sbb-option')
-class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
+export class SbbOptionElement<T = string> extends SbbOptionBaseElement<T> {
+  public static override readonly elementName: string = 'sbb-option';
+  public static override elementDependencies: SbbElementType[] = [SbbVisualCheckboxElement];
   public static override readonly role = 'option';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static override readonly events = {
     optionselectionchange: 'optionselectionchange',
     optionselected: 'optionselected',

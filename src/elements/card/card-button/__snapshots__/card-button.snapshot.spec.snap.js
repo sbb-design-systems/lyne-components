@@ -28,40 +28,16 @@ snapshots["sbb-card-button renders Shadow DOM"] =
 snapshots["sbb-card-button renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Click me"
-    },
-    {
-      "role": "text",
-      "name": "Content"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-card-button renders A11y tree Chrome */
-
-snapshots["sbb-card-button renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Click me"
-    },
-    {
-      "role": "text leaf",
-      "name": "Content"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-card-button renders A11y tree Firefox */
 

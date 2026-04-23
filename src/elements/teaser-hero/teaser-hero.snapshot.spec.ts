@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../core/testing/private.ts';
 import { waitForImageReady } from '../core/testing.ts';
 
 import type { SbbTeaserHeroElement } from './teaser-hero.component.ts';
-import './teaser-hero.component.ts';
+import '../teaser-hero.ts';
 import '../image.ts';
 import '../chip-label.ts';
 
@@ -54,7 +54,7 @@ describe(`sbb-teaser-hero`, () => {
           Break out and explore castles and palaces.
 
           <figure slot="image" class="sbb-figure">
-            <img src=${imageUrl} alt="alt"></img>
+            <img src=${imageUrl} alt="alt" />
             <sbb-chip-label class="sbb-figure-overlap-start-start">Label</sbb-chip-label>
           </figure>
         </sbb-teaser-hero>`,

@@ -1,5 +1,6 @@
-/**
- * @entrypoint
- */
-export * from './autocomplete/autocomplete.component.ts';
-export * from './autocomplete/autocomplete-base-element.ts';
+/** @entrypoint */
+import { SbbAutocompleteElement } from './autocomplete.pure.ts';
+
+export * from './autocomplete.pure.ts';
+
+SbbAutocompleteElement.define();

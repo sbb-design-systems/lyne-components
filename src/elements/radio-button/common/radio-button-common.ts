@@ -1,17 +1,21 @@
-import type { LitElement } from 'lit';
+import { type PropertyValues, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
   type AbstractConstructor,
-  type Constructor,
+  SbbElement,
   SbbFormAssociatedRadioButtonMixin,
-} from '../../core/mixins.ts';
-import type { SbbRadioButtonGroupElement } from '../radio-button-group.ts';
+} from '../../core.ts';
+import type { SbbRadioButtonGroupElement } from '../../radio-button-group.pure.ts';
+
+import radioButtonCommonStyleString from './radio-button-common.scss?inline';
+
+export const radioButtonCommonStyle = unsafeCSS(radioButtonCommonStyleString);
 
 export type SbbRadioButtonSize = 'xs' | 's' | 'm';
 
 export declare abstract class SbbRadioButtonCommonElementMixinType extends SbbFormAssociatedRadioButtonMixin(
-  LitElement,
+  SbbElement,
 ) {
   public get allowEmptySelection(): boolean;
   public set allowEmptySelection(boolean);
@@ -20,7 +24,7 @@ export declare abstract class SbbRadioButtonCommonElementMixinType extends SbbFo
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElement>>(
+export const SbbRadioButtonCommonElementMixin = <T extends AbstractConstructor<SbbElement>>(
   superClass: T,
 ): AbstractConstructor<SbbRadioButtonCommonElementMixinType> & T => {
   abstract class SbbRadioButtonCommonElement
@@ -81,6 +85,15 @@ export const SbbRadioButtonCommonElementMixin = <T extends Constructor<LitElemen
       } else if (!this.checked) {
         this.checked = true;
         this.emitChangeEvents();
+      }
+    }
+
+    protected override willUpdate(changedProperties: PropertyValues<this>): void {
+      super.willUpdate(changedProperties);
+
+      if (changedProperties.has('value')) {
+        /** @internal */
+        this.dispatchEvent(new Event('ɵradiobuttonvaluechange', { bubbles: true }));
       }
     }
 

@@ -137,12 +137,14 @@ snapshots["sbb-tag renders slotted icon and amount Shadow DOM"] =
 snapshots["sbb-tag A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
       "name": "Label",
+      "invalid": false,
+      "focusable": true,
       "pressed": false
     }
   ]
@@ -150,20 +152,4 @@ snapshots["sbb-tag A11y tree Chrome"] =
 </p>
 `;
 /* end snapshot sbb-tag A11y tree Chrome */
-
-snapshots["sbb-tag A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "toggle button",
-      "name": "Label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tag A11y tree Firefox */
 

@@ -5,7 +5,7 @@ import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
 
 import type { SbbLinkElement } from './link.component.ts';
 
-import './link.component.ts';
+import '../../link.ts';
 
 describe(`sbb-link`, () => {
   let element: SbbLinkElement;
@@ -13,7 +13,7 @@ describe(`sbb-link`, () => {
   describe('renders', () => {
     beforeEach(async () => {
       element = await fixture(
-        html`<sbb-link size="m" href="https://sbb.ch" target="_blank">
+        html`<sbb-link href="https://sbb.ch" target="_blank">
           Travelcards &amp; tickets.
         </sbb-link>`,
       );
@@ -32,7 +32,7 @@ describe(`sbb-link`, () => {
 
   describe('reflects properties', () => {
     beforeEach(async () => {
-      element = await fixture(html`<sbb-link size="m"> Travelcards &amp; tickets. </sbb-link>`);
+      element = await fixture(html`<sbb-link> Travelcards &amp; tickets. </sbb-link>`);
 
       element.href = 'https://sbb.ch/';
       element.rel = 'nofollow';

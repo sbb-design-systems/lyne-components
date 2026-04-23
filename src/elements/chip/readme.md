@@ -1,0 +1,256 @@
+The `<sbb-chip-group>` component is a container for one or multiple
+`<sbb-chip>` instances.
+Generally, it is used in combination with an `<sbb-form-field>` to allow the
+input of multiple string values.
+
+The `value` property reflects the list of slotted chips. Adding or removing an
+`<sbb-chip>` updates the value property, and vice versa.
+
+```html
+<sbb-form-field>
+  <label>Field label</label>
+  <sbb-chip-group name="field-name">
+    <sbb-chip value="Value 1"></sbb-chip>
+    ...
+    <input />
+  </sbb-chip-group>
+</sbb-form-field>
+```
+
+The display value of an `<sbb-chip>` is either its content or the value of the
+`value` property.
+
+By default, when the user presses `Enter`, the `<sbb-chip-group>` will create a
+new `<sbb-chip>` and add it to the slotted elements.
+
+Consumers can customize or prevent this behavior by listening to the
+`chipinputtokenend` event.
+
+<!-- #region chipinputtokenend-prevent-default-example -->
+
+```html
+<!-- Preventing the event will stop the chip-group from converting the input value into a chip -->
+<sbb-chip-group name="field-name" @chipinputtokenend="${(event) => event.preventDefault()}">
+  ...
+  <input />
+</sbb-chip-group>
+```
+
+<!-- #endregion -->
+
+<!-- #region custom-value-label-example -->
+
+```html
+<sbb-chip-group
+  name="field-name"
+  @chipinputtokenend="${(event) =>
+    { 
+      event.setValue(transformedValue); 
+      event.setLabel('Custom label');
+    }
+  }"
+>
+  ...
+  <input />
+</sbb-chip-group>
+```
+
+<!-- #endregion -->
+
+### Use within forms
+
+The `<sbb-chip-group>` is a form-associated element that can be part of a form.
+Its value is an array of strings.
+
+**Note:** The `name` must be set on the `<sbb-chip-group>`, not on the `input`
+
+```html
+<form>
+  <sbb-form-field>
+    <sbb-chip-group name="field-name">
+      <sbb-chip value="Value 1"></sbb-chip>
+      ...
+      <input />
+    </sbb-chip-group>
+  </sbb-form-field>
+</form>
+```
+
+### Use with Autocomplete
+
+It is possible to combine the functionalities of `chip-group` and the [sbb-autocomplete](/docs/elements-autocomplete--docs).
+
+In this scenario, selecting an option will create a new chip using the option value.
+
+```html
+<sbb-form-field>
+  <sbb-chip-group name="field-name">
+    <sbb-chip value="Value 1"></sbb-chip>
+    ...
+    <input />
+  </sbb-chip-group>
+  <sbb-autocomplete>
+    <sbb-option value="Option A">Option A</sbb-option>
+    ...
+  </sbb-autocomplete>
+</sbb-form-field>
+```
+
+### Custom 'separator-keys'
+
+By default, the `<sbb-chip-group>` creates a new chip on `Enter` key press.
+
+Consumers can customize the array of [keys](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values#special_values)
+that will trigger the chip creation by using the `separatorKeys` property.
+
+```html
+<sbb-chip-group name="field-name" separator-keys="['Enter', 'Space']"> ... </sbb-chip-group>
+```
+
+### Add on blur
+
+By default, the `<sbb-chip-group>` does not create a chip when the input loses focus.
+
+Consumers can enable this behavior by setting the `addOnBlur` property to `true`.
+When enabled, a chip will be automatically created from the input value when the input loses focus.
+
+```html
+<sbb-chip-group add-on-blur> ... </sbb-chip-group>
+```
+
+## States
+
+The `<sbb-chip-group>` has a `disabled` and a `readonly` state and reacts to the respective `input` properties.
+The `disabled`/`readonly` properties are proxied to the slotted `<sbb-chip>`s.
+
+```html
+<sbb-form-field>
+  <sbb-chip-group name="field-name">
+    <sbb-chip value="Value 1"></sbb-chip>
+    ...
+    <input disabled />
+    <!-- Or -->
+    <input readonly />
+  </sbb-chip-group>
+</sbb-form-field>
+```
+
+## Complex Values
+
+This component supports any types of values, including complex objects.
+The type can be specified using the generic type parameter `T` of `SbbChipGroup<T>`.
+
+To render the complex value, the `displayWith` function can be used to map
+the value to a string represented in the created chips.
+
+Please note that the parameter is the assigned value of the selected option which does not necessarily
+align with the type information.
+
+```html
+<sbb-form-field>
+  <label>Label</label>
+  <sbb-chip-group
+    name="chip-group-1"
+    .displayWith=${(value) => value.property}
+    .value=${[{property: 'Option 1', otherProp: 'test'}]}
+  >
+    <input placeholder="Placeholder" />
+  </sbb-chip-group>
+  <sbb-autocomplete>
+    <sbb-option .value=${{property: 'Option 3', otherProp: 'test'}}>Option 3</sbb-option>
+    <sbb-option .value=${{property: 'Option 4', otherProp: 'test'}}>Option 4</sbb-option>
+  </sbb-autocomplete>
+</sbb-form-field>
+```
+
+## Keyboard interaction
+
+At any time, only a single chip (usually, the last one) is focusable and part of the tab order. Users can move between them using the arrow keys.
+
+| Keyboard                    | Action                                                    |
+| --------------------------- | --------------------------------------------------------- |
+| <kbd>Enter</kbd>            | When the `input` is focused, add a new chip.              |
+| <kbd>Backspace</kbd>        | When the `input` is empty & focused, focus the last chip. |
+| <kbd>Backspace</kbd>        | When the `<sbb-chip>` is focused, delete it.              |
+| <kbd>Left/Up Arrow</kbd>    | Move the next `<sbb-chip>`.                               |
+| <kbd>Right/Down Arrow</kbd> | Move the previous `<sbb-chip>`.                           |
+
+## Style
+
+The `<sbb-chip-group>` has a `negative` variant. If within an `<sbb-form-field>`, the properties automatically sync.
+
+```html
+<sbb-form-field negative>
+  <sbb-chip-group name="field-name">
+    <sbb-chip value="Value 1"></sbb-chip>
+    ...
+    <input />
+  </sbb-chip-group>
+</sbb-form-field>
+```
+
+## Accessibility
+
+The `<sbb-chip-group>` follows the `grid` aria pattern.
+
+<!-- Auto Generated Below -->
+
+## API Documentation
+
+### class: `SbbChipElement`, `sbb-chip`
+
+#### Properties
+
+| Name       | Attribute  | Privacy | Type                   | Default | Description                                                     |
+| ---------- | ---------- | ------- | ---------------------- | ------- | --------------------------------------------------------------- |
+| `disabled` | `disabled` | public  | `boolean`              | `false` | Whether the component is disabled.                              |
+| `negative` | `negative` | public  | `boolean`              | `false` | Negative coloring variant flag.                                 |
+| `readOnly` | `readonly` | public  | `boolean`              | `false` | Whether the component is readonly.                              |
+| `value`    | `value`    | public  | `(T = string) \| null` | `null`  | The value of chip. Will be used as label if nothing is slotted. |
+
+#### Slots
+
+| Name | Description                                                                               |
+| ---- | ----------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add the display value. If not provided, the 'value' will be used. |
+
+### class: `SbbChipGroupElement`, `sbb-chip-group`
+
+#### Properties
+
+| Name                | Attribute        | Privacy | Type                             | Default     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------- | ---------------- | ------- | -------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `addOnBlur`         | `add-on-blur`    | public  | `boolean`                        | `false`     | Whether to automatically add a chip when the input loses focus if there's a value.                                                                                                                                                                                                                                                                                                                                                                      |
+| `disabled`          | `disabled`       | public  | `boolean`                        | `false`     | Whether the component is disabled.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `displayWith`       | -                | public  | `((value: T) => string) \| null` | `null`      | Function that maps a chip's value to its display value.                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `form`              | -                | public  | `HTMLFormElement \| null`        |             | Returns the form owner of this element.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `name`              | `name`           | public  | `string`                         |             | Name of the form element. Will be read from name attribute.                                                                                                                                                                                                                                                                                                                                                                                             |
+| `negative`          | `negative`       | public  | `boolean`                        | `false`     | Negative coloring variant flag.                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `required`          | `required`       | public  | `boolean`                        | `false`     | Whether the component is required.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `separatorKeys`     | `separator-keys` | public  | `string[]`                       | `['Enter']` | The array of keys that will trigger a `chipinputtokenend` event. Default `\['Enter']`                                                                                                                                                                                                                                                                                                                                                                   |
+| `validationMessage` | -                | public  | `string`                         |             | Returns the current error message, if available, which corresponds to the current validation state. Please note that only one message is returned at a time (e.g. if multiple validity states are invalid, only the chronologically first one is returned until it is fixed, at which point the next message might be returned, if it is still applicable). Also, a custom validity message (see below) has precedence over native validation messages. |
+| `validity`          | -                | public  | `ValidityState`                  |             | Returns the ValidityState object for this element.                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `value`             | `value`          | public  | `(T = string[]) \| null`         |             | Value of the form element.                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `willValidate`      | -                | public  | `boolean`                        |             | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
+
+#### Methods
+
+| Name                | Privacy | Description                                                                                                                                                                                | Parameters        | Return    | Inherited From         |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | --------- | ---------------------- |
+| `checkValidity`     | public  | Returns true if this element has no validity problems; false otherwise. Fires an invalid event at the element in the latter case.                                                          |                   | `boolean` | SbbFormAssociatedMixin |
+| `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
+| `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
+
+#### Events
+
+| Name                | Type                           | Description                                                                                                                                                                        | Inherited From |
+| ------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `change`            | `Event`                        | The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
+| `chipinputtokenend` | `SbbChipInputTokenEndEvent<T>` | Notifies that a chip is about to be created. Can be prevented.                                                                                                                     |                |
+| `input`             | `InputEvent`                   | The input event fires when the value has been changed as a direct result of a user action.                                                                                         |                |
+
+#### Slots
+
+| Name | Description                                      |
+| ---- | ------------------------------------------------ |
+|      | Use the unnamed slot to add `sbb-chip` elements. |

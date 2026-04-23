@@ -1,23 +1,18 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbPropertyWatcherController } from '../../core/controllers.ts';
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { boxSizingStyles, SbbElement, SbbPropertyWatcherController } from '../../core.ts';
 
-import style from './expansion-panel-content.scss?lit&inline';
+import style from './expansion-panel-content.scss?inline';
 
 /**
  * It can be used as a container for the content of the `sbb-expansion-panel` component.
  *
  * @slot - Use the unnamed slot to add content to the `sbb-expansion-panel`.
  */
-export
-@customElement('sbb-expansion-panel-content')
-class SbbExpansionPanelContentElement extends SbbElementInternalsMixin(LitElement) {
+export class SbbExpansionPanelContentElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-expansion-panel-content';
   public static override readonly role = 'region';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   private _previousSize?: string;
 
@@ -44,11 +39,7 @@ class SbbExpansionPanelContentElement extends SbbElementInternalsMixin(LitElemen
   }
 
   protected override render(): TemplateResult {
-    return html`
-      <div class="sbb-expansion-panel-content">
-        <slot></slot>
-      </div>
-    `;
+    return html`<slot></slot>`;
   }
 }
 

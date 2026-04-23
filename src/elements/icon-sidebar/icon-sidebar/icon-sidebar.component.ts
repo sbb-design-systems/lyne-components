@@ -1,21 +1,20 @@
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
+import { property } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
-import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container.ts';
+import { hostScrollbarStyles, SbbElement } from '../../core.ts';
+import type { SbbIconSidebarContainerElement } from '../icon-sidebar-container/icon-sidebar-container.component.ts';
 
-import style from './icon-sidebar.scss?lit&inline';
+import style from './icon-sidebar.scss?inline';
 
 /**
  * Icon sidebar, can be placed inside a `sbb-icon-sidebar-container` element.
  *
  * @slot - Use the unnamed slot to slot any content into the icon-sidebar.
  */
-export
-@customElement('sbb-icon-sidebar')
-class SbbIconSidebarElement extends SbbElementInternalsMixin(LitElement) {
+export class SbbIconSidebarElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-icon-sidebar';
   public static override readonly role = 'navigation';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = [hostScrollbarStyles, unsafeCSS(style)];
 
   /** Background color of the icon sidebar. Either `white` or `milk`. **/
   @property({ reflect: true })
@@ -29,8 +28,9 @@ class SbbIconSidebarElement extends SbbElementInternalsMixin(LitElement) {
   public override connectedCallback(): void {
     super.connectedCallback();
 
-    // As we can't include the scrollbar mixin on the host and to minimize
-    // payload, we decided to add the scrollbar class here.
+    // When including the scrollbar styles on the host, there is no hover effect of the scrollbar possible.
+    // In most cases, the component will be used in Light DOM. To also support the hover effect,
+    // we additionally add the `sbb-scrollbar` CSS class to the host.
     // This is an exception as we normally don't alter the classList of the host.
     this.classList.add('sbb-scrollbar');
   }

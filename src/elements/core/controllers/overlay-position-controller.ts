@@ -1,7 +1,5 @@
 import { isServer, type ReactiveController, type ReactiveControllerHost } from 'lit';
 
-import type { SbbElementInternalsMixinType } from '../mixins.ts';
-
 const cssAnchorPositionSupported = !isServer && CSS.supports('anchor-name', '--test');
 
 const physicalSupportedPositions = [
@@ -76,7 +74,7 @@ export class SbbOverlayPositionController implements ReactiveController {
   private readonly _resizeObserver = !isServer
     ? new ResizeObserver(() => this._requestCalculatePosition())
     : null!;
-  private readonly _overlay: ReactiveControllerHost & HTMLElement & SbbElementInternalsMixinType;
+  private readonly _overlay: ReactiveControllerHost & HTMLElement;
   private _abortController?: AbortController;
   private _anchor?: HTMLElement;
   private _overlayStyles?: CSSStyleDeclaration;
@@ -96,7 +94,7 @@ export class SbbOverlayPositionController implements ReactiveController {
   }
 
   public constructor(
-    host: ReactiveControllerHost & HTMLElement & SbbElementInternalsMixinType,
+    host: ReactiveControllerHost & HTMLElement,
     private _usePolyfill = !cssAnchorPositionSupported,
   ) {
     host.addController(this);
@@ -226,6 +224,7 @@ export class SbbOverlayPositionController implements ReactiveController {
     );
     this._overlay.style.setProperty('--sbb-overlay-controller-trigger-width', `${triggerWidth}px`);
 
+    // eslint-disable-next-line no-useless-assignment
     let result: ReturnType<typeof this._getOptimalPosition> = { left: 0, top: 0, position: '' };
     let firstPosition: ReturnType<typeof this._getOptimalPosition> | undefined = undefined;
     for (const position of positions) {

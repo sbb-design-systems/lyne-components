@@ -3,8 +3,8 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html, nothing } from 'lit';
 
 import {
-  describeViewports,
   describeEach,
+  describeViewports,
   visualDiffDefault,
   type VisualDiffSetupBuilder,
 } from '../../core/testing/private.ts';
@@ -13,9 +13,7 @@ import '../../select.ts';
 import '../../form-field.ts';
 import '../../autocomplete.ts';
 import '../../../elements-experimental/autocomplete-grid.ts';
-import '../optgroup.ts';
-import '../option.ts';
-import './option-hint.component.ts';
+import '../../option.ts';
 
 const openAutocomplete = async (setup: VisualDiffSetupBuilder): Promise<void> => {
   // Wait for page is rendered stable. Otherwise, the overlay can be positioned slightly off.

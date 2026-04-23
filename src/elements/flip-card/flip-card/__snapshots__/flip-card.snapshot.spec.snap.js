@@ -1,31 +1,6 @@
 /* @web/test-runner snapshot v1 */
 export const snapshots = {};
 
-snapshots["A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Summary",
-      "level": 4
-    },
-    {
-      "role": "button",
-      "name": "Click on this card to show more details"
-    },
-    {
-      "role": "button",
-      "name": ""
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot A11y tree Chrome */
-
 snapshots["sbb-flip-card DOM"] = 
 `<sbb-flip-card>
   <sbb-flip-card-summary
@@ -49,7 +24,6 @@ snapshots["sbb-flip-card DOM"] =
       class="sbb-action"
       href="https://www.sbb.ch"
       negative=""
-      size="s"
     >
       Link
     </sbb-link>
@@ -91,42 +65,16 @@ snapshots["sbb-flip-card Shadow DOM"] =
 snapshots["sbb-flip-card A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "Summary, Click on this card for details"
-    },
-    {
-      "role": "heading",
-      "name": "Summary",
-      "level": 4
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-flip-card A11y tree Chrome */
-
-snapshots["sbb-flip-card A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Summary, Click on this card for details"
-    },
-    {
-      "role": "heading",
-      "name": "Summary",
-      "level": 4
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-flip-card A11y tree Firefox */
 

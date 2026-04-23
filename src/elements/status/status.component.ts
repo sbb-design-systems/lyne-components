@@ -1,13 +1,11 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
+import { property } from 'lit/decorators.js';
 
-import { SbbElementInternalsMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import { SbbIconNameMixin } from '../icon.ts';
-import type { SbbTitleElement } from '../title.ts';
+import { boxSizingStyles, SbbElement } from '../core.ts';
+import { SbbIconNameMixin } from '../icon.pure.ts';
+import type { SbbTitleElement } from '../title.pure.ts';
 
-import style from './status.scss?lit&inline';
+import style from './status.scss?inline';
 
 export type SbbStatusType =
   | 'info'
@@ -30,10 +28,9 @@ export type SbbStatusType =
  * @cssprop [--sbb-status-text-color=var(--sbb-status-color)] - Specify a custom text color,
  * which will override the predefined color for any type. Only valid for a status without a title.
  */
-export
-@customElement('sbb-status')
-class SbbStatusElement extends SbbIconNameMixin(SbbElementInternalsMixin(LitElement)) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbStatusElement extends SbbIconNameMixin(SbbElement) {
+  public static override readonly elementName: string = 'sbb-status';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   private readonly _statusTypes: Map<SbbStatusType, string> = new Map([
     ['info', 'circle-information-small'],
@@ -72,15 +69,13 @@ class SbbStatusElement extends SbbIconNameMixin(SbbElementInternalsMixin(LitElem
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-status">
-        <span class="sbb-status__icon"> ${this.renderIconSlot()} </span>
-        <span class="sbb-status__content">
-          <slot name="title" @slotchange=${this._configureTitle}></slot>
-          <p class="sbb-status__content-slot" @slotchange=${this._handleSlotchange}>
-            <slot></slot>
-          </p>
-        </span>
-      </div>
+      <span class="sbb-status__icon"> ${this.renderIconSlot()} </span>
+      <span class="sbb-status__content">
+        <slot name="title" @slotchange=${this._configureTitle}></slot>
+        <p class="sbb-status__content-slot" @slotchange=${this._handleSlotchange}>
+          <slot></slot>
+        </p>
+      </span>
     `;
   }
 }

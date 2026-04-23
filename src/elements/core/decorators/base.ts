@@ -14,7 +14,7 @@ export type Interface<T> = {
 // Overloads for property decorator so that TypeScript can infer the correct
 // return type when a decorator is used as an accessor decorator or a setter
 // decorator.
-export type PropertyDecorator = {
+export interface PropertyDecorator {
   // accessor decorator signature
   <C extends Interface<ReactiveElement>, V>(
     target: ClassAccessorDecoratorTarget<C, V>,
@@ -26,4 +26,4 @@ export type PropertyDecorator = {
     target: (value: V) => void,
     context: ClassSetterDecoratorContext<C, V>,
   ): (this: C, value: V) => void;
-};
+}

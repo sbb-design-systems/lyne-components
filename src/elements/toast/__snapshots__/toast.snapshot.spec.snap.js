@@ -107,7 +107,6 @@ snapshots["sbb-toast renders with action DOM"] =
     href="https://www.sbb.ch"
     negative=""
     sbb-toast-close=""
-    size="s"
     slot="action"
     target="_blank"
   >
@@ -158,42 +157,42 @@ snapshots["sbb-toast renders with action Shadow DOM"] =
 snapshots["sbb-toast renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none"
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-toast renders A11y tree Chrome */
-
-snapshots["sbb-toast renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-toast renders A11y tree Firefox */
-
-snapshots["sbb-toast renders readonly A11y tree Chrome"] = 
-`<p>
-  {
-  "role": "WebArea",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-toast renders readonly A11y tree Chrome */
-
-snapshots["sbb-toast renders readonly A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-toast renders readonly A11y tree Firefox */
 
 snapshots["sbb-toast renders in dark mode DOM"] = 
 `<sbb-toast
@@ -207,7 +206,6 @@ snapshots["sbb-toast renders in dark mode DOM"] =
   <sbb-link
     href="https://www.sbb.ch"
     sbb-toast-close=""
-    size="s"
     slot="action"
     target="_blank"
   >
@@ -252,4 +250,34 @@ snapshots["sbb-toast renders in dark mode Shadow DOM"] =
 </div>
 `;
 /* end snapshot sbb-toast renders in dark mode Shadow DOM */
+
+snapshots["sbb-toast renders readonly A11y tree Chrome"] = 
+`<p>
+  {
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none"
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        }
+      ]
+    }
+  ]
+}
+</p>
+`;
+/* end snapshot sbb-toast renders readonly A11y tree Chrome */
 

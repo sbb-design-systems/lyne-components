@@ -5,12 +5,14 @@ import { ssrHydratedFixture } from '../core/testing/private.ts';
 
 import { SbbFooterElement } from './footer.component.ts';
 
+import '../footer.ts';
+
 describe(`sbb-footer ssr`, () => {
   let root: SbbFooterElement;
 
   beforeEach(async () => {
     root = await ssrHydratedFixture(html`<sbb-footer></sbb-footer>`, {
-      modules: ['./footer.component.js'],
+      modules: ['../footer.ts'],
     });
   });
 

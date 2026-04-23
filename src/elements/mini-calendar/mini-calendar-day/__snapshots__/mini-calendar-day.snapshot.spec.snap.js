@@ -19,32 +19,18 @@ snapshots["sbb-mini-calendar-day renders Shadow DOM"] =
 snapshots["sbb-mini-calendar-day renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "January 1, 2025"
+      "name": "January 1, 2025",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-mini-calendar-day renders A11y tree Chrome */
-
-snapshots["sbb-mini-calendar-day renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "January 1, 2025"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-mini-calendar-day renders A11y tree Firefox */
 

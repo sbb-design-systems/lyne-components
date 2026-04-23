@@ -1,6 +1,6 @@
 import { html, nothing, type TemplateResult } from 'lit';
+import { customElement } from 'lit/decorators.js';
 
-import { isChromium } from '../../core/dom.ts';
 import {
   describeEach,
   describeViewports,
@@ -8,11 +8,23 @@ import {
   visualDiffDefault,
   visualDiffFocus,
 } from '../../core/testing/private.ts';
+import { isChromium, SbbElement } from '../../core.ts';
 
-import './form-field.component.ts';
-import '../../button/mini-button.ts';
-import '../error.ts';
+import '../../form-field.ts';
+import '../../button.ts';
+
 import '../../popover.ts';
+
+@customElement('custom-input-element')
+class SbbCustomControlElementInput extends SbbElement {
+  protected override render(): TemplateResult {
+    return html`
+      <div>
+        <slot></slot>
+      </div>
+    `;
+  }
+}
 
 describe(`sbb-form-field`, () => {
   const formField = (
@@ -34,7 +46,7 @@ describe(`sbb-form-field`, () => {
     html`<sbb-form-field
       error-space=${errorSpace}
       ?optional=${optional}
-      size=${size}
+      size=${size || nothing}
       ?borderless=${borderless}
       width=${width}
       ?hidden-label=${hiddenLabel}
@@ -46,8 +58,7 @@ describe(`sbb-form-field`, () => {
         : label && slottedLabel
           ? html`<span slot="label">${label}</span>`
           : nothing}
-      ${template}
-      ${errorText ? html`<sbb-error slot="error">This is a required field.</sbb-error>` : nothing}
+      ${template} ${errorText ? html`<sbb-error>This is a required field.</sbb-error>` : nothing}
     </sbb-form-field>`;
 
   const basicInput = ({
@@ -139,7 +150,7 @@ describe(`sbb-form-field`, () => {
   };
 
   const visualProp = {
-    size: ['s', 'm', 'l'],
+    size: ['s', 'm', 'l', null],
     width: ['default', 'collapse'],
     errorText: [true, false],
   };
@@ -149,6 +160,15 @@ describe(`sbb-form-field`, () => {
     .set('select', basicSelect)
     .set('textarea', basicTextarea);
 
+  const requiredHighlightStates = {
+    negative: [false, true],
+    state: [
+      { disabled: false, readonly: false },
+      { disabled: true, readonly: false },
+      { disabled: false, readonly: true },
+    ],
+  };
+
   function testFormField({
     forcedColors,
     darkMode,
@@ -156,6 +176,35 @@ describe(`sbb-form-field`, () => {
     forcedColors: boolean;
     darkMode: boolean;
   }): void {
+    describe('sbb-form-field-required-highlight', () => {
+      describeEach(requiredHighlightStates, ({ negative, state }) => {
+        it(
+          visualDiffDefault.name,
+          visualDiffDefault.with(async (setup) => {
+            await setup.withFixture(
+              html`<sbb-form-field class="sbb-form-field-required-highlight" ?negative=${negative}>
+                <label>Required Field</label>
+                <input
+                  placeholder="Input placeholder"
+                  ?disabled=${state.disabled}
+                  ?readonly=${state.readonly}
+                  required
+                />
+              </sbb-form-field>`,
+              {
+                backgroundColor: negative
+                  ? 'var(--sbb-background-color-2-negative)'
+                  : 'var(--sbb-background-color-2)',
+                focusOutlineDark: negative,
+                forcedColors,
+                darkMode,
+              },
+            );
+          }),
+        );
+      });
+    });
+
     for (const [name, template] of component.entries()) {
       describe(`input=${name}`, () => {
         // visual states
@@ -498,5 +547,111 @@ describe(`sbb-form-field`, () => {
     describe(`forcedColors=true`, () => {
       testFormField({ forcedColors: true, darkMode: false });
     });
+
+    it(
+      'multiple errors',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-form-field>
+            <input type="number" value="2" minlength="4" required />
+            <sbb-error>This is required field</sbb-error>
+            <sbb-error>Minimum length is 4 characters</sbb-error>
+          </sbb-form-field>`,
+        );
+      }),
+    );
+
+    it(
+      'adaptive textarea',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<sbb-form-field style="height: 200px;">
+            <textarea style="border: 1px solid var(--sbb-color-pink)"></textarea>
+          </sbb-form-field>`,
+        );
+      }),
+    );
+
+    it(
+      'inside bold context',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(
+          html`<div style="font-weight: bold;">
+            <sbb-form-field>
+              <label>Input name</label>
+              <input placeholder="Input placeholder" value="Input value" />
+            </sbb-form-field>
+          </div>`,
+        );
+      }),
+    );
+  });
+
+  describeViewports({ viewports: ['large'] }, () => {
+    it(
+      'with custom controls',
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div>
+              <sbb-form-field size="s">
+                <label>Custom input</label>
+                <custom-input-element>
+                  <input placeholder="input" />
+                </custom-input-element>
+              </sbb-form-field>
+              <sbb-form-field size="s">
+                <label>Native input</label>
+                <input placeholder="input" />
+              </sbb-form-field>
+            </div>
+            <div>
+              <sbb-form-field size="s">
+                <label>Custom select</label>
+                  <select>
+                    <option value="bern">Bern</option>
+                    <option value="zurich">Zürich</option>
+                    <option value="basel">Basel</option>
+                    <option value="geneva">Geneva</option>
+                    <option value="lausanne">Lausanne</option>
+                  </select>
+              </sbb-form-field>
+              <sbb-form-field size="s">
+                <label>Native select</label>
+                <select>
+                  <option value="bern">Bern</option>
+                  <option value="zurich">Zürich</option>
+                  <option value="basel">Basel</option>
+                  <option value="geneva">Geneva</option>
+                  <option value="lausanne">Lausanne</option>
+                </select>
+              </sbb-form-field>
+            </div>
+            <div>
+              <sbb-form-field size="s">
+                <label>Custom textarea</label>
+                  <div>
+                    <div>
+                      <textarea rows="3"></textarea>
+                    </div>
+                  </div>
+              </sbb-form-field>
+              <sbb-form-field size="s">
+                <label>Native textarea</label>
+                <textarea rows="3"></textarea>
+              </sbb-form-field>
+            </div>
+            </div>
+          </div>
+        `);
+      }),
+    );
   });
 });
+
+declare global {
+  interface HTMLElementTagNameMap {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    'custom-input-element': SbbCustomControlElementInput;
+  }
+}

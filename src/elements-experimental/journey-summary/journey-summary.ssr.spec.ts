@@ -4,6 +4,8 @@ import { html } from 'lit';
 
 import { SbbJourneySummaryElement } from './journey-summary.component.ts';
 
+import '../journey-summary.ts';
+
 describe(`sbb-journey-summary ssr`, () => {
   let root: SbbJourneySummaryElement;
 
@@ -12,7 +14,7 @@ describe(`sbb-journey-summary ssr`, () => {
     // specific test.
     this.timeout(20000);
     root = await ssrHydratedFixture(html`<sbb-journey-summary></sbb-journey-summary>`, {
-      modules: ['./journey-summary.component.js'],
+      modules: ['../journey-summary.ts'],
     });
   });
 

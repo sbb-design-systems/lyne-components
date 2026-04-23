@@ -222,4 +222,9 @@ describe('NativeDateAdapter', () => {
       nativeDateAdapter.getAccessibilityFormatDate(new Date(2018, 7, 15, 0, 0, 0)),
     ).to.be.equal('15 août 2018');
   });
+
+  it('should convert to ISO8601 format', () => {
+    const date = new Date(2023, 8, 15);
+    expect(nativeDateAdapter.toIso8601(date)).to.be.equal('2023-09-15');
+  });
 });

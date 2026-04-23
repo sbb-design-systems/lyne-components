@@ -1,4 +1,4 @@
-The `sbb-journey-header` is a component used to display the journey's details.
+The `<sbb-journey-header>` is a component used to display the journey's details.
 
 The component has two required properties, named `origin` and `destination`,
 which represents the two ends of the journey.
@@ -13,7 +13,7 @@ the icon is an arrow pointing to the `destination`, otherwise it is a double arr
 
 ## Style
 
-The component has a `level` property, which is passed to its inner `sbb-title` component;
+The component has a `level` property, which is passed to its inner `<sbb-title>` component;
 it is rendered as a heading from `h1` to `h6`. Default `level` is `3`.
 It also has a `visualLevel` property, which can be used in scenarios
 where the visual representation needs to be different from the semantic meaning of the title level.
@@ -51,14 +51,18 @@ The following one will be read as (locale: ENG): `Connection from Point A to Poi
 
 <!-- Auto Generated Below -->
 
-## Properties
+## API Documentation
 
-| Name          | Attribute      | Privacy | Type                    | Default            | Description                                                                       |
-| ------------- | -------------- | ------- | ----------------------- | ------------------ | --------------------------------------------------------------------------------- |
-| `destination` | `destination`  | public  | `string`                | `''`               | Destination location for the journey header.                                      |
-| `level`       | `level`        | public  | `SbbTitleLevel`         | `'3'`              | Title level                                                                       |
-| `negative`    | `negative`     | public  | `boolean`               | `false`            | Negative coloring variant flag.                                                   |
-| `origin`      | `origin`       | public  | `string`                | `''`               | Origin location for the journey header.                                           |
-| `roundTrip`   | `round-trip`   | public  | `boolean`               | `false`            | Whether the journey is a round trip. If so, the icon changes to a round-trip one. |
-| `size`        | `size`         | public  | `JourneyHeaderSize`     | `'m' / 's' (lean)` | Journey header size, either s, m or l.                                            |
-| `visualLevel` | `visual-level` | public  | `SbbTitleLevel \| null` | `null`             | Visual level for the title.                                                       |
+### class: `SbbJourneyHeaderElement`, `sbb-journey-header`
+
+#### Properties
+
+| Name          | Attribute      | Privacy | Type                    | Default            | Description                                                                                     |
+| ------------- | -------------- | ------- | ----------------------- | ------------------ | ----------------------------------------------------------------------------------------------- |
+| `destination` | `destination`  | public  | `string`                | `''`               | Destination location for the journey header.                                                    |
+| `level`       | `level`        | public  | `SbbTitleLevel`         | `'3'`              | Title level                                                                                     |
+| `negative`    | `negative`     | public  | `boolean`               | `false`            | Negative coloring variant flag.                                                                 |
+| `origin`      | `origin`       | public  | `string`                | `''`               | Origin location for the journey header.                                                         |
+| `roundTrip`   | `round-trip`   | public  | `boolean`               | `false`            | Whether the journey is a round trip. If so, the icon changes to a round-trip one.               |
+| `size`        | `size`         | public  | `JourneyHeaderSize`     | `'m' / 's' (lean)` | Journey header size, either s, m or l.<br><strong>Deprecated</strong>: Use visualLevel instead. |
+| `visualLevel` | `visual-level` | public  | `SbbTitleLevel \| null` | `null`             | Visual level for the title.                                                                     |

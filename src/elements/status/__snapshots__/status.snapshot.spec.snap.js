@@ -9,22 +9,20 @@ snapshots["sbb-status renders DOM"] =
 /* end snapshot sbb-status renders DOM */
 
 snapshots["sbb-status renders Shadow DOM"] = 
-`<div class="sbb-status">
-  <span class="sbb-status__icon">
-    <slot name="icon">
-      <sbb-icon name="circle-information-small">
-      </sbb-icon>
+`<span class="sbb-status__icon">
+  <slot name="icon">
+    <sbb-icon name="circle-information-small">
+    </sbb-icon>
+  </slot>
+</span>
+<span class="sbb-status__content">
+  <slot name="title">
+  </slot>
+  <p class="sbb-status__content-slot">
+    <slot>
     </slot>
-  </span>
-  <span class="sbb-status__content">
-    <slot name="title">
-    </slot>
-    <p class="sbb-status__content-slot">
-      <slot>
-      </slot>
-    </p>
-  </span>
-</div>
+  </p>
+</span>
 `;
 /* end snapshot sbb-status renders Shadow DOM */
 
@@ -43,34 +41,54 @@ snapshots["sbb-status renders with title DOM"] =
 /* end snapshot sbb-status renders with title DOM */
 
 snapshots["sbb-status renders with title Shadow DOM"] = 
-`<div class="sbb-status">
-  <span class="sbb-status__icon">
-    <slot name="icon">
-      <sbb-icon name="circle-information-small">
-      </sbb-icon>
+`<span class="sbb-status__icon">
+  <slot name="icon">
+    <sbb-icon name="circle-information-small">
+    </sbb-icon>
+  </slot>
+</span>
+<span class="sbb-status__content">
+  <slot name="title">
+  </slot>
+  <p class="sbb-status__content-slot">
+    <slot>
     </slot>
-  </span>
-  <span class="sbb-status__content">
-    <slot name="title">
-    </slot>
-    <p class="sbb-status__content-slot">
-      <slot>
-      </slot>
-    </p>
-  </span>
-</div>
+  </p>
+</span>
 `;
 /* end snapshot sbb-status renders with title Shadow DOM */
 
 snapshots["sbb-status renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Status info text"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none"
+            }
+          ]
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "StaticText",
+              "name": "Status info text"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
@@ -78,61 +96,46 @@ snapshots["sbb-status renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-status renders A11y tree Chrome */
 
-snapshots["sbb-status renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Status info text"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-status renders A11y tree Firefox */
-
 snapshots["sbb-status renders with title A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "heading",
-      "name": "Title",
-      "level": 3
-    },
-    {
-      "role": "text",
-      "name": "Status info text"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "ignored": true,
+              "role": "none"
+            }
+          ]
+        },
+        {
+          "ignored": true,
+          "role": "none",
+          "children": [
+            {
+              "role": "heading",
+              "name": "Title",
+              "level": 3
+            },
+            {
+              "role": "StaticText",
+              "name": "Status info text"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-status renders with title A11y tree Chrome */
-
-snapshots["sbb-status renders with title A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "heading",
-      "name": "Title",
-      "level": 3
-    },
-    {
-      "role": "text leaf",
-      "name": "Status info text "
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-status renders with title A11y tree Firefox */
 

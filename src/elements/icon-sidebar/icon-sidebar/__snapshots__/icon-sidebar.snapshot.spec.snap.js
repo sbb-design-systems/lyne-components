@@ -19,20 +19,16 @@ snapshots["sbb-icon-sidebar renders Shadow DOM"] =
 snapshots["sbb-icon-sidebar renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "navigation",
+      "name": ""
+    }
+  ]
 }
 </p>
 `;
 /* end snapshot sbb-icon-sidebar renders A11y tree Chrome */
-
-snapshots["sbb-icon-sidebar renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": ""
-}
-</p>
-`;
-/* end snapshot sbb-icon-sidebar renders A11y tree Firefox */
 

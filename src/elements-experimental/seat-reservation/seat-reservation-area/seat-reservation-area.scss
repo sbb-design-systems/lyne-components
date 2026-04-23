@@ -37,13 +37,19 @@
 }
 
 :host([mounting='upper-border']) {
-  border-block-start-width: var(--sbb-border-width-2x);
+  // For areas that are mounted directly on the border of coach,
+  // we remove the border top from the element where it is mounted,
+  // as the borders are already visually displayed by the coach.
+  border-block-start-width: 0;
   border-radius: 0 0 var(--sbb-seat-reservation-area-border-radius)
     var(--sbb-seat-reservation-area-border-radius);
 }
 
 :host([mounting='lower-border']) {
-  border-block-end-width: var(--sbb-border-width-2x);
+  // For areas that are mounted directly on the border of coach,
+  // we remove the border bottom from the element where it is mounted,
+  // as the borders are already visually displayed by the coach.
+  border-block-end-width: 0;
   border-radius: var(--sbb-seat-reservation-area-border-radius)
     var(--sbb-seat-reservation-area-border-radius) 0 0;
 }

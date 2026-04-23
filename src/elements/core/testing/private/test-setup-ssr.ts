@@ -1,6 +1,6 @@
 import { isServer } from 'lit';
 
-import { mergeConfig, type SbbIconConfig } from '../../config.ts';
+import { mergeConfig, type SbbIconConfig } from '../../config/config.ts';
 
 if (isServer) {
   function setupIconConfig(): void {
@@ -29,4 +29,8 @@ if (isServer) {
   }
 
   setupIconConfig();
+
+  if (typeof Temporal !== 'object') {
+    await import('temporal-polyfill/global');
+  }
 }

@@ -37,81 +37,44 @@ snapshots["sbb-tag-group renders DOM"] =
 /* end snapshot sbb-tag-group renders DOM */
 
 snapshots["sbb-tag-group renders Shadow DOM"] = 
-`<div class="sbb-tag-group">
-  <ul class="sbb-tag-group__list">
-    <li>
-      <slot name="li-0">
-      </slot>
-    </li>
-    <li>
-      <slot name="li-1">
-      </slot>
-    </li>
-    <li>
-      <slot name="li-2">
-      </slot>
-    </li>
-    <li>
-      <slot name="li-3">
-      </slot>
-    </li>
-  </ul>
-  <span hidden="">
-    <slot>
+`<ul class="sbb-tag-group__list">
+  <li>
+    <slot name="li-0">
     </slot>
-  </span>
-</div>
+  </li>
+  <li>
+    <slot name="li-1">
+    </slot>
+  </li>
+  <li>
+    <slot name="li-2">
+    </slot>
+  </li>
+  <li>
+    <slot name="li-3">
+    </slot>
+  </li>
+</ul>
+<span hidden="">
+  <slot>
+  </slot>
+</span>
 `;
 /* end snapshot sbb-tag-group renders Shadow DOM */
 
 snapshots["sbb-tag-group renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "button",
-      "name": "First tag",
-      "pressed": false
-    },
-    {
-      "role": "button",
-      "name": "Second tag",
-      "pressed": false
-    },
-    {
-      "role": "button",
-      "name": "Third tag",
-      "pressed": false
+      "role": "group",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-tag-group renders A11y tree Chrome */
-
-snapshots["sbb-tag-group renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "toggle button",
-      "name": "First tag"
-    },
-    {
-      "role": "toggle button",
-      "name": "Second tag"
-    },
-    {
-      "role": "toggle button",
-      "name": "Third tag"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-tag-group renders A11y tree Firefox */
 

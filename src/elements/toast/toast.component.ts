@@ -1,23 +1,34 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
+import { property } from 'lit/decorators.js';
 
-import type { SbbTransparentButtonElement, SbbTransparentButtonLinkElement } from '../button.ts';
-import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
-import { SbbDarkModeController, SbbLanguageController } from '../core/controllers.ts';
-import { forceType } from '../core/decorators.ts';
-import { isLean, isZeroAnimationDuration } from '../core/dom.ts';
-import { composedPathHasAttribute } from '../core/eventing.ts';
-import { i18nCloseAlert } from '../core/i18n.ts';
-import { SbbHydrationMixin, SbbReadonlyMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import { SbbIconNameMixin } from '../icon.ts';
-import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.ts';
+import {
+  SbbTransparentButtonElement,
+  type SbbTransparentButtonLinkElement,
+} from '../button.pure.ts';
+import {
+  boxSizingStyles,
+  composedPathHasAttribute,
+  forceType,
+  i18nCloseAlert,
+  isZeroAnimationDuration,
+  SbbDarkModeController,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbOpenCloseBaseElement,
+  SbbReadonlyMixin,
+} from '../core.ts';
+import { SbbDividerElement } from '../divider.pure.ts';
+import { SbbIconNameMixin } from '../icon.pure.ts';
+import type { SbbLinkButtonElement, SbbLinkElement, SbbLinkStaticElement } from '../link.pure.ts';
 
-import style from './toast.scss?lit&inline';
-
-import '../button/transparent-button.ts';
-import '../divider.ts';
+import style from './toast.scss?inline';
 
 type SbbToastPositionVertical = 'top' | 'bottom';
 type SbbToastPositionHorizontal = 'left' | 'start' | 'center' | 'right' | 'end';
@@ -36,12 +47,13 @@ const toastRefs = new Set<SbbToastElement>();
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export
-@customElement('sbb-toast')
-class SbbToastElement extends SbbIconNameMixin(
-  SbbHydrationMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)),
-) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCloseBaseElement)) {
+  public static override readonly elementName: string = 'sbb-toast';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbTransparentButtonElement,
+    SbbDividerElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * The length of time in milliseconds to wait before automatically dismissing the toast.
@@ -102,7 +114,7 @@ class SbbToastElement extends SbbIconNameMixin(
    * If there are other opened toasts in the page, close them first.
    */
   public open(): void {
-    if (this.state !== 'closed' || !this.dispatchBeforeOpenEvent()) {
+    if (this.state === 'opened' || this.state === 'opening' || !this.dispatchBeforeOpenEvent()) {
       return;
     }
 
@@ -121,7 +133,7 @@ class SbbToastElement extends SbbIconNameMixin(
    * Close the toast.
    */
   public close(): void {
-    if (this.state !== 'opened' || !this.dispatchBeforeCloseEvent()) {
+    if (this.state === 'closed' || this.state === 'closing' || !this.dispatchBeforeCloseEvent()) {
       return;
     }
 
@@ -195,7 +207,6 @@ class SbbToastElement extends SbbIconNameMixin(
       'sbb-transparent-button, sbb-transparent-button-link',
     ).forEach((btn) => {
       btn.negative = this._isLightMode();
-      btn.size = isLean() ? 's' : 'm';
     });
 
     // Force negative on slotted links
@@ -222,7 +233,7 @@ class SbbToastElement extends SbbIconNameMixin(
    */
   private _closeOtherToasts(): void {
     toastRefs.forEach((t) => {
-      if (t.isOpen) {
+      if (t.state === 'opened' || t.state === 'opening') {
         t.close();
       }
     });
@@ -254,7 +265,6 @@ class SbbToastElement extends SbbIconNameMixin(
                   class="sbb-toast__close-button"
                   icon-name="cross-small"
                   ?negative=${this._isLightMode()}
-                  size="m"
                   aria-label=${i18nCloseAlert[this._language.current]}
                   sbb-toast-close
                 ></sbb-transparent-button>`

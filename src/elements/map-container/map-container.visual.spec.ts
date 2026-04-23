@@ -3,7 +3,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { describeViewports, visualDiffDefault } from '../core/testing/private.ts';
 
-import './map-container.component.ts';
+import '../map-container.ts';
 import '../card.ts';
 import '../header.ts';
 import '../logo.ts';

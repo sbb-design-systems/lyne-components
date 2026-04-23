@@ -99,19 +99,23 @@ To prevent this, set the `weekday-style` attribute to `none`.
 
 ## Events
 
-Similar to the native `<input>` element, the `sbb-date-input` component
+Similar to the native `<input>` element, the `<sbb-date-input>` component
 dispatches the usual `input`, `change`, `blur`, `invalid` and keyboard
 and focus related events.
 
 <!-- Auto Generated Below -->
 
-## Static Methods
+## API Documentation
+
+### class: `SbbDateInputElement`, `sbb-date-input`
+
+#### Static Methods
 
 | Name                 | Privacy | Description                                                           | Parameters                                      | Return | Inherited From |
 | -------------------- | ------- | --------------------------------------------------------------------- | ----------------------------------------------- | ------ | -------------- |
 | `resolveAssociation` | public  | Attempts to resolve the associated date input with the given element. | `host: HTMLElement & SbbDateInputAssociated<T>` | `void` |                |
 
-## Properties
+#### Properties
 
 | Name                | Attribute       | Privacy | Type                              | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------- | --------------- | ------- | --------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -133,7 +137,7 @@ and focus related events.
 | `weekdayStyle`      | `weekday-style` | public  | `'short' \| 'none'`               | `'short'` | How to format the displayed date. `short`: Two letter abbreviation of the week day (e.g. Fr). `none`: The weekday is not displayed.                                                                                                                                                                                                                                                                                                                     |
 | `willValidate`      | -               | public  | `boolean`                         |           | Returns true if this element will be validated when the form is submitted; false otherwise.                                                                                                                                                                                                                                                                                                                                                             |
 
-## Methods
+#### Methods
 
 | Name                | Privacy | Description                                                                                                                                                                                | Parameters              | Return    | Inherited From              |
 | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- | --------- | --------------------------- |
@@ -143,7 +147,7 @@ and focus related events.
 | `select`            | public  | Makes the selection equal to the current object.                                                                                                                                           |                         | `void`    | SbbFormAssociatedInputMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string`       | `void`    | SbbFormAssociatedMixin      |
 
-## Events
+#### Events
 
 | Name     | Type         | Description                                                                                                                                                                        | Inherited From              |
 | -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |

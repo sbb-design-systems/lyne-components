@@ -1,13 +1,14 @@
-import { isServer, type LitElement, type PropertyValues } from 'lit';
+import { isServer, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { getNextElementIndex, interactivityChecker, isArrowKeyPressed } from '../a11y.ts';
-import { SbbLanguageController } from '../controllers.ts';
-import { i18nSelectionRequired } from '../i18n.ts';
+import { getNextElementIndex, isArrowKeyPressed } from '../a11y/arrow-navigation.ts';
+import { interactivityChecker } from '../a11y/interactivity-checker.ts';
+import type { SbbElement, SbbElementConstructor } from '../base-elements/element.ts';
+import { SbbLanguageController } from '../controllers/language-controller.ts';
+import { i18nSelectionRequired } from '../i18n/i18n.ts';
 
 import type { AbstractConstructor } from './constructor.ts';
 import { SbbDisabledMixin } from './disabled-mixin.ts';
-import { SbbElementInternalsMixin } from './element-internals-mixin.ts';
 import {
   type FormRestoreReason,
   type FormRestoreState,
@@ -28,7 +29,7 @@ export const radioButtonRegistry = new WeakMap<
 >();
 
 export declare abstract class SbbFormAssociatedRadioButtonMixinType extends SbbDisabledMixin(
-  SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(LitElement))),
+  SbbRequiredMixin(SbbFormAssociatedMixin(SbbElement)),
 ) {
   public accessor checked: boolean;
 
@@ -47,13 +48,13 @@ export declare abstract class SbbFormAssociatedRadioButtonMixinType extends SbbD
  * The SbbFormAssociatedRadioButtonMixin enables native form support for radio controls.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const SbbFormAssociatedRadioButtonMixin = <T extends AbstractConstructor<LitElement>>(
+export const SbbFormAssociatedRadioButtonMixin = <
+  T extends AbstractConstructor<SbbElement> & SbbElementConstructor,
+>(
   superClass: T,
 ): AbstractConstructor<SbbFormAssociatedRadioButtonMixinType> & T => {
   abstract class SbbFormAssociatedRadioButtonElement
-    extends SbbDisabledMixin(
-      SbbRequiredMixin(SbbFormAssociatedMixin(SbbElementInternalsMixin(superClass))),
-    )
+    extends SbbDisabledMixin(SbbRequiredMixin(SbbFormAssociatedMixin(superClass)))
     implements Partial<SbbFormAssociatedRadioButtonMixinType>
   {
     public static override readonly role = 'radio';

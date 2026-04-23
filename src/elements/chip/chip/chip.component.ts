@@ -1,26 +1,26 @@
 import {
   type CSSResultGroup,
   html,
-  LitElement,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { i18nChipDelete } from '../../core/i18n.ts';
+import { SbbMiniButtonElement } from '../../button.pure.ts';
 import {
+  boxSizingStyles,
+  i18nChipDelete,
   SbbDisabledMixin,
-  SbbElementInternalsMixin,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
   SbbNegativeMixin,
   SbbReadonlyMixin,
-} from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+  SbbScreenReaderOnlyElement,
+} from '../../core.ts';
 
-import '../../button/mini-button.ts';
-import '../../screen-reader-only.ts';
-
-import style from './chip.scss?lit&inline';
+import style from './chip.scss?inline';
 
 /**
  * It displays a chip. Usually used in combination with `sbb-chip-group`.
@@ -28,13 +28,16 @@ import style from './chip.scss?lit&inline';
  * @slot - Use the unnamed slot to add the display value. If not provided, the 'value' will be used.
  * @overrideType value - (T = string) | null
  */
-export
-@customElement('sbb-chip')
-class SbbChipElement<T = string> extends SbbNegativeMixin(
-  SbbDisabledMixin(SbbReadonlyMixin(SbbElementInternalsMixin(LitElement))),
+export class SbbChipElement<T = string> extends SbbNegativeMixin(
+  SbbDisabledMixin(SbbReadonlyMixin(SbbElement)),
 ) {
+  public static override readonly elementName: string = 'sbb-chip';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbMiniButtonElement,
+    SbbScreenReaderOnlyElement,
+  ];
   public static override readonly role = 'option';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     requestdelete: 'requestdelete',
   } as const;
@@ -75,21 +78,19 @@ class SbbChipElement<T = string> extends SbbNegativeMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-chip">
-        <div class="sbb-chip__label-wrapper">
-          <span class="sbb-chip__label">
-            <slot>${this.value ?? ''}</slot>
-          </span>
-        </div>
-        <sbb-mini-button
-          aria-hidden="true"
-          class="sbb-chip__delete"
-          icon-name="cross-tiny-small"
-          @click=${this._handleDeleteButtonClick}
-        >
-        </sbb-mini-button>
-        <sbb-screen-reader-only>, ${i18nChipDelete[this._language.current]}</sbb-screen-reader-only>
+      <div class="sbb-chip__label-wrapper">
+        <span class="sbb-chip__label">
+          <slot>${this.value ?? ''}</slot>
+        </span>
       </div>
+      <sbb-mini-button
+        aria-hidden="true"
+        class="sbb-chip__delete"
+        icon-name="cross-tiny-small"
+        @click=${this._handleDeleteButtonClick}
+      >
+      </sbb-mini-button>
+      <sbb-screen-reader-only>, ${i18nChipDelete[this._language.current]}</sbb-screen-reader-only>
     `;
   }
 }

@@ -11,20 +11,18 @@ snapshots["sbb-loading-indicator renders with variant `window` DOM"] =
 /* end snapshot sbb-loading-indicator renders with variant `window` DOM */
 
 snapshots["sbb-loading-indicator renders with variant `window` Shadow DOM"] = 
-`<span class="sbb-loading-indicator">
-  <span class="sbb-loading-indicator__animated-element">
+`<span class="sbb-loading-indicator__animated-element">
+  <span>
     <span>
       <span>
-        <span>
-        </span>
-        <span>
-        </span>
-        <span>
-        </span>
-        <span>
-        </span>
-        <span>
-        </span>
+      </span>
+      <span>
+      </span>
+      <span>
+      </span>
+      <span>
+      </span>
+      <span>
       </span>
     </span>
   </span>
@@ -55,8 +53,18 @@ snapshots["sbb-loading-indicator renders with variant `circle` Shadow DOM"] =
 snapshots["sbb-loading-indicator renders with variant `window` A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": ""
+  "role": "generic",
+  "name": "Fixture Container",
+  "children": [
+    {
+      "role": "progressbar",
+      "name": "",
+      "valuemin": 0,
+      "valuemax": 100,
+      "valuetext": "",
+      "busy": 1
+    }
+  ]
 }
 </p>
 `;

@@ -5,6 +5,8 @@ import { fixture } from '../../core/testing/private.ts';
 
 import { SbbTrainBlockedPassageElement } from './train-blocked-passage.component.ts';
 
+import '../../train.ts';
+
 describe(`sbb-train-blocked-passage`, () => {
   let element: SbbTrainBlockedPassageElement;
 

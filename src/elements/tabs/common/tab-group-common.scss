@@ -1,7 +1,8 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 :host(:not([size])) {

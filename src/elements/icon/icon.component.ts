@@ -1,16 +1,15 @@
 import { html, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
-import { forceType, omitEmptyConverter } from '../core/decorators.ts';
+import { forceType, omitEmptyConverter } from '../core.ts';
 
 import { SbbIconBase } from './icon-base.ts';
 
 /**
  * Displays an icon loaded from a registered namespace.
  */
-export
-@customElement('sbb-icon')
-class SbbIconElement extends SbbIconBase {
+export class SbbIconElement extends SbbIconBase {
+  public static override readonly elementName: string = 'sbb-icon';
   /**
    * We need to additionally observe the svgicon attribute
    * for sbb-angular compatibility.
@@ -38,6 +37,7 @@ class SbbIconElement extends SbbIconBase {
 
   public override connectedCallback(): void {
     super.connectedCallback();
+    // TODO: Move to constructor
     this.internals.ariaHidden = 'true';
   }
 

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
@@ -7,9 +7,8 @@ import type { InputType } from 'storybook/internal/types';
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
-import './toggle-check.component.ts';
-import '../button/button.ts';
-import '../button/secondary-button.ts';
+import '../toggle-check.ts';
+import '../button.ts';
 import '../card.ts';
 import '../icon.ts';
 import '../title.ts';
@@ -312,7 +311,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-toggle/sbb-toggle-check',
+  title: 'elements/Toggle Check',
 };
 
 export default meta;

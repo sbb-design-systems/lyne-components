@@ -5,6 +5,8 @@ import { fixture } from '../../core/testing/private.ts';
 
 import { SbbTabElement } from './tab.component.ts';
 
+import '../../tabs.ts';
+
 describe('sbb-tab', () => {
   let element: SbbTabElement;
 

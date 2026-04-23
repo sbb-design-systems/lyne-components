@@ -21,31 +21,17 @@ snapshots["sbb-sidebar-close-button renders Shadow DOM"] =
 `;
 /* end snapshot sbb-sidebar-close-button renders Shadow DOM */
 
-snapshots["sbb-sidebar-close-button renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Close sidebar"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-sidebar-close-button renders A11y tree Firefox */
-
 snapshots["sbb-sidebar-close-button renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Close sidebar"
+      "name": "Close sidebar",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }

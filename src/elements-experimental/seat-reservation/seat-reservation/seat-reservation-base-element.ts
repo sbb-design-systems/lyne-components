@@ -1,6 +1,9 @@
-import { isArrowKeyOrPageKeysPressed } from '@sbb-esta/lyne-elements/core/a11y.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { isServer, LitElement, type PropertyValues } from 'lit';
+import {
+  forceType,
+  isArrowKeyOrPageKeysPressed,
+  SbbElement,
+} from '@sbb-esta/lyne-elements/core.js';
+import { isServer, type PropertyValues } from 'lit';
 import { eventOptions, property, state } from 'lit/decorators.js';
 
 import {
@@ -12,10 +15,10 @@ import {
 import type {
   BaseElement,
   CoachItem,
+  CoachItemDetails,
   CoachNumberOfFreePlaces,
   ElementDimension,
   ElementPosition,
-  NavigationCoachItem,
   Place,
   PlaceSelection,
   PlaceTravelClass,
@@ -23,7 +26,8 @@ import type {
   SeatReservationPlaceSelection,
   SeatReservationSelectedCoach,
   SeatReservationSelectedPlaces,
-} from '../common.ts';
+  TravelDirection,
+} from '../common/types.ts';
 import type { SbbSeatReservationPlaceControlElement } from '../seat-reservation-place-control/seat-reservation-place-control.component.ts';
 
 enum ScrollDirection {
@@ -48,7 +52,7 @@ const ALLOWED_SERVICE_ICONS: string[] = [
   'sa-rz',
 ];
 
-export class SeatReservationBaseElement extends LitElement {
+export class SeatReservationBaseElement extends SbbElement {
   public static readonly events = {
     selectedplaces: 'selectedplaces',
     selectedcoach: 'selectedcoach',
@@ -57,6 +61,10 @@ export class SeatReservationBaseElement extends LitElement {
   /** The seat reservations array contains all coaches and places */
   @property({ attribute: 'seat-reservations', type: Array })
   public accessor seatReservations: SeatReservation[] = null!;
+
+  /** Displays an arrow showing what direction does train drive*/
+  @property({ attribute: 'travel-direction', type: String })
+  public accessor travelDirection: TravelDirection = 'NONE';
 
   /** The seat reservation navigation can be toggled by this property */
   @forceType()
@@ -97,6 +105,11 @@ export class SeatReservationBaseElement extends LitElement {
   @property({ attribute: 'preselect-coach-index', type: Number })
   public accessor preselectCoachIndex: number = -1;
 
+  /** The seat reservation title information at place-controls, navigation-coaches and navigation-services can be toggled by this property */
+  @forceType()
+  @property({ attribute: 'show-title-info', type: Boolean })
+  public accessor showTitleInfo: boolean = false;
+
   @state() protected accessor selectedCoachIndex: number = -1;
   @state() protected accessor focusedCoachIndex: number = -1;
   @state() protected accessor hoveredCoachIndex: number = -1;
@@ -112,10 +125,16 @@ export class SeatReservationBaseElement extends LitElement {
   protected gapBetweenCoachDecks = 48;
   // Describes the fix width of coach navigation button
   protected coachNavButtonDim: number = 0;
-  protected coachNavData: NavigationCoachItem[] = [];
+  // Describes the calculated dimension for the area icons, which is used to set the max width and height of the area icons
+  protected globalAreaIconDim: ElementDimension = { w: 2, h: 2 };
+  // #TIMO-45858
+  // Describes the padding for the icon within the area as a percentage size of the area self. 80% (0.8 percent) corresponds
+  // to a good optical size and creates a good padding from the area ti icon
+  protected globalAreaIconPadding: number = 0.8;
+  protected coachItemDetailsElements: CoachItemDetails[] = [];
   protected currScrollDirection: ScrollDirection = ScrollDirection.right;
-  protected maxCalcCoachsWidth: number = 0;
-  protected scrollCoachsAreaWidth: number = 0;
+  protected maxCalcCoachesWidth: number = 0;
+  protected scrollCoachesAreaWidth: number = 0;
   protected scrollNavigationAreaDim: number = 0;
   protected triggerCoachPositionsCollection: CoachScrollTriggerPoint[] = [];
   protected navigationScrollArea: HTMLElement = null!;
@@ -144,9 +163,35 @@ export class SeatReservationBaseElement extends LitElement {
     Enter: 'Enter',
   } as const;
 
+  // Graphics that should not be rendered with an area
+  protected notAreaElements = [
+    'DRIVER_AREA',
+    'DRIVER_AREA_NO_VERTICAL_WALL',
+    'COACH_PASSAGE',
+    'COACH_WALL_NO_PASSAGE',
+    'COMPARTMENT_PASSAGE',
+    'COMPARTMENT_PASSAGE_HIGH',
+    'COMPARTMENT_PASSAGE_MIDDLE',
+    'COMPARTMENT_PASSAGE_LOW',
+    'COMPARTMENT_WALL',
+  ];
+
+  protected overHangingElementInformation: {
+    coachId: string;
+    overhangingPlaces: boolean;
+    overhangingGraphicAreas: boolean;
+  }[] = [];
+
   private _isRunningInitPreselectCoachIndex = false;
   private _scrollTimeout: ReturnType<typeof setTimeout> | undefined;
   private _lastStartScrollPos = -1;
+
+  public constructor() {
+    super();
+    // Add blur event listener on the entire component to detect when the user leaves the component
+    // by using tab navigation or clicking outside of the component. In this case, we can reset the selected coach and place.
+    this.addEventListener('blur', () => this._onLeaveSeatReservationComponent());
+  }
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -155,6 +200,7 @@ export class SeatReservationBaseElement extends LitElement {
       this.hasMultipleDecks = this.seatReservations?.length > 1;
 
       this._initPrepareSeatReservationData();
+      this._prepareCoachWidthAndGapCalculations();
       this._initSeatReservationPlaceSelection();
       this.initNavigationSelectionByScrollEvent();
     }
@@ -174,6 +220,7 @@ export class SeatReservationBaseElement extends LitElement {
         this.coachBorderOffset = this.coachBorderPadding / this.baseGridSize;
         this.style?.setProperty('--sbb-seat-reservation-grid-size', `${this.baseGridSize}px`);
 
+        this._initPrepareSeatReservationData();
         this.initNavigationSelectionByScrollEvent();
       }
     }
@@ -198,7 +245,8 @@ export class SeatReservationBaseElement extends LitElement {
         this.currSelectedCoachIndex != -1 ? this.currSelectedCoachIndex - 1 : 0;
     } else if (
       btnDirection == 'DIRECTION_RIGHT' &&
-      navigateToCoachIndex < this.seatReservations[this.currSelectedDeckIndex].coachItems.length - 1
+      navigateToCoachIndex <
+        this.seatReservations[this.currSelectedDeckIndex]?.coachItems.length - 1
     ) {
       navigateToCoachIndex =
         this.currSelectedCoachIndex != -1 ? this.currSelectedCoachIndex + 1 : 0;
@@ -220,7 +268,8 @@ export class SeatReservationBaseElement extends LitElement {
       this._initEmptyCoachDeckOffsets();
     }
 
-    this._prepareNavigationCoachData();
+    this._prepareCoachItemDetailsData();
+    this._prepareOptimizeAreaIconDimensionByMedian();
   }
 
   /** Init scroll event handling for coach navigation */
@@ -257,9 +306,9 @@ export class SeatReservationBaseElement extends LitElement {
         : this.navigationScrollArea.getBoundingClientRect().width;
 
       // Init the coachNavButtonDim dimension, which is needed to calculate the correct scroll navigation later
-      const navCoacheList = this.navigationScrollArea.querySelector('ul > li') as HTMLUListElement;
-      if (navCoacheList) {
-        const firstLiEleDimension = navCoacheList?.getBoundingClientRect();
+      const navCoachesList = this.navigationScrollArea.querySelector('ul > li') as HTMLUListElement;
+      if (navCoachesList) {
+        const firstLiEleDimension = navCoachesList?.getBoundingClientRect();
         this.coachNavButtonDim = this.alignVertical
           ? firstLiEleDimension.height
           : firstLiEleDimension.width;
@@ -269,7 +318,7 @@ export class SeatReservationBaseElement extends LitElement {
     if (this.coachScrollArea && seatReservationDeck) {
       // Init the start offset for the calculation of the coach scroll trigger positions
       let currCalcTriggerPos = 0;
-      this.scrollCoachsAreaWidth = this.alignVertical
+      this.scrollCoachesAreaWidth = this.alignVertical
         ? this.coachScrollArea.getBoundingClientRect().height
         : this.coachScrollArea.getBoundingClientRect().width;
 
@@ -279,7 +328,16 @@ export class SeatReservationBaseElement extends LitElement {
         const coachWidth = this.getCalculatedDimension(coach.dimension).w;
 
         // Calculation of the end scroll trigger position of a coach, including the gap between the coaches
-        currCalcTriggerPos += coachWidth + this.gapBetweenCoaches;
+        // The gap is maybe adjusted if overhanging places or graphics exist
+        const currentCoachOverhangingInfo = this.overHangingElementInformation.find(
+          (e) => e.coachId === coach.id,
+        );
+        const overhangingElementsPresent =
+          currentCoachOverhangingInfo?.overhangingPlaces ||
+          currentCoachOverhangingInfo?.overhangingGraphicAreas;
+        currCalcTriggerPos +=
+          coachWidth +
+          (!overhangingElementsPresent ? this.gapBetweenCoaches : 2 * this.gapBetweenCoaches);
 
         return {
           start: startPosX,
@@ -289,7 +347,7 @@ export class SeatReservationBaseElement extends LitElement {
       });
 
       // Set maximum calculated coach width
-      this.maxCalcCoachsWidth = currCalcTriggerPos;
+      this.maxCalcCoachesWidth = currCalcTriggerPos - this.gapBetweenCoaches;
     }
   }
 
@@ -327,7 +385,7 @@ export class SeatReservationBaseElement extends LitElement {
     }
   }
 
-  /** Will be triggerd by focus navigation direction */
+  /** Will be triggered by focus navigation direction */
   protected onFocusNavDirectionButton(): void {
     // If any navigation direction button (right|left) get the focus, so we have manual reset the previous focusCoachIndex.
     this.focusedCoachIndex = -1;
@@ -338,16 +396,14 @@ export class SeatReservationBaseElement extends LitElement {
     event: KeyboardEvent,
     currNavCoachButtonIndex: number,
   ): void {
-    const pressedKey = event.key;
-
-    if (pressedKey === this.keyboardNavigationEvents.Tab) {
+    if (event.key === this.keyboardNavigationEvents.Tab) {
       this._handleTabKeyNavigation(event, 'navigation', currNavCoachButtonIndex);
       return;
     }
 
-    // By using any other key (no TAB) inside the Navigation area, so we can handle this by using the logic from keyboardSeatmapEventHadling
+    // By using any other key (no TAB) inside the Navigation area, so we can handle this by using the logic from keyboardSeatmapEventHandling
     if (isArrowKeyOrPageKeysPressed(event)) {
-      this.keyboardSeatmapEventHadling(event);
+      this.keyboardSeatmapEventHandling(event);
     }
   }
 
@@ -368,7 +424,7 @@ export class SeatReservationBaseElement extends LitElement {
           if (
             !this.currSelectedPlace ||
             !pressedShiftTab ||
-            this.coachNavData[currTabIndex].isDriverArea ||
+            this.coachItemDetailsElements[currTabIndex].isDriverArea ||
             this.focusedCoachIndex == -1
           ) {
             this.focusedCoachIndex = currTabIndex;
@@ -399,23 +455,30 @@ export class SeatReservationBaseElement extends LitElement {
    * Initialisation of Keyboard Seatmap event handling to navigation between each places inside a selected coach by using [arrow] keys.
    * With the [TAB] key the user navigation goes to the next coach navigation element and the currently selected place is automatically reset.
    */
-  protected keyboardSeatmapEventHadling(event: KeyboardEvent): void {
+  protected keyboardSeatmapEventHandling(event: KeyboardEvent): void {
+    const isTabNext = event.key === this.keyboardNavigationEvents.Tab;
+    const isTabPrev = event.shiftKey && isTabNext;
+
+    // If no navigation exist and the first or last coach is selected, the the use tries to leave the seat reservation component by using tab,
+    // so we can return here and allow the native focus to leave the component.
+    if (
+      (!this.hasNavigation && this.currSelectedCoachIndex === 0 && isTabPrev) ||
+      (this.currSelectedCoachIndex === this.coachItemDetailsElements.length - 1 && isTabNext)
+    ) {
+      return;
+    }
+
     const pressedKey = event.key;
     this.preventCoachScrollByPlaceClick = false;
-
     // Check any keyboard event was triggered inside the seat reservation component,
     // so we can say the native browser focus lies on the component
-    if (
-      !this.hasSeatReservationNativeFocus &&
-      ((event.shiftKey && pressedKey === this.keyboardNavigationEvents.Tab) ||
-        pressedKey === this.keyboardNavigationEvents.Tab)
-    ) {
+    if (!this.hasSeatReservationNativeFocus && (isTabNext || isTabPrev)) {
       this.hasSeatReservationNativeFocus = true;
     }
 
     // If any place is selected and TAB Key combination ist pressed,
     // then we handle the next or previous coach selection
-    if (pressedKey == this.keyboardNavigationEvents.Tab) {
+    if (isTabNext) {
       this._handleTabKeyNavigation(event, 'seatmap');
       return;
     }
@@ -479,8 +542,8 @@ export class SeatReservationBaseElement extends LitElement {
 
     // For DriverArea or Empty coach (no places), no place is selectable, so we return directly
     if (
-      this.coachNavData[this.currSelectedCoachIndex] &&
-      this.coachNavData[this.currSelectedCoachIndex].isDriverArea
+      this.coachItemDetailsElements[this.currSelectedCoachIndex] &&
+      this.coachItemDetailsElements[this.currSelectedCoachIndex].isDriverArea
     ) {
       this._setFocusToSelectedCoachGrid();
       return;
@@ -677,10 +740,10 @@ export class SeatReservationBaseElement extends LitElement {
 
     // TIMO-43705
     // If a place was selected by mouse click (preventCoachScrollByPlaceClick) before triggering this scrollend method,
-    // then this scrolling was triggered by the method _scrollPlaceIntoNearestViewport and it is only a place adjustment scroll (scrollIntoView),
+    // then this scrolling was triggered by the method _scrollPlaceIntoNearestViewport, and it is only a place adjustment scroll (scrollIntoView),
     // where a less visible place has been scrolled into the viewport. In case of a place adjustment by click, we can return here.
     if (this.preventCoachScrollByPlaceClick) {
-      // Check wheather the endscrolling is just a place ajuestment scrolling (place has 2 grid size units)
+      // Check whether the endscrolling is just a place adjustment scrolling (place has 2 grid size units)
       const isCoachScrolling =
         Math.abs(this._lastStartScrollPos - this.coachScrollArea.scrollLeft) >
         this.baseGridSize * 2;
@@ -768,10 +831,10 @@ export class SeatReservationBaseElement extends LitElement {
     const isFocusPlaceFromPreviousCoachPosition =
       this.isKeyboardNavigation &&
       this.currScrollDirection === ScrollDirection.left &&
-      coachTriggerPoint.width > this.scrollCoachsAreaWidth;
+      coachTriggerPoint.width > this.scrollCoachesAreaWidth;
 
     return isFocusPlaceFromPreviousCoachPosition
-      ? coachTriggerPoint.end - this.scrollCoachsAreaWidth
+      ? coachTriggerPoint.end - this.scrollCoachesAreaWidth
       : coachTriggerPoint.start;
   }
 
@@ -802,7 +865,7 @@ export class SeatReservationBaseElement extends LitElement {
     const coachScrollWindowWidth = this.alignVertical
       ? this.coachScrollArea.getBoundingClientRect().height
       : this.coachScrollArea.getBoundingClientRect().width;
-    const maxScrollWidthArea = this.maxCalcCoachsWidth - coachScrollWindowWidth;
+    const maxScrollWidthArea = this.maxCalcCoachesWidth - coachScrollWindowWidth;
     const currCoachTrigger = this.triggerCoachPositionsCollection[this.currSelectedCoachIndex];
     const isScrollPosSameToCurrCoachPos =
       currScrollPosX === this.triggerCoachPositionsCollection[this.currSelectedCoachIndex].start;
@@ -821,7 +884,7 @@ export class SeatReservationBaseElement extends LitElement {
     const scrollPos = this.alignVertical
       ? this.coachScrollArea.scrollTop
       : this.coachScrollArea.scrollLeft;
-    const scrollOffsetX = scrollPos + this.scrollCoachsAreaWidth / 2;
+    const scrollOffsetX = scrollPos + this.scrollCoachesAreaWidth / 2;
     return this.triggerCoachPositionsCollection.findIndex(
       (coachTrigger) => scrollOffsetX >= coachTrigger.start && scrollOffsetX <= coachTrigger.end,
     );
@@ -878,6 +941,7 @@ export class SeatReservationBaseElement extends LitElement {
     }
     return null;
   }
+
   /**
    * To get the correct closest place of current pressed key and the current selected place,
    * we have to investigate the coordinates of each place to find the closest place of the currSelectedPlaceElementId.
@@ -1019,21 +1083,17 @@ export class SeatReservationBaseElement extends LitElement {
       // If we tab back (PREV_TAB) and the focus is currently on place,
       // we remove the selected state from the currently selected navigation coach and only set the focus status to it
       if (tabDirection === 'PREV_TAB' && this.selectedCoachIndex === currFocusIndex) {
-        // If we TAB back and have a selected places inisde the current coach, then we move out from the seatmap and set the focus to the current selected coach
+        // If we TAB back and have a selected places inside the current coach, then we move out from the seatmap and set the focus to the current selected coach
         if (placeInCoachHasFocus || this.currSelectedPlace !== null) {
           this.focusedCoachIndex = currFocusIndex;
           this.unfocusPlaceElement();
           return;
         }
-        // If we tab back and the currect selected nav coach is the first element, so we have to focus (jump) directly to the left nav direction button
-        else if (currFocusIndex == 0) {
-          this.unfocusPlaceElement();
-          this.currSelectedPlace = null;
-          this.focusedCoachIndex = -1;
-          const btnLeftDirection = this.shadowRoot?.getElementById(
-            'sbb-sr-navigation__wrapper-button-direction--left',
-          ) as HTMLElement;
-          btnLeftDirection.focus();
+        // When the first coach is selected and we TAB back, we have to set the native focus on the first coach in the navigation to get back to the normal tab navigation.
+        // To do this, we have to remove the focusedIndex from the first coach and set it again after a short delay
+        else if (currFocusIndex === 0) {
+          // Refocus the first coach
+          this._refocusCurrentFocusedNavCoach(currFocusIndex);
         } else {
           this.focusedCoachIndex = newFocusableIndex;
         }
@@ -1042,14 +1102,14 @@ export class SeatReservationBaseElement extends LitElement {
       else if (newFocusableIndex !== this.currSelectedCoachIndex) {
         this.focusedCoachIndex = newFocusableIndex;
       }
-      // If we tab next and the currect selected nav coach is the last element, so we have to focus (jump) directly to the right nav direction button
-      else if (tabDirection === 'NEXT_TAB' && newFocusableIndex === this.coachNavData.length - 1) {
-        this.unfocusPlaceElement();
-        this.focusedCoachIndex = -1;
-        const btnRightDirection = this.shadowRoot?.getElementById(
-          'sbb-sr-navigation__wrapper-button-direction--right',
-        ) as HTMLElement;
-        btnRightDirection.focus();
+      // When the last coach is selected and we TAB, we have to set the native focus on the last coach in the navigation to get back to the normal tab navigation.
+      // To do this, we have  to remove the focusedIndex from the first coach and set it again after a short delay
+      else if (
+        tabDirection === 'NEXT_TAB' &&
+        newFocusableIndex === this.coachItemDetailsElements.length - 1
+      ) {
+        // Refocus the last coach
+        this._refocusCurrentFocusedNavCoach(currFocusIndex);
       } else {
         this.focusedCoachIndex = -1;
         this.selectedCoachIndex = newFocusableIndex;
@@ -1071,6 +1131,12 @@ export class SeatReservationBaseElement extends LitElement {
     else {
       this.scrollToSelectedNavCoach(newFocusableIndex);
     }
+  }
+
+  // Refocused the current focused (visual) nav coach to get the native focus back to the navigation
+  private _refocusCurrentFocusedNavCoach(focusIndex: number): void {
+    this.focusedCoachIndex = -1;
+    setTimeout(() => (this.focusedCoachIndex = focusIndex), 0);
   }
 
   private _navigateToPlaceByKeyboard(pressedKey: string): void {
@@ -1317,6 +1383,7 @@ export class SeatReservationBaseElement extends LitElement {
       }),
     );
   }
+
   /**
    * All selected places will be reset or the currentSelectedPlace was given, then we reset all except currentSelectedPlace
    * @param reservationPlaceSelections
@@ -1388,7 +1455,7 @@ export class SeatReservationBaseElement extends LitElement {
 
   /**
    * Preparation of the used documents font-size which needs
-   * to be determined in order to correctly calculate css values with rem
+   * to be determined in order to correctly calculate CSS values with rem
    * */
   private _determineBaseFontSize(): void {
     if (!isServer) {
@@ -1407,35 +1474,87 @@ export class SeatReservationBaseElement extends LitElement {
    *    - class (first, second, any)
    *    - whether there is a driver area left or right
    * */
-  private _prepareNavigationCoachData(): void {
-    const lowerDeck = this.seatReservations[this.seatReservations.length - 1].coachItems;
-    this.coachNavData = [];
+  private _prepareCoachItemDetailsData(): void {
+    if (this.seatReservations) {
+      const lowerDeck: CoachItem[] =
+        this.seatReservations[this.seatReservations.length - 1].coachItems;
 
-    lowerDeck.forEach((coach, index) => {
-      const travelClasses: PlaceTravelClass[] = [];
-      const propertyIds: string[] = [];
-      const places: Place[] = [];
+      this.coachItemDetailsElements = [];
 
-      // Collect all important navigation data to be rendered
-      this.seatReservations
-        .map((sr) => {
-          return sr.coachItems[index];
-        })
-        .forEach((coach: CoachItem) => {
-          travelClasses.push(...coach.travelClass);
-          propertyIds.push(...(coach.propertyIds ? coach.propertyIds : []));
-          places.push(...(coach.places ? coach.places : []));
+      lowerDeck.forEach((coach, index) => {
+        const travelClasses: PlaceTravelClass[] = [];
+        const propertyIds: string[] = [];
+        const places: Place[] = [];
+
+        // Collect all important navigation data to be rendered
+        this.seatReservations
+          .map((sr) => {
+            return sr.coachItems[index];
+          })
+          .forEach((coach: CoachItem) => {
+            travelClasses.push(...coach.travelClass);
+            propertyIds.push(...(coach.propertyIds ? coach.propertyIds : []));
+            places.push(...(coach.places ? coach.places : []));
+          });
+
+        this.coachItemDetailsElements.push({
+          id: coach.id,
+          travelClass: this._prepareTravelClassNavigation(travelClasses),
+          propertyIds: this._prepareServiceIconsNavigation(propertyIds),
+          isDriverArea: coach.places ? coach.places.length === 0 : true,
+          driverAreaSide: this._prepareDriverAreaSideNavigation(coach),
+          freePlaces: this.getAvailableFreePlacesNumFromCoach(places),
+          driverAreaElements: this._setDriverAreasElements(coach),
         });
-
-      this.coachNavData.push({
-        id: coach.id,
-        travelClass: this._prepareTravelClassNavigation(travelClasses),
-        propertyIds: this._prepareServiceIconsNavigation(propertyIds),
-        isDriverArea: coach.places ? coach.places.length === 0 : true,
-        driverAreaSide: this._prepareDriverAreaSideNavigation(coach),
-        freePlaces: this.getAvailableFreePlacesNumFromCoach(places),
       });
-    });
+    }
+  }
+
+  // #TIMO-45858
+  // Finds the optimal icon size based on all serviceElements and their dimension.
+  // This sets the globalAreaIconDim and is used when creating the seat reservation area elements.
+  // This gives us a maximum uniform icon size within the area elements
+  private _prepareOptimizeAreaIconDimensionByMedian(): void {
+    if (this.seatReservations) {
+      const allServiceDimensions: ElementDimension[] = [];
+      this.seatReservations.forEach((deck) =>
+        deck.coachItems.forEach((coach) =>
+          coach.serviceElements?.forEach((icon) => allServiceDimensions.push(icon.dimension)),
+        ),
+      );
+
+      if (allServiceDimensions.length) {
+        allServiceDimensions.sort(
+          (dim1: ElementDimension | undefined, dim2: ElementDimension | undefined) => {
+            if (dim1 && dim2) {
+              const maxDim1 = dim1.w + dim1.h;
+              const maxDim2 = dim2.w + dim2.h;
+              if (maxDim1 > maxDim2) return 1;
+              else if (maxDim1 < maxDim2) return -1;
+              else return 0;
+            }
+            return 0;
+          },
+        );
+        // calculate the best icon size by median
+        const medianIconSize = allServiceDimensions[Math.floor(allServiceDimensions.length / 2)]!;
+
+        // Set the determined median icon size as global calculated area icon dimension
+        this.globalAreaIconDim = this.getCalculatedDimension(medianIconSize);
+      } else {
+        // find the maximum coach height from all decks
+        const maxCoachHeight = this.seatReservations
+          .flatMap((deck) => deck.coachItems.map((coach) => coach.dimension.h))
+          .reduce((max, height) => Math.max(max, height), 0);
+
+        //calculate 20% of maximum height as icon dimension
+        const iconDimension = Math.floor(maxCoachHeight * 0.2);
+        this.globalAreaIconDim = this.getCalculatedDimension({
+          w: iconDimension,
+          h: iconDimension,
+        });
+      }
+    }
   }
 
   private _prepareTravelClassNavigation(travelClasses: PlaceTravelClass[]): PlaceTravelClass {
@@ -1471,7 +1590,7 @@ export class SeatReservationBaseElement extends LitElement {
       return [];
     }
 
-    const shrinkedPropertyIds = propertyIds
+    const shrunkPropertyIds = propertyIds
       ?.map(function (propertyId: string): {
         pId: string;
         svgName: string;
@@ -1493,8 +1612,38 @@ export class SeatReservationBaseElement extends LitElement {
       .map((propertyToSvg) => propertyToSvg.pId)
       // take first MAX_SERVICE_PROPERTIES regardless of the input from Backend, otherwise the layout could be destroyed
       .slice(0, MAX_SERVICE_PROPERTIES);
-    return shrinkedPropertyIds ? shrinkedPropertyIds : [];
+    return shrunkPropertyIds ? shrunkPropertyIds : [];
   };
+
+  private _prepareCoachWidthAndGapCalculations(): void {
+    if (this.seatReservations) {
+      this.seatReservations.forEach((seatReservation: SeatReservation) => {
+        seatReservation?.coachItems?.forEach((coachItem: CoachItem) => {
+          const hasOverhangingPlaces = this._isOverhangingElementsPresent(
+            coachItem.dimension.w,
+            coachItem.places,
+          );
+
+          //Must  be done also for graphical elements, as they can also protrude the coach border
+          // Check only graphical elements that are not area elements
+          const filteredElements = coachItem.graphicElements?.filter(
+            (e) => e.icon && !this.notAreaElements.includes(e.icon),
+          );
+
+          const hasOverhangingGraphicAreas = this._isOverhangingElementsPresent(
+            coachItem.dimension.w,
+            filteredElements,
+          );
+
+          this.overHangingElementInformation.push({
+            coachId: coachItem.id,
+            overhangingPlaces: hasOverhangingPlaces,
+            overhangingGraphicAreas: hasOverhangingGraphicAreas,
+          });
+        });
+      });
+    }
+  }
 
   /**
    * Returns the current selected place HTML element by currSelectedPlaceElementId.
@@ -1565,5 +1714,66 @@ export class SeatReservationBaseElement extends LitElement {
     this.shadowRoot
       ?.getElementById(placeId)
       ?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+  }
+
+  /**
+   * checks if any places or graphical elements (e.g. toilet area, etc.) are overhanging the coach borders
+   * @param coachItemWidth
+   * @param elements
+   */
+  private _isOverhangingElementsPresent(
+    coachItemWidth: number,
+    elements: (Place | BaseElement)[] | undefined,
+  ): boolean {
+    return (
+      elements?.some(
+        (element) =>
+          element.position.x === 0 || element.position.x + element.dimension.w >= coachItemWidth,
+      ) ?? false
+    );
+  }
+
+  /**
+   * collect information about the driverAreas for one coach
+   * @param coachItem
+   * @private
+   */
+  private _setDriverAreasElements(coachItem: CoachItem): {
+    driverArea: BaseElement | undefined;
+    driverAreaNoVerticalWall: BaseElement | undefined;
+  } {
+    if (coachItem) {
+      const driverArea = coachItem.graphicElements?.find(
+        (element: BaseElement) => element.icon === 'DRIVER_AREA',
+      );
+
+      const driverAreaNoVerticalWall =
+        coachItem.type === 'LOCOMOTIVE_COACH'
+          ? coachItem.graphicElements?.find(
+              (element: BaseElement) => element.icon === 'DRIVER_AREA_NO_VERTICAL_WALL',
+            )
+          : undefined;
+
+      return {
+        driverArea: driverArea,
+        driverAreaNoVerticalWall: driverAreaNoVerticalWall,
+      };
+    }
+
+    return {
+      driverArea: undefined,
+      driverAreaNoVerticalWall: undefined,
+    };
+  }
+
+  /**
+   * Is called when the SeatReservation loses focus, what happens when the user tabs out or clicks somewhere else.
+   * Then we reset the focused elements.
+   */
+  private _onLeaveSeatReservationComponent(): void {
+    if (this.hasNavigation) {
+      this.focusedCoachIndex = -1;
+    }
+    this.unfocusPlaceElement();
   }
 }

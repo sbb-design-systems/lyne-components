@@ -1,17 +1,11 @@
 @use '../core/styles' as sbb;
 
 :host {
-  --sbb-message-subtitle-color: light-dark(var(--sbb-color-granite), var(--sbb-color-platinum));
-  --sbb-message-image-margin-block: 0 var(--sbb-spacing-responsive-s);
-  --sbb-message-image-border-radius: var(--sbb-border-radius-4x);
-  --sbb-message-legend-margin-block: var(--sbb-spacing-responsive-xxxs) 0;
-  --sbb-message-action-margin-block: var(--sbb-spacing-responsive-xxxs) 0;
-
   display: block;
-}
-
-.sbb-message__container {
   text-align: center;
+
+  // Set the line-height for adjacent elements in order to prevent from influence of a consumer-set line-height.
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 ::slotted(sbb-title[slot='title']) {
@@ -26,9 +20,9 @@
 }
 
 ::slotted([slot='subtitle']) {
-  @include sbb.text-s--regular;
-
   color: var(--sbb-message-subtitle-color);
+  font-size: var(--sbb-text-font-size-s);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   margin: 0;
 }
 

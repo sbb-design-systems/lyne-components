@@ -1,7 +1,8 @@
-/**
- * @entrypoint
- */
-export * from './menu/menu.ts';
-export * from './menu/menu-button.ts';
-export * from './menu/menu-link.ts';
-export * from './menu/common.ts';
+/** @entrypoint */
+import { SbbMenuButtonElement, SbbMenuElement, SbbMenuLinkElement } from './menu.pure.ts';
+
+export * from './menu.pure.ts';
+
+SbbMenuElement.define();
+SbbMenuButtonElement.define();
+SbbMenuLinkElement.define();

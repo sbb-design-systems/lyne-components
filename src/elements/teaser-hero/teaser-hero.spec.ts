@@ -6,8 +6,10 @@ import { fixture } from '../core/testing/private.ts';
 import { waitForLitRender } from '../core/testing.ts';
 
 import { SbbTeaserHeroElement } from './teaser-hero.component.ts';
+
 import '../chip-label.ts';
 import '../image.ts';
+import '../teaser-hero.ts';
 
 const imageUrl = import.meta.resolve('../core/testing/assets/lucerne.png');
 

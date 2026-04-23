@@ -2,12 +2,11 @@ import { expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture, testA11yTreeSnapshot } from '../../core/testing/private.ts';
-import type { SbbCardElement } from '../card.ts';
+import type { SbbCardElement } from '../card/card.component.ts';
 
 import type { SbbCardButtonElement } from './card-button.component.ts';
 
-import '../card.ts';
-import './card-button.component.ts';
+import '../../card.ts';
 
 describe(`sbb-card-button`, () => {
   let element: SbbCardButtonElement, card: SbbCardElement;

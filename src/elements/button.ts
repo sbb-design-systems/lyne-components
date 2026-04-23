@@ -1,18 +1,36 @@
-/**
- * @entrypoint
- */
-export * from './button/button.ts';
-export * from './button/secondary-button.ts';
-export * from './button/accent-button.ts';
-export * from './button/transparent-button.ts';
-export * from './button/mini-button.ts';
-export * from './button/mini-button-group.ts';
-export * from './button/button-link.ts';
-export * from './button/secondary-button-link.ts';
-export * from './button/accent-button-link.ts';
-export * from './button/transparent-button-link.ts';
-export * from './button/button-static.ts';
-export * from './button/secondary-button-static.ts';
-export * from './button/accent-button-static.ts';
-export * from './button/transparent-button-static.ts';
-export * from './button/common.ts';
+/** @entrypoint */
+import {
+  SbbAccentButtonElement,
+  SbbAccentButtonLinkElement,
+  SbbAccentButtonStaticElement,
+  SbbButtonElement,
+  SbbButtonLinkElement,
+  SbbButtonStaticElement,
+  SbbMiniButtonElement,
+  SbbMiniButtonGroupElement,
+  SbbMiniButtonLinkElement,
+  SbbSecondaryButtonElement,
+  SbbSecondaryButtonLinkElement,
+  SbbSecondaryButtonStaticElement,
+  SbbTransparentButtonElement,
+  SbbTransparentButtonLinkElement,
+  SbbTransparentButtonStaticElement,
+} from './button.pure.ts';
+
+export * from './button.pure.ts';
+
+SbbAccentButtonElement.define();
+SbbAccentButtonLinkElement.define();
+SbbAccentButtonStaticElement.define();
+SbbButtonElement.define();
+SbbButtonLinkElement.define();
+SbbButtonStaticElement.define();
+SbbMiniButtonElement.define();
+SbbMiniButtonGroupElement.define();
+SbbMiniButtonLinkElement.define();
+SbbSecondaryButtonElement.define();
+SbbSecondaryButtonLinkElement.define();
+SbbSecondaryButtonStaticElement.define();
+SbbTransparentButtonElement.define();
+SbbTransparentButtonLinkElement.define();
+SbbTransparentButtonStaticElement.define();

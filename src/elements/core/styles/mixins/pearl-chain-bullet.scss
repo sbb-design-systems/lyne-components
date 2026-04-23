@@ -6,6 +6,7 @@
 // ----------------------------------------------------------------------------------------------------
 
 @mixin pearl-chain-bullet-variables {
+  --sbb-pearl-chain-position-color: var(--sbb-color-primary);
   --sbb-pearl-chain-bullet-size-start-end: #{functions.px-to-rem-build(10)};
   --sbb-pearl-chain-bullet-size-stop: #{functions.px-to-rem-build(8)};
   --sbb-pearl-chain-bullet-color: var(--sbb-background-color-3-inverted);
@@ -14,7 +15,7 @@
     var(--sbb-color-metal),
     var(--sbb-color-granite)
   );
-  --sbb-pearl-chain-bullet-color-disruption: var(--sbb-color-primary);
+  --sbb-pearl-chain-bullet-color-disruption: var(--sbb-color-error);
   --sbb-pearl-chain-bullet-border-width: var(--sbb-border-width-2x);
   --sbb-pearl-chain-bullet-animation-duration: 1920ms;
   --sbb-pearl-chain-bullet-animation-easing: ease-out;
@@ -107,24 +108,29 @@
 @mixin pearl-chain-bullet-position {
   @include pearl-chain-bullet-start-end;
   @include pearl-chain-bullet;
-  @include pearl-chain-bullet-disruption;
+
+  --sbb-pearl-chain-bullet-color: var(--sbb-pearl-chain-position-color);
+
+  @include a11y.if-forced-colors {
+    --sbb-pearl-chain-position-color: Highlight;
+  }
 
   @keyframes pearl-chain-bullet-position-pulse {
     0% {
-      box-shadow: 0 0 0 0 var(--sbb-pearl-chain-bullet-color-disruption);
+      box-shadow: 0 0 0 0 var(--sbb-pearl-chain-position-color);
     }
 
     25% {
-      box-shadow: 0 0 0 0 var(--sbb-pearl-chain-bullet-color-disruption);
+      box-shadow: 0 0 0 0 var(--sbb-pearl-chain-position-color);
     }
 
     50% {
       box-shadow: 0 0 0 #{functions.px-to-rem-build(3)}
-        color-mix(in srgb, var(--sbb-color-primary) 20%, transparent);
+        color-mix(in srgb, var(--sbb-pearl-chain-position-color) 20%, transparent);
     }
 
     100% {
-      box-shadow: 0 0 0 0 var(--sbb-pearl-chain-bullet-color-disruption);
+      box-shadow: 0 0 0 0 var(--sbb-pearl-chain-position-color);
     }
   }
 

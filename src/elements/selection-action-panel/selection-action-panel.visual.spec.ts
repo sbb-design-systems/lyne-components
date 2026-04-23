@@ -8,15 +8,15 @@ import {
   visualDiffFocus,
 } from '../core/testing/private.ts';
 
-import './selection-action-panel.component.ts';
-import '../button/secondary-button.ts';
-import '../card/card-badge.ts';
-import '../checkbox/checkbox-panel.ts';
-import '../checkbox/checkbox-group.ts';
+import '../selection-action-panel.ts';
+import '../button.ts';
+import '../card.ts';
+import '../checkbox-panel.ts';
+import '../checkbox-group.ts';
 import '../icon.ts';
-import '../link/block-link-button.ts';
-import '../radio-button/radio-button-panel.ts';
-import '../radio-button/radio-button-group.ts';
+import '../link.ts';
+import '../radio-button-panel.ts';
+import '../radio-button-group.ts';
 import '../selection-expansion-panel.ts';
 
 describe(`sbb-selection-action-panel`, () => {
@@ -31,6 +31,7 @@ describe(`sbb-selection-action-panel`, () => {
     value?: string;
     size: SbbCheckboxSize;
   };
+
   const withCheckboxPanel = (params: Partial<ParamsType>): TemplateResult => html`
     <sbb-selection-action-panel>
       <sbb-checkbox-panel
@@ -156,6 +157,30 @@ describe(`sbb-selection-action-panel`, () => {
                 : withRadioPanel({ size: 's' })}
             `);
           }),
+        );
+
+        describeEach(
+          {
+            emulateMedia: [
+              { forcedColors: false, darkMode: true },
+              { forcedColors: true, darkMode: false },
+              { forcedColors: true, darkMode: true },
+            ],
+          },
+          ({ emulateMedia: { forcedColors, darkMode } }) => {
+            it(
+              visualDiffDefault.name,
+              visualDiffDefault.with(async (setup) => {
+                await setup.withFixture(
+                  input === 'checkbox' ? withCheckboxPanel({}) : withRadioPanel({}),
+                  {
+                    darkMode,
+                    forcedColors,
+                  },
+                );
+              }),
+            );
+          },
         );
       });
 

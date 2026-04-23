@@ -30,7 +30,7 @@ snapshots["sbb-secondary-button renders a sbb-secondary-button without icon Shad
 
 snapshots["sbb-secondary-button renders a sbb-secondary-button with slotted icon DOM"] = 
 `<sbb-secondary-button
-  size="l"
+  size="m"
   tabindex="0"
 >
   <sbb-icon
@@ -58,32 +58,18 @@ snapshots["sbb-secondary-button renders a sbb-secondary-button with slotted icon
 snapshots["sbb-secondary-button renders a sbb-secondary-button with slotted icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "Label Text"
+      "name": "Label Text",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-secondary-button renders a sbb-secondary-button with slotted icon A11y tree Chrome */
-
-snapshots["sbb-secondary-button renders a sbb-secondary-button with slotted icon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "Label Text"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-secondary-button renders a sbb-secondary-button with slotted icon A11y tree Firefox */
 

@@ -37,32 +37,18 @@ snapshots["sbb-header-button renders Shadow DOM"] =
 snapshots["sbb-header-button renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
       "role": "button",
-      "name": "a11y label"
+      "name": "a11y label",
+      "invalid": false,
+      "focusable": true
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-header-button renders A11y tree Chrome */
-
-snapshots["sbb-header-button renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "button",
-      "name": "a11y label"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-header-button renders A11y tree Firefox */
 

@@ -1,28 +1,28 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import { type CSSResultGroup, html, LitElement, type TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { isArrowKeyPressed } from '../../core/a11y.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { i18nCarouselItemAriaLabel } from '../../core/i18n.ts';
-import { SbbElementInternalsMixin } from '../../core/mixins.ts';
+import {
+  i18nCarouselItemAriaLabel,
+  isArrowKeyPressed,
+  SbbElement,
+  SbbLanguageController,
+} from '../../core.ts';
 import type {
   SbbCarouselItemElement,
   SbbCarouselItemEventDetail,
 } from '../carousel-item/carousel-item.component.ts';
 
-import style from './carousel-list.scss?lit&inline';
+import style from './carousel-list.scss?inline';
 
 /**
  * It displays a list of `sbb-carousel-item` components.
  *
  * @slot - Use the unnamed slot to add `sbb-carousel-item` elements.
  */
-export
-@customElement('sbb-carousel-list')
-class SbbCarouselListElement extends SbbElementInternalsMixin(LitElement) {
-  public static override styles: CSSResultGroup = style;
+export class SbbCarouselListElement extends SbbElement {
+  public static override readonly elementName: string = 'sbb-carousel-list';
+  public static override styles: CSSResultGroup = unsafeCSS(style);
 
   private _currentIndex = 0;
   private _language = new SbbLanguageController(this);

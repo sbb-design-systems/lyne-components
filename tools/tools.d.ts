@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 
-declare module '@custom-elements-manifest/analyzer/cli' {
+declare module '@custom-elements-manifest/analyzer/cli.js' {
   export const cli: (...args) => Promise<void>;
 }
 

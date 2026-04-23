@@ -1,7 +1,6 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import {
   html,
-  LitElement,
   nothing,
   type PropertyDeclaration,
   type PropertyValues,
@@ -9,15 +8,17 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { isAndroid, isBlink, isSafari, setOrRemoveAttribute } from '../../core/dom.ts';
 import {
+  isAndroid,
+  isBlink,
+  isSafari,
   SbbDisabledMixin,
-  SbbElementInternalsMixin,
-  SbbHydrationMixin,
-} from '../../core/mixins.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
-
-import '../../screen-reader-only.ts';
+  SbbElement,
+  type SbbElementType,
+  SbbScreenReaderOnlyElement,
+  setOrRemoveAttribute,
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 
 let nextId = 0;
 
@@ -36,8 +37,9 @@ const optionObserverConfig: MutationObserverInit = {
 };
 
 export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
-  SbbIconNameMixin(SbbElementInternalsMixin(SbbHydrationMixin(LitElement))),
+  SbbIconNameMixin(SbbElement),
 ) {
+  public static override elementDependencies: SbbElementType[] = [SbbScreenReaderOnlyElement];
   public static readonly events = {
     optionselected: 'optionselected',
   } as const;
@@ -58,6 +60,9 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     } else {
       this._value = value;
     }
+    // Notify the sbb-select to re-check its value against the option's one.
+    /** @internal */
+    this.dispatchEvent(new Event('ɵoptionvaluechange', { bubbles: true }));
   }
   public get value(): T {
     return (this._value ?? this.getAttribute('value')) as T;
@@ -259,30 +264,28 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-option__container">
-        <div class="sbb-option">
-          ${this.renderIcon()}
-          <span class="sbb-option__label">
-            <slot @slotchange=${this.handleHighlightState}></slot>
-            <span
-              aria-hidden=${
-                /**
-                 * Screen readers with Chromium read the option twice.
-                 * We therefore have to hide the option for the screen readers.
-                 * TODO: Recheck periodically if this is still necessary.
-                 * https://issues.chromium.org/issues/460165741
-                 */
-                isBlink ? 'true' : nothing
-              }
-            >
-              ${this.renderLabel()}
-            </span>
-            ${this._inertAriaGroups && this.groupLabel
-              ? html`<sbb-screen-reader-only> (${this.groupLabel})</sbb-screen-reader-only>`
-              : nothing}
+      <div class="sbb-option">
+        ${this.renderIcon()}
+        <span class="sbb-option__label">
+          <slot @slotchange=${this.handleHighlightState}></slot>
+          <span
+            aria-hidden=${
+              /**
+               * Screen readers with Chromium read the option twice.
+               * We therefore have to hide the option for the screen readers.
+               * TODO: Recheck periodically if this is still necessary.
+               * https://issues.chromium.org/issues/460165741
+               */
+              isBlink ? 'true' : nothing
+            }
+          >
+            ${this.renderLabel()}
           </span>
-          ${this.renderTick()}
-        </div>
+          ${this._inertAriaGroups && this.groupLabel
+            ? html`<sbb-screen-reader-only> (${this.groupLabel})</sbb-screen-reader-only>`
+            : nothing}
+        </span>
+        ${this.renderTick()}
       </div>
     `;
   }

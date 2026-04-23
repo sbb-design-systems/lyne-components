@@ -16,6 +16,7 @@ snapshots["sbb-header-link renders DOM"] =
 
 snapshots["sbb-header-link renders Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   aria-label="a11y label"
   class="sbb-action-base sbb-header-link"
   href="https://github.com/sbb-design-systems/lyne-components"
@@ -34,43 +35,29 @@ snapshots["sbb-header-link renders Shadow DOM"] =
       </slot>
     </span>
   </span>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
 </a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-header-link renders Shadow DOM */
 
 snapshots["sbb-header-link renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "a11y label"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-header-link renders A11y tree Chrome */
-
-snapshots["sbb-header-link renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "a11y label",
-      "value": "https://github.com/sbb-design-systems/lyne-components"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-header-link renders A11y tree Firefox */
 

@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-navigation-section renders DOM"] = 
-`<sbb-navigation-section
-  id="sbb-navigation-section-0"
-  slot="navigation-section"
->
+`<sbb-navigation-section slot="navigation-section">
 </sbb-navigation-section>
 `;
 /* end snapshot sbb-navigation-section renders DOM */
@@ -28,7 +25,6 @@ snapshots["sbb-navigation-section renders Shadow DOM"] =
             sbb-navigation-section-close=""
             size="m"
             tabindex="0"
-            type="button"
           >
           </sbb-transparent-button>
           <span

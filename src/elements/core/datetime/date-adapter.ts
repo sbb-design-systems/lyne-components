@@ -1,11 +1,20 @@
+export const FORMAT_DATE =
+  /(0?[1-9]|[12][0-9]|3[01])[.,\\/\-\s](0?[1-9]|1[0-2])[.,\\/\-\s]([0-9]{1,4}$)?/;
+export const ISO8601_FORMAT_DATE = /^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-3][0-9])$/;
+export const MONDAY = 1;
+export const TUESDAY = 2;
+export const WEDNESDAY = 3;
+export const THURSDAY = 4;
+export const FRIDAY = 5;
+export const SATURDAY = 6;
+export const SUNDAY = 0;
+
+// TODO(breaking-change): Move these variables to calendar
 export const DAYS_PER_ROW: number = 7;
 export const MONTHS_PER_ROW: number = 4;
 export const YEARS_PER_ROW: number = 4;
 export const MONTHS_PER_PAGE: number = 12;
 export const YEARS_PER_PAGE: number = 24;
-export const FORMAT_DATE =
-  /(0?[1-9]|[12][0-9]|3[01])[.,\\/\-\s](0?[1-9]|1[0-2])[.,\\/\-\s]([0-9]{1,4}$)?/;
-export const ISO8601_FORMAT_DATE = /^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-3][0-9])$/;
 
 /**
  * Abstract date functionality.
@@ -13,6 +22,18 @@ export const ISO8601_FORMAT_DATE = /^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-3][0-
  * Adapted from https://github.com/angular/components/blob/main/src/material/core/datetime/date-adapter.ts
  */
 export abstract class DateAdapter<T = any> {
+  private readonly _cutoffYearOffset: number;
+
+  /**
+   * @param cutoffYearOffset The threshold on whether a two-digit year
+   * should be treated as belonging to 2000 or 1900. e.g. with 15 (default)
+   * the current year plus 15 will be treated as belonging to 2000, and the rest to 1900.
+   * So e.g. with the current year 2025, 40 will be treated as 2040, while 41 will be treated as 1941.
+   */
+  public constructor(cutoffYearOffset: number = 15) {
+    this._cutoffYearOffset = cutoffYearOffset;
+  }
+
   /**
    * Get the year as a number.
    * @param date
@@ -81,9 +102,9 @@ export abstract class DateAdapter<T = any> {
    * Creates a new date, given day, month and year; without date's overflow.
    * @param year
    * @param month The month of the date (1-indexed, 1 = January). Must be an integer 1 - 12.
-   * @param date
+   * @param day
    */
-  public abstract createDate(year: number, month: number, date: number): T;
+  public abstract createDate(year: number, month: number, day: number): T;
 
   /**
    * Attempts to deserialize a value to a valid date object. This is different from parsing in that
@@ -137,7 +158,44 @@ export abstract class DateAdapter<T = any> {
    * Get the given string as Date.
    * @param value The date in the format DD.MM.YYYY.
    */
-  public abstract parse(value: string | null | undefined): T | null;
+  public parse(value: string | null | undefined): T | null {
+    if (!value) {
+      return null;
+    }
+
+    let date: T | null = null;
+    const isoMatch = value.match(ISO8601_FORMAT_DATE);
+    try {
+      date = isoMatch ? this.createDate(+isoMatch[1], +isoMatch[2], +isoMatch[3]) : null;
+    } catch {
+      /* empty */
+    }
+    if (this.isValid(date)) {
+      return date;
+    }
+
+    const strippedValue = value.replace(/\D/g, ' ').trim();
+
+    const match: RegExpMatchArray | null | undefined = strippedValue?.match(FORMAT_DATE);
+    if (
+      !match ||
+      match.index !== 0 ||
+      match.length <= 2 ||
+      match.some((e) => e === undefined) ||
+      !this.isValid(this.createDate(+match[3], +match[2], +match[1]))
+    ) {
+      return null;
+    }
+
+    let year = +match[3];
+
+    if (typeof year === 'number' && year < 100 && year >= 0) {
+      const shift = this.getYear(this.today()) - 2000 + this._cutoffYearOffset;
+      year = year <= shift ? 2000 + year : 1900 + year;
+    }
+
+    return this.createDate(year, +match[2], +match[1]);
+  }
 
   /**
    * Format the given date as string.
@@ -211,9 +269,7 @@ export abstract class DateAdapter<T = any> {
    */
   public getFirstWeekOffset(date: T): number {
     const firstOfMonth = this.createDate(this.getYear(date), this.getMonth(date), 1)!;
-    return (
-      (DAYS_PER_ROW + this.getDayOfWeek(firstOfMonth) - this.getFirstDayOfWeek()) % DAYS_PER_ROW
-    );
+    return (7 + this.getDayOfWeek(firstOfMonth) - this.getFirstDayOfWeek()) % 7;
   }
 
   /**

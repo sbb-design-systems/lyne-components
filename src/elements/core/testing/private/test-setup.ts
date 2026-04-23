@@ -5,7 +5,7 @@ import { cleanupFixtures } from '@lit-labs/testing/fixtures.js';
 import type { UncompiledTemplateResult } from 'lit';
 import type { MochaOptions } from 'mocha';
 
-import { mergeConfig, type SbbIconConfig } from '../../config.ts';
+import { mergeConfig, type SbbIconConfig } from '../../config/config.ts';
 
 const {
   __WTR_CONFIG__: { testFrameworkConfig },
@@ -88,6 +88,10 @@ if (testGroup === 'visual-regression') {
   });
   return result;
 };
+
+if (typeof Temporal !== 'object') {
+  await import('temporal-polyfill/global');
+}
 
 // We import and run the web test runner script manually, as it ensures correct load order.
 await import(/* @vite-ignore */ testRunScript);

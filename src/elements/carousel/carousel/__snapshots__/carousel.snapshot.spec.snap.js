@@ -50,46 +50,17 @@ snapshots["sbb-carousel renders Shadow DOM"] =
 snapshots["sbb-carousel renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Carousel - Use the arrow keys in interaction mode to navigate through the slides"
-    },
-    {
-      "role": "image",
-      "name": "SBB image"
+      "role": "region",
+      "name": "carousel",
+      "description": "Carousel - Use the arrow keys in interaction mode to navigate through the slides"
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-carousel renders A11y tree Chrome */
-
-snapshots["sbb-carousel renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Carousel - Use the arrow keys in interaction mode to navigate through the slides"
-    },
-    {
-      "role": "text container",
-      "name": "",
-      "children": [
-        {
-          "role": "img",
-          "name": "SBB image"
-        }
-      ]
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-carousel renders A11y tree Firefox */
 

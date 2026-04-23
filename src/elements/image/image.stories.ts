@@ -6,13 +6,14 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import images from '../core/images.ts';
+import { sampleImages } from '../core/images.private.ts';
 
 import { SbbImageElement } from './image.component.ts';
 import readme from './readme.md?raw';
 
 import '../chip-label.ts';
 import '../link.ts';
+import '../image.ts';
 
 const ImageTemplate = ({ aspectRatio, borderRadius, ...args }: Args): TemplateResult => html`
   <sbb-image
@@ -46,11 +47,21 @@ const WithChipTemplate = ({ chipPosition, ...args }: Args): TemplateResult => ht
   </figure>
 `;
 
+const WithMultipleChipsTemplate = ({ chipPosition, ...args }: Args): TemplateResult => html`
+  <figure class="sbb-figure">
+    ${ImageTemplate(args)}
+    <div class="sbb-figure-overlap-${chipPosition}">
+      <sbb-chip-label>AI generated</sbb-chip-label>
+      <sbb-chip-label>Paid content</sbb-chip-label>
+    </div>
+  </figure>
+`;
+
 const imageSrc: InputType = {
   control: {
     type: 'select',
   },
-  options: images,
+  options: sampleImages,
 };
 
 const borderRadius: InputType = {
@@ -226,6 +237,12 @@ export const WithChip: StoryObj = {
   args: { ...defaultArgs, chipPosition: chipPosition.options![0] },
 };
 
+export const WithMultipleChips: StoryObj = {
+  render: WithMultipleChipsTemplate,
+  argTypes: { ...defaultArgTypes, chipPosition },
+  args: { ...defaultArgs, chipPosition: chipPosition.options![0] },
+};
+
 const meta: Meta = {
   decorators: [
     (story) => html`<div style="max-width: 480px;">${story()}</div>`,
@@ -239,7 +256,7 @@ const meta: Meta = {
       extractComponentDescription: () => readme,
     },
   },
-  title: 'elements/sbb-image',
+  title: 'elements/Image',
 };
 
 export default meta;

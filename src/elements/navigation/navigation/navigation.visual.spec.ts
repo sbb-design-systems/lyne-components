@@ -5,10 +5,7 @@ import { describeViewports, visualDiffDefault } from '../../core/testing/private
 
 import type { SbbNavigationElement } from './navigation.component.ts';
 
-import './navigation.component.ts';
-import '../navigation-marker.ts';
-import '../navigation-button.ts';
-import '../navigation-link.ts';
+import '../../navigation.ts';
 
 describe(`sbb-navigation`, () => {
   const navigationActions = (): TemplateResult => html`
@@ -18,8 +15,8 @@ describe(`sbb-navigation`, () => {
   `;
 
   const template = html`
-    <sbb-navigation id="navigation" trigger="navigation-trigger-1">
-      <sbb-navigation-marker id="nav-marker">${navigationActions()}</sbb-navigation-marker>
+    <sbb-navigation trigger="navigation-trigger-1">
+      <sbb-navigation-marker>${navigationActions()}</sbb-navigation-marker>
       <sbb-navigation-marker size="s">${navigationActions()}</sbb-navigation-marker>
     </sbb-navigation>
   `;

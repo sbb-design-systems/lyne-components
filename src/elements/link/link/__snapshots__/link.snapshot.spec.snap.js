@@ -4,7 +4,6 @@ export const snapshots = {};
 snapshots["sbb-link renders DOM"] = 
 `<sbb-link
   href="https://sbb.ch"
-  size="m"
   target="_blank"
 >
   Travelcards & tickets.
@@ -14,6 +13,7 @@ snapshots["sbb-link renders DOM"] =
 
 snapshots["sbb-link renders Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   class="sbb-action-base sbb-link"
   href="https://sbb.ch"
   rel="external noopener nofollow"
@@ -21,22 +21,25 @@ snapshots["sbb-link renders Shadow DOM"] =
 >
   <slot>
   </slot>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
 </a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-link renders Shadow DOM */
 
 snapshots["sbb-link renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "Travelcards & tickets. . Link target opens in a new window."
+      "role": "generic",
+      "name": ""
     }
   ]
 }
@@ -44,29 +47,11 @@ snapshots["sbb-link renders A11y tree Chrome"] =
 `;
 /* end snapshot sbb-link renders A11y tree Chrome */
 
-snapshots["sbb-link renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Travelcards & tickets. . Link target opens in a new window.",
-      "value": "https://sbb.ch/"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-link renders A11y tree Firefox */
-
 snapshots["sbb-link reflects properties DOM"] = 
 `<sbb-link
   download=""
   href="https://sbb.ch/"
   rel="nofollow"
-  size="m"
   target="_blank"
 >
   Travelcards & tickets.
@@ -76,6 +61,7 @@ snapshots["sbb-link reflects properties DOM"] =
 
 snapshots["sbb-link reflects properties Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   class="sbb-action-base sbb-link"
   download=""
   href="https://sbb.ch/"
@@ -84,43 +70,29 @@ snapshots["sbb-link reflects properties Shadow DOM"] =
 >
   <slot>
   </slot>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
 </a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-link reflects properties Shadow DOM */
 
 snapshots["sbb-link reflects properties A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "Travelcards & tickets. . Link target opens in a new window."
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-link reflects properties A11y tree Chrome */
-
-snapshots["sbb-link reflects properties A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Travelcards & tickets. . Link target opens in a new window.",
-      "value": "https://sbb.ch/"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-link reflects properties A11y tree Firefox */
 

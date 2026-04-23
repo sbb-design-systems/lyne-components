@@ -1,4 +1,6 @@
-/**
- * @entrypoint
- */
-export * from './journey-header/journey-header.component.ts';
+/** @entrypoint */
+import { SbbJourneyHeaderElement } from './journey-header.pure.ts';
+
+export * from './journey-header.pure.ts';
+
+SbbJourneyHeaderElement.define();

@@ -16,6 +16,7 @@ snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link wit
 
 snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link without icon Shadow DOM"] = 
 `<a
+  aria-describedby="sbb-link-new-window"
   class="sbb-action-base sbb-transparent-button-link"
   download=""
   href="https://www.sbb.ch"
@@ -28,10 +29,13 @@ snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link wit
     <slot>
     </slot>
   </span>
-  <sbb-screen-reader-only>
-    . Link target opens in a new window.
-  </sbb-screen-reader-only>
 </a>
+<span
+  hidden=""
+  id="sbb-link-new-window"
+>
+  Link target opens in a new window.
+</span>
 `;
 /* end snapshot sbb-transparent-button-link renders a sbb-transparent-button-link without icon Shadow DOM */
 
@@ -39,7 +43,7 @@ snapshots["sbb-transparent-button-link renders a disabled sbb-transparent-button
 `<sbb-transparent-button-link
   disabled=""
   href="https://www.sbb.ch"
-  size="l"
+  size="m"
 >
   <sbb-icon
     name="chevron-small-left-small"
@@ -71,33 +75,16 @@ snapshots["sbb-transparent-button-link renders a disabled sbb-transparent-button
 snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "link",
-      "name": "Label Text . Link target opens in a new window."
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Chrome */
-
-snapshots["sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "link",
-      "name": "Label Text . Link target opens in a new window.",
-      "value": "https://www.sbb.ch/"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-transparent-button-link renders a sbb-transparent-button-link without icon A11y tree Firefox */
 

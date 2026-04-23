@@ -27,32 +27,16 @@ snapshots["sbb-card-badge renders Shadow DOM"] =
 snapshots["sbb-card-badge renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "Black Friday Special"
+      "role": "generic",
+      "name": ""
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-card-badge renders A11y tree Chrome */
-
-snapshots["sbb-card-badge renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "text leaf",
-      "name": "Black Friday Special"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-card-badge renders A11y tree Firefox */
 

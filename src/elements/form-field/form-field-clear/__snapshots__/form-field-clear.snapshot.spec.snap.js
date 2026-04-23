@@ -39,58 +39,30 @@ snapshots["sbb-form-field-clear renders form-field-clear Shadow DOM"] =
 snapshots["sbb-form-field-clear renders A11y tree Chrome"] = 
 `<p>
   {
-  "role": "WebArea",
-  "name": "",
+  "role": "generic",
+  "name": "Fixture Container",
   "children": [
     {
-      "role": "text",
-      "name": "​"
-    },
-    {
-      "role": "text",
-      "name": "Label"
-    },
-    {
-      "role": "textbox",
-      "name": "Label",
-      "value": "Input value"
-    },
-    {
-      "role": "button",
-      "name": "Clear input value"
+      "ignored": true,
+      "role": "none",
+      "children": [
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "role": "generic",
+          "name": ""
+        },
+        {
+          "ignored": true,
+          "role": "none"
+        }
+      ]
     }
   ]
 }
 </p>
 `;
 /* end snapshot sbb-form-field-clear renders A11y tree Chrome */
-
-snapshots["sbb-form-field-clear renders A11y tree Firefox"] = 
-`<p>
-  {
-  "role": "document",
-  "name": "",
-  "children": [
-    {
-      "role": "statictext",
-      "name": "​"
-    },
-    {
-      "role": "text leaf",
-      "name": "Label"
-    },
-    {
-      "role": "textbox",
-      "name": "Label",
-      "value": "Input value"
-    },
-    {
-      "role": "button",
-      "name": "Clear input value"
-    }
-  ]
-}
-</p>
-`;
-/* end snapshot sbb-form-field-clear renders A11y tree Firefox */
 

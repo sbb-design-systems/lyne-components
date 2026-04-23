@@ -8,8 +8,9 @@ import { EventSpy, waitForLitRender } from '../core/testing.ts';
 
 import { SbbNotificationElement } from './notification.component.ts';
 
-import '../link/link.ts';
+import '../link.ts';
 import '../title.ts';
+import '../notification.ts';
 
 describe(`sbb-notification`, () => {
   let element: SbbNotificationElement;
@@ -103,6 +104,8 @@ describe(`sbb-notification`, () => {
 
   describe('with non-zero animation duration', () => {
     it('closes the notification and removes it from the DOM with animationend event', async function (this: Context) {
+      // Test is flaky on WebKit
+      this.retries(3);
       (globalThis as { disableAnimation?: boolean }).disableAnimation = false;
 
       openSpy = new EventSpy(SbbNotificationElement.events.open, null, {

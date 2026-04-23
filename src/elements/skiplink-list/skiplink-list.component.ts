@@ -1,20 +1,21 @@
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
+import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import { SbbDarkModeController } from '../core/controllers.ts';
-import { forceType, omitEmptyConverter } from '../core/decorators.ts';
-import { isLean } from '../core/dom.ts';
 import {
-  SbbElementInternalsMixin,
+  boxSizingStyles,
+  forceType,
+  isLean,
+  omitEmptyConverter,
+  SbbDarkModeController,
+  SbbElement,
   SbbNamedSlotListMixin,
   type WithListChildren,
-} from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.ts';
-import type { SbbTitleLevel } from '../title.ts';
+} from '../core.ts';
+import type { SbbBlockLinkButtonElement, SbbBlockLinkElement } from '../link.pure.ts';
+import type { SbbTitleLevel } from '../title.pure.ts';
 
-import style from './skiplink-list.scss?lit&inline';
+import style from './skiplink-list.scss?inline';
 
 /**
  * It displays a list of `sbb-block-link`/`sbb-block-link-button` which are visible only when focused.
@@ -25,14 +26,12 @@ import style from './skiplink-list.scss?lit&inline';
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export
-@customElement('sbb-skiplink-list')
-class SbbSkiplinkListElement extends SbbElementInternalsMixin(
-  SbbNamedSlotListMixin<SbbBlockLinkElement | SbbBlockLinkButtonElement, typeof LitElement>(
-    LitElement,
-  ),
-) {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbSkiplinkListElement extends SbbNamedSlotListMixin<
+  SbbBlockLinkElement | SbbBlockLinkButtonElement,
+  typeof SbbElement
+>(SbbElement) {
+  public static override readonly elementName: string = 'sbb-skiplink-list';
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   protected override readonly listChildLocalNames = ['sbb-block-link', 'sbb-block-link-button'];
 
   /** The title text we want to place before the list. */
@@ -69,15 +68,13 @@ class SbbSkiplinkListElement extends SbbElementInternalsMixin(
 
     /* eslint-disable lit/binding-positions */
     return html`
-      <div class="sbb-skiplink-list__wrapper">
-        <${unsafeStatic(TITLE_TAG_NAME)}
-          class="sbb-skiplink-list-title"
-          id="sbb-skiplink-list-title-id"
-        >
-          <slot name="title">${this.titleContent}</slot>
-        </${unsafeStatic(TITLE_TAG_NAME)}>
-        ${this.renderList({ ariaLabelledby: 'sbb-skiplink-list-title-id' })}
-      </div>
+      <${unsafeStatic(TITLE_TAG_NAME)}
+        class="sbb-skiplink-list-title"
+        id="sbb-skiplink-list-title-id"
+      >
+        <slot name="title">${this.titleContent}</slot>
+      </${unsafeStatic(TITLE_TAG_NAME)}>
+      ${this.renderList({ ariaLabelledby: 'sbb-skiplink-list-title-id' })}
     `;
     /* eslint-enable lit/binding-positions */
   }

@@ -5,45 +5,43 @@ import {
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
 import {
+  boxSizingStyles,
+  forwardEvent,
+  getElementPosition,
+  getElementPositionHorizontal,
   getNextElementIndex,
+  i18nGoBack,
+  idReference,
   interactivityChecker,
   isArrowKeyOrPageKeysPressed,
-  SbbFocusTrapController,
-} from '../../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../../core/base-elements.ts';
-import {
+  isEventOnElement,
+  isZeroAnimationDuration,
+  removeAriaOverlayTriggerProperties,
   SbbDarkModeController,
+  type SbbElementType,
   SbbEscapableOverlayController,
+  SbbFocusTrapController,
   SbbInertController,
   SbbLanguageController,
   SbbMediaMatcherController,
   SbbMediaQueryBreakpointSmallAndBelow,
-} from '../../core/controllers.ts';
-import { idReference } from '../../core/decorators.ts';
-import { isZeroAnimationDuration, SbbScrollHandler } from '../../core/dom.ts';
-import { forwardEvent } from '../../core/eventing.ts';
-import { i18nGoBack } from '../../core/i18n/i18n.ts';
-import { ɵstateController, type SbbNegativeMixinType } from '../../core/mixins.ts';
-import {
-  getElementPosition,
-  getElementPositionHorizontal,
-  isEventOnElement,
-  removeAriaOverlayTriggerAttributes,
-  setAriaOverlayTriggerAttributes,
-} from '../../core/overlay.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import type { SbbMenuButtonElement } from '../menu-button.ts';
+  type SbbNegativeMixinType,
+  SbbOpenCloseBaseElement,
+  SbbScrollHandler,
+  setAriaOverlayTriggerProperties,
+  ɵstateController,
+} from '../../core.ts';
+import { SbbDividerElement } from '../../divider.pure.ts';
+import { SbbMenuButtonElement } from '../menu-button/menu-button.component.ts';
 import type { SbbMenuLinkElement } from '../menu-link/menu-link.component.ts';
 
-import style from './menu.scss?lit&inline';
-
-import '../../divider.ts';
-import '../menu-button.ts';
+import style from './menu.scss?inline';
 
 const MENU_OFFSET = 8;
 const NESTED_MENU_OFFSET = -4;
@@ -60,8 +58,6 @@ const INTERACTIVE_ELEMENTS = [
   'SBB-MENU-LINK',
 ];
 
-let nextId = 0;
-
 /**
  * It displays a contextual menu with one or more action element.
  *
@@ -70,10 +66,13 @@ let nextId = 0;
  * the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the
  * component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
-export
-@customElement('sbb-menu')
-class SbbMenuElement extends SbbOpenCloseBaseElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+export class SbbMenuElement extends SbbOpenCloseBaseElement {
+  public static override readonly elementName: string = 'sbb-menu';
+  public static override elementDependencies: SbbElementType[] = [
+    SbbDividerElement,
+    SbbMenuButtonElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static override readonly role = 'menu';
 
   /**
@@ -151,7 +150,10 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
     this.showPopover?.();
     this.state = 'opening';
     this._setMenuPosition();
-    this._triggerElement?.setAttribute('aria-expanded', 'true');
+
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'true';
+    }
 
     // From zero to large, disable scroll
     if (this._isMobile()) {
@@ -198,7 +200,9 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
     }
 
     this.state = 'closing';
-    this._triggerElement?.setAttribute('aria-expanded', 'false');
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'false';
+    }
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
     // In this case we directly set the `closed` state.
@@ -319,7 +323,6 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
   public override connectedCallback(): void {
     this.popover = 'manual';
     super.connectedCallback();
-    this.id ||= `sbb-menu-${nextId++}`;
     if (this.hasUpdated) {
       this._configureTrigger();
     }
@@ -352,14 +355,14 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
     }
 
     this._triggerAbortController?.abort();
-    removeAriaOverlayTriggerAttributes(this._triggerElement);
+    removeAriaOverlayTriggerProperties(this._triggerElement);
     this._triggerElement = this.trigger;
 
     if (!this._triggerElement) {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(this._triggerElement, 'menu', this.id, this.state);
+    setAriaOverlayTriggerProperties(this, this._triggerElement, 'menu', this.state);
     this._triggerAbortController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._triggerAbortController.signal,
@@ -483,7 +486,7 @@ class SbbMenuElement extends SbbOpenCloseBaseElement {
       !isMobile &&
       this._nestedMenu &&
       !element.classList.contains('sbb-menu__content') &&
-      !(element.getAttribute('aria-expanded') === 'true')
+      !(element.ariaExpanded === 'true')
     ) {
       this._nestedMenu.close();
     }
