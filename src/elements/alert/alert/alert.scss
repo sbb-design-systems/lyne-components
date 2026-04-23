@@ -87,6 +87,7 @@ $open-anim-opacity-to: 1;
   border-radius: var(--sbb-alert-border-radius);
   font-size: var(--sbb-alert-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
 
   @include sbb.mq($from: small) {
     grid-template-columns: auto 1fr auto;
