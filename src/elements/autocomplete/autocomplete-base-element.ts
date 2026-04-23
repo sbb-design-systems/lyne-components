@@ -495,7 +495,8 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
       (event) => {
         const value: string = (event.target as HTMLInputElement).value;
 
-        if (value) {
+        // Do not open if the event is triggered via dispatchEvent (e.g. click on timetable-swap-button)
+        if (value && event.isTrusted) {
           this.open();
         }
         this._highlightOptions(value);
