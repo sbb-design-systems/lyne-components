@@ -15,7 +15,7 @@ import '../../button.ts';
 
 import '../../popover.ts';
 
-@customElement('custom-control-element-input')
+@customElement('custom-input-element')
 class SbbCustomControlElementInput extends SbbElement {
   protected override render(): TemplateResult {
     return html`
@@ -23,12 +23,6 @@ class SbbCustomControlElementInput extends SbbElement {
         <slot></slot>
       </div>
     `;
-  }
-}
-@customElement('custom-control-element-select')
-class SbbCustomControlElementSelect extends SbbElement {
-  protected override render(): TemplateResult {
-    return html` <slot></slot> `;
   }
 }
 
@@ -602,19 +596,18 @@ describe(`sbb-form-field`, () => {
             <div>
               <sbb-form-field size="s">
                 <label>Custom input</label>
-                <custom-control-element-input>
-                  <input placeholder="custom" />
-                </custom-control-element-input>
+                <custom-input-element>
+                  <input placeholder="input" />
+                </custom-input-element>
               </sbb-form-field>
               <sbb-form-field size="s">
                 <label>Native input</label>
-                <input placeholder="custom" />
+                <input placeholder="input" />
               </sbb-form-field>
             </div>
             <div>
               <sbb-form-field size="s">
                 <label>Custom select</label>
-                <custom-control-element-select>
                   <select>
                     <option value="bern">Bern</option>
                     <option value="zurich">Zürich</option>
@@ -622,7 +615,6 @@ describe(`sbb-form-field`, () => {
                     <option value="geneva">Geneva</option>
                     <option value="lausanne">Lausanne</option>
                   </select>
-                </custom-control-element-select>
               </sbb-form-field>
               <sbb-form-field size="s">
                 <label>Native select</label>
@@ -660,8 +652,6 @@ describe(`sbb-form-field`, () => {
 declare global {
   interface HTMLElementTagNameMap {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'custom-control-element-input': SbbCustomControlElementInput;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    'custom-control-element-select': SbbCustomControlElementSelect;
+    'custom-input-element': SbbCustomControlElementInput;
   }
 }
