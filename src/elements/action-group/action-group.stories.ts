@@ -96,14 +96,14 @@ const buttonSize: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['s', 'm', 'l'] satisfies SbbActionGroupElement['buttonSize'][],
+  options: [null, 's', 'm', 'l'] satisfies SbbActionGroupElement['buttonSize'][],
 };
 
 const linkSize: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xs', 's', 'm'] satisfies SbbActionGroupElement['linkSize'][],
+  options: [null, 'xs', 's', 'm'] satisfies SbbActionGroupElement['linkSize'][],
 };
 
 const orientation: InputType = {
@@ -139,8 +139,8 @@ const basicArgs: Args = {
   'align-group': 'start',
   orientation: 'horizontal',
   'horizontal-from': 'unset',
-  'button-size': buttonSize.options![1],
-  'link-size': linkSize.options![1],
+  'button-size': buttonSize.options![0],
+  'link-size': linkSize.options![0],
 };
 
 const basicArgsVertical = {
@@ -155,14 +155,14 @@ const basicArgsVerticalFullWidth = {
 
 const basicArgsSizeS = {
   ...basicArgs,
-  'button-size': buttonSize.options![0],
-  'link-size': linkSize.options![0],
+  'button-size': buttonSize.options![1],
+  'link-size': linkSize.options![1],
 };
 
 const basicArgsVerticalSizeS = {
   ...basicArgsVertical,
-  'button-size': buttonSize.options![0],
-  'link-size': linkSize.options![0],
+  'button-size': buttonSize.options![1],
+  'link-size': linkSize.options![1],
 };
 
 export const HorizontalAllocation3_0_0: StoryObj = {

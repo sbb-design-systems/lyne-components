@@ -9,7 +9,7 @@ import { property } from 'lit/decorators.js';
 
 import type { SbbButtonCommonElementMixinType, SbbButtonSize } from '../button.pure.ts';
 import type { SbbHorizontalFrom, SbbOrientation } from '../core.ts';
-import { boxSizingStyles, isLean, SbbElement } from '../core.ts';
+import { boxSizingStyles, SbbElement } from '../core.ts';
 import type {
   SbbBlockLinkButtonElement,
   SbbBlockLinkElement,
@@ -50,18 +50,16 @@ export class SbbActionGroupElement extends SbbElement {
   /**
    * Size of the nested sbb-button instances.
    * This will overwrite the size attribute of nested sbb-button instances.
-   * @default 'm' / 's' (lean)
    */
   @property({ attribute: 'button-size', reflect: true })
-  public accessor buttonSize: SbbButtonSize = isLean() ? 's' : 'm';
+  public accessor buttonSize: SbbButtonSize | null = null;
 
   /**
    * Size of the nested sbb-block-link instances.
    * This will overwrite the size attribute of nested sbb-block-link instances.
-   * @default 'm' / 'xs' (lean)
    */
   @property({ attribute: 'link-size', reflect: true })
-  public accessor linkSize: SbbLinkSize = isLean() ? 'xs' : 'm';
+  public accessor linkSize: SbbLinkSize | null = null;
 
   protected override willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
@@ -75,16 +73,22 @@ export class SbbActionGroupElement extends SbbElement {
   }
 
   private _syncButtons(): void {
+    if (!this.buttonSize) {
+      return;
+    }
     this.querySelectorAll?.<SbbButtonCommonElementMixinType>(':state(sbb-button)').forEach(
-      (b) => (b.size = this.buttonSize),
+      (b) => (b.size = this.buttonSize!),
     );
   }
 
   private _syncLinks(): void {
+    if (!this.linkSize) {
+      return;
+    }
     this.querySelectorAll?.<
       SbbBlockLinkElement | SbbBlockLinkButtonElement | SbbBlockLinkStaticElement
     >('sbb-block-link, sbb-block-link-button, sbb-block-link-static').forEach((link) => {
-      link.size = this.linkSize;
+      link.size = this.linkSize!;
     });
   }
 

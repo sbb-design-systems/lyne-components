@@ -1,7 +1,6 @@
 import { type CSSResultGroup, unsafeCSS } from 'lit';
 
 import { SbbActionGroupElement } from '../../action-group.pure.ts';
-import { isLean } from '../../core.ts';
 
 import style from './dialog-actions.scss?inline';
 
@@ -13,15 +12,6 @@ import style from './dialog-actions.scss?inline';
 export class SbbDialogActionsElement extends SbbActionGroupElement {
   public static override readonly elementName: string = 'sbb-dialog-actions';
   public static override styles: CSSResultGroup = [SbbActionGroupElement.styles, unsafeCSS(style)];
-
-  public constructor() {
-    super();
-    /** @default 'm' / 's' (lean) */
-    this.buttonSize = isLean() ? 's' : 'm';
-
-    /** @default 's' / 'xs' (lean) */
-    this.linkSize = isLean() ? 'xs' : 's';
-  }
 }
 
 declare global {
