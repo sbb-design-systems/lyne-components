@@ -1,9 +1,8 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbElement } from '../../core/base-elements.ts';
+import { SbbElement } from '../../core.ts';
 
-import style from './timetable-form-details.scss?lit&inline';
+import style from './timetable-form-details.scss?inline';
 
 /**
  * Wraps the details section of the `sbb-timetable-form`.
@@ -12,7 +11,7 @@ import style from './timetable-form-details.scss?lit&inline';
  */
 export class SbbTimetableFormDetailsElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-timetable-form-details';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = unsafeCSS(style);
 
   protected override render(): TemplateResult {
     return html`<slot></slot>`;

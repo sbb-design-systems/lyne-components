@@ -1,16 +1,24 @@
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button-group.js';
-import { LitElement, html, type TemplateResult, type CSSResultGroup, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  LitElement,
+  nothing,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 // eslint-disable-next-line import-x/no-unresolved
 import { meta } from 'virtual:meta';
 
 import type { ScreenshotFiles } from '../../../../interfaces.ts';
 
-import style from './fullscreen-diff.scss?lit&inline';
+import style from './fullscreen-diff.scss?inline';
 
 import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/radio-button.js';
+import '@sbb-esta/lyne-elements/radio-button-group.js';
 
 export type DiffFileType = 'baselineFile' | 'failedFile' | 'diffFile';
 
@@ -20,7 +28,7 @@ export type DiffFileType = 'baselineFile' | 'failedFile' | 'diffFile';
 export
 @customElement('app-fullscreen-diff')
 class FullscreenDiff extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   @property() public accessor screenshotFiles: ScreenshotFiles | null = null;
 

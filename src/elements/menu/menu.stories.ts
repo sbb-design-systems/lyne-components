@@ -8,7 +8,7 @@ import { SbbMenuElement } from '../menu.ts';
 
 import readme from './readme.md?raw';
 
-import '../button/button.ts';
+import '../button.ts';
 import '../divider.ts';
 import '../link.ts';
 
@@ -63,7 +63,7 @@ const userInfoStyle: Args = {
 };
 
 const triggerButton = (id: string): TemplateResult => html`
-  <sbb-button id=${id} size="m"> Menu trigger </sbb-button>
+  <sbb-button id=${id}> Menu trigger </sbb-button>
 `;
 
 const DefaultTemplate = (args: Args): TemplateResult => html`

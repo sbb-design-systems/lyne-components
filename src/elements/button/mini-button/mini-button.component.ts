@@ -1,11 +1,14 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledTabIndexActionMixin, SbbNegativeMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
-import { miniButtonLabelStyle, miniButtonStyle } from '../common.ts';
+import {
+  boxSizingStyles,
+  SbbButtonBaseElement,
+  SbbDisabledTabIndexActionMixin,
+  SbbNegativeMixin,
+} from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
+import { miniButtonLabelStyle, miniButtonStyle } from '../common/button-common.ts';
 
 /**
  * It displays an icon-only button enhanced with the SBB Design;

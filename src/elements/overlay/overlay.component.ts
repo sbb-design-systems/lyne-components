@@ -1,28 +1,26 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import { forceType } from '../core/decorators.ts';
-import { isZeroAnimationDuration } from '../core/dom.ts';
-import { forwardEvent } from '../core/eventing.ts';
-import { i18nCloseDialog } from '../core/i18n.ts';
-import type { SbbOverlayCloseEventDetails } from '../core/interfaces.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { SbbSecondaryButtonElement } from '../button.pure.ts';
+import { SbbContainerElement } from '../container.pure.ts';
+import type { SbbElementType, SbbOverlayCloseEventDetails } from '../core.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  forwardEvent,
+  i18nCloseDialog,
+  isZeroAnimationDuration,
+  SbbScreenReaderOnlyElement,
+} from '../core.ts';
 
 import {
   overlayRefs,
   SbbOverlayBaseElement,
   SbbOverlayCloseEvent,
 } from './overlay-base-element.ts';
-import style from './overlay.scss?lit&inline';
-
-import '../button/secondary-button.ts';
-import '../button/transparent-button.ts';
-import '../container.ts';
-import '../screen-reader-only.ts';
-
-let nextId = 0;
+import style from './overlay.scss?inline';
 
 /**
  * It displays an interactive overlay element.
@@ -34,7 +32,12 @@ let nextId = 0;
  */
 export class SbbOverlayElement extends SbbOverlayBaseElement {
   public static override readonly elementName: string = 'sbb-overlay';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbSecondaryButtonElement,
+    SbbContainerElement,
+    SbbScreenReaderOnlyElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
@@ -59,12 +62,6 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
 
   protected closeAttribute: string = 'sbb-overlay-close';
   private _overlayContentElement: HTMLElement | null = null;
-
-  public override connectedCallback(): void {
-    this.id ||= `sbb-overlay-${nextId++}`;
-
-    super.connectedCallback();
-  }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
@@ -152,7 +149,6 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
                 i18nCloseDialog[this.language.current]}"
                 ?negative=${this.negative}
                 size="m"
-                type="button"
                 icon-name="cross-small"
                 sbb-overlay-close
               ></sbb-secondary-button>

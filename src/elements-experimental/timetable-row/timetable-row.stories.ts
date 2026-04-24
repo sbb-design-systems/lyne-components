@@ -1,4 +1,4 @@
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
@@ -8,24 +8,24 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
 import readme from './readme.md?raw';
 import {
-  defaultTrip,
-  progressTrip,
-  cancelledTrip,
-  partiallyCancelled,
-  pastTrip,
-  disturbanceTrip,
-  trainTrip,
-  busTrip,
-  quayChangeTrip,
-  shipTrip,
-  walkTimeTrip,
   a11yFootpathTrip,
+  busTrip,
+  cancelledTrip,
+  defaultTrip,
+  disturbanceTrip,
   extendedEnterTimeTrip,
   noticesTrip,
-  skippedDepartureStopTrip,
+  partiallyCancelled,
+  pastTrip,
+  progressTrip,
+  quayChangeTrip,
+  shipTrip,
   skippedArrivalStopTrip,
+  skippedDepartureStopTrip,
   skippedFirstDepartureStopTrip,
   skippedLastArrivalStopTrip,
+  trainTrip,
+  walkTimeTrip,
 } from './timetable-row.sample-data.private.ts';
 
 import '../timetable-row.ts';

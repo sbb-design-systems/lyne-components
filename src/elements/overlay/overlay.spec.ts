@@ -3,9 +3,9 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
-import { i18nDialog } from '../core/i18n.ts';
 import { sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
+import { i18nDialog } from '../core.ts';
 
 import { assignOverlayResult, SbbOverlayCloseEvent } from './overlay-base-element.ts';
 import { SbbOverlayElement } from './overlay.component.ts';
@@ -37,7 +37,7 @@ describe('sbb-overlay', () => {
     beforeEach(async () => {
       await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
       element = await fixture(html`
-        <sbb-overlay id="my-overlay-1" accessibility-label="Label">
+        <sbb-overlay accessibility-label="Label">
           <p>Overlay content</p>
           <p>Overlay content</p>
           <p>Overlay content</p>
@@ -168,7 +168,7 @@ describe('sbb-overlay', () => {
 
     it('closes stacked overlays one by one on ESC key pressed', async () => {
       element = await fixture(html`
-        <sbb-overlay id="my-overlay-3">
+        <sbb-overlay>
           <p>Overlay content</p>
         </sbb-overlay>
 
@@ -302,7 +302,7 @@ describe('sbb-overlay', () => {
 
     it('configures trigger', () => {
       expect(trigger.ariaHasPopup).to.be.equal('dialog');
-      expect(trigger.getAttribute('aria-controls')).to.be.equal('sbb-overlay-0');
+      expect(trigger.ariaControlsElements).to.include(element);
       expect(trigger.getAttribute('aria-expanded')).to.be.equal('false');
 
       trigger.click();
@@ -340,7 +340,7 @@ describe('sbb-overlay', () => {
 
     it('init with HtmlElement as trigger', async () => {
       trigger = await fixture(html`<sbb-button id="overlay-trigger">Menu trigger</sbb-button>`);
-      element = await fixture(html`<sbb-overlay id="overlay" .trigger=${trigger}></sbb-overlay>`);
+      element = await fixture(html`<sbb-overlay .trigger=${trigger}></sbb-overlay>`);
 
       const beforeOpenSpy = new EventSpy(SbbOverlayElement.events.beforeopen, element);
       const openSpy = new EventSpy(SbbOverlayElement.events.open, element);

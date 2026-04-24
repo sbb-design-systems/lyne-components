@@ -1,14 +1,10 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { forceType } from '../core/decorators.ts';
-import type { SbbProtectiveRoom } from '../core/interfaces.ts';
-import { SbbNegativeMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import type { SbbProtectiveRoom } from '../core.ts';
+import { boxSizingStyles, forceType, SbbElement, SbbNegativeMixin } from '../core.ts';
 
-import style from './logo.scss?lit&inline';
+import style from './logo.scss?inline';
 
 /**
  * It displays the SBB logo.
@@ -17,7 +13,7 @@ import style from './logo.scss?lit&inline';
  */
 export class SbbLogoElement extends SbbNegativeMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-logo';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Visual protective room around logo. */
   @property({ attribute: 'protective-room', reflect: true })

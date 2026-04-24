@@ -38,4 +38,11 @@ $theme: 'standard' !default;
       --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-1x);
     }
   }
+
+  // Sets ellipsis on all sbb-option child elements
+  .sbb-options-nowrap {
+    --sbb-option-text-overflow: ellipsis;
+    --sbb-option-overflow: hidden;
+    --sbb-option-white-space: nowrap;
+  }
 }

@@ -1,11 +1,9 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { boxSizingStyles, SbbElement } from '../core.ts';
 
-import style from './loading-indicator.scss?lit&inline';
+import style from './loading-indicator.scss?inline';
 
 /**
  * It displays a loading indicator.
@@ -13,7 +11,7 @@ import style from './loading-indicator.scss?lit&inline';
 export class SbbLoadingIndicatorElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-loading-indicator';
   public static override readonly role = 'progressbar';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Size variant, either s or m. */
   @property({ reflect: true }) public accessor size: 's' | 'l' | 'xl' | 'xxl' | 'xxxl' = 's';

@@ -1,13 +1,11 @@
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import type { SbbCardBadgeElement } from '../card.ts';
-import type { SbbCheckboxPanelElement } from '../checkbox-panel.ts';
-import { SbbElement } from '../core/base-elements.ts';
-import { SbbSelectionPanelMixin } from '../core/mixins.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import type { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
+import type { SbbCardBadgeElement } from '../card.pure.ts';
+import type { SbbCheckboxPanelElement } from '../checkbox-panel.pure.ts';
+import { boxSizingStyles, SbbElement, SbbSelectionPanelMixin } from '../core.ts';
+import type { SbbRadioButtonPanelElement } from '../radio-button-panel.pure.ts';
 
-import style from './selection-action-panel.scss?lit&inline';
+import style from './selection-action-panel.scss?inline';
 
 /**
  * It displays a panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
@@ -18,7 +16,7 @@ import style from './selection-action-panel.scss?lit&inline';
  */
 export class SbbSelectionActionPanelElement extends SbbSelectionPanelMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-selection-action-panel';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   public override connectedCallback(): void {
     super.connectedCallback();

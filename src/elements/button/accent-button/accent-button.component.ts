@@ -1,9 +1,15 @@
 import type { CSSResultGroup } from 'lit';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledTabIndexActionMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { buttonCommonStyle, buttonAccentStyle, SbbButtonCommonElementMixin } from '../common.ts';
+import {
+  boxSizingStyles,
+  SbbButtonBaseElement,
+  SbbDisabledTabIndexActionMixin,
+} from '../../core.ts';
+import {
+  buttonAccentStyle,
+  buttonCommonStyle,
+  SbbButtonCommonElementMixin,
+} from '../common/button-common.ts';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'accent' variant.

@@ -1,13 +1,11 @@
 import type { CSSResultGroup } from 'lit';
 
-import { SbbActionBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { boxSizingStyles, SbbActionBaseElement, SbbDisabledMixin } from '../../core.ts';
 import {
   buttonCommonStyle,
   buttonTransparentStyle,
   SbbButtonCommonElementMixin,
-} from '../common.ts';
+} from '../common/button-common.ts';
 
 /**
  * It displays a static button enhanced with the SBB Design in the 'transparent' variant.

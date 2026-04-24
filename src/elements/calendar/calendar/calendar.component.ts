@@ -1,4 +1,3 @@
-import { eachWeekOfInterval, endOfMonth, getWeek, startOfMonth } from 'date-fns';
 import {
   type CSSResultGroup,
   html,
@@ -6,29 +5,18 @@ import {
   nothing,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 
-import { isArrowKeyOrPageKeysPressed } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { readConfig } from '../../core/config.ts';
+import { SbbSecondaryButtonElement } from '../../button.pure.ts';
 import {
-  SbbLanguageController,
-  SbbMediaMatcherController,
-  SbbMediaQueryBreakpointLargeAndAbove,
-} from '../../core/controllers.ts';
-import type { DateAdapter } from '../../core/datetime.ts';
-import {
+  boxSizingStyles,
+  type DateAdapter,
   DAYS_PER_ROW,
   defaultDateAdapter,
-  MONTHS_PER_PAGE,
-  MONTHS_PER_ROW,
-  YEARS_PER_PAGE,
-  YEARS_PER_ROW,
-} from '../../core/datetime.ts';
-import { forceType, handleDistinctChange, plainDate } from '../../core/decorators.ts';
-import {
+  forceType,
+  handleDistinctChange,
   i18nCalendarDateSelection,
   i18nCalendarWeekNumber,
   i18nNextMonth,
@@ -38,18 +26,34 @@ import {
   i18nPreviousYear,
   i18nPreviousYearRange,
   i18nYearMonthSelection,
-} from '../../core/i18n.ts';
-import type { SbbOrientation } from '../../core/interfaces.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+  isArrowKeyOrPageKeysPressed,
+  MONDAY,
+  MONTHS_PER_PAGE,
+  MONTHS_PER_ROW,
+  plainDate,
+  readConfig,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbMediaMatcherController,
+  SbbMediaQueryBreakpointLargeAndAbove,
+  type SbbOrientation,
+  SbbScreenReaderOnlyElement,
+  THURSDAY,
+  TUESDAY,
+  WEDNESDAY,
+  YEARS_PER_PAGE,
+  YEARS_PER_ROW,
+} from '../../core.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
 import { SbbCalendarDayElement } from '../calendar-day/calendar-day.component.ts';
+import { SbbCalendarMonthElement } from '../calendar-month/calendar-month.component.ts';
+import { SbbCalendarWeekdayElement } from '../calendar-weekday/calendar-weekday.component.ts';
+import { SbbCalendarWeeknumberElement } from '../calendar-weeknumber/calendar-weeknumber.component.ts';
+import { SbbCalendarYearElement } from '../calendar-year/calendar-year.component.ts';
+import type { SbbCalendarCellBaseElement } from '../common/calendar-cell-base-element.ts';
 
-import style from './calendar.scss?lit&inline';
-
-import '../../button/secondary-button.ts';
-import '../../icon.ts';
-import '../../screen-reader-only.ts';
-
-SbbCalendarDayElement.define();
+import style from './calendar.scss?inline';
 
 export class SbbMonthChangeEvent extends Event {
   private readonly _range: readonly Day[];
@@ -113,9 +117,15 @@ export interface Day<T = Date> {
   weekDayValue: number;
 }
 
+/** @deprecated use MonthCell */
 export interface Month {
   value: string;
   longValue: string;
+  monthValue: number;
+}
+
+export interface MonthCell {
+  value: string;
   monthValue: number;
 }
 
@@ -133,7 +143,17 @@ export type CalendarView = 'day' | 'month' | 'year';
  */
 export class SbbCalendarElement<T = Date> extends SbbElement {
   public static override readonly elementName: string = 'sbb-calendar';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbCalendarDayElement,
+    SbbCalendarMonthElement,
+    SbbCalendarWeekdayElement,
+    SbbCalendarWeeknumberElement,
+    SbbCalendarYearElement,
+    SbbIconElement,
+    SbbScreenReaderOnlyElement,
+    SbbSecondaryButtonElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     dateselected: 'dateselected',
     monthchange: 'monthchange',
@@ -256,7 +276,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   private _weeks: Day<T>[][] = [];
 
   /** Grid of calendar cells representing months. */
-  private _months!: Month[][];
+  private _months!: MonthCell[][];
 
   /** Grid of calendar cells representing years. */
   private _years!: number[][];
@@ -278,12 +298,14 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
 
   private _enhancedVariant: boolean = false;
 
-  /** A list of buttons corresponding to days, months or years depending on the view. */
-  private get _cells(): (HTMLButtonElement | SbbCalendarDayElement)[] {
-    return Array.from<HTMLButtonElement | SbbCalendarDayElement>(
+  /** A list of calendar's cells corresponding to days, months or years depending on the view. */
+  private get _cells(): SbbCalendarCellBaseElement[] {
+    return Array.from<SbbCalendarCellBaseElement>(
       (this._calendarView === 'day'
-        ? this._getRootForQuerySelector()?.querySelectorAll('sbb-calendar-day')
-        : this.shadowRoot?.querySelectorAll('.sbb-calendar__cell')) ?? [],
+        ? (Array.from(this.shadowRoot!.querySelectorAll('slot')).flatMap((e: HTMLSlotElement) =>
+            e.assignedElements({ flatten: true }),
+          ) as SbbCalendarDayElement[])
+        : this.shadowRoot?.querySelectorAll(`sbb-calendar-${this._calendarView}`)) ?? [],
     );
   }
 
@@ -334,10 +356,6 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
         );
       }
     });
-  }
-
-  private _getRootForQuerySelector(): this | ShadowRoot {
-    return this._enhancedVariant ? this : this.shadowRoot!;
   }
 
   private _dateFilter(date: T): boolean {
@@ -435,14 +453,22 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
       (this._mediaMatcher.matches(SbbMediaQueryBreakpointLargeAndAbove) ?? false) && this.wide;
     this._weeks = this._createWeekRows(this._activeDate);
     this._years = this._createYearRows();
-    this._weekNumbers = this._createWeekNumbers(this._activeDate);
+    this._weekNumbers = this._weeks
+      .flat()
+      .sort((a, b) => a.value.localeCompare(b.value))
+      .map((day: Day<T>) => day.weekValue)
+      .filter((v, i, a) => a.indexOf(v) === i);
     this._nextMonthWeeks = [[]];
     this._nextMonthYears = [[]];
     if (this._wide) {
       const nextMonthDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
       this._nextMonthWeeks = this._createWeekRows(nextMonthDate, true);
       this._nextMonthYears = this._createYearRows(YEARS_PER_PAGE);
-      this._nextMonthWeekNumbers = this._createWeekNumbers(nextMonthDate);
+      this._nextMonthWeekNumbers = this._nextMonthWeeks
+        .flat()
+        .sort((a, b) => a.value.localeCompare(b.value))
+        .map((day: Day<T>) => day.weekValue)
+        .filter((v, i, a) => a.indexOf(v) === i);
     }
     this._initialized = true;
   }
@@ -467,26 +493,6 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
     // Rotates the labels for days of the week based on the configured first day of the week.
     const firstDayOfWeek: number = this._dateAdapter.getFirstDayOfWeek();
     this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
-  }
-
-  /**
-   * Given a date, it returns the week numbers for the month the date belongs to.
-   * TODO: check if date-fns can be replaced with custom logic.
-   *
-   * Since the calculation is not simple (see https://en.wikipedia.org/wiki/Week#Numbering),
-   * the date-fns library has been used this way:
-   * the first and the last day of the month are calculated and then passed to the `eachWeekOfInterval` function,
-   * which returns an array containing the starting day of every ISO week of the month,
-   * considering Monday as the first day.
-   * Then, this array is mapped via the `getWeek` function, which returns the ISO week number for that date.
-   */
-  private _createWeekNumbers(date: T): number[] {
-    return eachWeekOfInterval(
-      { start: startOfMonth(date as Date), end: endOfMonth(date as Date) },
-      { weekStartsOn: 1 },
-    ).map((firstDayOfWeek: Date) =>
-      getWeek(firstDayOfWeek, { weekStartsOn: 1, firstWeekContainsDate: 4 }),
-    );
   }
 
   /** Creates the rows along the horizontal direction and sets the parameters used in keyboard navigation. */
@@ -588,9 +594,34 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
       dayValue: String(this._dateAdapter.getDate(date)),
       monthValue: String(this._dateAdapter.getMonth(date)),
       yearValue: String(this._dateAdapter.getYear(date)),
-      weekValue: getWeek(isoDate, { weekStartsOn: 1, firstWeekContainsDate: 4 }),
+      // TODO: Improve performance of this, by keeping track of the
+      // week number while iterating through the days.
+      weekValue: this._getWeek(date),
       weekDayValue: this._dateAdapter.getDayOfWeek(date),
     };
+  }
+
+  private _getWeek(date: T): number {
+    const firstDayOfYear = this._dateAdapter.createDate(this._dateAdapter.getYear(date), 1, 1);
+    const weekday = this._dateAdapter.getDayOfWeek(firstDayOfYear);
+
+    let weekIndex = [MONDAY, TUESDAY, WEDNESDAY, THURSDAY].includes(weekday) ? 1 : 0;
+    let weekStart = this._dateAdapter.addCalendarDays(
+      firstDayOfYear,
+      this._dateAdapter.getFirstWeekOffset(firstDayOfYear) * -1,
+    );
+    while (this._dateAdapter.compareDate(weekStart, date) <= 0) {
+      const weekEnd = this._dateAdapter.addCalendarDays(weekStart, 6);
+      if (this._dateAdapter.compareDate(date, weekEnd) <= 0) {
+        return weekIndex > 0
+          ? weekIndex
+          : this._getWeek(this._dateAdapter.addCalendarDays(firstDayOfYear, -1));
+      }
+      weekStart = this._dateAdapter.addCalendarDays(weekStart, DAYS_PER_ROW);
+      weekIndex++;
+    }
+
+    throw new Error('The provided date is invalid');
   }
 
   /** Force the conversion to ISO8601 formatted string. */
@@ -600,16 +631,14 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
 
   /** Creates the rows for the month selection view. */
   private _createMonthRows(): void {
-    const shortNames: string[] = this._dateAdapter.getMonthNames('short');
-    const months: Month[] = new Array(12).fill(null).map(
-      (_, i: number): Month => ({
-        value: shortNames[i],
-        longValue: this._monthNames[i],
+    const months: MonthCell[] = new Array(12).fill(null).map(
+      (_, i: number): MonthCell => ({
+        value: String(i + 1).padStart(2, '0'),
         monthValue: i + 1,
       }),
     );
     const rows: number = 12 / MONTHS_PER_ROW;
-    const monthArray: Month[][] = [];
+    const monthArray: MonthCell[][] = [];
     for (let i: number = 0; i < rows; i++) {
       monthArray.push(months.slice(MONTHS_PER_ROW * i, MONTHS_PER_ROW * (i + 1)));
     }
@@ -663,79 +692,6 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
     return this._dateAdapter.sameDate(date, this._dateAdapter.clampDate(date, this.min, this.max));
   }
 
-  /** Checks if date is within the min-max range in month view. */
-  private _isMonthInRange(month: number, year: number): boolean {
-    if (!this.min && !this.max) {
-      return true;
-    }
-
-    const isBeforeMin: boolean =
-      this._dateAdapter.isValid(this.min) &&
-      (year < this._dateAdapter.getYear(this.min!) ||
-        (year === this._dateAdapter.getYear(this.min!) &&
-          month < this._dateAdapter.getMonth(this.min!)));
-
-    const isAfterMax: boolean =
-      this._dateAdapter.isValid(this.max) &&
-      (year > this._dateAdapter.getYear(this.max!) ||
-        (year === this._dateAdapter.getYear(this.max!) &&
-          month > this._dateAdapter.getMonth(this.max!)));
-
-    return !(isBeforeMin || isAfterMax);
-  }
-
-  /** Checks if date is within the min-max range in year view. */
-  private _isYearInRange(year: number): boolean {
-    if (!this.min && !this.max) {
-      return true;
-    }
-    const isBeforeMin: boolean =
-      this._dateAdapter.isValid(this.min) && this._dateAdapter.getYear(this.min!) > year;
-    const isAfterMax: boolean =
-      this._dateAdapter.isValid(this.max) && this._dateAdapter.getYear(this.max!) < year;
-    return !(isBeforeMin || isAfterMax);
-  }
-
-  // Implementation adapted from https://github.com/angular/components/blob/main/src/material/datepicker/year-view.ts#L366
-  private _isMonthFilteredOut(month: number, year: number): boolean {
-    if (!this.dateFilter) {
-      return true;
-    }
-
-    const firstOfMonth = this._dateAdapter.createDate(year, month, 1)!;
-    for (
-      let date: T = firstOfMonth;
-      this._dateAdapter.getMonth(date) == month;
-      date = this._dateAdapter.addCalendarDays(date, 1)
-    ) {
-      if (this.dateFilter(date)) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  // Implementation adapted from https://github.com/angular/components/blob/main/src/material/datepicker/multi-year-view.ts#L351
-  private _isYearFilteredOut(year: number): boolean {
-    if (!this.dateFilter) {
-      return true;
-    }
-
-    const firstOfYear = this._dateAdapter.createDate(year, 1, 1)!;
-    for (
-      let date: T = firstOfYear;
-      this._dateAdapter.getYear(date) == year;
-      date = this._dateAdapter.addCalendarDays(date, 1)
-    ) {
-      if (this.dateFilter(date)) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
   /** Emits the selected date and sets it internally. */
   private _selectDate(day: T): void {
     this._chosenMonth = undefined;
@@ -776,7 +732,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   private _selectMultipleDates(days: Day<T>[]): void {
     // Filter disabled days by matching the provided `days` parameter against the enabled cells.
     // Since the buttons' value is set to the Day's interface value (ISO string), there's no need to deserialize it.
-    const enabledDays: string[] = this._cells
+    const enabledDays: string[] = (this._cells as SbbCalendarDayElement[])
       .filter((e) => !e.disabled)
       .map((e) => this._mapValueToISODate(e.value!));
     const daysToAdd: string[] = days
@@ -959,10 +915,9 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   }
 
   private _setTabIndex(): void {
-    const query = this._calendarView === 'day' ? 'sbb-calendar-day' : '.sbb-calendar__cell';
-    Array.from(
-      this._getRootForQuerySelector().querySelectorAll(`${query}[tabindex="0"]`) ?? [],
-    ).forEach((day) => ((day as HTMLButtonElement | SbbCalendarDayElement).tabIndex = -1));
+    Array.from(this._cells.filter((e) => e.tabIndex === 0) ?? []).forEach(
+      (day) => (day.tabIndex = -1),
+    );
     const firstFocusable = this._getFirstFocusable();
     if (firstFocusable) {
       firstFocusable.tabIndex = 0;
@@ -970,45 +925,43 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   }
 
   /** Get the element in the calendar to assign focus. */
-  private _getFirstFocusable(): SbbCalendarDayElement | HTMLButtonElement | null {
-    const root = this._getRootForQuerySelector();
+  private _getFirstFocusable(): SbbCalendarCellBaseElement | null {
     if (this._calendarView === 'day') {
       const selectedOrCurrent =
-        root.querySelector<SbbCalendarDayElement>(':state(selected)') ??
-        root.querySelector<SbbCalendarDayElement>(':state(current)');
+        this._cells.find((e) => e.matches(':state(selected)')) ??
+        this._cells.find((e) => e.matches(':state(current)'));
       return selectedOrCurrent && !selectedOrCurrent.disabled
         ? selectedOrCurrent
         : this._getFirstFocusableDay();
     } else {
-      const selectedOrCurrent = this.shadowRoot?.querySelector<HTMLButtonElement>(
-        '.sbb-calendar__cell-current',
-      );
+      const selectedOrCurrent =
+        this.shadowRoot?.querySelector<SbbCalendarCellBaseElement>(':state(selected)') ??
+        this.shadowRoot?.querySelector<SbbCalendarCellBaseElement>(':state(current)');
       return selectedOrCurrent && !selectedOrCurrent.disabled
         ? selectedOrCurrent
-        : this.shadowRoot!.querySelector<HTMLButtonElement>('.sbb-calendar__cell:not([disabled])');
+        : this.shadowRoot!.querySelector<SbbCalendarCellBaseElement>(
+            `sbb-calendar-${this._calendarView}:not([disabled])`,
+          );
     }
   }
 
   /**
    * In `day` view in `vertical` orientation,
    * if the first of the month is not a Monday, it is not the first rendered element in the table,
-   * so `this.shadowRoot!.querySelector('.sbb-calendar__cell:not([disabled])')` will return a wrong value.
+   * so `this.shadowRoot!.querySelector('sbb-calendar-day:not([disabled])')` will return a wrong value.
    *
    * To solve this, the element with the lowest `value` is taken (ISO String are ordered).
    */
   private _getFirstFocusableDay(): SbbCalendarDayElement | null {
-    const daysInView: SbbCalendarDayElement[] = Array.from(
-      this._getRootForQuerySelector().querySelectorAll('sbb-calendar-day:not([disabled])'),
-    );
+    const cells = this._cells as SbbCalendarDayElement[];
+    const daysInView = cells.filter((e) => !e.disabled);
     if (!daysInView || daysInView.length === 0) {
       return null;
     } else {
       const firstElement = daysInView
-        .map((e: SbbCalendarDayElement): string => this._dateAdapter.toIso8601(e.value! as T))
+        .map((e): string => this._dateAdapter.toIso8601(e.value! as T))
         .sort()[0];
-      return this._getRootForQuerySelector().querySelector(
-        `sbb-calendar-day[slot="${firstElement}"]`,
-      );
+      return cells.find((e) => e.matches(`[slot="${firstElement}"]`))! ?? null;
     }
   }
 
@@ -1021,15 +974,14 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
     // If `wide` is true, years are doubled in number and days are (roughly) doubled too, affecting the `index` calculation.
     const cells = this._cells;
     const index: number = cells.findIndex((e) => e === event.target);
-    let nextEl: HTMLButtonElement | SbbCalendarDayElement;
+    let nextEl: SbbCalendarCellBaseElement;
     if (day) {
-      nextEl = this._navigateByKeyboardDayView(event, index, cells, day);
+      nextEl = this._navigateByKeyboardDayView(event, index, cells as SbbCalendarDayElement[], day);
     } else {
-      nextEl = this._navigateByKeyboard(event, index, cells as HTMLButtonElement[]);
+      nextEl = this._navigateByKeyboard(event, index, cells);
     }
-    const activeEl = (this._enhancedVariant ? document : this.shadowRoot!).activeElement as
-      | HTMLButtonElement
-      | SbbCalendarDayElement;
+    const activeEl = (this._enhancedVariant ? document : this.shadowRoot!)
+      .activeElement as SbbCalendarCellBaseElement;
     if (nextEl !== activeEl) {
       nextEl.tabIndex = 0;
       nextEl?.focus();
@@ -1040,9 +992,9 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   private _navigateByKeyboardDayView(
     evt: KeyboardEvent,
     index: number,
-    cells: (HTMLButtonElement | SbbCalendarDayElement)[],
+    cells: SbbCalendarDayElement[],
     day: Day<T>,
-  ): HTMLButtonElement | SbbCalendarDayElement {
+  ): SbbCalendarDayElement {
     const arrowsOffset =
       this.orientation === 'horizontal'
         ? { leftRight: 1, upDown: DAYS_PER_ROW }
@@ -1113,11 +1065,11 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   }
 
   private _findDayArrows(
-    cells: (HTMLButtonElement | SbbCalendarDayElement)[],
+    cells: SbbCalendarDayElement[],
     index: number,
     date: T,
     delta: number,
-  ): HTMLButtonElement | SbbCalendarDayElement {
+  ): SbbCalendarDayElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.addCalendarDays(date, delta),
     );
@@ -1132,12 +1084,12 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   }
 
   private _findDayPageUpDown(
-    cells: (HTMLButtonElement | SbbCalendarDayElement)[],
+    cells: SbbCalendarDayElement[],
     index: number,
     day: Day<T>,
     delta: number,
     deltaIfDisabled: number,
-  ): HTMLButtonElement | SbbCalendarDayElement {
+  ): SbbCalendarDayElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.addCalendarDays(day.dateValue, delta),
     );
@@ -1152,11 +1104,11 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   }
 
   private _findDayFirst(
-    cells: (HTMLButtonElement | SbbCalendarDayElement)[],
+    cells: SbbCalendarDayElement[],
     index: number,
     day: Day<T>,
     date: number,
-  ): HTMLButtonElement | SbbCalendarDayElement {
+  ): SbbCalendarDayElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.createDate(+day.yearValue, +day.monthValue, date),
     );
@@ -1171,10 +1123,10 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   }
 
   private _findDayLast(
-    cells: (HTMLButtonElement | SbbCalendarDayElement)[],
+    cells: SbbCalendarDayElement[],
     index: number,
     firstNextMonth: T,
-  ): HTMLButtonElement | SbbCalendarDayElement {
+  ): SbbCalendarDayElement {
     const newDateValue = this._dateAdapter.toIso8601(
       this._dateAdapter.addCalendarDays(firstNextMonth, -1),
     );
@@ -1197,8 +1149,8 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   private _navigateByKeyboard(
     evt: KeyboardEvent,
     index: number,
-    cells: HTMLButtonElement[],
-  ): HTMLButtonElement {
+    cells: SbbCalendarCellBaseElement[],
+  ): SbbCalendarCellBaseElement {
     const {
       elementIndexForWideMode,
       offsetForWideMode,
@@ -1258,7 +1210,11 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
    * Gets the next element of the provided array starting from `index` by adding `delta`.
    * If the found element is disabled, it continues adding `delta` until it finds an enabled one in the array bounds.
    */
-  private _findNext(days: HTMLButtonElement[], index: number, delta: number): HTMLButtonElement {
+  private _findNext(
+    days: SbbCalendarCellBaseElement[],
+    index: number,
+    delta: number,
+  ): SbbCalendarCellBaseElement {
     let nextIndex = index + delta;
     while (nextIndex < days.length && days[nextIndex]?.disabled) {
       nextIndex += delta;
@@ -1267,14 +1223,20 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   }
 
   /** Find the first enabled element in the provided array. */
-  private _findFirst(days: HTMLButtonElement[], firstOfCurrentMonth: number): HTMLButtonElement {
+  private _findFirst(
+    days: SbbCalendarCellBaseElement[],
+    firstOfCurrentMonth: number,
+  ): SbbCalendarCellBaseElement {
     return !days[firstOfCurrentMonth].disabled
       ? days[firstOfCurrentMonth]
       : this._findNext(days, firstOfCurrentMonth, 1);
   }
 
   /** Find the last enabled element in the provided array. */
-  private _findLast(days: HTMLButtonElement[], lastOfCurrentMonth: number): HTMLButtonElement {
+  private _findLast(
+    days: SbbCalendarCellBaseElement[],
+    lastOfCurrentMonth: number,
+  ): SbbCalendarCellBaseElement {
     return !days[lastOfCurrentMonth].disabled
       ? days[lastOfCurrentMonth]
       : this._findNext(days, lastOfCurrentMonth, -1);
@@ -1282,11 +1244,11 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
 
   /** Find the first enabled element in the same column of the provided array. */
   private _findFirstOnColumn(
-    days: HTMLButtonElement[],
+    days: SbbCalendarCellBaseElement[],
     index: number,
     offset: number,
     verticalOffset: number,
-  ): HTMLButtonElement {
+  ): SbbCalendarCellBaseElement {
     const nextIndex = (index % verticalOffset) + offset;
     return !days[nextIndex].disabled
       ? days[nextIndex]
@@ -1295,11 +1257,11 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
 
   /** Find the last enabled element in the same column of the provided array. */
   private _findLastOnColumn(
-    days: HTMLButtonElement[],
+    days: SbbCalendarCellBaseElement[],
     index: number,
     offset: number,
     verticalOffset: number,
-  ): HTMLButtonElement {
+  ): SbbCalendarCellBaseElement {
     const nextIndex = index + Math.trunc((offset - index - 1) / verticalOffset) * verticalOffset;
     return !days[nextIndex].disabled
       ? days[nextIndex]
@@ -1441,13 +1403,12 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
           <tr>
             ${this.weekNumbers ? html`<th class="sbb-calendar__table-header-cell"></th>` : nothing}
             ${this._weekdays.map(
-              (day: Weekday, index: number) => html`
+              (weekDay: Weekday, index: number) => html`
                 <th class="sbb-calendar__table-header-cell">
                   ${this.multiple
                     ? html`
-                        <button
-                          class="sbb-calendar__header-cell sbb-calendar__weekday"
-                          aria-label=${day.long}
+                        <sbb-calendar-weekday
+                          .value=${weekDay}
                           @click=${() => {
                             // NOTE: Sundays have index 7, while their weekDayValue is 0
                             const days: Day<T>[] = weeksForSelectMultipleWeekDays.filter(
@@ -1455,13 +1416,11 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
                             )!;
                             this._selectMultipleDates(days);
                           }}
-                        >
-                          ${day.narrow}
-                        </button>
+                        ></sbb-calendar-weekday>
                       `
                     : html`
-                        <sbb-screen-reader-only>${day.long}</sbb-screen-reader-only>
-                        <span aria-hidden="true">${day.narrow}</span>
+                        <sbb-screen-reader-only>${weekDay.long}</sbb-screen-reader-only>
+                        <span aria-hidden="true">${weekDay.narrow}</span>
                       `}
                 </th>
               `,
@@ -1479,18 +1438,15 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
                         <td class="sbb-calendar__table-header-cell-vertical">
                           ${this.multiple
                             ? html`
-                                <button
-                                  class="sbb-calendar__header-cell sbb-calendar__weekday"
-                                  aria-label=${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[0]}`}
+                                <sbb-calendar-weeknumber
+                                  .value=${weekNumbers[0]}
                                   @click=${() => {
                                     const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
                                       (day: Day<T>) => day.weekValue === weekNumbers[0],
                                     )!;
                                     this._selectMultipleDates(days);
                                   }}
-                                >
-                                  ${weekNumbers[0]}
-                                </button>
+                                ></sbb-calendar-weeknumber>
                               `
                             : html`
                                 <sbb-screen-reader-only
@@ -1515,18 +1471,15 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
                       <td class="sbb-calendar__table-header-cell-vertical">
                         ${this.multiple
                           ? html`
-                              <button
-                                class="sbb-calendar__header-cell sbb-calendar__weekday"
-                                aria-label=${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumbers[rowIndex]}`}
+                              <sbb-calendar-weeknumber
+                                .value=${weekNumbers[rowIndex]}
                                 @click=${() => {
                                   const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
                                     (day: Day<T>) => day.weekValue === weekNumbers[rowIndex],
                                   )!;
                                   this._selectMultipleDates(days);
                                 }}
-                              >
-                                ${weekNumbers[rowIndex]}
-                              </button>
+                              ></sbb-calendar-weeknumber>
                             `
                           : html`
                               <sbb-screen-reader-only
@@ -1581,18 +1534,15 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
                       <th class="sbb-calendar__table-header-cell">
                         ${this.multiple
                           ? html`
-                              <button
-                                class="sbb-calendar__header-cell sbb-calendar__weekday"
-                                aria-label=${`${i18nCalendarWeekNumber[this._language.current]} ${weekNumber}`}
+                              <sbb-calendar-weeknumber
+                                .value=${weekNumber}
                                 @click=${() => {
                                   const days: Day<T>[] = weeksForSelectMultipleWeekNumbers.filter(
                                     (day: Day<T>) => day.weekValue === weekNumber,
                                   )!;
                                   this._selectMultipleDates(days);
                                 }}
-                              >
-                                ${weekNumber}
-                              </button>
+                              ></sbb-calendar-weeknumber>
                             `
                           : html`
                               <sbb-screen-reader-only
@@ -1619,13 +1569,12 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
                       <td class="sbb-calendar__table-header-cell-vertical">
                         ${this.multiple
                           ? html`
-                              <button
-                                class="sbb-calendar__header-cell sbb-calendar__weekday"
-                                aria-label=${weekday.long}
+                              <sbb-calendar-weekday
+                                .value=${weekday}
                                 @click=${() => this._selectMultipleDates(selectableDays)}
                               >
                                 ${weekday.narrow}
-                              </button>
+                              </sbb-calendar-weekday>
                             `
                           : html`
                               <sbb-screen-reader-only>${weekday.long}</sbb-screen-reader-only>
@@ -1649,7 +1598,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   private _createDayCells(week: Day<T>[]): TemplateResult[] {
     return week.map((day: Day<T>) => {
       return html`
-        <td class=" sbb-calendar__table-data sbb-calendar__day-cell">
+        <td class="sbb-calendar__table-data sbb-calendar__day-cell">
           <slot name=${day.value}>
             <sbb-calendar-day
               slot=${day.value}
@@ -1705,7 +1654,7 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
   }
 
   /** Creates the table for the month selection view. */
-  private _createMonthTable(months: Month[][], year: number): TemplateResult {
+  private _createMonthTable(months: MonthCell[][], year: number): TemplateResult {
     return html`
       <table
         class="sbb-calendar__table"
@@ -1720,60 +1669,19 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
           : nothing}
         <tbody class="sbb-calendar__table-body">
           ${months.map(
-            (row: Month[]) => html`
+            (row: MonthCell[]) => html`
               <tr>
-                ${row.map((month: Month) => {
-                  let selected: boolean;
-                  if (this.multiple) {
-                    selected =
-                      (this._selected as T[]).find(
-                        (date: T) =>
-                          year === this._dateAdapter.getYear(date) &&
-                          month.monthValue === this._dateAdapter.getMonth(date),
-                      ) !== undefined;
-                  } else {
-                    const selectedMonth = this._selected
-                      ? this._dateAdapter.getMonth(this._selected as T)
-                      : undefined;
-                    const selectedYear = this._selected
-                      ? this._dateAdapter.getYear(this._selected as T)
-                      : undefined;
-                    selected =
-                      !!this._selected &&
-                      year === selectedYear &&
-                      month.monthValue === selectedMonth;
-                  }
-                  const isOutOfRange = !this._isMonthInRange(month.monthValue, year);
-                  const isFilteredOut = !this._isMonthFilteredOut(month.monthValue, year);
-                  const isCurrentMonth =
-                    year === this._dateAdapter.getYear(this._dateAdapter.today()) &&
-                    this._dateAdapter.getMonth(this._dateAdapter.today()) === month.monthValue;
-
-                  return html` <td
-                    class=${classMap({
-                      'sbb-calendar__table-data': true,
-                      'sbb-calendar__table-month': true,
-                    })}
-                  >
-                    <button
-                      class=${classMap({
-                        'sbb-calendar__cell': true,
-                        'sbb-calendar__cell-current': isCurrentMonth,
-                        'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
-                        'sbb-calendar__selected': selected,
-                      })}
-                      @click=${() => this._onMonthSelection(month.monthValue, year)}
-                      ?disabled=${isOutOfRange || isFilteredOut}
-                      aria-label=${`${month.longValue} ${year}`}
-                      aria-pressed=${selected}
-                      aria-disabled=${String(isOutOfRange || isFilteredOut)}
-                      tabindex="-1"
-                      data-month=${month.monthValue || nothing}
-                      @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
-                    >
-                      ${month.value}
-                    </button>
-                  </td>`;
+                ${row.map((month: MonthCell) => {
+                  return html`
+                    <td class="sbb-calendar__table-data">
+                      <sbb-calendar-month
+                        .value="${year}-${month.value}"
+                        @click=${() => this._onMonthSelection(month.monthValue, year)}
+                        @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
+                      >
+                      </sbb-calendar-month>
+                    </td>
+                  `;
                 })}
               </tr>
             `,
@@ -1865,7 +1773,6 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
 
   /** Creates the table for the year selection view. */
   private _createYearTable(years: number[][], shiftRight = false): TemplateResult {
-    const now = this._dateAdapter.today();
     return html` <table
       class="sbb-calendar__table"
       @animationend=${(e: AnimationEvent) => this._tableAnimationEnd(e)}
@@ -1875,41 +1782,16 @@ export class SbbCalendarElement<T = Date> extends SbbElement {
           (row: number[]) =>
             html` <tr>
               ${row.map((year: number) => {
-                let selected: boolean;
-                if (this.multiple) {
-                  selected =
-                    (this._selected as T[]).find(
-                      (date: T) => year === this._dateAdapter.getYear(date),
-                    ) !== undefined;
-                } else {
-                  const selectedYear = this._selected
-                    ? this._dateAdapter.getYear(this._selected as T)
-                    : undefined;
-                  selected = !!this._selected && year === selectedYear;
-                }
-                const isOutOfRange = !this._isYearInRange(year);
-                const isFilteredOut = !this._isYearFilteredOut(year);
-                const isCurrentYear = this._dateAdapter.getYear(now) === year;
-                return html` <td class="sbb-calendar__table-data sbb-calendar__table-year">
-                  <button
-                    class=${classMap({
-                      'sbb-calendar__cell': true,
-                      'sbb-calendar__cell-current': isCurrentYear,
-                      'sbb-calendar__crossed-out': !isOutOfRange && isFilteredOut,
-                      'sbb-calendar__selected': selected,
-                    })}
-                    @click=${() => this._onYearSelection(year, shiftRight)}
-                    ?disabled=${isOutOfRange || isFilteredOut}
-                    aria-label=${year}
-                    aria-pressed=${selected}
-                    aria-disabled=${String(isOutOfRange || isFilteredOut)}
-                    tabindex="-1"
-                    data-year=${year || nothing}
-                    @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
-                  >
-                    ${year}
-                  </button>
-                </td>`;
+                return html`
+                  <td class="sbb-calendar__table-data">
+                    <sbb-calendar-year
+                      .value=${String(year)}
+                      @keydown=${(evt: KeyboardEvent) => this._handleKeyboardEvent(evt)}
+                      @click=${() => this._onYearSelection(year, shiftRight)}
+                    >
+                    </sbb-calendar-year>
+                  </td>
+                `;
               })}
             </tr>`,
         )}

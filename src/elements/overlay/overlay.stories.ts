@@ -5,7 +5,7 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import sampleImages from '../core/images.ts';
+import { sampleImages } from '../core/images.private.ts';
 
 import { SbbOverlayElement } from './overlay.component.ts';
 import readme from './readme.md?raw';
@@ -63,7 +63,7 @@ const basicArgs: Args = {
 };
 
 const triggerButton = (triggerId: string): TemplateResult => html`
-  <sbb-button size="m" id=${triggerId}>Open overlay</sbb-button>
+  <sbb-button id=${triggerId}>Open overlay</sbb-button>
 `;
 
 const textBlock = (): TemplateResult => html`

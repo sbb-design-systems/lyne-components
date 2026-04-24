@@ -1,23 +1,22 @@
 import { isServer, type PropertyDeclaration, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbFocusTrapController } from '../core/a11y.ts';
-import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
+import type { SbbScreenReaderOnlyElement } from '../core/screen-reader-only/screen-reader-only.component.ts';
+import type { SbbOverlayCloseEventDetails } from '../core.ts';
 import {
+  forceType,
+  i18nDialog,
+  idReference,
+  removeAriaOverlayTriggerProperties,
   SbbEscapableOverlayController,
+  SbbFocusTrapController,
   SbbInertController,
   SbbLanguageController,
-} from '../core/controllers.ts';
-import { forceType, idReference } from '../core/decorators.ts';
-import { SbbScrollHandler } from '../core/dom.ts';
-import { i18nDialog } from '../core/i18n.ts';
-import type { SbbOverlayCloseEventDetails } from '../core/interfaces.ts';
-import { SbbNegativeMixin } from '../core/mixins.ts';
-import {
-  removeAriaOverlayTriggerAttributes,
-  setAriaOverlayTriggerAttributes,
-} from '../core/overlay.ts';
-import type { SbbScreenReaderOnlyElement } from '../screen-reader-only.ts';
+  SbbNegativeMixin,
+  SbbOpenCloseBaseElement,
+  SbbScrollHandler,
+  setAriaOverlayTriggerProperties,
+} from '../core.ts';
 
 const overlayResultMap = new WeakMap<HTMLElement, any>();
 
@@ -135,7 +134,10 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
 
     this.showPopover?.();
     this.state = 'opening';
-    this._triggerElement?.setAttribute('aria-expanded', 'true');
+
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'true';
+    }
 
     // Add this overlay to the global collection
     overlayRefs.push(this);
@@ -164,13 +166,16 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
       return;
     }
 
-    this.returnValue = result;
+    this.returnValue = result ?? null;
     this.overlayCloseElement = target;
     if (!this.dispatchBeforeCloseEvent()) {
       return;
     }
     this.state = 'closing';
-    this._triggerElement?.setAttribute('aria-expanded', 'false');
+
+    if (this._triggerElement) {
+      this._triggerElement.ariaExpanded = 'false';
+    }
     this.removeAriaLiveRefContent();
 
     // If the animation duration is zero, the animationend event is not always fired reliably.
@@ -207,14 +212,14 @@ export abstract class SbbOverlayBaseElement extends SbbNegativeMixin(SbbOpenClos
     }
 
     this._triggerAbortController?.abort();
-    removeAriaOverlayTriggerAttributes(this._triggerElement);
+    removeAriaOverlayTriggerProperties(this._triggerElement);
     this._triggerElement = this.trigger;
 
     if (!this._triggerElement) {
       return;
     }
 
-    setAriaOverlayTriggerAttributes(this._triggerElement, 'dialog', this.id, this.state);
+    setAriaOverlayTriggerProperties(this, this._triggerElement, 'dialog', this.state);
     this._triggerAbortController = new AbortController();
     this._triggerElement.addEventListener('click', () => this.open(), {
       signal: this._triggerAbortController.signal,

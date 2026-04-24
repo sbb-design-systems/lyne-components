@@ -4,12 +4,12 @@ import { nothing } from 'lit';
 import { html } from 'lit/static-html.js';
 import { type SinonStub, stub } from 'sinon';
 
-import { defaultDateAdapter } from '../../core/datetime.ts';
 import {
   fixture,
   sbbBreakpointLargeMinPx,
   testA11yTreeSnapshot,
 } from '../../core/testing/private.ts';
+import { defaultDateAdapter } from '../../core.ts';
 import { createSlottedDays } from '../calendar-day/calendar-day.helper.private.ts';
 
 import type { SbbCalendarElement } from './calendar.component.ts';
@@ -57,6 +57,46 @@ describe(`sbb-calendar`, () => {
         beforeEach(async () => {
           element = await fixture(html`
             <sbb-calendar selected="2023-01-20T00:00:00" orientation="vertical"
+              >${variant === 'default' ? nothing : createSlottedDays(2023, 1)}</sbb-calendar
+            >
+          `);
+        });
+
+        it('DOM', async () => {
+          await expect(element).dom.to.be.equalSnapshot();
+        });
+
+        it('Shadow DOM', async () => {
+          await expect(element).shadowDom.to.be.equalSnapshot();
+        });
+      });
+
+      describe('renders in year view', () => {
+        let element: SbbCalendarElement;
+
+        beforeEach(async () => {
+          element = await fixture(html`
+            <sbb-calendar selected="2023-01-20T00:00:00" view="year"
+              >${variant === 'default' ? nothing : createSlottedDays(2023, 1)}</sbb-calendar
+            >
+          `);
+        });
+
+        it('DOM', async () => {
+          await expect(element).dom.to.be.equalSnapshot();
+        });
+
+        it('Shadow DOM', async () => {
+          await expect(element).shadowDom.to.be.equalSnapshot();
+        });
+      });
+
+      describe('renders in month view', () => {
+        let element: SbbCalendarElement;
+
+        beforeEach(async () => {
+          element = await fixture(html`
+            <sbb-calendar selected="2023-01-20T00:00:00" view="month"
               >${variant === 'default' ? nothing : createSlottedDays(2023, 1)}</sbb-calendar
             >
           `);

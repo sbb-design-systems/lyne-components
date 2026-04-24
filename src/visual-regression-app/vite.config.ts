@@ -13,7 +13,7 @@ import {
 
 import rootConfig from '../../vite.config.ts';
 
-import type { ScreenshotFiles, Meta } from './src/interfaces.ts';
+import type { Meta, ScreenshotFiles } from './src/interfaces.ts';
 
 const distDir = new URL('../../dist/', import.meta.url);
 const screenshotsDir = new URL(`./screenshots/`, distDir);

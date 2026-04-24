@@ -1,9 +1,8 @@
-import type { CSSResultGroup } from 'lit';
+import { type CSSResultGroup, unsafeCSS } from 'lit';
 
-import { SbbActionGroupElement } from '../../action-group.ts';
-import { isLean } from '../../core/dom/lean-context.ts';
+import { SbbActionGroupElement } from '../../action-group.pure.ts';
 
-import style from './dialog-actions.scss?lit&inline';
+import style from './dialog-actions.scss?inline';
 
 /**
  * Use this component to display a footer into an `sbb-dialog` with an action group.
@@ -12,16 +11,7 @@ import style from './dialog-actions.scss?lit&inline';
  */
 export class SbbDialogActionsElement extends SbbActionGroupElement {
   public static override readonly elementName: string = 'sbb-dialog-actions';
-  public static override styles: CSSResultGroup = [SbbActionGroupElement.styles, style];
-
-  public constructor() {
-    super();
-    /** @default 'm' / 's' (lean) */
-    this.buttonSize = isLean() ? 's' : 'm';
-
-    /** @default 's' / 'xs' (lean) */
-    this.linkSize = isLean() ? 'xs' : 's';
-  }
+  public static override styles: CSSResultGroup = [SbbActionGroupElement.styles, unsafeCSS(style)];
 }
 
 declare global {

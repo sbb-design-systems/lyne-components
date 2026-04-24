@@ -11,7 +11,7 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import sampleImages from '../core/images.ts';
+import { sampleImages } from '../core/images.private.ts';
 import type { SbbTeaserProductElement } from '../teaser-product.ts';
 
 import readme from './readme.md?raw';
@@ -103,7 +103,7 @@ const content = (staticTeaser: boolean = false): TemplateResult => html`
     tortor, ut laoreet velit congue in.
   </p>
   ${staticTeaser
-    ? html`<sbb-action-group class="sbb-teaser-product--spacing">
+    ? html`<sbb-action-group class="sbb-teaser-product--spacing" button-size="l">
         <sbb-button>Label</sbb-button>
         <sbb-secondary-button>Label</sbb-secondary-button>
       </sbb-action-group>`

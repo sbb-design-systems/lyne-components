@@ -4,7 +4,6 @@ import { html } from 'lit/static-html.js';
 import type { Context } from 'mocha';
 
 import type { SbbButtonElement } from '../../button.ts';
-import { isWebkit } from '../../core/dom.ts';
 import {
   fixture,
   sbbBreakpointLargeMinPx,
@@ -12,11 +11,12 @@ import {
   tabKey,
 } from '../../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../../core/testing.ts';
+import { isWebkit } from '../../core.ts';
 import type { SbbMenuButtonElement } from '../menu-button/menu-button.component.ts';
 
 import { SbbMenuElement } from './menu.component.ts';
 
-import '../../button/button.ts';
+import '../../button.ts';
 import '../../link.ts';
 import '../../divider.ts';
 import '../../menu.ts';
@@ -27,8 +27,8 @@ describe(`sbb-menu`, () => {
     beforeEach(async () => {
       const root = await fixture(html`
         <div>
-          <sbb-button id="menu-trigger">Menu trigger</sbb-button>
-          <sbb-menu id="menu" trigger="menu-trigger">
+          <sbb-button id="menu-trigger" size="l">Menu trigger</sbb-button>
+          <sbb-menu trigger="menu-trigger">
             <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
             <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
             <sbb-menu-button id="menu-action-2" icon-name="pen-small" sbb-badge="1" disabled>
@@ -242,7 +242,6 @@ describe(`sbb-menu`, () => {
       await setViewport({ width: sbbBreakpointLargeMinPx, height: 800 });
       if (isWebkit) {
         // Needed to let media queries get applied on Webkit
-        // TODO: Figure out why
         await aTimeout(50);
       }
 
@@ -397,7 +396,7 @@ describe(`sbb-menu`, () => {
     it('init with HtmlElement as trigger', async () => {
       trigger = await fixture(html`<sbb-button id="menu-trigger">Menu trigger</sbb-button>`);
       element = await fixture(html`
-        <sbb-menu id="menu" .trigger=${trigger}>
+        <sbb-menu .trigger=${trigger}>
           <sbb-block-link id="menu-link" href="#" size="xs">Profile</sbb-block-link>
           <sbb-menu-button id="menu-action-1" icon-name="tick-small">View</sbb-menu-button>
         </sbb-menu>

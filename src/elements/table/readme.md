@@ -1,3 +1,5 @@
+<!-- #region table-docs -->
+
 For working with tables, the native `table` and its related elements should be used.
 With the `sbb-table` CSS class, styling the native element is possible.
 
@@ -16,14 +18,166 @@ The `<sbb-table-wrapper>` is a wrapper for a table. Its goal is to enhance/autom
 </sbb-table-wrapper>
 ```
 
+<!-- #endregion -->
+
 ## Style
 
-See the [Table](/docs/styles-table--docs) style section.
+The `sbb-table` class is designed to handle the styling of common table use cases, ensuring a consistent and visually appealing presentation of tabular data.
+This guide will walk you through the various customization options and advanced scenarios for styling tables within our design system.
+
+### Basic usage
+
+```html
+<table class="sbb-table">
+  <thead>
+    <th>...</th>
+    ...
+  </thead>
+  <tbody>
+    <tr>
+      <td>...</td>
+      ...
+    </tr>
+    ...
+  </tbody>
+  <caption>
+    ...
+  </caption>
+</table>
+```
+
+### Striped table
+
+By default, tables are styled with alternating row stripes to enhance readability. To remove this striping, add the `sbb-table--unstriped` class:
+
+```html
+<table class="sbb-table sbb-table--unstriped">
+  ...
+</table
+```
+
+### Size
+
+The available sizes are `m` (default), `s` and `xs`. Use the respective `sbb-table-*size*` classes to specify it:
+
+```html
+<table class="sbb-table-s"></table>
+<table class="sbb-table-m"></table>
+<table class="sbb-table-xs"></table>
+```
+
+### Negative variant
+
+For a negative color scheme, apply the `sbb-table--negative` class:
+
+```html
+<table class="sbb-table sbb-table--negative">
+  ...
+</table>
+```
+
+### Grouping columns
+
+To visually group two adjacent columns, apply the `sbb-table-group-with-next` class to the `th` or `td` that precedes the next column in the group.
+This removes the border between the two columns, making them appear as one logical unit:
+
+```html
+<table class="sbb-table">
+  <thead>
+    <tr>
+      <th class="sbb-table-group-with-next">First Name</th>
+      <th>Last Name</th>
+      <th>Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="sbb-table-group-with-next">Chris</td>
+      <td>Evans</td>
+      <td>22</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+**Note:** The Angular wrapper also has the groupWithNext property on a cell.
+
+### Header subtitle
+
+To display a subtitle below a column header, add an element with the `sbb-table-header-subtitle`
+class inside a `th` element:
+
+```html
+<table class="sbb-table">
+  <thead>
+    <tr>
+      <th>
+        Person
+        <div class="sbb-table-header-subtitle">Subtitle</div>
+      </th>
+      <th>
+        Most interest in
+        <div class="sbb-table-header-subtitle">Subtitle</div>
+      </th>
+      <th>
+        Age
+        <div class="sbb-table-header-subtitle">Subtitle</div>
+      </th>
+    </tr>
+  </thead>
+  ...
+</table>
+```
+
+### Text alignment
+
+By default, table cells are left-aligned.
+Use the following classes to change the text alignment of individual cells or columns.
+The classes can be applied on the table or on individual `th` or `td` elements,
+depending on the desired scope of the alignment.
+
+| CSS class                 | Description       |
+| ------------------------- | ----------------- |
+| `sbb-table-align-start`   | Align text start  |
+| `sbb-table-align-center`  | Align text center |
+| `sbb-table-align-end`     | Align text end    |
+| `sbb-table-align-justify` | Justify text      |
+
+### Iron theme
+
+For the iron theme, apply the `sbb-table--theme-iron` class.
+This scheme changes the text color of the cells to `sbb-color-iron`.
+
+```html
+<table class="sbb-table sbb-table--theme-iron">
+  ...
+</table>
+```
+
+### CSS classes
+
+| Name                        | Description                                   |
+| --------------------------- | --------------------------------------------- |
+| `sbb-table`                 | The table style (equivalent to `table-m`)     |
+| `sbb-table-m`               | Medium size table style                       |
+| `sbb-table-s`               | Small size table style                        |
+| `sbb-table-xs`              | Smallest size table style                     |
+| `sbb-table--negative`       | Negative variant style                        |
+| `sbb-table--striped`        | Striped table style                           |
+| `sbb-table--unstriped`      | Non-striped table style                       |
+| `sbb-table-row--striped`    | Force the striped state on a `tr`             |
+| `sbb-table-filter`          | `th` element that contains an inline filter   |
+| `sbb-table-group-with-next` | Removes the border to the next column         |
+| `sbb-table-header-subtitle` | Subtitle text displayed below a column header |
+| `sbb-table-align-start`     | Aligns cell text to the start                 |
+| `sbb-table-align-center`    | Aligns cell text to the center                |
+| `sbb-table-align-end`       | Aligns cell text to the end                   |
+| `sbb-table-align-justify`   | Justifies cell text                           |
 
 ### Sticky Table
 
 The `<sbb-table-wrapper>` provide classes and some utilities to implement a table with sticky header and columns.
-It is the consumer responsibility to set the correct style/classes to the template. (see the [sticky example](/story/elements-table--sticky))
+It is the consumer responsibility to set the correct style/classes to the template.
 
 **Note:** The Angular wrapper takes care of most of the sticky table setup. Please refer to the Lyne Angular examples.
 

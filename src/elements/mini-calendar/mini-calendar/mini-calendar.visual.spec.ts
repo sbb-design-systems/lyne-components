@@ -1,8 +1,8 @@
 import { html, type TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 
-import { defaultDateAdapter } from '../../core/datetime.ts';
 import { describeViewports, visualDiffDefault } from '../../core/testing/private.ts';
+import { defaultDateAdapter } from '../../core.ts';
 
 import '../../mini-calendar.ts';
 

@@ -1,12 +1,17 @@
-import { type CSSResultGroup, html, isServer, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  isServer,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { ɵstateController } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import { boxSizingStyles, SbbElement, ɵstateController } from '../../core.ts';
 import { sidebarContainerCommonStyle } from '../common/styles.ts';
 import type { SbbSidebarElement } from '../sidebar/sidebar.component.ts';
 
-import style from './sidebar-container.scss?lit&inline';
+import style from './sidebar-container.scss?inline';
 
 const sidebarContainerRegistry = new Set<SbbSidebarContainerElement>();
 let sidebarContainerResizeObserver: ResizeObserver | undefined;
@@ -24,7 +29,7 @@ export class SbbSidebarContainerElement extends SbbElement {
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     sidebarContainerCommonStyle,
-    style,
+    unsafeCSS(style),
   ];
 
   /** The sidebar children. */

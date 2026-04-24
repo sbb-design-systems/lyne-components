@@ -5,7 +5,7 @@ import { describeEach, describeViewports, visualDiffDefault } from '../../core/t
 import type { SbbIconSidebarElement } from './icon-sidebar.component.ts';
 
 import '../../header.ts';
-import '../../link/block-link.ts';
+import '../../link.ts';
 import '../../link-list.ts';
 import '../../logo.ts';
 import '../../icon-sidebar.ts';

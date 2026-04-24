@@ -1,20 +1,29 @@
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbButtonBaseElement } from '../../core/base-elements.ts';
-import { readConfig } from '../../core/config/config.ts';
-import { type DateAdapter } from '../../core/datetime/date-adapter.ts';
-import { defaultDateAdapter } from '../../core/datetime/native-date-adapter.ts';
-import { forceType, omitEmptyConverter } from '../../core/decorators.ts';
+import {
+  type DateAdapter,
+  defaultDateAdapter,
+  forceType,
+  omitEmptyConverter,
+  readConfig,
+  SbbButtonBaseElement,
+} from '../../core.ts';
 
-import style from './mini-calendar-day.scss?lit&inline';
+import style from './mini-calendar-day.scss?inline';
 
 /**
  * It displays a day in the `sbb-mini-calendar-month`.
  */
 export class SbbMiniCalendarDayElement<T = Date> extends SbbButtonBaseElement {
   public static override readonly elementName: string = 'sbb-mini-calendar-day';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = unsafeCSS(style);
 
   private _dateAdapter: DateAdapter<T> = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 

@@ -5,8 +5,8 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import sampleImages from '../core/images.ts';
-import type { SbbTitleLevel } from '../title.ts';
+import { sampleImages } from '../core/images.private.ts';
+import type { SbbTitleLevel } from '../title.pure.ts';
 
 import { SbbDialogElement } from './dialog/dialog.component.ts';
 import readme from './readme.md?raw';
@@ -93,13 +93,20 @@ const basicArgs: Args = {
 };
 
 const triggerButton = (triggerId: string): TemplateResult => html`
-  <sbb-button id=${triggerId} size="m">Open dialog</sbb-button>
+  <sbb-button id=${triggerId}>Open dialog</sbb-button>
 `;
 
 const dialogActions = (negative: boolean, includeCloseButton: boolean): TemplateResult => html`
   <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="large">
-    <sbb-secondary-button sbb-dialog-close ?negative=${negative}>Cancel</sbb-secondary-button>
-    <sbb-button sbb-dialog-close ?sbb-focus-initial=${!includeCloseButton} ?negative=${negative}>
+    <sbb-secondary-button sbb-dialog-close ?negative=${negative} size="l"
+      >Cancel</sbb-secondary-button
+    >
+    <sbb-button
+      sbb-dialog-close
+      ?sbb-focus-initial=${!includeCloseButton}
+      ?negative=${negative}
+      size="l"
+    >
       Confirm
     </sbb-button>
   </sbb-dialog-actions>
@@ -240,13 +247,11 @@ const StepperTemplate = ({
                 ${element} step content ${index === 0 || index === 2 ? loremIpsum : nothing}
               </div>
               ${index !== 0
-                ? html`<sbb-secondary-button size="m" sbb-stepper-previous
-                    >Back</sbb-secondary-button
-                  >`
+                ? html`<sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>`
                 : nothing}
               ${index !== arr.length - 1
-                ? html`<sbb-button size="m" sbb-stepper-next>Next</sbb-button>`
-                : html`<sbb-button size="m" sbb-stepper-next>Submit</sbb-button>`}
+                ? html`<sbb-button sbb-stepper-next>Next</sbb-button>`
+                : html`<sbb-button sbb-stepper-next>Submit</sbb-button>`}
             </sbb-step>
           `,
         )}

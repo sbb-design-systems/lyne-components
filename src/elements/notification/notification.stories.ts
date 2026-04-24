@@ -1,6 +1,5 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
-import type { TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
@@ -9,8 +8,8 @@ import type { SbbSecondaryButtonElement } from '../button.ts';
 
 import { SbbNotificationElement } from './notification.component.ts';
 import readme from './readme.md?raw';
-import '../button/secondary-button.ts';
-import '../link/link.ts';
+import '../button.ts';
+import '../link.ts';
 import '../notification.ts';
 import '../title.ts';
 
@@ -47,12 +46,26 @@ const icon: InputType = {
   },
 };
 
+const hasTitle: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const content: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const basicArgTypes: ArgTypes = {
   type,
   size,
   readonly,
   animation,
   'icon-name': icon,
+  hasTitle,
+  content,
 };
 
 const basicArgs: Args = {
@@ -61,13 +74,12 @@ const basicArgs: Args = {
   readonly: false,
   animation: animation.options![0],
   'icon-name': undefined,
+  hasTitle: true,
+  content:
+    'The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.',
 };
 
 const appendNotification = (event: Event, args: Args): void => {
-  const title = document.createElement('sbb-title');
-  title.level = '3';
-  title.innerText = 'This is a title';
-
   const newNotification = document.createElement('sbb-notification');
   newNotification.style.setProperty(
     '--sbb-notification-margin',
@@ -78,10 +90,14 @@ const appendNotification = (event: Event, args: Args): void => {
   newNotification.readOnly = args['readonly'];
   newNotification.animation = args['animation'];
   newNotification.iconName = args['icon-name'];
-  newNotification.innerHTML =
-    'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.';
+  newNotification.innerHTML = args['content'];
 
-  newNotification.prepend(title);
+  if (args['hasTitle']) {
+    const title = document.createElement('sbb-title');
+    title.level = '3';
+    title.innerText = 'This is a title';
+    newNotification.prepend(title);
+  }
   (event.target as SbbSecondaryButtonElement).parentElement
     ?.querySelector('.notification-container')
     ?.append(newNotification);
@@ -89,7 +105,6 @@ const appendNotification = (event: Event, args: Args): void => {
 
 const trigger = (args: Args): TemplateResult => html`
   <sbb-secondary-button
-    size="m"
     style="max-width: fit-content"
     @click=${(event: Event) => appendNotification(event, args)}
     icon-name="circle-plus-small"
@@ -117,26 +132,28 @@ const pageContent = (): TemplateResult => html`
   </p>
 `;
 
-const DefaultTemplate = (args: Args): TemplateResult => html`
+const DefaultTemplate = ({ hasTitle, content, ...args }: Args): TemplateResult => html`
   <sbb-notification
     ${sbbSpread({ ...args, animation: 'close' })}
     style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
   >
-    <sbb-title level="3">This is a title</sbb-title>
-    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+    ${hasTitle ? html`<sbb-title level="3">This is a title</sbb-title>` : nothing} ${content}
     <sbb-link href="/"> Link one</sbb-link>
     <sbb-link href="/"> Link two</sbb-link>
     <sbb-link href="/"> Link three</sbb-link>
   </sbb-notification>
 `;
 
-const MultipleNotificationsTemplate = (args: Args): TemplateResult => html`
+const MultipleNotificationsTemplate = ({
+  hasTitle,
+  content,
+  ...args
+}: Args): TemplateResult => html`
   <sbb-notification
     ${sbbSpread({ ...args, animation: 'close' })}
     style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
   >
-    <sbb-title level="3">This is a title</sbb-title>
-    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+    ${hasTitle ? html`<sbb-title level="3">This is a title</sbb-title>` : nothing} ${content}
     <sbb-link href="/"> Link one</sbb-link>
     <sbb-link href="/"> Link two</sbb-link>
     <sbb-link href="/"> Link three</sbb-link>

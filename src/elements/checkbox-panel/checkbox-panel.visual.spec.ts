@@ -3,8 +3,9 @@ import { html, type TemplateResult } from 'lit';
 import { describeViewports, visualDiffDefault, visualDiffFocus } from '../core/testing/private.ts';
 
 import '../card.ts';
-import '../icon.ts';
+import '../checkbox-group.ts';
 import '../checkbox-panel.ts';
+import '../icon.ts';
 
 describe('sbb-checkbox-panel', () => {
   const defaultArgs = {
@@ -110,6 +111,21 @@ describe('sbb-checkbox-panel', () => {
       `forcedColors=true`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(template({ ...defaultArgs }), { forcedColors: true });
+      }),
+    );
+
+    it(
+      `horizontal group with align-items=stretch renders panels at equal height`,
+      visualDiffDefault.with(async (setup) => {
+        await setup.withFixture(html`
+          <sbb-checkbox-group orientation="horizontal" style="align-items: stretch;">
+            <sbb-checkbox-panel value="Value one">Short label</sbb-checkbox-panel>
+            <sbb-checkbox-panel value="Value two">
+              Label with subtext
+              <span slot="subtext">Subtext</span>
+            </sbb-checkbox-panel>
+          </sbb-checkbox-group>
+        `);
       }),
     );
   });

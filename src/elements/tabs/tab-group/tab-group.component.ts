@@ -1,21 +1,28 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 
-import { getNextElementIndex, isArrowKeyPressed } from '../../core/a11y.ts';
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
-import { throttle } from '../../core/eventing.ts';
-import { ɵstateController } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  getNextElementIndex,
+  isArrowKeyPressed,
+  isLean,
+  SbbElement,
+  ɵstateController,
+} from '../../core.ts';
 import { tabGroupCommonStyles } from '../common/styles.ts';
 import type { SbbTabElement } from '../tab/tab.component.ts';
 import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
-import style from './tab-group.scss?lit&inline';
+import style from './tab-group.scss?inline';
 
 export interface SbbTabChangedEventDetails {
   activeIndex: number;
@@ -34,7 +41,11 @@ export interface SbbTabChangedEventDetails {
  */
 export class SbbTabGroupElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-tab-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, tabGroupCommonStyles, style];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    tabGroupCommonStyles,
+    unsafeCSS(style),
+  ];
   public static readonly events = {
     tabchange: 'tabchange',
   } as const;
@@ -45,6 +56,7 @@ export class SbbTabGroupElement extends SbbElement {
     skipInitial: true,
     callback: () => this._onTabGroupElementResize(),
   });
+  private _contentSlotChangeDebounceId?: ReturnType<typeof setTimeout>;
 
   /**
    * Size variant, either s, l or xl.
@@ -143,15 +155,20 @@ export class SbbTabGroupElement extends SbbElement {
     });
   }
 
-  private _onContentSlotChange = (): void => {
-    this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
-    this.labels.find((tabLabel) => tabLabel.active)?.activate();
-  };
+  private _onContentSlotChange(): void {
+    if (this._contentSlotChangeDebounceId) {
+      clearTimeout(this._contentSlotChangeDebounceId);
+    }
+    this._contentSlotChangeDebounceId = setTimeout(() => {
+      this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
+      this.labels.find((tabLabel) => tabLabel.active)?.activate();
+    }, 150);
+  }
 
-  private _onLabelSlotChange = (): void => {
+  private _onLabelSlotChange(): void {
     this.labels.forEach((tabLabel) => tabLabel['linkToTab']());
     this._ensureActiveTab();
-  };
+  }
 
   private _ensureActiveTab(): void {
     if (
@@ -229,10 +246,10 @@ export class SbbTabGroupElement extends SbbElement {
       ${!this.fixedHeight
         ? html`
             <div class="sbb-tab-group-content">
-              <slot @slotchange=${throttle(this._onContentSlotChange, 150)}></slot>
+              <slot @slotchange=${this._onContentSlotChange}></slot>
             </div>
           `
-        : html`<slot @slotchange=${throttle(this._onContentSlotChange, 150)}></slot>`}
+        : html`<slot @slotchange=${this._onContentSlotChange}></slot>`}
     `;
   }
 }

@@ -1,29 +1,28 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
 
-import { isZeroAnimationDuration } from '../../core/dom.ts';
-import type { SbbOverlayCloseEventDetails } from '../../core/interfaces/overlay-close-details.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import type { SbbElementType, SbbOverlayCloseEventDetails } from '../../core.ts';
+import {
+  boxSizingStyles,
+  isZeroAnimationDuration,
+  SbbScreenReaderOnlyElement,
+} from '../../core.ts';
 import {
   overlayRefs,
   SbbOverlayBaseElement,
   SbbOverlayCloseEvent as SbbDialogCloseEvent,
-} from '../../overlay.ts';
+} from '../../overlay.pure.ts';
 import type { SbbDialogContentElement } from '../dialog-content/dialog-content.component.ts';
 
-import style from './dialog.scss?lit&inline';
-
-import '../../screen-reader-only.ts';
+import style from './dialog.scss?inline';
 
 export {
   assignOverlayResult as assignDialogResult,
   SbbOverlayCloseEvent as SbbDialogCloseEvent,
 } from '../../overlay/overlay-base-element.ts';
-
-let nextId = 0;
 
 /**
  * It displays an interactive overlay element.
@@ -35,7 +34,8 @@ let nextId = 0;
  */
 export class SbbDialogElement extends SbbOverlayBaseElement {
   public static override readonly elementName: string = 'sbb-dialog';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [SbbScreenReaderOnlyElement];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Backdrop click action. */
   @property({ attribute: 'backdrop-action' }) public accessor backdropAction: 'close' | 'none' =
@@ -72,15 +72,10 @@ export class SbbDialogElement extends SbbOverlayBaseElement {
     });
   }
 
-  public override connectedCallback(): void {
-    this.id ||= `sbb-dialog-${nextId++}`;
-    super.connectedCallback();
-  }
-
   /** Announce the accessibility label or dialog title for screen readers. */
   public announceTitle(): void {
     this.setAriaLiveRefContent(
-      this.accessibilityLabel || this.querySelector('sbb-dialog-title')?.innerText.trim(),
+      this.accessibilityLabel || this.querySelector('sbb-dialog-title')?.textContent.trim(),
     );
   }
 

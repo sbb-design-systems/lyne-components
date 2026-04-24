@@ -2,7 +2,7 @@ import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-v
 import { html, nothing, type TemplateResult } from 'lit';
 
 import readme from './readme.md?raw';
-import '../button/button.ts';
+import '../button.ts';
 import '../datepicker.ts';
 import '../divider.ts';
 import '../form-field.ts';
@@ -80,7 +80,7 @@ const timetableDetails = (
       <sbb-toggle-option value="arrival">Arr</sbb-toggle-option>
     </sbb-toggle>
     <div style="flex-grow: 1;"></div>
-    <sbb-button type="submit" size="m">Search</sbb-button>
+    <sbb-button type="submit">Search</sbb-button>
   </sbb-timetable-form-details>
 `;
 

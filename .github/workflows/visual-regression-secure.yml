@@ -45,7 +45,7 @@ jobs:
         run: yarn build visual-regression-app
 
       - name: Create check if changed
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         id: screenshot-check
         env:
           urlTemplate: https://lyne-components-visual-regression-diff-pr{}.app.sbb.ch
@@ -75,7 +75,7 @@ jobs:
                 ...payload,
                 ref: context.payload.workflow_run.head_sha,
                 auto_merge: false,
-                required_contexts: ['collect-test-results']
+                required_contexts: ['finalize']
               });
               await github.rest.repos.createDeploymentStatus({
                 ...payload,

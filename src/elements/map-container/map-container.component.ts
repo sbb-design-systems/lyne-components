@@ -1,18 +1,26 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { SbbLanguageController } from '../core/controllers.ts';
-import { forceType } from '../core/decorators.ts';
-import { forwardEvent } from '../core/eventing.ts';
-import { i18nMapContainerButtonLabel } from '../core/i18n.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import { SbbAccentButtonElement } from '../button.pure.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  forwardEvent,
+  i18nMapContainerButtonLabel,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+} from '../core.ts';
 
-import style from './map-container.scss?lit&inline';
-
-import '../button/accent-button.ts';
+import style from './map-container.scss?inline';
 
 /**
  * It can be used as a container for maps.
@@ -31,7 +39,8 @@ import '../button/accent-button.ts';
  */
 export class SbbMapContainerElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-map-container';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [SbbAccentButtonElement];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Flag to show/hide the scroll up button inside the sidebar on mobile. */
   @forceType()
@@ -107,7 +116,6 @@ export class SbbMapContainerElement extends SbbElement {
               class="sbb-map-container__sidebar-button"
               size="l"
               icon-name="location-pin-map-small"
-              type="button"
               @click=${() => this._onScrollButtonClick()}
               ?inert=${!this._scrollUpButtonVisible}
             >

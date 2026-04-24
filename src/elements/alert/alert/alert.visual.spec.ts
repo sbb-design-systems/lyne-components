@@ -8,7 +8,7 @@ import {
 } from '../../core/testing/private.ts';
 
 import '../../alert.ts';
-import '../../link/link.ts';
+import '../../link.ts';
 import '../../title.ts';
 
 describe(`sbb-alert`, () => {

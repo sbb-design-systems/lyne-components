@@ -1,26 +1,32 @@
 import {
+  type CSSResultGroup,
   html,
   isServer,
-  type CSSResultGroup,
-  type TemplateResult,
   type PropertyDeclaration,
   type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbOpenCloseBaseElement } from '../core/base-elements.ts';
-import { readConfig } from '../core/config.ts';
 import {
+  appendAriaElements,
+  boxSizingStyles,
+  idReference,
+  isAndroid,
+  isIOS,
+  isZeroAnimationDuration,
+  queueDomContentLoaded,
+  readConfig,
+  removeAriaElements,
+  SbbDisabledMixin,
   SbbEscapableOverlayController,
+  SbbOpenCloseBaseElement,
+  sbbOverlayOutsidePointerEventListener,
   SbbOverlayPositionController,
-} from '../core/controllers.ts';
-import { idReference } from '../core/decorators.ts';
-import { isAndroid, isIOS, isZeroAnimationDuration, queueDomContentLoaded } from '../core/dom.ts';
-import { appendAriaElements, removeAriaElements, SbbDisabledMixin } from '../core/mixins.ts';
-import { sbbOverlayOutsidePointerEventListener } from '../core/overlay.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+} from '../core.ts';
 
-import style from './tooltip.scss?lit&inline';
+import style from './tooltip.scss?inline';
 
 /**
  * Defines the default position for the tooltip if this element is used as a trigger.
@@ -37,7 +43,6 @@ const LONGPRESS_DELAY = 500;
 
 const isMobile = isAndroid || isIOS;
 const tooltipTriggers = new WeakMap<HTMLElement, SbbTooltipElement>();
-let nextId = 0;
 
 /**
  * It displays text content within a tooltip.
@@ -53,7 +58,7 @@ let nextId = 0;
 export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement) {
   public static override readonly elementName: string = 'sbb-tooltip';
   public static override readonly role = 'tooltip';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   private static _tooltipOutlet: Element;
 
@@ -235,14 +240,15 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
     } else if (tooltip) {
       // The trigger or the attribute has been deleted => delete the connected tooltip
       tooltipTriggers.delete(triggerElement);
-      tooltip._destroy();
+      // If a consumer overrides the `sbb-tooltip`, the following code should not be
+      // executed as we can't expect that private methods are mocked.
+      tooltip._destroy?.();
     }
   }
 
   public override connectedCallback(): void {
     super.connectedCallback();
     this.popover = 'manual';
-    this.id ||= `sbb-tooltip-${++nextId}`;
     this.state = 'closed';
     sbbOverlayOutsidePointerEventListener.connect(this);
 

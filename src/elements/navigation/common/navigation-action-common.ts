@@ -1,19 +1,21 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.ts';
-import { isLean } from '../../core/dom.ts';
-import type { AbstractConstructor } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import type {
+  AbstractConstructor,
+  SbbActionBaseElement,
+  SbbElementConstructor,
+  SbbElementType,
+} from '../../core.ts';
+import { boxSizingStyles } from '../../core.ts';
+import { SbbIconElement } from '../../icon.pure.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 import type { SbbNavigationMarkerElement } from '../navigation-marker/navigation-marker.component.ts';
 import type { SbbNavigationSectionElement } from '../navigation-section/navigation-section.component.ts';
 
-import style from './navigation-action.scss?lit&inline';
-
-import '../../icon.ts';
+import style from './navigation-action.scss?inline';
 
 export type SbbNavigationActionSize = 's' | 'm' | 'l';
 
@@ -26,7 +28,7 @@ export declare class SbbNavigationActionCommonElementMixinType {
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const SbbNavigationActionCommonElementMixin = <
-  T extends AbstractConstructor<SbbActionBaseElement>,
+  T extends AbstractConstructor<SbbActionBaseElement> & SbbElementConstructor,
 >(
   superClass: T,
 ): AbstractConstructor<SbbNavigationActionCommonElementMixinType> & T => {
@@ -34,15 +36,13 @@ export const SbbNavigationActionCommonElementMixin = <
     extends superClass
     implements Partial<SbbNavigationActionCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, style];
+    public static override elementDependencies: SbbElementType[] = [SbbIconElement];
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
     /**
      * Action size variant, either s, m or l.
-     * @default 'l' / 's' (lean)
      */
-    @property({ reflect: true }) public accessor size: SbbNavigationActionSize = isLean()
-      ? 's'
-      : 'l';
+    @property({ reflect: true }) public accessor size: SbbNavigationActionSize = 'l';
 
     /** The section that is being controlled by the action, if any. */
     public connectedSection?: SbbNavigationSectionElement;

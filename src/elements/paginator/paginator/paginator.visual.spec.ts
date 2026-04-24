@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 
 import {
   describeViewports,
@@ -87,7 +87,7 @@ describe('sbb-paginator', () => {
 
         for (const pagerPosition of ['start', 'end']) {
           describe(`pagerPosition=${pagerPosition}`, () => {
-            for (const size of ['s', 'm']) {
+            for (const size of ['s', 'm', null]) {
               it(
                 `size=${size}`,
                 visualDiffDefault.with(async (setup) => {
@@ -96,7 +96,7 @@ describe('sbb-paginator', () => {
                     html`<sbb-paginator
                       length="50"
                       page-size="4"
-                      size=${size}
+                      size=${size || nothing}
                       pager-position=${pagerPosition}
                       .pageSizeOptions="${pageSizeOptions}"
                       ?negative=${negative}

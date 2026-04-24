@@ -127,7 +127,6 @@ const TemplateClockColumns = ({ ...args }): TemplateResult => html`
       </sbb-link-list>
       <sbb-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        size="m"
       >
         All help topics
       </sbb-button-link>
@@ -180,7 +179,6 @@ const TemplateClockColumns = ({ ...args }): TemplateResult => html`
       </span>
       <sbb-secondary-button-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-        size="m"
       >
         Subscribe
       </sbb-secondary-button-link>

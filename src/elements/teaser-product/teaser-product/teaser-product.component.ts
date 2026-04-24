@@ -1,16 +1,18 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement } from '../../core/base-elements.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  boxSizingStyles,
+  type SbbElementType,
+  SbbLinkBaseElement,
+  SbbScreenReaderOnlyElement,
+} from '../../core.ts';
 import {
   SbbTeaserProductCommonElementMixin,
   teaserProductCommonStyle,
 } from '../common/teaser-product-common.ts';
 
-import style from './teaser-product.scss?lit&inline';
-
-import '../../screen-reader-only.ts';
+import style from './teaser-product.scss?inline';
 
 /**
  * Displays a text and a footnote, combined with an image, to tease a product
@@ -25,10 +27,11 @@ export class SbbTeaserProductElement extends SbbTeaserProductCommonElementMixin(
   SbbLinkBaseElement,
 ) {
   public static override readonly elementName: string = 'sbb-teaser-product';
+  public static override elementDependencies: SbbElementType[] = [SbbScreenReaderOnlyElement];
   public static override styles: CSSResultGroup = [
     boxSizingStyles,
     teaserProductCommonStyle,
-    style,
+    unsafeCSS(style),
   ];
 
   protected override render(): TemplateResult {

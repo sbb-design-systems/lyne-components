@@ -3,7 +3,7 @@ import { html, nothing, type TemplateResult } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import type { SbbTime } from '../core/interfaces/types.ts';
+import type { SbbTime } from '../core.ts';
 
 import readme from './readme.md?raw';
 

@@ -17,7 +17,7 @@ If it has to include more than one interactive element, use the `<sbb-teaser-pro
 ## Slots
 
 Use the `image` slot to pass an `<sbb-image>` or an `img` that will be used as background.
-Optionally, you can add an overlapping `<sbb-chip-label>` by wrapping the `<sbb-image>` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
+Optionally, you can add an overlapping `<sbb-chip-label>` by wrapping the `<sbb-image>` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility-classes)).
 
 Use the optional `footnote` slot to add a text anchored to the bottom-end of the component.
 
@@ -48,7 +48,7 @@ to display the components with the correct spacings.
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium felis sit amet felis
     viverra lacinia. Donec et enim mi. Aliquam erat volutpat. Proin ut odio tellus.
   </p>
-  <sbb-button-static class="sbb-teaser-product--spacing">Label</sbb-button-static>
+  <sbb-button-static class="sbb-teaser-product--spacing" size="l">Label</sbb-button-static>
 </sbb-teaser-product>
 ```
 

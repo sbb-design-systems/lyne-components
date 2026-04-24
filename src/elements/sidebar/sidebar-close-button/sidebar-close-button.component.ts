@@ -1,10 +1,9 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbSecondaryButtonElement } from '../../button/secondary-button.ts';
-import { SbbLanguageController } from '../../core/controllers.ts';
-import { i18nCloseSidebar } from '../../core/i18n.ts';
+import { SbbSecondaryButtonElement } from '../../button.pure.ts';
+import { i18nCloseSidebar, SbbLanguageController } from '../../core.ts';
 
-import style from './sidebar-close-button.scss?lit&inline';
+import style from './sidebar-close-button.scss?inline';
 
 /**
  * Sidebar close button, intended to be placed inside sbb-sidebar.
@@ -14,7 +13,10 @@ import style from './sidebar-close-button.scss?lit&inline';
  */
 export class SbbSidebarCloseButtonElement extends SbbSecondaryButtonElement {
   public static override readonly elementName: string = 'sbb-sidebar-close-button';
-  public static override styles: CSSResultGroup = [SbbSecondaryButtonElement.styles, style];
+  public static override styles: CSSResultGroup = [
+    SbbSecondaryButtonElement.styles,
+    unsafeCSS(style),
+  ];
 
   private _languageController = new SbbLanguageController(this);
 

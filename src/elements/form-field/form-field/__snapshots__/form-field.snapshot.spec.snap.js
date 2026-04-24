@@ -45,11 +45,18 @@ snapshots["sbb-form-field renders input Shadow DOM"] =
         <slot>
         </slot>
       </div>
+      <sbb-icon
+        class="sbb-form-field__select-input-icon"
+        name="chevron-small-down-small"
+      >
+      </sbb-icon>
     </div>
     <slot name="suffix">
     </slot>
   </div>
-  <div class="sbb-form-field__error">
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
     <slot name="error">
     </slot>
   </div>
@@ -103,11 +110,18 @@ snapshots["sbb-form-field renders disabled input Shadow DOM"] =
         <slot>
         </slot>
       </div>
+      <sbb-icon
+        class="sbb-form-field__select-input-icon"
+        name="chevron-small-down-small"
+      >
+      </sbb-icon>
     </div>
     <slot name="suffix">
     </slot>
   </div>
-  <div class="sbb-form-field__error">
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
     <slot name="error">
     </slot>
   </div>
@@ -169,11 +183,18 @@ snapshots["sbb-form-field renders readonly input with error Shadow DOM"] =
         <slot>
         </slot>
       </div>
+      <sbb-icon
+        class="sbb-form-field__select-input-icon"
+        name="chevron-small-down-small"
+      >
+      </sbb-icon>
     </div>
     <slot name="suffix">
     </slot>
   </div>
-  <div class="sbb-form-field__error">
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
     <slot name="error">
     </slot>
   </div>
@@ -235,7 +256,9 @@ snapshots["sbb-form-field should render select without label Shadow DOM"] =
     <slot name="suffix">
     </slot>
   </div>
-  <div class="sbb-form-field__error">
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
     <slot name="error">
     </slot>
   </div>
@@ -308,7 +331,9 @@ snapshots["sbb-form-field renders select with optional flag and borderless Shado
     <slot name="suffix">
     </slot>
   </div>
-  <div class="sbb-form-field__error">
+  <div class="sbb-form-field__hint">
+    <slot name="hint">
+    </slot>
     <slot name="error">
     </slot>
   </div>

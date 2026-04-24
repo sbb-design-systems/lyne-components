@@ -1,4 +1,4 @@
-import type { Meta, StoryObj, ArgTypes, Args } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
@@ -13,8 +13,7 @@ import {
 
 import readme from './readme.md?raw';
 
-import '@sbb-esta/lyne-elements/button/button.js';
-import '@sbb-esta/lyne-elements/button/secondary-button.js';
+import '@sbb-esta/lyne-elements/button.js';
 import '../journey-summary.ts';
 
 const disableAnimation: InputType = {
@@ -97,8 +96,8 @@ const Template = ({ trip, tripBack, now, ...args }: Args): TemplateResult => htm
     ${sbbSpread(args)}
   >
     <div style="display: flex; padding-top: 24px; justify-content: space-between;" slot="content">
-      <sbb-secondary-button icon-name="context-menu-small"></sbb-secondary-button>
-      <sbb-button>Button label</sbb-button>
+      <sbb-secondary-button icon-name="context-menu-small" size="l"></sbb-secondary-button>
+      <sbb-button size="l">Button label</sbb-button>
     </div>
   </sbb-journey-summary>
 `;

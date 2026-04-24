@@ -16,7 +16,7 @@ import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import readme from './readme.md?raw';
 
 import '../link-list-anchor.ts';
-import '../link/block-link.ts';
+import '../link.ts';
 
 const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];
 

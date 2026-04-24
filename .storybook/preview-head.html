@@ -64,6 +64,14 @@
   .sb-show-main.sb-main-padded {
     padding: 2rem;
   }
+
+  .sbb-inline-story {
+    border: var(--sbb-border-width-1x) solid
+      light-dark(var(--sbb-color-aluminium), var(--sbb-color-anthracite));
+    padding: var(--sbb-spacing-fixed-6x);
+    border-radius: var(--sbb-border-radius-2x);
+    margin-block: var(--sbb-spacing-fixed-6x);
+  }
 </style>
 
 <script>
@@ -87,7 +95,7 @@
         max-width: fit-content;
       `;
       const a = document.createElement('a');
-      a.href = 'https://lyne-storybook.app.sbb.ch/';
+      a.href = 'https://lyne-elements.app.sbb.ch/';
       a.textContent = '(Create your own)';
 
       const button = document.createElement('button');

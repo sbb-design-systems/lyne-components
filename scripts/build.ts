@@ -49,6 +49,18 @@ const calculateGzipSize = async (content: string): Promise<number> =>
   (await gzipAsync(content)).length;
 const calculateBrotliSize = async (content: string): Promise<number> =>
   (await brotliAsync(content)).length;
+const result = ts.readConfigFile(join(projectRoot, 'tsconfig.json'), ts.sys.readFile);
+if (result.error) {
+  throw new Error(`Error reading tsconfig.json: ${result.error.messageText}`);
+}
+const options = ts.convertCompilerOptionsFromJson(result.config.compilerOptions, projectRoot);
+if (options.errors.length) {
+  throw new Error(
+    `Error parsing tsconfig.json: ${options.errors.map((e) => e.messageText).join(', ')}`,
+  );
+}
+const scriptTarget = options.options.target!;
+
 const { positionals } = parseArgs({ allowPositionals: true });
 const buildTargets = new Set(positionals);
 
@@ -81,6 +93,15 @@ type StepResult = void | Promise<void> | Disposable | Promise<Disposable>;
 
 interface Builder extends Disposable {
   build(): Promise<void>;
+}
+
+function asBuilder(action: () => void | Promise<void>): Builder {
+  return {
+    build: async () => {
+      await action();
+    },
+    [Symbol.dispose]() {},
+  };
 }
 
 class PackageBuilder implements Builder {
@@ -153,6 +174,7 @@ const reactExperimentalDevelopment = 'react-experimental:development';
 const reactExperimentalProduction = 'react-experimental:production';
 const storybook = 'storybook';
 const visualRegressionApp = 'visual-regression-app';
+const webshopFrontendCopy = 'webshop-frontend-copy';
 
 const expansions = {
   all: [
@@ -171,6 +193,17 @@ const expansions = {
   'elements-experimental': [elementsExperimentalProduction, elementsExperimentalDevelopment],
   react: [reactProduction, reactDevelopment],
   'react-experimental': [reactExperimentalProduction, reactExperimentalDevelopment],
+  'webshop-frontend': [
+    elementsDevelopment,
+    elementsProduction,
+    elementsExperimentalDevelopment,
+    elementsExperimentalProduction,
+    reactDevelopment,
+    reactProduction,
+    reactExperimentalDevelopment,
+    reactExperimentalProduction,
+    webshopFrontendCopy,
+  ],
 };
 
 const buildMap: Record<string, () => Builder> = {
@@ -223,6 +256,7 @@ const buildMap: Record<string, () => Builder> = {
     new PackageBuilder(storybook, [buildStorybook, buildNginxConfig, buildSizeStats]),
   [visualRegressionApp]: () => new PackageBuilder(visualRegressionApp, [buildApp]),
   ['nginx-conf']: () => new PackageBuilder(storybook, [buildNginxConfig]),
+  [webshopFrontendCopy]: () => asBuilder(copyIntoWebshopFrontend),
 };
 
 if (!buildTargets.size && !isCI) {
@@ -294,7 +328,7 @@ async function buildLibrary(pkg: PackageBuilder): Promise<void> {
           formats: ['es'],
         },
         outDir: pkg.outDir,
-        cssMinify: pkg.production,
+        cssMinify: pkg.production ? 'esbuild' : false,
         minify: pkg.production,
         emptyOutDir: false,
         sourcemap: pkg.production ? false : 'inline',
@@ -376,14 +410,11 @@ function dts(): Plugin {
       }
     },
     beforeWriteFile: (filePath, content) => {
-      if (content.includes('.scss?lit&inline') || content.includes('.scss?inline&lit')) {
+      if (content.includes('.scss?inline')) {
         return {
           filePath,
           // Remove lines with scss modules
-          content: content.replace(
-            /export \{[^}]+\}\s+from\s+'[^']+\.scss\?(lit&inline|inline&lit)';\n?/gm,
-            '',
-          ),
+          content: content.replace(/export \{[^}]+\}\s+from\s+'[^']+\.scss\?inline';\n?/gm, ''),
         };
       }
     },
@@ -407,7 +438,7 @@ function buildRootIndex(pkg: PackageBuilder): void {
     const content = readFileSync(file, 'utf8');
     if (content.includes('elementName')) {
       const moduleName = relative(pkg.root, file).split('/')[0];
-      const sourceFile = ts.createSourceFile(file, content, ts.ScriptTarget.ES2022, true);
+      const sourceFile = ts.createSourceFile(file, content, scriptTarget, true);
       const customElements = sourceFile.statements
         .filter(ts.isClassDeclaration)
         .filter((c) =>
@@ -417,16 +448,19 @@ function buildRootIndex(pkg: PackageBuilder): void {
               (p) =>
                 p.modifiers?.some((o) => o.kind === ts.SyntaxKind.StaticKeyword) &&
                 ts.isIdentifier(p.name) &&
-                p.name.text === 'elementName',
+                p.name.text === 'elementName' &&
+                p.initializer !== undefined,
             ),
         )
         .map((c) => (c.name && ts.isIdentifier(c.name) ? c.name.text : null))
         .filter((n): n is string => !!n)
         .sort();
-      customElementMap.set(
-        moduleName,
-        customElements.concat(customElementMap.get(moduleName) ?? []),
-      );
+      if (customElements.length) {
+        customElementMap.set(
+          moduleName,
+          customElements.concat(customElementMap.get(moduleName) ?? []),
+        );
+      }
     }
   }
 
@@ -476,7 +510,7 @@ function buildElementsStyles(pkg: PackageBuilder): void {
     },
     { inputName: 'core/styles/scrollbar.scss', outputName: 'scrollbar.css' },
     { inputName: 'core/styles/standard-theme.scss', outputName: 'standard-theme.css' },
-    { inputName: 'core/styles/table.scss', outputName: 'table.css' },
+    { inputName: 'table/table.global.scss', outputName: 'table.css' },
     { inputName: 'core/styles/timetable-form.scss', outputName: 'timetable-form.css' },
     { inputName: 'core/styles/typography.scss', outputName: 'typography.css' },
   ];
@@ -700,7 +734,7 @@ async function generateReactWrappers(pkg: PackageBuilder): Promise<Disposable> {
           .join('');
       if (dirname(dirEntryPoint) !== pkg.root) {
         content += `
-        
+
 console.warn(\`The entrypoint '@sbb-esta/${basename(pkg.root)}/${relative(pkg.root, dirEntryPoint).replace(/\.ts$/, '.js')}' has been deprecated.
 Use '@sbb-esta/${basename(pkg.root)}/${relative(pkg.root, dirEntryPoint).split('/')[0]}.js' instead.\`);
 `;
@@ -740,7 +774,7 @@ function renderTemplate(
       : `@sbb-esta/lyne-react/core.js`;
   const moduleParts = module.path.split('/');
   const moduleName = moduleParts[0];
-  const importPath = `${['button', 'link'].includes(moduleName) ? `${moduleName}/${moduleParts[1]}` : moduleName}.js`;
+  const importPath = `${moduleName}.pure.js`;
   const componentsImports = new Map<string, string[]>().set(importPath, [declaration.name]);
 
   if (declaration.events?.some((e) => !e.type)) {
@@ -765,12 +799,13 @@ function renderTemplate(
   // If a type or interface needs to be imported, the custom elements analyzer will not detect/extract these,
   // and therefore we need to have a manual list of required types/interfaces.
   const interfaces = new Map<string, string>()
-    .set('SbbOverlayCloseEventDetails', 'core/interfaces.js')
-    .set('SbbPaginatorPageEventDetails', 'core/interfaces.js')
-    .set('SeatReservationPlaceSelection', 'seat-reservation/common.js')
-    .set('SeatReservationSelectedCoach', 'seat-reservation/common.js')
-    .set('SeatReservationSelectedPlaces', 'seat-reservation/common.js')
-    .set('PlaceSelection', 'seat-reservation/common.js');
+    .set('SbbOverlayCloseEventDetails', 'core.js')
+    .set('SbbPaginatorPageEventDetails', 'core.js')
+    .set('SeatReservationPlaceSelection', 'seat-reservation.pure.js')
+    .set('SeatReservationSelectedCoach', 'seat-reservation.pure.js')
+    .set('SeatReservationSelectedPlaces', 'seat-reservation.pure.js')
+    .set('PlaceSelection', 'seat-reservation.pure.js')
+    .set('SbbPaginatorPageEventDetails', 'paginator.pure.js');
 
   // In case of properties that are not string, but can be used as a string attribute in
   // React (e.g. trigger), we need to patch the class property types to allow string as
@@ -936,7 +971,7 @@ async function buildSizeStats(pkg: PackageBuilder): Promise<void> {
       stats.jsBrotliSize += brotliSize;
       stats.jsGzipSize += gzipSize;
       stats.jsFiles[key] = { size, brotliSize, gzipSize };
-      const sourceFile = ts.createSourceFile(file, content, ts.ScriptTarget.ES2022, true);
+      const sourceFile = ts.createSourceFile(file, content, scriptTarget, true);
 
       let cssTaggedName = '';
       let cssSize = 0;
@@ -970,4 +1005,30 @@ async function buildSizeStats(pkg: PackageBuilder): Promise<void> {
   writeFileSync(join(pkg.outDir, 'lyne-stats.json'), JSON.stringify(stats, null, 2), 'utf8');
 
   console.log(`=> Built size stats in ${relative(projectRoot, pkg.outDir)}`);
+}
+
+function copyIntoWebshopFrontend(): void {
+  const webshopDir = resolve(projectRoot, '../webshop-frontend/');
+  if (!existsSync(webshopDir)) {
+    console.warn(
+      `=> webshop-frontend directory not found at ${relative(projectRoot, webshopDir)}. Skipping copy step.`,
+    );
+    return;
+  }
+
+  const packageMap = ['elements', 'elements-experimental', 'react', 'react-experimental'].reduce(
+    (map, name) => Object.assign(map, { [name]: `lyne-${name}` }),
+    {} as Record<string, string>,
+  );
+
+  for (const [localName, remoteName] of Object.entries(packageMap)) {
+    const sourceDir = join(projectRoot, 'dist', localName);
+    const targetDir = join(webshopDir, 'node_modules', '@sbb-esta', remoteName);
+    rmSync(targetDir, { recursive: true, force: true });
+    cpSync(sourceDir, targetDir, { recursive: true });
+    console.log(`=> Copied ${localName} to webshop-frontend`);
+  }
+
+  rmSync(join(webshopDir, '.next'), { recursive: true, force: true });
+  console.log(`=> Removed .next directory in webshop-frontend to ensure clean build`);
 }

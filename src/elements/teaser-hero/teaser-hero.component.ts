@@ -1,14 +1,18 @@
-import { type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import { SbbLinkBaseElement } from '../core/base-elements.ts';
-import { forceType, omitEmptyConverter } from '../core/decorators.ts';
-import { boxSizingStyles } from '../core/styles.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  omitEmptyConverter,
+  type SbbElementType,
+  SbbLinkBaseElement,
+} from '../core.ts';
+import { SbbBlockLinkStaticElement } from '../link.pure.ts';
+import { SbbTeaserPanelElement } from '../teaser-panel.pure.ts';
 
-import style from './teaser-hero.scss?lit&inline';
-
-import '../link/block-link-static.ts';
+import style from './teaser-hero.scss?inline';
 
 /**
  * It displays an image and an action call within a panel.
@@ -20,7 +24,11 @@ import '../link/block-link-static.ts';
  */
 export class SbbTeaserHeroElement extends SbbLinkBaseElement {
   public static override readonly elementName: string = 'sbb-teaser-hero';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbBlockLinkStaticElement,
+    SbbTeaserPanelElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /** Panel link text. */
   @forceType()
@@ -33,10 +41,9 @@ export class SbbTeaserHeroElement extends SbbLinkBaseElement {
 
   protected override renderTemplate(): TemplateResult {
     return html`
-      <span class="sbb-teaser-hero__panel">
-        <p class="sbb-teaser-hero__panel-text">
-          <slot></slot>
-        </p>
+      <slot name="image" @slotchange=${this._imageSlotChanged}></slot>
+      <sbb-teaser-panel>
+        <slot></slot>
         <sbb-block-link-static
           class="sbb-teaser-hero__panel-link"
           icon-name="chevron-small-right-small"
@@ -46,8 +53,7 @@ export class SbbTeaserHeroElement extends SbbLinkBaseElement {
         >
           <slot name="link-content">${this.linkContent}</slot>
         </sbb-block-link-static>
-      </span>
-      <slot name="image" @slotchange=${this._imageSlotChanged}></slot>
+      </sbb-teaser-panel>
     `;
   }
 }

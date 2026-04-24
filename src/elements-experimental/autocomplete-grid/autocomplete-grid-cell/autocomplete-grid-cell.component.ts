@@ -1,8 +1,7 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { type CSSResultGroup, html, type TemplateResult } from 'lit';
+import { boxSizingStyles, SbbElement } from '@sbb-esta/lyne-elements/core.js';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import style from './autocomplete-grid-cell.scss?lit&inline';
+import style from './autocomplete-grid-cell.scss?inline';
 
 /**
  * A wrapper component for autocomplete-grid action button.
@@ -12,7 +11,7 @@ import style from './autocomplete-grid-cell.scss?lit&inline';
 export class SbbAutocompleteGridCellElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-autocomplete-grid-cell';
   public static override readonly role = 'gridcell';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     return html`

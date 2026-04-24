@@ -3,24 +3,24 @@ import { sendKeys } from '@web/test-runner-commands';
 import type { TemplateResult } from 'lit';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
-import {
-  type SbbCheckboxElement,
-  type SbbCheckboxGroupElement,
-  SbbCheckboxPanelElement,
-} from '../checkbox.ts';
-import { isChromium } from '../core/dom.ts';
+import type { SbbCheckboxGroupElement } from '../checkbox-group.ts';
+import { SbbCheckboxPanelElement } from '../checkbox-panel.ts';
+import type { SbbCheckboxElement } from '../checkbox.ts';
 import { a11yTreeSnapshot, fixture, tabKey } from '../core/testing/private.ts';
 import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
-import {
-  type SbbRadioButtonElement,
-  type SbbRadioButtonGroupElement,
-  SbbRadioButtonPanelElement,
-} from '../radio-button.ts';
+import { isChromium } from '../core.ts';
+import type { SbbRadioButtonGroupElement } from '../radio-button-group.ts';
+import { SbbRadioButtonPanelElement } from '../radio-button-panel.ts';
+import type { SbbRadioButtonElement } from '../radio-button.ts';
 
 import { SbbSelectionExpansionPanelElement } from './selection-expansion-panel.component.ts';
 
-import '../link/block-link-button.ts';
+import '../checkbox.ts';
+import '../checkbox-group.ts';
+import '../link.ts';
 import '../selection-expansion-panel.ts';
+import '../radio-button.ts';
+import '../radio-button-group.ts';
 
 describe(`sbb-selection-expansion-panel`, () => {
   let elements: SbbSelectionExpansionPanelElement[];

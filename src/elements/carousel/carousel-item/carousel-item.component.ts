@@ -1,9 +1,8 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbElement } from '../../core/base-elements.ts';
+import { SbbElement } from '../../core.ts';
 
-import style from './carousel-item.scss?lit&inline';
+import style from './carousel-item.scss?inline';
 
 export interface SbbCarouselItemEventDetail {
   index: number;
@@ -18,7 +17,7 @@ export interface SbbCarouselItemEventDetail {
  */
 export class SbbCarouselItemElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-carousel-item';
-  public static override styles: CSSResultGroup = style;
+  public static override styles: CSSResultGroup = unsafeCSS(style);
   public static readonly events: Record<string, string> = {
     beforeshow: 'beforeshow',
     show: 'show',

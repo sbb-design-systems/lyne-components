@@ -1,6 +1,6 @@
 The `<sbb-autocomplete>` is a component that can be used to display a panel of suggested options connected to a text input.
 Use it when you need a basic autocomplete: a panel with a list of selectable and possibly grouped options.
-If you need buttons connected to the options, use the [sbb-autocomplete-grid](/docs/experimental-sbb-autocomplete-grid-sbb-autocomplete-grid--docs).
+If you need buttons connected to the options, use the [sbb-autocomplete-grid](/docs/experimental-autocomplete-grid--docs).
 
 It's possible to set the element to which the component's panel will be attached using the `origin` prop,
 and the input which will work as a trigger using the `trigger` prop.
@@ -205,12 +205,14 @@ align with the type information.
 
 #### Events
 
-| Name          | Type    | Description                                                                  | Inherited From          |
-| ------------- | ------- | ---------------------------------------------------------------------------- | ----------------------- |
-| `beforeclose` | `Event` | Emits whenever the component begins the closing transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `beforeopen`  | `Event` | Emits whenever the component starts the opening transition. Can be canceled. | SbbOpenCloseBaseElement |
-| `close`       | `Event` | Emits whenever the component is closed.                                      | SbbOpenCloseBaseElement |
-| `open`        | `Event` | Emits whenever the component is opened.                                      | SbbOpenCloseBaseElement |
+| Name          | Type         | Description                                                                                                                                                                                                      | Inherited From             |
+| ------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| `beforeclose` | `Event`      | Emits whenever the component begins the closing transition. Can be canceled.                                                                                                                                     | SbbOpenCloseBaseElement    |
+| `beforeopen`  | `Event`      | Emits whenever the component starts the opening transition. Can be canceled.                                                                                                                                     | SbbOpenCloseBaseElement    |
+| `change`      | `Event`      | The change event is fired on the autocomplete's trigger when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. | SbbAutocompleteBaseElement |
+| `close`       | `Event`      | Emits whenever the component is closed.                                                                                                                                                                          | SbbOpenCloseBaseElement    |
+| `input`       | `InputEvent` | The input event fires on the autocomplete's trigger when the value has been changed as a direct result of a user action.                                                                                         | SbbAutocompleteBaseElement |
+| `open`        | `Event`      | Emits whenever the component is opened.                                                                                                                                                                          | SbbOpenCloseBaseElement    |
 
 #### CSS Properties
 

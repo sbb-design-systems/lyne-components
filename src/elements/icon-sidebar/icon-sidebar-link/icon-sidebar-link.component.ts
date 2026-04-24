@@ -1,10 +1,9 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 
-import { SbbLinkBaseElement } from '../../core/base-elements.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+import { boxSizingStyles, SbbLinkBaseElement } from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 import { iconSidebarButtonCommonStyle } from '../../sidebar/common/styles.ts';
-import type { SbbTooltipDefaultPositions } from '../../tooltip.ts';
+import type { SbbTooltipDefaultPositions } from '../../tooltip.pure.ts';
 
 /**
  * Link to be placed inside `sbb-icon-sidebar`.

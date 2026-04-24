@@ -1,8 +1,19 @@
-import { SbbButtonBaseElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
-import { type CSSResultGroup, html, nothing, type TemplateResult, type PropertyValues } from 'lit';
+import {
+  boxSizingStyles,
+  forceType,
+  SbbButtonBaseElement,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbScreenReaderOnlyElement,
+} from '@sbb-esta/lyne-elements/core.js';
+import {
+  type CSSResultGroup,
+  html,
+  nothing,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -10,9 +21,7 @@ import { getI18nSeatReservation } from '../common/translations.ts';
 import type { PlaceSelection, PlaceState, PlaceType, TravelDirection } from '../common/types.ts';
 import { SbbSeatReservationGraphicElement } from '../seat-reservation-graphic/seat-reservation-graphic.component.ts';
 
-import style from './seat-reservation-place-control.scss?lit&inline';
-
-SbbSeatReservationGraphicElement.define();
+import style from './seat-reservation-place-control.scss?inline';
 
 type TravelDirectionI18nKey =
   | 'TRAVEL_DIRECTION_IN_DIRECTION'
@@ -24,7 +33,11 @@ type TravelDirectionI18nKey =
  */
 export class SbbSeatReservationPlaceControlElement extends SbbButtonBaseElement {
   public static override readonly elementName: string = 'sbb-seat-reservation-place-control';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbSeatReservationGraphicElement,
+    SbbScreenReaderOnlyElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   public static readonly events = {
     selectplace: 'selectplace',
   } as const;

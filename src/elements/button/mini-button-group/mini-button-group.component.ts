@@ -1,16 +1,24 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { html } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { forceType } from '../../core/decorators.ts';
-import { isLean } from '../../core/dom.ts';
-import { SbbNamedSlotListMixin, SbbNegativeMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  isLean,
+  SbbElement,
+  SbbNamedSlotListMixin,
+  SbbNegativeMixin,
+} from '../../core.ts';
 import type { SbbDividerElement } from '../../divider/divider.component.ts';
 import type { SbbMiniButtonElement } from '../mini-button/mini-button.component.ts';
 
-import style from './mini-button-group.scss?lit&inline';
+import style from './mini-button-group.scss?inline';
 
 export type SbbMiniButtonGroupSize = 's' | 'm' | 'l' | 'xl';
 
@@ -24,7 +32,7 @@ export class SbbMiniButtonGroupElement extends SbbNegativeMixin(
   SbbNamedSlotListMixin<SbbMiniButtonElement, typeof SbbElement>(SbbElement),
 ) {
   public static override readonly elementName: string = 'sbb-mini-button-group';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
   protected override readonly listChildLocalNames = [
     'sbb-mini-button',
     'sbb-mini-button-link',

@@ -1,13 +1,22 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
-import { type CSSResultGroup, html, type PropertyValues, type TemplateResult } from 'lit';
+import {
+  type CSSResultGroup,
+  html,
+  type PropertyValues,
+  type TemplateResult,
+  unsafeCSS,
+} from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../../core/base-elements.ts';
-import { isLean, isZeroAnimationDuration } from '../../core/dom.ts';
-import { SbbUpdateSchedulerMixin } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
+import {
+  boxSizingStyles,
+  isLean,
+  isZeroAnimationDuration,
+  SbbElement,
+  SbbUpdateSchedulerMixin,
+} from '../../core.ts';
 
-import style from './sticky-bar.scss?lit&inline';
+import style from './sticky-bar.scss?inline';
 
 type StickyState = 'sticking' | 'sticky' | 'unsticking' | 'unsticky';
 
@@ -24,7 +33,7 @@ type StickyState = 'sticking' | 'sticky' | 'unsticking' | 'unsticky';
  */
 export class SbbStickyBarElement extends SbbUpdateSchedulerMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-sticky-bar';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   public static readonly events = {
     beforestick: 'beforestick',

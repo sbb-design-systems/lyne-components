@@ -3,8 +3,8 @@ import type {
   ArgTypes,
   Decorator,
   Meta,
-  StoryObj,
   StoryContext,
+  StoryObj,
 } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
@@ -19,7 +19,7 @@ import readme from './readme.md?raw';
 import type { SbbTimeInputElement } from './time-input.component.ts';
 
 import '../time-input.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../form-field.ts';
 
 const updateOutput = (timeInput: SbbTimeInputElement): void => {
@@ -220,12 +220,10 @@ const TemplateSbbTimeInput = ({
       })}
     >
       <div style="display: flex; gap: 1em; margin-block-start: 2rem;">
-        <sbb-secondary-button size="m" @click=${setValueAsDate}>
+        <sbb-secondary-button @click=${setValueAsDate}>
           Set valueAsDate to current time
         </sbb-secondary-button>
-        <sbb-secondary-button size="m" @click=${setValue}>
-          Set value to 00:00
-        </sbb-secondary-button>
+        <sbb-secondary-button @click=${setValue}> Set value to 00:00 </sbb-secondary-button>
       </div>
       <p style="margin-block-start: 1rem;">
         Time in input:

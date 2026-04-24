@@ -2,10 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-overlay renders DOM"] = 
-`<sbb-overlay
-  id="sbb-overlay-0"
-  popover="manual"
->
+`<sbb-overlay popover="manual">
 </sbb-overlay>
 `;
 /* end snapshot sbb-overlay renders DOM */
@@ -22,7 +19,6 @@ snapshots["sbb-overlay renders Shadow DOM"] =
           sbb-overlay-close=""
           size="m"
           tabindex="0"
-          type="button"
         >
         </sbb-secondary-button>
       </div>

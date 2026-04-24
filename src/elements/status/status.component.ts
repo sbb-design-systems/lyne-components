@@ -1,13 +1,11 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement } from '../core/base-elements.ts';
-import { boxSizingStyles } from '../core/styles.ts';
-import { SbbIconNameMixin } from '../icon.ts';
-import type { SbbTitleElement } from '../title.ts';
+import { boxSizingStyles, SbbElement } from '../core.ts';
+import { SbbIconNameMixin } from '../icon.pure.ts';
+import type { SbbTitleElement } from '../title.pure.ts';
 
-import style from './status.scss?lit&inline';
+import style from './status.scss?inline';
 
 export type SbbStatusType =
   | 'info'
@@ -32,7 +30,7 @@ export type SbbStatusType =
  */
 export class SbbStatusElement extends SbbIconNameMixin(SbbElement) {
   public static override readonly elementName: string = 'sbb-status';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   private readonly _statusTypes: Map<SbbStatusType, string> = new Map([
     ['info', 'circle-information-small'],

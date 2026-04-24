@@ -1,32 +1,39 @@
-import { SbbElement } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import { SbbLanguageController } from '@sbb-esta/lyne-elements/core/controllers.js';
-import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
-import { forceType } from '@sbb-esta/lyne-elements/core/decorators.js';
 import {
+  boxSizingStyles,
+  defaultDateAdapter,
+  forceType,
   i18nArrival,
   i18nDeparture,
   i18nTransferProcedures,
-} from '@sbb-esta/lyne-elements/core/i18n.js';
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+} from '@sbb-esta/lyne-elements/core.js';
+import { SbbIconElement } from '@sbb-esta/lyne-elements/icon.pure.js';
 import { format } from 'date-fns';
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { html, nothing } from 'lit';
+import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { removeTimezoneFromISOTimeString } from '../core/datetime.ts';
-import type { Leg, PtRideLeg } from '../core/timetable.ts';
-import { getDepartureArrivalTimeAttribute, isRideLeg } from '../core/timetable.ts';
+import type { Leg, PtRideLeg } from '../core.ts';
+import {
+  getDepartureArrivalTimeAttribute,
+  isRideLeg,
+  removeTimezoneFromISOTimeString,
+} from '../core.ts';
+import { SbbPearlChainElement } from '../pearl-chain.pure.ts';
 
-import style from './pearl-chain-time.scss?lit&inline';
-
-import '../pearl-chain.ts';
+import style from './pearl-chain-time.scss?inline';
 
 /**
  * Combined with `sbb-pearl-chain`, it displays walk time information.
  */
 export class SbbPearlChainTimeElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-pearl-chain-time';
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override elementDependencies: SbbElementType[] = [
+    SbbIconElement,
+    SbbPearlChainElement,
+  ];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   /**
    * define the legs of the pearl-chain.

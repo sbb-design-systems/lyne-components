@@ -1,10 +1,11 @@
-import type { Meta, StoryObj, ArgTypes, Args, StoryContext } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Meta, StoryContext, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
+import type { SbbChipLabelElement } from './chip-label.component.ts';
 import readme from './readme.md?raw';
 
 import '../chip-label.ts';
@@ -13,14 +14,14 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['xxs', 'xs', 's'],
+  options: ['xxxs', 'xxs', 'xs', 's'] satisfies SbbChipLabelElement['size'][],
 };
 
 const color: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['milk', 'charcoal', 'white', 'granite'],
+  options: ['milk', 'charcoal', 'white', 'granite'] satisfies SbbChipLabelElement['color'][],
 };
 
 const label: InputType = {
@@ -49,15 +50,16 @@ const TemplateFixedWidth = ({ label, ...args }: Args): TemplateResult => html`
   <sbb-chip-label ${sbbSpread(args)} style="width: 10rem;"> ${label} </sbb-chip-label>
 `;
 
-export const MilkXXS: StoryObj = {
+export const XXXS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
+    size: size.options![0],
   },
 };
 
-export const MilkXS: StoryObj = {
+export const XXS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
@@ -66,12 +68,21 @@ export const MilkXS: StoryObj = {
   },
 };
 
-export const MilkS: StoryObj = {
+export const XS: StoryObj = {
   render: Template,
   argTypes: defaultArgTypes,
   args: {
     ...defaultArgs,
     size: size.options![2],
+  },
+};
+
+export const S: StoryObj = {
+  render: Template,
+  argTypes: defaultArgTypes,
+  args: {
+    ...defaultArgs,
+    size: size.options![3],
   },
 };
 

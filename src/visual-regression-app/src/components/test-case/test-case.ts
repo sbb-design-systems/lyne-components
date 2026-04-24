@@ -1,4 +1,4 @@
-import { boxSizingStyles } from '@sbb-esta/lyne-elements/core/styles.js';
+import { boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
 import {
   type CSSResultGroup,
@@ -7,15 +7,16 @@ import {
   nothing,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 import { screenshots, type ScreenshotTestCase } from '../../screenshots.ts';
 
 import type { TestCaseFilter } from './test-case-filter/test-case-filter.ts';
-import style from './test-case.scss?lit&inline';
+import style from './test-case.scss?inline';
 
-import '@sbb-esta/lyne-elements/button/secondary-button-link.js';
+import '@sbb-esta/lyne-elements/button.js';
 import '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/container.js';
 import '@sbb-esta/lyne-elements/header.js';
@@ -38,7 +39,7 @@ interface Filter {
 export
 @customElement('app-test-case')
 class TestCase extends LitElement {
-  public static override styles: CSSResultGroup = [boxSizingStyles, style];
+  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
   @property({ attribute: false }) public accessor params: {
     componentName: string;

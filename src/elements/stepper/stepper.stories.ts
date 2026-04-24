@@ -6,15 +6,14 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 import type { SbbErrorElement } from '../form-field.ts';
-import { SbbStepElement, type SbbStepValidateEventDetails, SbbStepperElement } from '../stepper.ts';
+import { SbbStepElement, SbbStepperElement, type SbbStepValidateEventDetails } from '../stepper.ts';
 
 import readme from './readme.md?raw';
 
-import '../button/button.ts';
-import '../button/secondary-button.ts';
+import '../button.ts';
 import '../card.ts';
 import '../form-field.ts';
-import '../link/block-link-button.ts';
+import '../link.ts';
 import '../stepper.ts';
 
 const loremIpsum = `
@@ -154,13 +153,11 @@ const stepperContent = (disabled: boolean, longLabel: boolean): TemplateResult[]
           content${longLabel ? '.' : `: ${loremIpsum.substring(0, loremIpsumSubstring[index])}`}
         </div>
         ${index !== 0
-          ? html`<sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>`
+          ? html`<sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>`
           : nothing}
-        ${index !== arr.length - 1
-          ? html`<sbb-button size="m" sbb-stepper-next>Next</sbb-button>`
-          : nothing}
+        ${index !== arr.length - 1 ? html`<sbb-button sbb-stepper-next>Next</sbb-button>` : nothing}
         ${index === arr.length - 1
-          ? html`<sbb-button size="m" sbb-stepper-next>Submit</sbb-button>`
+          ? html`<sbb-button sbb-stepper-next>Submit</sbb-button>`
           : nothing}
       </sbb-step>
     `,
@@ -206,14 +203,14 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
           <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
             ${firstFormElement(error)}
           </div>
-          <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+          <sbb-button sbb-stepper-next>Next</sbb-button>
         </sbb-step>
 
         <sbb-step-label>Step 2</sbb-step-label>
         <sbb-step>
           <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">${secondFormElement()}</div>
-          <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
-          <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+          <sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>
+          <sbb-button sbb-stepper-next>Next</sbb-button>
         </sbb-step>
 
         <sbb-step-label>
@@ -222,8 +219,8 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
         </sbb-step-label>
         <sbb-step>
           <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">${thirdFormElement()}</div>
-          <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
-          <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+          <sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>
+          <sbb-button sbb-stepper-next>Next</sbb-button>
         </sbb-step>
 
         <sbb-step-label icon-name="tick-small">Step 4</sbb-step-label>
@@ -236,8 +233,8 @@ const WithSingleFormTemplate = (args: Args): TemplateResult => {
           >
             You are now done.
           </div>
-          <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
-          <sbb-button type="submit" size="m" sbb-stepper-next>Submit</sbb-button>
+          <sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>
+          <sbb-button type="submit" sbb-stepper-next>Submit</sbb-button>
           <sbb-block-link-button
             type="reset"
             style="display: inline-block; margin-inline-start: var(--sbb-spacing-fixed-2x); vertical-align: middle;"
@@ -292,7 +289,7 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
             ${firstFormElement(error)}
           </form>
         </div>
-        <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+        <sbb-button sbb-stepper-next>Next</sbb-button>
       </sbb-step>
 
       <sbb-step-label>Step 2</sbb-step-label>
@@ -300,8 +297,8 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
         <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
           <form>${secondFormElement()}</form>
         </div>
-        <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
-        <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+        <sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>
+        <sbb-button sbb-stepper-next>Next</sbb-button>
       </sbb-step>
 
       <sbb-step-label icon-name="dog-small">Step 3</sbb-step-label>
@@ -309,8 +306,8 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
         <div style="margin-block-end: var(--sbb-spacing-fixed-4x)">
           <form>${thirdFormElement()}</form>
         </div>
-        <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
-        <sbb-button size="m" sbb-stepper-next>Next</sbb-button>
+        <sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>
+        <sbb-button sbb-stepper-next>Next</sbb-button>
       </sbb-step>
 
       <sbb-step-label icon-name="tick-small">Step 4</sbb-step-label>
@@ -323,8 +320,8 @@ const WithMultipleFormsTemplate = (args: Args): TemplateResult => {
         >
           You are now done.
         </div>
-        <sbb-secondary-button size="m" sbb-stepper-previous>Back</sbb-secondary-button>
-        <sbb-button size="m" sbb-stepper-next>Submit</sbb-button>
+        <sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>
+        <sbb-button sbb-stepper-next>Submit</sbb-button>
         <sbb-block-link-button
           style="display: inline-block; margin-inline-start: var(--sbb-spacing-fixed-2x); vertical-align: middle;"
           icon-name="arrow-circle-small"

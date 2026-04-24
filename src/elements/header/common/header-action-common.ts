@@ -1,14 +1,12 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement } from '../../core/base-elements.ts';
-import type { SbbHorizontalFrom } from '../../core/interfaces.ts';
-import type { AbstractConstructor } from '../../core/mixins.ts';
-import { boxSizingStyles } from '../../core/styles.ts';
-import { SbbIconNameMixin } from '../../icon.ts';
+import type { AbstractConstructor, SbbActionBaseElement, SbbHorizontalFrom } from '../../core.ts';
+import { boxSizingStyles } from '../../core.ts';
+import { SbbIconNameMixin } from '../../icon.pure.ts';
 
-import style from './header-action.scss?lit&inline';
+import style from './header-action.scss?inline';
 
 export declare class SbbHeaderActionCommonElementMixinType extends SbbIconNameMixin(
   SbbActionBaseElement,
@@ -26,13 +24,14 @@ export const SbbHeaderActionCommonElementMixin = <
     extends SbbIconNameMixin(superClass)
     implements Partial<SbbHeaderActionCommonElementMixinType>
   {
-    public static styles: CSSResultGroup = [boxSizingStyles, style];
+    public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
 
     /**
      * Used to set the minimum breakpoint from which the text is displayed.
      * E.g. if set to 'large', the text will be visible for breakpoints large and ultra,
      * and hidden for all the others. Ignored if no icon is set.
      */
+    // TODO: Needs a breaking change to work with the 'no-default-reflect' behavior
     @property({ attribute: 'expand-from', reflect: true })
     public accessor expandFrom: SbbHorizontalFrom = 'large';
 

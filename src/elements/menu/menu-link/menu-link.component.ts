@@ -1,5 +1,4 @@
-import { SbbLinkBaseElement } from '../../core/base-elements.ts';
-import { SbbDisabledInteractiveMixin } from '../../core/mixins.ts';
+import { SbbDisabledInteractiveMixin, SbbLinkBaseElement } from '../../core.ts';
 import { SbbMenuActionCommonElementMixin } from '../common/menu-action-common.ts';
 
 /**

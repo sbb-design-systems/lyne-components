@@ -6,7 +6,7 @@ import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
-import images from '../core/images.ts';
+import { sampleImages } from '../core/images.private.ts';
 
 import { SbbImageElement } from './image.component.ts';
 import readme from './readme.md?raw';
@@ -61,7 +61,7 @@ const imageSrc: InputType = {
   control: {
     type: 'select',
   },
-  options: images,
+  options: sampleImages,
 };
 
 const borderRadius: InputType = {

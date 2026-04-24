@@ -12,6 +12,7 @@ import '../form-field.ts';
 import '../icon.ts';
 import '../radio-button.ts';
 import '../radio-button-group.ts';
+import '../radio-button-panel.ts';
 
 const cases = {
   disabled: [false, true],

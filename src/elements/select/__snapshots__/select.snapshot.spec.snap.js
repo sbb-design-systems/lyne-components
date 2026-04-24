@@ -33,8 +33,6 @@ snapshots["sbb-select renders Safari Shadow DOM"] =
   aria-hidden="true"
   class="sbb-select__trigger"
 >
-  <span class="sbb-select__trigger--placeholder">
-  </span>
 </div>
 <div class="sbb-select__gap-fix">
 </div>
@@ -106,8 +104,6 @@ snapshots["sbb-select renders multiple Safari Shadow DOM"] =
   aria-hidden="true"
   class="sbb-select__trigger"
 >
-  <span class="sbb-select__trigger--placeholder">
-  </span>
 </div>
 <div class="sbb-select__gap-fix">
 </div>
@@ -167,8 +163,6 @@ snapshots["sbb-select renders Chrome-Firefox Shadow DOM"] =
   aria-hidden="true"
   class="sbb-select__trigger"
 >
-  <span class="sbb-select__trigger--placeholder">
-  </span>
 </div>
 <div class="sbb-select__gap-fix">
 </div>
@@ -257,8 +251,6 @@ snapshots["sbb-select renders multiple Chrome-Firefox Shadow DOM"] =
   aria-hidden="true"
   class="sbb-select__trigger"
 >
-  <span class="sbb-select__trigger--placeholder">
-  </span>
 </div>
 <div class="sbb-select__gap-fix">
 </div>

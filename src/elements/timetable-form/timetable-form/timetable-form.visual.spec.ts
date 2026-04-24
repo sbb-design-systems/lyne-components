@@ -6,7 +6,8 @@ import {
   visualDiffFocus,
 } from '../../core/testing/private.ts';
 
-import '../../button/button.ts';
+import '../../button.ts';
+import '../../date-input.ts';
 import '../../datepicker.ts';
 import '../../divider.ts';
 import '../../form-field.ts';
@@ -78,7 +79,7 @@ const timetableDetails = (opt: { expandedDatepicker?: boolean } = {}): TemplateR
       <sbb-toggle-option value="arrival">Arr</sbb-toggle-option>
     </sbb-toggle>
     <div style="flex-grow: 1;"></div>
-    <sbb-button type="submit" size="m">Search</sbb-button>
+    <sbb-button type="submit">Search</sbb-button>
   </sbb-timetable-form-details>
 `;
 

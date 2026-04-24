@@ -2,9 +2,9 @@ import { assert, expect } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { SbbCalendarElement } from '../../calendar.ts';
-import { defaultDateAdapter } from '../../core/datetime.ts';
 import { elementInternalsSpy, fixture } from '../../core/testing/private.ts';
 import { waitForLitRender } from '../../core/testing.ts';
+import { defaultDateAdapter } from '../../core.ts';
 
 import { SbbCalendarDayElement } from './calendar-day.component.ts';
 import { createSlottedDays } from './calendar-day.helper.private.ts';
@@ -29,7 +29,7 @@ describe('sbb-calendar-day', () => {
     assert.instanceOf(todayElement, SbbCalendarDayElement);
   });
 
-  it('should have the right properties on todayElement', async () => {
+  it('should have the correct properties on todayElement', async () => {
     expect(todayElement).to.match(':state(current)');
     expect(todayElement).not.to.match(':state(crossed-out)');
     expect(todayElement).not.to.match(':state(selected)');
