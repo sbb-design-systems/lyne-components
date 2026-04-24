@@ -171,6 +171,24 @@ It's possible to display the component in `negative` variant using the self-name
 </sbb-dialog>
 ```
 
+The dialog takes the full width and adapts its height to the slotted content;
+starting from small breakpoint, the width adapts to the content too.
+
+To configure the dialog dimension, consumers can set the dimensions on the slotted content,
+e.g. setting the width or height on the `<sbb-dialog-content>` element.
+
+```html
+<style>
+  sbb-dialog-content {
+    height: 480px;
+  }
+</style>
+<sbb-dialog>
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+</sbb-dialog>
+```
+
 ## Accessibility
 
 We recommend to place at maximum two actions in the `<sbb-dialog-actions>` component.
