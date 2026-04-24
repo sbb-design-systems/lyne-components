@@ -260,9 +260,7 @@ const stickyBarArgs: Args = {
 
 const actionGroup = (): TemplateResult => html`
   <sbb-action-group
-    align-group="stretch"
-    orientation="vertical"
-    horizontal-from="large"
+    class="sbb-action-group-vertical-full-width sbb-action-group-horizontal-from-large"
     button-size="l"
     style="width:100%;"
   >

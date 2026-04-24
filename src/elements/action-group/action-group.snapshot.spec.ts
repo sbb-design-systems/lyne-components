@@ -15,7 +15,7 @@ describe(`sbb-action-group`, () => {
 
     beforeEach(async () => {
       element = await fixture(html`
-        <sbb-action-group align-group="start" orientation="horizontal">
+        <sbb-action-group>
           <sbb-secondary-button>Button</sbb-secondary-button>
           <sbb-block-link
             icon-name="chevron-small-left-small"
