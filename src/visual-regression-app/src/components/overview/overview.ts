@@ -43,9 +43,8 @@ class Overview extends LitElement {
           ${screenshots.stats}
           <sbb-card color="milk">
             <sbb-action-group
-              align-group="stretch"
-              orientation="vertical"
-              horizontal-from="large"
+              style="--sbb-action-group-justify-content: space-between"
+              class="sbb-action-group-horizontal-from-large"
               button-size="s"
               link-size="s"
             >
