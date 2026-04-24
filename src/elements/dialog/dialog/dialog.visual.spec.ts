@@ -36,8 +36,11 @@ describe(`sbb-dialog`, () => {
     </sbb-dialog-content>
   `;
 
-  const dialogFooter = (negative = false, alignGroup = 'stretch'): TemplateResult => html`
-    <sbb-dialog-actions align-group=${alignGroup} orientation="vertical" horizontal-from="large">
+  const dialogFooter = (negative = false, alignGroup = 'space-between'): TemplateResult => html`
+    <sbb-dialog-actions
+      style=${`--sbb-action-group-justify-content: ${alignGroup}`}
+      class="sbb-action-group-horizontal-from-large"
+    >
       <sbb-block-link
         align-self="start"
         icon-name="chevron-small-left-small"
