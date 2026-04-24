@@ -104,6 +104,9 @@ $theme: 'standard' !default;
   expansion-panel-header with (
   $theme: $theme
 );
+@use '../../file-selector/common/file-selector.global' as file-selector with (
+  $theme: $theme
+);
 @use '../../flip-card/flip-card/flip-card.global' as flip-card with (
   $theme: $theme
 );
@@ -340,6 +343,7 @@ $theme: 'standard' !default;
   @include expansion-panel.base;
   @include expansion-panel-content.base;
   @include expansion-panel-header.base;
+  @include file-selector.base;
   @include flip-card.base;
   @include flip-card-details.base;
   @include footer.base;
@@ -487,7 +491,6 @@ $theme: 'standard' !default;
     @include alert.base-breakpoint-large;
     @include button.base-breakpoint-large;
     @include chip-group.base-breakpoint-large;
-    @include dialog.base-breakpoint-large;
     @include flip-card.base-breakpoint-large;
     @include form-field.base-breakpoint-large;
     @include header.base-breakpoint-large;

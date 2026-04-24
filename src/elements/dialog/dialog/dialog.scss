@@ -15,13 +15,6 @@
   position: fixed;
   inset: var(--sbb-dialog-inset);
   z-index: var(--sbb-dialog-z-index, var(--sbb-overlay-default-z-index));
-
-  @include sbb.mq($from: large) {
-    --sbb-dialog-max-width: min(
-      calc(100vw - var(--sbb-spacing-fixed-30x) * 2),
-      var(--sbb-dialog-max-width-default)
-    );
-  }
 }
 
 :host(:state(top-shadow)) {
@@ -35,11 +28,8 @@
 :host(:is(:state(state-opening), :state(state-opened))) {
   --sbb-dialog-pointer-events: all;
   --sbb-dialog-backdrop-color: var(--sbb-background-color-3);
-
-  @include sbb.mq($from: large) {
-    --sbb-dialog-backdrop-visibility: visible;
-    --sbb-dialog-backdrop-pointer-events: all;
-  }
+  --sbb-dialog-backdrop-visibility: visible;
+  --sbb-dialog-backdrop-pointer-events: all;
 }
 
 :host([backdrop='translucent']:is(:state(state-opening), :state(state-opened))) {
@@ -72,15 +62,18 @@
 }
 
 :host(:not(:state(state-closed))) {
-  --sbb-dialog-inset: 0;
+  --sbb-dialog-inset-block: 0;
+  --sbb-dialog-inset-inline: 0;
 }
 
 .sbb-dialog__container {
   pointer-events: var(--sbb-dialog-pointer-events);
   display: flex;
+  justify-content: center;
   align-items: center;
   position: fixed;
-  inset: var(--sbb-dialog-inset);
+  inset-block: var(--sbb-dialog-inset-block);
+  inset-inline: var(--sbb-dialog-inset-inline);
 
   // Dialog backdrop (not visible on mobile)
   &::before {
@@ -88,7 +81,8 @@
     visibility: var(--sbb-dialog-backdrop-visibility);
     pointer-events: var(--sbb-dialog-backdrop-pointer-events);
     position: fixed;
-    inset: var(--sbb-dialog-inset);
+    inset-block: var(--sbb-dialog-inset-block);
+    inset-inline: var(--sbb-dialog-inset-inline);
     background-color: var(--sbb-dialog-backdrop-color);
     transition: {
       duration: var(--sbb-dialog-animation-duration);
@@ -102,11 +96,9 @@
   display: none;
   position: absolute;
   inset-inline: 0;
-  margin: auto;
-  padding: 0;
+  inset-block: auto 0;
   border: none;
-  width: var(--sbb-dialog-width);
-  height: var(--sbb-dialog-height);
+  border-radius: var(--sbb-dialog-border-radius) var(--sbb-dialog-border-radius) 0 0;
   max-width: var(--sbb-dialog-max-width);
   max-height: var(--sbb-dialog-max-height);
   color: var(--_sbb-dialog-color);
@@ -131,19 +123,23 @@
     outline: var(--sbb-border-width-1x) solid CanvasText;
   }
 
-  @include sbb.mq($from: large) {
+  @include sbb.mq($from: small) {
+    height: var(--sbb-dialog-height);
+    width: var(--sbb-dialog-width);
+    inset: unset;
     border-radius: var(--sbb-dialog-border-radius);
     overflow: hidden;
-    height: auto;
   }
 }
 
 :host(:state(has-intermediate-element)) ::slotted(:first-child),
 .sbb-dialog__wrapper {
-  width: var(--sbb-dialog-width);
-  height: var(--sbb-dialog-height);
-  max-width: var(--sbb-dialog-max-width);
   max-height: var(--sbb-dialog-max-height);
+
+  @include sbb.mq($from: small) {
+    width: var(--sbb-dialog-width);
+    height: var(--sbb-dialog-height);
+  }
 }
 
 :host(:state(has-intermediate-element)) ::slotted(:first-child),
@@ -162,23 +158,23 @@
 @keyframes open {
   from {
     opacity: 0;
-    translate: 0 var(--sbb-spacing-fixed-4x);
+    translate: 0 var(--sbb-dialog-translate-y, 100%);
   }
 
   to {
     opacity: 1;
-    translate: 0;
+    translate: 0 0;
   }
 }
 
 @keyframes close {
   from {
     opacity: 1;
-    translate: 0;
+    translate: 0 0;
   }
 
   to {
     opacity: 0;
-    translate: 0 var(--sbb-spacing-fixed-4x);
+    translate: 0 var(--sbb-dialog-translate-y, 100%);
   }
 }
