@@ -1,4 +1,4 @@
-import { html, type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import { SbbElement } from '../base-elements/element.ts';
 

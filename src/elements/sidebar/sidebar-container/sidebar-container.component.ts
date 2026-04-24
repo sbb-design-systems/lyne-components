@@ -7,7 +7,7 @@ import {
   unsafeCSS,
 } from 'lit';
 
-import { ɵstateController, SbbElement, boxSizingStyles } from '../../core.ts';
+import { boxSizingStyles, SbbElement, ɵstateController } from '../../core.ts';
 import { sidebarContainerCommonStyle } from '../common/styles.ts';
 import type { SbbSidebarElement } from '../sidebar/sidebar.component.ts';
 

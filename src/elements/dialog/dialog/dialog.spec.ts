@@ -46,7 +46,7 @@ describe('sbb-dialog', () => {
     beforeEach(async () => {
       await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
       element = await fixture(html`
-        <sbb-dialog id="my-dialog-1">
+        <sbb-dialog>
           <sbb-dialog-title>Title</sbb-dialog-title>
           <sbb-dialog-content>Dialog content</sbb-dialog-content>
           <sbb-dialog-actions>
@@ -268,7 +268,7 @@ describe('sbb-dialog', () => {
 
     it('closes stacked dialogs one by one on ESC key pressed', async () => {
       element = await fixture(html`
-        <sbb-dialog id="my-dialog-3">
+        <sbb-dialog>
           <sbb-dialog-title>Title</sbb-dialog-title>
           <sbb-dialog-content>Dialog content</sbb-dialog-content>
           <sbb-dialog-actions>Action group</sbb-dialog-actions>
@@ -369,11 +369,11 @@ describe('sbb-dialog', () => {
     it('does not close the dialog on other overlay click', async () => {
       await setViewport({ width: sbbBreakpointLargeMinPx, height: 600 });
       element = await fixture(html`
-        <sbb-dialog id="my-dialog-4">
+        <sbb-dialog>
           <sbb-dialog-title>Title</sbb-dialog-title>
           <sbb-dialog-content>Dialog content</sbb-dialog-content>
 
-          <sbb-dialog id="inner-dialog">
+          <sbb-dialog>
             <sbb-dialog-title>Inner Dialog title</sbb-dialog-title>
             <sbb-dialog-content>Dialog content</sbb-dialog-content>
           </sbb-dialog>
@@ -527,7 +527,7 @@ describe('sbb-dialog', () => {
 
     it('init with HtmlElement as trigger', async () => {
       trigger = await fixture(html`<sbb-button id="dialog-trigger">Menu trigger</sbb-button>`);
-      element = await fixture(html`<sbb-dialog id="dialog" .trigger=${trigger}></sbb-dialog>`);
+      element = await fixture(html`<sbb-dialog .trigger=${trigger}></sbb-dialog>`);
 
       const beforeOpenSpy = new EventSpy(SbbDialogElement.events.beforeopen, element);
       const openSpy = new EventSpy(SbbDialogElement.events.open, element);
@@ -581,7 +581,7 @@ describe('sbb-dialog', () => {
     beforeEach(async () => {
       await setViewport({ width: sbbBreakpointLargeMinPx, height: 300 });
       element = await fixture(html`
-        <sbb-dialog id="my-dialog-1">
+        <sbb-dialog>
           <sbb-dialog-title>Title</sbb-dialog-title>
           <sbb-dialog-content>
             Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his
@@ -635,26 +635,15 @@ describe('sbb-dialog', () => {
   });
 
   describe('with autocomplete', () => {
-    const openDialog: (root: HTMLElement, selector: string) => void = (
-      root: HTMLElement,
-      selector: string,
-    ) => {
-      (root.querySelector(selector) as SbbDialogElement)!.open();
-    };
-
     it('pressing "Escape" will close only the last opened overlay', async () => {
       const root: HTMLElement = await fixture(html`
         <div>
-          <sbb-button id="button-1" @click=${() => openDialog(root, '#dialog-1')}
-            >Open dialog</sbb-button
-          >
-          <sbb-dialog id="dialog-1">
+          <sbb-button id="button-1">Open dialog</sbb-button>
+          <sbb-dialog trigger="button-1">
             <sbb-dialog-title>Title</sbb-dialog-title>
             <sbb-dialog-content>
-              <sbb-button id="button-2" @click="${() => openDialog(root, '#dialog-2')}"
-                >Open nested dialog</sbb-button
-              >
-              <sbb-dialog id="dialog-2">
+              <sbb-button id="button-2">Open nested dialog</sbb-button>
+              <sbb-dialog trigger="button-2">
                 <sbb-dialog-content>
                   Content
                   <sbb-form-field>
@@ -674,9 +663,9 @@ describe('sbb-dialog', () => {
       `);
 
       const button = root.querySelector<SbbButtonElement>('#button-1')!;
-      const dialog = root.querySelector<SbbDialogElement>('#dialog-1')!;
+      const dialog = root.querySelector<SbbDialogElement>('sbb-dialog')!;
       const nestedButton = root.querySelector<SbbButtonElement>('#button-2')!;
-      const nestedDialog = root.querySelector<SbbDialogElement>('#dialog-2')!;
+      const nestedDialog = dialog.querySelector<SbbDialogElement>('sbb-dialog')!;
       const autocomplete = root.querySelector<SbbAutocompleteElement>('sbb-autocomplete')!;
 
       // the overlays are all closed
@@ -811,11 +800,11 @@ describe('sbb-dialog', () => {
       root = await fixture(html`
         <div>
           <sbb-button id="button-1">Open dialog</sbb-button>
-          <sbb-dialog id="dialog-1" trigger="button-1">
+          <sbb-dialog trigger="button-1">
             <sbb-dialog-close-button id="close-1"></sbb-dialog-close-button>
             <sbb-dialog-content>
               <sbb-button id="button-2">Open nested dialog</sbb-button>
-              <sbb-dialog id="dialog-2" trigger="button-2">
+              <sbb-dialog trigger="button-2">
                 <sbb-dialog-close-button id="close-2"></sbb-dialog-close-button>
               </sbb-dialog>
             </sbb-dialog-content>
@@ -827,8 +816,8 @@ describe('sbb-dialog', () => {
       nestedOpenButton = root.querySelector<SbbButtonElement>('#button-2')!;
       closeButton = root.querySelector<SbbButtonElement>('#close-1')!;
       nestedCloseButton = root.querySelector<SbbButtonElement>('#close-2')!;
-      dialog = root.querySelector<SbbDialogElement>('#dialog-1')!;
-      nestedDialog = root.querySelector<SbbDialogElement>('#dialog-2')!;
+      dialog = root.querySelector<SbbDialogElement>('sbb-dialog')!;
+      nestedDialog = dialog.querySelector<SbbDialogElement>('sbb-dialog')!;
       openSpy = new EventSpy(SbbDialogElement.events.open, dialog);
       closeSpy = new EventSpy(SbbDialogElement.events.close, dialog);
       nestedOpenSpy = new EventSpy(SbbDialogElement.events.open, nestedDialog);

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
@@ -40,7 +40,7 @@ const accessibilityTitleLevel: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: [1, 2, 3, 4, 5, 6],
+  options: ['1', '2', '3', '4', '5', '6'] as SbbAlertGroupElement['accessibilityTitleLevel'][],
 };
 
 const role: InputType = {
@@ -127,18 +127,11 @@ const title: InputType = {
   },
 };
 
-const titleLevel: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: [1, 2, 3, 4, 5, 6],
-};
-
 const size: InputType = {
   control: {
     type: 'select',
   },
-  options: ['m', 'l', 's'],
+  options: ['m', 'l', 's'] satisfies SbbAlertElement['size'][],
 };
 
 const readonly: InputType = {
@@ -163,12 +156,11 @@ const animation: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['all', 'open', 'close', 'none'],
+  options: ['all', 'open', 'close', 'none'] satisfies SbbAlertElement['animation'][],
 };
 
 const defaultArgTypes: ArgTypes = {
   title,
-  'title-level': titleLevel,
   size,
   readonly,
   'icon-name': iconName,
@@ -178,7 +170,6 @@ const defaultArgTypes: ArgTypes = {
 
 const defaultArgs: Args = {
   title: 'Interruption between Berne and Olten',
-  'title-level': 3,
   size: size.options![0],
   readonly: false,
   'icon-name': 'info',

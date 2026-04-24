@@ -2,19 +2,17 @@ import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
 import {
   appendAriaElements,
+  boxSizingStyles,
   removeAriaElements,
   SbbButtonBaseElement,
-  SbbPropertyWatcherController,
   SbbDisabledMixin,
-  boxSizingStyles,
+  SbbPropertyWatcherController,
 } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbStepElement } from '../step/step.component.ts';
 import type { SbbStepperElement } from '../stepper/stepper.component.ts';
 
 import style from './step-label.scss?inline';
-
-let nextId = 0;
 
 /**
  * Combined with a `sbb-stepper`, it displays a step's label.
@@ -95,7 +93,6 @@ export class SbbStepLabelElement extends SbbIconNameMixin(SbbDisabledMixin(SbbBu
 
   public override connectedCallback(): void {
     super.connectedCallback();
-    this.id ||= `sbb-step-label-${nextId++}`;
     this.slot ||= 'step-label';
     this.internals.ariaSelected = 'false';
     this.tabIndex = -1;

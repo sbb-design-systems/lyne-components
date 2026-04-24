@@ -8,13 +8,15 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
-import { SbbElement, SbbScreenReaderOnlyElement, type SbbElementType } from '../../core.ts';
 import {
   isAndroid,
   isBlink,
   isSafari,
-  setOrRemoveAttribute,
   SbbDisabledMixin,
+  SbbElement,
+  type SbbElementType,
+  SbbScreenReaderOnlyElement,
+  setOrRemoveAttribute,
 } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
@@ -58,6 +60,9 @@ export abstract class SbbOptionBaseElement<T = string> extends SbbDisabledMixin(
     } else {
       this._value = value;
     }
+    // Notify the sbb-select to re-check its value against the option's one.
+    /** @internal */
+    this.dispatchEvent(new Event('ɵoptionvaluechange', { bubbles: true }));
   }
   public get value(): T {
     return (this._value ?? this.getAttribute('value')) as T;

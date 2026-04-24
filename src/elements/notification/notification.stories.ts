@@ -1,6 +1,5 @@
 import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
-import { nothing, type TemplateResult } from 'lit';
-import { html } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType } from 'storybook/internal/types';
 
@@ -106,7 +105,6 @@ const appendNotification = (event: Event, args: Args): void => {
 
 const trigger = (args: Args): TemplateResult => html`
   <sbb-secondary-button
-    size="m"
     style="max-width: fit-content"
     @click=${(event: Event) => appendNotification(event, args)}
     icon-name="circle-plus-small"

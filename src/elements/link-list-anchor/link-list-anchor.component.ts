@@ -1,4 +1,4 @@
-import { unsafeCSS, type CSSResultGroup } from 'lit';
+import { type CSSResultGroup, unsafeCSS } from 'lit';
 
 import { boxSizingStyles } from '../core.ts';
 import { linkListBaseStyle, SbbLinkListBaseElement } from '../link-list.pure.ts';

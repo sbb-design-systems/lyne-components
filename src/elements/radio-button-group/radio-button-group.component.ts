@@ -1,7 +1,7 @@
 import type { PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbSelectionGroupBaseElement, forceType } from '../core.ts';
+import { forceType, SbbSelectionGroupBaseElement } from '../core.ts';
 import type { SbbRadioButtonElement } from '../radio-button/radio-button.component.ts';
 import type { SbbRadioButtonPanelElement } from '../radio-button-panel.pure.ts';
 

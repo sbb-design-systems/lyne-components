@@ -1,8 +1,8 @@
-import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement, SbbHorizontalFrom, AbstractConstructor } from '../../core.ts';
+import type { AbstractConstructor, SbbActionBaseElement, SbbHorizontalFrom } from '../../core.ts';
 import { boxSizingStyles } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
@@ -31,6 +31,7 @@ export const SbbHeaderActionCommonElementMixin = <
      * E.g. if set to 'large', the text will be visible for breakpoints large and ultra,
      * and hidden for all the others. Ignored if no icon is set.
      */
+    // TODO: Needs a breaking change to work with the 'no-default-reflect' behavior
     @property({ attribute: 'expand-from', reflect: true })
     public accessor expandFrom: SbbHorizontalFrom = 'large';
 

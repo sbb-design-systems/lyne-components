@@ -1,23 +1,23 @@
 import { html, type PropertyValues, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbMiniButtonGroupElement, SbbMiniButtonElement } from '../../button.pure.ts';
+import { SbbMiniButtonElement, SbbMiniButtonGroupElement } from '../../button.pure.ts';
 import {
-  sbbInputModalityDetector,
-  SbbLanguageController,
+  type AbstractConstructor,
   forceType,
-  isLean,
   i18nNextPage,
   i18nPage,
   i18nPaginatorSelected,
   i18nPreviousPage,
-  SbbScreenReaderOnlyElement,
+  isLean,
+  SbbDisabledMixin,
   type SbbElement,
   type SbbElementConstructor,
   type SbbElementType,
-  type AbstractConstructor,
-  SbbDisabledMixin,
+  sbbInputModalityDetector,
+  SbbLanguageController,
   SbbNegativeMixin,
+  SbbScreenReaderOnlyElement,
 } from '../../core.ts';
 import { SbbDividerElement } from '../../divider.pure.ts';
 

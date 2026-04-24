@@ -7,8 +7,14 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement, forceType, omitEmptyConverter, isLean, boxSizingStyles } from '../../core.ts';
-import { SbbNamedSlotListMixin, type WithListChildren } from '../../core.ts';
+import {
+  boxSizingStyles,
+  forceType,
+  omitEmptyConverter,
+  SbbElement,
+  SbbNamedSlotListMixin,
+  type WithListChildren,
+} from '../../core.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
 
@@ -42,7 +48,7 @@ export class SbbNavigationListElement extends SbbNamedSlotListMixin<
     super.willUpdate(changedProperties);
 
     if (changedProperties.has('listChildren')) {
-      this.listChildren.forEach((c) => (c.size = isLean() ? 's' : 'm'));
+      this.listChildren.forEach((c) => (c.size = 'm'));
     }
   }
 

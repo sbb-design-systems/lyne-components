@@ -1,10 +1,10 @@
 import {
+  type CSSResultGroup,
   html,
   nothing,
-  unsafeCSS,
-  type CSSResultGroup,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -12,17 +12,17 @@ import {
   SbbTransparentButtonElement,
   type SbbTransparentButtonLinkElement,
 } from '../button.pure.ts';
-import { SbbOpenCloseBaseElement, type SbbElementType } from '../core.ts';
 import {
-  SbbDarkModeController,
-  SbbLanguageController,
-  forceType,
-  isLean,
-  isZeroAnimationDuration,
-  composedPathHasAttribute,
-  i18nCloseAlert,
-  SbbReadonlyMixin,
   boxSizingStyles,
+  composedPathHasAttribute,
+  forceType,
+  i18nCloseAlert,
+  isZeroAnimationDuration,
+  SbbDarkModeController,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbOpenCloseBaseElement,
+  SbbReadonlyMixin,
 } from '../core.ts';
 import { SbbDividerElement } from '../divider.pure.ts';
 import { SbbIconNameMixin } from '../icon.pure.ts';
@@ -207,7 +207,6 @@ export class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
       'sbb-transparent-button, sbb-transparent-button-link',
     ).forEach((btn) => {
       btn.negative = this._isLightMode();
-      btn.size = isLean() ? 's' : 'm';
     });
 
     // Force negative on slotted links
@@ -266,7 +265,6 @@ export class SbbToastElement extends SbbIconNameMixin(SbbReadonlyMixin(SbbOpenCl
                   class="sbb-toast__close-button"
                   icon-name="cross-small"
                   ?negative=${this._isLightMode()}
-                  size="m"
                   aria-label=${i18nCloseAlert[this._language.current]}
                   sbb-toast-close
                 ></sbb-transparent-button>`

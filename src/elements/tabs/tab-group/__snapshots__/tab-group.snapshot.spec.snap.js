@@ -12,7 +12,6 @@ snapshots["sbb-tab-group renders DOM"] =
   </sbb-tab-label>
   <sbb-tab
     class="sbb-scrollbar"
-    id="sbb-tab-0"
     tabindex="0"
   >
     Test tab content 1
@@ -25,7 +24,6 @@ snapshots["sbb-tab-group renders DOM"] =
   </sbb-tab-label>
   <sbb-tab
     class="sbb-scrollbar"
-    id="sbb-tab-1"
     tabindex="0"
   >
     Test tab content 2
@@ -39,7 +37,6 @@ snapshots["sbb-tab-group renders DOM"] =
   </sbb-tab-label>
   <sbb-tab
     class="sbb-scrollbar"
-    id="sbb-tab-2"
     tabindex="0"
   >
     Test tab content 3
@@ -52,7 +49,6 @@ snapshots["sbb-tab-group renders DOM"] =
   </sbb-tab-label>
   <sbb-tab
     class="sbb-scrollbar"
-    id="sbb-tab-3"
     tabindex="0"
   >
     Test tab content 4

@@ -10,16 +10,14 @@ import {
 import { state } from 'lit/decorators.js';
 
 import {
-  getNextElementIndex,
-  isArrowKeyPressed,
-  sbbInputModalityDetector,
-  SbbLanguageController,
-  i18nBreadcrumbEllipsisButtonLabel,
   boxSizingStyles,
-} from '../../core.ts';
-import {
+  getNextElementIndex,
+  i18nBreadcrumbEllipsisButtonLabel,
+  isArrowKeyPressed,
   SbbElement,
   type SbbElementType,
+  sbbInputModalityDetector,
+  SbbLanguageController,
   SbbNamedSlotListMixin,
   type WithListChildren,
 } from '../../core.ts';

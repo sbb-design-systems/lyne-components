@@ -1,4 +1,4 @@
-import type { Meta, StoryObj, ArgTypes, Args, Decorator } from '@storybook/web-components-vite';
+import type { Args, ArgTypes, Decorator, Meta, StoryObj } from '@storybook/web-components-vite';
 import type { TemplateResult } from 'lit';
 import { html, nothing } from 'lit';
 import { withActions } from 'storybook/actions/decorator';
@@ -6,6 +6,7 @@ import type { InputType } from 'storybook/internal/types';
 
 import { sbbSpread } from '../../storybook/helpers/spread.ts';
 
+import type { SbbActionGroupElement } from './action-group.component.ts';
 import readme from './readme.md?raw';
 
 import '../action-group.ts';
@@ -95,21 +96,21 @@ const buttonSize: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['l', 'm', 's'],
+  options: [null, 's', 'm', 'l'] satisfies SbbActionGroupElement['buttonSize'][],
 };
 
 const linkSize: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's', 'xs'],
+  options: [null, 'xs', 's', 'm'] satisfies SbbActionGroupElement['linkSize'][],
 };
 
 const orientation: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['horizontal', 'vertical'],
+  options: ['horizontal', 'vertical'] satisfies SbbActionGroupElement['orientation'][],
 };
 
 const horizontalFrom: InputType = {
@@ -123,7 +124,7 @@ const alignGroup: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['start', 'center', 'stretch', 'end'],
+  options: ['start', 'center', 'stretch', 'end'] satisfies SbbActionGroupElement['alignGroup'][],
 };
 
 const basicArgTypes: ArgTypes = {
@@ -154,14 +155,14 @@ const basicArgsVerticalFullWidth = {
 
 const basicArgsSizeS = {
   ...basicArgs,
-  'button-size': buttonSize.options![2],
-  'link-size': linkSize.options![2],
+  'button-size': buttonSize.options![1],
+  'link-size': linkSize.options![1],
 };
 
 const basicArgsVerticalSizeS = {
   ...basicArgsVertical,
-  'button-size': buttonSize.options![2],
-  'link-size': linkSize.options![2],
+  'button-size': buttonSize.options![1],
+  'link-size': linkSize.options![1],
 };
 
 export const HorizontalAllocation3_0_0: StoryObj = {

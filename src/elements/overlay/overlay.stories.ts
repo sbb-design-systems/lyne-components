@@ -63,7 +63,7 @@ const basicArgs: Args = {
 };
 
 const triggerButton = (triggerId: string): TemplateResult => html`
-  <sbb-button size="m" id=${triggerId}>Open overlay</sbb-button>
+  <sbb-button id=${triggerId}>Open overlay</sbb-button>
 `;
 
 const textBlock = (): TemplateResult => html`

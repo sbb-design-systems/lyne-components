@@ -9,18 +9,16 @@ import { property } from 'lit/decorators.js';
 import { html, unsafeStatic } from 'lit/static-html.js';
 
 import {
-  SbbElement,
-  type SbbElementType,
-  SbbNamedSlotListMixin,
-  type WithListChildren,
-} from '../../core.ts';
-import {
-  SbbLanguageController,
+  boxSizingStyles,
   forceType,
-  omitEmptyConverter,
   i18nTrain,
   i18nWagonsLabel,
-  boxSizingStyles,
+  omitEmptyConverter,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
+  SbbNamedSlotListMixin,
+  type WithListChildren,
 } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 import type { SbbTitleLevel } from '../../title.pure.ts';

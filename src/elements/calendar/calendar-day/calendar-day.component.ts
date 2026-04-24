@@ -1,11 +1,11 @@
-import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 import { boxSizingStyles } from '../../core.ts';
 import type { SbbCalendarElement } from '../calendar/calendar.component.ts';
 import {
-  SbbCalendarCellBaseElement,
   calendarCellBaseStyle,
+  SbbCalendarCellBaseElement,
 } from '../common/calendar-cell-base-element.ts';
 
 import style from './calendar-day.scss?inline';

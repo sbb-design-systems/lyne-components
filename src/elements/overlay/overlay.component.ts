@@ -1,4 +1,4 @@
-import { unsafeCSS, type CSSResultGroup, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { html } from 'lit/static-html.js';
@@ -7,11 +7,11 @@ import { SbbSecondaryButtonElement } from '../button.pure.ts';
 import { SbbContainerElement } from '../container.pure.ts';
 import type { SbbElementType, SbbOverlayCloseEventDetails } from '../core.ts';
 import {
+  boxSizingStyles,
   forceType,
-  isZeroAnimationDuration,
   forwardEvent,
   i18nCloseDialog,
-  boxSizingStyles,
+  isZeroAnimationDuration,
   SbbScreenReaderOnlyElement,
 } from '../core.ts';
 
@@ -21,8 +21,6 @@ import {
   SbbOverlayCloseEvent,
 } from './overlay-base-element.ts';
 import style from './overlay.scss?inline';
-
-let nextId = 0;
 
 /**
  * It displays an interactive overlay element.
@@ -64,12 +62,6 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
 
   protected closeAttribute: string = 'sbb-overlay-close';
   private _overlayContentElement: HTMLElement | null = null;
-
-  public override connectedCallback(): void {
-    this.id ||= `sbb-overlay-${nextId++}`;
-
-    super.connectedCallback();
-  }
 
   protected override firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
@@ -157,7 +149,6 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
                 i18nCloseDialog[this.language.current]}"
                 ?negative=${this.negative}
                 size="m"
-                type="button"
                 icon-name="cross-small"
                 sbb-overlay-close
               ></sbb-secondary-button>

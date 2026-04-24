@@ -1,7 +1,11 @@
-import { html, unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbActionBaseElement, type AbstractConstructor, SbbDisabledMixin } from '../../core.ts';
-import { boxSizingStyles } from '../../core.ts';
+import {
+  type AbstractConstructor,
+  boxSizingStyles,
+  SbbActionBaseElement,
+  SbbDisabledMixin,
+} from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
 import style from './menu-action.scss?inline';

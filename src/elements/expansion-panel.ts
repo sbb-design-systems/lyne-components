@@ -1,7 +1,7 @@
 /** @entrypoint */
 import {
-  SbbExpansionPanelElement,
   SbbExpansionPanelContentElement,
+  SbbExpansionPanelElement,
   SbbExpansionPanelHeaderElement,
 } from './expansion-panel.pure.ts';
 

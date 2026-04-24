@@ -363,6 +363,13 @@ as the error takes precedence.
 | `reportValidity`    | public  | Returns true if this element has no validity problems; otherwise, returns false, fires an invalid event at the element, and (if the event isn't canceled) reports the problem to the user. |                   | `boolean` | SbbFormAssociatedMixin |
 | `setCustomValidity` | public  | Sets the custom validity message for this element. Use the empty string to indicate that the element does not have a custom validity error.                                                | `message: string` | `void`    | SbbFormAssociatedMixin |
 
+#### Events
+
+| Name     | Type         | Description                                                                                                                                                                                                            | Inherited From |
+| -------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `change` | `Event`      | The change event is fired on the component's associated input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value. |                |
+| `input`  | `InputEvent` | The input event fires on the component's associated input when the value has been changed as a direct result of a user action.                                                                                         |                |
+
 ### class: `SbbFormFieldElement`, `sbb-form-field`
 
 #### Properties

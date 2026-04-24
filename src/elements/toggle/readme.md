@@ -103,6 +103,12 @@ const values = [
 | `iconName` | `icon-name` | public  | `string`               | `''`    | The icon name we want to use, choose from the small icon variants from the ui-icons category from here https://icons.app.sbb.ch. |
 | `value`    | `value`     | public  | `(T = string) \| null` | `null`  | Value of toggle-option.                                                                                                          |
 
+#### Events
+
+| Name    | Type         | Description                                                                                | Inherited From |
+| ------- | ------------ | ------------------------------------------------------------------------------------------ | -------------- |
+| `input` | `InputEvent` | The input event fires when the value has been changed as a direct result of a user action. |                |
+
 #### Slots
 
 | Name   | Description                                                            |

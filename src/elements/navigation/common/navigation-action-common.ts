@@ -1,14 +1,14 @@
-import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
 import type {
+  AbstractConstructor,
   SbbActionBaseElement,
   SbbElementConstructor,
   SbbElementType,
-  AbstractConstructor,
 } from '../../core.ts';
-import { isLean, boxSizingStyles } from '../../core.ts';
+import { boxSizingStyles } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
@@ -41,11 +41,8 @@ export const SbbNavigationActionCommonElementMixin = <
 
     /**
      * Action size variant, either s, m or l.
-     * @default 'l' / 's' (lean)
      */
-    @property({ reflect: true }) public accessor size: SbbNavigationActionSize = isLean()
-      ? 's'
-      : 'l';
+    @property({ reflect: true }) public accessor size: SbbNavigationActionSize = 'l';
 
     /** The section that is being controlled by the action, if any. */
     public connectedSection?: SbbNavigationSectionElement;

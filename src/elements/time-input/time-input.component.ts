@@ -2,14 +2,14 @@ import { type CSSResultGroup, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 
 import {
-  sbbLiveAnnouncer,
-  SbbElement,
-  SbbLanguageController,
   i18nTimeInputChange,
   i18nTimeInvalid,
   i18nTimeMax,
   i18nTimeMaxLength,
+  SbbElement,
   SbbFormAssociatedInputMixin,
+  SbbLanguageController,
+  sbbLiveAnnouncer,
 } from '../core.ts';
 
 import style from './time-input.scss?inline';

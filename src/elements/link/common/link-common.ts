@@ -1,22 +1,16 @@
-import { unsafeCSS, type CSSResultGroup, type TemplateResult } from 'lit';
-import { property } from 'lit/decorators.js';
+import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import {
-  SbbActionBaseElement,
   type AbstractConstructor,
-  SbbNegativeMixin,
   boxSizingStyles,
+  SbbActionBaseElement,
+  SbbNegativeMixin,
 } from '../../core.ts';
-import { isLean } from '../../core.ts';
 
 import style from './link.scss?inline';
 
-export type SbbLinkSize = 'xs' | 's' | 'm';
-
-export declare class SbbLinkCommonElementMixinType extends SbbNegativeMixin(SbbActionBaseElement) {
-  public accessor size: SbbLinkSize;
-}
+export declare class SbbLinkCommonElementMixinType extends SbbNegativeMixin(SbbActionBaseElement) {}
 
 export interface SbbLinkCommonElementMixinConstructor {
   styles: CSSResultGroup;
@@ -33,13 +27,6 @@ export const SbbLinkCommonElementMixin = <T extends AbstractConstructor<SbbActio
     implements Partial<SbbLinkCommonElementMixinType>
   {
     public static styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
-
-    /**
-     * Text size, the link should get in the non-button variation.
-     * With inline variant, the text size adapts to where it is used.
-     * @default 's' / 'xs' (lean)
-     */
-    @property({ reflect: true }) public accessor size: SbbLinkSize = isLean() ? 'xs' : 's';
 
     public constructor() {
       super();

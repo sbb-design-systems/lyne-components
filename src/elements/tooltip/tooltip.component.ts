@@ -11,19 +11,19 @@ import { property } from 'lit/decorators.js';
 
 import {
   appendAriaElements,
-  removeAriaElements,
-  SbbOpenCloseBaseElement,
-  readConfig,
-  SbbEscapableOverlayController,
-  SbbOverlayPositionController,
+  boxSizingStyles,
   idReference,
   isAndroid,
   isIOS,
   isZeroAnimationDuration,
   queueDomContentLoaded,
+  readConfig,
+  removeAriaElements,
   SbbDisabledMixin,
+  SbbEscapableOverlayController,
+  SbbOpenCloseBaseElement,
   sbbOverlayOutsidePointerEventListener,
-  boxSizingStyles,
+  SbbOverlayPositionController,
 } from '../core.ts';
 
 import style from './tooltip.scss?inline';
@@ -43,7 +43,6 @@ const LONGPRESS_DELAY = 500;
 
 const isMobile = isAndroid || isIOS;
 const tooltipTriggers = new WeakMap<HTMLElement, SbbTooltipElement>();
-let nextId = 0;
 
 /**
  * It displays text content within a tooltip.
@@ -250,7 +249,6 @@ export class SbbTooltipElement extends SbbDisabledMixin(SbbOpenCloseBaseElement)
   public override connectedCallback(): void {
     super.connectedCallback();
     this.popover = 'manual';
-    this.id ||= `sbb-tooltip-${++nextId}`;
     this.state = 'closed';
     sbbOverlayOutsidePointerEventListener.connect(this);
 

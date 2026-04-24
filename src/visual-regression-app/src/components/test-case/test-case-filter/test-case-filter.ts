@@ -1,6 +1,6 @@
 import { boxSizingStyles } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag/tag/tag.component.js';
-import { LitElement, html, type TemplateResult, type CSSResultGroup, unsafeCSS } from 'lit';
+import { type CSSResultGroup, html, LitElement, type TemplateResult, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import { type ScreenshotTestCase } from '../../../screenshots.ts';

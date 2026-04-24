@@ -117,7 +117,7 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
                       now="2021-12-08T12:11:00+01:00"
                     ></sbb-pearl-chain>
                   </span>
-                  <sbb-secondary-button-static icon-name="qrcode-small">
+                  <sbb-secondary-button-static icon-name="qrcode-small" size="l">
                     Ticket
                   </sbb-secondary-button-static>
                 </span>
@@ -136,7 +136,7 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
                     <sbb-title level="2" visual-level="6"> Libero day ticket: All zones </sbb-title>
                     <span class="sbb-text-s card-description">Today, Valid 24 hours</span>
                   </span>
-                  <sbb-secondary-button-static icon-name="qrcode-small">
+                  <sbb-secondary-button-static icon-name="qrcode-small" size="l">
                     Ticket
                   </sbb-secondary-button-static>
                 </span>
@@ -164,12 +164,12 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
                       now="2021-12-08T12:11:00+01:00"
                     ></sbb-pearl-chain>
                   </span>
-                  <sbb-secondary-button-static> Details </sbb-secondary-button-static>
+                  <sbb-secondary-button-static size="l"> Details </sbb-secondary-button-static>
                 </span>
               </sbb-card>
             </li>
           </ul>
-          <sbb-secondary-button class="all-purchased-tickets-button" id="dialog-trigger">
+          <sbb-secondary-button class="all-purchased-tickets-button" id="dialog-trigger" size="l">
             All purchased tickets
           </sbb-secondary-button>
 
@@ -184,7 +184,7 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
                 irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
                 pariatur.
               </p>
-              <sbb-secondary-button size="m" id="dialog-trigger-stacked">
+              <sbb-secondary-button id="dialog-trigger-stacked">
                 Open stacked dialog
               </sbb-secondary-button>
             </sbb-dialog-content>
@@ -194,8 +194,8 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
               orientation="vertical"
               horizontal-from="large"
             >
-              <sbb-secondary-button size="m" sbb-dialog-close>Cancel</sbb-secondary-button>
-              <sbb-button size="m" sbb-dialog-close>Button</sbb-button>
+              <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
+              <sbb-button sbb-dialog-close>Button</sbb-button>
             </sbb-dialog-actions>
           </sbb-dialog>
 
@@ -207,8 +207,8 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
               incididunt ut labore et dolore magna aliqua.
             </sbb-dialog-content>
             <sbb-dialog-actions align-group="end">
-              <sbb-secondary-button size="m" sbb-dialog-close>Cancel</sbb-secondary-button>
-              <sbb-button size="m" sbb-dialog-close sbb-focus-initial>Button</sbb-button>
+              <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
+              <sbb-button sbb-dialog-close sbb-focus-initial>Button</sbb-button>
             </sbb-dialog-actions>
           </sbb-dialog>
         </div>
@@ -241,7 +241,9 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
                   <sbb-title level="3" visual-level="6"> Generalabonnement </sbb-title>
                   <span class="sbb-text-s card-description">2nd class, valid until 30.11.2022</span>
                 </span>
-                <sbb-secondary-button-static> Edit subscription </sbb-secondary-button-static>
+                <sbb-secondary-button-static size="l">
+                  Edit subscription
+                </sbb-secondary-button-static>
               </span>
             </sbb-card>
           </div>

@@ -1,22 +1,23 @@
 import { IntersectionController } from '@lit-labs/observers/intersection-controller.js';
 import {
+  type CSSResultGroup,
   html,
   nothing,
-  unsafeCSS,
-  type CSSResultGroup,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 
 import { SbbAccentButtonElement } from '../button.pure.ts';
-import { SbbElement, type SbbElementType } from '../core.ts';
 import {
-  SbbLanguageController,
+  boxSizingStyles,
   forceType,
   forwardEvent,
   i18nMapContainerButtonLabel,
-  boxSizingStyles,
+  SbbElement,
+  type SbbElementType,
+  SbbLanguageController,
 } from '../core.ts';
 
 import style from './map-container.scss?inline';
@@ -115,7 +116,6 @@ export class SbbMapContainerElement extends SbbElement {
               class="sbb-map-container__sidebar-button"
               size="l"
               icon-name="location-pin-map-small"
-              type="button"
               @click=${() => this._onScrollButtonClick()}
               ?inert=${!this._scrollUpButtonVisible}
             >

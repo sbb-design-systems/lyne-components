@@ -2,10 +2,10 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import { html } from 'lit/static-html.js';
 
 import {
+  boxSizingStyles,
   SbbButtonBaseElement,
   SbbDisabledTabIndexActionMixin,
   SbbNegativeMixin,
-  boxSizingStyles,
 } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import { miniButtonLabelStyle, miniButtonStyle } from '../common/button-common.ts';

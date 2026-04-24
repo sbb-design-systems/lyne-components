@@ -1,48 +1,46 @@
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
+  type CSSResultGroup,
   html,
   isServer,
   nothing,
-  unsafeCSS,
-  type CSSResultGroup,
   type PropertyDeclaration,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
 
 import {
-  getNextElementIndex,
-  SbbOpenCloseBaseElement,
-  SbbPropertyWatcherController,
-  SbbEscapableOverlayController,
-  SbbLanguageController,
+  boxSizingStyles,
   forceType,
+  type FormRestoreReason,
+  type FormRestoreState,
+  getNextElementIndex,
   getOverride,
   handleDistinctChange,
+  i18nSelectionRequired,
+  isEventOnElement,
   isLean,
   isNextjs,
   isSafari,
   isZeroAnimationDuration,
-  setOrRemoveAttribute,
-  i18nSelectionRequired,
-  isEventOnElement,
   overlayGapFixCorners,
-  setOverlayPosition,
-  boxSizingStyles,
-} from '../core.ts';
-import {
-  type FormRestoreReason,
-  type FormRestoreState,
   SbbDisabledMixin,
+  SbbEscapableOverlayController,
   SbbFormAssociatedMixin,
+  SbbLanguageController,
   SbbNegativeMixin,
+  SbbOpenCloseBaseElement,
+  SbbPropertyWatcherController,
   SbbReadonlyMixin,
   SbbRequiredMixin,
   SbbUpdateSchedulerMixin,
+  setOrRemoveAttribute,
+  setOverlayPosition,
 } from '../core.ts';
 import type { SbbDividerElement } from '../divider.pure.ts';
 import type { SbbFormFieldElement } from '../form-field/form-field/form-field.component.ts';
@@ -124,8 +122,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   @property()
   public set value(value: T[] | T) {
     this._value = value;
-    this._updateOptionsFromValue();
     this._isValueManuallyAssigned = true;
+    this._updateOptionsFromValue();
   }
   public get value(): T[] | T | null {
     return this._value;
@@ -196,6 +194,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     super();
     this.addEventListener?.('optionselectionchange', (e: Event) => this._onOptionChanged(e));
     this.addEventListener?.('optionLabelChanged', (e: Event) => this._onOptionLabelChanged(e));
+    /** Forces the sbb-select to update his value. */
+    this.addEventListener?.('ɵoptionvaluechange', () => this._updateValueOptionState());
     this.addEventListener?.('ɵoptgroupslotchange', () => this._updateValueOptionState(), {
       capture: true,
     });

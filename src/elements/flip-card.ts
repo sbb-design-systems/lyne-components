@@ -1,7 +1,7 @@
 /** @entrypoint */
 import {
-  SbbFlipCardElement,
   SbbFlipCardDetailsElement,
+  SbbFlipCardElement,
   SbbFlipCardSummaryElement,
 } from './flip-card.pure.ts';
 

@@ -79,7 +79,7 @@ const timetableDetails = (opt: { expandedDatepicker?: boolean } = {}): TemplateR
       <sbb-toggle-option value="arrival">Arr</sbb-toggle-option>
     </sbb-toggle>
     <div style="flex-grow: 1;"></div>
-    <sbb-button type="submit" size="m">Search</sbb-button>
+    <sbb-button type="submit">Search</sbb-button>
   </sbb-timetable-form-details>
 `;
 

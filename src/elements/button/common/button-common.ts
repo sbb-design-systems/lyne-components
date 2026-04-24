@@ -1,8 +1,8 @@
-import { nothing, unsafeCSS, type PropertyValues, type TemplateResult } from 'lit';
+import { nothing, type PropertyValues, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { html } from 'lit/static-html.js';
 
-import type { SbbActionBaseElement, AbstractConstructor } from '../../core.ts';
+import type { AbstractConstructor, SbbActionBaseElement } from '../../core.ts';
 import { forceType, isLean, SbbNegativeMixin } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 
@@ -41,9 +41,9 @@ export const SbbButtonCommonElementMixin = <T extends AbstractConstructor<SbbAct
   {
     /**
      * Size variant, either l, m or s.
-     * @default 'l' / 's' (lean)
+     * @default 'm' / 's' (lean)
      */
-    @property({ reflect: true }) public accessor size: SbbButtonSize = isLean() ? 's' : 'l';
+    @property({ reflect: true }) public accessor size: SbbButtonSize = isLean() ? 's' : 'm';
 
     /**
      * Whether the button indicates a loading state.

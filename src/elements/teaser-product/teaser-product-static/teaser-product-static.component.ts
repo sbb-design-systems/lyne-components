@@ -1,6 +1,6 @@
 import type { CSSResultGroup } from 'lit';
 
-import { SbbActionBaseElement, boxSizingStyles } from '../../core.ts';
+import { boxSizingStyles, SbbActionBaseElement } from '../../core.ts';
 import {
   SbbTeaserProductCommonElementMixin,
   teaserProductCommonStyle,

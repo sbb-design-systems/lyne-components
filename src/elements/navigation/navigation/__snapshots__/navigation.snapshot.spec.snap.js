@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["sbb-navigation renders DOM"] = 
 `<sbb-navigation
-  id="sbb-navigation-0"
   popover="manual"
   trigger="nav-trigger"
 >
@@ -46,7 +45,6 @@ snapshots["sbb-navigation renders Shadow DOM"] =
         sbb-navigation-close=""
         size="m"
         tabindex="0"
-        type="button"
       >
       </sbb-transparent-button>
     </div>

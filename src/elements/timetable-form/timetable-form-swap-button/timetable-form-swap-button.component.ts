@@ -1,13 +1,16 @@
-import { unsafeCSS, type CSSResultGroup, type PropertyValues } from 'lit';
+import { type CSSResultGroup, type PropertyValues, unsafeCSS } from 'lit';
 
 import { SbbSecondaryButtonElement } from '../../button.pure.ts';
-import { SbbLanguageController, i18nTimetableFormSwapButtonLabel } from '../../core.ts';
+import { i18nTimetableFormSwapButtonLabel, SbbLanguageController } from '../../core.ts';
 
 import style from './timetable-form-swap-button.scss?inline';
 
 /**
  * An extension of `sbb-secondary-button` to be used inside the `sbb-timetable-form`.
  * When placed between two `sbb-timetable-form-field`, the 'click' swaps the value of the sibling inputs.
+ *
+ * @event {Event} change - The change event is fired on the associated inputs when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+ * @event {InputEvent} input - The input event fires on the associated inputs when the value has been changed as a direct result of a user action.
  */
 export class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement {
   public static override readonly elementName: string = 'sbb-timetable-form-swap-button';
@@ -20,6 +23,7 @@ export class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement
 
   public constructor() {
     super();
+    this.size = 'l' as this['size'];
     this.addEventListener('click', () => this._invertFieldValues());
   }
 

@@ -1,9 +1,9 @@
 import {
-  SbbLanguageController,
-  forceType,
   boxSizingStyles,
+  forceType,
   SbbElement,
   type SbbElementType,
+  SbbLanguageController,
   SbbScreenReaderOnlyElement,
 } from '@sbb-esta/lyne-elements/core.js';
 import { type CSSResultGroup, html, nothing, type TemplateResult, unsafeCSS } from 'lit';

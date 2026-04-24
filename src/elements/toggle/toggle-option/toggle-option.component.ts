@@ -1,14 +1,14 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
-  html,
-  unsafeCSS,
   type CSSResultGroup,
+  html,
   type PropertyValues,
   type TemplateResult,
+  unsafeCSS,
 } from 'lit';
 import { property } from 'lit/decorators.js';
 
-import { SbbElement, forceType, SbbDisabledMixin, boxSizingStyles } from '../../core.ts';
+import { boxSizingStyles, forceType, SbbDisabledMixin, SbbElement } from '../../core.ts';
 import { SbbIconNameMixin } from '../../icon.pure.ts';
 import type { SbbToggleElement } from '../toggle/toggle.component.ts';
 
@@ -19,6 +19,7 @@ import style from './toggle-option.scss?inline';
  *
  * @slot - Use the unnamed slot to add content to the label of the toggle option.
  * @slot icon - Slot used to render the `sbb-icon`.
+ * @event {InputEvent} input - The input event fires when the value has been changed as a direct result of a user action.
  * @overrideType value - (T = string) | null
  */
 export class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
@@ -117,12 +118,10 @@ export class SbbToggleOptionElement<T = string> extends SbbDisabledMixin(
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-toggle-option">
-        ${this.renderIconSlot()}
-        <span class="sbb-toggle-option__label">
-          <slot></slot>
-        </span>
-      </div>
+      ${this.renderIconSlot()}
+      <span class="sbb-toggle-option__label">
+        <slot></slot>
+      </span>
     `;
   }
 }
