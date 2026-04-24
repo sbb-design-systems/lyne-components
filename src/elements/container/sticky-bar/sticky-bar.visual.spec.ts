@@ -39,8 +39,7 @@ describe(`sbb-sticky-bar`, () => {
 
   const actionGroup = (color?: string): TemplateResult => html`
     <sbb-action-group
-      align-group="stretch"
-      orientation="vertical"
+      class="sbb-action-group-vertical sbb-action-group-vertical-full-width"
       style="width:100%;"
       button-size="l"
     >
