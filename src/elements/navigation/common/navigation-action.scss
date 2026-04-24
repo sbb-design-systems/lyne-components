@@ -1,8 +1,14 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-navigation-action-color: var(--sbb-color-4-negative);
-  --sbb-navigation-action-icon-display: none;
+  --_sbb-navigation-action-inset-inline-start: calc(
+    (var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-1x)) * -1
+  );
+  --_sbb-navigation-action-inset-block-start: calc(1em * (var(--sbb-typo-line-height-text) / 2));
+  --sbb-navigation-action-transition-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-3x)
+  );
 
   display: block;
 
@@ -26,8 +32,8 @@
 sbb-icon {
   display: var(--sbb-navigation-action-icon-display);
   position: absolute;
-  inset-inline-start: calc((var(--sbb-size-icon-ui-small) + var(--sbb-spacing-fixed-1x)) * -1);
-  inset-block-start: calc(1em * (var(--sbb-typo-line-height-text) / 2));
+  inset-inline-start: var(--_sbb-navigation-action-inset-inline-start);
+  inset-block-start: var(--_sbb-navigation-action-inset-block-start);
   translate: 0 -50%;
 }
 
@@ -43,36 +49,50 @@ sbb-icon {
   }
 }
 
-:is(.sbb-navigation-button, .sbb-navigation-link) {
-  @include sbb.title-4($exclude-spacing: true);
+:host([size='l']) {
+  --sbb-navigation-action-font-size: var(--sbb-heading-font-size-4);
+  --sbb-navigation-action-letter-spacing: var(--sbb-typo-letter-spacing-heading);
+  --sbb-navigation-action-line-height: var(--sbb-typo-line-height-heading);
+}
 
-  cursor: var(--sbb-cursor-pointer);
-  position: relative;
-  text-decoration: none;
+:host([size='m']),
+:host([size='s']) {
+  --sbb-navigation-action-line-height: var(--sbb-typo-line-height-text);
+  --sbb-navigation-action-letter-spacing: var(--sbb-typo-letter-spacing-text);
+}
+
+:host([size='m']) {
+  --sbb-navigation-action-font-size: var(--sbb-text-font-size-s);
+}
+
+:host([size='s']) {
+  --sbb-navigation-action-font-size: var(--sbb-text-font-size-xxs);
+}
+
+:is(.sbb-navigation-button, .sbb-navigation-link) {
   display: flex;
+  position: relative;
+  color: var(--sbb-navigation-action-color);
+  cursor: var(--sbb-cursor-pointer);
+  transition: color var(--sbb-navigation-action-transition-duration) ease;
+  outline: none;
+  text-align: left;
+  font-size: var(--sbb-navigation-action-font-size);
+  line-height: var(--sbb-navigation-action-line-height);
+  letter-spacing: var(--sbb-navigation-action-letter-spacing);
+  font-weight: bold;
+  hyphens: auto;
+  text-decoration: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  transition: color var(--sbb-disable-animation-duration, var(--sbb-animation-duration-3x)) ease;
-  hyphens: auto;
-  text-align: left;
-  color: var(--sbb-navigation-action-color);
-  outline: none;
 
   @include sbb.if-forced-colors {
     transition: none;
   }
 
-  :host([size='m']) & {
-    @include sbb.text-s--bold;
-  }
-
-  :host([size='s']) & {
-    @include sbb.text-xxs--bold;
-  }
-
   // Handle focus on the host (button variant)
   :host(:focus-visible) &,
-  // Handle focus on the action (link variant)
+    // Handle focus on the action (link variant)
   &:focus-visible {
     @include sbb.focus-outline;
 

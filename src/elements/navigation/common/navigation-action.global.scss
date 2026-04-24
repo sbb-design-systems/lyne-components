@@ -1,0 +1,29 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-navigation-action-color: var(--sbb-color-4-negative);
+  --sbb-navigation-action-icon-display: none;
+  --sbb-navigation-action-font-size: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-text-font-size-xl),
+        'lean': var(--sbb-text-font-size-xxs),
+      ),
+      $theme
+    )};
+  --sbb-navigation-action-letter-spacing: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-typo-letter-spacing-heading),
+        'lean': var(--sbb-typo-letter-spacing-text),
+      ),
+      $theme
+    )};
+  --sbb-navigation-action-line-height: #{sbb.theme-pattern-select(
+      (
+        'standard': var(--sbb-typo-line-height-heading),
+        'lean': var(--sbb-typo-line-height-text),
+      ),
+      $theme
+    )};
+}
