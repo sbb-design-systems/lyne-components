@@ -8,7 +8,6 @@ import {
 import { property } from 'lit/decorators.js';
 
 import type { SbbButtonCommonElementMixinType, SbbButtonElement } from '../button.pure.ts';
-import type { SbbHorizontalFrom } from '../core.ts';
 import { SbbElement } from '../core.ts';
 import type {
   SbbBlockLinkButtonElement,
@@ -22,29 +21,15 @@ import style from './action-group.scss?inline';
  * It can be used as a container for one or more action element, like `sbb-button` or `sbb-block-link`.
  *
  * @slot - Use the unnamed slot to add `sbb-block-link` or `sbb-button` elements to the `sbb-action-group`.
+ *
+ * @cssprop [--sbb-action-group-justify-content=start] - To specify the horizontal spacing of the group.
+ * @cssprop [--sbb-action-group-align-items=center] - To specify the vertical alignment of the group .
+ * @cssprop [--sbb-action-group-orientation=row] - To specify the horizontal spacing of the group.
+ *
  */
 export class SbbActionGroupElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-action-group';
   public static override styles: CSSResultGroup = [unsafeCSS(style)];
-
-  /**
-   * Set the slotted `<sbb-action-group>` children's alignment.
-   */
-  @property({ attribute: 'align-group', reflect: true })
-  public accessor alignGroup: 'start' | 'center' | 'stretch' | 'end' = 'start';
-
-  /**
-   * Overrides the behavior of `orientation` property.
-   */
-  // TODO: Needs a breaking change to work with the 'no-default-reflect' behavior
-  @property({ attribute: 'horizontal-from', reflect: true })
-  public accessor horizontalFrom: SbbHorizontalFrom = 'large';
-
-  /**
-   * Indicates the orientation of the components inside the `<sbb-action-group>`.
-   */
-  @property({ reflect: true })
-  public accessor orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /**
    * Size of the nested sbb-button instances.

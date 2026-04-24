@@ -1,18 +1,6 @@
 @use '../core/styles' as sbb;
 
 $breakpoints: 'zero', 'small', 'large', 'ultra';
-$vertical-orientations: (
-  start: flex-start,
-  center: center,
-  stretch: stretch,
-  end: flex-end,
-);
-$horizontal-orientations: (
-  start: flex-start,
-  center: center,
-  stretch: space-between,
-  end: flex-end,
-);
 
 :host {
   --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
@@ -22,37 +10,6 @@ $horizontal-orientations: (
   align-items: var(--sbb-action-group-align-items, center);
   justify-content: var(--sbb-action-group-justify-content, start);
   gap: var(--sbb-action-group-gap);
-}
-
-@each $key, $value in $horizontal-orientations {
-  :host([orientation='horizontal'][align-group='#{$key}']) {
-    --sbb-action-group-justify-content: #{$value};
-  }
-}
-
-:host([orientation='vertical']) {
-  --sbb-action-group-orientation: column;
-  --sbb-action-group-gap: var(--sbb-spacing-fixed-2x);
-}
-
-@each $key, $value in $vertical-orientations {
-  :host([orientation='vertical'][align-group='#{$key}']) {
-    --sbb-action-group-align-items: #{$value};
-  }
-}
-
-@each $breakpoint in $breakpoints {
-  @include sbb.mq($from: #{$breakpoint}) {
-    @each $key, $value in $horizontal-orientations {
-      // horizontal-from overrides orientation vertical
-      :host([orientation='vertical'][horizontal-from='#{$breakpoint}'][align-group='#{$key}']) {
-        --sbb-action-group-orientation: row;
-        --sbb-action-group-align-items: center;
-        --sbb-action-group-justify-content: #{$value};
-        --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
-      }
-    }
-  }
 }
 
 ::slotted([align-self='start']) {
@@ -69,4 +26,37 @@ $horizontal-orientations: (
 
 ::slotted(:is(sbb-block-link, sbb-block-link-button, sbb-block-link-static)) {
   white-space: nowrap;
+}
+
+:host(
+  :is(
+    .sbb-action-group-vertical,
+    .sbb-action-group-vertical-full-width,
+    .sbb-action-group-horizontal-from-large
+  )
+) {
+  --sbb-action-group-orientation: column;
+  --sbb-action-group-gap: var(--sbb-spacing-fixed-2x);
+}
+
+:host(.sbb-action-group-vertical-full-width) {
+  --sbb-action-group-align-items: stretch;
+}
+
+:host(.sbb-action-group-horizontal-from-large) {
+  @include sbb.mq($from: large) {
+    --sbb-action-group-orientation: row;
+    --sbb-action-group-align-items: center;
+    --sbb-action-group-justify-content: start;
+    --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
+  }
+}
+
+:host(.sbb-action-group-horizontal-from-small) {
+  @include sbb.mq($from: small) {
+    --sbb-action-group-orientation: row;
+    --sbb-action-group-align-items: center;
+    --sbb-action-group-justify-content: start;
+    --sbb-action-group-gap: var(--sbb-spacing-fixed-4x);
+  }
 }

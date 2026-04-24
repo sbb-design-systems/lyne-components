@@ -46,48 +46,98 @@ const TemplateThreeElements = (
   ${TemplateTwoElements(alignSelfFirst, alignSelfSecond)} ${linkTemplate(alignSelfThird)}
 `;
 
-const CommonTemplateThreeElementsAllocation = (args: Args): TemplateResult => html`
-  <sbb-action-group ${sbbSpread(args)}>${TemplateThreeElements()}</sbb-action-group>
+const getCssClasses = (
+  vertical = false,
+  horizontalFromLarge = false,
+  verticalFullWidth = false,
+): string => {
+  return `${vertical ? 'sbb-action-group-vertical ' : ''}${horizontalFromLarge ? 'sbb-action-group-horizontal-from-large ' : ''}${verticalFullWidth ? 'sbb-action-group-vertical-full-width ' : ''}`;
+};
+
+const CommonTemplateThreeElementsAllocation = ({
+  vertical,
+  horizontalFromLarge,
+  verticalFullWidth,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-action-group
+    class=${getCssClasses(vertical, horizontalFromLarge, verticalFullWidth)}
+    ${sbbSpread(args)}
+    >${TemplateThreeElements()}</sbb-action-group
+  >
 `;
 
-const CommonTemplateTwoElementsAllocation = (args: Args): TemplateResult => html`
-  <sbb-action-group ${sbbSpread(args)}>${TemplateTwoElements()}</sbb-action-group>
+const CommonTemplateTwoElementsAllocation = ({
+  vertical,
+  horizontalFromLarge,
+  verticalFullWidth,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-action-group
+    class=${getCssClasses(vertical, horizontalFromLarge, verticalFullWidth)}
+    ${sbbSpread(args)}
+    >${TemplateTwoElements()}</sbb-action-group
+  >
 `;
 
-const TemplateHorizontalAllocation111 = (args: Args): TemplateResult => html`
-  <sbb-action-group ${sbbSpread(args)}
+const TemplateHorizontalAllocation111 = ({
+  vertical,
+  horizontalFromLarge,
+  verticalFullWidth,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-action-group
+    class=${getCssClasses(vertical, horizontalFromLarge, verticalFullWidth)}
+    ${sbbSpread(args)}
     >${TemplateThreeElements(undefined, 'center')}</sbb-action-group
   >
 `;
 
-const TemplateHorizontalAllocation201 = (args: Args): TemplateResult => html`
-  <sbb-action-group ${sbbSpread(args)}
+const TemplateHorizontalAllocation201 = ({
+  vertical,
+  horizontalFromLarge,
+  verticalFullWidth,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-action-group
+    class=${getCssClasses(vertical, horizontalFromLarge, verticalFullWidth)}
+    ${sbbSpread(args)}
     >${TemplateThreeElements(undefined, undefined, 'end')}</sbb-action-group
   >
 `;
 
-const TemplateHorizontalAllocation102 = (args: Args): TemplateResult => html`
-  <sbb-action-group ${sbbSpread(args)}>${TemplateThreeElements('start')}</sbb-action-group>
-`;
-
-const TemplateHorizontalAllocation101 = (args: Args): TemplateResult => html`
-  <sbb-action-group ${sbbSpread(args)}>${TemplateTwoElements(undefined, 'end')}</sbb-action-group>
-`;
-
-const TemplateVerticalAllocation300FullWidth = (args: Args): TemplateResult => html`
-  <sbb-action-group ${sbbSpread(args)}
-    >${TemplateThreeElements(undefined, undefined, 'start')}</sbb-action-group
+const TemplateHorizontalAllocation102 = ({
+  vertical,
+  horizontalFromLarge,
+  verticalFullWidth,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-action-group
+    class=${getCssClasses(vertical, horizontalFromLarge, verticalFullWidth)}
+    ${sbbSpread(args)}
+    >${TemplateThreeElements('start')}</sbb-action-group
   >
 `;
 
-const TemplateVerticalAllocation030FullWidth = (args: Args): TemplateResult => html`
-  <sbb-action-group ${sbbSpread(args)}
-    >${TemplateThreeElements(undefined, undefined, 'center')}</sbb-action-group
+const TemplateHorizontalAllocation101 = ({
+  vertical,
+  horizontalFromLarge,
+  verticalFullWidth,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-action-group
+    class=${getCssClasses(vertical, horizontalFromLarge, verticalFullWidth)}
+    ${sbbSpread(args)}
+    >${TemplateTwoElements('start', 'end')}</sbb-action-group
   >
 `;
 
-const TemplateVerticalAllocation003FullWidth = (args: Args): TemplateResult => html`
-  <sbb-action-group ${sbbSpread(args)}
+const TemplateVerticalAllocation300FullWidth = ({
+  vertical,
+  horizontalFromLarge,
+  ...args
+}: Args): TemplateResult => html`
+  <sbb-action-group class=${getCssClasses(vertical, horizontalFromLarge, true)} ${sbbSpread(args)}
     >${TemplateThreeElements(undefined, undefined, 'end')}</sbb-action-group
   >
 `;
@@ -106,63 +156,48 @@ const linkSize: InputType = {
   options: [null, 'xs', 's', 'm'] satisfies SbbActionGroupElement['linkSize'][],
 };
 
-const orientation: InputType = {
+const vertical: InputType = {
   control: {
-    type: 'inline-radio',
+    type: 'boolean',
   },
-  options: ['horizontal', 'vertical'] satisfies SbbActionGroupElement['orientation'][],
 };
 
-const horizontalFrom: InputType = {
+const horizontalFromLarge: InputType = {
   control: {
-    type: 'select',
+    type: 'boolean',
   },
-  options: ['unset', 'zero', 'small', 'large', 'ultra'],
 };
 
-const alignGroup: InputType = {
+const verticalFullWidth: InputType = {
   control: {
-    type: 'inline-radio',
+    type: 'boolean',
   },
-  options: ['start', 'center', 'stretch', 'end'] satisfies SbbActionGroupElement['alignGroup'][],
 };
 
 const basicArgTypes: ArgTypes = {
-  'align-group': alignGroup,
-  orientation,
-  'horizontal-from': horizontalFrom,
   'button-size': buttonSize,
   'link-size': linkSize,
+  vertical: vertical,
+  horizontalFromLarge: horizontalFromLarge,
+  verticalFullWidth: verticalFullWidth,
 };
 
 const basicArgs: Args = {
-  'align-group': 'start',
-  orientation: 'horizontal',
-  'horizontal-from': 'unset',
-  'button-size': buttonSize.options![0],
-  'link-size': linkSize.options![0],
+  'button-size': buttonSize.options![1],
+  'link-size': linkSize.options![1],
+  vertical: false,
+  horizontalFromLarge: false,
+  verticalFullWidth: false,
 };
 
 const basicArgsVertical = {
   ...basicArgs,
-  orientation: 'vertical',
+  vertical: true,
 };
 
 const basicArgsVerticalFullWidth = {
-  ...basicArgsVertical,
-  'align-group': 'stretch',
-};
-
-const basicArgsSizeS = {
   ...basicArgs,
-  'button-size': buttonSize.options![1],
-  'link-size': linkSize.options![1],
-};
-
-const basicArgsVerticalSizeS = {
-  ...basicArgsVertical,
-  'button-size': buttonSize.options![1],
-  'link-size': linkSize.options![1],
+  verticalFullWidth: true,
 };
 
 export const HorizontalAllocation3_0_0: StoryObj = {
@@ -186,7 +221,7 @@ export const HorizontalAllocation2_0_1: StoryObj = {
 export const HorizontalAllocation1_0_2: StoryObj = {
   render: TemplateHorizontalAllocation102,
   argTypes: basicArgTypes,
-  args: { ...basicArgs, 'align-group': 'end' },
+  args: { ...basicArgs },
 };
 
 export const HorizontalAllocation2_0_0: StoryObj = {
@@ -201,94 +236,28 @@ export const HorizontalAllocation1_0_1: StoryObj = {
   args: { ...basicArgs },
 };
 
-export const VerticalAllocation3_0_0: StoryObj = {
+export const SizeS: StoryObj = {
   render: CommonTemplateThreeElementsAllocation,
   argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, 'align-group': 'start' },
+  args: { ...basicArgs, 'button-size': buttonSize.options![2], 'link-size': linkSize.options![2] },
 };
 
-export const VerticalAllocation2_0_0: StoryObj = {
-  render: CommonTemplateTwoElementsAllocation,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, 'align-group': 'start' },
-};
-
-export const VerticalAllocation0_3_0: StoryObj = {
+export const Vertical: StoryObj = {
   render: CommonTemplateThreeElementsAllocation,
   argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, 'align-group': 'center' },
+  args: { ...basicArgsVertical },
 };
 
-export const VerticalAllocation0_2_0: StoryObj = {
-  render: CommonTemplateTwoElementsAllocation,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, 'align-group': 'center' },
-};
-
-export const VerticalAllocation0_0_3: StoryObj = {
-  render: CommonTemplateThreeElementsAllocation,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, 'align-group': 'end' },
-};
-
-export const VerticalAllocation0_0_2: StoryObj = {
-  render: CommonTemplateTwoElementsAllocation,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, 'align-group': 'end' },
-};
-
-export const VerticalAllocation3_0_0FullWidth: StoryObj = {
+export const VerticalFullWidth: StoryObj = {
   render: TemplateVerticalAllocation300FullWidth,
   argTypes: basicArgTypes,
   args: { ...basicArgsVerticalFullWidth },
 };
 
-export const VerticalAllocation2_0_0FullWidth: StoryObj = {
-  render: CommonTemplateTwoElementsAllocation,
+export const HorizontalFromLarge: StoryObj = {
+  render: TemplateVerticalAllocation300FullWidth,
   argTypes: basicArgTypes,
-  args: { ...basicArgsVerticalFullWidth },
-};
-
-export const VerticalAllocation0_3_0FullWidth: StoryObj = {
-  render: TemplateVerticalAllocation030FullWidth,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVerticalFullWidth },
-};
-
-export const VerticalAllocation0_2_0FullWidth: StoryObj = {
-  render: CommonTemplateTwoElementsAllocation,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVerticalFullWidth },
-};
-
-export const VerticalAllocation0_0_3FullWidth: StoryObj = {
-  render: TemplateVerticalAllocation003FullWidth,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVerticalFullWidth },
-};
-
-export const VerticalAllocation0_0_2FullWidth: StoryObj = {
-  render: CommonTemplateTwoElementsAllocation,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVerticalFullWidth },
-};
-
-export const VerticalToHorizontal3_0_0: StoryObj = {
-  render: CommonTemplateThreeElementsAllocation,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVertical, 'horizontal-from': 'large' },
-};
-
-export const HorizontalAllocationSizeS3_0_0: StoryObj = {
-  render: CommonTemplateThreeElementsAllocation,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsSizeS },
-};
-
-export const VerticalAllocationSizeS3_0_0: StoryObj = {
-  render: CommonTemplateThreeElementsAllocation,
-  argTypes: basicArgTypes,
-  args: { ...basicArgsVerticalSizeS, 'align-group': 'start' },
+  args: { ...basicArgsVerticalFullWidth, horizontalFromLarge: true },
 };
 
 const meta: Meta = {
