@@ -190,9 +190,8 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
             </sbb-dialog-content>
 
             <sbb-dialog-actions
-              align-group="stretch"
-              orientation="vertical"
-              horizontal-from="large"
+              style="--sbb-action-group-justify-content: space-between"
+              class="sbb-action-group-horizontal-from-large"
             >
               <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
               <sbb-button sbb-dialog-close>Button</sbb-button>
@@ -206,7 +205,7 @@ export const homeLoggedInTemplate = (args: Args): TemplateResult => html`
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua.
             </sbb-dialog-content>
-            <sbb-dialog-actions align-group="end">
+            <sbb-dialog-actions style="--sbb-action-group-justify-content: end">
               <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
               <sbb-button sbb-dialog-close sbb-focus-initial>Button</sbb-button>
             </sbb-dialog-actions>

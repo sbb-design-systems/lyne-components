@@ -129,7 +129,7 @@ export const homeTemplate = (args: Args): TemplateResult => html`
             </span>
           </sbb-card>
         </div>
-        <sbb-action-group orientation="vertical" horizontal-from="small" button-size="l">
+        <sbb-action-group class="sbb-action-group-horizontal-from-small" button-size="l">
           <sbb-button-link
             href="https://github.com/sbb-design-systems/lyne-components"
             icon-name="qrcode-small"
