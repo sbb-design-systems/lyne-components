@@ -29,13 +29,14 @@ describe(`sbb-action-group`, () => {
   };
 
   describeViewports({ viewports: ['small', 'ultra'] }, () => {
+    //<sbb-action-group align-group="${state.alignGroup}">
     describe('horizontal', () => {
       for (const state of horizontalCases) {
         it(
           state.name,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
-              <sbb-action-group orientation="horizontal" align-group="${state.alignGroup}">
+              <sbb-action-group>
                 <sbb-secondary-button align-self=${state.alignFirst || nothing}
                   >Button 1</sbb-secondary-button
                 >
@@ -60,9 +61,8 @@ describe(`sbb-action-group`, () => {
       beforeEach(async function () {
         root = await visualRegressionFixture(html`
           <sbb-action-group
-            orientation="vertical"
-            horizontal-from="unset"
-            align-group="${alignGroup}"
+            class="sbb-action-group-vertical"
+            style=${`--sbb-action-group-align-items: ${alignGroup}`}
           >
             <sbb-secondary-button>Button 1</sbb-secondary-button>
             <sbb-button>Button 2</sbb-button>
@@ -92,11 +92,7 @@ describe(`sbb-action-group`, () => {
           `align-third=${alignSelfThird}`,
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
-              <sbb-action-group
-                orientation="vertical"
-                horizontal-from="unset"
-                align-group="stretch"
-              >
+              <sbb-action-group class="sbb-action-group-vertical-full-width">
                 <sbb-secondary-button>Button 1</sbb-secondary-button>
                 <sbb-button>Button 2</sbb-button>
                 <sbb-block-link
@@ -120,8 +116,7 @@ describe(`sbb-action-group`, () => {
           visualDiffDefault.with(async (setup) => {
             await setup.withFixture(html`
               <sbb-action-group
-                orientation=${orientation}
-                horizontal-from="unset"
+                class=${orientation === 'vertical' ? 'sbb-action-group-vertical' : nothing}
                 button-size="s"
                 link-size="s"
               >
@@ -144,7 +139,10 @@ describe(`sbb-action-group`, () => {
       `orientation=vertical-horizontal-from=large`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-action-group orientation="vertical" horizontal-from="large">
+          <sbb-action-group
+            style=${`--sbb-action-group-align-items: start`}
+            class="sbb-action-group-horizontal-from-large"
+          >
             <sbb-secondary-button>Button 1</sbb-secondary-button>
             <sbb-button>Button 2</sbb-button>
             <sbb-block-link

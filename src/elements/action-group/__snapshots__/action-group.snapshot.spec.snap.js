@@ -2,11 +2,7 @@
 export const snapshots = {};
 
 snapshots["sbb-action-group renders DOM"] = 
-`<sbb-action-group
-  align-group="start"
-  horizontal-from="large"
-  orientation="horizontal"
->
+`<sbb-action-group>
   <sbb-secondary-button
     size="m"
     tabindex="0"
