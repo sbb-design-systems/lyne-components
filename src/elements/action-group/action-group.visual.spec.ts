@@ -139,10 +139,7 @@ describe(`sbb-action-group`, () => {
       `orientation=vertical-horizontal-from=large`,
       visualDiffDefault.with(async (setup) => {
         await setup.withFixture(html`
-          <sbb-action-group
-            style=${`--sbb-action-group-align-items: start`}
-            class="sbb-action-group-horizontal-from-large"
-          >
+          <sbb-action-group class="sbb-action-group-horizontal-from-large">
             <sbb-secondary-button>Button 1</sbb-secondary-button>
             <sbb-button>Button 2</sbb-button>
             <sbb-block-link
