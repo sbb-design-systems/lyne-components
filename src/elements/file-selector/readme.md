@@ -71,7 +71,7 @@ in the next example, only images are allowed.
 
 ## Style
 
-The component has also two different sizes, `m` (default) and `s`, which can be changed using the `size` property.
+The component has also two different sizes, `m` and `s`, which can be changed using the `size` property.
 
 ```html
 <sbb-file-selector size="s"></sbb-file-selector>

@@ -49,9 +49,8 @@ export class SbbFileSelectorDropzoneElement extends SbbFileSelectorCommonElement
       <label>
         <span class="sbb-file-selector__dropzone-area">
           <span class="sbb-file-selector__dropzone-area--icon">
-            <sbb-icon
-              name=${this.size === 'm' ? 'folder-open-medium' : 'folder-open-small'}
-            ></sbb-icon>
+            <sbb-icon name="folder-open-medium"></sbb-icon>
+            <sbb-icon name="folder-open-small"></sbb-icon>
           </span>
           <span class="sbb-file-selector__dropzone-area--title">${this.titleContent}</span>
           <span class="sbb-file-selector__dropzone-area--subtitle">
