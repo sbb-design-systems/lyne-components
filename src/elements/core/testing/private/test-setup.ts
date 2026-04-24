@@ -18,6 +18,51 @@ const {
   testRunScript: string;
 };
 
+// Web Test Runner tries to transfer HTMLElements via WebSocket with structuredClone,
+// which fails and causes tests to timeout.
+const originalStructuredClone = globalThis.structuredClone;
+function hasUnclonables(value: unknown): boolean {
+  return (
+    value instanceof HTMLElement ||
+    value instanceof Window ||
+    (Array.isArray(value) && value.some(hasUnclonables)) ||
+    (typeof value === 'object' && value !== null && Object.values(value).some(hasUnclonables))
+  );
+}
+function clone(value: unknown): unknown {
+  if (!hasUnclonables(value)) {
+    return originalStructuredClone(value);
+  } else if (value instanceof HTMLElement) {
+    return `<${value.localName}${value.id ? ` id="${value.id}"` : ''}${value
+      .getAttributeNames()
+      .map((attr) =>
+        value.getAttribute(attr) === null ? ` ${attr}` : ` ${attr}="${value.getAttribute(attr)}"`,
+      )
+      .join('')}>`;
+  } else if (value instanceof Window) {
+    return value.toString();
+  } else if (Array.isArray(value)) {
+    return value.map(clone);
+  } else if (typeof value === 'object' && value !== null) {
+    return Object.entries(value).reduce(
+      (acc, [key, val]) => {
+        acc[key] = clone(val);
+        return acc;
+      },
+      {} as Record<string, unknown>,
+    );
+  } else {
+    return value;
+  }
+}
+globalThis.structuredClone = (value: unknown) => {
+  if (hasUnclonables(value)) {
+    return clone(value);
+  }
+
+  return originalStructuredClone(value);
+};
+
 testFrameworkConfig.rootHooks = {
   beforeEach: async () => {
     (await import('../../a11y/input-modality-detector.ts')).sbbInputModalityDetector.reset();
