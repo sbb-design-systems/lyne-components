@@ -8,7 +8,7 @@ import type {
   SbbElementConstructor,
   SbbElementType,
 } from '../../core.ts';
-import { boxSizingStyles, isLean } from '../../core.ts';
+import { boxSizingStyles } from '../../core.ts';
 import { SbbIconElement } from '../../icon.pure.ts';
 import type { SbbNavigationButtonElement } from '../navigation-button/navigation-button.component.ts';
 import type { SbbNavigationLinkElement } from '../navigation-link/navigation-link.component.ts';
@@ -41,11 +41,8 @@ export const SbbNavigationActionCommonElementMixin = <
 
     /**
      * Action size variant, either s, m or l.
-     * @default 'l' / 's' (lean)
      */
-    @property({ reflect: true }) public accessor size: SbbNavigationActionSize = isLean()
-      ? 's'
-      : 'l';
+    @property({ reflect: true }) public accessor size: SbbNavigationActionSize = 'l';
 
     /** The section that is being controlled by the action, if any. */
     public connectedSection?: SbbNavigationSectionElement;

@@ -92,6 +92,7 @@ $active: ':active, :state(active)';
   max-width: 100%;
   font-size: var(--sbb-text-font-size-xs);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
   gap: var(--sbb-tag-gap);
   padding-inline: var(--sbb-tag-padding-inline);
   cursor: var(--sbb-tag-cursor, var(--sbb-cursor-pointer));

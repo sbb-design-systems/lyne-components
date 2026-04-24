@@ -94,14 +94,12 @@ export class SbbAlertGroupElement extends SbbElement {
 
     /* eslint-disable lit/binding-positions */
     return html`
-      <div class="sbb-alert-group">
-        ${this._hasAlerts
-          ? html`<${unsafeStatic(TITLE_TAG_NAME)} class="sbb-alert-group__title">
-              <slot name="accessibility-title">${this.accessibilityTitle}</slot>
-            </${unsafeStatic(TITLE_TAG_NAME)}>`
-          : nothing}
-        <slot @slotchange=${(event: Event) => this._slotChanged(event)}></slot>
-      </div>
+      ${this._hasAlerts
+        ? html`<${unsafeStatic(TITLE_TAG_NAME)} class="sbb-alert-group__title">
+            <slot name="accessibility-title">${this.accessibilityTitle}</slot>
+          </${unsafeStatic(TITLE_TAG_NAME)}>`
+        : nothing}
+      <slot @slotchange=${(event: Event) => this._slotChanged(event)}></slot>
     `;
   }
 }

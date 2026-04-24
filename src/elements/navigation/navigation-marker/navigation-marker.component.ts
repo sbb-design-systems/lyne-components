@@ -4,7 +4,6 @@ import { property } from 'lit/decorators.js';
 
 import {
   boxSizingStyles,
-  isLean,
   SbbElement,
   SbbNamedSlotListMixin,
   type WithListChildren,
@@ -33,9 +32,8 @@ export class SbbNavigationMarkerElement extends SbbNamedSlotListMixin<
 
   /**
    * Marker size variant, either s or l.
-   * @default 'l' / 's' (lean)
    */
-  @property({ reflect: true }) public accessor size: 'l' | 's' = isLean() ? 's' : 'l';
+  @property({ reflect: true }) public accessor size: 'l' | 's' = 'l';
 
   private _currentActiveAction?: SbbNavigationButtonElement | SbbNavigationLinkElement;
 

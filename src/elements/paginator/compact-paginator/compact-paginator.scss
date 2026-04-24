@@ -26,6 +26,7 @@
 .sbb-paginator__pages {
   font-size: var(--sbb-compact-paginator-font-size);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
   display: flex;
   align-items: center;
   justify-content: center;

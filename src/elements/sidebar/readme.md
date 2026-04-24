@@ -349,9 +349,9 @@ property when the navigation changes.
 
 #### Slots
 
-| Name | Description                                                                                      |
-| ---- | ------------------------------------------------------------------------------------------------ |
-|      | Use the unnamed slot to add any content elements. Further `sbb-sidebar-container`s are possible. |
+| Name | Description                                                                                                |
+| ---- | ---------------------------------------------------------------------------------------------------------- |
+|      | Use the unnamed slot to add any content elements. Further `<sbb-sidebar-container>` elements are possible. |
 
 ### class: `SbbSidebarElement`, `sbb-sidebar`
 

@@ -48,7 +48,7 @@ to display the components with the correct spacings.
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pretium felis sit amet felis
     viverra lacinia. Donec et enim mi. Aliquam erat volutpat. Proin ut odio tellus.
   </p>
-  <sbb-button-static class="sbb-teaser-product--spacing">Label</sbb-button-static>
+  <sbb-button-static class="sbb-teaser-product--spacing" size="l">Label</sbb-button-static>
 </sbb-teaser-product>
 ```
 

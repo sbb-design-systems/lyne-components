@@ -30,7 +30,7 @@ snapshots["sbb-secondary-button renders a sbb-secondary-button without icon Shad
 
 snapshots["sbb-secondary-button renders a sbb-secondary-button with slotted icon DOM"] = 
 `<sbb-secondary-button
-  size="l"
+  size="m"
   tabindex="0"
 >
   <sbb-icon

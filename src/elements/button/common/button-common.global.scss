@@ -28,7 +28,7 @@ $theme: 'standard' !default;
   --sbb-button-min-height-size-s: var(--sbb-size-element-xs);
   --sbb-button-min-height: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-button-min-height-size-l),
+        'standard': var(--sbb-button-min-height-size-m),
         'lean': var(--sbb-button-min-height-size-s),
       ),
       $theme
@@ -39,7 +39,7 @@ $theme: 'standard' !default;
   --sbb-button-padding-inline-size-s: var(--sbb-spacing-fixed-4x);
   --sbb-button-padding-inline: #{sbb.theme-pattern-select(
       (
-        'standard': var(--sbb-button-padding-inline-size-l),
+        'standard': var(--sbb-button-padding-inline-size-m),
         'lean': var(--sbb-button-padding-inline-size-s),
       ),
       $theme

@@ -1,8 +1,6 @@
 @use '../core/functions';
 
 @mixin scrollbar-rules {
-  --sbb-scrollbar-width: var(--sbb-spacing-fixed-3x);
-
   &::-webkit-scrollbar {
     // Total width
     width: var(--sbb-scrollbar-width);
@@ -40,12 +38,9 @@
   //  We have to use the `not` selector as Chrome supports both, the -webkit-* and the following properties.
   //  As long as possible we use the -webkit-* approach as we have more styling possibilities there.
   @supports not selector(::-webkit-scrollbar) {
-    // stylelint-disable-next-line block-no-redundant-nested-style-rules
-    & {
-      scrollbar-width: var(--sbb-scrollbar-width-firefox);
-      scrollbar-color: var(--sbb-scrollbar-color, currentcolor)
-        var(--sbb-scrollbar-track-color, transparent);
-    }
+    scrollbar-width: var(--sbb-scrollbar-width-firefox);
+    scrollbar-color: var(--sbb-scrollbar-color, currentcolor)
+      var(--sbb-scrollbar-track-color, transparent);
   }
 }
 
@@ -90,6 +85,8 @@
 }
 
 @mixin scrollbar-variables($size: thin, $negative: false, $track-visible: false) {
+  --sbb-scrollbar-width: var(--sbb-spacing-fixed-3x);
+
   @if $size == thin {
     @include scrollbar-variables--size-thin;
   } @else {

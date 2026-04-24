@@ -35,10 +35,10 @@
 }
 
 .sbb-card-badge-content {
-  @include sbb.text--bold;
-
   font-size: var(--sbb-text-font-size-xxs);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
+  line-height: var(--sbb-typo-line-height-text);
+  font-weight: bold;
   position: relative;
   display: flex;
   align-items: center;

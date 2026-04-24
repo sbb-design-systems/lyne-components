@@ -23,6 +23,7 @@ export class SbbTimetableFormSwapButtonElement extends SbbSecondaryButtonElement
 
   public constructor() {
     super();
+    this.size = 'l' as this['size'];
     this.addEventListener('click', () => this._invertFieldValues());
   }
 

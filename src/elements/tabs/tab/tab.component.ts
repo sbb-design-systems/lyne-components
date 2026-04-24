@@ -1,7 +1,7 @@
 import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import { type CSSResultGroup, html, type TemplateResult, unsafeCSS } from 'lit';
 
-import { SbbElement } from '../../core.ts';
+import { hostScrollbarStyles, SbbElement } from '../../core.ts';
 import type { SbbTabGroupElement } from '../tab-group/tab-group.component.ts';
 import type { SbbTabLabelElement } from '../tab-label/tab-label.component.ts';
 
@@ -16,7 +16,7 @@ import style from './tab.scss?inline';
 export class SbbTabElement extends SbbElement {
   public static override readonly elementName: string = 'sbb-tab';
   public static override role = 'tabpanel';
-  public static override styles: CSSResultGroup = unsafeCSS(style);
+  public static override styles: CSSResultGroup = [hostScrollbarStyles, unsafeCSS(style)];
   public static readonly events = {
     active: 'active',
   } as const;
@@ -43,8 +43,9 @@ export class SbbTabElement extends SbbElement {
     super.connectedCallback();
     this.tabIndex = 0;
 
-    // As we can't include the scrollbar mixin on the host and to minimize
-    // payload, we decided to add the scrollbar class here.
+    // When including the scrollbar styles on the host, there is no hover effect of the scrollbar possible.
+    // In most cases, the component will be used in Light DOM. To also support the hover effect,
+    // we additionally add the `sbb-scrollbar` CSS class to the host.
     // This is an exception as we normally don't alter the classList of the host.
     this.classList.add('sbb-scrollbar');
   }
