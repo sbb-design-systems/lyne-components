@@ -1,4 +1,4 @@
-import { assert, expect } from '@open-wc/testing';
+import { assert } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 
 import { fixture } from '../../core/testing/private.ts';
@@ -16,9 +16,5 @@ describe(`sbb-container`, () => {
 
   it('renders', async () => {
     assert.instanceOf(element, SbbContainerElement);
-  });
-
-  it('should fail', () => {
-    expect(element).to.equal('foo');
   });
 });
