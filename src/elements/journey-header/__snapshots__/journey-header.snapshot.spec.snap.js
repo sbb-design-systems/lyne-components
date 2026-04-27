@@ -6,7 +6,7 @@ snapshots["sbb-journey-header renders DOM"] =
   destination="B"
   level="3"
   origin="A"
-  visual-level="3"
+  visual-level="5"
 >
 </sbb-journey-header>
 `;
