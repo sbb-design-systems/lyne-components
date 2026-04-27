@@ -203,10 +203,8 @@ export class SbbStepElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <div class="sbb-step--wrapper">
-        <div class="sbb-step">
-          <slot></slot>
-        </div>
+      <div class="sbb-step">
+        <slot></slot>
       </div>
     `;
   }

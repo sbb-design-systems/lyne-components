@@ -16,7 +16,7 @@ export class SbbChipLabelElement extends SbbElement {
 
   /** Size of the chip. */
   @property({ reflect: true })
-  public accessor size: 'xxs' | 'xs' | 's' = 'xxs';
+  public accessor size: 'xxxs' | 'xxs' | 'xs' | 's' = 'xxs';
 
   /** Color of the chip. */
   @property({ reflect: true })
@@ -24,10 +24,8 @@ export class SbbChipLabelElement extends SbbElement {
 
   protected override render(): TemplateResult {
     return html`
-      <span class="sbb-chip-label">
-        <span class="sbb-chip__text-wrapper">
-          <slot></slot>
-        </span>
+      <span class="sbb-chip__text-wrapper">
+        <slot></slot>
       </span>
     `;
   }

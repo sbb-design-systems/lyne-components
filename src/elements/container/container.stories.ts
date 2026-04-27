@@ -263,6 +263,7 @@ const actionGroup = (): TemplateResult => html`
     align-group="stretch"
     orientation="vertical"
     horizontal-from="large"
+    button-size="l"
     style="width:100%;"
   >
     <sbb-block-link

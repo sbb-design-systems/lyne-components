@@ -72,6 +72,7 @@ class Overview extends LitElement {
                   >`
                 : nothing}
               <sbb-button-link
+                size="l"
                 class="app-compare-link"
                 href="/compare/${screenshots.flatTestCases[0]?.path}"
               >

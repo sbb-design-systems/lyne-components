@@ -7,9 +7,9 @@
   margin-inline: 0;
   font-family: var(--sbb-typo-font-family);
   font-weight: bold;
-  line-height: var(--sbb-title-line-height, var(--sbb-typo-line-height-heading));
-  letter-spacing: var(--sbb-typo-letter-spacing-heading);
   font-size: var(--sbb-title-font-size);
+  letter-spacing: var(--sbb-typo-letter-spacing-heading);
+  line-height: var(--sbb-title-line-height, var(--sbb-typo-line-height-heading));
 }
 
 @mixin title--level-1 {

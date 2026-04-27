@@ -32,7 +32,7 @@ const content = (longContent = false): TemplateResult => html`
           amet felis viverra lacinia.`,
       )}
   </p>
-  <sbb-button-static class="sbb-teaser-product--spacing">Label</sbb-button-static>
+  <sbb-button-static class="sbb-teaser-product--spacing" size="l">Label</sbb-button-static>
 `;
 
 const footer = (): TemplateResult => html`
