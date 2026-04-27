@@ -1843,10 +1843,10 @@
     argparse "~1.0.9"
     string-argv "~0.3.1"
 
-"@sbb-esta/lyne-design-tokens@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-2.0.0.tgz#17521603a3af2bab43a5293fac489cddcfdbbdca"
-  integrity sha512-CuKbF6is5eBx6gBOUTEBa5UPrcf+5u05Kr3XdmXYfXysEKHxviHNBXthucw7lkDF3V4MASeFlOcfbgICA9/vZw==
+"@sbb-esta/lyne-design-tokens@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-2.1.0.tgz#ad70da233af18a21a306956fbfa7aa9d77b37950"
+  integrity sha512-l1In9Sq/jf5Smsphr4LtYndGtpi3VJjrVA2qpnBLVNZyh6Tyg/2Uzj8XZ71WAje8NSw1J4rlyJ3yF2JHZuIH5w==
 
 "@simple-libs/child-process-utils@^1.0.0":
   version "1.0.2"
