@@ -61,7 +61,6 @@ export * from './core/mixins/required-mixin.ts';
 export * from './core/mixins/readonly-mixin.ts';
 export * from './core/mixins/selection-panel-mixin.ts';
 export * from './core/mixins/update-scheduler-mixin.ts';
-export * from './core/overlay/overlay.ts';
 export * from './core/overlay/overlay-option-panel.ts';
 export * from './core/overlay/overlay-outside-pointer-event-listener.ts';
 export * from './core/overlay/overlay-trigger-attributes.ts';

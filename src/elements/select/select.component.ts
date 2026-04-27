@@ -14,6 +14,7 @@ import { property, state } from 'lit/decorators.js';
 import { ref } from 'lit/directives/ref.js';
 import { until } from 'lit/directives/until.js';
 
+import { optionPanelStyle } from '../autocomplete.pure.ts';
 import {
   boxSizingStyles,
   forceType,
@@ -28,7 +29,6 @@ import {
   isNextjs,
   isSafari,
   isZeroAnimationDuration,
-  overlayGapFixCorners,
   SbbDisabledMixin,
   SbbEscapableOverlayController,
   SbbFormAssociatedMixin,
@@ -80,7 +80,11 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 ) {
   public static override readonly elementName: string = 'sbb-select';
   public static override readonly role = ariaRoleOnHost ? 'listbox' : null;
-  public static override styles: CSSResultGroup = [boxSizingStyles, unsafeCSS(style)];
+  public static override styles: CSSResultGroup = [
+    boxSizingStyles,
+    optionPanelStyle,
+    unsafeCSS(style),
+  ];
 
   // TODO: fix using ...super.events requires: https://github.com/sbb-design-systems/lyne-components/issues/2600
   public static override readonly events = {
@@ -158,7 +162,6 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
   });
 
   private _overlay!: HTMLElement;
-  private _optionContainer!: HTMLElement;
   private _originElement: HTMLElement | null = null;
   private _triggerElement: HTMLElement | null = null;
   private _openPanelEventsController?: AbortController;
@@ -274,7 +277,7 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
       return;
     }
 
-    this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.showPopover?.();
+    this.shadowRoot?.querySelector<HTMLDivElement>('[popover]')?.showPopover?.();
     this.state = 'opening';
     this.internals.states.add('expanded');
     this._setOverlayPosition();
@@ -580,8 +583,8 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
     setOverlayPosition(
       this._overlay,
       this._originElement,
-      this._optionContainer,
-      this.shadowRoot!.querySelector('.sbb-select__container')!,
+      this._overlay,
+      this.shadowRoot!.querySelector('.sbb-option-panel__overlay-container')!,
       this,
     );
   }
@@ -607,10 +610,10 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   private _handleClosing(): void {
     this.state = 'closed';
-    this.shadowRoot?.querySelector<HTMLDivElement>('.sbb-select__container')?.hidePopover?.();
+    this.shadowRoot?.querySelector<HTMLDivElement>('[popover]')?.hidePopover?.();
     this._triggerElement?.setAttribute('aria-expanded', 'false');
     this._resetActiveElement();
-    this._optionContainer.scrollTop = 0;
+    this._overlay.scrollTop = 0;
     this._escapableOverlayController.disconnect();
     this.dispatchCloseEvent();
   }
@@ -884,7 +887,11 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
 
   // Close menu on backdrop click.
   private _closeOnBackdropClick = (event: PointerEvent): void => {
-    if (!this._isPointerDownEventOnMenu && !isEventOnElement(this._overlay, event)) {
+    if (
+      !this._isPointerDownEventOnMenu &&
+      !isEventOnElement(this._overlay, event) &&
+      !isEventOnElement(this._originElement, event)
+    ) {
       this.close();
     }
   };
@@ -1009,26 +1016,17 @@ export class SbbSelectElement<T = string> extends SbbUpdateSchedulerMixin(
         ${until(...this._spreadDeferredDisplayValue(html`${this.placeholder}`))}
       </div>
 
-      <div class="sbb-select__gap-fix"></div>
-      <div class="sbb-select__container" popover="manual">
-        <div class="sbb-select__gap-fix">${overlayGapFixCorners()}</div>
+      <div class="sbb-option-panel__overlay-container" popover="manual">
         <div
+          class="sbb-option-panel__overlay"
+          id=${!ariaRoleOnHost ? this._overlayId : nothing}
+          role=${!ariaRoleOnHost ? 'listbox' : nothing}
+          ?aria-multiselectable=${this.multiple}
+          tabindex="-1"
           @animationend=${this._onAnimationEnd}
-          class="sbb-select__panel"
           ${ref((dialogRef) => (this._overlay = dialogRef as HTMLElement))}
         >
-          <div class="sbb-select__wrapper">
-            <div
-              id=${!ariaRoleOnHost ? this._overlayId : nothing}
-              class="sbb-select__options"
-              role=${!ariaRoleOnHost ? 'listbox' : nothing}
-              ?aria-multiselectable=${this.multiple}
-              ${ref((containerRef) => (this._optionContainer = containerRef as HTMLElement))}
-              tabindex="-1"
-            >
-              <slot @slotchange=${this._updateValueOptionState}></slot>
-            </div>
-          </div>
+          <slot @slotchange=${this._updateValueOptionState}></slot>
         </div>
       </div>
     `;

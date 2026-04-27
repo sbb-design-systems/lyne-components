@@ -10,7 +10,6 @@ $theme: 'standard' !default;
 @use './mixins/font-face';
 @use './mixins/helpers';
 @use './mixins/inputs';
-@use './mixins/overlay' as overlay-mixin;
 @use './mixins/popover';
 @use './mixins/scrollbar';
 @use './mixins/typo';
@@ -172,6 +171,9 @@ $theme: 'standard' !default;
 @use '../../option/option-hint/option-hint.global' as option-hint with (
   $theme: $theme
 );
+@use '../../autocomplete/option-panel-common.global' as option-panel with (
+  $theme: $theme
+);
 @use '../../overlay/overlay.global' as overlay with (
   $theme: $theme
 );
@@ -327,9 +329,9 @@ $theme: 'standard' !default;
   @include notification.base;
   @include option.base;
   @include option-hint.base;
+  @include option-panel.base;
   @include optgroup.base;
   @include overlay.base;
-  @include overlay-mixin.options-panel-overlay-variables--global($theme);
   @include paginator.base;
   @include compact-paginator.base;
   @include popover-component.base;
