@@ -4,7 +4,7 @@
 @mixin options-panel-overlay-variables--global($theme: 'standard') {
   --sbb-options-panel-border-radius: var(--sbb-border-radius-4x);
   --sbb-options-panel-animation-timing-function: ease;
-  --sbb-options-panel-background-color: var(--sbb-background-color-1);
+  --sbb-options-panel-background-color: var(--sbb-background-color-2);
   --sbb-options-panel-divider-margin-block: var(--sbb-spacing-fixed-3x);
   --sbb-options-panel-padding-block: #{functions.theme-pattern-select(
       (
@@ -48,7 +48,7 @@
 @mixin options-panel-overlay-negative-variables {
   @include scrollbar.scrollbar-variables--color-negative;
 
-  --sbb-options-panel-background-color: var(--sbb-background-color-1-negative);
+  --sbb-options-panel-background-color: var(--sbb-background-color-2-negative);
 
   // As the overlays have always a white background, we have to fix the focus outline color
   // to default color for cases where the overlays are used in a negative context.
