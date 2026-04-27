@@ -130,7 +130,9 @@ export class SbbPearlChainElement extends SbbElement {
 
   private _renderPosition(now: Date, start?: Time, end?: Time): TemplateResult | undefined {
     const currentPosition = this._getProgress(now, start, end);
-    if (currentPosition < 0 && currentPosition > 100) return undefined;
+    if (currentPosition < 0 && currentPosition > 100) {
+      return undefined;
+    }
 
     const statusStyle = (): Record<string, string> => {
       return {

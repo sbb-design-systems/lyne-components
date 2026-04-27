@@ -136,9 +136,12 @@
   inset: 0;
   width: var(--sbb-train-formation-wagon-dimension-long);
   height: var(--sbb-train-formation-wagon-dimension-short);
+  transform-origin: 0 0;
+
+  // Need in order to correctly render in Safari
+  will-change: transform;
 
   :host(:state(orientation-vertical)) & {
-    transform-origin: 0 0;
     rotate: -90deg;
     transform: scale(-1, 1);
   }
@@ -208,6 +211,9 @@
   color: var(--sbb-train-wagon-class-color);
   position: relative;
 
+  // Needed to fix Safari vertical centering
+  line-height: 1;
+
   &.first {
     &::before {
       content: '';
@@ -217,18 +223,20 @@
 
       :host(:not(:state(orientation-vertical))) & {
         height: var(--sbb-train-wagon-class-first-thickness);
+        width: var(--sbb-train-wagon-class-dimension);
         inset: calc(
             -0.5 *
               (var(--_sbb-train-formation-wagon-height) - var(--sbb-train-wagon-class-dimension)) +
               var(--sbb-train-wagon-border-width) - var(--sbb-train-wagon-class-border-width)
           )
-          0 auto;
+          0 auto calc(-1 * var(--sbb-train-wagon-class-border-width));
         border-end-start-radius: var(--sbb-train-wagon-class-first-border-radius);
       }
 
       :host(:state(orientation-vertical)) & {
         width: var(--sbb-train-wagon-class-first-thickness);
-        inset: 0 0 0
+        height: var(--sbb-train-wagon-class-dimension);
+        inset: calc(-1 * var(--sbb-train-wagon-class-border-width)) auto 0
           calc(
             -0.5 *
               (var(--_sbb-train-formation-wagon-width) - var(--sbb-train-wagon-class-dimension)) +
@@ -255,27 +263,34 @@
   }
 }
 
+:is(.sbb-train-wagon__label, .sbb-train-wagon__label-divider) {
+  margin-block-start: calc(
+    0.5 * (1em * var(--sbb-typo-line-height-text) - var(--sbb-train-wagon-font-size))
+  );
+
+  :host(:state(orientation-vertical)) & {
+    margin-block-start: 0;
+  }
+}
+
 .sbb-train-wagon__label {
+  line-height: 1;
+
   // In vertical orientation, the label is horizontally centered in a fixed width box of 32px by design.
   // As the box can grow to the side if there are many attribute icons, we have to re-apply this width as max-width here.
   :host(:state(orientation-vertical)) & {
     max-width: var(--sbb-train-wagon-information-min-width);
     width: 100%;
     text-align: center;
-    line-height: 1;
   }
 }
 
 .sbb-train-wagon__label-divider {
   height: var(--sbb-train-wagon-font-size);
-  margin-block-start: calc(
-    0.5 * (1em * var(--sbb-typo-line-height-text) - var(--sbb-train-wagon-font-size))
-  );
 
   :host(:state(orientation-vertical)) & {
     height: auto;
     width: var(--sbb-train-wagon-font-size);
-    margin-block-start: 0;
     margin-inline-start: calc(
       0.5 * (var(--sbb-train-wagon-information-min-width) - var(--sbb-train-wagon-font-size))
     );

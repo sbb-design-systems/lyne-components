@@ -1,3 +1,4 @@
+import { ResizeController } from '@lit-labs/observers/resize-controller.js';
 import {
   type CSSResultGroup,
   html,
@@ -64,6 +65,10 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
   private _triggerElement?: HTMLElement | null;
   private _triggerAbortController?: AbortController;
   private _openStateController?: AbortController;
+  private _resizeController = new ResizeController(this, {
+    target: null,
+    callback: () => this._setPopoverPosition(),
+  });
   private _escapableOverlayController = new SbbEscapableOverlayController(this);
   private _focusTrapController = new SbbFocusTrapController(this);
   private _blurTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -137,8 +142,11 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
   private _handleClosing(): void {
     this.state = 'closed';
     this.hidePopover?.();
+    if (this.overlay) {
+      this._resizeController.unobserve(this.overlay);
+      this.overlay.firstElementChild?.scrollTo(0, 0);
+    }
 
-    this.overlay?.firstElementChild?.scrollTo(0, 0);
     this.removeAttribute('tabindex');
 
     if (!this._skipCloseFocus) {
@@ -159,6 +167,9 @@ export abstract class SbbPopoverBaseElement extends SbbOpenCloseBaseElement {
     this.inert = false;
     this._setPopoverFocus();
     this._focusTrapController.enabled = true;
+    if (this.overlay) {
+      this._resizeController.observe(this.overlay);
+    }
     this.dispatchOpenEvent();
   }
 
@@ -604,7 +615,6 @@ export class SbbPopoverElement extends SbbPopoverBaseElement {
       <sbb-secondary-button
         aria-label=${this.accessibilityCloseLabel || i18nClosePopover[this._language.current]}
         size="s"
-        type="button"
         icon-name="cross-small"
         sbb-popover-close
       ></sbb-secondary-button>

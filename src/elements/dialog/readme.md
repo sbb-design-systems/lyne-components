@@ -171,6 +171,24 @@ It's possible to display the component in `negative` variant using the self-name
 </sbb-dialog>
 ```
 
+The dialog takes the full width and adapts its height to the slotted content;
+starting from small breakpoint, the width adapts to the content too.
+
+To configure the dialog dimension, consumers can set the dimensions on the slotted content,
+e.g. setting the width or height on the `<sbb-dialog-content>` element.
+
+```html
+<style>
+  sbb-dialog-content {
+    height: 480px;
+  }
+</style>
+<sbb-dialog>
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+</sbb-dialog>
+```
+
 ## Accessibility
 
 We recommend to place at maximum two actions in the `<sbb-dialog-actions>` component.
@@ -203,13 +221,13 @@ an alternative element by listening to the `didClose` event.
 
 #### Properties
 
-| Name             | Attribute         | Privacy | Type                                        | Default             | Description                                                                                                             |
-| ---------------- | ----------------- | ------- | ------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'` | `'start'`           | Set the slotted `<sbb-action-group>` children's alignment.                                                              |
-| `buttonSize`     | `button-size`     | public  | `SbbButtonSize`                             | `'m' / 's' (lean)`  | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.         |
-| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                         | `'large'`           | Overrides the behavior of `orientation` property.                                                                       |
-| `linkSize`       | `link-size`       | public  | `SbbLinkSize`                               | `'s' / 'xs' (lean)` | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
-| `orientation`    | `orientation`     | public  | `SbbOrientation`                            | `'horizontal'`      | Indicates the orientation of the components inside the `<sbb-action-group>`.                                            |
+| Name             | Attribute         | Privacy | Type                                        | Default        | Description                                                                                                             |
+| ---------------- | ----------------- | ------- | ------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `alignGroup`     | `align-group`     | public  | `'start' \| 'center' \| 'stretch' \| 'end'` | `'start'`      | Set the slotted `<sbb-action-group>` children's alignment.                                                              |
+| `buttonSize`     | `button-size`     | public  | `SbbButtonSize \| null`                     | `null`         | Size of the nested sbb-button instances. This will overwrite the size attribute of nested sbb-button instances.         |
+| `horizontalFrom` | `horizontal-from` | public  | `SbbHorizontalFrom`                         | `'large'`      | Overrides the behavior of `orientation` property.                                                                       |
+| `linkSize`       | `link-size`       | public  | `SbbLinkSize \| null`                       | `null`         | Size of the nested sbb-block-link instances. This will overwrite the size attribute of nested sbb-block-link instances. |
+| `orientation`    | `orientation`     | public  | `SbbOrientation`                            | `'horizontal'` | Indicates the orientation of the components inside the `<sbb-action-group>`.                                            |
 
 #### Slots
 

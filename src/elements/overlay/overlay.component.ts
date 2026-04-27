@@ -149,7 +149,6 @@ export class SbbOverlayElement extends SbbOverlayBaseElement {
                 i18nCloseDialog[this.language.current]}"
                 ?negative=${this.negative}
                 size="m"
-                type="button"
                 icon-name="cross-small"
                 sbb-overlay-close
               ></sbb-secondary-button>

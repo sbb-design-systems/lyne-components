@@ -93,13 +93,20 @@ const basicArgs: Args = {
 };
 
 const triggerButton = (triggerId: string): TemplateResult => html`
-  <sbb-button id=${triggerId} size="m">Open dialog</sbb-button>
+  <sbb-button id=${triggerId}>Open dialog</sbb-button>
 `;
 
 const dialogActions = (negative: boolean, includeCloseButton: boolean): TemplateResult => html`
-  <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="large">
-    <sbb-secondary-button sbb-dialog-close ?negative=${negative}>Cancel</sbb-secondary-button>
-    <sbb-button sbb-dialog-close ?sbb-focus-initial=${!includeCloseButton} ?negative=${negative}>
+  <sbb-dialog-actions align-group="stretch">
+    <sbb-secondary-button sbb-dialog-close ?negative=${negative} size="l"
+      >Cancel</sbb-secondary-button
+    >
+    <sbb-button
+      sbb-dialog-close
+      ?sbb-focus-initial=${!includeCloseButton}
+      ?negative=${negative}
+      size="l"
+    >
       Confirm
     </sbb-button>
   </sbb-dialog-actions>
@@ -118,12 +125,17 @@ const textBlock = (): TemplateResult => html`
   </sbb-card>
 `;
 
-const DefaultTemplate = ({ level, includeCloseButton, ...args }: Args): TemplateResult => html`
+const DefaultTemplate = ({
+  level,
+  includeCloseButton,
+  style,
+  ...args
+}: Args): TemplateResult => html`
   ${triggerButton('dialog-trigger')}
   <sbb-dialog trigger="dialog-trigger" ${sbbSpread(args)}>
     ${dialogTitle(level)}
     ${includeCloseButton ? html`<sbb-dialog-close-button></sbb-dialog-close-button>` : nothing}
-    <sbb-dialog-content>
+    <sbb-dialog-content style=${style}>
       <p style="display: flex; align-items: center; gap: var(--sbb-spacing-fixed-1x); margin: 0;">
         Dialog content
         <sbb-mini-button
@@ -240,13 +252,11 @@ const StepperTemplate = ({
                 ${element} step content ${index === 0 || index === 2 ? loremIpsum : nothing}
               </div>
               ${index !== 0
-                ? html`<sbb-secondary-button size="m" sbb-stepper-previous
-                    >Back</sbb-secondary-button
-                  >`
+                ? html`<sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>`
                 : nothing}
               ${index !== arr.length - 1
-                ? html`<sbb-button size="m" sbb-stepper-next>Next</sbb-button>`
-                : html`<sbb-button size="m" sbb-stepper-next>Submit</sbb-button>`}
+                ? html`<sbb-button sbb-stepper-next>Next</sbb-button>`
+                : html`<sbb-button sbb-stepper-next>Submit</sbb-button>`}
             </sbb-step>
           `,
         )}
@@ -288,7 +298,7 @@ export const TranslucentBackdrop: StoryObj = {
   },
 };
 
-export const AllowBackdropClick: StoryObj = {
+export const DisallowBackdropClick: StoryObj = {
   render: DefaultTemplate,
   argTypes: basicArgTypes,
   args: { ...basicArgs, 'backdrop-action': backdropAction.options![1] },
@@ -332,6 +342,12 @@ export const Stepper: StoryObj = {
     linear: false,
     includeCloseButton: true,
   },
+};
+
+export const CustomDimensions: StoryObj = {
+  render: DefaultTemplate,
+  argTypes: basicArgTypes,
+  args: { ...basicArgs, style: 'height: 400px;' },
 };
 
 const meta: Meta = {

@@ -23,7 +23,6 @@ snapshots["sbb-map-container renders Shadow DOM"] =
     inert=""
     size="l"
     tabindex="0"
-    type="button"
   >
     Show map
   </sbb-accent-button>

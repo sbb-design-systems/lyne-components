@@ -17,6 +17,9 @@
 
   // Setting the height here reserves the space for the header which will else be lost with fixed position.
   height: var(--sbb-header-height);
+
+  // Set the line-height for adjacent elements in order to prevent from influence of a consumer-set line-height.
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 :host([size='s']) {

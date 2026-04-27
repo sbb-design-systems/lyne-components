@@ -31,7 +31,7 @@ const content = (longContent = false): TemplateResult => html`
           amet felis viverra lacinia.`,
       )}
   </p>
-  <sbb-action-group class="sbb-teaser-product--spacing">
+  <sbb-action-group class="sbb-teaser-product--spacing" button-size="l">
     <sbb-button>Label</sbb-button>
     <sbb-secondary-button>Label</sbb-secondary-button>
   </sbb-action-group>

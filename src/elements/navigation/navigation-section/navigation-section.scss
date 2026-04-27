@@ -1,25 +1,14 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  --sbb-navigation-section-display: none;
-  --sbb-navigation-section-column: 1 / -1;
-  --sbb-navigation-section-position: fixed;
-  --sbb-navigation-section-pointer-events: none;
   --sbb-navigation-section-animation-duration: var(
     --sbb-disable-animation-duration,
     var(--sbb-animation-duration-3x)
   );
-  --sbb-navigation-section-animation-easing: ease-out;
-  --sbb-navigation-section-padding-inline: var(--sbb-layout-base-offset-responsive);
-  --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-l);
-  --sbb-navigation-section-translate: 100%;
-  --sbb-navigation-section-content-padding-inline-start: var(--sbb-spacing-fixed-12x);
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
-  --sbb-navigation-section-width: 100dvw;
-  --sbb-navigation-section-height: 100dvh;
 
   // We have to place the styles on the host as it has to be aligned on the grid of the navigation
-  display: var(--sbb-navigation-section-display);
+  display: var(--sbb-navigation-section-display, none);
   position: var(--sbb-navigation-section-position);
   grid-column: var(--sbb-navigation-section-column);
   inset-inline-start: 0;
@@ -29,28 +18,15 @@
   z-index: var(--sbb-navigation-z-index, var(--sbb-overlay-default-z-index));
 
   @include sbb.mq($from: large) {
-    --sbb-navigation-section-column: 5 / 13;
     --sbb-navigation-section-animation-duration: var(
       --sbb-disable-animation-duration,
       var(--sbb-animation-duration-4x)
     );
-    --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-xl);
-    --sbb-navigation-section-padding-inline: var(--sbb-spacing-fixed-8x)
-      var(--sbb-layout-base-offset-responsive);
-    --sbb-navigation-section-position: relative;
-    --sbb-navigation-section-translate: 0;
-    --sbb-navigation-section-content-padding-inline-start: 0;
     --sbb-navigation-section-width: calc(
       100% + var(--sbb-layout-base-offset-responsive) + var(--sbb-grid-base-gutter-responsive)
     );
 
     translate: calc(var(--sbb-grid-base-gutter-responsive) * -1) 0;
-  }
-
-  @include sbb.mq($from: ultra) {
-    --sbb-navigation-section-column: 6 / 17;
-    --sbb-navigation-section-padding-block: var(--sbb-spacing-responsive-xxl)
-      var(--sbb-spacing-responsive-l);
   }
 }
 
@@ -158,11 +134,8 @@
 
 .sbb-navigation-section__title {
   @include sbb.title-rules;
-  @include sbb.title--level-4;
 
-  @include sbb.mq($from: large) {
-    @include sbb.title--level-2;
-  }
+  font-size: var(--sbb-navigation-section-font-size);
 }
 
 .sbb-navigation-section__content {

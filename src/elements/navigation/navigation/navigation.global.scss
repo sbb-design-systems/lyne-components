@@ -1,0 +1,36 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-navigation-grid-column: 1 / -1;
+  --sbb-navigation-animation-easing: ease-in;
+  --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive);
+  --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-l);
+  --sbb-navigation-padding-block-end: var(--sbb-spacing-responsive-xl);
+  --sbb-navigation-backdrop-color: color-mix(in srgb, var(--sbb-color-black) 70%, transparent);
+  --sbb-navigation-backdrop-animation-name: backdrop-open;
+  --sbb-navigation-background-color: var(--sbb-background-color-1-negative);
+  --sbb-navigation-color: var(--sbb-color-1-negative);
+  --sbb-navigation-list-margin-block-start: var(--sbb-spacing-responsive-xxl);
+  --sbb-navigation-expanded-width: 100%;
+  --sbb-navigation-inset: 0 auto auto 0;
+  --sbb-navigation-translate: -100% 0;
+  --sbb-navigation-content-gap: var(--sbb-spacing-responsive-xxl);
+  --sbb-navigation-content-translate: 0;
+  --sbb-navigation-width: 100%;
+  --sbb-navigation-height: 100dvh;
+}
+
+@mixin base-breakpoint-large {
+  --sbb-navigation-grid-column: 1 / 5;
+  --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xl);
+  --sbb-navigation-padding-inline: var(--sbb-layout-base-offset-responsive) 0;
+  --sbb-navigation-list-margin-block-start: var(--sbb-spacing-fixed-1x);
+  --sbb-navigation-inline-start: calc(var(--sbb-layout-base-offset-responsive) * -1);
+}
+
+@mixin base-breakpoint-ultra {
+  --sbb-navigation-grid-column: 1 / 6;
+  --sbb-navigation-padding-block-start: var(--sbb-spacing-responsive-xxl);
+}

@@ -42,7 +42,7 @@ const size: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['m', 's'],
+  options: ['s', 'm'] satisfies SbbFileSelectorElement['size'][],
 };
 
 const disabled: InputType = {
@@ -61,7 +61,7 @@ const multipleMode: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: ['default', 'persistent'],
+  options: ['default', 'persistent'] satisfies SbbFileSelectorElement['multipleMode'][],
 };
 
 const accept: InputType = {

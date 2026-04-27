@@ -43,7 +43,7 @@ snapshots["sbb-secondary-button-link renders a disabled sbb-secondary-button-lin
 `<sbb-secondary-button-link
   disabled=""
   href="https://www.sbb.ch"
-  size="l"
+  size="m"
 >
   <sbb-icon
     name="chevron-small-left-small"

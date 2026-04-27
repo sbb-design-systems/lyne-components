@@ -6,7 +6,7 @@ $theme: 'standard' !default;
 @mixin base {
   --sbb-option-color: var(--sbb-color-3);
   --sbb-option-background-color: inherit;
-  --sbb-option-background-color-hover: var(--sbb-background-color-3);
+  --sbb-option-background-color-hover: light-dark(var(--sbb-color-milk), var(--sbb-color-midnight));
   --sbb-option-background-color-active: var(--sbb-background-color-4);
   --sbb-option-disabled-border-color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
   --sbb-option-disabled-background-color: var(--sbb-background-color-3);
@@ -37,5 +37,12 @@ $theme: 'standard' !default;
     sbb-option-hint {
       --sbb-option-hint-padding-block-end: var(--sbb-spacing-fixed-1x);
     }
+  }
+
+  // Sets ellipsis on all sbb-option child elements
+  .sbb-options-nowrap {
+    --sbb-option-text-overflow: ellipsis;
+    --sbb-option-overflow: hidden;
+    --sbb-option-white-space: nowrap;
   }
 }

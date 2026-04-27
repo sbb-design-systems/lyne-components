@@ -13,6 +13,7 @@
   );
   --_sbb-popover-inset: 0 auto auto 0;
   --_sbb-popover-transform: translateY(var(--sbb-spacing-fixed-2x));
+  --_sbb-popover-box-shadow: var(--sbb-box-shadow-level-9-hard);
 
   // Use !important here to not interfere with Firefox focus ring definition
   // which appears in normalize CSS of several frameworks.
@@ -57,21 +58,21 @@
 }
 
 .sbb-popover {
-  box-shadow: var(--sbb-box-shadow-level-5-hard);
   display: none;
   position: var(--sbb-popover-position, absolute);
-  pointer-events: all;
   top: var(--_sbb-popover-position-y, 0);
   bottom: unset;
   left: var(--_sbb-popover-position-x, 0);
   right: unset;
-  border: none;
-  border-radius: var(--sbb-popover-border-radius);
-  padding: 0;
+  background-color: var(--sbb-popover-background);
   max-width: var(--sbb-popover-max-width);
   width: max-content;
-  background-color: var(--sbb-popover-background);
+  padding: 0;
+  box-shadow: var(--_sbb-popover-box-shadow);
+  border: none;
+  border-radius: var(--sbb-popover-border-radius);
   outline: none;
+  pointer-events: all;
 
   :host(:focus-visible) & {
     @include sbb.focus-outline;
@@ -99,7 +100,7 @@
   // Popover arrow
   &::after {
     z-index: -1;
-    box-shadow: var(--sbb-box-shadow-level-5-hard);
+    box-shadow: var(--_sbb-popover-box-shadow);
 
     @include sbb.if-forced-colors {
       outline: var(--sbb-border-width-1x) solid CanvasText;

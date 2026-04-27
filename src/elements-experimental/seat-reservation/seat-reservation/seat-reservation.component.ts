@@ -133,7 +133,9 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _renderDeckLabels(): TemplateResult[] | null {
-    if (!this.hasMultipleDecks) return null;
+    if (!this.hasMultipleDecks) {
+      return null;
+    }
 
     return this.seatReservations.map((seatReservation) => {
       const deckDescription = getI18nSeatReservation(
@@ -145,7 +147,9 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _renderNavigationControlButton(btnDirection: string): TemplateResult | null {
-    if (!this.hasNavigation || !this.seatReservations) return null;
+    if (!this.hasNavigation || !this.seatReservations) {
+      return null;
+    }
     const btnNavigationDirectionId =
       btnDirection == 'DIRECTION_RIGHT'
         ? 'sbb-sr-navigation__wrapper-button-direction--right'
@@ -185,7 +189,9 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _renderTravelDirection(): TemplateResult | null {
-    if (!this.travelDirection || this.travelDirection === 'NONE') return null;
+    if (!this.travelDirection || this.travelDirection === 'NONE') {
+      return null;
+    }
 
     const labelText = getI18nSeatReservation(
       'SEAT_RESERVATION_TRAVEL_DIRECTION',
@@ -211,7 +217,9 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
   }
 
   private _renderNavigation(): TemplateResult | null {
-    if (isServer || !this.hasNavigation || !this.seatReservations) return null;
+    if (isServer || !this.hasNavigation || !this.seatReservations) {
+      return null;
+    }
 
     return html`<div class="sbb-sr-navigation-wrapper">
       <nav id="sbb-sr-navigation" class="sbb-sr-navigation">
@@ -358,7 +366,9 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     coachItem: CoachItem,
     coachIndex: number,
   ): TemplateResult | null {
-    if (!coachItem.graphicElements) return null;
+    if (!coachItem.graphicElements) {
+      return null;
+    }
 
     const COACH_PASSAGE_WIDTH = 1;
     const driverArea = this.coachItemDetailsElements[coachIndex]?.driverAreaElements?.driverArea;
@@ -530,7 +540,9 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     coachIndex: number,
     coachDeckIndex: number,
   ): TemplateResult[] | null {
-    if (!graphicalElements) return null;
+    if (!graphicalElements) {
+      return null;
+    }
 
     return graphicalElements?.map((graphicalElement: BaseElement) => {
       const icon = graphicalElement.icon ?? '';
@@ -701,7 +713,9 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     coachDeckIndex: number,
     serviceElements?: BaseElement[],
   ): TemplateResult[] | null {
-    if (!serviceElements) return null;
+    if (!serviceElements) {
+      return null;
+    }
 
     return serviceElements?.map((serviceElement: BaseElement) => {
       const titleDescription = serviceElement.icon
@@ -859,7 +873,9 @@ export class SbbSeatReservationElement extends SeatReservationBaseElement {
     return descriptionsElements
       ?.map((descriptionElement) => {
         const icon = descriptionElement.icon;
-        if (!icon) return null;
+        if (!icon) {
+          return null;
+        }
 
         const descriptionAlreadyExist = uniqueDescriptions.indexOf(icon) > -1;
         const translation = getI18nSeatReservation(

@@ -1,0 +1,11 @@
+@use '../../core/styles' as sbb;
+
+$theme: 'standard' !default;
+
+@mixin base {
+  --sbb-navigation-action-color: var(--sbb-color-4-negative);
+  --sbb-navigation-action-icon-display: none;
+  --sbb-navigation-action-font-size: var(--sbb-text-font-size-xl);
+  --sbb-navigation-action-letter-spacing: var(--sbb-typo-letter-spacing-heading);
+  --sbb-navigation-action-line-height: var(--sbb-typo-line-height-heading);
+}

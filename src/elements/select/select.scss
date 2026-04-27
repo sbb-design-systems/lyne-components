@@ -11,13 +11,10 @@
     --sbb-select-z-index,
     var(--sbb-overlay-default-z-index)
   );
-  --sbb-select-placeholder-fallback-color: light-dark(
-    var(--sbb-color-metal),
-    var(--sbb-color-smoke)
-  );
 
   display: block;
   font-weight: normal;
+  line-height: var(--sbb-typo-line-height-text);
 }
 
 :host([size='s']) {
@@ -123,11 +120,11 @@
   }
 
   :host(:is(:state(state-opened), :state(state-opening))) & {
-    box-shadow: var(--sbb-box-shadow-level-5-hard);
+    box-shadow: var(--sbb-box-shadow-level-9-hard);
   }
 
   :host(:is(:state(state-opened), :state(state-opening))[negative]) & {
-    box-shadow: var(--sbb-box-shadow-level-5-hard-negative);
+    box-shadow: var(--sbb-box-shadow-level-9-hard-negative);
   }
 
   &::before {
@@ -147,7 +144,7 @@
   &::after {
     :host(:is(:state(state-opened), :state(state-opening)):state(option-panel-origin-borderless))
       & {
-      box-shadow: var(--sbb-box-shadow-level-5-hard);
+      box-shadow: var(--sbb-box-shadow-level-9-hard);
     }
 
     :host(
@@ -156,7 +153,7 @@
           )[negative]
       )
       & {
-      box-shadow: var(--sbb-box-shadow-level-5-hard-negative);
+      box-shadow: var(--sbb-box-shadow-level-9-hard-negative);
     }
   }
 }
