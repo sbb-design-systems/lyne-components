@@ -169,14 +169,14 @@
     hashery "^1.5.1"
     keyv "^5.6.0"
 
-"@commitlint/cli@20.5.0":
-  version "20.5.0"
-  resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-20.5.0.tgz#21b39a8ff3c9ce28878b7debceae8ef86b3f51d3"
-  integrity sha512-yNkyN/tuKTJS3wdVfsZ2tXDM4G4Gi7z+jW54Cki8N8tZqwKBltbIvUUrSbT4hz1bhW/h0CdR+5sCSpXD+wMKaQ==
+"@commitlint/cli@20.5.2":
+  version "20.5.2"
+  resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-20.5.2.tgz#173e81be873a9c0871243906b233714023c5ea36"
+  integrity sha512-IXr5xd3IX8SEG936P8gcpozRplkDeDSwJlt8UvoY1winwIy2udTbQ/cOCgbaaxcjdDqVoS29VUcz/wkwnSozbA==
   dependencies:
     "@commitlint/format" "^20.5.0"
     "@commitlint/lint" "^20.5.0"
-    "@commitlint/load" "^20.5.0"
+    "@commitlint/load" "^20.5.2"
     "@commitlint/read" "^20.5.0"
     "@commitlint/types" "^20.5.0"
     tinyexec "^1.0.0"
@@ -241,7 +241,7 @@
     "@commitlint/rules" "^20.5.0"
     "@commitlint/types" "^20.5.0"
 
-"@commitlint/load@^20.5.0":
+"@commitlint/load@^20.5.2":
   version "20.5.2"
   resolved "https://registry.yarnpkg.com/@commitlint/load/-/load-20.5.2.tgz#5b6d1aeeb97d1ae7f20873b174aa90f5c122e12d"
   integrity sha512-zmr0RGDz7vThxW1I8ohb9yBjnGuH9mqwJpn21hInjGla+IlLOkS9ey0+dD5HlkzFlY0lX2NYdA2lDW6/0rO7Gw==
