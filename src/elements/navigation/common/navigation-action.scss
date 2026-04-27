@@ -49,12 +49,6 @@ sbb-icon {
   }
 }
 
-:host([size='l']) {
-  --sbb-navigation-action-font-size: var(--sbb-heading-font-size-4);
-  --sbb-navigation-action-letter-spacing: var(--sbb-typo-letter-spacing-heading);
-  --sbb-navigation-action-line-height: var(--sbb-typo-line-height-heading);
-}
-
 :host([size='m']),
 :host([size='s']) {
   --sbb-navigation-action-line-height: var(--sbb-typo-line-height-text);

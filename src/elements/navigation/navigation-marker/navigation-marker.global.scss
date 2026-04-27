@@ -11,25 +11,7 @@ $theme: 'standard' !default;
   --sbb-navigation-marker-padding-inline-start: var(--sbb-spacing-fixed-6x);
   --sbb-navigation-marker-typo-line-height: var(--sbb-typo-line-height-heading);
   --sbb-navigation-margin-inline-start: var(--sbb-spacing-fixed-3x);
-  --sbb-navigation-marker-font-size: #{sbb.theme-pattern-select(
-      (
-        'standard': var(--sbb-text-font-size-xl),
-        'lean': var(--sbb-text-font-size-xxs),
-      ),
-      $theme
-    )};
-  --sbb-navigation-marker-letter-spacing: #{sbb.theme-pattern-select(
-      (
-        'standard': var(--sbb-typo-letter-spacing-heading),
-        'lean': var(--sbb-typo-letter-spacing-text),
-      ),
-      $theme
-    )};
-  --sbb-navigation-marker-line-height: #{sbb.theme-pattern-select(
-      (
-        'standard': var(--sbb-typo-line-height-heading),
-        'lean': var(--sbb-typo-line-height-text),
-      ),
-      $theme
-    )};
+  --sbb-navigation-marker-font-size: var(--sbb-text-font-size-xl);
+  --sbb-navigation-marker-letter-spacing: var(--sbb-typo-letter-spacing-heading);
+  --sbb-navigation-marker-line-height: var(--sbb-typo-line-height-heading);
 }
