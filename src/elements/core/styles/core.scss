@@ -280,6 +280,9 @@ $theme: 'standard' !default;
 @use '../../tooltip/tooltip.global' as tooltip with (
   $theme: $theme
 );
+@use '../../toast/toast.global' as toast with (
+  $theme: $theme
+);
 @use '../../visual-checkbox/visual-checkbox.global' as visual-checkbox with (
   $theme: $theme
 );
@@ -372,6 +375,7 @@ $theme: 'standard' !default;
   @include toggle.base;
   @include toggle-option.base;
   @include tooltip.base;
+  @include toast.base;
   @include visual-checkbox.base;
 
   @include a11y.if-forced-colors {
