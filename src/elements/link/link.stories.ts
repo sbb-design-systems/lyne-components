@@ -235,6 +235,18 @@ export const SlottedIcon: StoryObj = {
   args: { ...defaultArgs, iconPlacement: iconPlacement.options![1] },
 };
 
+export const AriaSupport: StoryObj = {
+  render: () => html`
+    <sbb-block-link href="#" aria-label="Aria label example" icon-name="arrow-right-small">
+      Link with aria-label
+    </sbb-block-link>
+
+    <sbb-block-link href="#" aria-current="page" icon-name="arrow-right-small">
+      Link with aria-current
+    </sbb-block-link>
+  `,
+};
+
 const meta: Meta = {
   decorators: [
     (story: () => WebComponentsRenderer['storyResult'], context: StoryContext) => html`
