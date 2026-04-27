@@ -5,7 +5,7 @@ import type { Context } from 'mocha';
 
 import type { SbbButtonElement } from '../button.ts';
 import { fixture, sbbBreakpointLargeMinPx, tabKey } from '../core/testing/private.ts';
-import { EventSpy, waitForLitRender } from '../core/testing.ts';
+import { EventSpy, waitForCondition, waitForLitRender } from '../core/testing.ts';
 import { mergeConfig } from '../core.ts';
 import type { SbbLinkElement } from '../link.ts';
 
@@ -325,6 +325,56 @@ describe(`sbb-popover`, () => {
       await waitForLitRender(element);
 
       expect(element).to.match(':state(state-opened)');
+    });
+
+    it('should reposition when content size changes', async () => {
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 800 });
+
+      // Position trigger at the bottom so the popover opens above it.
+      // When content is added, the popover must reposition upward (offsetTop decreases).
+      trigger.style.position = 'absolute';
+      trigger.style.insetBlockEnd = '0';
+
+      element.open();
+      await openSpy.calledOnce();
+      expect(element).to.match(':state(state-opened)');
+      expect(element).to.match(':state(position-above)');
+
+      const overlay = element.shadowRoot!.querySelector<HTMLElement>('.sbb-popover')!;
+      const initialTop = overlay.offsetTop;
+
+      // Add content to the popover to increase its size
+      const extraContent = document.createElement('p');
+      extraContent.style.height = '100px';
+      extraContent.textContent = 'Extra content that increases the height of the popover.';
+      element.appendChild(extraContent);
+
+      // Wait for the ResizeObserver to fire and the position to update
+      await waitForCondition(() => overlay.offsetTop !== initialTop);
+
+      expect(overlay.offsetTop).not.to.be.equal(initialTop);
+    });
+
+    it('should not reposition after closing when content size changes', async () => {
+      await setViewport({ width: sbbBreakpointLargeMinPx, height: 800 });
+
+      element.open();
+      await openSpy.calledOnce();
+
+      element.close();
+      await closeSpy.calledOnce();
+      expect(element).to.match(':state(state-closed)');
+
+      const positionBefore = element.style.getPropertyValue('--_sbb-popover-position-y');
+
+      // Change content size after closing — ResizeObserver should be disconnected
+      const extraContent = document.createElement('p');
+      extraContent.style.height = '200px';
+      element.appendChild(extraContent);
+
+      await aTimeout(50);
+
+      expect(element.style.getPropertyValue('--_sbb-popover-position-y')).to.equal(positionBefore);
     });
 
     it('should update config when changing hoverTrigger', async () => {
