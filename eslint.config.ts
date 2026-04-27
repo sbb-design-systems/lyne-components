@@ -191,7 +191,6 @@ export default [
         },
       ],
       '@typescript-eslint/consistent-type-definitions': 'error',
-      curly: 'error',
     },
   },
   {
@@ -217,4 +216,10 @@ export default [
     },
   },
   eslintConfigPrettier,
+  // curly must come after eslintConfigPrettier, as it disables the rule.
+  {
+    rules: {
+      curly: 'error',
+    },
+  },
 ];
