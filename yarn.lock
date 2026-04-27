@@ -4424,7 +4424,7 @@ end-of-stream@^1.1.0:
   dependencies:
     once "^1.4.0"
 
-enhanced-resolve@^5.10.0, enhanced-resolve@^5.20.0, enhanced-resolve@^5.20.1:
+enhanced-resolve@^5.10.0, enhanced-resolve@^5.20.0, enhanced-resolve@^5.21.0:
   version "5.21.0"
   resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-5.21.0.tgz#bb8e6fabaf74930de70e61397798750429e5b1ae"
   integrity sha512-otxSQPw4lkOZWkHpB3zaEQs6gWYEsmX4xQF68ElXC/TWvGxGMSGOvoNbaLXm6/cS/fSfHtsEdw90y20PCd+sCA==
@@ -5067,19 +5067,19 @@ file-entry-cache@^8.0.0:
     flat-cache "^4.0.0"
 
 filing-cabinet@^5.3.0:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/filing-cabinet/-/filing-cabinet-5.4.0.tgz#a001cd46b584ba6d7914d6bf79d554fc01a6863e"
-  integrity sha512-wLWf4M3lDRoFB2Tp8/ueMhT9i2iahDAOUcBSY6oeReIo0d/3z2U8yEZsfQ3HpDKBlarnHTjDfOK77g5bpYNqVg==
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/filing-cabinet/-/filing-cabinet-5.4.1.tgz#74991483e8e007d2686f4af383f39d0b0135e2aa"
+  integrity sha512-XSZKDRYZ7ijMsr6aTD5rUy5nh4Dsg4+N74bufCHzdhFAh4argabH8CBGcus1ha+hGbJf7OQmbtTVVNnb1uDpmw==
   dependencies:
     app-module-path "^2.2.0"
     commander "^12.1.0"
-    enhanced-resolve "^5.20.1"
-    module-definition "^6.0.1"
-    module-lookup-amd "^9.1.1"
+    enhanced-resolve "^5.21.0"
+    module-definition "^6.0.2"
+    module-lookup-amd "^9.1.3"
     resolve "^1.22.12"
     resolve-dependency-path "^4.0.1"
-    sass-lookup "^6.1.1"
-    stylus-lookup "^6.1.1"
+    sass-lookup "^6.1.2"
+    stylus-lookup "^6.1.2"
     tsconfig-paths "^4.2.0"
     typescript "^5.9.3"
 
@@ -7706,7 +7706,7 @@ mlly@^1.7.4:
     pkg-types "^1.3.1"
     ufo "^1.6.3"
 
-module-definition@^6.0.1:
+module-definition@^6.0.1, module-definition@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/module-definition/-/module-definition-6.0.2.tgz#d72a3613dbf6fe7247ebef64f11fddc2cd18b83b"
   integrity sha512-SvAU3lB0+Yjbq55yHY3wkRZBOh+fhU1SnIF3IFbTewv6mtAh7yUT8ACHAJ2mGIJ7tCes2QuCL/cl6m0JSZ/ArA==
@@ -7714,10 +7714,10 @@ module-definition@^6.0.1:
     ast-module-types "^6.0.1"
     node-source-walk "^7.0.1"
 
-module-lookup-amd@^9.1.1:
-  version "9.1.2"
-  resolved "https://registry.yarnpkg.com/module-lookup-amd/-/module-lookup-amd-9.1.2.tgz#8fd7da50219f780e47a329b3da43a5082c5c7c76"
-  integrity sha512-HFEiUNm8/woZFJZcd42wrovEHjHN6nwfNjf2CjiVLbVFRbj+sEmEJn0mrx8JY4/qJP8wSZTtmguikAJBqEuRRQ==
+module-lookup-amd@^9.1.3:
+  version "9.1.3"
+  resolved "https://registry.yarnpkg.com/module-lookup-amd/-/module-lookup-amd-9.1.3.tgz#99a3c3a30ff0498c694ba1f6e4de1263a71e5551"
+  integrity sha512-Jc3XmOaR9FdfMJSK8+vyLgsCkzm8z2L0NS6vrlRWi12DjS7MY7TMNE7E1yj8yXx837xtMDbKSSgcdXnFlJ2YLg==
   dependencies:
     commander "^12.1.0"
     requirejs "^2.3.8"
@@ -8979,7 +8979,7 @@ safe-regex-test@^1.1.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-sass-lookup@^6.1.1:
+sass-lookup@^6.1.2:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/sass-lookup/-/sass-lookup-6.1.2.tgz#eefcc90ebeae451d252a4a9d8d090fef1a62a279"
   integrity sha512-GjmndmKQBtlPil79RK72L7yc5kDXZPCQeH97bP8R8DcxtXQJO6vECExb3WP/m6+cxaV9h4ZxrSRvCkPG2v/VSw==
@@ -9308,9 +9308,9 @@ string-width@^7.0.0:
     strip-ansi "^7.1.0"
 
 string-width@^8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/string-width/-/string-width-8.2.0.tgz#bdb6a9bd6d7800db635adae96cdb0443fec56c42"
-  integrity sha512-6hJPQ8N0V0P3SNmP6h2J99RLuzrWz2gvT7VnK5tKvrNqJoyS9W4/Fb8mo31UiPvy00z7DQXkP2hnKBVav76thw==
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/string-width/-/string-width-8.2.1.tgz#165089cfa527cc88fbc23dd73313f5e334af1ea1"
+  integrity sha512-IIaP0g3iy9Cyy18w3M9YcaDudujEAVHKt3a3QJg1+sr/oX96TbaGUubG0hJyCjCBThFH+tFpcIyoUHUn1ogaLA==
   dependencies:
     get-east-asian-width "^1.5.0"
     strip-ansi "^7.1.2"
@@ -9526,7 +9526,7 @@ stylelint@17.9.0:
     table "^6.9.0"
     write-file-atomic "^7.0.1"
 
-stylus-lookup@^6.1.1:
+stylus-lookup@^6.1.2:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/stylus-lookup/-/stylus-lookup-6.1.2.tgz#5bfde17305bc763df5e75d455e919ef7955fe0cb"
   integrity sha512-O+Q/SJ8s1X2aMLh4213fQ9X/bND9M3dhSsyTRe+O1OXPcewGLiYmAtKCrnP7FDvDBaXB2ZHPkCt3zi4cJXBlCQ==
