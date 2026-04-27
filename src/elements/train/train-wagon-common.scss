@@ -263,27 +263,34 @@
   }
 }
 
+:is(.sbb-train-wagon__label, .sbb-train-wagon__label-divider) {
+  margin-block-start: calc(
+    0.5 * (1em * var(--sbb-typo-line-height-text) - var(--sbb-train-wagon-font-size))
+  );
+
+  :host(:state(orientation-vertical)) & {
+    margin-block-start: 0;
+  }
+}
+
 .sbb-train-wagon__label {
+  line-height: 1;
+
   // In vertical orientation, the label is horizontally centered in a fixed width box of 32px by design.
   // As the box can grow to the side if there are many attribute icons, we have to re-apply this width as max-width here.
   :host(:state(orientation-vertical)) & {
     max-width: var(--sbb-train-wagon-information-min-width);
     width: 100%;
     text-align: center;
-    line-height: 1;
   }
 }
 
 .sbb-train-wagon__label-divider {
   height: var(--sbb-train-wagon-font-size);
-  margin-block-start: calc(
-    0.5 * (1em * var(--sbb-typo-line-height-text) - var(--sbb-train-wagon-font-size))
-  );
 
   :host(:state(orientation-vertical)) & {
     height: auto;
     width: var(--sbb-train-wagon-font-size);
-    margin-block-start: 0;
     margin-inline-start: calc(
       0.5 * (var(--sbb-train-wagon-information-min-width) - var(--sbb-train-wagon-font-size))
     );
