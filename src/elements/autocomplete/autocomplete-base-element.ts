@@ -401,7 +401,7 @@ export abstract class SbbAutocompleteBaseElement<T = string> extends SbbNegative
     this._highlightOptions(this.triggerElement?.value);
 
     // It is possible that an element is added that has not been rendered
-    // yet and therefore has height 0. Therefore we also observe the size
+    // yet and therefore has height 0. Therefore, we also observe the size
     // of all child elements.
     const currentElements = Array.from(this.querySelectorAll('*'));
     this._previousElements?.forEach((e) => this._resizeObserver.unobserve(e));

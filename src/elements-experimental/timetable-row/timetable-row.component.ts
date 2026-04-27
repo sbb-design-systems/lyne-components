@@ -159,15 +159,24 @@ export const getCus = (trip: ITripItem, currentLanguage: string): HimCus => {
   const rideLegs = legs?.filter((leg) => isRideLeg(leg)) as PtRideLeg[];
   const { tripStatus } = summary || {};
 
-  if (tripStatus?.cancelled || tripStatus?.partiallyCancelled)
+  if (tripStatus?.cancelled || tripStatus?.partiallyCancelled) {
     return { name: 'cancellation', text: tripStatus?.cancelledText };
-  if (getReachableText(rideLegs))
+  }
+  if (getReachableText(rideLegs)) {
     return { name: 'missed-connection', text: getReachableText(rideLegs) };
-  if (tripStatus?.alternative) return { name: 'alternative', text: tripStatus.alternativeText };
-  if (getRedirectedText(rideLegs)) return { name: 'reroute', text: getRedirectedText(rideLegs) };
-  if (getUnplannedStop(rideLegs)) return { name: 'add-stop', text: getUnplannedStop(rideLegs) };
-  if (tripStatus?.delayed || tripStatus?.delayedUnknown)
+  }
+  if (tripStatus?.alternative) {
+    return { name: 'alternative', text: tripStatus.alternativeText };
+  }
+  if (getRedirectedText(rideLegs)) {
+    return { name: 'reroute', text: getRedirectedText(rideLegs) };
+  }
+  if (getUnplannedStop(rideLegs)) {
+    return { name: 'add-stop', text: getUnplannedStop(rideLegs) };
+  }
+  if (tripStatus?.delayed || tripStatus?.delayedUnknown) {
     return { name: 'delay', text: getDelayText(rideLegs) };
+  }
   if (tripStatus?.quayChanged) {
     const departure = rideLegs[0].departure;
     return {
@@ -183,7 +192,9 @@ const findAndReplaceNotice = (notices: Notice[]): Notice | undefined => {
   const reservationNotice = ['RR', 'RK', 'RC', 'RL', 'RM', 'RS', 'RU', 'XP', 'XR', 'XT'];
 
   return notices.reduce((foundNotice: Notice | undefined, notice: Notice): Notice | undefined => {
-    if (foundNotice) return foundNotice;
+    if (foundNotice) {
+      return foundNotice;
+    }
     if (reservationNotice.includes(notice.name)) {
       return { ...notice, name: 'RR' } as Notice;
     }
@@ -206,8 +217,12 @@ export const handleNotices = (notices: Notice[]): Notice[] => {
   const reservationNotice = findAndReplaceNotice(notices);
   const filteredNotices = filterNotices(notices);
 
-  if (reservationNotice === undefined) return filteredNotices;
-  if (!filteredNotices.length) return [reservationNotice];
+  if (reservationNotice === undefined) {
+    return filteredNotices;
+  }
+  if (!filteredNotices.length) {
+    return [reservationNotice];
+  }
 
   if (filteredNotices[0].name === 'Z' && filteredNotices[1]) {
     return [filteredNotices[0], reservationNotice, filteredNotices[1]].concat(
@@ -332,7 +347,9 @@ export class SbbTimetableRowElement extends SbbElement {
   }
 
   private _getQuayTypeStrings(): { long: string; short: string } | null {
-    if (!this.trip.summary?.product) return null;
+    if (!this.trip.summary?.product) {
+      return null;
+    }
     const rideLegs = this._getRideLegs();
     const isShort = this.trip.summary.product?.vehicleMode === 'TRAIN';
     const short = isShort
@@ -347,7 +364,9 @@ export class SbbTimetableRowElement extends SbbElement {
 
   /** map Quay */
   private _renderQuayType(): TemplateResult | undefined {
-    if (!this.trip.summary?.product) return undefined;
+    if (!this.trip.summary?.product) {
+      return undefined;
+    }
     const quayTypeStrings = this._getQuayTypeStrings();
     return html`
       <span class="sbb-timetable__row--quay">
