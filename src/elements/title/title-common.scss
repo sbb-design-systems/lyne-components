@@ -1,10 +1,10 @@
 @use '../core/styles' as sbb;
 
 :host {
-  @include sbb.title-rules;
-
   display: block;
   color: var(--sbb-title-color);
+
+  @include sbb.title-rules;
 }
 
 :host([id]) {

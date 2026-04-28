@@ -16,10 +16,6 @@
   }
 }
 
-:host([id]) {
-  @include sbb.scroll-margin-block-start;
-}
-
 :host([negative]) {
   @include sbb.title--negative;
 }
