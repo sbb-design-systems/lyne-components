@@ -1,7 +1,6 @@
 @use '../../core/styles' as sbb;
 
 :host {
-  display: block;
   padding-block: var(--sbb-dialog-padding-block);
   padding-inline: var(--sbb-dialog-padding-inline);
   hyphens: auto;
