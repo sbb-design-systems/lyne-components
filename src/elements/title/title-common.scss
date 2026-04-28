@@ -5,14 +5,11 @@
   color: var(--sbb-title-color);
 
   @include sbb.title-rules;
+  @include sbb.title--level-1;
 }
 
 :host([id]) {
   @include sbb.scroll-margin-block-start;
-}
-
-:host(:where([level='1']:not([visual-level]), [visual-level='1'])) {
-  @include sbb.title--level-1;
 }
 
 :host(:where([level='2']:not([visual-level]), [visual-level='2'])) {
