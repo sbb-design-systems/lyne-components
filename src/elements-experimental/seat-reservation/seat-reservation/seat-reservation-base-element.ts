@@ -1797,8 +1797,12 @@ export class SeatReservationBaseElement extends SbbElement {
     ).sort((a, b) => {
       const posA = a.position.x;
       const posB = b.position.x;
-      if (posA > posB) {return 1;}
-      if (posA < posB) {return -1;}
+      if (posA > posB) {
+        return 1;
+      }
+      if (posA < posB) {
+        return -1;
+      }
       return 0;
     });
 
