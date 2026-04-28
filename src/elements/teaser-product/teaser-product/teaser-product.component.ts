@@ -1,11 +1,8 @@
 import { type CSSResultGroup, type TemplateResult, unsafeCSS } from 'lit';
 import { html } from 'lit/static-html.js';
 
-import { boxSizingStyles, SbbLinkBaseElement } from '../../core.ts';
-import {
-  SbbTeaserProductCommonElementMixin,
-  teaserProductCommonStyle,
-} from '../common/teaser-product-common.ts';
+import { SbbLinkBaseElement } from '../../core.ts';
+import { SbbTeaserProductCommonElementMixin } from '../common/teaser-product-common.ts';
 
 import style from './teaser-product.scss?inline';
 
@@ -22,11 +19,7 @@ export class SbbTeaserProductElement extends SbbTeaserProductCommonElementMixin(
   SbbLinkBaseElement,
 ) {
   public static override readonly elementName: string = 'sbb-teaser-product';
-  public static override styles: CSSResultGroup = [
-    boxSizingStyles,
-    teaserProductCommonStyle,
-    unsafeCSS(style),
-  ];
+  public static override styles: CSSResultGroup = [super.styles ?? [], unsafeCSS(style)];
 
   protected override render(): TemplateResult {
     // We render the content outside the anchor tag to allow screen readers to navigate through it
