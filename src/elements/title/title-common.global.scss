@@ -3,5 +3,7 @@
 $theme: 'standard' !default;
 
 @mixin base {
+  @include sbb.title--level-1;
+
   --sbb-title-color: var(--sbb-color-3);
 }

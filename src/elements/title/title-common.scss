@@ -2,7 +2,6 @@
 
 :host {
   @include sbb.title-rules;
-  @include sbb.title--level-1;
 
   display: block;
   color: var(--sbb-title-color);
